@@ -8,16 +8,15 @@ hooks:
     BeforeInstall:
         - location: scripts/app_stop.sh
           timeout: 300
-          runas: ubuntu
+          runas: ec2-user
     AfterInstall:
         - location: scripts/app_start.sh
           timeout: 300
-          runas: ubuntu
+          runas: ec2-user
 permissions:
     - object: /var/www/html/aim_fe
-
-      owner: ubuntu
-      group: ubuntu
+      owner: ec2-user
+      group: apache
       type:
           - directory
           - file
