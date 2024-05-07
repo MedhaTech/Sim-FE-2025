@@ -11,6 +11,8 @@ import * as Yup from "yup";
 import logo from "../assets/media/UPSHIFT_BLACK.png";
 import CryptoJS from "crypto-js";
 import { openNotificationWithIcon } from "../helpers/Utils";
+import { adminLoginUser } from "../redux/actions";
+import { connect } from "react-redux";
 
 const LoginNew = (props) => {
   const history = useHistory();
@@ -43,7 +45,6 @@ const LoginNew = (props) => {
       email: Yup.string().email("Must be a valid email").required("required"),
       password: Yup.string().required("required"),
     }),
-    // ADMIN ROLE
     onSubmit: (values) => {
       if (
         localStorage.getItem("current_user") &&
@@ -92,7 +93,6 @@ const LoginNew = (props) => {
       <div
         className="container-fluid  "
         style={{ margin: "2rem", padding: "2rem" }}
-        
       >
         {/* <UsersPage /> */}
         <Row className="row-flex height-100">
@@ -157,7 +157,7 @@ const LoginNew = (props) => {
                     </Col>
 
                     <Col className="form-group" xs={12} sm={12} md={12} xl={12}>
-                      <Row className="keepme_login">
+                      {/* <Row className="keepme_login">
                         <Col className="col-sm-8 ">
                           <Link
                             exact="true"
@@ -167,7 +167,7 @@ const LoginNew = (props) => {
                             Forgot password
                           </Link>
                         </Col>
-                      </Row>
+                      </Row> */}
                     </Col>
                   </div>
                   <div className="form-row row mb-5">
@@ -199,4 +199,11 @@ const LoginNew = (props) => {
   );
 };
 
-export default LoginNew;
+const mapStateToProps = ({ admin }) => {
+  const { loading, error, currentUser } = admin;
+  return { loading, error, currentUser };
+};
+
+export default connect(mapStateToProps, {
+  adminLoginUserAction: adminLoginUser,
+})(LoginNew);
