@@ -1,9 +1,8 @@
 /* eslint-disable no-undef */
 /* eslint-disable indent */
 // import { notification } from "antd";
-// import moment from "moment";
-// import Swal from "sweetalert2/dist/sweetalert2.js";
-// import { getlogout, userLogout } from "../redux/studentRegistration/actions";
+import { getlogout, userLogout } from "../Admin/store/admin/actions";
+import Swal from "sweetalert2/dist/sweetalert2.js";
 
 export const getCurrentUser = () => {
   let user = null;
@@ -36,7 +35,6 @@ export const getNormalHeaders = (apiKey) => {
   const loginUser = getCurrentUser();
   let axiosConfig = {};
   if (loginUser) {
-    // eslint-disable-next-line no-return-await
     axiosConfig = {
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +42,6 @@ export const getNormalHeaders = (apiKey) => {
       },
     };
   } else {
-    // eslint-disable-next-line no-return-await
     axiosConfig = {
       headers: {
         "Content-Type": "application/json",
@@ -84,13 +81,13 @@ export const logout = (history, t, module, dispatch) => {
 
   swalWithBootstrapButtons
     .fire({
-      title: t("general_req.attempt_logout"),
-      text: t("general_req.are_you_sure"),
-      imageUrl: `${logout}`,
+      title: "You are attempting to logout",
+      text: "Are you sure?",
+      // imageUrl: `${logout}`,
       showCloseButton: true,
-      confirmButtonText: t("general_req.btn_logout"),
+      confirmButtonText: "Logout",
       showCancelButton: true,
-      cancelButtonText: t("general_req.btn_cancel"),
+      cancelButtonText: "Cancel",
       reverseButtons: false,
     })
     .then((result) => {
@@ -119,8 +116,8 @@ export const logout = (history, t, module, dispatch) => {
         }
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         swalWithBootstrapButtons.fire(
-          t("general_req.cancelled"),
-          t("general_req.logged_in"),
+          "Cancelled",
+          "You are Logged in",
           "error"
         );
       }
