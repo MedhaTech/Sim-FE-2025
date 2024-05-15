@@ -17,25 +17,31 @@ import FirstPage from "./RegPage/FirstPage";
 import LogInTeacher from "./Teacher/LogInTeacher";
 import AtlPage from "./RegPage/AtlPage";
 import AdminLogin from "./Admin/AdminLogin";
+import Dashboard from "./Admin/Dashboard";
 
 const Routers = () => {
   return (
     <>
       <Router>
         <Switch>
-          <Route exact path="/">
-            <Redirect to="/teacher" />
-          </Route>
-
+          <Redirect exact={true} from="/" to="/teacher" />
           <Route
             exact={true}
             path="/registration"
             render={() => <FirstPage />}
           />
           <Route exact={true} path="/atl-register" render={() => <AtlPage />} />
-          <Route exact={true} path="/teacher" component={LogInTeacher} />
+
           <Route exact={true} path="/admin" render={() => <AdminLogin />} />
 
+          <Route exact={true} path="/teacher" component={LogInTeacher} />
+
+          <ProtectedRoute
+            user="ADMIN"
+            exact={true}
+            path="/admin/dashboard"
+            component={Dashboard}
+          />
           <Route component={PageNotFound} path="*" />
         </Switch>
       </Router>

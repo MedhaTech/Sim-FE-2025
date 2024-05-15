@@ -11,6 +11,7 @@ import {
   getNormalHeaders,
   openNotificationWithIcon,
 } from "../../../helpers/Utils.js";
+import 'sweetalert2/src/sweetalert2.scss';
 
 export const getAdminSuccess = (user) => async (dispatch) => {
   dispatch({
@@ -86,6 +87,23 @@ export const adminLoginUserLogOut = (history) => async () => {
       setCurrentUser();
       localStorage.removeItem("headerOption");
     }
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const userLogout = () => async (dispatch) => {
+  dispatch({
+    type: "USER_LOGOUT",
+  });
+};
+
+export const getlogout = () => async () => {
+  try {
+    const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+    axios.get(`${URL.getlogout}`, axiosConfig).then((Res) => {
+      if (Res?.status == 200) {
+      }
+    });
   } catch (error) {
     console.log(error);
   }

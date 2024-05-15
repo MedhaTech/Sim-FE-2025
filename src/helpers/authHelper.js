@@ -2,8 +2,8 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { Route } from "react-router-dom";
-// import { isAuthGuardActive } from "../constants/defaultValues";
+import { Route, Redirect } from "react-router-dom";
+import { isAuthGuardActive } from "../constants/defaultValues";
 import { getCurrentUser } from "./Utils";
 
 const ProtectedRoute = ({ component: Component, user: user, ...rest }) => {
