@@ -1,18 +1,16 @@
+/* eslint-disable indent */
+/* eslint-disable no-empty */
 import axios from "axios";
 
 import {
   ADMIN_LOGIN_USER,
   ADMIN_LOGIN_USER_SUCCESS,
   ADMIN_LOGIN_USER_ERROR,
+ 
 } from "../../../redux/actions.js";
 import { URL, KEY } from "../../../constants/defaultValues.js";
-import {
-  setCurrentUser,
-  getNormalHeaders,
-  openNotificationWithIcon,
-} from "../../../helpers/Utils.js";
-import 'sweetalert2/src/sweetalert2.scss';
 
+import { setCurrentUser, getNormalHeaders } from "../../../helpers/Utils.js";
 export const getAdminSuccess = (user) => async (dispatch) => {
   dispatch({
     type: ADMIN_LOGIN_USER_SUCCESS,
@@ -41,12 +39,13 @@ export const adminLoginUserError = (message) => async (dispatch) => {
   });
 };
 
-export const adminLoginUser = (data, history, module) => async (dispatch) => {
+export const adminLoginUser = (data, navigate, module) => async (dispatch) => {
   try {
     const loginData = {
       ...data,
       passwordConfirmation: data.password,
     };
+    // console.log(loginData, "aaa");
     dispatch({ type: ADMIN_LOGIN_USER });
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
     const result = await axios
@@ -62,9 +61,9 @@ export const adminLoginUser = (data, history, module) => async (dispatch) => {
       localStorage.setItem("time", new Date().toString());
       dispatch(adminLoginUserSuccess(result));
 
-      history.push("/admin/dashboard");
+      navigate("/admin/dashboard");
     } else {
-      openNotificationWithIcon("error", "Invalid Username or Password");
+      // openNotificationWithIcon("error", "Invalid Username or Password");
       dispatch(adminLoginUserError(result.statusText));
     }
   } catch (error) {
@@ -72,7 +71,7 @@ export const adminLoginUser = (data, history, module) => async (dispatch) => {
   }
 };
 
-export const adminLoginUserLogOut = (history) => async () => {
+export const adminLoginUserLogOut = (navigate) => async () => {
   try {
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
     const result = await axios
@@ -83,7 +82,7 @@ export const adminLoginUserLogOut = (history) => async () => {
         return err.response;
       });
     if (result && result.status === 200) {
-      history.push("/admin");
+      navigate("/admin");
       setCurrentUser();
       localStorage.removeItem("headerOption");
     }
@@ -97,14 +96,3 @@ export const userLogout = () => async (dispatch) => {
   });
 };
 
-export const getlogout = () => async () => {
-  try {
-    const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-    axios.get(`${URL.getlogout}`, axiosConfig).then((Res) => {
-      if (Res?.status == 200) {
-      }
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};

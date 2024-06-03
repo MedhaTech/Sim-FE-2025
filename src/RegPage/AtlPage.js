@@ -1,32 +1,23 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/no-unknown-property */
+/* eslint-disable indent */
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-/* eslint-disable indent */
+/* eslint-disable react/no-unknown-property */
 import React, { useState, useEffect } from "react";
-import { Row, Col, Form, Label, UncontrolledAlert, Input } from "reactstrap";
+import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
-
-import signuplogo from "../assets/media/UPSHIFT_BLACK.png";
+// import { all_routes } from "../../../Router/all_routes";
 import { useFormik } from "formik";
-import { Carousel } from "react-bootstrap";
-import { InputBox } from "../stories/InputBox/InputBox";
-import { useTranslation } from "react-i18next";
 import * as Yup from "yup";
-import { Button } from "../stories/Button";
-import { URL, KEY } from "../constants/defaultValues";
-import { getNormalHeaders, openNotificationWithIcon } from "../helpers/Utils";
-
 import axios from "axios";
-import CryptoJS from "crypto-js";
-// import OtpInput from "react-otp-input-rc-17";
-import { useHistory } from "react-router-dom";
-import { isDisabled } from "@testing-library/user-event/dist/utils";
 import { decryptGlobal } from "../constants/encryptDecrypt";
-
-function AtlPage() {
-  const { t } = useTranslation();
-  const history = useHistory();
+import OtpInput from "react-otp-input-rc-17";
+import CryptoJS from "crypto-js";
+import { useNavigate } from "react-router-dom";
+const Register = () => {
+  const navigate = useNavigate();
+  const [otpSent, setOtpSent] = useState(false);
+  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const [diesCode, setDiesCode] = useState("");
   const [orgData, setOrgData] = useState({});
   const [data, setData] = useState(false);
@@ -47,161 +38,30 @@ function AtlPage() {
   const [time] = useState("00");
   const [counter, setCounter] = useState(59);
   const [sec, setSec] = useState(59);
+
   const [disable, setDisable] = useState(false);
+  const [areInputsDisabled, setAreInputsDisabled] = useState(false);
+
   const [timer, setTimer] = useState(0);
-  const [or, setOr] = useState("");
+  const [person, setPerson] = useState(true);
+
   const handleOnChange = (e) => {
-    setDiesCode(e.target.value.trim());
+    const numericValue = e.target.value.replace(/\D/g, "");
+    const trimmedValue = numericValue.trim();
+
+    setDiesCode(trimmedValue);
+
+    if (trimmedValue.length === 11) {
+      setIsButtonEnabled(true);
+    } else {
+      setIsButtonEnabled(false);
+    }
+
     setOrgData();
     setError("");
   };
   localStorage.setItem("mentorData", JSON.stringify(mentorData));
   localStorage.setItem("orgData", JSON.stringify(orgData));
-
-  const handleClose = () => {
-    setBtn(false);
-  };
-  const inputField = {
-    type: "text",
-    className: "defaultInput",
-  };
-  const inputName = {
-    type: "text",
-    placeholder: "Please Enter Name",
-    className: "defaultInput",
-  };
-
-  const inputUsername = {
-    type: "text",
-    placeholder: "Please Enter Mobile Number",
-    className: "defaultInput",
-  };
-  const inputMobile = {
-    type: "text",
-    placeholder: "Please Enter Whatsapp Number",
-    className: "defaultInput",
-  };
-  const inputEmail = {
-    type: "text",
-    placeholder: "Enter Email Id",
-    className: "defaultInput",
-  };
-
-  const formik = useFormik({
-    initialValues: {
-      full_name: "",
-      organization_code: diesCode,
-      // username: '',
-      mobile: "",
-      whatapp_mobile: "",
-      role: "MENTOR",
-      qualification: "-",
-      reg_status: false,
-      otp: "",
-      password: "",
-      gender: "",
-      title: "",
-      email: "",
-      click: false,
-      checkbox: false,
-    },
-
-    validationSchema: Yup.object({
-      full_name: Yup.string()
-        .trim()
-        .min(2, "Enter Name")
-        .matches(/^[aA-zZ\s]+$/, "Special Characters are not allowed")
-        .required("Required"),
-      mobile: Yup.string()
-        .required("required")
-        .trim()
-        .matches(/^\d+$/, "Mobile number is not valid (Enter only digits)")
-        .max(10, "Please enter only 10 digit valid number")
-        .min(10, "Number is less than 10 digits"),
-      email: Yup.string().email("Must be a valid email").max(255),
-      whatapp_mobile: Yup.string()
-        .required("required")
-        .trim()
-        .matches(/^\d+$/, "Mobile number is not valid (Enter only digit)")
-        .max(10, "Please enter only 10 digit valid number")
-        .min(10, "Number is less than 10 digit"),
-      gender: Yup.string().required("Please select valid gender"),
-      title: Yup.string().required("Please select Title"),
-    }),
-
-    onSubmit: async (values) => {
-      // alert('hi');
-      if (values.otp.length < 5) {
-        setErrorMsg(true);
-      } else {
-        const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-        var pass = values.email.trim();
-        var myArray = pass.split("@");
-        let word = myArray[0];
-        const key = CryptoJS.enc.Hex.parse("253D3FB468A0E24677C28A624BE0F939");
-        const iv = CryptoJS.enc.Hex.parse("00000000000000000000000000000000");
-        const encrypted = CryptoJS.AES.encrypt(word, key, {
-          iv: iv,
-          padding: CryptoJS.pad.NoPadding,
-        }).toString();
-        // values.password = encrypted;
-        const body = JSON.stringify({
-          full_name: values.full_name.trim(),
-          organization_code: values.organization_code.trim(),
-          mobile: values.mobile.trim(),
-          whatapp_mobile: values.whatapp_mobile.trim(),
-          username: values.email.trim(),
-          qualification: values.qualification.trim(),
-          role: values.role.trim(),
-          gender: values.gender,
-          title: values.title,
-          reg_status: values.reg_status,
-          password: encrypted,
-        });
-        var config = {
-          method: "post",
-          url: process.env.REACT_APP_API_BASE_URL + "/mentors/register",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
-          },
-
-          data: body,
-        };
-        await axios(config)
-          .then((mentorRegRes) => {
-            if (mentorRegRes?.data?.status === 201) {
-              setMentorData(mentorRegRes?.data?.data[0]);
-              const successData = {
-                full_name: mentorRegRes?.data?.data[0].full_name,
-                district: orgData?.district,
-                school: orgData?.organization_name,
-                organization_code:
-                  mentorRegRes?.data?.data[0].organization_code,
-                gender: mentorRegRes?.data?.data[0].gender,
-                title: mentorRegRes?.data?.data[0].title,
-                mobile: mentorRegRes?.data?.data[0].mobile,
-                username: mentorRegRes?.data?.data[0].email,
-                whatapp_mobile: mentorRegRes?.data?.data[0].whatapp_mobile,
-              };
-              // setBtn(true);
-              history.push({
-                pathname: "/successScreen",
-                data: successData,
-              });
-            }
-          })
-          .catch((err) => {
-            openNotificationWithIcon("error", err.response.data?.message);
-            // setBtn(false);
-            formik.setErrors({
-              check: err.response && err?.response?.data?.message,
-            });
-            return err.response;
-          });
-      }
-    },
-  });
   const handleRegister = (e) => {
     const body = JSON.stringify({
       organization_code: diesCode,
@@ -220,7 +80,7 @@ function AtlPage() {
         if (response?.status === 200) {
           if (
             response?.data?.data[0].mentor != null &&
-            process.env.REACT_APP_USEDICECODE === 1
+            response?.data?.data[0].mentor != ""
           ) {
             setError("Another Teacher is already registered in given School");
           } else {
@@ -248,26 +108,144 @@ function AtlPage() {
     e.preventDefault();
   };
 
-  const handleSendOtp = async (e) => {
-    setHoldKey(true);
-    setDisable(false);
-    formik.setFieldValue("mobile", formik.values.mobile);
-    setTimer(timer + 1);
-    setSec(59);
-    setCounter(59);
-    if (change == "Resend OTP") {
-      if (!sec) {
-        setSec(sec - 1);
+  const formik = useFormik({
+    initialValues: {
+      full_name: "",
+      organization_code: diesCode,
+      // username: '',
+      mobile: "",
+      whatapp_mobile: "",
+      role: "MENTOR",
+      qualification: "-",
+      reg_status: false,
+      otp: "",
+      password: "",
+      gender: "",
+      title: "",
+      email: "",
+      click: false,
+      checkbox: false,
+    },
+
+    validationSchema: Yup.object({
+      full_name: Yup.string()
+        .trim()
+        .min(2, "Enter Name")
+        .matches(/^[aA-zZ\s]+$/, "Special Characters are not allowed")
+        .required("Please Enter Full Name"),
+      mobile: Yup.string()
+        .required("Please Enter Your Mobile Number")
+        .trim()
+        .matches(/^\d+$/, "Mobile number is not valid (Enter only digits)")
+        .max(10, "Please enter only 10 digit valid number")
+        .min(10, "Number is less than 10 digits"),
+      email: Yup.string().email("Must be a valid email").max(255),
+      whatapp_mobile: Yup.string()
+        .required("Please Enter Your  whatsapp Mobile Number")
+        .trim()
+        .matches(/^\d+$/, "Mobile number is not valid (Enter only digit)")
+        .max(10, "Please enter only 10 digit valid number")
+        .min(10, "Number is less than 10 digit"),
+      gender: Yup.string().required("Please select valid gender"),
+      title: Yup.string().required("Please select Title"),
+    }),
+
+    onSubmit: async (values) => {
+      if (values.otp.length < 5) {
+        setErrorMsg(true);
+      } else {
+        var pass = values.email.trim();
+        var myArray = pass.split("@");
+        let newPassword = myArray[0];
+        if (values.password !== newPassword) {
+          setFieldValue("password", newPassword);
+        }
+        const key = CryptoJS.enc.Hex.parse("253D3FB468A0E24677C28A624BE0F939");
+        const iv = CryptoJS.enc.Hex.parse("00000000000000000000000000000000");
+        const encrypted = CryptoJS.AES.encrypt(newPassword, key, {
+          iv: iv,
+          padding: CryptoJS.pad.NoPadding,
+        }).toString();
+        const body = JSON.stringify({
+          full_name: values.full_name.trim(),
+          organization_code: values.organization_code.trim(),
+          mobile: values.mobile.trim(),
+          whatapp_mobile: values.whatapp_mobile.trim(),
+          username: values.email.trim(),
+          qualification: values.qualification.trim(),
+          role: values.role.trim(),
+          gender: values.gender,
+          title: values.title,
+          reg_status: values.reg_status,
+          password: encrypted,
+        });
+        setMentorData(body);
+        var config = {
+          method: "post",
+          url: process.env.REACT_APP_API_BASE_URL + "/mentors/register",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+          },
+
+          data: body,
+        };
+        await axios(config)
+          .then((mentorRegRes) => {
+            if (mentorRegRes?.data?.status == 201) {
+              navigate("/atl-success");
+            }
+          })
+          .catch((err) => {
+            // openNotificationWithIcon("error", err.response.data?.message);
+            // setBtn(false);
+            formik.setErrors({
+              check: err.response && err?.response?.data?.message,
+            });
+            return err.response;
+          });
       }
-    } else {
-      setSec(sec - 1);
+    },
+  });
+  // console.log(mentorData, "mentorData");
+  useEffect(() => {
+    if (Object.keys(mentorData).length > 0) {
+      navigate("/atl-success");
     }
-    // setTimeout(() => {
-    //     setChange('Resend OTP');
-    //     setDisable(true);
-    //     setHoldKey(false);
-    //     setTimer(0);
-    // }, 60000);
+  }, [mentorData, navigate]);
+  const handleCheckbox = (e, click) => {
+    if (click) {
+      setCheckBox(click);
+      formik.setFieldValue("whatapp_mobile", formik.values.mobile);
+      setWtsNum(formik.values.mobile);
+    } else {
+      setCheckBox(click);
+      formik.setFieldValue("whatapp_mobile", "");
+    }
+  };
+  useEffect(() => {
+    setCheckBox(false);
+    formik.setFieldValue("whatapp_mobile", "");
+  }, [formik.values.mobile.length == 0]);
+  const handleEmailChange = (e) => {
+    formik.handleChange(e);
+    const emailValue = e.target.value;
+    const emailParts = emailValue.split("@");
+    const newPassword = emailParts[0] || "";
+
+    if (formik.values.password !== newPassword) {
+      formik.setFieldValue("password", newPassword);
+    }
+  };
+  const handleSendOtp = async (e) => {
+    formik.setFieldValue("mobile", formik.values.mobile);
+    setTimer(60);
+
+    setOtpSent(true);
+    setChange("Resend OTP");
+    setDisable(false);
+    setAreInputsDisabled(true);
+
     const body = JSON.stringify({
       username: formik.values.email,
     });
@@ -284,12 +262,13 @@ function AtlPage() {
       .then(function (response) {
         if (response.status === 202) {
           const UNhashedPassword = decryptGlobal(response?.data?.data);
-
+          console.log(UNhashedPassword, "111111111111111111111111111");
           setOtpRes(JSON.parse(UNhashedPassword));
-          openNotificationWithIcon("success", "Otp send to Email Id");
+          // openNotificationWithIcon("success", "Otp send to Email Id");
           setBtnOtp(true);
+          setPerson(false);
           setTimeout(() => {
-            setChange("Resend OTP");
+            setOtpSent("Resend OTP");
             setDisable(true);
             setHoldKey(false);
             setTimer(0);
@@ -298,9 +277,8 @@ function AtlPage() {
       })
       .catch(function (error) {
         if (error?.response?.data?.status === 406) {
-          openNotificationWithIcon("error", "Email ID already exists");
+          // openNotificationWithIcon("error", "Email ID already exists");
           setTimeout(() => {
-            // setChange('Resend OTP');
             setDisable(true);
             setHoldKey(false);
             setTimer(0);
@@ -309,12 +287,22 @@ function AtlPage() {
       });
     e.preventDefault();
   };
-  useEffect(() => {
-    if (!disable) {
-      counter > 0 && setTimeout(() => setCounter(counter - 1), 1000);
-    }
-  }, [counter, disable]);
+  const handleOtpChange = (e) => {
+    formik.setFieldValue("otp", e);
+    setErrorMsg(false);
+  };
 
+  useEffect(() => {
+    if (timer > 0) {
+      const intervalId = setInterval(() => {
+        setTimer((prevTimer) => prevTimer - 1);
+      }, 1000);
+      return () => clearInterval(intervalId);
+    } else if (timer === 0 && otpSent) {
+      setAreInputsDisabled(false);
+      setOtpSent(false);
+    }
+  }, [timer, otpSent]);
   useEffect(() => {
     if (
       formik.values.title.length > 0 &&
@@ -338,516 +326,456 @@ function AtlPage() {
     formik.values.whatapp_mobile,
   ]);
 
-  const handleOtpChange = (e) => {
-    formik.setFieldValue("otp", e);
-    setErrorMsg(false);
-  };
-  const handleCheckbox = (e, click) => {
-    if (click) {
-      setCheckBox(click);
-      formik.setFieldValue("whatapp_mobile", formik.values.mobile);
-      setWtsNum(formik.values.mobile);
-    } else {
-      setCheckBox(click);
-      formik.setFieldValue("whatapp_mobile", "");
-    }
-  };
-
-  useEffect(() => {
-    setCheckBox(false);
-    formik.setFieldValue("whatapp_mobile", "");
-  }, [formik.values.mobile.length === 0]);
+  // const route = all_routes;
   return (
-    <div
-      className="container-fluid  "
-      style={{ margin: "2rem", padding: "2rem" }}
-    >
-      <Row className="row-flex  ">
-        <Col xs={12} sm={12} md={12} xl={6}>
-          <div className="row">
-            <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
-              <Col md={12} className="mr-auto text-center">
-                <h2 className="text-white">
-                  <img
-                    src={signuplogo}
-                    alt="Signup logo"
-                    className="img-fluid w-50"
-                  />
-                </h2>
-              </Col>
-            </a>
-          </div>
-
-          <Row className=" mb-4 mt-4 text-center">
-            <h4 className="mb-4">
-              <span className="color-black " style={{ margin: "1rem" }}>
-                ATL School Registration
-              </span>
-            </h4>
-          </Row>
-
-          <Row className="mt-5">
-            <Col md={12}>
-              <Form onSubmit={formik.handleSubmit}>
-                {diceBtn && (
-                  <div className="form-row row mb-5">
-                    <Col className="form-group" xs={12} sm={12} md={12} xl={12}>
-                      <Label
-                        className="mb-4 "
-                        style={{ margin: "1rem" }}
-                        htmlFor="organization_code"
-                      >
-                        ATL Code
-                      </Label>
-                      <InputBox
-                        {...inputField}
-                        id="organization_code"
-                        onChange={(e) => handleOnChange(e)}
-                        value={diesCode}
-                        maxLength={11}
-                        minLength={11}
-                        name="organization_code"
-                        placeholder="Enter ATL Code"
-                        className="w-100 mb-3 mb-md-0"
-                        style={{
-                          borderRadius: "0px",
-                          padding: "9px 11px",
-                        }}
-                      />
-                      {error ? (
-                        <p
-                          style={{
-                            color: "red",
-                          }}
-                        >
-                          {error}
-                        </p>
-                      ) : null}
-
-                      {diceBtn && (
-                        <div className="mt-4">
-                          <Button
-                            label="Continue"
-                            btnClass={
-                              !diesCode.length
-                                ? "default rounded-0"
-                                : "primary rounded-0"
-                            }
-                            style={{ margin: "1rem" }}
-                            size="small"
-                            onClick={(e) => handleRegister(e)}
-                          />
-                        </div>
-                      )}
-                      <div className="form-row row mb-5 mt-5">
-                        <p>
-                          {" "}
-                          Already a member ?
-                          <Link
-                            to={"/teacher"}
-                            exact
-                            className=" m-3 text-center"
-                            style={{
-                              color: "blue",
-                            }}
-                          >
-                            Login Here
-                          </Link>
-                        </p>
-                      </div>
-                    </Col>
+    <div className="main-wrapper">
+      <div className="account-content">
+        <div className="login-wrapper register-wrap bg-img">
+          <div className="login-content">
+            <form action="signin" onSubmit={formik.handleSubmit}>
+              <div className="login-userset">
+                <div className="login-logo logo-normal">
+                  <ImageWithBasePath src="assets/img/logo.png" alt="img" />
+                </div>
+                <Link className="login-logo logo-white">
+                  <ImageWithBasePath src="assets/img/logo-white.png" alt />
+                </Link>
+                {person && (
+                  <div className="login-userheading">
+                    <h3> ATL School Registration</h3>
+                    <h4>Create New Dreamspos Account</h4>
                   </div>
                 )}
-                <div className="w-100 clearfix" />
-                {schoolBtn && (
+                {diceBtn && (
                   <div className="form-row row mb-5">
-                    <Col className="form-row row mb-5">
-                      <Col
-                        className="form-group"
-                        xs={12}
-                        sm={12}
-                        md={12}
-                        xl={12}
+                    <label>UDISE Code</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="organization_code"
+                      onChange={(e) => handleOnChange(e)}
+                      value={diesCode}
+                      maxLength={11}
+                      minLength={11}
+                      name="organization_code"
+                      placeholder="Please Enter UDISE Code"
+                    />
+
+                    {error ? (
+                      <p
+                        style={{
+                          color: "red",
+                        }}
                       >
-                        <Label className="mb-3 w-100 mt-4">
-                          <UncontrolledAlert
-                            xs={12}
-                            sm={12}
-                            md={12}
-                            xl={12}
-                            color="primary"
-                            toggle={false}
-                            style={{
-                              border: "1px ",
-                              solid: "#ccc",
-                              borderRadius: "4px",
-                              padding: "10px",
-                              backgroundColor: "#f0f0f0",
-                            }}
-                          >
-                            School Name :{""}
-                            {orgData?.organization_name} <br />
-                            City Name :{""}
-                            {orgData?.city ? orgData?.city : " N/A"} <br />
+                        {error}
+                      </p>
+                    ) : null}
+
+                    {diceBtn && (
+                      <div className="mt-4">
+                        <button
+                          type="button"
+                          className="btn btn-warning m-2"
+                          onClick={(e) => handleRegister(e)}
+                          disabled={!isButtonEnabled}
+                        >
+                          {" "}
+                          Continue
+                        </button>
+                      </div>
+                    )}
+                    <div className="form-row row mb-5 mt-5">
+                      <p>
+                        {" "}
+                        Already a member ?
+                        <Link
+                          to={"/teacher"}
+                          exact
+                          className=" m-3 text-center"
+                          style={{
+                            color: "blue",
+                          }}
+                        >
+                          Login Here
+                        </Link>
+                      </p>
+                    </div>
+                  </div>
+                )}
+                {schoolBtn && (
+                  <div className="col-xl-12">
+                    {person && (
+                      <div className="card">
+                        <div className="card-body">
+                          <div className="card-subtitle fw-semibold">
+                            School Name : {""}
+                            {orgData?.organization_name}
+                            <br />
+                            {/* City Name : {""}
+                            {orgData?.city ? orgData?.city : " N/A"} <br /> */}
                             District Name :{" "}
                             {orgData?.district ? orgData?.district : " N/A"}
                             <br />
-                            State Name:{" "}
+                            State Name :{" "}
                             {orgData?.state ? orgData?.state : " N/A"} <br />
-                            PinCode:{" "}
+                            PinCode :{" "}
                             {orgData?.pin_code
                               ? orgData?.pin_code
                               : " N/A"}{" "}
                             <br />
-                          </UncontrolledAlert>
-                        </Label>
-                      </Col>
-                      <Row
-                        className="form-group"
-                        style={{ margin: "1rem" }}
-                        xs={12}
-                        sm={12}
-                        md={12}
-                        xl={12}
-                      >
-                        <Col
-                          className="form-group"
-                          xs={12}
-                          sm={12}
-                          md={12}
-                          xl={6}
-                        >
-                          <Label className="mb-2" htmlFor="title">
-                            Title
-                          </Label>
-                          <select
-                            disabled={holdKey ? true : false}
-                            name="title"
-                            style={{
-                              borderRadius: "0",
-                              margin: "1rem",
-                            }}
-                            value={formik.values.title}
-                            onBlur={formik.handleBlur}
-                            onChange={formik.handleChange}
-                          >
-                            <option value="">Please Select Title</option>
-                            <option value="Dr">"Dr"</option>
-                            <option value="Mr">"Mrs"</option>
-                            <option value="Miss">"Miss"</option>
-                            <option value="Mrs">"Mrss"</option>
-                          </select>
-                          {formik.touched.title && formik.errors.title ? (
-                            <small className="error-cls">
-                              {formik.errors.title}
-                            </small>
-                          ) : null}
-                        </Col>
-                        <Col
-                          className="form-group"
-                          xs={12}
-                          sm={12}
-                          md={12}
-                          xl={6}
-                        >
-                          <Label className="mb-2" htmlFor="name">
-                            Teacher Name
-                          </Label>
-                          <InputBox
-                            {...inputName}
-                            id="full_name"
-                            isDisabled={holdKey ? true : false}
-                            name="full_name"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.full_name}
-                          />
-
-                          {formik.touched.full_name &&
-                          formik.errors.full_name ? (
-                            <small className="error-cls">
-                              {formik.errors.full_name}
-                            </small>
-                          ) : null}
-                        </Col>
-                      </Row>
-
-                      <Row
-                        className="form-group"
-                        xs={12}
-                        sm={12}
-                        md={12}
-                        xl={12}
-                      >
-                        <Col
-                          className="form-group"
-                          xs={12}
-                          sm={12}
-                          md={12}
-                          xl={6}
-                        >
-                          <Label className="mb-2" htmlFor="email">
-                            Email Address
-                          </Label>
-                          <InputBox
-                            {...inputEmail}
-                            id="email"
-                            isDisabled={holdKey ? true : false}
-                            name="email"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.email}
-                          />
-
-                          {formik.touched.email && formik.errors.email ? (
-                            <small className="error-cls">
-                              {formik.errors.email}
-                            </small>
-                          ) : null}
-                        </Col>
-
-                        <Col
-                          className="form-group"
-                          xs={12}
-                          sm={12}
-                          md={12}
-                          xl={6}
-                        >
-                          <Label className="mb-2" htmlFor="gender">
-                            Gender
-                          </Label>
-                          <select
-                            disabled={holdKey ? true : false}
-                            name="gender"
-                            style={{
-                              borderRadius: "0",
-                              margin: "1rem",
-                            }}
-                            value={formik.values.gender}
-                            onBlur={formik.handleBlur}
-                            onChange={formik.handleChange}
-                          >
-                            <option value="">Please Select Gender</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                          </select>
-                          {formik.touched.gender && formik.errors.gender ? (
-                            <small className="error-cls">
-                              {formik.errors.gender}
-                            </small>
-                          ) : null}
-                        </Col>
-                      </Row>
-                      <Row
-                        className="form-group"
-                        xs={12}
-                        sm={12}
-                        md={12}
-                        xl={12}
-                      >
-                        <Col
-                          className="form-group"
-                          xs={12}
-                          sm={12}
-                          md={12}
-                          xl={6}
-                        >
-                          <Label className="mb-2 mt-3" htmlFor="mobile">
-                            Mobile Number
-                          </Label>
-                          <InputBox
-                            {...inputUsername}
-                            id="mobile"
-                            isDisabled={holdKey ? true : false}
-                            name="mobile"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.mobile}
-                          />
-
-                          {formik.touched.mobile && formik.errors.mobile ? (
-                            <small className="error-cls">
-                              {formik.errors.mobile}
-                            </small>
-                          ) : null}
-                        </Col>
-                        <Col
-                          className="form-group"
-                          xs={12}
-                          sm={12}
-                          md={12}
-                          xl={6}
-                        >
-                          <div className="d-flex align-items-center justify-content-between">
-                            <div
-                              //   className="my-10 checkbox-right"
-                              style={{
-                                display: "flex",
-                              }}
-                            >
-                              <b
-                                style={{
-                                  marginTop: "1rem",
-                                }}
-                              >
-                                Same
-                              </b>
-                              <Input
-                                type="checkbox"
-                                name="click"
-                                disabled={
-                                  (formik.values.mobile.length > 0
-                                    ? false
-                                    : true) || (holdKey ? true : false)
-                                }
-                                id="click"
-                                checked={checkBox}
-                                onClick={(e) => handleCheckbox(e, !checkBox)}
-                              />
-                            </div>
                           </div>
-                          <Label className="mb-2 mt-3" htmlFor="phone">
-                            Whatsapp Number
-                          </Label>
-                          <InputBox
-                            {...inputMobile}
-                            id="whatapp_mobile"
-                            isDisabled={
-                              (formik.values.mobile.length > 0
-                                ? false
-                                : true) ||
-                              (holdKey ? true : false) ||
-                              checkBox
-                            }
-                            name="whatapp_mobile"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.whatapp_mobile}
-                          />
-
-                          {formik.touched.whatapp_mobile &&
-                          formik.errors.whatapp_mobile ? (
-                            <small className="error-cls">
-                              {formik.errors.whatapp_mobile}
-                            </small>
-                          ) : null}
-                        </Col>
-                        <div className="mt-3">
-                          <span
-                            required
-                            className="p-1 "
-                            style={{ color: "red" }}
-                          >
-                            * Note : PWD is set default with Characters in mail
-                            (till before @) ex : ID- abcd.98@gmail.com ,
-                            Password : “abcd.98”
-                          </span>
                         </div>
-                      </Row>
-                      <div className="mt-5 d-flex align-items-center">
-                        <Button
-                          label={change}
-                          btnClass={
-                            !disable
-                              ? "default rounded-0"
-                              : "primary rounded-0 "
-                          }
-                          onClick={(e) => handleSendOtp(e)}
-                          size="small"
-                          disabled={(timer === 0 ? false : true) || !disable}
-                        />
                       </div>
-                      {btnOtp && (
-                        <div>
-                          <h3>
-                            {time}:{counter < 59 ? counter - "0" : counter}
-                          </h3>
-
-                          <div className="w-100 d-block text-left">
-                            <Label
-                              className="mb-2 mt-4  text-left"
-                              htmlFor="otp"
-                            >
-                              Enter OTP
-                            </Label>
-                            {/* <div
-                              // className="form-row row mb-6"
-                              className="d-flex justify-content-left "
-                            >
-                              <OtpInput
-                                numInputs={6}
-                                isDisabled={false}
-                                errorStyle="error"
-                                onChange={handleOtpChange}
-                                separator={<span>{"-"}</span>}
-                                isInputNum={true}
-                                isInputSecure={false}
-                                shouldAutoFocus
-                                value={formik.values.otp}
-                                placeholder={""}
-                                inputStyle={{
-                                  border: "1px solid var(--color-grey-light-3)",
-                                  borderRadius: "8px",
-                                  width: "5.4rem",
-                                  height: "5.4rem",
-                                  fontSize: "2.2rem",
-                                  color: "#000",
-                                  fontWeight: "400",
-                                  caretColor: "blue",
-                                }}
-                                focusStyle={{
-                                  border: "1px solid #CFD3DB",
-                                  outline: "none",
-                                }}
+                    )}
+                    <div className="card">
+                      <div className="card-body">
+                        <div className="row g-3 mt-0">
+                          {/* {person && ( */}
+                          <>
+                            <div className="col-md-3">
+                              <label
+                                htmlFor="inputState"
+                                className="form-label"
+                              >
+                                Title
+                              </label>
+                              <select
+                                id="inputState"
+                                className="form-select"
+                                // disabled={holdKey ? true : false}
+                                disabled={areInputsDisabled}
+                                name="title"
+                                value={formik.values.title}
+                                onBlur={formik.handleBlur}
+                                onChange={formik.handleChange}
+                              >
+                                <option value="">Title</option>
+                                <option value="Dr">Dr</option>
+                                <option value="Mr">Mrs</option>
+                                <option value="Miss">Miss</option>
+                                <option value="Mrs">Mrss</option>
+                              </select>
+                              {formik.touched.title && formik.errors.title ? (
+                                <small className="error-cls">
+                                  {formik.errors.title}
+                                </small>
+                              ) : null}
+                            </div>
+                            <div className="col-md-6">
+                              <label className="form-label">Full Name</label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Full Name"
+                                id="full_name"
+                                disabled={areInputsDisabled}
+                                name="full_name"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.full_name}
                               />
-                            </div> */}
-                          </div>
-                        </div>
-                      )}
-                      {formik.values.otp.length > 5 &&
-                        otpRes !== formik.values.otp && (
-                          <div className="form-row row mb-5 text-center">
-                            <span
-                              className=" w-100 mt-3 d-flex justify-content-center"
-                              style={{
-                                color: "red",
-                              }}
+                              {formik.touched.full_name &&
+                              formik.errors.full_name ? (
+                                <small className="error-cls">
+                                  {formik.errors.full_name}
+                                </small>
+                              ) : null}
+                            </div>
+                            <div className="col-md-3">
+                              <label
+                                htmlFor="inputState"
+                                className="form-label"
+                              >
+                                Gender
+                              </label>
+                              <select
+                                id="inputState"
+                                className="form-select"
+                                disabled={areInputsDisabled}
+                                name="gender"
+                                value={formik.values.gender}
+                                onBlur={formik.handleBlur}
+                                onChange={formik.handleChange}
+                              >
+                                <option value="">Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                              </select>
+                              {formik.touched.gender && formik.errors.gender ? (
+                                <small className="error-cls">
+                                  {formik.errors.gender}
+                                </small>
+                              ) : null}
+                            </div>
+                            <div className="col-md-6">
+                              <label
+                                htmlFor="inputEmail4"
+                                className="form-label"
+                              >
+                                Email
+                              </label>
+                              <input
+                                type="email"
+                                className="form-control"
+                                id="inputEmail4"
+                                disabled={areInputsDisabled}
+                                name="email"
+                                onChange={handleEmailChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.email}
+                              />
+                              {formik.touched.email && formik.errors.email ? (
+                                <small className="error-cls">
+                                  {formik.errors.email}
+                                </small>
+                              ) : null}
+                            </div>
+                            <div className="col-md-6">
+                              <label
+                                htmlFor="inputPassword4"
+                                className="form-label"
+                              >
+                                Password
+                              </label>
+                              <input
+                                type="text"
+                                isDisabled={true}
+                                name="password"
+                                id="password"
+                                defaultValue="readonly"
+                                readOnly="readonly"
+                                className="form-control"
+                                value={formik.values.password}
+                              />
+                              {formik.touched.password &&
+                              formik.errors.password ? (
+                                <small className="error-cls">
+                                  {formik.errors.password}
+                                </small>
+                              ) : null}
+                            </div>
+                            <div
+                              className="col-md-6"
+                              style={{ marginTop: "2.5rem" }}
                             >
-                              Invalid OTP
-                            </span>
+                              <label className="form-label">
+                                Mobile Number
+                              </label>
+
+                              <input
+                                type="text"
+                                className="form-control"
+                                id="inputEmail4"
+                                disabled={areInputsDisabled}
+                                name="mobile"
+                                onChange={(e) => {
+                                  const inputValue = e.target.value;
+                                  const numericValue = inputValue.replace(
+                                    /\D/g,
+                                    ""
+                                  );
+                                  formik.setFieldValue("mobile", numericValue);
+                                }}
+                                maxLength={10}
+                                minLength={10}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.mobile}
+                              />
+
+                              {formik.touched.mobile && formik.errors.mobile ? (
+                                <small className="error-cls">
+                                  {formik.errors.mobile}
+                                </small>
+                              ) : null}
+                            </div>
+                            <div className="col-md-6">
+                              <div className="d-flex align-items-center justify-content-between">
+                                <div
+                                  style={{
+                                    display: "flex",
+                                  }}
+                                >
+                                  <span> Same </span>
+                                  <input
+                                    className="form-check-input"
+                                    type="checkbox"
+                                    name="click"
+                                    disabled={
+                                      (formik.values.mobile.length > 0
+                                        ? false
+                                        : true) || areInputsDisabled
+                                    }
+                                    id="click"
+                                    checked={checkBox}
+                                    onClick={(e) =>
+                                      handleCheckbox(e, !checkBox)
+                                    }
+                                  />
+                                </div>
+                              </div>
+                              <label className="form-label">
+                                WhatsApp Number
+                              </label>
+
+                              <input
+                                type="text"
+                                className="form-control"
+                                id="inputEmail4"
+                                disabled={areInputsDisabled}
+                                name="whatapp_mobile"
+                                onChange={(e) => {
+                                  const inputValue = e.target.value;
+                                  const numericValue = inputValue.replace(
+                                    /\D/g,
+                                    ""
+                                  );
+                                  formik.setFieldValue(
+                                    "whatapp_mobile",
+                                    numericValue
+                                  );
+                                }}
+                                maxLength={10}
+                                minLength={10}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.whatapp_mobile}
+                              />
+
+                              {formik.touched.whatapp_mobile &&
+                              formik.errors.whatapp_mobile ? (
+                                <small className="error-cls">
+                                  {formik.errors.whatapp_mobile}
+                                </small>
+                              ) : null}
+                            </div>
+                          </>
+                          {/* )} */}
+                          {/* {person && ( */}
+                          <div className="col-12">
+                            <button
+                              type="button"
+                              className="btn btn-warning m-2"
+                              onClick={(e) => handleSendOtp(e)}
+                              disabled={
+                                !formik.isValid || !formik.dirty || otpSent
+                              }
+                            >
+                              {otpSent ? `Resend OTP (${timer})` : change}
+                            </button>
                           </div>
-                        )}
-                      {btnOtp && (
-                        <div className="mt-5">
-                          <Button
-                            label={"VERIFY & REGISTER"}
-                            btnClass={
-                              formik.values.otp.length > 5 &&
-                              otpRes == formik.values.otp
-                                ? "primary rounded-0"
-                                : "default rounded-0"
-                            }
-                            size="small w-50"
-                            type="submit"
-                            disabled={
-                              !(
-                                formik.values.otp.length > 5 &&
-                                otpRes == formik.values.otp
-                              )
-                            }
-                          />
+                          {/* )} */}
+                          {btnOtp && (
+                            <>
+                              <h3>
+                                {/* {time}:{counter < 59 ? counter - "0" : counter} */}
+                                {/* <h3>{timer > 0 && `00: ${timer} seconds`}</h3> */}
+                              </h3>
+                              <div className="Otp-expire text-center">
+                                <p>
+                                  Otp will expire in{" "}
+                                  {timer > 0 && `00: ${timer} seconds`}
+                                </p>
+                              </div>
+
+                              <div className="login-content user-login">
+                                <div className="login-logo">
+                                  <ImageWithBasePath
+                                    src="assets/img/logo.png"
+                                    alt="img"
+                                  />
+                                  <Link className="login-logo logo-white">
+                                    <ImageWithBasePath
+                                      src="assets/img/logo-white.png"
+                                      alt
+                                    />
+                                  </Link>
+                                </div>
+                                <div className="login-userset">
+                                  <div className="login-userheading">
+                                    <h3>Login With Your Email Address</h3>
+                                    <h4 className="verfy-mail-content">
+                                      We sent a verification code to your email.
+                                      Enter the code from the email in the field
+                                      below
+                                    </h4>
+                                  </div>
+
+                                  <div className="wallet-add">
+                                    <div className="otp-box">
+                                      <div className="forms-block text-center">
+                                        <OtpInput
+                                          numInputs={6}
+                                          isDisabled={false}
+                                          errorStyle="error"
+                                          onChange={handleOtpChange}
+                                          separator={<span>{"-"}</span>}
+                                          isInputNum={true}
+                                          isInputSecure={false}
+                                          shouldAutoFocus
+                                          value={formik.values.otp}
+                                          placeholder={""}
+                                          inputStyle={{
+                                            border: "1px solid",
+                                            borderRadius: "8px",
+                                            width: "4rem",
+                                            height: "4rem",
+                                            fontSize: "2rem",
+                                            color: "#000",
+                                            fontWeight: "400",
+                                            caretColor: "blue",
+                                          }}
+                                          focusStyle={{
+                                            border: "1px solid #CFD3DB",
+                                            outline: "none",
+                                          }}
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </>
+                          )}
+                          {formik.values.otp.length > 5 &&
+                            otpRes != formik.values.otp && (
+                              <div className="form-row row mb-5 text-center">
+                                <span
+                                  className=" w-100 mt-3 d-flex justify-content-center"
+                                  style={{
+                                    color: "red",
+                                  }}
+                                >
+                                  Invalid OTP
+                                </span>
+                              </div>
+                            )}
+                          {btnOtp && (
+                            <div className="form-login mt-4">
+                              <button
+                                className="btn btn-login"
+                                type="submit"
+                                disabled={
+                                  !(
+                                    formik.values.otp.length === 6 &&
+                                    formik.values.otp === otpRes
+                                  )
+                                }
+                              >
+                                Verify My Account
+                              </button>
+                            </div>
+                          )}
                         </div>
-                      )}
-                    </Col>
+                      </div>
+                    </div>
                   </div>
                 )}
-              </Form>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
-export default AtlPage;
+export default Register;
