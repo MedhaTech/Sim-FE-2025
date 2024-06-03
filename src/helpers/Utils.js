@@ -1,8 +1,10 @@
 /* eslint-disable no-undef */
 /* eslint-disable indent */
 // import { notification } from "antd";
-import { getlogout, userLogout } from "../Admin/store/admin/actions";
-import Swal from "sweetalert2/dist/sweetalert2.js";
+import { userLogout } from "../Admin/store/admin/actions";
+// import Swal from "sweetalert2/dist/sweetalert2.js";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
 
 export const getCurrentUser = () => {
   let user = null;
@@ -68,58 +70,42 @@ export const compareDates = (filterDate) => {
     moment(date).isSameOrBefore(filterDate.end_date)
   );
 };
-
-export const logout = (history, t, module, dispatch) => {
-  const swalWithBootstrapButtons = Swal.mixin({
-    customClass: {
-      confirmButton: "btn btn-success",
-      cancelButton: "btn btn-danger",
-    },
-    buttonsStyling: false,
-    allowOutsideClick: false,
-  });
-
-  swalWithBootstrapButtons
-    .fire({
-      title: "You are attempting to logout",
-      text: "Are you sure?",
-      // imageUrl: `${logout}`,
-      showCloseButton: true,
-      confirmButtonText: "Logout",
-      showCancelButton: true,
-      cancelButtonText: "Cancel",
-      reverseButtons: false,
-    })
-    .then((result) => {
+export const logout = (navigate, t, module, dispatch) => {
+  const MySwal = withReactContent(Swal);
+  MySwal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    showCancelButton: true,
+    confirmButtonColor: "#00ff00",
+    confirmButtonText: "Logout",
+    cancelButtonColor: "#ff0000",
+    cancelButtonText: "Cancel",
+  }).then((result) => {
+    if (result.isConfirmed) {
       if (result.isConfirmed) {
-        if (result.isConfirmed) {
-          if (dispatch) dispatch(getlogout());
-          localStorage.clear();
-          if (module) localStorage.removeItem("module");
-          if (dispatch) dispatch(userLogout());
-          switch (module) {
-            case "EVALUATOR":
-              history.push("/evaluator");
-              break;
-            case "ADMIN":
-              history.push("/admin");
-              break;
-            case "EADMIN":
-              history.push("/eadmin");
-              break;
-            case "REPORT":
-              history.push("/report");
-              break;
-            default:
-              history.push("/");
-          }
+        if (dispatch) dispatch(getlogout());
+        localStorage.clear();
+        if (module) localStorage.removeItem("module");
+        if (dispatch) dispatch(userLogout());
+        switch (module) {
+          case "EVALUATOR":
+            navigate("/evaluator");
+            break;
+          case "ADMIN":
+            navigate("/admin");
+            break;
+          case "EADMIN":
+            navigate("/eadmin");
+            break;
+          case "REPORT":
+            navigate("/report");
+            break;
+          default:
+            navigate("/");
         }
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        swalWithBootstrapButtons.fire(
-          "Cancelled",
-          "You are Logged in",
-          "error"
-        );
       }
-    });
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      MySwal.fire("Cancelled", "You are Logged in", "error");
+    }
+  });
 };

@@ -1,8 +1,13 @@
+/* eslint-disable indent */
+/* eslint-disable no-undef */
 export const adminRoot = "/admin";
 
 export const UserRole = {};
 
 export const URL = {
+  getStatesOnly: process.env.REACT_APP_API_BASE_URL + "/organizations/states",
+  getFetchDistsOnly:
+    process.env.REACT_APP_API_BASE_URL + "/organizations/districts?",
   adminLogin: process.env.REACT_APP_API_BASE_URL + "/admins/login",
   adminLogOut: process.env.REACT_APP_API_BASE_URL + "/auth/logout",
 };

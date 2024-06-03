@@ -1,45 +1,40 @@
+/* eslint-disable indent */
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { isAuthGuardActive } from "../constants/defaultValues";
 import { getCurrentUser } from "./Utils";
+import PropTypes from "prop-types";
+const ProtectedRoute = ({ children, user }) => {
+  
+  if (!isAuthGuardActive) {
+    return children;
+  }
 
-const ProtectedRoute = ({ component: Component, user: user, ...rest }) => {
-  const setComponent = (props) => {
-    if (isAuthGuardActive) {
-      const currentUser = getCurrentUser();
-      const loginTime = localStorage.getItem("time");
+  const currentUser = getCurrentUser();
+  const loginTime = localStorage.getItem("time");
+  const loginTimestamp = new Date(loginTime).getTime();
+  const currentTime = new Date().getTime();
+  const difference = currentTime - loginTimestamp;
 
-      const loginTimestamp = new Date(loginTime).getTime();
+  if (difference > 3600000) {
+    // 1 hour in milliseconds
+    localStorage.clear();
+    return <Navigate to="/teacher" />;
+  } else {
+    localStorage.setItem("time", new Date().toString());
+  }
 
-      const currentTime = new Date();
-      const difference = currentTime - loginTimestamp;
-      //  difference = currentTime - loginTimestamp in milliseconds //
+  if (currentUser?.data[0]?.role === user) {
+    return children;
+  }
 
-      if (difference > 3600000) {
-        localStorage.clear();
-        return <Redirect to="/teacher" />;
-      } else {
-        localStorage.setItem("time", new Date().toString());
-      }
-      if (currentUser?.data[0]?.role === user) {
-        return <Component {...props} />;
-      }
-      return (
-        <Redirect
-          to={{
-            pathname: "/login",
-            state: { from: props.location },
-          }}
-        />
-      );
-    }
-    return <Component {...props} />;
-  };
-
-  return <Route {...rest} render={setComponent} />;
+  return <Navigate to="/login" />;
 };
-
+ProtectedRoute.propTypes = {
+  children: PropTypes.node.isRequired,
+  user: PropTypes.string.isRequired,
+};
 export { ProtectedRoute };

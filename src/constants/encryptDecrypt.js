@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import CryptoJS from "crypto-js";
 const key = "PMBXDE9N53V89K65";
 

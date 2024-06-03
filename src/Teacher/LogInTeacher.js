@@ -1,42 +1,21 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React, { useLayoutEffect, useState, useEffect } from "react";
-import { Row, Col, Form, Label } from "reactstrap";
+/* eslint-disable react/prop-types */
+import React, { useState } from "react";
+import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
-import { InputBox } from "../stories/InputBox/InputBox";
-import { Button } from "../stories/Button";
-import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import logo from "../assets/media/UPSHIFT_BLACK.png";
 import CryptoJS from "crypto-js";
-import { openNotificationWithIcon } from "../helpers/Utils";
-// import i18next from "i18next";
 
-const LoginNew = (props) => {
-  const history = useHistory();
-
-  useLayoutEffect(() => {
-    // i18next.changeLanguage("en");
-    const moduleName = localStorage.getItem("module");
-    const loginTime = localStorage.getItem("time");
-
-    if (
-      localStorage.getItem("current_user") &&
-      localStorage.getItem("module")
-    ) {
-      moduleName === "MENTOR"
-        ? history.push("/teacher/dashboard")
-        : moduleName === "ADMIN"
-        ? history.push("/admin/dashboard")
-        : moduleName === "EVALUATOR"
-        ? history.push("/evaluator/submitted-ideas")
-        : moduleName === "EADMIN"
-        ? history.push("/eadmin/dashboard")
-        : history.push("/dashboard");
-    }
-  }, []);
-
+const LogInTeacher = (props) => {
+  const [isPasswordVisible, setPasswordVisible] = useState(false);
+  const inputUserId = {
+    type: "email",
+    placeholder: "Please Enter Email Address",
+  };
+  const togglePasswordVisibility = () => {
+    setPasswordVisible((prevState) => !prevState);
+  };
   const formik = useFormik({
     initialValues: {
       phone: "",
@@ -57,12 +36,12 @@ const LoginNew = (props) => {
         localStorage.getItem("current_user") &&
         localStorage.getItem("module")
       ) {
-        openNotificationWithIcon(
-          "error",
-          `Another User(${localStorage.getItem(
-            "module"
-          )}) has already logged in`
-        );
+        // openNotificationWithIcon(
+        //   "error",
+        //   `Another User(${localStorage.getItem(
+        //     "module"
+        //   )}) has already logged in`
+        // );
         return;
       }
       const key = CryptoJS.enc.Hex.parse("253D3FB468A0E24677C28A624BE0F939");
@@ -80,174 +59,137 @@ const LoginNew = (props) => {
     },
   });
 
-  const inputUserId = {
-    type: "mobile",
-    placeholder: "Enter your Email Address",
-  };
-
-  const inputPassword = {
-    placeholder: "Enter your password",
-    showEyeIcon: true,
-  };
-
-  const logInBtn = {
-    label: "Log in",
-    size: "large",
-  };
-
   return (
-    <React.Fragment>
-      <div
-        className="container-fluid "
-        style={{ margin: "2rem", padding: "2rem" }}
-      >
-        {/* <UsersPage /> */}
-        <Row className="row-flex height-100">
-          <Col xs={12} sm={12} md={8} xl={8}>
-            <Row className="logo">
-              <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
-                <Col
-                  md={12}
-                  className="d-flex justify-content-center align-items-center"
-                >
-                  <img src={logo} alt="Logo" className="logo-image" />
-                </Col>
-              </a>
-            </Row>
-            <Row className="login-options">
-              <Col md={12} className="text-right"></Col>
-            </Row>
-            <Row className=" article-header mb-4">
-              <div className="d-flex mt-4 login-div justify-content-center align-items-center">
-                <Link
-                  className="landing-page-actions "
-                  exact="true"
-                  to="/teacher"
-                >
-                  <button className="storybook-button storybook-button--small storybook-button--loginBtn active">
-                    {/* <img
-                      src={teacherIcon}
-                      alt="login icon"
-                      className="img-fluid"
-                    />{" "} */}
-                    Teacher Login
-                  </button>
+    <div className="main-wrapper">
+      <div className="account-content">
+        <div className="login-wrapper bg-img">
+          <div className="login-content">
+            <form onSubmit={formik.handleSubmit} action="index">
+              <div className="login-userset">
+                <div className="login-logo logo-normal">
+                  <ImageWithBasePath src="assets/img/logo.png" alt="img" />
+                </div>
+                <Link className="login-logo logo-white">
+                  <ImageWithBasePath src="assets/img/logo-white.png" alt />
                 </Link>
-                <Link className="landing-page-actions" exact="true" to="/login">
-                  <button className="storybook-button storybook-button--small storybook-button--loginBtn ">
-                    {/* <img
-                      src={studentIcon}
-                      alt="login icon"
-                      className="img-fluid"
-                    />{" "} */}
-                    Student Login
-                  </button>
-                </Link>
-              </div>
-            </Row>
-
-            <Row className="my-2">
-              <Col md={12}>
-                <Form onSubmit={formik.handleSubmit}>
-                  <div className="form-row row mb-5">
-                    <Col className="form-group" xs={12} sm={12} md={12} xl={12}>
-                      <Label className="mb-2" htmlFor="phone">
-                        Email Address
-                      </Label>
-                      <InputBox
-                        {...inputUserId}
-                        id="phone"
-                        name="phone"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.phone}
-                        keyboardType="numberFormat"
-                      />
-
-                      {formik.touched.phone && formik.errors.phone ? (
-                        <small className="error-cls">
-                          {formik.errors.phone}
-                        </small>
-                      ) : null}
-                    </Col>
+                <div className="login-userheading">
+                  <h3> Mentor Login</h3>
+                  <h4>
+                    Access the Dreamspos panel using your email and passcode.
+                  </h4>
+                </div>
+                <div className="form-login mb-3">
+                  <label className="form-label">Email Address</label>
+                  <div className="form-addons">
+                    <input
+                      {...inputUserId}
+                      id="email"
+                      className="form- control"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.email}
+                    />
+                    {formik.touched.email && formik.errors.email ? (
+                      <small className="error-cls">Required</small>
+                    ) : null}
+                    <ImageWithBasePath
+                      src="assets/img/icons/mail.svg"
+                      alt="img"
+                    />
                   </div>
-                  <div className="w-100 clearfix" />
-
-                  <div className="form-row row mb-5">
-                    <Col className="form-group" xs={12} sm={12} md={12} xl={12}>
-                      <Label className="mb-2" htmlFor="Password">
-                        Password
-                      </Label>
-                      <InputBox
-                        {...inputPassword}
-                        type="password"
-                        id="password"
-                        name="password"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.password}
-                      />
-
-                      {formik.touched.password && formik.errors.password ? (
-                        <small className="error-cls">
-                          {formik.errors.password}
-                        </small>
-                      ) : null}
-                    </Col>
-
-                    <div className="form-group">
-                      <Row className="keepme_login">
-                        <Col className="forgotp d-flex ">
-                          <div className="text-link pt-1 text-primary">
-                            <Link
-                              exact="true"
-                              to="/teacher/forgotpassword"
-                              className="text-link pt-1"
-                            >
-                              Forgot password
-                            </Link>
-                          </div>
-                        </Col>
-                      </Row>
+                </div>
+                <div className="form-login mb-3">
+                  <label className="form-label">Password</label>
+                  <div className="pass-group">
+                    <input
+                      type={isPasswordVisible ? "text" : "password"}
+                      id="password"
+                      placeholder="Please Enter password"
+                      // className="pass-input form-control"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.password}
+                    />
+                    {formik.touched.password && formik.errors.password ? (
+                      <small className="error-cls">Required</small>
+                    ) : null}
+                    <span
+                      className={`fas toggle-password ${
+                        isPasswordVisible ? "fa-eye" : "fa-eye-slash"
+                      }`}
+                      onClick={togglePasswordVisibility}
+                    ></span>
+                  </div>
+                </div>
+                <div className="form-login authentication-check">
+                  <div className="row">
+                    <div className="col-12 d-flex align-items-center justify-content-between">
+                      <div className="custom-control custom-checkbox">
+                        <label className="checkboxs ps-4 mb-0 pb-0 line-height-1">
+                          <input type="checkbox" className="form-control" />
+                          <span className="checkmarks" />
+                          Remember me
+                        </label>
+                      </div>
+                      <div className="text-end">
+                        <Link className="forgot-link">Forgot Password?</Link>
+                      </div>
                     </div>
                   </div>
-
-                  <div className="form-row row mb-5">
-                    <Col className="form-group" xs={12} sm={12} md={12} xl={12}>
-                      <Button
-                        {...logInBtn}
-                        type="submit"
-                        btnClass={
-                          !(formik.dirty && formik.isValid)
-                            ? "default"
-                            : "primary"
-                        }
-                        disabled={!(formik.dirty && formik.isValid)}
-                        style={{
-                          borderRadius: "0",
-                          width: "7rem",
-                          margin: "2rem",
-                        }}
-                      />
-                    </Col>
-                  </div>
-                  <div className="form-row row mb-5">
-                    <Link
-                      to={"/registration"}
-                      exact
-                      className="w-100 d-block text-center"
-                    >
-                      <strong>Click Here To Register</strong>
+                </div>
+                <div className="form-login">
+                  <Link className="btn btn-login">Sign In</Link>
+                </div>
+                <div className="signinform">
+                  <h4>
+                    New on our platform?
+                    <Link className="hover-a" to={"/registration"}>
+                      {" "}
+                      Create an account
                     </Link>
+                  </h4>
+                </div>
+                <div className="form-setlogin or-text">
+                  <h4>OR</h4>
+                </div>
+                <div className="form-sociallink">
+                  <ul className="d-flex">
+                    <li>
+                      <Link to="#" className="facebook-logo">
+                        <ImageWithBasePath
+                          src="assets/img/icons/facebook-logo.svg"
+                          alt="Facebook"
+                        />
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="#">
+                        <ImageWithBasePath
+                          src="assets/img/icons/google.png"
+                          alt="Google"
+                        />
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="#" className="apple-logo">
+                        <ImageWithBasePath
+                          src="assets/img/icons/apple-logo.svg"
+                          alt="Apple"
+                        />
+                      </Link>
+                    </li>
+                  </ul>
+                  <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
+                    <p>Copyright © 2023 DreamsPOS. All rights reserved</p>
                   </div>
-                </Form>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-    </React.Fragment>
+    </div>
   );
 };
 
-export default LoginNew;
+export default LogInTeacher;

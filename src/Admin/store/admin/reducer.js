@@ -1,4 +1,4 @@
-/* eslint-disable import/no-anonymous-default-export */
+/* eslint-disable indent */
 import {
   ADMIN_LOGIN_USER,
   ADMIN_LOGIN_USER_SUCCESS,
