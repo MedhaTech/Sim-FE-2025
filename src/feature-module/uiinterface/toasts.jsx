@@ -1,3 +1,4 @@
+/* eslint-disable semi */
 import React, { useEffect, useState } from 'react'
 import { Button, Toast } from 'react-bootstrap';
 

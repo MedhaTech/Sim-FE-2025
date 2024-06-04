@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useState } from "react";
 
 import { Chart } from "primereact/chart";

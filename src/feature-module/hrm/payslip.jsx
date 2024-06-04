@@ -1,3 +1,4 @@
+/* eslint-disable semi */
 import { Download, Printer } from 'feather-icons-react/build/IconComponents'
 import React from 'react'
 import { Mail } from 'react-feather'

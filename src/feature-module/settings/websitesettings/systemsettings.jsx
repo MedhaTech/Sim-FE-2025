@@ -1,3 +1,5 @@
+/* eslint-disable indent */
+/* eslint-disable semi */
 import React from 'react'
 import ImageWithBasePath from '../../../core/img/imagewithbasebath'
 import { useDispatch, useSelector } from 'react-redux';

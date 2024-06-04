@@ -23,4 +23,4 @@ export const warrentydata = [
         "status": "Active",
         "Action": ""
     }
-]
+];

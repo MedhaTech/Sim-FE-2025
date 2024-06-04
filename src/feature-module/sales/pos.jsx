@@ -1,3 +1,5 @@
+/* eslint-disable semi */
+/* eslint-disable indent */
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import ImageWithBasePath from '../../core/img/imagewithbasebath'
@@ -4153,4 +4155,4 @@ const Pos = () => {
   )
 }
 
-export default Pos
+export default Pos;

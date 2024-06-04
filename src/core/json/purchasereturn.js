@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 export const purchasesreturn = [
   {
     id: "1",

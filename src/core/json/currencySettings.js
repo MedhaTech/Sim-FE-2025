@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 export const currencySettingsData = [
   {
     id: "1",

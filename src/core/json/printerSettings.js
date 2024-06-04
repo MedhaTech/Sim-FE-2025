@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 export const printerSettingsData = [
     {
         id: '1',
@@ -13,4 +14,4 @@ export const printerSettingsData = [
         ipAddress: '151.00.2.20',
         port: 700,
       }
-]
+];

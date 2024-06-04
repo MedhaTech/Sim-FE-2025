@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React from "react";
 import ReactStickyNotes from "@react-latest-ui/react-sticky-notes";
 

@@ -1,3 +1,4 @@
+/* eslint-disable semi */
 import { X } from 'feather-icons-react/build/IconComponents'
 import React from 'react'
 import { Link } from 'react-router-dom'

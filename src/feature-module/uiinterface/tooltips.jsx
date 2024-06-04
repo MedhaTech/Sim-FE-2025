@@ -1,3 +1,5 @@
+/* eslint-disable indent */
+/* eslint-disable semi */
 import React, { useState } from 'react'
 import { OverlayTrigger, Tooltip } from 'react-bootstrap'
 import ImageWithBasePath from '../../core/img/imagewithbasebath';

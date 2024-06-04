@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 export const taxreportdata = [
     {
         "id": 1,
@@ -54,7 +55,7 @@ export const taxreportdata = [
         "Discount": "20",
         "TaxAmount": "$290"
     }
-]
+];
 
 export const purchasetaxreport = [
 	{
@@ -107,4 +108,4 @@ export const purchasetaxreport = [
 		"Discount": "20",
 		"TaxAmount": "$382"
 	}
-]
+];

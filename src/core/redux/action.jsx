@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 export const product_list = () => ({ type: "Product_list" });
 export const set_product_list = (payload) => ({
   type: "Product_list",

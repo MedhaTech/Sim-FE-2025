@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 export const subcateorydata = [
 	{
 		"id":1,
@@ -169,4 +170,4 @@ export const subcateorydata = [
 		"createdby": "Admin",
 		
 	}
-]
+];

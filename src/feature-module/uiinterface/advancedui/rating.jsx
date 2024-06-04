@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useState } from "react";
 import ReactStarsRating from "react-awesome-stars-rating";
 import { RotateCcw } from "react-feather";

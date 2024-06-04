@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React from "react";
 import ImageWithBasePath from "../../core/img/imagewithbasebath";
 import { all_routes } from "../../Router/all_routes";

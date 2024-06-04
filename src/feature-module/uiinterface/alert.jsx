@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { X } from "feather-icons-react/build/IconComponents";
 import React from "react";
 import ImageWithBasePath from "../../core/img/imagewithbasebath";

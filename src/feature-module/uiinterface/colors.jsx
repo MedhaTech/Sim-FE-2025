@@ -1,3 +1,5 @@
+/* eslint-disable indent */
+/* eslint-disable semi */
 import { Smile } from 'feather-icons-react/build/IconComponents'
 import React from 'react'
 

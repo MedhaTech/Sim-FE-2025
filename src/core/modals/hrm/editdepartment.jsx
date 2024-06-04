@@ -1,3 +1,5 @@
+/* eslint-disable semi */
+/* eslint-disable indent */
 import React from 'react'
 import Select from 'react-select';
 import TextEditor from '../../../feature-module/inventory/texteditor';
@@ -96,7 +98,7 @@ const EditDepartment = () => {
             </div>
             {/* /Edit Department */}
         </div>
-    )
-}
+    );
+};
 
-export default EditDepartment
+export default EditDepartment;

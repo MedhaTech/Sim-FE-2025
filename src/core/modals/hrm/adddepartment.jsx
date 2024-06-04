@@ -1,3 +1,4 @@
+/* eslint-disable semi */
 import React from 'react'
 import { Link } from 'react-router-dom/dist'
 import TextEditor from '../../../feature-module/inventory/texteditor'

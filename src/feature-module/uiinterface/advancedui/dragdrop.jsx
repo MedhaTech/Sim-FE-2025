@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useEffect, useRef } from "react";
 import dragula from "dragula";
 import ImageWithBasePath from "../../../core/img/imagewithbasebath";

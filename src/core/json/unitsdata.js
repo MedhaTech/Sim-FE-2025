@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 export const unitsdata = [
 	{
 		"id":1,
@@ -53,4 +54,4 @@ export const unitsdata = [
 		"status": "Active",
 		
 	}
-]
+];

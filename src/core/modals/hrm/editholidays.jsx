@@ -1,3 +1,5 @@
+/* eslint-disable semi */
+/* eslint-disable indent */
 import { DatePicker } from 'antd'
 import React, { useState } from 'react'
 
@@ -112,7 +114,7 @@ const EditHolidays = () => {
             </div>
             {/* /Edit Department */}
         </div>
-    )
-}
+    );
+};
 
-export default EditHolidays
+export default EditHolidays;

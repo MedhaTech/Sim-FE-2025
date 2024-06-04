@@ -1,3 +1,5 @@
+/* eslint-disable semi */
+/* eslint-disable indent */
 import React from 'react'
 import { Link } from 'react-router-dom'
 import TextEditor from '../../../feature-module/inventory/texteditor'

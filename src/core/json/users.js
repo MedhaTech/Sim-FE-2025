@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 export const userlisadata = [
 	{
 		"id":1,
@@ -117,4 +118,4 @@ export const userlisadata = [
 		"status": "Active",
 		
 	}
-]
+];

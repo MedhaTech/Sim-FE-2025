@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { configureStore } from '@reduxjs/toolkit';
 import rootReducer from './reducer';
 
