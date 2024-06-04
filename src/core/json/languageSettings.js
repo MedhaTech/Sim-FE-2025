@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 export const languageSettingsData = [
     {
         id: '1',
@@ -43,4 +44,4 @@ export const languageSettingsData = [
         status: 'Active',
         flag: 'assets/img/icons/flag-04.svg',
       },
-]
+];

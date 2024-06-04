@@ -1,3 +1,5 @@
+/* eslint-disable semi */
+/* eslint-disable indent */
 import { Box, ChevronUp, EyeOff, Mail, Phone, RotateCcw, Shield, Slash, Tool, Trash2 } from 'feather-icons-react/build/IconComponents'
 import React from 'react'
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';

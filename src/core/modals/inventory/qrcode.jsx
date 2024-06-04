@@ -1,3 +1,4 @@
+/* eslint-disable semi */
 import React from 'react'
 import ImageWithBasePath from '../../img/imagewithbasebath'
 import { Link } from 'react-router-dom'
@@ -65,8 +66,8 @@ const QRcodeModelPopup = () => {
             </>
 
         </div>
-    )
-}
+    );
+};
 
-export default QRcodeModelPopup
+export default QRcodeModelPopup ;
 

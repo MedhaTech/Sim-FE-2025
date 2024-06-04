@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useState } from "react";
 import TextEditor from "../../../feature-module/inventory/texteditor";
 import { DatePicker } from "antd";

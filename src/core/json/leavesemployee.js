@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 export const leavesEmployee = [
     {
         "empId": "POS001",
@@ -59,4 +60,4 @@ export const leavesEmployee = [
         "approval": "Approved",
         "action": ""
       }
-]
+];

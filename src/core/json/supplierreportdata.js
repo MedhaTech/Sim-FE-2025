@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 export const supplierreportdata = [
   {
     id: "1",

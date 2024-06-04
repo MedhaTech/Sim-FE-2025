@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 export const salersretrunsdata = [
 	{
 		"id":1,
@@ -90,4 +91,4 @@ export const salersretrunsdata = [
 		"paymentstatus":"Partial",
 		
 	}
-]
+];

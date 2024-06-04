@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useState } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import { Sliders } from "react-feather";

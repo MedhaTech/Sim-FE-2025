@@ -1,3 +1,5 @@
+/* eslint-disable semi */
+/* eslint-disable indent */
 import React from 'react'
 import ImageWithBasePath from '../../img/imagewithbasebath'
 import { Link } from 'react-router-dom'

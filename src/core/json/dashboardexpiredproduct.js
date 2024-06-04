@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 export const expiredproductdata = [
   {
     id: 1,

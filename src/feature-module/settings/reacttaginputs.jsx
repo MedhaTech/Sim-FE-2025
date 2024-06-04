@@ -1,3 +1,5 @@
+/* eslint-disable semi */
+/* eslint-disable indent */
 /* eslint-disable no-unused-vars */
 import React from  'react';
 import { useState } from 'react';

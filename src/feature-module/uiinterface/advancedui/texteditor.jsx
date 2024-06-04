@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React from "react";
 import DefaultEditor from "react-simple-wysiwyg";
 

@@ -1,3 +1,5 @@
+/* eslint-disable semi */
+/* eslint-disable indent */
 export const filemanager = [
     {
         

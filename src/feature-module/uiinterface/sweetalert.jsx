@@ -1,3 +1,5 @@
+/* eslint-disable semi */
+/* eslint-disable indent */
 /* eslint-disable no-unused-vars */
 import { RotateCcw } from 'feather-icons-react/build/IconComponents';
 import React, { useState } from 'react'

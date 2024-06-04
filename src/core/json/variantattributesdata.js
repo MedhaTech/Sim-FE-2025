@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 export const variantattributesdata = [
 	{
 		"id":1,
@@ -39,4 +40,4 @@ export const variantattributesdata = [
 		"status": "Active",
 		
 	}
-]
+];

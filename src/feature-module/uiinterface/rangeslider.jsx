@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useState } from "react";
 
 import Slider from "rc-slider";

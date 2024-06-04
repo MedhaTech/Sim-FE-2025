@@ -1,3 +1,5 @@
+/* eslint-disable indent */
+/* eslint-disable semi */
 import { PlusCircle } from 'feather-icons-react/build/IconComponents'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'

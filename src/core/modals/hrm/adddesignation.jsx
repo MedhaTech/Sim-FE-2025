@@ -1,3 +1,4 @@
+/* eslint-disable semi */
 import React from 'react'
 import { Link } from 'react-router-dom'
 
@@ -71,4 +72,4 @@ const AddDesignation = () => {
     )
 }
 
-export default AddDesignation
+export default AddDesignation ;

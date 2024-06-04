@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 export const salestransaction = [
 	{
 		id: 1,
@@ -34,4 +35,4 @@ export const salestransaction = [
 		"status": "Success",
 		"amount": "$1,478.00"
 	}
-]
+];

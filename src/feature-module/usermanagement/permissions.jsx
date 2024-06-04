@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import ImageWithBasePath from '../../core/img/imagewithbasebath'
+/* eslint-disable indent */
+import React, { useState } from 'react';
+import ImageWithBasePath from '../../core/img/imagewithbasebath';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { ChevronUp, Filter, Sliders, Zap } from 'react-feather';
@@ -58,7 +59,7 @@ const Permissions = () => {
         <Tooltip id="refresh-tooltip" {...props}>
             Collapse
         </Tooltip>
-    )
+    );
     return (
         <div>
             <div className="page-wrapper">
@@ -108,7 +109,7 @@ const Permissions = () => {
                                         data-bs-placement="top"
                                         id="collapse-header"
                                         className={data ? "active" : ""}
-                                        onClick={() => { dispatch(setToogleHeader(!data)) }}
+                                        onClick={() => { dispatch(setToogleHeader(!data)); }}
                                     >
                                         <ChevronUp />
                                     </Link>
@@ -421,7 +422,7 @@ const Permissions = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Permissions
+export default Permissions;

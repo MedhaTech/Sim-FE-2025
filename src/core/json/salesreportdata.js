@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 export const salesreportdata = [
 	{
 		"id": 1,
@@ -109,4 +110,4 @@ export const salesreportdata = [
 		"soldAmount": "$230",
 		"instockQty": "340"
 	}
-]
+];

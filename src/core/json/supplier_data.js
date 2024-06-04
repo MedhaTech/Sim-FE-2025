@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 export const SupplierData =[
     {
       id: "1",
@@ -116,5 +117,5 @@ export const SupplierData =[
       country: "Albania",
       image: "assets/img/supplier/supplier-03.png"
     }
-  ]
+  ];
   

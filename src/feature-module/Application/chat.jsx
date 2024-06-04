@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useState, useEffect } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import "boxicons/css/boxicons.css";
@@ -32,10 +33,8 @@ const Chat = () => {
     };
   }, []);
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [isShow, SetShow] = useState(false);
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [isVisible, setIsVisible] = useState(false);
 
   const route = all_routes;

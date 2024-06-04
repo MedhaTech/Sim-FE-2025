@@ -1,3 +1,4 @@
+/* eslint-disable semi */
 import React from 'react'
 import { Link } from 'react-router-dom'
 
@@ -74,7 +75,7 @@ const EditLeaveType = () => {
             </div>
             {/* /Edit Warehouse */}
         </div>
-    )
-}
+    );
+};
 
-export default EditLeaveType
+export default EditLeaveType;

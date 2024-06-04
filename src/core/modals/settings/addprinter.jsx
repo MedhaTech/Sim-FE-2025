@@ -1,3 +1,5 @@
+/* eslint-disable indent */
+/* eslint-disable semi */
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Select from 'react-select'

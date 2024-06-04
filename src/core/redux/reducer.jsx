@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import initialState from "./initial.value";
 
 const rootReducer = (state = initialState, action) => {

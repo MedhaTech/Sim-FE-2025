@@ -1,3 +1,5 @@
+/* eslint-disable semi */
+/* eslint-disable indent */
 import { ChevronUp, PlusCircle, RotateCcw, User } from 'feather-icons-react/build/IconComponents'
 import React from 'react'
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
