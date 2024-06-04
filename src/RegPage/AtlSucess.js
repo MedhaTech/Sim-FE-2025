@@ -11,7 +11,7 @@ const AtlSucess = () => {
   const orgDaTa = JSON.parse(localStorage.getItem("orgData"));
   const user = mentorDaTa.username;
   const myArray = user.split("@");
-  const word = myArray;
+  const word = myArray[0];
   return (
     <div className="main-wrapper">
       <div className="login-wrapper bg-img">
