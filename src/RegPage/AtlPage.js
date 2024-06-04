@@ -60,7 +60,6 @@ const Register = () => {
     setOrgData();
     setError("");
   };
-  localStorage.setItem("mentorData", JSON.stringify(mentorData));
   localStorage.setItem("orgData", JSON.stringify(orgData));
   const handleRegister = (e) => {
     const body = JSON.stringify({
@@ -180,6 +179,7 @@ const Register = () => {
           password: encrypted,
         });
         setMentorData(body);
+        localStorage.setItem("mentorData", body);
         var config = {
           method: "post",
           url: process.env.REACT_APP_API_BASE_URL + "/mentors/register",
@@ -207,7 +207,6 @@ const Register = () => {
       }
     },
   });
-  // console.log(mentorData, "mentorData");
   useEffect(() => {
     if (Object.keys(mentorData).length > 0) {
       navigate("/atl-success");
