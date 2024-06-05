@@ -26,7 +26,7 @@ const HeaderLayout = () => {
   return (
     <div className={`main-wrapper ${data ? "header-collapse" : ""}`}>
       <Header />
-      <HorizontalSidebar />
+      <Sidebar />
       <Outlet />
       <ThemeSettings />
     </div>

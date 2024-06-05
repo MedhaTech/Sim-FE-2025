@@ -288,7 +288,7 @@ const Header = () => {
           {/* /Search */}
 
           {/* Select Store */}
-          <li className="nav-item dropdown has-arrow main-drop select-store-dropdown">
+          {/* <li className="nav-item dropdown has-arrow main-drop select-store-dropdown">
             <Link
               to="#"
               className="dropdown-toggle nav-link select-store"
@@ -341,27 +341,27 @@ const Header = () => {
                 Grocery Eden
               </Link>
             </div>
-          </li>
+          </li> */}
           {/* /Select Store */}
 
           {/* Flag */}
-          <li className="nav-item dropdown has-arrow flag-nav nav-item-box">
+          {/* <li className="nav-item dropdown has-arrow flag-nav nav-item-box">
             <Link
               className="nav-link dropdown-toggle"
               data-bs-toggle="dropdown"
               to="#"
               role="button"
-            >
-              {/* <i data-feather="globe" /> */}
-              {/* <FeatherIcon icon="globe" /> */}
-              <ImageWithBasePath
-                src="assets/img/flags/us.png"
-                alt="img"
-                height={16}
-              />
-            </Link>
-            <div className="dropdown-menu dropdown-menu-right">
-              <Link to="#" className="dropdown-item active">
+            > */}
+          {/* <i data-feather="globe" /> */}
+          {/* <FeatherIcon icon="globe" /> */}
+          {/* <ImageWithBasePath
+            src="assets/img/flags/us.png"
+            alt="img"
+            height={16}
+          /> */}
+          {/* </Link> */}
+          {/* <div className="dropdown-menu dropdown-menu-right"> */}
+          {/* <Link to="#" className="dropdown-item active">
                 <ImageWithBasePath
                   src="assets/img/flags/us.png"
                   alt="img"
@@ -392,9 +392,9 @@ const Header = () => {
                   height={16}
                 />{" "}
                 German
-              </Link>
-            </div>
-          </li>
+              </Link> */}
+          {/* </div> */}
+          {/* </li> */}
           {/* /Flag */}
           <li className="nav-item nav-item-box">
             <Link
@@ -407,25 +407,25 @@ const Header = () => {
               <FeatherIcon icon="maximize" />
             </Link>
           </li>
-          <li className="nav-item nav-item-box">
-            <Link to="/email">
-              {/* <i data-feather="mail" /> */}
-              <FeatherIcon icon="mail" />
+          {/* <li className="nav-item nav-item-box">
+            <Link to="/email"> */}
+          {/* <i data-feather="mail" /> */}
+          {/* <FeatherIcon icon="mail" />
               <span className="badge rounded-pill">1</span>
             </Link>
-          </li>
+          </li> */}
           {/* Notifications */}
-          <li className="nav-item dropdown nav-item-box">
+          {/* <li className="nav-item dropdown nav-item-box">
             <Link
               to="#"
               className="dropdown-toggle nav-link"
               data-bs-toggle="dropdown"
-            >
-              {/* <i data-feather="bell" /> */}
+            > */}
+          {/* <i data-feather="bell" />
               <FeatherIcon icon="bell" />
               <span className="badge rounded-pill">2</span>
-            </Link>
-            <div className="dropdown-menu notifications">
+            </Link> */}
+          {/* <div className="dropdown-menu notifications">
               <div className="topnav-dropdown-header">
                 <span className="notification-title">Notifications</span>
                 <Link to="#" className="clear-noti">
@@ -573,15 +573,15 @@ const Header = () => {
               <div className="topnav-dropdown-footer">
                 <Link to="/activities">View all Notifications</Link>
               </div>
-            </div>
-          </li>
+            </div> */}
+          {/* </li> */}
           {/* /Notifications */}
-          <li className="nav-item nav-item-box">
-            <Link to="/general-settings">
-              {/* <i data-feather="settings" /> */}
-              <FeatherIcon icon="settings" />
-            </Link>
-          </li>
+          {/* <li className="nav-item nav-item-box"> */}
+          {/* <Link to="/general-settings"> */}
+          {/* <i data-feather="settings" /> */}
+          {/* <FeatherIcon icon="settings" /> */}
+          {/* </Link> */}
+          {/* </li> */}
           <li className="nav-item dropdown has-arrow main-drop">
             <Link
               to="#"
@@ -630,10 +630,10 @@ const Header = () => {
                 >
                   <User className="me-2" /> My Profile
                 </Link>
-                <Link className="dropdown-item" to={route.generalsettings}>
+                {/* <Link className="dropdown-item" to={route.generalsettings}>
                   <Settings className="me-2" />
                   Settings
-                </Link>
+                </Link> */}
                 <hr className="m-0" />
                 <Link
                   className="dropdown-item logout pb-0"
@@ -669,9 +669,9 @@ const Header = () => {
             >
               My Profile
             </Link>
-            <Link className="dropdown-item" to="generalsettings">
+            {/* <Link className="dropdown-item" to="generalsettings">
               Settings
-            </Link>
+            </Link> */}
             <Link className="dropdown-item" to="signin">
               Logout
             </Link>
