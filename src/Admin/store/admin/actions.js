@@ -6,7 +6,6 @@ import {
   ADMIN_LOGIN_USER,
   ADMIN_LOGIN_USER_SUCCESS,
   ADMIN_LOGIN_USER_ERROR,
- 
 } from "../../../redux/actions.js";
 import { URL, KEY } from "../../../constants/defaultValues.js";
 
@@ -61,7 +60,7 @@ export const adminLoginUser = (data, navigate, module) => async (dispatch) => {
       localStorage.setItem("time", new Date().toString());
       dispatch(adminLoginUserSuccess(result));
 
-      navigate("/admin/dashboard");
+      navigate("/admin-dashboard");
     } else {
       // openNotificationWithIcon("error", "Invalid Username or Password");
       dispatch(adminLoginUserError(result.statusText));
@@ -95,4 +94,3 @@ export const userLogout = () => async (dispatch) => {
     type: "USER_LOGOUT",
   });
 };
-

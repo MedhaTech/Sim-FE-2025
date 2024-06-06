@@ -20,7 +20,7 @@ import HorizontalSidebar from "../src/InitialPage/Sidebar/horizontalSidebar";
 import AdminProfile from "./Admin/AdminProfile";
 import AtlSucess from "./RegPage/AtlSucess";
 import NonAtlSuccess from "./RegPage/NonAtlSuccess";
-
+import { all_routes } from "./Router/all_routes";
 const HeaderLayout = () => {
   const data = useSelector((state) => state.toggle_header);
   return (
@@ -67,18 +67,17 @@ const Routers = () => {
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/teacher" element={<LogInTeacher />} />
 
-        <Route
+        {/* <Route
           path="/admin/dashboard"
           element={
             <>
-              <ProtectedRoute user="ADMIN">
-                <HeaderLayout>
-                  <Dashboard />
-                </HeaderLayout>
+              <ProtectedRoute user="ADMIN" element={<HeaderLayout />}>
+                <Dashboard />
               </ProtectedRoute>
             </>
           }
-        />
+        /> */}
+        
         <Route
           path="/admin/profile"
           element={
@@ -87,21 +86,9 @@ const Routers = () => {
             </ProtectedRoute>
           }
         />
-        {/* <Route
-          path="/admin/profile"
-          element={
-            <> */}
-        {/* <ProtectedRoute user="ADMIN">
-                <HeaderLayout>
-                  <AdminProfile />
-                </HeaderLayout>
-              </ProtectedRoute> */}
-        {/* </>
-          }
-        /> */}
+       
       </Route>
     </Routes>
-    // </Router>
   );
 };
 

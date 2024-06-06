@@ -2,7 +2,7 @@
 import React from "react";
 import { Route, Navigate } from "react-router-dom";
 import ProductList from "../feature-module/inventory/productlist";
-import Dashboard from "../feature-module/dashboard/Dashboard";
+import Dashboard from "../Admin/Dashboard/index";
 import AddProduct from "../feature-module/inventory/addproduct";
 import SalesDashbaord from "../feature-module/dashboard/salesdashbaord";
 import BrandList from "../feature-module/inventory/brandlist";
@@ -153,7 +153,7 @@ import SalesReturn from "../feature-module/sales/salesreturn";
 import QuotationList from "../feature-module/sales/quotationlist";
 import Notes from "../feature-module/Application/notes";
 import FileManager from "../feature-module/Application/filemanager";
-import Profile from "../feature-module/pages/profile";
+import Profile from "../Admin/AdminProfile";
 import Signin from "../feature-module/pages/login/signin";
 import SigninTwo from "../feature-module/pages/login/signinTwo";
 import SigninThree from "../feature-module/pages/login/signinThree";
@@ -203,6 +203,7 @@ export const publicRoutes = [
     path: routes.dashboard,
     name: "home",
     element: <Dashboard />,
+    protected: true,
     route: Route,
   },
   {
@@ -1282,6 +1283,7 @@ export const publicRoutes = [
     path: routes.profile,
     name: "profile",
     element: <Profile />,
+    protected: true,
     route: Route,
   },
   {
@@ -1391,8 +1393,8 @@ export const publicRoutes = [
   },
   {
     id: 117,
-    path: '/',
-    name: 'Root',
+    path: "/",
+    name: "Root",
     element: <Navigate to="/signin" />,
     route: Route,
   },
