@@ -114,10 +114,10 @@ const Profile = () => {
                 </div>
               </div>
               <div className="col-12">
-                <Link to={"/admin/dashboard"} className="btn btn-submit me-2">
+                <Link to={"/admin-dashboard"} className="btn btn-submit me-2">
                   Submit
                 </Link>
-                <Link className="btn btn-cancel" to={"/admin/dashboard"}>
+                <Link className="btn btn-cancel" to={"/admin-dashboard"}>
                   Cancel
                 </Link>
               </div>

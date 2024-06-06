@@ -625,7 +625,7 @@ const Header = () => {
                 <Link
                   className="dropdown-item"
                   // onClick={handleProfile}
-                  to={"/admin/profile"}
+                  to={"/profile"}
                   // onClick={() => navigate("/admin/profile")}
                 >
                   <User className="me-2" /> My Profile
