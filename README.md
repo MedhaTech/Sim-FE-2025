@@ -3,7 +3,7 @@
 # Project Title
 UNISOLVE Front End
 
-One Paragraph of the project description
+On Paragraph of the project description
 
 # Getting Started with Create React App
 # Cloning and Running the Application in local
