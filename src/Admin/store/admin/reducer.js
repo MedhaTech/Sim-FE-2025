@@ -3,6 +3,8 @@ import {
   ADMIN_LOGIN_USER,
   ADMIN_LOGIN_USER_SUCCESS,
   ADMIN_LOGIN_USER_ERROR,
+  toggle_header,
+  Layoutstyle_data,
 } from "../../../redux/actions.js";
 
 const INIT_STATE = {
@@ -10,6 +12,8 @@ const INIT_STATE = {
   loading: false,
   error: "",
   adminData: [],
+  toggle_header: false,
+  layoutstyledata: localStorage.getItem("layoutStyling"),
 };
 
 export default (state = INIT_STATE, action) => {
@@ -33,7 +37,10 @@ export default (state = INIT_STATE, action) => {
         adminData: [],
         error: action.payload.message,
       };
-
+    case toggle_header:
+      return { ...state, toggle_header: action.payload };
+    case Layoutstyle_data:
+      return { ...state, layoutstyledata: action.payload };
     default:
       return newState;
   }

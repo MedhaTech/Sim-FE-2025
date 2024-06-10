@@ -6,6 +6,8 @@ import {
   ADMIN_LOGIN_USER,
   ADMIN_LOGIN_USER_SUCCESS,
   ADMIN_LOGIN_USER_ERROR,
+  toggle_header,
+  Layoutstyle_data,
 } from "../../../redux/actions.js";
 import { URL, KEY } from "../../../constants/defaultValues.js";
 
@@ -37,7 +39,15 @@ export const adminLoginUserError = (message) => async (dispatch) => {
     payload: { message },
   });
 };
-
+// export const toogleHeader_data = () => ({ type: toggle_header });
+export const toogleHeader_data = (payload) => ({
+  type: toggle_header,
+  payload,
+});
+export const setLayoutChange = (payload) => ({
+  type: Layoutstyle_data,
+  payload,
+});
 export const adminLoginUser = (data, navigate, module) => async (dispatch) => {
   try {
     const loginData = {
