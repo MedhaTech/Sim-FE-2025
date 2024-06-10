@@ -17,9 +17,9 @@ import NonAtlPage from "../RegPage/NonAtlPage";
 import AtlSucess from "../RegPage/AtlSucess";
 import NonAtlSuccess from "../RegPage/NonAtlSuccess";
 import { ProtectedRoute } from "../helpers/authHelper";
-
 const AllRoutes = () => {
-  const data = useSelector((state) => state.toggle_header);
+  const data = useSelector((state) => state?.admin?.toggle_header);
+  // console.log(data, "data");
   const HeaderLayout = () => (
     <div className={`main-wrapper ${data ? "header-collapse" : ""}`}>
       {/* <Loader /> */}

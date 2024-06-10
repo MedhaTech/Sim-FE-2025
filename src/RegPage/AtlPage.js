@@ -14,6 +14,8 @@ import { decryptGlobal } from "../constants/encryptDecrypt";
 import OtpInput from "react-otp-input-rc-17";
 import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/img/logo.png";
+
 const Register = () => {
   const navigate = useNavigate();
   const [otpSent, setOtpSent] = useState(false);
@@ -334,11 +336,12 @@ const Register = () => {
             <form action="signin" onSubmit={formik.handleSubmit}>
               <div className="login-userset">
                 <div className="login-logo logo-normal">
-                  <ImageWithBasePath src="assets/img/logo.png" alt="img" />
+                  {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
+                  <img src={logo} alt="Logo" />
                 </div>
-                <Link className="login-logo logo-white">
+                {/* <Link className="login-logo logo-white">
                   <ImageWithBasePath src="assets/img/logo-white.png" alt />
-                </Link>
+                </Link> */}
                 {person && (
                   <div className="login-userheading">
                     <h3> ATL School Registration</h3>

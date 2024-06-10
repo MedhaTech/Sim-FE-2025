@@ -20,6 +20,7 @@ import {
 } from "../redux/studentRegistration/actions";
 import { decryptGlobal, encryptGlobal } from "../constants/encryptDecrypt";
 import OtpInput from "react-otp-input-rc-17";
+import logo from "../assets/img/logo.png";
 
 const NonAtlPage = () => {
   const navigate = useNavigate();
@@ -51,6 +52,7 @@ const NonAtlPage = () => {
   const [errorMsg, setErrorMsg] = useState(false);
   const [mentorData, setMentorData] = useState({});
   const [wtsNum, setWtsNum] = useState("");
+
   // const fullStatesNames = useSelector(
   //   (state) => state?.studentRegistration?.regstate
   // );
@@ -488,11 +490,12 @@ const NonAtlPage = () => {
             <form action="signin" onSubmit={formik.handleSubmit}>
               <div className="login-userset">
                 <div className="login-logo logo-normal">
-                  <ImageWithBasePath src="assets/img/logo.png" alt="img" />
+                  <img src={logo} alt="Logo" />
+                  {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
                 </div>
-                <Link className="login-logo logo-white">
+                {/* <Link className="login-logo logo-white">
                   <ImageWithBasePath src="assets/img/logo-white.png" alt />
-                </Link>
+                </Link> */}
                 <div className="login-userheading text-center">
                   <h3> Non ATL School Registration</h3>
                   <h4>Create New Dreamspos Account</h4>
@@ -652,8 +655,8 @@ const NonAtlPage = () => {
                           School Name : {""}
                           {orgData?.organization_name}
                           <br />
-                          City Name : {""}
-                          {orgData?.city ? orgData?.city : " N/A"} <br />
+                          {/* City Name : {""}
+                          {orgData?.city ? orgData?.city : " N/A"} <br /> */}
                           District Name :{" "}
                           {orgData?.district ? orgData?.district : " N/A"}
                           <br />
@@ -918,16 +921,17 @@ const NonAtlPage = () => {
 
                               <div className="login-content user-login">
                                 <div className="login-logo">
-                                  <ImageWithBasePath
+                                  {/* <ImageWithBasePath
                                     src="assets/img/logo.png"
                                     alt="img"
-                                  />
-                                  <Link className="login-logo logo-white">
+                                  /> */}
+                                  <img src={logo} alt="Logo" />
+                                  {/* <Link className="login-logo logo-white">
                                     <ImageWithBasePath
                                       src="assets/img/logo-white.png"
                                       alt
                                     />
-                                  </Link>
+                                  </Link> */}
                                 </div>
                                 <div className="login-userset">
                                   <div className="login-userheading">

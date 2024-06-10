@@ -2,7 +2,7 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
-import ImageWithBasePath from "../core/img/imagewithbasebath";
+// import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { useFormik } from "formik";
@@ -10,6 +10,8 @@ import * as Yup from "yup";
 import CryptoJS from "crypto-js";
 import { adminLoginUser } from "../redux/actions";
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/img/logo.png";
+import email from "../assets/img/icons/mail.svg";
 
 const AdminLogin = (props) => {
   const navigate = useNavigate();
@@ -79,11 +81,16 @@ const AdminLogin = (props) => {
             <form onSubmit={formik.handleSubmit} action="index">
               <div className="login-userset">
                 <div className="login-logo logo-normal">
-                  <ImageWithBasePath src="assets/img/logo.png" alt="img" />
+                  <img
+                    src={logo}
+                    alt="Logo"
+                    // className="logo-image"
+                  />
+                  {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
                 </div>
-                <Link className="login-logo logo-white">
+                {/* <Link className="login-logo logo-white">
                   <ImageWithBasePath src="assets/img/logo-white.png" alt />
-                </Link>
+                </Link> */}
                 <div className="login-userheading">
                   <h3> Super Admin Login</h3>
                   <h4>
@@ -104,10 +111,11 @@ const AdminLogin = (props) => {
                     {formik.touched.email && formik.errors.email ? (
                       <small className="error-cls">Required</small>
                     ) : null}
-                    <ImageWithBasePath
+                    {/* <ImageWithBasePath
                       src="assets/img/icons/mail.svg"
                       alt="img"
-                    />
+                    /> */}
+                    <img src={email} alt="Email" />
                   </div>
                 </div>
                 <div className="form-login mb-3">
@@ -173,38 +181,6 @@ const AdminLogin = (props) => {
                   >
                     Sign In
                   </button>
-                </div>
-
-                <div className="form-sociallink">
-                  <ul className="d-flex">
-                    <li>
-                      <Link to="#" className="facebook-logo">
-                        <ImageWithBasePath
-                          src="assets/img/icons/facebook-logo.svg"
-                          alt="Facebook"
-                        />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="#">
-                        <ImageWithBasePath
-                          src="assets/img/icons/google.png"
-                          alt="Google"
-                        />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="#" className="apple-logo">
-                        <ImageWithBasePath
-                          src="assets/img/icons/apple-logo.svg"
-                          alt="Apple"
-                        />
-                      </Link>
-                    </li>
-                  </ul>
-                  <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
-                    <p>Copyright © 2023 DreamsPOS. All rights reserved</p>
-                  </div>
                 </div>
               </div>
             </form>
