@@ -23,9 +23,9 @@ const FirstPage = () => {
                   <ImageWithBasePath src="assets/img/logo-white.png" alt />
                 </Link> */}
                 <div className="login-userheading text-center">
-                  <h3> Mentor Registraton</h3>
+                  <h3> School Registration</h3>
                   <h4>
-                    Access the Dreamspos panel using your email and passcode.
+                    Select your school type
                   </h4>
                 </div>
                 <div className="form-login mb-3">
@@ -52,7 +52,7 @@ const FirstPage = () => {
                     You Already Registered ?
                     <Link className="hover-a" to={"/teacher"}>
                       {" "}
-                      Click Here
+                      Login Here
                     </Link>
                   </h4>
                 </div>
