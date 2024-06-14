@@ -79,6 +79,7 @@ const Register = () => {
     axios(config)
       .then(function (response) {
         if (response?.status === 200) {
+          console.log(response,"eivnir");
           if (
             response?.data?.data[0].mentor != null &&
             response?.data?.data[0].mentor != ""
@@ -99,10 +100,36 @@ const Register = () => {
             }
           }
         }
-      })
+        // if (response?.status == 200) {
+        //     if (response?.data.count === 0) {
+        //         setError('Enter Valid Institution Unique Code ');
+        //     }
+        //     if (
+        //         response?.data?.data[0] &&
+        //         process.env.REACT_APP_USEDICECODE == 1
+        //     ) {
+               
+        //         if (Object.keys(response?.data?.data[0]).length) {
+        //             setOrgData(response?.data?.data[0]);
+        //             setInstId(response?.data?.data[0]?.institution_id);
+        //             formik.setFieldValue(
+        //                 'institution_code',
+        //                 response?.data?.data[0].institution_code
+        //             );
+
+        //             setDiceBtn(false);
+        //             setSchoolBtn(true);
+        //         } else {
+        //             setError(
+        //                 'Oops..! Institution Unique Code seems incorrect'
+        //             );
+        //         }
+        //     }
+        // }
+    })
       .catch(function (error) {
         if (error?.response?.data?.status === 404) {
-          setError("Entered Wrong ATL Code");
+          setError("Entered Wrong UDISE Code");
         }
       });
 
@@ -343,14 +370,14 @@ const Register = () => {
                   <ImageWithBasePath src="assets/img/logo-white.png" alt />
                 </Link> */}
                 {person && (
-                  <div className="login-userheading">
+                  <div className="login-userheading text-center">
                     <h3> ATL School Registration</h3>
-                    <h4>Create New Dreamspos Account</h4>
+                    <h4>Create your account</h4>
                   </div>
                 )}
                 {diceBtn && (
                   <div className="form-row row mb-5">
-                    <label>UDISE Code</label>
+                    <label>School UDISE Code</label>
                     <input
                       type="text"
                       className="form-control"
@@ -360,7 +387,7 @@ const Register = () => {
                       maxLength={11}
                       minLength={11}
                       name="organization_code"
-                      placeholder="Please Enter UDISE Code"
+                      placeholder="Please Enter 11 digit UDISE Code"
                     />
 
                     {error ? (
@@ -389,16 +416,22 @@ const Register = () => {
                     <div className="form-row row mb-5 mt-5">
                       <p>
                         {" "}
-                        Already a member ?
+                        How to register as ATL ? 
                         <Link
-                          to={"/teacher"}
-                          exact
-                          className=" m-3 text-center"
-                          style={{
+                          className="hover-a" to={"https://www.youtube.com/watch?v=CiYa_iLdpXo"} style={{
                             color: "blue",
                           }}
                         >
-                          Login Here
+                          {"  "} Watch Me
+                        </Link>
+                        <br/>
+                        Already registered ? 
+                        <Link
+                          className="hover-a" to={"/teacher"} style={{
+                            color: "blue",
+                          }}
+                        >
+                          {"  "} Login Here
                         </Link>
                       </p>
                     </div>

@@ -35,7 +35,7 @@ const NonAtlPage = () => {
   const [district, setdistrict] = React.useState("");
   const [pinCode, setPinCode] = useState("");
   const [schoolname, setSchoolname] = useState("");
-  const [newDistrict, setnewDistrict] = useState("");
+  //const [newDistrict, setnewDistrict] = useState("");
   const [textData, setTextData] = useState("");
   const [fullStatesNames, setFullStatesNames] = useState([]);
   const [fullDistrictsNames, setFullDistrictsNames] = useState([]);
@@ -158,10 +158,28 @@ const NonAtlPage = () => {
     axios(config)
       .then(function (response) {
         if (response?.status == 200) {
+          //console.log(response,"eivnir");
           setError("Another Teacher is already registered in given School");
           setDiceBtn(true);
           setBtn(false);
         }
+        // if(response?.status == 200) {
+        //   console.log(response,"eivnir");
+        //   if (Object.keys(response?.data?.data[0]).length && response?.data?.data[0].category === "Non ATL") {
+        //     setOrgData(response?.data?.data[0]);
+        //       formik.setFieldValue(
+        //         "organization_code",
+        //         response?.data?.data[0].organization_code
+        //       );
+        //       setDiceBtn(false);
+        //       setSchoolBtn(true);
+        //     //setBtn(true);
+        //     //setDiceBtn(false);
+        //     setBtn(false);
+        //     //setSchoolBtn(true);
+        //   }
+        // }
+
       })
       .catch(function (error) {
         if (error?.response?.data?.status === 404) {
@@ -184,13 +202,13 @@ const NonAtlPage = () => {
     inputValue = inputValue.replace(/[^a-zA-Z\s]/g, "").slice(0, 40);
     setSchoolname(inputValue);
   };
-  const handleOnChangeNewDistrict = (e) => {
-    const inputValue = e.target.value;
-    const isValidInput = /^[a-zA-Z\s]+$/.test(inputValue) || inputValue === "";
-    if (isValidInput) {
-      setnewDistrict(e.target.value);
-    }
-  };
+  // const handleOnChangeNewDistrict = (e) => {
+  //   const inputValue = e.target.value;
+  //   const isValidInput = /^[a-zA-Z\s]+$/.test(inputValue) || inputValue === "";
+  //   if (isValidInput) {
+  //     setnewDistrict(e.target.value);
+  //   }
+  // };
   const handleOnChangeAddress = (e) => {
     const inputValues = e.target.value;
     const isValidInputs =
@@ -209,7 +227,7 @@ const NonAtlPage = () => {
       category: "Non ATL",
       organization_code: diesCode,
       organization_name: schoolname,
-      new_district: newDistrict,
+      //new_district: newDistrict,
       address: textData,
     };
     setOrgData(body);
@@ -391,7 +409,7 @@ const NonAtlPage = () => {
       category: "Non ATL",
       organization_code: diesCode,
       organization_name: schoolname,
-      new_district: newDistrict,
+      //new_district: newDistrict,
       address: textData,
     });
 
@@ -498,7 +516,7 @@ const NonAtlPage = () => {
                 </Link> */}
                 <div className="login-userheading text-center">
                   <h3> Non ATL School Registration</h3>
-                  <h4>Create New Dreamspos Account</h4>
+                  <h4>Create your Account</h4>
                 </div>
                 {diceBtn && (
                   <div className="form-row row mb-5">
@@ -512,7 +530,7 @@ const NonAtlPage = () => {
                       maxLength={11}
                       minLength={11}
                       name="organization_code"
-                      placeholder="Please Enter UDISE Code"
+                      placeholder="Please Enter 11 digit UDISE Code"
                     />
 
                     {error ? (
@@ -540,17 +558,23 @@ const NonAtlPage = () => {
                     )}
                     <div className="form-row row mb-5 mt-5">
                       <p>
-                        {" "}
-                        Already a member ?
+                      {" "}
+                        How to register as Non-ATL ? 
                         <Link
-                          to={"/teacher"}
-                          exact
-                          className=" m-3 text-center"
-                          style={{
+                          className="hover-a" to={"https://www.youtube.com/watch?v=q40BSRm_cJM"} style={{
                             color: "blue",
                           }}
                         >
-                          Login Here
+                          {"  "} Watch Me
+                        </Link>
+                        <br/>
+                        Already registered ? 
+                        <Link
+                          className="hover-a" to={"/teacher"} style={{
+                            color: "blue",
+                          }}
+                        >
+                          {"  "} Login Here
                         </Link>
                       </p>
                     </div>
@@ -618,7 +642,7 @@ const NonAtlPage = () => {
                             className="form-control"
                           />
                         </div>
-                        <div className="col-md-6">
+                        {/* <div className="col-md-6">
                           <label className="form-label">
                             {" "}
                             New District Name (if applicable)
@@ -632,7 +656,7 @@ const NonAtlPage = () => {
                             type="text"
                             className="form-control"
                           />
-                        </div>
+                        </div> */}
                         <button
                           type="button"
                           className="btn btn-warning m-2"
