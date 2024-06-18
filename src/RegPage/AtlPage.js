@@ -78,58 +78,58 @@ const Register = () => {
     };
     axios(config)
       .then(function (response) {
-        if (response?.status === 200) {
-          console.log(response,"eivnir");
-          if (
-            response?.data?.data[0].mentor != null &&
-            response?.data?.data[0].mentor != ""
-          ) {
-            setError("Another Teacher is already registered in given School");
-          } else {
-            if (Object.keys(response?.data?.data[0]).length) {
-              setOrgData(response?.data?.data[0]);
-              formik.setFieldValue(
-                "organization_code",
-                response?.data?.data[0].organization_code
-              );
+        // if (response?.status === 200) {
+        //   console.log(response,"eivnir");
+        //   if (
+        //     response?.data?.data[0].mentor != null &&
+        //     response?.data?.data[0].mentor != ""
+        //   ) {
+        //     setError("Another Teacher is already registered in given School");
+        //   } else {
+        //     if (Object.keys(response?.data?.data[0]).length) {
+        //       setOrgData(response?.data?.data[0]);
+        //       formik.setFieldValue(
+        //         "organization_code",
+        //         response?.data?.data[0].organization_code
+        //       );
 
-              setDiceBtn(false);
-              setSchoolBtn(true);
-            } else {
-              setError("Oops..! UDISE Code seems incorrect");
-            }
-          }
-        }
-        // if (response?.status == 200) {
-        //     if (response?.data.count === 0) {
-        //         setError('Enter Valid Institution Unique Code ');
+        //       setDiceBtn(false);
+        //       setSchoolBtn(true);
+        //     } else {
+        //       setError("Oops..! UDISE Code seems incorrect");
         //     }
-        //     if (
-        //         response?.data?.data[0] &&
-        //         process.env.REACT_APP_USEDICECODE == 1
-        //     ) {
-               
-        //         if (Object.keys(response?.data?.data[0]).length) {
-        //             setOrgData(response?.data?.data[0]);
-        //             setInstId(response?.data?.data[0]?.institution_id);
-        //             formik.setFieldValue(
-        //                 'institution_code',
-        //                 response?.data?.data[0].institution_code
-        //             );
-
-        //             setDiceBtn(false);
-        //             setSchoolBtn(true);
-        //         } else {
-        //             setError(
-        //                 'Oops..! Institution Unique Code seems incorrect'
-        //             );
-        //         }
-        //     }
+        //   }
         // }
-    })
+        if (response?.status == 200) {
+            if (response?.data.count === 0) {
+                setError('Enter Valid School UDISE Code ');
+            }
+            if (
+                response?.data?.data[0] &&
+                process.env.REACT_APP_USEDICECODE == 1 
+              ) {
+               
+                if (Object.keys(response?.data?.data[0]).length && 
+                response?.data?.data[0].category === "ATL") {
+                    setOrgData(response?.data?.data[0]);
+                    formik.setFieldValue(
+                        'organization_code',
+                        response?.data?.data[0].organization_code
+                    );
+
+                    setDiceBtn(false);
+                    setSchoolBtn(true);
+                } else {
+                    setError(
+                        'Entered Code belongs to Non-Atl school. Kindly register as Non-ATL'
+                    );
+                }
+              }
+            }
+        })
       .catch(function (error) {
         if (error?.response?.data?.status === 404) {
-          setError("Entered Wrong UDISE Code");
+          setError('Oops..!  UDISE Code seems incorrect');
         }
       });
 
@@ -160,22 +160,22 @@ const Register = () => {
         .trim()
         .min(2, "Enter Name")
         .matches(/^[aA-zZ\s]+$/, "Special Characters are not allowed")
-        .required("Please Enter Full Name"),
+        .required("Please enter FullName"),
       mobile: Yup.string()
-        .required("Please Enter Your Mobile Number")
+        .required("Please enter your Mobile number")
         .trim()
         .matches(/^\d+$/, "Mobile number is not valid (Enter only digits)")
         .max(10, "Please enter only 10 digit valid number")
         .min(10, "Number is less than 10 digits"),
       email: Yup.string().email("Must be a valid email").max(255),
       whatapp_mobile: Yup.string()
-        .required("Please Enter Your  whatsapp Mobile Number")
+        .required("Please Enter Your Whatsapp Number")
         .trim()
         .matches(/^\d+$/, "Mobile number is not valid (Enter only digit)")
         .max(10, "Please enter only 10 digit valid number")
-        .min(10, "Number is less than 10 digit"),
+        .min(10, "Number is less than 10 digits"),
       gender: Yup.string().required("Please select valid gender"),
-      title: Yup.string().required("Please select Title"),
+      title: Yup.string().required("Please select your title"),
     }),
 
     onSubmit: async (values) => {
@@ -427,7 +427,7 @@ const Register = () => {
                         <br/>
                         Already registered ? 
                         <Link
-                          className="hover-a" to={"/teacher"} style={{
+                          className="hover-a" to={"/login"} style={{
                             color: "blue",
                           }}
                         >

@@ -50,7 +50,7 @@ const FirstPage = () => {
                 <div className="signinform">
                   <h4>
                     You Already Registered ?
-                    <Link className="hover-a" to={"/teacher"}>
+                    <Link className="hover-a" to={"/login"}>
                       {" "}
                       Login Here
                     </Link>

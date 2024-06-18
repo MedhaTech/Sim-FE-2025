@@ -157,12 +157,12 @@ const NonAtlPage = () => {
     };
     axios(config)
       .then(function (response) {
-        if (response?.status == 200) {
-          //console.log(response,"eivnir");
-          setError("Another Teacher is already registered in given School");
-          setDiceBtn(true);
-          setBtn(false);
-        }
+        // if (response?.status == 200) {
+        //   //console.log(response,"eivnir");
+        //   setError("Another Teacher is already registered in given School");
+        //   setDiceBtn(true);
+        //   setBtn(false);
+        // }
         // if(response?.status == 200) {
         //   console.log(response,"eivnir");
         //   if (Object.keys(response?.data?.data[0]).length && response?.data?.data[0].category === "Non ATL") {
@@ -179,6 +179,35 @@ const NonAtlPage = () => {
         //     //setSchoolBtn(true);
         //   }
         // }
+        if (response?.status == 200) {
+          console.log(response,"eivnir");
+          if (
+              response?.data?.data[0] &&
+              process.env.REACT_APP_USEDICECODE == 1 
+            ) {
+              if (Object.keys(response?.data?.data[0]).length && 
+              response?.data?.data[0].category === "Non ATL") {
+                  setOrgData(response?.data?.data[0]);
+                  formik.setFieldValue(
+                      'organization_code',
+                      response?.data?.data[0].organization_code
+                  );
+                  setTextData(response?.data?.data[0].address);
+                  setPinCode(response?.data?.data[0].pin_code);
+                  setSchoolname(response?.data?.data[0].organization_name);
+                  setDiesCode(response?.data?.data[0].organization_code);
+                  setStateData(response?.data?.data[0].state) ;
+                  setdistrict(response?.data?.data[0].district);
+
+                  setDiceBtn(false);
+                  setSchoolBtn(true);
+                } else {
+                  setError(
+                      'Entered Code belongs to Atl school. Kindly register as ATL'
+                  );
+              }
+            }
+          }
 
       })
       .catch(function (error) {
@@ -570,7 +599,7 @@ const NonAtlPage = () => {
                         <br/>
                         Already registered ? 
                         <Link
-                          className="hover-a" to={"/teacher"} style={{
+                          className="hover-a" to={"/login"} style={{
                             color: "blue",
                           }}
                         >

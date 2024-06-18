@@ -10,6 +10,7 @@ import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ThemeSettings from "../InitialPage/themeSettings";
 import FirstPage from "../RegPage/FirstPage";
+import LoginPage from "../RegPage/LoginPage";
 import LogInTeacher from "../Teacher/LogInTeacher";
 import AtlPage from "../RegPage/AtlPage";
 import AdminLogin from "../Admin/AdminLogin";
@@ -58,6 +59,7 @@ const AllRoutes = () => {
         <Route path="/" element={<Navigate to="/teacher" />} />
         <Route path="/">
           <Route path="/registration" element={<FirstPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/atl-register" element={<AtlPage />} />
           <Route path="/atl-success" element={<AtlSucess />} />
           <Route path="/non-atl-success" element={<NonAtlSuccess />} />
