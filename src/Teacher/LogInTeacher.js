@@ -73,9 +73,9 @@ const LogInTeacher = (props) => {
                   <ImageWithBasePath src="assets/img/logo-white.png" alt />
                 </Link>
                 <div className="login-userheading">
-                  <h3> Mentor Login</h3>
+                  <h3> Teacher Login</h3>
                   <h4>
-                    Access the Dreamspos panel using your email and passcode.
+                    Access the teacher panel using your registered email and password.
                   </h4>
                 </div>
                 <div className="form-login mb-3">
