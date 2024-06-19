@@ -4,8 +4,15 @@
 import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import Header from "../InitialPage/Sidebar/Header";
+import MentorHeader from "../InitialPage/Sidebar/TeacherHeader";
+
 import Sidebar from "../InitialPage/Sidebar/Sidebar";
-import { pagesRoute, posRoutes, publicRoutes } from "./router.link";
+import {
+  pagesRoute,
+  posRoutes,
+  publicRoutes,
+  mentorRoutes,
+} from "./router.link";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ThemeSettings from "../InitialPage/themeSettings";
@@ -19,11 +26,19 @@ import NonAtlSuccess from "../RegPage/NonAtlSuccess";
 import { ProtectedRoute } from "../helpers/authHelper";
 const AllRoutes = () => {
   const data = useSelector((state) => state?.admin?.toggle_header);
-  // console.log(data, "data");
   const HeaderLayout = () => (
     <div className={`main-wrapper ${data ? "header-collapse" : ""}`}>
       {/* <Loader /> */}
       <Header />
+      <Sidebar />
+      <Outlet />
+      <ThemeSettings />
+    </div>
+  );
+  const MentorHeaderLayout = () => (
+    <div className={`main-wrapper ${data ? "header-collapse" : ""}`}>
+      {/* <Loader /> */}
+      <MentorHeader />
       <Sidebar />
       <Outlet />
       <ThemeSettings />
@@ -66,64 +81,36 @@ const AllRoutes = () => {
 
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/teacher" element={<LogInTeacher />} />
-
-          {/* <Route
-          path="/admin/dashboard"
-          element={
-            <>
-              <ProtectedRoute user="ADMIN" element={<HeaderLayout />}>
-                <Dashboard />
-              </ProtectedRoute>
-            </>
-          }
-        /> */}
-
-          {/* <Route
-            path="/admin/profile"
-            element={
-              <ProtectedRoute user="ADMIN" element={<Authpages />}>
-                <AdminProfile />
-              </ProtectedRoute>
-            }
-          /> */}
         </Route>
-        <Route path={"/"} element={<HeaderLayout />}>
-          {/* {publicRoutes.map((route, id) => (
-            <>
-              <ProtectedRoute
-                user="ADMIN"
-                path={route.path}
-                element={route.element}
-                key={id}
-              />
-            </>
-          ))} */}
-          {/* {publicRoutes.map((route, id) => (
+        <Route path="/" element={<HeaderLayout />}>
+          {publicRoutes.map((route, id) => (
             <Route
               key={id}
               path={route.path}
               element={
-                <ProtectedRoute user="ADMIN">{route.element}</ProtectedRoute>
+                route.protected ? (
+                  <ProtectedRoute user="ADMIN">{route.element}</ProtectedRoute>
+                ) : (
+                  route.element
+                )
               }
             />
-          ))} */}
-          <Route path="/" element={<HeaderLayout />}>
-            {publicRoutes.map((route, id) => (
-              <Route
-                key={id}
-                path={route.path}
-                element={
-                  route.protected ? (
-                    <ProtectedRoute user="ADMIN">
-                      {route.element}
-                    </ProtectedRoute>
-                  ) : (
-                    route.element
-                  )
-                }
-              />
-            ))}
-          </Route>
+          ))}
+        </Route>
+        <Route path="/" element={<MentorHeaderLayout />}>
+          {mentorRoutes.map((route, id) => (
+            <Route
+              key={id}
+              path={route.path}
+              element={
+                route.protected ? (
+                  <ProtectedRoute user="MENTOR">{route.element}</ProtectedRoute>
+                ) : (
+                  route.element
+                )
+              }
+            />
+          ))}
         </Route>
 
         <Route path={"/"} element={<Authpages />}>

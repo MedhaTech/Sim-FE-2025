@@ -1,6 +1,7 @@
 /* eslint-disable indent */
 export const all_routes = {
   dashboard: "/admin-dashboard",
+  mentordashboard: "/teacher-dashboard",
   productlist: "/product-list",
   addproduct: "/add-product",
   salesdashboard: "/sales-dashboard",
@@ -155,6 +156,9 @@ export const all_routes = {
   notes: "/notes",
   filemanager: "/file-manager",
   profile: "/profile",
+  mentorprofile: "/mentorprofile",
+  mentoreditprofile: "/mentoreditprofile",
+
   signin: "/signin",
   signintwo: "/signin-2",
   signinthree: "/signin-3",
@@ -190,7 +194,6 @@ export const all_routes = {
   leavesemployee: "/leaves-employee",
   leavestype: "/leave-types",
   warehouses: "/warehouse",
-  coupons:"/coupons",
-  payrollList:"/payroll-list",
-
+  coupons: "/coupons",
+  payrollList: "/payroll-list",
 };

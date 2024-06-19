@@ -11,7 +11,7 @@ import { logout } from "../../helpers/Utils";
 import { useNavigate } from "react-router-dom";
 import { getCurrentUser } from "../../helpers/Utils";
 
-const Header = () => {
+const MentorHeader = () => {
   const route = all_routes;
   const [toggle, SetToggle] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -23,7 +23,7 @@ const Header = () => {
   };
   const navigate = useNavigate();
   const handleLogout = (e) => {
-    logout(navigate, t, "ADMIN");
+    logout(navigate, t, "MENTOR");
     e.preventDefault();
   };
 
@@ -625,7 +625,7 @@ const Header = () => {
                 <Link
                   className="dropdown-item"
                   // onClick={handleProfile}
-                  to={"/profile"}
+                  to={"/mentorprofile"}
                   // onClick={() => navigate("/admin/profile")}
                 >
                   <User className="me-2" /> My Profile
@@ -665,7 +665,7 @@ const Header = () => {
           <div className="dropdown-menu dropdown-menu-right">
             <Link
               className="dropdown-item"
-              onClick={() => navigate("/profile")}
+              onClick={() => navigate("/mentor-profile")}
             >
               My Profile
             </Link>
@@ -683,4 +683,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default MentorHeader;

@@ -2,10 +2,12 @@
 import { combineReducers } from "redux";
 import admin from "../Admin/store/admin/reducer";
 import studentRegistration from "./studentRegistration/reducers";
+import teacher from "../Teacher/store/teacher/reducers";
 
 const reducers = combineReducers({
   admin,
   studentRegistration,
+  teacher,
 });
 const rootReducer = (state, action) => {
   if (action.type === "USER_LOGOUT") {

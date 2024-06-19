@@ -3,6 +3,7 @@ import React from "react";
 import { Route, Navigate } from "react-router-dom";
 import ProductList from "../feature-module/inventory/productlist";
 import Dashboard from "../Admin/Dashboard/index";
+import MentorDashboard from "../Teacher/Dashboard/MentorDashboard";
 import AddProduct from "../feature-module/inventory/addproduct";
 import SalesDashbaord from "../feature-module/dashboard/salesdashbaord";
 import BrandList from "../feature-module/inventory/brandlist";
@@ -197,6 +198,8 @@ import Coupons from "../feature-module/coupons/coupons";
 import { all_routes } from "./all_routes";
 import BankSettingGrid from "../feature-module/settings/financialsettings/banksettinggrid";
 import PayrollList from "../feature-module/hrm/payroll-list";
+import MentorProfile from "../Teacher/TeacherProfile";
+import MentorEditProfile from "../Teacher/TeacherEdit";
 export const publicRoutes = [
   {
     id: 1,
@@ -204,6 +207,7 @@ export const publicRoutes = [
     name: "home",
     element: <Dashboard />,
     protected: true,
+    allowedRoles: "ADMIN",
     route: Route,
   },
   {
@@ -1410,6 +1414,32 @@ export const publicRoutes = [
     path: routes.payrollList,
     name: "payroll-list",
     element: <PayrollList />,
+    route: Route,
+  },
+];
+export const mentorRoutes = [
+  {
+    id: 1,
+    path: routes.mentordashboard,
+    name: "mentorhome",
+    element: <MentorDashboard />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 2,
+    path: routes.mentorprofile,
+    name: "mentorprofile",
+    element: <MentorProfile />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 3,
+    path: routes.mentoreditprofile,
+    name: "mentoreditprofile",
+    element: <MentorEditProfile />,
+    protected: true,
     route: Route,
   },
 ];

@@ -10,6 +10,9 @@ export const URL = {
     process.env.REACT_APP_API_BASE_URL + "/organizations/districts?",
   adminLogin: process.env.REACT_APP_API_BASE_URL + "/admins/login",
   adminLogOut: process.env.REACT_APP_API_BASE_URL + "/auth/logout",
+  teacherLogin: process.env.REACT_APP_API_BASE_URL + "/mentors/login",
+  teacherLogOut: process.env.REACT_APP_API_BASE_URL + "/auth/logout",
+  getTeacherById: process.env.REACT_APP_API_BASE_URL + "/mentors/",
 };
 const API = "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870";
 
