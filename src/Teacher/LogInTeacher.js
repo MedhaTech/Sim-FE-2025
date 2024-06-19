@@ -1,13 +1,22 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
-import ImageWithBasePath from "../core/img/imagewithbasebath";
+// import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import CryptoJS from "crypto-js";
+import logo from "../assets/img/logo.png";
+import email from "../assets/img/icons/mail.svg";
+import { teacherLoginUser } from "../redux/actions";
+import { connect } from "react-redux";
+import { openNotificationWithIcon } from "../helpers/Utils";
+import { useNavigate } from "react-router-dom";
 
 const LogInTeacher = (props) => {
+  const navigate = useNavigate();
+
   const [isPasswordVisible, setPasswordVisible] = useState(false);
   const inputUserId = {
     type: "email",
@@ -18,12 +27,12 @@ const LogInTeacher = (props) => {
   };
   const formik = useFormik({
     initialValues: {
-      phone: "",
+      email: "",
       password: "",
     },
 
     validationSchema: Yup.object({
-      phone: Yup.string()
+      email: Yup.string()
         .email("Must be a valid email")
         .required("required")
         .max(255)
@@ -32,18 +41,18 @@ const LogInTeacher = (props) => {
     }),
     // TEACHER ROLE
     onSubmit: (values) => {
-      if (
-        localStorage.getItem("current_user") &&
-        localStorage.getItem("module")
-      ) {
-        // openNotificationWithIcon(
-        //   "error",
-        //   `Another User(${localStorage.getItem(
-        //     "module"
-        //   )}) has already logged in`
-        // );
-        return;
-      }
+      // if (
+      //   localStorage.getItem("current_user") &&
+      //   localStorage.getItem("module")
+      // ) {
+      //   openNotificationWithIcon(
+      //     "error",
+      //     `Another User(${localStorage.getItem(
+      //       "module"
+      //     )}) has already logged in`
+      //   );
+      //   return;
+      // }
       const key = CryptoJS.enc.Hex.parse("253D3FB468A0E24677C28A624BE0F939");
       const iv = CryptoJS.enc.Hex.parse("00000000000000000000000000000000");
       const encrypted = CryptoJS.AES.encrypt(values.password.trim(), key, {
@@ -51,11 +60,11 @@ const LogInTeacher = (props) => {
         padding: CryptoJS.pad.NoPadding,
       }).toString();
       const body = {
-        username: values.phone.trim(),
+        username: values.email.trim(),
         password: encrypted,
         role: "MENTOR",
       };
-      props.teacherLoginUserAction(body, history, "MENTOR");
+      props.teacherLoginUserAction(body, navigate, "MENTOR");
     },
   });
 
@@ -67,11 +76,16 @@ const LogInTeacher = (props) => {
             <form onSubmit={formik.handleSubmit} action="index">
               <div className="login-userset">
                 <div className="login-logo logo-normal">
-                  <ImageWithBasePath src="assets/img/logo.png" alt="img" />
+                  <img
+                    src={logo}
+                    alt="Logo"
+                    // className="logo-image"
+                  />
+                  {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
                 </div>
-                <Link className="login-logo logo-white">
+                {/* <Link className="login-logo logo-white">
                   <ImageWithBasePath src="assets/img/logo-white.png" alt />
-                </Link>
+                </Link> */}
                 <div className="login-userheading">
                   <h3> Teacher Login</h3>
                   <h4>
@@ -92,10 +106,11 @@ const LogInTeacher = (props) => {
                     {formik.touched.email && formik.errors.email ? (
                       <small className="error-cls">Required</small>
                     ) : null}
-                    <ImageWithBasePath
+                    {/* <ImageWithBasePath
                       src="assets/img/icons/mail.svg"
                       alt="img"
-                    />
+                    /> */}
+                    <img src={email} alt="Email" />
                   </div>
                 </div>
                 <div className="form-login mb-3">
@@ -138,7 +153,16 @@ const LogInTeacher = (props) => {
                   </div>
                 </div>
                 <div className="form-login">
-                  <Link className="btn btn-login">Sign In</Link>
+                  {/* <Link className="btn btn-login">Sign In</Link> */}
+                  <button
+                    type="submit"
+                    className={`btn btn-login ${
+                      !(formik.dirty && formik.isValid) ? "default" : "primary"
+                    }`}
+                    disabled={!(formik.dirty && formik.isValid)}
+                  >
+                    Sign In
+                  </button>
                 </div>
                 <div className="signinform">
                   <h4>
@@ -149,7 +173,7 @@ const LogInTeacher = (props) => {
                     </Link>
                   </h4>
                 </div>
-                <div className="form-setlogin or-text">
+                {/* <div className="form-setlogin or-text">
                   <h4>OR</h4>
                 </div>
                 <div className="form-sociallink">
@@ -182,7 +206,7 @@ const LogInTeacher = (props) => {
                   <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
                     <p>Copyright © 2023 DreamsPOS. All rights reserved</p>
                   </div>
-                </div>
+                </div> */}
               </div>
             </form>
           </div>
@@ -191,5 +215,11 @@ const LogInTeacher = (props) => {
     </div>
   );
 };
+const mapStateToProps = ({ teacher }) => {
+  const { loading, error, currentUser } = teacher;
+  return { loading, error, currentUser };
+};
 
-export default LogInTeacher;
+export default connect(mapStateToProps, {
+  teacherLoginUserAction: teacherLoginUser,
+})(LogInTeacher);

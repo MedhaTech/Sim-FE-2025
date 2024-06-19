@@ -3,6 +3,7 @@ import { Grid, User } from "react-feather";
 import { Link } from "react-router-dom";
 
 const HorizontalSidebar = () => {
+    
     const [isActive, setIsActive] = useState(false);
     const [isActive2, setIsActive2] = useState(false);
     const [isActive3, setIsActive3] = useState(false);
