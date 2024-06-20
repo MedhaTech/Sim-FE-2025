@@ -11,7 +11,7 @@ import axios from "axios";
 import Select from "./Select";
 import * as Yup from "yup";
 import CryptoJS from "crypto-js";
-
+import { openNotificationWithIcon } from "../helpers/Utils.js";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -52,7 +52,7 @@ const NonAtlPage = () => {
   const [errorMsg, setErrorMsg] = useState(false);
   const [mentorData, setMentorData] = useState({});
   const [wtsNum, setWtsNum] = useState("");
-
+  const [condition, setCondition] = useState(false);
   // const fullStatesNames = useSelector(
   //   (state) => state?.studentRegistration?.regstate
   // );
@@ -96,7 +96,7 @@ const NonAtlPage = () => {
     if (stateData !== "") {
       districtApi(stateData);
     }
-    setdistrict("");
+    // setdistrict("");
   }, [stateData]);
   const districtApi = (item) => {
     const distParam = encryptGlobal(
@@ -180,40 +180,41 @@ const NonAtlPage = () => {
         //   }
         // }
         if (response?.status == 200) {
-          console.log(response,"eivnir");
           if (
-              response?.data?.data[0] &&
-              process.env.REACT_APP_USEDICECODE == 1 
+            response?.data?.data[0] &&
+            process.env.REACT_APP_USEDICECODE == 1
+          ) {
+            if (
+              Object.keys(response?.data?.data[0]).length &&
+              response?.data?.data[0].category === "Non ATL"
             ) {
-              if (Object.keys(response?.data?.data[0]).length && 
-              response?.data?.data[0].category === "Non ATL") {
-                  setOrgData(response?.data?.data[0]);
-                  formik.setFieldValue(
-                      'organization_code',
-                      response?.data?.data[0].organization_code
-                  );
-                  setTextData(response?.data?.data[0].address);
-                  setPinCode(response?.data?.data[0].pin_code);
-                  setSchoolname(response?.data?.data[0].organization_name);
-                  setDiesCode(response?.data?.data[0].organization_code);
-                  setStateData(response?.data?.data[0].state) ;
-                  setdistrict(response?.data?.data[0].district);
+              setOrgData(response?.data?.data[0]);
+              formik.setFieldValue(
+                "organization_code",
+                response?.data?.data[0].organization_code
+              );
+              setTextData(response?.data?.data[0].address);
+              setPinCode(response?.data?.data[0].pin_code);
+              setSchoolname(response?.data?.data[0].organization_name);
+              setDiesCode(response?.data?.data[0].organization_code);
+              setStateData(response?.data?.data[0].state);
+              setdistrict(response?.data?.data[0].district);
 
-                  setDiceBtn(false);
-                  setSchoolBtn(true);
-                } else {
-                  setError(
-                      'Entered Code belongs to Atl school. Kindly register as ATL'
-                  );
-              }
+              setDiceBtn(false);
+              setSchoolBtn(true);
+            } else {
+              setError(
+                "Entered Code belongs to Atl school. Kindly register as ATL"
+              );
             }
           }
-
+        }
       })
       .catch(function (error) {
         if (error?.response?.data?.status === 404) {
           setBtn(true);
           setDiceBtn(false);
+          setCondition(true);
         }
       });
 
@@ -248,6 +249,7 @@ const NonAtlPage = () => {
   };
   localStorage.setItem("mentorData", JSON.stringify(mentorData));
   localStorage.setItem("orgData", JSON.stringify(orgData));
+
   const handleSubmit = (e) => {
     const body = {
       state: stateData,
@@ -399,7 +401,7 @@ const NonAtlPage = () => {
           const UNhashedPassword = decryptGlobal(response?.data?.data);
           console.log(UNhashedPassword, "111111111111111111111111111");
           setOtpRes(JSON.parse(UNhashedPassword));
-          // openNotificationWithIcon("success", "Otp send to Email Id");
+          openNotificationWithIcon("success", "Otp send to Email Id");
           setBtnOtp(true);
           // setPerson(false);
           setTimeout(() => {
@@ -415,7 +417,7 @@ const NonAtlPage = () => {
           setDisable(true);
           setAreInputsDisabled(false);
           setTimer(0);
-          // openNotificationWithIcon("error", "Email ID already exists");
+          openNotificationWithIcon("error", "Email ID already exists");
           // setTimeout(() => {
           //   setDisable(true);
           //   setHoldKey(false);
@@ -429,6 +431,7 @@ const NonAtlPage = () => {
     formik.setFieldValue("otp", e);
     setErrorMsg(false);
   };
+
   const handleRegist = (mentorregdata) => {
     setMentorData(mentorregdata);
     const body = JSON.stringify({
@@ -438,31 +441,55 @@ const NonAtlPage = () => {
       category: "Non ATL",
       organization_code: diesCode,
       organization_name: schoolname,
-      //new_district: newDistrict,
       address: textData,
     });
+    if (condition) {
+      var config = {
+        method: "post",
+        url: process.env.REACT_APP_API_BASE_URL + `/organizations/createOrg`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+        },
+        data: body,
+      };
+      axios(config)
+        .then(function (response) {
+          if (response?.status == 201) {
+            mentorregdata["organization_code"] =
+              response.data.data[0].organization_code;
+            handelMentorReg(mentorregdata);
+          }
+        })
 
-    var config = {
-      method: "post",
-      url: process.env.REACT_APP_API_BASE_URL + `/organizations/createOrg`,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
-      },
-      data: body,
-    };
-    axios(config)
-      .then(function (response) {
-        if (response?.status == 201) {
-          mentorregdata["organization_code"] =
-            response.data.data[0].organization_code;
-          handelMentorReg(mentorregdata);
-        }
-      })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } else {
+      mentorregdata["organization_code"] = diesCode;
+      handelMentorReg(mentorregdata);
+    }
+    // var config = {
+    //   method: "post",
+    //   url: process.env.REACT_APP_API_BASE_URL + `/organizations/createOrg`,
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+    //   },
+    //   data: body,
+    // };
+    // axios(config)
+    //   .then(function (response) {
+    //     if (response?.status == 201) {
+    //       mentorregdata["organization_code"] =
+    //         response.data.data[0].organization_code;
+    //       handelMentorReg(mentorregdata);
+    //     }
+    //   })
 
-      .catch(function (error) {
-        console.log(error);
-      });
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
   };
   const handelMentorReg = async (body) => {
     var config = {
@@ -479,6 +506,7 @@ const NonAtlPage = () => {
       .then((mentorRegRes) => {
         if (mentorRegRes?.data?.status == 201) {
           navigate("/non-atl-success");
+
           // setMentorData(mentorRegRes?.data);
         }
       })
@@ -524,11 +552,11 @@ const NonAtlPage = () => {
 
     formik.values.whatapp_mobile,
   ]);
-  useEffect(() => {
-    if (Object.keys(mentorData).length > 0) {
-      navigate("/non-atl-success");
-    }
-  }, [mentorData, navigate]);
+  // useEffect(() => {
+  //   if (Object.keys(mentorData).length > 0) {
+  //     navigate("/non-atl-success");
+  //   }
+  // }, [mentorData, navigate]);
   return (
     <div className="main-wrapper">
       <div className="account-content">
@@ -587,19 +615,23 @@ const NonAtlPage = () => {
                     )}
                     <div className="form-row row mb-5 mt-5">
                       <p>
-                      {" "}
-                        How to register as Non-ATL ? 
+                        {" "}
+                        How to register as Non-ATL ?
                         <Link
-                          className="hover-a" to={"https://www.youtube.com/watch?v=q40BSRm_cJM"} style={{
+                          className="hover-a"
+                          to={"https://www.youtube.com/watch?v=q40BSRm_cJM"}
+                          style={{
                             color: "blue",
                           }}
                         >
                           {"  "} Watch Me
                         </Link>
-                        <br/>
-                        Already registered ? 
+                        <br />
+                        Already registered ?
                         <Link
-                          className="hover-a" to={"/login"} style={{
+                          className="hover-a"
+                          to={"/login"}
+                          style={{
                             color: "blue",
                           }}
                         >
@@ -659,7 +691,7 @@ const NonAtlPage = () => {
                             className="form-control"
                           />
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-md-12">
                           <label className="form-label"> School Address</label>
                           <input
                             id="address"
