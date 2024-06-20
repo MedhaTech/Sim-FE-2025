@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { getCurrentUser } from "../helpers/Utils";
 import edit from "../assets/img/icons/edit-set.svg";
-import customer from "../assets/img/customer/customer5.jpg";
+// import customer from "../assets/img/customer/customer5.jpg";
 import { useNavigate } from "react-router-dom";
 const TeacherProfile = () => {
   const currentUser = getCurrentUser("current_user");
@@ -46,7 +46,7 @@ const TeacherProfile = () => {
                       alt="img"
                       id="blah"
                     /> */}
-                    <img src={customer} alt="Customer" id="blah" />
+                    {/* <img src={customer} alt="Customer" id="blah" /> */}
                     <div className="profileupload">
                       {/* <input type="file" id="imgInp" /> */}
                       <Link onClick={handleEdit()}>
@@ -60,7 +60,7 @@ const TeacherProfile = () => {
                         "." +
                         currentUser?.data[0]?.full_name}
                     </h2>
-                    <h4>Updates Your Photo and Personal Details.</h4>
+                    <h4>Update Personal Details.</h4>
                   </div>
                 </div>
               </div>

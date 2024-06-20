@@ -11,7 +11,7 @@ import { logout } from "../../helpers/Utils";
 import { useNavigate } from "react-router-dom";
 import { getCurrentUser } from "../../helpers/Utils";
 import logoutIcon from "../../assets/img/icons/log-out.svg";
-import avtar from "../../assets/img/profiles/avator1.jpg";
+// import avtar from "../../assets/img/profiles/avator1.jpg";
 
 const Header = () => {
   const route = all_routes;
@@ -597,7 +597,7 @@ const Header = () => {
                     alt="img"
                     className="img-fluid"
                   /> */}
-                   <img src={avtar} alt="Avtar"  className="img-fluid" />
+                  {/* <img src={avtar} alt="Avtar" className="img-fluid" /> */}
                 </span>
                 <span className="user-detail">
                   {/* {currentUser?.data[0]?.role} */}
@@ -617,7 +617,7 @@ const Header = () => {
                       src="assets/img/profiles/avator1.jpg"
                       alt="img"
                     /> */}
-                    <img src={avtar} alt="Avtar" />
+                    {/* <img src={avtar} alt="Avtar" /> */}
                     <span className="status online" />
                   </span>
                   <div className="profilesets">
