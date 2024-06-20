@@ -20,8 +20,6 @@ const TeacherEditProfile = () => {
   const mentorData = location.state || {};
   const navigate = useNavigate();
 
-  console.log(mentorData);
-  // const [isPasswordVisible, setPasswordVisible] = useState(false);ss
   const currentUser = getCurrentUser("current_user");
   const getValidationSchema = () => {
     // where data = mentorData //
