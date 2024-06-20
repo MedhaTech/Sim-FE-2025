@@ -101,35 +101,36 @@ const Register = () => {
         //   }
         // }
         if (response?.status == 200) {
-            if (response?.data.count === 0) {
-                setError('Enter Valid School UDISE Code ');
-            }
+          if (response?.data.count === 0) {
+            setError("Enter Valid School UDISE Code ");
+          }
+          if (
+            response?.data?.data[0] &&
+            process.env.REACT_APP_USEDICECODE == 1
+          ) {
             if (
-                response?.data?.data[0] &&
-                process.env.REACT_APP_USEDICECODE == 1 
-              ) {
-               
-                if (Object.keys(response?.data?.data[0]).length && 
-                response?.data?.data[0].category === "ATL") {
-                    setOrgData(response?.data?.data[0]);
-                    formik.setFieldValue(
-                        'organization_code',
-                        response?.data?.data[0].organization_code
-                    );
+              Object.keys(response?.data?.data[0]).length &&
+              response?.data?.data[0].category === "ATL"
+            ) {
+              setOrgData(response?.data?.data[0]);
+              formik.setFieldValue(
+                "organization_code",
+                response?.data?.data[0].organization_code
+              );
 
-                    setDiceBtn(false);
-                    setSchoolBtn(true);
-                } else {
-                    setError(
-                        'Entered Code belongs to Non-Atl school. Kindly register as Non-ATL'
-                    );
-                }
-              }
+              setDiceBtn(false);
+              setSchoolBtn(true);
+            } else {
+              setError(
+                "Entered Code belongs to Non-Atl school. Kindly register as Non-ATL"
+              );
             }
-        })
+          }
+        }
+      })
       .catch(function (error) {
         if (error?.response?.data?.status === 404) {
-          setError('Oops..!  UDISE Code seems incorrect');
+          setError("Oops..!  UDISE Code seems incorrect");
         }
       });
 
@@ -236,11 +237,7 @@ const Register = () => {
       }
     },
   });
-  useEffect(() => {
-    if (Object.keys(mentorData).length > 0) {
-      navigate("/atl-success");
-    }
-  }, [mentorData, navigate]);
+ 
   const handleCheckbox = (e, click) => {
     if (click) {
       setCheckBox(click);
@@ -416,18 +413,22 @@ const Register = () => {
                     <div className="form-row row mb-5 mt-5">
                       <p>
                         {" "}
-                        How to register as ATL ? 
+                        How to register as ATL ?
                         <Link
-                          className="hover-a" to={"https://www.youtube.com/watch?v=CiYa_iLdpXo"} style={{
+                          className="hover-a"
+                          to={"https://www.youtube.com/watch?v=CiYa_iLdpXo"}
+                          style={{
                             color: "blue",
                           }}
                         >
                           {"  "} Watch Me
                         </Link>
-                        <br/>
-                        Already registered ? 
+                        <br />
+                        Already registered ?
                         <Link
-                          className="hover-a" to={"/login"} style={{
+                          className="hover-a"
+                          to={"/login"}
+                          style={{
                             color: "blue",
                           }}
                         >
