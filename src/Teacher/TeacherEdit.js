@@ -7,7 +7,7 @@ import {
   setCurrentUser,
   openNotificationWithIcon,
 } from "../helpers/Utils";
-import customer from "../assets/img/customer/customer5.jpg";
+// import customer from "../assets/img/customer/customer5.jpg";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import * as Yup from "yup";
@@ -132,7 +132,7 @@ const TeacherEditProfile = () => {
                       alt="img"
                       id="blah"
                     /> */}
-                      <img src={customer} alt="Customer" id="blah" />
+                      {/* <img src={customer} alt="Customer" id="blah" /> */}
                       {/* <div className="profileupload"> */}
                       {/* <input type="file" id="imgInp" /> */}
                       {/* <Link to="#"> */}
@@ -150,7 +150,7 @@ const TeacherEditProfile = () => {
                           "." +
                           currentUser?.data[0]?.full_name}
                       </h2>
-                      <h4>Updates Your Photo and Personal Details.</h4>
+                      {/* <h4>Update Personal Details.</h4> */}
                     </div>
                   </div>
                 </div>
