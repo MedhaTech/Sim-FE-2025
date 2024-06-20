@@ -7,6 +7,8 @@ import Header from "../InitialPage/Sidebar/Header";
 import MentorHeader from "../InitialPage/Sidebar/TeacherHeader";
 
 import Sidebar from "../InitialPage/Sidebar/Sidebar";
+import HorizontalSidebar from "../InitialPage/Sidebar/horizontalSidebar";
+
 import {
   pagesRoute,
   posRoutes,
@@ -31,7 +33,8 @@ const AllRoutes = () => {
     <div className={`main-wrapper ${data ? "header-collapse" : ""}`}>
       {/* <Loader /> */}
       <Header />
-      <Sidebar />
+      {/* <Sidebar /> */}
+      <HorizontalSidebar />
       <Outlet />
       <ThemeSettings />
     </div>
@@ -40,7 +43,9 @@ const AllRoutes = () => {
     <div className={`main-wrapper ${data ? "header-collapse" : ""}`}>
       {/* <Loader /> */}
       <MentorHeader />
-      <Sidebar />
+      {/* <Sidebar /> */}
+      <HorizontalSidebar />
+
       <Outlet />
       <ThemeSettings />
     </div>

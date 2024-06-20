@@ -40,32 +40,32 @@ const ThemeSettings = () => {
     document.documentElement.setAttribute("data-layout-mode", "light_mode");
   };
 
-  // const DefaultStyle = () => {
-  //   localStorage.setItem("layoutStyling", "default");
-  //   setLayoutView("default");
-  //   dispatch(setLayoutChange("default"));
-  //   document.documentElement.setAttribute("data-layout-style", "default");
-  // };
+  const DefaultStyle = () => {
+    localStorage.setItem("layoutStyling", "default");
+    setLayoutView("default");
+    dispatch(setLayoutChange("default"));
+    document.documentElement.setAttribute("data-layout-style", "default");
+  };
 
-  // const LayoutBox = () => {
-  //   localStorage.setItem("layoutStyling", "box");
-  //   setLayoutView("box");
-  //   dispatch(setLayoutChange("box"));
-  //   document.documentElement.setAttribute("data-layout-style", "box");
-  // };
-  // const collapsedLayout = () => {
-  //   localStorage.setItem("layoutStyling", "collapsed");
-  //   setLayoutView("collapsed");
-  //   dispatch(setLayoutChange("collapsed"));
-  //   document.documentElement.setAttribute("data-layout-style", "collapsed");
-  // };
+  const LayoutBox = () => {
+    localStorage.setItem("layoutStyling", "box");
+    setLayoutView("box");
+    dispatch(setLayoutChange("box"));
+    document.documentElement.setAttribute("data-layout-style", "box");
+  };
+  const collapsedLayout = () => {
+    localStorage.setItem("layoutStyling", "collapsed");
+    setLayoutView("collapsed");
+    dispatch(setLayoutChange("collapsed"));
+    document.documentElement.setAttribute("data-layout-style", "collapsed");
+  };
 
-  // const HorizontalLayout = () => {
-  //   localStorage.setItem("layoutStyling", "horizontal");
-  //   setLayoutView("horizontal");
-  //   dispatch(setLayoutChange("horizontal"));
-  //   document.documentElement.setAttribute("data-layout-style", "horizontal");
-  // };
+  const HorizontalLayout = () => {
+    localStorage.setItem("layoutStyling", "horizontal");
+    setLayoutView("horizontal");
+    dispatch(setLayoutChange("horizontal"));
+    document.documentElement.setAttribute("data-layout-style", "horizontal");
+  };
   const modernLayout = () => {
     localStorage.setItem("layoutStyling", "modern");
     setLayoutView("modern");
@@ -73,22 +73,22 @@ const ThemeSettings = () => {
     document.documentElement.setAttribute("data-layout-style", "modern");
   };
 
-  // const LayoutGrey = () => {
-  //   localStorage.setItem("layoutThemeColors", "grey");
-  //   setLayoutTheme("grey");
-  //   document.documentElement.setAttribute("data-nav-color", "grey");
-  // };
+  const LayoutGrey = () => {
+    localStorage.setItem("layoutThemeColors", "grey");
+    setLayoutTheme("grey");
+    document.documentElement.setAttribute("data-nav-color", "grey");
+  };
 
   const LayoutDark = () => {
     localStorage.setItem("layoutThemeColors", "dark");
     setLayoutTheme("dark");
     document.documentElement.setAttribute("data-nav-color", "dark");
   };
-  // const LayoutLight = () => {
-  //   localStorage.setItem("layoutThemeColors", "light");
-  //   setLayoutTheme("light");
-  //   document.documentElement.setAttribute("data-nav-color", "light");
-  // };
+  const LayoutLight = () => {
+    localStorage.setItem("layoutThemeColors", "light");
+    setLayoutTheme("light");
+    document.documentElement.setAttribute("data-nav-color", "light");
+  };
   const ResetData = () => {
     localStorage.setItem("colorschema", "light_mode");
     localStorage.setItem("layoutStyling", "modern");
@@ -111,7 +111,7 @@ const ThemeSettings = () => {
   console.log(layoutView, "layoutView");
   return (
     <>
-      {/* <div className="customizer-links" id="setdata">
+      <div className="customizer-links" id="setdata">
         <ul className="sticky-sidebar">
           <li className="sidebar-icons" onClick={showSettings}>
             <Link
@@ -125,7 +125,7 @@ const ThemeSettings = () => {
             </Link>
           </li>
         </ul>
-      </div> */}
+      </div>
 
       <div
         className={
@@ -281,7 +281,7 @@ const ThemeSettings = () => {
                         <p>Select the primary layout style for your app.</p>
                       </div>
                       <div className="row">
-                        {/* <div className="col-xl-6 ere">
+                        <div className="col-xl-6 ere">
                           <div className="layout-wrap">
                             <div className="d-flex align-items-center">
                               <div
@@ -364,8 +364,8 @@ const ThemeSettings = () => {
                               </div>
                             </div>
                           </div>
-                        </div> */}
-                        {/* <div className="col-xl-6 ere">
+                        </div>
+                        <div className="col-xl-6 ere">
                           <div className="layout-wrap">
                             <div className="d-flex align-items-center">
                               <div
@@ -392,7 +392,7 @@ const ThemeSettings = () => {
                               </div>
                             </div>
                           </div>
-                        </div> */}
+                        </div>
                         <div className="col-xl-6 ere">
                           <div className="layout-wrap">
                             <div className="d-flex align-items-center">
@@ -430,7 +430,7 @@ const ThemeSettings = () => {
                           <p>Setup the color for the Navigation</p>
                         </div>
                         <div className="row">
-                          {/* <div className="col-xl-4 ere">
+                          <div className="col-xl-4 ere">
                             <div className="layout-wrap">
                               <div className="d-flex align-items-center">
                                 <div className="status-toggle d-flex align-items-center me-2">
@@ -455,8 +455,8 @@ const ThemeSettings = () => {
                                 </div>
                               </div>
                             </div>
-                          </div> */}
-                          {/* <div className="col-xl-4 ere">
+                          </div>
+                          <div className="col-xl-4 ere">
                             <div className="layout-wrap">
                               <div className="d-flex align-items-center">
                                 <div className="status-toggle d-flex align-items-center me-2">
@@ -481,7 +481,7 @@ const ThemeSettings = () => {
                                 </div>
                               </div>
                             </div>
-                          </div> */}
+                          </div>
                           <div className="col-xl-4 ere">
                             <div className="layout-wrap">
                               <div className="d-flex align-items-center">
@@ -513,7 +513,7 @@ const ThemeSettings = () => {
                     </div>
                   </div>
                 </div>
-                {/* <div className="sidebar-footer">
+                <div className="sidebar-footer">
                   <div className="row">
                     <div className="col-xl-6">
                       <div className="footer-preview-btn">
@@ -534,7 +534,7 @@ const ThemeSettings = () => {
                       </div>
                     </div>
                   </div>
-                </div> */}
+                </div>
               </div>
             </form>
           </div>
