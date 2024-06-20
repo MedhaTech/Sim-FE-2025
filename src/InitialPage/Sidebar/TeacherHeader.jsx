@@ -10,6 +10,8 @@ import { useTranslation } from "react-i18next";
 import { logout } from "../../helpers/Utils";
 import { useNavigate } from "react-router-dom";
 import { getCurrentUser } from "../../helpers/Utils";
+import logoutIcon from "../../assets/img/icons/log-out.svg";
+import avtar from "../../assets/img/profiles/avator1.jpg";
 
 const MentorHeader = () => {
   const route = all_routes;
@@ -257,6 +259,7 @@ const MentorHeader = () => {
                             alt
                             className="img-fluid"
                           />
+                          <img src={avtar} alt="Avtar" className="img-fluid" />
                         </Link>
                       </li>
                       <li>
@@ -590,11 +593,12 @@ const MentorHeader = () => {
             >
               <span className="user-info">
                 <span className="user-letter">
-                  <ImageWithBasePath
+                  {/* <ImageWithBasePath
                     src="assets/img/profiles/avator1.jpg"
                     alt="img"
                     className="img-fluid"
-                  />
+                  /> */}
+                  <img src={avtar} alt="Avtar" className="img-fluid" />
                 </span>
                 <span className="user-detail">
                   {/* {currentUser?.data[0]?.role} */}
@@ -602,7 +606,7 @@ const MentorHeader = () => {
                     {" "}
                     {currentUser?.data[0]?.full_name}
                   </span>
-                  {/* <span className="user-role">Super Admin</span> */}
+                  <span className="user-role">Teacher</span>
                 </span>
               </span>
             </Link>
@@ -610,15 +614,16 @@ const MentorHeader = () => {
               <div className="profilename">
                 <div className="profileset">
                   <span className="user-img">
-                    <ImageWithBasePath
+                    {/* <ImageWithBasePath
                       src="assets/img/profiles/avator1.jpg"
                       alt="img"
-                    />
+                    /> */}
+                    <img src={avtar} alt="Avtar" />
                     <span className="status online" />
                   </span>
                   <div className="profilesets">
                     <h6> {currentUser?.data[0]?.full_name}</h6>
-                    {/* <h5>Super Admin</h5> */}
+                    <h5>Teacher</h5>
                   </div>
                 </div>
                 <hr className="m-0" />
@@ -640,11 +645,12 @@ const MentorHeader = () => {
                   to=""
                   onClick={handleLogout}
                 >
-                  <ImageWithBasePath
+                  {/* <ImageWithBasePath
                     src="assets/img/icons/log-out.svg"
                     alt="img"
                     className="me-2"
-                  />
+                  /> */}
+                  <img src={logoutIcon} alt="LogoutIcon" />
                   Logout
                 </Link>
               </div>
