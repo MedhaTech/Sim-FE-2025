@@ -24,7 +24,7 @@ jobs:
           sudo npm install --force
 
       - name: Buid the application
-        run: sudo npm run build:dev
+        run: npm run build:dev
 
   Deploy:
     needs: Build
