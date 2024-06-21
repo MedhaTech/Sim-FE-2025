@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import React from "react";
 import { Route, Navigate } from "react-router-dom";
-import ProductList from "../feature-module/inventory/productlist";
+// import ProductList from "../feature-module/inventory/productlist";
 import Dashboard from "../Admin/Dashboard/index";
 import MentorDashboard from "../Teacher/Dashboard/MentorDashboard";
 import AddProduct from "../feature-module/inventory/addproduct";
@@ -200,6 +200,7 @@ import BankSettingGrid from "../feature-module/settings/financialsettings/bankse
 import PayrollList from "../feature-module/hrm/payroll-list";
 import MentorProfile from "../Teacher/TeacherProfile";
 import MentorEditProfile from "../Teacher/TeacherEdit";
+import AdminPassword from "../Admin/AdminPassword";
 export const publicRoutes = [
   {
     id: 1,
@@ -207,14 +208,15 @@ export const publicRoutes = [
     name: "home",
     element: <Dashboard />,
     protected: true,
-    allowedRoles: "ADMIN",
+    // allowedRoles: "ADMIN",
     route: Route,
   },
   {
     id: 2,
-    path: routes.productlist,
-    name: "products",
-    element: <ProductList />,
+    path: routes.adminpassword,
+    name: "adminpassword",
+    // allowedRoles: "ADMIN",
+    element: <AdminPassword />,
     route: Route,
   },
   {

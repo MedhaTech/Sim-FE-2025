@@ -26,10 +26,10 @@ const AdminProfile = () => {
               <div className="profile-head"></div>
               <div className="profile-top">
                 <div className="profile-content">
-                  <div className="profile-contentimg">
-                    {/* <img src={customer} alt="Customer" id="blah" /> */}
-                    <div className="profileupload"></div>
-                  </div>
+                  {/* <div className="profile-contentimg"> */}
+                  {/* <img src={customer} alt="Customer" id="blah" /> */}
+                  {/* <div className="profileupload"></div> */}
+                  {/* </div> */}
                   <div className="profile-contentname">
                     <h2>{currentUser?.data[0]?.full_name}</h2>
                   </div>
@@ -37,7 +37,7 @@ const AdminProfile = () => {
               </div>
             </div>
             <div className="row">
-              <div className="col-lg-6 col-sm-12">
+              <div className="col-lg-12 col-sm-12">
                 <div className="input-blocks">
                   <label className="form-label">User Name</label>
                   <input
@@ -58,7 +58,7 @@ const AdminProfile = () => {
                   />
                 </div>
               </div> */}
-              <div className="col-lg-6 col-sm-12">
+              <div className="col-lg-12 col-sm-12">
                 <div className="input-blocks">
                   <label>Email</label>
                   <input

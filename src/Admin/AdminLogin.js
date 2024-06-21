@@ -70,7 +70,7 @@ const AdminLogin = (props) => {
         role: "ADMIN",
       };
 
-      props.adminLoginUserAction(body, navigate, "ADMIN");
+    props.adminLoginUserAction(body, navigate, "ADMIN");
     },
   });
   return (

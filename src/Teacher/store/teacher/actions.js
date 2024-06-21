@@ -75,6 +75,7 @@ export const teacherLoginUser =
         const item = result.data;
         setCurrentUser(item);
         localStorage.setItem("module", module);
+        localStorage.setItem("layoutStyling", "modern");
         localStorage.setItem("time", new Date().toString());
         dispatch(teacherLoginUserSuccess(result));
         navigate("/teacher-dashboard");
