@@ -111,8 +111,8 @@ const ThemeSettings = () => {
   console.log(layoutView, "layoutView");
   return (
     <>
-      <div className="customizer-links" id="setdata">
-        <ul className="sticky-sidebar">
+      {/* <div className="customizer-links" id="setdata"> */}
+      {/* <ul className="sticky-sidebar">
           <li className="sidebar-icons" onClick={showSettings}>
             <Link
               to="#"
@@ -124,8 +124,8 @@ const ThemeSettings = () => {
               <Settings className="feather-five" />
             </Link>
           </li>
-        </ul>
-      </div>
+        </ul> */}
+      {/* </div> */}
 
       <div
         className={

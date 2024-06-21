@@ -27,6 +27,7 @@ import NonAtlPage from "../RegPage/NonAtlPage";
 import AtlSucess from "../RegPage/AtlSucess";
 import NonAtlSuccess from "../RegPage/NonAtlSuccess";
 import { ProtectedRoute } from "../helpers/authHelper";
+import AdminSidebar from "../InitialPage/Sidebar/adminSidebar";
 const AllRoutes = () => {
   const data = useSelector((state) => state?.admin?.toggle_header);
   const HeaderLayout = () => (
@@ -34,7 +35,8 @@ const AllRoutes = () => {
       {/* <Loader /> */}
       <Header />
       {/* <Sidebar /> */}
-      <HorizontalSidebar />
+      <AdminSidebar />
+      {/* <HorizontalSidebar /> */}
       <Outlet />
       <ThemeSettings />
     </div>

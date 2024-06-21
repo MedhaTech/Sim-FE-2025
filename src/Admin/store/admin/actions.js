@@ -39,8 +39,8 @@ export const adminLoginUserError = (message) => async (dispatch) => {
     payload: { message },
   });
 };
-// export const toogleHeader_data = () => ({ type: toggle_header });
-export const toogleHeader_data = (payload) => ({
+export const toogleHeader_data = () => ({ type: toggle_header });
+export const setToogleHeader = (payload) => ({
   type: toggle_header,
   payload,
 });
@@ -67,6 +67,7 @@ export const adminLoginUser = (data, navigate, module) => async (dispatch) => {
       const item = result.data;
       setCurrentUser(item);
       localStorage.setItem("module", module);
+      localStorage.setItem("layoutStyling", "modern");
       localStorage.setItem("time", new Date().toString());
       dispatch(adminLoginUserSuccess(result));
 

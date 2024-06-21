@@ -2,6 +2,7 @@
 export const all_routes = {
   dashboard: "/admin-dashboard",
   mentordashboard: "/teacher-dashboard",
+  adminpassword:"/admin-password",
   productlist: "/product-list",
   addproduct: "/add-product",
   salesdashboard: "/sales-dashboard",
