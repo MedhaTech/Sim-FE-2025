@@ -44,7 +44,8 @@ jobs:
             cd /var/www/html/aim_fe1 &&
             sudo git fetch origin &&
             sudo git checkout development &&
-            sudo git pull origin development '
+            sudo git pull origin development
+            npm run build:dev'
 
             
 
