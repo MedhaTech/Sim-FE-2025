@@ -36,12 +36,12 @@ jobs:
       - name: Deploy to Development
         if: github.ref == 'refs/heads/development'
         env:
-          PRIVATE_KEY: ${{ secrets.ATL_PRIVATE_KEY }}
-          HOSTNAME: ${{ secrets.ATL_HOSTNAME }}
+          PRIVATE_KEY: ${{ secrets.ATL2_PRIVATE_KEY }}
+          HOSTNAME: ${{ secrets.ATL2_HOSTNAME }}
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 400 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ec2-user@${{secrets.ATL_HOSTNAME}} '
-            cd /var/www/html/aim_fe1 &&
+          ssh -o StrictHostKeyChecking=no -i private_key ubuntu@${{secrets.ATL2_HOSTNAME}} '
+            cd /var/www/html/aim_fe &&
             sudo git fetch origin &&
             sudo git checkout development &&
             sudo git pull origin development
