@@ -9,7 +9,7 @@ phases:
             - npm install -g npm@8.15.1
             - npm config set legacy-peer-deps true
             - echo Installing source NPM dependencies...
-            - npm install --force
+            - npm install 
     build:
         commands:
             - npm run build:dev
