@@ -201,6 +201,8 @@ import PayrollList from "../feature-module/hrm/payroll-list";
 import MentorProfile from "../Teacher/TeacherProfile";
 import MentorEditProfile from "../Teacher/TeacherEdit";
 import AdminPassword from "../Admin/AdminPassword";
+import StateDashboard from "../Coordinators/Dashboard/StateDashboard";
+import EadminDashboard from "../Evaluator/Admin/Dashboard/EadminDashboard";
 export const publicRoutes = [
   {
     id: 1,
@@ -1441,6 +1443,26 @@ export const mentorRoutes = [
     path: routes.mentoreditprofile,
     name: "mentoreditprofile",
     element: <MentorEditProfile />,
+    protected: true,
+    route: Route,
+  },
+];
+export const stateRoutes = [
+  {
+    id: 1,
+    path: routes.statedashboard,
+    name: "statehome",
+    element: <StateDashboard />,
+    protected: true,
+    route: Route,
+  },
+];
+export const eadminRoutes = [
+  {
+    id: 1,
+    path: routes.eadmindashboard,
+    name: "eadminhome",
+    element: <EadminDashboard />,
     protected: true,
     route: Route,
   },

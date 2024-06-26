@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useState, useLayoutEffect } from "react";
 // import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -12,6 +12,7 @@ import { adminLoginUser } from "../redux/actions";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/img/logo.png";
 import email from "../assets/img/icons/mail.svg";
+import { openNotificationWithIcon } from "../helpers/Utils";
 
 const AdminLogin = (props) => {
   const navigate = useNavigate();
@@ -23,24 +24,24 @@ const AdminLogin = (props) => {
   const togglePasswordVisibility = () => {
     setPasswordVisible((prevState) => !prevState);
   };
-  // useLayoutEffect(() => {
-  //   const moduleName = localStorage.getItem("module");
+  useLayoutEffect(() => {
+    const moduleName = localStorage.getItem("module");
 
-  //   if (
-  //     localStorage.getItem("current_user") &&
-  //     localStorage.getItem("module")
-  //   ) {
-  //     moduleName === "MENTOR"
-  //       ? navigate("/teacher/dashboard")
-  //       : moduleName === "ADMIN"
-  //       ? navigate("/admin/dashboard")
-  //       : moduleName === "EVALUATOR"
-  //       ? navigate("/evaluator/submitted-ideas")
-  //       : moduleName === "EADMIN"
-  //       ? navigate("/eadmin/dashboard")
-  //       : navigate("/dashboard");
-  //   }
-  // }, []);
+    if (
+      localStorage.getItem("current_user") &&
+      localStorage.getItem("module")
+    ) {
+      moduleName === "MENTOR"
+        ? navigate("/teacher-dashboard")
+        : moduleName === "ADMIN"
+        ? navigate("/admin-dashboard")
+        : moduleName === "EVALUATOR"
+        ? navigate("/evaluator/submitted-ideas")
+        : moduleName === "EADMIN"
+        ? navigate("/eadmin/dashboard")
+        : navigate("/dashboard");
+    }
+  }, []);
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -52,12 +53,18 @@ const AdminLogin = (props) => {
       password: Yup.string().required("required"),
     }),
     onSubmit: (values) => {
-      // if (
-      //   localStorage.getItem("current_user") &&
-      //   localStorage.getItem("module")
-      // ) {
-      //   return;
-      // }
+      if (
+        localStorage.getItem("current_user") &&
+        localStorage.getItem("module")
+      ) {
+        openNotificationWithIcon(
+          "error",
+          `Another User(${localStorage.getItem(
+            "module"
+          )}) has already logged in`
+        );
+        return;
+      }
       const key = CryptoJS.enc.Hex.parse("253D3FB468A0E24677C28A624BE0F939");
       const iv = CryptoJS.enc.Hex.parse("00000000000000000000000000000000");
       const encrypted = CryptoJS.AES.encrypt(values.password, key, {
@@ -70,7 +77,7 @@ const AdminLogin = (props) => {
         role: "ADMIN",
       };
 
-    props.adminLoginUserAction(body, navigate, "ADMIN");
+      props.adminLoginUserAction(body, navigate, "ADMIN");
     },
   });
   return (
