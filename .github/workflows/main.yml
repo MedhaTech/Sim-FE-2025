@@ -45,7 +45,7 @@ jobs:
             sudo git fetch origin &&
             sudo git checkout development &&
             sudo git pull origin development
-            sudo npm run build:dev'
+            '
 
             
 
