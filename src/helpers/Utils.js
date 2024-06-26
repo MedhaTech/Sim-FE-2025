@@ -100,6 +100,9 @@ export const logout = (navigate, t, module, dispatch) => {
           case "REPORT":
             navigate("/report");
             break;
+          case "STATE":
+            navigate("/state");
+            break;
           default:
             navigate("/");
         }

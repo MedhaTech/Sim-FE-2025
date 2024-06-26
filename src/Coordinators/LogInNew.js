@@ -1,45 +1,61 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
+/* eslint-disable react/no-unknown-property */
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useState, useLayoutEffect } from "react";
 // import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import CryptoJS from "crypto-js";
-import logo from "../assets/img/logo.png";
-import email from "../assets/img/icons/mail.svg";
-import { teacherLoginUser } from "../redux/actions";
-import { connect } from "react-redux";
-import { openNotificationWithIcon } from "../helpers/Utils";
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/img/logo.png";
+// import email from "../assets/img/icons/mail.svg";
+import { openNotificationWithIcon } from "../helpers/Utils";
+import { coordinatorLoginUser } from "../Coordinators/store/Coordinator/actions";
 
-const LogInTeacher = (props) => {
+const StateLogin = (props) => {
   const navigate = useNavigate();
-
   const [isPasswordVisible, setPasswordVisible] = useState(false);
   const inputUserId = {
-    type: "email",
-    placeholder: "Please Enter Email Address",
+    type: "text",
+    placeholder: "Please Enter State Name",
   };
   const togglePasswordVisibility = () => {
     setPasswordVisible((prevState) => !prevState);
   };
+  useLayoutEffect(() => {
+    const moduleName = localStorage.getItem("module");
+
+    if (
+      localStorage.getItem("current_user") &&
+      localStorage.getItem("module")
+    ) {
+      moduleName === "MENTOR"
+        ? navigate("/teacher-dashboard")
+        : moduleName === "ADMIN"
+        ? navigate("/admin-dashboard")
+        : moduleName === "EVALUATOR"
+        ? navigate("/evaluator/submitted-ideas")
+        : moduleName === "EADMIN"
+        ? navigate("/eadmin/dashboard")
+        : navigate("/dashboard");
+    }
+  }, []);
   const formik = useFormik({
     initialValues: {
-      email: "",
+      district: "",
       password: "",
     },
 
     validationSchema: Yup.object({
-      email: Yup.string()
-        .email("Must be a valid email")
-        .required("required")
-        .max(255)
-        .trim(),
-      password: Yup.string().required("Required password").trim(),
+      district: Yup.string()
+        .trim()
+        .min(2, "Please Enter State Name")
+        .matches(/^[aA-zZ\s]+$/, "Special Characters are not allowed")
+        .required("Required"),
+      password: Yup.string().required("required"),
     }),
-    // TEACHER ROLE
     onSubmit: (values) => {
       if (
         localStorage.getItem("current_user") &&
@@ -55,19 +71,19 @@ const LogInTeacher = (props) => {
       }
       const key = CryptoJS.enc.Hex.parse("253D3FB468A0E24677C28A624BE0F939");
       const iv = CryptoJS.enc.Hex.parse("00000000000000000000000000000000");
-      const encrypted = CryptoJS.AES.encrypt(values.password.trim(), key, {
+      const encrypted = CryptoJS.AES.encrypt(values.password, key, {
         iv: iv,
         padding: CryptoJS.pad.NoPadding,
       }).toString();
       const body = {
-        username: values.email.trim(),
+        username: values.district,
         password: encrypted,
-        role: "MENTOR",
+        // role: 'STATE',
       };
-      props.teacherLoginUserAction(body, navigate, "MENTOR");
+
+      props.coordinatorLoginUserAction(body, navigate, "STATE");
     },
   });
-
   return (
     <div className="main-wrapper">
       <div className="account-content">
@@ -87,31 +103,30 @@ const LogInTeacher = (props) => {
                   <ImageWithBasePath src="assets/img/logo-white.png" alt />
                 </Link> */}
                 <div className="login-userheading">
-                  <h3> Teacher Login</h3>
-                  <h4>
-                    Access the teacher panel using your registered email and
-                    password.
-                  </h4>
+                  <h3>State Coordinator Login</h3>
+                  {/* <h4>
+                    Access the Dreamspos panel using your email and passcode.
+                  </h4> */}
                 </div>
                 <div className="form-login mb-3">
-                  <label className="form-label">Email Address</label>
+                  <label className="form-label">State Name</label>
                   <div className="form-addons">
                     <input
                       {...inputUserId}
-                      id="email"
+                      id="district"
                       className="form- control"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      value={formik.values.email}
+                      value={formik.values.district}
                     />
-                    {formik.touched.email && formik.errors.email ? (
+                    {formik.touched.district && formik.errors.district ? (
                       <small className="error-cls">Required</small>
                     ) : null}
                     {/* <ImageWithBasePath
                       src="assets/img/icons/mail.svg"
                       alt="img"
                     /> */}
-                    <img src={email} alt="Email" />
+                    {/* <img src={email} alt="Email" /> */}
                   </div>
                 </div>
                 <div className="form-login mb-3">
@@ -154,60 +169,30 @@ const LogInTeacher = (props) => {
                   </div>
                 </div>
                 <div className="form-login">
-                  {/* <Link className="btn btn-login">Sign In</Link> */}
+                  {/* <Link
+                    className="btn btn-login"
+                    type="submit"
+                    btnClass={
+                      !(formik.dirty && formik.isValid) ? "default" : "primary"
+                    }
+                    disabled={!(formik.dirty && formik.isValid)}
+                  >
+                    Sign In
+                  </Link> */}
                   <button
+                    // className="btn btn-login"
                     type="submit"
                     className={`btn btn-login ${
                       !(formik.dirty && formik.isValid) ? "default" : "primary"
                     }`}
+                    // btnClass={
+                    //   !(formik.dirty && formik.isValid) ? "default" : "primary"
+                    // }
                     disabled={!(formik.dirty && formik.isValid)}
                   >
                     Sign In
                   </button>
                 </div>
-                <div className="signinform">
-                  <h4>
-                    New on our platform?
-                    <Link className="hover-a" to={"/registration"}>
-                      {" "}
-                      Create an account
-                    </Link>
-                  </h4>
-                </div>
-                {/* <div className="form-setlogin or-text">
-                  <h4>OR</h4>
-                </div>
-                <div className="form-sociallink">
-                  <ul className="d-flex">
-                    <li>
-                      <Link to="#" className="facebook-logo">
-                        <ImageWithBasePath
-                          src="assets/img/icons/facebook-logo.svg"
-                          alt="Facebook"
-                        />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="#">
-                        <ImageWithBasePath
-                          src="assets/img/icons/google.png"
-                          alt="Google"
-                        />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="#" className="apple-logo">
-                        <ImageWithBasePath
-                          src="assets/img/icons/apple-logo.svg"
-                          alt="Apple"
-                        />
-                      </Link>
-                    </li>
-                  </ul>
-                  <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
-                    <p>Copyright © 2023 DreamsPOS. All rights reserved</p>
-                  </div>
-                </div> */}
               </div>
             </form>
           </div>
@@ -216,11 +201,11 @@ const LogInTeacher = (props) => {
     </div>
   );
 };
-const mapStateToProps = ({ teacher }) => {
-  const { loading, error, currentUser } = teacher;
+const mapStateToProps = ({ admin }) => {
+  const { loading, error, currentUser } = admin;
   return { loading, error, currentUser };
 };
 
 export default connect(mapStateToProps, {
-  teacherLoginUserAction: teacherLoginUser,
-})(LogInTeacher);
+  coordinatorLoginUserAction: coordinatorLoginUser,
+})(StateLogin);

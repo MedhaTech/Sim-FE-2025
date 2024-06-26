@@ -5,6 +5,7 @@ import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import Header from "../InitialPage/Sidebar/Header";
 import MentorHeader from "../InitialPage/Sidebar/TeacherHeader";
+import StateHeader from "../InitialPage/Sidebar/stateHeader";
 
 import Sidebar from "../InitialPage/Sidebar/Sidebar";
 import HorizontalSidebar from "../InitialPage/Sidebar/horizontalSidebar";
@@ -14,6 +15,8 @@ import {
   posRoutes,
   publicRoutes,
   mentorRoutes,
+  stateRoutes,
+  eadminRoutes,
 } from "./router.link";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -23,30 +26,50 @@ import LoginPage from "../RegPage/LoginPage";
 import LogInTeacher from "../Teacher/LogInTeacher";
 import AtlPage from "../RegPage/AtlPage";
 import AdminLogin from "../Admin/AdminLogin";
+import StateLogin from "../Coordinators/LogInNew";
+
 import NonAtlPage from "../RegPage/NonAtlPage";
 import AtlSucess from "../RegPage/AtlSucess";
 import NonAtlSuccess from "../RegPage/NonAtlSuccess";
 import { ProtectedRoute } from "../helpers/authHelper";
 import AdminSidebar from "../InitialPage/Sidebar/adminSidebar";
+import StateSidebar from "../InitialPage/Sidebar/stateSidebar";
+import EadminLogin from "../Evaluator/Admin/EadminLogin";
+import EadminHeader from "../InitialPage/Sidebar/eadminHeader";
+import EadminSidebar from "../InitialPage/Sidebar/eadminSidebar";
+
 const AllRoutes = () => {
   const data = useSelector((state) => state?.admin?.toggle_header);
   const HeaderLayout = () => (
     <div className={`main-wrapper ${data ? "header-collapse" : ""}`}>
-      {/* <Loader /> */}
       <Header />
-      {/* <Sidebar /> */}
       <AdminSidebar />
-      {/* <HorizontalSidebar /> */}
       <Outlet />
       <ThemeSettings />
     </div>
   );
   const MentorHeaderLayout = () => (
     <div className={`main-wrapper ${data ? "header-collapse" : ""}`}>
-      {/* <Loader /> */}
       <MentorHeader />
-      {/* <Sidebar /> */}
       <HorizontalSidebar />
+
+      <Outlet />
+      <ThemeSettings />
+    </div>
+  );
+  const EadminHeaderLayout = () => (
+    <div className={`main-wrapper ${data ? "header-collapse" : ""}`}>
+      <EadminHeader />
+      <EadminSidebar />
+
+      <Outlet />
+      <ThemeSettings />
+    </div>
+  );
+  const StateHeaderLayout = () => (
+    <div className={`main-wrapper ${data ? "header-collapse" : ""}`}>
+      <StateHeader />
+      <StateSidebar />
 
       <Outlet />
       <ThemeSettings />
@@ -56,7 +79,6 @@ const AllRoutes = () => {
   const Authpages = () => (
     <div className={data ? "header-collapse" : ""}>
       <Outlet />
-      {/* <Loader /> */}
       <ThemeSettings />
     </div>
   );
@@ -89,6 +111,9 @@ const AllRoutes = () => {
           <Route path="/non-atl-register" element={<NonAtlPage />} />
 
           <Route path="/admin" element={<AdminLogin />} />
+          <Route path="/state" element={<StateLogin />} />
+          <Route path="/eadmin" element={<EadminLogin />} />
+
           <Route path="/teacher" element={<LogInTeacher />} />
         </Route>
         <Route path="/" element={<HeaderLayout />}>
@@ -121,7 +146,36 @@ const AllRoutes = () => {
             />
           ))}
         </Route>
-
+        <Route path="/" element={<EadminHeaderLayout />}>
+          {eadminRoutes.map((route, id) => (
+            <Route
+              key={id}
+              path={route.path}
+              element={
+                route.protected ? (
+                  <ProtectedRoute user="EADMIN">{route.element}</ProtectedRoute>
+                ) : (
+                  route.element
+                )
+              }
+            />
+          ))}
+        </Route>
+        <Route path="/" element={<StateHeaderLayout />}>
+          {stateRoutes.map((route, id) => (
+            <Route
+              key={id}
+              path={route.path}
+              element={
+                route.protected ? (
+                  <ProtectedRoute user="STATE">{route.element}</ProtectedRoute>
+                ) : (
+                  route.element
+                )
+              }
+            />
+          ))}
+        </Route>
         <Route path={"/"} element={<Authpages />}>
           {pagesRoute.map((route, id) => (
             <Route path={route.path} element={route.element} key={id} />

@@ -8,13 +8,13 @@ import {
 } from "feather-icons-react/build/IconComponents";
 import Chart from "react-apexcharts";
 import { Link } from "react-router-dom";
-import ImageWithBasePath from "../../core/img/imagewithbasebath";
+import ImageWithBasePath from "../../../core/img/imagewithbasebath";
 import { ArrowRight } from "react-feather";
 // import { all_routes } from "../../Router/all_routes";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 
-const Dashboard = () => {
+const EadminDashboard = () => {
   // const route = all_routes;
   const [chartOptions] = useState({
     series: [
@@ -640,4 +640,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default EadminDashboard;
