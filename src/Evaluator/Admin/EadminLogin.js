@@ -71,7 +71,7 @@ const StateLogin = (props) => {
         padding: CryptoJS.pad.NoPadding,
       }).toString();
       const body = {
-        username: values.district,
+        username: values.email,
         password: encrypted,
         role: "EADMIN",
         // role: 'STATE',
