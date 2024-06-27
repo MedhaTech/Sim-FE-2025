@@ -11,7 +11,7 @@ const LoginPage = () => {
   return (
     <div className="main-wrapper">
       <div className="account-content">
-        <div className="login-wrapper bg-img">
+        <div className="login-wrapper forgot-pass-wrap bg-img">
           <div className="login-content">
             <form action="index">
               <div className="login-userset">
@@ -24,9 +24,7 @@ const LoginPage = () => {
                 </Link> */}
                 <div className="login-userheading text-center">
                   <h3> School Innovation Marathon</h3>
-                  <h4>
-                    Login As ?
-                  </h4>
+                  <h4>Login As ?</h4>
                 </div>
                 <div className="form-login mb-3">
                   <div className="form-addons text-center">

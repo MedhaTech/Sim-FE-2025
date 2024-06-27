@@ -40,7 +40,7 @@ const Register = () => {
   const [time] = useState("00");
   const [counter, setCounter] = useState(59);
   const [sec, setSec] = useState(59);
-
+  const [buttonData, setButtonData] = useState("");
   const [disable, setDisable] = useState(false);
   const [areInputsDisabled, setAreInputsDisabled] = useState(false);
 
@@ -136,7 +136,42 @@ const Register = () => {
 
     e.preventDefault();
   };
+  // console.log(orgData, "data");
+  async function apiCall() {
+    // Dice code list API //
+    // where list = diescode //
+    const body = JSON.stringify({
+      school_name: orgData.organization_name,
+      atl_code: orgData.organization_code,
+      // atl_code: mentorDaTa.organization_code,
+      district: orgData.district,
+      state: orgData.state,
+      pin_code: orgData.pin_code,
+      email: mentorData.username,
+      mobile: mentorData.mobile,
+    });
+    console.log(body, "trigger");
+    var config = {
+      method: "post",
+      url: process.env.REACT_APP_API_BASE_URL + "/mentors/triggerWelcomeEmail",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+      },
+      data: body,
+    };
 
+    await axios(config)
+      .then(async function (response) {
+        if (response.status == 200) {
+          setButtonData(response?.data?.data[0]?.data);
+          openNotificationWithIcon("success", "Email sent successfully");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
   const formik = useFormik({
     initialValues: {
       full_name: "",
@@ -223,6 +258,7 @@ const Register = () => {
         await axios(config)
           .then((mentorRegRes) => {
             if (mentorRegRes?.data?.status == 201) {
+              apiCall();
               navigate("/atl-success");
             }
           })
@@ -237,7 +273,7 @@ const Register = () => {
       }
     },
   });
- 
+
   const handleCheckbox = (e, click) => {
     if (click) {
       setCheckBox(click);
@@ -276,7 +312,7 @@ const Register = () => {
     });
     var config = {
       method: "post",
-      url: process.env.REACT_APP_API_BASE_URL + "/mentors/mobileOtp",
+      url: process.env.REACT_APP_API_BASE_URL + "/mentors/emailOtp",
       headers: {
         "Content-Type": "application/json",
         Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
@@ -302,7 +338,7 @@ const Register = () => {
       })
       .catch(function (error) {
         if (error?.response?.data?.status === 406) {
-          // openNotificationWithIcon("error", "Email ID already exists");
+          openNotificationWithIcon("error", "Email ID already exists");
           setTimeout(() => {
             setDisable(true);
             setHoldKey(false);

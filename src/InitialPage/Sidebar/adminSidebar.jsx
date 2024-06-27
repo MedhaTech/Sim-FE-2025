@@ -12,7 +12,7 @@ const HorizontalSidebar = () => {
   const [isActive6, setIsActive6] = useState(false);
   const [isActive7, setIsActive7] = useState(false);
 
-  const [subActive, setsubActive] = useState(false);
+  // const [subActive, setsubActive] = useState(false);
   const [subActive2, setsubActive2] = useState(false);
   const [subActive3, setsubActive3] = useState(false);
   const [subActive4, setsubActive4] = useState(false);
@@ -39,9 +39,9 @@ const HorizontalSidebar = () => {
   const [subActive25, setSubActive25] = useState(false);
   const [subActive26, setSubActive26] = useState(false);
 
-  const handleSubClick = () => {
-    setsubActive(!subActive);
-  };
+  // const handleSubClick = () => {
+  //   setsubActive(!subActive);
+  // };
   const handleSubClick2 = () => {
     setsubActive2(!subActive2);
   };
@@ -201,14 +201,15 @@ const HorizontalSidebar = () => {
         <ul className="nav">
           <li className="submenu">
             <Link
-              to="#"
+              to="/admin-dashboard"
               onClick={handleSelectClick}
               className={isActive ? "subdrop" : ""}
             >
               <Grid />
-              <span>Admin Dashboard</span> <span className="menu-arrow" />
+              <span>Admin Dashboard</span>
+              {/* <span className="menu-arrow" /> */}
             </Link>
-            <ul style={{ display: isActive ? "block" : "none" }}>
+            {/* <ul style={{ display: isActive ? "block" : "none" }}>
               <li className="submenu">
                 <Link
                   to="#"
@@ -271,7 +272,7 @@ const HorizontalSidebar = () => {
                   </li>
                 </ul>
               </li>
-            </ul>
+            </ul> */}
           </li>
           <li className="submenu">
             <Link
@@ -280,17 +281,23 @@ const HorizontalSidebar = () => {
               className={isActive2 ? "subdrop" : ""}
             >
               <img src="assets/img/icons/product.svg" alt="img" />
-              <span>Users </span> <span className="menu-arrow" />
+              <span>Users </span>
+              <span className="menu-arrow" />
             </Link>
             <ul style={{ display: isActive2 ? "block" : "none" }}>
               <li>
                 <Link to="product-list">
-                  <span>Teacher</span>
+                  <span>Institutions</span>
                 </Link>
               </li>
               <li>
                 <Link to="add-product">
-                  <span>Student</span>
+                  <span>Teachers</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="add-product">
+                  <span>Students</span>
                 </Link>
               </li>
               <li>

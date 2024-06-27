@@ -53,6 +53,7 @@ const NonAtlPage = () => {
   const [mentorData, setMentorData] = useState({});
   const [wtsNum, setWtsNum] = useState("");
   const [condition, setCondition] = useState(false);
+  const [buttonData, setButtonData] = useState("");
   // const fullStatesNames = useSelector(
   //   (state) => state?.studentRegistration?.regstate
   // );
@@ -388,7 +389,7 @@ const NonAtlPage = () => {
     });
     var config = {
       method: "post",
-      url: process.env.REACT_APP_API_BASE_URL + "/mentors/mobileOtp",
+      url: process.env.REACT_APP_API_BASE_URL + "/mentors/emailOtp",
       headers: {
         "Content-Type": "application/json",
         Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
@@ -431,7 +432,41 @@ const NonAtlPage = () => {
     formik.setFieldValue("otp", e);
     setErrorMsg(false);
   };
+  async function apiCall() {
+    // Dice code list API //
+    // where list = diescode //
+    const body = JSON.stringify({
+      school_name: orgData.organization_name,
+      atl_code: orgData.organization_code,
+      // atl_code: mentorDaTa.organization_code,
+      district: orgData.district,
+      state: orgData.state,
+      pin_code: orgData.pin_code,
+      email: mentorData.username,
+      mobile: mentorData.mobile,
+    });
+    console.log(body, "trigger");
+    var config = {
+      method: "post",
+      url: process.env.REACT_APP_API_BASE_URL + "/mentors/triggerWelcomeEmail",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+      },
+      data: body,
+    };
 
+    await axios(config)
+      .then(async function (response) {
+        if (response.status == 200) {
+          setButtonData(response?.data?.data[0]?.data);
+          openNotificationWithIcon("success", "Email sent successfully");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
   const handleRegist = (mentorregdata) => {
     setMentorData(mentorregdata);
     const body = JSON.stringify({
@@ -505,6 +540,7 @@ const NonAtlPage = () => {
     await axios(config)
       .then((mentorRegRes) => {
         if (mentorRegRes?.data?.status == 201) {
+          apiCall();
           navigate("/non-atl-success");
 
           // setMentorData(mentorRegRes?.data);

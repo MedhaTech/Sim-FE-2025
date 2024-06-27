@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { getCurrentUser } from "../../helpers/Utils";
 import logoutIcon from "../../assets/img/icons/log-out.svg";
 // import avtar from "../../assets/img/profiles/avator1.jpg";
+import logo from "../../assets/img/sim_logo.png";
 
 const MentorHeader = () => {
   const route = all_routes;
@@ -146,7 +147,13 @@ const MentorHeader = () => {
           onMouseLeave={expandMenu}
           onMouseOver={expandMenuOpen}
         >
-          <Link to="/dashboard" className="logo logo-normal">
+          <img
+            src={logo}
+            alt="Logo"
+            style={{ padding: "0.7rem" }}
+            // className="logo-image"
+          />
+          {/* <Link to="/dashboard" className="logo logo-normal">
             <ImageWithBasePath src="assets/img/logo.png" alt="img" />
           </Link>
           <Link to="/dashboard" className="logo logo-white">
@@ -154,7 +161,7 @@ const MentorHeader = () => {
           </Link>
           <Link to="/dashboard" className="logo-small">
             <ImageWithBasePath src="assets/img/logo-small.png" alt="img" />
-          </Link>
+          </Link> */}
           {/* <Link
             id="toggle_btn"
             to="#"
@@ -188,11 +195,11 @@ const MentorHeader = () => {
         <ul className="nav user-menu">
           {/* Search */}
           <li className="nav-item nav-searchinputs">
-            <div className="top-nav-search">
-              <Link to="#" className="responsive-search">
+            {/* <div className="top-nav-search"> */}
+            {/* <Link to="#" className="responsive-search">
                 <Search />
-              </Link>
-              <form action="#" className="dropdown">
+              </Link> */}
+            {/* <form action="#" className="dropdown">
                 <div
                   className="searchinputs dropdown-toggle"
                   id="dropdownMenuClickable"
@@ -259,7 +266,6 @@ const MentorHeader = () => {
                             alt
                             className="img-fluid"
                           />
-                          {/* <img src={avtar} alt="Avtar" className="img-fluid" /> */}
                         </Link>
                       </li>
                       <li>
@@ -285,8 +291,8 @@ const MentorHeader = () => {
                     </ul>
                   </div>
                 </div>
-              </form>
-            </div>
+              </form> */}
+            {/* </div> */}
           </li>
           {/* /Search */}
 
