@@ -8,21 +8,28 @@
   display: -ms-flexbox;
   display: flex;
   &.bg-img {
-    // background-image: url(../../../assets/img/authentication/login-img.jpg);
+    // background-image: url(../../../assets/img/reg.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     .login-content {
       background: rgba(255, 255, 255, 0.8);
+      // background: gray;
+
       backdrop-filter: blur(17px);
     }
     &.register-wrap {
+      background-image: url(../../../assets/img/Registration1.png);
+
       // background-image: url(../../../assets/img/authentication/register-img.jpg);
     }
+
     &.forgot-pass-wrap {
+      background-image: url(../../../assets/img/Loginoption1.png);
       // background-image: url(../../../assets/img/authentication/forgot-password-img.jpg);
     }
     &.reset-pass-wrap {
+      background-image: url(../../../assets/img/Teacherlogin1.png);
       // background-image: url(../../../assets/img/authentication/reset-password-img.jpg);
     }
     &.email-veri-wrap {
@@ -34,6 +41,7 @@
     height: 100vh;
     @include margin-padding(null, 24px);
     overflow: auto;
+
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

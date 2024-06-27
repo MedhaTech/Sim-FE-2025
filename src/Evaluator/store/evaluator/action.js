@@ -109,7 +109,7 @@ export const evaluatorAdminLoginUser =
         setCurrentUser(item);
         localStorage.setItem("module", module);
         localStorage.setItem("time", new Date().toString());
-
+        localStorage.setItem("layoutStyling", "modern");
         dispatch(evaluatorAdminLoginUserSuccess(result));
 
         navigate("/eadmin-dashboard");

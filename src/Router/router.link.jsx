@@ -203,6 +203,8 @@ import MentorEditProfile from "../Teacher/TeacherEdit";
 import AdminPassword from "../Admin/AdminPassword";
 import StateDashboard from "../Coordinators/Dashboard/StateDashboard";
 import EadminDashboard from "../Evaluator/Admin/Dashboard/EadminDashboard";
+import MentorCourse from "../Teacher/Courses/TeacherPlayVideo";
+import MentorTeams from "../Teacher/Teams/index";
 export const publicRoutes = [
   {
     id: 1,
@@ -1443,6 +1445,22 @@ export const mentorRoutes = [
     path: routes.mentoreditprofile,
     name: "mentoreditprofile",
     element: <MentorEditProfile />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 4,
+    path: routes.mentorcourse,
+    name: "mentorcourse",
+    element: <MentorCourse />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 5,
+    path: routes.mentorteams,
+    name: "mentorteams",
+    element: <MentorTeams />,
     protected: true,
     route: Route,
   },
