@@ -40,6 +40,7 @@ jobs:
           HOSTNAME: ${{ secrets.ATL2_HOSTNAME }}
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 400 private_key
+          scp -o StrictHostKeyChecking=no -i private_key -r ./build ubuntu@${{secrets.ATL2_HOSTNAME}}:/var/www/html/aim_fe
           ssh -o StrictHostKeyChecking=no -i private_key ubuntu@${{secrets.ATL2_HOSTNAME}} '
             cd /var/www/html/aim_fe &&
             sudo git fetch origin &&
