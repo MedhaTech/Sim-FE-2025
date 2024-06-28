@@ -596,7 +596,7 @@ const NonAtlPage = () => {
   return (
     <div className="main-wrapper">
       <div className="account-content">
-        <div className="login-wrapper bg-img">
+        <div className="login-wrapper register-wrap bg-img">
           <div className="login-content">
             <form action="signin" onSubmit={formik.handleSubmit}>
               <div className="login-userset">

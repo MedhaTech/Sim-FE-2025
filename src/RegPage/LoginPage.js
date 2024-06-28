@@ -5,6 +5,8 @@ import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/img/sim_logo.png";
+import { Row } from "reactstrap";
+import { ArrowRight } from "feather-icons-react";
 const LoginPage = () => {
   const navigate = useNavigate();
 
@@ -28,21 +30,34 @@ const LoginPage = () => {
                 </div>
                 <div className="form-login mb-3">
                   <div className="form-addons text-center">
-                    <button
-                      type="button"
-                      className="btn btn-warning m-2"
-                      onClick={() => navigate("/teacher")}
-                    >
-                      Teacher
-                    </button>
-
-                    <button
-                      type="button"
-                      className="btn btn-warning m-2"
-                      onClick={() => navigate("/team")}
-                    >
-                      Student Team
-                    </button>
+                  <Row>
+                      <Row>
+                        <button
+                          type="button"
+                          className="btn btn-warning m-2"
+                          onClick={() => navigate("/teacher")}
+                        >
+                          Teacher Login
+                          <span>
+                            {" "}
+                            <ArrowRight />
+                          </span>
+                        </button>
+                      </Row>
+                      <Row>
+                        <button
+                          type="button"
+                          className="btn btn-warning m-2"
+                          onClick={() => navigate("/team")}
+                        >
+                          Student Team Login
+                          <span>
+                            {" "}
+                            <ArrowRight />
+                          </span>
+                        </button>
+                      </Row>
+                    </Row>
                   </div>
                 </div>
                 <div className="signinform text-center">

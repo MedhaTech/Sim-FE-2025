@@ -24,7 +24,6 @@ import ThemeSettings from "../InitialPage/themeSettings";
 import FirstPage from "../RegPage/FirstPage";
 import LoginPage from "../RegPage/LoginPage";
 import LogInTeacher from "../Teacher/LogInTeacher";
-import LogInStudent from "../Student/LogInStudent";
 import AtlPage from "../RegPage/AtlPage";
 import AdminLogin from "../Admin/AdminLogin";
 import StateLogin from "../Coordinators/LogInNew";
@@ -38,6 +37,7 @@ import StateSidebar from "../InitialPage/Sidebar/stateSidebar";
 import EadminLogin from "../Evaluator/Admin/EadminLogin";
 import EadminHeader from "../InitialPage/Sidebar/eadminHeader";
 import EadminSidebar from "../InitialPage/Sidebar/eadminSidebar";
+import LogInTeam from "../Team/LogInTeam";
 
 const AllRoutes = () => {
   const data = useSelector((state) => state?.admin?.toggle_header);
@@ -114,7 +114,7 @@ const AllRoutes = () => {
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/state" element={<StateLogin />} />
           <Route path="/eadmin" element={<EadminLogin />} />
-          <Route path="/team" element={<LogInStudent />} />
+          <Route path="/team" element={<LogInTeam />} />
           <Route path="/teacher" element={<LogInTeacher />} />
         </Route>
         <Route path="/" element={<HeaderLayout />}>

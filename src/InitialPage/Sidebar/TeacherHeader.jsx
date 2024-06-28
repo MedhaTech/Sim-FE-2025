@@ -13,6 +13,9 @@ import { getCurrentUser } from "../../helpers/Utils";
 import logoutIcon from "../../assets/img/icons/log-out.svg";
 // import avtar from "../../assets/img/profiles/avator1.jpg";
 import logo from "../../assets/img/sim_logo.png";
+import female from "../../assets/img/Female_Profile.png";
+import male from "../../assets/img/Male_Profile.png";
+import user from "../../assets/img/icons/user-icon.svg";
 
 const MentorHeader = () => {
   const route = all_routes;
@@ -135,6 +138,17 @@ const MentorHeader = () => {
       } else if (document.webkitExitFullscreen) {
         document.webkitExitFullscreen();
       }
+    }
+  };
+
+  const getProfileImage = (gender) => {
+    switch (gender) {
+      case 'Male':
+        return male; 
+      case 'Female':
+        return female; 
+      default:
+        return user; 
     }
   };
 
@@ -604,7 +618,7 @@ const MentorHeader = () => {
                     alt="img"
                     className="img-fluid"
                   /> */}
-                  {/* <img src={avtar} alt="Avtar" className="img-fluid" /> */}
+                  <img src={getProfileImage(currentUser?.data[0]?.gender)} alt="Profile" />
                 </span>
                 <span className="user-detail">
                   {/* {currentUser?.data[0]?.role} */}

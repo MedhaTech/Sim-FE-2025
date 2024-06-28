@@ -14,7 +14,7 @@ import { connect } from "react-redux";
 import { openNotificationWithIcon } from "../helpers/Utils";
 import { useNavigate } from "react-router-dom";
 
-const LogInStudent = (props) => {
+const LogInTeam = (props) => {
   const navigate = useNavigate();
 
   const [isPasswordVisible, setPasswordVisible] = useState(false);
@@ -223,4 +223,4 @@ const mapStateToProps = ({ teacher }) => {
 
 export default connect(mapStateToProps, {
   teacherLoginUserAction: teacherLoginUser,
-})(LogInStudent);
+})(LogInTeam);
