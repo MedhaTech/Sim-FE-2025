@@ -11,9 +11,23 @@ export const URL = {
   adminLogin: process.env.REACT_APP_API_BASE_URL + "/admins/login",
   coordinatorLogin:
     process.env.REACT_APP_API_BASE_URL + "/state_coordinators/login",
-    eadminLogin:
-    process.env.REACT_APP_API_BASE_URL + '/admins/login?',
-    evaluatorLogin: process.env.REACT_APP_API_BASE_URL + '/evaluators/login',
+  eadminLogin: process.env.REACT_APP_API_BASE_URL + "/admins/login?",
+  evaluatorLogin: process.env.REACT_APP_API_BASE_URL + "/evaluators/login",
+  getPreSurveyList: `${process.env.REACT_APP_API_BASE_URL}/quizSurveys`,
+  addMentor: process.env.REACT_APP_API_BASE_URL + "/mentors/create",
+  getStudentById: process.env.REACT_APP_API_BASE_URL + "/students/",
+  getMentors: process.env.REACT_APP_API_BASE_URL + "/mentors",
+  deleteMentor: process.env.REACT_APP_API_BASE_URL + "/mentor/delete",
+  updateMentor: process.env.REACT_APP_API_BASE_URL + "/mentors/update",
+  getMentorSupportTickets:
+    process.env.REACT_APP_API_BASE_URL + "/supportTickets",
+  createMentorSupportTickets:
+    process.env.REACT_APP_API_BASE_URL + "/supportTickets",
+  getMentorSupportTicketsById:
+    process.env.REACT_APP_API_BASE_URL + "/supportTickets/",
+  getMentorSupportTicketResponsesById:
+    process.env.REACT_APP_API_BASE_URL + "/supportTicketsReply",
+  getPostSurveyList: `${process.env.REACT_APP_API_BASE_URL}/quizSurveys`,
 
   adminLogOut: process.env.REACT_APP_API_BASE_URL + "/auth/logout",
   teacherLogin: process.env.REACT_APP_API_BASE_URL + "/mentors/login",

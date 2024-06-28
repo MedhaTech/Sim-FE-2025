@@ -4,9 +4,11 @@ import admin from "../Admin/store/admin/reducer";
 import studentRegistration from "./studentRegistration/reducers";
 import teacher from "../Teacher/store/teacher/reducers";
 import evaluator from "../Evaluator/store/evaluator/reducer";
+import mentors from "../Teacher/store/mentors/reducer";
 
 const reducers = combineReducers({
   admin,
+  mentors,
   studentRegistration,
   teacher,
   evaluator,

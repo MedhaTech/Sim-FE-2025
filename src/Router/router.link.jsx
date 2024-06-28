@@ -203,7 +203,8 @@ import MentorEditProfile from "../Teacher/TeacherEdit";
 import AdminPassword from "../Admin/AdminPassword";
 import StateDashboard from "../Coordinators/Dashboard/StateDashboard";
 import EadminDashboard from "../Evaluator/Admin/Dashboard/EadminDashboard";
-import MentorCourse from "../Teacher/Courses/TeacherPlayVideo";
+import MentorPresurvey from "../Teacher/PreSurvey/PreSurvey";
+import MentorPostsurvey from "../Teacher/PostSurvey/PostSurvey";
 import MentorTeams from "../Teacher/Teams/index";
 export const publicRoutes = [
   {
@@ -1450,9 +1451,17 @@ export const mentorRoutes = [
   },
   {
     id: 4,
-    path: routes.mentorcourse,
-    name: "mentorcourse",
-    element: <MentorCourse />,
+    path: routes.mentorpresurvey,
+    name: "mentorpresurvey",
+    element: <MentorPresurvey />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 6,
+    path: routes.mentorpostsurvey,
+    name: "mentorpostsurvey",
+    element: <MentorPostsurvey />,
     protected: true,
     route: Route,
   },
