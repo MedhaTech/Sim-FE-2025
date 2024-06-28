@@ -856,7 +856,7 @@ const HorizontalSidebar = () => {
             </Link>
             <ul style={{ display: isActive5 ? "block" : "none" }}>
               <li>
-                <Link to="profile">
+                <Link to="/mentorpresurvey">
                   <span>Pre Survey</span>
                 </Link>
               </li>
@@ -979,7 +979,7 @@ const HorizontalSidebar = () => {
               </li> */}
               <li className="submenu">
                 <Link
-                  to="#"
+                  to="/mentorpostsurvey"
                   // onClick={handleSubClick15}
                   // className={subActive15 ? "subdrop" : ""}
                 >
