@@ -20,7 +20,7 @@ import {
 } from "../redux/studentRegistration/actions";
 import { decryptGlobal, encryptGlobal } from "../constants/encryptDecrypt";
 import OtpInput from "react-otp-input-rc-17";
-import logo from "../assets/img/logo.png";
+import logo from "../assets/img/sim_logo.png";
 
 const NonAtlPage = () => {
   const navigate = useNavigate();
@@ -1035,8 +1035,13 @@ const NonAtlPage = () => {
                               </h3>
                               <div className="Otp-expire text-center">
                                 <p>
-                                  Otp will expire in{" "}
-                                  {timer > 0 && `00: ${timer} seconds`}
+                                  {/* Otp will expire in{" "}
+                                  {timer > 0 && `00: ${timer} seconds`} */}
+                                  {timer > 0
+                                    ? `Otp will expire in 00:${
+                                        timer < 10 ? `0${timer}` : timer
+                                      } seconds`
+                                    : "Otp expired"}
                                 </p>
                               </div>
 

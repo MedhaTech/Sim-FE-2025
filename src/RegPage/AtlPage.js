@@ -14,7 +14,7 @@ import { decryptGlobal } from "../constants/encryptDecrypt";
 import OtpInput from "react-otp-input-rc-17";
 import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/img/logo.png";
+import logo from "../assets/img/sim_logo.png";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -743,23 +743,28 @@ const Register = () => {
                               </h3>
                               <div className="Otp-expire text-center">
                                 <p>
-                                  Otp will expire in{" "}
-                                  {timer > 0 && `00: ${timer} seconds`}
+                                  {/* Otp will expire in{" "} */}
+                                  {/* {timer > 0 && `00: ${timer} seconds`} */}
+                                  {timer > 0
+                                    ? `Otp will expire in 00:${
+                                        timer < 10 ? `0${timer}` : timer
+                                      } seconds`
+                                    : "Otp expired"}
                                 </p>
                               </div>
 
                               <div className="login-content user-login">
                                 <div className="login-logo">
-                                  <ImageWithBasePath
+                                  {/* <ImageWithBasePath
                                     src="assets/img/logo.png"
                                     alt="img"
-                                  />
-                                  <Link className="login-logo logo-white">
+                                  /> */}
+                                  {/* <Link className="login-logo logo-white">
                                     <ImageWithBasePath
                                       src="assets/img/logo-white.png"
                                       alt
                                     />
-                                  </Link>
+                                  </Link> */}
                                 </div>
                                 <div className="login-userset">
                                   <div className="login-userheading">
