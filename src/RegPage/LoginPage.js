@@ -4,7 +4,7 @@ import React from "react";
 import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/img/logo.png";
+import logo from "../assets/img/sim_logo.png";
 const LoginPage = () => {
   const navigate = useNavigate();
 
@@ -39,7 +39,7 @@ const LoginPage = () => {
                     <button
                       type="button"
                       className="btn btn-warning m-2"
-                      onClick={() => navigate("/")}
+                      onClick={() => navigate("/team")}
                     >
                       Student Team
                     </button>
