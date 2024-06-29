@@ -8,6 +8,8 @@ import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import success from "../assets/img/check.png";
+import logo from "../assets/img/sim_logo.png";
+
 const AtlSucess = () => {
   const navigate = useNavigate();
   const mentorDaTa = JSON.parse(localStorage.getItem("mentorData"));
@@ -17,9 +19,13 @@ const AtlSucess = () => {
   const word = myArray[0];
   return (
     <div className="main-wrapper">
-      <div className="login-wrapper bg-img">
+      <div className="login-wrapper register-wrap bg-img">
         <div className="login-content">
           <div className="login-userset">
+                <div className="login-logo logo-normal">
+                  <img src={logo} alt="Logo" />
+                  {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
+                </div>
             <div className="login-logo logo-normal">
               {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
               <img src={success} alt="Success" />

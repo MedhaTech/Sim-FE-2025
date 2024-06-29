@@ -158,7 +158,7 @@ const PostSurvey = () => {
   };
 
   const handleSubmit = async (e) => {
-    alert("hii");
+    //alert("hii");
     e.preventDefault();
 
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
@@ -192,7 +192,7 @@ const PostSurvey = () => {
             console.log(preSurveyRes, "aa");
             openNotificationWithIcon(
               "success",
-              "Post Survey is been submitted successfully..!!",
+              "Post Survey has been submitted successfully..!!",
               ""
             );
 
