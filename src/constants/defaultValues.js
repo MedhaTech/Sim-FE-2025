@@ -28,7 +28,8 @@ export const URL = {
   getMentorSupportTicketResponsesById:
     process.env.REACT_APP_API_BASE_URL + "/supportTicketsReply",
   getPostSurveyList: `${process.env.REACT_APP_API_BASE_URL}/quizSurveys`,
-
+  createMultiStudent:
+    process.env.REACT_APP_API_BASE_URL + "/students/bulkCreateStudent",
   adminLogOut: process.env.REACT_APP_API_BASE_URL + "/auth/logout",
   teacherLogin: process.env.REACT_APP_API_BASE_URL + "/mentors/login",
   teacherLogOut: process.env.REACT_APP_API_BASE_URL + "/auth/logout",

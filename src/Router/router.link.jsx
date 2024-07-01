@@ -206,6 +206,7 @@ import EadminDashboard from "../Evaluator/Admin/Dashboard/EadminDashboard";
 import MentorPresurvey from "../Teacher/PreSurvey/PreSurvey";
 import MentorPostsurvey from "../Teacher/PostSurvey/PostSurvey";
 import MentorTeams from "../Teacher/Teams/index";
+import CreateTeam from "../Teacher/Teams/MentorTeam";
 export const publicRoutes = [
   {
     id: 1,
@@ -1457,6 +1458,15 @@ export const mentorRoutes = [
     protected: true,
     route: Route,
   },
+ 
+  {
+    id: 5,
+    path: routes.mentorteams,
+    name: "mentorteams",
+    element: <MentorTeams />,
+    protected: true,
+    route: Route,
+  },
   {
     id: 6,
     path: routes.mentorpostsurvey,
@@ -1466,10 +1476,10 @@ export const mentorRoutes = [
     route: Route,
   },
   {
-    id: 5,
-    path: routes.mentorteams,
-    name: "mentorteams",
-    element: <MentorTeams />,
+    id: 7,
+    path: routes.createteam,
+    name: "createteam",
+    element: <CreateTeam />,
     protected: true,
     route: Route,
   },
