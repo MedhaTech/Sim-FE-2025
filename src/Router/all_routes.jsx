@@ -2,8 +2,9 @@
 export const all_routes = {
   dashboard: "/admin-dashboard",
   mentordashboard: "/teacher-dashboard",
+  createteam: "/createteam",
   mentorpresurvey: "/mentorpresurvey",
-  mentorpostsurvey:"/mentorpostsurvey",
+  mentorpostsurvey: "/mentorpostsurvey",
   mentorteams: "/mentorteams",
   statedashboard: "/state-dashboard",
   eadmindashboard: "/eadmin-dashboard",

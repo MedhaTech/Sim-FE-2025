@@ -14,7 +14,8 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { encryptGlobal } from "../constants/encryptDecrypt";
 import { useNavigate } from "react-router-dom";
-
+import female from "../assets/img/Female_Profile.png";
+import male from "../assets/img/Male_Profile.png";
 const TeacherEditProfile = () => {
   const location = useLocation();
   const mentorData = location.state || {};
@@ -125,7 +126,11 @@ const TeacherEditProfile = () => {
                 <div className="profile-top">
                   <div className="profile-content">
                     <div className="profile-contentimg">
-                     
+                      {currentUser?.data[0]?.gender === "male" ? (
+                        <img src={male} alt="Male" id="blah" />
+                      ) : (
+                        <img src={female} alt="Female" id="blah" />
+                      )}
                     </div>
                     <div className="profile-contentname">
                       <h2>
@@ -138,7 +143,6 @@ const TeacherEditProfile = () => {
                 </div>
               </div>
               <div className="row">
-               
                 <div className="form-login col-lg-6 col-sm-12">
                   <div className="input-blocks">
                     <label>Title</label>

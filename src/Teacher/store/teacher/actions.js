@@ -102,7 +102,29 @@ export const teacherLoginUser =
       // );
     }
   };
-
+export const teacherCreateMultipleStudent =
+  (data, navigate, setIsClicked) => async () => {
+    try {
+      const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+      const result = await axios
+        .post(`${URL.createMultiStudent}`, data, axiosConfig)
+        .then((user) => user)
+        .catch((err) => {
+          return err.response;
+        });
+      if (result && result.status === 201) {
+        openNotificationWithIcon("success", result.data.data);
+        navigate("/mentorteams");
+        setIsClicked(false);
+      } else {
+        openNotificationWithIcon("error", "Something went wrong");
+        setIsClicked(false);
+      }
+    } catch (error) {
+      openNotificationWithIcon("error", error?.response?.data?.message);
+      setIsClicked(false);
+    }
+  };
 export const teacherLoginUserLogOut = (navigate) => async () => {
   try {
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
