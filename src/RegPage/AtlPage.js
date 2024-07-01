@@ -15,6 +15,7 @@ import OtpInput from "react-otp-input-rc-17";
 import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/img/sim_logo.png";
+import { openNotificationWithIcon } from "../helpers/Utils.js";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -338,12 +339,15 @@ const Register = () => {
       })
       .catch(function (error) {
         if (error?.response?.data?.status === 406) {
+          setDisable(true);
+          setAreInputsDisabled(false);
+          setTimer(0);
           openNotificationWithIcon("error", "Email ID already exists");
-          setTimeout(() => {
-            setDisable(true);
-            setHoldKey(false);
-            setTimer(0);
-          }, 1000);
+          // setTimeout(() => {
+          //   setDisable(true);
+          //   setHoldKey(false);
+          //   setTimer(0);
+          // }, 1000);
         }
       });
     e.preventDefault();

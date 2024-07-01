@@ -7,6 +7,8 @@ import { getCurrentUser } from "../helpers/Utils";
 import edit from "../assets/img/icons/edit-set.svg";
 // import customer from "../assets/img/customer/customer5.jpg";
 import { useNavigate } from "react-router-dom";
+import female from "../assets/img/Female_Profile.png";
+import male from "../assets/img/Male_Profile.png";
 const TeacherProfile = () => {
   const currentUser = getCurrentUser("current_user");
   const navigate = useNavigate();
@@ -47,6 +49,11 @@ const TeacherProfile = () => {
                       id="blah"
                     /> */}
                     {/* <img src={customer} alt="Customer" id="blah" /> */}
+                    {currentUser?.data[0]?.gender === "male" ? (
+                      <img src={male} alt="Male" id="blah" />
+                    ) : (
+                      <img src={female} alt="Female" id="blah" />
+                    )}
                     <div className="profileupload">
                       {/* <input type="file" id="imgInp" /> */}
                       <Link onClick={handleEdit()}>
