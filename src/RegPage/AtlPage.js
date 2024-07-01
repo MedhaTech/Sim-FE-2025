@@ -3,6 +3,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
+import './regcss.css';
 import React, { useState, useEffect } from "react";
 import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
@@ -15,6 +16,11 @@ import OtpInput from "react-otp-input-rc-17";
 import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/img/sim_logo.png";
+import user from "../assets/img/icons/user-icon.svg";
+import play from "../assets/img/playicon.png";
+import copy from "../assets/img/copyrights.png";
+import { ArrowRight } from "feather-icons-react";
+
 
 const Register = () => {
   const navigate = useNavigate();
@@ -32,6 +38,7 @@ const Register = () => {
   const [diceBtn, setDiceBtn] = useState(true);
   const [btn, setBtn] = useState(false);
   const [checkBox, setCheckBox] = useState(false);
+  const [checkBox1, setCheckBox1] = useState(false);
   const [change, setChange] = useState("Send OTP");
   const [wtsNum, setWtsNum] = useState("");
   const [mobNum, setMobNum] = useState("");
@@ -46,6 +53,25 @@ const Register = () => {
 
   const [timer, setTimer] = useState(0);
   const [person, setPerson] = useState(true);
+  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsTooltipVisible(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsTooltipVisible(false);
+  };
+
+  const handleIconClick = () => {
+    //e.preventDefault(); // Prevent the default action of the anchor tag
+    setIsModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+  };
 
   const handleOnChange = (e) => {
     const numericValue = e.target.value.replace(/\D/g, "");
@@ -53,7 +79,7 @@ const Register = () => {
 
     setDiesCode(trimmedValue);
 
-    if (trimmedValue.length === 11) {
+    if (trimmedValue.length === 11 && checkBox1) {
       setIsButtonEnabled(true);
     } else {
       setIsButtonEnabled(false);
@@ -62,6 +88,23 @@ const Register = () => {
     setOrgData();
     setError("");
   };
+
+  const handleCheckbox1 = (e, click) => {
+    if (click) {
+      setCheckBox1(true);
+      if (diesCode.length === 11) {
+        setIsButtonEnabled(true);
+      }
+      //formik.setFieldValue("whatapp_mobile", formik.values.mobile);
+      //setWtsNum(formik.values.mobile);
+    } else {
+      setCheckBox1(false);
+      setIsButtonEnabled(false);
+      //formik.setFieldValue("whatapp_mobile", "");
+    }
+  };
+
+
   localStorage.setItem("orgData", JSON.stringify(orgData));
   const handleRegister = (e) => {
     const body = JSON.stringify({
@@ -403,25 +446,61 @@ const Register = () => {
                   <ImageWithBasePath src="assets/img/logo-white.png" alt />
                 </Link> */}
                 {person && (
-                  <div className="login-userheading text-center">
-                    <h3> ATL School Registration</h3>
-                    <h4>Create your account</h4>
+                  <div className="login-userheading ">
+                    <h3 className="icon-container "> ATL School Teacher Registration {" "}
+                    <a
+                      href="https://www.youtube.com/watch?v=CiYa_iLdpXo" // Replace with the desired URL
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={handleIconClick} >
+                      <img src={play} className="icon" alt="play" 
+                        style={{verticalAlign:"middle" , width: "7%" }} 
+                        onMouseEnter={handleMouseEnter} 
+                        onMouseLeave={handleMouseLeave} /> </a>
+                        {isTooltipVisible && (
+                          <div className="tooltip">
+                            Watch Demo
+                          </div>
+                        )}
+                        {isModalVisible && (
+                          <div className="modal-overlay" onClick={handleCloseModal}>
+                            <div className="modal" onClick={(e) => e.stopPropagation()}>
+                              <span className="close-button" onClick={handleCloseModal}>&times;</span>
+                              <iframe
+                                width="560"
+                                height="315"
+                                src="https://www.youtube.com/watch?v=CiYa_iLdpXo" // Replace with the desired video URL
+                                
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                                title="YouTube video"
+                              ></iframe>
+                            </div>
+                          </div>
+                        )}
+                    </h3>
+                    <h4>Register New Teacher account</h4>
                   </div>
+                  
                 )}
+                
                 {diceBtn && (
-                  <div className="form-row row mb-5">
-                    <label>School UDISE Code</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="organization_code"
-                      onChange={(e) => handleOnChange(e)}
-                      value={diesCode}
-                      maxLength={11}
-                      minLength={11}
-                      name="organization_code"
-                      placeholder="Please Enter 11 digit UDISE Code"
-                    />
+                  <div className="form-login mb-3">
+                    <label className="form-label">School UDISE Code</label>
+                    <div className="form-addons">
+                      <input
+                        type="text"
+                        className="form-control mb-3"
+                        id="organization_code"
+                        onChange={(e) => handleOnChange(e)}
+                        value={diesCode}
+                        maxLength={11}
+                        minLength={11}
+                        name="organization_code"
+                        placeholder="Enter 11 digit UDISE Code"
+                      />
+                      <img src={user} alt="user" />
+                    </div>
 
                     {error ? (
                       <p
@@ -433,45 +512,63 @@ const Register = () => {
                       </p>
                     ) : null}
 
+                      <div className="form-login authentication-check">
+                        <div className="row">
+                          <div className="col-12 d-flex align-items-center justify-content-between">
+                            <div className="custom-control custom-checkbox">
+                              <label className="checkboxs ps-4 mb-0 pb-0 line-height-1">
+                                <input 
+                                  className="form-check-input"
+                                  type="checkbox"
+                                  name="click"
+                                  disabled={
+                                    (9999999999 < formik.values.diesCode < 99999999999
+                                      ? false
+                                      : true) 
+                                  }
+                                  
+                                  checked={checkBox1}
+                                  onClick={(e) =>
+                                    handleCheckbox1(e, !checkBox1)
+                                  }
+                                   />
+                                <span className="checkmarks" />
+                                I agree to the Terms & Privacy
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
                     {diceBtn && (
-                      <div className="mt-4">
+                      <div className="form-login">
                         <button
                           type="button"
-                          className="btn btn-warning m-2"
+                          className="btn btn-login mb-3"
                           onClick={(e) => handleRegister(e)}
                           disabled={!isButtonEnabled}
                         >
                           {" "}
-                          Continue
+                          Proceed
+                          <span>
+                            {" "}
+                            <ArrowRight />
+                          </span>
                         </button>
-                      </div>
-                    )}
-                    <div className="form-row row mb-5 mt-5">
-                      <p>
-                        {" "}
-                        How to register as ATL ?
-                        <Link
-                          className="hover-a"
-                          to={"https://www.youtube.com/watch?v=CiYa_iLdpXo"}
-                          style={{
-                            color: "blue",
-                          }}
-                        >
-                          {"  "} Watch Me
-                        </Link>
-                        <br />
-                        Already registered ?
-                        <Link
+                        <p className="form-login mb-3">
+                        Already have an account ?
+                        <b><Link
                           className="hover-a"
                           to={"/login"}
-                          style={{
-                            color: "blue",
-                          }}
                         >
-                          {"  "} Login Here
-                        </Link>
-                      </p>
-                    </div>
+                          {"  "} Login Instead
+                        </Link></b>
+                        </p>
+                      </div>
+                    )}
+                    
+                    <br/>
+                    <p className="text-center">Copyright <img src={copy} className="copy" alt="copy" style={{verticalAlign:"middle" , width: "5%"}} /> SIM 2024. All rights reserved</p>
                   </div>
                 )}
                 {schoolBtn && (
