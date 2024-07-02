@@ -530,6 +530,7 @@ export const CreateTeamMember = (props) => {
   const currentUser = getCurrentUser("current_user");
   const [teamMemberData, setTeamMemberData] = useState({});
   const [isClicked, setIsClicked] = useState(false);
+  const navigate = useNavigate();
 
   // const headingDetails = {
   //   title: t("teacher_teams.create_team_members"),
@@ -581,7 +582,7 @@ export const CreateTeamMember = (props) => {
       grade: "",
       gender: "",
       disability: "",
-      username: "",
+      // username: "",
     },
 
     validationSchema: Yup.object({
@@ -600,7 +601,7 @@ export const CreateTeamMember = (props) => {
         .max(18, "Max age is 18")
         .required("required"),
       gender: Yup.string().required("Please select valid gender"),
-      username: Yup.string().email("Must be a valid email").max(255),
+      // username: Yup.string().email("Must be a valid email").max(255),
       disability: Yup.string().required("Please select disability"),
       grade: Yup.string()
         .matches("", "Please enter valid class")
@@ -625,8 +626,8 @@ export const CreateTeamMember = (props) => {
           Grade: values.grade,
           Gender: values.gender,
           disability: values.disability,
-          username: values.username,
-          country: values.country,
+          // username: values.username,
+          // country: values.country,
         };
         var config = {
           method: "post",
@@ -644,7 +645,7 @@ export const CreateTeamMember = (props) => {
                 "success",
                 "Team Member Created Successfully"
               );
-              props.history.push("/teacher/teamlist");
+              navigate("/mentorteams");
             } else {
               openNotificationWithIcon("error", "Opps! Something Wrong");
               setIsClicked(false);
@@ -669,297 +670,225 @@ export const CreateTeamMember = (props) => {
             <Row>
               <Col className="col-xl-10 offset-xl-1 offset-md-0">
                 {/* <BreadcrumbTwo {...headingDetails} /> */}
-                {studentCount && studentCount !== "new" ? (
+                {studentCount && studentCount !== "new" && (
                   <CreateMultipleMembers id={id} />
-                ) : (
-                  <div>
-                    <Form onSubmit={formik.handleSubmit} isSubmitting>
-                      <div className="create-ticket register-blockt">
-                        <Row>
-                          <Col md={6}>
-                            <Label
-                              className="name-req-create-member"
-                              htmlFor="fullName"
-                            >
-                              Full Name
-                              {/* {t("teacher_teams.student_name")} */}
-                              <span required className="p-1">
-                                *
-                              </span>
-                            </Label>
-                            <input
-                              className={"defaultInput"}
-                              // placeholder={t("teacher_teams.student_name_pl")}
-                              id="fullName"
-                              name="fullName"
-                              onChange={formik.handleChange}
-                              onBlur={formik.handleBlur}
-                              value={formik.values.fullName}
-                            />
-                            {formik.touched.fullName &&
-                            formik.errors.fullName ? (
-                              <small className="error-cls">
-                                {formik.errors.fullName}
-                              </small>
-                            ) : null}
-                          </Col>
-                          <Col md={3} className="mb-0">
-                            <Label
-                              className="name-req-create-member"
-                              htmlFor="age"
-                            >
-                              {/* {t("teacher_teams.age")} */}
-                              Age
-                              <span required className="p-1">
-                                *
-                              </span>
-                            </Label>
-                            <div className="dropdown CalendarDropdownComp ">
-                              <select
-                                className="form-control custom-dropdown"
-                                id="age"
-                                name="age"
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.age}
-                              >
-                                <option value={""}>Select Age</option>
-                                {allowedAge.map((item) => (
-                                  <option key={item} value={item}>
-                                    {item}
-                                  </option>
-                                ))}
-                              </select>
-                            </div>
-                            {formik.touched.age && formik.errors.age ? (
-                              <small className="error-cls">
-                                {formik.errors.age}
-                              </small>
-                            ) : null}
-                          </Col>
+                  // ) : (
+                  //   <>
+                  //     <h3 className="m-4">Team and Student Creation</h3>
+                  //     <div>
+                  //       <Form onSubmit={formik.handleSubmit} isSubmitting>
+                  //         <div className="create-ticket register-blockt">
+                  //           <Row>
+                  //             <Col md={3}>
+                  //               <Label className="form-label">
+                  //                 Full Name
+                  //                 <span required className="p-1">
+                  //                   *
+                  //                 </span>
+                  //               </Label>
+                  //               <input
+                  //                 className="form-control"
+                  //                 placeholder="Please Enter Your Full Name"
+                  //                 id="fullName"
+                  //                 name="fullName"
+                  //                 onChange={formik.handleChange}
+                  //                 onBlur={formik.handleBlur}
+                  //                 value={formik.values.fullName}
+                  //               />
+                  //               {formik.touched.fullName &&
+                  //               formik.errors.fullName ? (
+                  //                 <small className="error-cls">
+                  //                   {formik.errors.fullName}
+                  //                 </small>
+                  //               ) : null}
+                  //             </Col>
+                  //             <Col md={2}>
+                  //               <Label
+                  //                 htmlFor="inputState"
+                  //                 className="form-label"
+                  //               >
+                  //                 Age
+                  //                 <span required className="p-1">
+                  //                   *
+                  //                 </span>
+                  //               </Label>
+                  //               <div className="dropdown CalendarDropdownComp ">
+                  //                 <select
+                  //                   id="inputState"
+                  //                   className="form-select"
+                  //                   name="age"
+                  //                   onChange={formik.handleChange}
+                  //                   onBlur={formik.handleBlur}
+                  //                   value={formik.values.age}
+                  //                 >
+                  //                   <option value={""}>Select Age</option>
+                  //                   {allowedAge.map((item) => (
+                  //                     <option key={item} value={item}>
+                  //                       {item}
+                  //                     </option>
+                  //                   ))}
+                  //                 </select>
+                  //               </div>
+                  //               {formik.touched.age && formik.errors.age ? (
+                  //                 <small className="error-cls">
+                  //                   {formik.errors.age}
+                  //                 </small>
+                  //               ) : null}
+                  //             </Col>
 
-                          <Col md={3} className="mb-5 mb-xl-0">
-                            <Label
-                              className="name-req-create-member"
-                              htmlFor="gender"
-                            >
-                              {/* {t("teacher_teams.gender")} */}
-                              Gender
-                              <span required className="p-1">
-                                *
-                              </span>
-                            </Label>
+                  //             <Col md={2} className="mb-5 mb-xl-0">
+                  //               <Label
+                  //                 className="name-req-create-member"
+                  //                 htmlFor="gender"
+                  //               >
+                  //                 Gender
+                  //                 <span required className="p-1">
+                  //                   *
+                  //                 </span>
+                  //               </Label>
 
-                            <select
-                              name="gender"
-                              className="form-control custom-dropdown"
-                              value={formik.values.gender}
-                              onChange={formik.handleChange}
-                            >
-                              <option value="">
-                                Select Gender
-                                {/* {t("teacher_teams.student_gender")} */}
-                              </option>
-                              <option value="Male">
-                                Male
-                                {/* {t("teacher_teams.student_gender_male")} */}
-                              </option>
-                              <option value="Female">
-                                Female
-                                {/* {t("teacher_teams.student_gender_female")} */}
-                              </option>
-                              <option value="OTHERS">
-                                Prefer not to mention
-                              </option>
-                            </select>
+                  //               <select
+                  //                 name="gender"
+                  //                 className="form-control custom-dropdown"
+                  //                 value={formik.values.gender}
+                  //                 onChange={formik.handleChange}
+                  //               >
+                  //                 <option value="">Select Gender</option>
+                  //                 <option value="Male">Male</option>
+                  //                 <option value="Female">Female</option>
+                  //                 <option value="OTHERS">
+                  //                   Prefer not to mention
+                  //                 </option>
+                  //               </select>
 
-                            {formik.touched.gender && formik.errors.gender ? (
-                              <small className="error-cls">
-                                {formik.errors.gender}
-                              </small>
-                            ) : null}
-                          </Col>
-                          <Row>
-                            <Col md={6} className="mb-5 mb-xl-0">
-                              <Label
-                                className="name-req-create-member"
-                                htmlFor="username"
-                              >
-                                Email Address
-                                <span required className="p-1">
-                                  *
-                                </span>
-                                {/* {t(
-                                                      'teacher_teams.student_name'
-                                                  )} */}
-                                {/* <span
-                                                          required
-                                                          className="p-1 "
-                                                          style={{
-                                                              color: 'red'
-                                                          }}
-                                                      >
-                                                          * Note : Gmail /
-                                                          Yahoo / Outlook
-                                                          mails are accepted.
-                                                      </span> */}
-                              </Label>
-                              <input
-                                className={"defaultInput"}
-                                placeholder="Enter Email Address"
-                                id="username"
-                                name="username"
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.username}
-                              />
+                  //               {formik.touched.gender && formik.errors.gender ? (
+                  //                 <small className="error-cls">
+                  //                   {formik.errors.gender}
+                  //                 </small>
+                  //               ) : null}
+                  //             </Col>
 
-                              {formik.touched.username &&
-                              formik.errors.username ? (
-                                <small className="error-cls">
-                                  {formik.errors.username}
-                                </small>
-                              ) : null}
-                            </Col>
-                            <Col md={3} className="mb-5 mb-xl-0">
-                              <Label
-                                className="name-req-create-member"
-                                htmlFor="disability"
-                              >
-                                Disability
-                                {/* {t('teacher_teams.gender')} */}
-                                <span required className="p-1">
-                                  *
-                                </span>
-                              </Label>
+                  //             <Col md={3}>
+                  //               <Label
+                  //                 htmlFor="inputState"
+                  //                 className="form-label"
+                  //               >
+                  //                 Disability
+                  //                 <span required className="p-1">
+                  //                   *
+                  //                 </span>
+                  //               </Label>
+                  //               <select
+                  //                 id="inputState"
+                  //                 className="form-select"
+                  //                 name="disability"
+                  //                 value={formik.values.disability}
+                  //                 onChange={formik.handleChange}
+                  //               >
+                  //                 <option value="">Select Status</option>
+                  //                 <option value="No">No</option>
+                  //                 <option value="Physically Challenged">
+                  //                   Physically Challenged
+                  //                 </option>
+                  //                 <option value="Visually Challenged">
+                  //                   Visually Challenged
+                  //                 </option>
+                  //                 <option value="Locomotor Disability">
+                  //                   Locomotor Disability
+                  //                 </option>
+                  //                 <option value="Intellectual Disability">
+                  //                   Intellectual Disability
+                  //                 </option>
+                  //                 <option value="Learning Disability">
+                  //                   Learning Disability
+                  //                 </option>
+                  //                 <option value="Hearing Impaired">
+                  //                   Hearing Impaired
+                  //                 </option>
+                  //                 <option value="Autism/Cerebral Palsy/Other">
+                  //                   Autism/Cerebral Palsy/Other
+                  //                 </option>
+                  //                 <option value="Others">Others</option>
+                  //               </select>
+                  //               {formik.touched.disability &&
+                  //               formik.errors.disability ? (
+                  //                 <small className="error-cls">
+                  //                   {formik.errors.disability}
+                  //                 </small>
+                  //               ) : null}
+                  //             </Col>
+                  //             <Col md={2}>
+                  //               <Label
+                  //                 htmlFor="inputState"
+                  //                 className="form-label"
+                  //               >
+                  //                 Class
+                  //                 <span required className="p-1">
+                  //                   *
+                  //                 </span>
+                  //               </Label>
+                  //               <select
+                  //                 id="inputState"
+                  //                 className="form-select"
+                  //                 name="grade"
+                  //                 value={formik.values.grade}
+                  //                 onChange={formik.handleChange}
+                  //               >
+                  //                 <option value="">Select Class..</option>
+                  //                 <option value="6">Class 6</option>
+                  //                 <option value="7">Class 7</option>
+                  //                 <option value="8">Class 8</option>
+                  //                 <option value="9">Class 9</option>
+                  //                 <option value="10">Class 10</option>
+                  //                 <option value="11">Class 11</option>
+                  //                 <option value="12">Class 12</option>
+                  //               </select>
+                  //               {formik.touched.grade && formik.errors.grade ? (
+                  //                 <small className="error-cls">
+                  //                   {formik.errors.grade}
+                  //                 </small>
+                  //               ) : null}
+                  //             </Col>
+                  //           </Row>
+                  //         </div>
 
-                              <select
-                                name="disability"
-                                className="form-control custom-dropdown"
-                                value={formik.values.disability}
-                                onChange={formik.handleChange}
-                              >
-                                <option value="">Select Status</option>
-                                <option value="No">No</option>
-                                <option value="Physically Challenged">
-                                  Physically Challenged
-                                </option>
-                                <option value="Visually Challenged">
-                                  Visually Challenged
-                                </option>
-                                <option value="Locomotor Disability">
-                                  Locomotor Disability
-                                </option>
-                                <option value="Intellectual Disability">
-                                  Intellectual Disability
-                                </option>
-                                <option value="Learning Disability">
-                                  Learning Disability
-                                </option>
-                                <option value="Hearing Impaired">
-                                  Hearing Impaired
-                                </option>
-                                <option value="Autism/Cerebral Palsy/Other">
-                                  Autism/Cerebral Palsy/Other
-                                </option>
-                                <option value="Others">Others</option>
-                              </select>
-
-                              {formik.touched.disability &&
-                              formik.errors.disability ? (
-                                <small className="error-cls">
-                                  {formik.errors.disability}
-                                </small>
-                              ) : null}
-                            </Col>
-                            <Col md={3}>
-                              <Label
-                                className="name-req-create-member"
-                                htmlFor="grade"
-                              >
-                                Class
-                                <span required className="p-1">
-                                  *
-                                </span>
-                              </Label>
-                              <div className="dropdown CalendarDropdownComp ">
-                                <select
-                                  name="grade"
-                                  className="form-control custom-dropdown"
-                                  value={formik.values.grade}
-                                  onChange={formik.handleChange}
-                                >
-                                  <option value="">Select Class..</option>
-                                  <option value="6">Class 6</option>
-                                  <option value="7">Class 7</option>
-                                  <option value="8">Class 8</option>
-                                  <option value="9">Class 9</option>
-                                  <option value="10">Class 10</option>
-                                  <option value="11">Class 11</option>
-                                  <option value="12">Class 12</option>
-                                </select>
-                              </div>
-                              {formik.touched.grade && formik.errors.grade ? (
-                                <small className="error-cls">
-                                  {formik.errors.grade}
-                                </small>
-                              ) : null}
-                            </Col>
-                          </Row>
-                        </Row>
-                      </div>
-
-                      <hr className="mt-4 mb-4"></hr>
-                      <Row>
-                        <Col className="mt-2" xs={12} sm={6} md={6} xl={6}>
-                          <button
-                            // label={t("teacher_teams.discard")}
-                            // btnClass="secondary"
-                            // size="small"
-                            // onClick={() =>
-                            //   props.history.push("/teacher/teamlist")
-                            // }
-                            type="button"
-                            className="btn btn-warning"
-                          >
-                            Discard
-                          </button>
-                        </Col>
-                        <Col className="mt-2" xs={12} sm={6} md={6} xl={6}>
-                          {!isClicked ? (
-                            <button
-                              // label={t("teacher_teams.submit")}
-                              type="submit"
-                              className="btn btn-secondary"
-                              // btnClass={
-                              //     !(
-                              //         formik.dirty &&
-                              //         formik.isValid
-                              //     )
-                              //         ? 'default float-end'
-                              //         : 'primary float-end'
-                              // }
-                              // size="small"
-                              // disabled={!(formik.dirty && formik.isValid)}
-                            >
-                              Submit
-                            </button>
-                          ) : (
-                            <button
-                              // label={t("teacher_teams.submit")}
-                              type="button"
-                              className="btn btn-secondary"
-                              // btnClass="default"
-                              // size="small"
-                              // disabled={true}
-                            >
-                              Discard
-                            </button>
-                          )}
-                        </Col>
-                      </Row>
-                    </Form>
-                  </div>
+                  //         <hr className="mt-4 mb-4"></hr>
+                  //         <Row>
+                  //           <Col className="mt-2" xs={12} sm={6} md={6} xl={6}>
+                  //             {!isClicked && (
+                  //               <button
+                  //                 // label={t("teacher_teams.submit")}
+                  //                 type="submit"
+                  //                 className="btn btn-warning"
+                  //               >
+                  //                 Submit
+                  //               </button>
+                  //               // ) : (
+                  //               //   <button
+                  //               //     // label={t("teacher_teams.submit")}
+                  //               //     type="button"
+                  //               //     className="btn btn-secondary"
+                  //               //   >
+                  //               //     Discard
+                  //               //   </button>
+                  //             )}
+                  //           </Col>
+                  //           <Col className="mt-2" xs={12} sm={6} md={6} xl={6}>
+                  //             <button
+                  //               // label={t("teacher_teams.discard")}
+                  //               // btnClass="secondary"
+                  //               // size="small"
+                  //               onClick={() => navigate("/mentorteams")}
+                  //               type="button"
+                  //               className="btn btn-secondary"
+                  //             >
+                  //               Discard
+                  //             </button>
+                  //           </Col>
+                  //         </Row>
+                  //       </Form>
+                  //     </div>
+                  //   </>
                 )}
               </Col>
             </Row>

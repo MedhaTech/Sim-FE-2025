@@ -1,15 +1,19 @@
 /* eslint-disable indent */
 import React, { useState } from "react";
-import { Grid, User } from "react-feather";
+import { Grid, Users } from "react-feather";
 import { Link } from "react-router-dom";
+import logo from "../../assets/img/teac.png";
+import support from "../../assets/img/icons/purchase1.svg";
 
+import FeatherIcon from "feather-icons-react";
+import { ToolFilled } from "@ant-design/icons";
 const HorizontalSidebar = () => {
   const [isActive, setIsActive] = useState(false);
   const [isActive2, setIsActive2] = useState(false);
   const [isActive3, setIsActive3] = useState(false);
   const [isActive4, setIsActive4] = useState(false);
   const [isActive5, setIsActive5] = useState(false);
-  const [isActive6, setIsActive6] = useState(false);
+  // const [isActive6, setIsActive6] = useState(false);
   const [isActive7, setIsActive7] = useState(false);
 
   // const [subActive, setsubActive] = useState(false);
@@ -35,8 +39,8 @@ const HorizontalSidebar = () => {
   const [subActive21, setSubActive21] = useState(false);
   const [subActive22, setSubActive22] = useState(false);
   const [subActive23, setSubActive23] = useState(false);
-  const [subActive24, setSubActive24] = useState(false);
-  const [subActive25, setSubActive25] = useState(false);
+  // const [subActive24, setSubActive24] = useState(false);
+  // const [subActive25, setSubActive25] = useState(false);
   // const [subActive26, setSubActive26] = useState(false);
 
   // const handleSubClick = () => {
@@ -119,13 +123,13 @@ const HorizontalSidebar = () => {
     setSubActive23(!subActive23);
   };
 
-  const handleSubClick24 = () => {
-    setSubActive24(!subActive24);
-  };
+  // const handleSubClick24 = () => {
+  //   setSubActive24(!subActive24);
+  // };
 
-  const handleSubClick25 = () => {
-    setSubActive25(!subActive25);
-  };
+  // const handleSubClick25 = () => {
+  //   setSubActive25(!subActive25);
+  // };
 
   // const handleSubClick26 = () => {
   //   setSubActive26(!subActive26);
@@ -137,7 +141,7 @@ const HorizontalSidebar = () => {
     setIsActive3(false);
     setIsActive4(false);
     setIsActive5(false);
-    setIsActive6(false);
+    // setIsActive6(false);
     setIsActive7(false);
   };
   const handleSelectClick2 = () => {
@@ -146,7 +150,7 @@ const HorizontalSidebar = () => {
     setIsActive3(false);
     setIsActive4(false);
     setIsActive5(false);
-    setIsActive6(false);
+    // setIsActive6(false);
     setIsActive7(false);
   };
   const handleSelectClick3 = () => {
@@ -155,7 +159,7 @@ const HorizontalSidebar = () => {
     setIsActive3(!isActive3);
     setIsActive4(false);
     setIsActive5(false);
-    setIsActive6(false);
+    // setIsActive6(false);
     setIsActive7(false);
   };
   const handleSelectClick4 = () => {
@@ -164,7 +168,7 @@ const HorizontalSidebar = () => {
     setIsActive3(false);
     setIsActive4(!isActive4);
     setIsActive5(false);
-    setIsActive6(false);
+    // setIsActive6(false);
     setIsActive7(false);
   };
   const handleSelectClick5 = () => {
@@ -173,25 +177,25 @@ const HorizontalSidebar = () => {
     setIsActive3(false);
     setIsActive4(false);
     setIsActive5(!isActive5);
-    setIsActive6(false);
+    // setIsActive6(false);
     setIsActive7(false);
   };
-  const handleSelectClick6 = () => {
-    setIsActive(false);
-    setIsActive2(false);
-    setIsActive3(false);
-    setIsActive4(false);
-    setIsActive5(false);
-    setIsActive6(!isActive6);
-    setIsActive7(false);
-  };
+  // const handleSelectClick6 = () => {
+  //   setIsActive(false);
+  //   setIsActive2(false);
+  //   setIsActive3(false);
+  //   setIsActive4(false);
+  //   setIsActive5(false);
+  //   setIsActive6(!isActive6);
+  //   setIsActive7(false);
+  // };
   const handleSelectClick7 = () => {
     setIsActive(false);
     setIsActive2(false);
     setIsActive3(false);
     setIsActive4(false);
     setIsActive5(false);
-    setIsActive6(false);
+    // setIsActive6(false);
     setIsActive7(!isActive7);
   };
 
@@ -280,8 +284,9 @@ const HorizontalSidebar = () => {
               onClick={handleSelectClick2}
               className={isActive2 ? "subdrop" : ""}
             >
-              <img src="assets/img/icons/product.svg" alt="img" />
-              <span> Courses </span>
+              {/* <img src="assets/img/teac.png" alt="img" /> */}
+              <img src={logo} alt="Logo" />
+              <span>Teacher Role</span>
               {/* <span className="menu-arrow" /> */}
             </Link>
             {/* <ul style={{ display: isActive2 ? "block" : "none" }}>
@@ -353,7 +358,8 @@ const HorizontalSidebar = () => {
               onClick={handleSelectClick3}
               className={isActive3 ? "subdrop" : ""}
             >
-              <img src="assets/img/icons/purchase1.svg" alt="img" />
+              {/* <img src="assets/img/icons/addprofile.svg" alt="img" /> */}
+              <Users />
               {/* <span>Sales &amp; Purchase</span> <span className="menu-arrow" /> */}
               <span>Teams</span>
               {/* <span className="menu-arrow" /> */}
@@ -469,7 +475,8 @@ const HorizontalSidebar = () => {
               onClick={handleSelectClick4}
               className={isActive4 ? "subdrop" : ""}
             >
-              <img src="assets/img/icons/users1.svg" alt="img" />
+              {/* <img src="assets/img/icons/users1.svg" alt="img" /> */}
+              <ToolFilled />
               <span>Resources</span>
               {/* <span className="menu-arrow" /> */}
             </Link>
@@ -851,7 +858,8 @@ const HorizontalSidebar = () => {
               onClick={handleSelectClick5}
               className={isActive5 ? "subdrop" : ""}
             >
-              <User />
+              {/* <User /> */}
+              <img src={support} alt="Support" />
               <span>Survey</span> <span className="menu-arrow" />
             </Link>
             <ul style={{ display: isActive5 ? "block" : "none" }}>
@@ -1124,16 +1132,16 @@ const HorizontalSidebar = () => {
               </li> */}
             </ul>
           </li>
-          <li className="submenu">
-            <Link
+          {/* <li className="submenu"> */}
+          {/* <Link
               to="#"
               onClick={handleSelectClick6}
               className={isActive6 ? "subdrop" : ""}
             >
               <img src="assets/img/icons/printer.svg" alt="img" />
               <span>My Certificates</span> <span className="menu-arrow" />
-            </Link>
-            {/* <ul style={{ display: isActive6 ? "block" : "none" }}>
+            </Link> */}
+          {/* <ul style={{ display: isActive6 ? "block" : "none" }}>
               <li>
                 <Link to="sales-report">
                   <span>Sales Report</span>
@@ -1185,14 +1193,15 @@ const HorizontalSidebar = () => {
                 </Link>
               </li>
             </ul> */}
-          </li>
+          {/* </li> */}
           <li className="submenu">
             <Link
               to="#"
               onClick={handleSelectClick7}
               className={isActive7 ? "subdrop" : ""}
             >
-              <img src="assets/img/icons/settings.svg" alt="img" />
+              {/* <img src="assets/img/icons/settings.svg" alt="img" /> */}
+              <FeatherIcon icon="phone" />
               <span> Help</span> <span className="menu-arrow" />
             </Link>
             <ul style={{ display: isActive7 ? "block" : "none" }}>
@@ -1202,7 +1211,7 @@ const HorizontalSidebar = () => {
                   onClick={handleSubClick21}
                   className={subActive21 ? "subdrop" : ""}
                 >
-                  <span>WhatsApp links</span>
+                  <span>Support</span>
                   {/* <span className="menu-arrow" /> */}
                 </Link>
                 {/* <ul style={{ display: subActive21 ? "block" : "none" }}>
@@ -1226,7 +1235,7 @@ const HorizontalSidebar = () => {
                   onClick={handleSubClick22}
                   className={subActive22 ? "subdrop" : ""}
                 >
-                  <span>Course Mandate</span>
+                  <span>Portal Videos</span>
                   {/* <span className="menu-arrow" /> */}
                 </Link>
                 {/* <ul style={{ display: subActive22 ? "block" : "none" }}>
@@ -1264,7 +1273,7 @@ const HorizontalSidebar = () => {
                   onClick={handleSubClick23}
                   className={subActive23 ? "subdrop" : ""}
                 >
-                  <span>Idea Submission Deadline</span>
+                  <span>FAQs</span>
                   {/* <span className="menu-arrow" /> */}
                 </Link>
                 {/* <ul style={{ display: subActive23 ? "block" : "none" }}>
@@ -1282,16 +1291,16 @@ const HorizontalSidebar = () => {
                   </li>
                 </ul> */}
               </li>
-              <li className="submenu">
-                <Link
+              {/* <li className="submenu"> */}
+              {/* <Link
                   to="#"
                   onClick={handleSubClick23}
                   className={subActive23 ? "subdrop" : ""}
                 >
                   <span>Pop Up</span>
-                  {/* <span className="menu-arrow" /> */}
-                </Link>
-                {/* <ul style={{ display: subActive23 ? "block" : "none" }}>
+                  <span className="menu-arrow" />
+                </Link> */}
+              {/* <ul style={{ display: subActive23 ? "block" : "none" }}>
                   <li>
                     <Link to="email-settings">Email</Link>
                   </li>
@@ -1305,17 +1314,17 @@ const HorizontalSidebar = () => {
                     <Link to="gdpr-settings">GDPR Cookies</Link>
                   </li>
                 </ul> */}
-              </li>
-              <li className="submenu">
-                <Link
+              {/* </li> */}
+              {/* <li className="submenu"> */}
+              {/* <Link
                   to="#"
                   onClick={handleSubClick24}
                   className={subActive24 ? "subdrop" : ""}
                 >
                   <span>Resources</span>
-                  {/* <span className="menu-arrow" /> */}
-                </Link>
-                {/* <ul style={{ display: subActive24 ? "block" : "none" }}>
+                  <span className="menu-arrow" />
+                </Link> */}
+              {/* <ul style={{ display: subActive24 ? "block" : "none" }}>
                   <li>
                     <Link to="payment-gateway-settings">Payment Gateway</Link>
                   </li>
@@ -1329,17 +1338,17 @@ const HorizontalSidebar = () => {
                     <Link to="currency-settings">Currencies</Link>
                   </li>
                 </ul> */}
-              </li>
-              <li className="submenu">
-                <Link
+              {/* </li> */}
+              {/* <li className="submenu"> */}
+              {/* <Link
                   to="#"
                   onClick={handleSubClick25}
                   className={subActive25 ? "subdrop" : ""}
                 >
                   <span>Latest News</span>
-                  {/* <span className="menu-arrow" /> */}
-                </Link>
-                {/* <ul style={{ display: subActive25 ? "block" : "none" }}>
+                  <span className="menu-arrow" />
+                </Link> */}
+              {/* <ul style={{ display: subActive25 ? "block" : "none" }}>
                   <li>
                     <Link to="storage-settings">Storage</Link>
                   </li>
@@ -1347,17 +1356,17 @@ const HorizontalSidebar = () => {
                     <Link to="ban-ip-address">Ban IP Address</Link>
                   </li>
                 </ul> */}
-              </li>
-              <li>
+              {/* </li> */}
+              {/* <li>
                 <Link to="#">
                   <span>Email Sender</span>
                 </Link>
-              </li>
-              <li>
+              </li> */}
+              {/* <li>
                 <Link to="#">
                   <span>FAQ</span>
                 </Link>
-              </li>
+              </li> */}
               {/* <li className="submenu">
                 <Link
                   to="#"

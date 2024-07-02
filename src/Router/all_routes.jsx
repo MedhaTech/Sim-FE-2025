@@ -3,6 +3,7 @@ export const all_routes = {
   dashboard: "/admin-dashboard",
   mentordashboard: "/teacher-dashboard",
   createteam: "/createteam",
+  addstudent:"/addstudent",
   mentorpresurvey: "/mentorpresurvey",
   mentorpostsurvey: "/mentorpostsurvey",
   mentorteams: "/mentorteams",

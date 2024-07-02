@@ -49,17 +49,40 @@ const CreateMultipleMembers = ({ id }) => {
   const [isClicked, setIsClicked] = useState(false);
   const [teamname, setTeamname] = useState("");
   const [teamemail, setTeamemail] = useState("");
+
+  const [teamNameError, setTeamNameError] = useState("");
+
   const handleteamname = (e) => {
     const numericValue = e.target.value;
     const trimmedValue = numericValue.trim();
-
     setTeamname(trimmedValue);
+
+    if (trimmedValue.length < 1) {
+      setTeamNameError("Please Enter Team Name");
+    } else {
+      setTeamNameError("");
+    }
   };
+  // const handleteamemail = (e) => {
+  //   const numericValue = e.target.value;
+  //   const trimmedValue = numericValue.trim();
+
+  //   setTeamemail(trimmedValue);
+  // };
+  const [emailError, setEmailError] = useState("");
+
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
   const handleteamemail = (e) => {
     const numericValue = e.target.value;
     const trimmedValue = numericValue.trim();
-
     setTeamemail(trimmedValue);
+
+    if (!emailPattern.test(trimmedValue)) {
+      setEmailError("Enter a valid email address");
+    } else {
+      setEmailError("");
+    }
   };
   const [studentData, setStudentData] = useState([
     {
@@ -142,19 +165,6 @@ const CreateMultipleMembers = ({ id }) => {
     setStudentData(newItem);
   };
   const validateItemData = () => {
-    let teamErrors = {};
-    if (!teamname.trim()) {
-      teamErrors["teamname"] = "Team name is Required";
-    }
-    if (!teamemail.trim()) {
-      teamErrors["teamemail"] = "Team email is Required";
-    } else {
-      // Further validation for email format
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(teamemail)) {
-        teamErrors["teamemail"] = "Enter a valid email address";
-      }
-    }
     const errors = studentData.map((item, i) => {
       let err = {};
       if (!item.full_name.trim()) err["full_name"] = "Full name is Required";
@@ -186,11 +196,9 @@ const CreateMultipleMembers = ({ id }) => {
       }
       return { ...err, i };
     });
-    const combinedErrors = [...errors, teamErrors];
-    setItemDataErrors(
-      combinedErrors.filter((item) => Object.values(item).length > 0)
-    );
-    const filterEmpty = combinedErrors.filter((item) => {
+    // const combinedErrors = [...errors, teamErrors];
+    setItemDataErrors(errors.filter((item) => Object.values(item).length > 0));
+    const filterEmpty = errors.filter((item) => {
       const ce = { ...item };
       delete ce.i;
       return Object.values(ce).filter(Boolean).length > 0;
@@ -284,10 +292,10 @@ const CreateMultipleMembers = ({ id }) => {
       });
     // dispatch(teacherCreateMultipleStudent(studentData, navigate, setIsClicked));
   };
-  useEffect(() => {
-    setButtonDisabled(!validateItemData());
-  }, [studentData, teamname, teamemail]);
-  // const button = teamname && teamemail && studentData;
+  // useEffect(() => {
+  //   setButtonDisabled(!validateItemData());
+  // }, [studentData, teamname, teamemail]);
+  const button = teamname && teamemail && studentData;
   return (
     <div className="page-wrapper">
       <div className="page-title">
@@ -309,9 +317,7 @@ const CreateMultipleMembers = ({ id }) => {
               onChange={(e) => handleteamname(e)}
               value={teamname}
             />
-            {itemDataErrors["teamname"] && (
-              <small className="error-cls">{itemDataErrors["teamname"]}</small>
-            )}
+            {teamNameError && <span>{teamNameError}</span>}
           </Col>
           <Col md={6} className="mb-xl-0">
             <Label className="form-label">
@@ -329,9 +335,7 @@ const CreateMultipleMembers = ({ id }) => {
               onChange={(e) => handleteamemail(e)}
               value={teamemail}
             />
-            {itemDataErrors["teamemail"] && (
-              <small className="error-cls">{itemDataErrors["teamemail"]}</small>
-            )}
+            {emailError && <span>{emailError}</span>}
             {/* {foundErrObject?.username ? (
                           <small className="error-cls">
                             {foundErrObject.username}
@@ -345,16 +349,16 @@ const CreateMultipleMembers = ({ id }) => {
             <div key={i + item} className="mb-5">
               <div className="d-flex justify-content-between align-items-center">
                 <h6 className="mt-2">Student {i + 1} Details</h6>
-                {/* {i > 1 && (
-                      <button
-                        //   label={"Remove"}
-                        onClick={() => removeItem(i)}
-                        //   btnClass={"secondary float-end"}
-                        className="btn btn-primary "
-                      >
-                        Remove
-                      </button>
-                    )} */}
+                {i > 1 && (
+                  <button
+                    //   label={"Remove"}
+                    onClick={() => removeItem(i)}
+                    //   btnClass={"secondary float-end"}
+                    className="btn btn-primary "
+                  >
+                    Remove
+                  </button>
+                )}
               </div>
               <hr />
               <Row className="mb-3">
@@ -537,7 +541,7 @@ const CreateMultipleMembers = ({ id }) => {
                 type="submit"
                 className="btn btn-warning text-left"
                 onClick={handleSumbit}
-                disabled={buttonDisabled}
+                disabled={!button}
               >
                 Submit
               </button>
