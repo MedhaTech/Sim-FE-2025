@@ -207,6 +207,7 @@ import MentorPresurvey from "../Teacher/PreSurvey/PreSurvey";
 import MentorPostsurvey from "../Teacher/PostSurvey/PostSurvey";
 import MentorTeams from "../Teacher/Teams/index";
 import CreateTeam from "../Teacher/Teams/MentorTeam";
+import AddStudent from "../Teacher/Teams/AddStudent";
 export const publicRoutes = [
   {
     id: 1,
@@ -1458,7 +1459,7 @@ export const mentorRoutes = [
     protected: true,
     route: Route,
   },
- 
+
   {
     id: 5,
     path: routes.mentorteams,
@@ -1480,6 +1481,14 @@ export const mentorRoutes = [
     path: routes.createteam,
     name: "createteam",
     element: <CreateTeam />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 8,
+    path: routes.addstudent,
+    name: "addstudent",
+    element: <AddStudent />,
     protected: true,
     route: Route,
   },
