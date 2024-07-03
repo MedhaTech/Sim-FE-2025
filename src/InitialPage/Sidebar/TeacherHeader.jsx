@@ -32,6 +32,10 @@ const MentorHeader = () => {
     logout(navigate, t, "MENTOR");
     e.preventDefault();
   };
+  const handleLogout1 = (e) => {
+    logout(navigate, t, "MENTOR");
+    e.preventDefault();
+  };
 
   useEffect(() => {
     const handleMouseover = (e) => {
@@ -143,12 +147,12 @@ const MentorHeader = () => {
 
   const getProfileImage = (gender) => {
     switch (gender) {
-      case 'Male':
-        return male; 
-      case 'Female':
-        return female; 
+      case "Male":
+        return male;
+      case "Female":
+        return female;
       default:
-        return user; 
+        return user;
     }
   };
 
@@ -607,7 +611,7 @@ const MentorHeader = () => {
           {/* </li> */}
           <li className="nav-item dropdown has-arrow main-drop">
             <Link
-              to="#"
+              to="/mentorprofile"
               className="dropdown-toggle nav-link userset"
               data-bs-toggle="dropdown"
             >
@@ -618,7 +622,10 @@ const MentorHeader = () => {
                     alt="img"
                     className="img-fluid"
                   /> */}
-                  <img src={getProfileImage(currentUser?.data[0]?.gender)} alt="Profile" />
+                  <img
+                    src={getProfileImage(currentUser?.data[0]?.gender)}
+                    alt="Profile"
+                  />
                 </span>
                 <span className="user-detail">
                   {/* {currentUser?.data[0]?.role} */}
@@ -691,14 +698,15 @@ const MentorHeader = () => {
           <div className="dropdown-menu dropdown-menu-right">
             <Link
               className="dropdown-item"
-              onClick={() => navigate("/mentor-profile")}
+              to={"/mentorprofile"}
+              // onClick={() => navigate("/mentorprofile")}
             >
               My Profile
             </Link>
             {/* <Link className="dropdown-item" to="generalsettings">
               Settings
             </Link> */}
-            <Link className="dropdown-item" to="signin">
+            <Link className="dropdown-item" to="signin" onClick={handleLogout1}>
               Logout
             </Link>
           </div>
