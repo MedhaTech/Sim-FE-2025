@@ -13,6 +13,7 @@ import { ArrowRight } from "react-feather";
 // import { all_routes } from "../../Router/all_routes";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
+import VideoModal from '../../HelpVideo/VideoModal';
 
 const MentorDashboard = () => {
   // const route = all_routes;
@@ -256,7 +257,7 @@ const MentorDashboard = () => {
             <div className="col-xl-7 col-sm-12 col-12 d-flex">
               <div className="card flex-fill">
                 <div className="card-header d-flex justify-content-between align-items-center">
-                  <h5 className="card-title mb-0">Purchase &amp; Sales</h5>
+                  <h5 className="card-title mb-0">Purchase &amp; Sales <VideoModal videoId="3" /> </h5>
                   <div className="graph-sets">
                     <ul className="mb-0">
                       <li>
