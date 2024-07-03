@@ -71,7 +71,6 @@ export const teacherLoginUser =
           return err.response;
         });
       if (result && result.status === 200) {
-        console.log(result, "res");
         const item = result.data;
         setCurrentUser(item);
         localStorage.setItem("module", module);
