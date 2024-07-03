@@ -208,6 +208,7 @@ import MentorPostsurvey from "../Teacher/PostSurvey/PostSurvey";
 import MentorTeams from "../Teacher/Teams/index";
 import CreateTeam from "../Teacher/Teams/MentorTeam";
 import AddStudent from "../Teacher/Teams/AddStudent";
+import TecResource from "../Teacher/Resource/TecResource";
 export const publicRoutes = [
   {
     id: 1,
@@ -1489,6 +1490,14 @@ export const mentorRoutes = [
     path: routes.addstudent,
     name: "addstudent",
     element: <AddStudent />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 9,
+    path: routes.tecresource,
+    name: "tecresource",
+    element: <TecResource />,
     protected: true,
     route: Route,
   },

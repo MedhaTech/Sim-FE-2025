@@ -471,7 +471,7 @@ const HorizontalSidebar = () => {
           </li>
           <li className="submenu">
             <Link
-              to="#"
+              to="/tecresource"
               onClick={handleSelectClick4}
               className={isActive4 ? "subdrop" : ""}
             >
