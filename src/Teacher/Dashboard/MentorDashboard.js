@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import React, { useState } from "react";
+import React, { useEffect , useState } from 'react';
 import CountUp from "react-countup";
 import {
   File,
@@ -14,9 +14,18 @@ import { ArrowRight } from "react-feather";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import VideoModal from '../../HelpVideo/VideoModal';
+import { getCurrentUser } from '../../helpers/Utils';
+import { encryptGlobal } from '../../constants/encryptDecrypt';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { FaUsers } from 'react-icons/fa';
+import { FaUserGraduate } from 'react-icons/fa';
+import { FaPaperPlane } from 'react-icons/fa';
+import { FaChalkboardTeacher } from 'react-icons/fa'; 
+
 
 const MentorDashboard = () => {
-  // const route = all_routes;
+  // Source code start
   const [chartOptions] = useState({
     series: [
       {
@@ -109,6 +118,164 @@ const MentorDashboard = () => {
       }
     });
   };
+  // Source code end
+/////////////////NEW CODE//////////////////////////////////
+
+  const navigate = useNavigate();
+  const [teamCountLoading, setTeamCountLoading] = useState(true);
+  const [stuCountLoading, setStuCountLoading] = useState(true);
+  const [ideaCountLoading, setIdeaCountLoading] = useState(true);
+  const [teacCourseLoading, setTeacCourseLoading] = useState(true);
+  
+  const Loader = () => (
+    <div className="spinner-border text-primary" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </div>
+  );
+
+  const redirectToTeams = () => {
+    navigate(`/mentorteams`);
+  };
+  const redirectToCourse = () => {
+    navigate(`/mentorteams`);
+  };
+
+  const currentUser = getCurrentUser('current_user');
+
+  useEffect(() => {
+    if (currentUser?.data[0]?.user_id) {
+        mentorTeamsCount();
+        mentorIdeaCount();
+        mentorStudentCount();
+        mentorcoursepercentage();
+    }
+  }, [currentUser?.data[0]?.user_id]);
+  const [teamsCount, setTeamsCount] = useState();
+  const [ideaCount, setIdeaCount] = useState();
+  const [studentCount, setStudentCount] = useState();
+  const [coursepercentage, setCoursepercentage] = useState();
+
+  const mentorTeamsCount = () => {
+    const teamApi = encryptGlobal(
+        JSON.stringify({
+            mentor_id: currentUser?.data[0]?.mentor_id
+        })
+    );
+    var config = {
+        method: 'get',
+        url:
+            process.env.REACT_APP_API_BASE_URL +
+            `/dashboard/teamCount?Data=${teamApi}`,
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${currentUser.data[0]?.token}`
+        }
+    };
+    axios(config)
+        .then(function (response) {
+            if (response.status === 200) {
+                setTeamsCount(response.data.data[0].teams_count);
+                setTeamCountLoading(false);
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+  };
+  const mentorIdeaCount = () => {
+      const ideaApi = encryptGlobal(
+          JSON.stringify({
+              mentor_id: currentUser?.data[0]?.mentor_id
+          })
+      );
+      var config = {
+          method: 'get',
+          url:
+              process.env.REACT_APP_API_BASE_URL +
+              `/dashboard/ideaCount?Data=${ideaApi}`,
+          headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+              Authorization: `Bearer ${currentUser.data[0]?.token}`
+          }
+      };
+      axios(config)
+          .then(function (response) {
+              if (response.status === 200) {
+                  setIdeaCount(response.data.data[0].idea_count);
+                  setIdeaCountLoading(false);
+              }
+          })
+          .catch(function (error) {
+              console.log(error);
+          });
+  };
+  const mentorStudentCount = () => {
+      const studentApi = encryptGlobal(
+          JSON.stringify({
+              mentor_id: currentUser?.data[0]?.mentor_id
+          })
+      );
+      var config = {
+          method: 'get',
+          url:
+              process.env.REACT_APP_API_BASE_URL +
+              `/dashboard/studentCount?Data=${studentApi}`,
+          headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+              Authorization: `Bearer ${currentUser.data[0]?.token}`
+          }
+      };
+      axios(config)
+          .then(function (response) {
+              if (response.status === 200) {
+                  setStudentCount(response.data.data[0].student_count);
+                  setStuCountLoading(false);
+              }
+          })
+          .catch(function (error) {
+              console.log(error);
+          });
+  };
+  const mentorcoursepercentage = () => {
+      const corseApi = encryptGlobal(
+          JSON.stringify({
+              user_id: currentUser?.data[0]?.user_id
+          })
+      );
+      var config = {
+          method: 'get',
+          url:
+              process.env.REACT_APP_API_BASE_URL +
+              `/dashboard/mentorpercentage?Data=${corseApi}`,
+          headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+              Authorization: `Bearer ${currentUser.data[0]?.token}`
+          }
+      };
+      axios(config)
+          .then(function (response) {
+              if (response.status === 200) {
+                  const per = Math.round(
+                      (response.data.data[0].currentProgress /
+                          response.data.data[0].totalProgress) *
+                          100
+                  );
+                  setCoursepercentage(per);
+                  setTeacCourseLoading(false);
+              }
+          })
+          .catch(function (error) {
+              console.log(error);
+          });
+  };
+
+
+  //////////////////////////////////////////////
+
   return (
     <div>
       <div className="page-wrapper">
@@ -118,17 +285,27 @@ const MentorDashboard = () => {
               <div className="dash-widget w-100">
                 <div className="dash-widgetimg">
                   <span>
-                    <ImageWithBasePath
-                      src="assets/img/icons/dash1.svg"
-                      alt="img"
-                    />
+                    <FaUsers size={30} />
                   </span>
                 </div>
                 <div className="dash-widgetcontent">
-                  <h5>
-                    <CountUp start={0} end={307144} duration={3} prefix="$" />
-                  </h5>
-                  <h6>Total Purchase Due</h6>
+                    {teamCountLoading ? ( 
+                      <Loader />
+                    ) : teamsCount === 0 ?  (
+                    <>
+                      <h5>Yet to Create Teams?</h5>
+                      <button onClick={redirectToTeams} className="btn btn-primary">
+                        Create Team
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <h5>
+                        <CountUp start={0} end={teamsCount} duration={2} />
+                      </h5>
+                      <h6>Teams Created</h6>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
@@ -136,22 +313,27 @@ const MentorDashboard = () => {
               <div className="dash-widget dash1 w-100">
                 <div className="dash-widgetimg">
                   <span>
-                    <ImageWithBasePath
-                      src="assets/img/icons/dash2.svg"
-                      alt="img"
-                    />
+                    <FaUserGraduate size={30} />
                   </span>
                 </div>
                 <div className="dash-widgetcontent">
-                  <h5>
-                    $
-                    <CountUp
-                      start={0}
-                      end={4385}
-                      duration={3} // Duration in seconds
-                    />
-                  </h5>
-                  <h6>Total Sales Due</h6>
+                    {stuCountLoading ? ( 
+                        <Loader />
+                      ) : studentCount === 0 ? (
+                        <>
+                          <h5>No student enrolled?</h5>
+                          <button onClick={redirectToTeams} className="btn btn-primary">
+                            Enrol Students
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <h5>
+                            <CountUp start={0} end={studentCount} duration={2} />
+                          </h5>
+                          <h6>Students Enrolled</h6>
+                        </>
+                      )}
                 </div>
               </div>
             </div>
@@ -159,23 +341,25 @@ const MentorDashboard = () => {
               <div className="dash-widget dash2 w-100">
                 <div className="dash-widgetimg">
                   <span>
-                    <ImageWithBasePath
-                      src="assets/img/icons/dash3.svg"
-                      alt="img"
-                    />
+                    <FaPaperPlane size={30} />
                   </span>
                 </div>
                 <div className="dash-widgetcontent">
-                  <h5>
-                    $
-                    <CountUp
-                      start={0}
-                      end={385656.5}
-                      duration={3} // Duration in seconds
-                      decimals={1}
-                    />
-                  </h5>
-                  <h6>Total Sale Amount</h6>
+                  {ideaCountLoading ? ( 
+                          <Loader />
+                      ) : ideaCount === 0 ? (
+                      <>
+                        <h5>Yet to submit ideas!</h5>
+                        <h6>Kindly nurture your students</h6>
+                      </>
+                    ) : (
+                      <>
+                        <h5>
+                          <CountUp start={0} end={ideaCount} duration={2} />
+                        </h5>
+                        <h6>Ideas Submissions</h6>
+                      </>
+                    )}
                 </div>
               </div>
             </div>
@@ -183,22 +367,27 @@ const MentorDashboard = () => {
               <div className="dash-widget dash3 w-100">
                 <div className="dash-widgetimg">
                   <span>
-                    <ImageWithBasePath
-                      src="assets/img/icons/dash4.svg"
-                      alt="img"
-                    />
+                    <FaChalkboardTeacher size={30} />
                   </span>
                 </div>
                 <div className="dash-widgetcontent">
-                  <h5>
-                    $
-                    <CountUp
-                      start={0}
-                      end={40000}
-                      duration={3} // Duration in seconds
-                    />
-                  </h5>
-                  <h6>Total Expense Amount</h6>
+                  {teacCourseLoading ? ( 
+                            <Loader />
+                        ) : coursepercentage === 0 ? (
+                      <>
+                        <h5>To know about SIM</h5>
+                        <button onClick={redirectToCourse} className="btn btn-primary">
+                          Start Course
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <h5>
+                          <CountUp start={0} end={coursepercentage} duration={2} /> %
+                        </h5> 
+                        <h6>Teacher Course</h6>
+                      </>
+                  )}
                 </div>
               </div>
             </div>
