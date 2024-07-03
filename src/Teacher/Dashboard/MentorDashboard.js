@@ -615,11 +615,13 @@ const MentorDashboard = () => {
                             data-bs-toggle="modal"
                             data-bs-target="#edit-units"
                           >
-                            <i data-feather="edit" className="feather-edit" />
+                            <i
+                              data-feather="edit"
+                              className="feather-edit"
+                            />
                           </Link>
                           <Link
                             className=" confirm-text p-2"
-                            to="#"
                             onClick={showConfirmationAlert}
                           >
                             <i

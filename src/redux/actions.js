@@ -51,9 +51,20 @@ export const MENTORS_EDIT = "MENTORS_EDIT";
 export const MENTORS_EDIT_SUCCESS = "MENTORS_EDIT_SUCCESS";
 export const MENTORS_EDIT_ERROR = "MENTORS_EDIT_ERROR";
 
+export const ADMIN_TEAMS_LIST = "ADMIN_TEAMS_LIST";
+export const ADMIN_TEAMS_LIST_SUCCESS = "ADMIN_TEAMS_LIST_SUCCESS";
+export const ADMIN_TEAMS_LIST_ERROR = "ADMIN_TEAMS_LIST_ERROR";
+export const ADMIN_TEAMS_MEMBERS_LIST = "ADMIN_TEAMS_MEMBERS_LIST";
+export const ADMIN_TEAMS_MEMBERS_LIST_SUCCESS =
+  "ADMIN_TEAMS_MEMBERS_LIST_SUCCESS";
+export const ADMIN_TEAMS_MEMBERS_LIST_ERROR = "ADMIN_TEAMS_MEMBERS_LIST_ERROR";
+export const TEAM_MEMBER_STATUS = "TEAM_MEMBER_STATUS";
+export const TEAM_MEMBER_STATUS_ERROR = "TEAM_MEMBER_STATUS_ERROR";
+
 export * from "../Teacher/store/mentors/actions";
 export * from "../Coordinators/store/Coordinator/actions";
 export * from "../Admin/store/admin/actions";
 export * from "./studentRegistration/actions";
 export * from "../Teacher/store/teacher/actions";
 export * from "../Evaluator/store/evaluator/action";
+export * from "../Teacher/store/teams/actions";

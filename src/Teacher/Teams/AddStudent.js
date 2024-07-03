@@ -6,7 +6,6 @@ import { Row, Col, Form, Label, Card } from "reactstrap";
 import axios from "axios";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-
 import { openNotificationWithIcon, getCurrentUser } from "../../helpers/Utils";
 import { useDispatch } from "react-redux";
 import { teacherCreateMultipleStudent } from "../store/teacher/actions";
@@ -19,7 +18,6 @@ export const CreateTeamMember = () => {
   const location = useLocation();
 
   const teamData = location.state || {};
-  console.log(teamData.team_id, "2222");
   const currentUser = getCurrentUser("current_user");
   const navigate = useNavigate();
   const allowedAge = [10, 11, 12, 13, 14, 15, 16, 17, 18];

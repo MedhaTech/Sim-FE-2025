@@ -4,6 +4,7 @@ export const all_routes = {
   mentordashboard: "/teacher-dashboard",
   createteam: "/createteam",
   addstudent: "/addstudent",
+  studentedit: "/studentedit",
   tecresource: "/tecresource",
   mentorpresurvey: "/mentorpresurvey",
   mentorpostsurvey: "/mentorpostsurvey",
