@@ -1,0 +1,76 @@
+// /* App.css */
+
+// /* Centering the content */
+// .VideoModal {
+//     text-align: center;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     min-height: 100vh;
+//     background-color: #f8f9fa;
+// }
+
+// .VideoModal-header {
+//     width: 100%;
+//     max-width: 600px;
+//     margin: 0 auto;
+// }
+
+
+/* Modal custom styling */
+.modal-dialog-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 1rem);
+}
+.modal-content {
+    padding: 20px;
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-body {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.video-player {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Tooltip */
+.icon-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .icon {
+    cursor: pointer;
+  }
+  
+  .tooltip {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    white-space: nowrap;
+    z-index: 1;
+    margin-left: 5px;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .icon-container:hover .tooltip {
+    opacity: 1;
+  }
+  
