@@ -33,7 +33,7 @@ export const CreateTeamMember = () => {
 
     validationSchema: Yup.object({
       fullName: Yup.string()
-        .required("Please Enter valid Full Name")
+        .required("Please Enter Full Name")
         .max(40)
         .required()
         .matches(
@@ -46,13 +46,13 @@ export const CreateTeamMember = () => {
         .min(10, "Min age is 10")
         .max(18, "Max age is 18")
         .required("required"),
-      gender: Yup.string().required("Please select valid gender"),
+      gender: Yup.string().required("Please Select Gender"),
       // username: Yup.string().email("Must be a valid email").max(255),
-      disability: Yup.string().required("Please select disability"),
+      disability: Yup.string().required("Please Select Disability Status"),
       grade: Yup.string()
-        .matches("", "Please enter valid class")
+        // .matches("", "Please Select Class")
         .max(40)
-        .required("Please enter valid class"),
+        .required("Please Select Class"),
     }),
 
     onSubmit: (values) => {
@@ -123,7 +123,15 @@ export const CreateTeamMember = () => {
                               placeholder="Please Enter Your Full Name"
                               id="fullName"
                               name="fullName"
-                              onChange={formik.handleChange}
+                              onChange={(e) => {
+                                const inputValue = e.target.value;
+                                const lettersOnly = inputValue.replace(
+                                  /[^a-zA-Z\s]/g,
+                                  ""
+                                );
+                                formik.setFieldValue("fullName", lettersOnly);
+                              }}
+                              // onChange={formik.handleChange}
                               onBlur={formik.handleBlur}
                               value={formik.values.fullName}
                             />
@@ -141,23 +149,21 @@ export const CreateTeamMember = () => {
                                 *
                               </span>
                             </Label>
-                            <div className="dropdown CalendarDropdownComp ">
-                              <select
-                                id="inputState"
-                                className="form-select"
-                                name="age"
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.age}
-                              >
-                                <option value={""}>Select Age</option>
-                                {allowedAge.map((item) => (
-                                  <option key={item} value={item}>
-                                    {item}
-                                  </option>
-                                ))}
-                              </select>
-                            </div>
+                            <select
+                              id="inputState"
+                              className="form-select"
+                              name="age"
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur}
+                              value={formik.values.age}
+                            >
+                              <option value={""}>Select Age</option>
+                              {allowedAge.map((item) => (
+                                <option key={item} value={item}>
+                                  {item}
+                                </option>
+                              ))}
+                            </select>
                             {formik.touched.age && formik.errors.age ? (
                               <small className="error-cls">
                                 {formik.errors.age}
@@ -166,10 +172,7 @@ export const CreateTeamMember = () => {
                           </Col>
 
                           <Col md={2} className="mb-5 mb-xl-0">
-                            <Label
-                              className="name-req-create-member"
-                              htmlFor="gender"
-                            >
+                            <Label htmlFor="inputState" className="form-label">
                               Gender
                               <span required className="p-1">
                                 *
@@ -178,7 +181,8 @@ export const CreateTeamMember = () => {
 
                             <select
                               name="gender"
-                              className="form-control custom-dropdown"
+                              className="form-select"
+                              id="inputState"
                               value={formik.values.gender}
                               onChange={formik.handleChange}
                             >

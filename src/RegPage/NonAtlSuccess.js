@@ -11,7 +11,6 @@ import { Bold } from "react-feather";
 import success from "../assets/img/check.png";
 import logo from "../assets/img/sim_logo.png";
 
-
 const NonAtlSuccess = () => {
   const navigate = useNavigate();
   const mentorDaTa = JSON.parse(localStorage.getItem("mentorData"));
@@ -24,19 +23,18 @@ const NonAtlSuccess = () => {
       <div className="login-wrapper register-wrap bg-img">
         <div className="login-content">
           <div className="login-userset">
-                <div className="login-logo logo-normal">
-                  <img src={logo} alt="Logo" />
-                  {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
-                </div>
+            <div className="login-logo logo-normal">
+              <img src={logo} alt="Logo" />
+              {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
+            </div>
             <div className="login-logo logo-normal">
               {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
               <img src={success} alt="Success" />
             </div>
-            
 
             <div className="login-userheading">
               <div className="text-center">
-                <h3 style={{ color: "DarkGreen" }}> Congratulations...</h3> 
+                <h3 style={{ color: "DarkGreen" }}> Congratulations...</h3>
 
                 <h4 className="mb-3">
                   {" "}
@@ -125,10 +123,10 @@ const NonAtlSuccess = () => {
               <h4 className="mb-3">Take a screenshot for future reference.</h4>
               <div className="signinform">
                 <h4>
-                  You Already Registered ?
+                  Click here to ?
                   <Link className="hover-a" to={"/teacher"}>
                     {" "}
-                    Login Here
+                    Login
                   </Link>
                 </h4>
               </div>

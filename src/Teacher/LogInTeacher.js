@@ -34,10 +34,10 @@ const LogInTeacher = (props) => {
     validationSchema: Yup.object({
       email: Yup.string()
         .email("Must be a valid email")
-        .required("required")
+        .required("Please Enter Your Email Address")
         .max(255)
         .trim(),
-      password: Yup.string().required("Required password").trim(),
+      password: Yup.string().required("Please Enter Your Password").trim(),
     }),
     // TEACHER ROLE
     onSubmit: (values) => {
@@ -105,7 +105,10 @@ const LogInTeacher = (props) => {
                       value={formik.values.email}
                     />
                     {formik.touched.email && formik.errors.email ? (
-                      <small className="error-cls">Required</small>
+                      <small className="error-cls">
+                        {" "}
+                        {formik.errors.email}
+                      </small>
                     ) : null}
                     {/* <ImageWithBasePath
                       src="assets/img/icons/mail.svg"
@@ -120,14 +123,16 @@ const LogInTeacher = (props) => {
                     <input
                       type={isPasswordVisible ? "text" : "password"}
                       id="password"
-                      placeholder="Please Enter password"
+                      placeholder="Please Enter Password"
                       // className="pass-input form-control"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
                     />
                     {formik.touched.password && formik.errors.password ? (
-                      <small className="error-cls">Required</small>
+                      <small className="error-cls">
+                        {formik.errors.password}
+                      </small>
                     ) : null}
                     <span
                       className={`fas toggle-password ${
