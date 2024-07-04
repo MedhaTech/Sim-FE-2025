@@ -88,7 +88,7 @@ const AtlSucess = () => {
                   </Col>
                   <Col
                     sm
-                    className="hover-a col-md-6 col-lg-12"
+                    className="hover-a"
                     style={{
                       width: "50%",
                       border: "1px solid #ccc",
