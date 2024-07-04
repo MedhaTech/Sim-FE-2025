@@ -2,15 +2,13 @@
 import React, { useEffect , useState } from 'react';
 import CountUp from "react-countup";
 import {
+  RotateCcw,
   File,
-  User,
   UserCheck,
 } from "feather-icons-react/build/IconComponents";
-import Chart from "react-apexcharts";
 import { Link } from "react-router-dom";
 import ImageWithBasePath from "../../core/img/imagewithbasebath";
 import { ArrowRight } from "react-feather";
-// import { all_routes } from "../../Router/all_routes";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import VideoModal from '../../HelpVideo/VideoModal';
@@ -22,76 +20,19 @@ import { FaUsers } from 'react-icons/fa';
 import { FaUserGraduate } from 'react-icons/fa';
 import { FaPaperPlane } from 'react-icons/fa';
 import { FaChalkboardTeacher } from 'react-icons/fa'; 
+import { FaLink } from 'react-icons/fa';
+import LatestNews from './LatestNews';
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import { Tooltip } from "react-bootstrap";
+import { Eye } from "react-feather";
+import { FaBook } from 'react-icons/fa';
+import { FaLifeRing } from 'react-icons/fa';
+import { FaPoll } from 'react-icons/fa';
+import { FaCheckCircle } from 'react-icons/fa';
 
 
 const MentorDashboard = () => {
-  // Source code start
-  const [chartOptions] = useState({
-    series: [
-      {
-        name: "Sales",
-        data: [130, 210, 300, 290, 150, 50, 210, 280, 105],
-      },
-      {
-        name: "Purchase",
-        data: [-150, -90, -50, -180, -50, -70, -100, -90, -105],
-      },
-    ],
-    colors: ["#28C76F", "#EA5455"],
-    chart: {
-      type: "bar",
-      height: 320,
-      stacked: true,
-      zoom: {
-        enabled: true,
-      },
-    },
-    responsive: [
-      {
-        breakpoint: 280,
-        options: {
-          legend: {
-            position: "bottom",
-            offsetY: 0,
-          },
-        },
-      },
-    ],
-    plotOptions: {
-      bar: {
-        horizontal: false,
-        borderRadius: 4,
-        borderRadiusApplication: "end", // "around" / "end"
-        borderRadiusWhenStacked: "all", // "all"/"last"
-        columnWidth: "20%",
-      },
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    yaxis: {
-      min: -200,
-      max: 300,
-      tickAmount: 5,
-    },
-    xaxis: {
-      categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-      ],
-    },
-    legend: { show: false },
-    fill: {
-      opacity: 1,
-    },
-  });
+
   const MySwal = withReactContent(Swal);
   const showConfirmationAlert = () => {
     MySwal.fire({
@@ -121,11 +62,21 @@ const MentorDashboard = () => {
   // Source code end
 /////////////////NEW CODE//////////////////////////////////
 
+  const renderRefreshTooltip = (props) => (
+    <Tooltip id="refresh-tooltip" {...props}>
+      Refresh
+    </Tooltip>
+  );
+  const handleRefresh = () => {
+    window.location.reload();
+  };
+
   const navigate = useNavigate();
   const [teamCountLoading, setTeamCountLoading] = useState(true);
   const [stuCountLoading, setStuCountLoading] = useState(true);
   const [ideaCountLoading, setIdeaCountLoading] = useState(true);
   const [teacCourseLoading, setTeacCourseLoading] = useState(true);
+  const [teacPostSLoading, setTeacPostSLoading] = useState(true);
   
   const Loader = () => (
     <div className="spinner-border text-primary" role="status">
@@ -139,7 +90,10 @@ const MentorDashboard = () => {
   const redirectToCourse = () => {
     navigate(`/mentorteams`);
   };
-
+  const redirectToPost = () => {
+    navigate(`/mentorpostsurvey`);
+  };
+  
   const currentUser = getCurrentUser('current_user');
 
   useEffect(() => {
@@ -148,12 +102,14 @@ const MentorDashboard = () => {
         mentorIdeaCount();
         mentorStudentCount();
         mentorcoursepercentage();
+        mentorpostsurvey();
     }
   }, [currentUser?.data[0]?.user_id]);
   const [teamsCount, setTeamsCount] = useState();
   const [ideaCount, setIdeaCount] = useState();
   const [studentCount, setStudentCount] = useState();
   const [coursepercentage, setCoursepercentage] = useState();
+  const [teacPostSurvey, setTeacPostSurvey] = useState();
 
   const mentorTeamsCount = () => {
     const teamApi = encryptGlobal(
@@ -175,6 +131,7 @@ const MentorDashboard = () => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
+                console.log(response);
                 setTeamsCount(response.data.data[0].teams_count);
                 setTeamCountLoading(false);
             }
@@ -272,6 +229,36 @@ const MentorDashboard = () => {
               console.log(error);
           });
   };
+  const mentorpostsurvey = () => {
+    const postsurveyApi = encryptGlobal(
+        JSON.stringify({
+            user_id: currentUser?.data[0]?.user_id
+        })
+    );
+    var config = {
+        method: 'get',
+        url:
+            process.env.REACT_APP_API_BASE_URL +
+            `/dashboard/mentorSurveyStatus?Data=${postsurveyApi}`,
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${currentUser.data[0]?.token}`
+        }
+    };
+    axios(config)
+        .then(function (response) {
+            if (response.status === 200) {
+                console.log(response);
+                const po = (response.data.data[0].currentProgress);
+                setTeacPostSurvey(po);
+                setTeacPostSLoading(false);
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+};
 
 
   //////////////////////////////////////////////
@@ -280,7 +267,54 @@ const MentorDashboard = () => {
     <div>
       <div className="page-wrapper">
         <div className="content">
+          {/* Welcome user */}
+          <div className="welcome d-lg-flex align-items-center justify-content-between">
+            <div className="d-flex align-items-center welcome-text">
+              <h3 className="d-flex align-items-center">
+                <span style={{ fontSize: '30px' }}>👋</span>
+                &nbsp;Hi {currentUser?.data[0]?.full_name},
+              </h3>
+              &nbsp;
+              <h6>here&apos;s what&apos;s happening with your School Innovation Marathon 2024 today.</h6>
+            </div>
+            <div className="d-flex align-items-center">
+              <OverlayTrigger placement="top" overlay={renderRefreshTooltip}>
+                <Link data-bs-toggle="tooltip" data-bs-placement="top" onClick={handleRefresh} >
+                  <RotateCcw className="feather feather-rotate-ccw feather-16" />
+                </Link>
+              </OverlayTrigger>
+            </div>
+          </div>
+          {/* Teacher dashboard stats */}
           <div className="row">
+            <div className="col-xl-3 col-sm-6 col-12 d-flex">
+              <div className="dash-widget dash3 w-100">
+                <div className="dash-widgetimg">
+                  <span>
+                    <FaChalkboardTeacher size={30} />
+                  </span>
+                </div>
+                <div className="dash-widgetcontent">
+                  {teacCourseLoading ? ( 
+                            <Loader />
+                        ) : coursepercentage === 0 ? (
+                      <>
+                        <h5>To know about SIM</h5>
+                        <button onClick={redirectToCourse} className="btn btn-primary">
+                          Start Course
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <h5>
+                          <CountUp start={0} end={coursepercentage} duration={2} /> %
+                        </h5> 
+                        <h6>Teacher Course</h6>
+                      </>
+                  )}
+                </div>
+              </div>
+            </div>
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-widget w-100">
                 <div className="dash-widgetimg">
@@ -363,42 +397,29 @@ const MentorDashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget dash3 w-100">
-                <div className="dash-widgetimg">
-                  <span>
-                    <FaChalkboardTeacher size={30} />
-                  </span>
-                </div>
-                <div className="dash-widgetcontent">
-                  {teacCourseLoading ? ( 
-                            <Loader />
-                        ) : coursepercentage === 0 ? (
-                      <>
-                        <h5>To know about SIM</h5>
-                        <button onClick={redirectToCourse} className="btn btn-primary">
-                          Start Course
-                        </button>
-                      </>
-                    ) : (
-                      <>
-                        <h5>
-                          <CountUp start={0} end={coursepercentage} duration={2} /> %
-                        </h5> 
-                        <h6>Teacher Course</h6>
-                      </>
-                  )}
-                </div>
-              </div>
-            </div>
+            {/* Row two other features */}
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-count">
-                <div className="dash-counts">
-                  <h4>100</h4>
-                  <h5>Customers</h5>
-                </div>
-                <div className="dash-imgs">
-                  <User />
+                  <div className="dash-widgetcontent">
+                    {teacPostSLoading ? ( 
+                        <Loader />
+                      ) : ideaCount === 0 ? (
+                        <>
+                          <h5>Teams yet to submit ideas for your Post-Survey to enable</h5>
+                        </>
+                      ) : (teacPostSurvey? (
+                        <>
+                          <FaCheckCircle style={{ color: 'green' }} />
+                          <h6>Post Survey</h6>
+                        </>
+                      ):(
+                        <>
+                          <h5>Yet to take survey?</h5>
+                        </>
+                      ))}
+                  </div>
+                <div className="dash-imgs"onClick={redirectToPost} >
+                  <FaPoll />
                 </div>
               </div>
             </div>
@@ -440,73 +461,16 @@ const MentorDashboard = () => {
               </div>
             </div>
           </div>
-          {/* Button trigger modal */}
-
+          {/* Quicklinks , Latest News */}
           <div className="row">
+            {/* Quick links */}
             <div className="col-xl-7 col-sm-12 col-12 d-flex">
-              <div className="card flex-fill">
+              <div className="card flex-fill default-cover w-100 mb-4">
                 <div className="card-header d-flex justify-content-between align-items-center">
-                  <h5 className="card-title mb-0">Purchase &amp; Sales <VideoModal videoId="3" /> </h5>
-                  <div className="graph-sets">
-                    <ul className="mb-0">
-                      <li>
-                        <span>Sales</span>
-                      </li>
-                      <li>
-                        <span>Purchase</span>
-                      </li>
-                    </ul>
-                    <div className="dropdown dropdown-wraper">
-                      <button
-                        className="btn btn-light btn-sm dropdown-toggle"
-                        type="button"
-                        id="dropdownMenuButton"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        2023
-                      </button>
-                      <ul
-                        className="dropdown-menu"
-                        aria-labelledby="dropdownMenuButton"
-                      >
-                        <li>
-                          <Link to="#" className="dropdown-item">
-                            2023
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="#" className="dropdown-item">
-                            2022
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="#" className="dropdown-item">
-                            2021
-                          </Link>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="card-body">
-                  <div id="sales_charts" />
-                  <Chart
-                    options={chartOptions}
-                    series={chartOptions.series}
-                    type="bar"
-                    height={320}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-5 col-sm-12 col-12 d-flex">
-              <div className="card flex-fill default-cover mb-4">
-                <div className="card-header d-flex justify-content-between align-items-center">
-                  <h4 className="card-title mb-0">Recent Products</h4>
-                  <div className="view-all-link">
+                  <h4 className="card-title mb-0">Quick Links <FaLink size={15} style={{color : "blue", marginLeft:"6px"}} /> </h4>
+                  <div className="dropdown">
                     <Link to="#" className="view-all d-flex align-items-center">
-                      View All
+                      View
                       <span className="ps-2 d-flex align-items-center">
                         <ArrowRight className="feather-16" />
                       </span>
@@ -514,76 +478,246 @@ const MentorDashboard = () => {
                   </div>
                 </div>
                 <div className="card-body">
-                  <div className="table-responsive dataview">
-                    <table className="table dashboard-recent-products">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Products</th>
-                          <th>Price</th>
-                        </tr>
-                      </thead>
+                  <div className="table-responsive">
+                    <table className="table table-borderless best-seller">
                       <tbody>
                         <tr>
-                          <td>1</td>
-                          <td className="productimgname">
-                            <Link
-                              // to={route.productlist}
-                              className="product-img"
+                          <td>
+                            <div className="product-info">
+                              <Link
+                                to={"/mentorteams"}
+                                className="product-img"
+                              >
+                                <FaUsers size={30} style={{marginRight : "10px", color:"orange"}}/>
+                              </Link>
+                              <div className="info">
+                                <Link to={"/mentorteams"}>
+                                  <h4>Teams</h4>
+                                </Link>
+                                <p className="dull-text">Create , View , Edit , Delete</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <VideoModal videoId="3" />
+                          </td>
+                          <td>
+                            {teamCountLoading ? ( 
+                                <Loader />
+                              ) : teamsCount === 0 ?  (
+                              <>
+                                <span
+                                  className={"badge badge-linedangered"}
+                                >
+                                  Pending
+                                </span>
+                              </>
+                            ) : (
+                              <>
+                                <span
+                                  className={"badge badge-linesuccess"}
+                                >
+                                  Completed
+                                </span>
+                              </>
+                            )}
+                          </td>
+                          <td>
+                            <div className="action-table-data">
+                              <div className="edit-delete-action">
+                                <Link className="me-2 p-2" to={"/mentorteams"}>
+                                  <Eye className="feather-view" />
+                                </Link>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div className="product-info">
+                              <Link
+                                to={"/mentorteams"}
+                                className="product-img"
+                              >
+                                <FaChalkboardTeacher size={30} style={{marginRight : "10px", color:"orange"}} />
+                              </Link>
+                              <div className="info">
+                                <Link to={"/mentorteams"}>
+                                  <h4>Teacher Course</h4>
+                                </Link>
+                                <p className="dull-text">Know more about your role</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <VideoModal videoId="3" />
+                          </td>
+                          <td>
+                            {teacCourseLoading ? ( 
+                                <Loader />
+                              ) : coursepercentage === 0 ?  (
+                              <>
+                                <span
+                                  className={"badge badge-linedangered"}
+                                >
+                                  Pending
+                                </span>
+                              </>
+                            ) : (
+                              <>
+                                <span
+                                  className={"badge badge-linesuccess"}
+                                >
+                                  Completed
+                                </span>
+                              </>
+                            )}
+                          </td>
+                          <td>
+                            <div className="action-table-data">
+                              <div className="edit-delete-action">
+                                <Link className="me-2 p-2" to={"/mentorteams"}>
+                                  <Eye className="feather-view" />
+                                </Link>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div className="product-info">
+                              <Link
+                                to={"/mentorpostsurvey"}
+                                className="product-img"
+                              >
+                                <FaPoll size={30} style={{marginRight : "10px", color:"orange"}} />
+                              </Link>
+                              <div className="info">
+                                <Link to={"/mentorpostsurvey"}>
+                                  <h4>Post Survey</h4>
+                                </Link>
+                                <p className="dull-text">Complete survey & Get Certificate</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <VideoModal videoId="3" />
+                          </td>
+                          <td>
+                            {teacPostSLoading ? ( 
+                                <Loader />
+                              ) : teacPostSurvey ?  (
+                              <>
+                                <span
+                                  className={"badge badge-linedangered"}
+                                >
+                                  Pending
+                                </span>
+                              </>
+                            ) : (
+                              <>
+                                <span
+                                  className={"badge badge-linesuccess"}
+                                >
+                                  Completed
+                                </span>
+                              </>
+                            )}
+                          </td>
+                          <td>
+                            <div className="action-table-data">
+                              <div className="edit-delete-action">
+                                <Link className="me-2 p-2" to={"/mentorpostsurvey"}>
+                                  <Eye className="feather-view" />
+                                </Link>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div className="product-info">
+                              <Link
+                                to={"/tecresource"}
+                                className="product-img"
+                              >
+                                <FaBook size={30} style={{marginRight : "10px", color:"orange"}} />
+                              </Link>
+                              <div className="info">
+                                <Link to={"/tecresource"}>
+                                  <h4>Resources</h4>
+                                </Link>
+                                <p className="dull-text">Find supportive docs here</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <VideoModal videoId="3" />
+                          </td>
+                          <td>
+                            <span
+                              className={"badge badge-linesuccess"}
                             >
-                              <ImageWithBasePath
-                                src="assets/img/products/stock-img-01.png"
-                                alt="product"
-                              />
-                            </Link>
-                            <Link>Lenevo 3rd Generation</Link>
+                              References
+                            </span>
                           </td>
-                          <td>$12500</td>
+                          <td>
+                            <div className="action-table-data">
+                              <div className="edit-delete-action">
+                                <Link className="me-2 p-2" to={"/tecresource"}>
+                                  <Eye className="feather-view" />
+                                </Link>
+                              </div>
+                            </div>
+                          </td>
                         </tr>
                         <tr>
-                          <td>2</td>
-                          <td className="productimgname">
-                            <Link className="product-img">
-                              <ImageWithBasePath
-                                src="assets/img/products/stock-img-06.png"
-                                alt="product"
-                              />
-                            </Link>
-                            <Link>Bold V3.2</Link>
+                          <td>
+                            <div className="product-info">
+                              <Link
+                                to={"/tecresource"}
+                                className="product-img"
+                              >
+                                <FaLifeRing size={30} style={{marginRight : "10px", color:"orange"}} />
+                              </Link>
+                              <div className="info">
+                                <Link to={"/tecresource"}>
+                                  <h4>Support</h4>
+                                </Link>
+                                <p className="dull-text">Raise your queries here</p>
+                              </div>
+                            </div>
                           </td>
-                          <td>$1600</td>
-                        </tr>
-                        <tr>
-                          <td>3</td>
-                          <td className="productimgname">
-                            <Link className="product-img">
-                              <ImageWithBasePath
-                                src="assets/img/products/stock-img-02.png"
-                                alt="product"
-                              />
-                            </Link>
-                            <Link>Nike Jordan</Link>
+                          <td>
+                            <VideoModal videoId="3" />
                           </td>
-                          <td>$2000</td>
-                        </tr>
-                        <tr>
-                          <td>4</td>
-                          <td className="productimgname">
-                            <Link className="product-img">
-                              <ImageWithBasePath
-                                src="assets/img/products/stock-img-03.png"
-                                alt="product"
-                              />
-                            </Link>
-                            <Link>Apple Series 5 Watch</Link>
+                          <td>
+                            <span
+                              className={"badge badge-linesuccess"}
+                            >
+                              HelpLine
+                            </span>
                           </td>
-                          <td>$800</td>
+                          <td>
+                            <div className="action-table-data">
+                              <div className="edit-delete-action">
+                                <Link className="me-2 p-2" to={"/tecresource"}>
+                                  <Eye className="feather-view" />
+                                </Link>
+                              </div>
+                            </div>
+                          </td>
                         </tr>
+                        
                       </tbody>
                     </table>
                   </div>
                 </div>
               </div>
+            </div>
+            {/* Latest News */}
+            <div className="col-xl-5 col-sm-12 col-12 d-flex">
+              <LatestNews />
             </div>
           </div>
           <div className="card">
