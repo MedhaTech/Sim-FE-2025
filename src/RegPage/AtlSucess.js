@@ -122,7 +122,7 @@ const AtlSucess = () => {
               <h4 className="mb-3">Take a screenshot for future reference.</h4>
               <div className="signinform">
                 <h4>
-                  Click here to ?
+                  Want to Login ?
                   <Link className="hover-a" to={"/teacher"}>
                     {" "}
                     Login
