@@ -2,7 +2,7 @@
 /* eslint-disable indent */
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Row, List, Label, Card } from "reactstrap";
+import { Row, List, Label, Card, Col } from "reactstrap";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import DataTable, { Alignment } from "react-data-table-component";
 import DataTableExtensions from "react-data-table-component-extensions";
@@ -21,18 +21,22 @@ import "./tables.css";
 import { PlusCircle } from "feather-icons-react/build/IconComponents";
 const Dashboard = (props) => {
   const teamsListData = useSelector((state) => state?.teams?.teamsMembersList);
-  // console.log(teamsListData, "ddd");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [teamsArray, setTeamsArray] = useState([]);
   const currentUser = getCurrentUser("current_user");
   const [teamsList, setTeamsList] = useState([]);
+  const [datafinal, setDataFinal] = useState([]);
+  const [selectedTeam, setSelectedTeam] = useState(null);
+
   useEffect(() => {
     if (currentUser?.data[0]?.mentor_id) {
       teamListbymentorid(currentUser?.data[0]?.mentor_id);
     }
   }, [currentUser?.data[0]?.mentor_id]);
-
+  useEffect(() => {
+    setDataFinal(teamsListData);
+  }, [selectedTeam]);
   const teamListbymentorid = (mentorid) => {
     const teamparam = encryptGlobal(
       JSON.stringify({
@@ -75,21 +79,33 @@ const Dashboard = (props) => {
       },
     });
   };
-  const [selectedTeam, setSelectedTeam] = useState(null);
 
   const handleViewClick = (teamId) => {
     if (selectedTeam === teamId) {
       setSelectedTeam(null);
     } else {
-      setSelectedTeam(teamId);
       dispatch(getAdminTeamMembersList(teamId));
-      // setTimeout(() => {
-      // }, 1000);
       // props.getAdminTeamMembersListAction(teamId);
+      setDataFinal([]);
+      setTimeout(() => {
+        setSelectedTeam(teamId);
+      }, 1000);
     }
-    // scroll();
   };
+  // const handleViewClick = async (teamId) => {
+  //   if (selectedTeam === teamId) {
+  //     setSelectedTeam(null);
+  //   } else {
+  //     dispatch(getAdminTeamMembersList(teamId));
+  //     setDataFinal([])
+  //     // dispatch(getAdminTeamMembersList(teamId));
 
+  //            setTimeout(() => {
+  //         setSelectedTeam(teamId);
+  //       }, 1000);
+  //     }
+  //   }
+  // };
   const adminTeamsList = {
     data: teamsArray,
     columns: [
@@ -100,7 +116,9 @@ const Dashboard = (props) => {
       },
       {
         name: "Team Id",
+
         selector: (row) => row.team_id,
+
         // sortable: true,
         width: "10rem",
       },
@@ -220,6 +238,13 @@ const Dashboard = (props) => {
       },
     });
   };
+  const customStyles = {
+    head: {
+      style: {
+        fontSize: "1em", // Adjust as needed
+      },
+    },
+  };
   return (
     <div>
       <div className="page-wrapper">
@@ -235,9 +260,22 @@ const Dashboard = (props) => {
             {/* <div className="card"> */}
             {selectedTeam && (
               <div className="card mt-2" id="start">
-                <h3 className="table-title">
-                  Team Id :{selectedTeam} Students Details
-                </h3>
+                <Row>
+                  <Col>
+                    <h3 className="table-title">
+                      Team Id :{selectedTeam} Students Details
+                    </h3>
+                  </Col>
+                  {/* <Col className="d-flex justify-content-end">
+                      <button
+                        className="btn btn-danger mx-2"
+                        onClick={() => handleDeleteTeamMember(selectedTeam)}
+                      >
+                        {" "}
+                        Delete
+                      </button>
+                  </Col> */}
+                </Row>
                 <div className="table-container">
                   <table className="student-table">
                     <thead>
@@ -259,32 +297,14 @@ const Dashboard = (props) => {
                           <td>{student.Grade}</td>
                           <td>{student.disability}</td>
                           <td>
-                            <div className="edit-delete-action">
-                              <button
-                                className="me-2 p-2"
-                                // to="#"
-                                // data-bs-toggle="modal"
-                                // data-bs-target="#edit-units"
-                                onClick={() => handleEdit(student)}
-                              >
-                                <i
-                                  data-feather="edit"
-                                  className="feather-edit"
-                                />
-                              </button>
-                              {/* <Link
-                                className=" confirm-text p-2"
-                              >
-                                {teamsListData && teamsListData.length > 2 && (
-                                  <i
-                                    key={student.team_id}
-                                    data-feather="trash-2"
-                                    className="feather-trash-2"
-                                  />
-                                )}
-                                
-                              </Link> */}
-                            </div>
+                            {/* <div className="edit-delete-action"> */}
+                            <button
+                              className="me-2 p-2"
+                              onClick={() => handleEdit(student)}
+                            >
+                              <i data-feather="edit" className="feather-edit" />
+                            </button>
+                            {/* </div> */}
                           </td>
                           {/* <td>
                             <button
@@ -355,6 +375,7 @@ const Dashboard = (props) => {
                   <DataTable
                     data={teamsArray}
                     defaultSortField="id"
+                    customStyles={customStyles}
                     defaultSortAsc={false}
                     pagination
                     highlightOnHover
@@ -362,12 +383,6 @@ const Dashboard = (props) => {
                     subHeaderAlign={Alignment.Center}
                     paginationRowsPerPageOptions={[25, 50, 100]}
                     paginationPerPage={25}
-                    // expandableRows
-                    // expandableRowsComponent={ExpandedComponent}
-                    // expandOnRowClicked
-                    // expandableRowExpanded={(row) =>
-                    //   expandedRows.includes(row.team_id)
-                    // }
                   />
                 </DataTableExtensions>
               </div>

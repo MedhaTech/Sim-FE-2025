@@ -155,6 +155,12 @@ const MentorHeader = () => {
         return user;
     }
   };
+  const fullName = currentUser?.data[0]?.full_name;
+  const capitalizeFirstLetter = (string) => {
+    if (!string) return "";
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+  const capitalizedFullName = capitalizeFirstLetter(fullName);
 
   return (
     <>
@@ -631,7 +637,8 @@ const MentorHeader = () => {
                   {/* {currentUser?.data[0]?.role} */}
                   <span className="user-name">
                     {" "}
-                    {currentUser?.data[0]?.full_name}
+                    {capitalizedFullName}
+                    {/* {currentUser?.data[0]?.full_name} */}
                   </span>
                   <span className="user-role">Teacher</span>
                 </span>
@@ -649,7 +656,8 @@ const MentorHeader = () => {
                     <span className="status online" />
                   </span>
                   <div className="profilesets">
-                    <h6> {currentUser?.data[0]?.full_name}</h6>
+                    {/* <h6> {currentUser?.data[0]?.full_name}</h6> */}
+                    <h6>{capitalizedFullName}</h6>
                     <h5>Teacher</h5>
                   </div>
                 </div>

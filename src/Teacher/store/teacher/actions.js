@@ -88,7 +88,7 @@ export const teacherLoginUser =
             "Your Account is Inactive. Contact administrator"
           );
         } else {
-          openNotificationWithIcon("error", "Invalid Username or Password");
+          openNotificationWithIcon("error", "Invalid Email Id or Password");
         }
         dispatch(teacherLoginUserError(result.statusText));
       }

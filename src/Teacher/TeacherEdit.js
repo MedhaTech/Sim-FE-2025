@@ -173,7 +173,15 @@ const TeacherEditProfile = () => {
                       className="form-control"
                       id="full_name"
                       name="full_name"
-                      onChange={formik.handleChange}
+                      // onChange={formik.handleChange}
+                      onChange={(e) => {
+                        const inputValue = e.target.value;
+                        const lettersOnly = inputValue.replace(
+                          /[^a-zA-Z\s]/g,
+                          ""
+                        );
+                        formik.setFieldValue("full_name", lettersOnly);
+                      }}
                       onBlur={formik.handleBlur}
                       value={formik.values.full_name}
                     />

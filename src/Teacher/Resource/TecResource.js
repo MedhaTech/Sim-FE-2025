@@ -51,12 +51,12 @@ const TecResource = () => {
         name: "No",
         selector: (row, key) => key + 1,
         sortable: true,
-        width: "15%",
+        width: "6%",
       },
       {
         name: "Details",
         selector: (row) => row.description,
-        width: "45%",
+        width: "65%",
       },
       // {
       //     name: 'Type',
@@ -65,7 +65,7 @@ const TecResource = () => {
       // },
       {
         name: "File/Link",
-        width: "40%",
+        width: "20%",
         cell: (record) => {
           if (record.type === "file") {
             return (
@@ -99,6 +99,13 @@ const TecResource = () => {
       },
     ],
   };
+  const customStyles = {
+    head: {
+      style: {
+        fontSize: "1em", // Adjust as needed
+      },
+    },
+  };
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -118,6 +125,7 @@ const TecResource = () => {
             <DataTable
               defaultSortField="id"
               defaultSortAsc={false}
+              customStyles={customStyles}
               pagination
               highlightOnHover
               fixedHeader

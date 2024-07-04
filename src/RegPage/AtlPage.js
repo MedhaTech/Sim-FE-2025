@@ -3,7 +3,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
-import './regcss.css';
+import "./regcss.css";
 import React, { useState, useEffect } from "react";
 import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
@@ -21,15 +21,15 @@ import user from "../assets/img/icons/user-icon.svg";
 import play from "../assets/img/playicon.png";
 import copy from "../assets/img/copyrights.png";
 import { ArrowRight } from "feather-icons-react";
-
-
+import { stateList, districtList } from "./ORGData.js";
 import { openNotificationWithIcon } from "../helpers/Utils.js";
-
 
 const Register = () => {
   const navigate = useNavigate();
   const [otpSent, setOtpSent] = useState(false);
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
+  const [districtData, setDistrictData] = useState([]);
+  const [stateData, setStateData] = useState();
   const [diesCode, setDiesCode] = useState("");
   const [orgData, setOrgData] = useState({});
   const [data, setData] = useState(false);
@@ -54,11 +54,16 @@ const Register = () => {
   const [buttonData, setButtonData] = useState("");
   const [disable, setDisable] = useState(false);
   const [areInputsDisabled, setAreInputsDisabled] = useState(false);
-
+  const [dropdownbtn, setDropDownbtn] = useState("");
   const [timer, setTimer] = useState(0);
   const [person, setPerson] = useState(true);
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const normalizeStateName = (stateName) => {
+    return stateName
+      .toLowerCase()
+      .replace(/\b\w/g, (char) => char.toUpperCase());
+  };
 
   const handleMouseEnter = () => {
     setIsTooltipVisible(true);
@@ -107,7 +112,6 @@ const Register = () => {
       //formik.setFieldValue("whatapp_mobile", "");
     }
   };
-
 
   localStorage.setItem("orgData", JSON.stringify(orgData));
   const handleRegister = (e) => {
@@ -159,12 +163,23 @@ const Register = () => {
               Object.keys(response?.data?.data[0]).length &&
               response?.data?.data[0].category === "ATL"
             ) {
+              setDropDownbtn(response?.data?.data[0].mentor != null);
               setOrgData(response?.data?.data[0]);
               formik.setFieldValue(
                 "organization_code",
                 response?.data?.data[0].organization_code
               );
 
+              const fetchedstate = response?.data?.data[0].state;
+              // console.log(fetchedstate, "111");
+              const normalizedState = normalizeStateName(fetchedstate);
+              setStateData(normalizedState);
+              setStateData(fetchedstate);
+              setDistrictData(districtList[normalizedState] || []);
+              formik.setFieldValue(
+                "district",
+                response?.data?.data[0].district
+              );
               setDiceBtn(false);
               setSchoolBtn(true);
             } else {
@@ -183,6 +198,8 @@ const Register = () => {
 
     e.preventDefault();
   };
+  // console.log(stateData, "1111", districtData, "222");
+
   // console.log(orgData, "data");
   async function apiCall() {
     // Dice code list API //
@@ -233,6 +250,7 @@ const Register = () => {
       password: "",
       gender: "",
       title: "",
+      district: "",
       email: "",
       click: false,
       checkbox: false,
@@ -241,9 +259,14 @@ const Register = () => {
     validationSchema: Yup.object({
       full_name: Yup.string()
         .trim()
-        .min(2, "Enter Name")
-        .matches(/^[aA-zZ\s]+$/, "Special Characters are not allowed")
-        .required("Please enter FullName"),
+        .min(2, "Please Enter Full Name")
+        .matches(
+          /^[aA-zZ\s]+$/,
+          <span style={{ color: "red" }}>
+            "Special Characters are not allowed"
+          </span>
+        )
+        .required("Please Enter Full Name"),
       mobile: Yup.string()
         .required("Please enter your Mobile number")
         .trim()
@@ -254,10 +277,16 @@ const Register = () => {
       whatapp_mobile: Yup.string()
         .required("Please Enter Your Whatsapp Number")
         .trim()
-        .matches(/^\d+$/, "Mobile number is not valid (Enter only digit)")
+        .matches(
+          /^\d+$/,
+          <span style={{ color: "red" }}>
+            "Mobile number is not valid (Enter only digit)"
+          </span>
+        )
         .max(10, "Please enter only 10 digit valid number")
         .min(10, "Number is less than 10 digits"),
       gender: Yup.string().required("Please select valid gender"),
+      district: Yup.string().required("Please select District"),
       title: Yup.string().required("Please select your title"),
     }),
 
@@ -288,6 +317,7 @@ const Register = () => {
           gender: values.gender,
           title: values.title,
           reg_status: values.reg_status,
+          district: values.district,
           password: encrypted,
         });
         setMentorData(body);
@@ -421,7 +451,8 @@ const Register = () => {
       formik.values.gender.length > 0 &&
       formik.values.mobile.length > 0 &&
       formik.values.email.length > 0 &&
-      formik.values.whatapp_mobile.length > 0
+      formik.values.whatapp_mobile.length > 0 &&
+      formik.values.district
     ) {
       setDisable(true);
     } else {
@@ -433,7 +464,7 @@ const Register = () => {
     formik.values.gender,
     formik.values.username,
     formik.values.email,
-
+    formik.values.district,
     formik.values.whatapp_mobile,
   ]);
 
@@ -454,43 +485,58 @@ const Register = () => {
                 </Link> */}
                 {person && (
                   <div className="login-userheading ">
-                    <h3 className="icon-container "> ATL School Teacher Registration {" "}
-                    <a
-                      href="https://www.youtube.com/watch?v=CiYa_iLdpXo" // Replace with the desired URL
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={handleIconClick} >
-                      <img src={play} className="icon" alt="play" 
-                        style={{verticalAlign:"middle" , width: "7%" }} 
-                        onMouseEnter={handleMouseEnter} 
-                        onMouseLeave={handleMouseLeave} /> </a>
-                        {isTooltipVisible && (
-                          <div className="tooltip">
-                            Watch Demo
+                    <h3 className="icon-container ">
+                      {" "}
+                      ATL School Teacher Registration{" "}
+                      <a
+                        href="https://www.youtube.com/watch?v=CiYa_iLdpXo" // Replace with the desired URL
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={handleIconClick}
+                      >
+                        <img
+                          src={play}
+                          className="icon"
+                          alt="play"
+                          style={{ verticalAlign: "middle", width: "7%" }}
+                          onMouseEnter={handleMouseEnter}
+                          onMouseLeave={handleMouseLeave}
+                        />{" "}
+                      </a>
+                      {isTooltipVisible && (
+                        <div className="tooltip">Watch Demo</div>
+                      )}
+                      {isModalVisible && (
+                        <div
+                          className="modal-overlay"
+                          onClick={handleCloseModal}
+                        >
+                          <div
+                            className="modal"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <span
+                              className="close-button"
+                              onClick={handleCloseModal}
+                            >
+                              &times;
+                            </span>
+                            <iframe
+                              width="560"
+                              height="315"
+                              src="https://www.youtube.com/watch?v=CiYa_iLdpXo" // Replace with the desired video URL
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                              allowFullScreen
+                              title="YouTube video"
+                            ></iframe>
                           </div>
-                        )}
-                        {isModalVisible && (
-                          <div className="modal-overlay" onClick={handleCloseModal}>
-                            <div className="modal" onClick={(e) => e.stopPropagation()}>
-                              <span className="close-button" onClick={handleCloseModal}>&times;</span>
-                              <iframe
-                                width="560"
-                                height="315"
-                                src="https://www.youtube.com/watch?v=CiYa_iLdpXo" // Replace with the desired video URL
-                                
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                                title="YouTube video"
-                              ></iframe>
-                            </div>
-                          </div>
-                        )}
+                        </div>
+                      )}
                     </h3>
                     <h4>Register New Teacher account</h4>
                   </div>
-                  
                 )}
-                
+
                 {diceBtn && (
                   <div className="form-login mb-3">
                     <label className="form-label">School UDISE Code</label>
@@ -519,33 +565,32 @@ const Register = () => {
                       </p>
                     ) : null}
 
-                      <div className="form-login authentication-check">
-                        <div className="row">
-                          <div className="col-12 d-flex align-items-center justify-content-between">
-                            <div className="custom-control custom-checkbox">
-                              <label className="checkboxs ps-4 mb-0 pb-0 line-height-1">
-                                <input 
-                                  className="form-check-input"
-                                  type="checkbox"
-                                  name="click"
-                                  disabled={
-                                    (9999999999 < formik.values.diesCode < 99999999999
-                                      ? false
-                                      : true) 
-                                  }
-                                  
-                                  checked={checkBox1}
-                                  onClick={(e) =>
-                                    handleCheckbox1(e, !checkBox1)
-                                  }
-                                   />
-                                <span className="checkmarks" />
-                                I agree to the Terms & Privacy
-                              </label>
-                            </div>
+                    <div className="form-login authentication-check">
+                      <div className="row">
+                        <div className="col-12 d-flex align-items-center justify-content-between">
+                          <div className="custom-control custom-checkbox">
+                            <label className="checkboxs ps-4 mb-0 pb-0 line-height-1">
+                              <input
+                                className="form-check-input"
+                                type="checkbox"
+                                name="click"
+                                disabled={
+                                  9999999999 <
+                                  formik.values.diesCode <
+                                  99999999999
+                                    ? false
+                                    : true
+                                }
+                                checked={checkBox1}
+                                onClick={(e) => handleCheckbox1(e, !checkBox1)}
+                              />
+                              <span className="checkmarks" />I agree to the
+                              Terms & Privacy
+                            </label>
                           </div>
                         </div>
                       </div>
+                    </div>
 
                     {diceBtn && (
                       <div className="form-login">
@@ -563,19 +608,27 @@ const Register = () => {
                           </span>
                         </button>
                         <p className="form-login mb-3">
-                        Already have an account ?
-                        <b><Link
-                          className="hover-a"
-                          to={"/login"}
-                        >
-                          {"  "} Login Instead
-                        </Link></b>
+                          Already have an account ?
+                          <b>
+                            <Link className="hover-a" to={"/login"}>
+                              {"  "} Sign In
+                            </Link>
+                          </b>
                         </p>
                       </div>
                     )}
-                    
-                    <br/>
-                    <p className="text-center">Copyright <img src={copy} className="copy" alt="copy" style={{verticalAlign:"middle" , width: "5%"}} /> SIM 2024. All rights reserved</p>
+
+                    <br />
+                    <p className="text-center">
+                      Copyright{" "}
+                      <img
+                        src={copy}
+                        className="copy"
+                        alt="copy"
+                        style={{ verticalAlign: "middle", width: "5%" }}
+                      />{" "}
+                      SIM 2024. All rights reserved
+                    </p>
                   </div>
                 )}
                 {schoolBtn && (
@@ -589,9 +642,8 @@ const Register = () => {
                             <br />
                             {/* City Name : {""}
                             {orgData?.city ? orgData?.city : " N/A"} <br /> */}
-                            District Name :{" "}
-                            {orgData?.district ? orgData?.district : " N/A"}
-                            <br />
+                            {/* District Name :{" "} */}
+                            {/* {orgData?.district ? orgData?.district : " N/A"} */}
                             State Name :{" "}
                             {orgData?.state ? orgData?.state : " N/A"} <br />
                             PinCode :{" "}
@@ -637,6 +689,7 @@ const Register = () => {
                                 </small>
                               ) : null}
                             </div>
+
                             <div className="col-md-6">
                               <label className="form-label">Full Name</label>
                               <input
@@ -646,7 +699,18 @@ const Register = () => {
                                 id="full_name"
                                 disabled={areInputsDisabled}
                                 name="full_name"
-                                onChange={formik.handleChange}
+                                // onChange={formik.handleChange}
+                                onChange={(e) => {
+                                  const inputValue = e.target.value;
+                                  const lettersOnly = inputValue.replace(
+                                    /[^a-zA-Z\s]/g,
+                                    ""
+                                  );
+                                  formik.setFieldValue(
+                                    "full_name",
+                                    lettersOnly
+                                  );
+                                }}
                                 onBlur={formik.handleBlur}
                                 value={formik.values.full_name}
                               />
@@ -683,7 +747,41 @@ const Register = () => {
                                 </small>
                               ) : null}
                             </div>
-                            <div className="col-md-6">
+                            {!dropdownbtn ? (
+                              <div className="col-md-4">
+                                <label
+                                  htmlFor="inputState"
+                                  className="form-label"
+                                >
+                                  District
+                                </label>
+                                <select
+                                  id="inputState"
+                                  className="form-select"
+                                  disabled={areInputsDisabled}
+                                  name="district"
+                                  value={formik.values.district}
+                                  onBlur={formik.handleBlur}
+                                  onChange={formik.handleChange}
+                                >
+                                  <option value={""}>District</option>
+                                  {districtData.map((item) => (
+                                    <option key={item} value={item}>
+                                      {item}
+                                    </option>
+                                  ))}
+                                </select>
+                                {formik.touched.district &&
+                                formik.errors.district ? (
+                                  <small className="error-cls">
+                                    {formik.errors.district}
+                                  </small>
+                                ) : null}
+                              </div>
+                            ) : (
+                              ""
+                            )}
+                            <div className="col-md-5">
                               <label
                                 htmlFor="inputEmail4"
                                 className="form-label"
@@ -706,7 +804,7 @@ const Register = () => {
                                 </small>
                               ) : null}
                             </div>
-                            <div className="col-md-6">
+                            <div className="col-md-3">
                               <label
                                 htmlFor="inputPassword4"
                                 className="form-label"
@@ -730,6 +828,7 @@ const Register = () => {
                                 </small>
                               ) : null}
                             </div>
+
                             <div
                               className="col-md-6"
                               style={{ marginTop: "2.5rem" }}
@@ -826,7 +925,7 @@ const Register = () => {
                           </>
                           {/* )} */}
                           {/* {person && ( */}
-                          <div className="col-12">
+                          <div className="col-md-6">
                             <button
                               type="button"
                               className="btn btn-warning m-2"

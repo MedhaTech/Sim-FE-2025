@@ -167,7 +167,7 @@ const CreateMultipleMembers = ({ id }) => {
   const validateItemData = () => {
     const errors = studentData.map((item, i) => {
       let err = {};
-      if (!item.full_name.trim()) err["full_name"] = "Full name is Required";
+      if (!item.full_name.trim()) err["full_name"] = "Please Enter Full Name";
       if (item.full_name && item.full_name.match(pattern)) {
         const { index } = item.full_name.match(pattern);
         if (index) {
@@ -186,11 +186,12 @@ const CreateMultipleMembers = ({ id }) => {
       //     }
       // }
 
-      if (!item.Age) err["Age"] = "Age is Required";
+      if (!item.Age) err["Age"] = "Please Select Age ";
 
-      if (!item.disability) err["disability"] = " Status is Required";
-      if (!item.Grade) err["Grade"] = "Class is Required";
-      if (!item.Gender) err["Gender"] = "Gender is Required";
+      if (!item.disability)
+        err["disability"] = " Please Select Disability Status";
+      if (!item.Grade) err["Grade"] = "Please Select Grade";
+      if (!item.Gender) err["Gender"] = "Please Select Gender";
       if (Object.values(err).length === 0) {
         return { ...studentBody, i };
       }
@@ -261,7 +262,7 @@ const CreateMultipleMembers = ({ id }) => {
           const newTeamId = response.data.data[0].team_id;
           setTeamId(response.data.data[0].team_id);
           console.log(teamId, "id");
-          openNotificationWithIcon("success", "Team Create Successfully");
+          openNotificationWithIcon("success", "Team Created Successfully");
           const updatedStudentData = studentData.map((student) => ({
             ...student,
             team_id: JSON.stringify(newTeamId),

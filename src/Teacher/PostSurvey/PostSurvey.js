@@ -750,7 +750,7 @@ const PostSurvey = () => {
                         </div>
                         <div>
                           <h4>
-                            Thank you for completing the Survey. Your responses
+                            Thank you for completing the survey. Your responses
                             are important for us to get to know you and your
                             students better.
                           </h4>

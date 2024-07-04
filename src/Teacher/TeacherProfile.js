@@ -29,12 +29,12 @@ const TeacherProfile = () => {
   return (
     <div className="page-wrapper">
       <div className="content">
-        <div className="page-header">
-          <div className="page-title">
+        {/* <div className="page-header"> */}
+        {/* <div className="page-title">
             <h4>Teachers Profile</h4>
             <h6>User Profile</h6>
-          </div>
-        </div>
+          </div> */}
+        {/* </div> */}
         {/* /product list */}
         <div className="card">
           <div className="card-body">

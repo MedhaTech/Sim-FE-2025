@@ -75,6 +75,7 @@ export const getAdminTeamMembersListError = (message) => async (dispatch) => {
 };
 
 export const getAdminTeamMembersList = (teamId) => async (dispatch) => {
+  console.log(teamId, "idd");
   try {
     dispatch({ type: ADMIN_TEAMS_MEMBERS_LIST });
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);

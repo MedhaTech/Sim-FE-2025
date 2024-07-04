@@ -22,10 +22,10 @@ const AtlSucess = () => {
       <div className="login-wrapper register-wrap bg-img">
         <div className="login-content">
           <div className="login-userset">
-                <div className="login-logo logo-normal">
-                  <img src={logo} alt="Logo" />
-                  {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
-                </div>
+            <div className="login-logo logo-normal">
+              <img src={logo} alt="Logo" />
+              {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
+            </div>
             <div className="login-logo logo-normal">
               {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
               <img src={success} alt="Success" />
@@ -55,7 +55,7 @@ const AtlSucess = () => {
                 <Row>
                   <Col
                     sm
-                    className="hover-a"
+                    className="hover-a col-md-6 col-lg-12"
                     style={{
                       width: "50%",
                       border: "1px solid #ccc",
@@ -79,7 +79,7 @@ const AtlSucess = () => {
                       School : {orgDaTa.organization_name}
                     </p>
                     <p style={{ color: "#404040" }}>
-                      District : {orgDaTa.district}
+                      District : {mentorDaTa.district}
                     </p>
                     <p style={{ color: "#404040" }}>State : {orgDaTa.state}</p>
                     <p style={{ color: "#404040" }}>
@@ -88,7 +88,7 @@ const AtlSucess = () => {
                   </Col>
                   <Col
                     sm
-                    className="hover-a"
+                    className="hover-a col-md-6 col-lg-12"
                     style={{
                       width: "50%",
                       border: "1px solid #ccc",
@@ -122,10 +122,10 @@ const AtlSucess = () => {
               <h4 className="mb-3">Take a screenshot for future reference.</h4>
               <div className="signinform">
                 <h4>
-                  You Already Registered ?
+                  Click here to ?
                   <Link className="hover-a" to={"/teacher"}>
                     {" "}
-                    Login Here
+                    Login
                   </Link>
                 </h4>
               </div>
