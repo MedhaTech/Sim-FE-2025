@@ -210,6 +210,8 @@ import CreateTeam from "../Teacher/Teams/MentorTeam";
 import AddStudent from "../Teacher/Teams/AddStudent";
 import TecResource from "../Teacher/Resource/TecResource";
 import StudentEdit from "../Teacher/Teams/StuEdit";
+import TeacherCourse from "../Teacher/Course/TeacherCourse";
+import TeacherSupport from "../Teacher/Support/TeacherSupport";
 export const publicRoutes = [
   {
     id: 1,
@@ -1507,6 +1509,22 @@ export const mentorRoutes = [
     path: routes.studentedit,
     name: "studentedit",
     element: <StudentEdit />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 11,
+    path: routes.mentorcourse,
+    name: "mentorcourse",
+    element: <TeacherCourse />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 12,
+    path: routes.mentorsupport,
+    name: "mentorsupport",
+    element: <TeacherSupport />,
     protected: true,
     route: Route,
   },

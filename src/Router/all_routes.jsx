@@ -8,6 +8,8 @@ export const all_routes = {
   tecresource: "/tecresource",
   mentorpresurvey: "/mentorpresurvey",
   mentorpostsurvey: "/mentorpostsurvey",
+  mentorcourse: "/mentorcourse",
+  mentorsupport: "/mentorsupport",
   mentorteams: "/mentorteams",
   statedashboard: "/state-dashboard",
   eadmindashboard: "/eadmin-dashboard",

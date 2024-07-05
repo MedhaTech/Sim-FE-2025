@@ -21,6 +21,8 @@ export const URL = {
   updateMentor: process.env.REACT_APP_API_BASE_URL + "/mentors/update",
   getTeamMembersList: `${process.env.REACT_APP_API_BASE_URL}/teams/`,
   getTeamsList: `${process.env.REACT_APP_API_BASE_URL}/teams`,
+  getTeamMemberStatusEndpoint:
+        process.env.REACT_APP_API_BASE_URL + '/dashboard/teamStats/',
 
   getMentorSupportTickets:
     process.env.REACT_APP_API_BASE_URL + "/supportTickets",
