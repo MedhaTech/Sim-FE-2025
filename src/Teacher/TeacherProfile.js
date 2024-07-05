@@ -30,10 +30,10 @@ const TeacherProfile = () => {
     <div className="page-wrapper">
       <div className="content">
         <div className="page-header">
-        <div className="page-title">
-        <h4>Teacher Profile</h4>
-        {/* <h6>User Profile</h6> */}
-        </div>
+          <div className="page-title">
+            <h4>Teacher Profile</h4>
+            {/* <h6>User Profile</h6> */}
+          </div>
         </div>
         {/* /product list */}
         <div className="card">
@@ -49,7 +49,7 @@ const TeacherProfile = () => {
                       id="blah"
                     /> */}
                     {/* <img src={customer} alt="Customer" id="blah" /> */}
-                    {currentUser?.data[0]?.gender === "male" ? (
+                    {currentUser?.data[0]?.gender === "Male" ? (
                       <img src={male} alt="Male" id="blah" />
                     ) : (
                       <img src={female} alt="Female" id="blah" />
