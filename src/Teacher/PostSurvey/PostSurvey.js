@@ -307,7 +307,7 @@ const PostSurvey = () => {
                         >
                           {postSurveyList.map((eachQuestion, i) => (
                             <Row key={i}>
-                              <Card className="card mt-2 my-3 comment-card px-0 px-5 py-1">
+                              <Card className="card my-3 mt-2 comment-card px-0 px-5 py-1">
                                 <div className="question quiz mb-0 mt-2">
                                   <h6 style={{ marginBottom: "10px" }}>
                                     {i + 1}. {eachQuestion.question}
