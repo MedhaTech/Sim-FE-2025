@@ -272,8 +272,10 @@ const CreateMultipleMembers = ({ id }) => {
     axios(config)
       .then(function (response) {
         if (response.status === 201) {
-          const newTeamId = response.data.data[0].team_id;
-          setTeamId(response.data.data[0].team_id);
+          console.log(response, "id");
+          const newTeamId = response.data.data[0].profile.team_id;
+          setTeamId(response.data.data[0].profile.team_id);
+          console.log(teamId, "id");
           openNotificationWithIcon("success", "Team Created Successfully");
           const updatedStudentData = studentData.map((student) => ({
             ...student,
@@ -288,6 +290,18 @@ const CreateMultipleMembers = ({ id }) => {
               )
             );
           }, 2000);
+          // if (teamId) {
+          //   setTimeout(() => {
+          //     dispatch(
+          //       teacherCreateMultipleStudent(
+          //         updatedStudentData,
+          //         navigate,
+          //         setIsClicked
+          //       )
+          //     );
+          //   }, 5000);
+          // }
+
           // dispatch(
           //   teacherCreateMultipleStudent(studentData, navigate, setIsClicked)
           // );
