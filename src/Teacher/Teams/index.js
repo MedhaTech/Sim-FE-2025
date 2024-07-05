@@ -28,6 +28,7 @@ const Dashboard = (props) => {
   const [teamsList, setTeamsList] = useState([]);
   const [datafinal, setDataFinal] = useState([]);
   const [selectedTeam, setSelectedTeam] = useState(null);
+  const [stuList, setStuList] = useState("");
 
   useEffect(() => {
     if (currentUser?.data[0]?.mentor_id) {
@@ -80,11 +81,12 @@ const Dashboard = (props) => {
     });
   };
 
-  const handleViewClick = (teamId) => {
+  const handleViewClick = (teamId, stuCount) => {
     if (selectedTeam === teamId) {
       setSelectedTeam(null);
     } else {
       dispatch(getAdminTeamMembersList(teamId));
+      setStuList(stuCount);
       // props.getAdminTeamMembersListAction(teamId);
       setDataFinal([]);
       setTimeout(() => {
@@ -138,7 +140,12 @@ const Dashboard = (props) => {
         name: "Actions",
         cell: (params) => {
           return [
-            <div key={params} onClick={() => handleViewClick(params.team_id)}>
+            <div
+              key={params}
+              onClick={() =>
+                handleViewClick(params.team_id, params.StudentCount)
+              }
+            >
               {!params.StudentCount < 4 && (
                 <div className="btn btn-primary  mr-5 mx-2">
                   {" "}
@@ -174,11 +181,9 @@ const Dashboard = (props) => {
       },
     ],
   };
-  // const handleDeleteTeamMember = (student) => {
-  //   alert("hii");
-  //   console.log(student, "student");
-  // };
+
   const handleDeleteTeamMember = (student) => {
+    // console.log(student);
     const MySwal = withReactContent(Swal);
     MySwal.fire({
       title: "Are you sure?",
@@ -203,10 +208,8 @@ const Dashboard = (props) => {
         axios(config)
           .then(function (response) {
             if (response.status === 200) {
-              openNotificationWithIcon("success", "Team Delete Successfully");
-              history.push({
-                pathname: "/teacher/teamlist",
-              });
+              openNotificationWithIcon("success", "Team Deleted Successfully");
+              navigate("/mentorteams");
             } else {
               openNotificationWithIcon("error", "Opps! Something Wrong");
             }
@@ -219,6 +222,7 @@ const Dashboard = (props) => {
       }
     });
   };
+  // console.log(selectedTeam, "sel");
   const scroll = () => {
     const section = document.querySelector("#start");
     section.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -266,15 +270,17 @@ const Dashboard = (props) => {
                       Team Id :{selectedTeam} Students Details
                     </h3>
                   </Col>
-                  {/* <Col className="d-flex justify-content-end">
+                  <Col className="d-flex justify-content-end">
+                    {stuList < 3 && (
                       <button
-                        className="btn btn-danger mx-2"
+                        className="btn btn-danger mb-2"
                         onClick={() => handleDeleteTeamMember(selectedTeam)}
                       >
-                        {" "}
-                        Delete
+                        <i data-feather="trash-2" className="feather-trash-2" />
+                        {/* Delete */}
                       </button>
-                  </Col> */}
+                    )}
+                  </Col>
                 </Row>
                 <div className="table-container">
                   <table className="student-table">
@@ -299,10 +305,11 @@ const Dashboard = (props) => {
                           <td>
                             {/* <div className="edit-delete-action"> */}
                             <button
-                              className="me-2 p-2"
+                              className="me-2 p-2 btn btn-info"
                               onClick={() => handleEdit(student)}
                             >
                               <i data-feather="edit" className="feather-edit" />
+                              {/* Edit */}
                             </button>
                             {/* </div> */}
                           </td>
