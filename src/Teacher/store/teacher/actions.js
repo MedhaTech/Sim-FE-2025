@@ -103,6 +103,7 @@ export const teacherLoginUser =
   };
 export const teacherCreateMultipleStudent =
   (data, navigate, setIsClicked) => async () => {
+    console.log(data, "multi");
     try {
       const axiosConfig = getNormalHeaders(KEY.User_API_Key);
       const result = await axios
