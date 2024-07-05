@@ -182,7 +182,7 @@ const Dashboard = (props) => {
     ],
   };
 
-  const handleDeleteTeamMember = (student) => {
+  const handleDeleteTeam = (student) => {
     // console.log(student);
     const MySwal = withReactContent(Swal);
     MySwal.fire({
@@ -209,7 +209,8 @@ const Dashboard = (props) => {
           .then(function (response) {
             if (response.status === 200) {
               openNotificationWithIcon("success", "Team Deleted Successfully");
-              navigate("/mentorteams");
+
+              navigate("/teacher-dashboard");
             } else {
               openNotificationWithIcon("error", "Opps! Something Wrong");
             }
@@ -222,7 +223,48 @@ const Dashboard = (props) => {
       }
     });
   };
-  // console.log(selectedTeam, "sel");
+  const handleDeleteStudent = (item) => {
+    const MySwal = withReactContent(Swal);
+    MySwal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      showCancelButton: true,
+      confirmButtonColor: "#00ff00",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonColor: "#ff0000",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const delparamId = encryptGlobal(JSON.stringify(item.student_id));
+        var config = {
+          method: "delete",
+          url: process.env.REACT_APP_API_BASE_URL + "/students/" + delparamId,
+          headers: {
+            "Content-Type": "application/json",
+            // Accept: "application/json",
+            Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+          },
+        };
+        axios(config)
+          .then(function (response) {
+            if (response.status === 200) {
+              openNotificationWithIcon(
+                "success",
+                "Student Deleted Successfully"
+              );
+              navigate("/teacher-dashboard");
+            } else {
+              openNotificationWithIcon("error", "Opps! Something Wrong");
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        MySwal.fire("Cancelled", "Student not Deleted", "error");
+      }
+    });
+  };
   const scroll = () => {
     const section = document.querySelector("#start");
     section.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -274,7 +316,7 @@ const Dashboard = (props) => {
                     {stuList < 3 && (
                       <button
                         className="btn btn-danger mb-2"
-                        onClick={() => handleDeleteTeamMember(selectedTeam)}
+                        onClick={() => handleDeleteTeam(selectedTeam)}
                       >
                         <i data-feather="trash-2" className="feather-trash-2" />
                         {/* Delete */}
@@ -310,6 +352,15 @@ const Dashboard = (props) => {
                             >
                               <i data-feather="edit" className="feather-edit" />
                               {/* Edit */}
+                            </button>
+                            <button
+                              className="me-2 p-2 btn btn-danger"
+                              onClick={() => handleDeleteStudent(student)}
+                            >
+                              <i
+                                data-feather="trash-2"
+                                className="feather-trash-2"
+                              />
                             </button>
                             {/* </div> */}
                           </td>

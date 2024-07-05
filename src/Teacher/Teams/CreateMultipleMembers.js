@@ -167,11 +167,16 @@ const CreateMultipleMembers = ({ id }) => {
   const validateItemData = () => {
     const errors = studentData.map((item, i) => {
       let err = {};
-      if (!item.full_name.trim()) err["full_name"] = "Please Enter Full Name";
+      if (!item.full_name.trim())
+        err["full_name"] = (
+          <span style={{ color: "red" }}>Please Enter Full Name</span>
+        );
       if (item.full_name && item.full_name.match(pattern)) {
         const { index } = item.full_name.match(pattern);
         if (index) {
-          err["full_name"] = "Only alphanumeric are allowed";
+          err["full_name"] = (
+            <span style={{ color: "red" }}>Only alphanumeric are allowed</span>
+          );
         }
       }
 
@@ -186,12 +191,21 @@ const CreateMultipleMembers = ({ id }) => {
       //     }
       // }
 
-      if (!item.Age) err["Age"] = "Please Select Age ";
+      if (!item.Age)
+        err["Age"] = <span style={{ color: "red" }}>Please Select Age</span>;
 
       if (!item.disability)
-        err["disability"] = " Please Select Disability Status";
-      if (!item.Grade) err["Grade"] = "Please Select Grade";
-      if (!item.Gender) err["Gender"] = "Please Select Gender";
+        err["disability"] = (
+          <span style={{ color: "red" }}>Please Select Disability Status</span>
+        );
+      if (!item.Grade)
+        err["Grade"] = (
+          <span style={{ color: "red" }}>Please Select Grade</span>
+        );
+      if (!item.Gender)
+        err["Gender"] = (
+          <span style={{ color: "red" }}>Please Select Gender</span>
+        );
       if (Object.values(err).length === 0) {
         return { ...studentBody, i };
       }
@@ -258,10 +272,8 @@ const CreateMultipleMembers = ({ id }) => {
     axios(config)
       .then(function (response) {
         if (response.status === 201) {
-          console.log(response, "team");
           const newTeamId = response.data.data[0].team_id;
           setTeamId(response.data.data[0].team_id);
-          console.log(teamId, "id");
           openNotificationWithIcon("success", "Team Created Successfully");
           const updatedStudentData = studentData.map((student) => ({
             ...student,
@@ -275,7 +287,6 @@ const CreateMultipleMembers = ({ id }) => {
                 setIsClicked
               )
             );
-            // ('/teacher/teamlist');
           }, 2000);
           // dispatch(
           //   teacherCreateMultipleStudent(studentData, navigate, setIsClicked)
@@ -285,17 +296,14 @@ const CreateMultipleMembers = ({ id }) => {
         }
       })
       .catch(function (error) {
-        console.log(error.response.data.status);
         if (error.response.data.status === 400) {
-          console.log(error, "eee");
+          // console.log(error, "eee");
           openNotificationWithIcon("warning", error.response.data.errors);
         }
       });
     // dispatch(teacherCreateMultipleStudent(studentData, navigate, setIsClicked));
   };
-  // useEffect(() => {
-  //   setButtonDisabled(!validateItemData());
-  // }, [studentData, teamname, teamemail]);
+
   const button = teamname && teamemail && studentData;
   return (
     <div className="page-wrapper">
@@ -318,7 +326,9 @@ const CreateMultipleMembers = ({ id }) => {
               onChange={(e) => handleteamname(e)}
               value={teamname}
             />
-            {teamNameError && <span>{teamNameError}</span>}
+            {teamNameError && (
+              <span style={{ color: "red" }}>{teamNameError}</span>
+            )}
           </Col>
           <Col md={6} className="mb-xl-0">
             <Label className="form-label">
@@ -336,12 +346,7 @@ const CreateMultipleMembers = ({ id }) => {
               onChange={(e) => handleteamemail(e)}
               value={teamemail}
             />
-            {emailError && <span>{emailError}</span>}
-            {/* {foundErrObject?.username ? (
-                          <small className="error-cls">
-                            {foundErrObject.username}
-                          </small>
-                        ) : null} */}
+            {emailError && <span style={{ color: "red" }}>{emailError}</span>}
           </Col>
         </Row>
         {studentData.map((item, i) => {
@@ -352,9 +357,7 @@ const CreateMultipleMembers = ({ id }) => {
                 <h6 className="mt-2">Student {i + 1} Details</h6>
                 {i > 1 && (
                   <button
-                    //   label={"Remove"}
                     onClick={() => removeItem(i)}
-                    //   btnClass={"secondary float-end"}
                     className="btn btn-primary "
                   >
                     Remove

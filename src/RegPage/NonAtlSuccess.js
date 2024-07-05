@@ -8,7 +8,7 @@ import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Bold } from "react-feather";
-import success from "../assets/img/check.png";
+import success from "../assets/img/chek.png";
 import logo from "../assets/img/sim_logo.png";
 
 const NonAtlSuccess = () => {
@@ -23,10 +23,10 @@ const NonAtlSuccess = () => {
       <div className="login-wrapper register-wrap bg-img">
         <div className="login-content">
           <div className="login-userset">
-            <div className="login-logo logo-normal">
-              <img src={logo} alt="Logo" />
-              {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
-            </div>
+            {/* <div className="login-logo logo-normal"> */}
+            {/* <img src={logo} alt="Logo" /> */}
+            {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
+            {/* </div> */}
             <div className="login-logo logo-normal">
               {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
               <img src={success} alt="Success" />
@@ -55,8 +55,8 @@ const NonAtlSuccess = () => {
               >
                 <Row>
                   <Col
-                    sm
-                    className="hover-a"
+                    // sm
+                    className="hover-a  col-md-6 col-sm-12"
                     style={{
                       width: "50%",
                       border: "1px solid #ccc",
@@ -84,12 +84,12 @@ const NonAtlSuccess = () => {
                     </p>
                     <p style={{ color: "#404040" }}>State : {orgDaTa.state}</p>
                     <p style={{ color: "#404040" }}>
-                      PinCode : {orgDaTa.pin_code}. {mentorDaTa.pin_code}
+                      PinCode : {orgDaTa.pin_code} {mentorDaTa.pin_code}
                     </p>
                   </Col>
                   <Col
-                    sm
-                    className="hover-a"
+                    // sm
+                    className="hover-a  col-md-6 col-sm-12"
                     style={{
                       width: "50%",
                       border: "1px solid #ccc",

@@ -339,24 +339,38 @@ const NonAtlPage = () => {
     validationSchema: Yup.object({
       full_name: Yup.string()
         .trim()
-        .min(2, "Enter Name")
+        .min(2, <span style={{ color: "red" }}>Please Enter Full Name</span>)
+
         .matches(/^[aA-zZ\s]+$/, "Special Characters are not allowed")
-        .required("Please Enter Full Name"),
+        .required(<span style={{ color: "red" }}>Please Enter Full Name</span>),
+
       mobile: Yup.string()
-        .required("Please Enter Your Mobile Number")
+        .required(
+          <span style={{ color: "red" }}>Please Enter Mobile Number</span>
+        )
         .trim()
         .matches(/^\d+$/, "Mobile number is not valid (Enter only digits)")
         .max(10, "Please enter only 10 digit valid number")
         .min(10, "Number is less than 10 digits"),
-      email: Yup.string().email("Must be a valid email").max(255),
+      email: Yup.string()
+        .email(
+          <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
+        )
+        .max(255),
       whatapp_mobile: Yup.string()
-        .required("Please Enter Your  whatsapp Mobile Number")
+        .required(
+          <span style={{ color: "red" }}>Please Enter WhatsApp Number</span>
+        )
         .trim()
         .matches(/^\d+$/, "Mobile number is not valid (Enter only digit)")
         .max(10, "Please enter only 10 digit valid number")
         .min(10, "Number is less than 10 digit"),
-      gender: Yup.string().required("Please select valid gender"),
-      title: Yup.string().required("Please select Title"),
+      gender: Yup.string().required(
+        <span style={{ color: "red" }}>Please Select Gender</span>
+      ),
+      title: Yup.string().required(
+        <span style={{ color: "red" }}>Please Select Title</span>
+      ),
     }),
 
     onSubmit: async (values) => {
@@ -588,7 +602,7 @@ const NonAtlPage = () => {
         }
       })
       .catch((err) => {
-        // openNotificationWithIcon("error", err.response.data?.message);
+        openNotificationWithIcon("error", err.response.data?.message);
         // setBtn(false);
         formik.setErrors({
           check: err.response && err?.response?.data?.message,
@@ -755,16 +769,13 @@ const NonAtlPage = () => {
                       <div className="form-login">
                         <button
                           type="button"
-                          className="btn btn-warning mb-3"
+                          className="btn btn-login mb-3"
                           onClick={(e) => handleRegister(e)}
                           disabled={!isButtonEnabled}
                         >
                           {" "}
                           Proceed
-                          <span>
-                            {" "}
-                            <ArrowRight />
-                          </span>
+                          <span> {/* <ArrowRight /> */}</span>
                         </button>
                         <p className="form-login mb-3">
                           Already have an account ?

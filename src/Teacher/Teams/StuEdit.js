@@ -43,7 +43,9 @@ const StuEdit = () => {
 
     validationSchema: Yup.object({
       fullName: Yup.string()
-        .required("Please Enter valid Full Name")
+        .required(
+          <span style={{ color: "red" }}>Please Enter valid Full Name</span>
+        )
         .max(40)
         .matches(
           /^[A-Za-z0-9\s]*$/,
@@ -54,14 +56,20 @@ const StuEdit = () => {
         .integer()
         .min(10, "Min age is 10")
         .max(18, "Max age is 18")
-        .required("required"),
-      gender: Yup.string().required("Please select valid gender"),
+        .required(<span style={{ color: "red" }}>Please Select Age</span>),
+      gender: Yup.string().required(
+        <span style={{ color: "red" }}>Please Select Gender</span>
+      ),
       //   username: Yup.string().email("Must be a valid email").max(255),
-      disability: Yup.string().required("Please select disability"),
+      disability: Yup.string().required(
+        <span style={{ color: "red" }}>Please Select Disability Status</span>
+      ),
       grade: Yup.string()
-        .matches("", "Please enter valid class")
+        .matches(<span style={{ color: "red" }}>Please Select Grade</span>)
         .max(40)
-        .required("Please enter valid class"),
+        .required(
+          <span style={{ color: "red" }}>Please Select Grade</span>
+        ),
     }),
 
     onSubmit: (values) => {

@@ -32,15 +32,17 @@ const TeacherEditProfile = () => {
       //     .min(10, "Please enter valid number")
       //     .max(10, "Please enter valid number"),
       //   gender: Yup.string().required("Please select valid gender"),
-      title: Yup.string().required("Please select Title"),
+      title: Yup.string().required(
+        <span style={{ color: "red" }}>Please select Title</span>
+      ),
       full_name: Yup.string()
         // .matches(/^[A-Za-z]*$/, 'Invalid name ')
         // .min(2, 'Enter a valid name')
         // .required('Name is Required'),
         .trim()
-        .min(2, "Enter Name")
+        .min(2, <span style={{ color: "red" }}>Please Enter Full Name</span>)
         .matches(/^[aA-zZ\s]+$/, "Special Characters are not allowed")
-        .required("Required"),
+        .required(<span style={{ color: "red" }}>Please Enter Full Name</span>),
       //   phone: Yup.string()
       //     .trim()
       //     .matches(/^\d+$/, "Mobile number is not valid (Enter only digits)")
@@ -126,7 +128,7 @@ const TeacherEditProfile = () => {
                 <div className="profile-top">
                   <div className="profile-content">
                     <div className="profile-contentimg">
-                      {currentUser?.data[0]?.gender === "male" ? (
+                      {currentUser?.data[0]?.gender === "Male" ? (
                         <img src={male} alt="Male" id="blah" />
                       ) : (
                         <img src={female} alt="Female" id="blah" />
@@ -195,6 +197,7 @@ const TeacherEditProfile = () => {
 
                 <div className="form-login">
                   <button
+                    style={{ marginRight: "10px" }}
                     type="submit"
                     className={`btn btn-warning  ${
                       !(formik.dirty && formik.isValid) ? "default" : "primary"
@@ -203,7 +206,7 @@ const TeacherEditProfile = () => {
                   >
                     Submit
                   </button>
-                  <Link className="btn btn-cancel" to={"/teacher-dashboard"}>
+                  <Link className="btn btn-cancel" to={"/mentorprofile"}>
                     Cancel
                   </Link>
                 </div>
