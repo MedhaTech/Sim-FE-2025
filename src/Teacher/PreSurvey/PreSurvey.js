@@ -243,7 +243,7 @@ const PreSurvey = () => {
     <div className="page-wrapper">
       <div className="content">
         <div className="page-header">
-          <Container className="presuervey mb-50 mt-5 " id="start">
+          <Container className="presuervey" id="start">
             <Col>
               <Row className=" justify-content-center">
                 <div className="aside  p-4 bg-white">
@@ -268,7 +268,7 @@ const PreSurvey = () => {
                           <div
                             dangerouslySetInnerHTML={{
                               __html:
-                                "<p>We are delighted that you have signed up for this program and have joined us on this journey of nurturing problem solving and innovation in youth. As you are already aware, you will be playing the role of a guide teacher to the students for the duration of the course.</p><p>The portal includes various information modules and resources that will help you and your students on their learning journeys.</p><p style='color:green'><b>Your journey as a guide teacher will include the following key milestones</b></p><ol><li>Register yourself on the portal and take the pre-survey.</li><li>Understand the program and the tech platform.</li><li>Identify teams and register them on the portal.</li><li>Arrange access to digital devices for students.</li><li>Support the students on their learning journey.</li><li>Ensure teams submit their final ideas on the portal.</li><li>Complete the post survey.</li><li>Download teacher’s certificate.</li><li>Instruct and support the students to download student certificates.</li></ol><p>We hope you and the students have a great time doing this program.</p><p>We wish you all the best!</p>",
+                                "We are delighted that you have signed up for this program and have joined us on this journey of nurturing problem solving and innovation in youth. As you are already aware, you will be playing the role of a guide teacher to the students for the duration of the course.</br>The portal includes various information modules and resources that will help you and your students on their learning journeys.</br><b style='color:green'>Your journey as a guide teacher will include the following key milestones</b><ol><li>Register yourself on the portal and take the pre-survey.</li><li>Understand the program and the tech platform.</li><li>Identify teams and register them on the portal.</li><li>Arrange access to digital devices for students.</li><li>Support the students on their learning journey.</li><li>Ensure teams submit their final ideas on the portal.</li><li>Complete the post survey.</li><li>Download teacher’s certificate.</li><li>Instruct and support the students to download student certificates.</li></ol><p>We hope you and the students have a great time doing this program.</br>We wish you all the best!",
                             }}
                           ></div>
                           <button
@@ -293,11 +293,11 @@ const PreSurvey = () => {
                           {preSurveyList.map((eachQuestion, i) => {
                             return (
                               <Row key={i}>
-                                <Card className="card mb-4 my-3 comment-card px-0 px-5 py-3">
-                                  <div className="question quiz mb-0">
-                                    <b>
+                                <Card className="card my-3 mt-2 comment-card px-0 px-5 py-1">
+                                  <div className="question quiz mb-0 mt-2">
+                                    <h6 style={{ marginBottom: "10px" }}>
                                       {i + 1}. {eachQuestion.question}
-                                    </b>
+                                    </h6>
                                   </div>
                                   {/* <div className="answers">
                                                         <FormGroup
