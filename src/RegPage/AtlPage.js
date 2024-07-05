@@ -59,6 +59,8 @@ const Register = () => {
   const [person, setPerson] = useState(true);
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [design, setDesign] = useState(false);
+
   const normalizeStateName = (stateName) => {
     return stateName
       .toLowerCase()
@@ -164,6 +166,14 @@ const Register = () => {
               response?.data?.data[0].category === "ATL"
             ) {
               setDropDownbtn(response?.data?.data[0].mentor != null);
+              if (response?.data?.data[0].mentor != null) {
+                formik.setFieldValue(
+                  "district",
+                  response?.data?.data[0].district
+                );
+              } else {
+                formik.setFieldValue("district", "");
+              }
               setOrgData(response?.data?.data[0]);
               formik.setFieldValue(
                 "organization_code",
@@ -171,15 +181,11 @@ const Register = () => {
               );
 
               const fetchedstate = response?.data?.data[0].state;
-              // console.log(fetchedstate, "111");
               const normalizedState = normalizeStateName(fetchedstate);
               setStateData(normalizedState);
               setStateData(fetchedstate);
               setDistrictData(districtList[normalizedState] || []);
-              formik.setFieldValue(
-                "district",
-                response?.data?.data[0].district
-              );
+
               setDiceBtn(false);
               setSchoolBtn(true);
             } else {
@@ -198,9 +204,13 @@ const Register = () => {
 
     e.preventDefault();
   };
-  // console.log(stateData, "1111", districtData, "222");
-
-  // console.log(orgData, "data");
+  useEffect(() => {
+    if (!dropdownbtn) {
+      setDesign(true);
+    } else {
+      setDesign(false);
+    }
+  }, [dropdownbtn]);
   async function apiCall() {
     // Dice code list API //
     // where list = diescode //
@@ -214,7 +224,6 @@ const Register = () => {
       email: mentorData.username,
       mobile: mentorData.mobile,
     });
-    console.log(body, "trigger");
     var config = {
       method: "post",
       url: process.env.REACT_APP_API_BASE_URL + "/mentors/triggerWelcomeEmail",
@@ -259,35 +268,49 @@ const Register = () => {
     validationSchema: Yup.object({
       full_name: Yup.string()
         .trim()
-        .min(2, "Please Enter Full Name")
+        .min(2, <span style={{ color: "red" }}>Please Enter Full Name</span>)
         .matches(
           /^[aA-zZ\s]+$/,
           <span style={{ color: "red" }}>
             "Special Characters are not allowed"
           </span>
         )
-        .required("Please Enter Full Name"),
+        .required(<span style={{ color: "red" }}>Please Enter Full Name</span>),
       mobile: Yup.string()
-        .required("Please enter your Mobile number")
+        .required(
+          <span style={{ color: "red" }}>Please Enter Mobile Number</span>
+        )
         .trim()
         .matches(/^\d+$/, "Mobile number is not valid (Enter only digits)")
         .max(10, "Please enter only 10 digit valid number")
         .min(10, "Number is less than 10 digits"),
-      email: Yup.string().email("Must be a valid email").max(255),
+      email: Yup.string()
+        .email(
+          <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
+        )
+        .max(255),
       whatapp_mobile: Yup.string()
-        .required("Please Enter Your Whatsapp Number")
+        .required(
+          <span style={{ color: "red" }}>Please Enter WhatsApp Number</span>
+        )
         .trim()
         .matches(
           /^\d+$/,
           <span style={{ color: "red" }}>
-            "Mobile number is not valid (Enter only digit)"
+            Mobile number is not valid (Enter only digit)
           </span>
         )
         .max(10, "Please enter only 10 digit valid number")
         .min(10, "Number is less than 10 digits"),
-      gender: Yup.string().required("Please select valid gender"),
-      district: Yup.string().required("Please select District"),
-      title: Yup.string().required("Please select your title"),
+      gender: Yup.string().required(
+        <span style={{ color: "red" }}>Please Select Gender</span>
+      ),
+      district: Yup.string().required(
+        <span style={{ color: "red" }}>Please Select District</span>
+      ),
+      title: Yup.string().required(
+        <span style={{ color: "red" }}>Please Select Title</span>
+      ),
     }),
 
     onSubmit: async (values) => {
@@ -340,7 +363,7 @@ const Register = () => {
             }
           })
           .catch((err) => {
-            // openNotificationWithIcon("error", err.response.data?.message);
+            openNotificationWithIcon("error", err.response.data?.message);
             // setBtn(false);
             formik.setErrors({
               check: err.response && err?.response?.data?.message,
@@ -452,7 +475,7 @@ const Register = () => {
       formik.values.mobile.length > 0 &&
       formik.values.email.length > 0 &&
       formik.values.whatapp_mobile.length > 0 &&
-      formik.values.district
+      formik.values.district.length > 0
     ) {
       setDisable(true);
     } else {
@@ -467,7 +490,6 @@ const Register = () => {
     formik.values.district,
     formik.values.whatapp_mobile,
   ]);
-
   // const route = all_routes;
   return (
     <div className="main-wrapper">
@@ -602,10 +624,7 @@ const Register = () => {
                         >
                           {" "}
                           Proceed
-                          <span>
-                            {" "}
-                            <ArrowRight />
-                          </span>
+                          <span> {/* <ArrowRight /> */}</span>
                         </button>
                         <p className="form-login mb-3">
                           Already have an account ?
@@ -748,7 +767,10 @@ const Register = () => {
                               ) : null}
                             </div>
                             {!dropdownbtn ? (
-                              <div className="col-md-4">
+                              <div
+                                // className="col-md-4"
+                                className={`col-md-${design ? 4 : 0}`}
+                              >
                                 <label
                                   htmlFor="inputState"
                                   className="form-label"
@@ -781,7 +803,10 @@ const Register = () => {
                             ) : (
                               ""
                             )}
-                            <div className="col-md-5">
+                            <div
+                              // className="col-md-5"
+                              className={`col-md-${design ? 5 : 6}`}
+                            >
                               <label
                                 htmlFor="inputEmail4"
                                 className="form-label"
@@ -804,7 +829,10 @@ const Register = () => {
                                 </small>
                               ) : null}
                             </div>
-                            <div className="col-md-3">
+                            <div
+                              // className="col-md-3"
+                              className={`col-md-${design ? 3 : 6}`}
+                            >
                               <label
                                 htmlFor="inputPassword4"
                                 className="form-label"

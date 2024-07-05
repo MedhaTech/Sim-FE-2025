@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect } from "react";
@@ -28,14 +29,12 @@ export const CreateTeamMember = () => {
       grade: "",
       gender: "",
       disability: "",
-      // username: "",
     },
 
     validationSchema: Yup.object({
       fullName: Yup.string()
-        .required("Please Enter Full Name")
+        .required(<span style={{ color: "red" }}>Please Enter Full Name</span>)
         .max(40)
-        .required()
         .matches(
           /^[A-Za-z0-9\s]*$/,
           "Please enter only alphanumeric characters"
@@ -45,14 +44,18 @@ export const CreateTeamMember = () => {
         .integer()
         .min(10, "Min age is 10")
         .max(18, "Max age is 18")
-        .required("required"),
-      gender: Yup.string().required("Please Select Gender"),
+        .required(<span style={{ color: "red" }}>Please Select Age</span>),
+      gender: Yup.string().required(
+        <span style={{ color: "red" }}>Please Select Gender</span>
+      ),
       // username: Yup.string().email("Must be a valid email").max(255),
-      disability: Yup.string().required("Please Select Disability Status"),
+      disability: Yup.string().required(
+        <span style={{ color: "red" }}>Please Select Disability Status</span>
+      ),
       grade: Yup.string()
         // .matches("", "Please Select Class")
         .max(40)
-        .required("Please Select Class"),
+        .required(<span style={{ color: "red" }}>Please Select Grade</span>),
     }),
 
     onSubmit: (values) => {
@@ -170,37 +173,6 @@ export const CreateTeamMember = () => {
                               </small>
                             ) : null}
                           </Col>
-
-                          <Col md={2} className="mb-5 mb-xl-0">
-                            <Label htmlFor="inputState" className="form-label">
-                              Gender
-                              <span required className="p-1">
-                                *
-                              </span>
-                            </Label>
-
-                            <select
-                              name="gender"
-                              className="form-select"
-                              id="inputState"
-                              value={formik.values.gender}
-                              onChange={formik.handleChange}
-                            >
-                              <option value="">Select Gender</option>
-                              <option value="MALE">Male</option>
-                              <option value="FEMALE">Female</option>
-                              <option value="OTHERS">
-                                Prefer not to mention
-                              </option>
-                            </select>
-
-                            {formik.touched.gender && formik.errors.gender ? (
-                              <small className="error-cls">
-                                {formik.errors.gender}
-                              </small>
-                            ) : null}
-                          </Col>
-
                           <Col md={3}>
                             <Label htmlFor="inputState" className="form-label">
                               Disability
@@ -273,6 +245,35 @@ export const CreateTeamMember = () => {
                             {formik.touched.grade && formik.errors.grade ? (
                               <small className="error-cls">
                                 {formik.errors.grade}
+                              </small>
+                            ) : null}
+                          </Col>
+                          <Col md={2} className="mb-5 mb-xl-0">
+                            <Label htmlFor="inputState" className="form-label">
+                              Gender
+                              <span required className="p-1">
+                                *
+                              </span>
+                            </Label>
+
+                            <select
+                              name="gender"
+                              className="form-select"
+                              id="inputState"
+                              value={formik.values.gender}
+                              onChange={formik.handleChange}
+                            >
+                              <option value="">Select Gender</option>
+                              <option value="MALE">Male</option>
+                              <option value="FEMALE">Female</option>
+                              <option value="OTHERS">
+                                Prefer not to mention
+                              </option>
+                            </select>
+
+                            {formik.touched.gender && formik.errors.gender ? (
+                              <small className="error-cls">
+                                {formik.errors.gender}
                               </small>
                             ) : null}
                           </Col>
