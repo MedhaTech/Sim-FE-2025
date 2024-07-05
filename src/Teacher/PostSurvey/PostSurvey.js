@@ -296,7 +296,7 @@ const PostSurvey = () => {
                     // ideaCount !== 0 &&
                     postSurveyStatus != "COMPLETED" ? (
                       <>
-                        <UncontrolledAlert color="danger" className="mb-5">
+                        <UncontrolledAlert color="danger" className="mb-2">
                           Please complete the following post survey to get your
                           certificate.
                         </UncontrolledAlert>
@@ -307,9 +307,9 @@ const PostSurvey = () => {
                         >
                           {postSurveyList.map((eachQuestion, i) => (
                             <Row key={i}>
-                              <Card className="card mb-4 my-3 comment-card px-0 px-5 py-3">
-                                <div className="question quiz mb-0">
-                                  <h6>
+                              <Card className="card mt-2 my-3 comment-card px-0 px-5 py-1">
+                                <div className="question quiz mb-0 mt-2">
+                                  <h6 style={{ marginBottom: "10px" }}>
                                     {i + 1}. {eachQuestion.question}
                                   </h6>
                                 </div>
