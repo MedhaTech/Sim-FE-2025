@@ -3,14 +3,12 @@ import React, { useEffect , useState } from 'react';
 import CountUp from "react-countup";
 import {
   RotateCcw,
-  File,
-  UserCheck,
 } from "feather-icons-react/build/IconComponents";
 import { Link } from "react-router-dom";
-import ImageWithBasePath from "../../core/img/imagewithbasebath";
+//import ImageWithBasePath from "../../core/img/imagewithbasebath";
 import { ArrowRight } from "react-feather";
-import withReactContent from "sweetalert2-react-content";
-import Swal from "sweetalert2";
+// import withReactContent from "sweetalert2-react-content";
+// import Swal from "sweetalert2";
 import VideoModal from '../../HelpVideo/VideoModal';
 import { getCurrentUser } from '../../helpers/Utils';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
@@ -20,7 +18,7 @@ import { FaUsers } from 'react-icons/fa';
 import { FaUserGraduate } from 'react-icons/fa';
 import { FaPaperPlane } from 'react-icons/fa';
 import { FaChalkboardTeacher } from 'react-icons/fa'; 
-import { FaLink } from 'react-icons/fa';
+import { FaRoute } from 'react-icons/fa';
 import LatestNews from './LatestNews';
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import { Tooltip } from "react-bootstrap";
@@ -29,37 +27,14 @@ import { FaBook } from 'react-icons/fa';
 import { FaLifeRing } from 'react-icons/fa';
 import { FaPoll } from 'react-icons/fa';
 import { FaCheckCircle } from 'react-icons/fa';
+import { FaWhatsapp } from 'react-icons/fa';
+import { FaKey } from 'react-icons/fa';
+import { GiAchievement } from 'react-icons/gi';
+import TeamsProgDD from './TeamsProgDD';
 
 
 const MentorDashboard = () => {
 
-  const MySwal = withReactContent(Swal);
-  const showConfirmationAlert = () => {
-    MySwal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      showCancelButton: true,
-      confirmButtonColor: "#00ff00",
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonColor: "#ff0000",
-      cancelButtonText: "Cancel",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        MySwal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          className: "btn btn-success",
-          confirmButtonText: "OK",
-          customClass: {
-            confirmButton: "btn btn-success",
-          },
-        });
-      } else {
-        MySwal.close();
-      }
-    });
-  };
-  // Source code end
 /////////////////NEW CODE//////////////////////////////////
 
   const renderRefreshTooltip = (props) => (
@@ -77,6 +52,7 @@ const MentorDashboard = () => {
   const [ideaCountLoading, setIdeaCountLoading] = useState(true);
   const [teacCourseLoading, setTeacCourseLoading] = useState(true);
   const [teacPostSLoading, setTeacPostSLoading] = useState(true);
+  const [whatsappLink, setWhatsappLink] = useState('');
   
   const Loader = () => (
     <div className="spinner-border text-primary" role="status">
@@ -103,6 +79,7 @@ const MentorDashboard = () => {
         mentorStudentCount();
         mentorcoursepercentage();
         mentorpostsurvey();
+        fetchwhatsapplink();
     }
   }, [currentUser?.data[0]?.user_id]);
   const [teamsCount, setTeamsCount] = useState();
@@ -258,8 +235,39 @@ const MentorDashboard = () => {
         .catch(function (error) {
             console.log(error);
         });
-};
-
+    };
+    //////whatsapp///// 
+    const fetchwhatsapplink = () => {
+      // Function to fetch the WhatsApp link from the API
+      const statenameApi = encryptGlobal(
+        JSON.stringify({
+          state_name : currentUser?.data[0]?.state 
+        })
+      );
+      var config = {
+        method: 'get',
+        url:
+            process.env.REACT_APP_API_BASE_URL +
+            `/dashboard/whatappLink?Data=${statenameApi}`,
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${currentUser.data[0]?.token}`
+        }
+        };
+        axios(config)
+        .then(function (response) {
+            if (response.status === 200) {
+                console.log(response);
+                setWhatsappLink(response.data.data);
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        }
+      );
+    };
+      
 
   //////////////////////////////////////////////
 
@@ -288,10 +296,10 @@ const MentorDashboard = () => {
           {/* Teacher dashboard stats */}
           <div className="row">
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget dash3 w-100">
+              <div className="dash-widget dash2 w-100">
                 <div className="dash-widgetimg">
                   <span>
-                    <FaChalkboardTeacher size={30} />
+                    <FaChalkboardTeacher size={30} style={{color:"royalblue"}}/>
                   </span>
                 </div>
                 <div className="dash-widgetcontent">
@@ -300,9 +308,9 @@ const MentorDashboard = () => {
                         ) : coursepercentage === 0 ? (
                       <>
                         <h5>To know about SIM</h5>
-                        <button onClick={redirectToCourse} className="btn btn-primary">
+                        <a onClick={redirectToCourse} href='#' >
                           Start Course
-                        </button>
+                        </a>
                       </>
                     ) : (
                       <>
@@ -319,7 +327,7 @@ const MentorDashboard = () => {
               <div className="dash-widget w-100">
                 <div className="dash-widgetimg">
                   <span>
-                    <FaUsers size={30} />
+                    <FaUsers size={30} style={{ color: 'crimson' }} />
                   </span>
                 </div>
                 <div className="dash-widgetcontent">
@@ -328,9 +336,9 @@ const MentorDashboard = () => {
                     ) : teamsCount === 0 ?  (
                     <>
                       <h5>Yet to Create Teams?</h5>
-                      <button onClick={redirectToTeams} className="btn btn-primary">
+                      <a onClick={redirectToTeams} href='#'>
                         Create Team
-                      </button>
+                      </a>
                     </>
                   ) : (
                     <>
@@ -347,7 +355,7 @@ const MentorDashboard = () => {
               <div className="dash-widget dash1 w-100">
                 <div className="dash-widgetimg">
                   <span>
-                    <FaUserGraduate size={30} />
+                    <FaUserGraduate size={30} style={{color:"mediumseagreen"}} />
                   </span>
                 </div>
                 <div className="dash-widgetcontent">
@@ -356,9 +364,9 @@ const MentorDashboard = () => {
                       ) : studentCount === 0 ? (
                         <>
                           <h5>No student enrolled?</h5>
-                          <button onClick={redirectToTeams} className="btn btn-primary">
+                          <a onClick={redirectToTeams} href='#'>
                             Enrol Students
-                          </button>
+                          </a>
                         </>
                       ) : (
                         <>
@@ -372,10 +380,10 @@ const MentorDashboard = () => {
               </div>
             </div>
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget dash2 w-100">
+              <div className="dash-widget dash3 w-100">
                 <div className="dash-widgetimg">
                   <span>
-                    <FaPaperPlane size={30} />
+                    <FaPaperPlane size={30} style={{ color: 'purple' }}/>
                   </span>
                 </div>
                 <div className="dash-widgetcontent">
@@ -426,37 +434,35 @@ const MentorDashboard = () => {
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-count das1">
                 <div className="dash-counts">
-                  <h4>110</h4>
-                  <h5>Suppliers</h5>
+                  <h4>Certificate</h4>
+                  <h5>yet to enable</h5>
                 </div>
                 <div className="dash-imgs">
-                  <UserCheck />
+                  <GiAchievement size={30} />
                 </div>
               </div>
             </div>
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-count das2">
                 <div className="dash-counts">
-                  <h4>150</h4>
-                  <h5>Purchase Invoice</h5>
+                  <h4>Team login&apos;s</h4>
+                  <h5>check progress here</h5>
                 </div>
                 <div className="dash-imgs">
-                  <ImageWithBasePath
-                    src="assets/img/icons/file-text-icon-01.svg"
-                    className="img-fluid"
-                    alt="icon"
-                  />
+                  <FaKey />
                 </div>
               </div>
             </div>
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-count das3">
                 <div className="dash-counts">
-                  <h4>170</h4>
-                  <h5>Sales Invoice</h5>
+                  <h4>Join Whatsapp</h4>
+                  <h5>Support here</h5>
                 </div>
-                <div className="dash-imgs">
-                  <File />
+                <div className="dash-imgs" >
+                  <a href={whatsappLink} target="_blank" rel="noopener noreferrer" >
+                    <FaWhatsapp style={{color:"white"}}/>
+                  </a>
                 </div>
               </div>
             </div>
@@ -464,10 +470,10 @@ const MentorDashboard = () => {
           {/* Quicklinks , Latest News */}
           <div className="row">
             {/* Quick links */}
-            <div className="col-xl-7 col-sm-12 col-12 d-flex">
+            <div className="col-xl-6 col-sm-12 col-12 d-flex">
               <div className="card flex-fill default-cover w-100 mb-4">
                 <div className="card-header d-flex justify-content-between align-items-center">
-                  <h4 className="card-title mb-0">Quick Links <FaLink size={15} style={{color : "blue", marginLeft:"6px"}} /> </h4>
+                  <h4 className="card-title mb-0">SIM Road Map<FaRoute size={30} style={{marginLeft:"6px"}} /> </h4>
                   <div className="dropdown">
                     <Link to="#" className="view-all d-flex align-items-center">
                       View
@@ -509,7 +515,7 @@ const MentorDashboard = () => {
                                 <span
                                   className={"badge badge-linedangered"}
                                 >
-                                  Pending
+                                  Not Created
                                 </span>
                               </>
                             ) : (
@@ -517,7 +523,7 @@ const MentorDashboard = () => {
                                 <span
                                   className={"badge badge-linesuccess"}
                                 >
-                                  Completed
+                                  Created
                                 </span>
                               </>
                             )}
@@ -536,13 +542,13 @@ const MentorDashboard = () => {
                           <td>
                             <div className="product-info">
                               <Link
-                                to={"/mentorteams"}
+                                to={"/mentorcourse"}
                                 className="product-img"
                               >
                                 <FaChalkboardTeacher size={30} style={{marginRight : "10px", color:"orange"}} />
                               </Link>
                               <div className="info">
-                                <Link to={"/mentorteams"}>
+                                <Link to={"/mentorcourse"}>
                                   <h4>Teacher Course</h4>
                                 </Link>
                                 <p className="dull-text">Know more about your role</p>
@@ -560,23 +566,31 @@ const MentorDashboard = () => {
                                 <span
                                   className={"badge badge-linedangered"}
                                 >
-                                  Pending
+                                  Not Started
                                 </span>
                               </>
-                            ) : (
+                            ) : (coursepercentage === 100 ? (
                               <>
                                 <span
-                                  className={"badge badge-linesuccess"}
+                                  className={"badge badge-bgdanger"}
                                 >
                                   Completed
                                 </span>
                               </>
-                            )}
+                            ):(
+                              <>
+                                <span
+                                  className={"badge badge-"}
+                                >
+                                  In Progress
+                                </span>
+                              </>
+                            ))}
                           </td>
                           <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
-                                <Link className="me-2 p-2" to={"/mentorteams"}>
+                                <Link className="me-2 p-2" to={"/mentorcourse"}>
                                   <Eye className="feather-view" />
                                 </Link>
                               </div>
@@ -634,6 +648,7 @@ const MentorDashboard = () => {
                             </div>
                           </td>
                         </tr>
+                        <hr/>
                         <tr>
                           <td>
                             <div className="product-info">
@@ -675,13 +690,13 @@ const MentorDashboard = () => {
                           <td>
                             <div className="product-info">
                               <Link
-                                to={"/tecresource"}
+                                to={"/mentorsupport"}
                                 className="product-img"
                               >
                                 <FaLifeRing size={30} style={{marginRight : "10px", color:"orange"}} />
                               </Link>
                               <div className="info">
-                                <Link to={"/tecresource"}>
+                                <Link to={"/mentorsupport"}>
                                   <h4>Support</h4>
                                 </Link>
                                 <p className="dull-text">Raise your queries here</p>
@@ -701,7 +716,7 @@ const MentorDashboard = () => {
                           <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
-                                <Link className="me-2 p-2" to={"/tecresource"}>
+                                <Link className="me-2 p-2" to={"/mentorsupport"}>
                                   <Eye className="feather-view" />
                                 </Link>
                               </div>
@@ -716,249 +731,13 @@ const MentorDashboard = () => {
               </div>
             </div>
             {/* Latest News */}
-            <div className="col-xl-5 col-sm-12 col-12 d-flex">
+            <div className="col-xl-6 col-sm-12 col-12 d-flex">
               <LatestNews />
             </div>
           </div>
-          <div className="card">
-            <div className="card-header">
-              <h4 className="card-title">Expired Products</h4>
-            </div>
-            <div className="card-body">
-              <div className="table-responsive dataview">
-                <table className="table dashboard-expired-products">
-                  <thead>
-                    <tr>
-                      <th className="no-sort">
-                        <label className="checkboxs">
-                          <input type="checkbox" id="select-all" />
-                          <span className="checkmarks" />
-                        </label>
-                      </th>
-                      <th>Product</th>
-                      <th>SKU</th>
-                      <th>Manufactured Date</th>
-                      <th>Expired Date</th>
-                      <th className="no-sort">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <label className="checkboxs">
-                          <input type="checkbox" />
-                          <span className="checkmarks" />
-                        </label>
-                      </td>
-                      <td>
-                        <div className="productimgname">
-                          <Link to="#" className="product-img stock-img">
-                            <ImageWithBasePath
-                              src="assets/img/products/expire-product-01.png"
-                              alt="product"
-                            />
-                          </Link>
-                          <Link to="#">Red Premium Handy </Link>
-                        </div>
-                      </td>
-                      <td>
-                        <Link to="#">PT006</Link>
-                      </td>
-                      <td>17 Jan 2023</td>
-                      <td>29 Mar 2023</td>
-                      <td className="action-table-data">
-                        <div className="edit-delete-action">
-                          <Link className="me-2 p-2" to="#">
-                            <i data-feather="edit" className="feather-edit" />
-                          </Link>
-                          <Link
-                            className=" confirm-text p-2"
-                            to="#"
-                            onClick={showConfirmationAlert}
-                          >
-                            <i
-                              data-feather="trash-2"
-                              className="feather-trash-2"
-                            />
-                          </Link>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <label className="checkboxs">
-                          <input type="checkbox" />
-                          <span className="checkmarks" />
-                        </label>
-                      </td>
-                      <td>
-                        <div className="productimgname">
-                          <Link to="#" className="product-img stock-img">
-                            <ImageWithBasePath
-                              src="assets/img/products/expire-product-02.png"
-                              alt="product"
-                            />
-                          </Link>
-                          <Link to="#">Iphone 14 Pro</Link>
-                        </div>
-                      </td>
-                      <td>
-                        <Link to="#">PT007</Link>
-                      </td>
-                      <td>22 Feb 2023</td>
-                      <td>04 Apr 2023</td>
-                      <td className="action-table-data">
-                        <div className="edit-delete-action">
-                          <Link className="me-2 p-2" to="#">
-                            <i data-feather="edit" className="feather-edit" />
-                          </Link>
-                          <Link
-                            className="confirm-text p-2"
-                            to="#"
-                            onClick={showConfirmationAlert}
-                          >
-                            <i
-                              data-feather="trash-2"
-                              className="feather-trash-2"
-                            />
-                          </Link>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <label className="checkboxs">
-                          <input type="checkbox" />
-                          <span className="checkmarks" />
-                        </label>
-                      </td>
-                      <td>
-                        <div className="productimgname">
-                          <Link to="#" className="product-img stock-img">
-                            <ImageWithBasePath
-                              src="assets/img/products/expire-product-03.png"
-                              alt="product"
-                            />
-                          </Link>
-                          <Link to="#">Black Slim 200 </Link>
-                        </div>
-                      </td>
-                      <td>
-                        <Link to="#">PT008</Link>
-                      </td>
-                      <td>18 Mar 2023</td>
-                      <td>13 May 2023</td>
-                      <td className="action-table-data">
-                        <div className="edit-delete-action">
-                          <Link className="me-2 p-2" to="#">
-                            <i data-feather="edit" className="feather-edit" />
-                          </Link>
-                          <Link
-                            className=" confirm-text p-2"
-                            to="#"
-                            onClick={showConfirmationAlert}
-                          >
-                            <i
-                              data-feather="trash-2"
-                              className="feather-trash-2"
-                            />
-                          </Link>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <label className="checkboxs">
-                          <input type="checkbox" />
-                          <span className="checkmarks" />
-                        </label>
-                      </td>
-                      <td>
-                        <div className="productimgname">
-                          <Link to="#" className="product-img stock-img">
-                            <ImageWithBasePath
-                              src="assets/img/products/expire-product-04.png"
-                              alt="product"
-                            />
-                          </Link>
-                          <Link to="#">Woodcraft Sandal</Link>
-                        </div>
-                      </td>
-                      <td>
-                        <Link to="#">PT009</Link>
-                      </td>
-                      <td>29 Mar 2023</td>
-                      <td>27 May 2023</td>
-                      <td className="action-table-data">
-                        <div className="edit-delete-action">
-                          <Link className="me-2 p-2" to="#">
-                            <i data-feather="edit" className="feather-edit" />
-                          </Link>
-                          <Link
-                            className=" confirm-text p-2"
-                            to="#"
-                            onClick={showConfirmationAlert}
-                          >
-                            <i
-                              data-feather="trash-2"
-                              className="feather-trash-2"
-                            />
-                          </Link>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <label className="checkboxs">
-                          <input type="checkbox" />
-                          <span className="checkmarks" />
-                        </label>
-                      </td>
-                      <td>
-                        <div className="productimgname">
-                          <Link to="#" className="product-img stock-img">
-                            <ImageWithBasePath
-                              src="assets/img/products/stock-img-03.png"
-                              alt="product"
-                            />
-                          </Link>
-                          <Link to="#">Apple Series 5 Watch </Link>
-                        </div>
-                      </td>
-                      <td>
-                        <Link to="#">PT010</Link>
-                      </td>
-                      <td>24 Mar 2023</td>
-                      <td>26 May 2023</td>
-                      <td className="action-table-data">
-                        <div className="edit-delete-action">
-                          <Link
-                            className="me-2 p-2"
-                            to="#"
-                            data-bs-toggle="modal"
-                            data-bs-target="#edit-units"
-                          >
-                            <i
-                              data-feather="edit"
-                              className="feather-edit"
-                            />
-                          </Link>
-                          <Link
-                            className=" confirm-text p-2"
-                            onClick={showConfirmationAlert}
-                          >
-                            <i
-                              data-feather="trash-2"
-                              className="feather-trash-2"
-                            />
-                          </Link>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+          {/* Teams Progress */}
+          <div>
+            <TeamsProgDD  user={currentUser?.data}/>
           </div>
         </div>
       </div>

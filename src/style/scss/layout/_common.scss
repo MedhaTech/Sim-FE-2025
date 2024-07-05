@@ -296,7 +296,7 @@
     justify-content: space-between;
     -webkit-justify-content: space-between;
     -ms-flex-pack: space-between;
-    margin-bottom: 25px;
+    //margin-bottom: 25px;
     @include respond-below(custom575) {
         flex-wrap: wrap;
         flex-direction: column;

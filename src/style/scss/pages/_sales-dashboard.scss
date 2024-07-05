@@ -149,7 +149,7 @@
                         justify-content: center;
                         -webkit-justify-content: center;
                         -ms-flex-pack: center;
-                        margin: 0 8px 0 0;
+                        margin: 0 5px 0 0;
                         img {
                             width: 50px;
                             height: 50px;
@@ -170,7 +170,7 @@
     &.dashboard-recent-products {
         tr {
             td {
-                padding: 10px;
+                padding: 5px;
             }
             &:last-child {
                 td {
@@ -183,13 +183,13 @@
     &.table-borderless {
         tr {
             td {
-                font-size: $font-size-15;
                 border-bottom: none;
                 .head-text {
                     color:  $secondary;
                 }
                 .dull-text {
                     color:  $text-color;
+                    font-size: $font-size-10;
                 }
             }
         }
@@ -197,7 +197,7 @@
     &.best-seller {
         tr {
             td {
-                padding-bottom: 17px;
+                padding-bottom: 5px;
             }
             &:last-child {
                 td {
@@ -211,11 +211,11 @@
         }
         tr {
             td {
-                padding: 15px;
+                padding: 8px;
                 span {
                     font-size: $font-size-base;
                     svg {
-                        margin-right: 5px;
+                        margin-right: 3px;
                     }
                 }
             }
