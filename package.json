@@ -21,6 +21,7 @@
     "apexcharts": "^3.49.0",
     "axios": "^1.7.2",
     "@u-wave/react-vimeo": "^0.9.5",
+    "jspdf": "^2.5.1",
     "bootstrap": "^5.3.3",
     "bootstrap-daterangepicker": "^3.1.0",
     "boxicons": "^2.1.4",
