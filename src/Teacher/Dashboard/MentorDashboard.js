@@ -29,8 +29,9 @@ import { FaPoll } from 'react-icons/fa';
 import { FaCheckCircle } from 'react-icons/fa';
 import { FaWhatsapp } from 'react-icons/fa';
 import { FaKey } from 'react-icons/fa';
-import { GiAchievement } from 'react-icons/gi';
 import TeamsProgDD from './TeamsProgDD';
+//import { GiAchievement } from 'react-icons/gi';
+import TCertificate from "../Certificate/TCertificate";
 
 
 const MentorDashboard = () => {
@@ -432,15 +433,16 @@ const MentorDashboard = () => {
               </div>
             </div>
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-count das1">
-                <div className="dash-counts">
-                  <h4>Certificate</h4>
-                  <h5>yet to enable</h5>
-                </div>
-                <div className="dash-imgs">
-                  <GiAchievement size={30} />
-                </div>
-              </div>
+              <TCertificate/>
+              {/* <div className="dash-count das1">
+                  <div className="dash-counts">
+                      <h4>Congrats</h4>
+                      <h5>Get your Certificate</h5>
+                  </div>
+                  <div className="dash-imgs" onClick={handleCertificateDownload} >
+                      <GiAchievement size={30} />
+                  </div>
+              </div> */}
             </div>
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-count das2">

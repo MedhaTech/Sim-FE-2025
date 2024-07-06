@@ -212,6 +212,7 @@ import TecResource from "../Teacher/Resource/TecResource";
 import StudentEdit from "../Teacher/Teams/StuEdit";
 import TeacherCourse from "../Teacher/Course/TeacherCourse";
 import TeacherSupport from "../Teacher/Support/TeacherSupport";
+import TCertificate from "../Teacher/Certificate/TCertificate";
 export const publicRoutes = [
   {
     id: 1,
@@ -1525,6 +1526,14 @@ export const mentorRoutes = [
     path: routes.mentorsupport,
     name: "mentorsupport",
     element: <TeacherSupport />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 13,
+    path: routes.mentorcertificate,
+    name: "mentorcertificate",
+    element: <TCertificate />,
     protected: true,
     route: Route,
   },

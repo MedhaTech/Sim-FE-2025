@@ -10,6 +10,7 @@ export const all_routes = {
   mentorpostsurvey: "/mentorpostsurvey",
   mentorcourse: "/mentorcourse",
   mentorsupport: "/mentorsupport",
+  mentorcertificate : "/mentorcertificate",
   mentorteams: "/mentorteams",
   statedashboard: "/state-dashboard",
   eadmindashboard: "/eadmin-dashboard",
