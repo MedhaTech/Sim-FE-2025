@@ -2,7 +2,6 @@
 /* eslint-disable indent */
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
-// import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -153,7 +152,9 @@ const LogInTeacher = (props) => {
                         </label>
                       </div>
                       <div className="text-end">
-                        <Link className="forgot-link">Forgot Password?</Link>
+                        <Link className="forgot-link" to="/teacher-forgot-psw">
+                          Forgot Password?
+                        </Link>
                       </div>
                     </div>
                   </div>

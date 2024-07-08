@@ -116,6 +116,8 @@ const Register = () => {
   };
 
   localStorage.setItem("orgData", JSON.stringify(orgData));
+  localStorage.setItem("diesCode", JSON.stringify(diesCode));
+
   const handleRegister = (e) => {
     const body = JSON.stringify({
       organization_code: diesCode,
@@ -161,10 +163,7 @@ const Register = () => {
             response?.data?.data[0] &&
             process.env.REACT_APP_USEDICECODE == 1
           ) {
-            if (
-              Object.keys(response?.data?.data[0]).length &&
-              response?.data?.data[0].category === "ATL"
-            ) {
+            if (Object.keys(response?.data?.data[0]).length) {
               setDropDownbtn(response?.data?.data[0].mentor != null);
               if (response?.data?.data[0].mentor != null) {
                 formik.setFieldValue(
@@ -189,16 +188,18 @@ const Register = () => {
               setDiceBtn(false);
               setSchoolBtn(true);
             } else {
-              setError(
-                "Entered Code belongs to Non-Atl school. Kindly register as Non-ATL"
-              );
+              // setError(
+              //   "Entered Code belongs to Non-Atl school. Kindly register as Non-ATL"
+              // );
             }
           }
         }
       })
       .catch(function (error) {
         if (error?.response?.data?.status === 404) {
-          setError("Oops..!  UDISE Code seems incorrect");
+          navigate("/non-atl-register", { state: diesCode });
+
+          // setError("Oops..!  UDISE Code seems incorrect");
         }
       });
 
@@ -282,8 +283,16 @@ const Register = () => {
         )
         .trim()
         .matches(/^\d+$/, "Mobile number is not valid (Enter only digits)")
-        .max(10, "Please enter only 10 digit valid number")
-        .min(10, "Number is less than 10 digits"),
+        .max(
+          10,
+          <span style={{ color: "red" }}>
+            Please enter only 10 digit valid number
+          </span>
+        )
+        .min(
+          10,
+          <span style={{ color: "red" }}>Number is less than 10 digits</span>
+        ),
       email: Yup.string()
         .email(
           <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
@@ -300,8 +309,16 @@ const Register = () => {
             Mobile number is not valid (Enter only digit)
           </span>
         )
-        .max(10, "Please enter only 10 digit valid number")
-        .min(10, "Number is less than 10 digits"),
+        .max(
+          10,
+          <span style={{ color: "red" }}>
+            Please enter only 10 digit valid number
+          </span>
+        )
+        .min(
+          10,
+          <span style={{ color: "red" }}>Number is less than 10 digits</span>
+        ),
       gender: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Gender</span>
       ),
@@ -409,6 +426,7 @@ const Register = () => {
 
     const body = JSON.stringify({
       username: formik.values.email,
+      mobile: formik.values.mobile,
     });
     var config = {
       method: "post",
@@ -509,7 +527,7 @@ const Register = () => {
                   <div className="login-userheading ">
                     <h3 className="icon-container ">
                       {" "}
-                      ATL School Teacher Registration{" "}
+                      School Teacher Registration{" "}
                       <a
                         href="https://www.youtube.com/watch?v=CiYa_iLdpXo" // Replace with the desired URL
                         target="_blank"
@@ -953,7 +971,7 @@ const Register = () => {
                           </>
                           {/* )} */}
                           {/* {person && ( */}
-                          <div className="col-md-6">
+                          <div className="col-md-12">
                             <button
                               type="button"
                               className="btn btn-warning m-2"
@@ -968,19 +986,18 @@ const Register = () => {
                           {/* )} */}
                           {btnOtp && (
                             <>
-                              <h3>
-                                {/* {time}:{counter < 59 ? counter - "0" : counter} */}
-                                {/* <h3>{timer > 0 && `00: ${timer} seconds`}</h3> */}
-                              </h3>
                               <div className="Otp-expire text-center">
                                 <p>
-                                  {/* Otp will expire in{" "} */}
-                                  {/* {timer > 0 && `00: ${timer} seconds`} */}
                                   {timer > 0
+                                    ? `Access Resend OTP  00:${
+                                        timer < 10 ? `0${timer}` : timer
+                                      } seconds`
+                                    : "Resend OTP enabled"}
+                                  {/* {timer > 0
                                     ? `Otp will expire in 00:${
                                         timer < 10 ? `0${timer}` : timer
                                       } seconds`
-                                    : "Otp expired"}
+                                    : "Otp expired"} */}
                                 </p>
                               </div>
 
@@ -1024,8 +1041,8 @@ const Register = () => {
                                           inputStyle={{
                                             border: "1px solid",
                                             borderRadius: "8px",
-                                            width: "4rem",
-                                            height: "4rem",
+                                            width: "2.5rem",
+                                            height: "2.5rem",
                                             fontSize: "2rem",
                                             color: "#000",
                                             fontWeight: "400",

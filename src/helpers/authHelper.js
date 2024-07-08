@@ -8,7 +8,6 @@ import { isAuthGuardActive } from "../constants/defaultValues";
 import { getCurrentUser } from "./Utils";
 import PropTypes from "prop-types";
 const ProtectedRoute = ({ children, user }) => {
-  
   if (!isAuthGuardActive) {
     return children;
   }
@@ -19,15 +18,26 @@ const ProtectedRoute = ({ children, user }) => {
   const currentTime = new Date().getTime();
   const difference = currentTime - loginTimestamp;
 
-  if (difference > 3600000) {
-    // 1 hour in milliseconds
+  if (difference > 300000) {
     localStorage.clear();
-    return <Navigate to="/teacher" />;
+    if (user.includes("ADMIN")) {
+      return <Navigate to="/admin" />;
+    } else if (user.includes("MENTOR")) {
+      return <Navigate to="/teacher" />;
+    } else if (user.includes("EADMIN")) {
+      return <Navigate to="/eadmin" />;
+    } else if (user.includes("INSTITUTION")) {
+      return <Navigate to="/institution" />;
+    } else if (user.includes("STUDENT")) {
+      return <Navigate to="/login" />;
+    } else if (user.includes("EVALUATOR")) {
+      return <Navigate to="/evaluator" />;
+    }
   } else {
     localStorage.setItem("time", new Date().toString());
   }
 
-  if (currentUser?.data[0]?.role === user) {
+  if (currentUser && user.includes(currentUser?.data[0]?.role)) {
     return children;
   }
 

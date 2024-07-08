@@ -144,7 +144,6 @@ const MentorHeader = () => {
       }
     }
   };
-
   const getProfileImage = (gender) => {
     switch (gender) {
       case "Male":
@@ -161,6 +160,32 @@ const MentorHeader = () => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
   const capitalizedFullName = capitalizeFirstLetter(fullName);
+  const imageStyleDesktop = {
+    padding: "0.7rem",
+    maxWidth: "100%",
+    height: "auto",
+  };
+
+  const imageStyleMobile = {
+    padding: "0.7rem",
+    marginLeft: "1rem",
+    maxWidth: "50%",
+    height: "auto",
+  };
+  const getImageStyle = () => {
+    return window.innerWidth < 768 ? imageStyleMobile : imageStyleDesktop;
+  };
+  const [imageStyle, setImageStyle] = React.useState(getImageStyle);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setImageStyle(getImageStyle());
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <>
@@ -171,12 +196,7 @@ const MentorHeader = () => {
           onMouseLeave={expandMenu}
           onMouseOver={expandMenuOpen}
         >
-          <img
-            src={logo}
-            alt="Logo"
-            style={{ padding: "0.7rem" }}
-            // className="logo-image"
-          />
+          <img src={logo} alt="Logo" style={imageStyle} />
           {/* <Link to="/dashboard" className="logo logo-normal">
             <ImageWithBasePath src="assets/img/logo.png" alt="img" />
           </Link>

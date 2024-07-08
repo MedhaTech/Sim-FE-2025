@@ -38,6 +38,7 @@ import EadminLogin from "../Evaluator/Admin/EadminLogin";
 import EadminHeader from "../InitialPage/Sidebar/eadminHeader";
 import EadminSidebar from "../InitialPage/Sidebar/eadminSidebar";
 import LogInTeam from "../Team/LogInTeam";
+import TeacherPSW from "../Teacher/forgotPass";
 
 const AllRoutes = () => {
   const data = useSelector((state) => state?.admin?.toggle_header);
@@ -103,14 +104,14 @@ const AllRoutes = () => {
         {/* </Route> */}
         <Route path="/" element={<Navigate to="/teacher" />} />
         <Route path="/">
-          <Route path="/registration" element={<FirstPage />} />
+          <Route path="/registration" element={<AtlPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/atl-register" element={<AtlPage />} />
+          {/* <Route path="/atl-register" element={<AtlPage />} /> */}
           <Route path="/atl-success" element={<AtlSucess />} />
           <Route path="/non-atl-success" element={<NonAtlSuccess />} />
 
           <Route path="/non-atl-register" element={<NonAtlPage />} />
-
+          <Route path="/teacher-forgot-psw" element={<TeacherPSW />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/state" element={<StateLogin />} />
           <Route path="/eadmin" element={<EadminLogin />} />
