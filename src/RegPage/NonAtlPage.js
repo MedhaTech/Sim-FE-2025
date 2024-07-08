@@ -31,9 +31,11 @@ const NonAtlPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [diceBtn, setDiceBtn] = useState(true);
-  const [diesCode, setDiesCode] = useState("");
+  // const [diesCode, setDiesCode] = useState("");
   const [orgData, setOrgData] = useState({});
   const [error, setError] = useState("");
+  const [errors, setErrors] = useState("");
+
   const [btn, setBtn] = useState(false);
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const [stateData, setStateData] = React.useState("");
@@ -63,6 +65,7 @@ const NonAtlPage = () => {
 
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const diesCodes = JSON.parse(localStorage.getItem("diesCode"));
 
   const handleMouseEnter = () => {
     setIsTooltipVisible(true);
@@ -185,7 +188,7 @@ const NonAtlPage = () => {
 
   const handleRegister = (e) => {
     const body = JSON.stringify({
-      organization_code: diesCode,
+      organization_code: diesCodes,
     });
 
     var config = {
@@ -226,10 +229,7 @@ const NonAtlPage = () => {
             response?.data?.data[0] &&
             process.env.REACT_APP_USEDICECODE == 1
           ) {
-            if (
-              Object.keys(response?.data?.data[0]).length &&
-              response?.data?.data[0].category === "Non ATL"
-            ) {
+            if (Object.keys(response?.data?.data[0]).length) {
               setOrgData(response?.data?.data[0]);
               formik.setFieldValue(
                 "organization_code",
@@ -242,7 +242,7 @@ const NonAtlPage = () => {
               setStateData(response?.data?.data[0].state);
               setdistrict(response?.data?.data[0].district);
 
-              setDiceBtn(false);
+              // setDiceBtn(false);
               setSchoolBtn(true);
             } else {
               setError(
@@ -255,24 +255,38 @@ const NonAtlPage = () => {
       .catch(function (error) {
         if (error?.response?.data?.status === 404) {
           setBtn(true);
-          setDiceBtn(false);
-          setCondition(true);
+          // setDiceBtn(false);
+          // setCondition(true);
         }
       });
 
     e.preventDefault();
   };
-
+  useEffect(() => {
+    if (diesCodes.length > 0) {
+      setBtn(true);
+    }
+  }, [diesCodes]);
   const handlePincode = (e) => {
     const numericValue = e.target.value.replace(/\D/g, "");
     const trimmedValue = numericValue.trim();
-
     setPinCode(trimmedValue);
+
+    if (trimmedValue.length < 6 && trimmedValue.length > 0) {
+      setErrors("Pin code must be at least 6 digits");
+    } else {
+      setErrors("");
+    }
   };
   const handleOnChangeSchool = (e) => {
     let inputValue = e.target.value;
-    inputValue = inputValue.replace(/[^a-zA-Z\s]/g, "").slice(0, 40);
-    setSchoolname(inputValue);
+    // inputValue = inputValue.replace(/[^a-zA-Z\s]/g, "").slice(0, 40);
+    const isValidInput =
+      /^[a-zA-Z0-9\s]+$/.test(inputValue) || inputValue === "";
+    if (isValidInput) {
+      // setTextData(inputValues);
+      setSchoolname(inputValue);
+    }
   };
   // const handleOnChangeNewDistrict = (e) => {
   //   const inputValue = e.target.value;
@@ -284,7 +298,7 @@ const NonAtlPage = () => {
   const handleOnChangeAddress = (e) => {
     const inputValues = e.target.value;
     const isValidInputs =
-      /^[a-zA-Z0-9\s\-/_]+$/.test(inputValues) || inputValues === "";
+      /^[a-zA-Z0-9\s]+$/.test(inputValues) || inputValues === "";
     if (isValidInputs) {
       setTextData(inputValues);
     }
@@ -298,7 +312,7 @@ const NonAtlPage = () => {
       district: district,
       pin_code: pinCode,
       category: "Non ATL",
-      organization_code: diesCode,
+      organization_code: diesCodes,
       organization_name: schoolname,
       //new_district: newDistrict,
       address: textData,
@@ -320,7 +334,7 @@ const NonAtlPage = () => {
   const formik = useFormik({
     initialValues: {
       full_name: "",
-      organization_code: diesCode,
+      organization_code: diesCodes,
       // username: '',
       mobile: "",
       whatapp_mobile: "",
@@ -350,8 +364,16 @@ const NonAtlPage = () => {
         )
         .trim()
         .matches(/^\d+$/, "Mobile number is not valid (Enter only digits)")
-        .max(10, "Please enter only 10 digit valid number")
-        .min(10, "Number is less than 10 digits"),
+        .max(
+          10,
+          <span style={{ color: "red" }}>
+            Please enter only 10 digit valid number
+          </span>
+        )
+        .min(
+          10,
+          <span style={{ color: "red" }}>Number is less than 10 digits</span>
+        ),
       email: Yup.string()
         .email(
           <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
@@ -363,8 +385,16 @@ const NonAtlPage = () => {
         )
         .trim()
         .matches(/^\d+$/, "Mobile number is not valid (Enter only digit)")
-        .max(10, "Please enter only 10 digit valid number")
-        .min(10, "Number is less than 10 digit"),
+        .max(
+          10,
+          <span style={{ color: "red" }}>
+            Please enter only 10 digit valid number
+          </span>
+        )
+        .min(
+          10,
+          <span style={{ color: "red" }}>Number is less than 10 digits</span>
+        ),
       gender: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Gender</span>
       ),
@@ -441,6 +471,7 @@ const NonAtlPage = () => {
 
     const body = JSON.stringify({
       username: formik.values.email,
+      mobile: formik.values.mobile,
     });
     var config = {
       method: "post",
@@ -500,7 +531,6 @@ const NonAtlPage = () => {
       email: mentorData.username,
       mobile: mentorData.mobile,
     });
-    console.log(body, "trigger");
     var config = {
       method: "post",
       url: process.env.REACT_APP_API_BASE_URL + "/mentors/triggerWelcomeEmail",
@@ -529,36 +559,38 @@ const NonAtlPage = () => {
       district: district,
       pin_code: pinCode,
       category: "Non ATL",
-      organization_code: diesCode,
+      organization_code: diesCodes,
       organization_name: schoolname,
       address: textData,
     });
-    if (condition) {
-      var config = {
-        method: "post",
-        url: process.env.REACT_APP_API_BASE_URL + `/organizations/createOrg`,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
-        },
-        data: body,
-      };
-      axios(config)
-        .then(function (response) {
-          if (response?.status == 201) {
-            mentorregdata["organization_code"] =
-              response.data.data[0].organization_code;
-            handelMentorReg(mentorregdata);
-          }
-        })
+    console.log(body, "createOrg");
 
-        .catch(function (error) {
-          console.log(error);
-        });
-    } else {
-      mentorregdata["organization_code"] = diesCode;
-      handelMentorReg(mentorregdata);
-    }
+    // if (condition) {
+    var config = {
+      method: "post",
+      url: process.env.REACT_APP_API_BASE_URL + `/organizations/createOrg`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+      },
+      data: body,
+    };
+    axios(config)
+      .then(function (response) {
+        if (response?.status == 201) {
+          mentorregdata["organization_code"] =
+            response.data.data[0].organization_code;
+          handelMentorReg(mentorregdata);
+        }
+      })
+
+      .catch(function (error) {
+        console.log(error);
+      });
+    // } else {
+    //   mentorregdata["organization_code"] = diesCodes;
+    //   handelMentorReg(mentorregdata);
+    // }
     // var config = {
     //   method: "post",
     //   url: process.env.REACT_APP_API_BASE_URL + `/organizations/createOrg`,
@@ -592,6 +624,8 @@ const NonAtlPage = () => {
 
       data: JSON.stringify(body),
     };
+    console.log(body, "/mentor");
+
     await axios(config)
       .then((mentorRegRes) => {
         if (mentorRegRes?.data?.status == 201) {
@@ -662,12 +696,12 @@ const NonAtlPage = () => {
                 {/* <Link className="login-logo logo-white">
                   <ImageWithBasePath src="assets/img/logo-white.png" alt />
                 </Link> */}
-                <div className="login-userheading">
+                {/* <div className="login-userheading">
                   <h3 className="icon-container ">
                     {" "}
                     Non-ATL School Teacher Registration{" "}
                     <a
-                      href="https://www.youtube.com/watch?v=q40BSRm_cJM" // Replace with the desired URL
+                      href="https://www.youtube.com/watch?v=q40BSRm_cJM" 
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={handleIconClick}
@@ -709,11 +743,11 @@ const NonAtlPage = () => {
                     )}
                   </h3>
                   <h4>Register New Teacher account</h4>
-                </div>
-                {diceBtn && (
-                  <div className="form-login mb-3">
-                    <label className="form-label">School UDISE Code</label>
-                    <div className="form-addons">
+                </div> */}
+                {/* {diceBtn && ( */}
+                {/* <div className="form-login mb-3"> */}
+                {/* <label className="form-label">School UDISE Code</label> */}
+                {/* <div className="form-addons">
                       <input
                         type="text"
                         className="form-control mb-3"
@@ -726,9 +760,9 @@ const NonAtlPage = () => {
                         placeholder="Enter 11 digit UDISE Code"
                       />
                       <img src={user} alt="user" />
-                    </div>
+                    </div> */}
 
-                    {error ? (
+                {/* {error ? (
                       <p
                         style={{
                           color: "red",
@@ -736,9 +770,9 @@ const NonAtlPage = () => {
                       >
                         {error}
                       </p>
-                    ) : null}
+                    ) : null} */}
 
-                    <div className="form-login authentication-check">
+                {/* <div className="form-login authentication-check">
                       <div className="row">
                         <div className="col-12 d-flex align-items-center justify-content-between">
                           <div className="custom-control custom-checkbox">
@@ -763,9 +797,9 @@ const NonAtlPage = () => {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
 
-                    {diceBtn && (
+                {/* {diceBtn && (
                       <div className="form-login">
                         <button
                           type="button"
@@ -775,7 +809,6 @@ const NonAtlPage = () => {
                         >
                           {" "}
                           Proceed
-                          <span> {/* <ArrowRight /> */}</span>
                         </button>
                         <p className="form-login mb-3">
                           Already have an account ?
@@ -786,9 +819,9 @@ const NonAtlPage = () => {
                           </b>
                         </p>
                       </div>
-                    )}
-                    <br />
-                    <p className="text-center">
+                    )} */}
+                {/* <br /> */}
+                {/* <p className="text-center">
                       Copyright{" "}
                       <img
                         src={copy}
@@ -797,9 +830,9 @@ const NonAtlPage = () => {
                         style={{ verticalAlign: "middle", width: "5%" }}
                       />{" "}
                       SIM 2024. All rights reserved
-                    </p>
-                  </div>
-                )}
+                    </p> */}
+                {/* </div> */}
+                {/* )} */}
                 {btn && (
                   <>
                     <div className="col-xl-12">
@@ -837,6 +870,7 @@ const NonAtlPage = () => {
                             onChange={(e) => handlePincode(e)}
                             value={pinCode}
                           />
+                          {errors && <p style={{ color: "red" }}>{errors}</p>}
                         </div>
                         <div className="col-md-6">
                           <label className="form-label"> School Name</label>
@@ -1148,7 +1182,7 @@ const NonAtlPage = () => {
                           </>
                           {/* )} */}
                           {/* {person && ( */}
-                          <div className="col-12">
+                          <div className="col-md-12">
                             <button
                               type="button"
                               className="btn btn-warning m-2"
@@ -1163,36 +1197,22 @@ const NonAtlPage = () => {
                           {/* )} */}
                           {btnOtp && (
                             <>
-                              <h3>
-                                {/* {time}:{counter < 59 ? counter - "0" : counter} */}
-                                {/* <h3>{timer > 0 && `00: ${timer} seconds`}</h3> */}
-                              </h3>
                               <div className="Otp-expire text-center">
                                 <p>
-                                  {/* Otp will expire in{" "}
-                                  {timer > 0 && `00: ${timer} seconds`} */}
-                                  {timer > 0
+                                  {/* {timer > 0
                                     ? `Otp will expire in 00:${
                                         timer < 10 ? `0${timer}` : timer
                                       } seconds`
-                                    : "Otp expired"}
+                                    : "Otp expired"} */}
+                                  {timer > 0
+                                    ? `Access Resend OTP  00:${
+                                        timer < 10 ? `0${timer}` : timer
+                                      } seconds`
+                                    : "Resend OTP enabled"}
                                 </p>
                               </div>
 
                               <div className="login-content user-login">
-                                <div className="login-logo">
-                                  {/* <ImageWithBasePath
-                                    src="assets/img/logo.png"
-                                    alt="img"
-                                  /> */}
-                                  <img src={logo} alt="Logo" />
-                                  {/* <Link className="login-logo logo-white">
-                                    <ImageWithBasePath
-                                      src="assets/img/logo-white.png"
-                                      alt
-                                    />
-                                  </Link> */}
-                                </div>
                                 <div className="login-userset">
                                   <div className="login-userheading">
                                     <h3>Login With Your Email Address</h3>
@@ -1221,8 +1241,8 @@ const NonAtlPage = () => {
                                           inputStyle={{
                                             border: "1px solid",
                                             borderRadius: "8px",
-                                            width: "4rem",
-                                            height: "4rem",
+                                            width: "2.5rem",
+                                            height: "2.5rem",
                                             fontSize: "2rem",
                                             color: "#000",
                                             fontWeight: "400",

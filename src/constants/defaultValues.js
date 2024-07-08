@@ -22,8 +22,9 @@ export const URL = {
   getTeamMembersList: `${process.env.REACT_APP_API_BASE_URL}/teams/`,
   getTeamsList: `${process.env.REACT_APP_API_BASE_URL}/teams`,
   getTeamMemberStatusEndpoint:
-        process.env.REACT_APP_API_BASE_URL + '/dashboard/teamStats/',
-
+    process.env.REACT_APP_API_BASE_URL + "/dashboard/teamStats/",
+  putResetPassword:
+    process.env.REACT_APP_API_BASE_URL + "/mentors/resetPassword",
   getMentorSupportTickets:
     process.env.REACT_APP_API_BASE_URL + "/supportTickets",
   createMentorSupportTickets:
