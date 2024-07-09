@@ -18,6 +18,7 @@ import { ArrowRight } from "feather-icons-react";
 import user from "../assets/img/icons/user-icon.svg";
 import play from "../assets/img/playicon.png";
 import copy from "../assets/img/copyrights.png";
+import { stateList, districtList } from "./ORGData.js";
 
 import {
   getStateData,
@@ -39,7 +40,7 @@ const NonAtlPage = () => {
   const [btn, setBtn] = useState(false);
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const [stateData, setStateData] = React.useState("");
-  const [district, setdistrict] = React.useState("");
+  const [districts, setDistricts] = React.useState([]);
   const [pinCode, setPinCode] = useState("");
   const [schoolname, setSchoolname] = useState("");
   //const [newDistrict, setnewDistrict] = useState("");
@@ -62,11 +63,12 @@ const NonAtlPage = () => {
   const [wtsNum, setWtsNum] = useState("");
   const [condition, setCondition] = useState(false);
   const [buttonData, setButtonData] = useState("");
-
+  const [selectedDistrict, setSelectedDistrict] = useState("");
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const diesCodes = JSON.parse(localStorage.getItem("diesCode"));
-
+  const [mentData, setMentData] = useState({});
+  const [districtOptions, setDistrictOptions] = useState([]);
   const handleMouseEnter = () => {
     setIsTooltipVisible(true);
   };
@@ -122,39 +124,40 @@ const NonAtlPage = () => {
         console.log(error);
       });
   };
-  useEffect(() => {
-    if (stateData !== "") {
-      districtApi(stateData);
-    }
-    // setdistrict("");
-  }, [stateData]);
-  const districtApi = (item) => {
-    const distParam = encryptGlobal(
-      JSON.stringify({
-        state: item,
-      })
-    );
 
-    var config = {
-      method: "get",
-      url:
-        process.env.REACT_APP_API_BASE_URL +
-        `/organizations/districts?Data=${distParam}`,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
-      },
-    };
-    axios(config)
-      .then(function (response) {
-        if (response.status === 200) {
-          setFullDistrictsNames(response.data.data);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+  // useEffect(() => {
+  //   if (stateData !== "") {
+  //     districtApi(stateData);
+  //   }
+  //   // setdistrict("");
+  // }, [stateData]);
+  // const districtApi = (item) => {
+  //   const distParam = encryptGlobal(
+  //     JSON.stringify({
+  //       state: item,
+  //     })
+  //   );
+
+  //   var config = {
+  //     method: "get",
+  //     url:
+  //       process.env.REACT_APP_API_BASE_URL +
+  //       `/organizations/districts?Data=${distParam}`,
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+  //     },
+  //   };
+  //   axios(config)
+  //     .then(function (response) {
+  //       if (response.status === 200) {
+  //         setFullDistrictsNames(response.data.data);
+  //       }
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // };
   const handleOnChange = (e) => {
     const numericValue = e.target.value.replace(/\D/g, "");
     const trimmedValue = numericValue.trim();
@@ -280,21 +283,24 @@ const NonAtlPage = () => {
   };
   const handleOnChangeSchool = (e) => {
     let inputValue = e.target.value;
-    // inputValue = inputValue.replace(/[^a-zA-Z\s]/g, "").slice(0, 40);
+    inputValue = inputValue.slice(0, 40);
     const isValidInput =
       /^[a-zA-Z0-9\s]+$/.test(inputValue) || inputValue === "";
     if (isValidInput) {
-      // setTextData(inputValues);
       setSchoolname(inputValue);
     }
   };
-  // const handleOnChangeNewDistrict = (e) => {
-  //   const inputValue = e.target.value;
-  //   const isValidInput = /^[a-zA-Z\s]+$/.test(inputValue) || inputValue === "";
-  //   if (isValidInput) {
-  //     setnewDistrict(e.target.value);
-  //   }
-  // };
+
+  const handleStateChange = (event) => {
+    const state = event.target.value;
+    setStateData(state);
+    setSelectedDistrict("");
+    setDistricts(districtList[state] || []);
+  };
+  const handleDistrictChange = (event) => {
+    setSelectedDistrict(event.target.value);
+  };
+
   const handleOnChangeAddress = (e) => {
     const inputValues = e.target.value;
     const isValidInputs =
@@ -309,7 +315,7 @@ const NonAtlPage = () => {
   const handleSubmit = (e) => {
     const body = {
       state: stateData,
-      district: district,
+      district: selectedDistrict,
       pin_code: pinCode,
       category: "Non ATL",
       organization_code: diesCodes,
@@ -325,12 +331,12 @@ const NonAtlPage = () => {
   };
 
   useEffect(() => {
-    if (stateData && district && pinCode && schoolname && textData) {
+    if (stateData && selectedDistrict && pinCode && schoolname && textData) {
       setShowButton(true);
     } else {
       setShowButton(false);
     }
-  }, [stateData, district, pinCode, schoolname, textData]);
+  }, [stateData, selectedDistrict, pinCode, schoolname, textData]);
   const formik = useFormik({
     initialValues: {
       full_name: "",
@@ -501,10 +507,11 @@ const NonAtlPage = () => {
       })
       .catch(function (error) {
         if (error?.response?.data?.status === 406) {
+          openNotificationWithIcon("error", error?.response?.data?.message);
+
           setDisable(true);
           setAreInputsDisabled(false);
           setTimer(0);
-          openNotificationWithIcon("error", "Email ID already exists");
           // setTimeout(() => {
           //   setDisable(true);
           //   setHoldKey(false);
@@ -518,52 +525,18 @@ const NonAtlPage = () => {
     formik.setFieldValue("otp", e);
     setErrorMsg(false);
   };
-  async function apiCall() {
-    // Dice code list API //
-    // where list = diescode //
-    const body = JSON.stringify({
-      school_name: orgData.organization_name,
-      atl_code: orgData.organization_code,
-      // atl_code: mentorDaTa.organization_code,
-      district: orgData.district,
-      state: orgData.state,
-      pin_code: orgData.pin_code,
-      email: mentorData.username,
-      mobile: mentorData.mobile,
-    });
-    var config = {
-      method: "post",
-      url: process.env.REACT_APP_API_BASE_URL + "/mentors/triggerWelcomeEmail",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
-      },
-      data: body,
-    };
 
-    await axios(config)
-      .then(async function (response) {
-        if (response.status == 200) {
-          setButtonData(response?.data?.data[0]?.data);
-          openNotificationWithIcon("success", "Email sent successfully");
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
   const handleRegist = (mentorregdata) => {
     setMentorData(mentorregdata);
     const body = JSON.stringify({
       state: stateData,
-      district: district,
+      district: selectedDistrict,
       pin_code: pinCode,
       category: "Non ATL",
       organization_code: diesCodes,
       organization_name: schoolname,
       address: textData,
     });
-    console.log(body, "createOrg");
 
     // if (condition) {
     var config = {
@@ -624,13 +597,14 @@ const NonAtlPage = () => {
 
       data: JSON.stringify(body),
     };
-    console.log(body, "/mentor");
 
     await axios(config)
       .then((mentorRegRes) => {
         if (mentorRegRes?.data?.status == 201) {
-          apiCall();
-          navigate("/non-atl-success");
+          setMentData(mentorRegRes.data && mentorRegRes.data.data[0]);
+          setTimeout(() => {
+            apiCall(mentorRegRes.data && mentorRegRes.data.data[0]);
+          }, 3000);
 
           // setMentorData(mentorRegRes?.data);
         }
@@ -644,6 +618,42 @@ const NonAtlPage = () => {
         return err.response;
       });
   };
+  async function apiCall(mentData) {
+    // Dice code list API //
+    // where list = diescode //
+    const body = JSON.stringify({
+      school_name: orgData.organization_name,
+      udise_code: orgData.organization_code,
+      // atl_code: mentorDaTa.organization_code,
+      district: orgData.district,
+      state: orgData.state,
+      pin_code: orgData.pin_code,
+      email: mentData.username,
+      mobile: mentData.mobile,
+    });
+    var config = {
+      method: "post",
+      url: process.env.REACT_APP_API_BASE_URL + "/mentors/triggerWelcomeEmail",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+      },
+      data: body,
+    };
+
+    await axios(config)
+      .then(async function (response) {
+        if (response.status == 200) {
+          setButtonData(response?.data?.data[0]?.data);
+          navigate("/non-atl-success");
+
+          openNotificationWithIcon("success", "Email sent successfully");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
   useEffect(() => {
     if (timer > 0) {
       const intervalId = setInterval(() => {
@@ -841,23 +851,37 @@ const NonAtlPage = () => {
                           <label htmlFor="inputState" className="form-label">
                             State
                           </label>
-                          <Select
-                            list={fullStatesNames}
-                            setValue={setStateData}
-                            placeHolder={"Select State"}
+                          <select
+                            id="inputState"
+                            className="form-select"
                             value={stateData}
-                          />
+                            onChange={handleStateChange}
+                          >
+                            <option value="">Select State</option>
+                            {stateList.map((state) => (
+                              <option key={state} value={state}>
+                                {state}
+                              </option>
+                            ))}
+                          </select>
                         </div>
                         <div className="col-md-6">
                           <label htmlFor="inputState" className="form-label">
                             District
                           </label>
-                          <Select
-                            list={fullDistrictsNames}
-                            setValue={setdistrict}
-                            placeHolder={"Select District"}
-                            value={district}
-                          />
+                          <select
+                            id="inputState"
+                            className="form-select"
+                            value={selectedDistrict}
+                            onChange={handleDistrictChange}
+                          >
+                            <option value="">Select District</option>
+                            {districts.map((district) => (
+                              <option key={district} value={district}>
+                                {district}
+                              </option>
+                            ))}
+                          </select>
                         </div>
                         <div className="col-md-6">
                           <label className="form-label">Pin Code</label>
