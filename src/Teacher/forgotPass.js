@@ -19,7 +19,17 @@ const Forgotpassword = () => {
     },
 
     validationSchema: Yup.object({
-      email: Yup.string().email("Must be a valid email").max(255).trim(),
+      email: Yup.string()
+        .email(
+          <span style={{ color: "red" }}>Must be a valid email address</span>
+        )
+        .required(
+          <span style={{ color: "red" }}>
+            Please Enter Registered Email Address
+          </span>
+        )
+        .max(255)
+        .trim(),
     }),
 
     onSubmit: async (values) => {
@@ -34,7 +44,7 @@ const Forgotpassword = () => {
           if (checkOrgRes.status == 202) {
             openNotificationWithIcon(
               "success",
-              "Password reset link will be sent to registered email address"
+              "Password sent to your registered email address"
             );
             seterrorMsg("");
           }
@@ -63,11 +73,11 @@ const Forgotpassword = () => {
                   <ImageWithBasePath src="assets/img/logo-white.png" alt />
                 </Link> */}
                 <div className="login-userheading">
-                  <h3>Forgot password?</h3>
-                  <h4>
+                  <h3>Forgot your SIM password?</h3>
+                  {/* <h4>
                     If you forgot your password, well, then we’ll email you
                     instructions to reset your password.
-                  </h4>
+                  </h4> */}
                 </div>
                 <div className="form-login">
                   <label>Email</label>
@@ -103,7 +113,7 @@ const Forgotpassword = () => {
                     disabled={!(formik.dirty && formik.isValid)}
                     type="submit"
                   >
-                    Sign Up
+                    Send Password
                   </button>
                 </div>
                 <div className="signinform text-center">
@@ -111,7 +121,7 @@ const Forgotpassword = () => {
                     Return to
                     <Link to="/teacher" className="hover-a">
                       {" "}
-                      login{" "}
+                      Login{" "}
                     </Link>
                   </h4>
                 </div>
