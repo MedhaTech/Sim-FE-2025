@@ -60,6 +60,9 @@ const Register = () => {
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [design, setDesign] = useState(false);
+  const [emailData, setEmailData] = useState("");
+  const [mobileData, setMobileData] = useState("");
+  const [mentData, setMentData] = useState({});
 
   const normalizeStateName = (stateName) => {
     return stateName
@@ -212,40 +215,7 @@ const Register = () => {
       setDesign(false);
     }
   }, [dropdownbtn]);
-  async function apiCall() {
-    // Dice code list API //
-    // where list = diescode //
-    const body = JSON.stringify({
-      school_name: orgData.organization_name,
-      atl_code: orgData.organization_code,
-      // atl_code: mentorDaTa.organization_code,
-      district: orgData.district,
-      state: orgData.state,
-      pin_code: orgData.pin_code,
-      email: mentorData.username,
-      mobile: mentorData.mobile,
-    });
-    var config = {
-      method: "post",
-      url: process.env.REACT_APP_API_BASE_URL + "/mentors/triggerWelcomeEmail",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
-      },
-      data: body,
-    };
 
-    await axios(config)
-      .then(async function (response) {
-        if (response.status == 200) {
-          setButtonData(response?.data?.data[0]?.data);
-          openNotificationWithIcon("success", "Email sent successfully");
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
   const formik = useFormik({
     initialValues: {
       full_name: "",
@@ -361,6 +331,7 @@ const Register = () => {
           password: encrypted,
         });
         setMentorData(body);
+
         localStorage.setItem("mentorData", body);
         var config = {
           method: "post",
@@ -375,8 +346,10 @@ const Register = () => {
         await axios(config)
           .then((mentorRegRes) => {
             if (mentorRegRes?.data?.status == 201) {
-              apiCall();
-              navigate("/atl-success");
+              setMentData(mentorRegRes.data && mentorRegRes.data.data[0]);
+              setTimeout(() => {
+                apiCall(mentorRegRes.data && mentorRegRes.data.data[0]);
+              }, 3000);
             }
           })
           .catch((err) => {
@@ -391,6 +364,41 @@ const Register = () => {
     },
   });
 
+  async function apiCall(mentData) {
+    // Dice code list API //
+    // where list = diescode //
+    const body = JSON.stringify({
+      school_name: orgData.organization_name,
+      udise_code: orgData.organization_code,
+      district: orgData.district,
+      state: orgData.state,
+      pin_code: orgData.pin_code,
+      email: mentData.username,
+      mobile: mentData.mobile,
+    });
+
+    var config = {
+      method: "post",
+      url: process.env.REACT_APP_API_BASE_URL + "/mentors/triggerWelcomeEmail",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+      },
+      data: body,
+    };
+
+    await axios(config)
+      .then(async function (response) {
+        if (response.status == 200) {
+          setButtonData(response?.data?.data[0]?.data);
+          navigate("/atl-success");
+          openNotificationWithIcon("success", "Email sent successfully");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
   const handleCheckbox = (e, click) => {
     if (click) {
       setCheckBox(click);
@@ -443,7 +451,7 @@ const Register = () => {
           const UNhashedPassword = decryptGlobal(response?.data?.data);
           console.log(UNhashedPassword, "111111111111111111111111111");
           setOtpRes(JSON.parse(UNhashedPassword));
-          // openNotificationWithIcon("success", "Otp send to Email Id");
+          openNotificationWithIcon("success", "Otp send to Email Id");
           setBtnOtp(true);
           setPerson(false);
           setTimeout(() => {
@@ -456,10 +464,12 @@ const Register = () => {
       })
       .catch(function (error) {
         if (error?.response?.data?.status === 406) {
+          openNotificationWithIcon("error", error?.response.data?.message);
+
           setDisable(true);
           setAreInputsDisabled(false);
           setTimer(0);
-          openNotificationWithIcon("error", "Email ID already exists");
+          // openNotificationWithIcon("error", "Email ID already exists");
           // setTimeout(() => {
           //   setDisable(true);
           //   setHoldKey(false);
