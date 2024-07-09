@@ -6,6 +6,8 @@ import teacher from "../Teacher/store/teacher/reducers";
 import evaluator from "../Evaluator/store/evaluator/reducer";
 import mentors from "../Teacher/store/mentors/reducer";
 import teams from "../Teacher/store/teams/reducer";
+import teacherCourses from "../Teacher/store/courses/reducer";
+import adminCourses from "../Admin/Courses/store/adminCourses/reducer";
 
 const reducers = combineReducers({
   admin,
@@ -14,6 +16,8 @@ const reducers = combineReducers({
   teacher,
   evaluator,
   teams,
+  teacherCourses,
+  adminCourses,
 });
 const rootReducer = (state, action) => {
   if (action.type === "USER_LOGOUT") {

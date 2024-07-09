@@ -11,9 +11,19 @@ export const TEACHER_LOGIN_USER_ERROR = "TEACHER_LOGIN_USER_ERROR";
 export const toggle_header = "toggle_header";
 export const Layoutstyle_data = "Layoutstyle_data";
 
+export const TEACHER_COURSES_DETAILS = "TEACHER_COURSES_DETAILS";
+export const TEACHER_COURSES_ATTACHMENTS = "TEACHER_COURSES_ATTACHMENTS";
+export const TEACHER_COURSES_DETAILS_SUCCESS =
+  "TEACHER_COURSES_DETAILS_SUCCESS";
+export const TEACHER_COURSES_DETAILS_ERROR = "TEACHER_COURSES_DETAILS_ERROR";
+
 export const COORDINATOR_LOGIN_USER = "COORDINATOR_LOGIN_USER";
 export const COORDINATOR_LOGIN_USER_SUCCESS = "COORDINATOR_LOGIN_USER_SUCCESS";
 export const COORDINATOR_LOGIN_USER_ERROR = "COORDINATOR_LOGIN_USER_ERROR";
+
+export const ADMIN_COURSES_DETAILS = "ADMIN_COURSES_DETAILS";
+export const ADMIN_COURSES_DETAILS_SUCCESS = "ADMIN_COURSES_DETAILS_SUCCESS";
+export const ADMIN_COURSES_DETAILS_ERROR = "ADMIN_COURSES_DETAILS_ERROR";
 
 export const EVALUATOR_LOGIN_USER = "EVALUATOR_LOGIN_USER";
 export const EVALUATOR_LOGIN_USER_SUCCESS = "EVALUATOR_LOGIN_USER_SUCCESS";
@@ -68,3 +78,5 @@ export * from "./studentRegistration/actions";
 export * from "../Teacher/store/teacher/actions";
 export * from "../Evaluator/store/evaluator/action";
 export * from "../Teacher/store/teams/actions";
+export * from "../Admin/Courses/store/adminCourses/actions";
+export * from "../Teacher/store/courses/actions";

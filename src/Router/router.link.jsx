@@ -210,7 +210,7 @@ import CreateTeam from "../Teacher/Teams/MentorTeam";
 import AddStudent from "../Teacher/Teams/AddStudent";
 import TecResource from "../Teacher/Resource/TecResource";
 import StudentEdit from "../Teacher/Teams/StuEdit";
-import TeacherCourse from "../Teacher/Course/TeacherCourse";
+import TeacherCourse from "../Teacher/Courses/TeacherPlayVideo";
 import TeacherSupport from "../Teacher/Support/TeacherSupport";
 import TCertificate from "../Teacher/Certificate/TCertificate";
 export const publicRoutes = [
