@@ -1026,7 +1026,7 @@ const Register = () => {
                                 </div>
                                 <div className="login-userset">
                                   <div className="login-userheading">
-                                    <h3>Verify your Email With OTP</h3>
+                                    <h3>Verify your Email with OTP</h3>
                                     <h4 className="verfy-mail-content">
                                       We sent a verification code to your email.
                                       Enter the code from the email in the field
