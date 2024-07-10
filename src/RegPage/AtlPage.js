@@ -63,7 +63,7 @@ const Register = () => {
   const [emailData, setEmailData] = useState("");
   const [mobileData, setMobileData] = useState("");
   const [mentData, setMentData] = useState({});
-
+  const [multiData, setMultiData] = useState({});
   const normalizeStateName = (stateName) => {
     return stateName
       .toLowerCase()
@@ -164,9 +164,13 @@ const Register = () => {
           }
           if (
             response?.data?.data[0] &&
+            response?.data?.data[0].category == "ATL" &&
             process.env.REACT_APP_USEDICECODE == 1
           ) {
-            if (Object.keys(response?.data?.data[0]).length) {
+            if (
+              Object.keys(response?.data?.data[0]).length &&
+              response?.data?.data[0].category === "ATL"
+            ) {
               setDropDownbtn(response?.data?.data[0].mentor != null);
               if (response?.data?.data[0].mentor != null) {
                 formik.setFieldValue(
@@ -195,6 +199,10 @@ const Register = () => {
               //   "Entered Code belongs to Non-Atl school. Kindly register as Non-ATL"
               // );
             }
+          } else {
+            // const nonAtl = response?.data?.data[0];
+            // setMultiData(nonAtl);
+            navigate("/non-atl-register", { state: diesCode });
           }
         }
       })
