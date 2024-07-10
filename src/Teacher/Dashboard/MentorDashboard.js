@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import React, { useEffect , useState } from 'react';
+import React, { useEffect , useRef, useState } from 'react';
 import CountUp from "react-countup";
 import {
   RotateCcw,
@@ -28,10 +28,12 @@ import { FaLifeRing } from 'react-icons/fa';
 import { FaPoll } from 'react-icons/fa';
 import { FaCheckCircle } from 'react-icons/fa';
 import { FaWhatsapp } from 'react-icons/fa';
-import { FaKey } from 'react-icons/fa';
+//import { FaKey } from 'react-icons/fa';
 import TeamsProgDD from './TeamsProgDD';
-//import { GiAchievement } from 'react-icons/gi';
-import TCertificate from "../Certificate/TCertificate";
+import { GiAchievement } from 'react-icons/gi';
+import { useReactToPrint } from 'react-to-print';
+import TCertificate from '../Certificate/TCertificate';
+import SchoolTeamPDF from './SchoolTeamPDF';
 
 
 const MentorDashboard = () => {
@@ -268,11 +270,30 @@ const MentorDashboard = () => {
         }
       );
     };
-      
 
-  //////////////////////////////////////////////
+
+    
+
+      
+  const handleCertificateDownload = () =>{
+    handlePrintCertificate();
+  };
+    
+  const componentRef = useRef();
+  const handlePrintCertificate = useReactToPrint({
+      content: () => componentRef.current
+  });
 
   return (
+    <>
+    <div style={{ display: 'none' }}>
+                <TCertificate
+                    ref={componentRef}
+                    title={currentUser?.data[0]?.title}
+                    full_name={currentUser?.data[0]?.full_name}
+                    organization_name={currentUser?.data[0]?.organization_name}
+                />
+    </div>
     <div>
       <div className="page-wrapper">
         <div className="content">
@@ -433,16 +454,15 @@ const MentorDashboard = () => {
               </div>
             </div>
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <TCertificate/>
-              {/* <div className="dash-count das1">
+              <div className="dash-count das1">
                   <div className="dash-counts">
                       <h4>Congrats</h4>
                       <h5>Get your Certificate</h5>
                   </div>
-                  <div className="dash-imgs" onClick={handleCertificateDownload} >
+                  <div className="dash-imgs" onClick={handleCertificateDownload}>
                       <GiAchievement size={30} />
                   </div>
-              </div> */}
+              </div>
             </div>
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-count das2">
@@ -450,9 +470,7 @@ const MentorDashboard = () => {
                   <h4>Team login&apos;s</h4>
                   <h5>check progress here</h5>
                 </div>
-                <div className="dash-imgs">
-                  <FaKey />
-                </div>
+                <SchoolTeamPDF />
               </div>
             </div>
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
@@ -744,6 +762,7 @@ const MentorDashboard = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
