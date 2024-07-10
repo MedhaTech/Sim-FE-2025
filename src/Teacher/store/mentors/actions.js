@@ -274,7 +274,9 @@ export const getSupportTicketByIdSuccess = (tickets) => async (dispatch) => {
 export const getSupportTicketById = (id) => async (dispatch) => {
   try {
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-    const supId = encryptGlobal(id);
+    const supId = encryptGlobal(
+      JSON.stringify(id)
+    );
     const lang = "locale=en";
     const final = lang.split("=");
     let enParamData = encryptGlobal(

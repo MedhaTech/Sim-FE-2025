@@ -1,9 +1,10 @@
 /* eslint-disable indent */
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from "react";
+import React, { useState,useEffect } from "react";
 // import { OverlayTrigger, Tooltip } from "react-bootstrap";
 // import ImageWithBasePath from "../../core/img/imagewithbasebath";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
+import { Row, Col, Label, Card, CardBody } from 'reactstrap';
 //import { setToogleHeader } from "../../core/redux/action";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -12,8 +13,8 @@ import {
 } from "react-feather";
 //import { payrollListData } from "../../core/json/payrollList";
 //import Table from "../../core/pagination/datatable";
-import withReactContent from "sweetalert2-react-content";
-import Swal from "sweetalert2";
+//import withReactContent from "sweetalert2-react-content";
+//import Swal from "sweetalert2";
 import Select from "react-select";
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
@@ -22,31 +23,37 @@ import { getCurrentUser } from '../../helpers/Utils';
 import { createSupportTickets } from '../store/mentors/actions';
 import { getSupportTickets } from '../../redux/actions';
 import { FaComments } from 'react-icons/fa';
-import TicketResponse from "../Support/TicketResponse";
+//import TicketResponse from "../Support/TicketResponse";
 import DataTableExtensions from 'react-data-table-component-extensions';
 import DataTable, { Alignment } from 'react-data-table-component';
+import {
+  createSupportTicketResponse,
+  getSupportTicketById,
+  SupportTicketStatusChange
+} from '../store/mentors/actions';
+import { FaUserCircle } from 'react-icons/fa';
+import { FaRegClock } from 'react-icons/fa';
+import moment from 'moment';
+
 
 
 
 
 
 const TeacherSupport = () => {
-    //const [rows, setRows] = React.useState([]);
     const { supportTickets } = useSelector((state) => state.mentors);
-
-    //const history = useHistory();
+    const { supportTicket } = useSelector((state) => state.mentors);
+    const language = useSelector((state) => state?.mentors.mentorLanguage);
+    const [id, setId] = useState();
     useEffect(() => {
         dispatch(getSupportTickets(currentUser?.data[0]));
     }, []);
-
-    console.log(supportTickets);
   
   const ticketOptions = [
     { value: "General", label: "General query" },
     { value: "Technical", label: "Technical query" },
     { value: "Suggestion", label: "Suggestion" },
   ];
-
 
 //     {
 //       title: "Action",
@@ -87,15 +94,15 @@ const TeacherSupport = () => {
                 //width: '42rem',
 
                 cell: (params) => [
-                    <Link
-                        key={params.support_ticket_id}
-                        to={`/teacher/support-journey/ans-ticket?id=${params.support_ticket_id}`}
+                    <p 
+                      key={params.support_ticket_id}
                     >
-                        {params?.query_details} <FaComments />{' '}
-                        {params.replies_count}{' '}
-                    </Link>
+                        {params?.query_details} 
+                    </p>
                 ]
             },
+            
+
             // {
             //     name: 'File',
             //     selector: (row) => row.file,
@@ -106,10 +113,39 @@ const TeacherSupport = () => {
             //     selector: (row) => row.link,
             //     width: '25rem'
             // },
-
+            {
+              name : "Chat",
+              cell: (params) => {
+                return [
+                  <a
+                    href="#"
+                    key={params.support_ticket_id}
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasRight"
+                    onClick={() =>
+                      handleChat(params.support_ticket_id)
+                    }
+                  >
+                    <FaComments/>{' '}{params.replies_count}{' '}
+                    
+                  </a>
+                ];
+              }
+                
+                
+                      // <div key={params.support_ticket_id}>         
+                    
+                      //   <FaComments className="action-edit" 
+                      //   // data-bs-toggle="offcanvas"
+                      //   // data-bs-target="#offcanvasRight"
+                      //   onClick={handleChat(params.support_ticket_id)} />{' '}{params.replies_count}{' '}
+                    
+                      // </div>
+              
+              
+            },
             {
                 name: 'Status',
-                //width: '20rem',
                 cell: (params) => [
                     params.status === 'OPEN' ? (
                         <span className="py-2 px-4 rounded-pill bg-danger bg-opacity-25 text-danger fw-bold">
@@ -131,14 +167,16 @@ const TeacherSupport = () => {
                         ''
                     )
                 ]
-            }
+            },
+            
+            
         ]
     };
 
     const currentUser = getCurrentUser('current_user');
     const dispatch = useDispatch();
 
-    const formik = useFormik({
+    const formik1 = useFormik({
         initialValues: {
             ticket: '',
             ticketDetails: '',
@@ -170,11 +208,51 @@ const TeacherSupport = () => {
     });
 
     const handleDiscard = () => {
-        formik.setFieldValue('ticket', "");
-        formik.setFieldValue('ticketDetails', "");
-        formik.setFieldValue('files', null);
-        formik.setFieldValue('links', "");
+        formik1.setFieldValue('ticket', "");
+        formik1.setFieldValue('ticketDetails', "");
+        formik1.setFieldValue('files', null);
+        formik1.setFieldValue('links', "");
     };
+
+    const handleDiscard2 = () => {
+      formik.setFieldValue('ansTicket', "");
+      formik.setFieldValue('selectStatusTicket', supportTicket.status);
+    };
+
+    const formik = useFormik({
+      initialValues: {
+          ansTicket: '',
+          selectStatusTicket: supportTicket.status
+      },
+
+      validationSchema: Yup.object({
+          ansTicket: Yup.string().required('Required'),
+          selectStatusTicket: Yup.string()
+      }),
+
+      onSubmit: (values) => {
+          const ansTicket = values.ansTicket;
+          const body = JSON.stringify({
+              support_ticket_id: id,
+              // status: values.selectStatus,
+              reply_details: ansTicket
+          });
+
+          dispatch(createSupportTicketResponse(body));
+          dispatch(SupportTicketStatusChange(id, {status: values.selectStatusTicket})
+          );
+          //props.history.push('/teacher/support-journey/');
+
+          setTimeout(() => {
+              dispatch(getSupportTicketById(id, language));
+          }, 500);
+      }
+  });
+
+  const handleChat = (id) =>{
+    //console.log(id , "hi");
+    dispatch(getSupportTicketById(id, language));
+  };
     
 
 
@@ -222,36 +300,14 @@ const TeacherSupport = () => {
                             subHeaderAlign={Alignment.Center}
                         />
                     </DataTableExtensions>
-                    {/* <Table striped bordered hover>
-                        <thead>
-                            <tr>
-                                {SchoolsData.columns.map((column) => (
-                                    <th key={column.selector}>
-                                        {column.name}
-                                    </th>
-                                ))}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {rows.map((row) => (
-                                <tr key={row.id}>
-                                    {SchoolsData.columns.map((column) => (
-                                        <td key={column.selector}>
-                                            {row[column.selector]}
-                                        </td>
-                                    ))}
-                                </tr>
-                            ))}
-                        </tbody>
-                    </Table> */}
-                    {/* <Table columns={SchoolsData.columns} dataSource={rows} defaultSortField="id" defaultSortAsc={false} pagination/> */}
-                </div>
+                  </div>
             </div>
           </div>
           {/* /product list */}
         </div>
       </div>
-      {/* Add Payroll */}
+
+      {/* Add Ticket start */}
       <div
         className="offcanvas offcanvas-end em-payrol-add"
         tabIndex={-1}
@@ -278,7 +334,7 @@ const TeacherSupport = () => {
               {/* /add */}
               <div className="card">
                 <div className="card-body">
-                  <form onSubmit={formik.handleSubmit}>
+                  <form onSubmit={formik1.handleSubmit}>
                     <div className="row">
                         <div className="col-lg-4 col-sm-6 col-12">
                             <div className="mb-3">
@@ -290,14 +346,14 @@ const TeacherSupport = () => {
                                     id="ticket"
                                     classNamePrefix="react-select"
                                     options={ticketOptions}
-                                    onChange={(option) => formik.setFieldValue('ticket', option.value)}
-                                    onBlur={formik.handleBlur}
-                                    value={ticketOptions.find(option => option.value === formik.values.ticket)}
+                                    onChange={(option) => formik1.setFieldValue('ticket', option.value)}
+                                    onBlur={formik1.handleBlur}
+                                    value={ticketOptions.find(option => option.value === formik1.values.ticket)}
                                     placeholder="Select Category"
                                 />
-                                {formik.errors.ticket ? (
+                                {formik1.errors.ticket ? (
                                     <small className="error-cls">
-                                        {formik.errors.ticket}
+                                        {formik1.errors.ticket}
                                     </small>
                                 ) : null}
                             </div>
@@ -312,15 +368,15 @@ const TeacherSupport = () => {
                                 id="ticketDetails"
                                 name="ticketDetails"
                                 rows={4}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.ticketDetails}
+                                onChange={formik1.handleChange}
+                                onBlur={formik1.handleBlur}
+                                value={formik1.values.ticketDetails}
                             />
-                            {formik.touched.ticketDetails &&
-                                formik.errors.ticketDetails ? (
+                            {formik1.touched.ticketDetails &&
+                                formik1.errors.ticketDetails ? (
                                     <small className="error-cls">
                                         {
-                                            formik.errors
+                                            formik1.errors
                                                 .ticketDetails
                                         }
                                     </small>
@@ -336,13 +392,13 @@ const TeacherSupport = () => {
                                 id="links"
                                 className="form-control"
                                 placeholder="Attach links"
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.links}
+                                onChange={formik1.handleChange}
+                                onBlur={formik1.handleBlur}
+                                value={formik1.values.links}
                             />
-                            {formik.errors.links ? (
+                            {formik1.errors.links ? (
                                 <small className="error-cls">
-                                    {formik.errors.links}
+                                    {formik1.errors.links}
                                 </small>
                             ) : null}
                         </div>
@@ -355,12 +411,12 @@ const TeacherSupport = () => {
                                 name="files"
                                 id="files"
                                 className="form-control"
-                                onChange={(event) => formik.setFieldValue('files', event.currentTarget.files[0])}
-                                onBlur={formik.handleBlur}
+                                onChange={(event) => formik1.setFieldValue('files', event.currentTarget.files[0])}
+                                onBlur={formik1.handleBlur}
                             />
-                            {formik.errors.files ? (
+                            {formik1.errors.files ? (
                                 <small className="error-cls">
-                                    {formik.errors.files}
+                                    {formik1.errors.files}
                                 </small>
                             ) : null}
                         </div>
@@ -383,18 +439,20 @@ const TeacherSupport = () => {
           </div>
         </div>
       </div>
-      {/* /Add Payroll */}
-      {/* Edit Payroll */}
+      {/* /Add Ticket end */}
+
+      {/* Chat start */}
       <div
         className="offcanvas offcanvas-end em-payrol-add"
         tabIndex={-1}
-        id="offcanvasRight">
-        {/*<div className="offcanvas-body p-0">
+        id="offcanvasRight"
+      >
+        <div className="offcanvas-body p-0">
           <div className="page-wrapper-new">
             <div className="content">
               <div className="page-header justify-content-between">
                 <div className="page-title">
-                  <h4>Support Chat</h4>
+                  <h4>Chat Support</h4>
                 </div>
                 <div className="page-btn">
                   <a
@@ -407,556 +465,260 @@ const TeacherSupport = () => {
                   </a>
                 </div>
               </div>
-              {/* /add
+              {/* /add */}
               <div className="card">
                 <div className="card-body">
                   <form onSubmit={formik.handleSubmit}>
-                    <Card className="card mb-4 my-3 comment-card px-0 card-outline-warning">
-                        <CardBody>
-                            <p>
-                                <b>
-                                    {
-                                        supportTicket.query_details
-                                    }
-                                </b>
-                            </p>
-                            <hr />
-                            <Row>
-                                <Col md={6}>
-                                    <span>
-                                        <FaUserCircle />{' '}
-                                        {
-                                            supportTicket.created_by
-                                        }
-                                    </span>{' '}
-                                </Col>
-                                <Col
-                                    md={6}
-                                    className="text-right"
-                                >
-                                    <span>
-                                        <FaRegClock />{' '}
-                                        {moment(
-                                            supportTicket.created_at
-                                        ).format(
-                                            // 'Do MMM, YYYY HH:mm',
-                                            'LLL'
-                                        )}
-                                    </span>
-                                </Col>
-                            </Row>
-                        </CardBody>
+                    <Card className="aside p-4 py-5">
+                      <Card className="card mb-4 my-3 comment-card px-0 card-outline-warning">
+                          <CardBody>
+                              <p>
+                                  <b>
+                                      {
+                                          supportTicket.query_details
+                                      }
+                                  </b>
+                              </p>
+                              <hr />
+                              <Row>
+                                  <Col md={6}>
+                                      <span>
+                                          <FaUserCircle />{' '}
+                                          {
+                                              supportTicket.created_by
+                                          }
+                                      </span>{' '}
+                                  </Col>
+                                  <Col
+                                      md={6}
+                                      className="text-right"
+                                  >
+                                      <span>
+                                          <FaRegClock />{' '}
+                                          {moment(
+                                              supportTicket.created_at
+                                          ).format(
+                                              // 'Do MMM, YYYY HH:mm',
+                                              'LLL'
+                                          )}
+                                      </span>
+                                  </Col>
+                              </Row>
+                          </CardBody>
+                      </Card>
+
+                      {supportTicket?.support_ticket_replies
+                          ?.length > 0 &&
+                          supportTicket.support_ticket_replies.map(
+                              (data, i) => {
+                                  return (
+                                      <>
+                                          <Card className="card mb-4 my-3 comment-card card-outline-success">
+                                              <CardBody>
+                                                  <p>
+                                                      {
+                                                          data.reply_details
+                                                      }
+                                                  </p>
+                                                  <hr />
+                                                  <Row>
+                                                      <Col md={6}>
+                                                          <span>
+                                                              <FaUserCircle />{' '}
+                                                              {
+                                                                  data.created_by
+                                                              }
+                                                          </span>{' '}
+                                                      </Col>
+                                                      <Col
+                                                          md={6}
+                                                          className="text-right"
+                                                      >
+                                                          <span>
+                                                              <FaRegClock />{' '}
+                                                              {moment(
+                                                                  data.created_at
+                                                              ).format(
+                                                                  // 'Do MMM, YYYY HH:mm',
+                                                                  'LLL'
+                                                              )}
+                                                          </span>
+                                                      </Col>
+                                                  </Row>
+                                              </CardBody>
+                                          </Card>
+                                      </>
+                                  );
+                              }
+                          )}
+
+                      {supportTicket.status != 'INVALID' ? (
+                          <Row>
+                              <Col md={12}>
+                                  <Label
+                                      className="name-req mt-5"
+                                      htmlFor="ticketDetails"
+                                  >
+                                      Details
+                                      <span
+                                          required
+                                          className="p-1"
+                                      >
+                                          *
+                                      </span>
+                                  </Label>
+                                  <textarea
+                                      className={'defaultInput'}
+                                      placeholder="Enter reply comments"
+                                      id="ansTicket"
+                                      name="ansTicket"
+                                      onChange={
+                                          formik.handleChange
+                                      }
+                                      onBlur={formik.handleBlur}
+                                      value={
+                                          formik.values.ansTicket
+                                      }
+                                  />
+
+                                  {formik.touched.ansTicket &&
+                                  formik.errors.ansTicket ? (
+                                      <small className="error-cls">
+                                          {
+                                              formik.errors
+                                                  .ansTicket
+                                          }
+                                      </small>
+                                  ) : null}
+                              </Col>
+
+                              <Col
+                                  className="form-group my-5  mb-md-0"
+                                  md={12}
+                              >
+                                  <Label className="mb-2">
+                                      Select Status
+                                      {/* <span
+                                          required
+                                          className="p-1"
+                                      >
+                                          *
+                                      </span> */}
+                                  </Label>
+
+                                  <Col
+                                      className="form-group"
+                                      md={12}
+                                  >
+                                      {/* <DropDownWithSearch
+                                          {...selectProgress}
+                                          onBlur={
+                                              formik.handleBlur
+                                          }
+                                          onChange={(option) => {
+                                              formik.setFieldValue(
+                                                  'selectStatus',
+                                                  option[0].value
+                                              );
+                                          }}
+                                          name="selectStatus"
+                                          id="selectStatus"
+                                      /> */}
+                                      <select
+                                          name=" selectStatusTicket"
+                                          id=" selectStatusTicket"
+                                          className="form-control custom-dropdown"
+                                          onChange={(e) => {
+                                              formik.setFieldValue(
+                                                  'selectStatusTicket',
+                                                  e.target.value
+                                              );
+                                          }}
+                                          // onChange={(option) => {
+                                          //     formik.setFieldValue(
+                                          //         'selectStatus',
+                                          //         option[0].value
+                                          //     );
+                                          // }}
+                                          onBlur={
+                                              formik.handleBlur
+                                          }
+                                          value={
+                                              formik.values
+                                                  .selectStatusTicket
+                                          }
+                                      >
+                                          <option
+                                              value=""
+                                              disabled={true}
+                                          >
+                                              {supportTicket &&
+                                              supportTicket.status
+                                                  ? supportTicket.status
+                                                  : 'Select Status'}
+                                          </option>
+                                          <option value="OPEN">
+                                              OPEN
+                                          </option>
+                                          <option value="INPROGRESS">
+                                              INPROGRESS
+                                          </option>
+                                          <option value="RESOLVED">
+                                              RESOLVED
+                                          </option>
+                                          <option value="INVALID">
+                                              INVALID
+                                          </option>
+                                      </select>
+                                      {formik.touched
+                                          .selectStatusTicket &&
+                                          formik.errors
+                                              .selectStatusTicket && (
+                                              <small className="error-cls">
+                                                  {
+                                                      formik
+                                                          .errors
+                                                          .selectStatusTicket
+                                                  }
+                                              </small>
+                                          )}
+                                  </Col>
+
+                                  <Col
+                                      className="form-group mt-5  mb-md-0"
+                                      md={12}
+                                  ></Col>
+                              </Col>
+                          </Row>
+                      ) : null}
                     </Card>
-                    {supportTicket?.support_ticket_replies?.length > 0 && supportTicket.support_ticket_replies.map(
-                        (data, i) => {
-                            return (
-                                <>
-                                    <Card className="card mb-4 my-3 comment-card card-outline-success">
-                                        <CardBody>
-                                            <p>
-                                                {
-                                                    data.reply_details
-                                                }
-                                            </p>
-                                            <hr />
-                                            <Row>
-                                                <Col md={6}>
-                                                    <span>
-                                                        <FaUserCircle />{' '}
-                                                        {
-                                                            data.created_by
-                                                        }
-                                                    </span>{' '}
-                                                </Col>
-                                                <Col
-                                                    md={6}
-                                                    className="text-right"
-                                                >
-                                                    <span>
-                                                        <FaRegClock />{' '}
-                                                        {moment(
-                                                            data.created_at
-                                                        ).format(
-                                                            // 'Do MMM, YYYY HH:mm',
-                                                            'LLL'
-                                                        )}
-                                                    </span>
-                                                </Col>
-                                            </Row>
-                                        </CardBody>
-                                    </Card>
-                                </>
-                            );
-                        }
-                    )}
 
-                {supportTicket.status != 'INVALID' ? (
-                    <Row>
-                        <Col md={12}>
-                            <Label
-                                className="name-req mt-5"
-                                htmlFor="ticketDetails"
-                            >
-                                Details
-                                <span
-                                    required
-                                    className="p-1"
-                                >
-                                    *
-                                </span>
-                            </Label>
-                            <TextArea
-                                className={'defaultInput'}
-                                placeholder="Enter reply comments"
-                                id="ansTicket"
-                                name="ansTicket"
-                                onChange={
-                                    formik.handleChange
-                                }
-                                onBlur={formik.handleBlur}
-                                value={
-                                    formik.values.ansTicket
-                                }
-                            />
-
-                            {formik.touched.ansTicket &&
-                            formik.errors.ansTicket ? (
-                                <small className="error-cls">
-                                    {
-                                        formik.errors
-                                            .ansTicket
-                                    }
-                                </small>
+                    <hr className="mt-4 mb-4"></hr>
+                    <div>
+                        <Row>
+                            {supportTicket.status != 'INVALID' ? (
+                                <div className="col-lg-12">
+                                    <div className="view-btn">
+                                      <button type="button" className="btn btn-reset me-2" data-bs-dismiss="offcanvas" onClick={handleDiscard2} >
+                                          Discard
+                                      </button>
+                                      <button type="submit" className="btn btn-save">
+                                          Submit
+                                      </button>
+                                    </div>
+                                </div>
                             ) : null}
-                        </Col>
-
-                        <Col
-                            className="form-group my-5  mb-md-0"
-                            md={12}
-                        >
-                            <Label className="mb-2">
-                                Select Status
-                                {/* <span
-                                    required
-                                    className="p-1"
-                                >
-                                    *
-                                </span> 
-                            </Label>
-
-                            <Col
-                                className="form-group"
-                                md={12}
-                            >
-                                {/* <DropDownWithSearch
-                                    {...selectProgress}
-                                    onBlur={
-                                        formik.handleBlur
-                                    }
-                                    onChange={(option) => {
-                                        formik.setFieldValue(
-                                            'selectStatus',
-                                            option[0].value
-                                        );
-                                    }}
-                                    name="selectStatus"
-                                    id="selectStatus"
-                                /> 
-                                <select
-                                    name=" selectStatusTicket"
-                                    id=" selectStatusTicket"
-                                    className="form-control custom-dropdown"
-                                    onChange={(e) => {
-                                        formik.setFieldValue(
-                                            'selectStatusTicket',
-                                            e.target.value
-                                        );
-                                    }}
-                                    // onChange={(option) => {
-                                    //     formik.setFieldValue(
-                                    //         'selectStatus',
-                                    //         option[0].value
-                                    //     );
-                                    // }}
-                                    onBlur={
-                                        formik.handleBlur
-                                    }
-                                    value={
-                                        formik.values
-                                            .selectStatusTicket
-                                    }
-                                >
-                                    <option
-                                        value=""
-                                        disabled={true}
-                                    >
-                                        {supportTicket &&
-                                        supportTicket.status
-                                            ? supportTicket.status
-                                            : 'Select Status'}
-                                    </option>
-                                    <option value="OPEN">
-                                        OPEN
-                                    </option>
-                                    <option value="INPROGRESS">
-                                        INPROGRESS
-                                    </option>
-                                    <option value="RESOLVED">
-                                        RESOLVED
-                                    </option>
-                                    <option value="INVALID">
-                                        INVALID
-                                    </option>
-                                </select>
-                                {formik.touched
-                                    .selectStatusTicket &&
-                                    formik.errors
-                                        .selectStatusTicket && (
-                                        <small className="error-cls">
-                                            {
-                                                formik
-                                                    .errors
-                                                    .selectStatusTicket
-                                            }
-                                        </small>
-                                    )}
-                            </Col>
-
-                            <Col
-                                className="form-group mt-5  mb-md-0"
-                                md={12}
-                            ></Col>
-                        </Col>
-                    </Row>
-                ) : null}
-                <hr className="mt-4 mb-4"></hr>
-                <div>
-                    <Row>
-                        {supportTicket.status != 'INVALID' ? (
-                            <Col className="col-xs-12 col-sm-6">
-                                <Button
-                                    label="Discard"
-                                    btnClass="secondary"
-                                    size="small"
-                                    onClick={() =>
-                                        props.history.push(
-                                            '/teacher/support-journey'
-                                        )
-                                    }
-                                />
-                            </Col>
-                        ) : (
-                            <Col className="col-xs-12 col-sm-6">
-                                <Button
-                                    label="Back"
-                                    btnClass="secondary"
-                                    size="small"
-                                    onClick={() =>
-                                        props.history.push(
-                                            '/teacher/support-journey'
-                                        )
-                                    }
-                                />
-                            </Col>
-                        )}
-
-                        {supportTicket.status != 'INVALID' ? (
-                            <Col className="submit-btn col-xs-12 col-sm-6">
-                                <Button
-                                    label="Submit"
-                                    type="submit"
-                                    btnClass={
-                                        !(
-                                            formik.dirty &&
-                                            formik.isValid
-                                        )
-                                            ? 'default'
-                                            : 'primary'
-                                    }
-                                    size="small"
-                                    disabled={
-                                        !(
-                                            formik.dirty &&
-                                            formik.isValid
-                                        )
-                                    }
-                                />
-                            </Col>
-                        ) : null}
-                    </Row>
-                </div>
-            
-                    {/* <div className="row">
-                      <div className="col-lg-3 col-sm-6 col-12">
-                        <div className="mb-3">
-                          <label className="form-label">
-                            Select Employee <span>*</span>
-                          </label>
-                          <Select
-                            classNamePrefix="react-select"
-                            options={options5}
-                            placeholder="Herald james"
-                          />
-                        </div>
-                      </div>
-                      <div className="text-title">
-                        <p>Salary Information</p>
-                      </div>
-                      <div className="mb-3">
-                        <label className="form-label">
-                          Basic Salary <span>*</span>
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          defaultValue="$32,000"
-                        />
-                      </div>
-                      <div className="payroll-info d-flex">
-                        <p>Status</p>
-                        <div className="status-updates">
-                          <ul
-                            className="nav nav-pills list mb-3"
-                            id="pills-tab2"
-                            role="tablist"
-                          >
-                            <li className="nav-item" role="presentation">
-                              <button
-                                className="nav-link active"
-                                id="pills-home-tab2"
-                                data-bs-toggle="pill"
-                                data-bs-target="#pills-home"
-                                type="button"
-                                role="tab"
-                              >
-                                <span className="form-check form-check-inline ">
-                                  <span className="form-check-label">Paid</span>
-                                </span>
-                              </button>
-                            </li>
-                            <li className="nav-item" role="presentation">
-                              <button
-                                className="nav-link"
-                                id="pills-profile-tab2"
-                                data-bs-toggle="pill"
-                                data-bs-target="#pills-profile"
-                                type="button"
-                                role="tab"
-                              >
-                                <span className="form-check form-check-inline">
-                                  <span className="form-check-label">
-                                    Unpaid
-                                  </span>
-                                </span>
-                              </button>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div className="payroll-title">
-                        <p>Allowances</p>
-                      </div>
-                      <div className="col-lg-3 col-sm-6 col-12">
-                        <div className="mb-3">
-                          <label className="form-label">
-                            HRA Allowance <span>*</span>
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="hra-allowances-one"
-                            defaultValue={0.0}
-                          />
-                        </div>
-                      </div>
-                      <div className="col-lg-3 col-sm-6 col-12">
-                        <div className="mb-3">
-                          <label className="form-label">
-                            Conveyance <span>*</span>
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="conveyance-two"
-                            defaultValue={0.0}
-                          />
-                        </div>
-                      </div>
-                      <div className="col-lg-3 col-sm-6 col-12">
-                        <div className="mb-3">
-                          <label className="form-label">
-                            Medical Allowance <span>*</span>
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="medical-allowance-three"
-                            defaultValue={0.0}
-                          />
-                        </div>
-                      </div>
-                      <div className="col-lg-3 col-sm-6 col-12">
-                        <div className="mb-3">
-                          <label className="form-label">
-                            Bonus <span>*</span>
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="bonus-allowances-four"
-                            defaultValue={0.0}
-                          />
-                        </div>
-                      </div>
-                      <div className="sub-form">
-                        <div className="mb-3 flex-grow-1">
-                          <label className="form-label">Others</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            defaultValue={0.0}
-                          />
-                        </div>
-                        <div className="subadd-btn">
-                          <a href="#" className="btn btn-add">
-                            <PlusCircle />
-                          </a>
-                        </div>
-                      </div>
-                      <div className="payroll-title">
-                        <p>Deductions</p>
-                      </div>
-                      <div className="col-lg-3 col-sm-6 col-12">
-                        <div className="mb-3">
-                          <label className="form-label">
-                            PF <span>*</span>
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="pf-allowances-five"
-                            defaultValue={0.0}
-                          />
-                        </div>
-                      </div>
-                      <div className="col-lg-3 col-sm-6 col-12">
-                        <div className="mb-3">
-                          <label className="form-label">
-                            Professional Tax <span>*</span>
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="professional-allowances-six"
-                            defaultValue={0.0}
-                          />
-                        </div>
-                      </div>
-                      <div className="col-lg-3 col-sm-6 col-12">
-                        <div className="mb-3">
-                          <label className="form-label">
-                            TDS <span>*</span>
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="tds-allowances-seven"
-                            defaultValue={0.0}
-                          />
-                        </div>
-                      </div>
-                      <div className="col-lg-3 col-sm-6 col-12">
-                        <div className="mb-3">
-                          <label className="form-label">
-                            Loans &amp; Others <span>*</span>
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="other-allowances-eight"
-                            defaultValue={0.0}
-                          />
-                        </div>
-                      </div>
-                      <div className="sub-form">
-                        <div className="mb-3 flex-grow-1">
-                          <label className="form-label">Others</label>
-                          <input
-                            type="text"
-                            className="text-form form-control"
-                            defaultValue={0.0}
-                          />
-                        </div>
-                        <div className="subadd-btn">
-                          <a href="#" className="btn btn-add">
-                            <PlusCircle />
-                          </a>
-                        </div>
-                      </div>
-                      <div className="payroll-title">
-                        <p>Deductions</p>
-                      </div>
-                      <div className="col-lg-4 col-sm-6 col-12">
-                        <div className="mb-3">
-                          <label className="form-label">
-                            Total Allowance <span>*</span>
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="total-allowances-nine"
-                            defaultValue={0.0}
-                          />
-                        </div>
-                      </div>
-                      <div className="col-lg-4 col-sm-6 col-12">
-                        <div className="mb-3">
-                          <label className="form-label">
-                            Total Deduction <span>*</span>
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="deductio-allowances-ten"
-                            defaultValue={0.0}
-                          />
-                        </div>
-                      </div>
-                      <div className="col-lg-4 col-sm-6 col-12">
-                        <div className="mb-3">
-                          <label className="form-label">
-                            Net Salary <span>*</span>
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="salary-allowances-leven"
-                            defaultValue="$32.000"
-                          />
-                        </div>
-                      </div>
-                      <div className="col-lg-12">
-                        <div className="view-btn">
-                          <button type="button" className="btn btn-previw me-2">
-                            Preview
-                          </button>
-                          <button type="submit" className="btn btn-reset me-2">
-                            Reset
-                          </button>
-                          <button type="submit" className="btn btn-save">
-                            Save
-                          </button>
-                        </div>
-                      </div>
-                    </div> 
+                        </Row>
+                    </div>
                   </form>
                 </div>
               </div>
               {/* /add */}
-      
-      <TicketResponse/>
+            </div>
+          </div>
+        </div>
       </div>
-      {/* Edit Payroll */}
+      {/* Chat end */}
     </>
   );
 };
