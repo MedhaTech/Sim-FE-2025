@@ -18,7 +18,7 @@ const ProtectedRoute = ({ children, user }) => {
   const currentTime = new Date().getTime();
   const difference = currentTime - loginTimestamp;
 
-  if (difference > 300000) {
+  if (difference > 3600000) {
     localStorage.clear();
     if (user.includes("ADMIN")) {
       return <Navigate to="/admin" />;
