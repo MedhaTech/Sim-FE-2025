@@ -36,7 +36,6 @@ const NonAtlPage = () => {
   const [orgData, setOrgData] = useState({});
   const [error, setError] = useState("");
   const [errors, setErrors] = useState("");
-
   const [btn, setBtn] = useState(false);
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const [stateData, setStateData] = React.useState("");
@@ -69,10 +68,18 @@ const NonAtlPage = () => {
   const diesCodes = JSON.parse(localStorage.getItem("diesCode"));
   const [mentData, setMentData] = useState({});
   const [districtOptions, setDistrictOptions] = useState([]);
+  const [secondUser, setSecondUser] = useState(false);
   const handleMouseEnter = () => {
     setIsTooltipVisible(true);
   };
-
+  // useEffect(() => {
+  //   if (orgData.organization_name !== "") {
+  //     handleRegister();
+  //   }
+  // }, [orgData.organization_name]);
+  useEffect(() => {
+    handleRegister();
+  }, []);
   const handleMouseLeave = () => {
     setIsTooltipVisible(false);
   };
@@ -102,9 +109,9 @@ const NonAtlPage = () => {
   // const fiterDistData = useSelector(
   //   (state) => state?.studentRegistration?.fetchdist
   // );
-  useEffect(() => {
-    stateApi();
-  }, []);
+  // useEffect(() => {
+  //   stateApi();
+  // }, []);
   const stateApi = () => {
     var config = {
       method: "get",
@@ -232,18 +239,24 @@ const NonAtlPage = () => {
             response?.data?.data[0] &&
             process.env.REACT_APP_USEDICECODE == 1
           ) {
-            if (Object.keys(response?.data?.data[0]).length) {
-              setOrgData(response?.data?.data[0]);
+            if (
+              Object.keys(
+                response?.data?.data[0].length &&
+                  response?.data?.data[0].mentor !== null
+              )
+            ) {
+              // setOrgData(response?.data?.data[0]);
+              setSecondUser(true);
               formik.setFieldValue(
                 "organization_code",
                 response?.data?.data[0].organization_code
               );
-              setTextData(response?.data?.data[0].address);
-              setPinCode(response?.data?.data[0].pin_code);
-              setSchoolname(response?.data?.data[0].organization_name);
-              setDiesCode(response?.data?.data[0].organization_code);
-              setStateData(response?.data?.data[0].state);
-              setdistrict(response?.data?.data[0].district);
+              // setTextData(response?.data?.data[0].address);
+              // setPinCode(response?.data?.data[0].pin_code);
+              // setSchoolname(response?.data?.data[0].organization_name);
+              // setDiesCode(response?.data?.data[0].organization_code);
+              // setStateData(response?.data?.data[0].state);
+              // setdistrict(response?.data?.data[0].district);
 
               // setDiceBtn(false);
               setSchoolBtn(true);
@@ -259,11 +272,11 @@ const NonAtlPage = () => {
         if (error?.response?.data?.status === 404) {
           setBtn(true);
           // setDiceBtn(false);
-          // setCondition(true);
+          setCondition(true);
         }
       });
 
-    e.preventDefault();
+    // e.preventDefault();
   };
   useEffect(() => {
     if (diesCodes.length > 0) {
@@ -538,7 +551,7 @@ const NonAtlPage = () => {
       address: textData,
     });
 
-    // if (condition) {
+    if (condition) {
     var config = {
       method: "post",
       url: process.env.REACT_APP_API_BASE_URL + `/organizations/createOrg`,
@@ -560,10 +573,10 @@ const NonAtlPage = () => {
       .catch(function (error) {
         console.log(error);
       });
-    // } else {
-    //   mentorregdata["organization_code"] = diesCodes;
-    //   handelMentorReg(mentorregdata);
-    // }
+    } else {
+      mentorregdata["organization_code"] = diesCodes;
+      handelMentorReg(mentorregdata);
+    }
     // var config = {
     //   method: "post",
     //   url: process.env.REACT_APP_API_BASE_URL + `/organizations/createOrg`,
@@ -687,11 +700,7 @@ const NonAtlPage = () => {
 
     formik.values.whatapp_mobile,
   ]);
-  // useEffect(() => {
-  //   if (Object.keys(mentorData).length > 0) {
-  //     navigate("/non-atl-success");
-  //   }
-  // }, [mentorData, navigate]);
+
   return (
     <div className="main-wrapper">
       <div className="account-content">
