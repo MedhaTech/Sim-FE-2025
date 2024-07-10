@@ -117,9 +117,17 @@ const Dashboard = (props) => {
         width: "6rem",
       },
       {
-        name: "Team Id",
+        name: "Username",
 
-        selector: (row) => row.team_id,
+        selector: (row) => row.username,
+
+        // sortable: true,
+        width: "10rem",
+      },
+      {
+        name: "Password",
+
+        selector: (row) => row.team_name.toLowerCase(),
 
         // sortable: true,
         width: "10rem",
