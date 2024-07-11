@@ -9,6 +9,7 @@ import { FaUsers } from 'react-icons/fa';
 ////////////////////New Code//////////////////////////
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
+import { Mail } from "feather-icons-react/build/IconComponents";
 
 import { useEffect } from 'react';
 import {
@@ -20,6 +21,7 @@ import {
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import { getTeamMemberStatus } from '../store/teams/actions';
 import { Progress } from 'reactstrap';
+import { openNotificationWithIcon } from "../../helpers/Utils";
 
 
 
@@ -190,20 +192,53 @@ const TeamsProgDD = ({user}) => {
         setTeamId(selectedOption ? selectedOption.value : '');
     };
 
+    const handleemailapi=()=>{
+        emailTeamCredentials();
+    };
+
+      ////////Email Team Credentisl////////////
+    const emailTeamCredentials = () => {
+        
+        const teamCredMailApi = encryptGlobal(
+            JSON.stringify({
+                mentor_id: currentUser?.data[0]?.mentor_id,
+                email:currentUser?.data[0]?.name
+            })
+        );
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/dashboard/teamCredentials?Data=${teamCredMailApi}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    openNotificationWithIcon("success", "All Teams login's sent to your email");
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+
     
   return (
     <div>
         <div className="card table-list-card">
             <div className="card-header d-flex justify-content-between align-items-center">
                 <h4 className="card-title mb-0">Team Progress <FaUsers size={30} style={{ marginLeft:"6px"}} /> </h4>
-                {/* <div className="dropdown">
-                    <Link to="#" className="view-all d-flex align-items-center">
-                    View
-                    <span className="ps-2 d-flex align-items-center">
-                        <ArrowRight className="feather-16" />
-                    </span>
-                    </Link>
-                </div> */}
+                <button
+                  className="btn btn-secondary d-flex align-items-center"
+                  onClick={handleemailapi}
+                >
+                  <Mail className="feather-mail" size={20} style={{marginRight : "5px"}}/> All Team Login&apos;s
+                </button>
             </div>
             <div className="card-body">
                 <div className="table-top">
