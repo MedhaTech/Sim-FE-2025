@@ -5,11 +5,14 @@
 }
 
 .card {
-  border: 1px solid #ccc;
+  border: 1px solid #dbe0e6;
   border-radius: 4px;
   padding: 20px;
   width: 100%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-shadow{
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
 .table-title {

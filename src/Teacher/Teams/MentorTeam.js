@@ -666,9 +666,9 @@ export const CreateTeamMember = (props) => {
     <div>
       <div className="page-wrapper">
         <div className="content">
-          <div className="EditPersonalDetails new-member-page">
+          {/* <div className="EditPersonalDetails new-member-page">
             <Row>
-              <Col className="col-xl-10 offset-xl-1 offset-md-0">
+              <Col className="col-xl-10 offset-xl-1 offset-md-0"> */}
                 {/* <BreadcrumbTwo {...headingDetails} /> */}
                 {studentCount && studentCount !== "new" && (
                   <CreateMultipleMembers id={id} />
@@ -890,9 +890,9 @@ export const CreateTeamMember = (props) => {
                   //     </div>
                   //   </>
                 )}
-              </Col>
+              {/* </Col>
             </Row>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

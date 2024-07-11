@@ -675,14 +675,7 @@ const Register = () => {
 
                     <br />
                     <p className="text-center">
-                      Copyright{" "}
-                      <img
-                        src={copy}
-                        className="copy"
-                        alt="copy"
-                        style={{ verticalAlign: "middle", width: "5%" }}
-                      />{" "}
-                      SIM 2024. All rights reserved
+                      Copyright © SIM 2024. All rights reserved
                     </p>
                   </div>
                 )}
