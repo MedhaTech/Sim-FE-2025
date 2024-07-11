@@ -243,7 +243,7 @@ export const getSupportTickets = (user) => async (dispatch) => {
   }
 };
 
-export const createSupportTickets = (data, history) => async () => {
+export const createSupportTickets = (data) => async () => {
   try {
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
     const result = await axios
@@ -254,7 +254,6 @@ export const createSupportTickets = (data, history) => async () => {
       });
 
     if (result && result.status === 201) {
-      history.push("/teacher/support-journey");
       openNotificationWithIcon("success", "Ticket Created Sucessfully!", "");
     } else {
       openNotificationWithIcon("error", "Something went wrong!", "");
@@ -374,10 +373,10 @@ export const createSupportTicketResponse = (data) => async () => {
       // history.push('/teacher/support-journey');
       openNotificationWithIcon("success", "Reply submitted successfully!", "");
     } else {
-      openNotificationWithIcon("error", "Something went wrong!", "");
+      openNotificationWithIcon("error", "Something went wrong!else", "");
     }
   } catch (error) {
-    openNotificationWithIcon("error", "Something went wrong!", "");
+    openNotificationWithIcon("error", "Something went wrong!catch", "");
   }
 };
 
