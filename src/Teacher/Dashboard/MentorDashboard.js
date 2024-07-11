@@ -36,6 +36,7 @@ import TCertificate from '../Certificate/TCertificate';
 import SchoolTeamPDF from './SchoolTeamPDF';
 
 
+
 const MentorDashboard = () => {
 
 /////////////////NEW CODE//////////////////////////////////
@@ -67,7 +68,7 @@ const MentorDashboard = () => {
     navigate(`/mentorteams`);
   };
   const redirectToCourse = () => {
-    navigate(`/mentorteams`);
+    navigate(`/mentorcourse`);
   };
   const redirectToPost = () => {
     navigate(`/mentorpostsurvey`);
@@ -230,7 +231,7 @@ const MentorDashboard = () => {
         .then(function (response) {
             if (response.status === 200) {
                 console.log(response);
-                const po = (response.data.data[0].currentProgress);
+                const po = (response.data.data[0].postSurvey);
                 setTeacPostSurvey(po);
                 setTeacPostSLoading(false);
             }
@@ -270,6 +271,8 @@ const MentorDashboard = () => {
         }
       );
     };
+
+
 
 
     
@@ -331,7 +334,7 @@ const MentorDashboard = () => {
                       <>
                         <h5>To know about SIM</h5>
                         <a onClick={redirectToCourse} href='#' >
-                          Start Course
+                          Start Teacher Course
                         </a>
                       </>
                     ) : (
@@ -359,7 +362,7 @@ const MentorDashboard = () => {
                     <>
                       <h5>Yet to Create Teams?</h5>
                       <a onClick={redirectToTeams} href='#'>
-                        Create Team
+                        Create Now
                       </a>
                     </>
                   ) : (
@@ -385,9 +388,9 @@ const MentorDashboard = () => {
                         <Loader />
                       ) : studentCount === 0 ? (
                         <>
-                          <h5>No student enrolled?</h5>
+                          <h5>Students not added?</h5>
                           <a onClick={redirectToTeams} href='#'>
-                            Enrol Students
+                            Add students in teams
                           </a>
                         </>
                       ) : (
@@ -413,7 +416,7 @@ const MentorDashboard = () => {
                           <Loader />
                       ) : ideaCount === 0 ? (
                       <>
-                        <h5>Yet to submit ideas!</h5>
+                        <h5>No Idea Submissions!</h5>
                         <h6>Kindly nurture your students</h6>
                       </>
                     ) : (
@@ -437,7 +440,7 @@ const MentorDashboard = () => {
                         <>
                           <h5>Teams yet to submit ideas for your Post-Survey to enable</h5>
                         </>
-                      ) : (teacPostSurvey? (
+                      ) : (teacPostSurvey === "COMPLETED"? (
                         <>
                           <FaCheckCircle style={{ color: 'green' }} />
                           <h6>Post Survey</h6>
@@ -448,20 +451,38 @@ const MentorDashboard = () => {
                         </>
                       ))}
                   </div>
-                <div className="dash-imgs"onClick={redirectToPost} >
+                <div className="dash-imgs" onClick={redirectToPost} >
                   <FaPoll />
                 </div>
               </div>
             </div>
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-count das1">
-                  <div className="dash-counts">
-                      <h4>Congrats</h4>
-                      <h5>Get your Certificate</h5>
-                  </div>
+                      {teacPostSurvey != "COMPLETED" ? (
+                          <>
+                          <div className="dash-counts">
+                            <h4>Get Certificate</h4>
+                            <h5>After taking Post survey</h5>
+                          </div>
+                          <div className="dash-imgs" >
+                              <GiAchievement size={30} />
+                          </div>
+                          </>
+                        ):(
+                          <>
+                            <div className="dash-counts">
+                              <h4>Congrats</h4>
+                              <h5>Download Certificate</h5>
+                            </div>
+                            <div className="dash-imgs" onClick={handleCertificateDownload}>
+                                <GiAchievement size={30} />
+                            </div>
+                          </>
+                        )}
+                  {/* </div>
                   <div className="dash-imgs" onClick={handleCertificateDownload}>
                       <GiAchievement size={30} />
-                  </div>
+                  </div> */}
               </div>
             </div>
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
@@ -534,6 +555,7 @@ const MentorDashboard = () => {
                               <>
                                 <span
                                   className={"badge badge-linedangered"}
+                                  onClick={redirectToTeams}
                                 >
                                   Not Created
                                 </span>
@@ -542,8 +564,9 @@ const MentorDashboard = () => {
                               <>
                                 <span
                                   className={"badge badge-linesuccess"}
+                                  onClick={redirectToTeams}
                                 >
-                                  Created
+                                  Add More
                                 </span>
                               </>
                             )}
@@ -581,31 +604,33 @@ const MentorDashboard = () => {
                           <td>
                             {teacCourseLoading ? ( 
                                 <Loader />
-                              ) : coursepercentage === 0 ?  (
+                              ) : ((coursepercentage === 0) ?  (
                               <>
                                 <span
                                   className={"badge badge-linedangered"}
+                                  onClick={redirectToCourse}
                                 >
                                   Not Started
                                 </span>
                               </>
-                            ) : (coursepercentage === 100 ? (
+                            ) : ((coursepercentage != 100) ? (
                               <>
                                 <span
                                   className={"badge badge-bgdanger"}
+                                  onClick={redirectToCourse}
                                 >
-                                  Completed
+                                  InProgress
                                 </span>
                               </>
                             ):(
                               <>
                                 <span
-                                  className={"badge badge-"}
+                                  className={"badge badge-linesuccess"}
                                 >
-                                  In Progress
+                                  Completed
                                 </span>
                               </>
-                            ))}
+                            )))}
                           </td>
                           <td>
                             <div className="action-table-data">
@@ -640,10 +665,11 @@ const MentorDashboard = () => {
                           <td>
                             {teacPostSLoading ? ( 
                                 <Loader />
-                              ) : teacPostSurvey ?  (
+                              ) : teacPostSurvey != "COMPLETED" ?  (
                               <>
                                 <span
                                   className={"badge badge-linedangered"}
+                                  onClick={redirectToPost}
                                 >
                                   Pending
                                 </span>
