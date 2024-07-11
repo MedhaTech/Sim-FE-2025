@@ -33,6 +33,10 @@ export const URL = {
     process.env.REACT_APP_API_BASE_URL + "/supportTickets",
   createMentorSupportTickets:
     process.env.REACT_APP_API_BASE_URL + "/supportTickets",
+  updateSupportTicketResponse:
+    process.env.REACT_APP_API_BASE_URL + '/supportTickets',
+  createMentorSupportTicketResponse:
+    process.env.REACT_APP_API_BASE_URL + '/supportTicketsReply',
   getMentorSupportTicketsById:
     process.env.REACT_APP_API_BASE_URL + "/supportTickets/",
   getMentorSupportTicketResponsesById:

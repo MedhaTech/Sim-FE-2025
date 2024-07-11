@@ -1,29 +1,20 @@
 /* eslint-disable indent */
 /* eslint-disable no-unused-vars */
 import React, { useState,useEffect } from "react";
-// import { OverlayTrigger, Tooltip } from "react-bootstrap";
-// import ImageWithBasePath from "../../core/img/imagewithbasebath";
-//import { Link } from "react-router-dom";
-import { Row, Col, Label, Card, CardBody } from 'reactstrap';
-//import { setToogleHeader } from "../../core/redux/action";
+import { Row, Col, Label, Card, CardBody , Input} from 'reactstrap';
 import { useDispatch, useSelector } from "react-redux";
 import {
   ArrowLeft,
   PlusCircle,
 } from "react-feather";
-//import { payrollListData } from "../../core/json/payrollList";
-//import Table from "../../core/pagination/datatable";
-//import withReactContent from "sweetalert2-react-content";
-//import Swal from "sweetalert2";
+import axios from 'axios';
 import Select from "react-select";
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-//import { useHistory } from 'react-router-dom';
-import { getCurrentUser } from '../../helpers/Utils';
+import { getCurrentUser , openNotificationWithIcon  } from '../../helpers/Utils';
 import { createSupportTickets } from '../store/mentors/actions';
 import { getSupportTickets } from '../../redux/actions';
 import { FaComments } from 'react-icons/fa';
-//import TicketResponse from "../Support/TicketResponse";
 import DataTableExtensions from 'react-data-table-component-extensions';
 import DataTable, { Alignment } from 'react-data-table-component';
 import {
@@ -34,6 +25,8 @@ import {
 import { FaUserCircle } from 'react-icons/fa';
 import { FaRegClock } from 'react-icons/fa';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
+
 
 
 
@@ -44,12 +37,14 @@ const TeacherSupport = () => {
     const { supportTickets } = useSelector((state) => state.mentors);
     const { supportTicket } = useSelector((state) => state.mentors);
     const language = useSelector((state) => state?.mentors.mentorLanguage);
-    const [id, setId] = useState();
+    const { t } = useTranslation();
+    //const [id, setId] = useState();
     useEffect(() => {
         dispatch(getSupportTickets(currentUser?.data[0]));
     }, []);
   
   const ticketOptions = [
+    { value: "", label: "Select Category" , display: true},
     { value: "General", label: "General query" },
     { value: "Technical", label: "Technical query" },
     { value: "Suggestion", label: "Suggestion" },
@@ -180,38 +175,97 @@ const TeacherSupport = () => {
         initialValues: {
             ticket: '',
             ticketDetails: '',
-            files: null,
-            links : ''
+            file_name: "",
+            url : ''
         },
 
         validationSchema: Yup.object({
             ticket: Yup.string().required('Required'),
-            ticketDetails: Yup.string().required('Required')
+            ticketDetails: Yup.string().required('Required'),
+            file_name: Yup.mixed(),
+            url: Yup.string(),
         }),
 
-        onSubmit: (values) => {
-            const query_category = values.ticket;
-            const query_details = values.ticketDetails;
-            // const file = values.files;
-            // const link = values.links;
+        onSubmit: async (values) => {
+            try {
+                if (values.file_name !== '') {
+                    const fileData = new FormData();
+                    fileData.append('file', values.file_name);
 
-            const body = JSON.stringify({
-                query_category: query_category,
-                query_details: query_details,
-                // file : file,
-                // link : link,
-                state: currentUser.data[0].state
-            });
+                    const response = await axios.post(
+                        `${process.env.REACT_APP_API_BASE_URL}/supportTicketFileUpload`,
+                        fileData,
+                        {
+                            headers: {
+                                'Content-Type': 'multipart/form-data',
+                                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+                            }
+                        }
+                    );
+                    values.file_name =
+                        response?.data?.data[0].attachments[0].toString();
+                }
+                const body = {
+                    query_category: values.ticket,
+                    query_details: values.ticketDetails,
+                    state: currentUser.data[0].state
+                };
+                if (values.file_name !== '') {
+                    body['file'] = values.file_name;
+                }
+                if (values.url !== '') {
+                    body['link'] = values.url;
+                }
 
-            dispatch(createSupportTickets(body, history));
+                dispatch(createSupportTickets(body));
+                dispatch(getSupportTickets(currentUser?.data[0]));
+            } catch (error) {
+                console.log(error);
+            }
         }
     });
+
+    const fileHandler = (e) => {
+        let file = e.target.files[0];
+
+        if (!file) {
+            return;
+        }
+
+        let pattern = /^[a-zA-Z0-9_-\s]{0,}$/;
+        const fileName = file.name.split('.').slice(0, -1).join('.');
+        const isValidFileName = pattern.test(fileName);
+
+        const maxFileSize = 10000000;
+        const isOverMaxSize = file.size > maxFileSize;
+
+        const allowedTypes = ['image/jpeg', 'image/png','application/msword','application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+        if(!allowedTypes.includes(file.type)){
+            openNotificationWithIcon('error', t('Accepting only png,jpg,jpeg,pdf,doc,docx Only'));
+            return;
+        }
+
+        if (isOverMaxSize) {
+            openNotificationWithIcon('error', t('student.less_10MB'));
+            return;
+        }
+
+        if (!isValidFileName) {
+            openNotificationWithIcon(
+                'error',
+                "Only alphanumeric and '_' are allowed"
+            );
+            return;
+        }
+
+        formik.setFieldValue('file_name', file);
+    };
 
     const handleDiscard = () => {
         formik1.setFieldValue('ticket', "");
         formik1.setFieldValue('ticketDetails', "");
-        formik1.setFieldValue('files', null);
-        formik1.setFieldValue('links', "");
+        formik1.setFieldValue('file_name', "");
+        formik1.setFieldValue('url', "");
     };
 
     const handleDiscard2 = () => {
@@ -228,15 +282,20 @@ const TeacherSupport = () => {
       validationSchema: Yup.object({
           ansTicket: Yup.string().required('Required'),
           selectStatusTicket: Yup.string()
+          
       }),
 
       onSubmit: (values) => {
+        
           const ansTicket = values.ansTicket;
+          const id = supportTicket.support_ticket_id;
+          
           const body = JSON.stringify({
               support_ticket_id: id,
               // status: values.selectStatus,
               reply_details: ansTicket
           });
+          console.log(body,id);
 
           dispatch(createSupportTicketResponse(body));
           dispatch(SupportTicketStatusChange(id, {status: values.selectStatusTicket})
@@ -246,6 +305,8 @@ const TeacherSupport = () => {
           setTimeout(() => {
               dispatch(getSupportTicketById(id, language));
           }, 500);
+          
+          dispatch(getSupportTickets(currentUser?.data[0]));
       }
   });
 
@@ -253,6 +314,8 @@ const TeacherSupport = () => {
     //console.log(id , "hi");
     dispatch(getSupportTicketById(id, language));
   };
+
+
     
 
 
@@ -383,50 +446,83 @@ const TeacherSupport = () => {
                                 ) : null}
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">
-                            Link 
-                            </label>
-                            <input
+                            <Label className="mb-2" htmlFor="url">
+                                Link
+                            </Label>
+                            <Input
                                 type="text"
-                                name="links"
-                                id="links"
-                                className="form-control"
-                                placeholder="Attach links"
+                                name="url"
+                                id="url"
+                                placeholder="Please enter the link"
                                 onChange={formik1.handleChange}
                                 onBlur={formik1.handleBlur}
-                                value={formik1.values.links}
+                                value={formik1.values.url}
                             />
-                            {formik1.errors.links ? (
-                                <small className="error-cls">
-                                    {formik1.errors.links}
-                                </small>
-                            ) : null}
+                            {formik1.touched.url &&
+                                formik1.errors.url && (
+                                    <small className="error-cls">
+                                        {formik1.errors.url}
+                                    </small>
+                                )}
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">
-                            Upload Query Screenshots
-                            </label>
-                            <input
-                                type="file"
-                                name="files"
-                                id="files"
-                                className="form-control"
-                                onChange={(event) => formik1.setFieldValue('files', event.currentTarget.files[0])}
-                                onBlur={formik1.handleBlur}
-                            />
-                            {formik1.errors.files ? (
-                                <small className="error-cls">
-                                    {formik1.errors.files}
-                                </small>
-                            ) : null}
+                            <Label
+                                className="mb-2"
+                                htmlFor="file_name"
+                            >
+                                File
+                            </Label>
+                            <div className="d-flex align-items-center">
+                                <input
+                                    type="file"
+                                    id="file_name"
+                                    name="file_name"
+                                    style={{
+                                        display: 'none'
+                                    }}
+                                    accept="image/jpeg,image/png,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                    onChange={(e) => fileHandler(e)}
+                                    onBlur={formik1.handleBlur}
+                                />
+                                <button
+                                    className="btn btn-primary add-em-payroll"
+                                    type="button"
+                                    onClick={() => {
+                                        document
+                                            .getElementById(
+                                                'file_name'
+                                            )
+                                            .click();
+                                    }}
+                                >Upload File</button>
+                                {formik1.values.file_name ? (
+                                    <span className="ml-2">
+                                        {
+                                            formik1.values.file_name
+                                                .name
+                                        }
+                                    </span>
+                                ) : (
+                                    <span className="ml-2">
+                                        {formik1.initialValues
+                                            .file_name }
+                                    </span>
+                                )}
+                            </div>
+                            {formik1.touched.file_name &&
+                                formik1.errors.file_name && (
+                                    <small className="error-cls">
+                                        {formik1.errors.file_name}
+                                    </small>
+                                )}    
                         </div>
                         <div className="col-lg-12">
                             <div className="view-btn">
                             <button type="button" className="btn btn-reset me-2" data-bs-dismiss="offcanvas" onClick={handleDiscard} >
                                 Discard
                             </button>
-                            <button type="submit" className="btn btn-save">
-                                Submit
+                            <button type="submit" className="btn btn-save" data-bs-dismiss="offcanvas">
+                                Create Ticket
                             </button>
                             </div>
                         </div>
@@ -555,33 +651,25 @@ const TeacherSupport = () => {
                       {supportTicket.status != 'INVALID' ? (
                           <Row>
                               <Col md={12}>
-                                  <Label
-                                      className="name-req mt-5"
-                                      htmlFor="ticketDetails"
-                                  >
-                                      Details
-                                      <span
-                                          required
-                                          className="p-1"
-                                      >
-                                          *
-                                      </span>
-                                  </Label>
-                                  <textarea
-                                      className={'defaultInput'}
-                                      placeholder="Enter reply comments"
-                                      id="ansTicket"
-                                      name="ansTicket"
-                                      onChange={
-                                          formik.handleChange
-                                      }
-                                      onBlur={formik.handleBlur}
-                                      value={
-                                          formik.values.ansTicket
-                                      }
-                                  />
-
-                                  {formik.touched.ansTicket &&
+                                <div className="mb-3">
+                                    <label className="form-label">
+                                    Description <span>*</span>
+                                    </label>
+                                    <textarea 
+                                        className="text-form form-control" 
+                                        placeholder="Enter Details"
+                                        id="ansTicket"
+                                        name="ansTicket"
+                                        rows={4}
+                                        onChange={
+                                            formik.handleChange
+                                        }
+                                        onBlur={formik.handleBlur}
+                                        value={
+                                            formik.values.ansTicket
+                                        }
+                                    />
+                                    {formik.touched.ansTicket &&
                                   formik.errors.ansTicket ? (
                                       <small className="error-cls">
                                           {
@@ -590,6 +678,7 @@ const TeacherSupport = () => {
                                           }
                                       </small>
                                   ) : null}
+                                </div>
                               </Col>
 
                               <Col
@@ -610,20 +699,6 @@ const TeacherSupport = () => {
                                       className="form-group"
                                       md={12}
                                   >
-                                      {/* <DropDownWithSearch
-                                          {...selectProgress}
-                                          onBlur={
-                                              formik.handleBlur
-                                          }
-                                          onChange={(option) => {
-                                              formik.setFieldValue(
-                                                  'selectStatus',
-                                                  option[0].value
-                                              );
-                                          }}
-                                          name="selectStatus"
-                                          id="selectStatus"
-                                      /> */}
                                       <select
                                           name=" selectStatusTicket"
                                           id=" selectStatusTicket"
@@ -634,12 +709,7 @@ const TeacherSupport = () => {
                                                   e.target.value
                                               );
                                           }}
-                                          // onChange={(option) => {
-                                          //     formik.setFieldValue(
-                                          //         'selectStatus',
-                                          //         option[0].value
-                                          //     );
-                                          // }}
+                                        
                                           onBlur={
                                               formik.handleBlur
                                           }
@@ -702,8 +772,8 @@ const TeacherSupport = () => {
                                       <button type="button" className="btn btn-reset me-2" data-bs-dismiss="offcanvas" onClick={handleDiscard2} >
                                           Discard
                                       </button>
-                                      <button type="submit" className="btn btn-save">
-                                          Submit
+                                      <button type="submit" className="btn btn-save" data-bs-dismiss="offcanvas">
+                                          Send Response
                                       </button>
                                     </div>
                                 </div>
