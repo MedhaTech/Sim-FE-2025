@@ -321,90 +321,117 @@ const CreateMultipleMembers = ({ id }) => {
   const button = teamname && teamemail && studentData;
   return (
     <div className="page-wrapper">
-      <div className="page-title">
-        <h3 style={{ marginBottom: "1rem" }}>Team And Student Creation</h3>
-        <div />
-        <Row>
-          <Col md={6}>
-            <Label className="form-label">
-              Team Name
-              <span required className="p-1">
-                *
-              </span>
-            </Label>
-            <input
-              className="form-control"
-              placeholder="Please Enter Your Team Name"
-              id="teamname"
-              name="teamname"
-              onChange={(e) => handleteamname(e)}
-              value={teamname}
-            />
-            {teamNameError && (
-              <span style={{ color: "red" }}>{teamNameError}</span>
-            )}
-          </Col>
-          <Col md={6} className="mb-xl-0">
-            <Label className="form-label">
-              Team Email Address
-              <span required className="p-1">
-                *
-              </span>
-            </Label>
-            <input
-              className="form-control"
-              placeholder="Please Enter Your Email Address"
-              id="teamemail"
-              name="teamemail"
-              type="email"
-              onChange={(e) => handleteamemail(e)}
-              value={teamemail}
-            />
-            {emailError && <span style={{ color: "red" }}>{emailError}</span>}
-          </Col>
-        </Row>
-        {studentData.map((item, i) => {
-          const foundErrObject = { ...itemDataErrors[i] };
-          return (
-            <div key={i + item} className="mb-5">
-              <div className="d-flex justify-content-between align-items-center">
-                <h6 className="mt-2">Student {i + 1} Details</h6>
-                {i > 1 && (
-                  <button
-                    onClick={() => removeItem(i)}
-                    className="btn btn-primary "
-                  >
-                    Remove
-                  </button>
-                )}
-              </div>
-              <hr />
-              <Row className="mb-3">
-                {/* <Row> */}
-                <Col md={3}>
-                  <Label className="form-label">
-                    Full Name
-                    <span required className="p-1">
-                      *
-                    </span>
-                  </Label>
-                  <input
-                    className="form-control"
-                    placeholder="Please Enter Your Full Name"
-                    id="full_name"
-                    name="full_name"
-                    onChange={(e) => {
-                      handleChange(e, i);
-                    }}
-                    value={item.full_name}
-                  />
-                  {foundErrObject?.full_name ? (
-                    <small className="error-cls">
-                      {foundErrObject.full_name}
-                    </small>
-                  ) : null}
-                </Col>
-                {/* <Col md={6} className="mb-xl-0">
+      <div className="page-header">
+        <div className="add-item d-flex">
+          <div className="page-title">
+            <h4>Team and Student Creation</h4>
+            <h6>Create new team and students</h6>
+          </div>
+        </div>
+        <ul className="table-top-head">
+          <li>
+            <div className="page-btn">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={() => navigate("/mentorteams")}
+              >
+                <i className="fas fa-arrow-left"></i> Back to Teams
+              </button>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div className="card">
+        <div className="card-body pb-0">
+          <div className="card-title-head">
+            <h6>TEAM DETAILS</h6>
+          </div>
+          <Row className="mb-3 modal-body-table search-modal-header">
+            <Col md={6}>
+              <Label className="form-label">
+                Team Name
+                <span required className="p-1">
+                  *
+                </span>
+              </Label>
+              <input
+                className="form-control"
+                placeholder="Please Enter Your Team Name"
+                id="teamname"
+                name="teamname"
+                onChange={(e) => handleteamname(e)}
+                value={teamname}
+              />
+              {teamNameError && (
+                <span style={{ color: "red" }}>{teamNameError}</span>
+              )}
+            </Col>
+            <Col md={6} className="mb-xl-0">
+              <Label className="form-label">
+                Team Email Address
+                <span required className="p-1">
+                  *
+                </span>
+              </Label>
+              <input
+                className="form-control"
+                placeholder="Please Enter Your Email Address"
+                id="teamemail"
+                name="teamemail"
+                type="email"
+                onChange={(e) => handleteamemail(e)}
+                value={teamemail}
+              />
+              {emailError && <span style={{ color: "red" }}>{emailError}</span>}
+            </Col>
+          </Row>
+          <div className="card-title-head">
+            <h6>STUDENTS DETAILS</h6>
+          </div>
+          {studentData.map((item, i) => {
+            const foundErrObject = { ...itemDataErrors[i] };
+            return (
+              <div key={i + item} className="mb-3">
+                <div className="d-flex justify-content-between align-items-center">
+                  <h6 className="mt-2 mb-2">STUDENT {i + 1} DETAILS</h6>
+                  {i > 1 && (
+                    <button
+                      onClick={() => removeItem(i)}
+                      className="btn btn-sm btn-square btn-soft-danger"
+                    >
+                      <i className="fa-solid fa-xmark"></i> Remove
+                    </button>
+                  )}
+                </div>
+                {/* <hr /> */}
+                <Row className="mb-3 modal-body-table search-modal-header">
+                  {/* <Row> */}
+                  <Col md={3}>
+                    <Label className="form-label">
+                      Full Name
+                      <span required className="p-1">
+                        *
+                      </span>
+                    </Label>
+                    <input
+                      className="form-control"
+                      placeholder="Please Enter Your Full Name"
+                      id="full_name"
+                      name="full_name"
+                      onChange={(e) => {
+                        handleChange(e, i);
+                      }}
+                      value={item.full_name}
+                    />
+                    {foundErrObject?.full_name ? (
+                      <small className="error-cls">
+                        {foundErrObject.full_name}
+                      </small>
+                    ) : null}
+                  </Col>
+                  {/* <Col md={6} className="mb-xl-0">
                         <Label className="form-label">
                           Email Address
                           <span required className="p-1">
@@ -427,148 +454,152 @@ const CreateMultipleMembers = ({ id }) => {
                           </small>
                         ) : null}
                       </Col> */}
-                {/* </Row> */}
-                <Col md={2} className="mb-xl-0">
-                  <Label htmlFor="inputState" className="form-label">
-                    Age
-                    <span required className="p-1">
-                      *
-                    </span>
-                  </Label>
-                  <select
-                    id="inputState"
-                    className="form-select"
-                    name="Age"
-                    value={item.Age}
-                    onChange={(e) => handleChange(e, i)}
-                  >
-                    <option value={""}>Select Age</option>
-                    {allowedAge.map((item) => (
-                      <option key={item} value={item}>
-                        {item}
+                  {/* </Row> */}
+                  <Col md={2} className="mb-xl-0">
+                    <Label htmlFor="inputState" className="form-label">
+                      Age
+                      <span required className="p-1">
+                        *
+                      </span>
+                    </Label>
+                    <select
+                      id="inputState"
+                      className="form-select"
+                      name="Age"
+                      value={item.Age}
+                      onChange={(e) => handleChange(e, i)}
+                    >
+                      <option value={""}>Select Age</option>
+                      {allowedAge.map((item) => (
+                        <option key={item} value={item}>
+                          {item}
+                        </option>
+                      ))}
+                    </select>
+                    {foundErrObject?.Age ? (
+                      <small className="error-cls">{foundErrObject.Age}</small>
+                    ) : null}
+                  </Col>
+                  <Col md={3} className="mb-xl-0">
+                    <Label htmlFor="inputState" className="form-label">
+                      Disability
+                      <span required className="p-1">
+                        *
+                      </span>
+                    </Label>
+                    <select
+                      id="inputState"
+                      className="form-select"
+                      name="disability"
+                      value={item.disability}
+                      onChange={(e) => handleChange(e, i)}
+                    >
+                      <option value="">Select Status</option>
+                      <option value="No">No</option>
+                      <option value="Physically Challenged">
+                        Physically Challenged
                       </option>
-                    ))}
-                  </select>
-                  {foundErrObject?.Age ? (
-                    <small className="error-cls">{foundErrObject.Age}</small>
-                  ) : null}
-                </Col>
-                <Col md={3} className="mb-xl-0">
-                  <Label htmlFor="inputState" className="form-label">
-                    Disability
-                    <span required className="p-1">
-                      *
-                    </span>
-                  </Label>
-                  <select
-                    id="inputState"
-                    className="form-select"
-                    name="disability"
-                    value={item.disability}
-                    onChange={(e) => handleChange(e, i)}
-                  >
-                    <option value="">Select Status</option>
-                    <option value="No">No</option>
-                    <option value="Physically Challenged">
-                      Physically Challenged
-                    </option>
-                    <option value="Visually Challenged">
-                      Visually Challenged
-                    </option>
-                    <option value="Locomotor Disability">
-                      Locomotor Disability
-                    </option>
-                    <option value="Intellectual Disability">
-                      Intellectual Disability
-                    </option>
-                    <option value="Learning Disability">
-                      Learning Disability
-                    </option>
-                    <option value="Hearing Impaired">Hearing Impaired</option>
-                    <option value="Autism/Cerebral Palsy/Other">
-                      Autism/Cerebral Palsy/Other
-                    </option>
-                    <option value="Others">Others</option>
-                  </select>
-                  {foundErrObject?.disability ? (
-                    <small className="error-cls">
-                      {foundErrObject.disability}
-                    </small>
-                  ) : null}
-                </Col>
-
-                <Col md={2}>
-                  <Label htmlFor="inputState" className="form-label">
-                    Class
-                    <span required className="p-1">
-                      *
-                    </span>
-                  </Label>
-                  <select
-                    id="inputState"
-                    className="form-select"
-                    name="Grade"
-                    value={item.Grade}
-                    onChange={(e) => handleChange(e, i)}
-                  >
-                    <option value="">Select Class</option>
-                    {grades.map((item) => (
-                      <option key={item} value={item}>
-                        Class {item}
+                      <option value="Visually Challenged">
+                        Visually Challenged
                       </option>
-                    ))}
-                  </select>
-                  {foundErrObject?.Grade ? (
-                    <small className="error-cls">{foundErrObject?.Grade}</small>
-                  ) : null}
-                </Col>
-                <Col md={2} className="mb-5 mb-xl-0">
-                  <Label htmlFor="inputState" className="form-label">
-                    Gender
-                    <span required className="p-1">
-                      *
-                    </span>
-                  </Label>
+                      <option value="Locomotor Disability">
+                        Locomotor Disability
+                      </option>
+                      <option value="Intellectual Disability">
+                        Intellectual Disability
+                      </option>
+                      <option value="Learning Disability">
+                        Learning Disability
+                      </option>
+                      <option value="Hearing Impaired">Hearing Impaired</option>
+                      <option value="Autism/Cerebral Palsy/Other">
+                        Autism/Cerebral Palsy/Other
+                      </option>
+                      <option value="Others">Others</option>
+                    </select>
+                    {foundErrObject?.disability ? (
+                      <small className="error-cls">
+                        {foundErrObject.disability}
+                      </small>
+                    ) : null}
+                  </Col>
 
-                  <select
-                    id="inputState"
-                    className="form-select"
-                    name="Gender"
-                    value={item.Gender}
-                    onChange={(e) => handleChange(e, i)}
-                  >
-                    <option value="">Select Gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="OTHERS">Prefer not to mention</option>
-                  </select>
-                  {foundErrObject?.Gender ? (
-                    <small className="error-cls">
-                      {foundErrObject?.Gender}
-                    </small>
-                  ) : null}
-                </Col>
-              </Row>
-            </div>
-          );
-        })}
-        <Row>
-          <Col className="mt-2 text-left">
-            {!isClicked ? (
-              <button
-                type="submit"
-                className="btn btn-warning text-left"
-                onClick={handleSumbit}
-                disabled={!button}
-              >
-                Submit
-              </button>
-            ) : (
-              <button type="button" className="btn btn-warning text-right">
-                Submit
-              </button>
-            )}
-            {/* {studentData.length < 4 && (
+                  <Col md={2}>
+                    <Label htmlFor="inputState" className="form-label">
+                      Class
+                      <span required className="p-1">
+                        *
+                      </span>
+                    </Label>
+                    <select
+                      id="inputState"
+                      className="form-select"
+                      name="Grade"
+                      value={item.Grade}
+                      onChange={(e) => handleChange(e, i)}
+                    >
+                      <option value="">Select Class</option>
+                      {grades.map((item) => (
+                        <option key={item} value={item}>
+                          Class {item}
+                        </option>
+                      ))}
+                    </select>
+                    {foundErrObject?.Grade ? (
+                      <small className="error-cls">{foundErrObject?.Grade}</small>
+                    ) : null}
+                  </Col>
+                  <Col md={2} className="mb-5 mb-xl-0">
+                    <Label htmlFor="inputState" className="form-label">
+                      Gender
+                      <span required className="p-1">
+                        *
+                      </span>
+                    </Label>
+
+                    <select
+                      id="inputState"
+                      className="form-select"
+                      name="Gender"
+                      value={item.Gender}
+                      onChange={(e) => handleChange(e, i)}
+                    >
+                      <option value="">Select Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="OTHERS">Prefer not to mention</option>
+                    </select>
+                    {foundErrObject?.Gender ? (
+                      <small className="error-cls">
+                        {foundErrObject?.Gender}
+                      </small>
+                    ) : null}
+                  </Col>
+                </Row>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+
+      <Row>
+        <Col className="mt-2 text-left">
+          {!isClicked ? (
+            <button
+              type="submit"
+              className="btn btn-warning text-left"
+              onClick={handleSumbit}
+              disabled={!button}
+            >
+              CREATE TEAM
+            </button>
+          ) : (
+            <button type="button" className="btn btn-warning text-right">
+              CREATE TEAM
+            </button>
+          )}
+          {/* {studentData.length < 4 && (
                   <div className="">
                     <button
                       // label={"Add More"}
@@ -583,8 +614,8 @@ const CreateMultipleMembers = ({ id }) => {
                     </button>
                   </div>
                 )} */}
-          </Col>
-          {/* <Col className="mt-2 text-right">
+        </Col>
+        {/* <Col className="mt-2 text-right">
             <button
               type="button"
               className="btn btn-secondary m-2 ml-auto"
@@ -593,17 +624,16 @@ const CreateMultipleMembers = ({ id }) => {
               Discard
             </button>
           </Col> */}
-          <Col className="mt-2 d-flex justify-content-end">
-            <button
-              type="button"
-              className="btn btn-secondary m-2"
-              onClick={() => navigate("/mentorteams")}
-            >
-              Discard
-            </button>
-          </Col>
-        </Row>
-      </div>
+        <Col className="mt-2 d-flex justify-content-end">
+          <button
+            type="button"
+            className="btn btn-secondary m-2"
+            onClick={() => navigate("/mentorteams")}
+          >
+            DISCARD
+          </button>
+        </Col>
+      </Row>
     </div>
   );
 };

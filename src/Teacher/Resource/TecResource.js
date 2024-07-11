@@ -64,34 +64,32 @@ const TecResource = () => {
       //     width: '25%'
       // },
       {
-        name: "File/Link",
+        name: "File / Link",
         width: "20%",
         cell: (record) => {
           if (record.type === "file") {
             return (
-              <button className="btn btn-warning  mx-2">
+              // <button className="btn btn-outline-warning btn-sm mx-2">
                 <a
                   href={record.attachments}
                   target="_blank"
+                  className="badge badge-md bg-secondary"
                   rel="noopener noreferrer"
-                  style={{ color: "black" }}
                 >
-                  Navigate
+                  <i className="fas fa-file-lines"></i> Navigate
                 </a>
-              </button>
+              // </button>
             );
           } else if (record.type === "link") {
             return (
-              <button className="btn btn-warning  mx-2">
                 <a
                   href={record.attachments}
                   target="_blank"
+                  className="badge badge-md bg-secondary"
                   rel="noopener noreferrer"
-                  style={{ color: "black" }}
                 >
-                  Navigate
+                  <i className="fa-brands fa-youtube"></i> Navigate
                 </a>
-              </button>
             );
           }
           return null;
@@ -112,9 +110,10 @@ const TecResource = () => {
         <div className="page-header">
           <div className="page-title">
             <h4>Resources</h4>
+            <h6>List of program related resources</h6>
           </div>
         </div>
-        <div className="my-2">
+        <div className="card table-list-card my-2">
           <DataTableExtensions
             data={rows}
             print={false}
