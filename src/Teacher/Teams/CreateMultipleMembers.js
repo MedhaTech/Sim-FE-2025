@@ -52,12 +52,24 @@ const CreateMultipleMembers = ({ id }) => {
 
   const [teamNameError, setTeamNameError] = useState("");
 
-  const handleteamname = (e) => {
-    const numericValue = e.target.value;
-    const trimmedValue = numericValue.trim();
-    setTeamname(trimmedValue);
+  // const handleteamname = (e) => {
+  //   const numericValue = e.target.value;
+  //   const trimmedValue = numericValue.trim();
+  //   setTeamname(trimmedValue);
 
-    if (trimmedValue.length < 1) {
+  //   if (trimmedValue.length < 1) {
+  //     setTeamNameError("Please Enter Team Name");
+  //   } else {
+  //     setTeamNameError("");
+  //   }
+  // };
+  const handleteamname = (e) => {
+    const inputValue = e.target.value;
+    const lettersOnly = inputValue.replace(/[^a-zA-Z\s]/g, "");
+
+    setTeamname(lettersOnly);
+
+    if (lettersOnly.trim().length < 1) {
       setTeamNameError("Please Enter Team Name");
     } else {
       setTeamNameError("");
@@ -116,7 +128,7 @@ const CreateMultipleMembers = ({ id }) => {
       disability: "",
     },
   ]);
-  let pattern = /[A-Za-z0-9\s]*$/;
+  let pattern = /^[A-Za-z\s]+$/;
   // const emailRegex = /[A-Za-z-@+.-]*$/;
   const emailRegex = /^[\w.]+@([\w-]+\.)+[\w-]{2,4}$/;
   const handleChange = (e, i) => {
@@ -133,7 +145,7 @@ const CreateMultipleMembers = ({ id }) => {
               const { index } = check.match(pattern);
               if (index) {
                 const foo = { ...errCopy[i] };
-                foo[e.target.name] = "Only alphanumeric are allowed";
+                foo[e.target.name] = "Only alpha characters are allowed";
                 errCopy[i] = { ...foo };
                 setItemDataErrors(errCopy);
                 return;
@@ -546,7 +558,9 @@ const CreateMultipleMembers = ({ id }) => {
                       ))}
                     </select>
                     {foundErrObject?.Grade ? (
-                      <small className="error-cls">{foundErrObject?.Grade}</small>
+                      <small className="error-cls">
+                        {foundErrObject?.Grade}
+                      </small>
                     ) : null}
                   </Col>
                   <Col md={2} className="mb-5 mb-xl-0">
@@ -581,7 +595,6 @@ const CreateMultipleMembers = ({ id }) => {
           })}
         </div>
       </div>
-
 
       <Row>
         <Col className="mt-2 text-left">
