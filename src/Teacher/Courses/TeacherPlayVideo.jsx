@@ -45,17 +45,25 @@ import { useLayoutEffect } from "react";
 import { FaBullseye } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
+
 //VIMEO REFERENCE
 //https://github.com/u-wave/react-vimeo/blob/default/test/util/createVimeo.js
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import FeatherIcon from "feather-icons-react";
 
 const TeacherPlayVideo = (props) => {
   const { t } = useTranslation();
   const pdfRef = useRef(null);
+  const [id, setResponce] = useState([]);
+  const { id: paramId } = useParams();
+  const course_id = paramId ? paramId : 1;
+
   // const course_id = props.match.params.id ? props.match.params.id : 1;
   const currentUser = getCurrentUser("current_user");
   const [condition, setCondition] = useState("");
   const [modalShow, setModalShow] = useState(false);
-  const [showQuiz, setHideQuiz] = useState(false);
+  // const [showQuiz, setHideQuiz] = useState(false);
   const [quizId, setQizId] = useState("");
   const [worksheetId, setWorksheetId] = useState("");
   const [backToQuiz, setBackToQuiz] = useState(false);
@@ -66,7 +74,6 @@ const TeacherPlayVideo = (props) => {
   const [currentTopicId, setCourseTopicId] = useState("");
   const [handbook, setHandbook] = useState(false);
 
-  const [id, setResponce] = useState([]);
   const [firstObj, setFirstObj] = useState([]);
   const [moduleResponce, setUpdateModuleResponce] = useState([]);
   const [worksheetResponce, SetWorksheetResponce] = useState([]);
@@ -100,8 +107,11 @@ const TeacherPlayVideo = (props) => {
   const [continueObj, setContinueObj] = useState([]);
   const [courseData, setCourseData] = useState(null);
   const [isquizcompleted, setisquizcompleted] = useState(false);
+  const [finalPage, setFinalPage] = useState(false);
   const scrollRef = React.createRef();
   const [quizStart, setQuizStart] = useState(false);
+
+  const dispatch = useDispatch();
 
   const getLastCourseStatus = (data = []) => {
     const length = data && data.length > 0 ? data.length - 1 : 0;
@@ -110,14 +120,13 @@ const TeacherPlayVideo = (props) => {
     }
     return false;
   };
-  // useEffect(() => {
-  //   props.getTeacherCourseDetailsActions(course_id);
-  // }, [course_id]);
+  useEffect(() => {
+    props.getTeacherCourseDetailsActions(course_id);
+  }, [course_id]);
 
   useLayoutEffect(() => {
     props.getMentorCourseAttachmentsActions();
   }, []);
-
   useEffect(() => {
     var topicArrays = [];
     var firstObjectArray = [];
@@ -201,6 +210,7 @@ const TeacherPlayVideo = (props) => {
           const worksheet = response.data.data[0]?.attachments.split("{{}}");
           SetWorksheetResponce(worksheet);
           setWorksheetByWorkSheetId(worksheet[0]);
+          setFinalPage(true);
         }
       })
       .catch(function (error) {
@@ -279,7 +289,7 @@ const TeacherPlayVideo = (props) => {
       .then(function (response) {
         if (response.status === 201) {
           setUpdateModuleResponce(response.data && response.data.data[0]);
-          // props.getTeacherCourseDetailsActions(course_id);
+          props.getTeacherCourseDetailsActions(course_id);
         }
       })
       .catch(function (error) {
@@ -288,6 +298,7 @@ const TeacherPlayVideo = (props) => {
   }
 
   const handlePause = (event) => {
+    // console.log(event.seconds, "see");
     // here we can pause the video //
     setPaused(event.target.checked);
   };
@@ -383,27 +394,32 @@ const TeacherPlayVideo = (props) => {
       setWorksheetId(topicId);
       getWorkSheetApi(topicId);
       setItem("ATTACHMENT");
-      setHideQuiz(false);
+      // setHideQuiz(false);
     } else if (type === "VIDEO") {
       setItem("VIDEO");
       fetchData(topicId);
-      setHideQuiz(false);
-    } else if (type === "QUIZ") {
-      getisquizcompleted();
-      setItem("QUIZ");
-      setQizId(topicId);
+      // setHideQuiz(false);
+      // } else if (type === "QUIZ") {
+      //   getisquizcompleted();
+      //   setItem("QUIZ");
+      //   setQizId(topicId);
     } else {
       setItem("");
-      setHideQuiz(false);
+      // setHideQuiz(false);
     }
   };
 
   const videoStatus = (type, status) => {
+    console.log(type, "type", status, "status");
     // here we can see the videoStatus //
+
     // type = video ,attachment ,quiz, certificates  //
     //  where status = completed /incomplete //
-    const done = <IoCheckmarkDoneCircleSharp className="done" />;
-    const notDone = <IoCheckmarkDoneCircleSharp />;
+    const done = <FeatherIcon icon="check-circle" style={{ color: "green" }} />;
+    const notDone = <FeatherIcon icon="check-circle" />;
+
+    // const done = <IoCheckmarkDoneCircleSharp className="done" />;
+    // const notDone = <IoCheckmarkDoneCircleSharp />;
     if (type === "VIDEO" && status === "COMPLETED") {
       return done;
     } else if (type === "VIDEO" && status === "INCOMPLETE") {
@@ -414,11 +430,11 @@ const TeacherPlayVideo = (props) => {
     } else if (type === "ATTACHMENT" && status === "INCOMPLETE") {
       return notDone;
     }
-    if (type === "QUIZ" && status === "COMPLETED") {
-      return done;
-    } else if (type === "QUIZ" && status === "INCOMPLETE") {
-      return notDone;
-    }
+    // if (type === "QUIZ" && status === "COMPLETED") {
+    //   return done;
+    // } else if (type === "QUIZ" && status === "INCOMPLETE") {
+    //   return notDone;
+    // }
     if (type === "CERTIFICATE" && status === "COMPLETED") {
       return done;
     } else if (type === "CERTIFICATE" && status === "INCOMPLETE") {
@@ -575,7 +591,7 @@ const TeacherPlayVideo = (props) => {
   };
   return (
     <div className="page-wrapper">
-      <div className="page-header">
+      <div className="content">
         <div className="courses-page" ref={scrollRef}>
           <div
             className="pb-5 my-5 px-5 container-fluid"
@@ -584,7 +600,7 @@ const TeacherPlayVideo = (props) => {
             <Row className="m-0 courser-video-section ">
               <Col xl={4} className="course-assement order-2 order-xl-1 ">
                 <div className="assement-info">
-                  <p className="content-title">Lessons</p>
+                  <h3>Lessons</h3>
                   <div className="view-head"></div>
                   <div className="assement-item" id="scrollbar">
                     {teacherCourseDetails &&
@@ -596,7 +612,7 @@ const TeacherPlayVideo = (props) => {
                             className={`course-sec-list ${
                               course.progress === "COMPLETED"
                                 ? "hHover"
-                                : "noHover"
+                                : "hHover"
                             }  `}
                           >
                             <Row
@@ -763,17 +779,17 @@ const TeacherPlayVideo = (props) => {
                   //           />
                   //         </figure>
                   //         {/* <Button
-                  //           label={
-                  //             quizStart
-                  //               ? "Let's Start"
-                  //               : isquizcompleted
-                  //               ? "See Score"
-                  //               : "Resume Quiz"
-                  //           }
-                  //           btnClass="primary mt-4"
-                  //           size="small"
-                  //           onClick={() => setHideQuiz(true)}
-                  //         /> */}
+                  //               label={
+                  //                 quizStart
+                  //                   ? "Let's Start"
+                  //                   : isquizcompleted
+                  //                   ? "See Score"
+                  //                   : "Resume Quiz"
+                  //               }
+                  //               btnClass="primary mt-4"
+                  //               size="small"
+                  //               onClick={() => setHideQuiz(true)}
+                  //             /> */}
                   //         <button
                   //           className="btn btn-warning"
                   //           onClick={() => setHideQuiz(true)}
@@ -788,8 +804,8 @@ const TeacherPlayVideo = (props) => {
                   !instructions &&
                   handbook &&
                   props.mentorAttachments.length > 0 &&
-                  props.mentorAttachments[0]?.attachments?.split("{{}}")
-                    .length === 1 ? (
+                  props.mentorAttachments[0]?.attachments?.split("{{}}") ? (
+                    // .length === 1
                     <Fragment>
                       <Card className="course-sec-basic p-5">
                         <CardBody>
@@ -862,32 +878,39 @@ const TeacherPlayVideo = (props) => {
                           </CardBody>
                           <div className="text-left mb-2">
                             <div>
-                              {/* {worksheetResponce &&
-                              worksheetResponce?.length > 0 &&
-                              worksheetResponce.map((item, i) => (
-                                <Button
-                                  style={{
-                                    margin: "5px",
-                                  }}
-                                  key={i}
-                                  label={`Download ${item
-                                    .split("/")
-                                    [item.split("/").length - 1].split(".")[0]
-                                    .replace("_", " ")}`}
-                                  btnClass="secondary mx-2"
-                                  size="small"
-                                  onClick={() => handleDownload(item)}
-                                />
-                              ))} */}
+                              {worksheetResponce &&
+                                worksheetResponce?.length > 0 &&
+                                worksheetResponce.map((item, i) => (
+                                  <button
+                                    style={{
+                                      margin: "5px",
+                                    }}
+                                    key={i}
+                                    className="btn btn-secondary"
+                                    // label={`Download ${item
+                                    //   .split("/")
+                                    //   [item.split("/").length - 1].split(".")[0]
+                                    //   .replace("_", " ")}`}
+                                    // btnClass="secondary mx-2"
+                                    // size="small"
+                                    onClick={() => handleDownload(item)}
+                                  >
+                                    {`Download ${item
+                                      .split("/")
+                                      [item.split("/").length - 1].split(".")[0]
+                                      .replace("_", " ")}`}
+                                  </button>
+                                ))}
                             </div>
                           </div>
                           <Col className="text-right">
-                            {/* <Button
-                            label={"Continue"}
-                            onClick={() => handlenextend()}
-                            btnClass="primary mt-4 mb-2"
-                            size="small"
-                          /> */}
+                            <button
+                              // label={"Continue"}
+                              onClick={() => handlenextend()}
+                              className="btn btn-warning"
+                            >
+                              Continue
+                            </button>
                           </Col>
                         </CardBody>
                       </Card>
@@ -923,14 +946,15 @@ const TeacherPlayVideo = (props) => {
                     </Card>
                   ) : (
                     // showQuiz === false &&
-                    !certificate &&
+                    // !certificate &&
                     !instructions &&
                     !handbook && (
                       <Fragment>
                         <Card className="course-sec-basic p-5">
                           <CardBody>
                             {getLastCourseStatus(teacherCourseDetails) &&
-                            isquizcompleted ? (
+                            //  isquizcompleted
+                            finalPage ? (
                               <div className="text-center">
                                 <h2 className="text-success">
                                   🎉 Congratulations on completing the course!
@@ -939,8 +963,9 @@ const TeacherPlayVideo = (props) => {
                                 <br />
                                 <p>
                                   <b>
-                                    Now that you have completed the quiz, Below
-                                    are your next action items in the program :
+                                    Now that you have completed the course,
+                                    Below are your next action items in the
+                                    program :
                                   </b>
                                 </p>
 
@@ -999,21 +1024,23 @@ const TeacherPlayVideo = (props) => {
                                   </div>
                                 ) : (
                                   <div>
-                                    {/* {getLastCourseStatus(teacherCourseDetails) ? (
-                                    <Button
-                                      label={"CONTINUE QUIZ"}
-                                      btnClass={`primary mt-4`}
-                                      size="small"
-                                      onClick={(e) => startContinueCourse(e)}
-                                    />
-                                  ) : (
-                                    <Button
-                                      label={`CONTINUE COURSE`}
-                                      btnClass={`primary mt-4`}
-                                      size="small"
-                                      onClick={(e) => startContinueCourse(e)}
-                                    />
-                                  )} */}
+                                    {getLastCourseStatus(
+                                      teacherCourseDetails
+                                    ) ? (
+                                      <button
+                                        className="btn btn-warning"
+                                        onClick={(e) => startContinueCourse(e)}
+                                      >
+                                        CONTINUE COURSE
+                                      </button>
+                                    ) : (
+                                      <button
+                                        className="btn btn-warning"
+                                        onClick={(e) => startContinueCourse(e)}
+                                      >
+                                        CONTINUE COURSE
+                                      </button>
+                                    )}
                                   </div>
                                 )}
                               </div>
@@ -1046,8 +1073,8 @@ const TeacherPlayVideo = (props) => {
                   instructions &&
                   !handbook &&
                   props.mentorAttachments.length > 0 &&
-                  props.mentorAttachments[1]?.attachments?.split("{{}}")
-                    .length > 2 && (
+                  props.mentorAttachments[1]?.attachments?.split("{{}}") && (
+                    // .length > 2
                     <Fragment>
                       <Card className="course-sec-basic p-5">
                         <CardBody className="text-center p-5">
