@@ -1064,6 +1064,7 @@ const NonAtlPage = () => {
                                 <option value="">Gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
+                                <option value="Prefer Not">Prefer Not to Mention </option>
                               </select>
                               {formik.touched.gender && formik.errors.gender ? (
                                 <small className="error-cls">

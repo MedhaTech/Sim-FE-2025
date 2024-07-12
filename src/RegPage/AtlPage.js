@@ -58,7 +58,7 @@ const Register = () => {
   const [timer, setTimer] = useState(0);
   const [person, setPerson] = useState(true);
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  //const [isModalVisible, setIsModalVisible] = useState(false);
   const [design, setDesign] = useState(false);
   const [emailData, setEmailData] = useState("");
   const [mobileData, setMobileData] = useState("");
@@ -78,14 +78,14 @@ const Register = () => {
     setIsTooltipVisible(false);
   };
 
-  const handleIconClick = () => {
-    //e.preventDefault(); // Prevent the default action of the anchor tag
-    setIsModalVisible(true);
-  };
+  // const handleIconClick = () => {
+  //   //e.preventDefault(); // Prevent the default action of the anchor tag
+  //   setIsModalVisible(true);
+  // };
 
-  const handleCloseModal = () => {
-    setIsModalVisible(false);
-  };
+  // const handleCloseModal = () => {
+  //   setIsModalVisible(false);
+  // };
 
   const handleOnChange = (e) => {
     const numericValue = e.target.value.replace(/\D/g, "");
@@ -535,12 +535,9 @@ const Register = () => {
             <form action="signin" onSubmit={formik.handleSubmit}>
               <div className="login-userset">
                 <div className="login-logo logo-normal">
-                  {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
                   <img src={logo} alt="Logo" />
                 </div>
-                {/* <Link className="login-logo logo-white">
-                  <ImageWithBasePath src="assets/img/logo-white.png" alt />
-                </Link> */}
+                
                 {person && (
                   <div className="login-userheading ">
                     <h3 className="icon-container ">
@@ -550,7 +547,7 @@ const Register = () => {
                         href="https://www.youtube.com/watch?v=CiYa_iLdpXo" // Replace with the desired URL
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={handleIconClick}
+                        // onClick={handleIconClick}
                       >
                         <img
                           src={play}
@@ -564,7 +561,7 @@ const Register = () => {
                       {isTooltipVisible && (
                         <div className="tooltip">Watch Demo</div>
                       )}
-                      {isModalVisible && (
+                      {/* {isModalVisible && (
                         <div
                           className="modal-overlay"
                           onClick={handleCloseModal}
@@ -589,7 +586,7 @@ const Register = () => {
                             ></iframe>
                           </div>
                         </div>
-                      )}
+                      )} */}
                     </h3>
                     <h4>Register New Teacher account</h4>
                   </div>
@@ -788,6 +785,7 @@ const Register = () => {
                                 <option value="">Gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
+                                <option value="Prefer Not">Prefer Not to Mention </option>
                               </select>
                               {formik.touched.gender && formik.errors.gender ? (
                                 <small className="error-cls">

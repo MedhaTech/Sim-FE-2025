@@ -33,7 +33,7 @@ const NonAtlSuccess = () => {
 
                 <h4 className="mb-3">
                   {" "}
-                  You have successfully registered under Non-ATL Schools
+                  You have successfully registered for SIM 2024-25
                 </h4>
                 <h4 style={{ color: "black" }}>
                   <b>Teacher Login ID : </b>{" "}
