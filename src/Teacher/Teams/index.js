@@ -321,7 +321,7 @@ const Dashboard = (props) => {
                     </h3>
                   </Col>
                   <Col className="d-flex justify-content-end">
-                    {stuList < 3 && (
+                    {stuList == 2 && (
                       <button
                         className="btn btn-danger mb-2"
                         onClick={() => handleDeleteTeam(selectedTeam)}
@@ -361,15 +361,17 @@ const Dashboard = (props) => {
                               <i data-feather="edit" className="feather-edit" />
                               {/* Edit */}
                             </button>
-                            <button
-                              className="me-2 p-2 btn btn-danger"
-                              onClick={() => handleDeleteStudent(student)}
-                            >
-                              <i
-                                data-feather="trash-2"
-                                className="feather-trash-2"
-                              />
-                            </button>
+                            {stuList > 2 && (
+                              <button
+                                className="me-2 p-2 btn btn-danger"
+                                onClick={() => handleDeleteStudent(student)}
+                              >
+                                <i
+                                  data-feather="trash-2"
+                                  className="feather-trash-2"
+                                />
+                              </button>
+                            )}
                             {/* </div> */}
                           </td>
                           {/* <td>

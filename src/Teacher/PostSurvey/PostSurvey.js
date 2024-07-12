@@ -83,6 +83,7 @@ const PostSurvey = () => {
         console.log(error);
       });
   };
+
   const mentorIdeaCount = () => {
     const mentideaApi = encryptGlobal(
       JSON.stringify({
@@ -110,12 +111,12 @@ const PostSurvey = () => {
         console.log(error);
       });
   };
-  //   useEffect(() => {
-  //     if (currentUser?.data[0]?.user_id) {
-  //       mentorTeamsCount();
-  //       mentorIdeaCount();
-  //     }
-  //   }, [currentUser?.data[0]?.user_id]);
+  useEffect(() => {
+    if (currentUser?.data[0]?.user_id) {
+      // mentorTeamsCount();
+      mentorIdeaCount();
+    }
+  }, [currentUser?.data[0]?.user_id]);
   const handleChange = (e) => {
     let newItems = [...answerResponses];
     let obj = {
@@ -293,8 +294,7 @@ const PostSurvey = () => {
                 <CardBody>
                   {
                     // teamsCount !== 0 &&
-                    // ideaCount !== 0 &&
-                    postSurveyStatus != "COMPLETED" ? (
+                    ideaCount !== 0 && postSurveyStatus != "COMPLETED" ? (
                       <>
                         <UncontrolledAlert color="danger" className="mb-2">
                           Please complete the following post survey to get your

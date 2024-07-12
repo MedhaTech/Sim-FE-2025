@@ -101,7 +101,7 @@ const TeacherEditProfile = () => {
             setCurrentUser(currentUser);
             setTimeout(() => {
               navigate("/mentorprofile");
-            }, 200);
+            }, 2000);
           }
         })
         .catch(function (error) {
