@@ -280,7 +280,8 @@ const HorizontalSidebar = () => {
           </li>
           <li className="submenu">
             <Link
-              to="/mentorcourse"
+              to={`/mentorcourse/${1}
+            `}
               onClick={handleSelectClick2}
               className={isActive2 ? "subdrop" : ""}
             >
@@ -1200,9 +1201,8 @@ const HorizontalSidebar = () => {
               onClick={handleSelectClick7}
               className={isActive7 ? "subdrop" : ""}
             >
-              
               <FeatherIcon icon="phone" />
-              <span>Support</span> 
+              <span>Support</span>
             </Link>
             {/* <ul style={{ display: isActive7 ? "block" : "none" }}>
               <li className="submenu">
