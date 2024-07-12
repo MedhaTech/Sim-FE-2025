@@ -432,7 +432,7 @@ const MentorDashboard = () => {
             </div>
             {/* Row two other features */}
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-count">
+              <div className="dash-count" onClick={redirectToPost} >
                   <div className="dash-widgetcontent">
                     {teacPostSLoading ? ( 
                         <Loader />
@@ -451,7 +451,7 @@ const MentorDashboard = () => {
                         </>
                       ))}
                   </div>
-                <div className="dash-imgs" onClick={redirectToPost} >
+                <div className="dash-imgs" >
                   <FaPoll />
                 </div>
               </div>
