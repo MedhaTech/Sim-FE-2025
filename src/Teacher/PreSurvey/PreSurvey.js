@@ -153,7 +153,7 @@ const PreSurvey = () => {
             );
 
             setCount(count + 1);
-            // navigate("/teacher-dashboard");
+            navigate("/teacher-dashboard");
             // formik.resetForm();
           }
         })

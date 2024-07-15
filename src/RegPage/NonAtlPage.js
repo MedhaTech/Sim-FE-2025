@@ -944,15 +944,17 @@ const NonAtlPage = () => {
                             className="form-control"
                           />
                         </div> */}
-                        <button
-                          type="button"
-                          className="btn btn-warning"
-                          onClick={(e) => handleSubmit(e)}
-                          disabled={!showButton}
-                        >
-                          {" "}
-                          PROCEED
-                        </button>
+                        <div className="form-login">
+                          <button
+                            type="button"
+                            className="btn btn-login mb-3"
+                            onClick={(e) => handleSubmit(e)}
+                            disabled={!showButton}
+                          >
+                            {" "}
+                            PROCEED
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </>
