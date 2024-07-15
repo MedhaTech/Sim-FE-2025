@@ -68,7 +68,7 @@ const MentorDashboard = () => {
     navigate(`/mentorteams`);
   };
   const redirectToCourse = () => {
-    navigate(`/mentorcourse`);
+    navigate(`/mentorcourse/1`);
   };
   const redirectToPost = () => {
     navigate(`/mentorpostsurvey`);
@@ -585,13 +585,13 @@ const MentorDashboard = () => {
                           <td>
                             <div className="product-info">
                               <Link
-                                to={"/mentorcourse"}
+                                to={"/mentorcourse/1"}
                                 className="product-img"
                               >
                                 <FaChalkboardTeacher size={30} style={{marginRight : "10px", color:"orange"}} />
                               </Link>
                               <div className="info">
-                                <Link to={"/mentorcourse"}>
+                                <Link to={"/mentorcourse/1"}>
                                   <h4>Teacher Course</h4>
                                 </Link>
                                 <p className="dull-text">Know more about your role</p>
@@ -635,7 +635,7 @@ const MentorDashboard = () => {
                           <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
-                                <Link className="me-2 p-2" to={"/mentorcourse"}>
+                                <Link className="me-2 p-2" to={"/mentorcourse/1"}>
                                   <Eye className="feather-view" />
                                 </Link>
                               </div>

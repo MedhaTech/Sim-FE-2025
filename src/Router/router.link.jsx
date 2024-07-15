@@ -213,6 +213,8 @@ import StudentEdit from "../Teacher/Teams/StuEdit";
 import TeacherCourse from "../Teacher/Courses/TeacherPlayVideo";
 import TeacherSupport from "../Teacher/Support/TeacherSupport";
 import TCertificate from "../Teacher/Certificate/TCertificate";
+import ChangePwd from "../Teacher/ChangePwd";
+
 export const publicRoutes = [
   {
     id: 1,
@@ -1534,6 +1536,14 @@ export const mentorRoutes = [
     path: routes.mentorcertificate,
     name: "mentorcertificate",
     element: <TCertificate />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 13,
+    path: routes.mentorchangepwd,
+    name: "mentorchangepwd",
+    element: <ChangePwd />,
     protected: true,
     route: Route,
   },

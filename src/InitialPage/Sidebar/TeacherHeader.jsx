@@ -16,6 +16,8 @@ import logo from "../../assets/img/sim_logo.png";
 import female from "../../assets/img/Female_Profile.png";
 import male from "../../assets/img/Male_Profile.png";
 import user from "../../assets/img/icons/user-icon.svg";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faKey } from '@fortawesome/free-solid-svg-icons';
 
 const MentorHeader = () => {
   const route = all_routes;
@@ -690,10 +692,13 @@ const MentorHeader = () => {
                 >
                   <User className="me-2" /> My Profile
                 </Link>
-                {/* <Link className="dropdown-item" to={route.generalsettings}>
-                  <Settings className="me-2" />
-                  Settings
-                </Link> */}
+                <hr className="m-0" />
+                <Link
+                  className="dropdown-item"
+                  to={"/mentorchangepwd"}
+                >
+                  <FontAwesomeIcon icon={faKey} />Change Password 
+                </Link>
                 <hr className="m-0" />
                 <Link
                   className="dropdown-item logout pb-0"
