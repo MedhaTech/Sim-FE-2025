@@ -255,7 +255,7 @@ const ChangePwd = (props) => {
                   <h4>
                     <Link to={"/teacher-dashboard"} className="hover-a">
                       {" "}
-                      Cancle{" "}
+                      Cancel{" "}
                     </Link>
                   </h4>
                 </div>

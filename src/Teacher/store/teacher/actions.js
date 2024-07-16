@@ -10,6 +10,7 @@ import {
 import { URL, KEY } from "../../../constants/defaultValues.js";
 import {
   setCurrentUser,
+  getCurrentUser,
   getNormalHeaders,
   openNotificationWithIcon,
 } from "../../../helpers/Utils.js";
@@ -77,7 +78,44 @@ export const teacherLoginUser =
         localStorage.setItem("layoutStyling", "modern");
         localStorage.setItem("time", new Date().toString());
         dispatch(teacherLoginUserSuccess(result));
-        navigate("/teacher-dashboard");
+        const currentUser = getCurrentUser('current_user');
+        const presurveyApi = encryptGlobal(
+            JSON.stringify({
+                user_id: currentUser?.data[0]?.user_id
+            })
+        );
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/dashboard/mentorSurveyStatus?Data=${presurveyApi}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    console.log(response);
+                    const pre = (response.data.data[0].preSurvey);
+                    if (pre != 'COMPLETED') {
+                      localStorage.setItem("presurveystatus", "INCOMPLETED");
+                      navigate("/mentorpresurvey");
+                    } else{
+                      localStorage.setItem("presurveystatus", "COMPLETED");
+                      navigate("/teacher-dashboard");
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        //const PreSurvey = mentorpresurvey(); 
+        
+        //return true;
+        //navigate("/teacher-dashboard");
         // setTimeout(() => {
         //     localStorage.clear();
         // }, 60000);
@@ -101,6 +139,9 @@ export const teacherLoginUser =
       // );
     }
   };
+
+  
+
 export const teacherCreateMultipleStudent =
   (data, navigate, setIsClicked) => async () => {
     console.log(data, "multi");

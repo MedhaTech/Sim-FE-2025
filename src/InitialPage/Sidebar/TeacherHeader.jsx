@@ -25,6 +25,7 @@ const MentorHeader = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const { t } = useTranslation();
   const currentUser = getCurrentUser("current_user");
+  const presurvey = localStorage.getItem("presurveystatus") ;
   // console.log(currentUser, " currentUser");
   const isElementVisible = (element) => {
     return element.offsetWidth > 0 || element.offsetHeight > 0;
@@ -190,7 +191,9 @@ const MentorHeader = () => {
   }, []);
 
   return (
+    ((presurvey != "INCOMPLETED") ? (
     <>
+    
       <div className="header">
         {/* Logo */}
         <div
@@ -747,6 +750,7 @@ const MentorHeader = () => {
         {/* /Mobile Menu */}
       </div>
     </>
+    ): null)
   );
 };
 
