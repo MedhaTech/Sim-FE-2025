@@ -537,7 +537,7 @@ const Register = () => {
                 <div className="login-logo logo-normal">
                   <img src={logo} alt="Logo" />
                 </div>
-                
+
                 {person && (
                   <div className="login-userheading ">
                     <h3 className="icon-container ">
@@ -651,7 +651,7 @@ const Register = () => {
                       <div className="form-login">
                         <button
                           type="button"
-                          className="btn btn-login mb-3"
+                          className="btn btn-warning mb-3"
                           onClick={(e) => handleRegister(e)}
                           disabled={!isButtonEnabled}
                         >
@@ -785,7 +785,9 @@ const Register = () => {
                                 <option value="">Gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
-                                <option value="Prefer Not to Mention">Prefer Not to Mention </option>
+                                <option value="Prefer Not to Mention">
+                                  Prefer Not to Mention{" "}
+                                </option>
                               </select>
                               {formik.touched.gender && formik.errors.gender ? (
                                 <small className="error-cls">

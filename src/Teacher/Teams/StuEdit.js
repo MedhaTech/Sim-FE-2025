@@ -66,9 +66,7 @@ const StuEdit = () => {
       ),
       grade: Yup.string()
         .max(40)
-        .required(
-          <span style={{ color: "red" }}>Please Select Grade</span>
-        ),
+        .required(<span style={{ color: "red" }}>Please Select Grade</span>),
     }),
 
     onSubmit: (values) => {
@@ -191,10 +189,7 @@ const StuEdit = () => {
                     </Col>
 
                     <Col md={2} className="mb-5 mb-xl-0">
-                      <Label
-                        className="name-req-create-member"
-                        htmlFor="gender"
-                      >
+                      <Label htmlFor="inputState" className="form-label">
                         Gender
                         <span required className="p-1">
                           *
