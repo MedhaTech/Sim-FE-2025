@@ -262,7 +262,10 @@ const CreateMultipleMembers = ({ id }) => {
       studentData.map((item) => item.full_name)
     );
     if (checkDuplicateName) {
-      openNotificationWithIcon("error", "Student already exists");
+      openNotificationWithIcon(
+        "error",
+        "Duplicate student names in a team is not allowed"
+      );
       setIsClicked(false);
       return;
     }
@@ -284,7 +287,6 @@ const CreateMultipleMembers = ({ id }) => {
     axios(config)
       .then(function (response) {
         if (response.status === 201) {
-          console.log(response, "id");
           const newTeamId = response.data.data[0].profile.team_id;
           setTeamId(response.data.data[0].profile.team_id);
           console.log(teamId, "id");
@@ -324,7 +326,7 @@ const CreateMultipleMembers = ({ id }) => {
       .catch(function (error) {
         if (error.response.data.status === 400) {
           // console.log(error, "eee");
-          openNotificationWithIcon("warning", error.response.data.errors);
+          openNotificationWithIcon("error", "This Team Email Id Already Used");
         }
       });
     // dispatch(teacherCreateMultipleStudent(studentData, navigate, setIsClicked));
@@ -640,7 +642,7 @@ const CreateMultipleMembers = ({ id }) => {
         <Col className="mt-2 d-flex justify-content-end">
           <button
             type="button"
-            className="btn btn-secondary m-2"
+            className="btn btn-secondary "
             onClick={() => navigate("/mentorteams")}
           >
             DISCARD

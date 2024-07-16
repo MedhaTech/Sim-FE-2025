@@ -155,7 +155,7 @@ const Dashboard = (props) => {
               }
             >
               {!params.StudentCount < 4 && (
-                <div className="btn btn-primary  mr-5 mx-2">
+                <div className="btn btn-primary m-2">
                   {" "}
                   {selectedTeam === params.team_id ? "Hide" : "View"}
                 </div>
