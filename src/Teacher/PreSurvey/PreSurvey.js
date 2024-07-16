@@ -153,7 +153,9 @@ const PreSurvey = () => {
             );
 
             setCount(count + 1);
+            localStorage.setItem("presurveystatus", "COMPLETED");
             navigate("/teacher-dashboard");
+            window.location.reload();
             // formik.resetForm();
           }
         })
@@ -240,9 +242,9 @@ const PreSurvey = () => {
   }, [count]);
 
   return (
-    <div className="page-wrapper">
-      <div className="content">
-        <div className="page-header">
+    <div>
+      <div style={{margin:"0px"}}>
+        <div >
           <Container className="presuervey" id="start">
             <Col>
               <Row className=" justify-content-center">

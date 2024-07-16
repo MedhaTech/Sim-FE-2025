@@ -284,7 +284,7 @@ const PostSurvey = () => {
   }, [count]);
   return (
     <div className="page-wrapper">
-      {/* <div className="content"> */}
+      <div className="content">
       <div className="page-header">
         <Container className="presuervey mb-50 mt-5 ">
           <Col>
@@ -766,7 +766,7 @@ const PostSurvey = () => {
           </Col>
         </Container>
       </div>
-      {/* </div> */}
+      </div>
     </div>
   );
 };

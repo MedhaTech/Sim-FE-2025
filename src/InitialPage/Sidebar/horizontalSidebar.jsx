@@ -15,6 +15,7 @@ const HorizontalSidebar = () => {
   const [isActive5, setIsActive5] = useState(false);
   // const [isActive6, setIsActive6] = useState(false);
   const [isActive7, setIsActive7] = useState(false);
+  const presurvey = localStorage.getItem("presurveystatus") ;
 
   // const [subActive, setsubActive] = useState(false);
   // const [subActive2, setsubActive2] = useState(false);
@@ -200,6 +201,7 @@ const HorizontalSidebar = () => {
   };
 
   return (
+    ((presurvey != "INCOMPLETED") ? (
     <div className="sidebar horizontal-sidebar">
       <div id="sidebar-menu-3" className="sidebar-menu">
         <ul className="nav">
@@ -855,11 +857,23 @@ const HorizontalSidebar = () => {
           </li>
           <li className="submenu">
             <Link
+              to="/mentorpostsurvey"
+              onClick={handleSelectClick5}
+              className={isActive5 ? "subdrop" : ""}
+            >
+              {/* <img src="assets/img/icons/users1.svg" alt="img" /> */}
+              <img src={support} alt="Survey" />
+              <span>Survey</span>
+              {/* <span className="menu-arrow" /> */}
+            </Link>
+            </li>
+          {/* <li className="submenu">
+            <Link
               to="#"
               onClick={handleSelectClick5}
               className={isActive5 ? "subdrop" : ""}
             >
-              {/* <User /> */}
+               <User /> 
               <img src={support} alt="Support" />
               <span>Survey</span> <span className="menu-arrow" />
             </Link>
@@ -868,7 +882,7 @@ const HorizontalSidebar = () => {
                 <Link to="/mentorpresurvey">
                   <span>Pre Survey</span>
                 </Link>
-              </li>
+              </li> */}
               {/* <li className="submenu">
                 <Link
                   to="#"
@@ -985,7 +999,7 @@ const HorizontalSidebar = () => {
                     <Link to="lock-screen">Lock Screen</Link>
                   </li>
                 </ul>
-              </li> */}
+              </li> 
               <li className="submenu">
                 <Link
                   to="/mentorpostsurvey"
@@ -993,7 +1007,7 @@ const HorizontalSidebar = () => {
                   // className={subActive15 ? "subdrop" : ""}
                 >
                   <span>Post Survey</span>
-                  {/* <span className="menu-arrow" /> */}
+                  {/* <span className="menu-arrow" /> 
                 </Link>
                 {/* <ul style={{ display: subActive15 ? "block" : "none" }}>
                   <li>
@@ -1017,7 +1031,7 @@ const HorizontalSidebar = () => {
                       <span>Under Maintenance</span>{" "}
                     </Link>
                   </li>
-                </ul> */}
+                </ul> 
               </li>
               {/* <li className="submenu">
                 <Link
@@ -1036,7 +1050,7 @@ const HorizontalSidebar = () => {
                     <Link to="states">States</Link>
                   </li>
                 </ul>
-              </li> */}
+              </li> 
               {/* <li className="submenu">
                 <Link
                   to="#"
@@ -1068,7 +1082,7 @@ const HorizontalSidebar = () => {
                     </Link>
                   </li>
                 </ul>
-              </li> */}
+              </li> 
               {/* <li className="submenu">
                 <Link
                   to="#"
@@ -1130,7 +1144,7 @@ const HorizontalSidebar = () => {
                     <Link to="payslip">Payslip</Link>
                   </li>
                 </ul>
-              </li> */}
+              </li> 
             </ul>
           </li>
           {/* <li className="submenu"> */}
@@ -1412,6 +1426,7 @@ const HorizontalSidebar = () => {
         </ul>
       </div>
     </div>
+    ): null)
   );
 };
 
