@@ -3,7 +3,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
-import "./regcss.css";
 import React, { useState, useEffect } from "react";
 import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
@@ -16,7 +15,7 @@ import OtpInput from "react-otp-input-rc-17";
 import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/img/sim_logo.png";
-
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import user from "../assets/img/icons/user-icon.svg";
 import play from "../assets/img/playicon.png";
 import copy from "../assets/img/copyrights.png";
@@ -57,8 +56,6 @@ const Register = () => {
   const [dropdownbtn, setDropDownbtn] = useState("");
   const [timer, setTimer] = useState(0);
   const [person, setPerson] = useState(true);
-  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
-  //const [isModalVisible, setIsModalVisible] = useState(false);
   const [design, setDesign] = useState(false);
   const [emailData, setEmailData] = useState("");
   const [mobileData, setMobileData] = useState("");
@@ -69,23 +66,6 @@ const Register = () => {
       .toLowerCase()
       .replace(/\b\w/g, (char) => char.toUpperCase());
   };
-
-  const handleMouseEnter = () => {
-    setIsTooltipVisible(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsTooltipVisible(false);
-  };
-
-  // const handleIconClick = () => {
-  //   //e.preventDefault(); // Prevent the default action of the anchor tag
-  //   setIsModalVisible(true);
-  // };
-
-  // const handleCloseModal = () => {
-  //   setIsModalVisible(false);
-  // };
 
   const handleOnChange = (e) => {
     const numericValue = e.target.value.replace(/\D/g, "");
@@ -102,6 +82,12 @@ const Register = () => {
     setOrgData();
     setError("");
   };
+
+  const renderTooltip = (props) => (
+    <Tooltip id="pdf-tooltip" {...props} >
+      Watch Demo
+    </Tooltip>
+  );
 
   const handleCheckbox1 = (e, click) => {
     if (click) {
@@ -539,54 +525,21 @@ const Register = () => {
                 </div>
                 
                 {person && (
-                  <div className="login-userheading ">
-                    <h3 className="icon-container ">
+                  <div className="login-userheading">
+                    <h3>
                       {" "}
                       School Teacher Registration{" "}
-                      <a
-                        href="https://www.youtube.com/watch?v=CiYa_iLdpXo" // Replace with the desired URL
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        // onClick={handleIconClick}
-                      >
-                        <img
-                          src={play}
-                          className="icon"
-                          alt="play"
-                          style={{ verticalAlign: "middle", width: "7%" }}
-                          onMouseEnter={handleMouseEnter}
-                          onMouseLeave={handleMouseLeave}
-                        />{" "}
-                      </a>
-                      {isTooltipVisible && (
-                        <div className="tooltip">Watch Demo</div>
-                      )}
-                      {/* {isModalVisible && (
-                        <div
-                          className="modal-overlay"
-                          onClick={handleCloseModal}
+                      <OverlayTrigger placement="top" overlay={renderTooltip}>
+                        <a
+                            href="https://www.youtube.com/watch?v=CiYa_iLdpXo"
+                            target="_blank"
+                            rel="noopener noreferrer"
                         >
-                          <div
-                            className="modal"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <span
-                              className="close-button"
-                              onClick={handleCloseModal}
-                            >
-                              &times;
-                            </span>
-                            <iframe
-                              width="560"
-                              height="315"
-                              src="https://www.youtube.com/watch?v=CiYa_iLdpXo" // Replace with the desired video URL
-                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                              allowFullScreen
-                              title="YouTube video"
-                            ></iframe>
-                          </div>
-                        </div>
-                      )} */}
+                            <img src={play} className="icon" alt="play" 
+                                style={{verticalAlign:"middle" , width: "7%" }} 
+                            /> 
+                        </a>
+                      </OverlayTrigger>
                     </h3>
                     <h4>Register New Teacher account</h4>
                   </div>
