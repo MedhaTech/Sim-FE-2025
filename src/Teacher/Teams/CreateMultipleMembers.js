@@ -65,13 +65,15 @@ const CreateMultipleMembers = ({ id }) => {
   // };
   const handleteamname = (e) => {
     const inputValue = e.target.value;
-    const lettersOnly = inputValue.replace(/[^a-zA-Z\s]/g, "");
+    //const lettersOnly = inputValue.replace(/[^a-zA-Z\s]/g, "");
+    const patternOnlyalfa = /^[a-zA-Z0-9]*$/;
+    setTeamname(inputValue);
 
-    setTeamname(lettersOnly);
-
-    if (lettersOnly.trim().length < 1) {
+    if (inputValue.trim().length < 1) {
       setTeamNameError("Please Enter Team Name");
-    } else {
+    }else if(!patternOnlyalfa.test(inputValue)){
+      setTeamNameError("Only alpha characters are allowed");
+    }else{
       setTeamNameError("");
     }
   };

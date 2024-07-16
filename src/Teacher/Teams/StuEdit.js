@@ -65,7 +65,6 @@ const StuEdit = () => {
         <span style={{ color: "red" }}>Please Select Disability Status</span>
       ),
       grade: Yup.string()
-        .matches(<span style={{ color: "red" }}>Please Select Grade</span>)
         .max(40)
         .required(
           <span style={{ color: "red" }}>Please Select Grade</span>
