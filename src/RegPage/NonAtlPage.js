@@ -2,7 +2,6 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-import "./regcss.css";
 import React, { useState, useEffect } from "react";
 import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
@@ -63,8 +62,6 @@ const NonAtlPage = () => {
   const [condition, setCondition] = useState(false);
   const [buttonData, setButtonData] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
-  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
   const diesCodes = JSON.parse(localStorage.getItem("diesCode"));
   const [mentData, setMentData] = useState({});
   const [districtOptions, setDistrictOptions] = useState([]);
@@ -80,18 +77,9 @@ const NonAtlPage = () => {
   useEffect(() => {
     handleRegister();
   }, []);
-  const handleMouseLeave = () => {
-    setIsTooltipVisible(false);
-  };
+  
 
-  const handleIconClick = () => {
-    //e.preventDefault(); // Prevent the default action of the anchor tag
-    setIsModalVisible(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalVisible(false);
-  };
+  
   // const fullStatesNames = useSelector(
   //   (state) => state?.studentRegistration?.regstate
   // );

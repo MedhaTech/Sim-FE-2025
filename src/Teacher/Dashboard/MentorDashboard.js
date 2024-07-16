@@ -10,6 +10,7 @@ import { ArrowRight } from "react-feather";
 // import withReactContent from "sweetalert2-react-content";
 // import Swal from "sweetalert2";
 import VideoModal from '../../HelpVideo/VideoModal';
+import play from "../../assets/img/playicon.png";
 import { getCurrentUser } from '../../helpers/Utils';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import axios from 'axios';
@@ -75,6 +76,7 @@ const MentorDashboard = () => {
   };
   
   const currentUser = getCurrentUser('current_user');
+
 
   useEffect(() => {
     if (currentUser?.data[0]?.user_id) {
@@ -271,16 +273,37 @@ const MentorDashboard = () => {
         }
       );
     };
-
-
-
-
-    
-
       
+    /////////videoModal////////////////////
+    const [video , setVideo] = useState();
+    const [videoName , setVideoName] = useState("");
+    const [show , setShow] = useState(false);
+
+    const renderTooltip = (props) => (
+      <Tooltip id="pdf-tooltip" {...props} >
+        Watch Demo
+      </Tooltip>
+    );
+    const handleShow = () => {
+      setVideo(vimeoId[4]);
+      setShow(true);
+      setVideoName("Teams Quick Demo");
+    };
+    const vimeoId = [871427504,
+        871521502,
+        871521631,
+        871521361,
+        871521450,
+        871522814];
+
+
+
   const handleCertificateDownload = () =>{
     handlePrintCertificate();
   };
+
+  
+
     
   const componentRef = useRef();
   const handlePrintCertificate = useReactToPrint({
@@ -488,8 +511,8 @@ const MentorDashboard = () => {
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-count das2">
                 <div className="dash-counts">
-                  <h4>Team login&apos;s</h4>
-                  <h5>check progress here</h5>
+                  <h4>Teams Progress</h4>
+                  <h5>& login&apos;s - check here</h5>
                 </div>
                 <SchoolTeamPDF />
               </div>
@@ -546,7 +569,18 @@ const MentorDashboard = () => {
                             </div>
                           </td>
                           <td>
-                            <VideoModal videoId="3" />
+                            <OverlayTrigger placement="top" overlay={renderTooltip}>
+                              <a
+                                  to="#"
+                                  onClick={handleShow}
+                                  {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
+                                  
+                              >
+                                  <img src={play} className="icon" alt="play" 
+                                      style={{verticalAlign:"middle" , width: "60%" }} 
+                                  /> 
+                              </a>
+                            </OverlayTrigger>
                           </td>
                           <td>
                             {teamCountLoading ? ( 
@@ -599,7 +633,7 @@ const MentorDashboard = () => {
                             </div>
                           </td>
                           <td>
-                            <VideoModal videoId="3" />
+                            {/* <Videoicon videoId="3" /> */}
                           </td>
                           <td>
                             {teacCourseLoading ? ( 
@@ -660,7 +694,7 @@ const MentorDashboard = () => {
                             </div>
                           </td>
                           <td>
-                            <VideoModal videoId="3" />
+                            {/* <Videoicon videoId="3" /> */}
                           </td>
                           <td>
                             {teacPostSLoading ? ( 
@@ -713,7 +747,7 @@ const MentorDashboard = () => {
                             </div>
                           </td>
                           <td>
-                            <VideoModal videoId="3" />
+                            {/* <Videoicon videoId="3" /> */}
                           </td>
                           <td>
                             <span
@@ -750,7 +784,7 @@ const MentorDashboard = () => {
                             </div>
                           </td>
                           <td>
-                            <VideoModal videoId="3" />
+                            {/* <Videoicon videoId="3" /> */}
                           </td>
                           <td>
                             <span
@@ -788,6 +822,7 @@ const MentorDashboard = () => {
         </div>
       </div>
     </div>
+    {show &&  <VideoModal v={video} setShow={setShow} name={videoName} />}
     </>
   );
 };
