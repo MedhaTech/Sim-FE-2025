@@ -10,7 +10,6 @@ import { ArrowRight } from "react-feather";
 // import withReactContent from "sweetalert2-react-content";
 // import Swal from "sweetalert2";
 import VideoModal from '../../HelpVideo/VideoModal';
-import play from "../../assets/img/playicon.png";
 import { getCurrentUser } from '../../helpers/Utils';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import axios from 'axios';
@@ -20,6 +19,7 @@ import { FaUserGraduate } from 'react-icons/fa';
 import { FaPaperPlane } from 'react-icons/fa';
 import { FaChalkboardTeacher } from 'react-icons/fa'; 
 import { FaRoute } from 'react-icons/fa';
+import { FaPlay } from 'react-icons/fa';
 import LatestNews from './LatestNews';
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import { Tooltip } from "react-bootstrap";
@@ -45,6 +45,11 @@ const MentorDashboard = () => {
   const renderRefreshTooltip = (props) => (
     <Tooltip id="refresh-tooltip" {...props}>
       Refresh
+    </Tooltip>
+  );
+  const renderViewTooltip = (props) => (
+    <Tooltip id="refresh-tooltip" {...props}>
+      Redirect
     </Tooltip>
   );
   const handleRefresh = () => {
@@ -275,8 +280,8 @@ const MentorDashboard = () => {
     };
       
     /////////videoModal////////////////////
-    const [video , setVideo] = useState();
-    const [videoName , setVideoName] = useState("");
+    const [video , setVideo] = useState("");
+    //const [videoName , setVideoName] = useState("");
     const [show , setShow] = useState(false);
 
     const renderTooltip = (props) => (
@@ -284,17 +289,16 @@ const MentorDashboard = () => {
         Watch Demo
       </Tooltip>
     );
-    const handleShow = () => {
-      setVideo(vimeoId[4]);
+    const handleShow = (i) => {
+      setVideo(vimeoId[i]);
       setShow(true);
-      setVideoName("Teams Quick Demo");
     };
-    const vimeoId = [871427504,
-        871521502,
-        871521631,
-        871521361,
-        871521450,
-        871522814];
+    const vimeoId = ["https://www.youtube.com/embed/CiYa_iLdpXo?si=8t7wj1idLOrW4se0",
+        "https://www.youtube.com/embed/q40BSRm_cJM?si=ALZHPloc04lqH25O",
+        "https://www.youtube.com/embed/eCYCvTu03X4?si=3zA5lyM9UOUoW5Yb",
+        "https://www.youtube.com/embed/s-LUZN38Fik?si=rz10HpY0ZqDaYqD6",
+        "https://www.youtube.com/embed/1WvwMypdVaY?si=8GPHpUqV7Jdewh__",
+        ];
 
 
 
@@ -569,18 +573,21 @@ const MentorDashboard = () => {
                             </div>
                           </td>
                           <td>
-                            <OverlayTrigger placement="top" overlay={renderTooltip}>
-                              <a
-                                  to="#"
-                                  onClick={handleShow}
-                                  {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
-                                  
-                              >
-                                  <img src={play} className="icon" alt="play" 
-                                      style={{verticalAlign:"middle" , width: "60%" }} 
-                                  /> 
-                              </a>
-                            </OverlayTrigger>
+                            <div className="action-table-data">
+                              <div className="edit-delete-action">
+                                <OverlayTrigger placement="top" overlay={renderTooltip}>
+                                  <Link
+                                      to="#"
+                                      className="me-2 p-2"
+                                      onClick={() => handleShow(0)}
+                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
+                                      
+                                  >
+                                    <FaPlay  style={{color:"red"}} />
+                                  </Link>
+                                </OverlayTrigger>
+                              </div>
+                            </div>
                           </td>
                           <td>
                             {teamCountLoading ? ( 
@@ -608,9 +615,11 @@ const MentorDashboard = () => {
                           <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
-                                <Link className="me-2 p-2" to={"/mentorteams"}>
-                                  <Eye className="feather-view" />
-                                </Link>
+                                <OverlayTrigger placement="top" overlay={renderViewTooltip}>
+                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/mentorteams"} >
+                                    <Eye className="feather-view" />
+                                  </Link>
+                                </OverlayTrigger>
                               </div>
                             </div>
                           </td>
@@ -633,7 +642,21 @@ const MentorDashboard = () => {
                             </div>
                           </td>
                           <td>
-                            {/* <Videoicon videoId="3" /> */}
+                            <div className="action-table-data">
+                              <div className="edit-delete-action">
+                                <OverlayTrigger placement="top" overlay={renderTooltip}>
+                                  <Link
+                                      to="#"
+                                      className="me-2 p-2"
+                                      onClick={() => handleShow(1)}
+                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
+                                      
+                                  >
+                                    <FaPlay  style={{color:"red"}} />
+                                  </Link>
+                                </OverlayTrigger>
+                              </div>
+                            </div>
                           </td>
                           <td>
                             {teacCourseLoading ? ( 
@@ -669,9 +692,11 @@ const MentorDashboard = () => {
                           <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
-                                <Link className="me-2 p-2" to={"/mentorcourse/1"}>
-                                  <Eye className="feather-view" />
-                                </Link>
+                                <OverlayTrigger placement="top" overlay={renderViewTooltip}>
+                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/mentorcourse/1"} >
+                                    <Eye className="feather-view" />
+                                  </Link>
+                                </OverlayTrigger>
                               </div>
                             </div>
                           </td>
@@ -694,7 +719,21 @@ const MentorDashboard = () => {
                             </div>
                           </td>
                           <td>
-                            {/* <Videoicon videoId="3" /> */}
+                            <div className="action-table-data">
+                              <div className="edit-delete-action">
+                                <OverlayTrigger placement="top" overlay={renderTooltip}>
+                                  <Link
+                                      to="#"
+                                      className="me-2 p-2"
+                                      onClick={() => handleShow(2)}
+                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
+                                      
+                                  >
+                                    <FaPlay  style={{color:"red"}} />
+                                  </Link>
+                                </OverlayTrigger>
+                              </div>
+                            </div>
                           </td>
                           <td>
                             {teacPostSLoading ? ( 
@@ -721,9 +760,11 @@ const MentorDashboard = () => {
                           <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
-                                <Link className="me-2 p-2" to={"/mentorpostsurvey"}>
-                                  <Eye className="feather-view" />
-                                </Link>
+                                <OverlayTrigger placement="top" overlay={renderViewTooltip}>
+                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/mentorpostsurvey"} >
+                                    <Eye className="feather-view" />
+                                  </Link>
+                                </OverlayTrigger>
                               </div>
                             </div>
                           </td>
@@ -747,7 +788,21 @@ const MentorDashboard = () => {
                             </div>
                           </td>
                           <td>
-                            {/* <Videoicon videoId="3" /> */}
+                            <div className="action-table-data">
+                              <div className="edit-delete-action">
+                                <OverlayTrigger placement="top" overlay={renderTooltip}>
+                                  <Link
+                                      to="#"
+                                      className="me-2 p-2"
+                                      onClick={() => handleShow(3)}
+                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
+                                      
+                                  >
+                                    <FaPlay  style={{color:"red"}} />
+                                  </Link>
+                                </OverlayTrigger>
+                              </div>
+                            </div>
                           </td>
                           <td>
                             <span
@@ -759,9 +814,11 @@ const MentorDashboard = () => {
                           <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
-                                <Link className="me-2 p-2" to={"/tecresource"}>
-                                  <Eye className="feather-view" />
-                                </Link>
+                                <OverlayTrigger placement="top" overlay={renderViewTooltip}>
+                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2"  to={"/tecresource"} >
+                                    <Eye className="feather-view" />
+                                  </Link>
+                                </OverlayTrigger>
                               </div>
                             </div>
                           </td>
@@ -784,7 +841,21 @@ const MentorDashboard = () => {
                             </div>
                           </td>
                           <td>
-                            {/* <Videoicon videoId="3" /> */}
+                            <div className="action-table-data">
+                              <div className="edit-delete-action">
+                                <OverlayTrigger placement="top" overlay={renderTooltip}>
+                                  <Link
+                                      to="#"
+                                      className="me-2 p-2"
+                                      onClick={() => handleShow(4)}
+                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
+                                      
+                                  >
+                                    <FaPlay  style={{color:"red"}} />
+                                  </Link>
+                                </OverlayTrigger>
+                              </div>
+                            </div>
                           </td>
                           <td>
                             <span
@@ -796,9 +867,11 @@ const MentorDashboard = () => {
                           <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
-                                <Link className="me-2 p-2" to={"/mentorsupport"}>
-                                  <Eye className="feather-view" />
-                                </Link>
+                                <OverlayTrigger placement="top" overlay={renderViewTooltip}>
+                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/mentorsupport"} >
+                                    <Eye className="feather-view" />
+                                  </Link>
+                                </OverlayTrigger>
                               </div>
                             </div>
                           </td>
@@ -822,7 +895,7 @@ const MentorDashboard = () => {
         </div>
       </div>
     </div>
-    {show &&  <VideoModal v={video} setShow={setShow} name={videoName} />}
+    {show &&  <VideoModal v={video} setShow={setShow}/>}
     </>
   );
 };

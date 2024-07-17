@@ -191,7 +191,7 @@ const MentorHeader = () => {
   }, []);
 
   return (
-    ((presurvey != "INCOMPLETED") ? (
+    
     <>
     
       <div className="header">
@@ -686,6 +686,8 @@ const MentorHeader = () => {
                     <h5>Teacher</h5>
                   </div>
                 </div>
+                {(presurvey != "INCOMPLETED") ? (
+                <>
                 <hr className="m-0" />
                 <Link
                   className="dropdown-item"
@@ -702,6 +704,8 @@ const MentorHeader = () => {
                 >
                   <FontAwesomeIcon icon={faKey} />Change Password 
                 </Link>
+                </>
+                ): null}
                 <hr className="m-0" />
                 <Link
                   className="dropdown-item logout pb-0"
@@ -732,16 +736,26 @@ const MentorHeader = () => {
             <i className="fa fa-ellipsis-v" />
           </Link>
           <div className="dropdown-menu dropdown-menu-right">
-            <Link
-              className="dropdown-item"
-              to={"/mentorprofile"}
-              // onClick={() => navigate("/mentorprofile")}
-            >
-              My Profile
-            </Link>
-            {/* <Link className="dropdown-item" to="generalsettings">
-              Settings
-            </Link> */}
+          {(presurvey != "INCOMPLETED") ? (
+            <>
+              <Link
+                className="dropdown-item"
+                to={"/mentorprofile"}
+                // onClick={() => navigate("/mentorprofile")}
+              >
+                My Profile
+              </Link>
+              {/* <Link
+                    className="dropdown-item"
+                    to={"/mentorchangepwd"}
+                  >
+                    <FontAwesomeIcon icon={faKey} />Change Password 
+                  </Link> */}
+              <Link className="dropdown-item" to={"/mentorchangepwd"}>
+                Change Password
+              </Link>
+            </>
+          ):null}
             <Link className="dropdown-item" to="signin" onClick={handleLogout1}>
               Logout
             </Link>
@@ -750,7 +764,7 @@ const MentorHeader = () => {
         {/* /Mobile Menu */}
       </div>
     </>
-    ): null)
+    
   );
 };
 

@@ -286,11 +286,17 @@ const PostSurvey = () => {
     <div className="page-wrapper">
       <div className="content">
       <div className="page-header">
+        <div className="add-item d-flex">
+          <div className="page-title">
+              <h4>Post Survey</h4>
+              <h6>We value your response the most.</h6>
+          </div>
+        </div>
+       </div>
         <Container className="presuervey mb-50 mt-5 ">
           <Col>
             <Row className=" justify-content-center">
               <div className="aside  p-4 bg-white">
-                <h4>Post Survey</h4>
                 <CardBody>
                   {
                     // teamsCount !== 0 &&
@@ -765,7 +771,6 @@ const PostSurvey = () => {
             </Row>
           </Col>
         </Container>
-      </div>
       </div>
     </div>
   );
