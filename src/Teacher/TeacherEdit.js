@@ -98,6 +98,8 @@ const TeacherEditProfile = () => {
           if (response.status === 200) {
             openNotificationWithIcon("success", "Updated Successfully");
             currentUser.data[0].full_name = values.full_name;
+            currentUser.data[0].title = values.title;
+
             setCurrentUser(currentUser);
             setTimeout(() => {
               navigate("/mentorprofile");

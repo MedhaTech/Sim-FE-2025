@@ -84,7 +84,7 @@ const Register = () => {
   };
 
   const renderTooltip = (props) => (
-    <Tooltip id="pdf-tooltip" {...props} >
+    <Tooltip id="pdf-tooltip" {...props}>
       Watch Demo
     </Tooltip>
   );
@@ -209,7 +209,7 @@ const Register = () => {
       setDesign(false);
     }
   }, [dropdownbtn]);
-
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const formik = useFormik({
     initialValues: {
       full_name: "",
@@ -246,7 +246,12 @@ const Register = () => {
           <span style={{ color: "red" }}>Please Enter Mobile Number</span>
         )
         .trim()
-        .matches(/^\d+$/, "Mobile number is not valid (Enter only digits)")
+        .matches(
+          /^\d+$/,
+          <span style={{ color: "red" }}>
+            Mobile number is not valid (Enter only digits)
+          </span>
+        )
         .max(
           10,
           <span style={{ color: "red" }}>
@@ -260,6 +265,14 @@ const Register = () => {
       email: Yup.string()
         .email(
           <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
+        )
+        .required(
+          <span style={{ color: "red" }}>Please Enter Email Address</span>
+        )
+        .matches(
+          /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+          "Please enter a valid email address"
+          // <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
         )
         .max(255),
       whatapp_mobile: Yup.string()
@@ -531,13 +544,16 @@ const Register = () => {
                       School Teacher Registration{" "}
                       <OverlayTrigger placement="top" overlay={renderTooltip}>
                         <a
-                            href="https://www.youtube.com/watch?v=CiYa_iLdpXo"
-                            target="_blank"
-                            rel="noopener noreferrer"
+                          href="https://www.youtube.com/watch?v=CiYa_iLdpXo"
+                          target="_blank"
+                          rel="noopener noreferrer"
                         >
-                            <img src={play} className="icon" alt="play" 
-                                style={{verticalAlign:"middle" , width: "7%" }} 
-                            /> 
+                          <img
+                            src={play}
+                            className="icon"
+                            alt="play"
+                            style={{ verticalAlign: "middle", width: "7%" }}
+                          />
                         </a>
                       </OverlayTrigger>
                     </h3>
@@ -806,7 +822,10 @@ const Register = () => {
                                 value={formik.values.email}
                               />
                               {formik.touched.email && formik.errors.email ? (
-                                <small className="error-cls">
+                                <small
+                                  className="error-cls"
+                                  style={{ color: "red" }}
+                                >
                                   {formik.errors.email}
                                 </small>
                               ) : null}

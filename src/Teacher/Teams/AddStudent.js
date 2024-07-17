@@ -207,7 +207,7 @@ export const CreateTeamMember = () => {
                               <option value="Hearing Impaired">
                                 Hearing Impaired
                               </option>
-                              <option value="Autism/Cerebral Palsy/Other">
+                              <option value="Autism Cerebral Palsy Other">
                                 Autism/Cerebral Palsy/Other
                               </option>
                               <option value="Others">Others</option>
@@ -280,18 +280,19 @@ export const CreateTeamMember = () => {
                         </Row>
                       </div>
 
-                      <hr className="mt-4 mb-4"></hr>
+                      {/* <hr className="mt-2"></hr> */}
                       <Row>
                         <Col className="mt-2" xs={12} sm={6} md={6} xl={6}>
                           <button type="submit" className="btn btn-warning">
                             Submit
                           </button>
-                        </Col>
-                        <Col className="mt-2 d-flex justify-content-end">
+                          {/* </Col> */}
+                          {/* <Col className="mt-2 d-flex justify-content-end"> */}
                           <button
                             onClick={() => navigate("/mentorteams")}
                             type="button"
                             className="btn btn-secondary"
+                            style={{ margin: "2rem" }}
                           >
                             Discard
                           </button>
