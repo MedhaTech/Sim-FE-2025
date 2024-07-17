@@ -10,6 +10,10 @@ import "react-data-table-component-extensions/dist/index.css";
 import { getCurrentUser, openNotificationWithIcon } from "../../helpers/Utils";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUsers } from "@fortawesome/free-solid-svg-icons";
+// import { Button } from "../../.stories/Button";
+
 import {
   getAdminTeamMembersList,
   // studentResetPassword
@@ -18,6 +22,8 @@ import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import { connect, useDispatch, useSelector } from "react-redux";
 import "./tables.css";
+import Select from "../../RegPage/Select";
+import { Modal } from "react-bootstrap";
 import { PlusCircle } from "feather-icons-react/build/IconComponents";
 const Dashboard = (props) => {
   const teamsListData = useSelector((state) => state?.teams?.teamsMembersList);
@@ -26,17 +32,56 @@ const Dashboard = (props) => {
   const [teamsArray, setTeamsArray] = useState([]);
   const currentUser = getCurrentUser("current_user");
   const [teamsList, setTeamsList] = useState([]);
+  const [show, setShow] = useState(false);
+  const [teamlist, setteamlist] = useState([]);
   const [datafinal, setDataFinal] = useState([]);
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [stuList, setStuList] = useState("");
+  const [selectedstudent, setselectedstudent] = useState();
+  const [IdeaStatus, setIdeaStatus] = useState("No Idea");
+  const [teamchangeobj, setteamchangeObj] = useState({});
+  const [value, setvalue] = useState("");
 
   useEffect(() => {
     if (currentUser?.data[0]?.mentor_id) {
       teamListbymentorid(currentUser?.data[0]?.mentor_id);
     }
   }, [currentUser?.data[0]?.mentor_id]);
+  const ideaStatusfun = (id) => {
+    console.log(id, "id");
+    const ideaStatusparam = encryptGlobal(
+      JSON.stringify({
+        team_id: id,
+      })
+    );
+    var config = {
+      method: "get",
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/challenge_response/ideastatusbyteamId?Data=${ideaStatusparam}`,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          // console.log(response, "teamId");
+
+          setIdeaStatus(response.data.data[0].ideaStatus);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
   useEffect(() => {
     setDataFinal(teamsListData);
+    if (selectedTeam) {
+      // ideaStatusfun(selectedTeam);
+    }
   }, [selectedTeam]);
   const teamListbymentorid = (mentorid) => {
     const teamparam = encryptGlobal(
@@ -161,6 +206,7 @@ const Dashboard = (props) => {
                 </div>
               )}
             </div>,
+
             // <div
             //   key={params}
             //   onClick={() =>
@@ -299,6 +345,103 @@ const Dashboard = (props) => {
       },
     },
   };
+  const handleSwitchTeam = (item) => {
+    if (teamsListData.length > 2) {
+      teamListby();
+      setselectedstudent(item);
+    } else {
+      openNotificationWithIcon("error", "Opps! Something Wrong");
+    }
+  };
+  const teamListby = () => {
+    const teamListbymentorparam = encryptGlobal(
+      JSON.stringify({
+        mentor_id: currentUser?.data[0]?.mentor_id,
+      })
+    );
+
+    var config = {
+      method: "get",
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/teams/listwithideaStatus?Data=${teamListbymentorparam}`,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          const teamlistobj = {};
+          const listofteams = response.data.data
+            .map((item) => {
+              if (item.StudentCount < 3 && item.ideaStatus === null) {
+                teamlistobj[item.team_name] = item.team_id;
+                return item.team_name;
+              }
+            })
+            .filter(Boolean);
+          if (Object.keys(teamlistobj).length > 0) {
+            let index = listofteams.indexOf(selectedTeam.team_name);
+
+            if (index >= 0) {
+              listofteams.splice(index, 1);
+            }
+          }
+
+          setteamlist(listofteams);
+          setteamchangeObj(teamlistobj);
+          setShow(true);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  const handleChangeStudent = (name) => {
+    const body = {
+      team_id: teamchangeobj[name].toString(),
+      full_name: selectedstudent.full_name,
+    };
+    const stuparamId = encryptGlobal(
+      JSON.stringify(selectedstudent.student_id)
+    );
+    var config = {
+      method: "PUT",
+      url: process.env.REACT_APP_API_BASE_URL + "/students/" + stuparamId,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+      },
+      data: body,
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          console.log(response, "change");
+          setvalue("");
+          openNotificationWithIcon("success", "Successfully team changed");
+          // history.push({
+          //   pathname: "/teacher-dashboard",
+          // });
+        } else {
+          openNotificationWithIcon("error", "Opps! Something Wrong");
+        }
+      })
+
+      .catch(function (error) {
+        console.log(error);
+        if (error.message === "Request failed with status code 400") {
+          openNotificationWithIcon(
+            "error",
+            "Same Name student already existed in seleted team"
+          );
+        }
+      });
+    setShow(false);
+  };
   return (
     <div>
       <div className="page-wrapper">
@@ -372,6 +515,19 @@ const Dashboard = (props) => {
                                 />
                               </button>
                             )}
+                            {stuList > 2 && (
+                              // IdeaStatus === "No Idea" &&
+                              <button
+                                className="me-2 p-2 btn btn-secondary"
+                                onClick={() => handleSwitchTeam(student)}
+                              >
+                                <FontAwesomeIcon
+                                  icon={faUsers}
+                                  data-bs-toggle="tooltip"
+                                  title="fa fa-users"
+                                />
+                              </button>
+                            )}
                             {/* </div> */}
                           </td>
                           {/* <td>
@@ -397,6 +553,54 @@ const Dashboard = (props) => {
                       ))}
                     </tbody>
                   </table>
+                  {show && (
+                    <Modal
+                      show={show}
+                      onHide={() => setShow(false)}
+                      //{...props}
+                      size="lg"
+                      aria-labelledby="contained-modal-title-vcenter"
+                      centered
+                      className="assign-evaluator ChangePSWModal teacher-register-modal"
+                      backdrop="static"
+                      scrollable={true}
+                    >
+                      <Modal.Header closeButton onHide={() => setShow(false)}>
+                        <Modal.Title
+                          id="contained-modal-title-vcenter"
+                          className="w-100 d-block text-center"
+                        >
+                          Teams Change
+                        </Modal.Title>
+                      </Modal.Header>
+
+                      <Modal.Body>
+                        <div className="my-3 text-center w-50%">
+                          <h3 className="mb-sm-4 mb-3">
+                            Please select Team to switch student
+                          </h3>
+                          <Select
+                            list={teamlist}
+                            setValue={setvalue}
+                            placeHolder={"Please Select team"}
+                            value={value}
+                          />
+                        </div>
+
+                        <div className="text-center">
+                          <button
+                            label={"Submit"}
+                            // btnClass={!value ? "default" : "primary"}
+                            className="btn btn-warning"
+                            onClick={() => handleChangeStudent(value)}
+                            disabled={!value}
+                          >
+                            Submit
+                          </button>
+                        </div>
+                      </Modal.Body>
+                    </Modal>
+                  )}
                 </div>
               </div>
             )}
