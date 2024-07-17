@@ -291,7 +291,6 @@ const CreateMultipleMembers = ({ id }) => {
         if (response.status === 201) {
           const newTeamId = response.data.data[0].profile.team_id;
           setTeamId(response.data.data[0].profile.team_id);
-          console.log(teamId, "id");
           openNotificationWithIcon("success", "Team Created Successfully");
           const updatedStudentData = studentData.map((student) => ({
             ...student,

@@ -262,6 +262,8 @@ const Dashboard = (props) => {
         axios(config)
           .then(function (response) {
             if (response.status === 200) {
+              teamListbymentorid(currentUser?.data[0]?.mentor_id);
+              // dispatch(getAdminTeamMembersList(selectedTeam));
               openNotificationWithIcon("success", "Team Deleted Successfully");
 
               navigate("/teacher-dashboard");
@@ -302,11 +304,13 @@ const Dashboard = (props) => {
         axios(config)
           .then(function (response) {
             if (response.status === 200) {
+              teamListbymentorid(currentUser?.data[0]?.mentor_id);
+              dispatch(getAdminTeamMembersList(selectedTeam));
               openNotificationWithIcon(
                 "success",
                 "Student Deleted Successfully"
               );
-              navigate("/teacher-dashboard");
+              // navigate("/teacher-dashboard");
             } else {
               openNotificationWithIcon("error", "Opps! Something Wrong");
             }
@@ -422,6 +426,8 @@ const Dashboard = (props) => {
         if (response.status === 200) {
           console.log(response, "change");
           setvalue("");
+          teamListbymentorid(currentUser?.data[0]?.mentor_id);
+          dispatch(getAdminTeamMembersList(selectedTeam));
           openNotificationWithIcon("success", "Successfully team changed");
           // history.push({
           //   pathname: "/teacher-dashboard",
@@ -452,6 +458,54 @@ const Dashboard = (props) => {
               Add Team & Students
             </Link>
           </div>
+          {show && (
+            <Modal
+              show={show}
+              // onHide={() => setShow(false)}
+              //{...props}
+              // size="sm"
+              aria-labelledby="contained-modal-title-vcenter"
+              centered
+              className="assign-evaluator ChangePSWModal teacher-register-modal"
+              backdrop="static"
+              // scrollable={true}
+            >
+              <Modal.Header closeButton onHide={() => setShow(false)}>
+                <Modal.Title
+                  id="contained-modal-title-vcenter"
+                  className="w-100 d-block text-center"
+                >
+                  Teams Change
+                </Modal.Title>
+              </Modal.Header>
+
+              <Modal.Body>
+                <div className="my-3 text-center ">
+                  <h3 className="mb-sm-4 mb-3">
+                    Please select Team to switch student
+                  </h3>
+                  <Select
+                    list={teamlist}
+                    setValue={setvalue}
+                    placeHolder={"Please Select team"}
+                    value={value}
+                  />
+                </div>
+
+                <div className="text-center">
+                  <button
+                    label={"Submit"}
+                    // btnClass={!value ? "default" : "primary"}
+                    className="btn btn-warning"
+                    onClick={() => handleChangeStudent(value)}
+                    disabled={!value}
+                  >
+                    Submit
+                  </button>
+                </div>
+              </Modal.Body>
+            </Modal>
+          )}
           <Row>
             {/* <div className="card-container mt-5"> */}
             {/* <div className="card"> */}
@@ -553,12 +607,12 @@ const Dashboard = (props) => {
                       ))}
                     </tbody>
                   </table>
-                  {show && (
+                  {/* {show && (
                     <Modal
                       show={show}
                       onHide={() => setShow(false)}
                       //{...props}
-                      size="lg"
+                      size="sm"
                       aria-labelledby="contained-modal-title-vcenter"
                       centered
                       className="assign-evaluator ChangePSWModal teacher-register-modal"
@@ -600,7 +654,7 @@ const Dashboard = (props) => {
                         </div>
                       </Modal.Body>
                     </Modal>
-                  )}
+                  )} */}
                 </div>
               </div>
             )}
