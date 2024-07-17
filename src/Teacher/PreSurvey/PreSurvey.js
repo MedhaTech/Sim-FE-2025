@@ -16,6 +16,8 @@ import {
 // import { Button } from "../../stories/Button";
 import { useFormik } from "formik";
 import { URL, KEY } from "../../constants/defaultValues";
+import { logout } from "../../helpers/Utils";
+import logoutIcon from "../../assets/img/icons/log-out.svg";
 import {
   getCurrentUser,
   getNormalHeaders,
@@ -66,6 +68,10 @@ const PreSurvey = () => {
     scroll();
   };
 
+  const handleLogout = (e) => {
+    logout(navigate, t, "MENTOR");
+    e.preventDefault();
+  };
   //   useEffect(() => {
   //     if (currentUser?.data[0]?.user_id) {
   //       mentorTeamsCount();
@@ -277,7 +283,14 @@ const PreSurvey = () => {
                             className="btn btn-primary m-3"
                             onClick={handleStart}
                           >
-                            START
+                            Start Now
+                          </button>
+                          <button
+                              className="btn btn-secondary"
+                              onClick={handleLogout}
+                            >
+                              <img src={logoutIcon} alt="LogoutIcon" />{" "}
+                              Do Later
                           </button>
                         </Col>
                       </Row>
@@ -699,7 +712,7 @@ const PreSurvey = () => {
                               </Row>
                             );
                           })}
-                          <div className="text-right">
+                          <div >
                             <button
                               type="submit"
                               // btnClass={
