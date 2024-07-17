@@ -77,9 +77,7 @@ const NonAtlPage = () => {
   useEffect(() => {
     handleRegister();
   }, []);
-  
 
-  
   // const fullStatesNames = useSelector(
   //   (state) => state?.studentRegistration?.regstate
   // );
@@ -338,6 +336,8 @@ const NonAtlPage = () => {
       setShowButton(false);
     }
   }, [stateData, selectedDistrict, pinCode, schoolname, textData]);
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
   const formik = useFormik({
     initialValues: {
       full_name: "",
@@ -370,7 +370,13 @@ const NonAtlPage = () => {
           <span style={{ color: "red" }}>Please Enter Mobile Number</span>
         )
         .trim()
-        .matches(/^\d+$/, "Mobile number is not valid (Enter only digits)")
+        .matches(
+          /^\d+$/,
+          "Please enter a valid email address"
+          // <span style={{ color: "red" }}>
+          //   Mobile number is not valid (Enter only digits)
+          // </span>
+        )
         .max(
           10,
           <span style={{ color: "red" }}>
@@ -385,13 +391,25 @@ const NonAtlPage = () => {
         .email(
           <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
         )
+        .required(
+          <span style={{ color: "red" }}>Please Enter Email Address</span>
+        )
+        .matches(
+          emailPattern,
+          <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
+        )
         .max(255),
       whatapp_mobile: Yup.string()
         .required(
           <span style={{ color: "red" }}>Please Enter WhatsApp Number</span>
         )
         .trim()
-        .matches(/^\d+$/, "Mobile number is not valid (Enter only digit)")
+        .matches(
+          /^\d+$/,
+          <span style={{ color: "red" }}>
+            Mobile number is not valid (Enter only digit)
+          </span>
+        )
         .max(
           10,
           <span style={{ color: "red" }}>
@@ -540,27 +558,27 @@ const NonAtlPage = () => {
     });
 
     if (condition) {
-    var config = {
-      method: "post",
-      url: process.env.REACT_APP_API_BASE_URL + `/organizations/createOrg`,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
-      },
-      data: body,
-    };
-    axios(config)
-      .then(function (response) {
-        if (response?.status == 201) {
-          mentorregdata["organization_code"] =
-            response.data.data[0].organization_code;
-          handelMentorReg(mentorregdata);
-        }
-      })
+      var config = {
+        method: "post",
+        url: process.env.REACT_APP_API_BASE_URL + `/organizations/createOrg`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+        },
+        data: body,
+      };
+      axios(config)
+        .then(function (response) {
+          if (response?.status == 201) {
+            mentorregdata["organization_code"] =
+              response.data.data[0].organization_code;
+            handelMentorReg(mentorregdata);
+          }
+        })
 
-      .catch(function (error) {
-        console.log(error);
-      });
+        .catch(function (error) {
+          console.log(error);
+        });
     } else {
       mentorregdata["organization_code"] = diesCodes;
       handelMentorReg(mentorregdata);
@@ -1054,7 +1072,9 @@ const NonAtlPage = () => {
                                 <option value="">Gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
-                                <option value="Prefer Not to Mention">Prefer Not to Mention </option>
+                                <option value="Prefer Not to Mention">
+                                  Prefer Not to Mention{" "}
+                                </option>
                               </select>
                               {formik.touched.gender && formik.errors.gender ? (
                                 <small className="error-cls">
@@ -1080,7 +1100,10 @@ const NonAtlPage = () => {
                                 value={formik.values.email}
                               />
                               {formik.touched.email && formik.errors.email ? (
-                                <small className="error-cls">
+                                <small
+                                  className="error-cls"
+                                  style={{ color: "red" }}
+                                >
                                   {formik.errors.email}
                                 </small>
                               ) : null}
