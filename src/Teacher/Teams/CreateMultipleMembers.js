@@ -71,9 +71,9 @@ const CreateMultipleMembers = ({ id }) => {
 
     if (inputValue.trim().length < 1) {
       setTeamNameError("Please Enter Team Name");
-    }else if(!patternOnlyalfa.test(inputValue)){
+    } else if (!patternOnlyalfa.test(inputValue)) {
       setTeamNameError("Only alpha characters are allowed");
-    }else{
+    } else {
       setTeamNameError("");
     }
   };
@@ -181,18 +181,29 @@ const CreateMultipleMembers = ({ id }) => {
   const validateItemData = () => {
     const errors = studentData.map((item, i) => {
       let err = {};
-      if (!item.full_name.trim())
+      if (!item.full_name.trim()) {
         err["full_name"] = (
           <span style={{ color: "red" }}>Please Enter Full Name</span>
         );
-      if (item.full_name && item.full_name.match(pattern)) {
-        const { index } = item.full_name.match(pattern);
-        if (index) {
-          err["full_name"] = (
-            <span style={{ color: "red" }}>Only alphanumeric are allowed</span>
-          );
-        }
+      } else if (!/^[A-Za-z\s]+$/i.test(item.full_name)) {
+        err["full_name"] = (
+          <span style={{ color: "red" }}>
+            Only alphabetic characters and spaces are allowed
+          </span>
+        );
       }
+      // if (!item.full_name.trim())
+      //   err["full_name"] = (
+      //     <span style={{ color: "red" }}>Please Enter Full Name</span>
+      //   );
+      // if (item.full_name && item.full_name.match(pattern)) {
+      //   const { index } = item.full_name.match(pattern);
+      //   if (index) {
+      //     err["full_name"] = (
+      //       <span style={{ color: "red" }}>Only alphanumeric are allowed</span>
+      //     );
+      //   }
+      // }
 
       // if (!item.username.trim()) err["username"] = "Email is Required";
       // if (item.username) {
