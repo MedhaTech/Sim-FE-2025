@@ -91,6 +91,7 @@ const MentorDashboard = () => {
         mentorcoursepercentage();
         mentorpostsurvey();
         fetchwhatsapplink();
+        scroll();
     }
   }, [currentUser?.data[0]?.user_id]);
   const [teamsCount, setTeamsCount] = useState();
@@ -306,6 +307,10 @@ const MentorDashboard = () => {
     handlePrintCertificate();
   };
 
+  const scroll = () => {
+        const section = document.querySelector('#start');
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
   
 
     
@@ -325,7 +330,7 @@ const MentorDashboard = () => {
                 />
     </div>
     <div>
-      <div className="page-wrapper">
+      <div className="page-wrapper" id="start">
         <div className="content">
           {/* Welcome user */}
           <div className="welcome d-lg-flex align-items-center justify-content-between">
