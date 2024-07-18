@@ -27,12 +27,6 @@ import { FaRegClock } from 'react-icons/fa';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 
-
-
-
-
-
-
 const TeacherSupport = () => {
     const { supportTickets } = useSelector((state) => state.mentors);
     const { supportTicket } = useSelector((state) => state.mentors);
@@ -50,6 +44,9 @@ const TeacherSupport = () => {
         { value: "Suggestion", label: "Suggestion" },
     ];
 
+    useEffect(() => {
+        formik.setFieldValue('selectStatusTicket', supportTicket.status);
+    }, [supportTicket]);
 
     const SchoolsData = {
         data: supportTickets,
@@ -775,85 +772,69 @@ const TeacherSupport = () => {
                                                             </small>
                                                         )}
                                                 </div>
-                                            </Col>
-
-                                            <Col
-                                                className="form-group my-5  mb-md-0"
-                                                md={12}
-                                            >
-                                                <Label className="mb-2">
-                                                    Select Status
-                                                    {/* <span
-                                          required
-                                          className="p-1"
-                                      >
-                                          *
-                                      </span> */}
-                                                </Label>
-
-                                                <Col
-                                                    className="form-group"
-                                                    md={12}
-                                                >
-                                                    <select
-                                                        name=" selectStatusTicket"
-                                                        id=" selectStatusTicket"
-                                                        className="form-control custom-dropdown"
-                                                        onChange={(e) => {
-                                                            formik.setFieldValue(
-                                                                'selectStatusTicket',
-                                                                e.target.value
-                                                            );
-                                                        }}
-
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        value={
-                                                            formik.values
-                                                                .selectStatusTicket
-                                                        }
+                                                <div className="mb-3">
+                                                    <Label className="mb-2">
+                                                        Select Status
+                                                    </Label>
+                                                    <Col
+                                                        className="form-group"
+                                                        md={12}
                                                     >
-                                                        <option
-                                                            value=""
-                                                            disabled={true}
-                                                        >
-                                                            {supportTicket &&
-                                                                supportTicket.status
-                                                                ? supportTicket.status
-                                                                : 'Select Status'}
-                                                        </option>
-                                                        <option value="OPEN">
-                                                            OPEN
-                                                        </option>
-                                                        <option value="INPROGRESS">
-                                                            INPROGRESS
-                                                        </option>
-                                                        <option value="RESOLVED">
-                                                            RESOLVED
-                                                        </option>
-                                                        <option value="INVALID">
-                                                            INVALID
-                                                        </option>
-                                                    </select>
-                                                    {formik.touched
-                                                        .selectStatusTicket &&
-                                                        formik.errors
-                                                            .selectStatusTicket && (
-                                                            <small className="error-cls">
-                                                                {
-                                                                    formik
-                                                                        .errors
-                                                                        .selectStatusTicket
-                                                                }
-                                                            </small>
-                                                        )}
-                                                </Col>
+                                                        <select
+                                                            name=" selectStatusTicket"
+                                                            id=" selectStatusTicket"
+                                                            className="form-control custom-dropdown"
+                                                            onChange={(e) => {
+                                                                formik.setFieldValue(
+                                                                    'selectStatusTicket',
+                                                                    e.target.value
+                                                                );
+                                                            }}
 
-                                                <Col
-                                                    className="form-group mt-5  mb-md-0"
-                                                    md={12}
-                                                ></Col>
+                                                            onBlur={
+                                                                formik.handleBlur
+                                                            }
+                                                            value={
+                                                                formik.values
+                                                                    .selectStatusTicket
+                                                            }
+                                                        >
+                                                            <option
+                                                                value=""
+                                                                disabled={true}
+                                                            >
+                                                                {supportTicket &&
+                                                                    supportTicket.status
+                                                                    ? supportTicket.status
+                                                                    : 'Select Status'}
+                                                            </option>
+                                                            <option value="OPEN">
+                                                                OPEN
+                                                            </option>
+                                                            <option value="INPROGRESS">
+                                                                INPROGRESS
+                                                            </option>
+                                                            <option value="RESOLVED">
+                                                                RESOLVED
+                                                            </option>
+                                                            <option value="INVALID">
+                                                                INVALID
+                                                            </option>
+                                                        </select>
+                                                        {formik.touched
+                                                            .selectStatusTicket &&
+                                                            formik.errors
+                                                                .selectStatusTicket && (
+                                                                <small className="error-cls">
+                                                                    {
+                                                                        formik
+                                                                            .errors
+                                                                            .selectStatusTicket
+                                                                    }
+                                                                </small>
+                                                            )}
+                                                    </Col>
+                                                </div>
                                             </Col>
                                         </Row>
                                     ) : null}
@@ -877,7 +858,6 @@ const TeacherSupport = () => {
                                     </Row>
                                 </div>
                             </form>
-
                             {/* /add */}
                         </div>
                     </div>
