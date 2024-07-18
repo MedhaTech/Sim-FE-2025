@@ -218,6 +218,21 @@ const PreSurvey = () => {
   // });
 
   useEffect(() => {
+    const handlePopState = (event) => {
+      window.history.pushState(null, document.title, window.location.href);
+    };
+
+    // Add an entry to the browser history
+    window.history.pushState(null, document.title, window.location.href);
+    window.addEventListener('popstate', handlePopState);
+
+    // Cleanup function to remove the event listener
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, []);
+
+  useEffect(() => {
     let enDataone = encryptGlobal("1");
     let axiosConfig = getNormalHeaders(KEY.User_API_Key);
     const lang = "locale=en";

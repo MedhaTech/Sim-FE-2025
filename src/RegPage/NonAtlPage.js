@@ -395,8 +395,9 @@ const NonAtlPage = () => {
           <span style={{ color: "red" }}>Please Enter Email Address</span>
         )
         .matches(
-          emailPattern,
-          <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
+          /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+          "Email Must be VALID"
+          //<span style={{ color: "red" }}>Please Enter Valid Email Address</span>
         )
         .max(255),
       whatapp_mobile: Yup.string()
@@ -513,7 +514,7 @@ const NonAtlPage = () => {
           const UNhashedPassword = decryptGlobal(response?.data?.data);
           console.log(UNhashedPassword, "111111111111111111111111111");
           setOtpRes(JSON.parse(UNhashedPassword));
-          openNotificationWithIcon("success", "Otp send to Email Id");
+          openNotificationWithIcon("success", "OTP sent to Email Id");
           setBtnOtp(true);
           // setPerson(false);
           setTimeout(() => {

@@ -271,7 +271,7 @@ const Register = () => {
         )
         .matches(
           /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-          "Please enter a valid email address"
+          "Email Must be VALID"
           // <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
         )
         .max(255),
@@ -620,7 +620,7 @@ const Register = () => {
                       <div className="form-login">
                         <button
                           type="button"
-                          className="btn btn-warning mb-3"
+                          className="btn btn-login mb-3"
                           onClick={(e) => handleRegister(e)}
                           disabled={!isButtonEnabled}
                         >
