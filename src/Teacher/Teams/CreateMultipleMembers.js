@@ -338,7 +338,10 @@ const CreateMultipleMembers = ({ id }) => {
       .catch(function (error) {
         if (error.response.data.status === 400) {
           // console.log(error, "eee");
-          openNotificationWithIcon("error", "This Team Email Id Already Used");
+          openNotificationWithIcon(
+            "error",
+            "Duplicate team names are not allowed"
+          );
         }
       });
     // dispatch(teacherCreateMultipleStudent(studentData, navigate, setIsClicked));
