@@ -108,7 +108,7 @@ const ThemeSettings = () => {
     document.documentElement.setAttribute("data-layout-style", layoutView);
     document.documentElement.setAttribute("data-nav-color", layoutTheme);
   }, [layoutColor, layoutTheme, layoutView]);
-  console.log(layoutView, "layoutView");
+  // console.log(layoutView, "layoutView");
   return (
     <>
       {/* <div className="customizer-links" id="setdata"> */}

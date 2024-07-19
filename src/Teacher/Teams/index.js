@@ -424,14 +424,13 @@ const Dashboard = (props) => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          console.log(response, "change");
           setvalue("");
           teamListbymentorid(currentUser?.data[0]?.mentor_id);
           dispatch(getAdminTeamMembersList(selectedTeam));
           openNotificationWithIcon("success", "Successfully team changed");
-          // history.push({
-          //   pathname: "/teacher-dashboard",
-          // });
+          navigate({
+            pathname: "/teacher-dashboard",
+          });
         } else {
           openNotificationWithIcon("error", "Opps! Something Wrong");
         }

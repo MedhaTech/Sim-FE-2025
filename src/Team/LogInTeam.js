@@ -9,7 +9,7 @@ import * as Yup from "yup";
 import CryptoJS from "crypto-js";
 import logo from "../assets/img/sim_logo.png";
 import user from "../assets/img/icons/user-icon.svg";
-import { teacherLoginUser } from "../redux/actions";
+import { teamloginUser } from "../redux/actions";
 import { connect } from "react-redux";
 import { openNotificationWithIcon } from "../helpers/Utils";
 import { useNavigate } from "react-router-dom";
@@ -33,8 +33,8 @@ const LogInTeam = (props) => {
 
     validationSchema: Yup.object({
       email: Yup.string()
-        .email("Must be a valid email")
-        .required("required")
+        // .email("Must be a valid email")
+        .required("Please Enter Team Username")
         .max(255)
         .trim(),
       password: Yup.string().required("Required password").trim(),
@@ -62,9 +62,9 @@ const LogInTeam = (props) => {
       const body = {
         username: values.email.trim(),
         password: encrypted,
-        role: "MENTOR",
+        // role: "TEAM",
       };
-      props.teacherLoginUserAction(body, navigate, "MENTOR");
+      props.teamLoginUserAction(body, navigate, "TEAM");
     },
   });
 
@@ -89,8 +89,7 @@ const LogInTeam = (props) => {
                 <div className="login-userheading">
                   <h3> Team Login</h3>
                   <h4>
-                    Access the teacher panel using your Team ID and
-                    password.
+                    Access the teacher panel using your Team ID and password.
                   </h4>
                 </div>
                 <div className="form-login mb-3">
@@ -98,7 +97,8 @@ const LogInTeam = (props) => {
                   <div className="form-addons">
                     <input
                       {...inputUserId}
-                      id="email"
+                      // id="email"
+                      name="email"
                       className="form- control"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
@@ -216,11 +216,11 @@ const LogInTeam = (props) => {
     </div>
   );
 };
-const mapStateToProps = ({ teacher }) => {
-  const { loading, error, currentUser } = teacher;
+const mapStateToProps = ({ teamUser }) => {
+  const { loading, error, currentUser } = teamUser;
   return { loading, error, currentUser };
 };
 
 export default connect(mapStateToProps, {
-  teacherLoginUserAction: teacherLoginUser,
+  teamLoginUserAction: teamloginUser,
 })(LogInTeam);

@@ -9,6 +9,9 @@ export const URL = {
   getFetchDistsOnly:
     process.env.REACT_APP_API_BASE_URL + "/organizations/districts?",
   adminLogin: process.env.REACT_APP_API_BASE_URL + "/admins/login",
+  teamlogin: process.env.REACT_APP_API_BASE_URL + "/teams/login",
+  login: process.env.REACT_APP_API_BASE_URL + "/students/login",
+
   coordinatorLogin:
     process.env.REACT_APP_API_BASE_URL + "/state_coordinators/login",
   eadminLogin: process.env.REACT_APP_API_BASE_URL + "/admins/login?",
@@ -34,9 +37,9 @@ export const URL = {
   createMentorSupportTickets:
     process.env.REACT_APP_API_BASE_URL + "/supportTickets",
   updateSupportTicketResponse:
-    process.env.REACT_APP_API_BASE_URL + '/supportTickets',
+    process.env.REACT_APP_API_BASE_URL + "/supportTickets",
   createMentorSupportTicketResponse:
-    process.env.REACT_APP_API_BASE_URL + '/supportTicketsReply',
+    process.env.REACT_APP_API_BASE_URL + "/supportTicketsReply",
   getMentorSupportTicketsById:
     process.env.REACT_APP_API_BASE_URL + "/supportTickets/",
   getMentorSupportTicketResponsesById:
@@ -45,6 +48,9 @@ export const URL = {
   createMultiStudent:
     process.env.REACT_APP_API_BASE_URL + "/students/bulkCreateStudent",
   adminLogOut: process.env.REACT_APP_API_BASE_URL + "/auth/logout",
+  logOut: process.env.REACT_APP_API_BASE_URL + "/auth/logout",
+  teamlogOut: process.env.REACT_APP_API_BASE_URL + "/auth/logout",
+
   teacherLogin: process.env.REACT_APP_API_BASE_URL + "/mentors/login",
   teacherLogOut: process.env.REACT_APP_API_BASE_URL + "/auth/logout",
   coordinatorLogOut:
