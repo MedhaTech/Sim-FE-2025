@@ -214,6 +214,9 @@ import TeacherCourse from "../Teacher/Courses/TeacherPlayVideo";
 import TeacherSupport from "../Teacher/Support/TeacherSupport";
 import TCertificate from "../Teacher/Certificate/TCertificate";
 import ChangePwd from "../Teacher/ChangePwd";
+import TeamDashboard from "../Team/TeamDashboard/DboardTeam";
+
+import StudentDashboard from "../Team/StudentDashboard/DBStu";
 
 export const publicRoutes = [
   {
@@ -1430,6 +1433,34 @@ export const publicRoutes = [
     path: routes.payrollList,
     name: "payroll-list",
     element: <PayrollList />,
+    route: Route,
+  },
+];
+// export const studentRoutes = [
+//   {
+//     id: 1,
+//     path: routes.studentdashboard,
+//     name: "studenthome",
+//     element: <StudentDashboard />,
+//     protected: true,
+//     route: Route,
+//   },
+// ];
+export const teamRoutes = [
+  {
+    id: 1,
+    path: routes.teamdashboard,
+    name: "teamhome",
+    element: <TeamDashboard />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 2,
+    path: routes.studentdashboard,
+    name: "studenthome",
+    element: <StudentDashboard />,
+    // protected: true,
     route: Route,
   },
 ];

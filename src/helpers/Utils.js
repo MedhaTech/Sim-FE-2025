@@ -100,6 +100,9 @@ export const logout = (navigate, t, module, dispatch) => {
           case "REPORT":
             navigate("/report");
             break;
+          case "TEAM":
+            navigate("/team");
+            break;
           case "STATE":
             navigate("/state");
             break;

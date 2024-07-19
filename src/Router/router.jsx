@@ -6,13 +6,17 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import Header from "../InitialPage/Sidebar/Header";
 import MentorHeader from "../InitialPage/Sidebar/TeacherHeader";
 import StateHeader from "../InitialPage/Sidebar/stateHeader";
-
+import TeamHeader from "../InitialPage/Sidebar/TeamHeader";
+import TeamSidebar from "../InitialPage/Sidebar/teamSidebar";
 import Sidebar from "../InitialPage/Sidebar/Sidebar";
+import OneSidebar from "../InitialPage/Sidebar/OneSidebar";
+
 import HorizontalSidebar from "../InitialPage/Sidebar/horizontalSidebar";
 
 import {
   pagesRoute,
   posRoutes,
+  teamRoutes,
   publicRoutes,
   mentorRoutes,
   stateRoutes,
@@ -39,7 +43,7 @@ import EadminHeader from "../InitialPage/Sidebar/eadminHeader";
 import EadminSidebar from "../InitialPage/Sidebar/eadminSidebar";
 import LogInTeam from "../Team/LogInTeam";
 import TeacherPSW from "../Teacher/forgotPass";
-
+import CollapsedSidebar from "../InitialPage/Sidebar/collapsedSidebar";
 const AllRoutes = () => {
   const data = useSelector((state) => state?.admin?.toggle_header);
   const HeaderLayout = () => (
@@ -54,6 +58,16 @@ const AllRoutes = () => {
     <div className={`main-wrapper ${data ? "header-collapse" : ""}`}>
       <MentorHeader />
       <HorizontalSidebar />
+
+      <Outlet />
+      <ThemeSettings />
+    </div>
+  );
+  const TeamHeaderLayout = () => (
+    <div className={`main-wrapper ${data ? "header-collapse" : ""}`}>
+      <TeamHeader />
+      {/* <TeamSidebar /> */}
+      <OneSidebar />
 
       <Outlet />
       <ThemeSettings />
@@ -141,6 +155,21 @@ const AllRoutes = () => {
               element={
                 route.protected ? (
                   <ProtectedRoute user="MENTOR">{route.element}</ProtectedRoute>
+                ) : (
+                  route.element
+                )
+              }
+            />
+          ))}
+        </Route>
+        <Route path="/" element={<TeamHeaderLayout />}>
+          {teamRoutes.map((route, id) => (
+            <Route
+              key={id}
+              path={route.path}
+              element={
+                route.protected ? (
+                  <ProtectedRoute user="TEAM">{route.element}</ProtectedRoute>
                 ) : (
                   route.element
                 )

@@ -2,6 +2,8 @@
 export const all_routes = {
   dashboard: "/admin-dashboard",
   mentordashboard: "/teacher-dashboard",
+  teamdashboard: "/team-dashboard",
+  studentdashboard: "/student-dashboard",
   createteam: "/createteam",
   addstudent: "/addstudent",
   studentedit: "/studentedit",
@@ -11,7 +13,7 @@ export const all_routes = {
   mentorcourse: "/mentorcourse/:id",
   mentorsupport: "/mentorsupport",
   mentorcertificate: "/mentorcertificate",
-  mentorchangepwd : "/mentorchangepwd",
+  mentorchangepwd: "/mentorchangepwd",
   mentorteams: "/mentorteams",
   statedashboard: "/state-dashboard",
   eadmindashboard: "/eadmin-dashboard",

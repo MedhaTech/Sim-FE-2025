@@ -491,10 +491,28 @@ const Register = () => {
     setErrorMsg(false);
   };
 
+  // useEffect(() => {
+  //   if (timer > 0) {
+  //     const intervalId = setInterval(() => {
+  //       setTimer((prevTimer) => prevTimer - 1);
+  //     }, 1000);
+  //     return () => clearInterval(intervalId);
+  //   } else if (timer === 0 && otpSent) {
+  //     setAreInputsDisabled(false);
+  //     setOtpSent(false);
+  //   }
+  // }, [timer, otpSent]);
   useEffect(() => {
     if (timer > 0) {
       const intervalId = setInterval(() => {
-        setTimer((prevTimer) => prevTimer - 1);
+        setTimer((prevTimer) => {
+          if (prevTimer > 0) {
+            return prevTimer - 1;
+          } else {
+            clearInterval(intervalId);
+            return 0;
+          }
+        });
       }, 1000);
       return () => clearInterval(intervalId);
     } else if (timer === 0 && otpSent) {
