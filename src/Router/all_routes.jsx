@@ -15,6 +15,7 @@ export const all_routes = {
   mentorcertificate: "/mentorcertificate",
   mentorchangepwd: "/mentorchangepwd",
   mentorteams: "/mentorteams",
+  idea : "/idea",
   statedashboard: "/state-dashboard",
   eadmindashboard: "/eadmin-dashboard",
   adminpassword: "/admin-password",

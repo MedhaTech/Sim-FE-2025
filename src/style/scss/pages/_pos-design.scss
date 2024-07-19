@@ -307,7 +307,6 @@
     }
 }
 .product-wrap{ 
-    height: 34vh;
     overflow: auto;
 
     .product-list {
@@ -425,7 +424,7 @@ aside {
             color: $title-color;
         }
         .block-section {
-            @include margin-padding(20px 0 20px 0, 0 0 20px 0);
+            @include margin-padding(20px 0 20px 0, 0 0 0 0);
             border-bottom: 1px solid $gray-100;
         }
         .head {

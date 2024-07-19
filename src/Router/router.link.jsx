@@ -214,9 +214,13 @@ import TeacherCourse from "../Teacher/Courses/TeacherPlayVideo";
 import TeacherSupport from "../Teacher/Support/TeacherSupport";
 import TCertificate from "../Teacher/Certificate/TCertificate";
 import ChangePwd from "../Teacher/ChangePwd";
+
+import Idea from "../Teacher/IdeaSubmission/Idea";
+
 import TeamDashboard from "../Team/TeamDashboard/DboardTeam";
 
 import StudentDashboard from "../Team/StudentDashboard/DBStu";
+
 
 export const publicRoutes = [
   {
@@ -1578,6 +1582,15 @@ export const mentorRoutes = [
     protected: true,
     route: Route,
   },
+  {
+    id: 14,
+    path: routes.idea,
+    name: "idea",
+    element: <Idea />,
+    protected: true,
+    route: Route,
+  },
+  
 ];
 export const stateRoutes = [
   {
