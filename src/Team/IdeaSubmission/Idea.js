@@ -2,8 +2,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from 'react';
 import IdeaForm from './IdeaForm';
-import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
+import ImageWithBasePath from '../../core/img/imagewithbasebath';
+import { Check } from 'react-feather';
 import i1 from "../../assets/img/Themes/1.png";
 import i2 from "../../assets/img/Themes/2.png";
 import i3 from "../../assets/img/Themes/3.png";
@@ -11,16 +12,17 @@ import i4 from "../../assets/img/Themes/4.png";
 import i5 from "../../assets/img/Themes/5.png";
 import i6 from "../../assets/img/Themes/6.png";
 import i7 from "../../assets/img/Themes/7.png";
+import i8 from "../../assets/img/Themes/8.png";
 
 const themes = [
   { id: 1, image: i1, title: 'Sustainable Development', focusareas: ["Environmental Conservation", "Renewable energy", "Sustainable Agriculture", "Water Management"], desc: "This theme emphasizes the importance of balancing economic growth with environmental protection to ensure a sustainable future for coming generations." },
   { id: 2, image: i2, title: 'Digital Transformation', focusareas: ["Digital literacy", "Access to technology", "Cybersecurity", "AI technology based"], desc: "Highlights the critical role of digital technologies in bridging the digital divide and fostering innovation, making India a leader in the digital economy." },
   { id: 3, image: i3, title: 'Health and Well-being', focusareas: ["Physical health", "mental health", "healthcare innovations", "community well-being"], desc: "Focuses on enhancing the overall health and wellness of communities, ensuring that physical and mental health are prioritized in development plans." },
-  { id: 4, image: i4, title: 'Quality Education', focusareas: ["Inclusive education", "remote learning", "lifelong learning", "teacher training"], desc: "Stresses the necessity of providing equitable, high-quality education for all, fostering lifelong learning and preparing a skilled workforce for the future." },
+  { id: 4, image: i4, title: 'Assuring Quality Education', focusareas: ["Inclusive education", "remote learning", "lifelong learning", "teacher training"], desc: "Stresses the necessity of providing equitable, high-quality education for all, fostering lifelong learning and preparing a skilled workforce for the future." },
   { id: 5, image: i5, title: 'Economic Empowerment', focusareas: ["Financial literacy", "entrepreneurship", "vocational training", "economic development"], desc: " Aims to uplift communities by promoting financial literacy, entrepreneurship, and vocational skills, driving inclusive economic growth." },
-  { id: 6, image: i6, title: 'Smart and Resilient Communities', focusareas: ["Smart cities", "disaster management", "infrastructure development", "social innovation"], desc: " Encourages the development of adaptive and innovative communities capable of withstanding and thriving amid future challenges and disasters." },
+  { id: 6, image: i6, title: 'Smart & Resilient Communities', focusareas: ["Smart cities", "disaster management", "infrastructure development", "social innovation"], desc: " Encourages the development of adaptive and innovative communities capable of withstanding and thriving amid future challenges and disasters." },
   { id: 7, image: i7, title: 'Cultural Heritage and Creativity', focusareas: ["Preserving cultural heritage", "promoting arts and crafts", "fostering creativity"], desc: "Recognizes the value of preserving cultural heritage while promoting creativity and the arts as essential components of a vibrant society." },
-  { id: 8, image: i2, title: 'Others', focusareas: ["Any other area that broadly qualifies for the vision of Viksit Bharat"], desc: "Encourages innovative solutions in any other area that aligns with the vision of Viksit Bharat 2047, fostering a culture of broad-based development and progress." }
+  { id: 8, image: i8, title: 'Others - Any Theme', focusareas: ["Any other area that broadly qualifies for the vision of Viksit Bharat"], desc: "Encourages innovative solutions in any other area that aligns with the vision of Viksit Bharat 2047, fostering a culture of broad-based development and progress." }
 ];
 
 const settings = {
@@ -91,17 +93,40 @@ const Idea = () => {
           <div className="row align-items-start pos-wrapper pos-design">
             <div className="col-md-12 col-lg-8">
               <div className="pos-categories tabs_wrapper">
-                <h5>Themes</h5>
-                <p>Select your Theme Card</p>
-                <Slider {...settings} className='tabs owl-carousel pos-category'>
-                  {themes.map((theme) => (
-                    <div id={theme.id} key={theme.id} className='pos-slick-item' onClick={() => setData(theme.id)}>
-                      <Link to="#">
-                        <img src={theme.image} alt={theme.title} style={{ maxWidth: "50%", maxHeight: "50%" }} />
-                      </Link>
+                <div className="pos-products">
+                    <div className="tabs_container">
+                        <div className="tab_content active">
+                            <div className="row">
+                            {themes.map((theme) => (
+                                <div id={theme.id} key={theme.id} className="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2" onClick={() => setData(theme.id)}>
+                                    <div className="product-info default-cover card">
+                                        <Link to="#" className="img-bg">
+                                            <img
+                                            src={theme.image}
+                                            alt={theme.id}
+                                            />
+                                            <span>
+                                        
+                                            <Check className="feather-16"/>
+                                            </span>
+                                        </Link>
+                                        {/* <h6 className="cat-name">
+                                            <Link to="#">Mobiles</Link>
+                                        </h6> */}
+                                        <h6 className="product-name">
+                                            <Link to="#">{theme.title}</Link>
+                                        </h6>
+                                        <div className="d-flex align-items-center justify-content-between price">
+                                            <span>Focus Areas</span>
+                                            <p>{theme.focusareas.length}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
-                  ))}
-                </Slider>
+                </div>
               </div>
             </div>
             {!data ? (

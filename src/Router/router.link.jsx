@@ -215,11 +215,13 @@ import TeacherSupport from "../Teacher/Support/TeacherSupport";
 import TCertificate from "../Teacher/Certificate/TCertificate";
 import ChangePwd from "../Teacher/ChangePwd";
 
-import Idea from "../Teacher/IdeaSubmission/Idea";
+import Idea from "../Team/IdeaSubmission/Idea";
 
 import TeamDashboard from "../Team/TeamDashboard/DboardTeam";
 
 import StudentDashboard from "../Team/StudentDashboard/DBStu";
+import StuPostSurvey from "../Team/StuPostSurvey/StuPostSurvey";
+import StuPreSurvey from "../Team/StuPreSurvey/StuPreSurvey";
 
 
 export const publicRoutes = [
@@ -1467,6 +1469,30 @@ export const teamRoutes = [
     // protected: true,
     route: Route,
   },
+  {
+    id: 3,
+    path: routes.studentpostsurvey,
+    name: "studentpostsurvey",
+    element: <StuPostSurvey />,
+    // protected: true,
+    route: Route,
+  },
+  {
+    id: 4,
+    path: routes.studentpresurvey,
+    name: "studentpresurvey",
+    element: <StuPreSurvey />,
+    // protected: true,
+    route: Route,
+  },
+  {
+    id: 5,
+    path: routes.idea,
+    name: "idea",
+    element: <Idea />,
+    //protected: true,
+    route: Route,
+  },
 ];
 export const mentorRoutes = [
   {
@@ -1582,14 +1608,7 @@ export const mentorRoutes = [
     protected: true,
     route: Route,
   },
-  {
-    id: 14,
-    path: routes.idea,
-    name: "idea",
-    element: <Idea />,
-    protected: true,
-    route: Route,
-  },
+  
   
 ];
 export const stateRoutes = [
