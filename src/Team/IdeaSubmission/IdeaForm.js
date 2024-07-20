@@ -303,15 +303,15 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
   };
 
   return (
-    <div className="page-wrapper cardhead">
+    <div className="cardhead">
       <div className="content">
-        <div className="page-header">
-          <div className="row">
+        {/*<div className="page-header">
+           <div className="row">
             <div className="col-sm-12">
               <h3 className="page-title">Idea Submission</h3>
             </div>
-          </div>
-        </div>
+          </div> 
+        </div>*/}
         <div className="row">
           {/* Ribbon */}
           <div className="col-md-12">

@@ -4,18 +4,25 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import FeatherIcon from "feather-icons-react";
 import ImageWithBasePath from "../../core/img/imagewithbasebath";
-import { Search, Settings, User, XCircle } from "react-feather";
+import { Search, Settings, User,XCircle } from "react-feather";
 import { all_routes } from "../../Router/all_routes";
 import { logout } from "../../helpers/Utils";
 import { useNavigate } from "react-router-dom";
 import { getCurrentUser } from "../../helpers/Utils";
 import { useTranslation } from "react-i18next";
 import logoutIcon from "../../assets/img/icons/log-out.svg";
+import logo from "../../assets/img/sim_logo.png";
+import female from "../../assets/img/Female_Profile.png";
+import male from "../../assets/img/Male_Profile.png";
+import team from "../../assets/img/icons/team2.png";
+
 
 const Header = () => {
   const route = all_routes;
   const [toggle, SetToggle] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const currentUser = getCurrentUser("current_user");
+  
 
   const isElementVisible = (element) => {
     return element.offsetWidth > 0 || element.offsetHeight > 0;
@@ -140,6 +147,54 @@ const Header = () => {
     }
   };
 
+  const getProfileImage = (gender) => {
+    switch (gender) {
+      case "Male":
+        return male;
+      case "Female":
+        return female;
+      default:
+        return team;
+    }
+  };
+
+  const fullName = currentUser?.data[0]?.full_name;
+  const capitalizeFirstLetter = (string) => {
+    if (!string) return "";
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+  console.log(currentUser);
+  const capitalizedFullName = capitalizeFirstLetter(fullName);
+
+  const imageStyleDesktop = {
+    padding: "0.7rem",
+    maxWidth: "100%",
+    height: "auto",
+  };
+
+  const imageStyleMobile = {
+    padding: "0.7rem",
+    marginLeft: "1rem",
+    maxWidth: "50%",
+    height: "auto",
+  };
+  const getImageStyle = () => {
+    return window.innerWidth < 768 ? imageStyleMobile : imageStyleDesktop;
+  };
+  const [imageStyle, setImageStyle] = React.useState(getImageStyle);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setImageStyle(getImageStyle());
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  
+
   return (
     <>
       <div className="header">
@@ -149,7 +204,8 @@ const Header = () => {
           onMouseLeave={expandMenu}
           onMouseOver={expandMenuOpen}
         >
-          <Link to="/dashboard" className="logo logo-normal">
+          <img src={logo} alt="Logo" style={imageStyle} />
+          {/*<Link to="/dashboard" className="logo logo-normal">
             <ImageWithBasePath src="assets/img/logo.png" alt="img" />
           </Link>
           <Link to="/dashboard" className="logo logo-white">
@@ -157,7 +213,7 @@ const Header = () => {
           </Link>
           <Link to="/dashboard" className="logo-small">
             <ImageWithBasePath src="assets/img/logo-small.png" alt="img" />
-          </Link>
+          </Link>*/}
           <Link
             id="toggle_btn"
             to="#"
@@ -174,7 +230,6 @@ const Header = () => {
             <FeatherIcon icon="chevrons-left" className="feather-16" />
           </Link>
         </div>
-        {/* /Logo */}
         <Link
           id="mobile_btn"
           className="mobile_btn"
@@ -291,61 +346,34 @@ const Header = () => {
           </li> */}
           {/* /Search */}
 
-          {/* Select Store */}
-          {/* <li className="nav-item dropdown has-arrow main-drop select-store-dropdown">
+          {/* Select Store 
+          <li className="nav-item dropdown has-arrow main-drop select-store-dropdown">
             <Link
               to="#"
               className="dropdown-toggle nav-link select-store"
               data-bs-toggle="dropdown"
             >
               <span className="user-info">
-                <span className="user-letter">
-                  <ImageWithBasePath
-                    src="assets/img/store/store-01.png"
-                    alt="Store Logo"
-                    className="img-fluid"
-                  />
-                </span>
                 <span className="user-detail">
-                  <span className="user-name">Select Store</span>
+                  <span className="user-name">{selectedLanguage}</span>
                 </span>
               </span>
             </Link>
             <div className="dropdown-menu dropdown-menu-right">
-              <Link to="#" className="dropdown-item">
-                <ImageWithBasePath
-                  src="assets/img/store/store-01.png"
-                  alt="Store Logo"
-                  className="img-fluid"
-                />{" "}
-                Grocery Alpha
+              <Link to="#" className="dropdown-item" onClick={() => handleLanguageChange('English')}>
+                English
               </Link>
-              <Link to="#" className="dropdown-item">
-                <ImageWithBasePath
-                  src="assets/img/store/store-02.png"
-                  alt="Store Logo"
-                  className="img-fluid"
-                />{" "}
-                Grocery Apex
+              <Link to="#" className="dropdown-item" onClick={() => handleLanguageChange('Hindi')}>
+                Hindi
               </Link>
-              <Link to="#" className="dropdown-item">
-                <ImageWithBasePath
-                  src="assets/img/store/store-03.png"
-                  alt="Store Logo"
-                  className="img-fluid"
-                />{" "}
-                Grocery Bevy
+              <Link to="#" className="dropdown-item" onClick={() => handleLanguageChange('Telugu')}>
+                Telugu
               </Link>
-              <Link to="#" className="dropdown-item">
-                <ImageWithBasePath
-                  src="assets/img/store/store-04.png"
-                  alt="Store Logo"
-                  className="img-fluid"
-                />{" "}
-                Grocery Eden
+              <Link to="#" className="dropdown-item" onClick={() => handleLanguageChange('Tamil')}>
+                Tamil
               </Link>
             </div>
-          </li> */}
+          </li> 
           {/* /Select Store */}
 
           {/* Flag */}
@@ -416,8 +444,8 @@ const Header = () => {
               <span className="badge rounded-pill">1</span>
             </Link>
           </li> */}
-          {/* Notifications */}
-          <li className="nav-item dropdown nav-item-box">
+          {/* Notifications 
+          <li className="nav-item dropdown nav-item-box">*/}
             {/* <Link
               to="#"
               className="dropdown-toggle nav-link"
@@ -574,8 +602,8 @@ const Header = () => {
               <div className="topnav-dropdown-footer">
                 <Link to="/activities">View all Notifications</Link>
               </div>
-            </div> */}
-          </li>
+            </div> 
+          </li>*/}
           {/* /Notifications */}
           {/* <li className="nav-item nav-item-box">
             <Link to="/general-settings">
@@ -590,15 +618,22 @@ const Header = () => {
             >
               <span className="user-info">
                 <span className="user-letter">
-                  <ImageWithBasePath
+                  {/* <ImageWithBasePath
                     src="assets/img/profiles/avator1.jpg"
                     alt="img"
                     className="img-fluid"
+                  /> */}
+                  <img
+                    src={getProfileImage(currentUser?.data[0]?.gender)}
+                    alt="Profile"
                   />
                 </span>
                 <span className="user-detail">
-                  <span className="user-name">John Smilga</span>
-                  <span className="user-role">Super Admin</span>
+                  <span className="user-name">
+                    {" "}
+                    {capitalizedFullName}
+                  </span>
+                  <span className="user-role">{currentUser?.data[0]?.role}</span>
                 </span>
               </span>
             </Link>
@@ -606,25 +641,21 @@ const Header = () => {
               <div className="profilename">
                 <div className="profileset">
                   <span className="user-img">
-                    <ImageWithBasePath
+                    {/* <ImageWithBasePath
                       src="assets/img/profiles/avator1.jpg"
                       alt="img"
-                    />
+                    /> */}
                     <span className="status online" />
                   </span>
                   <div className="profilesets">
-                    <h6>John Smilga</h6>
-                    <h5>Super Admin</h5>
+                    <h6>{capitalizedFullName}</h6>
+                    <h5>{currentUser?.data[0]?.role}</h5>
                   </div>
                 </div>
                 <hr className="m-0" />
-                <Link className="dropdown-item" to={route.profile}>
+                <Link className="dropdown-item" to="#">
                   <User className="me-2" /> My Profile
                 </Link>
-                {/* <Link className="dropdown-item" to={route.generalsettings}>
-                  <Settings className="me-2" />
-                  Settings
-                </Link> */}
                 <hr className="m-0" />
                 <Link
                   className="dropdown-item logout pb-0"

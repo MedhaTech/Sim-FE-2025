@@ -7,6 +7,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import ImageWithBasePath from "../../core/img/imagewithbasebath";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
+import female from "../../assets/img/Female_Profile.png";
+import male from "../../assets/img/Male_Profile.png";
+import user from "../../assets/img/icons/user-icon.svg";
+import girl1 from "../../assets/img/girl1.png";
+import girl2 from "../../assets/img/girl2.png";
+import girl3 from "../../assets/img/girl3.png";
+import girl4 from "../../assets/img/girl4.png";
+import girl5 from "../../assets/img/girl5.png";
+import girl6 from "../../assets/img/girl6.png";
+import boy1 from "../../assets/img/boy1.png";
+import boy2 from "../../assets/img/boy2.png";
+import boy3 from "../../assets/img/boy3.png";
+import boy4 from "../../assets/img/boy4.png";
+import boy5 from "../../assets/img/boy5.png";
+import boy6 from "../../assets/img/boy6.png";
+
+
 
 import {
   Edit,
@@ -39,11 +56,15 @@ const EmployeesGrid = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.toggle_header);
   const [isFilterVisible, setIsFilterVisible] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState('Select Language');
   const [studentCount, setStudentCount] = useState([]);
   const toggleFilterVisibility = () => {
     setIsFilterVisible((prevVisibility) => !prevVisibility);
   };
   const navigate = useNavigate();
+
+  const boys = [boy1,boy2,boy3,boy4,boy5,boy6];
+  const girls = [girl1,girl2,girl3,girl4,girl5,girl6];
 
   const oldandlatestvalue = [
     { value: "date", label: "Sort by Date" },
@@ -92,15 +113,31 @@ const EmployeesGrid = () => {
       });
   };
   const handleStudent = (student) => {
+    console.log(student, "clicked Login");
     alert("hii");
     const data = { ...student };
     currentUser.data[0].full_name = data?.full_name;
     currentUser.data[0].user_id = data?.user_id;
     currentUser.data[0].role = data?.role;
     setCurrentUser(currentUser);
-    navigate("/student-dashboard");
+    navigate("/studentpresurvey");
   };
   console.log(currentUser, "user");
+  const getRandomImage = (imageArray) => {
+    const randomIndex = Math.floor(Math.random() * imageArray.length);
+    return imageArray[randomIndex];
+  };
+  const getProfileImage = (gender) => {
+    console.log(gender);
+    switch (gender) {
+      case "MALE":
+        return getRandomImage(boys);
+      case "FEMALE":
+        return getRandomImage(girls);
+      default:
+        return user;
+    }
+  };
   // const renderTooltip = (props) => (
   //   <Tooltip id="pdf-tooltip" {...props}>
   //     Pdf
@@ -126,18 +163,58 @@ const EmployeesGrid = () => {
   //     Collapse
   //   </Tooltip>
   // );
+  const handleLanguageChange = (language) => {
+    setSelectedLanguage(language);
+  };
 
   return (
     <div>
       <div className="page-wrapper">
-        <div className="content">
-          <div className="page-header">
-            <div className="add-item d-flex">
-              <div className="page-title">
-                <h4>Employees</h4>
-                <h6>Manage your employees</h6>
+        <div className="content"> 
+        {/* Welcome user */}
+          <div className="welcome d-lg-flex align-items-center justify-content-between">
+              <div className="d-flex align-items-center welcome-text">
+                <h3 className="d-flex align-items-center">
+                  <span style={{ fontSize: '30px' }}>👋</span>
+                  &nbsp;Hi {currentUser?.data[0]?.full_name} Team &nbsp;
+                </h3>
+               
+                <h6> here&apos;s what&apos;s happening with your School Innovation Marathon 2024 today.</h6>
               </div>
-            </div>
+              <div className="dropdown">
+                  <button
+                      className="btn btn-primary dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                  >
+                      {selectedLanguage}
+                  </button>
+                  <ul className="dropdown-menu">
+                      <li>
+                        <Link className="dropdown-item" onClick={() => handleLanguageChange('English')} to="#">
+                              English
+                          </Link>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item" onClick={() => handleLanguageChange('Hindi')} to="#">
+                              Hindi
+                          </Link>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item" onClick={() => handleLanguageChange('Telugu')} to="#">
+                              Telugu
+                          </Link>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item" onClick={() => handleLanguageChange('Tamil')} to="#">
+                              Tamil
+                          </Link>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+          
             {/* <ul className="table-top-head">
               <li>
                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -195,7 +272,7 @@ const EmployeesGrid = () => {
                 Add New Employee
               </Link>
             </div> */}
-          </div>
+          
           {/* /product list */}
           {/* <div className="card">
             <div className="card-body pb-0">
@@ -312,28 +389,36 @@ const EmployeesGrid = () => {
                     </div>
                     <div className="profile-info">
                       <div className="profile-pic active-profile">
-                        <ImageWithBasePath
-                          src="assets/img/users/user-01.jpg" // Use student-specific image if available
-                          alt={student.full_name}
+                        <img
+                          src={getProfileImage(student.Gender)}
+                          alt="Profile"
                         />
                       </div>
-                      <h5>EMP ID : {student.user_id}</h5>
-                      <h4>{student.full_name}</h4>
-                      <span>Grade : {student.Grade}</span>
-                      <span>Age : {student.Age} yr</span>
+                      <h4 style={{color:"orange"}}>{student.full_name}</h4>
+                     {/* <div className="row">
+                        <div className="col ">
+                          <span>Grade : {student.Grade}</span>
+                        </div>
+                        <div className="col ">
+                          <span>Age : {student.Age}yr</span>
+                        </div>
+                      </div>
+                       <span>Grade : {student.Grade} Age : {student.Age} yr</span>
+                      <span>Age : {student.Age} yr</span> */}
                     </div>
                     <ul className="department">
                       <li>
-                        Joined
-                        <span>23 Jul 2023</span>{" "}
+                        Grade <span>{student.Grade}th class</span>{" "}
                         {/* Update with actual joined date if available */}
                       </li>
                       <li>
-                        Department
-                        <span>UI/UX</span>{" "}
+                        Age <span>{student.Age} yrs</span>{" "}
                         {/* Update with actual department if available */}
                       </li>
                     </ul>
+                    <div className="departments">
+                      <p>Instructions to students on their action items</p>
+                    </div>
                   </div>
                 </div>
               ))}

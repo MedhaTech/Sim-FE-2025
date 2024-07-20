@@ -150,6 +150,13 @@ export const SidebarData = [
     role: "STUDENT",
     submenuItems: [
       {
+        label: "Pre Survey",
+        link: "/studentpresurvey",
+        icon: <Icon.Bookmark />,
+        showSubRoute: false,
+        submenu: false,
+      },
+      {
         label: "Student Dashboard",
         link: "/student-dashboard",
         icon: <Icon.Box />,
@@ -157,14 +164,7 @@ export const SidebarData = [
         role: "STUDENT",
         submenu: false,
       },
-      {
-        label: "Ideas Submission",
-        link: "/add-product",
-        icon: <Icon.PlusSquare />,
-        role: "STUDENT",
-        showSubRoute: false,
-        submenu: false,
-      },
+      
       // {
       //   label: "Resources",
       //   link: "/expired-products",
@@ -172,20 +172,22 @@ export const SidebarData = [
       //   showSubRoute: false,
       //   submenu: false,
       // },
-      // {
-      //   label: "Student Dashboard",
-      //   link: "/low-stocks",
-      //   icon: <Icon.TrendingDown />,
-      //   showSubRoute: false,
-      //   submenu: false,
-      // },
+      
       // {
       //   label: "Courses",
       //   link: "/category-list",
-      //   icon: <Icon.Codepen />,
+      //   icon: <Icon.TrendingDown/>,
       //   showSubRoute: false,
       //   submenu: false,
       // },
+      {
+        label: "Ideas Submission",
+        link: "/idea",
+        icon: <Icon.PlusSquare />,
+        role: "STUDENT",
+        showSubRoute: false,
+        submenu: false,
+      },
       // {
       //   label: "Idea Submission",
       //   link: "/sub-categories",
@@ -193,13 +195,13 @@ export const SidebarData = [
       //   showSubRoute: false,
       //   submenu: false,
       // },
-      // {
-      //   label: "Post Survey",
-      //   link: "/brand-list",
-      //   icon: <Icon.Tag />,
-      //   showSubRoute: false,
-      //   submenu: false,
-      // },
+      {
+        label: "Post Survey",
+        link: "/studentpostsurvey",
+        icon: <Icon.Tag />,
+        showSubRoute: false,
+        submenu: false,
+      },
       // {
       //   label: "My Certificate",
       //   link: "/units",
@@ -217,7 +219,7 @@ export const SidebarData = [
       // {
       //   label: "Translation",
       //   link: "/warranty",
-      //   icon: <Icon.Bookmark />,
+      //   icon: <Icon.Codepen />,
       //   showSubRoute: false,
       //   submenu: false,
       // },
