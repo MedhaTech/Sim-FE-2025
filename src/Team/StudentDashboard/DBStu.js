@@ -1,322 +1,219 @@
-/* eslint-disable indent */
-import React, { useState } from "react";
-import CountUp from "react-countup";
-import {
-  File,
-  User,
-  UserCheck,
-} from "feather-icons-react/build/IconComponents";
-import Chart from "react-apexcharts";
-import { Link } from "react-router-dom";
-import ImageWithBasePath from "../../core/img/imagewithbasebath";
-import { ArrowRight } from "react-feather";
-// import { all_routes } from "../../Router/all_routes";
-import withReactContent from "sweetalert2-react-content";
-import Swal from "sweetalert2";
 
-const Dashboard = () => {
-  // const route = all_routes;
-  const [chartOptions] = useState({
-    series: [
-      {
-        name: "Sales",
-        data: [130, 210, 300, 290, 150, 50, 210, 280, 105],
-      },
-      {
-        name: "Purchase",
-        data: [-150, -90, -50, -180, -50, -70, -100, -90, -105],
-      },
-    ],
-    colors: ["#28C76F", "#EA5455"],
-    chart: {
-      type: "bar",
-      height: 320,
-      stacked: true,
-      zoom: {
-        enabled: true,
-      },
-    },
-    responsive: [
-      {
-        breakpoint: 280,
-        options: {
-          legend: {
-            position: "bottom",
-            offsetY: 0,
-          },
-        },
-      },
-    ],
-    plotOptions: {
-      bar: {
-        horizontal: false,
-        borderRadius: 4,
-        borderRadiusApplication: "end", // "around" / "end"
-        borderRadiusWhenStacked: "all", // "all"/"last"
-        columnWidth: "20%",
-      },
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    yaxis: {
-      min: -200,
-      max: 300,
-      tickAmount: 5,
-    },
-    xaxis: {
-      categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-      ],
-    },
-    legend: { show: false },
-    fill: {
-      opacity: 1,
-    },
-  });
-  const MySwal = withReactContent(Swal);
-  const showConfirmationAlert = () => {
-    MySwal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      showCancelButton: true,
-      confirmButtonColor: "#00ff00",
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonColor: "#ff0000",
-      cancelButtonText: "Cancel",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        MySwal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          className: "btn btn-success",
-          confirmButtonText: "OK",
-          customClass: {
-            confirmButton: "btn btn-success",
-          },
-        });
-      } else {
-        MySwal.close();
-      }
-    });
+/* eslint-disable no-unused-vars */
+/* eslint-disable indent */
+import {
+  ArrowRight,
+  Calendar,
+  ChevronUp,
+  Clock,
+  RotateCcw,
+} from "feather-icons-react/build/IconComponents";
+import React , { useEffect, useState }from "react";
+import CountUp from "react-countup";
+import Chart from "react-apexcharts";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import "bootstrap-daterangepicker/daterangepicker.css";
+import DateRangePicker from "react-bootstrap-daterangepicker";
+import ImageWithBasePath from "../../core/img/imagewithbasebath";
+import { Link } from "react-router-dom";
+import { setToogleHeader } from "../../core/redux/action";
+import { useDispatch, useSelector } from "react-redux";
+import { Tooltip } from "react-bootstrap";
+import { all_routes } from "../../Router/all_routes";
+////////my code/////////////
+import { getCurrentUser } from "../../helpers/Utils";
+import FeatherIcon from "feather-icons-react";
+import LatestNews from './LatestNews';
+import { Eye } from "react-feather";
+import { FaBook, FaLightbulb } from 'react-icons/fa';
+import { FaLifeRing } from 'react-icons/fa';
+import { FaPoll } from 'react-icons/fa';
+import { FaRoute } from 'react-icons/fa';
+import { FaPlay } from 'react-icons/fa';
+import { FaUsers } from 'react-icons/fa';
+import { FaChalkboardTeacher } from 'react-icons/fa'; 
+import { useNavigate } from 'react-router-dom';
+import VideoModal from '../../HelpVideo/VideoModal';
+
+
+
+const DBStu = () => {
+
+  /////////my code//////////////////
+  const currentUser = getCurrentUser("current_user");
+  const [selectedLanguage, setSelectedLanguage] = useState('Select Language');
+  const navigate = useNavigate();
+  const [stuPreSLoading, setStuPreSLoading] = useState(true);
+  const [stuCourseLoading, setStuCourseLoading] = useState(true);
+  const [stuPostSLoading, setStuPostSLoading] = useState(true);
+  const [stuIdeaLoading, setStuIdeaLoading] = useState(true);
+  const [stuPostSurvey, setStuPostSurvey] = useState("");
+  const [stuPreSurvey, setStuPreSurvey] = useState("");
+  const [stuIdeaSub, setStuIdeaSub] = useState("");
+  const [coursepercentage, setCoursepercentage] = useState();
+
+
+
+  const [video , setVideo] = useState("");
+  const [show , setShow] = useState(false);
+
+  const Loader = () => (
+    <div className="spinner-border text-primary" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </div>
+  );
+
+  const redirectToPreSurvey = () => {
+    navigate(`/studentpresurvey`);
   };
+  const redirectToCourse = () => {
+    navigate(`#`);
+  };
+  const redirectToPost = () => {
+    navigate(`/studentpostsurvey`);
+  };
+  const redirectToIdea = () => {
+    navigate(`/idea`);
+  };
+
+  const renderTooltip = (props) => (
+    <Tooltip id="pdf-tooltip" {...props} >
+      Watch Demo
+    </Tooltip>
+  );
+  const renderViewTooltip = (props) => (
+    <Tooltip id="refresh-tooltip" {...props}>
+      Redirect
+    </Tooltip>
+  );
+
+  const handleShow = (i) => {
+    setVideo(vimeoId[i]);
+    setShow(true);
+  };
+  const vimeoId = ["https://www.youtube.com/embed/CiYa_iLdpXo?si=8t7wj1idLOrW4se0",
+      "https://www.youtube.com/embed/q40BSRm_cJM?si=ALZHPloc04lqH25O",
+      "https://www.youtube.com/embed/eCYCvTu03X4?si=3zA5lyM9UOUoW5Yb",
+      "https://www.youtube.com/embed/s-LUZN38Fik?si=rz10HpY0ZqDaYqD6",
+      "https://www.youtube.com/embed/1WvwMypdVaY?si=8GPHpUqV7Jdewh__",
+      ];
+
+  const handleLanguageChange = (language) => {
+    setSelectedLanguage(language);
+  };
+
   return (
-    <div>
+    <>
       <div className="page-wrapper">
         <div className="content">
-          <div className="row">
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget w-100">
-                <div className="dash-widgetimg">
-                  <span>
-                    <ImageWithBasePath
-                      src="assets/img/icons/dash1.svg"
-                      alt="img"
-                    />
-                  </span>
-                </div>
-                <div className="dash-widgetcontent">
-                  <h5>
-                    <CountUp start={0} end={307144} duration={3} prefix="$" />
-                  </h5>
-                  <h6>Total Purchase Due</h6>
-                </div>
-              </div>
+          <div className="welcome d-lg-flex align-items-center justify-content-between">
+            <div className="d-flex align-items-center welcome-text">
+              <h3 className="d-flex align-items-center">
+                <span style={{ fontSize: '30px' }}>👋</span>
+                &nbsp;Hi {currentUser?.data[0]?.full_name}&nbsp;
+              </h3>
+              
+              <h6> here&apos;s what&apos;s happening with your School Innovation Marathon 2024 today.</h6>
             </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget dash1 w-100">
-                <div className="dash-widgetimg">
-                  <span>
-                    <ImageWithBasePath
-                      src="assets/img/icons/dash2.svg"
-                      alt="img"
-                    />
-                  </span>
-                </div>
-                <div className="dash-widgetcontent">
-                  <h5>
-                    $
-                    <CountUp
-                      start={0}
-                      end={4385}
-                      duration={3} // Duration in seconds
-                    />
-                  </h5>
-                  <h6>Total Sales Due</h6>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget dash2 w-100">
-                <div className="dash-widgetimg">
-                  <span>
-                    <ImageWithBasePath
-                      src="assets/img/icons/dash3.svg"
-                      alt="img"
-                    />
-                  </span>
-                </div>
-                <div className="dash-widgetcontent">
-                  <h5>
-                    $
-                    <CountUp
-                      start={0}
-                      end={385656.5}
-                      duration={3} // Duration in seconds
-                      decimals={1}
-                    />
-                  </h5>
-                  <h6>Total Sale Amount</h6>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget dash3 w-100">
-                <div className="dash-widgetimg">
-                  <span>
-                    <ImageWithBasePath
-                      src="assets/img/icons/dash4.svg"
-                      alt="img"
-                    />
-                  </span>
-                </div>
-                <div className="dash-widgetcontent">
-                  <h5>
-                    $
-                    <CountUp
-                      start={0}
-                      end={40000}
-                      duration={3} // Duration in seconds
-                    />
-                  </h5>
-                  <h6>Total Expense Amount</h6>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-count">
-                <div className="dash-counts">
-                  <h4>100</h4>
-                  <h5>Customers</h5>
-                </div>
-                <div className="dash-imgs">
-                  <User />
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-count das1">
-                <div className="dash-counts">
-                  <h4>110</h4>
-                  <h5>Suppliers</h5>
-                </div>
-                <div className="dash-imgs">
-                  <UserCheck />
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-count das2">
-                <div className="dash-counts">
-                  <h4>150</h4>
-                  <h5>Purchase Invoice</h5>
-                </div>
-                <div className="dash-imgs">
-                  <ImageWithBasePath
-                    src="assets/img/icons/file-text-icon-01.svg"
-                    className="img-fluid"
-                    alt="icon"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-count das3">
-                <div className="dash-counts">
-                  <h4>170</h4>
-                  <h5>Sales Invoice</h5>
-                </div>
-                <div className="dash-imgs">
-                  <File />
-                </div>
+            <div className="d-flex align-items-center">
+              <div className="dropdown">
+                  <button
+                      className="btn btn-primary dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                  >
+                      {selectedLanguage}
+                  </button>
+                  <ul className="dropdown-menu">
+                      <li>
+                        <Link className="dropdown-item" onClick={() => handleLanguageChange('English')} to="#">
+                              English
+                          </Link>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item" onClick={() => handleLanguageChange('Hindi')} to="#">
+                              Hindi
+                          </Link>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item" onClick={() => handleLanguageChange('Telugu')} to="#">
+                              Telugu
+                          </Link>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item" onClick={() => handleLanguageChange('Tamil')} to="#">
+                              Tamil
+                          </Link>
+                      </li>
+                  </ul>
               </div>
             </div>
           </div>
-          {/* Button trigger modal */}
-
-          <div className="row">
-            <div className="col-xl-7 col-sm-12 col-12 d-flex">
-              <div className="card flex-fill">
-                <div className="card-header d-flex justify-content-between align-items-center">
-                  <h5 className="card-title mb-0">Purchase &amp; Sales</h5>
-                  <div className="graph-sets">
-                    <ul className="mb-0">
-                      <li>
-                        <span>Sales</span>
-                      </li>
-                      <li>
-                        <span>Purchase</span>
-                      </li>
-                    </ul>
-                    <div className="dropdown dropdown-wraper">
-                      <button
-                        className="btn btn-light btn-sm dropdown-toggle"
-                        type="button"
-                        id="dropdownMenuButton"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        2023
-                      </button>
-                      <ul
-                        className="dropdown-menu"
-                        aria-labelledby="dropdownMenuButton"
-                      >
-                        <li>
-                          <Link to="#" className="dropdown-item">
-                            2023
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="#" className="dropdown-item">
-                            2022
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="#" className="dropdown-item">
-                            2021
-                          </Link>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="card-body">
-                  <div id="sales_charts" />
-                  <Chart
-                    options={chartOptions}
-                    series={chartOptions.series}
-                    type="bar"
-                    height={320}
-                  />
-                </div>
+          <div className="row sales-cards">
+            <div className="col-xl-6 col-sm-12 col-12 mb-4">
+              <div className="card d-flex align-items-center justify-content-between default-cover" style={{ position: "relative", width: "100%", height: "100%" }}>
+                <iframe 
+                  src="https://player.vimeo.com/video/762600125?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+                  style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: 0 }} 
+                  allow="autoplay; fullscreen; picture-in-picture" 
+                  allowFullScreen
+                ></iframe>
               </div>
             </div>
-            <div className="col-xl-5 col-sm-12 col-12 d-flex">
-              <div className="card flex-fill default-cover mb-4">
+            <div className="col-xl-3 col-sm-6 col-12">
+              <div className="card color-info bg-success mb-4 ">
+                <h3>
+                  {" "}
+                  <CountUp end={10000} duration={4}>
+                    +
+                  </CountUp>
+                </h3>
+                <p>Course Completion %</p>
+                <FeatherIcon icon="monitor" />
+              </div>
+              <div className="card color-info"  style={{background:"#00CFE8"}}>
+                <h3>
+                  {" "}
+                  <CountUp end={10000} duration={4}>
+                    +
+                  </CountUp>
+                </h3>
+                <p>Quizes Passed</p>
+                <FeatherIcon icon="thumbs-up" />
+              </div>
+            </div>
+            <div className="col-xl-3 col-sm-6 col-12">
+              <div className="card color-info bg-secondary mb-4">
+                <h3>
+                  <CountUp end={800} duration={4}>
+                    +
+                  </CountUp>
+                </h3>
+                <p>Course Videos Watched</p>
+                <FeatherIcon icon="video" />
+              </div>
+              <div className="card color-info bg-primary">
+                <h3>
+                  <CountUp end={800} duration={4}>
+                    +
+                  </CountUp>
+                </h3>
+                <p>Badges Achieved</p>
+                <FeatherIcon icon="award" />
+              </div>
+            </div>
+          </div>
+          {/* Quicklinks , Latest News */}
+          <div className="row">
+            {/* Quick links */}
+            <div className="col-xl-6 col-sm-12 col-12 d-flex">
+              <div className="card flex-fill default-cover w-100 mb-4">
                 <div className="card-header d-flex justify-content-between align-items-center">
-                  <h4 className="card-title mb-0">Recent Products</h4>
-                  <div className="view-all-link">
+                  <h4 className="card-title mb-0">SIM Road Map<FaRoute size={30} style={{marginLeft:"6px"}} /> </h4>
+                  <div className="dropdown">
                     <Link to="#" className="view-all d-flex align-items-center">
-                      View All
+                      View
                       <span className="ps-2 d-flex align-items-center">
                         <ArrowRight className="feather-16" />
                       </span>
@@ -324,320 +221,415 @@ const Dashboard = () => {
                   </div>
                 </div>
                 <div className="card-body">
-                  <div className="table-responsive dataview">
-                    <table className="table dashboard-recent-products">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Products</th>
-                          <th>Price</th>
-                        </tr>
-                      </thead>
+                  <div className="table-responsive">
+                    <table className="table table-borderless best-seller">
                       <tbody>
                         <tr>
-                          <td>1</td>
-                          <td className="productimgname">
-                            <Link
-                              // to={route.productlist}
-                              className="product-img"
+                          <td>
+                            <div className="product-info">
+                              <Link
+                                to={"/studentpresurvey"}
+                                className="product-img"
+                              >
+                                <FaPoll size={30} style={{marginRight : "10px", color:"orange"}}/>
+                              </Link>
+                              <div className="info">
+                                <Link to={"/studentpresurvey"}>
+                                  <h4>Pre Survey</h4>
+                                </Link>
+                                <p className="dull-text">Quick Short Survey</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div className="action-table-data">
+                              <div className="edit-delete-action">
+                                <OverlayTrigger placement="top" overlay={renderTooltip}>
+                                  <Link
+                                      to="#"
+                                      className="me-2 p-2"
+                                      onClick={() => handleShow(0)}
+                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
+                                      
+                                  >
+                                    <FaPlay  style={{color:"red"}} />
+                                  </Link>
+                                </OverlayTrigger>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            {stuPreSLoading ? ( 
+                                <Loader />
+                              ) : stuPreSurvey != "COMPLETED"  ?  (
+                              <>
+                                <span
+                                  className={"badge badge-linedangered"}
+                                  onClick={redirectToPreSurvey}
+                                >
+                                  Yet to Take
+                                </span>
+                              </>
+                            ) : (
+                              <>
+                                <span
+                                  className={"badge badge-linesuccess"}
+                                  onClick={redirectToPreSurvey}
+                                >
+                                  Completed
+                                </span>
+                              </>
+                            )}
+                          </td>
+                          <td>
+                            <div className="action-table-data">
+                              <div className="edit-delete-action">
+                                <OverlayTrigger placement="top" overlay={renderViewTooltip}>
+                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/studentpresurvey"} >
+                                    <Eye className="feather-view" />
+                                  </Link>
+                                </OverlayTrigger>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div className="product-info">
+                              <Link
+                                to={"/mentorcourse/1"}
+                                className="product-img"
+                              >
+                                <FaChalkboardTeacher size={30} style={{marginRight : "10px", color:"orange"}} />
+                              </Link>
+                              <div className="info">
+                                <Link to={"/mentorcourse/1"}>
+                                  <h4>Student Course</h4>
+                                </Link>
+                                <p className="dull-text">On Problem Solving Journey</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div className="action-table-data">
+                              <div className="edit-delete-action">
+                                <OverlayTrigger placement="top" overlay={renderTooltip}>
+                                  <Link
+                                      to="#"
+                                      className="me-2 p-2"
+                                      onClick={() => handleShow(1)}
+                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
+                                      
+                                  >
+                                    <FaPlay  style={{color:"red"}} />
+                                  </Link>
+                                </OverlayTrigger>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            {stuCourseLoading ? ( 
+                                <Loader />
+                              ) : ((coursepercentage === 0) ?  (
+                              <>
+                                <span
+                                  className={"badge badge-linedangered"}
+                                  onClick={redirectToCourse}
+                                >
+                                  Not Started
+                                </span>
+                              </>
+                            ) : ((coursepercentage != 100) ? (
+                              <>
+                                <span
+                                  className={"badge badge-bgdanger"}
+                                  onClick={redirectToCourse}
+                                >
+                                  InProgress
+                                </span>
+                              </>
+                            ):(
+                              <>
+                                <span
+                                  className={"badge badge-linesuccess"}
+                                >
+                                  Completed
+                                </span>
+                              </>
+                            )))}
+                          </td>
+                          <td>
+                            <div className="action-table-data">
+                              <div className="edit-delete-action">
+                                <OverlayTrigger placement="top" overlay={renderViewTooltip}>
+                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"#"} >
+                                    <Eye className="feather-view" />
+                                  </Link>
+                                </OverlayTrigger>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div className="product-info">
+                              <Link
+                                to={"/idea"}
+                                className="product-img"
+                              >
+                                <FaLightbulb size={30} style={{marginRight : "10px", color:"orange"}} />
+                              </Link>
+                              <div className="info">
+                                <Link to={"/idea"}>
+                                  <h4>Idea Submission</h4>
+                                </Link>
+                                <p className="dull-text">Select a theme & submit idea</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div className="action-table-data">
+                              <div className="edit-delete-action">
+                                <OverlayTrigger placement="top" overlay={renderTooltip}>
+                                  <Link
+                                      to="#"
+                                      className="me-2 p-2"
+                                      onClick={() => handleShow(2)}
+                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
+                                      
+                                  >
+                                    <FaPlay  style={{color:"red"}} />
+                                  </Link>
+                                </OverlayTrigger>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            {stuIdeaLoading ? ( 
+                                <Loader />
+                              ) : stuIdeaSub != "SUBMITTED" ?  (
+                              <>
+                                <span
+                                  className={"badge badge-linedangered"}
+                                  onClick={redirectToIdea}
+                                >
+                                  Not Done!
+                                </span>
+                              </>
+                            ) : (
+                              <>
+                                <span
+                                  className={"badge badge-linesuccess"}
+                                >
+                                  Submitted
+                                </span>
+                              </>
+                            )}
+                          </td>
+                          <td>
+                            <div className="action-table-data">
+                              <div className="edit-delete-action">
+                                <OverlayTrigger placement="top" overlay={renderViewTooltip}>
+                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/idea"} >
+                                    <Eye className="feather-view" />
+                                  </Link>
+                                </OverlayTrigger>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div className="product-info">
+                              <Link
+                                to={"/studentpostsurvey"}
+                                className="product-img"
+                              >
+                                <FaPoll size={30} style={{marginRight : "10px", color:"orange"}} />
+                              </Link>
+                              <div className="info">
+                                <Link to={"/studentpostsurvey"}>
+                                  <h4>Post Survey</h4>
+                                </Link>
+                                <p className="dull-text">Take survey & Get Certificate</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div className="action-table-data">
+                              <div className="edit-delete-action">
+                                <OverlayTrigger placement="top" overlay={renderTooltip}>
+                                  <Link
+                                      to="#"
+                                      className="me-2 p-2"
+                                      onClick={() => handleShow(2)}
+                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
+                                      
+                                  >
+                                    <FaPlay  style={{color:"red"}} />
+                                  </Link>
+                                </OverlayTrigger>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            {stuPostSLoading ? ( 
+                                <Loader />
+                              ) : stuPostSurvey != "COMPLETED" ?  (
+                              <>
+                                <span
+                                  className={"badge badge-linedangered"}
+                                  onClick={redirectToPost}
+                                >
+                                  Pending
+                                </span>
+                              </>
+                            ) : (
+                              <>
+                                <span
+                                  className={"badge badge-linesuccess"}
+                                >
+                                  Completed
+                                </span>
+                              </>
+                            )}
+                          </td>
+                          <td>
+                            <div className="action-table-data">
+                              <div className="edit-delete-action">
+                                <OverlayTrigger placement="top" overlay={renderViewTooltip}>
+                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/studentpostsurvey"} >
+                                    <Eye className="feather-view" />
+                                  </Link>
+                                </OverlayTrigger>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div className="product-info">
+                              <Link
+                                to={"/studentresource"}
+                                className="product-img"
+                              >
+                                <FaBook size={30} style={{marginRight : "10px", color:"orange"}} />
+                              </Link>
+                              <div className="info">
+                                <Link to={"/studentresource"}>
+                                  <h4>Resources</h4>
+                                </Link>
+                                <p className="dull-text">Find supportive docs here</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div className="action-table-data">
+                              <div className="edit-delete-action">
+                                <OverlayTrigger placement="top" overlay={renderTooltip}>
+                                  <Link
+                                      to="#"
+                                      className="me-2 p-2"
+                                      onClick={() => handleShow(3)}
+                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
+                                      
+                                  >
+                                    <FaPlay  style={{color:"red"}} />
+                                  </Link>
+                                </OverlayTrigger>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <span
+                              className={"badge badge-linesuccess"}
                             >
-                              <ImageWithBasePath
-                                src="assets/img/products/stock-img-01.png"
-                                alt="product"
-                              />
-                            </Link>
-                            <Link>Lenevo 3rd Generation</Link>
+                              References
+                            </span>
                           </td>
-                          <td>$12500</td>
-                        </tr>
-                        <tr>
-                          <td>2</td>
-                          <td className="productimgname">
-                            <Link className="product-img">
-                              <ImageWithBasePath
-                                src="assets/img/products/stock-img-06.png"
-                                alt="product"
-                              />
-                            </Link>
-                            <Link>Bold V3.2</Link>
+                          <td>
+                            <div className="action-table-data">
+                              <div className="edit-delete-action">
+                                <OverlayTrigger placement="top" overlay={renderViewTooltip}>
+                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2"  to={"/studentresource"} >
+                                    <Eye className="feather-view" />
+                                  </Link>
+                                </OverlayTrigger>
+                              </div>
+                            </div>
                           </td>
-                          <td>$1600</td>
                         </tr>
-                        <tr>
-                          <td>3</td>
-                          <td className="productimgname">
-                            <Link className="product-img">
-                              <ImageWithBasePath
-                                src="assets/img/products/stock-img-02.png"
-                                alt="product"
-                              />
-                            </Link>
-                            <Link>Nike Jordan</Link>
+                        {/* <tr>
+                          <td>
+                            <div className="product-info">
+                              <Link
+                                to={"/mentorsupport"}
+                                className="product-img"
+                              >
+                                <FaLifeRing size={30} style={{marginRight : "10px", color:"orange"}} />
+                              </Link>
+                              <div className="info">
+                                <Link to={"/mentorsupport"}>
+                                  <h4>Support</h4>
+                                </Link>
+                                <p className="dull-text">Raise your queries here</p>
+                              </div>
+                            </div>
                           </td>
-                          <td>$2000</td>
-                        </tr>
-                        <tr>
-                          <td>4</td>
-                          <td className="productimgname">
-                            <Link className="product-img">
-                              <ImageWithBasePath
-                                src="assets/img/products/stock-img-03.png"
-                                alt="product"
-                              />
-                            </Link>
-                            <Link>Apple Series 5 Watch</Link>
+                          <td>
+                            <div className="action-table-data">
+                              <div className="edit-delete-action">
+                                <OverlayTrigger placement="top" overlay={renderTooltip}>
+                                  <Link
+                                      to="#"
+                                      className="me-2 p-2"
+                                      onClick={() => handleShow(4)}
+                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
+                                      
+                                  >
+                                    <FaPlay  style={{color:"red"}} />
+                                  </Link>
+                                </OverlayTrigger>
+                              </div>
+                            </div>
                           </td>
-                          <td>$800</td>
-                        </tr>
+                          <td>
+                            <span
+                              className={"badge badge-linesuccess"}
+                            >
+                              HelpLine
+                            </span>
+                          </td>
+                          <td>
+                            <div className="action-table-data">
+                              <div className="edit-delete-action">
+                                <OverlayTrigger placement="top" overlay={renderViewTooltip}>
+                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/mentorsupport"} >
+                                    <Eye className="feather-view" />
+                                  </Link>
+                                </OverlayTrigger>
+                              </div>
+                            </div>
+                          </td>
+                        </tr> */}
+                        
                       </tbody>
                     </table>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="card">
-            <div className="card-header">
-              <h4 className="card-title">Expired Products</h4>
-            </div>
-            <div className="card-body">
-              <div className="table-responsive dataview">
-                <table className="table dashboard-expired-products">
-                  <thead>
-                    <tr>
-                      <th className="no-sort">
-                        <label className="checkboxs">
-                          <input type="checkbox" id="select-all" />
-                          <span className="checkmarks" />
-                        </label>
-                      </th>
-                      <th>Product</th>
-                      <th>SKU</th>
-                      <th>Manufactured Date</th>
-                      <th>Expired Date</th>
-                      <th className="no-sort">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <label className="checkboxs">
-                          <input type="checkbox" />
-                          <span className="checkmarks" />
-                        </label>
-                      </td>
-                      <td>
-                        <div className="productimgname">
-                          <Link to="#" className="product-img stock-img">
-                            <ImageWithBasePath
-                              src="assets/img/products/expire-product-01.png"
-                              alt="product"
-                            />
-                          </Link>
-                          <Link to="#">Red Premium Handy </Link>
-                        </div>
-                      </td>
-                      <td>
-                        <Link to="#">PT006</Link>
-                      </td>
-                      <td>17 Jan 2023</td>
-                      <td>29 Mar 2023</td>
-                      <td className="action-table-data">
-                        <div className="edit-delete-action">
-                          <Link className="me-2 p-2" to="#">
-                            <i data-feather="edit" className="feather-edit" />
-                          </Link>
-                          <Link
-                            className=" confirm-text p-2"
-                            to="#"
-                            onClick={showConfirmationAlert}
-                          >
-                            <i
-                              data-feather="trash-2"
-                              className="feather-trash-2"
-                            />
-                          </Link>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <label className="checkboxs">
-                          <input type="checkbox" />
-                          <span className="checkmarks" />
-                        </label>
-                      </td>
-                      <td>
-                        <div className="productimgname">
-                          <Link to="#" className="product-img stock-img">
-                            <ImageWithBasePath
-                              src="assets/img/products/expire-product-02.png"
-                              alt="product"
-                            />
-                          </Link>
-                          <Link to="#">Iphone 14 Pro</Link>
-                        </div>
-                      </td>
-                      <td>
-                        <Link to="#">PT007</Link>
-                      </td>
-                      <td>22 Feb 2023</td>
-                      <td>04 Apr 2023</td>
-                      <td className="action-table-data">
-                        <div className="edit-delete-action">
-                          <Link className="me-2 p-2" to="#">
-                            <i data-feather="edit" className="feather-edit" />
-                          </Link>
-                          <Link
-                            className="confirm-text p-2"
-                            to="#"
-                            onClick={showConfirmationAlert}
-                          >
-                            <i
-                              data-feather="trash-2"
-                              className="feather-trash-2"
-                            />
-                          </Link>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <label className="checkboxs">
-                          <input type="checkbox" />
-                          <span className="checkmarks" />
-                        </label>
-                      </td>
-                      <td>
-                        <div className="productimgname">
-                          <Link to="#" className="product-img stock-img">
-                            <ImageWithBasePath
-                              src="assets/img/products/expire-product-03.png"
-                              alt="product"
-                            />
-                          </Link>
-                          <Link to="#">Black Slim 200 </Link>
-                        </div>
-                      </td>
-                      <td>
-                        <Link to="#">PT008</Link>
-                      </td>
-                      <td>18 Mar 2023</td>
-                      <td>13 May 2023</td>
-                      <td className="action-table-data">
-                        <div className="edit-delete-action">
-                          <Link className="me-2 p-2" to="#">
-                            <i data-feather="edit" className="feather-edit" />
-                          </Link>
-                          <Link
-                            className=" confirm-text p-2"
-                            to="#"
-                            onClick={showConfirmationAlert}
-                          >
-                            <i
-                              data-feather="trash-2"
-                              className="feather-trash-2"
-                            />
-                          </Link>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <label className="checkboxs">
-                          <input type="checkbox" />
-                          <span className="checkmarks" />
-                        </label>
-                      </td>
-                      <td>
-                        <div className="productimgname">
-                          <Link to="#" className="product-img stock-img">
-                            <ImageWithBasePath
-                              src="assets/img/products/expire-product-04.png"
-                              alt="product"
-                            />
-                          </Link>
-                          <Link to="#">Woodcraft Sandal</Link>
-                        </div>
-                      </td>
-                      <td>
-                        <Link to="#">PT009</Link>
-                      </td>
-                      <td>29 Mar 2023</td>
-                      <td>27 May 2023</td>
-                      <td className="action-table-data">
-                        <div className="edit-delete-action">
-                          <Link className="me-2 p-2" to="#">
-                            <i data-feather="edit" className="feather-edit" />
-                          </Link>
-                          <Link
-                            className=" confirm-text p-2"
-                            to="#"
-                            onClick={showConfirmationAlert}
-                          >
-                            <i
-                              data-feather="trash-2"
-                              className="feather-trash-2"
-                            />
-                          </Link>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <label className="checkboxs">
-                          <input type="checkbox" />
-                          <span className="checkmarks" />
-                        </label>
-                      </td>
-                      <td>
-                        <div className="productimgname">
-                          <Link to="#" className="product-img stock-img">
-                            <ImageWithBasePath
-                              src="assets/img/products/stock-img-03.png"
-                              alt="product"
-                            />
-                          </Link>
-                          <Link to="#">Apple Series 5 Watch </Link>
-                        </div>
-                      </td>
-                      <td>
-                        <Link to="#">PT010</Link>
-                      </td>
-                      <td>24 Mar 2023</td>
-                      <td>26 May 2023</td>
-                      <td className="action-table-data">
-                        <div className="edit-delete-action">
-                          <Link
-                            className="me-2 p-2"
-                            to="#"
-                            data-bs-toggle="modal"
-                            data-bs-target="#edit-units"
-                          >
-                            <i data-feather="edit" className="feather-edit" />
-                          </Link>
-                          <Link
-                            className=" confirm-text p-2"
-                            to="#"
-                            onClick={showConfirmationAlert}
-                          >
-                            <i
-                              data-feather="trash-2"
-                              className="feather-trash-2"
-                            />
-                          </Link>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+            {/* Latest News */}
+            <div className="col-xl-6 col-sm-12 col-12 d-flex">
+              <LatestNews />
             </div>
           </div>
+          
         </div>
       </div>
-    </div>
+      {show &&  <VideoModal v={video} setShow={setShow}/>}
+    </>
   );
 };
 
-export default Dashboard;
+export default DBStu;

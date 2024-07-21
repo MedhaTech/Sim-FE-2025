@@ -10,18 +10,14 @@ import { FaUsers } from 'react-icons/fa';
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
 import { Mail } from "feather-icons-react/build/IconComponents";
-
+import{ IoHelpOutline,
+} from "react-icons/io5";
+import {  CheckCircle } from 'react-feather';
 import { useEffect } from 'react';
-import {
-    FaCheckCircle,
-    // FaDownload,
-    // FaHourglassHalf,
-    FaTimesCircle
-} from 'react-icons/fa';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import { getTeamMemberStatus } from '../store/teams/actions';
-import { Progress } from 'reactstrap';
 import { openNotificationWithIcon } from "../../helpers/Utils";
+import team from "../../assets/img/icons/team.svg";
 
 
 
@@ -99,9 +95,9 @@ const TeamsProgDD = ({user}) => {
             width: '15rem',
             render: (_, record) =>
                 record?.pre_survey_status ? (
-                    <FaCheckCircle size={20} color="green" />
+                    <CheckCircle size={20} color="#28C76F" />
                 ) : (
-                    <FaTimesCircle size={20} color="red" />
+                    <IoHelpOutline size={20} color="#FF0000"/>
                 )
         },
         {
@@ -117,30 +113,59 @@ const TeamsProgDD = ({user}) => {
                         record.topics_completed_count
                     );
                 return (
-                    <div className="d-flex">
-                        <div style={{ width: '80%' }}>
-                            <Progress
-                                key={'25'}
-                                className="progress-height"
-                                animated
-                                color={
-                                    percent
-                                        ? percent <= 25
-                                            ? 'danger'
-                                            : percent > 25 && percent <= 50
-                                            ? 'info'
-                                            : percent > 50 && percent <= 75
-                                            ? 'warning'
-                                            : 'sucess'
-                                        : 'danger'
-                                }
-                                value={percent}
-                            />
-                        </div>
-                        <span className="ms-2">
-                            {Math.round(percent) ? Math.round(percent) : '0'}%
-                        </span>
+                    // <div className="d-flex">
+                    //     <div style={{ width: '80%' }}>
+                    //         <Progress
+                    //             key={'25'}
+                    //             className="progress-height"
+                    //             animated
+                    //             color={
+                    //                 percent
+                    //                     ? percent <= 25
+                    //                         ? 'danger'
+                    //                         : percent > 25 && percent <= 50
+                    //                         ? 'info'
+                    //                         : percent > 50 && percent <= 75
+                    //                         ? 'warning'
+                    //                         : 'sucess'
+                    //                     : 'danger'
+                    //             }
+                    //             value={percent}
+                    //         />
+                    //     </div>
+                    //     <span className="ms-2">
+                    //         {Math.round(percent) ? Math.round(percent) : '0'}%
+                    //     </span>
+                    // </div>
+                <div className="progress progress-sm progress-custom progress-animate"
+                    role="progressbar"
+                    aria-valuenow={Math.round(percent) ? Math.round(percent) : '0'}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                  >
+                    <div className={percent
+                                ? percent <= 25
+                                    ?  "progress-bar bg-danger"
+                                    : percent > 25 && percent <= 50
+                                    ? "progress-bar bg-primary"
+                                    : percent > 50 && percent <= 75
+                                    ? "progress-bar bg-info"
+                                    : "progress-bar bg-success"
+                                : "progress-bar bg-danger"
+                        } >
+                      <div 
+                        className= {percent
+                          ? percent <= 25
+                              ?  "progress-bar-value bg-danger"
+                              : percent > 25 && percent <= 50
+                              ? "progress-bar-value bg-primary"
+                              : percent > 50 && percent <= 75
+                              ? "progress-bar-value bg-info"
+                              : "progress-bar-value bg-success"
+                          : "progress-bar-value bg-danger"} >
+                        {Math.round(percent) ? Math.round(percent) : '0'}%</div>
                     </div>
+                </div>
                 );
             }
         },
@@ -151,9 +176,9 @@ const TeamsProgDD = ({user}) => {
             width: '20rem',
             render: (_, record) =>
                 record?.idea_submission ? (
-                    <FaCheckCircle size={20} color="green" />
+                    <CheckCircle size={20} color="#28C76F" />
                 ) : (
-                    <FaTimesCircle size={20} color="red" />
+                    <IoHelpOutline size={20} color="#FF0000"/>
                 )
         },
         {
@@ -163,9 +188,9 @@ const TeamsProgDD = ({user}) => {
             width: '10rem',
             render: (_, record) =>
                 record?.post_survey_status ? (
-                    <FaCheckCircle size={20} color="green" />
+                    <CheckCircle size={20} color="#28C76F" />
                 ) : (
-                    <FaTimesCircle size={20} color="red" />
+                    <IoHelpOutline size={20} color="#FF0000"/>
                 )
         },
         {
@@ -175,9 +200,9 @@ const TeamsProgDD = ({user}) => {
             width: '10rem',
             render: (_, record) =>
                 record?.certificate ? (
-                    <FaCheckCircle size={20} color="green" />
+                    <CheckCircle size={20} color="#28C76F" />
                 ) : (
-                    <FaTimesCircle size={20} color="red" />
+                    <IoHelpOutline size={20} color="#FF0000"/>
                 )
         }
     ];
@@ -232,7 +257,7 @@ const TeamsProgDD = ({user}) => {
     <div>
         <div className="card table-list-card">
             <div className="card-header d-flex justify-content-between align-items-center">
-                <h4 className="card-title mb-0">Team Progress <FaUsers size={30} style={{ marginLeft:"6px"}} /> </h4>
+                <h4 className="card-title mb-0"> <img src={team} style={{ marginRight:"6px", width: "7%", verticalAlign: "middle"}}/>Team Progress</h4>
                 <button
                   className="btn btn-secondary d-flex align-items-center"
                   onClick={handleemailapi}

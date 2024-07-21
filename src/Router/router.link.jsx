@@ -222,6 +222,7 @@ import TeamDashboard from "../Team/TeamDashboard/DboardTeam";
 import StudentDashboard from "../Team/StudentDashboard/DBStu";
 import StuPostSurvey from "../Team/StuPostSurvey/StuPostSurvey";
 import StuPreSurvey from "../Team/StuPreSurvey/StuPreSurvey";
+import StuResource from "../Team/StuResources/StuResource";
 
 
 export const publicRoutes = [
@@ -1490,6 +1491,14 @@ export const teamRoutes = [
     path: routes.idea,
     name: "idea",
     element: <Idea />,
+    //protected: true,
+    route: Route,
+  },
+  {
+    id: 5,
+    path: routes.studentresource,
+    name: "studentresource",
+    element: <StuResource />,
     //protected: true,
     route: Route,
   },
