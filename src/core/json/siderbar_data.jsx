@@ -63,7 +63,7 @@ export const SidebarData = [
       },
       {
         label: "Ideas Submission",
-        link: "/add-product",
+        link: "/idea",
         icon: <Icon.PlusSquare />,
         role: "TEAM",
         showSubRoute: false,
@@ -71,7 +71,7 @@ export const SidebarData = [
       },
       {
         label: "Resources",
-        link: "/expired-products",
+        link: "/studentresource",
         icon: <Icon.Codesandbox />,
         role: "TEAM",
         showSubRoute: false,
@@ -165,13 +165,14 @@ export const SidebarData = [
         submenu: false,
       },
       
-      // {
-      //   label: "Resources",
-      //   link: "/expired-products",
-      //   icon: <Icon.Codesandbox />,
-      //   showSubRoute: false,
-      //   submenu: false,
-      // },
+      {
+        label: "Resources",
+        link: "/studentresource",
+        icon: <Icon.Codesandbox />,
+        role: "STUDENT",
+        showSubRoute: false,
+        submenu: false,
+      },
       
       // {
       //   label: "Courses",

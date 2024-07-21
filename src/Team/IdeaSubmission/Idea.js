@@ -13,6 +13,7 @@ import i5 from "../../assets/img/Themes/5.png";
 import i6 from "../../assets/img/Themes/6.png";
 import i7 from "../../assets/img/Themes/7.png";
 import i8 from "../../assets/img/Themes/8.png";
+import FeatherIcon from "feather-icons-react";
 
 const themes = [
   { id: 1, image: i1, title: 'Sustainable Development', focusareas: ["Environmental Conservation", "Renewable energy", "Sustainable Agriculture", "Water Management"], desc: "This theme emphasizes the importance of balancing economic growth with environmental protection to ensure a sustainable future for coming generations." },
@@ -118,7 +119,8 @@ const Idea = () => {
                                         </h6>
                                         <div className="d-flex align-items-center justify-content-between price">
                                             <span>Focus Areas</span>
-                                            <p>{theme.focusareas.length}</p>
+                                            {theme.id === 8? (<p><FeatherIcon size={20} icon="loader" /></p>):(<p>{theme.focusareas.length}</p>)}
+                                            
                                         </div>
                                     </div>
                                 </div>

@@ -10,6 +10,7 @@ export const all_routes = {
   addstudent: "/addstudent",
   studentedit: "/studentedit",
   tecresource: "/tecresource",
+  studentresource: "/studentresource",
   mentorpresurvey: "/mentorpresurvey",
   mentorpostsurvey: "/mentorpostsurvey",
   mentorcourse: "/mentorcourse/:id",

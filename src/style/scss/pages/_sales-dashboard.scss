@@ -63,7 +63,7 @@
         @include rounded(8px);
         border: 1px solid $gray-100;
         display: inline-block;
-        @include margin-padding(0 0 0 10px, 5px 10px);
+        @include margin-padding(0 0 0 0, 5px 10px);
         color: $secondary;
         height: 38px;
         @include transition(all 0.5s ease);

@@ -76,9 +76,9 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
         return (
           <li key={currentStep}>
             <div className="timeline-badge success">
-              <i className="fas fa-user" />
+              <i className="fa fa-street-view" />
             </div>
-            <div className="timeline-panel">
+            <div className="timeline-panel bg-success-gradient">
               <div className="timeline-heading">
                 <h4 className="timeline-title">Question {questions[0].qid}</h4>
               </div><br />
@@ -94,7 +94,7 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
                     <div className='view-btn'>
                       <a
                         href="#"
-                        className="btn btn-soft-info rounded-pill"
+                        className="btn btn-soft-light rounded-pill"
                         onClick={handleNext}
                       >
                         Next{" "}<ArrowRight className="me-2" />
@@ -108,10 +108,10 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
       case 2:
         return (
           <li className="timeline-inverted" key={currentStep}>
-            <div className="timeline-badge warning">
-              <i className="fas fa-users" />
+            <div className="timeline-badge info">
+              <i className="fa fa-eye" />
             </div>
-            <div className="timeline-panel">
+            <div className="timeline-panel bg-info-gradient">
               <div className="timeline-heading">
                 <h4 className="timeline-title">Question {questions[1].qid}</h4>
               </div><br />
@@ -144,7 +144,7 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
                     <div className='view-btn'>
                       <a
                         href="#"
-                        className="btn btn-soft-info rounded-pill"
+                        className="btn btn-soft-light rounded-pill"
                         onClick={handleNext}
                       >
                         <ArrowLeft className="me-2" />
@@ -160,10 +160,10 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
       case 3:
         return (
           <li key={currentStep}>
-            <div className="timeline-badge danger">
-              <i className="fas fa-gift" />
+            <div className="timeline-badge bg-secondary">
+              <i className="fa fa-exclamation-circle" />
             </div>
-            <div className="timeline-panel">
+            <div className="timeline-panel bg-secondary-gradient">
               <div className="timeline-heading">
                 <h4 className="timeline-title">Question {questions[2].qid}</h4>
               </div><br />
@@ -182,7 +182,7 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
                     <div className='view-btn'>
                       <a
                         href="#"
-                        className="btn btn-soft-info rounded-pill"
+                        className="btn btn-soft-light rounded-pill"
                         onClick={handleNext}
                       >
                         Next{" "}<ArrowRight className="me-2" />
@@ -196,7 +196,10 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
       case 4:
         return (
           <li className="timeline-inverted" key={currentStep}>
-            <div className="timeline-panel">
+            <div className="timeline-badge primary">
+              <i className="fa fa-lightbulb" />
+            </div>
+            <div className="timeline-panel bg-warning-gradient">
               <div className="timeline-heading">
                 <h4 className="timeline-title">Question {questions[3].qid}</h4>
               </div><br />
@@ -215,7 +218,7 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
                     <div className='view-btn'>
                       <a
                         href="#"
-                        className="btn btn-soft-info rounded-pill"
+                        className="btn btn-soft-light rounded-pill"
                         onClick={handleNext}
                       ><ArrowLeft className="me-2" />
                         {" "}Next
@@ -230,9 +233,9 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
         return (
           <li key={currentStep}>
             <div className="timeline-badge info">
-              <i className="fa fa-save" />
+              <i className="fa fa-edit" />
             </div>
-            <div className="timeline-panel">
+            <div className="timeline-panel bg-info-gradient">
               <div className="timeline-heading">
                 <h4 className="timeline-title">Question {questions[4].qid}</h4>
               </div><br />
@@ -251,7 +254,7 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
                     <div className='view-btn'>
                       <a
                         href="#"
-                        className="btn btn-soft-info rounded-pill"
+                        className="btn btn-soft-light rounded-pill"
                         onClick={handleNext}
                       >
                         Next{" "}<ArrowRight className="me-2" />
@@ -266,9 +269,9 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
         return (
           <li className="timeline-inverted" key={currentStep}>
             <div className="timeline-badge success">
-              <i className="fa fa-graduation-cap" />
+              <i className="fa fa-video" />
             </div>
-            <div className="timeline-panel">
+            <div className="timeline-panel bg-success-gradient">
               <div className="timeline-heading">
                 <h4 className="timeline-title">Question {questions[5].qid}</h4>
               </div><br />
@@ -285,7 +288,7 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
                     <div className='view-btn'>
                       <a
                         href="#"
-                        className="btn btn-soft-info rounded-pill"
+                        className="btn btn-soft-light rounded-pill"
                         onClick={handleNext}
                       >
                         <ArrowLeft className="me-2" />
@@ -315,8 +318,8 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
         <div className="row">
           {/* Ribbon */}
           <div className="col-md-12">
-            <div className="card">
-              <div className="card-body">
+            <div >
+              <div >
                 {Array.from({ length: step }, (_, index) => (
                   <ul className="timeline" key={index}>
                     {renderQuestion(index + 1)}
@@ -325,7 +328,7 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
                 <div ref={formEndRef}></div>
               </div>
               {step === 7 ? (
-                <div className='card-footer '>
+                <div >
                   <div className="col-lg-12">
                     <div className="view-btn">
                       <button type="button" className="btn btn-reset me-2" onClick={handleDiscard}>Discard</button>
@@ -333,6 +336,7 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
                     </div>
                   </div>
                 </div>) : null}
+                <br/>
 
             </div>
           </div>
