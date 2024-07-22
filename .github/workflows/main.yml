@@ -79,9 +79,7 @@ jobs:
             cd /var/www/html/aim_fe &&
             sudo git fetch origin &&
             sudo git checkout testing &&
-            sudo git pull origin testing'
-        
-            '
+            sudo git pull origin testing '
 
             
 
