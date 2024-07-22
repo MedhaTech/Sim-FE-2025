@@ -13,8 +13,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         
+      - name: Install NPM
+        run: sudo npm install -g npm@8.15.1
+
+      - name: Set legacy-peer-deps
+        run: sudo npm config set legacy-peer-deps true
+
       - name: Install dependencies
-        run: sudo npm install --force
+        run: |
+          echo Installing source NPM dependencies...
+          sudo npm install --force
+
 
       - name: Buid the application
         run: npm run build:dev
