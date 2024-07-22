@@ -229,6 +229,8 @@ const EmployeesGrid = () => {
     currentUser.data[0].full_name = data?.full_name;
     currentUser.data[0].user_id = data?.user_id;
     currentUser.data[0].role = data?.role;
+    currentUser.data[0].gender = data?.Gender;
+    console.log(currentUser.data[0].gender);
     setCurrentUser(currentUser);
     navigate("/studentpresurvey");
   };
