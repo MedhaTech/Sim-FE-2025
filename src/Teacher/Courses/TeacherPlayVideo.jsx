@@ -136,14 +136,14 @@ const TeacherPlayVideo = (props) => {
     setAdminCourse(props.adminCoursesDetails && props.adminCoursesDetails[0]);
     setAdminCourseDetails(
       props.adminCoursesDetails[0] &&
-        props.adminCoursesDetails[0].course_modules
+      props.adminCoursesDetails[0].course_modules
     );
     setTeacherCourse(
       props.teaherCoursesDetails && props.teaherCoursesDetails[0]
     );
     setTeacherCourseDetails(
       props.teaherCoursesDetails[0] &&
-        props.teaherCoursesDetails[0].mentor_course_topics
+      props.teaherCoursesDetails[0].mentor_course_topics
     );
     props.teaherCoursesDetails[0] &&
       props.teaherCoursesDetails[0].mentor_course_topics.map(
@@ -415,8 +415,8 @@ const TeacherPlayVideo = (props) => {
 
     // type = video ,attachment ,quiz, certificates  //
     //  where status = completed /incomplete //
-    const done = <FeatherIcon icon="check-circle" style={{ color: "green" }} />;
-    const notDone = <FeatherIcon icon="check-circle" />;
+    const done = <FeatherIcon className="mx-2" icon="play-circle" style={{ color: '#4bae4f' }} />;
+    const notDone = <FeatherIcon className="mx-2" icon="play-circle" style={{ color: '#c0c0c0' }} />;
 
     // const done = <IoCheckmarkDoneCircleSharp className="done" />;
     // const notDone = <IoCheckmarkDoneCircleSharp />;
@@ -592,40 +592,47 @@ const TeacherPlayVideo = (props) => {
   return (
     <div className="page-wrapper">
       <div className="content">
+        <div className="page-header">
+          <div className="add-item d-flex">
+            <div className="page-title">
+              <h4>Course</h4>
+              <h6>A good education can change anyone.</h6>
+            </div>
+          </div>
+        </div>
         <div className="courses-page" ref={scrollRef}>
           <div
-            className="pb-5 my-5 px-5 container-fluid"
+            className="container-fluid"
             style={{ minHeight: "72vh" }}
           >
             <Row className="m-0 courser-video-section ">
-              <Col xl={4} className="course-assement order-2 order-xl-1 ">
-                <div className="assement-info">
-                  <h3>Lessons</h3>
-                  <div className="view-head"></div>
-                  <div className="assement-item" id="scrollbar">
+              <Col xl={4} className="sidebars-right theiaStickySidebar section-bulk-widget">
+                <div className="notes-dash">
+                  <div className="notes-top-head">
+                    <h5> <i data-feather="file-text" className="feather-file-text"></i> Lessons</h5>
+                  </div>
+                  <div className="notes-top-head-submenu">
                     {teacherCourseDetails &&
                       teacherCourseDetails.length &&
                       teacherCourseDetails.map((course, index) => {
                         return (
                           <div
                             key={index}
-                            className={`course-sec-list ${
-                              course.progress === "COMPLETED"
-                                ? "hHover"
-                                : "hHover"
-                            }  `}
+                            className={`course-sec-list ${course.progress === "COMPLETED"
+                              ? "hHover"
+                              : "hHover"
+                              }`}
                           >
                             <Row
                               style={{
                                 background:
                                   currentTopicId ===
-                                    course.mentor_course_topic_id && "#f0f3f8",
+                                  course.mentor_course_topic_id && "#f0f3f8",
                               }}
-                              className={`justify-content-between w-100 px-4 py-3 ${
-                                course.progress === "COMPLETED"
-                                  ? "hHover"
-                                  : "noCurser"
-                              }`}
+                              className={`justify-content-between w-100 px-0 py-3 my-0 ${course.progress === "COMPLETED"
+                                ? "hHover"
+                                : "noCurser"
+                                }`}
                             >
                               <Col
                                 md={12}
@@ -645,7 +652,84 @@ const TeacherPlayVideo = (props) => {
                                     setInstructions(false);
                                   } else if (
                                     course.title.toLowerCase() ===
-                                      "congratulations" ||
+                                    "congratulations" ||
+                                    course.title === "வழிமுறைகள்"
+                                  ) {
+                                    setInstructions(true);
+                                    setHandbook(false);
+                                  } else if (
+                                    course.title.toLowerCase() === "certificate"
+                                  ) {
+                                    setCertificate(true);
+                                    setItem("CERTIFICATE");
+                                  }
+                                }}
+                              >
+                                <p className="course-icon mb-0">
+                                  {videoStatus(
+                                    course.topic_type,
+                                    course.progress
+                                  )}
+
+                                  <span className="course-title" style={{ 'font-weight': '600' }}>
+                                    {course.title}
+                                  </span>
+                                </p>
+                              </Col>
+                            </Row>
+                          </div>
+                        );
+                      })}
+
+                  </div>
+                </div>
+              </Col>
+              {/* <Col xl={4} className="course-assement order-2 order-xl-1 ">
+                <div className="assement-info">
+                  <h3>Lessons</h3>
+                  <div className="view-head"></div>
+                  <div className="assement-item" id="scrollbar">
+                    {teacherCourseDetails &&
+                      teacherCourseDetails.length &&
+                      teacherCourseDetails.map((course, index) => {
+                        return (
+                          <div
+                            key={index}
+                            className={`course-sec-list ${course.progress === "COMPLETED"
+                              ? "hHover"
+                              : "hHover"
+                              }  `}
+                          >
+                            <Row
+                              style={{
+                                background:
+                                  currentTopicId ===
+                                  course.mentor_course_topic_id && "#f0f3f8",
+                              }}
+                              className={`justify-content-between w-100 px-4 py-3 ${course.progress === "COMPLETED"
+                                ? "hHover"
+                                : "noCurser"
+                                }`}
+                            >
+                              <Col
+                                md={12}
+                                className="my-auto"
+                                onClick={() => {
+                                  setCourseData(course);
+                                  handleSelect(
+                                    course.topic_type_id,
+                                    course.mentor_course_topic_id,
+                                    course.topic_type
+                                  );
+                                  if (
+                                    course.title.toLowerCase() === "handbook" ||
+                                    course.title === "கையேடு"
+                                  ) {
+                                    setHandbook(true);
+                                    setInstructions(false);
+                                  } else if (
+                                    course.title.toLowerCase() ===
+                                    "congratulations" ||
                                     course.title === "வழிமுறைகள்"
                                   ) {
                                     setInstructions(true);
@@ -678,14 +762,14 @@ const TeacherPlayVideo = (props) => {
                                                                 </span>
                                                             )}
                                                         </p> */}
-                              </Col>
+              {/*</Col>
                             </Row>
                           </div>
                         );
                       })}
                   </div>
                 </div>
-              </Col>
+              </Col> */}
 
               <Col xl={8} className="course-video mb-5 order-1 order-xl-2">
                 {
@@ -786,7 +870,7 @@ const TeacherPlayVideo = (props) => {
                   //                   ? "See Score"
                   //                   : "Resume Quiz"
                   //               }
-                  //               btnClass="primary mt-4"
+                  //               btnclassName="primary mt-4"
                   //               size="small"
                   //               onClick={() => setHideQuiz(true)}
                   //             /> */}
@@ -801,10 +885,10 @@ const TeacherPlayVideo = (props) => {
                   //   </div>
                   // ) :
                   item === "ATTACHMENT" &&
-                  !instructions &&
-                  handbook &&
-                  props.mentorAttachments.length > 0 &&
-                  props.mentorAttachments[0]?.attachments?.split("{{}}") ? (
+                    !instructions &&
+                    handbook &&
+                    props.mentorAttachments.length > 0 &&
+                    props.mentorAttachments[0]?.attachments?.split("{{}}") ? (
                     // .length === 1
                     <Fragment>
                       <Card className="course-sec-basic p-5">
@@ -891,13 +975,13 @@ const TeacherPlayVideo = (props) => {
                                     //   .split("/")
                                     //   [item.split("/").length - 1].split(".")[0]
                                     //   .replace("_", " ")}`}
-                                    // btnClass="secondary mx-2"
+                                    // btnclassName="secondary mx-2"
                                     // size="small"
                                     onClick={() => handleDownload(item)}
                                   >
                                     {`Download ${item
                                       .split("/")
-                                      [item.split("/").length - 1].split(".")[0]
+                                    [item.split("/").length - 1].split(".")[0]
                                       .replace("_", " ")}`}
                                   </button>
                                 ))}
@@ -917,12 +1001,12 @@ const TeacherPlayVideo = (props) => {
                     </Fragment>
                   ) : item === "VIDEO" && condition === "Video1" ? (
                     <Card className="embed-container">
-                      <CardTitle className=" text-left p-4 d-flex justify-content-between align-items-center">
+                      <CardTitle className="text-left p-1 d-flex justify-content-between align-items-center">
                         <h3>{courseData.title}</h3>
                         {/* {backToQuiz && (
                         <Button
                           label="Back to Quiz"
-                          btnClass="primary"
+                          btnclassName="primary"
                           size="small"
                           onClick={() => {
                             setBackToQuiz(false);
@@ -953,8 +1037,8 @@ const TeacherPlayVideo = (props) => {
                         <Card className="course-sec-basic p-5">
                           <CardBody>
                             {getLastCourseStatus(teacherCourseDetails) &&
-                            //  isquizcompleted
-                            finalPage ? (
+                              //  isquizcompleted
+                              finalPage ? (
                               <div className="text-center">
                                 <h2 className="text-success">
                                   🎉 Congratulations on completing the course!
@@ -1013,7 +1097,7 @@ const TeacherPlayVideo = (props) => {
                                   ></div>
                                 </text>
                                 {firstObj[0] &&
-                                firstObj[0].progress == "INCOMPLETE" ? (
+                                  firstObj[0].progress == "INCOMPLETE" ? (
                                   <div>
                                     <button
                                       className="btn btn-warning"
@@ -1157,7 +1241,7 @@ const TeacherPlayVideo = (props) => {
                           {/* <Button
                             button="submit"
                             label="Download Certificate"
-                            btnClass="primary mt-4"
+                            btnclassName="primary mt-4"
                             size="small"
                             style={{
                               marginRight: "2rem",
@@ -1174,7 +1258,7 @@ const TeacherPlayVideo = (props) => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
