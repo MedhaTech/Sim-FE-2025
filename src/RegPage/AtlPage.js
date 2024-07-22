@@ -150,12 +150,13 @@ const Register = () => {
           }
           if (
             response?.data?.data[0] &&
-            response?.data?.data[0].category == "ATL" &&
+            // response?.data?.data[0].category == "ATL" &&
             process.env.REACT_APP_USEDICECODE == 1
           ) {
             if (
-              Object.keys(response?.data?.data[0]).length &&
-              response?.data?.data[0].category === "ATL"
+              Object.keys(response?.data?.data[0]).length
+              // &&
+              // response?.data?.data[0].category === "ATL"
             ) {
               setDropDownbtn(response?.data?.data[0].mentor != null);
               if (response?.data?.data[0].mentor != null) {
@@ -188,7 +189,7 @@ const Register = () => {
           } else {
             // const nonAtl = response?.data?.data[0];
             // setMultiData(nonAtl);
-            navigate("/non-atl-register", { state: diesCode });
+            // navigate("/non-atl-register", { state: diesCode });
           }
         }
       })
