@@ -44,7 +44,9 @@ const StuPreSurvey = () => {
     const [preSurveyStatus, setPreSurveyStatus] = useState("");
     const [isDisabled, setIsDisabled] = useState(false);
     const [answerResponses, setAnswerResponses] = useState([]);
-
+    //console.log(currentUser , "current user");
+    const userID = currentUser?.data[0]?.user_id;
+    console.log(userID , " user");
     const filterAnswers = (questionId) => {
         const data =
           answerResponses &&
@@ -114,6 +116,7 @@ const StuPreSurvey = () => {
         let enParamDatas = encryptGlobal(
           JSON.stringify({
             locale: "en",
+            user_id : userID,
           })
         );
         let submitData = {
@@ -130,6 +133,7 @@ const StuPreSurvey = () => {
           );
         } else {
           const quizSurveyIdParam = encryptGlobal(JSON.stringify(quizSurveyId));
+          //console.log(quizSurveyIdParam , "pre check");
           return await axios
             .post(
               `${URL.getPostSurveyList}/${quizSurveyIdParam}/responses?Data=${enParamDatas}`,
@@ -182,6 +186,7 @@ const StuPreSurvey = () => {
           JSON.stringify({
             role: "STUDENT",
             locale: final[1],
+            user_id : userID,
           })
         );
         axiosConfig["params"] = {
