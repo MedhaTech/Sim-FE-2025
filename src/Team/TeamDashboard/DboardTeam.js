@@ -238,7 +238,6 @@ const EmployeesGrid = () => {
     currentUser.data[0].disability = data?.disability;
     currentUser.data[0].Grade = data?.Grade;
     currentUser.data[0].Age = data?.Age;
-
     setCurrentUser(currentUser);
     navigate("/studentpresurvey");
   };

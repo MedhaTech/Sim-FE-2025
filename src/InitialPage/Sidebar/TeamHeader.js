@@ -147,9 +147,9 @@ const Header = () => {
 
   const getProfileImage = (gender) => {
     switch (gender) {
-      case "Male":
+      case "MALE":
         return male;
-      case "Female":
+      case "FEMALE":
         return female;
       default:
         return team;

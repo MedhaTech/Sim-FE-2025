@@ -43,6 +43,7 @@ const PostSurvey = () => {
   const [postSurveyStatus, setPostSurveyStatus] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
   const [answerResponses, setAnswerResponses] = useState([]);
+  const userID = currentUser?.data[0]?.user_id;
   const filterAnswer = (questionId) => {
     const data =
       answerResponses &&
@@ -166,6 +167,7 @@ const PostSurvey = () => {
     let enParamDatas = encryptGlobal(
       JSON.stringify({
         locale: "en",
+        user_id:userID,
       })
     );
     let submitData = {
@@ -262,6 +264,7 @@ const PostSurvey = () => {
       JSON.stringify({
         role: "MENTOR",
         locale: final[1],
+        user_id : userID,
       })
     );
     axiosConfig["params"] = {
