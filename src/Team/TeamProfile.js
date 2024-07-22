@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import female from "../assets/img/Female_Profile.png";
 import male from "../assets/img/Male_Profile.png";
 import team from "../assets/img/icons/team2.png";
+import team1 from "../assets/img/icons/team.svg";
 
 const TeacherProfile = () => {
   const currentUser = getCurrentUser("current_user");
@@ -57,7 +58,7 @@ const TeacherProfile = () => {
                       <img src={female} alt="Female" id="blah" />
                     )} */}
                     {currentUser?.data[0]?.role === "TEAM" ? (
-                      <img src={team} alt="Team" id="blah" />
+                      <img src={team1} alt="Team" id="blah" style={{background:"white"}}/>
                     ) : currentUser?.data[0]?.role === "STUDENT" &&
                       currentUser?.data[0]?.Gender === "MALE" ? (
                       <img src={male} alt="Male" id="blah" />
@@ -93,16 +94,16 @@ const TeacherProfile = () => {
                   />
                 </div>
               </div>
-              {/* <div className="col-lg-6 col-sm-12">
+              <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label"></label>
+                  <label className="form-label">Team Username</label>
                   <input
                     type="text"
                     className="form-control"
-                    defaultValue={currentUser?.data[0]?.full_name}
+                    defaultValue={currentUser?.data[0]?.name}
                   />
                 </div>
-              </div> */}
+              </div>
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
                   <label>Team Email</label>
@@ -126,11 +127,33 @@ const TeacherProfile = () => {
               </div>
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
+                  <label className="form-label">Guide Teacher</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    defaultValue={currentUser?.data[0]?.Teacher_name}
+                    readOnly="readonly"
+                  />
+                </div>
+              </div>
+              <div className="col-lg-6 col-sm-12">
+                <div className="input-blocks">
                   <label className="form-label">State</label>
                   <input
                     type="text"
                     className="form-control"
                     defaultValue={currentUser?.data[0]?.state}
+                    readOnly="readonly"
+                  />
+                </div>
+              </div>
+              <div className="col-lg-6 col-sm-12">
+                <div className="input-blocks">
+                  <label className="form-label">District</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    defaultValue={currentUser?.data[0]?.district}
                     readOnly="readonly"
                   />
                 </div>

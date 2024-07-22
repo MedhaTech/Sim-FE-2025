@@ -34,6 +34,7 @@ import Swal from "sweetalert2";
 import { getCurrentUser, setCurrentUser } from "../../helpers/Utils";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { FaRoute } from 'react-icons/fa';
 
 const EmployeesGrid = () => {
   const route = all_routes;
@@ -222,12 +223,23 @@ const EmployeesGrid = () => {
       .then(function (response) {
         if (response.status === 200) {
           setStudentCount(response.data.data);
+          console.log(studentCount , "count");
         }
       })
       .catch(function (error) {
         console.log(error);
       });
   };
+
+  console.log(teamsMembersStatus,"data for instructions");
+
+  const handleInstructions = (k)=>{
+  console.log(k , "handleInstructions");
+  console.log(teamsMembersStatus[k].pre_survey_status
+    ,"instructions");
+
+  };
+
   const handleStudent = (student) => {
     //alert("hii");
     const data = { ...student };
@@ -385,8 +397,13 @@ const EmployeesGrid = () => {
                         Age <span>{student.Age} yrs</span>{" "}
                       </li>
                     </ul>
-                    <div className="departments">
-                      <p>Instructions to students on their action items</p>
+                    <div className="departments" onClick={()=> handleInstructions(i)}>
+                      {teamsMembersStatus[i].pre_survey_status?(teamsMembersStatus[i].topics_completed_count?(teamsMembersStatus[i].all_topics_count-teamsMembersStatus[i].topics_completed_count===0?(teamsMembersStatus[i].idea_submission?(teamsMembersStatus[i].post_survey_status?(<p>🥳 Congratulations! on achieving your Certificate. Login & download ✅</p>)
+                      :(<p>🥳 Congrats! Your idea is submitted💡 It&apos;s time to take Post-Survey</p>))
+                      :(<p>👏 Well Done Problem Solver! You are now ready to submit idea 💡</p>))
+                      :(<p>😄 Hope you are learning good techniques to solve problems around you👍🏻</p>))
+                      :(<p>👋 Start Course & know about 🔍Problem Solving Journey <FaRoute size={16} color="#20c997" /> </p>))
+                      :(<p>👋 Hi! Login & Get started with your Pre-Survey 😊</p>)}
                     </div>
                   </div>
                 </div>

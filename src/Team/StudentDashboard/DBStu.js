@@ -34,6 +34,8 @@ import { FaUsers } from 'react-icons/fa';
 import { FaChalkboardTeacher } from 'react-icons/fa'; 
 import { useNavigate } from 'react-router-dom';
 import VideoModal from '../../HelpVideo/VideoModal';
+import { encryptGlobal } from '../../constants/encryptDecrypt';
+import axios from 'axios';
 
 
 
@@ -51,9 +53,6 @@ const DBStu = () => {
   const [stuPreSurvey, setStuPreSurvey] = useState("");
   const [stuIdeaSub, setStuIdeaSub] = useState("");
   const [coursepercentage, setCoursepercentage] = useState();
-
-
-
   const [video , setVideo] = useState("");
   const [show , setShow] = useState(false);
 
@@ -102,9 +101,185 @@ const DBStu = () => {
     setSelectedLanguage(language);
   };
 
+  const scroll = () => {
+    const section = document.querySelector('#start');
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  useEffect(() => {
+    if (currentUser?.data[0]?.user_id) {
+        stuCoursePercent();
+        stuBadgesCount();
+        stuQuizCount();
+        stuVideosCount();
+        stuSurveyStatus();
+        scroll();
+    }
+  }, [currentUser?.data[0]?.user_id]);
+  const [badges,setBadges] = useState(0);
+  const [quiz,setQuiz] = useState(0);
+  const [videos,setVideos] = useState(0);
+
+  const stuSurveyStatus = () => {
+    const surveyApi = encryptGlobal(
+        JSON.stringify({
+            user_id: currentUser?.data[0]?.user_id
+        })
+    );
+    var config = {
+        method: 'get',
+        url:
+            process.env.REACT_APP_API_BASE_URL +
+            `/dashboard/stuPrePostStats?Data=${surveyApi}`,
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${currentUser.data[0]?.token}`
+        }
+    };
+    axios(config)
+        .then(function (response) {
+            if (response.status === 200) {
+                console.log(response);
+                const po = (response.data.data[0].postSurvey);
+                const pre = (response.data.data[0].preSurvey);
+                setStuPostSurvey(po);
+                setStuPreSurvey(pre);
+                setStuPostSLoading(false);
+                setStuPreSLoading(false);
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    };
+    
+  const stuCoursePercent = () => {
+    const corseApi = encryptGlobal(
+        JSON.stringify({
+            user_id: currentUser?.data[0]?.user_id
+        })
+    );
+    var config = {
+        method: 'get',
+        url:
+            process.env.REACT_APP_API_BASE_URL +
+            `/dashboard/stuCourseStats?Data=${corseApi}`,
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${currentUser.data[0]?.token}`
+        }
+    };
+    axios(config)
+        .then(function (response) {
+            if (response.status === 200) {
+              console.log(response);
+                const per = Math.round(
+                    (response.data.data[0].topics_completed_count /
+                        response.data.data[0].all_topics_count) *
+                        100
+                );
+                console.log(per);
+                setCoursepercentage(per);
+                setStuCourseLoading(false);
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+  };
+
+  const stuBadgesCount = () => {
+    const badgeApi = encryptGlobal(
+        JSON.stringify({
+          user_id: currentUser?.data[0]?.user_id
+        })
+    );
+    var config = {
+        method: 'get',
+        url:
+            process.env.REACT_APP_API_BASE_URL +
+            `/dashboard/stuBadgesStats?Data=${badgeApi}`,
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${currentUser.data[0]?.token}`
+        }
+    };
+    axios(config)
+        .then(function (response) {
+            if (response.status === 200) {
+                console.log(response);
+                setBadges(response.data.data[0].badges_earned_count);
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+  };
+
+  const stuQuizCount = () => {
+    const quizApi = encryptGlobal(
+        JSON.stringify({
+          user_id: currentUser?.data[0]?.user_id
+        })
+    );
+    var config = {
+        method: 'get',
+        url:
+            process.env.REACT_APP_API_BASE_URL +
+            `/dashboard/stuQuizStats?Data=${quizApi}`,
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${currentUser.data[0]?.token}`
+        }
+    };
+    axios(config)
+        .then(function (response) {
+            if (response.status === 200) {
+                console.log(response);
+                setQuiz(response.data.data[0].quiz_completed_count);
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+  };
+
+  const stuVideosCount = () => {
+    const videoApi = encryptGlobal(
+        JSON.stringify({
+          user_id: currentUser?.data[0]?.user_id
+        })
+    );
+    var config = {
+        method: 'get',
+        url:
+            process.env.REACT_APP_API_BASE_URL +
+            `/dashboard/stuVideoStats?Data=${videoApi}`,
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${currentUser.data[0]?.token}`
+        }
+    };
+    axios(config)
+        .then(function (response) {
+            if (response.status === 200) {
+                console.log(response);
+                setVideos(response.data.data[0].videos_completed_count);
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+  };
+
   return (
     <>
-      <div className="page-wrapper">
+      <div className="page-wrapper" id="start">
         <div className="content">
           <div className="welcome d-lg-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center welcome-text">
@@ -165,9 +340,9 @@ const DBStu = () => {
               <div className="card color-info bg-success mb-4 ">
                 <h3>
                   {" "}
-                  <CountUp end={10000} duration={4}>
+                  <CountUp end={coursepercentage} duration={4}>
                     +
-                  </CountUp>
+                  </CountUp> / 100
                 </h3>
                 <p>Course Completion %</p>
                 <FeatherIcon icon="monitor" />
@@ -175,9 +350,9 @@ const DBStu = () => {
               <div className="card color-info"  style={{background:"#00CFE8"}}>
                 <h3>
                   {" "}
-                  <CountUp end={10000} duration={4}>
+                  <CountUp end={quiz} duration={4}>
                     +
-                  </CountUp>
+                  </CountUp> / 5
                 </h3>
                 <p>Quizes Passed</p>
                 <FeatherIcon icon="thumbs-up" />
@@ -186,18 +361,18 @@ const DBStu = () => {
             <div className="col-xl-3 col-sm-6 col-12">
               <div className="card color-info bg-secondary mb-4">
                 <h3>
-                  <CountUp end={800} duration={4}>
+                  <CountUp end={videos} duration={4}>
                     +
-                  </CountUp>
+                  </CountUp> / 24
                 </h3>
                 <p>Course Videos Watched</p>
                 <FeatherIcon icon="video" />
               </div>
               <div className="card color-info bg-primary">
                 <h3>
-                  <CountUp end={800} duration={4}>
+                  <CountUp end={badges} duration={4}>
                     +
-                  </CountUp>
+                  </CountUp> / 8
                 </h3>
                 <p>Badges Achieved</p>
                 <FeatherIcon icon="award" />
@@ -261,7 +436,7 @@ const DBStu = () => {
                           <td>
                             {stuPreSLoading ? ( 
                                 <Loader />
-                              ) : stuPreSurvey != "COMPLETED"  ?  (
+                              ) : stuPreSurvey === null ?  (
                               <>
                                 <span
                                   className={"badge badge-linedangered"}
@@ -475,7 +650,7 @@ const DBStu = () => {
                           <td>
                             {stuPostSLoading ? ( 
                                 <Loader />
-                              ) : stuPostSurvey != "COMPLETED" ?  (
+                              ) : stuPostSurvey === null ?  (
                               <>
                                 <span
                                   className={"badge badge-linedangered"}

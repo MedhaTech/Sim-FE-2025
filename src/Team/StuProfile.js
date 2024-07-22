@@ -64,16 +64,37 @@ const TeacherProfile = () => {
                     </div>
                   </div>
                   <div className="profile-contentname">
-                    <h2>{currentUser?.data[0]?.team_name}</h2>
+                    <h2>{currentUser?.data[0]?.full_name}</h2>
                     {/* <h4>Update Personal Details.</h4> */}
                   </div>
                 </div>
               </div>
             </div>
             <div className="row">
+            <div className="col-lg-6 col-sm-12">
+                <div className="input-blocks">
+                  <label>Team Name</label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    defaultValue={currentUser?.data[0]?.team_name}
+                    readOnly="readonly"
+                  />
+                </div>
+              </div>
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label">Full Name</label>
+                  <label className="form-label">Team Username</label>
+                  <input
+                    type="text"
+                    defaultValue={currentUser?.data[0]?.name}
+                    readOnly="readonly"
+                  />
+                </div>
+              </div>
+              <div className="col-lg-6 col-sm-12">
+                <div className="input-blocks">
+                  <label className="form-label">Student Full Name</label>
                   <input
                     type="text"
                     className="form-control"
@@ -136,27 +157,7 @@ const TeacherProfile = () => {
                   />
                 </div>
               </div> */}
-              <div className="col-lg-6 col-sm-12">
-                <div className="input-blocks">
-                  <label>Team Name</label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    defaultValue={currentUser?.data[0]?.team_name}
-                    readOnly="readonly"
-                  />
-                </div>
-              </div>
-              <div className="col-lg-6 col-sm-12">
-                <div className="input-blocks">
-                  <label className="form-label">Team Username</label>
-                  <input
-                    type="text"
-                    defaultValue={currentUser?.data[0]?.name}
-                    readOnly="readonly"
-                  />
-                </div>
-              </div>
+              
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
                   <label className="form-label">State</label>
