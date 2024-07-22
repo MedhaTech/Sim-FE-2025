@@ -64,7 +64,7 @@ jobs:
             cd /var/www/html/aim_fe &&
             sudo git fetch origin &&
             sudo git checkout development &&
-            sudo git pull origin development
+            sudo git pull origin development '
       - name: Deploy to Development
         if: github.ref == 'refs/heads/testing'
         env:
@@ -79,7 +79,7 @@ jobs:
             cd /var/www/html/aim_fe &&
             sudo git fetch origin &&
             sudo git checkout development &&
-            sudo git pull origin development
+            sudo git pull origin development '
         
             '
 
