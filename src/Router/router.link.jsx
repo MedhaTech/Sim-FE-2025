@@ -223,7 +223,9 @@ import StudentDashboard from "../Team/StudentDashboard/DBStu";
 import StuPostSurvey from "../Team/StuPostSurvey/StuPostSurvey";
 import StuPreSurvey from "../Team/StuPreSurvey/StuPreSurvey";
 import StuResource from "../Team/StuResources/StuResource";
-
+import TeamProfile from "../Team/TeamProfile";
+import StudentProfile from "../Team/StuProfile";
+import StudentCertificate from "../Team/Certificate/MyCertificate";
 
 export const publicRoutes = [
   {
@@ -1463,6 +1465,30 @@ export const teamRoutes = [
     route: Route,
   },
   {
+    id: 6,
+    path: routes.teamProfile,
+    name: "teamProfile",
+    element: <TeamProfile />,
+    // protected: true,
+    route: Route,
+  },
+  {
+    id: 7,
+    path: routes.studentProfile,
+    name: "studentProfile",
+    element: <StudentProfile />,
+    // protected: true,
+    route: Route,
+  },
+  {
+    id: 8,
+    path: routes.studentCertificate,
+    name: "studentCertificate",
+    element: <StudentCertificate />,
+    // protected: true,
+    route: Route,
+  },
+  {
     id: 2,
     path: routes.studentdashboard,
     name: "studenthome",
@@ -1617,8 +1643,6 @@ export const mentorRoutes = [
     protected: true,
     route: Route,
   },
-  
-  
 ];
 export const stateRoutes = [
   {

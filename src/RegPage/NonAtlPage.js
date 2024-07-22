@@ -990,6 +990,9 @@ const NonAtlPage = () => {
                     <div className="card">
                       <div className="card-body">
                         <div className="card-subtitle fw-semibold">
+                          UDISE Code : {""}
+                          {orgData?.organization_code}
+                          <br />
                           School Name : {""}
                           {orgData?.organization_name}
                           <br />
@@ -1000,9 +1003,9 @@ const NonAtlPage = () => {
                           <br />
                           State Name :{" "}
                           {orgData?.state ? orgData?.state : " N/A"} <br />
-                          PinCode :{" "}
+                          {/* PinCode :{" "}
                           {orgData?.pin_code ? orgData?.pin_code : " N/A"}{" "}
-                          <br />
+                          <br /> */}
                         </div>
                       </div>
                     </div>
