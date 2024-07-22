@@ -51,7 +51,7 @@ jobs:
           name: build
           path: build
       - name: Deploy to Development
-        if: github.ref == 'refs/heads/testing'
+        if: github.ref == 'refs/heads/development'
         env:
           PRIVATE_KEY: ${{ secrets.ATL2_PRIVATE_KEY }}
           HOSTNAME: ${{ secrets.ATL2_HOSTNAME }}
@@ -65,7 +65,7 @@ jobs:
             sudo git fetch origin &&
             sudo git checkout development &&
             sudo git pull origin development '
-      - name: Deploy to Development
+      - name: Deploy to Testing
         if: github.ref == 'refs/heads/testing'
         env:
           PRIVATE_KEY: ${{ secrets.ATL2_STG_PRIVATE_KEY }}
