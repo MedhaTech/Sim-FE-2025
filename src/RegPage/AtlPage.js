@@ -669,6 +669,9 @@ const Register = () => {
                       <div className="card">
                         <div className="card-body">
                           <div className="card-subtitle fw-semibold">
+                            UDISE Code : {""}
+                            {orgData?.organization_code}
+                            <br />
                             School Name : {""}
                             {orgData?.organization_name}
                             <br />
@@ -678,11 +681,11 @@ const Register = () => {
                             {/* {orgData?.district ? orgData?.district : " N/A"} */}
                             State Name :{" "}
                             {orgData?.state ? orgData?.state : " N/A"} <br />
-                            PinCode :{" "}
+                            {/* PinCode :{" "}
                             {orgData?.pin_code
                               ? orgData?.pin_code
-                              : " N/A"}{" "}
-                            <br />
+                              : " N/A"}{" "} */}
+                            {/* <br /> */}
                           </div>
                         </div>
                       </div>

@@ -94,7 +94,7 @@ const StuPostSurvey = () => {
       };
 
       const handleSubmit = async (e) => {
-        //alert("hii");
+        alert("hii");
         e.preventDefault();
     
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
@@ -125,7 +125,7 @@ const StuPostSurvey = () => {
             )
             .then((preSurveyRes) => {
               if (preSurveyRes?.status == 200) {
-                console.log(preSurveyRes, "aa");
+                // console.log(preSurveyRes, "aa");
                 openNotificationWithIcon(
                   "success",
                   "Post Survey has been submitted successfully..!!",

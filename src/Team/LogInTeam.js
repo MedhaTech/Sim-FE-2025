@@ -165,6 +165,15 @@ const LogInTeam = (props) => {
                     Login In
                   </button>
                 </div>
+                <div className="signinform">
+                  <h4>
+                    Not a Team ?
+                    <Link className="hover-a" to={"/teacher"}>
+                      {" "}
+                      Click Here
+                    </Link>
+                  </h4>
+                </div>
                 {/* <div className="signinform">
                   <h4>
                     New on our platform?

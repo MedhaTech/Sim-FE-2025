@@ -9,7 +9,6 @@ const Sidebar = () => {
   const Location = useLocation();
   const currentUser = getCurrentUser("current_user");
   const role = currentUser?.data[0]?.role;
-  console.log(role);
   const [subOpen, setSubopen] = useState("");
   const [subsidebar, setSubsidebar] = useState("");
 

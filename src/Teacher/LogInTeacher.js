@@ -136,10 +136,10 @@ const LogInTeacher = (props) => {
                     ></div>
                   </div>
                   {formik.touched.password && formik.errors.password ? (
-                      <small className="error-cls">
-                        {formik.errors.password}
-                      </small>
-                    ) : null}
+                    <small className="error-cls">
+                      {formik.errors.password}
+                    </small>
+                  ) : null}
                 </div>
                 <div className="form-login authentication-check">
                   <div className="row">
@@ -173,10 +173,10 @@ const LogInTeacher = (props) => {
                 </div>
                 <div className="signinform">
                   <h4>
-                    New on our platform?
-                    <Link className="hover-a" to={"/registration"}>
+                    Not a Teacher ?
+                    <Link className="hover-a" to={"/team"}>
                       {" "}
-                      Create an account
+                      Click Here
                     </Link>
                   </h4>
                 </div>

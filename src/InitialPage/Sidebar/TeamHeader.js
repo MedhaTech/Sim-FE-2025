@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import FeatherIcon from "feather-icons-react";
 import ImageWithBasePath from "../../core/img/imagewithbasebath";
-import { Search, Settings, User,XCircle } from "react-feather";
+import { Search, Settings, User, XCircle } from "react-feather";
 import { all_routes } from "../../Router/all_routes";
 import { logout } from "../../helpers/Utils";
 import { useNavigate } from "react-router-dom";
@@ -16,13 +16,11 @@ import female from "../../assets/img/Female_Profile.png";
 import male from "../../assets/img/Male_Profile.png";
 import team from "../../assets/img/icons/team2.png";
 
-
 const Header = () => {
   const route = all_routes;
   const [toggle, SetToggle] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const currentUser = getCurrentUser("current_user");
-  
 
   const isElementVisible = (element) => {
     return element.offsetWidth > 0 || element.offsetHeight > 0;
@@ -163,7 +161,6 @@ const Header = () => {
     if (!string) return "";
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
-  console.log(currentUser);
   const capitalizedFullName = capitalizeFirstLetter(fullName);
 
   const imageStyleDesktop = {
@@ -192,8 +189,6 @@ const Header = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-  
 
   return (
     <>
@@ -446,7 +441,7 @@ const Header = () => {
           </li> */}
           {/* Notifications 
           <li className="nav-item dropdown nav-item-box">*/}
-            {/* <Link
+          {/* <Link
               to="#"
               className="dropdown-toggle nav-link"
               data-bs-toggle="dropdown"
@@ -454,7 +449,7 @@ const Header = () => {
               <FeatherIcon icon="bell" />
               <span className="badge rounded-pill">2</span>
             </Link> */}
-            {/* <div className="dropdown-menu notifications">
+          {/* <div className="dropdown-menu notifications">
               <div className="topnav-dropdown-header">
                 <span className="notification-title">Notifications</span>
                 <Link to="#" className="clear-noti">
@@ -610,88 +605,204 @@ const Header = () => {
               <FeatherIcon icon="settings" />
             </Link>
           </li> */}
-          <li className="nav-item dropdown has-arrow main-drop ">
-            <Link
-              to="#"
-              className="dropdown-toggle nav-link userset"
-              data-bs-toggle="dropdown"
-            >
-              <span className="user-info">
-                <span className="user-letter">
-                  {/* <ImageWithBasePath
+          {currentUser?.data[0]?.role === "TEAM" ? (
+            <li className="nav-item dropdown has-arrow main-drop ">
+              <Link
+                to="#"
+                className="dropdown-toggle nav-link userset"
+                data-bs-toggle="dropdown"
+              >
+                <span className="user-info">
+                  <span className="user-letter">
+                    {/* <ImageWithBasePath
                     src="assets/img/profiles/avator1.jpg"
                     alt="img"
                     className="img-fluid"
                   /> */}
-                  <img
-                    src={getProfileImage(currentUser?.data[0]?.gender)}
-                    alt="Profile"
-                  />
-                </span>
-                <span className="user-detail">
-                  <span className="user-name">
-                    {" "}
-                    {capitalizedFullName}
+                    {/* <img
+                      src={getProfileImage(currentUser?.data[0]?.gender)}
+                      alt="Profile"
+                    /> */}
+                    <img src={team} alt="Team" id="blah" />
                   </span>
-                  <span className="user-role">{currentUser?.data[0]?.role}</span>
+                  <span className="user-detail">
+                    <span className="user-name"> {capitalizedFullName}</span>
+                    <span className="user-role">
+                      {currentUser?.data[0]?.role}
+                    </span>
+                  </span>
                 </span>
-              </span>
-            </Link>
-            <div className="dropdown-menu menu-drop-user">
-              <div className="profilename">
-                <div className="profileset">
-                  <span className="user-img">
-                    {/* <ImageWithBasePath
+              </Link>
+              <div className="dropdown-menu menu-drop-user">
+                <div className="profilename">
+                  <div className="profileset">
+                    <span className="user-img">
+                      {/* <ImageWithBasePath
                       src="assets/img/profiles/avator1.jpg"
                       alt="img"
                     /> */}
-                    <span className="status online" />
-                  </span>
-                  <div className="profilesets">
-                    <h6>{capitalizedFullName}</h6>
-                    <h5>{currentUser?.data[0]?.role}</h5>
+                      <span className="status online" />
+                    </span>
+                    <div className="profilesets">
+                      <h6>{capitalizedFullName}</h6>
+                      <h5>{currentUser?.data[0]?.role}</h5>
+                    </div>
                   </div>
+                  <hr className="m-0" />
+                  <Link className="dropdown-item" to="/team-profile">
+                    <User className="me-2" /> My Profile
+                  </Link>
+                  <hr className="m-0" />
+                  <Link
+                    className="dropdown-item logout pb-0"
+                    to=""
+                    onClick={handleLogout}
+                  >
+                    <img src={logoutIcon} alt="LogoutIcon" />
+                    Logout
+                  </Link>
                 </div>
-                <hr className="m-0" />
-                <Link className="dropdown-item" to="#">
-                  <User className="me-2" /> My Profile
-                </Link>
-                <hr className="m-0" />
-                <Link
-                  className="dropdown-item logout pb-0"
-                  to=""
-                  onClick={handleLogout}
-                >
-                  <img src={logoutIcon} alt="LogoutIcon" />
-                  Logout
-                </Link>
               </div>
-            </div>
-          </li>
+            </li>
+          ) : (
+            <li className="nav-item dropdown has-arrow main-drop ">
+              <Link
+                to="#"
+                className="dropdown-toggle nav-link userset"
+                data-bs-toggle="dropdown"
+              >
+                <span className="user-info">
+                  <span className="user-letter">
+                    {/* <ImageWithBasePath
+                  src="assets/img/profiles/avator1.jpg"
+                  alt="img"
+                  className="img-fluid"
+                /> */}
+                    <img
+                      src={getProfileImage(currentUser?.data[0]?.gender)}
+                      alt="Profile"
+                    />
+                  </span>
+                  <span className="user-detail">
+                    <span className="user-name"> {capitalizedFullName}</span>
+                    <span className="user-role">
+                      {currentUser?.data[0]?.role}
+                    </span>
+                  </span>
+                </span>
+              </Link>
+              <div className="dropdown-menu menu-drop-user">
+                <div className="profilename">
+                  <div className="profileset">
+                    <span className="user-img">
+                      {/* <ImageWithBasePath
+                    src="assets/img/profiles/avator1.jpg"
+                    alt="img"
+                  /> */}
+                      <span className="status online" />
+                    </span>
+                    <div className="profilesets">
+                      <h6>{capitalizedFullName}</h6>
+                      <h5>{currentUser?.data[0]?.role}</h5>
+                    </div>
+                  </div>
+                  <hr className="m-0" />
+                  {/* <Link className="dropdown-item" to="/profiles">
+                    <User className="me-2" /> My Profile
+                  </Link> */}
+                  {currentUser?.data[0]?.role === "TEAM" ? (
+                    <Link className="dropdown-item" to="/team-profile">
+                      My Profile
+                    </Link>
+                  ) : (
+                    <Link className="dropdown-item" to="/student-profile">
+                      My Profile
+                    </Link>
+                  )}
+                  <hr className="m-0" />
+                  <Link
+                    className="dropdown-item logout pb-0"
+                    to=""
+                    onClick={handleLogout}
+                  >
+                    <img src={logoutIcon} alt="LogoutIcon" />
+                    Logout
+                  </Link>
+                </div>
+              </div>
+            </li>
+          )}
         </ul>
         {/* /Header Menu */}
         {/* Mobile Menu */}
-        <div className="dropdown mobile-user-menu">
-          <Link
-            to="#"
-            className="nav-link dropdown-toggle"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <i className="fa fa-ellipsis-v" />
-          </Link>
-          <div className="dropdown-menu dropdown-menu-right">
-            <Link className="dropdown-item" to="profile">
-              My Profile
+        {currentUser?.data[0]?.role === "TEAM" ? (
+          <div className="dropdown mobile-user-menu">
+            <Link
+              to="#"
+              className="nav-link dropdown-toggle"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i className="fa fa-ellipsis-v" />
             </Link>
-            {/* <Link className="dropdown-item" to="generalsettings">
+            <div className="dropdown-menu dropdown-menu-right">
+              {currentUser?.data[0]?.role === "TEAM" ? (
+                <Link className="dropdown-item" to="/team-profile">
+                  My Profile
+                </Link>
+              ) : (
+                <Link className="dropdown-item" to="/student-profile">
+                  My Profile
+                </Link>
+              )}
+              {/* <Link className="dropdown-item" to="generalsettings">
               Settings
             </Link> */}
-            <Link className="dropdown-item" to="signin" onClick={handleLogout1}>
-              Logout
-            </Link>
+              <Link
+                className="dropdown-item"
+                to="signin"
+                onClick={handleLogout1}
+              >
+                Logout
+              </Link>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="dropdown mobile-user-menu">
+            <Link
+              to="#"
+              className="nav-link dropdown-toggle"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i className="fa fa-ellipsis-v" />
+            </Link>
+            <div className="dropdown-menu dropdown-menu-right">
+              {/* <Link className="dropdown-item" to="/profiles">
+                My Profile
+              </Link> */}
+              {currentUser?.data[0]?.role === "TEAM" ? (
+                <Link className="dropdown-item" to="/team-profile">
+                  My Profile
+                </Link>
+              ) : (
+                <Link className="dropdown-item" to="/student-profile">
+                  My Profile
+                </Link>
+              )}
+              {/* <Link className="dropdown-item" to="generalsettings">
+            Settings
+          </Link> */}
+              <Link
+                className="dropdown-item"
+                to="signin"
+                onClick={handleLogout1}
+              >
+                Logout
+              </Link>
+            </div>
+          </div>
+        )}
         {/* /Mobile Menu */}
       </div>
     </>

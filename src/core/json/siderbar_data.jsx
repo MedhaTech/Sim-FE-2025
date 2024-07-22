@@ -164,7 +164,7 @@ export const SidebarData = [
         role: "STUDENT",
         submenu: false,
       },
-      
+
       {
         label: "Resources",
         link: "/studentresource",
@@ -173,7 +173,7 @@ export const SidebarData = [
         showSubRoute: false,
         submenu: false,
       },
-      
+
       // {
       //   label: "Courses",
       //   link: "/category-list",
@@ -200,6 +200,15 @@ export const SidebarData = [
         label: "Post Survey",
         link: "/studentpostsurvey",
         icon: <Icon.Tag />,
+        role: "STUDENT",
+        showSubRoute: false,
+        submenu: false,
+      },
+      {
+        label: "My Certificate",
+        link: "/certificate",
+        icon: <Icon.Tag />,
+        role: "STUDENT",
         showSubRoute: false,
         submenu: false,
       },
