@@ -150,7 +150,7 @@ const StuPreSurvey = () => {
                 );
     
                 setCount(count + 1);
-                localStorage.setItem("presurveystatus", "COMPLETED");
+                localStorage.setItem("stupresurveystatus", "COMPLETED");
                 navigate("/student-dashboard");
                 //window.location.reload();
                 // formik.resetForm();

@@ -174,7 +174,7 @@ const LogInTeacher = (props) => {
                 <div className="signinform">
                   <h4>
                     Not a Teacher ?
-                    <Link className="hover-a" to={"/team"}>
+                    <Link className="hover-a" to={"/login"}>
                       {" "}
                       Click Here
                     </Link>
