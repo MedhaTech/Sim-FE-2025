@@ -21,7 +21,6 @@ const Header = () => {
   const [toggle, SetToggle] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const currentUser = getCurrentUser("current_user");
-
   const isElementVisible = (element) => {
     return element.offsetWidth > 0 || element.offsetHeight > 0;
   };
@@ -151,6 +150,10 @@ const Header = () => {
         return male;
       case "FEMALE":
         return female;
+      case "female":
+        return female;
+      case "male":
+        return  male;
       default:
         return team;
     }
@@ -679,7 +682,7 @@ const Header = () => {
                   className="img-fluid"
                 /> */}
                     <img
-                      src={getProfileImage(currentUser?.data[0]?.gender)}
+                      src={getProfileImage(currentUser?.data[0]?.Gender)}
                       alt="Profile"
                     />
                   </span>

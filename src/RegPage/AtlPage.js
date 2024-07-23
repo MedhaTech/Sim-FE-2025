@@ -457,7 +457,7 @@ const Register = () => {
       .then(function (response) {
         if (response.status === 202) {
           const UNhashedPassword = decryptGlobal(response?.data?.data);
-          console.log(UNhashedPassword, "111111111111111111111111111");
+          //console.log(UNhashedPassword, "111111111111111111111111111");
           setOtpRes(JSON.parse(UNhashedPassword));
           openNotificationWithIcon("success", "Otp send to Email Id");
           setBtnOtp(true);

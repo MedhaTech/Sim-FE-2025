@@ -44,17 +44,29 @@ const EmployeesGrid = () => {
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("Select Language");
   const [studentCount, setStudentCount] = useState([]);
+  const [stuPreSurvey, setStuPreSurvey] = useState("");
   const [showDefault, setshowDefault] = useState(true);
+  const [stuInstructionsLoad, setStuInstructionsLoading] = useState(true);
   const { teamsMembersStatus, teamsMembersStatusErr } = useSelector(
     (state) => state.teams
   );
   const teamId = currentUser?.data[0]?.team_id;
   const mentorid = currentUser?.data[0]?.mentor_id;
 
+  const Loader = () => (
+    <div className="spinner-border text-primary" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </div>
+  );
+
   useEffect(() => {
     if (teamId) {
       dispatch(getTeamMemberStatus(teamId, setshowDefault));
       //dispatch(getStudentChallengeSubmittedResponse(teamId));
+      if(teamsMembersStatus != null){
+        setStuInstructionsLoading(false);
+      }
+      //setStuInstructionsLoading(false);
     }
   }, [teamId, dispatch]);
 
@@ -231,14 +243,47 @@ const EmployeesGrid = () => {
       });
   };
 
-  console.log(teamsMembersStatus,"data for instructions");
+  //console.log(teamsMembersStatus,"data for instructions");
 
-  const handleInstructions = (k)=>{
-  console.log(k , "handleInstructions");
-  console.log(teamsMembersStatus[k].pre_survey_status
-    ,"instructions");
-
-  };
+  const stuSurveyStatus = (id) => {
+    console.log(id, "stuid");
+    const surveyApi = encryptGlobal(
+        JSON.stringify({
+            user_id: id
+        })
+    );
+    var config = {
+        method: 'get',
+        url:
+            process.env.REACT_APP_API_BASE_URL +
+            `/dashboard/stuPrePostStats?Data=${surveyApi}`,
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${currentUser.data[0]?.token}`
+        }
+    };
+    axios(config)
+        .then(function (response) {
+            if (response.status === 200) {
+                console.log(response);
+                const pre = (response.data.data[0].pre_survey_completed_date);
+                console.log(pre , "pre");
+                if (pre === null) {
+                  localStorage.setItem("stupresurveystatus", "INCOMPLETED");
+                  console.log("to presurvey page");
+                  navigate("/studentpresurvey");
+                } else{
+                  localStorage.setItem("stupresurveystatus", "COMPLETED");
+                  console.log("to stu dashboard");
+                  navigate("/student-dashboard");
+                }
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    };
 
   const handleStudent = (student) => {
     //alert("hii");
@@ -251,7 +296,7 @@ const EmployeesGrid = () => {
     currentUser.data[0].Grade = data?.Grade;
     currentUser.data[0].Age = data?.Age;
     setCurrentUser(currentUser);
-    navigate("/studentpresurvey");
+    stuSurveyStatus(currentUser.data[0].user_id);
   };
   const getRandomImage = (imageArray) => {
     const randomIndex = Math.floor(Math.random() * imageArray.length);
@@ -397,13 +442,14 @@ const EmployeesGrid = () => {
                         Age <span>{student.Age} yrs</span>{" "}
                       </li>
                     </ul>
-                    <div className="departments" onClick={()=> handleInstructions(i)}>
-                      {teamsMembersStatus[i].pre_survey_status?(teamsMembersStatus[i].topics_completed_count?(teamsMembersStatus[i].all_topics_count-teamsMembersStatus[i].topics_completed_count===0?(teamsMembersStatus[i].idea_submission?(teamsMembersStatus[i].post_survey_status?(<p>🥳 Congratulations! on achieving your Certificate. Login & download ✅</p>)
+                    <div className="departments">
+                      {stuInstructionsLoad?(<Loader />):(
+                      teamsMembersStatus[i].pre_survey_status?(teamsMembersStatus[i].topics_completed_count?(teamsMembersStatus[i].all_topics_count-teamsMembersStatus[i].topics_completed_count===0?(teamsMembersStatus[i].idea_submission?(teamsMembersStatus[i].post_survey_status?(<p>🥳 Congratulations! on achieving your Certificate. Login & download ✅</p>)
                       :(<p>🥳 Congrats! Your idea is submitted💡 It&apos;s time to take Post-Survey</p>))
                       :(<p>👏 Well Done Problem Solver! You are now ready to submit idea 💡</p>))
                       :(<p>😄 Hope you are learning good techniques to solve problems around you👍🏻</p>))
                       :(<p>👋 Start Course & know about 🔍Problem Solving Journey <FaRoute size={16} color="#20c997" /> </p>))
-                      :(<p>👋 Hi! Login & Get started with your Pre-Survey 😊</p>)}
+                      :(<p>👋 Hi! Login & Get started with your Pre-Survey 😊</p>))}
                     </div>
                   </div>
                 </div>
