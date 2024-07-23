@@ -6,7 +6,8 @@ on:
     branches: [development , testing]
 jobs:
   
-  Build:
+  Build_Development:
+    if: github.ref == 'refs/heads/development'
     runs-on: ubuntu-latest
 
     steps:
@@ -34,11 +35,42 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: build
+          name: build-development
           path: build
+  Build_Testing:
+    if: github.ref == 'refs/heads/testing'
+    runs-on: ubuntu-latest
 
-  Deploy:
-    needs: Build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Install NPM
+        run: sudo npm install -g npm@8.15.1
+
+      - name: Set legacy-peer-deps
+        run: sudo npm config set legacy-peer-deps true
+
+      - name: Install dependencies
+        run: |
+          echo Installing source NPM dependencies...
+          sudo npm install --force
+
+      - name: Buid the application
+        env:
+          CI: false
+        run: npm run build:stage
+        
+        
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-testing
+          path: build
+      
+
+  Deploy_Development:
+    needs: Build_Development
     runs-on: ubuntu-latest
 
     steps:
@@ -48,7 +80,7 @@ jobs:
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
-          name: build
+          name: build-development
           path: build
       - name: Deploy to Development
         if: github.ref == 'refs/heads/development'
@@ -65,6 +97,19 @@ jobs:
             sudo git fetch origin &&
             sudo git checkout development &&
             sudo git pull origin development '
+  Deploy_Testing:
+    needs: Build_Testing
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build-testing
+          path: build       
       - name: Deploy to Testing
         if: github.ref == 'refs/heads/testing'
         env:
