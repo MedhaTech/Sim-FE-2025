@@ -17,6 +17,8 @@ export const all_routes = {
   mentorpresurvey: "/mentorpresurvey",
   mentorpostsurvey: "/mentorpostsurvey",
   mentorcourse: "/mentorcourse/:id",
+  studentcourse: "/studentcourse/:id",
+
   mentorsupport: "/mentorsupport",
   mentorcertificate: "/mentorcertificate",
   mentorchangepwd: "/mentorchangepwd",

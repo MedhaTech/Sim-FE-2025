@@ -164,7 +164,13 @@ export const SidebarData = [
         role: "STUDENT",
         submenu: false,
       },
-
+      {
+        label: "Course",
+        link: `/studentcourse/${1}`,
+        icon: <Icon.Speaker />,
+        showSubRoute: false,
+        submenu: false,
+      },
       {
         label: "Resources",
         link: "/studentresource",
@@ -212,13 +218,7 @@ export const SidebarData = [
       //   showSubRoute: false,
       //   submenu: false,
       // },
-      // {
-      //   label: "My Certificate",
-      //   link: "/units",
-      //   icon: <Icon.Speaker />,
-      //   showSubRoute: false,
-      //   submenu: false,
-      // },
+
       // {
       //   label: "Resources",
       //   link: "/variant-attributes",

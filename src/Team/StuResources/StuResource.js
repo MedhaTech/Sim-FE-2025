@@ -28,7 +28,7 @@ const StuResource = () => {
 
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/resource/list?Data=${fectchTecParam}`,
+        `${process.env.REACT_APP_API_BASE_URL}/resource?Data=${fectchTecParam}`,
         {
           headers: {
             "Content-Type": "application/json",
