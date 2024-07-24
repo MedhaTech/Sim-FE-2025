@@ -226,7 +226,7 @@ import StuResource from "../Team/StuResources/StuResource";
 import TeamProfile from "../Team/TeamProfile";
 import StudentProfile from "../Team/StuProfile";
 import StudentCertificate from "../Team/Certificate/MyCertificate";
-
+import StudentCourse from "../Team/Courses/PlayVideo";
 export const publicRoutes = [
   {
     id: 1,
@@ -1485,6 +1485,14 @@ export const teamRoutes = [
     path: routes.studentCertificate,
     name: "studentCertificate",
     element: <StudentCertificate />,
+    // protected: true,
+    route: Route,
+  },
+  {
+    id: 9,
+    path: routes.studentcourse,
+    name: "studentcourse",
+    element: <StudentCourse />,
     // protected: true,
     route: Route,
   },

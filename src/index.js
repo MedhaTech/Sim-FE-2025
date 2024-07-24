@@ -10,7 +10,7 @@ import "../src/style/scss/main.scss";
 import "../src/style/icons/fontawesome/css/fontawesome.min.css";
 import "../src/style/icons/fontawesome/css/all.min.css";
 import { createRoot } from "react-dom/client";
-// import { I18nextProvider } from "react-i18next";
+import { I18nextProvider } from "react-i18next";
 import { Provider } from "react-redux";
 // import store from "../src/redux/store";
 import { configureStore } from "../src/redux/store";
@@ -25,13 +25,10 @@ if (rootElement) {
     // <React.StrictMode>
     <Provider store={configureStore()}>
       <BrowserRouter
-      // basename={base_path}
       >
-        {/* <I18nextProvider locale="en">
-            <Routes />
-          </I18nextProvider> */}
-        <AllRoutes />
-        {/* <Routes /> */}
+        <I18nextProvider locale="en">
+          <AllRoutes />
+        </I18nextProvider>
       </BrowserRouter>
     </Provider>
     // </React.StrictMode>

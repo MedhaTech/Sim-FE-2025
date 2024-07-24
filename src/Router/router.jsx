@@ -31,6 +31,7 @@ import LogInTeacher from "../Teacher/LogInTeacher";
 import AtlPage from "../RegPage/AtlPage";
 import AdminLogin from "../Admin/AdminLogin";
 import StateLogin from "../Coordinators/LogInNew";
+import "../i18n";
 
 import NonAtlPage from "../RegPage/NonAtlPage";
 import AtlSucess from "../RegPage/AtlSucess";
