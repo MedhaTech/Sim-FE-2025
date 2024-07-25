@@ -189,14 +189,7 @@ const DetaledQuiz = (props) => {
   const goToTop = () => {
     window.scrollTo(0, 0);
     const section = document.querySelector("#start");
-    //   if (section) {
-    //     section.scrollIntoView({
-    //       behavior: "smooth",
-    //       block: "start",
-    //     });
-    //   } else {
-    //     console.error('Element with ID "start" not found.');
-    //   }
+    
     section.scrollIntoView({
       behavior: "smooth",
       block: "start",

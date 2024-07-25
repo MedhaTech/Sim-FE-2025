@@ -128,7 +128,7 @@ const PreSurvey = () => {
     let enParamDatas = encryptGlobal(
       JSON.stringify({
         locale: "en",
-        user_id : userID,
+        user_id: userID,
       })
     );
     let submitData = {
@@ -226,11 +226,11 @@ const PreSurvey = () => {
 
     // Add an entry to the browser history
     window.history.pushState(null, document.title, window.location.href);
-    window.addEventListener('popstate', handlePopState);
+    window.addEventListener("popstate", handlePopState);
 
     // Cleanup function to remove the event listener
     return () => {
-      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener("popstate", handlePopState);
     };
   }, []);
 
@@ -243,7 +243,7 @@ const PreSurvey = () => {
       JSON.stringify({
         role: "MENTOR",
         locale: final[1],
-        user_id : userID,
+        user_id: userID,
       })
     );
     axiosConfig["params"] = {
@@ -267,8 +267,8 @@ const PreSurvey = () => {
 
   return (
     <div>
-      <div style={{margin:"0px"}}>
-        <div >
+      <div style={{ margin: "0px" }}>
+        <div>
           <Container className="presuervey" id="start">
             <Col>
               <Row className=" justify-content-center">
@@ -294,7 +294,7 @@ const PreSurvey = () => {
                           <div
                             dangerouslySetInnerHTML={{
                               __html:
-                                "We are delighted that you have signed up for this program and have joined us on this journey of nurturing problem solving and innovation in youth. As you are already aware, you will be playing the role of a guide teacher to the students for the duration of the course.</br>The portal includes various information modules and resources that will help you and your students on their learning journeys.</br><b style='color:green'>Your journey as a guide teacher will include the following key milestones</b><ol><li>Register yourself on the portal and take the pre-survey.</li><li>Understand the program and the tech platform.</li><li>Identify teams and register them on the portal.</li><li>Arrange access to digital devices for students.</li><li>Support the students on their learning journey.</li><li>Ensure teams submit their final ideas on the portal.</li><li>Complete the post survey.</li><li>Download teacher’s certificate.</li><li>Instruct and support the students to download student certificates.</li></ol><p>We hope you and the students have a great time doing this program.</br>We wish you all the best!",
+                                "We are thrilled that you have joined this program to foster problem-solving and innovation in youth. As a guide teacher, you will play a crucial role throughout the course.</br> The portal offers a variety of informational modules and resources to assist you and your students on this learning journey. Your role will involve the following key milestones:We are thrilled that you have joined this program to foster problem-solving and innovation in students. As a guide teacher,you wil play a crucial role throughout the course.</br> The Portal offers a variety of informational modules and resources to assist you and your students on this learning journey. Your role will involve the following key milestones: </br> <ol><li>Register yourself on the portal and complete the pre-survey. </li><li>Familiarize yourself with the program and the tech platform.</li><li>Identify and register student teams on the portal.</li><li>Arrange access to digital devices for students.</li><li>Support the students throughout their learning journey.</li><li>Ensure teams submit their final ideas on the portal.</li><li>Complete the post-survey.</li><li>Download your teacher’s certificate.</li><li>Instruct and assist students in downloading their certificates.</li></ol></br>We hope you and your students have a fantastic experience with this program. Best of luck! ",
                             }}
                           ></div>
                           <button
@@ -304,11 +304,10 @@ const PreSurvey = () => {
                             Start Now
                           </button>
                           <button
-                              className="btn btn-secondary"
-                              onClick={handleLogout}
-                            >
-                              <img src={logoutIcon} alt="LogoutIcon" />{" "}
-                              Do Later
+                            className="btn btn-secondary"
+                            onClick={handleLogout}
+                          >
+                            <img src={logoutIcon} alt="LogoutIcon" /> Do Later
                           </button>
                         </Col>
                       </Row>
@@ -730,7 +729,7 @@ const PreSurvey = () => {
                               </Row>
                             );
                           })}
-                          <div >
+                          <div>
                             <button
                               type="submit"
                               // btnClass={
