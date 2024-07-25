@@ -340,7 +340,7 @@ const MentorDashboard = () => {
                 &nbsp;Hi {currentUser?.data[0]?.full_name},
               </h3>
               &nbsp;
-              <h6>here&apos;s what&apos;s happening with your School Innovation Marathon 2024 today.</h6>
+              <h6>here&apos;s what&apos;s happening with your School Innovation Marathon 2024 journey.</h6>
             </div>
             <div className="d-flex align-items-center">
               <OverlayTrigger placement="top" overlay={renderRefreshTooltip}>
@@ -366,7 +366,7 @@ const MentorDashboard = () => {
                       <>
                         <h5>To know about SIM</h5>
                         <a onClick={redirectToCourse} href='#' >
-                          Start Teacher Course
+                          Click here & Start Course
                         </a>
                       </>
                     ) : (
@@ -394,7 +394,7 @@ const MentorDashboard = () => {
                     <>
                       <h5>Yet to Create Teams?</h5>
                       <a onClick={redirectToTeams} href='#'>
-                        Create Now
+                        Click here to Create Teams
                       </a>
                     </>
                   ) : (
@@ -422,7 +422,7 @@ const MentorDashboard = () => {
                         <>
                           <h5>Students not added?</h5>
                           <a onClick={redirectToTeams} href='#'>
-                            Add students in teams
+                            Click here & Add students
                           </a>
                         </>
                       ) : (
@@ -449,7 +449,7 @@ const MentorDashboard = () => {
                       ) : ideaCount === 0 ? (
                       <>
                         <h5>No Idea Submissions!</h5>
-                        <h6>Kindly nurture your students</h6>
+                        <h6>Kindly check teams progress</h6>
                       </>
                     ) : (
                       <>
