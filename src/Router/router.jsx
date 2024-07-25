@@ -108,7 +108,10 @@ const AllRoutes = () => {
   //     <ThemeSettings />
   //   </div>
   // );
-
+  function MyComponent() {
+    window.location.href = `${process.env.REACT_APP_LANDING_PAGE_URL}`;
+    return null;
+}
   return (
     <div>
       <Routes>
@@ -117,7 +120,8 @@ const AllRoutes = () => {
             <Route path={route.path} element={route.element} key={id} />
           ))} */}
         {/* </Route> */}
-        <Route path="/" element={<Navigate to="/teacher" />} />
+
+        <Route path="/" exact={true} element={<MyComponent />} />
         <Route path="/">
           <Route path="/registration" element={<AtlPage />} />
           <Route path="/login" element={<LoginPage />} />
