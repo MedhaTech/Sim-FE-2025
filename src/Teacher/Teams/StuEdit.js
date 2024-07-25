@@ -293,7 +293,17 @@ const StuEdit = () => {
                 </div>
                 <Row>
                   <Col className="mt-2" xs={12} sm={6} md={6} xl={6}>
-                    <button type="submit" className="btn btn-warning">
+                    <button
+                      // type="submit" className="btn btn-warning"
+                      // style={{ marginRight: "10px" }}
+                      type="submit"
+                      className={`btn btn-warning  ${
+                        !(formik.dirty && formik.isValid)
+                          ? "default"
+                          : "primary"
+                      }`}
+                      disabled={!(formik.dirty && formik.isValid)}
+                    >
                       Submit
                     </button>
                   </Col>

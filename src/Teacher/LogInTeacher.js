@@ -104,7 +104,7 @@ const LogInTeacher = (props) => {
                       value={formik.values.email}
                     />
                     {formik.touched.email && formik.errors.email ? (
-                      <small className="error-cls">
+                      <small className="error-cls" style={{ color: "red" }}>
                         {" "}
                         {formik.errors.email}
                       </small>
@@ -136,7 +136,7 @@ const LogInTeacher = (props) => {
                     ></div>
                   </div>
                   {formik.touched.password && formik.errors.password ? (
-                    <small className="error-cls">
+                    <small className="error-cls" style={{ color: "red" }}>
                       {formik.errors.password}
                     </small>
                   ) : null}
