@@ -41,8 +41,12 @@ const CourseSuccessMessage = () => {
               <img src={succesImg} alt=".." />
               <br />
             </div>
-            <h2>{t("student_course.course_completed_succ")}</h2>
-            <p>{t("student_course.continue_to_idea")}</p>
+            <p style={{ fontSize: "16px" }}>
+              {t("student_course.course_completed_succ")}
+            </p>
+            <p style={{ fontSize: "16px" }}>
+              {t("student_course.continue_to_idea")}
+            </p>
           </div>
           <div className="d-sm-flex justify-content-center mb-3 text-center">
             <Button
