@@ -20,7 +20,8 @@ import { BsQuestionCircle } from "react-icons/bs";
 import { Modal } from "react-bootstrap";
 import CourseSuccessMessage from "./CourseSuccessMessage";
 import FeatherIcon from "feather-icons-react";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import {
   Accordion,
   AccordionItem,
@@ -51,6 +52,12 @@ import Confetti from "react-confetti";
 import ResultStar from "../../assets/img/quiz-result-star.png";
 import succesImg from "../../assets/img/success1.jpeg";
 import { useParams, useLocation } from "react-router-dom";
+import {
+  ChevronUp,
+  PlusCircle,
+  RotateCcw,
+  User,
+} from "feather-icons-react/build/IconComponents";
 
 //VIMEO REFERENCE
 //https://github.com/u-wave/react-vimeo/blob/default/test/util/createVimeo.js
@@ -274,7 +281,11 @@ const PlayVideoCourses = (props) => {
   };
 
   useEffect(() => {
-    props.getAdminCourseDetailsActions(course_id, language,currentUser?.data[0]?.user_id);
+    props.getAdminCourseDetailsActions(
+      course_id,
+      language,
+      currentUser?.data[0]?.user_id
+    );
   }, [course_id, language]);
   useEffect(() => {
     var topicArrays = [];
@@ -408,7 +419,11 @@ const PlayVideoCourses = (props) => {
         if (response.status === 201) {
           // console.log(response, "userTopic");
           setUpdateModuleResponce(response.data && response.data.data[0]);
-          props.getAdminCourseDetailsActions(course_id, language,currentUser?.data[0]?.user_id);
+          props.getAdminCourseDetailsActions(
+            course_id,
+            language,
+            currentUser?.data[0]?.user_id
+          );
         }
       })
       .catch(function (error) {
@@ -671,8 +686,18 @@ const PlayVideoCourses = (props) => {
     // here status = Incomplete , completed //
     // const done = <IoCheckmarkDoneCircleSharp className="done" />;
     // const notDone = <IoCheckmarkDoneCircleSharp />;
-    const done = <FeatherIcon icon="check-circle" style={{ color: "green" }} />;
-    const notDone = <FeatherIcon icon="check-circle" />;
+    const done = (
+      <FeatherIcon
+        icon="check-circle"
+        style={{ color: "green", width: "16px", height: "16px" }}
+      />
+    );
+    const notDone = (
+      <FeatherIcon
+        icon="check-circle"
+        style={{ width: "16px", height: "16px" }}
+      />
+    );
     if (type === "VIDEO" && status === "COMPLETED") {
       return done;
     } else if (type === "VIDEO" && status === "INCOMPLETE") {
@@ -846,9 +871,11 @@ const PlayVideoCourses = (props) => {
   const comingSoonText = t("dummytext.student_course");
   const pdfFileURL =
     "https://s3.ap-south-1.amazonaws.com/aim1.0-bkt-cba6e2a/resources/stage/Final_Themes_AIM.pdf";
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <div className="page-wrapper">
-      <div className="content">
+      <div className="content settings-content">
         {!showPage ? (
           <CommonPage text={comingSoonText} />
         ) : (
@@ -888,7 +915,11 @@ const PlayVideoCourses = (props) => {
               />
             </div>
 
-            <div className=" px-3 px-md-5 mt-2 container-fluid">
+            <div
+              className=" 
+            // px-3 px-md-5 mt-2
+             container-fluid"
+            >
               <Row className="m-0 courser-video-section ">
                 <Col
                   xl={4}
@@ -898,7 +929,10 @@ const PlayVideoCourses = (props) => {
                   }}
                 >
                   <div className="assement-info">
-                    <p className="content-title">
+                    <p
+                      className="content-title"
+                      style={{ "font-weight": "600" }}
+                    >
                       {t("student_course.lessons")}
                     </p>
                     <div className="view-head"></div>
@@ -932,6 +966,7 @@ const PlayVideoCourses = (props) => {
                                     <div className="course-title">
                                       {course.title}
                                     </div>
+
                                     <div className="course-time">
                                       <span>
                                         {course.videos_count}{" "}
@@ -963,8 +998,9 @@ const PlayVideoCourses = (props) => {
                                                 background:
                                                   currentTopicId ===
                                                     lecture.course_topic_id &&
-                                                  "#f0f3f8",
+                                                  "#FE9F4314",
                                                 position: "relative",
+                                                // color: "#FE9F4314",
                                                 left: "0.75rem",
                                               }}
                                               className={`justify-content-between w-100 px-4 py-3 ${
@@ -1184,6 +1220,7 @@ const PlayVideoCourses = (props) => {
                                               "student_course.cong_msg_menu"
                                             ),
                                           }}
+                                          style={{ fontSize: "16px" }}
                                         ></div>
                                       </div>
                                       <div className="text-center">
