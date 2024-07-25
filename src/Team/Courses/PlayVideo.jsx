@@ -916,16 +916,20 @@ const PlayVideoCourses = (props) => {
             </div>
 
             <div
-              className=" 
-            // px-3 px-md-5 mt-2
+              className=" px-3 px-md-5 mt-2
              container-fluid"
             >
-              <Row className="m-0 courser-video-section ">
+              <Row
+                className="m-0 courser-video-section "
+                // style={{ border: "1px solid red" }}
+              >
                 <Col
                   xl={4}
                   className="course-assement order-2 order-xl-1 mb-5"
                   style={{
                     display: `${fullScreen.isFullSCreen ? "none" : ""}`,
+                    border: "1px solid Lightgrey",
+                    borderRadius: "0",
                   }}
                 >
                   <div className="assement-info">

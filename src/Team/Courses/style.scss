@@ -219,8 +219,9 @@
 
     .course-assement {
       background: var(--color-white-1);
-      border-radius: 0.8rem 0.8rem 0 0;
-      // box-shadow: 0 -1.2rem 2.6rem rgba(16, 30, 115, 0.06);
+      // border-radius: 0.8rem 0.8rem 0 0;
+      /* box-shadow: 0 -1.2rem 2.6rem rgba(16, 30, 115, 0.06);*/
+      box-shadow: none !important;
       text-align: left;
       padding: 0;
       height: fit-content;
@@ -290,7 +291,7 @@
             }
           }
           .course-time {
-            font-size: 1.3rem;
+            font-size: 1rem;
             color: var(--color-grey-light-2);
 
             svg {
@@ -334,7 +335,7 @@
         border-radius: 8px 8px 0px 0px;
         color: #ffff;
         .assement-info {
-          padding: 4rem 4rem 6rem 4rem;
+          // padding: 4rem 4rem 6rem 4rem;
           .module-text {
             font-size: 2rem;
             line-height: 3rem;
