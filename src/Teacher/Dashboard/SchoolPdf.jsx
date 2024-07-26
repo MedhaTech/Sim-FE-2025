@@ -128,7 +128,7 @@ class Schoolpdf extends React.Component {
                             style={{
                                 position: 'absolute',
                                 top: '24rem',
-                                left: '14rem',
+                                left: '10rem',
                                 fontSize: '1.8rem',
                                 fontFamily: 'Poppins'
                             }}
@@ -143,7 +143,7 @@ class Schoolpdf extends React.Component {
                             style={{
                                 position: 'absolute',
                                 top: '29rem',
-                                left: '14rem',
+                                left: '11rem',
                                 fontSize: '1.3rem',
                                 fontFamily: 'Poppins'
                             }}
@@ -158,7 +158,7 @@ class Schoolpdf extends React.Component {
                             style={{
                                 position: 'absolute',
                                 top: '32rem',
-                                left: '9rem',
+                                left: '7rem',
                                 fontSize: '1.3rem',
                                 fontFamily: 'Poppins'
                             }}
@@ -173,7 +173,7 @@ class Schoolpdf extends React.Component {
                             style={{
                                 position: 'absolute',
                                 top: '34.8rem',
-                                left: '33rem',
+                                left: '30rem',
                                 fontSize: '1.3rem',
                                 fontFamily: 'Poppins'
                             }}
@@ -185,7 +185,7 @@ class Schoolpdf extends React.Component {
                             style={{
                                 position: 'absolute',
                                 top: '34.8rem',
-                                left: '11rem',
+                                left: '8rem',
                                 fontSize: '1.3rem',
                                 fontFamily: 'Poppins'
                             }}
@@ -200,7 +200,7 @@ class Schoolpdf extends React.Component {
                             style={{
                                 position: 'absolute',
                                 top: '31.8rem',
-                                left: '33rem',
+                                left: '30rem',
                                 fontSize: '1.3rem',
                                 fontFamily: 'Poppins'
                             }}
@@ -215,7 +215,7 @@ class Schoolpdf extends React.Component {
                             style={{
                                 position: 'absolute',
                                 top: '37.6rem',
-                                left: '34rem',
+                                left: '31rem',
                                 fontSize: '1.3rem',
                                 fontFamily: 'Poppins'
                             }}
@@ -227,7 +227,7 @@ class Schoolpdf extends React.Component {
                             style={{
                                 position: 'absolute',
                                 top: '37.7rem',
-                                left: '12rem',
+                                left: '10rem',
                                 fontSize: '1.3rem',
                                 fontFamily: 'Poppins'
                             }}
@@ -242,7 +242,7 @@ class Schoolpdf extends React.Component {
                             style={{
                                 position: 'absolute',
                                 top: '29rem',
-                                left: '35rem',
+                                left: '34rem',
                                 fontSize: '1.3rem',
                                 fontFamily: 'Poppins'
                             }}
@@ -254,7 +254,7 @@ class Schoolpdf extends React.Component {
                             style={{
                                 position: 'absolute',
                                 top: '51.2rem',
-                                left: '16rem',
+                                left: '15rem',
                                 fontSize: '1.5rem',
                                 fontFamily: 'Poppins'
                             }}
@@ -266,7 +266,7 @@ class Schoolpdf extends React.Component {
                             style={{
                                 position: 'absolute',
                                 top: '51.2rem',
-                                left: '33rem',
+                                left: '30rem',
                                 fontSize: '1.5rem',
                                 fontFamily: 'Poppins'
                             }}
@@ -281,7 +281,7 @@ class Schoolpdf extends React.Component {
                             style={{
                                 position: 'absolute',
                                 top: '51.2rem',
-                                left: '47rem',
+                                left: '43rem',
                                 fontSize: '1.5rem',
                                 fontFamily: 'Poppins'
                             }}
@@ -303,7 +303,7 @@ class Schoolpdf extends React.Component {
                             style={{
                                 borderStyle: 'solid',
                                 margin: '0 2rem',
-                                padding: '5rem'
+                                padding: '2rem 5rem'
                             }}
                         >
                             <h2>Team Credentials</h2>
