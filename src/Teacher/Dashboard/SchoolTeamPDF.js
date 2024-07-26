@@ -75,7 +75,34 @@ function SchoolTeamPDF() {
                 console.log(error);
             });
     };
-
+    //team Credentials
+    const [teamCredentials, setTeamCredentials] = useState();
+    console.log(teamCredentials);
+    const fetchTeamCredentials = (mentorId) => {
+        console.log(mentorId,typeof(mentorId));
+        const mentorParam = encryptGlobal(JSON.stringify(mentorId));
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/mentors/teamCredentials/${mentorParam}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTeamCredentials(response?.data?.data);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    
     // Function to fetch data for a single team by ID
     const fetchTeamData = async (teamId, teamName) => {
         const teamParam = encryptGlobal(JSON.stringify(teamId));
@@ -127,6 +154,7 @@ function SchoolTeamPDF() {
     }, [teamsData, mentorValuesForPDF]);
     const tsetcall = () => {
         mentorDataforPDF();
+        fetchTeamCredentials(currentUser?.data[0]?.mentor_id);
         //ideaDataforPDF();
         fetchAllTeamsData();
     };
@@ -143,6 +171,7 @@ function SchoolTeamPDF() {
                     ref={componentRef}
                     tabledata={teamsData}
                     remMentor={mentorValuesForPDF}
+                    teamCredentials={teamCredentials}
                     //ideaStatusDetails={ideaValuesForPDF}
                 />
             </div>

@@ -4,7 +4,7 @@ import React from 'react';
 import { Progress } from 'reactstrap';
 import { Table } from 'antd';
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
-import schoolpdfpage1 from '../../assets/img/schoolPDF/page_1.jpg';
+import schoolpdfpage1 from '../../assets/img/schoolPDF/page_1.png';
 import Footerimg from '../../assets/img/schoolPDF/Footer.png';
 
 class Schoolpdf extends React.Component {
@@ -127,8 +127,8 @@ class Schoolpdf extends React.Component {
                             className="text-capitalize"
                             style={{
                                 position: 'absolute',
-                                top: '23rem',
-                                left: '25rem',
+                                top: '24rem',
+                                left: '14rem',
                                 fontSize: '1.8rem',
                                 fontFamily: 'Poppins'
                             }}
@@ -143,7 +143,7 @@ class Schoolpdf extends React.Component {
                             style={{
                                 position: 'absolute',
                                 top: '29rem',
-                                left: '15rem',
+                                left: '14rem',
                                 fontSize: '1.3rem',
                                 fontFamily: 'Poppins'
                             }}
@@ -157,8 +157,23 @@ class Schoolpdf extends React.Component {
                             className="text-capitalize"
                             style={{
                                 position: 'absolute',
-                                top: '29rem',
-                                left: '55.5rem',
+                                top: '32rem',
+                                left: '9rem',
+                                fontSize: '1.3rem',
+                                fontFamily: 'Poppins'
+                            }}
+                        >
+                            {
+                                this?.props?.remMentor?.mentorData?.organization
+                                    ?.state
+                            }
+                        </span>
+                        <span
+                            className="text-capitalize"
+                            style={{
+                                position: 'absolute',
+                                top: '34.8rem',
+                                left: '33rem',
                                 fontSize: '1.3rem',
                                 fontFamily: 'Poppins'
                             }}
@@ -169,8 +184,8 @@ class Schoolpdf extends React.Component {
                             className="text-capitalize"
                             style={{
                                 position: 'absolute',
-                                top: '32rem',
-                                left: '13rem',
+                                top: '34.8rem',
+                                left: '11rem',
                                 fontSize: '1.3rem',
                                 fontFamily: 'Poppins'
                             }}
@@ -184,8 +199,23 @@ class Schoolpdf extends React.Component {
                             className="text-capitalize"
                             style={{
                                 position: 'absolute',
-                                top: '32rem',
-                                left: '58rem',
+                                top: '31.8rem',
+                                left: '33rem',
+                                fontSize: '1.3rem',
+                                fontFamily: 'Poppins'
+                            }}
+                        >
+                            {
+                                this?.props?.remMentor?.mentorData?.user
+                                    ?.username
+                            }
+                        </span>
+                        <span
+                            className="text-capitalize"
+                            style={{
+                                position: 'absolute',
+                                top: '37.6rem',
+                                left: '34rem',
                                 fontSize: '1.3rem',
                                 fontFamily: 'Poppins'
                             }}
@@ -196,8 +226,8 @@ class Schoolpdf extends React.Component {
                             className="text-capitalize"
                             style={{
                                 position: 'absolute',
-                                top: '35rem',
-                                left: '16rem',
+                                top: '37.7rem',
+                                left: '12rem',
                                 fontSize: '1.3rem',
                                 fontFamily: 'Poppins'
                             }}
@@ -211,8 +241,8 @@ class Schoolpdf extends React.Component {
                             className="text-capitalize"
                             style={{
                                 position: 'absolute',
-                                top: '37.8rem',
-                                left: '21rem',
+                                top: '29rem',
+                                left: '35rem',
                                 fontSize: '1.3rem',
                                 fontFamily: 'Poppins'
                             }}
@@ -224,7 +254,7 @@ class Schoolpdf extends React.Component {
                             style={{
                                 position: 'absolute',
                                 top: '51.2rem',
-                                left: '24rem',
+                                left: '16rem',
                                 fontSize: '1.5rem',
                                 fontFamily: 'Poppins'
                             }}
@@ -236,7 +266,7 @@ class Schoolpdf extends React.Component {
                             style={{
                                 position: 'absolute',
                                 top: '51.2rem',
-                                left: '48rem',
+                                left: '33rem',
                                 fontSize: '1.5rem',
                                 fontFamily: 'Poppins'
                             }}
@@ -246,18 +276,19 @@ class Schoolpdf extends React.Component {
                                     ?.student_count
                             }
                         </span>
-                        {/* <span
+                        <span
                             className="text-capitalize"
                             style={{
                                 position: 'absolute',
                                 top: '51.2rem',
-                                left: '69rem',
+                                left: '47rem',
                                 fontSize: '1.5rem',
                                 fontFamily: 'Poppins'
                             }}
                         >
-                            {this?.props?.remMentor?.IdeaCount[0]?.idea_count}
-                        </span> */}
+                            {/* {this?.props?.remMentor?.IdeaCount[0]?.idea_count} */}
+                            0
+                        </span>
                         <img
                             src={schoolpdfpage1}
                             alt="IdeaPage1"
@@ -275,6 +306,83 @@ class Schoolpdf extends React.Component {
                                 padding: '5rem'
                             }}
                         >
+                            <h2>Team Credentials</h2>
+                             <table style={{ border: '1px solid black' , marginBottom:"2rem" }}>
+                                <tr>
+                                    <th
+                                        style={{
+                                            border: '1px solid black',
+                                            padding: '1rem'
+                                        }}
+                                    >
+                                        S.No
+                                    </th>
+                                    <th
+                                        style={{
+                                            border: '1px solid black',
+                                            padding: '1rem'
+                                        }}
+                                    >
+                                        Team Names
+                                    </th>
+                                    <th
+                                        style={{
+                                            border: '1px solid black',
+                                            padding: '1rem'
+                                        }}
+                                    >
+                                        Team Login ID
+                                    </th>
+                                    <th
+                                        style={{
+                                            border: '1px solid black',
+                                            padding: '1rem'
+                                        }}
+                                    >
+                                        Team Password 
+                                    </th>
+                                </tr>
+                                {this?.props?.teamCredentials?.map(
+                                    (idea, i) => {
+                                        return (
+                                            <tr key={i}>
+                                                <td
+                                                    style={{
+                                                        border: '1px solid black',
+                                                        padding: '1rem'
+                                                    }}
+                                                >
+                                                    {i + 1}
+                                                </td>
+                                                <td
+                                                    style={{
+                                                        border: '1px solid black',
+                                                        padding: '1rem'
+                                                    }}
+                                                >
+                                                    {idea?.team_name}
+                                                </td>
+                                                <td
+                                                    style={{
+                                                        border: '1px solid black',
+                                                        padding: '1rem'
+                                                    }}
+                                                >
+                                                    {idea?.username}
+                                                </td>
+                                                <td
+                                                    style={{
+                                                        border: '1px solid black',
+                                                        padding: '1rem'
+                                                    }}
+                                                >
+                                                    {idea?.team_name.replace(/\s/g, '').toLowerCase()}
+                                                </td>
+                                            </tr>
+                                        );
+                                    }
+                                )}
+                            </table>
                             {this?.props?.tabledata?.map((value) => {
                                 const team = value.slice(-1);
                                 const tableList = value.slice(0, -1);
