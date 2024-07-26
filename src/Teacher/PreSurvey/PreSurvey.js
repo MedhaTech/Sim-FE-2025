@@ -288,13 +288,14 @@ const PreSurvey = () => {
                           </figure>
                         </Col>
                         <Col md={8}>
-                          <h2 className="text-primary">
-                            Welcome Guide Teacher!
+                          <h2 className="text-danger">
+                          Welcome teachers and mentors!
+
                           </h2>
                           <div
                             dangerouslySetInnerHTML={{
                               __html:
-                                "We are thrilled that you have joined this program to foster problem-solving and innovation in youth. As a guide teacher, you will play a crucial role throughout the course.</br> The portal offers a variety of informational modules and resources to assist you and your students on this learning journey. Your role will involve the following key milestones:We are thrilled that you have joined this program to foster problem-solving and innovation in students. As a guide teacher,you wil play a crucial role throughout the course.</br> The Portal offers a variety of informational modules and resources to assist you and your students on this learning journey. Your role will involve the following key milestones: </br> <ol><li>Register yourself on the portal and complete the pre-survey. </li><li>Familiarize yourself with the program and the tech platform.</li><li>Identify and register student teams on the portal.</li><li>Arrange access to digital devices for students.</li><li>Support the students throughout their learning journey.</li><li>Ensure teams submit their final ideas on the portal.</li><li>Complete the post-survey.</li><li>Download your teacher’s certificate.</li><li>Instruct and assist students in downloading their certificates.</li></ol></br>We hope you and your students have a fantastic experience with this program. Best of luck! ",
+                                " </br><p>We are delighted that you have signed up for this program and have joined us on this journey of nurturing problem solving and innovation in youth. As you are already aware, you will be playing the role of a guide teacher to the students for the duration of the course.The portal includes various information modules and resources that will help you and your students on their learning journeys.</p><b class='text-success'>Your journey as a guide teacher will include the following key milestones We would like you all to go through the following in order.</b><ol><li>Step 1 : Register yourself on the portal and take the pre-survey.</li><li>Step 2 : Understand the program by watching the instructional videos on the portal</li><li>Step 3 : Identify teams and register them on the portal</li><li>Step 4 : Arrange access to digital devices for students</li><li>Step 5 : Support & mentor the students throughout their learning journey</li><li>Step 6 : Ensure teams complete the course & submit their final ideas on the portal</li><li>Step 7 : Teacher completes the post survey</li><li>Step 8 : Download teacher’s certificate </li><li>Step 9 : Instruct and support the students to download student certificates </li></ol></br>We hope you and the students will have a great time doing this program.<br>We wish you all the best!",
                             }}
                           ></div>
                           <button
