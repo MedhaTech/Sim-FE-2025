@@ -35,6 +35,9 @@ const TeacherEditProfile = () => {
       title: Yup.string().required(
         <span style={{ color: "red" }}>Please select Title</span>
       ),
+      gender:Yup.string().required(
+        <span style={{ color: "red" }}>Please select Gender</span>
+      ),
       full_name: Yup.string()
         // .matches(/^[A-Za-z]*$/, 'Invalid name ')
         // .min(2, 'Enter a valid name')
@@ -59,7 +62,7 @@ const TeacherEditProfile = () => {
       //   email: mentorData.name,
       title: mentorData.title,
       //   whatapp_mobile: mentorData.whatapp_mobile,
-      //   gender: mentorData.gender,
+        gender: mentorData.gender,
     };
     return commonInitialValues;
   };
@@ -71,14 +74,14 @@ const TeacherEditProfile = () => {
       // const mobile = values.phone;
       const title = values.title;
       //   const whatapp_mobile = values.whatapp_mobile;
-      //   const gender = values.gender;
+        const gender = values.gender;
       //   const mobile = values.phone;
       const body = JSON.stringify({
         full_name: full_name,
         // mobile: mobile,
         title: title,
         // whatapp_mobile: whatapp_mobile,
-        // gender: gender,
+        gender: gender,
         // mobile: mobile,
         username: mentorData.username,
       });
@@ -99,6 +102,7 @@ const TeacherEditProfile = () => {
             openNotificationWithIcon("success", "Updated Successfully");
             currentUser.data[0].full_name = values.full_name;
             currentUser.data[0].title = values.title;
+            currentUser.data[0].gender = values.gender;
 
             setCurrentUser(currentUser);
             setTimeout(() => {
@@ -147,7 +151,7 @@ const TeacherEditProfile = () => {
                 </div>
               </div>
               <div className="row">
-                <div className="form-login col-lg-6 col-sm-12">
+                <div className="form-login col-lg-4 col-sm-12">
                   <div className="input-blocks">
                     <label>Title</label>
                     <select
@@ -169,7 +173,7 @@ const TeacherEditProfile = () => {
                     ) : null}
                   </div>
                 </div>
-                <div className="form-login col-lg-6 col-sm-12">
+                <div className="form-login col-lg-4 col-sm-12">
                   <div className="input-blocks">
                     <label className="form-label">Teacher Name</label>
                     <input
@@ -196,7 +200,27 @@ const TeacherEditProfile = () => {
                     ) : null}
                   </div>
                 </div>
-
+                <div className="form-login col-lg-4 col-sm-12">
+                  <div className="input-blocks">
+                    <label>Gender</label>
+                    <select
+                      id="inputState"
+                      className="form-select"
+                      name="gender"
+                      value={formik.values.gender}
+                      onBlur={formik.handleBlur}
+                      onChange={formik.handleChange}
+                    >
+                      <option value="">Gender</option>
+                        <option value="MALE">Male</option>
+                        <option value="FEMALE">Female</option>
+                        <option value="OTHERS">Prefer not to mention</option>
+                    </select>
+                    {formik.touched.gender && formik.errors.gender ? (
+                      <small className="error-cls">{formik.errors.gender}</small>
+                    ) : null}
+                  </div>
+                </div>
                 <div className="form-login">
                   <button
                     style={{ marginRight: "10px" }}

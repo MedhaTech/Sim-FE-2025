@@ -410,12 +410,12 @@ const TeacherPlayVideo = (props) => {
   };
 
   const videoStatus = (type, status) => {
-    console.log(type, "type", status, "status");
+    // console.log(type, "type", status, "status");
     // here we can see the videoStatus //
 
     // type = video ,attachment ,quiz, certificates  //
     //  where status = completed /incomplete //
-    const done = <FeatherIcon className="mx-2" icon="play-circle" style={{ color: '#4bae4f' }} />;
+    const done = <FeatherIcon className="mx-2 done" icon="play-circle" style={{ color: '#4bae4f' }} />;
     const notDone = <FeatherIcon className="mx-2" icon="play-circle" style={{ color: '#c0c0c0' }} />;
 
     // const done = <IoCheckmarkDoneCircleSharp className="done" />;
@@ -589,6 +589,7 @@ const TeacherPlayVideo = (props) => {
       },
     });
   };
+  // console.log(teacherCourseDetails,"qq");
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -606,12 +607,12 @@ const TeacherPlayVideo = (props) => {
             style={{ minHeight: "72vh" }}
           >
             <Row className="m-0 courser-video-section ">
-              <Col xl={4} className="sidebars-right theiaStickySidebar section-bulk-widget">
-                <div className="notes-dash">
+              <Col xl={4} className="sidebars-right theiaStickySidebar section-bulk-widget course-assement">
+                <div className="notes-dash assement-info">
                   <div className="notes-top-head">
                     <h5> <i data-feather="file-text" className="feather-file-text"></i> Lessons</h5>
                   </div>
-                  <div className="notes-top-head-submenu">
+                  <div className="notes-top-head-submenu assement-item" id="scrollbar">
                     {teacherCourseDetails &&
                       teacherCourseDetails.length &&
                       teacherCourseDetails.map((course, index) => {
@@ -620,7 +621,7 @@ const TeacherPlayVideo = (props) => {
                             key={index}
                             className={`course-sec-list ${course.progress === "COMPLETED"
                               ? "hHover"
-                              : "hHover"
+                              : "noHover"
                               }`}
                           >
                             <Row
@@ -1206,7 +1207,7 @@ const TeacherPlayVideo = (props) => {
                       </Card>
                     </Fragment>
                   )}
-                {item === "CERTIFICATE" && certificate && (
+                {/* {item === "CERTIFICATE" && certificate && (
                   <Fragment>
                     <Card className="course-sec-basic p-5">
                       <CardBody>
@@ -1229,7 +1230,6 @@ const TeacherPlayVideo = (props) => {
                             {currentUser?.data[0]?.full_name}
                           </span>
                           <img
-                            // src={TeacherCertificate}
                             alt="certificate"
                             style={{
                               width: "297px",
@@ -1238,21 +1238,12 @@ const TeacherPlayVideo = (props) => {
                           />
                         </div>
                         <div className="text-right">
-                          {/* <Button
-                            button="submit"
-                            label="Download Certificate"
-                            btnclassName="primary mt-4"
-                            size="small"
-                            style={{
-                              marginRight: "2rem",
-                            }}
-                            onClick={handleCertificateDownload}
-                          /> */}
+                         
                         </div>
                       </CardBody>
                     </Card>
                   </Fragment>
-                )}
+                )} */}
               </Col>
             </Row>
           </div>

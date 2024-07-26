@@ -387,7 +387,7 @@ const CreateMultipleMembers = ({ id }) => {
               </Label>
               <input
                 className="form-control"
-                placeholder="Please Enter Your Team Name"
+                placeholder="Enter Team Name"
                 id="teamname"
                 name="teamname"
                 onChange={(e) => handleteamname(e)}
@@ -406,7 +406,7 @@ const CreateMultipleMembers = ({ id }) => {
               </Label>
               <input
                 className="form-control"
-                placeholder="Please Enter Your Email Address"
+                placeholder="Enter Email Address"
                 id="teamemail"
                 name="teamemail"
                 type="email"
@@ -446,7 +446,7 @@ const CreateMultipleMembers = ({ id }) => {
                     </Label>
                     <input
                       className="form-control"
-                      placeholder="Please Enter Your Full Name"
+                      placeholder="Enter Full Name"
                       id="full_name"
                       name="full_name"
                       onChange={(e) => {

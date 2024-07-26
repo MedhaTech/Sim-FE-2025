@@ -123,7 +123,7 @@ export const CreateTeamMember = () => {
                             </Label>
                             <input
                               className="form-control"
-                              placeholder="Please Enter Your Full Name"
+                              placeholder="Enter Full Name"
                               id="fullName"
                               name="fullName"
                               onChange={(e) => {

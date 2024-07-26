@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React, { useState } from "react";
+import React, { useState ,useLayoutEffect,} from "react";
 // import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
 import { getCurrentUser } from "../helpers/Utils";
@@ -9,23 +9,35 @@ import edit from "../assets/img/icons/edit-set.svg";
 import { useNavigate } from "react-router-dom";
 import female from "../assets/img/Female_Profile.png";
 import male from "../assets/img/Male_Profile.png";
-const TeacherProfile = () => {
-  const currentUser = getCurrentUser("current_user");
-  const navigate = useNavigate();
+import { useDispatch, useSelector } from 'react-redux';
+import { getTeacherByID } from '../redux/actions';
 
+import axios from "axios";
+const TeacherProfile = () => {
+  const dispatch = useDispatch();
+  const currentUser = getCurrentUser("current_user");
+  const { teacher } = useSelector((state) => state.teacher);
+  console.log(teacher,"11");
+  const navigate = useNavigate();
+const [data,setData]=useState({});
   const handleEdit = () => {
     navigate("/mentoreditprofile", {
       state: {
-        full_name: currentUser?.data[0]?.full_name,
+        full_name:currentUser?.data[0]?.full_name,
         mentor_id: currentUser?.data[0]?.mentor_id,
         // mobile: teacher?.mobile,
         username: currentUser?.data[0]?.name,
-        title: currentUser?.data[0]?.title,
-        // gender: teacher?.gender,
+        title:currentUser?.data[0]?.title,
+        gender: currentUser?.data[0]?.gender,
         // whatapp_mobile: teacher?.whatapp_mobile
       },
     });
   };
+  useLayoutEffect(() => {
+    if (currentUser?.data[0]?.mentor_id) {
+        dispatch(getTeacherByID(currentUser?.data[0]?.mentor_id));
+    }
+}, [currentUser?.data[0]?.mentor_id]);
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -34,6 +46,12 @@ const TeacherProfile = () => {
             <h4>Teacher Profile</h4>
             {/* <h6>User Profile</h6> */}
           </div>
+          <div>
+          <button onClick={() => handleEdit() }className={"btn btn-primary"}>
+                        <img src={edit} alt="Edit" />
+                      </button>
+                        {/* <h4>Update Personal Details.</h4> */}
+                      </div>
         </div>
         {/* /product list */}
         <div className="card">
@@ -49,25 +67,24 @@ const TeacherProfile = () => {
                       id="blah"
                     /> */}
                     {/* <img src={customer} alt="Customer" id="blah" /> */}
-                    {currentUser?.data[0]?.gender === "Male" ? (
+                    {teacher?.gender === "Male" ? (
                       <img src={male} alt="Male" id="blah" />
                     ) : (
                       <img src={female} alt="Female" id="blah" />
                     )}
                     <div className="profileupload">
                       {/* <input type="file" id="imgInp" /> */}
-                      <Link onClick={handleEdit()}>
-                        <img src={edit} alt="Edit" />
-                      </Link>
+                      
                     </div>
+                    
                   </div>
                   <div className="profile-contentname">
                     <h2>
-                      {currentUser?.data[0]?.title +
+                      {teacher?.title +
                         "." +
-                        currentUser?.data[0]?.full_name}
+                        teacher?.full_name}
                     </h2>
-                    <h4>Update Personal Details.</h4>
+                    {/* <h4>Update Personal Details.</h4> */}
                   </div>
                 </div>
               </div>
@@ -83,6 +100,32 @@ const TeacherProfile = () => {
                       currentUser?.data[0]?.title +
                       "." +
                       currentUser?.data[0]?.full_name
+                    }
+                    readOnly="readonly"
+                  />
+                </div>
+              </div>
+              <div className="col-lg-6 col-sm-12">
+                <div className="input-blocks">
+                  <label className="form-label">Gender</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    defaultValue={
+                      teacher?.gender
+                    }
+                    readOnly="readonly"
+                  />
+                </div>
+              </div>
+              <div className="col-lg-6 col-sm-12">
+                <div className="input-blocks">
+                  <label className="form-label">Mobile Number</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    defaultValue={
+                      teacher?.mobile
                     }
                     readOnly="readonly"
                   />
@@ -104,7 +147,23 @@ const TeacherProfile = () => {
                   <input
                     type="email"
                     className="form-control"
-                    defaultValue={currentUser?.data[0]?.name}
+                    defaultValue={teacher?.username_email
+                    }
+                    readOnly="readonly"
+                  />
+                </div>
+              </div>
+              <div className="col-lg-6 col-sm-12">
+                <div className="input-blocks">
+                  <label className="form-label">Udise Code</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    defaultValue={
+                      teacher?.organization?.organization_code
+
+
+                    }
                     readOnly="readonly"
                   />
                 </div>
@@ -119,7 +178,29 @@ const TeacherProfile = () => {
                   />
                 </div>
               </div>
-              <div className="col-lg-6 col-sm-12">
+              <div className="col-lg-4 col-sm-12">
+                <div className="input-blocks">
+                  <label className="form-label">Category</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    defaultValue={teacher?.organization?.category}
+                    readOnly="readonly"
+                  />
+                </div>
+              </div>
+              <div className="col-lg-4 col-sm-12">
+                <div className="input-blocks">
+                  <label className="form-label">District</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    defaultValue={teacher?.organization?.district}
+                    readOnly="readonly"
+                  />
+                </div>
+              </div>
+              <div className="col-lg-4 col-sm-12">
                 <div className="input-blocks">
                   <label className="form-label">State</label>
                   <input
