@@ -1036,7 +1036,7 @@ const NonAtlPage = () => {
                                 <option value="Dr">Dr</option>
                                 <option value="Mr">Mrs</option>
                                 <option value="Miss">Miss</option>
-                                <option value="Mrs">Mrss</option>
+                                <option value="Mrs">Mrs</option>
                               </select>
                               {formik.touched.title && formik.errors.title ? (
                                 <small className="error-cls">
