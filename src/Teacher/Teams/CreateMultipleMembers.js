@@ -72,7 +72,7 @@ const CreateMultipleMembers = ({ id }) => {
     if (inputValue.trim().length < 1) {
       setTeamNameError("Please Enter Team Name");
     } else if (!patternOnlyalfa.test(inputValue)) {
-      setTeamNameError("Only alpha characters are allowed");
+      setTeamNameError("Only alphanumeric characters are allowed");
     } else {
       setTeamNameError("");
     }
@@ -147,7 +147,7 @@ const CreateMultipleMembers = ({ id }) => {
               const { index } = check.match(pattern);
               if (index) {
                 const foo = { ...errCopy[i] };
-                foo[e.target.name] = "Only alpha characters are allowed";
+                foo[e.target.name] = "Only alphanumeric characters are allowed";
                 errCopy[i] = { ...foo };
                 setItemDataErrors(errCopy);
                 return;
@@ -188,7 +188,7 @@ const CreateMultipleMembers = ({ id }) => {
       } else if (!/^[A-Za-z\s]+$/i.test(item.full_name)) {
         err["full_name"] = (
           <span style={{ color: "red" }}>
-            Only alphabetic characters and spaces are allowed
+            Only alphabetical characters and spaces are allowed
           </span>
         );
       }

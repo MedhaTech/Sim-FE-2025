@@ -16,6 +16,7 @@ import { encryptGlobal } from "../constants/encryptDecrypt";
 import { useNavigate } from "react-router-dom";
 import female from "../assets/img/Female_Profile.png";
 import male from "../assets/img/Male_Profile.png";
+import user from "../assets/img/user.png";
 const TeacherEditProfile = () => {
   const location = useLocation();
   const mentorData = location.state || {};
@@ -134,11 +135,12 @@ const TeacherEditProfile = () => {
                 <div className="profile-top">
                   <div className="profile-content">
                     <div className="profile-contentimg">
-                      {currentUser?.data[0]?.gender === "Male" ? (
-                        <img src={male} alt="Male" id="blah" />
-                      ) : (
-                        <img src={female} alt="Female" id="blah" />
-                      )}
+                    {/* currentUser?.data[0]?.gender === "Male" */}
+                    {currentUser?.data[0]?.gender === "Male" || currentUser?.data[0]?.gender === "MALE" ? (
+                      <img src={male} alt="Male" id="blah" />
+                    ) : ((currentUser?.data[0]?.gender === "Female" || currentUser?.data[0]?.gender === "FEMALE")?(
+                      <img src={female} alt="Female" id="blah" />):(<img src={user} alt="user" id="blah" />)
+                    )}
                     </div>
                     <div className="profile-contentname">
                       <h2>

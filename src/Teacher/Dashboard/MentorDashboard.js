@@ -1,4 +1,5 @@
 /* eslint-disable indent */
+/* eslint-disable no-unused-vars */
 import React, { useEffect , useRef, useState } from 'react';
 import CountUp from "react-countup";
 import {
@@ -577,7 +578,7 @@ const MentorDashboard = () => {
                               </div>
                             </div>
                           </td>
-                          <td>
+                          {/* <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -593,7 +594,7 @@ const MentorDashboard = () => {
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td>
+                          </td> */}
                           <td>
                             {teamCountLoading ? ( 
                                 <Loader />
@@ -646,7 +647,7 @@ const MentorDashboard = () => {
                               </div>
                             </div>
                           </td>
-                          <td>
+                          {/* <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -662,7 +663,7 @@ const MentorDashboard = () => {
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td>
+                          </td> */}
                           <td>
                             {teacCourseLoading ? ( 
                                 <Loader />
@@ -723,7 +724,7 @@ const MentorDashboard = () => {
                               </div>
                             </div>
                           </td>
-                          <td>
+                          {/* <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -739,7 +740,7 @@ const MentorDashboard = () => {
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td>
+                          </td> */}
                           <td>
                             {teacPostSLoading ? ( 
                                 <Loader />
@@ -792,7 +793,7 @@ const MentorDashboard = () => {
                               </div>
                             </div>
                           </td>
-                          <td>
+                          {/* <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -808,7 +809,7 @@ const MentorDashboard = () => {
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td>
+                          </td> */}
                           <td>
                             <span
                               className={"badge badge-linesuccess"}
@@ -845,7 +846,7 @@ const MentorDashboard = () => {
                               </div>
                             </div>
                           </td>
-                          <td>
+                          {/* <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -861,7 +862,7 @@ const MentorDashboard = () => {
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td>
+                          </td> */}
                           <td>
                             <span
                               className={"badge badge-linesuccess"}
