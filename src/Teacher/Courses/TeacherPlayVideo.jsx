@@ -902,12 +902,12 @@ const TeacherPlayVideo = (props) => {
                           </CardTitle>
                           <CardBody>
                             <p>
-                              <b>Dear Guide Teacher!</b>
+                              <b>Dear Guide Teachers,
+                              </b>
                             </p>
                             <p>
-                              Hope the instructional videos gave you an insight
-                              into the course. Further detailed instructions can
-                              be found in the handbook.
+                            We hope the instructional videos gave you an insight into the course. Further detailed instructions can be found in the handbook. 
+
                             </p>
                             <p className="text-success">
                               <b>
@@ -916,15 +916,15 @@ const TeacherPlayVideo = (props) => {
                             </p>
 
                             <ul>
-                              <li>Program Schedule</li>
-                              <li>Program Objectives</li>
-                              <li>Major milestones in the program</li>
-                              <li>Best Practices for teachers</li>
-                              <li>Course Elements</li>
-                              <li>Learning Concepts</li>
-                              <li>Other important instructions</li>
+                              <li>1. Program Schedule</li>
+                              <li>2. Program Objectives</li>
+                              <li>3. Major milestones in the program</li>
+                              <li>4. Best Practices for teachers</li>
+                              <li>5. Course Elements</li>
+                              <li>6. Learning Concepts</li>
+                              <li>7. Other important instructions</li>
                             </ul>
-
+<br></br>
                             <p>
                               You can refer to the handbook whenever there are
                               any doubts about the program. Both the
@@ -935,11 +935,8 @@ const TeacherPlayVideo = (props) => {
                             </p>
 
                             <p>
-                              Student can go through the Themes and Problem
-                              statements document, select one problem among them
-                              and submit idea for it. Students will also be able
-                              to download & access document in the
-                              course/resource section in their profile.
+                            Students can go through the Themes document, select a theme and a focus area, identify a problem around the focus area, and submit an idea for it. Students will also be able to download & access document in the course/resource section in their profile  
+
                               {/* <b>
                                                         The resource section
                                                         will have the Teacher
@@ -953,12 +950,8 @@ const TeacherPlayVideo = (props) => {
                             </p>
 
                             <p>
-                              To know that you are ready to support the students
-                              for this program, you will be required to take a
-                              quiz. Don’t worry,the quiz is not a test, it is
-                              designed to help you recall the thing you have to
-                              keep in mind while doing the program. All the
-                              best!
+                            To know that you are ready to support the students in this program, you will be required to take a quiz.  Don’t worry, the quiz is not a test, it is designed to help you recall the things you have to keep in mind while doing the program. All the best! 
+
                             </p>
                           </CardBody>
                           <div className="text-left mb-2">
@@ -1040,11 +1033,11 @@ const TeacherPlayVideo = (props) => {
                             {getLastCourseStatus(teacherCourseDetails) &&
                               //  isquizcompleted
                               finalPage ? (
-                              <div className="text-center">
-                                <h2 className="text-success">
+                              <div >
+                                <h3 className="text-success text-center">
                                   🎉 Congratulations on completing the course!
                                   🎉
-                                </h2>
+                                </h3>
                                 <br />
                                 <p>
                                   <b>
@@ -1060,7 +1053,8 @@ const TeacherPlayVideo = (props) => {
                                     the handbook.
                                   </li>
                                   <li>
-                                    Arrange for device access and workbook.
+                                    Arrange for device access  your students to complete the course and hand book activities.
+
                                   </li>
                                   <li>
                                     Schedule weekly sessions to watch/discuss
@@ -1078,8 +1072,9 @@ const TeacherPlayVideo = (props) => {
                                 </ol>
 
                                 <p>
-                                  You are now ready to guide your students on
-                                  their problem solving journeys!
+                                You are now ready to guide your students on their problem solving journeys!
+
+
                                 </p>
                               </div>
                             ) : (
@@ -1089,19 +1084,25 @@ const TeacherPlayVideo = (props) => {
                                 //     whiteSpace: 'pre-wrap'
                                 // }}
                                 >
-                                  <div
+                                  {/* <div
                                     dangerouslySetInnerHTML={{
                                       __html:
                                         teacherCourse &&
                                         teacherCourse.description,
                                     }}
-                                  ></div>
+                                  ></div> */}
+                                  <div
+                            dangerouslySetInnerHTML={{
+                              __html:
+                                "<h3 class='text-success'>Welcome Teachers! </h3></br>We’re excited that you will be part of the program in guiding your student through it.</br><p>Now it’s time to start the program.</p><ol>We would like you all to go through the following in order.</br><li>1. Watch the instructional videos for overview of the program.</li><li>2. Read the teacher's handbook for a summary of the course and other important instructions.</li></ol></br><p>You have one week to do these. Afterwards, you and your students will be ready to start their problem solving journey!</p><p>We hope you enjoy guiding the students as they embark on this new journey!</p>Wishing you all the best!",
+                            }}
+                          ></div>
                                 </text>
                                 {firstObj[0] &&
                                   firstObj[0].progress == "INCOMPLETE" ? (
-                                  <div>
+                                  <div className="mt-2">
                                     <button
-                                      className="btn btn-warning"
+                                      className="btn btn-warning mt-2"
                                       onClick={(e) => startFirstCourse(e)}
                                     >
                                       Start Course
@@ -1162,11 +1163,11 @@ const TeacherPlayVideo = (props) => {
                     // .length > 2
                     <Fragment>
                       <Card className="course-sec-basic p-5">
-                        <CardBody className="text-center p-5">
+                        <CardBody >
                           <CardTitle>
-                            <h2 className="text-success">
+                            <h3 className="text-success">
                               🎉 Congratulations on completing the course! 🎉
-                            </h2>
+                            </h3>
                           </CardTitle>
 
                           <CardBody>
