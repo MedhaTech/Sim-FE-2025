@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Check PR source branch
         run: |
-          if [ "${{ github.head_ref }}" != "dev" ]; then
+          if [ "${{ github.head_ref }}" != "development" ]; then
             echo "Error: Pull requests to stage must come from the dev branch."
             exit 1
           fi
