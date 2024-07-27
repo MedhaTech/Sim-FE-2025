@@ -11,6 +11,7 @@ import female from "../assets/img/Female_Profile.png";
 import male from "../assets/img/Male_Profile.png";
 import { useDispatch, useSelector } from 'react-redux';
 import { getTeacherByID } from '../redux/actions';
+import user from "../assets/img/user.png";
 
 import axios from "axios";
 const TeacherProfile = () => {
@@ -67,10 +68,10 @@ const [data,setData]=useState({});
                       id="blah"
                     /> */}
                     {/* <img src={customer} alt="Customer" id="blah" /> */}
-                    {teacher?.gender === "Male" ? (
+                    {teacher?.gender === "Male" || teacher?.gender === "MALE" ? (
                       <img src={male} alt="Male" id="blah" />
-                    ) : (
-                      <img src={female} alt="Female" id="blah" />
+                    ) : ((teacher?.gender === "Female" || teacher?.gender === "FEMALE")?(
+                      <img src={female} alt="Female" id="blah" />):(<img src={user} alt="user" id="blah" />)
                     )}
                     <div className="profileupload">
                       {/* <input type="file" id="imgInp" /> */}

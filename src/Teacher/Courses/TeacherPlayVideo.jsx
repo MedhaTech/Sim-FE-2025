@@ -949,10 +949,10 @@ const TeacherPlayVideo = (props) => {
                                                     profiles. */}
                             </p>
 
-                            <p>
+                            {/* <p>
                             To know that you are ready to support the students in this program, you will be required to take a quiz.  Don’t worry, the quiz is not a test, it is designed to help you recall the things you have to keep in mind while doing the program. All the best! 
 
-                            </p>
+                            </p> */}
                           </CardBody>
                           <div className="text-left mb-2">
                             <div>
@@ -1070,6 +1070,7 @@ const TeacherPlayVideo = (props) => {
                                     teacher rubric.
                                   </li>
                                 </ol>
+                                <br/>
 
                                 <p>
                                 You are now ready to guide your students on their problem solving journeys!
@@ -1096,7 +1097,7 @@ const TeacherPlayVideo = (props) => {
                               __html:
                                 "<h3 class='text-success'>Welcome Teachers! </h3></br>We’re excited that you will be part of the program in guiding your student through it.</br><p>Now it’s time to start the program.</p><ol>We would like you all to go through the following in order.</br><li>1. Watch the instructional videos for overview of the program.</li><li>2. Read the teacher's handbook for a summary of the course and other important instructions.</li></ol></br><p>You have one week to do these. Afterwards, you and your students will be ready to start their problem solving journey!</p><p>We hope you enjoy guiding the students as they embark on this new journey!</p>Wishing you all the best!",
                             }}
-                          ></div>
+                          ></div><br/>
                                 </text>
                                 {firstObj[0] &&
                                   firstObj[0].progress == "INCOMPLETE" ? (
@@ -1173,7 +1174,7 @@ const TeacherPlayVideo = (props) => {
                           <CardBody>
                             <p>
                               <b>
-                                Now that you have completed the quiz, Below are
+                              Now that you have completed the course, Below are
                                 your next action items in the program :
                               </b>
                             </p>
@@ -1198,6 +1199,7 @@ const TeacherPlayVideo = (props) => {
                                 rubric.
                               </li>
                             </ol>
+                            <br/>
 
                             <p>
                               You are now ready to guide your students on their
