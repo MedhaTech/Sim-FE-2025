@@ -15,7 +15,7 @@ import logoutIcon from "../../assets/img/icons/log-out.svg";
 import logo from "../../assets/img/sim_logo.png";
 import female from "../../assets/img/Female_Profile.png";
 import male from "../../assets/img/Male_Profile.png";
-import user from "../../assets/img/icons/user-icon.svg";
+import user from "../../assets/img/user.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKey } from '@fortawesome/free-solid-svg-icons';
 
@@ -151,8 +151,12 @@ const MentorHeader = () => {
     switch (gender) {
       case "Male":
         return male;
+      case "MALE":
+        return male;
       case "Female":
         return female;
+      case "FEMALE":
+          return female;
       default:
         return user;
     }
