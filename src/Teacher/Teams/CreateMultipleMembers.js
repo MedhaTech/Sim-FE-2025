@@ -353,8 +353,8 @@ const CreateMultipleMembers = ({ id }) => {
       <div className="page-header">
         <div className="add-item d-flex">
           <div className="page-title">
-            <h4>Team and Student Creation</h4>
-            <h6>Create new team and students</h6>
+            <h4>Team and Students Registration into SIM</h4>
+            <h6>Create new team and add students</h6>
           </div>
         </div>
         <ul className="table-top-head">

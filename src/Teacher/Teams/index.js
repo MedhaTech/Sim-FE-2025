@@ -12,6 +12,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
+
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import { Tooltip } from "react-bootstrap";
 // import { Button } from "../../.stories/Button";
 
 import {
@@ -41,6 +44,7 @@ const Dashboard = (props) => {
   const [IdeaStatus, setIdeaStatus] = useState("No Idea");
   const [teamchangeobj, setteamchangeObj] = useState({});
   const [value, setvalue] = useState("");
+  const [ViewedTeam , setViewedTeam] = useState();
 
   useEffect(() => {
     if (currentUser?.data[0]?.mentor_id) {
@@ -102,6 +106,7 @@ const Dashboard = (props) => {
       .then(function (response) {
         if (response.status === 200) {
           setTeamsList(response.data.data);
+          //console.log(teamsList,"teamslist");
         }
       })
       .catch(function (error) {
@@ -126,10 +131,51 @@ const Dashboard = (props) => {
     });
   };
 
+  const renderViewTooltip = (props) => (
+    <Tooltip id="refresh-tooltip" {...props}>
+      View
+    </Tooltip>
+  );
+  const renderAddTooltip = (props) => (
+    <Tooltip id="refresh-tooltip" {...props}>
+      Add Student
+    </Tooltip>
+  );
+  const renderHideTooltip = (props) => (
+    <Tooltip id="refresh-tooltip" {...props}>
+      Hide
+    </Tooltip>
+  );
+  const renderEditTooltip = (props) => (
+    <Tooltip id="refresh-tooltip" {...props}>
+      Edit Stu
+    </Tooltip>
+  );
+  const renderSwitchTooltip = (props) => (
+    <Tooltip id="refresh-tooltip" {...props}>
+      Change Team
+    </Tooltip>
+  );
+
+  const renderDelTooltip = (props) => (
+    <Tooltip id="refresh-tooltip" {...props}>
+      Del Stu
+    </Tooltip>
+  );
+  
+  const findTeamDetails = (id) => {
+    //console.log(teamsList,"teamdetailsfunc");
+    const team = teamsList.find((item) => item.team_id === id);
+    setViewedTeam(team);
+    //console.log(ViewedTeam , "viewed team");
+  };
+
   const handleViewClick = (teamId, stuCount) => {
     if (selectedTeam === teamId) {
       setSelectedTeam(null);
     } else {
+      //console.log(teamId,stuCount);
+      findTeamDetails(teamId);
       dispatch(getAdminTeamMembersList(teamId));
       setStuList(stuCount);
       // props.getAdminTeamMembersListAction(teamId);
@@ -157,40 +203,40 @@ const Dashboard = (props) => {
     data: teamsArray,
     columns: [
       {
-        name: "S.No",
+        name: <b style={{color:"crimson"}}>#</b>,
         selector: (row) => row.key,
-        width: "6rem",
+        width: "10%",
       },
       {
-        name: "Username",
+        name: <b style={{color:"crimson"}}>Username</b>,
 
-        selector: (row) => row.username,
-
-        // sortable: true,
-        width: "10rem",
-      },
-      {
-        name: "Password",
-
-        selector: (row) => row.team_name.toLowerCase(),
+        selector: (row) => <div>{row.username}<br/>{row.team_name.toLowerCase()}</div>,
 
         // sortable: true,
-        width: "10rem",
+        width: "40%",
       },
-      {
-        name: "Team Name",
-        selector: (row) => row.team_name,
-        // sortable: true,
-        width: "15rem",
-      },
+      // {
+      //   name: "Password",
+
+      //   selector: (row) => row.team_name.toLowerCase(),
+
+      //   // sortable: true,
+      //   width: "10rem",
+      // },
+      // {
+      //   name: "Team Name",
+      //   selector: (row) => row.team_name,
+      //   // sortable: true,
+      //   width: "15rem",
+      // },
 
       {
-        name: "Team Count",
-        selector: (row) => row.StudentCount,
-        width: "15rem",
+        name: <b style={{color:"crimson"}}>#Stu</b>,
+        selector: (row) => <span style={{width:"15px",height:"15px",alignItems:"center",background:"#FF9F43",borderRadius:"50%",color:"white",display:"flex",justifyContent:"center"}}>{row.StudentCount}</span>,
+        width: "18%"
       },
       {
-        name: "Actions",
+        name: <b style={{color:"crimson"}}>Actions</b>,
         cell: (params) => {
           return [
             <div
@@ -200,10 +246,22 @@ const Dashboard = (props) => {
               }
             >
               {!params.StudentCount < 4 && (
-                <div className="btn btn-primary m-2">
-                  {" "}
-                  {selectedTeam === params.team_id ? "Hide" : "View"}
-                </div>
+                
+                <div>
+                {selectedTeam === params.team_id ? 
+                <OverlayTrigger placement="top" overlay={renderHideTooltip}>
+                  <Link data-bs-toggle="tooltip" data-bs-placement="top" >
+                    <div className="btn btn-dark btn-sm m-2">{<i data-feather="eye-off" className="feather-eye-off" />} </div>
+                  </Link>
+                </OverlayTrigger>
+                 
+                :
+                <OverlayTrigger placement="top" overlay={renderViewTooltip}>
+                  <Link data-bs-toggle="tooltip" data-bs-placement="top" >
+                    <div className="btn btn-info btn-sm m-2">{<i data-feather="eye" className="feather-eye" />} </div>
+                  </Link>
+                </OverlayTrigger> 
+                 }</div>
               )}
             </div>,
 
@@ -225,12 +283,17 @@ const Dashboard = (props) => {
 
             <div key={params} onClick={() => handleCreate(params)}>
               {process.env.REACT_APP_TEAM_LENGTH > params.StudentCount && (
-                <div className="btn btn-success btn-added ">Add</div>
+                <OverlayTrigger placement="top" overlay={renderAddTooltip}>
+                  <Link data-bs-toggle="tooltip" data-bs-placement="top" >
+                    <div className="btn btn-success btn-sm btn-added"> <i data-feather="plus-circle" className="feather-plus-circle" /></div>
+                  </Link>
+                </OverlayTrigger> 
+                
               )}
             </div>,
           ];
         },
-        width: "15rem",
+        width: "30%",
         left: true,
       },
     ],
@@ -451,12 +514,25 @@ const Dashboard = (props) => {
     <div>
       <div className="page-wrapper">
         <div className="content">
-          <div className="page-btn mb-2">
-            <Link to="/createteam" className="btn btn-added btn-primary">
-              <PlusCircle className="me-2" />
-              Add Team & Students
-            </Link>
+          <div className="page-header">
+            <div className="add-item d-flex">
+              <div className="page-title">
+                <h4>Enrolled Teams and Students</h4>
+                <h6>You can &quot;Create Teams&quot; & then &quot;View&quot; , &quot;Edit&quot; , &quot;Delete&quot; & &quot;Swap&quot; students in teams</h6>
+              </div>
+            </div>
+            <ul className="table-top-head">
+              <li>
+              <div className="page-btn mb-2">
+                <Link to="/createteam" className="btn btn-added btn-primary">
+                  <PlusCircle className="me-2" style={{color:"white"}} />
+                  Add Team & Students
+                </Link>
+              </div>
+              </li>
+            </ul>
           </div>
+          
           {show && (
             <Modal
               show={show}
@@ -467,7 +543,7 @@ const Dashboard = (props) => {
               centered
               className="assign-evaluator ChangePSWModal teacher-register-modal"
               backdrop="static"
-              // scrollable={true}
+            // scrollable={true}
             >
               <Modal.Header closeButton onHide={() => setShow(false)}>
                 <Modal.Title
@@ -506,212 +582,226 @@ const Dashboard = (props) => {
             </Modal>
           )}
           <Row>
-            {/* <div className="card-container mt-5"> */}
-            {/* <div className="card"> */}
-            {selectedTeam && (
-              <div className="card mt-2" id="start">
-                <Row>
-                  <Col>
-                    <h3 className="table-title">
-                      Team Id :{selectedTeam} Students Details
-                    </h3>
-                  </Col>
-                  <Col className="d-flex justify-content-end">
-                    {stuList == 2 && (
-                      <button
-                        className="btn btn-danger mb-2"
-                        onClick={() => handleDeleteTeam(selectedTeam)}
-                      >
-                        <i data-feather="trash-2" className="feather-trash-2" />
-                        {/* Delete */}
-                      </button>
-                    )}
-                  </Col>
-                </Row>
-                <div className="table-container">
-                  <table className="student-table">
-                    <thead>
-                      <tr>
-                        <th>Full Name</th>
-                        <th>Age</th>
-                        <th>Gender</th>
-                        <th>Grade</th>
-                        <th>Disability</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {teamsListData.map((student, index) => (
-                        <tr key={index}>
-                          <td>{student.full_name}</td>
-                          <td>{student.Age}</td>
-                          <td>{student.Gender}</td>
-                          <td>{student.Grade}</td>
-                          <td>{student.disability}</td>
-                          <td>
-                            {/* <div className="edit-delete-action"> */}
-                            <button
-                              className="me-2 p-2 btn btn-info"
-                              onClick={() => handleEdit(student)}
-                            >
-                              <i data-feather="edit" className="feather-edit" />
-                              {/* Edit */}
-                            </button>
-                            {stuList > 2 && (
-                              <button
-                                className="me-2 p-2 btn btn-danger"
-                                onClick={() => handleDeleteStudent(student)}
-                              >
-                                <i
-                                  data-feather="trash-2"
-                                  className="feather-trash-2"
-                                />
-                              </button>
-                            )}
-                            {stuList > 2 && (
-                              // IdeaStatus === "No Idea" &&
-                              <button
-                                className="me-2 p-2 btn btn-secondary"
-                                onClick={() => handleSwitchTeam(student)}
-                              >
-                                <FontAwesomeIcon
-                                  icon={faUsers}
-                                  data-bs-toggle="tooltip"
-                                  title="fa fa-users"
-                                />
-                              </button>
-                            )}
-                            {/* </div> */}
-                          </td>
-                          {/* <td>
-                            <button
-                              // onClick={() => handleEdit(student)}
-                              // className="me-2 p-2"
-                              data-bs-toggle="modal"
-                              data-bs-target="#edit-units"
-                            >
-                              <i data-feather="edit" className="feather-edit" />
-                            </button>
-                            <button
-                              // onClick={() => handleDelete(student)}
-                              className="delete-button"
-                            >
-                              <i
-                                data-feather="trash-2"
-                                className="feather-trash-2"
-                              />
-                            </button>
-                          </td> */}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                  {/* {show && (
-                    <Modal
-                      show={show}
-                      onHide={() => setShow(false)}
-                      //{...props}
-                      size="sm"
-                      aria-labelledby="contained-modal-title-vcenter"
-                      centered
-                      className="assign-evaluator ChangePSWModal teacher-register-modal"
-                      backdrop="static"
-                      scrollable={true}
-                    >
-                      <Modal.Header closeButton onHide={() => setShow(false)}>
-                        <Modal.Title
-                          id="contained-modal-title-vcenter"
-                          className="w-100 d-block text-center"
-                        >
-                          Teams Change
-                        </Modal.Title>
-                      </Modal.Header>
-
-                      <Modal.Body>
-                        <div className="my-3 text-center w-50%">
-                          <h3 className="mb-sm-4 mb-3">
-                            Please select Team to switch student
-                          </h3>
-                          <Select
-                            list={teamlist}
-                            setValue={setvalue}
-                            placeHolder={"Please Select team"}
-                            value={value}
-                          />
-                        </div>
-
-                        <div className="text-center">
-                          <button
-                            label={"Submit"}
-                            // btnClass={!value ? "default" : "primary"}
-                            className="btn btn-warning"
-                            onClick={() => handleChangeStudent(value)}
-                            disabled={!value}
-                          >
-                            Submit
-                          </button>
-                        </div>
-                      </Modal.Body>
-                    </Modal>
-                  )} */}
+            <Col className="form-group"
+              xs={12}
+              sm={12}
+              md={12}
+              xl={4}>
+              {/* <h4>Teams List</h4> */}
+              <div className="ticket-data">
+                <div className="my-2">
+                  <DataTableExtensions
+                    print={false}
+                    export={false}
+                    filter={false}
+                    {...adminTeamsList}
+                  >
+                    <DataTable
+                      data={teamsArray}
+                      defaultSortField="id"
+                      filter={false}
+                      customStyles={customStyles}
+                      defaultSortAsc={false}
+                      pagination={false}
+                      highlightOnHover
+                      fixedHeader
+                      subHeaderAlign={Alignment.Center}
+                      paginationRowsPerPageOptions={[25, 50, 100]}
+                      paginationPerPage={25}
+                    />
+                  </DataTableExtensions>
                 </div>
               </div>
-            )}
-            {/* </div> */}
-            {/* </div> */}
-            <div className="ticket-data">
-              <div className="my-2">
-                <DataTableExtensions
-                  print={false}
-                  export={false}
-                  {...adminTeamsList}
-                >
-                  {/* {selectedTeam && (
-                    <div>
-                      <h3>Students in Team {selectedTeam}</h3>
-                      <table>
-                        <thead>
-                          <tr>
-                            <th>Student ID</th>
-                            <th>User ID</th>
-                            <th>Full Name</th>
-                            <th>Age</th>
-                            <th>Gender</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {teamsListData
-                            .filter(
-                              (student) => student.team_id === selectedTeam
-                            )
-                            .map((student) => (
-                              <tr key={student.student_id}>
-                                <td>{student.student_id}</td>
-                                <td>{student.user_id}</td>
-                                <td>{student.full_name}</td>
-                                <td>{student.Age}</td>
-                                <td>{student.gender}</td>
-                              </tr>
-                            ))}
-                        </tbody>
-                      </table>
+            </Col>
+            <Col className="form-group"
+              xs={12}
+              sm={12}
+              md={12}
+              xl={8}>
+              
+              {selectedTeam && (
+                <div className="card mt-2 p-2" id="start">
+                  <div style={{padding:"10px"}}>
+                  <Row className="modal-body-table">
+                    <h5>Team Details</h5><br/><br/>
+                    <Col >
+                      <p >
+                        Team Name : {ViewedTeam.team_name}
+                      </p>
+                      <p >
+                        Student Count : {ViewedTeam.StudentCount}
+                      </p>
+                    </Col>
+                    <Col>
+                      <p >
+                        Login ID : {ViewedTeam.username}
+                      </p>
+                      <p >
+                        Password : {ViewedTeam.team_name.toLowerCase()}
+                      </p>
+                    </Col>
+                  </Row></div>
+                  {/* <Row className="mb-2 mt-2">
+                    <Col>
+                      <h5 className="mt-1 mb-1"> 1 </h5>
+                    </Col>
+                    <Col className="text-right">
+                      {stuList == 2 && (
+                        <button
+                          className="btn btn-danger btn-sm"
+                          onClick={() => handleDeleteTeam(selectedTeam)}
+                        >
+                          <i data-feather="trash-2" className="feather-trash-2" />
+                          {" Delete Team"}
+                        </button>
+                      )}
+                    </Col>
+                  </Row> */}
+                  <div className="card flex-fill default-cover mb-4">
+                    <div className="card-header d-flex justify-content-between align-items-center">
+                      <h4 className="card-title mb-0">Team Members</h4>
+                      <div className="view-all-link">
+                        <Link to="#" className="view-all d-flex align-items-center">
+                          {stuList == 2 && (
+                            <button
+                              className="btn btn-danger btn-sm"
+                              onClick={() => handleDeleteTeam(selectedTeam)}
+                            >
+                              <i data-feather="trash-2" className="feather-trash-2" />
+                              {" Delete Team"}
+                            </button>
+                          )}
+                        </Link>
+                      </div>
                     </div>
-                  )} */}
-                  <DataTable
-                    data={teamsArray}
-                    defaultSortField="id"
-                    customStyles={customStyles}
-                    defaultSortAsc={false}
-                    pagination
-                    highlightOnHover
-                    fixedHeader
-                    subHeaderAlign={Alignment.Center}
-                    paginationRowsPerPageOptions={[25, 50, 100]}
-                    paginationPerPage={25}
-                  />
-                </DataTableExtensions>
-              </div>
-            </div>
+                    <div className="card-body">
+                        <div className="table-responsive dataview">
+                          <table className="table dashboard-expired-products">
+                            <thead>
+                              <tr>
+                                <th style={{color:"crimson"}}>Full Name</th>
+                                <th style={{color:"crimson"}}>Age</th>
+                                <th style={{color:"crimson"}}>Gender</th>
+                                <th style={{color:"crimson"}}>Grade</th>
+                                <th style={{color:"crimson"}}>Disability</th>
+                                <th style={{color:"crimson"}}>Actions</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {teamsListData.map((student, index) => (
+                                <tr key={index}>
+                                  <td>{student.full_name}</td>
+                                  <td>{student.Age}</td>
+                                  <td>{student.Gender}</td>
+                                  <td>{student.Grade}</td>
+                                  <td>{student.disability}</td>
+                                  <td className="action-table-data">
+                                    <div className="edit-delete-action">
+                                      <OverlayTrigger placement="top" overlay={renderEditTooltip}>
+                                        <Link data-bs-toggle="tooltip" data-bs-placement="top" 
+                                          className="me-2 p-2" to="#" 
+                                          onClick={(e) => {
+                                            e.preventDefault(); // Prevent the default link behavior
+                                            handleEdit(student);
+                                          }}
+                                        >
+                                          <i data-feather="edit" className="feather-edit" />  
+                                        </Link>
+                                      </OverlayTrigger> 
+                                          
+                                          {stuList > 2 && (
+                                            <OverlayTrigger placement="top" overlay={renderSwitchTooltip}>
+                                              <Link data-bs-toggle="tooltip" data-bs-placement="top" 
+                                                className="p-2 me-2"
+                                                to="#"
+                                                onClick={() => handleSwitchTeam(student)}
+                                              >
+                                                <FontAwesomeIcon
+                                                  icon={faUsers}
+                                                  title="fa fa-users"
+                                                />  
+                                              </Link>
+                                            </OverlayTrigger> 
+                                        //   <Link
+                                        //     className="p-2 me-2"
+                                        //     to="#"
+                                        //     onClick={() => handleSwitchTeam(student)}
+                                        //   >
+                                        //   <FontAwesomeIcon
+                                        //   icon={faUsers}
+                                        //   title="fa fa-users"
+                                        // />
+                                        //   </Link>
+                                          )}
+                                          {stuList > 2 && (
+                                            <OverlayTrigger placement="top" overlay={renderDelTooltip}>
+                                            <Link data-bs-toggle="tooltip" data-bs-placement="top" 
+                                              className="p-2"
+                                              to="#"
+                                              onClick={() => handleDeleteStudent(student)}
+                                            >
+                                              <i
+                                              data-feather="trash-2"
+                                              className="feather-trash-2"
+                                              />
+                                            </Link>
+                                          </OverlayTrigger> 
+                                          // <Link
+                                          //   className="p-2"
+                                          //   to="#"
+                                          //   onClick={() => handleDeleteStudent(student)}
+                                          // >
+                                          //   <i
+                                          //     data-feather="trash-2"
+                                          //     className="feather-trash-2"
+                                          //   />
+                                          // </Link>
+                                          )}
+                                          
+                                        </div> 
+                                    {/* <button
+                                      className="me-2 p-2 btn btn-info btn-sm"
+                                      onClick={() => handleEdit(student)}
+                                    >
+                                      <i data-feather="edit" className="feather-edit" />
+                                      {/* Edit 
+                                    </button>
+                                    {stuList > 2 && (
+                                      <button
+                                        className="me-2 p-2 btn btn-danger btn-sm"
+                                        onClick={() => handleDeleteStudent(student)}
+                                      >
+                                        <i
+                                          data-feather="trash-2"
+                                          className="feather-trash-2"
+                                        />
+                                      </button>
+                                    )}
+                                    {stuList > 2 && (
+                                      // IdeaStatus === "No Idea" &&
+                                      <button
+                                        className="me-2 p-2 btn btn-secondary btn-sm"
+                                        onClick={() => handleSwitchTeam(student)}
+                                      >
+                                        <FontAwesomeIcon
+                                          icon={faUsers}
+                                          data-bs-toggle="tooltip"
+                                          title="fa fa-users"
+                                        />
+                                      </button>
+                                    )} */}
+                                    {/* </div> */}
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </Col>
           </Row>
         </div>
       </div>
