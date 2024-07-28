@@ -15,10 +15,15 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
+.text-right{
+  text-align: right;
+}
+
 .table-title {
-  font-size: 1.5rem;
+  font-size: 1rem;
   margin-bottom: 1rem;
 }
+
 
 .table-container {
   overflow-x: auto;
@@ -33,12 +38,13 @@
 .student-table td {
   border: 1px solid #ddd;
   padding: 8px;
-  text-align: center;
+  /* text-align: center; */
 }
 
 .student-table th {
   background-color: #f2f2f2;
   font-weight: bold;
+  text-align: center;
 }
 
 .student-table tbody tr:nth-child(even) {
