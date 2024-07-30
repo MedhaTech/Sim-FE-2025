@@ -18,7 +18,7 @@ import male from "../../assets/img/Male_Profile.png";
 import user from "../../assets/img/user.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKey } from '@fortawesome/free-solid-svg-icons';
-
+import  "./styles.css";
 const MentorHeader = () => {
   const route = all_routes;
   const [toggle, SetToggle] = useState(false);
@@ -205,7 +205,7 @@ const MentorHeader = () => {
           onMouseLeave={expandMenu}
           onMouseOver={expandMenuOpen}
         >
-          <img src={logo} alt="Logo" style={imageStyle} />
+          <img src={logo} alt="Logo"  className="responsive-image" />
           {/* <Link to="/dashboard" className="logo logo-normal">
             <ImageWithBasePath src="assets/img/logo.png" alt="img" />
           </Link>

@@ -99,6 +99,15 @@ export const CreateTeamMember = () => {
         });
     },
   });
+  const buttonContainerStyle = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  };
+
+  const buttonStyle = {
+    marginRight: '10px',
+  };
   return (
     <div>
       <div className="page-wrapper">
@@ -282,21 +291,20 @@ export const CreateTeamMember = () => {
 
                       {/* <hr className="mt-2"></hr> */}
                       <Row>
-                        <Col className="mt-2" xs={12} sm={6} md={6} xl={6}>
-                          <button type="submit" className="btn btn-warning">
+                        <div style={buttonContainerStyle}>
+                          <button type="submit" className="btn btn-warning" style={buttonStyle}>
                             Submit
                           </button>
-                          {/* </Col> */}
-                          {/* <Col className="mt-2 d-flex justify-content-end"> */}
+                        
                           <button
                             onClick={() => navigate("/mentorteams")}
                             type="button"
                             className="btn btn-secondary"
-                            style={{ margin: "2rem" }}
+                            style={{ marginLeft: 'auto' }} 
                           >
                             Discard
                           </button>
-                        </Col>
+                          </div>
                       </Row>
                     </Form>
                   </div>
