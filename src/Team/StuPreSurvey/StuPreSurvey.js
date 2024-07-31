@@ -46,7 +46,7 @@ const StuPreSurvey = () => {
     const [answerResponses, setAnswerResponses] = useState([]);
     //console.log(currentUser , "current user");
     const userID = currentUser?.data[0]?.user_id;
-    console.log(userID , " user");
+    // console.log(userID , " user");
     const filterAnswers = (questionId) => {
         const data =
           answerResponses &&
@@ -142,7 +142,7 @@ const StuPreSurvey = () => {
             )
             .then((preSurveyRes) => {
               if (preSurveyRes?.status == 200) {
-                console.log(preSurveyRes, "aa");
+                // console.log(preSurveyRes, "aaaaa");
                 openNotificationWithIcon(
                   "success",
                   "Pre Survey has been submitted successfully..!!",
@@ -151,6 +151,7 @@ const StuPreSurvey = () => {
     
                 setCount(count + 1);
                 localStorage.setItem("stupresurveystatus", "COMPLETED");
+                // currentUser.data.data[0]=
                 navigate("/student-dashboard");
                 //window.location.reload();
                 // formik.resetForm();

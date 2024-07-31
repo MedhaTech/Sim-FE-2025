@@ -12,13 +12,13 @@ import { useNavigate } from "react-router-dom";
 import { getCurrentUser } from "../../helpers/Utils";
 import logoutIcon from "../../assets/img/icons/log-out.svg";
 // import avtar from "../../assets/img/profiles/avator1.jpg";
-import logo from "../../assets/img/sim_logo.png";
+import logo from "../../assets/img/new-logo.png";
 import female from "../../assets/img/Female_Profile.png";
 import male from "../../assets/img/Male_Profile.png";
 import user from "../../assets/img/user.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKey } from '@fortawesome/free-solid-svg-icons';
-
+import  "./styles.css";
 const MentorHeader = () => {
   const route = all_routes;
   const [toggle, SetToggle] = useState(false);
@@ -205,7 +205,7 @@ const MentorHeader = () => {
           onMouseLeave={expandMenu}
           onMouseOver={expandMenuOpen}
         >
-          <img src={logo} alt="Logo" style={imageStyle} />
+          <img src={logo} alt="Logo"  className="responsive-image" />
           {/* <Link to="/dashboard" className="logo logo-normal">
             <ImageWithBasePath src="assets/img/logo.png" alt="img" />
           </Link>

@@ -14,7 +14,7 @@ import { decryptGlobal } from "../constants/encryptDecrypt";
 import OtpInput from "react-otp-input-rc-17";
 import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/img/sim_logo.png";
+import logo from "../assets/img/new-logo.png";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import user from "../assets/img/icons/user-icon.svg";
 import play from "../assets/img/playicon.png";
@@ -61,6 +61,9 @@ const Register = () => {
   const [mobileData, setMobileData] = useState("");
   const [mentData, setMentData] = useState({});
   const [multiData, setMultiData] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false); 
+  // console.log(isSubmitting,"click");
+
   const normalizeStateName = (stateName) => {
     return stateName
       .toLowerCase()
@@ -309,6 +312,7 @@ const Register = () => {
     }),
 
     onSubmit: async (values) => {
+      setIsSubmitting(true);
       if (values.otp.length < 5) {
         setErrorMsg(true);
       } else {
@@ -1084,12 +1088,14 @@ const Register = () => {
                                 className="btn btn-login"
                                 type="submit"
                                 disabled={
+                                  isSubmitting ||
                                   !(
                                     formik.values.otp.length === 6 &&
-                                    formik.values.otp === otpRes
-                                  )
+                                    formik.values.otp === otpRes 
+                                  ) 
                                 }
-                              >
+                                
+                              > 
                                 Verify My Account
                               </button>
                             </div>
