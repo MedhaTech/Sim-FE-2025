@@ -11,7 +11,9 @@ const Sidebar = () => {
   const Location = useLocation();
   const currentUser = getCurrentUser("current_user");
   const role = currentUser?.data[0]?.role;
-  console.log(role);
+  const presurvey = localStorage.getItem("stupresurveystatus") ;
+  console.log(presurvey,"status");
+  // console.log(role);
   const [subOpen, setSubopen] = useState("");
   const [subsidebar, setSubsidebar] = useState("");
   const filterByRole = (items, role) => {

@@ -1,7 +1,7 @@
 #language-selector-btn {
   background-color: transparent;
   border: none;
-  font-size: 1.4rem;
+  font-size: 1rem;
   color: var(--color-black-2);
 svg{
     color: var(--color-grey-light-3) !important;
@@ -14,10 +14,10 @@ svg{
 }
 
 .dropdown-menu {
-  font-size: 1.6rem !important;
+  font-size: 1rem !important;
   padding: 0 !important;
   .dropdown-item{
-    font-size: 1.6rem ;
-    padding: .5rem 1.5rem ;
+    font-size: 1rem ;
+    // padding: .5rem 1.5rem ;
   }
 }
