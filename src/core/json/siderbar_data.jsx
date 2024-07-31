@@ -3,6 +3,7 @@ import React from "react";
 
 import * as Icon from "react-feather";
 const presurvey = localStorage.getItem("stupresurveystatus") ;
+
 console.log(presurvey,"status");
 export const SidebarData = [
   // {
@@ -152,6 +153,8 @@ export const SidebarData = [
     submenuItems: [
       {
         label: "Pre Survey",
+
+
         link: "/studentpresurvey",
         icon: <Icon.Bookmark />,
         showSubRoute: false,
@@ -159,6 +162,8 @@ export const SidebarData = [
       },
       {
         label: "Student Dashboard",
+        // label:  `${t('home.dashboard')}`,
+
         link: "/student-dashboard",
         icon: <Icon.Box />,
         showSubRoute: false,
@@ -181,13 +186,7 @@ export const SidebarData = [
         submenu: false,
       },
 
-      // {
-      //   label: "Courses",
-      //   link: "/category-list",
-      //   icon: <Icon.TrendingDown/>,
-      //   showSubRoute: false,
-      //   submenu: false,
-      // },
+     
       {
         label: "Ideas Submission",
         link: "/idea",

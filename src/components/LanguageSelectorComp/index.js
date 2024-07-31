@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 import './style.scss';
 import i18next from 'i18next';
-import { FaGlobeAsia } from 'react-icons/fa';
+// import { FaGlobeAsia } from 'react-icons/fa';
 import { languageOptions } from '../../constants/languageOptions';
 import { getStudentGlobalLanguage } from '../../redux/studentRegistration/actions';
 import { useDispatch, useSelector } from 'react-redux';
@@ -64,8 +64,10 @@ const LanguageSelectorComp = ({ module }) => {
         <DropdownButton
             id="language-selector-btn"
             title={
-                <span>
-                    <FaGlobeAsia /> {(localLang && localLang.name) || language}
+                <span className='m-3'>
+                    {/* Select Language */}
+                    {/* <FaGlobeAsia />  */}
+                    {(localLang && localLang.name) || language}
                 </span>
             }
         >
@@ -76,6 +78,7 @@ const LanguageSelectorComp = ({ module }) => {
                         href="#/action-1"
                         onClick={() => handleSelector(item)}
                         label="English"
+                        style={{fontSize:"16px"}}
                     >
                         <span> {item.name}</span>
                     </Dropdown.Item>
