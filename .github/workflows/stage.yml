@@ -1,0 +1,72 @@
+
+name: Deployment to Stage
+
+on:
+  push:
+    branches: stage
+jobs:
+
+  Build_Stage:
+    if: github.ref == 'refs/heads/stage'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Install NPM
+        run: sudo npm install -g npm@8.15.1
+
+      - name: Set legacy-peer-deps
+        run: sudo npm config set legacy-peer-deps true
+
+      - name: Install dependencies
+        run: |
+          echo Installing source NPM dependencies...
+          sudo npm install --force
+
+      - name: Buid the application
+        env:
+          CI: false
+        run: npm run build:stage
+        
+        
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: build
+      
+  Deploy_Testing:
+    needs: Build_Stage
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: build       
+      - name: Deploy to Stage
+        if: github.ref == 'refs/heads/stage'
+        env:
+          PRIVATE_KEY: ${{ secrets.ATL2_stage_PRIVATE_KEY }}
+          HOSTNAME: ${{ secrets.ATL2_stage_HOSTNAME }}
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 400 private_key
+          scp -o StrictHostKeyChecking=no -i private_key -r ./build ubuntu@${{ secrets.ATL2_stage_HOSTNAME }}:/tmp/aim2.0-stage_fe_build
+          ssh -o StrictHostKeyChecking=no -i private_key ubuntu@${{ secrets.ATL2_stage_HOSTNAME }} '
+            sudo rm -rf /var/www/html/aim2.0-stage/build &&
+            sudo mv /tmp/aim2.0-stage_fe_build /var/www/html/aim2.0-stage/build &&
+            cd /var/www/html/aim2.0-stage &&
+            sudo git fetch origin &&
+            sudo git checkout stage &&
+            sudo git pull origin stage '
+
+            
+
+      
+  
