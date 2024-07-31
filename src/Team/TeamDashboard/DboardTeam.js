@@ -40,6 +40,7 @@ const EmployeesGrid = () => {
   const route = all_routes;
   const currentUser = getCurrentUser("current_user");
   const dispatch = useDispatch();
+
   const data = useSelector((state) => state.toggle_header);
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("Select Language");
@@ -50,6 +51,10 @@ const EmployeesGrid = () => {
   const { teamsMembersStatus, teamsMembersStatusErr } = useSelector(
     (state) => state.teams
   );
+  //  const presuveyStatus = useSelector(
+  //       (state) => state?.studentRegistration.presuveyStatusGl
+  //   );
+  //   console.log(presuveyStatus,"status");
   const teamId = currentUser?.data[0]?.team_id;
   const mentorid = currentUser?.data[0]?.mentor_id;
 
@@ -235,7 +240,7 @@ const EmployeesGrid = () => {
       .then(function (response) {
         if (response.status === 200) {
           setStudentCount(response.data.data);
-          console.log(studentCount , "count");
+          // console.log(studentCount , "count");
         }
       })
       .catch(function (error) {
@@ -246,7 +251,7 @@ const EmployeesGrid = () => {
   //console.log(teamsMembersStatus,"data for instructions");
 
   const stuSurveyStatus = (id) => {
-    console.log(id, "stuid");
+    // console.log(id, "stuid");
     const surveyApi = encryptGlobal(
         JSON.stringify({
             user_id: id
@@ -266,16 +271,16 @@ const EmployeesGrid = () => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-                console.log(response);
+                // console.log(response);
                 const pre = (response.data.data[0].pre_survey_completed_date);
-                console.log(pre , "pre");
+                // console.log(pre , "pre");
                 if (pre === null) {
                   localStorage.setItem("stupresurveystatus", "INCOMPLETED");
-                  console.log("to presurvey page");
+                  // console.log("to presurvey page");
                   navigate("/studentpresurvey");
                 } else{
                   localStorage.setItem("stupresurveystatus", "COMPLETED");
-                  console.log("to stu dashboard");
+                  // console.log("to stu dashboard");
                   navigate("/student-dashboard");
                 }
             }

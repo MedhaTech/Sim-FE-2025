@@ -116,7 +116,18 @@ const TeacherEditProfile = () => {
         });
     },
   });
+  const formLoginStyle = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  };
+  const buttonStyle = {
+    marginRight: '10px'
+  };
 
+  const cancelLinkStyle = {
+    marginLeft: 'auto'
+  };
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -223,9 +234,10 @@ const TeacherEditProfile = () => {
                     ) : null}
                   </div>
                 </div>
-                <div className="form-login">
+                <div className="form-login" style={formLoginStyle}>
                   <button
-                    style={{ marginRight: "10px" }}
+                    style={buttonStyle}
+                    
                     type="submit"
                     className={`btn btn-warning  ${
                       !(formik.dirty && formik.isValid) ? "default" : "primary"
@@ -234,7 +246,7 @@ const TeacherEditProfile = () => {
                   >
                     Submit
                   </button>
-                  <Link className="btn btn-cancel" to={"/mentorprofile"}>
+                  <Link className="btn btn-cancel" to={"/mentorprofile"}  style={cancelLinkStyle}>
                     Cancel
                   </Link>
                 </div>

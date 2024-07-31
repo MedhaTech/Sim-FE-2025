@@ -1,20 +1,62 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React, { useState } from "react";
+import React, {  useLayoutEffect, useState } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import { Link, useLocation } from "react-router-dom";
 import { SidebarData } from "../../core/json/siderbar_data";
 import { getCurrentUser } from "../../helpers/Utils";
+import { encryptGlobal } from "../../constants/encryptDecrypt";
+import axios from "axios";
 
+// import {  useSelector } from "react-redux";
+// import {getPresurveyData}from "../../redux/studentRegistration/actions"
 const Sidebar = () => {
   const Location = useLocation();
   const currentUser = getCurrentUser("current_user");
   const role = currentUser?.data[0]?.role;
   const [subOpen, setSubopen] = useState("");
   const [subsidebar, setSubsidebar] = useState("");
-
+const [condition,setCondition]=useState("");
   //   const filterByRole = (items, role) => {
   //     return items?.filter((item) => item.role === role || !item.role);
   //   };
+ useLayoutEffect(()=>{
+
+  if(currentUser.data[0].user_id){
+    SurveyStatus(currentUser.data[0].user_id);
+  }
+ },[currentUser.data[0].user_id]);
+ const SurveyStatus = (id) => {
+  // console.log(id, "stuid");
+  const surveyApi = encryptGlobal(
+      JSON.stringify({
+          user_id: id
+      })
+  );
+  var config = {
+      method: 'get',
+      url:
+          process.env.REACT_APP_API_BASE_URL +
+          `/dashboard/stuPrePostStats?Data=${surveyApi}`,
+      headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${currentUser.data[0]?.token}`
+      }
+  };
+  axios(config)
+      .then(function (response) {
+          if (response.status === 200) {
+              console.log(response,"status");
+              setCondition(response?.data?.data[0].pre_survey_completed_date);
+              
+          }
+      })
+      .catch(function (error) {
+          console.log(error);
+      });
+  };
+
 
   const filterByRole = (items, role) => {
     if (!items) return [];

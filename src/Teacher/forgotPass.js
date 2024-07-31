@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../assets/img/sim_logo.png";
+import logo from "../assets/img/new-logo.png";
 import email from "../assets/img/icons/mail.svg";
 import { useFormik } from "formik";
 import * as Yup from "yup";
