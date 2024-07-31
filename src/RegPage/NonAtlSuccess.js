@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Bold } from "react-feather";
 import success from "../assets/img/chek.png";
-import logo from "../assets/img/sim_logo.png";
+import logo from "../assets/img/new-logo.png";
 
 const NonAtlSuccess = () => {
   const navigate = useNavigate();

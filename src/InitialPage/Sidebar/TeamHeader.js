@@ -11,10 +11,11 @@ import { useNavigate } from "react-router-dom";
 import { getCurrentUser } from "../../helpers/Utils";
 import { useTranslation } from "react-i18next";
 import logoutIcon from "../../assets/img/icons/log-out.svg";
-import logo from "../../assets/img/sim_logo.png";
+import logo from "../../assets/img/new-logo.png";
 import female from "../../assets/img/Female_Profile.png";
 import male from "../../assets/img/Male_Profile.png";
 import team from "../../assets/img/icons/team2.png";
+import  "./styles.css";
 
 const Header = () => {
   const route = all_routes;
@@ -202,7 +203,7 @@ const Header = () => {
           onMouseLeave={expandMenu}
           onMouseOver={expandMenuOpen}
         >
-          <img src={logo} alt="Logo" style={imageStyle} />
+          <img src={logo} alt="Logo" className="responsive-image"  />
           {/*<Link to="/dashboard" className="logo logo-normal">
             <ImageWithBasePath src="assets/img/logo.png" alt="img" />
           </Link>
