@@ -271,7 +271,7 @@ const EmployeesGrid = () => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-                console.log(response);
+                // console.log(response);
                 const pre = (response.data.data[0].pre_survey_completed_date);
                 // console.log(pre , "pre");
                 if (pre === null) {

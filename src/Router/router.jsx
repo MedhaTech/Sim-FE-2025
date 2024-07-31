@@ -10,6 +10,8 @@ import TeamHeader from "../InitialPage/Sidebar/TeamHeader";
 import TeamSidebar from "../InitialPage/Sidebar/teamSidebar";
 import Sidebar from "../InitialPage/Sidebar/Sidebar";
 import OneSidebar from "../InitialPage/Sidebar/OneSidebar";
+import Condition from "../InitialPage/Sidebar/Conditon";
+
 
 import HorizontalSidebar from "../InitialPage/Sidebar/horizontalSidebar";
 
@@ -68,7 +70,8 @@ const AllRoutes = () => {
     <div className={`main-wrapper ${data ? "header-collapse" : ""}`}>
       <TeamHeader />
       {/* <TeamSidebar /> */}
-      <OneSidebar />
+      {/* <OneSidebar /> */}
+      <Condition/>
 
       <Outlet />
       <ThemeSettings />
