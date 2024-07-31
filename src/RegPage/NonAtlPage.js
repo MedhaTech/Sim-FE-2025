@@ -66,6 +66,8 @@ const NonAtlPage = () => {
   const [mentData, setMentData] = useState({});
   const [districtOptions, setDistrictOptions] = useState([]);
   const [secondUser, setSecondUser] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false); 
+
   const handleMouseEnter = () => {
     setIsTooltipVisible(true);
   };
@@ -430,6 +432,8 @@ const NonAtlPage = () => {
     }),
 
     onSubmit: async (values) => {
+      setIsSubmitting(true);
+
       if (values.otp.length < 5) {
         setErrorMsg(true);
       } else {
@@ -512,7 +516,7 @@ const NonAtlPage = () => {
       .then(function (response) {
         if (response.status === 202) {
           const UNhashedPassword = decryptGlobal(response?.data?.data);
-          //console.log(UNhashedPassword, "111111111111111111111111111");
+          // console.log(UNhashedPassword, "111111111111111111111111111");
           setOtpRes(JSON.parse(UNhashedPassword));
           openNotificationWithIcon("success", "OTP sent to Email Id");
           setBtnOtp(true);
@@ -1348,6 +1352,7 @@ const NonAtlPage = () => {
                                 className="btn btn-login"
                                 type="submit"
                                 disabled={
+                                  isSubmitting ||
                                   !(
                                     formik.values.otp.length === 6 &&
                                     formik.values.otp === otpRes
