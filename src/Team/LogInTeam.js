@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import CryptoJS from "crypto-js";
-import logo from "../assets/img/sim_logo.png";
+import logo from "../assets/img/new-logo.png";
 import user from "../assets/img/icons/user-icon.svg";
 import { teamloginUser } from "../redux/actions";
 import { connect } from "react-redux";
@@ -87,17 +87,19 @@ const LogInTeam = (props) => {
                   <ImageWithBasePath src="assets/img/logo-white.png" alt />
                 </Link> */}
                 <div className="login-userheading">
-                  <h3> Team Login</h3>
-                  <h4>
+                  {/* <h3> Team Login</h3> */}
+                  <h3>
+                   Student Team Journey coming soon ...
+                  </h3>
+                  {/* <h4>
                     Access the teacher panel using your Team ID and password.
-                  </h4>
+                  </h4> */}
                 </div>
-                <div className="form-login mb-3">
+                {/* <div className="form-login mb-3">
                   <label className="form-label">Team ID</label>
                   <div className="form-addons">
                     <input
                       {...inputUserId}
-                      // id="email"
                       name="email"
                       className="form- control"
                       onChange={formik.handleChange}
@@ -107,10 +109,7 @@ const LogInTeam = (props) => {
                     {formik.touched.email && formik.errors.email ? (
                       <small className="error-cls">Required</small>
                     ) : null}
-                    {/* <ImageWithBasePath
-                      src="assets/img/icons/mail.svg"
-                      alt="img"
-                    /> */}
+                   
                     <img src={user} alt="user" />
                   </div>
                 </div>
@@ -121,7 +120,6 @@ const LogInTeam = (props) => {
                       type={isPasswordVisible ? "text" : "password"}
                       id="password"
                       placeholder="Please Enter password"
-                      // className="pass-input form-control"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
@@ -147,14 +145,11 @@ const LogInTeam = (props) => {
                           Remember me
                         </label>
                       </div>
-                      {/* <div className="text-end">
-                        <Link className="forgot-link">Forgot Password?</Link>
-                      </div> */}
+                     
                     </div>
                   </div>
                 </div>
                 <div className="form-login">
-                  {/* <Link className="btn btn-login">Sign In</Link> */}
                   <button
                     type="submit"
                     className={`btn btn-login ${
@@ -164,7 +159,7 @@ const LogInTeam = (props) => {
                   >
                     Login In
                   </button>
-                </div>
+                </div> */}
                 <div className="signinform">
                   <h4>
                     Not a Team ?

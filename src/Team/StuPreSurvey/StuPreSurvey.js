@@ -46,7 +46,7 @@ const StuPreSurvey = () => {
     const [answerResponses, setAnswerResponses] = useState([]);
     //console.log(currentUser , "current user");
     const userID = currentUser?.data[0]?.user_id;
-    console.log(userID , " user");
+    // console.log(userID , " user");
     const filterAnswers = (questionId) => {
         const data =
           answerResponses &&
