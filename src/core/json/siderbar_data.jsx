@@ -2,7 +2,8 @@
 import React from "react";
 
 import * as Icon from "react-feather";
-
+const presurvey = localStorage.getItem("stupresurveystatus") ;
+console.log(presurvey,"status");
 export const SidebarData = [
   // {
   //   label: "TEAM",
@@ -142,7 +143,7 @@ export const SidebarData = [
       // },
     ],
   },
-  {
+ {
     label: "STUDENT",
     submenuOpen: true,
     showSubRoute: false,

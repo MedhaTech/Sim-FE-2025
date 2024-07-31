@@ -174,13 +174,13 @@ const DBStu = () => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-              console.log(response);
+              // console.log(response);
                 const per = Math.round(
                     (response.data.data[0].topics_completed_count /
                         response.data.data[0].all_topics_count) *
                         100
                 );
-                console.log(per);
+                // console.log(per);
                 setCoursepercentage(per);
                 setStuCourseLoading(false);
             }
@@ -210,7 +210,7 @@ const DBStu = () => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-                console.log(response);
+                // console.log(response);
                 setBadges(response.data.data[0].badges_earned_count);
             }
         })
@@ -239,7 +239,7 @@ const DBStu = () => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-                console.log(response);
+                // console.log(response);
                 setQuiz(response.data.data[0].quiz_completed_count);
             }
         })
@@ -268,7 +268,7 @@ const DBStu = () => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-                console.log(response);
+                // console.log(response);
                 setVideos(response.data.data[0].videos_completed_count);
             }
         })
