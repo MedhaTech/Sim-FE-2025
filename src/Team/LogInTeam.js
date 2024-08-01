@@ -87,15 +87,15 @@ const LogInTeam = (props) => {
                   <ImageWithBasePath src="assets/img/logo-white.png" alt />
                 </Link> */}
                 <div className="login-userheading">
-                  {/* <h3> Team Login</h3> */}
-                  <h3>
+                  <h3> Team Login</h3>
+                  {/* <h3>
                    Student Team Journey coming soon ...
-                  </h3>
-                  {/* <h4>
+                  </h3> */}
+                  <h4>
                     Access the teacher panel using your Team ID and password.
-                  </h4> */}
+                  </h4>
                 </div>
-                {/* <div className="form-login mb-3">
+                <div className="form-login mb-3">
                   <label className="form-label">Team ID</label>
                   <div className="form-addons">
                     <input
@@ -112,8 +112,8 @@ const LogInTeam = (props) => {
                    
                     <img src={user} alt="user" />
                   </div>
-                </div> */}
-                {/* <div className="form-login mb-3">
+                </div>
+                <div className="form-login mb-3">
                   <label className="form-label">Password</label>
                   <div className="pass-group">
                     <input
@@ -134,8 +134,8 @@ const LogInTeam = (props) => {
                       onClick={togglePasswordVisibility}
                     ></span>
                   </div>
-                </div> */}
-                {/* <div className="form-login authentication-check">
+                </div>
+                <div className="form-login authentication-check">
                   <div className="row">
                     <div className="col-12 d-flex align-items-center justify-content-between">
                       <div className="custom-control custom-checkbox">
@@ -148,8 +148,8 @@ const LogInTeam = (props) => {
                      
                     </div>
                   </div>
-                </div> */}
-                {/* <div className="form-login">
+                </div>
+                <div className="form-login">
                   <button
                     type="submit"
                     className={`btn btn-login ${
@@ -159,7 +159,7 @@ const LogInTeam = (props) => {
                   >
                     Login In
                   </button>
-                </div> */}
+                </div>
                 <div className="signinform">
                   <h4>
                     Not a Team ?
