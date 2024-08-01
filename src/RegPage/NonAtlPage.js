@@ -1038,7 +1038,7 @@ const NonAtlPage = () => {
                               >
                                 <option value="">Title</option>
                                 <option value="Dr">Dr</option>
-                                <option value="Mr">Mrs</option>
+                                <option value="Mr">Mr</option>
                                 <option value="Miss">Miss</option>
                                 <option value="Mrs">Mrs</option>
                               </select>
@@ -1238,6 +1238,9 @@ const NonAtlPage = () => {
                                     "whatapp_mobile",
                                     numericValue
                                   );
+                                  if (numericValue !== formik.values.mobile) {
+                                    setCheckBox(false);
+                                  }
                                 }}
                                 maxLength={10}
                                 minLength={10}

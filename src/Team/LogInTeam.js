@@ -112,8 +112,8 @@ const LogInTeam = (props) => {
                    
                     <img src={user} alt="user" />
                   </div>
-                </div> */}
-                {/* <div className="form-login mb-3">
+                </div>
+                <div className="form-login mb-3">
                   <label className="form-label">Password</label>
                   <div className="pass-group">
                     <input
@@ -134,8 +134,8 @@ const LogInTeam = (props) => {
                       onClick={togglePasswordVisibility}
                     ></span>
                   </div>
-                </div> */}
-                {/* <div className="form-login authentication-check">
+                </div>
+                <div className="form-login authentication-check">
                   <div className="row">
                     <div className="col-12 d-flex align-items-center justify-content-between">
                       <div className="custom-control custom-checkbox">
@@ -148,8 +148,8 @@ const LogInTeam = (props) => {
                      
                     </div>
                   </div>
-                </div> */}
-                {/* <div className="form-login">
+                </div>
+                <div className="form-login">
                   <button
                     type="submit"
                     className={`btn btn-login ${
@@ -159,7 +159,7 @@ const LogInTeam = (props) => {
                   >
                     Login In
                   </button>
-                </div> */}
+                </div>*/}
                 <div className="signinform">
                   <h4>
                     Not a Team ?
@@ -168,7 +168,7 @@ const LogInTeam = (props) => {
                       Click Here
                     </Link>
                   </h4>
-                </div>
+                </div> 
                 {/* <div className="signinform">
                   <h4>
                     New on our platform?

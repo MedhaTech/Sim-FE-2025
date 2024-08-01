@@ -2,7 +2,8 @@
 import React from "react";
 
 import * as Icon from "react-feather";
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
+// import { label } from "yet-another-react-lightbox";
 // export const SidebarData = [
   
 //   {
@@ -147,20 +148,22 @@ import { useTranslation } from "react-i18next";
 
 // ];
 const SidebarData = () => {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const presurvey = localStorage.getItem("stupresurveystatus") ;
   console.log(presurvey,"status");
 
   return( [
     {
-      label: t("team"),
+      // label: t("team"),
+      label:"Team",
       submenuOpen: true,
       showSubRoute: false,
       submenuHdr: "Inventory",
       role: "TEAM",
       submenuItems: [
         {
-          label: t("team_dashboard"),
+          label: "Team Dashboard",
+          // label: t("team_dashboard"),
           link: "/team-dashboard",
           icon: <Icon.Box />,
           showSubRoute: false,
@@ -168,7 +171,9 @@ const SidebarData = () => {
           submenu: false,
         },
         {
-          label: t("ideas_submission"),
+          label:"Idea Submission",
+          // label: t("ideas_submission"),
+
           link: "/idea",
           icon: <Icon.PlusSquare />,
           role: "TEAM",
@@ -176,7 +181,9 @@ const SidebarData = () => {
           submenu: false,
         },
         {
-          label: t("resources"),
+          label:"Resources",
+          // label: t("resources"),
+
           link: "/studentresource",
           icon: <Icon.Codesandbox />,
           role: "TEAM",
@@ -186,21 +193,25 @@ const SidebarData = () => {
       ],
     },
     {
-      label: t("student"),
+      // label: t("student"),
+      label: "Student",
+
       submenuOpen: true,
       showSubRoute: false,
       submenuHdr: "Inventory",
       role: "STUDENT",
       submenuItems: [
         {
-          label: t("pre_survey"),
+          label:"PreSurvey",
+          // label: t("pre_survey"),
+
           link: "/studentpresurvey",
           icon: <Icon.Bookmark />,
           showSubRoute: false,
           submenu: false,
         },
         {
-          label: t("student_dashboard"),
+          label:"Student Dashboard",
           link: "/student-dashboard",
           icon: <Icon.Box />,
           showSubRoute: false,
@@ -208,14 +219,14 @@ const SidebarData = () => {
           submenu: false,
         },
         {
-          label: t("course"),
+          label:"Course",
           link: `/studentcourse/${1}`,
           icon: <Icon.Speaker />,
           showSubRoute: false,
           submenu: false,
         },
         {
-          label: t("resources"),
+          label: "Resources",
           link: "/studentresource",
           icon: <Icon.Codesandbox />,
           role: "STUDENT",
@@ -223,7 +234,7 @@ const SidebarData = () => {
           submenu: false,
         },
         {
-          label: t("ideas_submission"),
+          label: "Idea Submission",
           link: "/idea",
           icon: <Icon.PlusSquare />,
           role: "STUDENT",
@@ -231,7 +242,7 @@ const SidebarData = () => {
           submenu: false,
         },
         {
-          label: t("post_survey"),
+          label:"Post Survey",
           link: "/studentpostsurvey",
           icon: <Icon.Tag />,
           role: "STUDENT",
@@ -239,7 +250,7 @@ const SidebarData = () => {
           submenu: false,
         },
         {
-          label: t("my_certificate"),
+          label:"My Certificate",
           link: "/certificate",
           icon: <Icon.Tag />,
           role: "STUDENT",

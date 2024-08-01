@@ -1028,7 +1028,7 @@ const TeacherPlayVideo = (props) => {
                     !instructions &&
                     !handbook && (
                       <Fragment>
-                        <Card className="course-sec-basic p-5">
+                        <Card className="course-sec-basic p-2">
                           <CardBody>
                             {getLastCourseStatus(teacherCourseDetails) &&
                               //  isquizcompleted
@@ -1080,25 +1080,18 @@ const TeacherPlayVideo = (props) => {
                               </div>
                             ) : (
                               <div>
-                                <text
-                                // style={{
-                                //     whiteSpace: 'pre-wrap'
-                                // }}
-                                >
-                                  {/* <div
-                                    dangerouslySetInnerHTML={{
-                                      __html:
-                                        teacherCourse &&
-                                        teacherCourse.description,
-                                    }}
-                                  ></div> */}
+                                {/* <text
+                                
+                                > */}
+                                 
                                   <div
                             dangerouslySetInnerHTML={{
                               __html:
                                 "<h3 class='text-success'>Welcome Teachers! </h3></br>We’re excited that you will be part of the program in guiding your student through it.</br><p>Now it’s time to start the program.</p><ol>We would like you all to go through the following in order.</br><li>1. Watch the instructional videos for overview of the program.</li><li>2. Read the teacher's handbook for a summary of the course and other important instructions.</li></ol></br><p>You have one week to do these. Afterwards, you and your students will be ready to start their problem solving journey!</p><p>We hope you enjoy guiding the students as they embark on this new journey!</p>Wishing you all the best!",
                             }}
-                          ></div><br/>
-                                </text>
+                          ></div
+                          ><br/>
+                                {/* </text> */}
                                 {firstObj[0] &&
                                   firstObj[0].progress == "INCOMPLETE" ? (
                                   <div className="mt-2">
