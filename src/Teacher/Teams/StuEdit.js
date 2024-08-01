@@ -292,7 +292,7 @@ const StuEdit = () => {
                   </Row>
                 </div>
                 <Row>
-                  <Col className="mt-2" xs={12} sm={6} md={6} xl={6}>
+                  <Col className="mt-2" >
                     <button
                       // type="submit" className="btn btn-warning"
                       // style={{ marginRight: "10px" }}
