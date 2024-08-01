@@ -720,7 +720,7 @@ const Register = () => {
                               >
                                 <option value="">Title</option>
                                 <option value="Dr">Dr</option>
-                                <option value="Mr">Mrs</option>
+                                <option value="Mr">Mr</option>
                                 <option value="Miss">Miss</option>
                                 <option value="Mrs">Mrs</option>
                               </select>
