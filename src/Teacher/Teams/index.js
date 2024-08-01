@@ -373,6 +373,7 @@ const Dashboard = (props) => {
                 "success",
                 "Student Deleted Successfully"
               );
+              window.location.reload();
               // navigate("/teacher-dashboard");
             } else {
               openNotificationWithIcon("error", "Opps! Something Wrong");

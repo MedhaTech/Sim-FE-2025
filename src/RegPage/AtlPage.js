@@ -548,6 +548,7 @@ const Register = () => {
     formik.values.district,
     formik.values.whatapp_mobile,
   ]);
+  console.log(checkBox,"+++");
   // const route = all_routes;
   return (
     <div className="main-wrapper">
@@ -963,6 +964,9 @@ const Register = () => {
                                     "whatapp_mobile",
                                     numericValue
                                   );
+                                  if (numericValue !== formik.values.mobile) {
+                                    setCheckBox(false);
+                                  }
                                 }}
                                 maxLength={10}
                                 minLength={10}

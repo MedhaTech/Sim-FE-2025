@@ -1238,6 +1238,9 @@ const NonAtlPage = () => {
                                     "whatapp_mobile",
                                     numericValue
                                   );
+                                  if (numericValue !== formik.values.mobile) {
+                                    setCheckBox(false);
+                                  }
                                 }}
                                 maxLength={10}
                                 minLength={10}
