@@ -3,7 +3,8 @@
 import React, {  useLayoutEffect, useState } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import { Link, useLocation } from "react-router-dom";
-import { SidebarData } from "../../core/json/siderbar_data";
+// import  SidebarData  from "../../core/json/siderbar_data";
+import getSidebarData from "../../core/json/siderbar_data";
 import { getCurrentUser } from "../../helpers/Utils";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import axios from "axios";
@@ -31,7 +32,7 @@ const Sidebar = () => {
     if (!items) return [];
     return items.filter((item) => !item.role || item.role === role);
   };
-  
+  const SidebarData = getSidebarData(); 
 const filteredSidebarData = SidebarData.filter(
     (item) => {
       if (!item.role) {

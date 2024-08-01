@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import { Link, useLocation } from "react-router-dom";
-import { SidebarData } from "../../core/json/siderbar_data";
+import SidebarData  from "../../core/json/siderbar_data";
 // import HorizontalSidebar from "./horizontalSidebar";
 // import CollapsedSidebar from "./collapsedSidebar";
 import { getCurrentUser } from "../../helpers/Utils";
