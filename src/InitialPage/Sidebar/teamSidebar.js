@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import { Link, useLocation } from "react-router-dom";
-import { SidebarData } from "../../core/json/siderbar_data";
+import SidebarData  from "../../core/json/siderbar_data";
 // import HorizontalSidebar from "./horizontalSidebar";
 // import CollapsedSidebar from "./collapsedSidebar";
 import { getCurrentUser } from "../../helpers/Utils";
@@ -11,7 +11,9 @@ const Sidebar = () => {
   const Location = useLocation();
   const currentUser = getCurrentUser("current_user");
   const role = currentUser?.data[0]?.role;
-  console.log(role);
+  const presurvey = localStorage.getItem("stupresurveystatus") ;
+  console.log(presurvey,"status");
+  // console.log(role);
   const [subOpen, setSubopen] = useState("");
   const [subsidebar, setSubsidebar] = useState("");
   const filterByRole = (items, role) => {
