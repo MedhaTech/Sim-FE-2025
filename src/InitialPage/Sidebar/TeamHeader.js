@@ -22,6 +22,8 @@ const Header = () => {
   const [toggle, SetToggle] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const currentUser = getCurrentUser("current_user");
+  const presurvey = localStorage.getItem("stupresurveystatus") ;
+  console.log(presurvey,"status");
   const isElementVisible = (element) => {
     return element.offsetWidth > 0 || element.offsetHeight > 0;
   };
@@ -718,11 +720,11 @@ const Header = () => {
                     <Link className="dropdown-item" to="/team-profile">
                       My Profile
                     </Link>
-                  ) : (
+                  ) :  presurvey == "COMPLETED" ?(
                     <Link className="dropdown-item" to="/student-profile">
                       My Profile
                     </Link>
-                  )}
+                  ): null}
                   <hr className="m-0" />
                   <Link
                     className="dropdown-item logout pb-0"
@@ -754,11 +756,11 @@ const Header = () => {
                 <Link className="dropdown-item" to="/team-profile">
                   My Profile
                 </Link>
-              ) : (
+              ) :  presurvey == "COMPLETED" ?(
                 <Link className="dropdown-item" to="/student-profile">
                   My Profile
                 </Link>
-              )}
+              ): null}
               {/* <Link className="dropdown-item" to="generalsettings">
               Settings
             </Link> */}
@@ -789,11 +791,11 @@ const Header = () => {
                 <Link className="dropdown-item" to="/team-profile">
                   My Profile
                 </Link>
-              ) : (
+              ) : presurvey == "COMPLETED" ?(
                 <Link className="dropdown-item" to="/student-profile">
                   My Profile
                 </Link>
-              )}
+              ): null}
               {/* <Link className="dropdown-item" to="generalsettings">
             Settings
           </Link> */}

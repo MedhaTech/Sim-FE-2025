@@ -37,6 +37,7 @@ import VideoModal from '../../HelpVideo/VideoModal';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import axios from 'axios';
 
+import LanguageSelectorComp from '../../components/LanguageSelectorComp/index.js';
 
 
 const DBStu = () => {
@@ -55,7 +56,9 @@ const DBStu = () => {
   const [coursepercentage, setCoursepercentage] = useState();
   const [video , setVideo] = useState("");
   const [show , setShow] = useState(false);
-
+  const language = useSelector(
+    (state) => state?.studentRegistration?.studentLanguage
+);
   const Loader = () => (
     <div className="spinner-border text-primary" role="status">
       <span className="visually-hidden">Loading...</span>
@@ -97,9 +100,9 @@ const DBStu = () => {
       "https://www.youtube.com/embed/1WvwMypdVaY?si=8GPHpUqV7Jdewh__",
       ];
 
-  const handleLanguageChange = (language) => {
-    setSelectedLanguage(language);
-  };
+  // const handleLanguageChange = (language) => {
+  //   setSelectedLanguage(language);
+  // };
 
   const scroll = () => {
     const section = document.querySelector('#start');
@@ -140,7 +143,7 @@ const DBStu = () => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-                console.log(response);
+                // console.log(response);
                 const po = (response.data.data[0].postSurvey);
                 const pre = (response.data.data[0].preSurvey);
                 setStuPostSurvey(po);
@@ -292,15 +295,16 @@ const DBStu = () => {
             </div>
             <div className="d-flex align-items-center">
               <div className="dropdown">
-                  <button
+                  {/* <button
                       className="btn btn-primary dropdown-toggle"
                       type="button"
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                   >
                       {selectedLanguage}
-                  </button>
-                  <ul className="dropdown-menu">
+                  </button> */}
+                  <LanguageSelectorComp module="student" />
+                  {/* <ul className="dropdown-menu">
                       <li>
                         <Link className="dropdown-item" onClick={() => handleLanguageChange('English')} to="#">
                               English
@@ -321,7 +325,7 @@ const DBStu = () => {
                               Tamil
                           </Link>
                       </li>
-                  </ul>
+                  </ul> */}
               </div>
             </div>
           </div>

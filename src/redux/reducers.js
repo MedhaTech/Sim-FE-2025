@@ -10,9 +10,11 @@ import teacherCourses from "../Teacher/store/courses/reducer";
 import adminCourses from "../Admin/Courses/store/adminCourses/reducer";
 import teamUser from "../Team/store/reducers";
 import students from "./students/reducer";
+import home from './home/reducer';
 
 const reducers = combineReducers({
   admin,
+  home,
   mentors,
   studentRegistration,
   teacher,
