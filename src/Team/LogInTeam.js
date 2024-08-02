@@ -87,15 +87,15 @@ const LogInTeam = (props) => {
                   <ImageWithBasePath src="assets/img/logo-white.png" alt />
                 </Link> */}
                 <div className="login-userheading">
-                  {/* <h3> Team Login</h3> */}
-                  <h3>
+                  <h3> Team Login</h3>
+                  {/* <h3>
                    Student Team Journey coming soon ...
-                  </h3>
-                  {/* <h4>
+                  </h3> */}
+                  <h4>
                     Access the teacher panel using your Team ID and password.
-                  </h4> */}
+                  </h4>
                 </div>
-                {/* <div className="form-login mb-3">
+                <div className="form-login mb-3">
                   <label className="form-label">Team ID</label>
                   <div className="form-addons">
                     <input
@@ -159,7 +159,7 @@ const LogInTeam = (props) => {
                   >
                     Login In
                   </button>
-                </div>*/}
+                </div>
                 <div className="signinform">
                   <h4>
                     Not a Team ?
