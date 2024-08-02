@@ -73,7 +73,9 @@ export const adminLoginUser = (data, navigate, module) => async (dispatch) => {
       const item = result.data;
       setCurrentUser(item);
       localStorage.setItem("module", module);
-      localStorage.setItem("layoutStyling", "modern");
+      // localStorage.setItem("layoutStyling", "modern");
+      localStorage.setItem("layoutStyling", "default");
+
       localStorage.setItem("time", new Date().toString());
       dispatch(adminLoginUserSuccess(result));
 

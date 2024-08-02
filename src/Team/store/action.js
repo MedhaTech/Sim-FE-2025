@@ -48,7 +48,7 @@ export const teamloginUser = (data, navigate, module) => async (dispatch) => {
       localStorage.setItem("module", module);
       localStorage.setItem("layoutStyling", "default");
       // localStorage.setItem("colorschema", "dark_mode");
-      // localStorage.setItem("layoutThemeColors", "dark");
+      localStorage.setItem("layoutThemeColors", "dark");
       // localStorage.setItem("layoutStyling", "modern");
       localStorage.setItem("time", new Date().toString());
       dispatch(teamloginUserSuccess(result));
