@@ -892,7 +892,7 @@ const TeacherPlayVideo = (props) => {
                     props.mentorAttachments[0]?.attachments?.split("{{}}") ? (
                     // .length === 1
                     <Fragment>
-                      <Card className="course-sec-basic p-5">
+                      <Card className="course-sec-basic p-2">
                         <CardBody>
                           <CardTitle
                             className="text-left text-primary"
@@ -1028,7 +1028,7 @@ const TeacherPlayVideo = (props) => {
                     !instructions &&
                     !handbook && (
                       <Fragment>
-                        <Card className="course-sec-basic p-2">
+                        <Card className="course-sec-basic ">
                           <CardBody>
                             {getLastCourseStatus(teacherCourseDetails) &&
                               //  isquizcompleted
@@ -1156,7 +1156,7 @@ const TeacherPlayVideo = (props) => {
                   props.mentorAttachments[1]?.attachments?.split("{{}}") && (
                     // .length > 2
                     <Fragment>
-                      <Card className="course-sec-basic p-5">
+                      <Card className="course-sec-basic p-2">
                         <CardBody >
                           <CardTitle>
                             <h3 className="text-success">
