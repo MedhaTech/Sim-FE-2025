@@ -20,7 +20,7 @@ const AdminPassword = () => {
   const dispatch = useDispatch();
 
   const data = useSelector((state) => state?.admin?.toggle_header);
-  console.log(data, "data");
+  // console.log(data, "data");
   const currentUser = getCurrentUser("current_user");
   const [error, SetError] = useState("");
   const [responce, SetResponce] = useState("");
