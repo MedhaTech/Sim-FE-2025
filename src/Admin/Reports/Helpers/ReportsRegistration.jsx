@@ -13,16 +13,40 @@ import {
     getStateData,
     getFetchDistData
 } from '../../../redux/studentRegistration/actions';
+import { ArrowRight  } from "feather-icons-react/build/IconComponents";
 import { useDispatch, useSelector } from 'react-redux';
 import Select from '../Helpers/Select';
 import { Chart } from "primereact/chart";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , Link } from 'react-router-dom';
 import axios from 'axios';
 import '../reports.scss';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+    ArcElement, 
+  } from 'chart.js';
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+    ArcElement // Register ArcElement
+  );
 import { Doughnut } from 'react-chartjs-2';
 import { notification } from 'antd';
 import { encryptGlobal } from '../../../constants/encryptDecrypt';
 import { stateList, districtList } from "../../../RegPage/ORGData";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMale, faFemale, faSchool } from '@fortawesome/free-solid-svg-icons';
+import ReactApexChart from "react-apexcharts";
+
 // import { categoryValue } from '../../Schools/constentText';
 
 const ReportsRegistration = () => {
@@ -52,10 +76,13 @@ const ReportsRegistration = () => {
     const [isDownloading, setIsDownloading] = useState(false);
     const [downloadComplete, setDownloadComplete] = useState(false);
     const [newFormat, setNewFormat] = useState('');
+    const [series1, setseries1] = useState([]);
+    const [series2, setseries2] = useState([]);
     const [barChart1Data, setBarChart1Data] = useState({
         labels: [],
         datasets: []
     });
+    
     const fullStatesNames = useSelector(
         (state) => stateList
     );
@@ -285,41 +312,105 @@ const ReportsRegistration = () => {
             }
         }
     };
-    const options = {
-        maintainAspectRatio: false,
-        responsive: true,
-        scales: {
-            y: {
-                beginAtZero: true,
-                ticks: {
-                    stepSize: 10
-                },
-                title: {
-                    display: true,
-                    text: 'Number of Registered ATL and Non ATL Schools',
-                    color: 'blue'
-                }
+    // const options = {
+    //     maintainAspectRatio: false,
+    //     responsive: true,
+    //     scales: {
+    //         y: {
+    //             beginAtZero: true,
+    //             ticks: {
+    //                 stepSize: 10
+    //             },
+    //             title: {
+    //                 display: true,
+    //                 text: 'Number of Registered ATL and Non ATL Schools',
+    //                 color: 'blue'
+    //             }
+    //         },
+    //         x: {
+    //             grid: {
+    //                 display: true,
+    //                 drawBorder: true,
+    //                 color: 'rgba(0, 0, 0, 0.2)',
+    //                 lineWidth: 0.5
+    //             },
+    //             title: {
+    //                 display: true,
+    //                 text: 'States',
+    //                 color: 'blue'
+    //             },
+    //             ticks: {
+    //                 maxRotation: 80,
+    //                 autoSkip: false
+    //                 //maxTicksLimit: 10,
+    //             }
+    //         }
+    //     }
+    // };
+    
+    var options = {
+        chart: {
+          height: 500,
+          type: "area",
+          toolbar: {
+            show: false,
+          },
+          zoom: {
+            enabled: false,
+          },
+        },
+        colors: ['#4361ee', '#888ea8'],
+        dataLabels: {
+          enabled: false,
+        },
+        stroke: {
+          curve: "straight",
+        },
+        title: {
+          text: "ATL Vs Non-ATL Registrations",
+          align: "left",
+        },
+        series: [
+          {
+            name: "Registered ATL",
+            data: series1,
+          },
+          {
+            name: "Registered Non-ATL",
+            data: series2,
+          },
+        ],
+        yaxis: {
+            beginAtZero: true,
+            ticks: {
+                stepSize: 10
             },
-            x: {
-                grid: {
-                    display: true,
-                    drawBorder: true,
-                    color: 'rgba(0, 0, 0, 0.2)',
-                    lineWidth: 0.5
-                },
-                title: {
-                    display: true,
-                    text: 'States',
-                    color: 'blue'
-                },
-                ticks: {
-                    maxRotation: 80,
-                    autoSkip: false
-                    //maxTicksLimit: 10,
-                }
+            labels: {
+              formatter: (val) => {
+                return val / 1 ;
+              },
+            },
+          },
+    
+        xaxis: {
+          categories: barChart1Data.labels,
+          ticks: {
+                maxRotation: 80,
+                autoSkip: false
             }
-        }
-    };
+        },
+        legend: {
+            position: "top",
+            horizontalAlign: "left",
+          },
+        // tooltip: {
+        //   x: {
+        //     format: "dd/MM/yy HH:mm",
+        //   },
+        // },
+      };
+    
+
     const fetchData = (item) => {
         const param = encryptGlobal(
             JSON.stringify({
@@ -435,6 +526,7 @@ const ReportsRegistration = () => {
                     const chartTableData = response?.data?.data || [];
                     setChartTableData(chartTableData);
                     setDownloadTableData(chartTableData);
+                    console.log(chartTableData, "table data");
 
                     const lastRow = chartTableData[chartTableData.length - 1];
                     const maleCount = lastRow?.male_mentor_count || 0;
@@ -443,46 +535,49 @@ const ReportsRegistration = () => {
                     const NONATLregNotCount = lastRow?.NONATL_Reg_Count || 0;
 
                     setRegisteredGenderChartData({
-                        labels: ['Male', 'Female'],
+                        labels: ['Male Teachers', 'Female Teachers'],
                         datasets: [
                             {
                                 data: [maleCount, femaleCount],
-                                backgroundColor: ['#36A2EB', '#FF6384'],
+                                backgroundColor: ['#8bcaf4', '#ff99af'],
                                 hoverBackgroundColor: ['#36A2EB', '#FF6384']
                             }
                         ]
                     });
 
                     setRegisteredChartData({
-                        labels: ['ATL Registered', 'NON ATL Registered'],
+                        labels: ['ATL Teachers Registered', 'NON ATL Teachers Registered'],
                         datasets: [
                             {
                                 data: [ATLregCount, NONATLregNotCount],
-                                backgroundColor: ['#36A2EB', '#FF6384'],
-                                hoverBackgroundColor: ['#36A2EB', '#FF6384']
+                                backgroundColor: ['#85e085', '#ffcc80'],
+                                hoverBackgroundColor: ['#33cc33', '#ffa31a']
                             }
                         ]
                     });
+                    const GraphfilteredData = chartTableData.filter(item => item.state !== "Total");
                     const barData = {
-                        labels: chartTableData.map((item) => item.state),
+                        labels: GraphfilteredData.map((item) => item.state),
                         datasets: [
                             {
                                 label: 'Registered ATL Schools',
-                                data: chartTableData.map(
+                                data: GraphfilteredData.map(
                                     (item) => item.ATL_Reg_Count
                                 ),
-                                backgroundColor: 'rgba(255, 0, 0, 0.6)'
+                                backgroundColor: "#47d147"
                             },
                             {
                                 label: 'Registered Non ATL Schools',
-                                data: chartTableData.map(
+                                data: GraphfilteredData.map(
                                     (item) => item.NONATL_Reg_Count
                                 ),
-                                backgroundColor: 'rgba(75, 162, 192, 0.6)'
+                                backgroundColor: "#ffa31a"
                             }
                         ]
                     };
                     setBarChart1Data(barData);
+                    setseries1(barData.datasets[0].data);
+                    setseries2(barData.datasets[1].data);
                 }
             })
             .catch((error) => {
@@ -512,7 +607,7 @@ const ReportsRegistration = () => {
                 </div>
                 <Container className="RegReports userlist">
                         <div className="reports-data mt-2 mb-2">
-                            <Row className="align-items-center">
+                            <Row className="align-items-center mt-3 mb-2">
                                 <Col md={2}>
                                     <div className="my-2 d-md-block d-flex justify-content-center">
                                         <Select
@@ -572,197 +667,172 @@ const ReportsRegistration = () => {
                                     </button>
                                 </Col>
                             </Row>
-                            <div className="chart">
+                            <div className="chart mt-2 mb-2">
                                 {chartTableData.length > 0 && (
-                                    <div className="mt-1">
-                                        <div className="d-flex align-items-center mb-3">
-                                            <h4>States Statistics</h4>
-                                            <button
-                                                className="btn mx-2 btn-primary"
-                                                type="button"
-                                                onClick={() => {
-                                                    if (downloadTableData) {
-                                                        // setIsDownloading(true);
-                                                        setDownloadTableData(
-                                                            null
-                                                        );
-                                                        csvLinkRefTable.current.link.click();
-                                                    }
-                                                }}
-                                            >
-                                                Get Statistics
-                                            </button>
-                                        </div>
-
-                                        <div className="row">
-                                            <div className="col-md-7">
-                                                <div className="table-wrapper bg-white">
-                                                    <Table
-                                                        id="dataTable"
-                                                        className="table table-striped table-bordered responsive"
-                                                    >
-                                                        <thead>
-                                                            <tr>
-                                                                <th>No</th>
-                                                                <th>
-                                                                    State Name
-                                                                </th>
-                                                                <th>
-                                                                    Total
-                                                                    Eligible ATL
-                                                                    Schools
-                                                                </th>
-                                                                <th>
-                                                                    Total Not
-                                                                    Registered
-                                                                    ATL Schools
-                                                                </th>
-                                                                <th>
-                                                                    Total
-                                                                    Registered
-                                                                    ATL Schools
-                                                                </th>
-                                                                <th>
-                                                                    Total
-                                                                    Registered
-                                                                    NON-ATL
-                                                                    Schools
-                                                                </th>
-                                                                <th>
-                                                                    Total
-                                                                    Registered
-                                                                    Teachers
-                                                                    (ATL+Non-ATL)
-                                                                </th>
-                                                                <th>
-                                                                    Registered
-                                                                    Male
-                                                                    Teachers
-                                                                </th>
-                                                                <th>
-                                                                    Registered
-                                                                    Female
-                                                                    Teachers
-                                                                </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            {chartTableData.map(
-                                                                (
-                                                                    item,
-                                                                    index
-                                                                ) => (
-                                                                    <tr
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                    >
-                                                                        <td>
-                                                                            {index +
-                                                                                1}
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.state
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.ATL_Count
-                                                                            }
-                                                                        </td>
-
-                                                                        <td>
-                                                                            {
-                                                                                item.total_not_Reg_ATL
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.ATL_Reg_Count
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.NONATL_Reg_Count
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.total_registered_teachers
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.male_mentor_count
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.female_mentor_count
-                                                                            }
-                                                                        </td>
-                                                                    </tr>
-                                                                )
-                                                            )}
-                                                        </tbody>
-                                                    </Table>
-                                                </div>
+                                    <div className="row">
+                                    <div className="col-sm-12 col-md-12 col-xl-4 d-flex">
+                                    <div className="card flex-fill default-cover w-100 mb-4">
+                                        <div className="card-header d-flex justify-content-between align-items-center">
+                                            <h4 className="card-title mb-0">Data Analytics</h4>
+                                            <div className="dropdown">
+                                            <Link to="#" className="view-all d-flex align-items-center">
+                                                View All
+                                                <span className="ps-2 d-flex align-items-center">
+                                                <ArrowRight className="feather-16" />
+                                                </span>
+                                            </Link>
                                             </div>
-                                            <div className="col-md-5">
-                                                <div className="row">
-                                                    <div className="col-md-12 text-center mt-3">
-                                                        <p>
-                                                            <b>
-                                                                Overall
-                                                                Registered ATL
-                                                                vs Non ATL
-                                                                Schools As of{' '}
-                                                                {newFormat}
-                                                            </b>
-                                                        </p>
-                                                    </div>
-                                                    <div className="col-md-12 doughnut-chart-container">
-                                                        {registeredChartData && (
-                                                            <Doughnut
-                                                                data={
-                                                                    registeredChartData
-                                                                }
-                                                                options={
-                                                                    chartOption
-                                                                }
-                                                            />
-                                                        )}
-                                                    </div>
-                                                    <div className="col-md-12 text-center mt-3">
-                                                        <p>
-                                                            <b>
-                                                                Overall
-                                                                Registered
-                                                                Female vs Male
-                                                                Teachers As of{' '}
-                                                                {newFormat}
-                                                            </b>
-                                                        </p>
-                                                    </div>
-                                                    <div className="col-md-12 doughnut-chart-container">
-                                                        {registeredGenderChartData && (
-                                                            <Doughnut
-                                                                data={
-                                                                    registeredGenderChartData
-                                                                }
-                                                                options={
-                                                                    chartOptions
-                                                                }
-                                                            />
-                                                        )}
-                                                    </div>
+                                        </div>
+                                        <div className="card-body">
+                                            <div className="row">
+                                                <div className="col-md-12 text-center mt-3">
+                                                    <p>
+                                                        <b>
+                                                            Overall
+                                                            Registered ATL
+                                                            vs Non ATL
+                                                            Schools As of{' '}
+                                                            {newFormat}
+                                                        </b>
+                                                    </p>
+                                                </div>
+                                                <div className="col-md-12 doughnut-chart-container">
+                                                    {registeredChartData && (
+                                                        <Doughnut
+                                                            data={
+                                                                registeredChartData
+                                                            }
+                                                            options={
+                                                                chartOption
+                                                            }
+                                                        />
+                                                    )}
+                                                </div>
+                                                <div className="col-md-12 text-center mt-3">
+                                                    <p>
+                                                        <b>
+                                                            Overall
+                                                            Registered
+                                                            Female vs Male
+                                                            Teachers As of{' '}
+                                                            {newFormat}
+                                                        </b>
+                                                    </p>
+                                                </div>
+                                                <div className="col-md-12 doughnut-chart-container">
+                                                    {registeredGenderChartData && (
+                                                        <Doughnut
+                                                            data={
+                                                                registeredGenderChartData
+                                                            }
+                                                            options={
+                                                                chartOptions
+                                                            }
+                                                        />
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    </div>
+                                    <div className="col-sm-12 col-md-12 col-xl-8 d-flex">
+                                    <div className="card flex-fill default-cover w-100 mb-4">
+                                        <div className="card-header d-flex justify-content-between align-items-center">
+                                            <h4 className="card-title mb-0">States Registration Stats</h4>
+                                            <div className="dropdown">
+                                                <Link to="#" className="view-all d-flex align-items-center">
+                                                    <button
+                                                        className="btn mx-2 btn-primary"
+                                                        type="button"
+                                                        onClick={() => {
+                                                            if (downloadTableData) {
+                                                                // setIsDownloading(true);
+                                                                setDownloadTableData(
+                                                                    null
+                                                                );
+                                                                csvLinkRefTable.current.link.click();
+                                                            }
+                                                        }}
+                                                    >
+                                                        Get Statistics
+                                                    </button>
+                                                </Link>
+                                            </div>
+                                        </div>
+                                        <div className="card-body">
+                                            <div className="table-responsive">
+                                                <table className="table table-borderless recent-transactions">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>State Name</th>
+                                                            <th style={{whiteSpace: 'wrap'}}>Eligible ATL <FontAwesomeIcon icon={faSchool} /></th>
+                                                            <th style={{whiteSpace: 'wrap'}}>ATL Teachers</th>
+                                                            <th style={{whiteSpace: 'wrap'}}>Non-ATL Teachers</th>
+                                                            <th style={{whiteSpace: 'wrap'}}>Total Teachers</th>
+                                                            <th style={{whiteSpace: 'wrap'}}><FontAwesomeIcon icon={faMale} />Male</th>
+                                                            <th style={{whiteSpace: 'wrap'}}><FontAwesomeIcon icon={faFemale} />Female</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {chartTableData.map((item, index) => (
+                                                                <tr 
+                                                                    key={index}
+                                                                >
+                                                                    <td>
+                                                                        {index + 1}
+                                                                    </td>
+                                                                    <td style={{maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis"}}>
+                                                                        {item.state}
+                                                                    </td>
+                                                                    <td>
+                                                                        {item.ATL_Count}
+                                                                    </td>
+                                                                    <td>
+                                                                        {item.ATL_Reg_Count}
+                                                                    </td>
+                                                                    <td>
+                                                                        {item.NONATL_Reg_Count}
+                                                                    </td>
+                                                                    <td>
+                                                                        {item.total_registered_teachers}
+                                                                    </td>
+                                                                    <td>
+                                                                        {item.male_mentor_count}
+                                                                    </td>
+                                                                    <td>
+                                                                        {item.female_mentor_count}
+                                                                    </td>
+                                                                </tr>
+                                                            )
+                                                        )}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    </div>
                                 )}
-                                <div className="mt-5">
+                                <div className="col-md-12">
+                                    <div className="card">
+                                    <div className="card-header">
+                                        <h5 className="card-title">Registered ATL Schools
+                                                        V/s Registered Non ATL
+                                                        Schools {newFormat}</h5>
+                                    </div>
+                                    <div className="card-body">
+                                        <div id="s-line-area" />
+                                        <ReactApexChart
+                                        options={options}
+                                        series={options.series}
+                                        type="area"
+                                        height={400}
+                                        />
+                                    </div>
+                                    </div>
+                                </div>
+                                {/* <div className="mt-5">
                                     <div
                                         className="col-md-12 chart-container mt-5"
                                         style={{
@@ -788,7 +858,7 @@ const ReportsRegistration = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                                 {downloadTableData && (
                                     <CSVLink
                                         data={downloadTableData}
