@@ -21,19 +21,20 @@ const AdminSidebarData = () => {
           submenu: false,
         },
         {
+          label:"Institution",
+          link: "/institution",
+          icon: <Icon.Codesandbox />,
+          showSubRoute: false,
+          submenu: false,
+        },
+        {
           label:"Users",
           // link: "/idea",
           icon: <Icon.PlusSquare />,
           showSubRoute: false,
           submenu: false,
         },
-        {
-          label:"Institution",
-          // link: "/studentresource",
-          icon: <Icon.Codesandbox />,
-          showSubRoute: false,
-          submenu: false,
-        },
+      
       ],
     },
    
