@@ -64,6 +64,8 @@ import Institution from "../Admin/Schools/Ticket";
 import AddInstitution from "../Admin/Schools/AddNewSchool";
 import Reports from "../Admin/Reports/index";
 import ReportsRegistration from "../Admin/Reports/Helpers/ReportsRegistration";
+import EditSchool from "../Admin/Schools/EditSchool";
+
 export const publicRoutes = [
   {
     id: 1,
@@ -114,10 +116,18 @@ export const publicRoutes = [
     route: Route,
   },
   {
-    id: 5,
+    id: 6,
     path: routes.reportsregistration,
     name: "reportsregistration",
     element: <ReportsRegistration />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 7,
+    path: routes.editinstitution,
+    name: "editinstitution",
+    element: <EditSchool />,
     protected: true,
     route: Route,
   },

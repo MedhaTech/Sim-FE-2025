@@ -5,6 +5,7 @@ export const all_routes = {
   addinstitution:'/addinstitution',
   reports : "/reports",
   reportsregistration : "/reportsregistration",
+  editinstitution:"/edit-institution",
   mentordashboard: "/teacher-dashboard",
   teamdashboard: "/team-dashboard",
   teamProfile: "/team-profile",

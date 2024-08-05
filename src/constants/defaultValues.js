@@ -57,6 +57,8 @@ export const URL = {
     process.env.REACT_APP_API_BASE_URL + "/mentorAttachments",
     getSchoolRegistrationBulkupload:
         process.env.REACT_APP_API_BASE_URL + '/organizations?',
+        createOrganization:
+        process.env.REACT_APP_API_BASE_URL + '/organizations/createOrg',
   putResetPassword:
     process.env.REACT_APP_API_BASE_URL + "/mentors/resetPassword",
   getMentorSupportTickets:
