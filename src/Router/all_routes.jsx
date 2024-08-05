@@ -3,6 +3,8 @@ export const all_routes = {
   dashboard: "/admin-dashboard",
   institution:'/institution',
   addinstitution:'/addinstitution',
+  reports : "/reports",
+  reportsregistration : "/reportsregistration",
   editinstitution:"/edit-institution",
   mentordashboard: "/teacher-dashboard",
   teamdashboard: "/team-dashboard",

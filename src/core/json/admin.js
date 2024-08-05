@@ -30,7 +30,14 @@ const AdminSidebarData = () => {
         {
           label:"Users",
           // link: "/idea",
-          icon: <Icon.PlusSquare />,
+          icon: <Icon.Users />,
+          showSubRoute: false,
+          submenu: false,
+        },
+        {
+          label:"Reports",
+          link: "/reports",
+          icon: <Icon.Database />,
           showSubRoute: false,
           submenu: false,
         },
