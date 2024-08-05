@@ -54,9 +54,9 @@ const TicketsPage = (props) => {
     const handleEdit = (item) => {
         // where item = orgnization id  details //
         // where we can edit the institution details //
-        navigate(
-            '/admin/register-edit-schools'
-        );
+        // navigate(
+        //     '/admin/register-edit-schools'
+        // );
         localStorage.setItem('listId', JSON.stringify(item));
     };
     const handleActiveStatusUpdate = (item, itemA) => {
