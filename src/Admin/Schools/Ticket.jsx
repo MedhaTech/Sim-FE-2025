@@ -54,9 +54,9 @@ const TicketsPage = (props) => {
     const handleEdit = (item) => {
         // where item = orgnization id  details //
         // where we can edit the institution details //
-        // navigate(
-        //     '/admin/register-edit-schools'
-        // );
+        navigate(
+            '/edit-institution'
+        );
         localStorage.setItem('listId', JSON.stringify(item));
     };
     const handleActiveStatusUpdate = (item, itemA) => {
@@ -279,7 +279,7 @@ const TicketsPage = (props) => {
             setarray([...dataarray]);
         }
     }, [props.schoolsRegistrationList]);
-    console.log( props.schoolsRegistrationList," props.schoolsRegistrationList");
+    // console.log( props.schoolsRegistrationList," props.schoolsRegistrationList");
     const SchoolsData = {
         data: array,
         columns: [
@@ -287,41 +287,42 @@ const TicketsPage = (props) => {
                 name: 'No',
                 selector: (row) => row.index,
                 cellExport: (row) => row.index,
-                width: '9rem'
+                width: '4rem'
+            },
+            {
+                name: 'UDISE Code ',
+                selector: (row) => row.organization_code,
+                cellExport: (row) => row.organization_code,
+                sortable: true,
+
+                width: '10rem'
             },
             {
                 name: 'State',
                 selector: (row) => row.state,
                 cellExport: (row) => row.state,
-                width: '17rem'
+                width: '10rem'
             },
-            {
-                name: 'ATL Code ',
-                selector: (row) => row.organization_code,
-                cellExport: (row) => row.organization_code,
-                sortable: true,
-
-                width: '15rem'
-            },
+           
             {
                 name: 'District',
                 selector: (row) => row.district,
                 cellExport: (row) => row.district,
-                width: '18rem'
+                width: '10rem'
             },
 
             {
                 name: 'Institution Name',
                 selector: (row) => row.organization_name,
                 cellExport: (row) => row.organization_name,
-                width: '20rem'
+                width: '15rem'
             },
 
             {
                 name: 'Category',
                 selector: (row) => row.category,
                 cellExport: (row) => row.category,
-                width: '12rem'
+                width: '6rem'
             },
             // {
             //     name: 'Principal Name',
@@ -342,11 +343,11 @@ const TicketsPage = (props) => {
                         {row.status}
                     </Badge>
                 ],
-                width: '8rem'
+                width: '6rem'
             },
             {
                 name: 'Actions',
-                width: '25rem',
+                width: '20rem',
                 center: true,
                 cellExport: (row) => {},
                 cell: (record) => [
@@ -356,7 +357,7 @@ const TicketsPage = (props) => {
                             onClick={() => handleEdit(record)}
                             style={{ marginRight: '7px' }}
                         >
-                            <div className="btn btn-primary  mx-2">EDIT</div>
+                            <div className="btn btn-info  mx-2">Edit</div>
                         </div>
                         {/* {disableBtn === false ? setDisableBtn(false) */}
                         <div
@@ -367,7 +368,7 @@ const TicketsPage = (props) => {
                             }
                             style={{ marginRight: '10px' }}
                         >
-                            <div className="btn btn-success ">TEST</div>
+                            <div className="btn btn-success ">Test</div>
                         </div>
                         {/* : setDisableBtn(true)} */}
                         <div
@@ -378,7 +379,7 @@ const TicketsPage = (props) => {
                             }
                             style={{ marginRight: '10px' }}
                         >
-                            <div className="btn btn-danger ">INACTIVE</div>
+                            <div className="btn btn-danger ">Inactive</div>
                         </div>
                     </>
                 ]
@@ -392,38 +393,39 @@ const TicketsPage = (props) => {
                 name: 'No',
                 selector: (row, key) => key + 1,
                 // sortable: true,
-                width: '9rem'
+                width: '4rem'
             },
             {
-                name: 'ATL Code ',
+                name: 'UDISE Code ',
                 selector: (row) => row.organization_code,
                 cellExport: (row) => row.organization_code,
                 sortable: true,
-                width: '15rem'
+                width: '10rem'
             },
             {
                 name: 'State',
                 selector: (row) => row.state,
                 cellExport: (row) => row.state,
-                width: '20rem'
-            },
-            {
-                name: 'Institution Name',
-                selector: (row) => row.organization_name,
-                cellExport: (row) => row.organization_name,
-                width: '20rem'
+                width: '10rem'
             },
             {
                 name: 'District',
                 selector: (row) => row.district,
                 cellExport: (row) => row.district,
-                width: '20rem'
+                width: '10rem'
             },
+            {
+                name: 'Institution Name',
+                selector: (row) => row.organization_name,
+                cellExport: (row) => row.organization_name,
+                width: '15rem'
+            },
+           
             {
                 name: 'Category',
                 selector: (row) => row.category,
                 cellExport: (row) => row.category,
-                width: '12rem'
+                width: '6rem'
             },
             // {
             //     name: 'Principal Name',
@@ -438,7 +440,7 @@ const TicketsPage = (props) => {
                         {row.status}
                     </Badge>
                 ],
-                width: '10rem'
+                width: '6rem'
             },
             {
                 name: 'Actions',
@@ -451,7 +453,7 @@ const TicketsPage = (props) => {
                             onClick={() => handleEdit(record)}
                             style={{ marginRight: '7px' }}
                         >
-                            <div className="btn btn-primary  mx-2">EDIT</div>
+                            <div className="btn btn-info  mx-2">Edit</div>
                         </div>
                         <div
                             key={record}
@@ -461,7 +463,7 @@ const TicketsPage = (props) => {
                             }
                             style={{ marginRight: '10px' }}
                         >
-                            <div className="btn btn-warning ">ACTIVE</div>
+                            <div className="btn btn-warning ">Active</div>
                         </div>
                         <div
                             key={record}
@@ -470,7 +472,7 @@ const TicketsPage = (props) => {
                             }
                             style={{ marginRight: '10px' }}
                         >
-                            <div className="btn btn-success">TEST</div>
+                            <div className="btn btn-success">Test</div>
                         </div>
                     </>
                 ]
@@ -483,39 +485,40 @@ const TicketsPage = (props) => {
             {
                 name: 'No',
                 selector: (row, key) => key + 1,
-                width: '9rem'
+                width: '4rem'
             },
             {
-                name: 'ATL Code ',
+                name: 'UDISE Code ',
                 selector: (row) => row.organization_code,
                 cellExport: (row) => row.organization_code,
                 sortable: true,
 
-                width: '15rem'
+                width: '10rem'
             },
             {
                 name: 'State',
                 selector: (row) => row.state,
                 cellExport: (row) => row.state,
-                width: '17rem'
-            },
-            {
-                name: 'Institution Name',
-                selector: (row) => row.organization_name,
-                cellExport: (row) => row.organization_name,
-                width: '24rem'
+                width: '10rem'
             },
             {
                 name: 'District',
                 selector: (row) => row.district,
                 cellExport: (row) => row.district,
-                width: '20rem'
+                width: '10rem'
             },
+            {
+                name: 'Institution Name',
+                selector: (row) => row.organization_name,
+                cellExport: (row) => row.organization_name,
+                width: '15rem'
+            },
+            
             {
                 name: 'Category',
                 selector: (row) => row.category,
                 cellExport: (row) => row.category,
-                width: '12rem'
+                width: '6rem'
             },
             // {
             //     name: 'Principal Name',
@@ -533,11 +536,11 @@ const TicketsPage = (props) => {
                         {row.status === 'NEW' ? 'TEST' : ''}
                     </Badge>
                 ],
-                width: '10rem'
+                width: '6rem'
             },
             {
                 name: 'Actions',
-                width: '24rem',
+                width: '20rem',
                 center: true,
                 cell: (record) => [
                     <>
@@ -546,7 +549,7 @@ const TicketsPage = (props) => {
                             onClick={() => handleEdit(record)}
                             style={{ marginRight: '7px' }}
                         >
-                            <div className="btn btn-primary  mx-2">EDIT</div>
+                            <div className="btn btn-info  mx-2">Edit</div>
                         </div>
                         <div
                             key={record}
@@ -555,7 +558,7 @@ const TicketsPage = (props) => {
                             }
                             style={{ marginRight: '10px' }}
                         >
-                            <div className="btn btn-warning ">ACTIVE</div>
+                            <div className="btn btn-warning ">Active</div>
                         </div>
                         <div
                             key={record}
@@ -565,17 +568,24 @@ const TicketsPage = (props) => {
                             }
                             style={{ marginRight: '10px' }}
                         >
-                            <div className="btn btn-danger">INACTIVE</div>
+                            <div className="btn btn-danger">Inactive</div>
                         </div>
                     </>
                 ]
             }
         ]
     };
+    const customStyles = {
+        head: {
+          style: {
+            fontSize: "1em", // Adjust as needed
+          },
+        },
+      };
     return (
         <div className="page-wrapper">
         <div className="content">
-            <Container className="ticket-page mt-5 mb-50">
+            <Container className="ticket-page mb-50">
                 <Row className="pt-3">
                     <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
                         <Col className="col-auto">
@@ -610,7 +620,7 @@ const TicketsPage = (props) => {
                             ) : (
                                 <div className="d-flex justify-content-end p-2">
                                     <button
-                                        className='btn btn-success p-2'
+                                        className='btn btn-success p-2 me-2'
                                         onClick={() =>
                                           navigate(
                                                 '/addinstitution'
@@ -620,7 +630,7 @@ const TicketsPage = (props) => {
                                         Add New Institutions
                                       </button>
                                     <button
-                                       className='btn btn-warning p-2'
+                                       className='btn btn-warning p-2 me-2'
                                         onClick={(e) => handleReqSchoolsList(e)}
                                     >
                                         InActive List
@@ -648,6 +658,7 @@ const TicketsPage = (props) => {
                                     data={SRows}
                                     defaultSortField="id"
                                     defaultSortAsc={false}
+                                    customStyles={customStyles}
                                     pagination
                                     highlightOnHover
                                     fixedHeader
@@ -666,6 +677,7 @@ const TicketsPage = (props) => {
                                 <DataTable
                                     defaultSortField="id"
                                     defaultSortAsc={false}
+                                    customStyles={customStyles}
                                     pagination
                                     highlightOnHover
                                     fixedHeader
@@ -685,6 +697,7 @@ const TicketsPage = (props) => {
                                     data={rows}
                                     defaultSortField="id"
                                     defaultSortAsc={false}
+                                    customStyles={customStyles}
                                     pagination
                                     highlightOnHover
                                     fixedHeader
