@@ -62,6 +62,8 @@ import StudentCertificate from "../Team/Certificate/MyCertificate";
 import StudentCourse from "../Team/Courses/PlayVideo";
 import Institution from "../Admin/Schools/Ticket";
 import AddInstitution from "../Admin/Schools/AddNewSchool";
+import Reports from "../Admin/Reports/index";
+import ReportsRegistration from "../Admin/Reports/Helpers/ReportsRegistration";
 export const publicRoutes = [
   {
     id: 1,
@@ -100,6 +102,22 @@ export const publicRoutes = [
     path: routes.addinstitution,
     name: "addinstitution",
     element: <AddInstitution />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 5,
+    path: routes.reports,
+    name: "reports",
+    element: <Reports />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 5,
+    path: routes.reportsregistration,
+    name: "reportsregistration",
+    element: <ReportsRegistration />,
     protected: true,
     route: Route,
   },
