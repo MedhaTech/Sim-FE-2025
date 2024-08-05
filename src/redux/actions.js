@@ -4,6 +4,14 @@ export const ADMIN_LIST_SUCCESS = 'ADMIN_LIST_SUCCESS';
 export const ADMIN_LANGUAGE = 'ADMIN_LANGUAGE';
 export const GET_ADMINS = 'GET_ADMINS';
 
+export const SCHOOL_REGISTRATOION_BULKUPLOAD_LIST =
+    'SCHOOL_REGISTRATOION_BULKUPLOAD_LIST';
+export const SCHOOL_REGISTRATOION_BULKUPLOAD_LIST_SUCCESS =
+    'SCHOOL_REGISTRATOION_BULKUPLOAD_LIST_SUCCESS';
+export const SCHOOL_REGISTRATOION_BULKUPLOAD_LIST_ERROR =
+    'SCHOOL_REGISTRATOION_BULKUPLOAD_LIST_ERROR';
+
+
 export const GET_DISTRICTS_DATA = 'GET_DISTRICTS_DATA';
 export const GET_GLOBAL_LANGUAGE = 'GET_GLOBAL_LANGUAGE';
 
@@ -158,4 +166,5 @@ export * from "../Teacher/store/teams/actions";
 export * from "../Admin/Courses/store/adminCourses/actions";
 export * from "../Teacher/store/courses/actions";
 export * from '../Admin/Courses/store/adminCourses/actions';
+export * from './schoolRegistration/actions';
 
