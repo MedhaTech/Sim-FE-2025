@@ -208,9 +208,9 @@ const Dashboard = (props) => {
         width: "10%",
       },
       {
-        name: <b style={{color:"crimson"}}>Username</b>,
+        name: <b style={{color:"crimson"}}>Team Login&apos;s</b>,
 
-        selector: (row) => <div>{row.username}<br/>{row.team_name.toLowerCase()}</div>,
+        selector: (row) => <div>{row.username}<br/>{row.team_name.toLowerCase().replace(/\s+/g, '')}</div>,
 
         // sortable: true,
         width: "40%",
@@ -638,7 +638,7 @@ const Dashboard = (props) => {
                         Login ID : {ViewedTeam.username}
                       </p>
                       <p >
-                        Password : {ViewedTeam.team_name.toLowerCase()}
+                        Password : {ViewedTeam.team_name.toLowerCase().replace(/\s+/g, '')}
                       </p>
                     </Col>
                   </Row></div>
