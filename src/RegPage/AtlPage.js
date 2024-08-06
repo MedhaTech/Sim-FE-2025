@@ -177,10 +177,10 @@ const Register = () => {
               );
 
               const fetchedstate = response?.data?.data[0].state;
-              const normalizedState = normalizeStateName(fetchedstate);
-              setStateData(normalizedState);
+              //const normalizedState = normalizeStateName(fetchedstate);
+              //setStateData(normalizedState);
               setStateData(fetchedstate);
-              setDistrictData(districtList[normalizedState] || []);
+              setDistrictData(districtList[fetchedstate] || []);
 
               setDiceBtn(false);
               setSchoolBtn(true);

@@ -355,12 +355,12 @@ const EmployeesGrid = () => {
             <div className="d-flex align-items-center welcome-text">
               <h3 className="d-flex align-items-center">
                 <span style={{ fontSize: "30px" }}>👋</span>
-                &nbsp;Hi {currentUser?.data[0]?.full_name} Team &nbsp;
+                &nbsp;Hi {currentUser?.data[0]?.full_name} &nbsp;
               </h3>
 
               <h6>
                 {" "}
-                here&apos;s what&apos;s happening with your School Innovation
+                Team, here&apos;s what&apos;s happening with your School Innovation
                 Marathon 2024 today.
               </h6>
             </div>

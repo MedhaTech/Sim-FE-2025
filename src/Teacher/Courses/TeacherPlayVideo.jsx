@@ -1049,24 +1049,24 @@ const TeacherPlayVideo = (props) => {
 
                                 <ol className="text-left">
                                   <li>
-                                    Create a plan for doing the program using
+                                    1. Create a plan for doing the program using
                                     the handbook.
                                   </li>
                                   <li>
-                                    Arrange for device access  your students to complete the course and hand book activities.
+                                    2. Arrange for device access  your students to complete the course and hand book activities.
 
                                   </li>
                                   <li>
-                                    Schedule weekly sessions to watch/discuss
+                                    3. Schedule weekly sessions to watch/discuss
                                     videos and workbook.
                                   </li>
                                   <li>
-                                    Ensure students complete the workbook before
+                                    4. Ensure students complete the workbook before
                                     the next session.
                                   </li>
-                                  <li>Guide students through the program.</li>
+                                  <li>5. Guide students through the program.</li>
                                   <li>
-                                    Evaluate students’ performance using the
+                                    6. Evaluate students’ performance using the
                                     teacher rubric.
                                   </li>
                                 </ol>
@@ -1174,21 +1174,21 @@ const TeacherPlayVideo = (props) => {
 
                             <ol className="text-left">
                               <li>
-                                Create a plan for doing the program using the
+                                1. Create a plan for doing the program using the
                                 handbook.
                               </li>
-                              <li>Arrange for device access and workbook.</li>
+                              <li>2. Arrange for device access and workbook.</li>
                               <li>
-                                Schedule weekly sessions to watch/discuss videos
+                                3. Schedule weekly sessions to watch/discuss videos
                                 and workbook.
                               </li>
                               <li>
-                                Ensure students complete the workbook before the
+                                4. Ensure students complete the workbook before the
                                 next session.
                               </li>
-                              <li>Guide students through the program.</li>
+                              <li>5. Guide students through the program.</li>
                               <li>
-                                Evaluate students’ performance using the teacher
+                                6. Evaluate students’ performance using the teacher
                                 rubric.
                               </li>
                             </ol>
