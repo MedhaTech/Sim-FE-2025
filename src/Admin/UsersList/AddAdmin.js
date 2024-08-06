@@ -75,7 +75,11 @@ const Register = (props) => {
                 .post(actualUrl, JSON.stringify(values, null, 2), axiosConfig)
                 .then((evaluatorRegRes) => {
                     if (evaluatorRegRes?.data?.status == 201) {
+                        setTimeout(() => {
+                            // handleideaList();
                         dispatch(getAdmin());
+
+                        }, 500);
                         openNotificationWithIcon(
                             'success',
                             evaluatorRegRes?.data?.message

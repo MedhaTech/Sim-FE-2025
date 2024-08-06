@@ -413,14 +413,14 @@ const updateStatesList=["All States",...stateList];
                 selector: (row) => row?.user?.full_name,
                 cellExport: (row) => row?.user?.full_name,
 
-                width: '10rem'
+                width: '15rem'
             },
             {
                 name: 'Email',
                 selector: (row) => row?.user?.username,
                 cellExport: (row) => row?.user?.username,
 
-                width: '14rem'
+                width: '16rem'
             },
             {
                 name: 'Role',
@@ -461,7 +461,7 @@ const updateStatesList=["All States",...stateList];
             {
                 name: 'Actions',
                 sortable: false,
-                width: '15rem',
+                width: '20rem',
                 cell: (record) => [
                     <div
                         className="mr-5"
@@ -469,38 +469,38 @@ const updateStatesList=["All States",...stateList];
                         // onClick={() => handleEdit(record)}
                         style={{ marginRight: '10px' }}
                     >
-                        <div className="btn btn-primary ">Edit</div>
+                        {/* <div className="btn btn-primary ">Edit</div> */}
                     </div>,
-                    // <div
-                    //     key={record.id}
-                    //     style={{ marginRight: '10px' }}
-                    //     onClick={() => {
-                    //         let status =
-                    //             record?.status === 'ACTIVE'
-                    //                 ? 'INACTIVE'
-                    //                 : 'ACTIVE';
-                    //         handleStatus(
-                    //             status,
-                    //             record?.admin_id,
-                    //             'admin',
-                    //             record
-                    //         );
-                    //     }}
-                    // >
-                    //     {record?.status === 'ACTIVE' ? (
-                    //         <div className="btn btn-danger">Inactive</div>
-                    //     ) : (
-                    //         <div className="btn btn-secondary ">Active</div>
-                    //     )}
-                    // </div>
-                    // <div
-                    //     key={record?.id}
-                    //
-                    //     onClick={() => handleSelect(record)}
-                    //     style={{ marginRight: '10px' }}
-                    // >
-                    //     <div className="btn btn-primary btn-lg mr-5">View</div>
-                    // </div>,
+                    <><div
+                        key={record.id}
+                        style={{ marginRight: '10px' }}
+                        onClick={() => {
+                            let status = record?.status === 'ACTIVE'
+                                ? 'INACTIVE'
+                                : 'ACTIVE';
+                            handleStatus(
+                                status,
+                                record?.admin_id,
+                                'admin',
+                                record
+                            );
+                        } }
+                    >
+                        {record?.status === 'ACTIVE' ? (
+                            <div className="btn btn-danger">Inactive</div>
+                        ) : (
+                            <div className="btn btn-secondary ">Active</div>
+                        )}
+                    </div>
+                    {/* <div
+                        key={record?.id}
+
+                        onClick={() => handleSelect(record)}
+                        style={{ marginRight: '10px' }}
+                    >
+                            <div className="btn btn-primary mr-5">View</div>
+                        </div> */}
+                        </>,
                 ]
             }
         ]

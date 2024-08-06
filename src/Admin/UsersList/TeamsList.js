@@ -131,7 +131,7 @@ const updateStatesList=["All States",...stateList];
        
         const resparam = encryptGlobal(
             JSON.stringify({
-                status: "ALL",
+                // status: "ALL",
                 state: state ,
                 // year_of_study:applicant,
                 // group:institution,
@@ -406,17 +406,18 @@ console.log(tableData,"state");
               {
                 name: 'UDISE Code',
                 selector: (row) => row?.
+                mentor.organization.
+                organization_code,
+                cellExport: (row) => row?.mentor.
                 organization.
                 organization_code,
-                cellExport: (row) => row?.
-                organization.
-                organization_code,
-                width: '8rem'
+                width: '10rem'
             },
 
             {
                 name: 'District',
-                selector: (row) => row.organization.district,
+                selector: (row) =>  row?.
+                mentor.organization.district,
                 cell: (row) => (
                     <div
                         style={{
@@ -424,26 +425,34 @@ console.log(tableData,"state");
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row.organization.district}
+                        {row?.
+                mentor.organization.district}
                     </div>
                 ),
-                cellExport: (row) => row.organization.district,
-                width: '6rem'
-            },
-            // {
-            //     name: 'Inst Type',
-            //     selector: (row) => row?.group,
-            //     cellExport: (row) => row?.group,
-            //     width: '15rem'
-            // },
-            {
-                name: 'Category',
-                selector: (row) => row.organization.category,
-                cellExport: (row) => row.organization.category,
-                width: '6rem'
+                cellExport: (row) => row?.
+                mentor.organization.district,
+                width: '13rem'
             },
             {
-                name: 'Institution Name',
+                name: 'Team Name',
+                selector: (row) => row?.team_name
+                ,
+                cellExport: (row) => row?.team_name
+                ,
+                width: '9rem'
+            },
+            {
+                name: 'Students Count',
+                selector: (row) => row.
+                student_count
+                ,
+                cellExport: (row) => row.
+                student_count
+                ,
+                width: '10rem'
+            },
+            {
+                name: 'Mentor Name',
                 cell: (row) => (
                     <div
                         style={{
@@ -451,21 +460,25 @@ console.log(tableData,"state");
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row.organization.organization_name
+                        {row.mentor
+.full_name
                         }
                     </div>
                 ),
-                selector: (row) => row.organization.organization_name
+                selector: (row) => row.mentor
+                .full_name
                 ,
-                cellExport: (row) => row.organization.organization_name
+                cellExport: (row) => row.mentor
+                .full_name
                 ,
                 width: '10rem'
             },
 
             {
-                name: 'Mentor Name',
-                selector: (row) => row.full_name,
-                cellExport: (row) => row.full_name,
+                name: 'Organization Name',
+                selector: (row) =>row?.
+                mentor.organization.organization_name,
+                cellExport: (row) => row.mentor.organization.organization_name,
                 width: '10rem'
             },
             // {
@@ -474,22 +487,22 @@ console.log(tableData,"state");
             //     width: '4rem'
             // },
 
-            {
-                name: 'Gender',
-                selector: (row) => row.gender,
-                width: '6rem'
-            },
-            {
-                name: 'Email Id',
-                selector: (row) => row.username,
-                width: '10rem'
-            },
+            // {
+            //     name: 'Gender',
+            //     selector: (row) => row.gender,
+            //     width: '6rem'
+            // },
+            // {
+            //     name: 'Email Id',
+            //     selector: (row) => row.username,
+            //     width: '10rem'
+            // },
 
-            {
-                name: 'Mobile No',
-                selector: (row) => row.mobile,
-                width: '8rem'
-            },
+            // {
+            //     name: 'Mobile No',
+            //     selector: (row) => row.mobile,
+            //     width: '8rem'
+            // },
             // {
             //     name: 'Status',
             //     cell: (row) => [
@@ -504,18 +517,18 @@ console.log(tableData,"state");
             //     ],
             //     width: '8rem'
             // },
-            {
-                name: 'Actions',
-                sortable: false,
-                width: '10rem',
-                cell: (record) => [
-                    <div
-                        key={record.id}
-                        // onClick={() => handleSelect(record, '1')}
-                        style={{ marginRight: '10px' }}
-                    >
-                        <div className="btn btn-primary  mr-5">View</div>
-                    </div>
+            // {
+                // name: 'Actions',
+                // sortable: false,
+                // width: '10rem',
+                // cell: (record) => [
+                    // <div
+                    //     key={record.id}
+                    //     // onClick={() => handleSelect(record, '1')}
+                    //     style={{ marginRight: '10px' }}
+                    // >
+                    //     <div className="btn btn-primary  mr-5">View</div>
+                    // </div>
                     // <div
                     //     key={record.id}
                     //     style={{ marginRight: '10px' }}
@@ -533,8 +546,8 @@ console.log(tableData,"state");
                     //         <div className="btn btn-warning ">ACTIVE</div>
                     //     )}
                     // </div>
-                ]
-            }
+                // ]
+            // }
         ]
     };
     const customStyles = {
@@ -554,7 +567,6 @@ console.log(tableData,"state");
                     <Container fluid className="px-0">
                                         <Row className="align-items-center">
                                             <Col md={2}>
-                                                {/* <div className="my-3 d-md-block d-flex justify-content-center"> */}
                                                     <Select
                                                         list={updateStatesList}
                                                         setValue={setState}
@@ -564,7 +576,6 @@ console.log(tableData,"state");
                                                         value={state}
                                                          className="form-select"
                                                     />
-                                                {/* </div> */}
                                             </Col>
                                            
                                            

@@ -52,7 +52,7 @@ export const URL = {
   getTeamsList: `${process.env.REACT_APP_API_BASE_URL}/teams`,
   getAdmin: process.env.REACT_APP_API_BASE_URL + '/admins/',
   updateAdminStatus: process.env.REACT_APP_API_BASE_URL + '/admins',
-  adminRegister: process.env.REACT_APP_API_BASE_URL + '/admins/register',
+  adminRegister: process.env.REACT_APP_API_BASE_URL + '/admins',
 
   getTeamMemberStatusEndpoint:
     process.env.REACT_APP_API_BASE_URL + "/dashboard/teamStats/",
