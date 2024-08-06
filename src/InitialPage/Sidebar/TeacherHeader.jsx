@@ -465,8 +465,9 @@ const MentorHeader = () => {
               onClick={() => toggleFullscreen()}
               className={isFullscreen ? "Exit Fullscreen" : "Go Fullscreen"}
             >
-              {/* <i data-feather="maximize" /> */}
-              <FeatherIcon icon="maximize" />
+              {
+                    isFullscreen ? <FeatherIcon icon="minimize" /> : <FeatherIcon icon="maximize" />
+                }
             </Link>
           </li>
           {/* <li className="nav-item nav-item-box">

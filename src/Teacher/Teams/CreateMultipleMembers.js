@@ -66,7 +66,7 @@ const CreateMultipleMembers = ({ id }) => {
   const handleteamname = (e) => {
     const inputValue = e.target.value;
     //const lettersOnly = inputValue.replace(/[^a-zA-Z\s]/g, "");
-    const patternOnlyalfa = /^[a-zA-Z0-9]*$/;
+    const patternOnlyalfa = /^[a-zA-Z0-9\s]*$/;
     setTeamname(inputValue);
 
     if (inputValue.trim().length < 1) {

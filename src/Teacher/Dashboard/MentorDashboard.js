@@ -6,10 +6,6 @@ import {
   RotateCcw,
 } from "feather-icons-react/build/IconComponents";
 import { Link } from "react-router-dom";
-//import ImageWithBasePath from "../../core/img/imagewithbasebath";
-import { ArrowRight } from "react-feather";
-// import withReactContent from "sweetalert2-react-content";
-// import Swal from "sweetalert2";
 import VideoModal from '../../HelpVideo/VideoModal';
 import { getCurrentUser } from '../../helpers/Utils';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
@@ -30,7 +26,6 @@ import { FaLifeRing } from 'react-icons/fa';
 import { FaPoll } from 'react-icons/fa';
 import { FaCheckCircle } from 'react-icons/fa';
 import { FaWhatsapp } from 'react-icons/fa';
-//import { FaKey } from 'react-icons/fa';
 import TeamsProgDD from './TeamsProgDD';
 import { GiAchievement } from 'react-icons/gi';
 import { useReactToPrint } from 'react-to-print';
@@ -547,12 +542,11 @@ const MentorDashboard = () => {
             <div className="col-xl-6 col-sm-12 col-12 d-flex">
               <div className="card flex-fill default-cover w-100 mb-4">
                 <div className="card-header d-flex justify-content-between align-items-center">
-                  <h4 className="card-title mb-0">SIM Road Map<FaRoute size={30} style={{marginLeft:"6px"}} /> </h4>
+                  <h4 className="card-title mb-0">SIM Road Map </h4>
                   <div className="dropdown">
                     <Link to="#" className="view-all d-flex align-items-center">
-                      View
                       <span className="ps-2 d-flex align-items-center">
-                        <ArrowRight className="feather-16" />
+                        <FaRoute size={30} />
                       </span>
                     </Link>
                   </div>

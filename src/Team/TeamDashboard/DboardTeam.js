@@ -9,7 +9,7 @@ import { encryptGlobal } from "../../constants/encryptDecrypt";
 import female from "../../assets/img/Female_Profile.png";
 import male from "../../assets/img/Male_Profile.png";
 import team from "../../assets/img/icons/team.svg";
-import user from "../../assets/img/icons/user-icon.svg";
+import user from "../../assets/img/user.png";
 import girl1 from "../../assets/img/girl1.png";
 import girl2 from "../../assets/img/girl2.png";
 import girl3 from "../../assets/img/girl3.png";
@@ -355,12 +355,12 @@ const EmployeesGrid = () => {
             <div className="d-flex align-items-center welcome-text">
               <h3 className="d-flex align-items-center">
                 <span style={{ fontSize: "30px" }}>👋</span>
-                &nbsp;Hi {currentUser?.data[0]?.full_name} Team &nbsp;
+                &nbsp;Hi {currentUser?.data[0]?.full_name} &nbsp;
               </h3>
 
               <h6>
                 {" "}
-                here&apos;s what&apos;s happening with your School Innovation
+                Team, here&apos;s what&apos;s happening with your School Innovation
                 Marathon 2024 today.
               </h6>
             </div>
@@ -435,6 +435,7 @@ const EmployeesGrid = () => {
                         <img
                           src={getProfileImage(student.Gender)}
                           alt="Profile"
+                          style={{width: "64px",height: "64px"}}
                         />
                       </div>
                       <h4 style={{ color: "orange" }}>{student.full_name}</h4>
