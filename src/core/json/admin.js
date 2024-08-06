@@ -28,6 +28,21 @@ const AdminSidebarData = () => {
           submenu: false,
         },
         {
+          label:"Resource",
+          link: "/resource",
+          icon: <Icon.Layers />,
+          // icon: <Icon.Codesandbox />,
+          showSubRoute: false,
+          submenu: false,
+        },
+        {
+          label:"Latest News",
+          link: "/latest-news",
+          icon: <Icon.Bookmark />,
+          showSubRoute: false,
+          submenu: false,
+        },
+        {
           label:"Users",
           // link: "/idea",
           icon: <Icon.Users />,
@@ -41,7 +56,7 @@ const AdminSidebarData = () => {
           showSubRoute: false,
           submenu: false,
         },
-      
+       
       ],
     },
    

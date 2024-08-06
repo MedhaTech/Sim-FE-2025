@@ -42,7 +42,7 @@ const EditSchool = (props) => {
         history.location.item &&
         history.location.item) ||
     listID;
-    console.log(listId.state,"e");
+    // console.log(listId.district,"e");
     // useEffect(() => {
     //     if (listID) {
     //       formik.setFieldValue('state', listID.state);
@@ -69,7 +69,7 @@ const EditSchool = (props) => {
             unique_code: listId && listId.unique_code || "",
             pin_code: listId && listId.pin_code || "",
             city: listId && listId.city || "",
-            district: listId?.district,
+            district: listId?.district || "",
             state: listId?.state || '',
             status: listId && listId.status,
             address: listId && listId.address || "",
@@ -166,7 +166,8 @@ const EditSchool = (props) => {
         }
     });
 
- 
+//  console.log( formik.values
+//     .district,"dist");
     // const handleStateChange = (event) => {
     //     const state = event.target.value;
     //     formik.setFieldValue("state", state);
@@ -261,10 +262,10 @@ const EditSchool = (props) => {
                                                                 'state',
                                                                 selectedState
                                                             );
-                                                            formik.setFieldValue(
-                                                                'district',
-                                                                ''
-                                                            ); 
+                                                            // formik.setFieldValue(
+                                                            //     'district',
+                                                            //     ''
+                                                            // ); 
                                                             setDistricts(
                                                                 districtList[
                                                                 selectedState
