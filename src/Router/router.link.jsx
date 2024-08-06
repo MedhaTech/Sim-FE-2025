@@ -65,6 +65,10 @@ import AddInstitution from "../Admin/Schools/AddNewSchool";
 import Reports from "../Admin/Reports/index";
 import ReportsRegistration from "../Admin/Reports/Helpers/ReportsRegistration";
 import EditSchool from "../Admin/Schools/EditSchool";
+import TeacherNews from "../Admin/LatestNews/TeacherNews";
+import CreateLatestNews from "../Admin/LatestNews/createLatestNews";
+import EditLatestNews from "../Admin/LatestNews/editLatestNews";
+
 
 export const publicRoutes = [
   {
@@ -128,6 +132,30 @@ export const publicRoutes = [
     path: routes.editinstitution,
     name: "editinstitution",
     element: <EditSchool />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 8,
+    path: routes.latestnews,
+    name: "latestnews",
+    element: < TeacherNews/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 9,
+    path: routes.createlatestnews,
+    name: "createlatestnews",
+    element: < CreateLatestNews/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 10,
+    path: routes.editnews,
+    name: "editnews",
+    element: < EditLatestNews/>,
     protected: true,
     route: Route,
   },
