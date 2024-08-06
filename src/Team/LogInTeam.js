@@ -47,9 +47,10 @@ const LogInTeam = (props) => {
       ) {
         openNotificationWithIcon(
           "error",
-          `Another User(${localStorage.getItem(
-            "module"
-          )}) has already logged in`
+           "Clear your browser cache and try logging in"
+          // `Another User(${localStorage.getItem(
+          //   "module"
+          // )}) has already logged in`
         );
         return;
       }

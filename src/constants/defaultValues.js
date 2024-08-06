@@ -14,6 +14,8 @@ export const URL = {
     process.env.REACT_APP_API_BASE_URL + "/reflectiveQuiz/",
   getAdminRefQizList: process.env.REACT_APP_API_BASE_URL + "/reflectiveQuiz/",
   getStudents: process.env.REACT_APP_API_BASE_URL + "/students",
+  getMentors: process.env.REACT_APP_API_BASE_URL + '/mentors',
+
   // getStudentById: process.env.REACT_APP_API_BASE_URL + '/students/',
   updateStudentStatus: process.env.REACT_APP_API_BASE_URL + "/students",
   getChallengeQuestions: process.env.REACT_APP_API_BASE_URL + "/challenge",
@@ -44,11 +46,14 @@ export const URL = {
   getPreSurveyList: `${process.env.REACT_APP_API_BASE_URL}/quizSurveys`,
   addMentor: process.env.REACT_APP_API_BASE_URL + "/mentors/create",
   getStudentById: process.env.REACT_APP_API_BASE_URL + "/students/",
-  getMentors: process.env.REACT_APP_API_BASE_URL + "/mentors",
   deleteMentor: process.env.REACT_APP_API_BASE_URL + "/mentor/delete",
   updateMentor: process.env.REACT_APP_API_BASE_URL + "/mentors/update",
   getTeamMembersList: `${process.env.REACT_APP_API_BASE_URL}/teams/`,
   getTeamsList: `${process.env.REACT_APP_API_BASE_URL}/teams`,
+  getAdmin: process.env.REACT_APP_API_BASE_URL + '/admins/',
+  updateAdminStatus: process.env.REACT_APP_API_BASE_URL + '/admins',
+  adminRegister: process.env.REACT_APP_API_BASE_URL + '/admins/register',
+
   getTeamMemberStatusEndpoint:
     process.env.REACT_APP_API_BASE_URL + "/dashboard/teamStats/",
   getTeacherCousesDetails:
