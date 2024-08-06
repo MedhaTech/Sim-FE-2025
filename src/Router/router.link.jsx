@@ -68,6 +68,13 @@ import EditSchool from "../Admin/Schools/EditSchool";
 import TeacherNews from "../Admin/LatestNews/TeacherNews";
 import CreateLatestNews from "../Admin/LatestNews/createLatestNews";
 import EditLatestNews from "../Admin/LatestNews/editLatestNews";
+import Ticket from "../Admin/UsersList/Tickets";
+import MentorsList from "../Admin/UsersList/MentorsList";
+import TeamsList from "../Admin/UsersList/TeamsList";
+import AdminsList from "../Admin/UsersList/AdminsList";
+
+
+
 
 
 export const publicRoutes = [
@@ -156,6 +163,38 @@ export const publicRoutes = [
     path: routes.editnews,
     name: "editnews",
     element: < EditLatestNews/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 11,
+    path: routes.studentslist,
+    name: "studentslist",
+    element: <Ticket/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 12,
+    path: routes.mentorslist,
+    name: "mentorslist",
+    element: <MentorsList/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 13,
+    path: routes.teamslist,
+    name: "teamslist",
+    element: <TeamsList/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 14,
+    path: routes.adminlist,
+    name: "adminlist",
+    element: <AdminsList/>,
     protected: true,
     route: Route,
   },

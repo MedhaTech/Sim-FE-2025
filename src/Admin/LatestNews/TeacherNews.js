@@ -551,6 +551,13 @@ const AdminLatestNews = () => {
             }
         ]
     };
+    const customStyles = {
+        head: {
+          style: {
+            fontSize: "1em", // Adjust as needed
+          },
+        },
+      };
     return (
         <div className="page-wrapper">
         <div className="content">
@@ -607,6 +614,8 @@ Create LatestNews
                                     // data={SRows}
                                     defaultSortField="id"
                                     defaultSortAsc={false}
+                                    customStyles={customStyles}
+
                                     pagination
                                     highlightOnHover
                                     fixedHeader
@@ -626,6 +635,8 @@ Create LatestNews
                                     // data={setResList}
                                     // noHeader
                                     defaultSortField="id"
+                                    customStyles={customStyles}
+
                                     defaultSortAsc={false}
                                     pagination
                                     highlightOnHover
