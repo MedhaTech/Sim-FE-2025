@@ -1281,14 +1281,12 @@ const NonAtlPage = () => {
                                       } seconds`
                                     : "Otp expired"} */}
                                   {timer > 0
-                                    ? `Access Resend OTP  00:${
-                                        timer < 10 ? `0${timer}` : timer
-                                      } seconds`
+                                    ? `Access Resend OTP in ${timer < 10 ? `0${timer}` : timer} sec`
                                     : "Resend OTP enabled"}
                                 </p>
                               </div>
 
-                              <div className="login-content user-login">
+                              <div className="login-content user-login text-center justify-content-center">
                                 <div className="login-userset">
                                   <div className="login-userheading">
                                     <h3>Verify your Email with OTP</h3>
@@ -1301,34 +1299,40 @@ const NonAtlPage = () => {
 
                                   <div className="wallet-add">
                                     <div className="otp-box">
-                                      <div className="forms-block text-center">
-                                        <OtpInput
-                                          numInputs={6}
-                                          // isDisabled={false}
-                                          disabled={false}
-                                          errorStyle="error"
-                                          onChange={handleOtpChange}
-                                          separator={<span>{"-"}</span>}
-                                          isInputNum={true}
-                                          isInputSecure={false}
-                                          shouldAutoFocus
-                                          value={formik.values.otp}
-                                          placeholder={""}
-                                          inputStyle={{
-                                            border: "1px solid",
-                                            borderRadius: "8px",
-                                            width: "2.5rem",
-                                            height: "2.5rem",
-                                            fontSize: "2rem",
-                                            color: "#000",
-                                            fontWeight: "400",
-                                            caretColor: "blue",
-                                          }}
-                                          focusStyle={{
-                                            border: "1px solid #CFD3DB",
-                                            outline: "none",
-                                          }}
-                                        />
+                                      <div className="forms-block text-center" >
+                                        <div style={{
+                                          display: 'flex',
+                                          justifyContent: 'center',
+                                          alignItems: 'center',
+                                        }}>
+                                          <OtpInput
+                                            numInputs={6}
+                                            // isDisabled={false}
+                                            disabled={false}
+                                            errorStyle="error"
+                                            onChange={handleOtpChange}
+                                            separator={<span>{"-"}</span>}
+                                            isInputNum={true}
+                                            isInputSecure={false}
+                                            shouldAutoFocus
+                                            value={formik.values.otp}
+                                            placeholder={""}
+                                            inputStyle={{
+                                              border: "1px solid",
+                                              borderRadius: "8px",
+                                              width: "2.5rem",
+                                              height: "2.5rem",
+                                              fontSize: "2rem",
+                                              color: "#000",
+                                              fontWeight: "400",
+                                              caretColor: "blue",
+                                            }}
+                                            focusStyle={{
+                                              border: "1px solid #CFD3DB",
+                                              outline: "none",
+                                            }}
+                                          />
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
@@ -1338,9 +1342,9 @@ const NonAtlPage = () => {
                           )}
                           {formik.values.otp.length > 5 &&
                             otpRes != formik.values.otp && (
-                              <div className="form-row row mb-5 text-center">
+                              <div className="form-row row text-center">
                                 <span
-                                  className=" w-100 mt-3 d-flex justify-content-center"
+                                  className=" w-100 d-flex justify-content-center"
                                   style={{
                                     color: "red",
                                   }}
@@ -1350,7 +1354,7 @@ const NonAtlPage = () => {
                               </div>
                             )}
                           {btnOtp && (
-                            <div className="form-login mt-4">
+                            <div className="form-login">
                               <button
                                 className="btn btn-login"
                                 type="submit"

@@ -156,7 +156,7 @@ const ChangePwd = (props) => {
                     account.
                   </h4>
                 </div>
-                <div className="form-login">
+                <div className="form-login mb-2">
                   <label>Current Password</label>
                   <div className="pass-group">
                     <input
@@ -183,7 +183,7 @@ const ChangePwd = (props) => {
                     </small>
                   ) : null}
                 </div>
-                <div className="form-login">
+                <div className="form-login mb-2">
                   <label>New Password</label>
                   <div className="pass-group">
                     <input
@@ -214,8 +214,8 @@ const ChangePwd = (props) => {
                     </small>
                   ) : null}
                 </div>
-                <div className="form-login">
-                  <label> New Confirm Passworrd</label>
+                <div className="form-login mb-2">
+                  <label> Confirm New Password</label>
                   <div className="pass-group">
                     <input
                       className="pass-inputa"

@@ -491,12 +491,13 @@ const Dashboard = (props) => {
           setvalue("");
           teamListbymentorid(currentUser?.data[0]?.mentor_id);
           dispatch(getAdminTeamMembersList(selectedTeam));
-          openNotificationWithIcon("success", "Successfully team changed");
+          openNotificationWithIcon("success", "Successfully shifted student");
           navigate({
-            pathname: "/teacher-dashboard",
+            pathname: "/mentorteams",
           });
+          setSelectedTeam(null);
         } else {
-          openNotificationWithIcon("error", "Opps! Something Wrong");
+          openNotificationWithIcon("error", "Opps! Student shift was unsuccessful");
         }
       })
 
@@ -630,7 +631,7 @@ const Dashboard = (props) => {
                         Team Name : {ViewedTeam.team_name}
                       </p>
                       <p >
-                        Student Count : {ViewedTeam.StudentCount}
+                        Team Email : {ViewedTeam.team_email}
                       </p>
                     </Col>
                     <Col>

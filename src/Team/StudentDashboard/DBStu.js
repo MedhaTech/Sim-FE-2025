@@ -116,7 +116,7 @@ useEffect(() => {
     navigate(`/studentpresurvey`);
   };
   const redirectToCourse = () => {
-    navigate(`#`);
+    navigate(`/studentcourse/1`);
   };
   const redirectToPost = () => {
     navigate(`/studentpostsurvey`);
@@ -384,16 +384,6 @@ useEffect(() => {
             </div>
           </div>
           <div className="row sales-cards">
-            <div className="col-xl-6 col-sm-12 col-12 mb-4">
-              <div className="card d-flex align-items-center justify-content-between default-cover" style={{ position: "relative", width: "100%", height: "100%" }}>
-                <iframe 
-                  src="https://player.vimeo.com/video/762600125?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
-                  style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: 0 }} 
-                  allow="autoplay; fullscreen; picture-in-picture" 
-                  allowFullScreen
-                ></iframe>
-              </div>
-            </div>
             <div className="col-xl-3 col-sm-6 col-12">
               <div className="card color-info bg-success mb-4 ">
                 <h3>
@@ -405,6 +395,8 @@ useEffect(() => {
                 <p>Course Completion %</p>
                 <FeatherIcon icon="monitor" />
               </div>
+            </div>
+            <div className="col-xl-3 col-sm-6 col-12">
               <div className="card color-info"  style={{background:"#00CFE8"}}>
                 <h3>
                   {" "}
@@ -426,6 +418,8 @@ useEffect(() => {
                 <p>Course Videos Watched</p>
                 <FeatherIcon icon="video" />
               </div>
+            </div>
+            <div className="col-xl-3 col-sm-6 col-12">
               <div className="card color-info bg-primary">
                 <h3>
                   <CountUp end={badges} duration={4}>
@@ -529,13 +523,13 @@ useEffect(() => {
                           <td>
                             <div className="product-info">
                               <Link
-                                to={"/mentorcourse/1"}
+                                to={"/studentcourse/1"}
                                 className="product-img"
                               >
                                 <FaChalkboardTeacher size={30} style={{marginRight : "10px", color:"orange"}} />
                               </Link>
                               <div className="info">
-                                <Link to={"/mentorcourse/1"}>
+                                <Link to={"/studentcourse/1"}>
                                   <h4>Student Course</h4>
                                 </Link>
                                 <p className="dull-text">On Problem Solving Journey</p>
@@ -594,7 +588,7 @@ useEffect(() => {
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderViewTooltip}>
-                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"#"} >
+                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/studentcourse/1"} >
                                     <Eye className="feather-view" />
                                   </Link>
                                 </OverlayTrigger>

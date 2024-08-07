@@ -216,7 +216,7 @@ export const CreateTeamMember = () => {
                               <option value="Hearing Impaired">
                                 Hearing Impaired
                               </option>
-                              <option value="Autism Cerebral Palsy Other">
+                              <option value="Autism or Cerebral Palsy or Other">
                                 Autism/Cerebral Palsy/Other
                               </option>
                               <option value="Others">Others</option>
@@ -273,10 +273,10 @@ export const CreateTeamMember = () => {
                               onChange={formik.handleChange}
                             >
                               <option value="">Select Gender</option>
-                              <option value="MALE">Male</option>
-                              <option value="FEMALE">Female</option>
-                              <option value="OTHERS">
-                                Prefer not to mention
+                              <option value="Male">Male</option>
+                              <option value="Female">Female</option>
+                              <option value="Prefer Not to Mention">
+                                Prefer Not to Mention
                               </option>
                             </select>
 

@@ -56,7 +56,7 @@ export const teamloginUser = (data, navigate, module) => async (dispatch) => {
       // history.push('/dashboard');
     } else {
       dispatch(teamloginUserError(result.statusText));
-      openNotificationWithIcon("error", "Invalid Username or Password");
+      openNotificationWithIcon("error", "Invalid Team ID or Password");
     }
   } catch (error) {
     dispatch(teamloginUserError({}));
