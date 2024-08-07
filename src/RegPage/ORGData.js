@@ -1,3 +1,4 @@
+/* eslint-disable no-irregular-whitespace */
 /* eslint-disable indent */
 export const stateList = [
   "Andaman and Nicobar Islands",
@@ -863,4 +864,28 @@ export const districtList = {
     "South 24 Parganas",
     "Uttar Dinajpur (North Dinajpur)",
   ],
+};
+export const userList = [
+  "Mentor",
+  "Student"
+];
+export const navList = {
+  Mentor: [
+      "/teacher-dashboard",
+      "/mentorcourse/1",
+      "/mentorteams",
+      "/tecresource",
+      "/mentorpostsurvey",
+      "/mentorsupport",
+      "/mentorprofile",
+      "/mentorchangepwd",
+  ],
+  Student:[
+      "/student-dashboard",
+      "/studentcourse/1",
+      "/idea",
+      "/studentpostsurvey",
+      "/certificate",
+      "/studentresource",
+      "/student-profile"],
 };

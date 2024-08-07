@@ -132,7 +132,7 @@ const updateStatesList=["All States",...stateList];
        
         const resparam = encryptGlobal(
             JSON.stringify({
-                status: "ALL",
+                // status: "ALL",
                 // state: state ,
                 // year_of_study:applicant,
                 // group:institution,
@@ -149,8 +149,8 @@ const updateStatesList=["All States",...stateList];
                     // console.log(response,"11");
                     const updatedWithKey =
                         response.data &&
-                        response.data.data[0] &&
-                        response.data.data[0].dataValues.
+                        // response.data.data[0] &&
+                        response.data.data.
                         map((item, i) => {
                             const upd = { ...item };
                             upd['key'] = i + 1;
@@ -276,7 +276,7 @@ const updateStatesList=["All States",...stateList];
     //         });
     // };
     const handleStatusUpdateInAdmin = async (data, id) => {
-        console.log(data,"data");
+        // console.log(data,"data");
 
         // where we can update the admin status //
         // where id = admin id //
@@ -356,7 +356,7 @@ const updateStatesList=["All States",...stateList];
                             // mobile: all.mobile,
                             status
                         };
-                        await handleStatusUpdateInAdmin({ obj }, id);
+                        await handleStatusUpdateInAdmin( obj , id);
 
                         setTimeout(() => {
                             handleideaList();
@@ -450,7 +450,7 @@ const updateStatesList=["All States",...stateList];
                     <Badge
                         key={row.mentor_id}
                         bg={`${
-                            row.status === 'ACTIVE' ? 'secondary' : 'danger'
+                            row.status === 'ACTIVE' ? 'btn btn-soft-success' : 'btn btn-soft-danger'
                         }`}
                     >
                         {row.status}
@@ -489,7 +489,7 @@ const updateStatesList=["All States",...stateList];
                         {record?.status === 'ACTIVE' ? (
                             <div className="btn btn-danger">Inactive</div>
                         ) : (
-                            <div className="btn btn-secondary ">Active</div>
+                            <div className="btn btn-success">Active</div>
                         )}
                     </div>
                     {/* <div

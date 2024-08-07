@@ -28,6 +28,7 @@ import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
 import Select from './Select.js';
+import { useNavigate } from "react-router-dom";
 
 
 import { Badge } from 'react-bootstrap';
@@ -38,6 +39,7 @@ import dist from 'react-data-table-component-extensions';
 import { encryptGlobal } from '../../constants/encryptDecrypt.js';
 import { stateList } from '../../RegPage/ORGData.js';
 // const { TabPane } = Tabs;
+
 
 // const SelectDists = ({
 //     // stateList,
@@ -101,6 +103,7 @@ const [institution,setInstitution]=useState("");
     const [menter, activeMenter] = useState(false);
     const [loading, setLoading] = useState(false);
 const updateStatesList=["All States",...stateList];
+const navigate = useNavigate();
 
 
     const [evaluater, activeEvaluater] = useState(false);
@@ -145,7 +148,7 @@ const updateStatesList=["All States",...stateList];
         .get(`${URL.getMentors}?Data=${resparam}`, axiosConfig)
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log(response,"11");
+                    // console.log(response,"11");
                     const updatedWithKey =
                         response.data &&
                         response.data.data[0] &&
@@ -164,18 +167,19 @@ const updateStatesList=["All States",...stateList];
                 setshowspin(false);
             });
     }
-console.log(tableData,"state");
+// console.log(tableData,"state");
     const handleSelect = (item, num) => {
+
         // where item = student id / mentor id //
         localStorage.removeItem('dist');
         localStorage.removeItem('num');
+        // navigate("/mentor-view");
         if (num == '1') {
-            props.history.push({
-                pathname: `/admin/userprofile`,
-                data: item,
-                dist: studentDist,
-                num: num
-            });
+            navigate("/mentor-view",{state:{ data: item,
+                // dist:studentDist,
+                num: num}}
+               
+            );
             localStorage.setItem('studentId', item.user_id);
             localStorage.setItem('studentData', JSON.stringify(item));
         } else {
@@ -189,10 +193,9 @@ console.log(tableData,"state");
         localStorage.setItem('mentor', JSON.stringify(item));
     };
     const viewDetail = (item) => {
-        props.history.push({
-            pathname: '/admin/teacher/dashboard',
-            data: item
-        });
+       navigate(
+             '/mentor-view',
+        );
         // localStorage.setItem(
         //     'institution_code',
         //     JSON.stringify(item.institution_code)
@@ -511,7 +514,7 @@ console.log(tableData,"state");
                 cell: (record) => [
                     <div
                         key={record.id}
-                        // onClick={() => handleSelect(record, '1')}
+                        onClick={() => handleSelect(record, '1')}
                         style={{ marginRight: '10px' }}
                     >
                         <div className="btn btn-primary  mr-5">View</div>
