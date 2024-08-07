@@ -225,9 +225,9 @@ const TeacherEditProfile = () => {
                       onChange={formik.handleChange}
                     >
                       <option value="">Gender</option>
-                        <option value="MALE">Male</option>
-                        <option value="FEMALE">Female</option>
-                        <option value="OTHERS">Prefer not to mention</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Prefer Not to Mention">Prefer Not to Mention</option>
                     </select>
                     {formik.touched.gender && formik.errors.gender ? (
                       <small className="error-cls">{formik.errors.gender}</small>

@@ -34,10 +34,10 @@ const LogInTeam = (props) => {
     validationSchema: Yup.object({
       email: Yup.string()
         // .email("Must be a valid email")
-        .required("Please Enter Team Username")
+        .required("Please Enter Your Team Id")
         .max(255)
         .trim(),
-      password: Yup.string().required("Required password").trim(),
+      password: Yup.string().required("Please Enter Your Password").trim(),
     }),
     // TEACHER ROLE
     onSubmit: (values) => {
@@ -93,7 +93,7 @@ const LogInTeam = (props) => {
                    Student Team Journey coming soon ...
                   </h3> */}
                   <h4>
-                    Access the teacher panel using your Team ID and password.
+                    Access the Team panel using your Team ID and password.
                   </h4>
                 </div>
                 <div className="form-login mb-3">
@@ -108,7 +108,7 @@ const LogInTeam = (props) => {
                       value={formik.values.email}
                     />
                     {formik.touched.email && formik.errors.email ? (
-                      <small className="error-cls">Required</small>
+                      <small className="error-cls" style={{ color: "red" }}>{formik.errors.email}</small>
                     ) : null}
                    
                     <img src={user} alt="user" />
@@ -120,21 +120,22 @@ const LogInTeam = (props) => {
                     <input
                       type={isPasswordVisible ? "text" : "password"}
                       id="password"
-                      placeholder="Please Enter password"
+                      placeholder="Please Enter Password"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
                     />
-                    {formik.touched.password && formik.errors.password ? (
-                      <small className="error-cls">Required</small>
-                    ) : null}
-                    <span
+                   
+                    <div
                       className={`fas toggle-password ${
                         isPasswordVisible ? "fa-eye" : "fa-eye-slash"
                       }`}
                       onClick={togglePasswordVisibility}
-                    ></span>
+                    ></div>
                   </div>
+                  {formik.touched.password && formik.errors.password ? (
+                      <small className="error-cls" style={{ color: "red" }}>{formik.errors.password}</small>
+                    ) : null}
                 </div>
                 <div className="form-login authentication-check">
                   <div className="row">
@@ -158,7 +159,7 @@ const LogInTeam = (props) => {
                     }`}
                     disabled={!(formik.dirty && formik.isValid)}
                   >
-                    Login In
+                    Sign In
                   </button>
                 </div>
                 <div className="signinform">
