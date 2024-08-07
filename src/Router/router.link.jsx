@@ -72,6 +72,11 @@ import Ticket from "../Admin/UsersList/Tickets";
 import MentorsList from "../Admin/UsersList/MentorsList";
 import TeamsList from "../Admin/UsersList/TeamsList";
 import AdminsList from "../Admin/UsersList/AdminsList";
+import MentorTableView from "../Admin/UsersList/MentorTableView";
+import PopUp from "../Admin/PopUp/Popuplist";
+import CreateResource from "../Admin/PopUp/CreatePopUp";
+
+
 
 
 
@@ -195,6 +200,30 @@ export const publicRoutes = [
     path: routes.adminlist,
     name: "adminlist",
     element: <AdminsList/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 15,
+    path: routes.mentortableview,
+    name: "mentortableview",
+    element: <MentorTableView/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 16,
+    path: routes.popup,
+    name: "popup",
+    element: <PopUp/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 16,
+    path: routes.createpopup,
+    name: "createpopup",
+    element: <CreateResource/>,
     protected: true,
     route: Route,
   },

@@ -31,11 +31,37 @@ import { GiAchievement } from 'react-icons/gi';
 import { useReactToPrint } from 'react-to-print';
 import TCertificate from '../Certificate/TCertificate';
 import SchoolTeamPDF from './SchoolTeamPDF';
+import { Modal } from 'react-bootstrap';
 
+const GreetingModal = (props) => {
+  return (
+      <Modal
+          show={props.show}
+          size="lg"
+          centered
+          className="modal-popup text-center"
+          onHide={props.handleClose}
+          backdrop={true}
+      >
+          <Modal.Header closeButton></Modal.Header>
 
+          <Modal.Body>
+              <figure>
+                  <img
+                      src={props.imgUrl}
+                      alt="popup image"
+                      className="img-fluid"
+                  />
+              </figure>
+          </Modal.Body>
+      </Modal>
+  );
+};
 
 const MentorDashboard = () => {
-
+  const [showsPopup, setShowsPopup] = useState(false);
+  const [imgUrl, setImgUrl] = useState('');
+  const[state,setState]=useState("");
 /////////////////NEW CODE//////////////////////////////////
 
   const renderRefreshTooltip = (props) => (
@@ -60,6 +86,37 @@ const MentorDashboard = () => {
   const [teacPostSLoading, setTeacPostSLoading] = useState(true);
   const [whatsappLink, setWhatsappLink] = useState('');
   
+  useEffect(() => {
+    
+    const newListParam = encryptGlobal(
+      JSON.stringify({
+        state:currentUser.data[0]?.state,
+        role:currentUser.data[0]?.role
+      })
+  );
+    var config = {
+        method: 'get',
+        url: process.env.REACT_APP_API_BASE_URL + `/popup?Data=${newListParam}`,
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${currentUser.data[0]?.token}`
+        }
+    };
+    axios(config)
+        .then(function (res) {
+            if (res.status === 200 && res.data.data[0]?.on_off === '1') {
+              // console.log(res,"res");
+              setShowsPopup(true);
+                setImgUrl(res?.data?.data[0]?.url);
+             
+            }
+        })
+        .catch(function (error) {
+            setShowsPopup(false);
+            console.log(error);
+        });
+}, []);
   const Loader = () => (
     <div className="spinner-border text-primary" role="status">
       <span className="visually-hidden">Loading...</span>
@@ -88,14 +145,17 @@ const MentorDashboard = () => {
         mentorpostsurvey();
         fetchwhatsapplink();
         scroll();
+       
     }
   }, [currentUser?.data[0]?.user_id]);
+ 
   const [teamsCount, setTeamsCount] = useState();
   const [ideaCount, setIdeaCount] = useState();
   const [studentCount, setStudentCount] = useState();
   const [coursepercentage, setCoursepercentage] = useState();
   const [teacPostSurvey, setTeacPostSurvey] = useState();
 
+ 
   const mentorTeamsCount = () => {
     const teamApi = encryptGlobal(
         JSON.stringify({
@@ -116,7 +176,6 @@ const MentorDashboard = () => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-                console.log(response);
                 setTeamsCount(response.data.data[0].teams_count);
                 setTeamCountLoading(false);
             }
@@ -234,7 +293,7 @@ const MentorDashboard = () => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-                console.log(response);
+                // console.log(response);
                 const po = (response.data.data[0].postSurvey);
                 setTeacPostSurvey(po);
                 setTeacPostSLoading(false);
@@ -266,7 +325,7 @@ const MentorDashboard = () => {
         axios(config)
         .then(function (response) {
             if (response.status === 200) {
-                console.log(response);
+                // console.log(response);
                 setWhatsappLink(response.data.data);
             }
         })
@@ -314,9 +373,16 @@ const MentorDashboard = () => {
   const handlePrintCertificate = useReactToPrint({
       content: () => componentRef.current
   });
-
+  const handleClose = () => {
+    setShowsPopup(false);
+};
   return (
     <>
+     <GreetingModal
+                handleClose={handleClose}
+                show={showsPopup}
+                imgUrl={imgUrl}
+            ></GreetingModal>
     <div style={{ display: 'none' }}>
                 <TCertificate
                     ref={componentRef}

@@ -29,12 +29,37 @@ import { useNavigate } from 'react-router-dom';
 import VideoModal from '../../HelpVideo/VideoModal';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import axios from 'axios';
+import { Modal } from 'react-bootstrap';
 
 import LanguageSelectorComp from '../../components/LanguageSelectorComp/index.js';
+const GreetingModal = (props) => {
+  return (
+      <Modal
+          show={props.show}
+          size="lg"
+          centered
+          className="modal-popup text-center"
+          onHide={props.handleClose}
+          backdrop={true}
+      >
+          <Modal.Header closeButton></Modal.Header>
 
+          <Modal.Body>
+              <figure>
+                  <img
+                      src={props.imgUrl}
+                      alt="popup image"
+                      className="img-fluid"
+                  />
+              </figure>
+          </Modal.Body>
+      </Modal>
+  );
+};
 
 const DBStu = () => {
-
+  const [showsPopup, setShowsPopup] = useState(false);
+  const [imgUrl, setImgUrl] = useState('');
   /////////my code//////////////////
   const currentUser = getCurrentUser("current_user");
   const [selectedLanguage, setSelectedLanguage] = useState('Select Language');
@@ -52,6 +77,35 @@ const DBStu = () => {
   const language = useSelector(
     (state) => state?.studentRegistration?.studentLanguage
 );
+useEffect(() => {
+  const popParam = encryptGlobal(
+    JSON.stringify({
+      state:currentUser.data[0]?.state,
+      role:currentUser.data[0]?.role
+    })
+);
+  var config = {
+      method: 'get',
+      url: process.env.REACT_APP_API_BASE_URL + `/popup?Data=${popParam}`,
+      headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${currentUser.data[0]?.token}`
+      }
+  };
+  axios(config)
+      .then(function (res) {
+          if (res.status === 200 && res.data.data[0]?.on_off === '1') {
+            // console.log(res,"res");
+              setShowsPopup(true);
+              setImgUrl(res?.data?.data[0]?.url);
+          }
+      })
+      .catch(function (error) {
+          setShowsPopup(false);
+          console.log(error);
+      });
+}, []);
   const Loader = () => (
     <div className="spinner-border text-primary" role="status">
       <span className="visually-hidden">Loading...</span>
@@ -272,9 +326,16 @@ const DBStu = () => {
             console.log(error);
         });
   };
-
+  const handleClose = () => {
+    setShowsPopup(false);
+};
   return (
     <>
+     <GreetingModal
+                handleClose={handleClose}
+                show={showsPopup}
+                imgUrl={imgUrl}
+            ></GreetingModal>
       <div className="page-wrapper" id="start">
         <div className="content">
           <div className="welcome d-lg-flex align-items-center justify-content-between">

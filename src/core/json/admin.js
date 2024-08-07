@@ -27,6 +27,13 @@ const AdminSidebarData = () => {
           showSubRoute: false,
           submenu: false,
         },
+        {
+          label:"PopUp",
+          link: "/popup",
+          icon: <Icon.Codesandbox />,
+          showSubRoute: false,
+          submenu: false,
+        },
         // {
         //   label:"Resource",
         //   link: "/resource",
