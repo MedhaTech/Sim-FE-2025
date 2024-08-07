@@ -113,7 +113,7 @@ const [data,setData]=useState({});
                     type="text"
                     className="form-control"
                     defaultValue={
-                      teacher?.gender
+                      currentUser?.data[0]?.gender
                     }
                     readOnly="readonly"
                   />

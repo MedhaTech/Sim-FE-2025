@@ -14,6 +14,7 @@ import logoutIcon from "../../assets/img/icons/log-out.svg";
 import logo from "../../assets/img/new-logo.png";
 import female from "../../assets/img/Female_Profile.png";
 import male from "../../assets/img/Male_Profile.png";
+import user from "../../assets/img/user.png";
 import team from "../../assets/img/icons/team2.png";
 import  "./styles.css";
 
@@ -153,10 +154,14 @@ const Header = () => {
         return male;
       case "FEMALE":
         return female;
-      case "female":
+      case "Female":
         return female;
-      case "male":
+      case "Male":
         return  male;
+      case "OTHERS":
+        return  user;
+      case "Prefer Not to Mention":
+        return  user;
       default:
         return team;
     }

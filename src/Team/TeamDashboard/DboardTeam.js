@@ -311,7 +311,11 @@ const EmployeesGrid = () => {
     switch (gender) {
       case "MALE":
         return getRandomImage(boys);
+      case "Male":
+        return getRandomImage(boys);
       case "FEMALE":
+        return getRandomImage(girls);
+      case "Female":
         return getRandomImage(girls);
       default:
         return user;
