@@ -47,7 +47,7 @@ const AdminResources = () => {
             );
             if (response.status === 200) {
                 // console.log(response,"11");
-                setTecList(response.data?.data[0].dataValues);
+                setTecList(response.data?.data);
             }
         } catch (error) {
             console.log(error);
