@@ -122,7 +122,7 @@ export const CreateTeamMember = () => {
                   <div>
                     <Form onSubmit={formik.handleSubmit} isSubmitting>
                       <div className="create-ticket register-blockt">
-                        <Row>
+                        <Row className="mb-3 modal-body-table search-modal-header" >
                           <Col md={3}>
                             <Label className="form-label">
                               Full Name
