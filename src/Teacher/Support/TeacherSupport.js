@@ -670,7 +670,7 @@ const TeacherSupport = () => {
                                             }
                                         )}
 
-                                    {supportTicket.status != 'INVALID' ? (
+                                    {(supportTicket.status != 'INVALID' && supportTicket.status != 'RESOLVED') ? (
                                         <Row className="p-2">
                                             <Col md={12}>
                                                 <div>
@@ -843,7 +843,7 @@ const TeacherSupport = () => {
                                 <hr className="mt-4 mb-4"></hr>
                                 <div>
                                     <Row>
-                                        {supportTicket.status != 'INVALID' ? (
+                                        {(supportTicket.status != 'INVALID' && supportTicket.status != 'RESOLVED') ? (
                                             <div className="col-lg-12">
                                                 <div className="view-btn">
                                                     <button type="button" id="sendresponseID" className="btn btn-reset me-2" data-bs-dismiss="offcanvas" onClick={() => formik.resetForm()} >
