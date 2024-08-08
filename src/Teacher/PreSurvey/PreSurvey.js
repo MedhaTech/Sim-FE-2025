@@ -24,7 +24,7 @@ import {
   openNotificationWithIcon,
 } from "../../helpers/Utils";
 import axios from "axios";
-import getStart from "../../assets/img/survey-success.jpg";
+import getStart from "../../assets/img/survey1.jpg";
 import { useNavigate } from "react-router-dom";
 import Congo from "../../assets/img/survey-success.jpg";
 import { useDispatch, useSelector } from "react-redux";
@@ -278,7 +278,7 @@ const PreSurvey = () => {
                   !show ? (
                     <CardBody>
                       <Row>
-                        <Col md={4}>
+                        <Col md={4} style={{alignContent:"center"}}>
                           <figure>
                             <img
                               src={getStart}

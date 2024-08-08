@@ -11,12 +11,14 @@ import { useNavigate } from "react-router-dom";
 import { getCurrentUser } from "../../helpers/Utils";
 import { useTranslation } from "react-i18next";
 import logoutIcon from "../../assets/img/icons/log-out.svg";
-import logo from "../../assets/img/new-logo.png";
+import logo from "../../assets/img/logo-Student.png";
 import female from "../../assets/img/Female_Profile.png";
 import male from "../../assets/img/Male_Profile.png";
 import user from "../../assets/img/user.png";
 import team from "../../assets/img/icons/team2.png";
 import  "./styles.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 const Header = () => {
   const route = all_routes;
@@ -651,10 +653,7 @@ const Header = () => {
                 <div className="profilename">
                   <div className="profileset">
                     <span className="user-img">
-                      {/* <ImageWithBasePath
-                      src="assets/img/profiles/avator1.jpg"
-                      alt="img"
-                    /> */}
+                      <img src={team} alt="Team" id="blah" />
                       <span className="status online" />
                     </span>
                     <div className="profilesets">
@@ -664,7 +663,7 @@ const Header = () => {
                   </div>
                   <hr className="m-0" />
                   <Link className="dropdown-item" to="/team-profile">
-                    <User className="me-2" /> My Profile
+                    <User className="me-2" /> <h6>My Profile</h6>
                   </Link>
                   <hr className="m-0" />
                   <Link
@@ -709,10 +708,10 @@ const Header = () => {
                 <div className="profilename">
                   <div className="profileset">
                     <span className="user-img">
-                      {/* <ImageWithBasePath
-                    src="assets/img/profiles/avator1.jpg"
-                    alt="img"
-                  /> */}
+                      <img
+                        src={getProfileImage(currentUser?.data[0]?.Gender)}
+                        alt="Profile"
+                      />
                       <span className="status online" />
                     </span>
                     <div className="profilesets">
@@ -726,11 +725,11 @@ const Header = () => {
                   </Link> */}
                   {currentUser?.data[0]?.role === "TEAM" ? (
                     <Link className="dropdown-item" to="/team-profile">
-                      My Profile
+                      <FontAwesomeIcon icon={faUser} /><h6>My Profile</h6>
                     </Link>
                   ) :  presurvey == "COMPLETED" ?(
                     <Link className="dropdown-item" to="/student-profile">
-                      My Profile
+                      <FontAwesomeIcon icon={faUser} /><h6>My Profile</h6>
                     </Link>
                   ): null}
                   <hr className="m-0" />
