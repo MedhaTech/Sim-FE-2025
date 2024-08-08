@@ -54,7 +54,14 @@ const EditSchool = (props) => {
 
     // where  listID = orgnization details //
 
-   
+   useEffect(()=>{
+    setDistricts(
+        districtList[
+            
+        listId.state
+        ] || []
+    );
+   },[listId.state]);
 
     const inputDICE = {
         type: 'text',
@@ -255,9 +262,11 @@ const EditSchool = (props) => {
                                                         value={
                                                             formik.values.state
                                                         }
+
                                                         onChange={(e) => {
                                                             const selectedState =
                                                                 e.target.value;
+
                                                             formik.setFieldValue(
                                                                 'state',
                                                                 selectedState
@@ -266,6 +275,8 @@ const EditSchool = (props) => {
                                                             //     'district',
                                                             //     ''
                                                             // ); 
+                                                        // {console.log(selectedState)};
+
                                                             setDistricts(
                                                                 districtList[
                                                                 selectedState

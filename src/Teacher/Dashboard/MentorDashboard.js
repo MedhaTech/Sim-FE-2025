@@ -34,6 +34,11 @@ import SchoolTeamPDF from './SchoolTeamPDF';
 import { Modal } from 'react-bootstrap';
 
 const GreetingModal = (props) => {
+  // console.log(props.state,"sss");
+ const  navigate=useNavigate();
+  const handleNavigate =()=>{
+    // navigate("");
+  };
   return (
       <Modal
           show={props.show}
@@ -54,6 +59,22 @@ const GreetingModal = (props) => {
                   />
               </figure>
           </Modal.Body>
+          <Modal.Footer>
+                 {/* {props.state !=null &&   <button
+                       className='btn btn-secondary'
+                        onClick={navigate(props.state)}
+                    >
+                      Navigate
+                    </button>} */}
+                    {props.state !=null &&   
+                    <Link
+                                to={props.state}
+                                type="button"
+                                className="product-img"
+                              >
+                                <FaPoll size={30} style={{marginRight : "10px", color:"orange"}} />
+                              </Link>}
+                </Modal.Footer>
       </Modal>
   );
 };
@@ -62,6 +83,8 @@ const MentorDashboard = () => {
   const [showsPopup, setShowsPopup] = useState(false);
   const [imgUrl, setImgUrl] = useState('');
   const[state,setState]=useState("");
+  // console.log(state,"sss");
+
 /////////////////NEW CODE//////////////////////////////////
 
   const renderRefreshTooltip = (props) => (
@@ -109,6 +132,7 @@ const MentorDashboard = () => {
               // console.log(res,"res");
               setShowsPopup(true);
                 setImgUrl(res?.data?.data[0]?.url);
+                setState(res?.data?.data[0]?.navigate);
              
             }
         })
@@ -382,6 +406,7 @@ const MentorDashboard = () => {
                 handleClose={handleClose}
                 show={showsPopup}
                 imgUrl={imgUrl}
+                state={state}
             ></GreetingModal>
     <div style={{ display: 'none' }}>
                 <TCertificate

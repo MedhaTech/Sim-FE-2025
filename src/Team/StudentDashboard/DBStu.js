@@ -53,6 +53,18 @@ const GreetingModal = (props) => {
                   />
               </figure>
           </Modal.Body>
+          <Modal.Footer>
+          {props.state !=null &&   
+                    <Link
+                                to={props.state}
+                                type="button"
+                                className="product-img"
+                              >
+                                <FaPoll size={30} style={{marginRight : "10px", color:"orange"}} />
+                              </Link>}
+                </Modal.Footer>
+                              
+
       </Modal>
   );
 };
@@ -60,6 +72,8 @@ const GreetingModal = (props) => {
 const DBStu = () => {
   const [showsPopup, setShowsPopup] = useState(false);
   const [imgUrl, setImgUrl] = useState('');
+  const[state,setState]=useState("");
+
   /////////my code//////////////////
   const currentUser = getCurrentUser("current_user");
   const [selectedLanguage, setSelectedLanguage] = useState('Select Language');
@@ -99,6 +113,7 @@ useEffect(() => {
             // console.log(res,"res");
               setShowsPopup(true);
               setImgUrl(res?.data?.data[0]?.url);
+              setState(res?.data?.data[0]?.navigate);
           }
       })
       .catch(function (error) {
@@ -335,6 +350,7 @@ useEffect(() => {
                 handleClose={handleClose}
                 show={showsPopup}
                 imgUrl={imgUrl}
+                state={state}
             ></GreetingModal>
       <div className="page-wrapper" id="start">
         <div className="content">
