@@ -375,20 +375,25 @@ const Register = () => {
       }
     },
   });
-
+  useEffect(()=>{
+    setOtpRes(0);
+    setBtnOtp(false);
+    formik.setFieldValue("otp", "");
+  
+  },[formik.values.email]);
   async function apiCall(mentData) {
     // Dice code list API //
     // where list = diescode //
-    const body = JSON.stringify({
+    const body = {
       school_name: orgData.organization_name,
       udise_code: orgData.organization_code,
-      district: orgData.district,
+      district:formik.values.district,
       state: orgData.state,
       pin_code: orgData.pin_code,
       email: mentData.username,
       mobile: mentData.mobile,
-    });
-
+    };
+   
     var config = {
       method: "post",
       url: process.env.REACT_APP_API_BASE_URL + "/mentors/triggerWelcomeEmail",
@@ -396,7 +401,7 @@ const Register = () => {
         "Content-Type": "application/json",
         Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
       },
-      data: body,
+      data: JSON.stringify(body),
     };
 
     await axios(config)
@@ -548,7 +553,8 @@ const Register = () => {
     formik.values.district,
     formik.values.whatapp_mobile,
   ]);
-  console.log(checkBox,"+++");
+
+  console.log(formik.values.district,"district", );
   // const route = all_routes;
   return (
     <div className="main-wrapper">
@@ -1075,9 +1081,8 @@ const Register = () => {
                                   </div>
                                 </div>
                               </div>
-                            </>
-                          )}
-                          {formik.values.otp.length > 5 &&
+                           
+                             {formik.values.otp.length > 5 &&
                             otpRes != formik.values.otp && (
                               <div className="form-row row text-center">
                                 <span
@@ -1090,6 +1095,10 @@ const Register = () => {
                                 </span>
                               </div>
                             )}
+                             </>
+
+                          )}
+                         
                           {btnOtp && (
                             <div className="form-login">
                               <button
@@ -1104,7 +1113,15 @@ const Register = () => {
                                 }
                                 
                               > 
-                                Verify My Account
+                               {isSubmitting ? (
+              <>
+                <i className="fas fa-spinner fa-spin me-2" />
+                Processing your Registration
+              </>
+            ) : (
+              "Verify My Account"
+            )}
+                                {/* Verify My Account */}
                               </button>
                             </div>
                           )}

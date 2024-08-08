@@ -127,10 +127,11 @@ const CreateResource = () => {
                     on_off:"0"
                 };
                 if (
-                    values.navigate !== values.navigate
+                    values.navigate !== ""
                     ) {
                         body['navigate'] = values.navigate;
                     }
+                    console.log(body,"body");
                 const response = await axios.post(
                     `${process.env.REACT_APP_API_BASE_URL}/popup`,
                     body,
@@ -207,9 +208,10 @@ const CreateResource = () => {
         formik.setFieldValue("navigate", ""); 
       setPath(navList[role] || []);
       };
-      const handlepathChange = (event) => {
-        formik.setFieldValue("navigate", event.target.value);
-      };
+      console.log(formik.values.navigate,"nn");
+    //   const handlepathChange = (event) => {
+        // formik.setFieldValue("navigate", event.target.value);
+    //   };
     return (
         <div className="page-wrapper">
         <div className="content">
@@ -233,15 +235,7 @@ const CreateResource = () => {
                                            className="form-select"
                                            onChange={(e) => handleroleChange(e)}
                                             onBlur={formik.handleBlur}
-                                            // value={formik.values.role}
-                                            // style={{
-                                            //     color: formik.values.role
-                                            //         ? 'black'
-                                            //         : 'initial',
-                                            //     fontWeight: formik.values.role
-                                            //         ? 'bold'
-                                            //         : 'normal'
-                                            // }}
+                                           
                                         >
                                             <option value="" >
                                                 Select role
@@ -445,8 +439,15 @@ const CreateResource = () => {
                                         <select
                             id="inputState"
                             className="form-select"
-                            value={formik.values.district}
-                            onChange={(e)=>handlepathChange(e)}
+                            value={formik.values.navigate}
+                            onChange={(e) => {
+                                const selectedDistrict =
+                                    e.target.value;
+                                formik.setFieldValue(
+                                    'navigate',
+                                    selectedDistrict
+                                );
+                            }}
                           >
                             <option value="">Select Path</option>
                             {path.map((path) => (

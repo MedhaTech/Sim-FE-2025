@@ -26,6 +26,8 @@ import { FaUserCircle } from 'react-icons/fa';
 import { FaRegClock } from 'react-icons/fa';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
+import { Link } from "react-router-dom";
+import FeatherIcon from "feather-icons-react";
 
 const TeacherSupport = () => {
     const { supportTickets } = useSelector((state) => state.mentors);
@@ -52,18 +54,18 @@ const TeacherSupport = () => {
         data: supportTickets,
         columns: [
             {
-                name: 'No',
+                name: <h6>No</h6>,
                 selector: (row) => row.id,
-                width: '8rem'
+                width: '4rem'
             },
             {
-                name: ' Query Category',
+                name: <h6>Query Category</h6>,
                 selector: (row) => row.query_category,
                 sortable: true,
                 width: '10rem'
             },
             {
-                name: 'Query Details',
+                name: <h6>Query Details</h6>,
                 selector: (row) => row.query_details,
                 sortable: true,
                 width: '30rem',
@@ -77,7 +79,7 @@ const TeacherSupport = () => {
                 ]
             },
             {
-                name: "Chat",
+                name: <h6>Chat</h6>,
                 width: '8rem',
                 cell: (params) => {
                     return [
@@ -90,30 +92,31 @@ const TeacherSupport = () => {
                                 handleChat(params.support_ticket_id)
                             }
                         >
-                            <FaComments />{' '}{params.replies_count}{' '}
+                            <FaComments />{" "}
+                            <span className="badge rounded-pill bg-primary">{params.replies_count}</span>
 
                         </a>
                     ];
                 }
             },
             {
-                name: 'Status',
-                width: '10rem',
+                name: <h6>Status</h6>,
+                width: '8rem',
                 cell: (params) => [
                     params.status === 'OPEN' ? (
-                        <span className="py-2 px-4 rounded-pill bg-danger bg-opacity-25 text-danger fw-bold">
+                        <span className="py-1 px-2 rounded-pill bg-danger bg-opacity-25 text-danger fw-bold">
                             Open
                         </span>
                     ) : params.status === 'INPROGRESS' ? (
-                        <span className="py-2 px-4 rounded-pill bg-info bg-opacity-25 text-info fw-bold">
+                        <span className="py-1 px-2 rounded-pill bg-info bg-opacity-25 text-info fw-bold">
                             Inprogress
                         </span>
                     ) : params.status === 'RESOLVED' ? (
-                        <span className="bg-success bg-opacity-25 px-4 py-2 rounded-pill text-success fw-bold">
+                        <span className="bg-success bg-opacity-25 py-1 px-2 rounded-pill text-success fw-bold">
                             Resolved
                         </span>
                     ) : params.status === 'INVALID' ? (
-                        <span className="bg-warning bg-opacity-25 px-4 py-2 rounded-pill text-warning fw-bold">
+                        <span className="bg-warning bg-opacity-25 py-1 px-2 rounded-pill text-warning fw-bold">
                             Invalid
                         </span>
                     ) : (
@@ -670,7 +673,7 @@ const TeacherSupport = () => {
                                             }
                                         )}
 
-                                    {supportTicket.status != 'INVALID' ? (
+                                    {(supportTicket.status != 'INVALID' && supportTicket.status != 'RESOLVED') ? (
                                         <Row className="p-2">
                                             <Col md={12}>
                                                 <div>
@@ -843,7 +846,7 @@ const TeacherSupport = () => {
                                 <hr className="mt-4 mb-4"></hr>
                                 <div>
                                     <Row>
-                                        {supportTicket.status != 'INVALID' ? (
+                                        {(supportTicket.status != 'INVALID' && supportTicket.status != 'RESOLVED') ? (
                                             <div className="col-lg-12">
                                                 <div className="view-btn">
                                                     <button type="button" id="sendresponseID" className="btn btn-reset me-2" data-bs-dismiss="offcanvas" onClick={() => formik.resetForm()} >

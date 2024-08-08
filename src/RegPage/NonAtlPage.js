@@ -67,6 +67,7 @@ const NonAtlPage = () => {
   const [districtOptions, setDistrictOptions] = useState([]);
   const [secondUser, setSecondUser] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false); 
+  const [person, setPerson] = useState(true);
 
   const handleMouseEnter = () => {
     setIsTooltipVisible(true);
@@ -332,7 +333,7 @@ const NonAtlPage = () => {
   };
 
   useEffect(() => {
-    if (stateData && selectedDistrict && pinCode && schoolname && textData) {
+    if (stateData && selectedDistrict && pinCode.length >5 && schoolname && textData) {
       setShowButton(true);
     } else {
       setShowButton(false);
@@ -520,7 +521,7 @@ const NonAtlPage = () => {
           setOtpRes(JSON.parse(UNhashedPassword));
           openNotificationWithIcon("success", "OTP sent to Email Id");
           setBtnOtp(true);
-          // setPerson(false);
+          setPerson(false);
           setTimeout(() => {
             setOtpSent("Resend OTP");
             setDisable(true);
@@ -642,6 +643,12 @@ const NonAtlPage = () => {
         return err.response;
       });
   };
+  useEffect(()=>{
+    setOtpRes(0);
+    setBtnOtp(false);
+    formik.setFieldValue("otp", "");
+  
+  },[formik.values.email]);
   async function apiCall(mentData) {
     // Dice code list API //
     // where list = diescode //
@@ -990,7 +997,7 @@ const NonAtlPage = () => {
                 )}
                 {schoolBtn && (
                   <div className="col-xl-12">
-                    {/* {person && ( */}
+                    {person && (
                     <div className="card">
                       <div className="card-body">
                         <div className="card-subtitle fw-semibold">
@@ -1013,7 +1020,7 @@ const NonAtlPage = () => {
                         </div>
                       </div>
                     </div>
-                    {/* )} */}
+                     )} 
                     <div className="card">
                       <div className="card-body">
                         <div className="row g-3 mt-0">
@@ -1338,9 +1345,7 @@ const NonAtlPage = () => {
                                   </div>
                                 </div>
                               </div>
-                            </>
-                          )}
-                          {formik.values.otp.length > 5 &&
+                              {formik.values.otp.length > 5 &&
                             otpRes != formik.values.otp && (
                               <div className="form-row row text-center">
                                 <span
@@ -1353,6 +1358,9 @@ const NonAtlPage = () => {
                                 </span>
                               </div>
                             )}
+                            </>
+                          )}
+                         
                           {btnOtp && (
                             <div className="form-login">
                               <button
@@ -1366,7 +1374,15 @@ const NonAtlPage = () => {
                                   )
                                 }
                               >
-                                Verify My Account
+                                 {isSubmitting ? (
+              <>
+                <i className="fas fa-spinner fa-spin me-2" />
+                Processing your Registration
+              </>
+            ) : (
+              "Verify My Account"
+            )}
+                                {/* Verify My Account */}
                               </button>
                             </div>
                           )}

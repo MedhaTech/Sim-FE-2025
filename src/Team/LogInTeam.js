@@ -41,6 +41,8 @@ const LogInTeam = (props) => {
     }),
     // TEACHER ROLE
     onSubmit: (values) => {
+    localStorage.clear();
+
       if (
         localStorage.getItem("current_user") &&
         localStorage.getItem("module")
