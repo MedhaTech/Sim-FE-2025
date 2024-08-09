@@ -648,10 +648,16 @@ const NonAtlPage = () => {
     setBtnOtp(false);
     formik.setFieldValue("otp", "");
   
+  },[formik.values.mobile]);
+  useEffect(()=>{
+    setOtpRes(0);
+    setBtnOtp(false);
+    formik.setFieldValue("otp", "");
+  
   },[formik.values.email]);
   async function apiCall(mentData) {
     // Dice code list API //
-    // where list = diescode //
+    // where list = diescode  //
     const body = JSON.stringify({
       school_name: orgData.organization_name,
       udise_code: orgData.organization_code,
