@@ -373,7 +373,7 @@ useEffect(() => {
                   >
                       {selectedLanguage}
                   </button> */}
-                  <LanguageSelectorComp module="student" />
+                  {/* <LanguageSelectorComp module="student" /> */}
                   {/* <ul className="dropdown-menu">
                       <li>
                         <Link className="dropdown-item" onClick={() => handleLanguageChange('English')} to="#">
@@ -612,7 +612,7 @@ useEffect(() => {
                             </div>
                           </td>
                         </tr>
-                        <tr>
+                        {/* <tr>
                           <td>
                             <div className="product-info">
                               <Link
@@ -679,8 +679,8 @@ useEffect(() => {
                               </div>
                             </div>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr> */}
+                        {/* <tr>
                           <td>
                             <div className="product-info">
                               <Link
@@ -747,7 +747,7 @@ useEffect(() => {
                               </div>
                             </div>
                           </td>
-                        </tr>
+                        </tr> */}
                         <tr>
                           <td>
                             <div className="product-info">

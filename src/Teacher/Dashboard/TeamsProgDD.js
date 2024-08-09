@@ -143,7 +143,9 @@ const TeamsProgDD = ({user}) => {
                     aria-valuemin={0}
                     aria-valuemax={100}
                   >
-                    <div className={percent
+                    <div 
+                      style={{ width: `${percent}%` }}
+                    className={percent
                                 ? percent <= 25
                                     ?  "progress-bar bg-danger"
                                     : percent > 25 && percent <= 50

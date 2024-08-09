@@ -55,7 +55,7 @@ export const CreateTeamMember = () => {
       grade: Yup.string()
         // .matches("", "Please Select Class")
         .max(40)
-        .required(<span style={{ color: "red" }}>Please Select Grade</span>),
+        .required(<span style={{ color: "red" }}>Please Select Class</span>),
     }),
 
     onSubmit: (values) => {

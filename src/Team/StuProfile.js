@@ -116,7 +116,7 @@ const TeacherProfile = () => {
               </div>
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label">Grade</label>
+                  <label className="form-label">Class</label>
                   <input
                     type="text"
                     className="form-control"

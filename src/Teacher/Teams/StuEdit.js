@@ -67,7 +67,7 @@ const StuEdit = () => {
       ),
       grade: Yup.string()
         .max(40)
-        .required(<span style={{ color: "red" }}>Please Select Grade</span>),
+        .required(<span style={{ color: "red" }}>Please Select Class</span>),
     }),
 
     onSubmit: (values) => {
