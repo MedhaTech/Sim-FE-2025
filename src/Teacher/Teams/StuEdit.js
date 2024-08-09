@@ -159,12 +159,20 @@ const StuEdit = () => {
                         placeholder="Please Enter Your Full Name"
                         id="fullName"
                         name="fullName"
-                        onChange={formik.handleChange}
+                        // onChange={formik.handleChange}
+                        onChange={(e) => {
+                          const inputValue = e.target.value;
+                          const lettersOnly = inputValue.replace(
+                            /[^a-zA-Z\s]/g,
+                            ""
+                          );
+                          formik.setFieldValue("fullName", lettersOnly);
+                        }}
                         onBlur={formik.handleBlur}
                         value={formik.values.fullName}
                       />
                       {formik.touched.fullName && formik.errors.fullName ? (
-                        <small className="error-cls">
+                        <small className="error-cls" style={{color:"red"}}>
                           {formik.errors.fullName}
                         </small>
                       ) : null}
