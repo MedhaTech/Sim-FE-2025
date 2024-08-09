@@ -108,6 +108,7 @@ const TeacherPlayVideo = (props) => {
   const [courseData, setCourseData] = useState(null);
   const [isquizcompleted, setisquizcompleted] = useState(false);
   const [finalPage, setFinalPage] = useState(false);
+  console.log(finalPage,"pp");
   const scrollRef = React.createRef();
   const [quizStart, setQuizStart] = useState(false);
 
@@ -290,6 +291,7 @@ const TeacherPlayVideo = (props) => {
         if (response.status === 201) {
           setUpdateModuleResponce(response.data && response.data.data[0]);
           props.getTeacherCourseDetailsActions(course_id);
+          console.log(response,"AAAAAA");
         }
       })
       .catch(function (error) {
@@ -1032,7 +1034,7 @@ const TeacherPlayVideo = (props) => {
                           <CardBody>
                             {getLastCourseStatus(teacherCourseDetails) &&
                               //  isquizcompleted
-                              finalPage ? (
+                              !finalPage ? (
                               <div >
                                 <h3 className="text-success text-center">
                                   🎉 Congratulations on completing the course!
@@ -1080,9 +1082,7 @@ const TeacherPlayVideo = (props) => {
                               </div>
                             ) : (
                               <div>
-                                {/* <text
-                                
-                                > */}
+                               
                                  
                                   <div
                             dangerouslySetInnerHTML={{
@@ -1091,7 +1091,6 @@ const TeacherPlayVideo = (props) => {
                             }}
                           ></div
                           ><br/>
-                                {/* </text> */}
                                 {firstObj[0] &&
                                   firstObj[0].progress == "INCOMPLETE" ? (
                                   <div className="mt-2">
