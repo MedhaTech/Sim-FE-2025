@@ -266,7 +266,7 @@ const Dashboard = (props) => {
             </div>,
           ];
         },
-        width: "30%",
+        width: "28%",
         left: true,
       },
     ],
