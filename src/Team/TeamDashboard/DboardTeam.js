@@ -118,6 +118,7 @@ const EmployeesGrid = () => {
             aria-valuemax={100}
           >
             <div
+           style={{ width: `${percent}%` }}
               className={
                 percent
                   ? percent <= 25
@@ -175,42 +176,42 @@ const EmployeesGrid = () => {
         );
       },
     },
-    {
-      title: "Idea Submission",
-      dataIndex: "idea_submission",
-      align: "center",
-      width: "20rem",
-      render: (_, record) =>
-        record?.idea_submission ? (
-          <CheckCircle size={20} color="#28C76F" />
-        ) : (
-          <IoHelpOutline size={20} color="#FF0000" />
-        ),
-    },
-    {
-      title: "Post Survey",
-      dataIndex: "post_survey_status",
-      align: "center",
-      width: "10rem",
-      render: (_, record) =>
-        record?.post_survey_status ? (
-          <CheckCircle size={20} color="#28C76F" />
-        ) : (
-          <IoHelpOutline size={20} color="#FF0000" />
-        ),
-    },
-    {
-      title: "Certificate",
-      dataIndex: "certificate",
-      align: "center",
-      width: "10rem",
-      render: (_, record) =>
-        record?.certificate ? (
-          <CheckCircle size={20} color="#28C76F" />
-        ) : (
-          <IoHelpOutline size={20} color="#FF0000" />
-        ),
-    },
+    // {
+    //   title: "Idea Submission",
+    //   dataIndex: "idea_submission",
+    //   align: "center",
+    //   width: "20rem",
+    //   render: (_, record) =>
+    //     record?.idea_submission ? (
+    //       <CheckCircle size={20} color="#28C76F" />
+    //     ) : (
+    //       <IoHelpOutline size={20} color="#FF0000" />
+    //     ),
+    // },
+    // {
+    //   title: "Post Survey",
+    //   dataIndex: "post_survey_status",
+    //   align: "center",
+    //   width: "10rem",
+    //   render: (_, record) =>
+    //     record?.post_survey_status ? (
+    //       <CheckCircle size={20} color="#28C76F" />
+    //     ) : (
+    //       <IoHelpOutline size={20} color="#FF0000" />
+    //     ),
+    // },
+    // {
+    //   title: "Certificate",
+    //   dataIndex: "certificate",
+    //   align: "center",
+    //   width: "10rem",
+    //   render: (_, record) =>
+    //     record?.certificate ? (
+    //       <CheckCircle size={20} color="#28C76F" />
+    //     ) : (
+    //       <IoHelpOutline size={20} color="#FF0000" />
+    //     ),
+    // },
   ];
 
   const navigate = useNavigate();
@@ -368,7 +369,7 @@ const EmployeesGrid = () => {
                 Marathon 2024 today.
               </h6>
             </div>
-            <div className="dropdown">
+            {/* <div className="dropdown">
               <button
                 className="btn btn-primary dropdown-toggle"
                 type="button"
@@ -415,7 +416,7 @@ const EmployeesGrid = () => {
                   </Link>
                 </li>
               </ul>
-            </div>
+            </div> */}
           </div>
           {/* Student Cards */}
           <div className="employee-grid-widget">
@@ -446,7 +447,7 @@ const EmployeesGrid = () => {
                     </div>
                     <ul className="department">
                       <li>
-                        Grade <span>{student.Grade}th class</span>{" "}
+                        Class <span>{student.Grade}th class</span>{" "}
                       </li>
                       <li>
                         Age <span>{student.Age} yrs</span>{" "}

@@ -76,6 +76,8 @@ export const teacherLoginUser =
         setCurrentUser(item);
         localStorage.setItem("module", module);
         localStorage.setItem("layoutStyling", "modern");
+        // localStorage.setItem("layoutStyling", "	horizontal");
+
         localStorage.setItem("time", new Date().toString());
         dispatch(teacherLoginUserSuccess(result));
         const currentUser = getCurrentUser('current_user');
