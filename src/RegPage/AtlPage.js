@@ -380,10 +380,16 @@ const Register = () => {
     setBtnOtp(false);
     formik.setFieldValue("otp", "");
   
+  },[formik.values.mobile]);
+  useEffect(()=>{
+    setOtpRes(0);
+    setBtnOtp(false);
+    formik.setFieldValue("otp", "");
+  
   },[formik.values.email]);
   async function apiCall(mentData) {
     // Dice code list API //
-    // where list = diescode //
+    // where list = diescode  //
     const body = {
       school_name: orgData.organization_name,
       udise_code: orgData.organization_code,
