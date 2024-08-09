@@ -53,7 +53,10 @@ class Schoolpdf extends React.Component {
                             aria-valuemin={0}
                             aria-valuemax={100}
                         >
-                            <div className={percent
+                            <div 
+                      style={{ width: `${percent}%` }}
+                            
+                            className={percent
                                 ? percent <= 25
                                     ? "progress-bar bg-danger"
                                     : percent > 25 && percent <= 50
@@ -137,7 +140,7 @@ class Schoolpdf extends React.Component {
                         >
                             {
                                 this?.props?.remMentor?.mentorData?.organization
-                                    ?.organization_name
+                                    ?.organization_name.toLowerCase().replace(/\b\w/g, (char) => char.toUpperCase())
                             }
                         </span>
                         <span
@@ -198,7 +201,6 @@ class Schoolpdf extends React.Component {
                             }
                         </span>
                         <span
-                            className="text-capitalize"
                             style={{
                                 position: 'absolute',
                                 top: '31.8rem',
@@ -304,7 +306,7 @@ class Schoolpdf extends React.Component {
                         <div
                             style={{
                                 borderStyle: 'solid',
-                                margin: '0 2rem',
+                                margin: '5.5rem 0 2rem 0',
                                 padding: '2rem 5rem'
                             }}
                         >

@@ -225,7 +225,7 @@ const CreateMultipleMembers = ({ id }) => {
         );
       if (!item.Grade)
         err["Grade"] = (
-          <span style={{ color: "red" }}>Please Select Grade</span>
+          <span style={{ color: "red" }}>Please Select Class</span>
         );
       if (!item.Gender)
         err["Gender"] = (
