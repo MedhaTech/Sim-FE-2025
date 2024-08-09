@@ -58,6 +58,8 @@ const ReportsRegistration = () => {
     const [filteredData, setFilteredData] = useState([]);
     const filterOptions = ['Registered', 'Not Registered'];
     const categoryData = ['All Categories', 'ATL', 'Non ATL'];
+    const newstateList = ["All States", ...stateList];
+
     // const categoryData =
     //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
 
@@ -84,7 +86,7 @@ const ReportsRegistration = () => {
     });
     
     const fullStatesNames = useSelector(
-        (state) => stateList
+        (state) => newstateList
     );
     const fiterDistData = useSelector(
         (state) => districtList[RegTeachersState]
@@ -425,6 +427,7 @@ const ReportsRegistration = () => {
             JSON.stringify({
                 state: RegTeachersState,
                 district: RegTeachersdistrict === '' ? 'All Districts' : RegTeachersdistrict,
+                status: 'ACTIVE',
                 category: category
             })
         );
