@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React from 'react';
-import { Progress } from 'reactstrap';
 import { Table } from 'antd';
-import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import { CheckCircle } from 'react-feather';
+import { IoHelpOutline } from "react-icons/io5";
 import schoolpdfpage1 from '../../assets/img/schoolPDF/page_1.png';
 import Footerimg from '../../assets/img/schoolPDF/Footer.png';
 
@@ -29,9 +29,9 @@ class Schoolpdf extends React.Component {
                 width: '15rem',
                 render: (_, record) =>
                     record?.pre_survey_status ? (
-                        <FaCheckCircle size={20} color="green" />
+                        <CheckCircle size={20} color="#28C76F" />
                     ) : (
-                        <FaTimesCircle size={20} color="red" />
+                        <IoHelpOutline size={20} color="#FF0000" />
                     )
             },
             {
@@ -47,32 +47,37 @@ class Schoolpdf extends React.Component {
                             record.topics_completed_count
                         );
                     return (
-                        <div className="d-flex">
-                            <div style={{ width: '80%' }}>
-                                <Progress
-                                    key={'25'}
-                                    className="progress-height"
-                                    animated
-                                    color={
-                                        percent
-                                            ? percent <= 25
-                                                ? 'danger'
-                                                : percent > 25 && percent <= 50
-                                                    ? 'info'
-                                                    : percent > 50 && percent <= 75
-                                                        ? 'warning'
-                                                        : 'sucess'
-                                            : 'danger'
-                                    }
-                                    value={percent}
-                                />
+                        <div className="progress progress-sm progress-custom progress-animate"
+                            role="progressbar"
+                            aria-valuenow={Math.round(percent) ? Math.round(percent) : '0'}
+                            aria-valuemin={0}
+                            aria-valuemax={100}
+                        >
+                            <div 
+                      style={{ width: `${percent}%` }}
+                            
+                            className={percent
+                                ? percent <= 25
+                                    ? "progress-bar bg-danger"
+                                    : percent > 25 && percent <= 50
+                                        ? "progress-bar bg-primary"
+                                        : percent > 50 && percent <= 75
+                                            ? "progress-bar bg-info"
+                                            : "progress-bar bg-success"
+                                : "progress-bar bg-danger"
+                            } >
+                                <div
+                                    className={percent
+                                        ? percent <= 25
+                                            ? "progress-bar-value bg-danger"
+                                            : percent > 25 && percent <= 50
+                                                ? "progress-bar-value bg-primary"
+                                                : percent > 50 && percent <= 75
+                                                    ? "progress-bar-value bg-info"
+                                                    : "progress-bar-value bg-success"
+                                        : "progress-bar-value bg-danger"} >
+                                    {Math.round(percent) ? Math.round(percent) : '0'}%</div>
                             </div>
-                            <span className="ms-2">
-                                {Math.round(percent)
-                                    ? Math.round(percent)
-                                    : '0'}
-                                %
-                            </span>
                         </div>
                     );
                 }
@@ -84,9 +89,9 @@ class Schoolpdf extends React.Component {
                 width: '20rem',
                 render: (_, record) =>
                     record?.idea_submission ? (
-                        <FaCheckCircle size={20} color="green" />
+                        <CheckCircle size={20} color="#28C76F" />
                     ) : (
-                        <FaTimesCircle size={20} color="red" />
+                        <IoHelpOutline size={20} color="#FF0000" />
                     )
             },
             {
@@ -96,9 +101,9 @@ class Schoolpdf extends React.Component {
                 width: '10rem',
                 render: (_, record) =>
                     record?.post_survey_status ? (
-                        <FaCheckCircle size={20} color="green" />
+                        <CheckCircle size={20} color="#28C76F" />
                     ) : (
-                        <FaTimesCircle size={20} color="red" />
+                        <IoHelpOutline size={20} color="#FF0000" />
                     )
             },
             {
@@ -108,9 +113,9 @@ class Schoolpdf extends React.Component {
                 width: '10rem',
                 render: (_, record) =>
                     record?.certificate ? (
-                        <FaCheckCircle size={20} color="green" />
+                        <CheckCircle size={20} color="#28C76F" />
                     ) : (
-                        <FaTimesCircle size={20} color="red" />
+                        <IoHelpOutline size={20} color="#FF0000" />
                     )
             }
         ];
@@ -135,7 +140,7 @@ class Schoolpdf extends React.Component {
                         >
                             {
                                 this?.props?.remMentor?.mentorData?.organization
-                                    ?.organization_name
+                                    ?.organization_name.toLowerCase().replace(/\b\w/g, (char) => char.toUpperCase())
                             }
                         </span>
                         <span
@@ -196,7 +201,6 @@ class Schoolpdf extends React.Component {
                             }
                         </span>
                         <span
-                            className="text-capitalize"
                             style={{
                                 position: 'absolute',
                                 top: '31.8rem',
@@ -302,12 +306,12 @@ class Schoolpdf extends React.Component {
                         <div
                             style={{
                                 borderStyle: 'solid',
-                                margin: '0 2rem',
+                                margin: '5.5rem 0 2rem 0',
                                 padding: '2rem 5rem'
                             }}
                         >
                             <h2>Team Credentials</h2>
-                             <table style={{ border: '1px solid black' , marginBottom:"2rem" }}>
+                            <table style={{ border: '1px solid black', marginBottom: "2rem" }}>
                                 <tr>
                                     <th
                                         style={{
@@ -339,7 +343,7 @@ class Schoolpdf extends React.Component {
                                             padding: '1rem'
                                         }}
                                     >
-                                        Team Password 
+                                        Team Password
                                     </th>
                                 </tr>
                                 {this?.props?.teamCredentials?.map(

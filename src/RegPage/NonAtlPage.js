@@ -67,6 +67,7 @@ const NonAtlPage = () => {
   const [districtOptions, setDistrictOptions] = useState([]);
   const [secondUser, setSecondUser] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false); 
+  const [person, setPerson] = useState(true);
 
   const handleMouseEnter = () => {
     setIsTooltipVisible(true);
@@ -332,7 +333,7 @@ const NonAtlPage = () => {
   };
 
   useEffect(() => {
-    if (stateData && selectedDistrict && pinCode && schoolname && textData) {
+    if (stateData && selectedDistrict && pinCode.length >5 && schoolname && textData) {
       setShowButton(true);
     } else {
       setShowButton(false);
@@ -520,7 +521,7 @@ const NonAtlPage = () => {
           setOtpRes(JSON.parse(UNhashedPassword));
           openNotificationWithIcon("success", "OTP sent to Email Id");
           setBtnOtp(true);
-          // setPerson(false);
+          setPerson(false);
           setTimeout(() => {
             setOtpSent("Resend OTP");
             setDisable(true);
@@ -642,9 +643,21 @@ const NonAtlPage = () => {
         return err.response;
       });
   };
+  useEffect(()=>{
+    setOtpRes(0);
+    setBtnOtp(false);
+    formik.setFieldValue("otp", "");
+  
+  },[formik.values.mobile]);
+  useEffect(()=>{
+    setOtpRes(0);
+    setBtnOtp(false);
+    formik.setFieldValue("otp", "");
+  
+  },[formik.values.email]);
   async function apiCall(mentData) {
     // Dice code list API //
-    // where list = diescode //
+    // where list = diescode  //
     const body = JSON.stringify({
       school_name: orgData.organization_name,
       udise_code: orgData.organization_code,
@@ -729,6 +742,9 @@ const NonAtlPage = () => {
 
     formik.values.whatapp_mobile,
   ]);
+  const handleLogoClick = () => {
+    navigate('/');
+  };
 
   return (
     <div className="main-wrapper">
@@ -737,7 +753,7 @@ const NonAtlPage = () => {
           <div className="login-content">
             <form action="signin" onSubmit={formik.handleSubmit}>
               <div className="login-userset">
-                <div className="login-logo logo-normal">
+                <div className="login-logo logo-normal" onClick={handleLogoClick}>
                   <img src={logo} alt="Logo" />
                   {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
                 </div>
@@ -990,7 +1006,7 @@ const NonAtlPage = () => {
                 )}
                 {schoolBtn && (
                   <div className="col-xl-12">
-                    {/* {person && ( */}
+                    {person && (
                     <div className="card">
                       <div className="card-body">
                         <div className="card-subtitle fw-semibold">
@@ -1013,7 +1029,7 @@ const NonAtlPage = () => {
                         </div>
                       </div>
                     </div>
-                    {/* )} */}
+                     )} 
                     <div className="card">
                       <div className="card-body">
                         <div className="row g-3 mt-0">
@@ -1281,14 +1297,12 @@ const NonAtlPage = () => {
                                       } seconds`
                                     : "Otp expired"} */}
                                   {timer > 0
-                                    ? `Access Resend OTP  00:${
-                                        timer < 10 ? `0${timer}` : timer
-                                      } seconds`
+                                    ? `Access Resend OTP in ${timer < 10 ? `0${timer}` : timer} sec`
                                     : "Resend OTP enabled"}
                                 </p>
                               </div>
 
-                              <div className="login-content user-login">
+                              <div className="login-content user-login text-center justify-content-center">
                                 <div className="login-userset">
                                   <div className="login-userheading">
                                     <h3>Verify your Email with OTP</h3>
@@ -1301,46 +1315,50 @@ const NonAtlPage = () => {
 
                                   <div className="wallet-add">
                                     <div className="otp-box">
-                                      <div className="forms-block text-center">
-                                        <OtpInput
-                                          numInputs={6}
-                                          // isDisabled={false}
-                                          disabled={false}
-                                          errorStyle="error"
-                                          onChange={handleOtpChange}
-                                          separator={<span>{"-"}</span>}
-                                          isInputNum={true}
-                                          isInputSecure={false}
-                                          shouldAutoFocus
-                                          value={formik.values.otp}
-                                          placeholder={""}
-                                          inputStyle={{
-                                            border: "1px solid",
-                                            borderRadius: "8px",
-                                            width: "2.5rem",
-                                            height: "2.5rem",
-                                            fontSize: "2rem",
-                                            color: "#000",
-                                            fontWeight: "400",
-                                            caretColor: "blue",
-                                          }}
-                                          focusStyle={{
-                                            border: "1px solid #CFD3DB",
-                                            outline: "none",
-                                          }}
-                                        />
+                                      <div className="forms-block text-center" >
+                                        <div style={{
+                                          display: 'flex',
+                                          justifyContent: 'center',
+                                          alignItems: 'center',
+                                        }}>
+                                          <OtpInput
+                                            numInputs={6}
+                                            // isDisabled={false}
+                                            disabled={false}
+                                            errorStyle="error"
+                                            onChange={handleOtpChange}
+                                            separator={<span>{"-"}</span>}
+                                            isInputNum={true}
+                                            isInputSecure={false}
+                                            shouldAutoFocus
+                                            value={formik.values.otp}
+                                            placeholder={""}
+                                            inputStyle={{
+                                              border: "1px solid",
+                                              borderRadius: "8px",
+                                              width: "2.5rem",
+                                              height: "2.5rem",
+                                              fontSize: "2rem",
+                                              color: "#000",
+                                              fontWeight: "400",
+                                              caretColor: "blue",
+                                            }}
+                                            focusStyle={{
+                                              border: "1px solid #CFD3DB",
+                                              outline: "none",
+                                            }}
+                                          />
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
                               </div>
-                            </>
-                          )}
-                          {formik.values.otp.length > 5 &&
+                              {formik.values.otp.length > 5 &&
                             otpRes != formik.values.otp && (
-                              <div className="form-row row mb-5 text-center">
+                              <div className="form-row row text-center">
                                 <span
-                                  className=" w-100 mt-3 d-flex justify-content-center"
+                                  className=" w-100 d-flex justify-content-center"
                                   style={{
                                     color: "red",
                                   }}
@@ -1349,8 +1367,11 @@ const NonAtlPage = () => {
                                 </span>
                               </div>
                             )}
+                            </>
+                          )}
+                         
                           {btnOtp && (
-                            <div className="form-login mt-4">
+                            <div className="form-login">
                               <button
                                 className="btn btn-login"
                                 type="submit"
@@ -1362,7 +1383,15 @@ const NonAtlPage = () => {
                                   )
                                 }
                               >
-                                Verify My Account
+                                 {isSubmitting ? (
+              <>
+                <i className="fas fa-spinner fa-spin me-2" />
+                Processing your Registration
+              </>
+            ) : (
+              "Verify My Account"
+            )}
+                                {/* Verify My Account */}
                               </button>
                             </div>
                           )}

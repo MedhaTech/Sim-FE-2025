@@ -34,22 +34,25 @@ const LogInTeam = (props) => {
     validationSchema: Yup.object({
       email: Yup.string()
         // .email("Must be a valid email")
-        .required("Please Enter Team Username")
+        .required("Please Enter Your Team Id")
         .max(255)
         .trim(),
-      password: Yup.string().required("Required password").trim(),
+      password: Yup.string().required("Please Enter Your Password").trim(),
     }),
     // TEACHER ROLE
     onSubmit: (values) => {
+    localStorage.clear();
+
       if (
         localStorage.getItem("current_user") &&
         localStorage.getItem("module")
       ) {
         openNotificationWithIcon(
           "error",
-          `Another User(${localStorage.getItem(
-            "module"
-          )}) has already logged in`
+           "Clear your browser cache and try logging in"
+          // `Another User(${localStorage.getItem(
+          //   "module"
+          // )}) has already logged in`
         );
         return;
       }
@@ -67,35 +70,35 @@ const LogInTeam = (props) => {
       props.teamLoginUserAction(body, navigate, "TEAM");
     },
   });
+  const handleLogoClick = () => {
+    navigate('/');
+  };
 
   return (
     <div className="main-wrapper">
-      <div className="account-content">
+      {/* <div className="account-content">
         <div className="login-wrapper email-veri-wrap bg-img">
           <div className="login-content">
             <form onSubmit={formik.handleSubmit} action="index">
               <div className="login-userset">
-                <div className="login-logo logo-normal">
+                <div className="login-logo logo-normal" onClick={handleLogoClick}>
                   <img
                     src={logo}
                     alt="Logo"
-                    // className="logo-image"
                   />
-                  {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
+                  
                 </div>
-                {/* <Link className="login-logo logo-white">
-                  <ImageWithBasePath src="assets/img/logo-white.png" alt />
-                </Link> */}
+               
                 <div className="login-userheading">
-                  {/* <h3> Team Login</h3> */}
+                  <h3> Team Login</h3>
                   <h3>
                    Student Team Journey coming soon ...
                   </h3>
-                  {/* <h4>
-                    Access the teacher panel using your Team ID and password.
-                  </h4> */}
+                  <h4>
+                    Access the Team panel using your Team ID and password.
+                  </h4>
                 </div>
-                {/* <div className="form-login mb-3">
+                <div className="form-login mb-3">
                   <label className="form-label">Team ID</label>
                   <div className="form-addons">
                     <input
@@ -107,7 +110,7 @@ const LogInTeam = (props) => {
                       value={formik.values.email}
                     />
                     {formik.touched.email && formik.errors.email ? (
-                      <small className="error-cls">Required</small>
+                      <small className="error-cls" style={{ color: "red" }}>{formik.errors.email}</small>
                     ) : null}
                    
                     <img src={user} alt="user" />
@@ -119,21 +122,22 @@ const LogInTeam = (props) => {
                     <input
                       type={isPasswordVisible ? "text" : "password"}
                       id="password"
-                      placeholder="Please Enter password"
+                      placeholder="Please Enter Password"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
                     />
-                    {formik.touched.password && formik.errors.password ? (
-                      <small className="error-cls">Required</small>
-                    ) : null}
-                    <span
+                   
+                    <div
                       className={`fas toggle-password ${
                         isPasswordVisible ? "fa-eye" : "fa-eye-slash"
                       }`}
                       onClick={togglePasswordVisibility}
-                    ></span>
+                    ></div>
                   </div>
+                  {formik.touched.password && formik.errors.password ? (
+                      <small className="error-cls" style={{ color: "red" }}>{formik.errors.password}</small>
+                    ) : null}
                 </div>
                 <div className="form-login authentication-check">
                   <div className="row">
@@ -157,9 +161,9 @@ const LogInTeam = (props) => {
                     }`}
                     disabled={!(formik.dirty && formik.isValid)}
                   >
-                    Login In
+                    Sign In
                   </button>
-                </div>*/}
+                </div>
                 <div className="signinform">
                   <h4>
                     Not a Team ?
@@ -169,52 +173,43 @@ const LogInTeam = (props) => {
                     </Link>
                   </h4>
                 </div> 
-                {/* <div className="signinform">
-                  <h4>
-                    New on our platform?
-                    <Link className="hover-a" to={"/registration"}>
-                      {" "}
-                      Create an account
-                    </Link>
-                  </h4>
-                </div> */}
-                {/* <div className="form-setlogin or-text">
-                  <h4>OR</h4>
-                </div>
-                <div className="form-sociallink">
-                  <ul className="d-flex">
-                    <li>
-                      <Link to="#" className="facebook-logo">
-                        <ImageWithBasePath
-                          src="assets/img/icons/facebook-logo.svg"
-                          alt="Facebook"
-                        />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="#">
-                        <ImageWithBasePath
-                          src="assets/img/icons/google.png"
-                          alt="Google"
-                        />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="#" className="apple-logo">
-                        <ImageWithBasePath
-                          src="assets/img/icons/apple-logo.svg"
-                          alt="Apple"
-                        />
-                      </Link>
-                    </li>
-                  </ul>
+                
+                
                   <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
                     <p>Copyright © 2023 DreamsPOS. All rights reserved</p>
                   </div>
-                </div> */}
+                 
               </div>
             </form>
           </div>
+        </div>
+      </div> */}
+      <div className="comming-soon-pg w-100">
+        <div className="coming-soon-box">
+          <div className="pos-logo" onClick={handleLogoClick}>
+              <img
+                  src={logo}
+                  alt="Logo"
+              />
+          </div>
+          <span>Student Team Journey</span>
+          <h1>
+            <span> COMING </span> SOON{" "}
+          </h1>
+          <p>The student team&apos;s journey will soon be enabled, offering a great experience.</p>
+          <br/>
+          <div className="signinform">
+            <h5>
+              Not a Team ?
+              <Link className="hover-a" to={"/login"}>
+                {" "}
+                Click Here
+              </Link>
+            </h5>
+          </div> 
+          
+          
+          
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@ import { encryptGlobal } from "../../constants/encryptDecrypt";
 import female from "../../assets/img/Female_Profile.png";
 import male from "../../assets/img/Male_Profile.png";
 import team from "../../assets/img/icons/team.svg";
-import user from "../../assets/img/icons/user-icon.svg";
+import user from "../../assets/img/user.png";
 import girl1 from "../../assets/img/girl1.png";
 import girl2 from "../../assets/img/girl2.png";
 import girl3 from "../../assets/img/girl3.png";
@@ -118,6 +118,7 @@ const EmployeesGrid = () => {
             aria-valuemax={100}
           >
             <div
+           style={{ width: `${percent}%` }}
               className={
                 percent
                   ? percent <= 25
@@ -175,42 +176,42 @@ const EmployeesGrid = () => {
         );
       },
     },
-    {
-      title: "Idea Submission",
-      dataIndex: "idea_submission",
-      align: "center",
-      width: "20rem",
-      render: (_, record) =>
-        record?.idea_submission ? (
-          <CheckCircle size={20} color="#28C76F" />
-        ) : (
-          <IoHelpOutline size={20} color="#FF0000" />
-        ),
-    },
-    {
-      title: "Post Survey",
-      dataIndex: "post_survey_status",
-      align: "center",
-      width: "10rem",
-      render: (_, record) =>
-        record?.post_survey_status ? (
-          <CheckCircle size={20} color="#28C76F" />
-        ) : (
-          <IoHelpOutline size={20} color="#FF0000" />
-        ),
-    },
-    {
-      title: "Certificate",
-      dataIndex: "certificate",
-      align: "center",
-      width: "10rem",
-      render: (_, record) =>
-        record?.certificate ? (
-          <CheckCircle size={20} color="#28C76F" />
-        ) : (
-          <IoHelpOutline size={20} color="#FF0000" />
-        ),
-    },
+    // {
+    //   title: "Idea Submission",
+    //   dataIndex: "idea_submission",
+    //   align: "center",
+    //   width: "20rem",
+    //   render: (_, record) =>
+    //     record?.idea_submission ? (
+    //       <CheckCircle size={20} color="#28C76F" />
+    //     ) : (
+    //       <IoHelpOutline size={20} color="#FF0000" />
+    //     ),
+    // },
+    // {
+    //   title: "Post Survey",
+    //   dataIndex: "post_survey_status",
+    //   align: "center",
+    //   width: "10rem",
+    //   render: (_, record) =>
+    //     record?.post_survey_status ? (
+    //       <CheckCircle size={20} color="#28C76F" />
+    //     ) : (
+    //       <IoHelpOutline size={20} color="#FF0000" />
+    //     ),
+    // },
+    // {
+    //   title: "Certificate",
+    //   dataIndex: "certificate",
+    //   align: "center",
+    //   width: "10rem",
+    //   render: (_, record) =>
+    //     record?.certificate ? (
+    //       <CheckCircle size={20} color="#28C76F" />
+    //     ) : (
+    //       <IoHelpOutline size={20} color="#FF0000" />
+    //     ),
+    // },
   ];
 
   const navigate = useNavigate();
@@ -311,7 +312,11 @@ const EmployeesGrid = () => {
     switch (gender) {
       case "MALE":
         return getRandomImage(boys);
+      case "Male":
+        return getRandomImage(boys);
       case "FEMALE":
+        return getRandomImage(girls);
+      case "Female":
         return getRandomImage(girls);
       default:
         return user;
@@ -355,16 +360,16 @@ const EmployeesGrid = () => {
             <div className="d-flex align-items-center welcome-text">
               <h3 className="d-flex align-items-center">
                 <span style={{ fontSize: "30px" }}>👋</span>
-                &nbsp;Hi {currentUser?.data[0]?.full_name} Team &nbsp;
+                &nbsp;Hi {currentUser?.data[0]?.full_name} &nbsp;
               </h3>
 
               <h6>
                 {" "}
-                here&apos;s what&apos;s happening with your School Innovation
+                Team, here&apos;s what&apos;s happening with your School Innovation
                 Marathon 2024 today.
               </h6>
             </div>
-            <div className="dropdown">
+            {/* <div className="dropdown">
               <button
                 className="btn btn-primary dropdown-toggle"
                 type="button"
@@ -411,7 +416,7 @@ const EmployeesGrid = () => {
                   </Link>
                 </li>
               </ul>
-            </div>
+            </div> */}
           </div>
           {/* Student Cards */}
           <div className="employee-grid-widget">
@@ -435,13 +440,14 @@ const EmployeesGrid = () => {
                         <img
                           src={getProfileImage(student.Gender)}
                           alt="Profile"
+                          style={{width: "64px",height: "64px"}}
                         />
                       </div>
                       <h4 style={{ color: "orange" }}>{student.full_name}</h4>
                     </div>
                     <ul className="department">
                       <li>
-                        Grade <span>{student.Grade}th class</span>{" "}
+                        Class <span>{student.Grade}th class</span>{" "}
                       </li>
                       <li>
                         Age <span>{student.Age} yrs</span>{" "}

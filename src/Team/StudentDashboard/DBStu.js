@@ -1,13 +1,6 @@
 
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import {
-  ArrowRight,
-  Calendar,
-  ChevronUp,
-  Clock,
-  RotateCcw,
-} from "feather-icons-react/build/IconComponents";
 import React , { useEffect, useState }from "react";
 import CountUp from "react-countup";
 import Chart from "react-apexcharts";
@@ -36,11 +29,50 @@ import { useNavigate } from 'react-router-dom';
 import VideoModal from '../../HelpVideo/VideoModal';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import axios from 'axios';
+import { Modal } from 'react-bootstrap';
 
 import LanguageSelectorComp from '../../components/LanguageSelectorComp/index.js';
+const GreetingModal = (props) => {
+  return (
+      <Modal
+          show={props.show}
+          size="lg"
+          centered
+          className="modal-popup text-center"
+          onHide={props.handleClose}
+          backdrop={true}
+      >
+          <Modal.Header closeButton></Modal.Header>
 
+          <Modal.Body>
+              <figure>
+                  <img
+                      src={props.imgUrl}
+                      alt="popup image"
+                      className="img-fluid"
+                  />
+              </figure>
+          </Modal.Body>
+          <Modal.Footer>
+          {props.state !=null &&   
+                    <Link
+                                to={props.state}
+                                type="button"
+                                className="product-img"
+                              >
+                                <FaPoll size={30} style={{marginRight : "10px", color:"orange"}} />
+                              </Link>}
+                </Modal.Footer>
+                              
+
+      </Modal>
+  );
+};
 
 const DBStu = () => {
+  const [showsPopup, setShowsPopup] = useState(false);
+  const [imgUrl, setImgUrl] = useState('');
+  const[state,setState]=useState("");
 
   /////////my code//////////////////
   const currentUser = getCurrentUser("current_user");
@@ -59,6 +91,36 @@ const DBStu = () => {
   const language = useSelector(
     (state) => state?.studentRegistration?.studentLanguage
 );
+useEffect(() => {
+  const popParam = encryptGlobal(
+    JSON.stringify({
+      state:currentUser.data[0]?.state,
+      role:currentUser.data[0]?.role
+    })
+);
+  var config = {
+      method: 'get',
+      url: process.env.REACT_APP_API_BASE_URL + `/popup?Data=${popParam}`,
+      headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${currentUser.data[0]?.token}`
+      }
+  };
+  axios(config)
+      .then(function (res) {
+          if (res.status === 200 && res.data.data[0]?.on_off === '1') {
+            // console.log(res,"res");
+              setShowsPopup(true);
+              setImgUrl(res?.data?.data[0]?.url);
+              setState(res?.data?.data[0]?.navigate);
+          }
+      })
+      .catch(function (error) {
+          setShowsPopup(false);
+          console.log(error);
+      });
+}, []);
   const Loader = () => (
     <div className="spinner-border text-primary" role="status">
       <span className="visually-hidden">Loading...</span>
@@ -69,7 +131,7 @@ const DBStu = () => {
     navigate(`/studentpresurvey`);
   };
   const redirectToCourse = () => {
-    navigate(`#`);
+    navigate(`/studentcourse/1`);
   };
   const redirectToPost = () => {
     navigate(`/studentpostsurvey`);
@@ -279,9 +341,17 @@ const DBStu = () => {
             console.log(error);
         });
   };
-
+  const handleClose = () => {
+    setShowsPopup(false);
+};
   return (
     <>
+     <GreetingModal
+                handleClose={handleClose}
+                show={showsPopup}
+                imgUrl={imgUrl}
+                state={state}
+            ></GreetingModal>
       <div className="page-wrapper" id="start">
         <div className="content">
           <div className="welcome d-lg-flex align-items-center justify-content-between">
@@ -303,7 +373,7 @@ const DBStu = () => {
                   >
                       {selectedLanguage}
                   </button> */}
-                  <LanguageSelectorComp module="student" />
+                  {/* <LanguageSelectorComp module="student" /> */}
                   {/* <ul className="dropdown-menu">
                       <li>
                         <Link className="dropdown-item" onClick={() => handleLanguageChange('English')} to="#">
@@ -330,16 +400,6 @@ const DBStu = () => {
             </div>
           </div>
           <div className="row sales-cards">
-            <div className="col-xl-6 col-sm-12 col-12 mb-4">
-              <div className="card d-flex align-items-center justify-content-between default-cover" style={{ position: "relative", width: "100%", height: "100%" }}>
-                <iframe 
-                  src="https://player.vimeo.com/video/762600125?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
-                  style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: 0 }} 
-                  allow="autoplay; fullscreen; picture-in-picture" 
-                  allowFullScreen
-                ></iframe>
-              </div>
-            </div>
             <div className="col-xl-3 col-sm-6 col-12">
               <div className="card color-info bg-success mb-4 ">
                 <h3>
@@ -351,6 +411,8 @@ const DBStu = () => {
                 <p>Course Completion %</p>
                 <FeatherIcon icon="monitor" />
               </div>
+            </div>
+            <div className="col-xl-3 col-sm-6 col-12">
               <div className="card color-info"  style={{background:"#00CFE8"}}>
                 <h3>
                   {" "}
@@ -372,6 +434,8 @@ const DBStu = () => {
                 <p>Course Videos Watched</p>
                 <FeatherIcon icon="video" />
               </div>
+            </div>
+            <div className="col-xl-3 col-sm-6 col-12">
               <div className="card color-info bg-primary">
                 <h3>
                   <CountUp end={badges} duration={4}>
@@ -389,12 +453,11 @@ const DBStu = () => {
             <div className="col-xl-6 col-sm-12 col-12 d-flex">
               <div className="card flex-fill default-cover w-100 mb-4">
                 <div className="card-header d-flex justify-content-between align-items-center">
-                  <h4 className="card-title mb-0">SIM Road Map<FaRoute size={30} style={{marginLeft:"6px"}} /> </h4>
+                  <h4 className="card-title mb-0">SIM Road Map</h4>
                   <div className="dropdown">
                     <Link to="#" className="view-all d-flex align-items-center">
-                      View
                       <span className="ps-2 d-flex align-items-center">
-                        <ArrowRight className="feather-16" />
+                        <FaRoute size={30}  /> 
                       </span>
                     </Link>
                   </div>
@@ -476,13 +539,13 @@ const DBStu = () => {
                           <td>
                             <div className="product-info">
                               <Link
-                                to={"/mentorcourse/1"}
+                                to={"/studentcourse/1"}
                                 className="product-img"
                               >
                                 <FaChalkboardTeacher size={30} style={{marginRight : "10px", color:"orange"}} />
                               </Link>
                               <div className="info">
-                                <Link to={"/mentorcourse/1"}>
+                                <Link to={"/studentcourse/1"}>
                                   <h4>Student Course</h4>
                                 </Link>
                                 <p className="dull-text">On Problem Solving Journey</p>
@@ -541,7 +604,7 @@ const DBStu = () => {
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderViewTooltip}>
-                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"#"} >
+                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/studentcourse/1"} >
                                     <Eye className="feather-view" />
                                   </Link>
                                 </OverlayTrigger>
@@ -549,7 +612,7 @@ const DBStu = () => {
                             </div>
                           </td>
                         </tr>
-                        <tr>
+                        {/* <tr>
                           <td>
                             <div className="product-info">
                               <Link
@@ -616,8 +679,8 @@ const DBStu = () => {
                               </div>
                             </div>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr> */}
+                        {/* <tr>
                           <td>
                             <div className="product-info">
                               <Link
@@ -684,7 +747,7 @@ const DBStu = () => {
                               </div>
                             </div>
                           </td>
-                        </tr>
+                        </tr> */}
                         <tr>
                           <td>
                             <div className="product-info">

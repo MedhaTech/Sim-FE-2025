@@ -108,6 +108,7 @@ const TeacherPlayVideo = (props) => {
   const [courseData, setCourseData] = useState(null);
   const [isquizcompleted, setisquizcompleted] = useState(false);
   const [finalPage, setFinalPage] = useState(false);
+  console.log(finalPage,"pp");
   const scrollRef = React.createRef();
   const [quizStart, setQuizStart] = useState(false);
 
@@ -290,6 +291,7 @@ const TeacherPlayVideo = (props) => {
         if (response.status === 201) {
           setUpdateModuleResponce(response.data && response.data.data[0]);
           props.getTeacherCourseDetailsActions(course_id);
+          console.log(response,"AAAAAA");
         }
       })
       .catch(function (error) {
@@ -892,7 +894,7 @@ const TeacherPlayVideo = (props) => {
                     props.mentorAttachments[0]?.attachments?.split("{{}}") ? (
                     // .length === 1
                     <Fragment>
-                      <Card className="course-sec-basic p-5">
+                      <Card className="course-sec-basic p-2">
                         <CardBody>
                           <CardTitle
                             className="text-left text-primary"
@@ -1028,11 +1030,11 @@ const TeacherPlayVideo = (props) => {
                     !instructions &&
                     !handbook && (
                       <Fragment>
-                        <Card className="course-sec-basic p-2">
+                        <Card className="course-sec-basic ">
                           <CardBody>
                             {getLastCourseStatus(teacherCourseDetails) &&
                               //  isquizcompleted
-                              finalPage ? (
+                              !finalPage ? (
                               <div >
                                 <h3 className="text-success text-center">
                                   🎉 Congratulations on completing the course!
@@ -1049,24 +1051,24 @@ const TeacherPlayVideo = (props) => {
 
                                 <ol className="text-left">
                                   <li>
-                                    Create a plan for doing the program using
+                                    1. Create a plan for doing the program using
                                     the handbook.
                                   </li>
                                   <li>
-                                    Arrange for device access  your students to complete the course and hand book activities.
+                                    2. Arrange for device access  your students to complete the course and hand book activities.
 
                                   </li>
                                   <li>
-                                    Schedule weekly sessions to watch/discuss
+                                    3. Schedule weekly sessions to watch/discuss
                                     videos and workbook.
                                   </li>
                                   <li>
-                                    Ensure students complete the workbook before
+                                    4. Ensure students complete the workbook before
                                     the next session.
                                   </li>
-                                  <li>Guide students through the program.</li>
+                                  <li>5. Guide students through the program.</li>
                                   <li>
-                                    Evaluate students’ performance using the
+                                    6. Evaluate students’ performance using the
                                     teacher rubric.
                                   </li>
                                 </ol>
@@ -1080,9 +1082,7 @@ const TeacherPlayVideo = (props) => {
                               </div>
                             ) : (
                               <div>
-                                {/* <text
-                                
-                                > */}
+                               
                                  
                                   <div
                             dangerouslySetInnerHTML={{
@@ -1091,7 +1091,6 @@ const TeacherPlayVideo = (props) => {
                             }}
                           ></div
                           ><br/>
-                                {/* </text> */}
                                 {firstObj[0] &&
                                   firstObj[0].progress == "INCOMPLETE" ? (
                                   <div className="mt-2">
@@ -1156,7 +1155,7 @@ const TeacherPlayVideo = (props) => {
                   props.mentorAttachments[1]?.attachments?.split("{{}}") && (
                     // .length > 2
                     <Fragment>
-                      <Card className="course-sec-basic p-5">
+                      <Card className="course-sec-basic p-2">
                         <CardBody >
                           <CardTitle>
                             <h3 className="text-success">
@@ -1174,21 +1173,21 @@ const TeacherPlayVideo = (props) => {
 
                             <ol className="text-left">
                               <li>
-                                Create a plan for doing the program using the
+                                1. Create a plan for doing the program using the
                                 handbook.
                               </li>
-                              <li>Arrange for device access and workbook.</li>
+                              <li>2. Arrange for device access and workbook.</li>
                               <li>
-                                Schedule weekly sessions to watch/discuss videos
+                                3. Schedule weekly sessions to watch/discuss videos
                                 and workbook.
                               </li>
                               <li>
-                                Ensure students complete the workbook before the
+                                4. Ensure students complete the workbook before the
                                 next session.
                               </li>
-                              <li>Guide students through the program.</li>
+                              <li>5. Guide students through the program.</li>
                               <li>
-                                Evaluate students’ performance using the teacher
+                                6. Evaluate students’ performance using the teacher
                                 rubric.
                               </li>
                             </ol>

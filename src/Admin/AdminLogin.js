@@ -53,15 +53,18 @@ const AdminLogin = (props) => {
       password: Yup.string().required("required"),
     }),
     onSubmit: (values) => {
+    localStorage.clear();
+
       if (
         localStorage.getItem("current_user") &&
         localStorage.getItem("module")
       ) {
         openNotificationWithIcon(
           "error",
-          `Another User(${localStorage.getItem(
-            "module"
-          )}) has already logged in`
+          "Clear your browser cache and try logging in"
+        //   `Another User(${localStorage.getItem(
+        //     "module"
+        //   )}) has already logged in`
         );
         return;
       }

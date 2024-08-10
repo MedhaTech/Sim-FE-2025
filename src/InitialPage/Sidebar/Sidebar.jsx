@@ -1,14 +1,13 @@
 /* eslint-disable indent */
-import React, { useState } from "react";
+import React, { useState,useMemo } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
-import { Link, useLocation } from "react-router-dom";
-import  SidebarData  from "../../core/json/siderbar_data";
+import { Link, useLocation, } from "react-router-dom";
+import  getAdminSidebarData  from "../../core/json/admin";
 import HorizontalSidebar from "./horizontalSidebar";
 import CollapsedSidebar from "./collapsedSidebar";
 
 const Sidebar = () => {
   const Location = useLocation();
-
   const [subOpen, setSubopen] = useState("");
   const [subsidebar, setSubsidebar] = useState("");
 
@@ -27,6 +26,7 @@ const Sidebar = () => {
       setSubsidebar(subitem);
     }
   };
+  const SidebarData = useMemo(() => getAdminSidebarData(), []);
 
   return (
     <div>

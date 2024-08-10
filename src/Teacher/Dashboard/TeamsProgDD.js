@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import Table from "../../core/pagination/datatable";
-//import { ArrowRight } from "react-feather";
-import { FaUsers } from 'react-icons/fa';
+// //import { ArrowRight } from "react-feather";
+// import { FaUsers } from 'react-icons/fa';
 ////////////////////New Code//////////////////////////
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
@@ -143,7 +143,9 @@ const TeamsProgDD = ({user}) => {
                     aria-valuemin={0}
                     aria-valuemax={100}
                   >
-                    <div className={percent
+                    <div 
+                      style={{ width: `${percent}%` }}
+                    className={percent
                                 ? percent <= 25
                                     ?  "progress-bar bg-danger"
                                     : percent > 25 && percent <= 50
@@ -262,23 +264,19 @@ const TeamsProgDD = ({user}) => {
                   className="btn btn-secondary d-flex align-items-center"
                   onClick={handleemailapi}
                 >
-                  <Mail className="feather-mail" size={20} style={{marginRight : "5px"}}/> All Team Login&apos;s
+                  <Mail className="feather-mail" size={20} style={{marginRight : "5px"}}/> Teams Login&apos;s
                 </button>
             </div>
             <div className="card-body">
                 <div className="table-top">
-                    <div className="search-set">
-                        <div className="input-blocks">
-                            <FaUsers className="info-img" />
-                            <Select
-                                className="img-select"
-                                classNamePrefix="react-select"
-                                options={customer}
-                                placeholder="Choose a team"
-                                onChange={handleSelectChange}
-                                value={customer.find(option => option.value === teamId)}
-                            />
-                        </div>
+                    <div className="form-sort select-bluk">
+                        <Select
+                        classNamePrefix="react-select"
+                        options={customer}
+                        placeholder="Choose a team"
+                        onChange={handleSelectChange}
+                        value={customer.find(option => option.value === teamId)}
+                        />
                     </div>
                 </div>
                 <div className="table-responsive">

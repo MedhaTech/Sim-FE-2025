@@ -6,10 +6,6 @@ import {
   RotateCcw,
 } from "feather-icons-react/build/IconComponents";
 import { Link } from "react-router-dom";
-//import ImageWithBasePath from "../../core/img/imagewithbasebath";
-import { ArrowRight } from "react-feather";
-// import withReactContent from "sweetalert2-react-content";
-// import Swal from "sweetalert2";
 import VideoModal from '../../HelpVideo/VideoModal';
 import { getCurrentUser } from '../../helpers/Utils';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
@@ -30,16 +26,64 @@ import { FaLifeRing } from 'react-icons/fa';
 import { FaPoll } from 'react-icons/fa';
 import { FaCheckCircle } from 'react-icons/fa';
 import { FaWhatsapp } from 'react-icons/fa';
-//import { FaKey } from 'react-icons/fa';
 import TeamsProgDD from './TeamsProgDD';
 import { GiAchievement } from 'react-icons/gi';
 import { useReactToPrint } from 'react-to-print';
 import TCertificate from '../Certificate/TCertificate';
 import SchoolTeamPDF from './SchoolTeamPDF';
+import { Modal } from 'react-bootstrap';
 
+const GreetingModal = (props) => {
+  // console.log(props.state,"sss");
+ const  navigate=useNavigate();
+  const handleNavigate =()=>{
+    // navigate("");
+  };
+  return (
+      <Modal
+          show={props.show}
+          size="lg"
+          centered
+          className="modal-popup text-center"
+          onHide={props.handleClose}
+          backdrop={true}
+      >
+          <Modal.Header closeButton></Modal.Header>
 
+          <Modal.Body>
+              <figure>
+                  <img
+                      src={props.imgUrl}
+                      alt="popup image"
+                      className="img-fluid"
+                  />
+              </figure>
+          </Modal.Body>
+          <Modal.Footer>
+                 {/* {props.state !=null &&   <button
+                       className='btn btn-secondary'
+                        onClick={navigate(props.state)}
+                    >
+                      Navigate
+                    </button>} */}
+                    {props.state !=null &&   
+                    <Link
+                                to={props.state}
+                                type="button"
+                                className="product-img"
+                              >
+                                <FaPoll size={30} style={{marginRight : "10px", color:"orange"}} />
+                              </Link>}
+                </Modal.Footer>
+      </Modal>
+  );
+};
 
 const MentorDashboard = () => {
+  const [showsPopup, setShowsPopup] = useState(false);
+  const [imgUrl, setImgUrl] = useState('');
+  const[state,setState]=useState("");
+  // console.log(state,"sss");
 
 /////////////////NEW CODE//////////////////////////////////
 
@@ -65,6 +109,38 @@ const MentorDashboard = () => {
   const [teacPostSLoading, setTeacPostSLoading] = useState(true);
   const [whatsappLink, setWhatsappLink] = useState('');
   
+  useEffect(() => {
+    
+    const newListParam = encryptGlobal(
+      JSON.stringify({
+        state:currentUser.data[0]?.state,
+        role:currentUser.data[0]?.role
+      })
+  );
+    var config = {
+        method: 'get',
+        url: process.env.REACT_APP_API_BASE_URL + `/popup?Data=${newListParam}`,
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${currentUser.data[0]?.token}`
+        }
+    };
+    axios(config)
+        .then(function (res) {
+            if (res.status === 200 && res.data.data[0]?.on_off === '1') {
+              // console.log(res,"res");
+              setShowsPopup(true);
+                setImgUrl(res?.data?.data[0]?.url);
+                setState(res?.data?.data[0]?.navigate);
+             
+            }
+        })
+        .catch(function (error) {
+            setShowsPopup(false);
+            console.log(error);
+        });
+}, []);
   const Loader = () => (
     <div className="spinner-border text-primary" role="status">
       <span className="visually-hidden">Loading...</span>
@@ -93,14 +169,17 @@ const MentorDashboard = () => {
         mentorpostsurvey();
         fetchwhatsapplink();
         scroll();
+       
     }
   }, [currentUser?.data[0]?.user_id]);
+ 
   const [teamsCount, setTeamsCount] = useState();
   const [ideaCount, setIdeaCount] = useState();
   const [studentCount, setStudentCount] = useState();
   const [coursepercentage, setCoursepercentage] = useState();
   const [teacPostSurvey, setTeacPostSurvey] = useState();
 
+ 
   const mentorTeamsCount = () => {
     const teamApi = encryptGlobal(
         JSON.stringify({
@@ -121,7 +200,6 @@ const MentorDashboard = () => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-                console.log(response);
                 setTeamsCount(response.data.data[0].teams_count);
                 setTeamCountLoading(false);
             }
@@ -239,7 +317,7 @@ const MentorDashboard = () => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-                console.log(response);
+                // console.log(response);
                 const po = (response.data.data[0].postSurvey);
                 setTeacPostSurvey(po);
                 setTeacPostSLoading(false);
@@ -271,7 +349,7 @@ const MentorDashboard = () => {
         axios(config)
         .then(function (response) {
             if (response.status === 200) {
-                console.log(response);
+                // console.log(response);
                 setWhatsappLink(response.data.data);
             }
         })
@@ -319,9 +397,17 @@ const MentorDashboard = () => {
   const handlePrintCertificate = useReactToPrint({
       content: () => componentRef.current
   });
-
+  const handleClose = () => {
+    setShowsPopup(false);
+};
   return (
     <>
+     <GreetingModal
+                handleClose={handleClose}
+                show={showsPopup}
+                imgUrl={imgUrl}
+                state={state}
+            ></GreetingModal>
     <div style={{ display: 'none' }}>
                 <TCertificate
                     ref={componentRef}
@@ -547,12 +633,11 @@ const MentorDashboard = () => {
             <div className="col-xl-6 col-sm-12 col-12 d-flex">
               <div className="card flex-fill default-cover w-100 mb-4">
                 <div className="card-header d-flex justify-content-between align-items-center">
-                  <h4 className="card-title mb-0">SIM Road Map<FaRoute size={30} style={{marginLeft:"6px"}} /> </h4>
+                  <h4 className="card-title mb-0">SIM Road Map </h4>
                   <div className="dropdown">
                     <Link to="#" className="view-all d-flex align-items-center">
-                      View
                       <span className="ps-2 d-flex align-items-center">
-                        <ArrowRight className="feather-16" />
+                        <FaRoute size={30} />
                       </span>
                     </Link>
                   </div>

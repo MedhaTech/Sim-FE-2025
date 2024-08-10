@@ -24,7 +24,7 @@ import {
   openNotificationWithIcon,
 } from "../../helpers/Utils";
 import axios from "axios";
-import getStart from "../../assets/img/survey-success.jpg";
+import getStart from "../../assets/img/survey1.jpg";
 import { useNavigate } from "react-router-dom";
 import Congo from "../../assets/img/survey-success.jpg";
 import { useDispatch, useSelector } from "react-redux";
@@ -234,7 +234,7 @@ return (
                   !show ? (
                     <CardBody>
                       <Row>
-                        <Col md={4}>
+                        <Col md={4} style={{alignContent:"center"}}>
                           <figure>
                             <img
                               src={getStart}
@@ -247,10 +247,11 @@ return (
                           <h2 className="text-primary">
                             Welcome Students!
                           </h2>
+                          <br/>
                           <div
                             dangerouslySetInnerHTML={{
                               __html:
-                                "We are delighted that you have signed up for this program and have joined us on this journey of nurturing problem solving and innovation in youth. As you are already aware, you will be playing the role of a guide teacher to the students for the duration of the course.</br>The portal includes various information modules and resources that will help you and your students on their learning journeys.</br><b style='color:green'>Your journey as a guide teacher will include the following key milestones</b><ol><li>Register yourself on the portal and take the pre-survey.</li><li>Understand the program and the tech platform.</li><li>Identify teams and register them on the portal.</li><li>Arrange access to digital devices for students.</li><li>Support the students on their learning journey.</li><li>Ensure teams submit their final ideas on the portal.</li><li>Complete the post survey.</li><li>Download teacher’s certificate.</li><li>Instruct and support the students to download student certificates.</li></ol><p>We hope you and the students have a great time doing this program.</br>We wish you all the best!",
+                                "We're happy to have you join us in this exciting learning adventure! </br></br> <b class='text-success'>Here's what you'll do during the program:</b></br></br><ol><li>1. Log in to the portal to get started.</li><li>2. Complete the pre-survey to share your thoughts before we begin.</li><li>3. Dive into the course and explore all the amazing videos.</li><li>4. Work with your teammates to identify a problem and work together to find a solution.</li><li>5. Submit your innovative idea to the Innovation Marathon and showcase your creativity.</li><li>6. Complete the post-survey to share your feedback and experience.</li><li>7. Download your certificates to celebrate your achievements!</li></br>We can't wait to see the incredible ideas you'll come up with. Have fun, learn a lot, and let's make this an unforgettable journey!",
                             }}
                           ></div>
                           <button

@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import Congo from '../../assets/img/survey-success.jpg';
+import Congo from '../../assets/img/survey1.jpg';
 
 const PostSurveyStatic = () => {
     return (

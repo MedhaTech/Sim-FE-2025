@@ -52,7 +52,7 @@ const Dashboard = (props) => {
     }
   }, [currentUser?.data[0]?.mentor_id]);
   const ideaStatusfun = (id) => {
-    console.log(id, "id");
+    // console.log(id, "id");
     const ideaStatusparam = encryptGlobal(
       JSON.stringify({
         team_id: id,
@@ -204,31 +204,18 @@ const Dashboard = (props) => {
     columns: [
       {
         name: <b style={{color:"crimson"}}>#</b>,
-        selector: (row) => row.key,
-        width: "10%",
+        // selector: (row, key) => key + 1,
+        selector: (row, index) => index + 1, 
+        width: "14%",
       },
       {
-        name: <b style={{color:"crimson"}}>Username</b>,
+        name: <b style={{color:"crimson"}}>Team Login&apos;s</b>,
 
-        selector: (row) => <div>{row.username}<br/>{row.team_name.toLowerCase()}</div>,
+        selector: (row) => <div>{row.username}<br/>{row.team_name.toLowerCase().replace(/\s+/g, '')}</div>,
 
-        // sortable: true,
         width: "40%",
       },
-      // {
-      //   name: "Password",
-
-      //   selector: (row) => row.team_name.toLowerCase(),
-
-      //   // sortable: true,
-      //   width: "10rem",
-      // },
-      // {
-      //   name: "Team Name",
-      //   selector: (row) => row.team_name,
-      //   // sortable: true,
-      //   width: "15rem",
-      // },
+      
 
       {
         name: <b style={{color:"crimson"}}>#Stu</b>,
@@ -265,23 +252,9 @@ const Dashboard = (props) => {
               )}
             </div>,
 
-            // <div
-            //   key={params}
-            //   onClick={() =>
-            //     handleViewClick(
-            //       selectedTeam === params.team_id ? null : params.team_id
-            //     )
-            //   }
-            // >
-            //   {!params.StudentCount < 4 && (
-            //     <div className="btn btn-primary  mr-5 mx-2">
-            //       {" "}
-            //       {selectedTeam === params.team_id ? "Hide" : "View"}
-            //     </div>
-            //   )}
-            // </div>,
+           
 
-            <div key={params} onClick={() => handleCreate(params)}>
+            <div  key={params} onClick={() => handleCreate(params)}>
               {process.env.REACT_APP_TEAM_LENGTH > params.StudentCount && (
                 <OverlayTrigger placement="top" overlay={renderAddTooltip}>
                   <Link data-bs-toggle="tooltip" data-bs-placement="top" >
@@ -293,7 +266,7 @@ const Dashboard = (props) => {
             </div>,
           ];
         },
-        width: "30%",
+        width: "28%",
         left: true,
       },
     ],
@@ -491,12 +464,13 @@ const Dashboard = (props) => {
           setvalue("");
           teamListbymentorid(currentUser?.data[0]?.mentor_id);
           dispatch(getAdminTeamMembersList(selectedTeam));
-          openNotificationWithIcon("success", "Successfully team changed");
+          openNotificationWithIcon("success", "Successfully shifted student");
           navigate({
-            pathname: "/teacher-dashboard",
+            pathname: "/mentorteams",
           });
+          setSelectedTeam(null);
         } else {
-          openNotificationWithIcon("error", "Opps! Something Wrong");
+          openNotificationWithIcon("error", "Opps! Student shift was unsuccessful");
         }
       })
 
@@ -630,7 +604,7 @@ const Dashboard = (props) => {
                         Team Name : {ViewedTeam.team_name}
                       </p>
                       <p >
-                        Student Count : {ViewedTeam.StudentCount}
+                        Team Email : {ViewedTeam.team_email}
                       </p>
                     </Col>
                     <Col>
@@ -638,7 +612,7 @@ const Dashboard = (props) => {
                         Login ID : {ViewedTeam.username}
                       </p>
                       <p >
-                        Password : {ViewedTeam.team_name.toLowerCase()}
+                        Password : {ViewedTeam.team_name.toLowerCase().replace(/\s+/g, '')}
                       </p>
                     </Col>
                   </Row></div>
@@ -683,7 +657,7 @@ const Dashboard = (props) => {
                                 <th style={{color:"crimson"}}>Full Name</th>
                                 <th style={{color:"crimson"}}>Age</th>
                                 <th style={{color:"crimson"}}>Gender</th>
-                                <th style={{color:"crimson"}}>Grade</th>
+                                <th style={{color:"crimson"}}>Class</th>
                                 <th style={{color:"crimson"}}>Disability</th>
                                 <th style={{color:"crimson"}}>Actions</th>
                               </tr>

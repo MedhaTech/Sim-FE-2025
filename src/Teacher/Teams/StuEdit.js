@@ -23,6 +23,7 @@ import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { useNavigate } from "react-router-dom";
 import female from "../../assets/img/Female_Profile.png";
 import male from "../../assets/img/Male_Profile.png";
+import user from "../../assets/img/user.png";
 const StuEdit = () => {
   const location = useLocation();
   const studentData = location.state || {};
@@ -66,21 +67,23 @@ const StuEdit = () => {
       ),
       grade: Yup.string()
         .max(40)
-        .required(<span style={{ color: "red" }}>Please Select Grade</span>),
+        .required(<span style={{ color: "red" }}>Please Select Class</span>),
     }),
 
     onSubmit: (values) => {
       const body = {
         team_id: studentData.team_id,
         role: "STUDENT",
-        full_name: values.fullName,
+        //full_name: values.fullName,
         Age: values.age,
         Grade: values.grade,
         disability: values.disability,
         Gender: values.gender,
       };
-      if (studentData && studentData.username !== values.username) {
-        body["username"] = values.username;
+      console.log(values.fullName,"values");
+      if (studentData && studentData.full_name !== values.fullName) {
+        body["full_name"] = values.fullName;
+        console.log(studentData,studentData.full_name,values.fullName,"inside if");
       }
       const teamparamId = encryptGlobal(JSON.stringify(studentData.student_id));
       var config = {
@@ -97,7 +100,7 @@ const StuEdit = () => {
           if (response.status === 200) {
             openNotificationWithIcon(
               "success",
-              "Team Member Update Successfully"
+              "Student details updated Successfully"
             );
             dispatch(getAdminTeamMembersList(studentData.team_id));
             navigate("/mentorteams");
@@ -123,11 +126,16 @@ const StuEdit = () => {
                 <div className="profile-top">
                   <div className="profile-content">
                     <div className="profile-contentimg">
-                      {studentData.Gender === "MALE" ? (
+                      {studentData.Gender === "Male" || studentData.Gender === "MALE" ? (
+                        <img src={male} alt="Male" id="blah" />
+                      ) : ((studentData.Gender === "Female" || studentData.Gender === "FEMALE")?(
+                        <img src={female} alt="Female" id="blah" />):(<img src={user} alt="user" id="blah" />)
+                      )}
+                      {/* {studentData.Gender === "MALE" || studentData.Gender === "Male" ? (
                         <img src={male} alt="Male" id="blah" />
                       ) : (
                         <img src={female} alt="Female" id="blah" />
-                      )}
+                      )} */}
                       <div className="profileupload"></div>
                     </div>
                     <div className="profile-contentname">
@@ -151,12 +159,20 @@ const StuEdit = () => {
                         placeholder="Please Enter Your Full Name"
                         id="fullName"
                         name="fullName"
-                        onChange={formik.handleChange}
+                        // onChange={formik.handleChange}
+                        onChange={(e) => {
+                          const inputValue = e.target.value;
+                          const lettersOnly = inputValue.replace(
+                            /[^a-zA-Z\s]/g,
+                            ""
+                          );
+                          formik.setFieldValue("fullName", lettersOnly);
+                        }}
                         onBlur={formik.handleBlur}
                         value={formik.values.fullName}
                       />
                       {formik.touched.fullName && formik.errors.fullName ? (
-                        <small className="error-cls">
+                        <small className="error-cls" style={{color:"red"}}>
                           {formik.errors.fullName}
                         </small>
                       ) : null}
@@ -203,9 +219,9 @@ const StuEdit = () => {
                         onChange={formik.handleChange}
                       >
                         <option value="">Select Gender</option>
-                        <option value="MALE">Male</option>
-                        <option value="FEMALE">Female</option>
-                        <option value="OTHERS">Prefer not to mention</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Prefer Not to Mention">Prefer Not to Mention</option>
                       </select>
 
                       {formik.touched.gender && formik.errors.gender ? (
@@ -249,7 +265,7 @@ const StuEdit = () => {
                         <option value="Hearing Impaired">
                           Hearing Impaired
                         </option>
-                        <option value="Autism/Cerebral Palsy/Other">
+                        <option value="Autism or Cerebral Palsy or Other">
                           Autism/Cerebral Palsy/Other
                         </option>
                         <option value="Others">Others</option>

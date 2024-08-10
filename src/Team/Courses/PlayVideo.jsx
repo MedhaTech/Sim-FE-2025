@@ -28,6 +28,14 @@ import {
   AccordionHeader,
   AccordionBody,
 } from "reactstrap";
+import Scrollbars from "react-custom-scrollbars-2";
+import { Link } from "react-router-dom";
+import {
+  Airplay,
+  Archive,
+  Server,
+  Settings,
+} from "feather-icons-react/build/IconComponents";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { Button } from "../../stories/Button";
 import { GrDocument } from "react-icons/gr";
@@ -689,12 +697,12 @@ const PlayVideoCourses = (props) => {
     const done = (
       <FeatherIcon
         icon="check-circle"
-        style={{ color: "green", width: "16px", height: "16px" }}
+        style={{ color: "green", width: "14px", height: "14px" }}
       />
     );
     const notDone = (
       <FeatherIcon
-        icon="check-circle"
+        icon="play-circle"
         style={{ width: "16px", height: "16px" }}
       />
     );
@@ -876,48 +884,30 @@ const PlayVideoCourses = (props) => {
   return (
     <div className="page-wrapper">
       <div className="content settings-content">
+        <div className="page-header settings-pg-header">
+          <div className="add-item d-flex">
+              <div className="page-title">
+                  <h4>Course</h4>
+                  <h6>Join us on this problem solving journey.</h6>
+              </div>
+          </div>
+          <ul className="table-top-head">
+              <li>
+                  <div>
+                  <FullScreenButton
+                    fullScreen={fullScreen}
+                    setFullScreen={setFullScreen}
+                  />
+                </div>
+              </li>
+          </ul>
+      </div>
         {!showPage ? (
           <CommonPage text={comingSoonText} />
         ) : (
           <div className="courses-page" ref={scrollRef}>
-            <Row className="courses-head view-head py-5">
-              <Col md={12} lg={9} className="mb-5 mb-md-5 mb-lg-0">
-                {/* <p className="course-breadcrum">
-                            Courses <BsChevronRight /> Courses details
-                        </p> */}
-                <div className="courses-type">
-                  <BsLayoutTextSidebarReverse />
-                  <span className="card-type">
-                    {adminCourse && adminCourse.title}
-                  </span>
-                  <BsLayoutTextSidebarReverse className="lessonsvg" />
-                  <span className="card-type">
-                    {adminCourse && adminCourse.course_modules_count}{" "}
-                    {t("student_course.modules")}
-                  </span>
-                  <RiAwardFill className="lessonsvg" />
-                  <span className="card-type points">
-                    {adminCourse && adminCourse.course_videos_count}{" "}
-                    {t("student_course.videos")}
-                  </span>
-                </div>
-              </Col>
-              {/* <Col md={12} lg={3} className="my-auto text-right">
-                        <div className="progress-dropdown">
-                            <CommonDropDownComp {...progressProps} />
-                        </div>
-                    </Col> */}
-            </Row>
-            <div className="px-5 mx-3">
-              <FullScreenButton
-                fullScreen={fullScreen}
-                setFullScreen={setFullScreen}
-              />
-            </div>
-
             <div
-              className=" px-3 px-md-5 mt-2
-             container-fluid"
+              className="container-fluid"
             >
               <Row
                 className="m-0 courser-video-section "
@@ -1007,7 +997,7 @@ const PlayVideoCourses = (props) => {
                                                 // color: "#FE9F4314",
                                                 left: "0.75rem",
                                               }}
-                                              className={`justify-content-between w-100 px-4 py-3 ${
+                                              className={`justify-content-between w-100 py-2 ${
                                                 lecture.progress === "COMPLETED"
                                                   ? "hHover"
                                                   : "noCurser"
@@ -1213,7 +1203,7 @@ const PlayVideoCourses = (props) => {
                         <>
                           {worksheetId === 2 ? (
                             <>
-                              <Card className="course-sec-basic p-5">
+                              <Card className="course-sec-basic p-3">
                                 <div className="container new-result">
                                   <div className="row justify-content-md-center ">
                                     <div className="col col-lg-9">
@@ -1249,7 +1239,7 @@ const PlayVideoCourses = (props) => {
                             </>
                           ) : (
                             <Fragment>
-                              <Card className="course-sec-basic p-5">
+                              <Card className="course-sec-basic p-3">
                                 <CardBody>
                                   <div>
                                     <CardTitle
@@ -1356,7 +1346,7 @@ const PlayVideoCourses = (props) => {
                         </>
                       ) : courseData !== null && !showQuiz ? (
                         <Fragment>
-                          <Card className="course-sec-basic p-5" id="desc">
+                          <Card className="course-sec-basic p-3" id="desc">
                             <CardBody>
                               <div
                                 dangerouslySetInnerHTML={{
@@ -1435,7 +1425,7 @@ const PlayVideoCourses = (props) => {
                         item !== "VIDEO" &&
                         condition !== "Video1" && (
                           <Fragment>
-                            <Card className="course-sec-basic p-5 mb-5">
+                            <Card className="course-sec-basic p-3 mb-5">
                               <CardBody>
                                 <text>
                                   <div

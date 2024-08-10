@@ -1,17 +1,19 @@
+/* eslint-disable indent */
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Button } from '../../stories/Button';
 import { useTranslation } from 'react-i18next';
+import FeatherIcon from "feather-icons-react";
+import { Link } from "react-router-dom";
 
 const FullScreenButton = ({fullScreen,setFullScreen}) => {
-    const { t } = useTranslation();
+    // const { t } = useTranslation();
     return (
         <div className="d-flex justify-content-end">
-            <Button
-                label={`${
-                    fullScreen.isFullSCreen ? t('student_course.exitfullscreen') : t('student_course.full screen')
-                }`}
-                btnClass="primary mt-4 mb-3"
-                size="small"
+            <li className="nav-item nav-item-box">
+                <Link
+                to="#"
+                id="btnFullscreen"
                 onClick={() => {
                     if (fullScreen.isFullSCreen) {
                         setFullScreen({
@@ -25,7 +27,15 @@ const FullScreenButton = ({fullScreen,setFullScreen}) => {
                         });
                     }
                 }}
-            />
+                
+                >
+                {
+                    fullScreen.isFullSCreen ? <FeatherIcon icon="minimize" /> : <FeatherIcon icon="maximize" />
+                }
+                </Link>
+                
+
+            </li>
         </div>
     );
 };

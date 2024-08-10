@@ -47,6 +47,8 @@ export const teamloginUser = (data, navigate, module) => async (dispatch) => {
       setCurrentUser(item);
       localStorage.setItem("module", module);
       localStorage.setItem("layoutStyling", "default");
+      // localStorage.setItem("colorschema", "dark_mode");
+      localStorage.setItem("layoutThemeColors", "dark");
       // localStorage.setItem("layoutStyling", "modern");
       localStorage.setItem("time", new Date().toString());
       dispatch(teamloginUserSuccess(result));
@@ -54,7 +56,7 @@ export const teamloginUser = (data, navigate, module) => async (dispatch) => {
       // history.push('/dashboard');
     } else {
       dispatch(teamloginUserError(result.statusText));
-      openNotificationWithIcon("error", "Invalid Username or Password");
+      openNotificationWithIcon("error", "Invalid Team ID or Password");
     }
   } catch (error) {
     dispatch(teamloginUserError({}));

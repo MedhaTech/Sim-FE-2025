@@ -66,7 +66,7 @@ const CreateMultipleMembers = ({ id }) => {
   const handleteamname = (e) => {
     const inputValue = e.target.value;
     //const lettersOnly = inputValue.replace(/[^a-zA-Z\s]/g, "");
-    const patternOnlyalfa = /^[a-zA-Z0-9]*$/;
+    const patternOnlyalfa = /^[a-zA-Z0-9\s]*$/;
     setTeamname(inputValue);
 
     if (inputValue.trim().length < 1) {
@@ -225,7 +225,7 @@ const CreateMultipleMembers = ({ id }) => {
         );
       if (!item.Grade)
         err["Grade"] = (
-          <span style={{ color: "red" }}>Please Select Grade</span>
+          <span style={{ color: "red" }}>Please Select Class</span>
         );
       if (!item.Gender)
         err["Gender"] = (
@@ -270,14 +270,14 @@ const CreateMultipleMembers = ({ id }) => {
   const handleSumbit = () => {
     // alert("hii");
     if (!validateItemData()) return;
-    setIsClicked(true);
+    //setIsClicked(true);
     const checkDuplicateName = containsDuplicates(
       studentData.map((item) => item.full_name)
     );
     if (checkDuplicateName) {
       openNotificationWithIcon(
         "error",
-        "Duplicate student names in a team is not allowed"
+        "Not allows Duplicate student names in team"
       );
       setIsClicked(false);
       return;
@@ -303,6 +303,7 @@ const CreateMultipleMembers = ({ id }) => {
           const newTeamId = response.data.data[0].profile.team_id;
           setTeamId(response.data.data[0].profile.team_id);
           openNotificationWithIcon("success", "Team Created Successfully");
+          setIsClicked(true);
           const updatedStudentData = studentData.map((student) => ({
             ...student,
             team_id: JSON.stringify(newTeamId),
@@ -348,6 +349,7 @@ const CreateMultipleMembers = ({ id }) => {
   };
 
   const button = teamname && teamemail && studentData;
+ 
   return (
     <div className="page-wrapper">
       <div className="page-header">
@@ -541,7 +543,7 @@ const CreateMultipleMembers = ({ id }) => {
                         Learning Disability
                       </option>
                       <option value="Hearing Impaired">Hearing Impaired</option>
-                      <option value="Autism/Cerebral Palsy/Other">
+                      <option value="Autism or Cerebral Palsy or Other">
                         Autism/Cerebral Palsy/Other
                       </option>
                       <option value="Others">Others</option>
@@ -598,7 +600,7 @@ const CreateMultipleMembers = ({ id }) => {
                       <option value="">Select Gender</option>
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
-                      <option value="OTHERS">Prefer not to mention</option>
+                      <option value="Prefer Not to Mention">Prefer Not to Mention</option>
                     </select>
                     {foundErrObject?.Gender ? (
                       <small className="error-cls">

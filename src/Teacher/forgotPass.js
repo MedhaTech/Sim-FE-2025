@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/img/new-logo.png";
 import email from "../assets/img/icons/mail.svg";
@@ -7,12 +7,13 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { URL, KEY } from "../constants/defaultValues";
-
+import { useNavigate } from "react-router-dom";
 import { getNormalHeaders, openNotificationWithIcon } from "../helpers/Utils";
 
 const Forgotpassword = () => {
   const [errorMsg, seterrorMsg] = useState("");
-
+  const navigate = useNavigate();
+  
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -25,7 +26,7 @@ const Forgotpassword = () => {
         )
         .required(
           <span style={{ color: "red" }}>
-            Please Enter Registered Email Address
+            Please Enter Registered Email ID
           </span>
         )
         .max(255)
@@ -47,6 +48,10 @@ const Forgotpassword = () => {
               "Password sent to your registered email address"
             );
             seterrorMsg("");
+            setTimeout(() => {
+              navigate("/teacher");
+            }, 2000);
+            
           }
         })
         .catch((err) => {
@@ -55,6 +60,13 @@ const Forgotpassword = () => {
         });
     },
   });
+  useEffect(()=>{
+    seterrorMsg("");
+  },[formik.values.email]);
+  
+  const handleLogoClick = () => {
+    navigate('/');
+  };
   return (
     <div className="main-wrapper">
       <div className="account-content">
@@ -62,7 +74,7 @@ const Forgotpassword = () => {
           <div className="login-content">
             <form onSubmit={formik.handleSubmit} action="index">
               <div className="login-userset">
-                <div className="login-logo logo-normal">
+                <div className="login-logo logo-normal" onClick={handleLogoClick}>
                   <img
                     src={logo}
                     alt="Logo"
@@ -86,7 +98,7 @@ const Forgotpassword = () => {
                       id="email"
                       type="email"
                       placeholder="Enter Your Registered Email Address"
-                      className="form- control"
+                      className="form- control mb-2"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.email}
@@ -113,7 +125,7 @@ const Forgotpassword = () => {
                     disabled={!(formik.dirty && formik.isValid)}
                     type="submit"
                   >
-                    Send Password
+                      Send Password
                   </button>
                 </div>
                 <div className="signinform text-center">

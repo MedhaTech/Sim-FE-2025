@@ -39,7 +39,7 @@ import NonAtlPage from "../RegPage/NonAtlPage";
 import AtlSucess from "../RegPage/AtlSucess";
 import NonAtlSuccess from "../RegPage/NonAtlSuccess";
 import { ProtectedRoute } from "../helpers/authHelper";
-import AdminSidebar from "../InitialPage/Sidebar/adminSidebar";
+import AdminSidebar from "../InitialPage/Sidebar/Sidebar";
 import StateSidebar from "../InitialPage/Sidebar/stateSidebar";
 import EadminLogin from "../Evaluator/Admin/EadminLogin";
 import EadminHeader from "../InitialPage/Sidebar/eadminHeader";

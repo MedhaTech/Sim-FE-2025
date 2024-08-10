@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState } from "react";
 import { Grid, Users } from "react-feather";
@@ -861,10 +862,8 @@ const HorizontalSidebar = () => {
               onClick={handleSelectClick5}
               className={isActive5 ? "subdrop" : ""}
             >
-              {/* <img src="assets/img/icons/users1.svg" alt="img" /> */}
               <img src={support} alt="Survey" />
-              <span>Survey</span>
-              {/* <span className="menu-arrow" /> */}
+              <span>Post Survey</span>
             </Link>
             </li>
           {/* <li className="submenu">

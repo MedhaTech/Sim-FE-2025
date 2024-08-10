@@ -177,10 +177,10 @@ const Register = () => {
               );
 
               const fetchedstate = response?.data?.data[0].state;
-              const normalizedState = normalizeStateName(fetchedstate);
-              setStateData(normalizedState);
+              //const normalizedState = normalizeStateName(fetchedstate);
+              //setStateData(normalizedState);
               setStateData(fetchedstate);
-              setDistrictData(districtList[normalizedState] || []);
+              setDistrictData(districtList[fetchedstate] || []);
 
               setDiceBtn(false);
               setSchoolBtn(true);
@@ -375,20 +375,31 @@ const Register = () => {
       }
     },
   });
-
+  useEffect(()=>{
+    setOtpRes(0);
+    setBtnOtp(false);
+    formik.setFieldValue("otp", "");
+  
+  },[formik.values.mobile]);
+  useEffect(()=>{
+    setOtpRes(0);
+    setBtnOtp(false);
+    formik.setFieldValue("otp", "");
+  
+  },[formik.values.email]);
   async function apiCall(mentData) {
     // Dice code list API //
-    // where list = diescode //
-    const body = JSON.stringify({
+    // where list = diescode  //
+    const body = {
       school_name: orgData.organization_name,
       udise_code: orgData.organization_code,
-      district: orgData.district,
+      district:formik.values.district,
       state: orgData.state,
       pin_code: orgData.pin_code,
       email: mentData.username,
       mobile: mentData.mobile,
-    });
-
+    };
+   
     var config = {
       method: "post",
       url: process.env.REACT_APP_API_BASE_URL + "/mentors/triggerWelcomeEmail",
@@ -396,7 +407,7 @@ const Register = () => {
         "Content-Type": "application/json",
         Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
       },
-      data: body,
+      data: JSON.stringify(body),
     };
 
     await axios(config)
@@ -548,7 +559,11 @@ const Register = () => {
     formik.values.district,
     formik.values.whatapp_mobile,
   ]);
-  console.log(checkBox,"+++");
+  const handleLogoClick = () => {
+    navigate('/');
+  };
+
+  //console.log(formik.values.district,"district", );
   // const route = all_routes;
   return (
     <div className="main-wrapper">
@@ -557,7 +572,7 @@ const Register = () => {
           <div className="login-content">
             <form action="signin" onSubmit={formik.handleSubmit}>
               <div className="login-userset">
-                <div className="login-logo logo-normal">
+                <div className="login-logo logo-normal" onClick={handleLogoClick}>
                   <img src={logo} alt="Logo" />
                 </div>
 
@@ -1002,9 +1017,7 @@ const Register = () => {
                               <div className="Otp-expire text-center">
                                 <p>
                                   {timer > 0
-                                    ? `Access Resend OTP  00:${
-                                        timer < 10 ? `0${timer}` : timer
-                                      } seconds`
+                                    ? `Access Resend OTP in ${timer < 10 ? `0${timer}` : timer} sec`
                                     : "Resend OTP enabled"}
                                   {/* {timer > 0
                                     ? `Otp will expire in 00:${
@@ -1027,7 +1040,7 @@ const Register = () => {
                                     />
                                   </Link> */}
                                 </div>
-                                <div className="login-userset">
+                                <div className="login-userset text-center justify-content-center">
                                   <div className="login-userheading">
                                     <h3>Verify your Email with OTP</h3>
                                     <h4 className="verfy-mail-content">
@@ -1040,44 +1053,49 @@ const Register = () => {
                                   <div className="wallet-add">
                                     <div className="otp-box">
                                       <div className="forms-block text-center">
-                                        <OtpInput
-                                          numInputs={6}
-                                          isDisabled={false}
-                                          errorStyle="error"
-                                          onChange={handleOtpChange}
-                                          separator={<span>{"-"}</span>}
-                                          isInputNum={true}
-                                          isInputSecure={false}
-                                          shouldAutoFocus
-                                          value={formik.values.otp}
-                                          placeholder={""}
-                                          inputStyle={{
-                                            border: "1px solid",
-                                            borderRadius: "8px",
-                                            width: "2.5rem",
-                                            height: "2.5rem",
-                                            fontSize: "2rem",
-                                            color: "#000",
-                                            fontWeight: "400",
-                                            caretColor: "blue",
-                                          }}
-                                          focusStyle={{
-                                            border: "1px solid #CFD3DB",
-                                            outline: "none",
-                                          }}
-                                        />
+                                        <div style={{
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                          }}>
+                                          <OtpInput
+                                            numInputs={6}
+                                            isDisabled={false}
+                                            errorStyle="error"
+                                            onChange={handleOtpChange}
+                                            separator={<span>{"-"}</span>}
+                                            isInputNum={true}
+                                            isInputSecure={false}
+                                            shouldAutoFocus
+                                            value={formik.values.otp}
+                                            placeholder={""}
+                                            inputStyle={{
+                                              border: "1px solid",
+                                              borderRadius: "8px",
+                                              width: "2.5rem",
+                                              height: "2.5rem",
+                                              fontSize: "2rem",
+                                              color: "#000",
+                                              fontWeight: "400",
+                                              caretColor: "blue",
+                                            }}
+                                            focusStyle={{
+                                              border: "1px solid #CFD3DB",
+                                              outline: "none",
+                                            }}
+                                          />
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
                               </div>
-                            </>
-                          )}
-                          {formik.values.otp.length > 5 &&
+                           
+                             {formik.values.otp.length > 5 &&
                             otpRes != formik.values.otp && (
-                              <div className="form-row row mb-5 text-center">
+                              <div className="form-row row text-center">
                                 <span
-                                  className=" w-100 mt-3 d-flex justify-content-center"
+                                  className=" w-100 d-flex justify-content-center"
                                   style={{
                                     color: "red",
                                   }}
@@ -1086,8 +1104,12 @@ const Register = () => {
                                 </span>
                               </div>
                             )}
+                             </>
+
+                          )}
+                         
                           {btnOtp && (
-                            <div className="form-login mt-4">
+                            <div className="form-login">
                               <button
                                 className="btn btn-login"
                                 type="submit"
@@ -1100,7 +1122,15 @@ const Register = () => {
                                 }
                                 
                               > 
-                                Verify My Account
+                               {isSubmitting ? (
+              <>
+                <i className="fas fa-spinner fa-spin me-2" />
+                Processing your Registration
+              </>
+            ) : (
+              "Verify My Account"
+            )}
+                                {/* Verify My Account */}
                               </button>
                             </div>
                           )}

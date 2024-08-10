@@ -40,15 +40,18 @@ const LogInTeacher = (props) => {
     }),
     // TEACHER ROLE
     onSubmit: (values) => {
+      localStorage.clear();
+
       if (
         localStorage.getItem("current_user") &&
         localStorage.getItem("module")
       ) {
         openNotificationWithIcon(
           "error",
-          `Another User(${localStorage.getItem(
-            "module"
-          )}) has already logged in`
+           "Clear your browser cache and try logging in"
+          // `Another User(${localStorage.getItem(
+          //   "module"
+          // )}) has already logged in`
         );
         return;
       }
@@ -66,7 +69,9 @@ const LogInTeacher = (props) => {
       props.teacherLoginUserAction(body, navigate, "MENTOR");
     },
   });
-
+  const handleLogoClick = () => {
+    navigate('/');
+  };
   return (
     <div className="main-wrapper">
       <div className="account-content">
@@ -74,7 +79,7 @@ const LogInTeacher = (props) => {
           <div className="login-content">
             <form onSubmit={formik.handleSubmit} action="index">
               <div className="login-userset">
-                <div className="login-logo logo-normal">
+                <div className="login-logo logo-normal" onClick={handleLogoClick}>
                   <img
                     src={logo}
                     alt="Logo"
