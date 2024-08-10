@@ -742,6 +742,9 @@ const NonAtlPage = () => {
 
     formik.values.whatapp_mobile,
   ]);
+  const handleLogoClick = () => {
+    navigate('/');
+  };
 
   return (
     <div className="main-wrapper">
@@ -750,7 +753,7 @@ const NonAtlPage = () => {
           <div className="login-content">
             <form action="signin" onSubmit={formik.handleSubmit}>
               <div className="login-userset">
-                <div className="login-logo logo-normal">
+                <div className="login-logo logo-normal" onClick={handleLogoClick}>
                   <img src={logo} alt="Logo" />
                   {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
                 </div>

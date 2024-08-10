@@ -69,7 +69,9 @@ const LogInTeacher = (props) => {
       props.teacherLoginUserAction(body, navigate, "MENTOR");
     },
   });
-
+  const handleLogoClick = () => {
+    navigate('/');
+  };
   return (
     <div className="main-wrapper">
       <div className="account-content">
@@ -77,7 +79,7 @@ const LogInTeacher = (props) => {
           <div className="login-content">
             <form onSubmit={formik.handleSubmit} action="index">
               <div className="login-userset">
-                <div className="login-logo logo-normal">
+                <div className="login-logo logo-normal" onClick={handleLogoClick}>
                   <img
                     src={logo}
                     alt="Logo"

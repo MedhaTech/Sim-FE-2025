@@ -559,8 +559,11 @@ const Register = () => {
     formik.values.district,
     formik.values.whatapp_mobile,
   ]);
+  const handleLogoClick = () => {
+    navigate('/');
+  };
 
-  console.log(formik.values.district,"district", );
+  //console.log(formik.values.district,"district", );
   // const route = all_routes;
   return (
     <div className="main-wrapper">
@@ -569,7 +572,7 @@ const Register = () => {
           <div className="login-content">
             <form action="signin" onSubmit={formik.handleSubmit}>
               <div className="login-userset">
-                <div className="login-logo logo-normal">
+                <div className="login-logo logo-normal" onClick={handleLogoClick}>
                   <img src={logo} alt="Logo" />
                 </div>
 

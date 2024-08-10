@@ -856,7 +856,7 @@ const HorizontalSidebar = () => {
               </li>
             </ul> */}
           </li>
-          {/* <li className="submenu">
+          <li className="submenu">
             <Link
               to="/mentorpostsurvey"
               onClick={handleSelectClick5}
@@ -865,7 +865,7 @@ const HorizontalSidebar = () => {
               <img src={support} alt="Survey" />
               <span>Post Survey</span>
             </Link>
-            </li> */}
+            </li>
           {/* <li className="submenu">
             <Link
               to="#"

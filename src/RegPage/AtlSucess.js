@@ -17,6 +17,9 @@ const AtlSucess = () => {
   const user = mentorDaTa.username;
   const myArray = user.split("@");
   const word = myArray[0];
+  const handleLogoClick = () => {
+    navigate('/');
+  };
   return (
     <div className="main-wrapper">
       <div className="login-wrapper register-wrap bg-img">
@@ -26,7 +29,7 @@ const AtlSucess = () => {
             {/* <img src={logo} alt="Logo" /> */}
             {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
             {/* </div> */}
-            <div className="login-logo logo-normal">
+            <div className="login-logo logo-normal" onClick={handleLogoClick}>
               {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
               <img src={success} alt="Success" />
             </div>
