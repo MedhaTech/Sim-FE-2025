@@ -70,30 +70,30 @@ const LogInTeam = (props) => {
       props.teamLoginUserAction(body, navigate, "TEAM");
     },
   });
+  const handleLogoClick = () => {
+    navigate('/');
+  };
 
   return (
     <div className="main-wrapper">
-      <div className="account-content">
+      {/* <div className="account-content">
         <div className="login-wrapper email-veri-wrap bg-img">
           <div className="login-content">
             <form onSubmit={formik.handleSubmit} action="index">
               <div className="login-userset">
-                <div className="login-logo logo-normal">
+                <div className="login-logo logo-normal" onClick={handleLogoClick}>
                   <img
                     src={logo}
                     alt="Logo"
-                    // className="logo-image"
                   />
-                  {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
+                  
                 </div>
-                {/* <Link className="login-logo logo-white">
-                  <ImageWithBasePath src="assets/img/logo-white.png" alt />
-                </Link> */}
+               
                 <div className="login-userheading">
                   <h3> Team Login</h3>
-                  {/* <h3>
+                  <h3>
                    Student Team Journey coming soon ...
-                  </h3> */}
+                  </h3>
                   <h4>
                     Access the Team panel using your Team ID and password.
                   </h4>
@@ -173,52 +173,43 @@ const LogInTeam = (props) => {
                     </Link>
                   </h4>
                 </div> 
-                {/* <div className="signinform">
-                  <h4>
-                    New on our platform?
-                    <Link className="hover-a" to={"/registration"}>
-                      {" "}
-                      Create an account
-                    </Link>
-                  </h4>
-                </div> */}
-                {/* <div className="form-setlogin or-text">
-                  <h4>OR</h4>
-                </div>
-                <div className="form-sociallink">
-                  <ul className="d-flex">
-                    <li>
-                      <Link to="#" className="facebook-logo">
-                        <ImageWithBasePath
-                          src="assets/img/icons/facebook-logo.svg"
-                          alt="Facebook"
-                        />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="#">
-                        <ImageWithBasePath
-                          src="assets/img/icons/google.png"
-                          alt="Google"
-                        />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="#" className="apple-logo">
-                        <ImageWithBasePath
-                          src="assets/img/icons/apple-logo.svg"
-                          alt="Apple"
-                        />
-                      </Link>
-                    </li>
-                  </ul>
+                
+                
                   <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
                     <p>Copyright © 2023 DreamsPOS. All rights reserved</p>
                   </div>
-                </div> */}
+                 
               </div>
             </form>
           </div>
+        </div>
+      </div> */}
+      <div className="comming-soon-pg w-100">
+        <div className="coming-soon-box">
+          <div className="pos-logo" onClick={handleLogoClick}>
+              <img
+                  src={logo}
+                  alt="Logo"
+              />
+          </div>
+          <span>Student Team Journey</span>
+          <h1>
+            <span> COMING </span> SOON{" "}
+          </h1>
+          <p>The student team&apos;s journey will soon be enabled, offering a great experience.</p>
+          <br/>
+          <div className="signinform">
+            <h5>
+              Not a Team ?
+              <Link className="hover-a" to={"/login"}>
+                {" "}
+                Click Here
+              </Link>
+            </h5>
+          </div> 
+          
+          
+          
         </div>
       </div>
     </div>

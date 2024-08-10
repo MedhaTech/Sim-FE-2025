@@ -9,6 +9,9 @@ import { Row } from "reactstrap";
 import { ArrowRight } from "feather-icons-react";
 const LoginPage = () => {
   const navigate = useNavigate();
+  const handleLogoClick = () => {
+    navigate('/');
+  };
 
   return (
     <div className="main-wrapper">
@@ -17,7 +20,7 @@ const LoginPage = () => {
           <div className="login-content">
             <form action="index">
               <div className="login-userset">
-                <div className="login-logo logo-normal">
+                <div className="login-logo logo-normal" onClick={handleLogoClick}>
                   <img src={logo} alt="Logo" />
                   {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
                 </div>

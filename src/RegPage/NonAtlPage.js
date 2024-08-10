@@ -648,10 +648,16 @@ const NonAtlPage = () => {
     setBtnOtp(false);
     formik.setFieldValue("otp", "");
   
+  },[formik.values.mobile]);
+  useEffect(()=>{
+    setOtpRes(0);
+    setBtnOtp(false);
+    formik.setFieldValue("otp", "");
+  
   },[formik.values.email]);
   async function apiCall(mentData) {
     // Dice code list API //
-    // where list = diescode //
+    // where list = diescode  //
     const body = JSON.stringify({
       school_name: orgData.organization_name,
       udise_code: orgData.organization_code,
@@ -736,6 +742,9 @@ const NonAtlPage = () => {
 
     formik.values.whatapp_mobile,
   ]);
+  const handleLogoClick = () => {
+    navigate('/');
+  };
 
   return (
     <div className="main-wrapper">
@@ -744,7 +753,7 @@ const NonAtlPage = () => {
           <div className="login-content">
             <form action="signin" onSubmit={formik.handleSubmit}>
               <div className="login-userset">
-                <div className="login-logo logo-normal">
+                <div className="login-logo logo-normal" onClick={handleLogoClick}>
                   <img src={logo} alt="Logo" />
                   {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
                 </div>
