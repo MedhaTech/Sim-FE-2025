@@ -18,12 +18,15 @@ const NonAtlSuccess = () => {
   const user = mentorDaTa.username;
   const myArray = user.split("@");
   const word = myArray[0];
+  const handleLogoClick = () => {
+    navigate('/');
+  };
   return (
     <div className="main-wrapper">
       <div className="login-wrapper register-wrap bg-img">
         <div className="login-content">
           <div className="login-userset">
-            <div className="login-logo logo-normal">
+            <div className="login-logo logo-normal" onClick={handleLogoClick}>
               <img src={success} alt="Success" />
             </div>
 
