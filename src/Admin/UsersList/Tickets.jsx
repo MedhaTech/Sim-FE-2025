@@ -19,7 +19,7 @@ import axios from 'axios';
 import { URL, KEY } from '../../constants/defaultValues.js';
 
 import { getNormalHeaders } from '../../helpers/Utils';
-// import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
@@ -37,6 +37,7 @@ import dist from 'react-data-table-component-extensions';
 // import ClipLoader from 'react-spinners/ClipLoader';
 import { encryptGlobal } from '../../constants/encryptDecrypt.js';
 import { stateList } from '../../RegPage/ORGData.js';
+// import { useNavigate } from 'react-router-dom';
 // const { TabPane } = Tabs;
 
 // const SelectDists = ({
@@ -91,7 +92,7 @@ import { stateList } from '../../RegPage/ORGData.js';
 // };
 const TicketsPage = (props) => {
     const dispatch = useDispatch();
-    // const history = useHistory();
+    const navigate = useNavigate();
     const [tableData, settableData] = React.useState([]);
     const [showspin, setshowspin] = React.useState(false);
 const[applicant,setApplicant]=useState("");
@@ -169,27 +170,20 @@ const updateStatesList=["All States",...stateList];
         localStorage.removeItem('dist');
         localStorage.removeItem('num');
         if (num == '1') {
-            props.history.push({
-                pathname: `/admin/userprofile`,
-                data: item,
-                dist: studentDist,
-                num: num
-            });
+            navigate("/student-view",{state:{ data: item,
+                // dist:studentDist,
+                num: num}}
+               
+            );
+           
             localStorage.setItem('studentId', item.user_id);
             localStorage.setItem('studentData', JSON.stringify(item));
-        } else {
-            props.history.push({
-                pathname: `/admin/userprofile`,
-                data: item,
-                dist: mentorDist,
-                num: num
-            });
-        }
-        localStorage.setItem('mentor', JSON.stringify(item));
+        } 
+           
     };
     const viewDetail = (item) => {
         props.history.push({
-            pathname: '/admin/teacher/dashboard',
+            pathname: '/student-view',
             data: item
         });
         // localStorage.setItem(
@@ -405,7 +399,7 @@ const updateStatesList=["All States",...stateList];
 
             {
                 name: 'UDISE Code',
-                selector: (row) => row.team.mentor.organization.organization_code,
+                selector: (row) => row?.team?.mentor?.organization?.organization_code,
                 cell: (row) => (
                     <div
                         style={{
@@ -413,22 +407,22 @@ const updateStatesList=["All States",...stateList];
                             wordWrap: 'break-word'
                         }} 
                     >
-                        {row.team.mentor.organization.organization_code}
+                        {row?.team?.mentor?.organization?.organization_code}
                     </div>
                 ),
-                cellExport: (row) => row.team.mentor.organization.organization_code,
+                cellExport: (row) => row?.team?.mentor?.organization?.organization_code,
                 width: '9rem'
             },
             {
                 name: 'State',
-                selector: (row) => row.team.mentor.organization.
+                selector: (row) => row?.team?.mentor?.organization.
                 state,
                 width: '8rem'
             },
             {
                 name: 'Category',
-                selector: (row) => row.team.mentor.organization.category,
-                cellExport: (row) => row.team.mentor.organization.category,
+                selector: (row) => row?.team?.mentor?.organization?.category,
+                cellExport: (row) => row?.team?.mentor?.organization?.category,
                 width: '6rem'
             },
             // {
@@ -446,41 +440,41 @@ const updateStatesList=["All States",...stateList];
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row.team.mentor.organization.organization_name
+                        {row?.team?.mentor?.organization?.organization_name
 }
                     </div>
                 ),
-                selector: (row) => row.team.mentor.organization.organization_name,
-                cellExport: (row) => row.team.mentor.organization.
+                selector: (row) => row?.team?.mentor?.organization?.organization_name,
+                cellExport: (row) => row?.team?.mentor?.organization.
                 organization_name,
                 width: '10rem'
             },
 
             {
                 name: 'Student Name',
-                selector: (row) => row.full_name,
-                cellExport: (row) => row.sfull_name,
+                selector: (row) => row?.full_name,
+                cellExport: (row) => row?.sfull_name,
                 width: '8rem'
             },
             {
                 name: 'Age',
-                selector: (row) => row.Age,
+                selector: (row) => row?.Age,
                 width: '5rem'
             },
 
             {
                 name: 'Gender',
-                selector: (row) => row.Gender,
+                selector: (row) => row?.Gender,
                 width: '6rem'
             },
             {
                 name: 'Team Name',
-                selector: (row) => row.team.team_name,
+                selector: (row) => row?.team?.team_name,
                 width: '8rem'
             },
             {
                 name: 'Team Email Id',
-                selector: (row) => row.team.team_email,
+                selector: (row) => row?.team?.team_email,
                 width: '12rem'
             },
 
@@ -506,7 +500,7 @@ const updateStatesList=["All States",...stateList];
                 cell: (record) => [
                     <div
                         key={record.id}
-                        // onClick={() => handleSelect(record, '1')}
+                        onClick={() => handleSelect(record, '1')}
                         style={{ marginRight: '10px' }}
                     >
                         <div className="btn btn-primary  mr-5">View</div>
