@@ -146,7 +146,7 @@ export const teacherLoginUser =
 
 export const teacherCreateMultipleStudent =
   (data, navigate, setIsClicked) => async () => {
-    console.log(data, "multi");
+    // console.log(data, "multi");
     try {
       const axiosConfig = getNormalHeaders(KEY.User_API_Key);
       const result = await axios
@@ -185,5 +185,26 @@ export const teacherLoginUserLogOut = (navigate) => async () => {
     }
   } catch (error) {
     console.log("Something went wrong in teachers actions");
+  }
+};
+export const studentResetPassword = (body) => async () => {
+  try {
+      const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+      const result = await axios
+          .put(`${URL.studentResetPwd}`, body, axiosConfig)
+          .then((user) => user)
+          .catch((err) => {
+              return err.response;
+          });
+      if (result && result.status === 200) {
+          openNotificationWithIcon(
+              'success',
+              'Password Successfully Updated'
+          );
+      } else {
+          openNotificationWithIcon('error', 'Something went wrong');
+      }
+  } catch (error) {
+      openNotificationWithIcon('error', 'Something went wrong');
   }
 };

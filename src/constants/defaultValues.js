@@ -53,7 +53,9 @@ export const URL = {
   getAdmin: process.env.REACT_APP_API_BASE_URL + '/admins/',
   updateAdminStatus: process.env.REACT_APP_API_BASE_URL + '/admins',
   adminRegister: process.env.REACT_APP_API_BASE_URL + '/admins',
-
+  deleteTempMentor: process.env.REACT_APP_API_BASE_URL + '/mentors/',
+  studentResetPwd:
+  process.env.REACT_APP_API_BASE_URL + '/students/resetPassword',
   getTeamMemberStatusEndpoint:
     process.env.REACT_APP_API_BASE_URL + "/dashboard/teamStats/",
   getTeacherCousesDetails:
