@@ -19,6 +19,7 @@ export const all_routes = {
   stuedit:"student-edit",
   createpopup:"/create-popup",
   reportsregistration : "/reportsregistration",
+  reportsteacher : "/reportsteacher",
   editinstitution:"/edit-institution",
   mentordashboard: "/teacher-dashboard",
   teamdashboard: "/team-dashboard",
