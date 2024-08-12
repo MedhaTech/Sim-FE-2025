@@ -15,6 +15,7 @@ export const all_routes = {
   popup:"/popup",
   createpopup:"/create-popup",
   reportsregistration : "/reportsregistration",
+  reportsteacher : "/reportsteacher",
   editinstitution:"/edit-institution",
   mentordashboard: "/teacher-dashboard",
   teamdashboard: "/team-dashboard",

@@ -75,6 +75,7 @@ import AdminsList from "../Admin/UsersList/AdminsList";
 import MentorTableView from "../Admin/UsersList/MentorTableView";
 import PopUp from "../Admin/PopUp/Popuplist";
 import CreateResource from "../Admin/PopUp/CreatePopUp";
+import TeacherProgressDetailed from "../Admin/Reports/Helpers/TeacherProgressDetailed";
 
 
 
@@ -224,6 +225,14 @@ export const publicRoutes = [
     path: routes.createpopup,
     name: "createpopup",
     element: <CreateResource/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 16,
+    path: routes.reportsteacher,
+    name: "reportsteacher",
+    element: <TeacherProgressDetailed/>,
     protected: true,
     route: Route,
   },
