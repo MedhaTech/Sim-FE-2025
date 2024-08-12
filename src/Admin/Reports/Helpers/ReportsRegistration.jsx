@@ -85,12 +85,12 @@ const ReportsRegistration = () => {
         datasets: []
     });
     
-    const fullStatesNames = useSelector(
-        (state) => newstateList
-    );
-    const fiterDistData = useSelector(
-        (state) => districtList[RegTeachersState]
-    );
+    // const fullStatesNames = useSelector(
+    //     (state) => newstateList
+    // );
+    const fullStatesNames =newstateList;
+    const fiterDistData = districtList[RegTeachersState];
+    
     const [downloadTableData, setDownloadTableData] = useState(null);
     const summaryHeaders = [
         {
@@ -246,16 +246,16 @@ const ReportsRegistration = () => {
             key: 'principal_email'
         }
     ];
+    // useEffect(() => {
+    //     dispatch(getStateData());
+    // }, []);
     useEffect(() => {
-        dispatch(getStateData());
-    }, []);
-    useEffect(() => {
-        if (RegTeachersState !== '') {
-            dispatch(getFetchDistData(RegTeachersState));
-        }
-        setRegTeachersdistrict('');
+        // if (RegTeachersState !== '') {
+        //     (RegTeachersState);
+        // }
+        // setRegTeachersdistrict('');
         fetchChartTableData();
-    }, [RegTeachersState]);
+    }, []);
 
     // useEffect(() => {
     //     // dispatch(getDistrictData());

@@ -25,6 +25,10 @@ import logout from '../../assets/img/logout.svg';
 import { useDispatch } from 'react-redux';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import {
+    deleteTempMentorById,
+    teacherResetPassword
+} from '../store/admin/actions';
+import {
     getCurrentUser,
     getNormalHeaders,
     openNotificationWithIcon
@@ -191,9 +195,9 @@ const Dashboard = () => {
     const handleEdit = () => {
         //  here  We can edit the Registration details //
         // Where data = orgData //
-        history.push({
-            pathname: '/admin/mentor/edit-user-profile',
-            data: {
+        navigate(
+             '/admin-mentor-edit',
+           { state: {
                 full_name: orgData.mentor?.full_name,
                 mobile: orgData.mentor?.mobile,
                 username: orgData.mentor?.user?.username,
@@ -206,7 +210,7 @@ const Dashboard = () => {
             }
         });
     };
-
+// console.log(orgData,"org");
     const handleresetpassword = (data) => {
         //  here we can reset the password as disecode //
         const swalWithBootstrapButtons = Swal.mixin({
@@ -231,11 +235,11 @@ const Dashboard = () => {
             .then((result) => {
                 if (result.isConfirmed) {
                     dispatch(
-                        // teacherResetPassword({
-                        //     username: orgData.mentor?.user?.username,
-                        //     mentor_id: data.mentor_id,
-                        //     otp: false
-                        // })
+                        teacherResetPassword({
+                            username: orgData.mentor?.user?.username,
+                            mentor_id: data.mentor_id,
+                            otp: false
+                        })
                     );
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                     swalWithBootstrapButtons.fire(
@@ -261,37 +265,38 @@ const Dashboard = () => {
     const viewDetails = () => {
         // where we can see all details //
         // where orgData = orgnization details , Mentor details //
-        history.push({
-            pathname: '/admin/teacher/View-More-details',
-            data: orgData
-        });
+        // history.push({
+        //     pathname: '/admin/teacher/View-More-details',
+        //     data: orgData
+        // });
+        navigate("/mentor-details");
         localStorage.setItem('orgData', JSON.stringify(orgData));
     };
-    useEffect(() => {
-        const popParam = encryptGlobal('2');
-        var config = {
-            method: 'get',
-            url: process.env.REACT_APP_API_BASE_URL + `/popup/${popParam}`,
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${currentUser.data[0]?.token}`
-            }
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 200) {
-                    if (response.data.data[0]?.on_off === '1') {
-                        setIsideadisable(true);
-                    } else {
-                        setIsideadisable(false);
-                    }
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }, []);
+    // useEffect(() => {
+    //     const popParam = encryptGlobal('2');
+    //     var config = {
+    //         method: 'get',
+    //         url: process.env.REACT_APP_API_BASE_URL + `/popup/${popParam}`,
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Accept: 'application/json',
+    //             Authorization: `Bearer ${currentUser.data[0]?.token}`
+    //         }
+    //     };
+    //     axios(config)
+    //         .then(function (response) {
+    //             if (response.status === 200) {
+    //                 if (response.data.data[0]?.on_off === '1') {
+    //                     setIsideadisable(true);
+    //                 } else {
+    //                     setIsideadisable(false);
+    //                 }
+    //             }
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    // }, []);
     const MentorsData = {
         data: mentorTeam,
         columns: [
@@ -313,12 +318,12 @@ const Dashboard = () => {
                 center: true,
                 width: '20%'
             },
-            {
-                name: 'Idea Sub Status',
-                selector: (row) => row.ideaStatus,
-                center: true,
-                width: '25%'
-            }
+            // {
+            //     name: 'Idea Sub Status',
+            //     selector: (row) => row.ideaStatus,
+            //     center: true,
+            //     width: '25%'
+            // }
             // {
             //     name: 'Actions',
             //     cell: (params) => {
@@ -414,9 +419,11 @@ const Dashboard = () => {
             .then(async (result) => {
                 if (result.isConfirmed) {
                     if (result.isConfirmed) {
-                        // await deleteTempMentorById(id);
+                        await deleteTempMentorById(id);
                         setOrgData({});
                         setDiesCode('');
+                        navigate("/mentors");
+
                     }
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                     swalWithBootstrapButtons.fire('Cancelled', '', 'error');
@@ -429,14 +436,14 @@ const Dashboard = () => {
         <div className="content">
             <div className="dashboard-wrappermy-5 px-5">
                 <div className="dashboard p-2">
-                <h2>Dashboard </h2>
+                <h4>Dashboard </h4>
                     <div className="text-right">
                         <Button
                             label="Back"
                             size="small"
                             btnClass="primary mb-3"
                             type="cancel"
-                            onClick={() => history.push('/admin/userlist')}
+                            onClick={() => navigate('/mentors')}
                         />
                     </div>
                     <div className="row " style={{ overflow: 'auto' }}>
@@ -565,7 +572,7 @@ const Dashboard = () => {
                                                             xl={5}
                                                             className="my-auto profile-detail"
                                                         >
-                                                            <p>School</p>
+                                                            <p>School Name</p>
                                                         </Col>
                                                         <Col
                                                             xs={1}
@@ -709,7 +716,11 @@ const Dashboard = () => {
                                                             className="my-auto profile-detail"
                                                         >
                                                             <p>
-                                                                {
+                                                            {
+                                                                    orgData
+                                                                        .mentor
+                                                                        ?.title
+                                                                }. {
                                                                     orgData
                                                                         .mentor
                                                                         ?.full_name

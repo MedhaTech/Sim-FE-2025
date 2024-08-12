@@ -75,6 +75,13 @@ import AdminsList from "../Admin/UsersList/AdminsList";
 import MentorTableView from "../Admin/UsersList/MentorTableView";
 import PopUp from "../Admin/PopUp/Popuplist";
 import CreateResource from "../Admin/PopUp/CreatePopUp";
+import MentorView from "../Admin/UsersList/MentorView";
+import MentorEdit from "../Admin/UsersList/MentorEdit";
+import StudentTableView from "../Admin/UsersList/StudentTableView";
+import StuEdit from "../Admin/UsersList/StudentEdit";
+
+
+
 
 
 
@@ -224,6 +231,38 @@ export const publicRoutes = [
     path: routes.createpopup,
     name: "createpopup",
     element: <CreateResource/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 17,
+    path: routes.mentordetails,
+    name: "mentordetails",
+    element: <MentorView/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 18,
+    path: routes.mentorEdit,
+    name: "mentorEdit",
+    element: <MentorEdit/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 19,
+    path: routes.studenttableview,
+    name: "studenttableview",
+    element: <StudentTableView/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 20,
+    path: routes.stuedit,
+    name: "stuedit",
+    element: <StuEdit/>,
     protected: true,
     route: Route,
   },
