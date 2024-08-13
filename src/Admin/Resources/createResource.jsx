@@ -1,22 +1,19 @@
 /* eslint-disable indent */
 import React from 'react';
-import Layout from '../../Admin/Layout';
 import { Row, Col, FormGroup, Label, Form, Input } from 'reactstrap';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button } from '../../stories/Button';
-import { InputBox } from '../../stories/InputBox/InputBox';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import { useTranslation } from 'react-i18next';
-// import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-// import { URL, KEY } from '../../constants/defaultValues';
-// import { staticData } from './index';
+import { useNavigate } from 'react-router-dom';
 
-const CreateResource = (props) => {
+
+const CreateResource = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const currentUser = getCurrentUser('current_user');
-    // const history = useHistory();
     const inputDICE = {
         type: 'text',
         className: 'defaultInput'
@@ -73,15 +70,11 @@ const CreateResource = (props) => {
                 .oneOf(['mentor', 'student'], 'Role is Required'),
             description: Yup.string()
                 .optional()
-                .required('details is Required'),
+                .required('Details is Required'),
             type: Yup.string()
                 .optional()
-                .oneOf(['file', 'link'], 'Submission type is Required'),
-            attachments: Yup.mixed().when('type', {
-                is: 'file',
-                then: Yup.mixed().required('File is Required'),
-                otherwise: Yup.string().required('Link is Required')
-            })
+                .oneOf(['file', 'link'], 'Type is Required'),
+            attachments: Yup.string().required('Attachments are required'),
         }),
         onSubmit: async (values) => {
             try {
@@ -130,7 +123,7 @@ const CreateResource = (props) => {
                 );
 
                 if (response.status === 201) {
-                    props.history.push('/admin/Resources');
+                    navigate('/adminresources');
                     openNotificationWithIcon(
                         'success',
                         'Resource Updated Successfully'
@@ -142,156 +135,137 @@ const CreateResource = (props) => {
                 console.log(error);
             }
         }
-        //   onSubmit: (values) => {
-
-        //     const body = JSON.stringify({
-        //         role: values.role,
-        //         description: values.description,
-        //         type: values.type,
-        //         attachments: values.attachments
-        //     });
-
-        //     var config = {
-        //         method: 'post',
-        //         url: process.env.REACT_APP_API_BASE_URL + '/resource',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //             Authorization: `Bearer ${currentUser?.data[0]?.token}`
-        //         },
-        //         data: body
-        //     };
-        //     axios(config)
-        //         .then(function (response) {
-        //             if (response.status === 201) {
-        //                 props.history.push('/admin/Resources/index');
-        //                 openNotificationWithIcon(
-        //                     'success',
-        //                     'Resource Created Successfully'
-        //                 );
-        //             } else {
-        //                 openNotificationWithIcon(
-        //                     'error',
-        //                     'Opps! Something Wrong'
-        //                 );
-        //             }
-        //         })
-        //         .catch(function (error) {
-        //             console.log(error);
-        //         });
-        // }
     });
 
-    // const handleFileChange = (e) => {
-    //   formik.setFieldValue('file', e.target.files[0]);
-    // };
+    const buttonContainerStyle = {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      };
+    
+      const buttonStyle = {
+        marginRight: '10px',
+      };
 
     return (
-        <Layout>
+        <div className="page-wrapper">
+        <div className="content">
+            <div className="page-header">
+                    <div className="add-item d-flex">
+                        <div className="page-title">
+                            <h4>Add Resource</h4>
+                            <h6>You can add new resourse by submitting details here</h6>
+                        </div>
+                    </div>
+                </div>
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <h3 className="mt-5 mb-5 ">
-                            {' '}
-                            Add New Resources Details{' '}
-                        </h3>
                         <div>
                             <Form onSubmit={formik.handleSubmit} isSubmitting>
                                 <div className="create-ticket register-block">
-                                    <FormGroup className="form-group" md={12}>
-                                        <Label className="mb-2" htmlFor="role">
-                                            Role
-                                        </Label>
-                                        <select
-                                            name="role"
-                                            id="role"
-                                            className="form-control custom-dropdown"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            value={formik.values.role}
-                                            style={{
-                                                color: formik.values.role
-                                                    ? 'black'
-                                                    : 'initial',
-                                                fontWeight: formik.values.role
-                                                    ? 'bold'
-                                                    : 'normal'
-                                            }}
-                                        >
-                                            <option value="" disabled={true}>
-                                                Select role
-                                            </option>
-                                            <option value="mentor">
-                                                mentor
-                                            </option>
-                                            <option value="student">
-                                                student
-                                            </option>
-                                        </select>
-                                        {formik.touched.role &&
-                                            formik.errors.role && (
-                                                <small className="error-cls">
-                                                    {formik.errors.role}
-                                                </small>
-                                            )}
-
-                                        <Label
-                                            className="mb-2"
-                                            htmlFor="description"
-                                        >
-                                            Details
-                                        </Label>
-                                        <InputBox
-                                            {...inputDICE}
-                                            id="description"
-                                            name="description"
-                                            placeholder="Please enter details"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            value={formik.values.description}
-                                        />
-                                        {formik.touched.description &&
-                                            formik.errors.description && (
-                                                <small className="error-cls">
-                                                    {formik.errors.description}
-                                                </small>
-                                            )}
-
-                                        <Label className="mb-2" htmlFor="type">
-                                            Type
-                                        </Label>
-                                        <select
-                                            name="type"
-                                            id="type"
-                                            placeholder="Please select submission type"
-                                            className="form-control custom-dropdown"
-                                            onChange={(e) => {
-                                                formik.handleChange(e);
-                                                handleTypeChnage();
-                                            }}
-                                            onBlur={formik.handleBlur}
-                                            value={formik.values.type}
-                                            style={{
-                                                color: formik.values.type
-                                                    ? 'black'
-                                                    : 'initial',
-                                                fontWeight: formik.values.type
-                                                    ? 'bold'
-                                                    : 'normal'
-                                            }}
-                                        >
-                                            <option disabled={true} value="">
-                                                Select type
-                                            </option>
-                                            <option value="file">File</option>
-                                            <option value="link">Link</option>
-                                        </select>
-                                        {formik.touched.type &&
-                                            formik.errors.type && (
-                                                <small className="error-cls">
-                                                    {formik.errors.type}
-                                                </small>
-                                            )}
-
+                                    <Row className="mb-3 modal-body-table search-modal-header">
+                                        <Col>
+                                            <Label className="mb-2" htmlFor="role">
+                                                Role
+                                            </Label>
+                                            <select
+                                                name="role"
+                                                id="role"
+                                                className="form-control custom-dropdown"
+                                                onChange={formik.handleChange}
+                                                onBlur={formik.handleBlur}
+                                                value={formik.values.role}
+                                                style={{
+                                                    color: formik.values.role
+                                                        ? 'black'
+                                                        : 'initial',
+                                                    fontWeight: formik.values.role
+                                                        ? 'bold'
+                                                        : 'normal'
+                                                }}
+                                            >
+                                                <option value="" disabled={true}>
+                                                    Select role
+                                                </option>
+                                                <option value="mentor">
+                                                    mentor
+                                                </option>
+                                                <option value="student">
+                                                    student
+                                                </option>
+                                            </select>
+                                            {formik.touched.role &&
+                                                formik.errors.role && (
+                                                    <small className="error-cls" style={{color:"red"}}>
+                                                        {formik.errors.role}
+                                                    </small>
+                                                )}
+                                        </Col>
+                                        <Col>
+                                            <Label
+                                                className="mb-2"
+                                                htmlFor="description"
+                                            >
+                                                Details
+                                            </Label>
+                                            <Input
+                                                {...inputDICE}
+                                                id="description"
+                                                type="text"
+                                                name="description"
+                                                placeholder="Please enter details"
+                                                onChange={formik.handleChange}
+                                                onBlur={formik.handleBlur}
+                                                value={formik.values.description}
+                                            />
+                                            {formik.touched.description &&
+                                                formik.errors.description && (
+                                                    <small className="error-cls" style={{color:"red"}}>
+                                                        {formik.errors.description}
+                                                    </small>
+                                                )}
+                                        </Col>
+                                    </Row>
+                                    <Row className="mb-3 modal-body-table search-modal-header">
+                                        <Col>
+                                            <Label className="mb-2" htmlFor="type">
+                                                Type
+                                            </Label>
+                                            <select
+                                                name="type"
+                                                id="type"
+                                                placeholder="Please select submission type"
+                                                className="form-control custom-dropdown"
+                                                onChange={(e) => {
+                                                    formik.handleChange(e);
+                                                    handleTypeChnage();
+                                                }}
+                                                onBlur={formik.handleBlur}
+                                                value={formik.values.type}
+                                                style={{
+                                                    color: formik.values.type
+                                                        ? 'black'
+                                                        : 'initial',
+                                                    fontWeight: formik.values.type
+                                                        ? 'bold'
+                                                        : 'normal'
+                                                }}
+                                            >
+                                                <option disabled={true} value="">
+                                                    Select type
+                                                </option>
+                                                <option value="file">File</option>
+                                                <option value="link">Link</option>
+                                            </select>
+                                            {formik.touched.type &&
+                                                formik.errors.type && (
+                                                    <small className="error-cls" style={{color:"red"}}>
+                                                        {formik.errors.type}
+                                                    </small>
+                                                )}
+                                        </Col>
+                                        <Col>
                                         {formik.values.type === 'file' && (
                                             <>
                                                 <Label
@@ -354,7 +328,7 @@ const CreateResource = (props) => {
                                                 {formik.touched.attachments &&
                                                     formik.errors
                                                         .attachments && (
-                                                        <small className="error-cls">
+                                                        <small className="error-cls" style={{color:"red"}}>
                                                             {
                                                                 formik.errors
                                                                     .attachments
@@ -392,7 +366,7 @@ const CreateResource = (props) => {
                                                 {formik.touched.attachments &&
                                                     formik.errors
                                                         .attachments && (
-                                                        <small className="error-cls">
+                                                        <small className="error-cls" style={{color:"red"}}>
                                                             {
                                                                 formik.errors
                                                                     .attachments
@@ -401,57 +375,39 @@ const CreateResource = (props) => {
                                                     )}
                                             </FormGroup>
                                         )}
-                                    </FormGroup>
+                                        </Col>
+                                    </Row>
                                 </div>
 
-                                <hr className="mt-4 mb-4" />
                                 <Row>
-                                    <Col className="col-xs-12 col-sm-6">
-                                        <div className="col-6">
-                                            <Button
-                                                label="Discard"
-                                                size="small"
-                                                btnClass="primary"
-                                                type="cancel"
-                                                // onClick={() =>
-                                                //     history.push(
-                                                //         'admin/Resources/index'
-                                                //     )
-                                                // }
-                                                onClick={() =>
-                                                    props.history.push(
-                                                        '/admin/Resources'
-                                                    )
-                                                }
-                                            />
-                                        </div>
-                                    </Col>
-                                    <Col className="submit-btn col-xs-12 col-sm-6">
-                                        <Button
-                                            label="Submit details"
+                                    <div style={buttonContainerStyle} className='mt-3'>
+                                        <button
                                             type="submit"
-                                            btnClass={
-                                                // !formik.dirty && !formik.isValid
-                                                //     ? 'default'
-                                                //     : 'primary'
-                                                !(
-                                                    formik.dirty &&
-                                                    formik.isValid
-                                                )
-                                                    ? 'default'
-                                                    : 'primary'
-                                            }
-                                            size="small"
-                                            disabled={!formik.dirty}
-                                        />
-                                    </Col>
+                                            className='btn btn-warning'
+                                            style={buttonStyle}
+                                        >
+                                            Submit details
+                                        </button>
+
+                                    
+                                        <button
+                                            className='btn btn-secondary'
+                                            type="button"
+
+                                            style={{ marginLeft: 'auto' }} 
+                                            onClick={() => navigate('/adminresources')}
+                                        >
+                                            Discard
+                                        </button>
+                                    </div>
                                 </Row>
                             </Form>
                         </div>
                     </Col>
                 </Row>
             </div>
-        </Layout>
+            </div>
+            </div>
     );
 };
 

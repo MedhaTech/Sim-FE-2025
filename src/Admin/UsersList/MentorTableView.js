@@ -21,7 +21,7 @@ import { URL, KEY } from '../../constants/defaultValues';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2/dist/sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
-import logout from '../../assets/img/logout.svg';
+import logout from '../../assets/img/logout.png';
 import { useDispatch } from 'react-redux';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import {
@@ -215,21 +215,20 @@ const Dashboard = () => {
         //  here we can reset the password as disecode //
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
-                confirmButton: 'btn btn-success',
-                cancelButton: 'btn btn-danger'
+                confirmButton: 'btn btn-submit',
+                cancelButton: 'btn btn-cancel'
             },
             buttonsStyling: false
         });
 
         swalWithBootstrapButtons
             .fire({
-                title: 'You are attempting to reset the password',
-                text: 'Are you sure?',
+                title: "<h4>Are you sure?</h4>",
+                text: 'You are attempting to reset the password',
                 imageUrl: `${logout}`,
-                showCloseButton: true,
                 confirmButtonText: 'Reset Password',
                 showCancelButton: true,
-                cancelButtonText: 'cancel',
+                cancelButtonText: 'Cancel',
                 reverseButtons: false
             })
             .then((result) => {
@@ -241,13 +240,7 @@ const Dashboard = () => {
                             otp: false
                         })
                     );
-                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    swalWithBootstrapButtons.fire(
-                        'Cancelled',
-                        'Reset password is cancelled',
-                        'error'
-                    );
-                }
+                } 
             })
             .catch((err) => console.log(err.response));
     };
@@ -399,8 +392,8 @@ const Dashboard = () => {
         // we can delete the userid //
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
-                confirmButton: 'btn btn-success',
-                cancelButton: 'btn btn-danger'
+                confirmButton: 'btn btn-submit',
+                cancelButton: 'btn btn-cancel'
             },
             buttonsStyling: false,
             allowOutsideClick: false
@@ -408,9 +401,9 @@ const Dashboard = () => {
 
         swalWithBootstrapButtons
             .fire({
-                title: 'You are Delete Organization',
-                text: 'Are you sure?',
-                showCloseButton: true,
+                title: "<h4>Are you sure?</h4>",
+                text:'You are Deleting this Registration' ,
+                imageUrl: `${logout}`,
                 confirmButtonText: 'Confirm',
                 showCancelButton: true,
                 cancelButtonText: 'Cancel',
@@ -425,9 +418,7 @@ const Dashboard = () => {
                         navigate("/mentors");
 
                     }
-                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    swalWithBootstrapButtons.fire('Cancelled', '', 'error');
-                }
+                } 
             });
     };
 
