@@ -78,7 +78,11 @@ import Createpopup from "../Admin/PopUp/CreatePopUp";
 import AdminResources from "../Admin/Resources/index";
 import EditResource from "../Admin/Resources/editResource";
 import TeacherProgressDetailed from "../Admin/Reports/Helpers/TeacherProgressDetailed";
+
 import CreateResource from "../Admin/Resources/createResource";
+
+import StudentProgressReport from "../Admin/Reports/Helpers/StudentProgressReport";
+
 import MentorView from "../Admin/UsersList/MentorView";
 import MentorEdit from "../Admin/UsersList/MentorEdit";
 import StudentTableView from "../Admin/UsersList/StudentTableView";
@@ -300,6 +304,14 @@ export const publicRoutes = [
     path: routes.editResource,
     name: "editResource",
     element: <EditResource/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 25,
+    path: routes.studentreport,
+    name: "studentreport",
+    element: <StudentProgressReport/>,
     protected: true,
     route: Route,
   },

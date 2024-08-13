@@ -269,12 +269,12 @@ const CommonUserProfile = (props) => {
                         >
                         Edit
                         </button> 
-                        <button
+                        {/* <button
                           className='btn btn-success me-2'
                           onClick={handleReset}
                         >
                     Reset
-                        </button>
+                        </button> */}
                         <button
                           className='btn btn-secondary'
                             onClick={handleViewBack}

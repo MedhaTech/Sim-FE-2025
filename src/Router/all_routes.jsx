@@ -14,6 +14,7 @@ export const all_routes = {
   mentortableview:"/mentor-view",
   popup:"/popup",
   mentordetails:"/mentor-details",
+  studentreport:"Student-Report",
   mentorEdit:"/admin-mentor-edit",
   studenttableview:"/student-view",
   stuedit:"student-edit",
