@@ -1,19 +1,20 @@
 /* eslint-disable indent */
 import React from 'react';
-import Layout from '../../Admin/Layout';
-import { Row, Col, FormGroup, Label, Form } from 'reactstrap';
+import { Row, Col, FormGroup, Label, Form,Input } from 'reactstrap';
 // import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { Button } from '../../stories/Button';
 import { useFormik } from 'formik';
-import { InputBox } from '../../stories/InputBox/InputBox';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
+import { useNavigate } from 'react-router-dom';
 
-const EditResource = (props) => {
+
+const EditResource = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const resID = JSON.parse(localStorage.getItem('resID'));
     const currentUser = getCurrentUser('current_user');
     const inputDICE = {
@@ -85,11 +86,7 @@ const EditResource = (props) => {
             type: Yup.string()
                 .optional()
                 .oneOf(['file', 'link'], 'Submission type is Required'),
-            attachments: Yup.mixed().when('type', {
-                is: 'file',
-                then: Yup.mixed().required('File is Required'),
-                otherwise: Yup.string().required('Link is Required')
-            })
+            attachments: Yup.string().required('Attachments are required'),
         }),
         onSubmit: async (values) => {
             try {
@@ -146,7 +143,8 @@ const EditResource = (props) => {
                 );
 
                 if (response.status === 200) {
-                    props.history.push('/admin/Resources');
+                    navigate('/adminresources');
+                    //props.history.push('/admin/Resources');
                     openNotificationWithIcon(
                         'success',
                         'Resource Updated Successfully'
@@ -159,247 +157,296 @@ const EditResource = (props) => {
             }
         }
     });
+    const buttonContainerStyle = {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      };
+    
+      const buttonStyle = {
+        marginRight: '10px',
+      };
+
 
     return (
-        <Layout>
-            <div className="EditPersonalDetails new-member-page">
-                <Row>
-                    <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <h3 className="mb-5">Edit Resource Details</h3>
-                        <div>
-                            <Form onSubmit={formik.handleSubmit} isSubmitting>
-                                <div className="create-ticket register-block">
-                                    <FormGroup className="form-group" md={12}>
-                                        <Label className="mb-2" htmlFor="role">
-                                            Role
-                                        </Label>
-                                        <select
-                                            name="role"
-                                            id="role"
-                                            className="form-control custom-dropdown"
-                                            value={formik.values.role}
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                        >
-                                            <option value="mentor">
-                                                mentor
-                                            </option>
-                                            <option value="student">
-                                                student
-                                            </option>
-                                        </select>
-                                        {formik.touched.role &&
-                                            formik.errors.role && (
-                                                <small className="error-cls">
-                                                    {formik.errors.role}
-                                                </small>
-                                            )}
-
-                                        <Label
-                                            className="mb-2"
-                                            htmlFor="description"
-                                        >
-                                            Description
-                                        </Label>
-                                        <InputBox
-                                            {...inputDICE}
-                                            id="description"
-                                            name="description"
-                                            placeholder="Please enter details"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            value={formik.values.description}
-                                        />
-                                        {formik.touched.description &&
-                                            formik.errors.description && (
-                                                <small className="error-cls">
-                                                    {formik.errors.description}
-                                                </small>
-                                            )}
-
-                                        <Label className="mb-2" htmlFor="type">
-                                            Type
-                                        </Label>
-                                        <select
-                                            name="type"
-                                            id="type"
-                                            className="form-control custom-dropdown"
-                                            value={formik.values.type}
-                                            onChange={(e) => {
-                                                formik.handleChange(e);
-                                                handleTypeChnage();
-                                            }}
-                                            onBlur={formik.handleBlur}
-                                        >
-                                            <option value="file">File</option>
-                                            <option value="link">Link</option>
-                                        </select>
-                                        {formik.touched.type &&
-                                            formik.errors.type && (
-                                                <small className="error-cls">
-                                                    {formik.errors.type}
-                                                </small>
-                                            )}
-
-                                        {formik.values.type === 'file' && (
-                                            <>
-                                                <Label
-                                                    className="mb-2"
-                                                    htmlFor="attachments"
-                                                >
-                                                    File
+        <div className="page-wrapper">
+            <div className="content">
+                <div className="page-header">
+                    <div className="add-item d-flex">
+                        <div className="page-title">
+                            <h4>Edit Resource</h4>
+                            <h6>You can modify details in this resourse</h6>
+                        </div>
+                    </div>
+                </div>
+                <div className="EditPersonalDetails new-member-page">
+                    <Row>
+                        <Col className="col-xl-10 offset-xl-1 offset-md-0">
+                            <div>
+                                <Form onSubmit={formik.handleSubmit} isSubmitting>
+                                    <div className="create-ticket register-block">
+                                        <Row className="mb-3 modal-body-table search-modal-header">
+                                            <Col>
+                                                <Label className="mb-2" htmlFor="role">
+                                                    Role
                                                 </Label>
-                                                <div className="d-flex align-items-center">
-                                                    <input
-                                                        type="file"
+                                                <select
+                                                    name="role"
+                                                    id="role"
+                                                    className="form-control custom-dropdown"
+                                                    value={formik.values.role}
+                                                    onChange={formik.handleChange}
+                                                    onBlur={formik.handleBlur}
+                                                >
+                                                    <option value="mentor">
+                                                        mentor
+                                                    </option>
+                                                    <option value="student">
+                                                        student
+                                                    </option>
+                                                </select>
+                                                {formik.touched.role &&
+                                                    formik.errors.role && (
+                                                        <small className="error-cls" style={{color:"red"}}>
+                                                            {formik.errors.role}
+                                                        </small>
+                                                    )}
+                                            </Col>
+                                            <Col>
+
+                                            <Label
+                                                className="mb-2"
+                                                htmlFor="description"
+                                            >
+                                                Description
+                                            </Label>
+                                            <Input
+                                                {...inputDICE}
+                                                id="description"
+                                                type="text"
+                                                name="description"
+                                                placeholder="Please enter details"
+                                                onChange={formik.handleChange}
+                                                onBlur={formik.handleBlur}
+                                                value={formik.values.description}
+                                            />
+                                            {formik.touched.description &&
+                                                formik.errors.description && (
+                                                    <small className="error-cls" style={{color:"red"}}>
+                                                        {formik.errors.description}
+                                                    </small>
+                                                )}
+                                            </Col>
+                                        </Row>
+                                        <Row className="mb-3 modal-body-table search-modal-header">
+                                            <Col>
+                                            <Label className="mb-2" htmlFor="type">
+                                                Type
+                                            </Label>
+                                            <select
+                                                name="type"
+                                                id="type"
+                                                className="form-control custom-dropdown"
+                                                value={formik.values.type}
+                                                onChange={(e) => {
+                                                    formik.handleChange(e);
+                                                    handleTypeChnage();
+                                                }}
+                                                onBlur={formik.handleBlur}
+                                            >
+                                                <option value="file">File</option>
+                                                <option value="link">Link</option>
+                                            </select>
+                                            {formik.touched.type &&
+                                                formik.errors.type && (
+                                                    <small className="error-cls" style={{color:"red"}}>
+                                                        {formik.errors.type}
+                                                    </small>
+                                                )}
+                                            </Col>
+                                            <Col>
+
+                                            {formik.values.type === 'file' && (
+                                                <>
+                                                    <Label
+                                                        className="mb-2"
+                                                        htmlFor="attachments"
+                                                    >
+                                                        File
+                                                    </Label>
+                                                    <div className="d-flex align-items-center">
+                                                        <input
+                                                            type="file"
+                                                            id="attachments"
+                                                            name="attachments"
+                                                            style={{
+                                                                display: 'none'
+                                                            }}
+                                                            accept="image/jpeg,image/png,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                                            onChange={(e) =>
+                                                                fileHandler(e)
+                                                            }
+                                                            onBlur={
+                                                                formik.handleBlur
+                                                            }
+                                                        />
+                                                        <Button
+                                                            label="Upload File "
+                                                            btnClass="primary"
+                                                            size="small"
+                                                            onClick={() => {
+                                                                document
+                                                                    .getElementById(
+                                                                        'attachments'
+                                                                    )
+                                                                    .click();
+                                                            }}
+                                                        />
+                                                        <button
+                                                            className='btn btn-info mx-2'
+                                                            type="button"
+                                                            onClick={() => {
+                                                                window.open(
+                                                                    formik.values
+                                                                        .attachments,
+                                                                    '_blank'
+                                                                );
+                                                            }}
+                                                        >
+                                                            Download
+                                                        </button>
+                                                        
+                                                        {formik.values
+                                                            .attachments &&
+                                                        formik.values.attachments
+                                                            .name ? (
+                                                            <span className="ml-2">
+                                                                {
+                                                                    formik.values
+                                                                        .attachments
+                                                                        .name
+                                                                }
+                                                            </span>
+                                                        ) : (
+                                                            <span className="ml-2">
+                                                                {formik
+                                                                    .initialValues
+                                                                    .attachments &&
+                                                                    formik
+                                                                        .initialValues
+                                                                        .attachments
+                                                                        .name}
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                    {formik.touched.attachments &&
+                                                        formik.errors
+                                                            .attachments && (
+                                                            <small className="error-cls" style={{color:"red"}}>
+                                                                {
+                                                                    formik.errors
+                                                                        .attachments
+                                                                }
+                                                            </small>
+                                                        )}
+                                                </>
+                                            )}
+
+                                            {formik.values.type === 'link' && (
+                                                <FormGroup
+                                                    className="form-group"
+                                                    md={12}
+                                                >
+                                                    <Label
+                                                        className="mb-2"
+                                                        htmlFor="attachments"
+                                                    >
+                                                        Link
+                                                    </Label>
+                                                    <Input
+                                                        {...inputDICE}
+                                                        type="text"
                                                         id="attachments"
                                                         name="attachments"
-                                                        style={{
-                                                            display: 'none'
-                                                        }}
-                                                        accept="image/jpeg,image/png,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                                                        onChange={(e) =>
-                                                            fileHandler(e)
+                                                        placeholder="Enter link"
+                                                        onChange={
+                                                            formik.handleChange
                                                         }
-                                                        onBlur={
-                                                            formik.handleBlur
+                                                        onBlur={formik.handleBlur}
+                                                        value={
+                                                            formik.values
+                                                                .attachments
                                                         }
                                                     />
-                                                    <Button
-                                                        label="Upload File "
-                                                        btnClass="primary"
-                                                        size="small"
-                                                        onClick={() => {
-                                                            document
-                                                                .getElementById(
-                                                                    'attachments'
-                                                                )
-                                                                .click();
-                                                        }}
-                                                    />
-                                                    <Button
-                                                        label="Download "
-                                                        btnClass="primary"
-                                                        size="small"
-                                                        onClick={() => {
-                                                            window.open(
-                                                                formik.values
-                                                                    .attachments,
-                                                                '_blank'
-                                                            );
-                                                        }}
-                                                    />
-                                                    {formik.values
-                                                        .attachments &&
-                                                    formik.values.attachments
-                                                        .name ? (
-                                                        <span className="ml-2">
-                                                            {
-                                                                formik.values
-                                                                    .attachments
-                                                                    .name
-                                                            }
-                                                        </span>
-                                                    ) : (
-                                                        <span className="ml-2">
-                                                            {formik
-                                                                .initialValues
-                                                                .attachments &&
-                                                                formik
-                                                                    .initialValues
-                                                                    .attachments
-                                                                    .name}
-                                                        </span>
-                                                    )}
-                                                </div>
-                                                {formik.touched.attachments &&
-                                                    formik.errors
-                                                        .attachments && (
-                                                        <small className="error-cls">
-                                                            {
-                                                                formik.errors
-                                                                    .attachments
-                                                            }
-                                                        </small>
-                                                    )}
-                                            </>
-                                        )}
+                                                    {formik.touched.attachments &&
+                                                        formik.errors
+                                                            .attachments && (
+                                                            <small className="error-cls" style={{color:"red"}}>
+                                                                {
+                                                                    formik.errors
+                                                                        .attachments
+                                                                }
+                                                            </small>
+                                                        )}
+                                                </FormGroup>
+                                            )}
+                                            </Col>
+                                        </Row>
+                                    </div>
 
-                                        {formik.values.type === 'link' && (
-                                            <FormGroup
-                                                className="form-group"
-                                                md={12}
+                                    <Row>
+                                        <div style={buttonContainerStyle} className='mt-3'>
+                                            <button
+                                                type="submit"
+                                                className='btn btn-warning'
+                                                style={buttonStyle}
                                             >
-                                                <Label
-                                                    className="mb-2"
-                                                    htmlFor="attachments"
-                                                >
-                                                    Link
-                                                </Label>
-                                                <InputBox
-                                                    {...inputDICE}
-                                                    type="text"
-                                                    id="attachments"
-                                                    name="attachments"
-                                                    placeholder="Enter link"
-                                                    onChange={
-                                                        formik.handleChange
-                                                    }
-                                                    onBlur={formik.handleBlur}
-                                                    value={
-                                                        formik.values
-                                                            .attachments
-                                                    }
-                                                />
-                                                {formik.touched.attachments &&
-                                                    formik.errors
-                                                        .attachments && (
-                                                        <small className="error-cls">
-                                                            {
-                                                                formik.errors
-                                                                    .attachments
-                                                            }
-                                                        </small>
-                                                    )}
-                                            </FormGroup>
-                                        )}
-                                    </FormGroup>
-                                </div>
+                                                Submit details
+                                            </button>
 
-                                <hr className="mt-4 mb-4"></hr>
-                                <Row>
-                                    <Col className="col-xs-12 col-sm-6">
-                                        <Button
-                                            label="Discard"
-                                            btnClass="secondary"
-                                            size="small"
-                                            onClick={() =>
-                                                props.history.push(
-                                                    '/admin/Resources'
-                                                )
-                                            }
-                                        />
-                                    </Col>
-                                    <Col className="submit-btn col-xs-12 col-sm-6">
-                                        <Button
-                                            label="Submit details"
-                                            type="submit"
-                                            btnClass={
-                                                !formik.dirty || !formik.isValid
-                                                    ? 'default'
-                                                    : 'primary'
-                                            }
-                                            size="small"
-                                            disabled={!formik.dirty}
-                                        />
-                                    </Col>
-                                </Row>
-                            </Form>
-                        </div>
-                    </Col>
-                </Row>
+                                        
+                                            <button
+                                                className='btn btn-secondary'
+                                                type="button"
+
+                                                style={{ marginLeft: 'auto' }} 
+                                                onClick={() => navigate('/adminresources')}
+                                            >
+                                                Discard
+                                            </button>
+                                        </div>
+                                    </Row>
+                                    {/* <Row>
+                                        <Col className="col-xs-12 col-sm-6">
+                                            <Button
+                                                label="Discard"
+                                                btnClass="secondary"
+                                                size="small"
+                                                onClick={() => navigate('/adminresources')}
+                                                
+                                            />
+                                        </Col>
+                                        <Col className="submit-btn col-xs-12 col-sm-6">
+                                            <Button
+                                                label="Submit details"
+                                                type="submit"
+                                                btnClass={
+                                                    !formik.dirty || !formik.isValid
+                                                        ? 'default'
+                                                        : 'primary'
+                                                }
+                                                size="small"
+                                                disabled={!formik.dirty}
+                                            />
+                                        </Col>
+                                    </Row> */}
+                                </Form>
+                            </div>
+                        </Col>
+                    </Row>
+                </div>
             </div>
-        </Layout>
+        </div>
     );
 };
 

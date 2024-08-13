@@ -74,7 +74,23 @@ import TeamsList from "../Admin/UsersList/TeamsList";
 import AdminsList from "../Admin/UsersList/AdminsList";
 import MentorTableView from "../Admin/UsersList/MentorTableView";
 import PopUp from "../Admin/PopUp/Popuplist";
-import CreateResource from "../Admin/PopUp/CreatePopUp";
+import Createpopup from "../Admin/PopUp/CreatePopUp";
+import AdminResources from "../Admin/Resources/index";
+import EditResource from "../Admin/Resources/editResource";
+import TeacherProgressDetailed from "../Admin/Reports/Helpers/TeacherProgressDetailed";
+
+import CreateResource from "../Admin/Resources/createResource";
+
+import StudentProgressReport from "../Admin/Reports/Helpers/StudentProgressReport";
+
+import MentorView from "../Admin/UsersList/MentorView";
+import MentorEdit from "../Admin/UsersList/MentorEdit";
+import StudentTableView from "../Admin/UsersList/StudentTableView";
+import StuEdit from "../Admin/UsersList/StudentEdit";
+
+
+
+
 
 
 
@@ -223,7 +239,79 @@ export const publicRoutes = [
     id: 16,
     path: routes.createpopup,
     name: "createpopup",
+    element: <Createpopup/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 17,
+    path: routes.mentordetails,
+    name: "mentordetails",
+    element: <MentorView/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 18,
+    path: routes.mentorEdit,
+    name: "mentorEdit",
+    element: <MentorEdit/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 19,
+    path: routes.studenttableview,
+    name: "studenttableview",
+    element: <StudentTableView/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 20,
+    path: routes.stuedit,
+    name: "stuedit",
+    element: <StuEdit/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 21,
+    path: routes.reportsteacher,
+    name: "reportsteacher",
+    element: <TeacherProgressDetailed/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 22,
+    path: routes.adminresources,
+    name: "adminresources",
+    element: <AdminResources/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 23,
+    path: routes.createResource,
+    name: "createResource",
     element: <CreateResource/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 24,
+    path: routes.editResource,
+    name: "editResource",
+    element: <EditResource/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 25,
+    path: routes.studentreport,
+    name: "studentreport",
+    element: <StudentProgressReport/>,
     protected: true,
     route: Route,
   },

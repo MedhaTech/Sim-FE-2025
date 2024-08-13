@@ -253,9 +253,9 @@ const CreateLatestNews = () => {
                                                     {formik.errors.details}
                                                 </small>
                                             )}
-</Row>
-<Row className="mb-3 modal-body-table search-modal-header">
-    <Col md={4}>
+                                </Row>
+                                <Row className="mb-3 modal-body-table search-modal-header">
+                                    <Col md={4}>
                                         <Label
                                             className="mb-2"
                                             htmlFor="file_name"
@@ -309,10 +309,8 @@ const CreateLatestNews = () => {
                                                     {formik.errors.file_name}
                                                 </small>
                                             )}
-                                            </Col>
-{/* </Row> */}
-{/* <Row className="mb-3 modal-body-table search-modal-header"> */}
-<Col md={8}>
+                                    </Col>
+                                    <Col md={8}>
                                         <Label className="mb-2" htmlFor="url">
                                             Link
                                         </Label>
@@ -331,39 +329,33 @@ const CreateLatestNews = () => {
                                                     {formik.errors.url}
                                                 </small>
                                             )}
-                                            </Col>
-                                            </Row>
+                                    </Col>
+                                </Row>
                                     {/* </FormGroup> */}
                                 </div>
 
                                 {/* <hr className="mt-4 mb-4" /> */}
                                 <Row>
-                                <div style={buttonContainerStyle} className='mt-3'>
+                                    <div style={buttonContainerStyle} className='mt-3'>
                                         <button
                                             type="submit"
                                             className='btn btn-warning'
                                             style={buttonStyle}
-                                            // btnClass={
-                                            //     !formik.dirty && !formik.isValid
-                                            //         ? 'default'
-                                            //         : 'primary'
-                                            // }
                                         >
                                             Submit details
-                                    </button>
+                                        </button>
 
-                                   
-                                            <button
-                                                className='btn btn-secondary'
-                            type="button"
+                                    
+                                        <button
+                                            className='btn btn-secondary'
+                                            type="button"
 
-                                                style={{ marginLeft: 'auto' }} 
-                                                onClick={()=>navigate("/latest-news")}
-                                            >
-                                                Discard
-                                            </button>
-                                            </div>
-                                  
+                                            style={{ marginLeft: 'auto' }} 
+                                            onClick={()=>navigate("/latest-news")}
+                                        >
+                                            Discard
+                                        </button>
+                                    </div>
                                 </Row>
                             </Form>
                         </div>

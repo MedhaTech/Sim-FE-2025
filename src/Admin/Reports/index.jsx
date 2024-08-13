@@ -95,7 +95,7 @@ return (
                                 <h5 className="active">School Progress</h5>
                             </div>
                         </div>
-                        <Link  to="/admin/reports-registration">
+                        <Link  to="/reportsteacher">
                             <div className="profile-info department-profile-info" >
                                 
                                     <div className="profile-pic">
@@ -156,7 +156,7 @@ return (
                                 <h5 className="active">Students Progress</h5>
                             </div>
                         </div>
-                        <Link  to="/reportsregistration">
+                        <Link  to="/student-Report">
                             <div className="profile-info department-profile-info" >
                                 
                                     <div className="profile-pic">

@@ -15,7 +15,10 @@ import {
 } from "../../../redux/actions.js";
 import { URL, KEY } from "../../../constants/defaultValues.js";
 
-import { setCurrentUser, getNormalHeaders } from "../../../helpers/Utils.js";
+import { setCurrentUser, getNormalHeaders ,
+  openNotificationWithIcon
+
+} from "../../../helpers/Utils.js";
 import { encryptGlobal } from '../../../constants/encryptDecrypt.js';
 
 export const getAdminSuccess = (user) => async (dispatch) => {
@@ -162,3 +165,53 @@ export const getAdminListError = (message) => async (dispatch) => {
   });
 };
 
+export const deleteTempMentorById = async (id) => {
+  try {
+      const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+      const delMent = encryptGlobal(JSON.stringify(id));
+      const result = await axios
+          .delete(
+              `${URL.deleteTempMentor}${delMent}/deleteAllData`,
+              axiosConfig
+          )
+          .then((res) => res)
+          .catch((err) => {
+              return err.response;
+          });
+      if (result && result.status === 202) {
+          openNotificationWithIcon('success', 'Deleted Successfully');
+      } else {
+          openNotificationWithIcon(
+              'error',
+              result.data && result.data?.message
+          );
+      }
+  } catch (error) {
+      openNotificationWithIcon(
+          'error',
+          error.response.data && error.response.data?.message
+      );
+  }
+};
+
+export const teacherResetPassword = (body) => async () => {
+  try {
+      const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+      const result = await axios
+          .put(`${URL.putResetPassword}`, body, axiosConfig)
+          .then((user) => user)
+          .catch((err) => {
+              return err.response;
+          });
+      if (result && result.status === 202) {
+          openNotificationWithIcon(
+              'success',
+              'Password Successfully Updated'
+          );
+      } else {
+          openNotificationWithIcon('error', 'Something went wrong');
+      }
+  } catch (error) {
+      openNotificationWithIcon('error', 'Something went wrong');
+  }
+};

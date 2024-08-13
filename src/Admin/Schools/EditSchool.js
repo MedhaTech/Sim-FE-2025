@@ -211,7 +211,6 @@ const EditSchool = (props) => {
                                                 <Label
                                                     className="form-label"
                                                     htmlFor="organization_code"
-                                                    // style={{ fontSize: 15 }}
                                                 >
                                                     UDISE Code
                                                     <span required>*</span>
