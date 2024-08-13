@@ -13,7 +13,7 @@ import axios from 'axios';
 // import { URL, KEY } from '../../constants/defaultValues';
 // import { staticData } from './index';
 import { stateList,userList,navList } from '../../RegPage/ORGData';
-const CreateResource = () => {
+const Createpopup = () => {
     const { t } = useTranslation();
     const currentUser = getCurrentUser('current_user');
     const [path, setPath] = useState([]);
@@ -83,7 +83,7 @@ const CreateResource = () => {
             type: Yup.string()
                 .optional()
                 .oneOf(['file', 'link'], 'Submission type is Required'),
-                attachments: Yup.string().required('Attachments are required'),
+            attachments: Yup.string().required('Attachments are required'),
             // attachments: Yup.mixed().when('type', {
             //     is: (val) => val === 'file',
             //     then: Yup.mixed().required('File is Required'),
@@ -248,7 +248,7 @@ const CreateResource = () => {
                                         </select>
                                         {formik.touched.role &&
                                             formik.errors.role && (
-                                                <small className="error-cls">
+                                                <small className="error-cls" style={{color:"red"}}>
                                                     {formik.errors.role}
                                                 </small>
                                             )}
@@ -312,7 +312,7 @@ const CreateResource = () => {
                                         </select>
                                         {formik.touched.type &&
                                             formik.errors.type && (
-                                                <small className="error-cls">
+                                                <small className="error-cls" style={{color:"red"}}>
                                                     {formik.errors.type}
                                                 </small>
                                             )}
@@ -381,7 +381,7 @@ const CreateResource = () => {
                                                 {formik.touched.attachments &&
                                                     formik.errors
                                                         .attachments && (
-                                                        <small className="error-cls">
+                                                        <small className="error-cls" style={{color:"red"}}>
                                                             {
                                                                 formik.errors
                                                                     .attachments
@@ -420,7 +420,7 @@ const CreateResource = () => {
                                                 {formik.touched.attachments &&
                                                     formik.errors
                                                         .attachments && (
-                                                        <small className="error-cls">
+                                                        <small className="error-cls" style={{color:"red"}}>
                                                             {
                                                                 formik.errors
                                                                     .attachments
@@ -458,7 +458,7 @@ const CreateResource = () => {
                           </select>
                                         {formik.touched.navigate &&
                                             formik.errors.navigate && (
-                                                <small className="error-cls">
+                                                <small className="error-cls" style={{color:"red"}}>
                                                     {formik.errors.navigate}
                                                 </small>
                                             )}
@@ -521,4 +521,4 @@ const CreateResource = () => {
     );
 };
 
-export default CreateResource;
+export default Createpopup;

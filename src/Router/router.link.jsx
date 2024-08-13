@@ -74,11 +74,14 @@ import TeamsList from "../Admin/UsersList/TeamsList";
 import AdminsList from "../Admin/UsersList/AdminsList";
 import MentorTableView from "../Admin/UsersList/MentorTableView";
 import PopUp from "../Admin/PopUp/Popuplist";
-import CreateResource from "../Admin/PopUp/CreatePopUp";
-
+import Createpopup from "../Admin/PopUp/CreatePopUp";
+import AdminResources from "../Admin/Resources/index";
+import EditResource from "../Admin/Resources/editResource";
 import TeacherProgressDetailed from "../Admin/Reports/Helpers/TeacherProgressDetailed";
-import StudentProgressReport from "../Admin/Reports/Helpers/StudentProgressReport";
 
+import CreateResource from "../Admin/Resources/createResource";
+
+import StudentProgressReport from "../Admin/Reports/Helpers/StudentProgressReport";
 
 import MentorView from "../Admin/UsersList/MentorView";
 import MentorEdit from "../Admin/UsersList/MentorEdit";
@@ -236,7 +239,7 @@ export const publicRoutes = [
     id: 16,
     path: routes.createpopup,
     name: "createpopup",
-    element: <CreateResource/>,
+    element: <Createpopup/>,
     protected: true,
     route: Route,
   },
@@ -282,6 +285,30 @@ export const publicRoutes = [
   },
   {
     id: 22,
+    path: routes.adminresources,
+    name: "adminresources",
+    element: <AdminResources/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 23,
+    path: routes.createResource,
+    name: "createResource",
+    element: <CreateResource/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 24,
+    path: routes.editResource,
+    name: "editResource",
+    element: <EditResource/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 25,
     path: routes.studentreport,
     name: "studentreport",
     element: <StudentProgressReport/>,

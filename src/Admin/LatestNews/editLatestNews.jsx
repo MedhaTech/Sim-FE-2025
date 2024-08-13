@@ -203,7 +203,7 @@ const EditLatestNews = (props) => {
                                                 </select>
                                                 {formik.touched.role &&
                                                     formik.errors.role && (
-                                                        <small className="error-cls">
+                                                        <small className="error-cls" style={{color:"red"}}>
                                                             {formik.errors.role}
                                                         </small>
                                                     )}
@@ -240,7 +240,7 @@ const EditLatestNews = (props) => {
                                                 {formik.touched.new_status &&
                                                     formik.errors
                                                         .new_status && (
-                                                        <small className="error-cls">
+                                                        <small className="error-cls" style={{color:"red"}}>
                                                             {
                                                                 formik.errors
                                                                     .new_status
@@ -268,7 +268,7 @@ const EditLatestNews = (props) => {
                                         />
                                         {formik.touched.details &&
                                             formik.errors.details && (
-                                                <small className="error-cls">
+                                                <small className="error-cls" style={{color:"red"}}>
                                                     {formik.errors.details}
                                                 </small>
                                             )}
@@ -352,7 +352,7 @@ const EditLatestNews = (props) => {
                                         </div>
                                         {formik.touched.file_name &&
                                             formik.errors.file_name && (
-                                                <small className="error-cls">
+                                                <small className="error-cls" style={{color:"red"}}>
                                                     {formik.errors.file_name}
                                                 </small>
                                             )}
@@ -372,7 +372,7 @@ const EditLatestNews = (props) => {
                                         />
                                         {formik.touched.url &&
                                             formik.errors.url && (
-                                                <small className="error-cls">
+                                                <small className="error-cls" style={{color:"red"}}>
                                                     {formik.errors.url}
                                                 </small>
                                             )}

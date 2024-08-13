@@ -21,7 +21,7 @@ import { encryptGlobal } from '../../constants/encryptDecrypt';
 //     getStudentDashboardTeamProgressStatus
 // } from '../../redux/studentRegistration/actions';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import logout from '../../assets/img/logout.svg';
+import logout from '../../assets/img/logout.png';
 import { studentResetPassword } from '../../Teacher/store/teacher/actions';
 
 const CommonUserProfile = (props) => {
@@ -97,21 +97,20 @@ const CommonUserProfile = (props) => {
         // here data = student_id //
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
-                confirmButton: 'btn btn-success',
-                cancelButton: 'btn btn-danger'
+                confirmButton: 'btn btn-submit',
+                cancelButton: 'btn btn-cancel'
             },
             buttonsStyling: false
         });
 
         swalWithBootstrapButtons
             .fire({
-                title: 'You are attempting to reset the password',
-                text: 'Are you sure?',
+                title: "<h4>Are you sure?</h4>",
+                text: 'You are attempting to reset the password',
                 imageUrl: `${logout}`,
-                showCloseButton: true,
                 confirmButtonText: 'Reset Password',
                 showCancelButton: true,
-                cancelButtonText: t('general_req.btn_cancel'),
+                cancelButtonText: "Cancel",
                 reverseButtons: false
             })
             .then((result) => {
@@ -120,12 +119,6 @@ const CommonUserProfile = (props) => {
                         studentResetPassword({
                             user_id: StudentsDaTa.user_id.toString()
                         })
-                    );
-                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    swalWithBootstrapButtons.fire(
-                        'Cancelled',
-                        'Reset password is cancelled',
-                        'error'
                     );
                 }
             })

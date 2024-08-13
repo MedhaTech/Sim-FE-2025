@@ -1,25 +1,24 @@
 /* eslint-disable indent */
 import { useState } from 'react';
 import React, { useEffect } from 'react';
-import Layout from '../Layout';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row } from 'reactstrap';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import DataTable, { Alignment } from 'react-data-table-component';
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
 // import { Link } from 'react-router-dom';
 import { openNotificationWithIcon } from '../../helpers/Utils';
-import { Button } from '../../stories/Button';
-import { useHistory } from 'react-router-dom';
 // import { ReactDOM } from 'react-dom';
 // import * as ReactDOM from 'react-dom';
 import Swal from 'sweetalert2/dist/sweetalert2';
-import logout from '../../assets/media/logout.svg';
+import logout from '../../assets/img/logout.png';
+import { useNavigate } from 'react-router-dom';
+import { PlusCircle } from "feather-icons-react/build/IconComponents";
 
 import 'sweetalert2/src/sweetalert2.scss';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 const AdminResources = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [resList, setResList] = useState([]);
     const currentUser = getCurrentUser('current_user');
     useEffect(() => {
@@ -47,10 +46,8 @@ const AdminResources = () => {
     }
 
     const handleEdit = (item) => {
-        // where we can edit level name, no of evaluation //
-        history.push({
-            pathname: '/admin/Resources/editResource'
-        });
+            navigate('/editResource');
+            
         localStorage.setItem('resID', JSON.stringify(item));
     };
 
@@ -58,18 +55,18 @@ const AdminResources = () => {
         // here we can delete the team //
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
-                confirmButton: 'btn btn-success',
-                cancelButton: 'btn btn-danger'
+                confirmButton: 'btn btn-submit',
+                cancelButton: 'btn btn-cancel'
             },
             buttonsStyling: false
         });
 
         swalWithBootstrapButtons
             .fire({
-                title: 'Are you sure you want to delete this Resource ?',
-                text: 'Are you sure?',
+                title: "<h4>Are you sure?</h4>",
+                text: "Do you really want to delete this item, This process cannot be undone.",
                 imageUrl: `${logout}`,
-                showCloseButton: true,
+                // showCloseButton: true,
                 confirmButtonText: 'Delete',
                 showCancelButton: true,
                 cancelButtonText: 'Cancel',
@@ -110,13 +107,7 @@ const AdminResources = () => {
                         .catch(function (error) {
                             console.log(error);
                         });
-                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    swalWithBootstrapButtons.fire(
-                        'Cancelled',
-                        'Team not Deleted',
-                        'error'
-                    );
-                }
+                 } 
             });
     };
 
@@ -128,51 +119,47 @@ const AdminResources = () => {
                 name: 'No',
                 selector: (row, key) => key + 1,
                 sortable: true,
-                width: '10%'
+                width: '5rem'
                 // center: true,
             },
 
             {
                 name: 'Role',
                 selector: (row) => row.role,
-                width: '10rem'
+                width: '7rem'
                 // center: true,
             },
             {
                 name: 'Details',
                 selector: (row) => row.description,
-                width: '35rem'
+                width: '25rem'
             },
 
             {
                 name: 'File/Link',
-                width: '15rem',
+                width: '8rem',
                 cell: (record) => {
                     if (record.type === 'file') {
                         return (
-                            <button className="btn btn-warning  mx-2">
-                                <a
-                                    href={record.attachments}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    style={{ color: 'black' }}
+                            <a
+                                href={record.attachments}
+                                target="_blank"
+                                className="badge badge-md bg-secondary"
+                                rel="noopener noreferrer"
                                 >
-                                    Navigate
-                                </a>
-                            </button>
+                                <i className="fas fa-file-lines"></i> Check File
+                            </a>
                         );
                     } else if (record.type === 'link') {
                         return (
-                            <button className="btn btn-warning  mx-2">
-                                <a
-                                    href={record.attachments}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    style={{ color: 'black' }}
+                            <a
+                                href={record.attachments}
+                                target="_blank"
+                                className="badge badge-md bg-secondary"
+                                rel="noopener noreferrer"
                                 >
-                                    Navigate
-                                </a>
-                            </button>
+                                <i className="fa-brands fa-youtube"></i> Navigate
+                            </a>
                         );
                     }
                     return null;
@@ -181,79 +168,72 @@ const AdminResources = () => {
             {
                 name: 'Actions',
                 center: true,
-                width: '30rem',
+                width: '15rem',
                 cell: (record) => [
                     <>
-                        <div
-                            key={record}
-                            onClick={() => handleEdit(record)}
-                            style={{ marginRight: '12px' }}
-                        >
-                            <div className="btn btn-primary btn-lg mx-2">
-                                EDIT
-                            </div>
-                        </div>
-
-                        <div
-                            key={record}
-                            onClick={() => handleDelete(record)}
-                            style={{ marginRight: '12px' }}
-                        >
-                            <div className="btn btn-primary btn-lg mx-2">
-                                DELETE
-                            </div>
-                        </div>
+                        <button
+                              className="btn btn-info btn-sm"
+                              onClick={() => handleEdit(record)}
+                            >
+                              <i data-feather="edit" className="feather-edit" /> Edit
+                        </button>
+                        <button
+                              className="btn btn-danger btn-sm mx-3"
+                              onClick={() => handleDelete(record)}
+                            >
+                              <i data-feather="trash-2" className="feather-trash-2" />{" "}
+                              Delete
+                        </button>
                     </>
                 ]
             }
         ]
     };
     return (
-        <Layout>
-            <Container className="ticket-page mt-5 mb-50">
-                <Row className="pt-3">
-                    <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
-                        <Col className="col-auto">
-                            <h2>Resources</h2>
-                        </Col>
-                        <Col className="text-right">
-                            <Button
-                                label="Create Resources"
-                                btnClass="primary mx-3"
-                                size="small"
-                                shape="btn-square"
-                                onClick={() =>
-                                    history.push(
-                                        '/admin/Resources/createResource'
-                                    )
-                                }
-                            />
-                        </Col>
-                    </Row>
-
-                    <div className="my-2">
-                        <DataTableExtensions
-                            print={false}
-                            export={false}
-                            {...resData}
-                            exportHeaders
-                        >
-                            <DataTable
-                                data={setResList}
-                                // noHeader
-                                defaultSortField="id"
-                                defaultSortAsc={false}
-                                pagination
-                                highlightOnHover
-                                fixedHeader
-                                subHeaderAlign={Alignment.Center}
-                            />
-                        </DataTableExtensions>
+        <div className="page-wrapper">
+            <div className="content">
+                <div className="page-header">
+                    <div className="add-item d-flex">
+                        <div className="page-title">
+                            <h4>Resources</h4>
+                            <h6>Student &amp; Teachers Resourses</h6>
+                        </div>
                     </div>
-                </Row>
-            </Container>
-            {/* <h1>hi</h1> */}
-        </Layout>
+                    <div className="page-btn">
+                        <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={() => navigate("/createResource")}
+                        >
+                            <PlusCircle className="me-2" style={{color:"white"}} />Create Resources
+                        </button>
+                    </div>
+                </div>
+                <Container className="ticket-page mb-50">
+                    <Row>
+                        <div className="my-2">
+                            <DataTableExtensions
+                                print={false}
+                                export={false}
+                                {...resData}
+                                exportHeaders
+                            >
+                                <DataTable
+                                    data={setResList}
+                                    // noHeader
+                                    defaultSortField="id"
+                                    defaultSortAsc={false}
+                                    pagination
+                                    highlightOnHover
+                                    fixedHeader
+                                    subHeaderAlign={Alignment.Center}
+                                />
+                            </DataTableExtensions>
+                        </div>
+                    </Row>
+                </Container>
+            </div>
+        </div>
     );
 };
 
