@@ -73,20 +73,16 @@ const TeacherProgressDetailed = () => {
         labels: [],
         datasets: []
     });
-    const fullStatesNames = useSelector(
-        (state) => newstateList
-    );
-    const fiterDistData = useSelector(
-        (state) =>  districtList[selectstate]
-    );
+    const fullStatesNames = newstateList ;
+    const fiterDistData = districtList[selectstate];
+    // useEffect(() => {
+    //     dispatch(getStateData());
+    // }, []);
     useEffect(() => {
-        dispatch(getStateData());
-    }, []);
-    useEffect(() => {
-        if (selectstate !== '') {
-            dispatch(getFetchDistData(selectstate));
-        }
-        setdistrict('');
+        // if (selectstate !== '') {
+        //     dispatch(getFetchDistData(selectstate));
+        // }
+        // setdistrict('');
         fetchChartTableData();
         const newDate = new Date();
         const formattedDate = `${newDate.getUTCDate()}/${
@@ -527,7 +523,7 @@ const TeacherProgressDetailed = () => {
                         ]
                     };
                     setBarChart3Data(barStudentData);
-                    console.log(barStudentData,"barStudentData");
+                    // console.log(barStudentData,"barStudentData");
                     setseries7(barStudentData.datasets[0].data);
                     setseries6(barStudentData.datasets[1].data);
                 }
@@ -559,7 +555,7 @@ const TeacherProgressDetailed = () => {
                 category: category
             })
         );
-        console.log(selectstate,district,category);
+        // console.log(selectstate,district,category);
         const config = {
             method: 'get',
             url:
@@ -573,9 +569,9 @@ const TeacherProgressDetailed = () => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log(response.data.data[0].preSurvey,"preSurvey");
-                    console.log(response.data.data[0].Username,"Username");
-                    console.log(response.data.data[0],"response");
+                    // console.log(response.data.data[0].preSurvey,"preSurvey");
+                    // console.log(response.data.data[0].Username,"Username");
+                    // console.log(response.data.data[0],"response");
                     const preSurveyMap = response.data.data[0].preSurvey.reduce((map, item) => {
                         map[item.user_id] = item.pre_survey_status;
                         return map;
@@ -658,7 +654,7 @@ const TeacherProgressDetailed = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    console.log(response.data.data[0].studentCountDetails[0].totalstudent,"whole");
+                    // console.log(response.data.data[0].studentCountDetails[0].totalstudent,"whole");
                     const summary = response.data.data[0].summary;
                     const teamCount = response.data.data[0].teamCount;
                     const studentCountDetails = response.data.data[0].studentCountDetails.map((item) => {
@@ -668,7 +664,7 @@ const TeacherProgressDetailed = () => {
                             other: otherCount  
                         };
                     });
-                    console.log(studentCountDetails,"student");
+                    // console.log(studentCountDetails,"student");
                     const courseCompleted =
                         response.data.data[0].courseCompleted;
                     const courseINcompleted =
