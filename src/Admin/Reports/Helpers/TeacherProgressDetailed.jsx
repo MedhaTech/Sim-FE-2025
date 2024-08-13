@@ -568,7 +568,9 @@ const TeacherProgressDetailed = () => {
         };
         axios(config)
             .then(function (response) {
+                
                 if (response.status === 200) {
+                    console.log(response,"22");
                     // console.log(response.data.data[0].preSurvey,"preSurvey");
                     // console.log(response.data.data[0].Username,"Username");
                     // console.log(response.data.data[0],"response");
