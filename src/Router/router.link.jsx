@@ -269,6 +269,7 @@ export const publicRoutes = [
     element: <StuEdit/>,
     protected: true,
     route: Route,
+  },
   {
     id: 21,
     path: routes.reportsteacher,

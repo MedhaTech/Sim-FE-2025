@@ -529,7 +529,7 @@ const ReportsRegistration = () => {
                     const chartTableData = response?.data?.data || [];
                     setChartTableData(chartTableData);
                     setDownloadTableData(chartTableData);
-                    console.log(chartTableData, "table data");
+                    // console.log(chartTableData, "table data");
 
                     const lastRow = chartTableData[chartTableData.length - 1];
                     const maleCount = lastRow?.male_mentor_count || 0;
