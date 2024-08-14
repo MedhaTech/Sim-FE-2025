@@ -433,5 +433,109 @@
     "translation": {
         "tamil": "Hindi Content :-",
         "tamil_to": "tn"
+    },
+    "ideaform_questions":{
+        "section1" : "Problem Identification",
+        "section2" : "Solution & User Analysis",
+        "section3" : "Prototyping",
+        "themeq" : "Choose your theme",
+        "focusareaq" : "Select Focus Area of your Idea",
+        "ideatitleq" : "Title of your idea (Think of a proper name. Don't describe the solution or problem statement here.)",
+        "problemstatementq" : "Write down your Problem statement",
+        "causesq" : "List the Causes of the problem.",
+        "effectsq" : "List the Effects of the problem",
+        "communityq" : "In which places in your community did you find this problem?",
+        "communityop1" : "School",
+        "communityop2" : "Home",
+        "communityop3" : "Other places in the surroundings (Market/Park/Playground etc.)",
+        "communityop4" : "Others (Read in newspapers, saw on the internet, etc.)",
+        "facingq" : "Who all are facing this problem?",
+        "solutiondetailsq" : "Describe the solution to the problem your team found. Explain your solution clearly - how does it work, who is it helping, and how will it solve the problem.",
+        "stakeholdersq" : "Apart from your teacher, how many people/stakeholders did you speak to to understand or improve your problem or solution?",
+        "stakeholdersop1" : "None",
+        "stakeholdersop2" : "2-4 people",
+        "stakeholdersop3" : "5+ people",
+        "stakeholdersop4" : "10+ people",
+        "probsoljourneyq" : "Pick the actions your team did in your problem solving journey (You can choose multiple options)",
+        "probsoljourneyop1" : "We did the full problem solving journey by ourselves." ,
+        "probsoljourneyop2" : "We got feedback on our problem and modified it" ,
+        "probsoljourneyop3" : "We got feedback on our idea and modified it" ,
+        "probsoljourneyop4" : "We got feedback on our prototype and modified it" ,
+        "feedbackq" : " Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.",
+        "uploadq" : "Upload images/documents & video links of your prototype.  (total size limit : 20mb)",
+        "workbookq" : "Did your team complete and submit the workbook to your school Guide teacher?",
+        "workbookyes" : "YES" ,
+        "workbookno" : "NO",
+        "ideawarning" : "Save your idea & Ask your guide teacher to go through the details entered by you to make sure they are correct. You cannot make changes once the idea is submitted. Invalid/Wrong entries will not be selected.",
+        "placeholdertext" : "List one by one with numbering…"
+    },
+    "themes" : {
+        "sustainabletheme" : "Sustainable Development & Environment",
+        "digitaltheme" : "Digital Transformation",
+        "healththeme" : "Health and Well-being",
+        "educationtheme" : "Quality Education",
+        "economictheme" : "Economic Empowerment",
+        "smarttheme" : "Smart and Resilient Communities",
+        "agritheme" : "Agriculture & Rural Development",
+        "othertheme" : "Others"
+    },
+    "themedetails" : {
+        "sustainabletheme" : "Sustainable Development is about balancing economic growth, environmental care, and social well-being to ensure a better future for all.",
+        "digitaltheme" : "Highlights the critical role of digital technologies in bridging the digital divide and fostering innovation, making India a leader in the digital economy.",
+        "healththeme" : "Focuses on ensuring physical, mental, and social wellness for individuals and communities to lead fulfilling lives.",
+        "educationtheme" : "Quality Education ensures inclusive, equitable learning opportunities that empower individuals with the knowledge and skills needed for lifelong success.",
+        "economictheme" : "Economic Empowerment enables individuals and communities to improve their financial stability and independence through access to resources, opportunities, and skills.",
+        "smarttheme" : "Smart and Resilient Communities use technology and sustainable practices to adapt to challenges, ensuring safety, efficiency, and long-term well-being for all members.",
+        "agritheme" : "Focuses on improving farming practices and infrastructure in rural areas to boost productivity, sustainability, and quality of life for rural communities.",
+        "othertheme" : "Encourages innovative solutions in any other area that aligns with the vision of Viksit Bharat 2047, fostering a culture of broad-based development and progress."
+    },
+    "sustainablefocusareas" : {
+        "focusarea1" : "Renewable Energy (e.g., solar, wind, hydro)",
+        "focusarea2" : "Waste Management (e.g., recycling, composting)",
+        "focusarea3" : "Clean Water (e.g., water purification, rainwater harvesting)",
+        "focusarea4" : "Environment Protection (e.g., pollution control, reforestation)",
+        "focusarea5" : "Sustainable Agriculture (e.g., organic farming, soil conservation)"
+    },
+    "digitalfocusareas" : {
+        "focusarea1" : "Internet of Things (IoT) (e.g., smart homes, connected devices)",
+        "focusarea2" : "Information Technology (e.g., software, apps)",
+        "focusarea3" : "Cybersecurity (e.g., protecting data, secure online practices)",
+        "focusarea4" : "Blockchain (e.g., secure transactions, decentralized systems)",
+        "focusarea5" : "Artificial Intelligence (AI) & Machine Learning (ML) (e.g., smart assistants, predictive analytics)"
+    },
+    "healthfocusareas" : {
+        "focusarea1" : "Medical Devices (e.g., health monitors, diagnostic tools)",
+        "focusarea2" : "Nutrition and Healthy Eating (e.g., balanced diets, fortified foods)",
+        "focusarea3" : "Mental Health (e.g., stress management, counseling tools)",
+        "focusarea4" : "Fitness and Sports (e.g., exercise programs, sports innovations)"      
+    },
+    "educationfocusareas" : {
+        "focusarea1" : "Online Learning (e.g., e-learning platforms, virtual classrooms)",
+        "focusarea2" : "Inclusive Education (e.g., education for all, special needs education)",
+        "focusarea3" : "Teacher Training (e.g., professional development, new teaching methods)",
+        "focusarea4" : "Educational Technology (e.g., interactive learning tools, digital textbooks)" 
+    },
+    "economicfocusareas" : {
+        "focusarea1" : "Financial Education (e.g., budgeting, saving, investing)",
+        "focusarea2" : "Start-up Innovations (e.g., new business ideas, entrepreneurship support)",
+        "focusarea3" : "Vocational Training (e.g., skill development, job readiness)",
+        "focusarea4" : "Retail Innovations (e.g., new products, better shopping experiences)"  
+    },
+    "smartfocusareas" : {
+        "focusarea1" : "Smart Cities (e.g., smart traffic systems, digital public services)",
+        "focusarea2" : "Electric Vehicles (e.g., electric cars, charging stations)",
+        "focusarea3" : "Disaster Management (e.g., emergency response systems, disaster-proof buildings)",
+        "focusarea4" : "Robotics and Drones (e.g., automation, aerial surveys)",
+        "focusarea5" : "Smart Textiles (e.g., wearable technology, smart fabrics)",
+        "focusarea6" : "Travel and Tourism (e.g., eco-tourism, smart travel apps)"
+    },
+    "agrifocusareas" : {
+        "focusarea1" : "Modern Farming Techniques (e.g., hydroponics, precision farming)",
+        "focusarea2" : "Rural Development (e.g., rural infrastructure, community projects)",
+        "focusarea3" : "Food Security (e.g., food storage, distribution systems)",
+        "focusarea4" : "Nutrition (e.g., healthy diets, fortified foods)"  
+    },
+    "otherfocusareas" : {
+        "focusarea1" : "Any other area that broadly qualifies for the vision of Viksit Bharat"
     }
 }
