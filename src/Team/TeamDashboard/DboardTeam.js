@@ -91,7 +91,7 @@ const EmployeesGrid = () => {
       align: "center",
       width: "15rem",
       render: (_, record) =>
-        record?.pre_survey_status ? (
+        record.pre_survey_status ? ( 
           <CheckCircle size={20} color="#28C76F" />
         ) : (
           <IoHelpOutline size={20} color="#FF0000" />

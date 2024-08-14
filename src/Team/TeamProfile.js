@@ -87,6 +87,7 @@ const TeacherProfile = () => {
                     type="text"
                     className="form-control"
                     defaultValue={currentUser?.data[0]?.name}
+                     readOnly="readonly"
                   />
                 </div>
               </div>

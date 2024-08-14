@@ -627,7 +627,7 @@ const TicketsPage = (props) => {
                                             )
                                         }
                                     >
-                                        Add New Institutions
+                                        Add New Institution
                                       </button>
                                     <button
                                        className='btn btn-warning p-2 me-2'
@@ -651,6 +651,7 @@ const TicketsPage = (props) => {
                             <DataTableExtensions
                                 print={false}
                                 export={true}
+                                style={{marginTop:"2rem"}}
                                 {...reqSchoolsData}
                                 exportHeaders
                             >
