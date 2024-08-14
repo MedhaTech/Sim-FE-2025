@@ -176,7 +176,7 @@ const StudentProgress = () => {
     },
     {
         label: 'Student Name',
-        key: 'Student Name'
+        key: 'studentfullname'
     },
     // {
     //     label: 'Student Username',
@@ -188,7 +188,7 @@ const StudentProgress = () => {
     },
     {
         label: 'Gender',
-        key: 'gender'
+        key: 'studentgender'
     },
     {
         label: 'Class',
@@ -207,10 +207,10 @@ const StudentProgress = () => {
         label: "Post Survey Status",
         key: "post_survey_status",
       },
-    // {
-    //     label: 'No.of Students Course Not Started',
-    //     key: 'courseNotStarted'
-    // },
+    {
+        label: 'Course Status',
+        key: 'user_count'
+    },
     // {
     //     label: 'No.of Teams Idea Submitted',
     //     key: 'submittedcout'
@@ -614,7 +614,9 @@ const StudentProgress = () => {
 
           const userTopicDataMap = response.data.data[0].userTopicData.reduce(
             (map, item) => {
-              map[item.user_id] = item.user_count;
+              map[item.
+                mentorUserId
+                ] = item.user_count;
               return map;
             },
             {}
@@ -626,25 +628,18 @@ const StudentProgress = () => {
             },
             {}
           );
-          // const StuIdeaDraftCountMap = response.data.data[0].StuIdeaDraftCount.reduce((map, item) => {
-          //     map[item.user_id] = item.username;
-          //     return map;
-          // }, {});
-          // const StuIdeaSubCountMap = response.data.data[0].StuIdeaSubCount.reduce((map, item) => {
-          //     map[item.user_id] = item.username;
-          //     return map;
-          // }, {});
+         
           const newdatalist = response.data.data[0].summary.map((item) => {
             const mentorData = teamDataMap[item.team_id];
             const mentStats = mentorMap[item.team_id];
             const mentUser =mentorUsernameMap[item.team_id];
+ 
             return {
               ...item,
               pre_survey_status: preSurveyMap[item.user_id] || "Not started",
               post_survey_status: postSurveyMap[item.user_id] || "Not started",
               username: mentUser?.username,
-              user_count: userTopicDataMap[item.user_id] || 0,
-
+              user_count: userTopicDataMap[item.user_id] === 0 ? "Not Started" : userTopicDataMap[item.user_id] === 31 ? "Completed" : "In Progress",
               team_name: mentorData?.team_name,
               team_email: mentorData?.team_email,
               mentor_id: mentorData?.mentor_id,
