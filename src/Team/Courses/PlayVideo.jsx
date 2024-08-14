@@ -240,25 +240,65 @@ const PlayVideoCourses = (props) => {
   const { dashboardStatus } = useSelector(
     (state) => state?.studentRegistration
   );
+  // console.log(dashboardStatus ,"ccc");
+const[dashboard,setDashboard]=useState("");
   React.useEffect(() => {
-    if (!dashboardStatus) {
-      dispatch(
-        getStudentDashboardStatus(currentUser?.data[0]?.user_id, language)
-      );
-    }
+    // if (dashboardStatus) {
+    //   dispatch(
+    //     getStudentDashboardStatus(currentUser?.data[0]?.user_id)
+    //   );
+    // }
+    stuCoursePercent();
   }, []);
+  const stuCoursePercent = () => {
+    const corseApi = encryptGlobal(
+        JSON.stringify({
+            user_id: currentUser?.data[0]?.user_id
+        })
+    );
+    var config = {
+        method: 'get',
+        url:
+            process.env.REACT_APP_API_BASE_URL +
+            `/dashboard/stuCourseStats?Data=${corseApi}`,
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${currentUser.data[0]?.token}`
+        }
+    };
+    axios(config)
+        .then(function (response) {
+            if (response.status === 200) {
+              // console.log(response,"course");
+              setDashboard(response.data.data[0]);
+                // const per = Math.round(
+                //     (response.data.data[0].topics_completed_count /
+                //         response.data.data[0].all_topics_count) *
+                //         100
+                // );
+                // console.log(per);
+                // setCoursepercentage(per);
+                // setStuCourseLoading(false);
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+  };
   React.useEffect(() => {
     if (
-      dashboardStatus &&
-      dashboardStatus?.all_topics_count ===
-        dashboardStatus?.topics_completed_count
+      dashboard?.all_topics_count === dashboard?.topics_completed_count
+      // dashboardStatus &&
+      // dashboardStatus?.all_topics_count ===
+      //   dashboardStatus?.topics_completed_count
     ) {
       setShowCompleteMessage(true);
     } else {
       setShowCompleteMessage(false);
     }
-  }, [dashboardStatus]);
-
+  }, [dashboard]);
+// console.log(showCompleteMessage,"ss");
   const toggle = (id) => {
     if (id === 1) {
       setOpen("1");
@@ -520,6 +560,7 @@ const PlayVideoCourses = (props) => {
   //   }
   // };
   const [videoCompleted, setVideoCompleted] = useState(false);
+  // console.log(videoCompleted,"sucee");
   const handleVimeoOnEnd = (event) => {
     toggle(topicObj.course_module_id);
     const topixIndex = setTopicArrays.findIndex(
@@ -624,7 +665,7 @@ const PlayVideoCourses = (props) => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          console.log(response,"res");
+          // console.log(response,"res");
           if (response.data.data === "user not stared") {
             setQuizStart(true);
             setQuizCompleted(false);

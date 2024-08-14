@@ -54,7 +54,7 @@ const DetaledQuiz = (props) => {
   }, [currentUser]);
 
   function resultdata() {
-    // console.log("hii");
+    console.log("result api");
     const paramApi = encryptGlobal(
       JSON.stringify({
         user_id: currentUser?.data[0]?.user_id,
@@ -174,31 +174,21 @@ const DetaledQuiz = (props) => {
       setSubmitted(true);
     }
   };
-  //   const goToTop = () => {
-  //     window.scrollTo(0, 0);
-  //     if (startRef.current) {
-  //       startRef.current.scrollIntoView({
-  //         behavior: "smooth",
-  //         block: "start",
-  //       });
-  //     } else {
-  //       console.error('Element with ID "start" not found.');
-  //     }
-  //   };
-  //   useEffect(() => {
-  //     if (!loading && condition && startRef.current) {
-  //       goToTop();
-  //     }
-  //   }, [loading, condition]);
+ 
+  
   const goToTop = () => {
     window.scrollTo(0, 0);
+
     const section = document.querySelector("#start");
-    // resultdata();   
     section.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
+
   };
+ 
+  
+ 
 
   const handleNxtQst = () => {
     // console.log("/resu");

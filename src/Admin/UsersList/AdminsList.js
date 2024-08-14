@@ -292,7 +292,7 @@ const updateStatesList=["All States",...stateList];
     };
 
     const handleStatus = (status, id, type, all) => {
-        console.log(all,"all");
+        // console.log(all,"all");
         // where we can update the status Active to InActive //
         // where id = student id / mentor id  / admin id / evaluator  id//
         // where status = status //

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import Confetti from "react-confetti";
 // import { useHistory } from "react-router-dom";
@@ -54,7 +55,7 @@ const CourseSuccessMessage = () => {
               btnClass="primary mt-4 mx-4"
               className="btn btn-warning"
               size="small"
-              onClick={() => handleClick(true)}
+              // onClick={() => handleClick(true)}
             />
             {/* {t("student_course.go_idea_submission")}
             </button> */}
