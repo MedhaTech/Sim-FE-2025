@@ -36,10 +36,12 @@ const DetaledQuiz = (props) => {
   const [video, SetVideo] = useState(true);
   const [qst, SetQst] = useState({});
   const [quizdata, setQuizData] = useState(0);
+  // console.log(quizdata,"11");
   const language = useSelector(
     (state) => state?.studentRegistration?.studentLanguage
   );
   const [isSubmitted, setSubmitted] = useState(false);
+  // console.log(isSubmitted,"bb");
   const [attemptNumber, setAttemptNumber] = useState(0);
   const [currentScore, setCurrentScore] = useState({});
   const [currentRole, setCurrentRole] = useState("");
@@ -52,9 +54,10 @@ const DetaledQuiz = (props) => {
   }, [currentUser]);
 
   function resultdata() {
+    // console.log("hii");
     const paramApi = encryptGlobal(
       JSON.stringify({
-        user_id: currentUser.data[0].user_id,
+        user_id: currentUser?.data[0]?.user_id,
         quiz_id: quizId,
       })
     );
@@ -70,6 +73,7 @@ const DetaledQuiz = (props) => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
+          // console.log(response,"dd");
           if (response.data.count === null) {
             setAttemptNumber(1);
             props.getAdminQuizQuestionsActions(
@@ -82,7 +86,7 @@ const DetaledQuiz = (props) => {
             setAttemptNumber(
               response?.data?.data[0].data[
                 response?.data?.data[0].data.length - 1
-              ].attempts
+              ]?.attempts
             );
             props.getAdminQuizQuestionsActions(
               quizId,
@@ -90,7 +94,7 @@ const DetaledQuiz = (props) => {
               currentUser.data[0].user_id,
               response?.data?.data[0].data[
                 response?.data?.data[0].data.length - 1
-              ].attempts
+              ]?.attempts
             );
             setCurrentScore(
               response?.data?.data[0].data[
@@ -108,7 +112,7 @@ const DetaledQuiz = (props) => {
             );
           }
           setTotalQstCount(response?.data?.data[0]?.all[0]?.allquestions);
-          setQuizData(response?.data?.data[0]);
+          setQuizData(response.data && response.data.data[0] );
         }
       })
       .catch(function (error) {
@@ -189,7 +193,7 @@ const DetaledQuiz = (props) => {
   const goToTop = () => {
     window.scrollTo(0, 0);
     const section = document.querySelector("#start");
-    
+    // resultdata();   
     section.scrollIntoView({
       behavior: "smooth",
       block: "start",
@@ -197,6 +201,8 @@ const DetaledQuiz = (props) => {
   };
 
   const handleNxtQst = () => {
+    // console.log("/resu");
+
     Setloading(true);
     setTimeout(() => {
       Setloading(false);
@@ -211,9 +217,10 @@ const DetaledQuiz = (props) => {
       SetType("");
       goToTop();
       setSubmitted(false);
-      resultdata();
+      resultdata();            
     }, 500);
   };
+  
   const handlevideo = (id) => {
     SetVideo(false);
     props.handleNxtVideo(id);
@@ -325,7 +332,7 @@ const DetaledQuiz = (props) => {
                               <th>{t("student_course.quiz_score_result")}</th>
                             </tr>
                           </thead>
-                          {quizdata?.data?.map((item, index) => {
+                          {quizdata.data.map((item, index) => {
                             return (
                               <tbody key={index}>
                                 <tr>

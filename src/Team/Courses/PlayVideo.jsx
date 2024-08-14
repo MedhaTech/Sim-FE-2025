@@ -608,7 +608,7 @@ const PlayVideoCourses = (props) => {
   function resultdata(id) {
     const paramApi = encryptGlobal(
       JSON.stringify({
-        user_id: currentUser.data[0].user_id,
+        user_id: currentUser?.data[0]?.user_id,
         quiz_id: id,
       })
     );
@@ -624,6 +624,7 @@ const PlayVideoCourses = (props) => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
+          console.log(response,"res");
           if (response.data.data === "user not stared") {
             setQuizStart(true);
             setQuizCompleted(false);
@@ -652,6 +653,7 @@ const PlayVideoCourses = (props) => {
   }
 
   const handleSelect = (topicId, couseId, type) => {
+    // console.log(topicId,"id");
     // here topicId = topicId ; couseId = couseId //
     // type = worksheet ,video, quiz //
     setShowCompleteMessage(false);
