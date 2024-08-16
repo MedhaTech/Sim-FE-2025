@@ -80,7 +80,7 @@ const DetaledQuiz = (props) => {
               quizId,
               language,
               1,
-              currentUser.data[0].user_id
+              currentUser?.data[0]?.user_id
             );
           } else {
             setAttemptNumber(
@@ -91,10 +91,11 @@ const DetaledQuiz = (props) => {
             props.getAdminQuizQuestionsActions(
               quizId,
               language,
-              currentUser.data[0].user_id,
               response?.data?.data[0].data[
                 response?.data?.data[0].data.length - 1
-              ]?.attempts
+              ]?.attempts,
+              currentUser?.data[0]?.user_id,
+
             );
             setCurrentScore(
               response?.data?.data[0].data[
@@ -176,18 +177,44 @@ const DetaledQuiz = (props) => {
   };
  
   
+  // const goToTop = () => {
+  //   window.scrollTo(0, 0);
+
+  //   const section = document.querySelector("#start");
+  //   section.scrollIntoView({
+  //     behavior: "smooth",
+  //     block: "start",
+  //   });
+
+  // };
+ 
   const goToTop = () => {
+    console.log("Scrolling to top...");
+
+    // Scroll to the top of the page immediately
     window.scrollTo(0, 0);
 
-    const section = document.querySelector("#start");
-    section.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    // Log after scrolling to top
+    console.log("Scrolled to top. Now scrolling to #start...");
 
-  };
- 
-  
+    // Then, scroll to the element with id 'start' smoothly
+    const section = document.querySelector('#start');
+
+    // Check if the section exists
+    if (section) {
+        console.log("Element found:", section);
+
+        section.scrollIntoView({
+            behavior: 'smooth', // Smooth scroll effect
+            block: 'start'      // Aligns the top of the element with the top of the viewport
+        });
+
+        console.log("Scroll initiated to #start with smooth behavior.");
+    } else {
+        console.warn("Element with id 'start' not found.");
+    }
+};
+
  
 
   const handleNxtQst = () => {
@@ -201,7 +228,7 @@ const DetaledQuiz = (props) => {
         props.quizId,
         language,
         attemptNumber,
-        currentUser.data[0].user_id
+        currentUser?.data[0]?.user_id
       );
       SetSelectOption("");
       SetType("");
@@ -225,7 +252,7 @@ const DetaledQuiz = (props) => {
       props.quizId,
       language,
       attemptNumber + 1,
-      currentUser.data[0].user_id
+      currentUser?.data[0]?.user_id
     );
   };
   setTimeout(() => {

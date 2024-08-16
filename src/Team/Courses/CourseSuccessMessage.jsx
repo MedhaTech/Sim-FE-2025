@@ -34,12 +34,16 @@ const CourseSuccessMessage = () => {
       <Confetti className="w-100" />
       <div className="row justify-content-md-center ">
         <div className="col col-lg-9">
-          <div className="results-heading">
-            <img src={ResultStar} alt="star" />
-          </div>
+          {/* <div className="results-heading"> */}
+
+            {/* <img src={ResultStar} alt="star" /> */}
+          {/* </div> */}
           <div className="congratulations text-center">
             <div className="success_img text-center w-100">
+            <Confetti className="w-100" />;
+
               <img src={succesImg} alt=".." />
+
               <br />
             </div>
             <p style={{ fontSize: "16px" }}>
