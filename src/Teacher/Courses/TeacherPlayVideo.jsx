@@ -20,6 +20,7 @@ import {
 // import { BsLayoutTextSidebarReverse } from 'react-icons/bs';
 // import { VscCircleFilled } from 'react-icons/vsc';
 // import { VscCheck } from 'react-icons/vsc';
+import Confetti from "react-confetti";
 
 import Vimeo from "@u-wave/react-vimeo";
 // import Layout from '../Layout';
@@ -291,7 +292,7 @@ const TeacherPlayVideo = (props) => {
         if (response.status === 201) {
           setUpdateModuleResponce(response.data && response.data.data[0]);
           props.getTeacherCourseDetailsActions(course_id);
-          console.log(response,"AAAAAA");
+          // console.log(response,"AAAAAA");
         }
       })
       .catch(function (error) {
@@ -1035,7 +1036,10 @@ const TeacherPlayVideo = (props) => {
                             {getLastCourseStatus(teacherCourseDetails) &&
                               //  isquizcompleted
                               !finalPage ? (
+                                
                               <div >
+      <Confetti className="w-100" />;
+
                                 <h3 className="text-success text-center">
                                   🎉 Congratulations on completing the course!
                                   🎉

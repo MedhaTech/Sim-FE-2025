@@ -22,6 +22,8 @@ import CourseSuccessMessage from "./CourseSuccessMessage";
 import FeatherIcon from "feather-icons-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
+import Confetti from "react-confetti";
+
 import {
   Accordion,
   AccordionItem,
@@ -56,7 +58,7 @@ import { useDispatch } from "react-redux";
 import CommonPage from "../../components/CommonPage";
 import { useTranslation } from "react-i18next";
 import { getStudentDashboardStatus } from "../../redux/studentRegistration/actions";
-import Confetti from "react-confetti";
+// import Confetti from "react-confetti";
 import ResultStar from "../../assets/img/quiz-result-star.png";
 import succesImg from "../../assets/img/success1.jpeg";
 import { useParams, useLocation } from "react-router-dom";
@@ -289,9 +291,7 @@ const[dashboard,setDashboard]=useState("");
   React.useEffect(() => {
     if (
       dashboard?.all_topics_count === dashboard?.topics_completed_count
-      // dashboardStatus &&
-      // dashboardStatus?.all_topics_count ===
-      //   dashboardStatus?.topics_completed_count
+     
     ) {
       setShowCompleteMessage(true);
     } else {
@@ -1150,6 +1150,7 @@ const[dashboard,setDashboard]=useState("");
                 >
                   {showCompleteMessage ? (
                     <div className="bg-white rounded">
+
                       <CourseSuccessMessage />
                     </div>
                   ) : (
