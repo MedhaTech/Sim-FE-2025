@@ -36,10 +36,12 @@ const DetaledQuiz = (props) => {
   const [video, SetVideo] = useState(true);
   const [qst, SetQst] = useState({});
   const [quizdata, setQuizData] = useState(0);
+  // console.log(quizdata,"11");
   const language = useSelector(
     (state) => state?.studentRegistration?.studentLanguage
   );
   const [isSubmitted, setSubmitted] = useState(false);
+  // console.log(isSubmitted,"bb");
   const [attemptNumber, setAttemptNumber] = useState(0);
   const [currentScore, setCurrentScore] = useState({});
   const [currentRole, setCurrentRole] = useState("");
@@ -52,9 +54,10 @@ const DetaledQuiz = (props) => {
   }, [currentUser]);
 
   function resultdata() {
+    console.log("result api");
     const paramApi = encryptGlobal(
       JSON.stringify({
-        user_id: currentUser.data[0].user_id,
+        user_id: currentUser?.data[0]?.user_id,
         quiz_id: quizId,
       })
     );
@@ -70,27 +73,29 @@ const DetaledQuiz = (props) => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
+          // console.log(response,"dd");
           if (response.data.count === null) {
             setAttemptNumber(1);
             props.getAdminQuizQuestionsActions(
               quizId,
               language,
               1,
-              currentUser.data[0].user_id
+              currentUser?.data[0]?.user_id
             );
           } else {
             setAttemptNumber(
               response?.data?.data[0].data[
                 response?.data?.data[0].data.length - 1
-              ].attempts
+              ]?.attempts
             );
             props.getAdminQuizQuestionsActions(
               quizId,
               language,
-              currentUser.data[0].user_id,
               response?.data?.data[0].data[
                 response?.data?.data[0].data.length - 1
-              ].attempts
+              ]?.attempts,
+              currentUser?.data[0]?.user_id,
+
             );
             setCurrentScore(
               response?.data?.data[0].data[
@@ -108,7 +113,7 @@ const DetaledQuiz = (props) => {
             );
           }
           setTotalQstCount(response?.data?.data[0]?.all[0]?.allquestions);
-          setQuizData(response?.data?.data[0]);
+          setQuizData(response.data && response.data.data[0] );
         }
       })
       .catch(function (error) {
@@ -170,33 +175,51 @@ const DetaledQuiz = (props) => {
       setSubmitted(true);
     }
   };
-  //   const goToTop = () => {
-  //     window.scrollTo(0, 0);
-  //     if (startRef.current) {
-  //       startRef.current.scrollIntoView({
-  //         behavior: "smooth",
-  //         block: "start",
-  //       });
-  //     } else {
-  //       console.error('Element with ID "start" not found.');
-  //     }
-  //   };
-  //   useEffect(() => {
-  //     if (!loading && condition && startRef.current) {
-  //       goToTop();
-  //     }
-  //   }, [loading, condition]);
+ 
+  
+  // const goToTop = () => {
+  //   window.scrollTo(0, 0);
+
+  //   const section = document.querySelector("#start");
+  //   section.scrollIntoView({
+  //     behavior: "smooth",
+  //     block: "start",
+  //   });
+
+  // };
+ 
   const goToTop = () => {
+    console.log("Scrolling to top...");
+
+    // Scroll to the top of the page immediately
     window.scrollTo(0, 0);
-    const section = document.querySelector("#start");
-    
-    section.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  };
+
+    // Log after scrolling to top
+    console.log("Scrolled to top. Now scrolling to #start...");
+
+    // Then, scroll to the element with id 'start' smoothly
+    const section = document.querySelector('#start');
+
+    // Check if the section exists
+    if (section) {
+        console.log("Element found:", section);
+
+        section.scrollIntoView({
+            behavior: 'smooth', // Smooth scroll effect
+            block: 'start'      // Aligns the top of the element with the top of the viewport
+        });
+
+        console.log("Scroll initiated to #start with smooth behavior.");
+    } else {
+        console.warn("Element with id 'start' not found.");
+    }
+};
+
+ 
 
   const handleNxtQst = () => {
+    // console.log("/resu");
+
     Setloading(true);
     setTimeout(() => {
       Setloading(false);
@@ -205,15 +228,16 @@ const DetaledQuiz = (props) => {
         props.quizId,
         language,
         attemptNumber,
-        currentUser.data[0].user_id
+        currentUser?.data[0]?.user_id
       );
       SetSelectOption("");
       SetType("");
       goToTop();
       setSubmitted(false);
-      resultdata();
+      resultdata();            
     }, 500);
   };
+  
   const handlevideo = (id) => {
     SetVideo(false);
     props.handleNxtVideo(id);
@@ -228,7 +252,7 @@ const DetaledQuiz = (props) => {
       props.quizId,
       language,
       attemptNumber + 1,
-      currentUser.data[0].user_id
+      currentUser?.data[0]?.user_id
     );
   };
   setTimeout(() => {
@@ -325,7 +349,7 @@ const DetaledQuiz = (props) => {
                               <th>{t("student_course.quiz_score_result")}</th>
                             </tr>
                           </thead>
-                          {quizdata?.data?.map((item, index) => {
+                          {quizdata.data.map((item, index) => {
                             return (
                               <tbody key={index}>
                                 <tr>

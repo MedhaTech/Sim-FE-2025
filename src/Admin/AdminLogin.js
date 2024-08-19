@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable react/prop-types */
@@ -49,8 +50,8 @@ const AdminLogin = (props) => {
     },
 
     validationSchema: Yup.object({
-      email: Yup.string().email("Must be a valid email").required("required"),
-      password: Yup.string().required("required"),
+      email: Yup.string().email("Must be a valid email").required("Please Enter Email"),
+      password: Yup.string().required("Please Enter Password"),
     }),
     onSubmit: (values) => {
     localStorage.clear();
@@ -104,7 +105,7 @@ const AdminLogin = (props) => {
                 <div className="login-userheading">
                   <h3> Super Admin Login</h3>
                   <h4>
-                    Access the Dreamspos panel using your email and passcode.
+                    Access the Super Admin panel using your Email and Password.
                   </h4>
                 </div>
                 <div className="form-login mb-3">
@@ -119,7 +120,7 @@ const AdminLogin = (props) => {
                       value={formik.values.email}
                     />
                     {formik.touched.email && formik.errors.email ? (
-                      <small className="error-cls">Required</small>
+                      <small className="error-cls" style={{color:"red"}}>{formik.errors.email}</small>
                     ) : null}
                     {/* <ImageWithBasePath
                       src="assets/img/icons/mail.svg"
@@ -141,7 +142,7 @@ const AdminLogin = (props) => {
                       value={formik.values.password}
                     />
                     {formik.touched.password && formik.errors.password ? (
-                      <small className="error-cls">Required</small>
+                      <small className="error-cls" style={{color:"red"}}>{formik.errors.password}</small>
                     ) : null}
                     <span
                       className={`fas toggle-password ${
@@ -161,9 +162,9 @@ const AdminLogin = (props) => {
                           Remember me
                         </label>
                       </div>
-                      <div className="text-end">
+                      {/* <div className="text-end">
                         <Link className="forgot-link">Forgot Password?</Link>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>

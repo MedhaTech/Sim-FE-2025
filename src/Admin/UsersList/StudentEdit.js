@@ -28,7 +28,7 @@ import { isString } from "antd/es/button";
 const StuEdit = () => {
   const location = useLocation();
   const studentData = location.state || {};
-    console.log(studentData, "111");
+    // console.log(studentData, "111");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentUser = getCurrentUser("current_user");

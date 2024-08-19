@@ -164,7 +164,7 @@ const updateStatesList=["All States",...stateList];
                 setshowspin(false);
             });
     }
-console.log(tableData,"state");
+// console.log(tableData,"state");
     const handleSelect = (item, num) => {
         // where item = student id / mentor id //
         localStorage.removeItem('dist');

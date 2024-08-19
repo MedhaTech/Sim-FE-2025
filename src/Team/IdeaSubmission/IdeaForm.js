@@ -12,6 +12,7 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
     problemStatement: '',
     ideaTitle: '',
     ideaDescription: '',
+    workbook: '',
     prototypeLink: ''
   });
 
@@ -21,7 +22,8 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
     { qid: 3, title: 'Describe your problem statement' },
     { qid: 4, title: 'Give a Title to your IDEA' },
     { qid: 5, title: 'Describe your Idea in detail' },
-    { qid: 6, title: 'Share video link of your idea prototype' },
+    { qid: 6, title: 'Did u complete workbook?' },
+    { qid: 7, title: 'Share video link of your idea prototype' },
   ];
 
   const [step, setStep] = useState(1);
@@ -44,6 +46,7 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
       problemStatement: '',
       ideaTitle: '',
       ideaDescription: '',
+      workbook: '',
       prototypeLink: ''
     });
     setStep(1);
@@ -70,6 +73,8 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
     }
   }, [step]);
 
+  const choosedTheme = themes.find(theme => theme.title === formData.theme);
+
   const renderQuestion = (currentStep) => {
     switch (currentStep) {
       case 1:
@@ -81,7 +86,7 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
             <div className="timeline-panel bg-success-gradient">
               <div className="timeline-heading">
                 <h4 className="timeline-title">Question {questions[0].qid}</h4>
-              </div><br />
+              </div><br/>
               <div className="timeline-body">
                 <p>{questions[0].title}</p><br />
                 <select name="theme" value={formData.theme} onChange={handleInputChange} className='form-select'>
@@ -116,8 +121,21 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
                 <h4 className="timeline-title">Question {questions[1].qid}</h4>
               </div><br />
               <div className="timeline-body">
-                <p> {questions[1].title} </p><br />
-                <div>
+                {choosedTheme && (
+                  <select name="focusArea" value={formData.focusArea} onChange={handleInputChange} className='form-select'>
+                    <option value="">Select Focus Area</option>
+                    {choosedTheme.focusareas.map((focusarea, index) => (
+                      <option key={index} value={focusarea}>{focusarea}</option>
+                    ))}
+                  </select>
+                )}
+                {/* <p> {questions[1].title} </p><br />
+                <select name="focusArea" value={formData.focusArea} onChange={handleInputChange} className='form-select'>
+                  {themes.map((theme , index) => (
+                    <option key={index} value={theme.focusareas[index]}>{theme.focusareas[index]}</option>
+                  ))}
+                </select> */}
+                {/* <div>
                   <div className='form-check'>
                     <label className='form-check-label'>
                       <input type="radio" name="focusArea" value="Area 1" onChange={handleInputChange} className='form-check-input' /> Area 1
@@ -138,7 +156,7 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
                       <input type="radio" name="focusArea" value="Area 4" onChange={handleInputChange} className='form-check-input' /> Area 4
                     </label>
                   </div>
-                </div>
+                </div> */}
                 {currentStep === step && (
                   <><br />
                     <div className='view-btn'>
@@ -265,24 +283,30 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
             </div>
           </li>
         );
-      case 6:
+      case 6 :
         return (
           <li className="timeline-inverted" key={currentStep}>
-            <div className="timeline-badge success">
-              <i className="fa fa-video" />
+            <div className="timeline-badge info">
+              <i className="fa fa-eye" />
             </div>
-            <div className="timeline-panel bg-success-gradient">
+            <div className="timeline-panel bg-info-gradient">
               <div className="timeline-heading">
                 <h4 className="timeline-title">Question {questions[5].qid}</h4>
               </div><br />
               <div className="timeline-body">
-                <p>{questions[5].title}</p><br />
-                <input type="text"
-                  name="prototypeLink"
-                  value={formData.prototypeLink}
-                  onChange={handleInputChange}
-                  className="text-form form-control"
-                  placeholder="Provide Prototype Video Link" />
+                <p> {questions[5].title} </p><br />
+                <div>
+                  <div className='form-check'>
+                    <label className='form-check-label'>
+                      <input type="radio" name="workbook" value="YES" onChange={handleInputChange} className='form-check-input' /> YES
+                    </label>
+                  </div>
+                  <div className='form-check'>
+                    <label className='form-check-label'>
+                      <input type="radio" name="workbook" value="NO" onChange={handleInputChange} className='form-check-input' /> NO
+                    </label>
+                  </div>
+                </div>
                 {currentStep === step && (
                   <><br />
                     <div className='view-btn'>
@@ -296,6 +320,29 @@ const IdeaForm = ({ selectedTheme, themes, onDiscard }) => {
                       </a>
                     </div>
                   </>)}
+              </div>
+
+            </div>
+          </li>
+        );
+      case 7:
+        return (
+          <li key={currentStep}>
+            <div className="timeline-badge success">
+              <i className="fa fa-video" />
+            </div>
+            <div className="timeline-panel bg-success-gradient">
+              <div className="timeline-heading">
+                <h4 className="timeline-title">Question {questions[6].qid}</h4>
+              </div><br />
+              <div className="timeline-body">
+                <p>{questions[6].title}</p><br />
+                <input type="text"
+                  name="prototypeLink"
+                  value={formData.prototypeLink}
+                  onChange={handleInputChange}
+                  className="text-form form-control"
+                  placeholder="Provide Prototype Video Link" />
               </div>
             </div>
           </li>
