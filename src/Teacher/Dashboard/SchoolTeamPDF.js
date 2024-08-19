@@ -78,7 +78,6 @@ function SchoolTeamPDF() {
     //team Credentials
     const [teamCredentials, setTeamCredentials] = useState();
     const fetchTeamCredentials = (mentorId) => {
-        console.log(mentorId, typeof (mentorId));
         const mentorParam = encryptGlobal(JSON.stringify(mentorId));
         var config = {
             method: 'get',
