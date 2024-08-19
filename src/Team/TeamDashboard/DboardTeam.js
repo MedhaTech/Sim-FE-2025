@@ -51,10 +51,7 @@ const EmployeesGrid = () => {
   const { teamsMembersStatus, teamsMembersStatusErr } = useSelector(
     (state) => state.teams
   );
-  //  const presuveyStatus = useSelector(
-  //       (state) => state?.studentRegistration.presuveyStatusGl
-  //   );
-  //   console.log(presuveyStatus,"status");
+     
   const teamId = currentUser?.data[0]?.team_id;
   const mentorid = currentUser?.data[0]?.mentor_id;
 
@@ -65,13 +62,15 @@ const EmployeesGrid = () => {
   );
 
   useEffect(() => {
+      if(teamsMembersStatus.length != 0){
+        setStuInstructionsLoading(false);
+      }
+  }, [teamsMembersStatus]);
+
+  useEffect(() => {
     if (teamId) {
       dispatch(getTeamMemberStatus(teamId, setshowDefault));
       //dispatch(getStudentChallengeSubmittedResponse(teamId));
-      if(teamsMembersStatus != null){
-        setStuInstructionsLoading(false);
-      }
-      //setStuInstructionsLoading(false);
     }
   }, [teamId, dispatch]);
 
@@ -110,6 +109,7 @@ const EmployeesGrid = () => {
             record.topics_completed_count
           );
         return (
+          <>
           <div
             className="progress progress-sm progress-custom progress-animate"
             role="progressbar"
@@ -148,70 +148,46 @@ const EmployeesGrid = () => {
               </div>
             </div>
           </div>
-          // bg-primary bg-success bg-info bg-danger
-          // <div className="d-flex">
-          //     <div style={{ width: '80%' }}>
-          //         <Progress
-          //             key={'25'}
-          //             className="progress-height"
-          //             animated
-          //             color={
-          //                 percent
-          //                     ? percent <= 25
-          //                         ? 'danger'
-          //                         : percent > 25 && percent <= 50
-          //                         ? 'info'
-          //                         : percent > 50 && percent <= 75
-          //                         ? 'warning'
-          //                         : 'sucess'
-          //                     : 'danger'
-          //             }
-          //             value={percent}
-          //         />
-          //     </div>
-          //     <span className="ms-2">
-          //         {Math.round(percent) ? Math.round(percent) : '0'}%
-          //     </span>
-          // </div>
+          </>
         );
       },
     },
-    // {
-    //   title: "Idea Submission",
-    //   dataIndex: "idea_submission",
-    //   align: "center",
-    //   width: "20rem",
-    //   render: (_, record) =>
-    //     record?.idea_submission ? (
-    //       <CheckCircle size={20} color="#28C76F" />
-    //     ) : (
-    //       <IoHelpOutline size={20} color="#FF0000" />
-    //     ),
-    // },
-    // {
-    //   title: "Post Survey",
-    //   dataIndex: "post_survey_status",
-    //   align: "center",
-    //   width: "10rem",
-    //   render: (_, record) =>
-    //     record?.post_survey_status ? (
-    //       <CheckCircle size={20} color="#28C76F" />
-    //     ) : (
-    //       <IoHelpOutline size={20} color="#FF0000" />
-    //     ),
-    // },
-    // {
-    //   title: "Certificate",
-    //   dataIndex: "certificate",
-    //   align: "center",
-    //   width: "10rem",
-    //   render: (_, record) =>
-    //     record?.certificate ? (
-    //       <CheckCircle size={20} color="#28C76F" />
-    //     ) : (
-    //       <IoHelpOutline size={20} color="#FF0000" />
-    //     ),
-    // },
+    {
+      title: "Idea Submission",
+      dataIndex: "idea_submission",
+      align: "center",
+      width: "20rem",
+      render: (_, record) =>
+        record?.idea_submission ? (
+          <CheckCircle size={20} color="#28C76F" />
+        ) : (
+          <IoHelpOutline size={20} color="#FF0000" />
+        ),
+    },
+    {
+      title: "Post Survey",
+      dataIndex: "post_survey_status",
+      align: "center",
+      width: "10rem",
+      render: (_, record) =>
+        record?.post_survey_status ? (
+          <CheckCircle size={20} color="#28C76F" />
+        ) : (
+          <IoHelpOutline size={20} color="#FF0000" />
+        ),
+    },
+    {
+      title: "Certificate",
+      dataIndex: "certificate",
+      align: "center",
+      width: "10rem",
+      render: (_, record) =>
+        record?.certificate ? (
+          <CheckCircle size={20} color="#28C76F" />
+        ) : (
+          <IoHelpOutline size={20} color="#FF0000" />
+        ),
+    },
   ];
 
   const navigate = useNavigate();
@@ -457,8 +433,8 @@ const EmployeesGrid = () => {
                       {stuInstructionsLoad?(<Loader />):(
                       teamsMembersStatus[i].pre_survey_status?(teamsMembersStatus[i].topics_completed_count?(teamsMembersStatus[i].all_topics_count-teamsMembersStatus[i].topics_completed_count===0?(teamsMembersStatus[i].idea_submission?(teamsMembersStatus[i].post_survey_status?(<p>🥳 Congratulations! on achieving your Certificate. Login & download ✅</p>)
                       :(<p>🥳 Congrats! Your idea is submitted💡 It&apos;s time to take Post-Survey</p>))
-                      :(<p>👏 Well Done Problem Solver! You are now ready to submit idea 💡</p>))
-                      :(<p>😄 Hope you are learning good techniques to solve problems around you👍🏻</p>))
+                      :(<p>👏 Well Done Problem Solver! You&apos;re ready to submit idea💡</p>))
+                      :(<p>😄 Hope you are learning good techniques to solve problems👍🏻</p>))
                       :(<p>👋 Start Course & know about 🔍Problem Solving Journey <FaRoute size={16} color="#20c997" /> </p>))
                       :(<p>👋 Hi! Login & Get started with your Pre-Survey 😊</p>))}
                     </div>

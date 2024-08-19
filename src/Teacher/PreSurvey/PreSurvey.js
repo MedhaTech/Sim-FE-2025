@@ -24,7 +24,7 @@ import {
   openNotificationWithIcon,
 } from "../../helpers/Utils";
 import axios from "axios";
-import getStart from "../../assets/img/survey1.jpg";
+import getStart from "../../assets/img/survey1.png";
 import { useNavigate } from "react-router-dom";
 import Congo from "../../assets/img/survey-success.jpg";
 import { useDispatch, useSelector } from "react-redux";
