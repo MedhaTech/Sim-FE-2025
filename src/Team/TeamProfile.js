@@ -53,17 +53,11 @@ const TeacherProfile = () => {
                       <img src={female} alt="Female" id="blah" />):(<img src={user} alt="user" id="blah" />)
                     )}
                     <div className="profileupload">
-                      {/* <input type="file" id="imgInp" /> */}
-                      {/* <Link 
-                      onClick={handleEdit()}
-                      >
-                        <img src={edit} alt="Edit" />
-                      </Link> */}
+                      
                     </div>
                   </div>
                   <div className="profile-contentname">
                     <h2>{currentUser?.data[0]?.team_name}</h2>
-                    {/* <h4>Update Personal Details.</h4> */}
                   </div>
                 </div>
               </div>

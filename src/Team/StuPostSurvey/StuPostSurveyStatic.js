@@ -1,12 +1,12 @@
 import { Fragment } from 'react';
-import Congo from '../../assets/img/survey1.jpg';
+import Congo from '../../assets/img/survey1.png';
 
 const PostSurveyStatic = () => {
     return (
         <Fragment>
             <div className="text-center">
                 <div>
-                    <img className="img-fluid imgWidthSize" src={Congo}></img>
+                    <img className="img-fluid imgSize" src={Congo}></img>
                 </div>
                 <div>
                     <h2 className="common-flex">

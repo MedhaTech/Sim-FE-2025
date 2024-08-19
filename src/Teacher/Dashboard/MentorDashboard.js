@@ -48,7 +48,7 @@ const GreetingModal = (props) => {
           onHide={props.handleClose}
           backdrop={true}
       >
-          <Modal.Header closeButton></Modal.Header>
+          {/* <Modal.Header closeButton></Modal.Header> */}
 
           <Modal.Body>
               <figure>
@@ -60,21 +60,20 @@ const GreetingModal = (props) => {
               </figure>
           </Modal.Body>
           <Modal.Footer>
-                 {/* {props.state !=null &&   <button
-                       className='btn btn-secondary'
-                        onClick={navigate(props.state)}
-                    >
-                      Navigate
-                    </button>} */}
-                    {props.state !=null &&   
-                    <Link
-                                to={props.state}
-                                type="button"
-                                className="product-img"
-                              >
-                                <FaPoll size={30} style={{marginRight : "10px", color:"orange"}} />
-                              </Link>}
-                </Modal.Footer>
+            {props.state !=null &&   
+            <Link
+              to={props.state}
+              type="button"
+              className="product-img"
+            >
+              <button
+                label={"Navigate"}
+                className="btn btn-warning"
+              >
+                Navigate
+              </button>
+            </Link>}
+          </Modal.Footer>
       </Modal>
   );
 };
