@@ -68,9 +68,9 @@ const AddNewSchool = (props) => {
             .matches(/^[a-zA-Z0-9\s]+$/, 'Organization Name can only contain letters, numbers, and spaces')
             .required('Organization Name is Required'),
                 organization_code: Yup.string()
-                .matches(/^[0-9]*$/, 'Please enter Numeric values')
-                .max(11, 'Please enter only 11 digit valid Udise code')
-                .min(11, 'Udise code is less than 11 digits')
+                // .matches(/[^a-zA-Z0-9]/g, 'Please enter Numeric values')
+                .max(11, 'Please enter only 11 digit valid UDISE code')
+                .min(11, 'UDISE code is less than 11 digits')
                 .required('UDISE Code is Required'),
             address: Yup.string()
                 .optional()
@@ -194,7 +194,7 @@ const AddNewSchool = (props) => {
         marginRight: '10px',
       };
       const handleInputChange = (e) => {
-        const numericValue = e.target.value.replace(/\D/g, "").slice(0, 11);
+        const numericValue = e.target.value.replace(/[^a-zA-Z0-9]/g, "").slice(0, 11);
         formik.setFieldValue('organization_code', numericValue);
       };
     

@@ -10,17 +10,17 @@ import i7 from "../../assets/img/Themes/7.png";
 import i8 from "../../assets/img/Themes/8.png";
 
 export const themesList = [
-    "Sustainable Development & Environment",
+    "Sustainable Development and Environment",
     "Digital Transformation",
     "Health and Well-being",
     "Quality Education",
     "Economic Empowerment",
-    "Smart & Resilient Communities",
-    "Agriculture & Rural Development",
+    "Smart and Resilient Communities",
+    "Agriculture and Rural Development",
     "Others"
 ];
 export const focusareasList = {
-    "Sustainable Development & Environment": [
+    "Sustainable Development and Environment": [
         "Renewable Energy (e.g., solar, wind, hydro)",
         "Waste Management (e.g., recycling, composting)",
         "Clean Water (e.g., water purification, rainwater harvesting)",
@@ -33,7 +33,7 @@ export const focusareasList = {
         "Information Technology (e.g., software, apps)",
         "Cybersecurity (e.g., protecting data, secure online practices)",
         "Blockchain (e.g., secure transactions, decentralized systems)",
-        "Artificial Intelligence (AI) & Machine Learning (ML) (e.g., smart assistants, predictive analytics)",
+        "Artificial Intelligence (AI) and Machine Learning (ML) (e.g., smart assistants, predictive analytics)",
         "Others"
     ],
     "Health and Well-being" : [
@@ -57,7 +57,7 @@ export const focusareasList = {
         "Retail Innovations (e.g., new products, better shopping experiences)"  ,
         "Others"
     ],
-    "Smart & Resilient Communities" : [
+    "Smart and Resilient Communities" : [
         "Smart Cities (e.g., smart traffic systems, digital public services)",
         "Electric Vehicles (e.g., electric cars, charging stations)",
         "Disaster Management (e.g., emergency response systems, disaster-proof buildings)",
@@ -66,7 +66,7 @@ export const focusareasList = {
         "Travel and Tourism (e.g., eco-tourism, smart travel apps)",
         "Others"
     ],
-    "Agriculture & Rural Development" : [
+    "Agriculture and Rural Development" : [
         "Modern Farming Techniques (e.g., hydroponics, precision farming)",
         "Rural Development (e.g., rural infrastructure, community projects)",
         "Food Security (e.g., food storage, distribution systems)",
@@ -78,7 +78,7 @@ export const focusareasList = {
 export const themes = [
     {   id: 1, 
         image: i1, 
-        title: 'Sustainable Development & Environment', 
+        title: 'Sustainable Development and Environment', 
         focusareas: [
             "Renewable Energy (e.g., solar, wind, hydro)",
             "Waste Management (e.g., recycling, composting)",
@@ -98,7 +98,7 @@ export const themes = [
             "Information Technology (e.g., software, apps)",
             "Cybersecurity (e.g., protecting data, secure online practices)",
             "Blockchain (e.g., secure transactions, decentralized systems)",
-            "Artificial Intelligence (AI) & Machine Learning (ML) (e.g., smart assistants, predictive analytics)",
+            "Artificial Intelligence (AI) and Machine Learning (ML) (e.g., smart assistants, predictive analytics)",
             "Others"
         ], 
         desc: "Highlights the critical role of digital technologies in bridging the digital divide and fostering innovation, making India a leader in the digital economy.",
@@ -145,7 +145,7 @@ export const themes = [
     { 
         id: 6, 
         image: i6, 
-        title: 'Smart & Resilient Communities', 
+        title: 'Smart and Resilient Communities', 
         focusareas: [
             "Smart Cities (e.g., smart traffic systems, digital public services)",
             "Electric Vehicles (e.g., electric cars, charging stations)",
@@ -160,7 +160,7 @@ export const themes = [
     { 
         id: 7, 
         image: i7, 
-        title: 'Agriculture & Rural Development', 
+        title: 'Agriculture and Rural Development', 
         focusareas: [
             "Modern Farming Techniques (e.g., hydroponics, precision farming)",
             "Rural Development (e.g., rural infrastructure, community projects)",

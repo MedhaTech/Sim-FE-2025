@@ -90,7 +90,7 @@ export default (state = INIT_STATE, action) => {
                 challengeQuestions: action.payload
             };
         case GET_CHALLENGE_SUBMITTED_DATA:
-            var status = action.payload[0]?.status;
+            var status = action.payload?.status;
             return {
                 ...state,
                 challengesSubmittedResponse: action.payload,
