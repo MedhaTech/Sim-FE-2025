@@ -34,11 +34,7 @@ import SchoolTeamPDF from './SchoolTeamPDF';
 import { Modal } from 'react-bootstrap';
 
 const GreetingModal = (props) => {
-  // console.log(props.state,"sss");
- const  navigate=useNavigate();
-  const handleNavigate =()=>{
-    // navigate("");
-  };
+  
   return (
       <Modal
           show={props.show}
@@ -48,7 +44,7 @@ const GreetingModal = (props) => {
           onHide={props.handleClose}
           backdrop={true}
       >
-          <Modal.Header closeButton></Modal.Header>
+          {/* <Modal.Header closeButton></Modal.Header> */}
 
           <Modal.Body>
               <figure>
@@ -60,21 +56,20 @@ const GreetingModal = (props) => {
               </figure>
           </Modal.Body>
           <Modal.Footer>
-                 {/* {props.state !=null &&   <button
-                       className='btn btn-secondary'
-                        onClick={navigate(props.state)}
-                    >
-                      Navigate
-                    </button>} */}
-                    {props.state !=null &&   
-                    <Link
-                                to={props.state}
-                                type="button"
-                                className="product-img"
-                              >
-                                <FaPoll size={30} style={{marginRight : "10px", color:"orange"}} />
-                              </Link>}
-                </Modal.Footer>
+            {props.state !=null &&   
+            <Link
+              to={props.state}
+              type="button"
+              className="product-img"
+            >
+              <button
+                label={"Navigate"}
+                className="btn btn-warning"
+              >
+                Navigate
+              </button>
+            </Link>}
+          </Modal.Footer>
       </Modal>
   );
 };
@@ -108,6 +103,7 @@ const MentorDashboard = () => {
   const [teacCourseLoading, setTeacCourseLoading] = useState(true);
   const [teacPostSLoading, setTeacPostSLoading] = useState(true);
   const [whatsappLink, setWhatsappLink] = useState('');
+  const [message, setMessage] = useState('');
   
   useEffect(() => {
     
@@ -349,8 +345,10 @@ const MentorDashboard = () => {
         axios(config)
         .then(function (response) {
             if (response.status === 200) {
-                // console.log(response);
-                setWhatsappLink(response.data.data);
+                console.log(response);
+                setWhatsappLink(response.data.data[0].whatapp_link);
+                setMessage(response.data.data[0].mentor_note);
+                console.log(response.data.data[0].mentor_note,"message");
             }
         })
         .catch(function (error) {
@@ -386,12 +384,16 @@ const MentorDashboard = () => {
     handlePrintCertificate();
   };
 
+  const handleNavigation = () => {
+    navigate("/instructions", { state: { instruction: message } });
+  };
+
   const scroll = () => {
         const section = document.querySelector('#start');
         section.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
   
-
+console.log(message,"m");
     
   const componentRef = useRef();
   const handlePrintCertificate = useReactToPrint({
@@ -634,8 +636,8 @@ const MentorDashboard = () => {
               <div className="card flex-fill default-cover w-100 mb-4">
                 <div className="card-header d-flex justify-content-between align-items-center">
                   <h4 className="card-title mb-0">SIM Road Map </h4>
-                  <div className="dropdown">
-                    <Link to="#" className="view-all d-flex align-items-center">
+                  <div className="dropdown" onClick={handleNavigation} >
+                    <Link to="/instructions"  className="view-all d-flex align-items-center">
                       <span className="ps-2 d-flex align-items-center">
                         <FaRoute size={30} />
                       </span>

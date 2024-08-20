@@ -17,6 +17,7 @@ import axios from "axios";
 const TeacherProfile = () => {
   const dispatch = useDispatch();
   const currentUser = getCurrentUser("current_user");
+  console.log(currentUser,"currentuser");
   const { teacher } = useSelector((state) => state.teacher);
   console.log(teacher,"11");
   const navigate = useNavigate();
@@ -30,7 +31,15 @@ const [data,setData]=useState({});
         username: currentUser?.data[0]?.name,
         title:currentUser?.data[0]?.title,
         gender: currentUser?.data[0]?.gender,
-        // whatapp_mobile: teacher?.whatapp_mobile
+        whatapp_mobile: teacher?.whatapp_mobile,
+        principal_email: teacher?.organization?.principal_email,
+        principal_mobile : teacher?.organization?.principal_mobile,
+        principal_name : teacher?.organization?.principal_name,
+        organization_name : teacher?.organization?.organization_name,
+        organization_id : teacher?.organization?.organization_id,
+        organization_code : teacher?.organization?.organization_code,
+        status :teacher?.status
+
       },
     });
   };
@@ -91,6 +100,7 @@ const [data,setData]=useState({});
               </div>
             </div>
             <div className="row">
+              <h4 style={{color:"crimson"}}>Teacher Info</h4><br/><br/>
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
                   <label className="form-label">Teacher Name</label>
@@ -108,6 +118,18 @@ const [data,setData]=useState({});
               </div>
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
+                  <label>Email</label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    defaultValue={teacher?.username_email
+                    }
+                    readOnly="readonly"
+                  />
+                </div>
+              </div>
+              <div className="col-lg-4 col-sm-12">
+                <div className="input-blocks">
                   <label className="form-label">Gender</label>
                   <input
                     type="text"
@@ -119,7 +141,7 @@ const [data,setData]=useState({});
                   />
                 </div>
               </div>
-              <div className="col-lg-6 col-sm-12">
+              <div className="col-lg-4 col-sm-12">
                 <div className="input-blocks">
                   <label className="form-label">Mobile Number</label>
                   <input
@@ -132,28 +154,20 @@ const [data,setData]=useState({});
                   />
                 </div>
               </div>
-              {/* <div className="col-lg-6 col-sm-12">
+              <div className="col-lg-4 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label"></label>
+                  <label className="form-label">Whatsapp Number</label>
                   <input
                     type="text"
                     className="form-control"
-                    defaultValue={currentUser?.data[0]?.full_name}
-                  />
-                </div>
-              </div> */}
-              <div className="col-lg-6 col-sm-12">
-                <div className="input-blocks">
-                  <label>Email</label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    defaultValue={teacher?.username_email
+                    defaultValue={
+                      teacher?.whatapp_mobile
                     }
                     readOnly="readonly"
                   />
                 </div>
               </div>
+              <h4 style={{color:"crimson"}}>School Info</h4><br/><br/>
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
                   <label className="form-label">Udise Code</label>
@@ -174,7 +188,7 @@ const [data,setData]=useState({});
                   <label className="form-label">School Name</label>
                   <input
                     type="text"
-                    defaultValue={currentUser?.data[0]?.organization_name}
+                    defaultValue={teacher?.organization?.organization_name}
                     readOnly="readonly"
                   />
                 </div>
@@ -212,31 +226,39 @@ const [data,setData]=useState({});
                   />
                 </div>
               </div>
-              {/* <div className="col-lg-6 col-sm-12">
+              <div className="col-lg-4 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label">Password</label>
-                  <div className="pass-group">
-                    <input
-                      type={isPasswordVisible ? "text" : "password"}
-                      className="pass-input form-control"
-                    />
-                    <span
-                      className={`fas toggle-password ${
-                        isPasswordVisible ? "fa-eye" : "fa-eye-slash"
-                      }`}
-                      onClick={togglePasswordVisibility}
-                    ></span>
-                  </div>
+                  <label className="form-label">Principal Name</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    defaultValue={teacher?.organization?.principal_name}
+                    readOnly="readonly"
+                  />
                 </div>
-              </div> */}
-              {/* <div className="col-12">
-                <Link to={"/teacher-dashboard"} className="btn btn-submit me-2">
-                  Submit
-                </Link>
-                <Link className="btn btn-cancel" to={"/teacher-dashboard"}>
-                  Cancel
-                </Link>
-              </div> */}
+              </div>
+              <div className="col-lg-4 col-sm-12">
+                <div className="input-blocks">
+                  <label className="form-label">Principal Mobile No</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    defaultValue={teacher?.organization?.principal_mobile}
+                    readOnly="readonly"
+                  />
+                </div>
+              </div>
+              <div className="col-lg-4 col-sm-12">
+                <div className="input-blocks">
+                  <label className="form-label">Principal Email ID</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    defaultValue={teacher?.organization?.principal_email}
+                    readOnly="readonly"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
