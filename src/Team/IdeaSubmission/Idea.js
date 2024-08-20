@@ -1,12 +1,12 @@
 /* eslint-disable indent */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from 'react';
-import IdeaForm from './IdeaForm';
+import IdeaPageCopy from './IdeaPageCopy';
 import { Link } from 'react-router-dom';
 import ImageWithBasePath from '../../core/img/imagewithbasebath';
 import { Check } from 'react-feather';
 import FeatherIcon from "feather-icons-react";
-import {themes}  from "./themesData";
+import {themes,themesList}  from "./themesData";
 
 
 const settings = {
@@ -49,21 +49,25 @@ const settings = {
   ],
 };
 
-const Idea = () => {
-  const [selectedTheme, setSelectedTheme] = useState(null);
+const Idea = ({setShowChallenges }) => {
+  const [theme, setTheme] = useState(null);
   const [data, setData] = useState(0);
+  console.log(data,"11");
   const formRef = useRef(null);
 
-  useEffect(() => {
-    if (selectedTheme && formRef.current) {
-      formRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [selectedTheme]);
+  // useEffect(() => {
+  //   if (selectedTheme && formRef.current) {
+  //     formRef.current.scrollIntoView({ behavior: 'smooth' });
+  //   }
+  // }, [selectedTheme]);
 
   const handleDiscard = () => {
-    setSelectedTheme(null);
+    setTheme(null);
   };
-
+  const handleSelect = (data) => {
+   
+    
+};
   return (
     <div className='page-wrapper'>
       <div className='content'>
@@ -73,7 +77,7 @@ const Idea = () => {
             <h6>Share your Amazing Ideas with us</h6>
           </div>
         </div>
-        {!selectedTheme ? (
+        {!theme ? (
           <div className="row align-items-start pos-wrapper pos-design">
             <div className="col-md-12 col-lg-8">
               <div className="pos-categories tabs_wrapper">
@@ -84,7 +88,7 @@ const Idea = () => {
                             {themes.map((theme) => (
                                 <div id={theme.id} key={theme.id} className="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2" onClick={() => setData(theme.id)}>
                                     <div className="product-info default-cover card">
-                                        <Link to="#" className="img-bg">
+                                        <Link className="img-bg">
                                             <img
                                             src={theme.image}
                                             alt={theme.id}
@@ -160,9 +164,16 @@ const Idea = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="btn-row d-sm-flex align-items-center justify-content-between" onClick={() => setSelectedTheme(themes[data - 1].title)}>
+                  <div className="btn-row d-sm-flex align-items-center justify-content-between" 
+                  onClick={() => setTheme(themes[data - 1].title)}
+                //   onClick={() =>
+                //     handleSelect(
+                //       (themes[data - 1].title)
+                //     )
+                // }
+                >
                     <Link
-                      to="#"
+                      // to="#"
                       className="btn btn-info btn-icon flex-fill"
                     >
                       <span className="me-1 d-flex align-items-center">
@@ -176,8 +187,8 @@ const Idea = () => {
             )}
           </div>
         ) : (
-          <div ref={formRef}>
-            <IdeaForm selectedTheme={selectedTheme} themes={themes} onDiscard={handleDiscard} />
+          <div >
+            <IdeaPageCopy theme={theme}/>
           </div>
         )}
       </div>

@@ -71,7 +71,8 @@ const Register = () => {
   };
 
   const handleOnChange = (e) => {
-    const numericValue = e.target.value.replace(/\D/g, "");
+    // const numericValue = e.target.value.replace(/\D/g, "");
+    const numericValue = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
     const trimmedValue = numericValue.trim();
 
     setDiesCode(trimmedValue);

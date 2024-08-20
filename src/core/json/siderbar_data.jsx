@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React from "react";
 
@@ -150,7 +151,7 @@ import * as Icon from "react-feather";
 const SidebarData = () => {
   // const { t } = useTranslation();
   const presurvey = localStorage.getItem("stupresurveystatus") ;
-  console.log(presurvey,"status");
+  // console.log(presurvey,"status");
 
   return( [
     {
@@ -234,7 +235,7 @@ const SidebarData = () => {
         },
         {
           label: "Idea Submission",
-          link: "/idea",
+          link: "/instruction",
           icon: <Icon.PlusSquare />,
           role: "STUDENT",
           showSubRoute: false,

@@ -141,6 +141,10 @@ const TeacherProgressDetailed = () => {
             key: 'organization_code'
         },
         {
+            label: 'ATL CODE',
+            key: 'organization_code'
+        },
+        {
             label: 'School Name',
             key: 'organization_name'
         },
@@ -205,7 +209,7 @@ const TeacherProgressDetailed = () => {
             key: 'team_count'
         },
         {
-            label: 'No.of Students Enrollrd',
+            label: 'No.of Students Enrolled',
             key: 'student_count'
         },
         {

@@ -16,6 +16,7 @@ export const all_routes = {
   mentordetails:"/mentor-details",
   studentreport:"Student-Report",
   mentorEdit:"/admin-mentor-edit",
+  instruction:"/instruction",
   studenttableview:"/student-view",
   stuedit:"student-edit",
   createpopup:"/create-popup",

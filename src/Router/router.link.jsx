@@ -48,7 +48,7 @@ import TeacherSupport from "../Teacher/Support/TeacherSupport";
 import TCertificate from "../Teacher/Certificate/TCertificate";
 import ChangePwd from "../Teacher/ChangePwd";
 
-import Idea from "../Team/IdeaSubmission/Idea";
+// import Idea from "../Team/IdeaSubmission/Idea";
 
 import TeamDashboard from "../Team/TeamDashboard/DboardTeam";
 
@@ -87,8 +87,15 @@ import MentorView from "../Admin/UsersList/MentorView";
 import MentorEdit from "../Admin/UsersList/MentorEdit";
 import StudentTableView from "../Admin/UsersList/StudentTableView";
 import StuEdit from "../Admin/UsersList/StudentEdit";
+
+import InstructionsPage from "../Team/IdeaSubmission/InstuctionPage";
+import IdeaSubmission from "../Team/IdeaSubmission/IdeaSubmission";
+// import IdeasPageNew from "../Team/IdeaSubmission/IdeaPageCopy";
+// import Idea from "../Team/IdeaSubmission/Idea";
+
 import InstructionsTeacher from "../Teacher/Dashboard/Instructions";
 import InstructionsStudent from "../Team/StudentDashboard/instructions";
+
 
 
 
@@ -398,7 +405,7 @@ export const teamRoutes = [
     id: 5,
     path: routes.idea,
     name: "idea",
-    element: <Idea />,
+    element: <IdeaSubmission/>,
     //protected: true,
     route: Route,
   },
@@ -414,6 +421,14 @@ export const teamRoutes = [
     id: 7,
     path: routes.instruction,
     name: "instruction",
+    element: <InstructionsPage />,
+    //protected: true,
+    route: Route,
+  },
+   {
+    id: 8,
+    path: routes.instructionstu,
+    name: "instructionstu",
     element: <InstructionsStudent />,
     //protected: true,
     route: Route,
