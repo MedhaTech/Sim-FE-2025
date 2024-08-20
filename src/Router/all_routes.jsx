@@ -44,7 +44,7 @@ export const all_routes = {
   mentorcourse: "/mentorcourse/:id",
   studentcourse: "/studentcourse/:id",
   instructions : "/instructions",
-  instruction : "/instruction",
+  instructionstu : "/instructionstu",
   mentorsupport: "/mentorsupport",
   mentorcertificate: "/mentorcertificate",
   mentorchangepwd: "/mentorchangepwd",
