@@ -90,6 +90,8 @@ const DBStu = () => {
   const [stuIdeaSub, setStuIdeaSub] = useState("");
   const [coursepercentage, setCoursepercentage] = useState();
   const [video , setVideo] = useState("");
+  const [message , setMessage] = useState("");
+  
   const [show , setShow] = useState(false);
   const language = useSelector(
     (state) => state?.studentRegistration?.studentLanguage
@@ -181,12 +183,49 @@ useEffect(() => {
         stuQuizCount();
         stuVideosCount();
         stuSurveyStatus();
+        fetchInstructions();
         scroll();
     }
   }, [currentUser?.data[0]?.user_id]);
   const [badges,setBadges] = useState(0);
   const [quiz,setQuiz] = useState(0);
   const [videos,setVideos] = useState(0);
+
+  const handleNavigation = () => {
+    navigate("/instruction", { state: { instruction: message } });
+  };
+
+  const fetchInstructions = () => {
+    // Function to fetch the WhatsApp link from the API
+    const statenameApi = encryptGlobal(
+      JSON.stringify({
+        state_name : currentUser?.data[0]?.state 
+      })
+    );
+    var config = {
+      method: 'get',
+      url:
+          process.env.REACT_APP_API_BASE_URL +
+          `/dashboard/whatappLink?Data=${statenameApi}`,
+      headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${currentUser.data[0]?.token}`
+      }
+      };
+      axios(config)
+      .then(function (response) {
+          if (response.status === 200) {
+              //console.log(response);
+              setMessage(response.data.data[0].student_note);
+              console.log(response.data.data[0].student_note,"message");
+          }
+      })
+      .catch(function (error) {
+          console.log(error);
+      }
+    );
+  };
 
   const stuSurveyStatus = () => {
     const surveyApi = encryptGlobal(
@@ -427,8 +466,8 @@ useEffect(() => {
               <div className="card flex-fill default-cover w-100 mb-4">
                 <div className="card-header d-flex justify-content-between align-items-center">
                   <h4 className="card-title mb-0">SIM Road Map</h4>
-                  <div className="dropdown">
-                    <Link to="#" className="view-all d-flex align-items-center">
+                  <div className="dropdown" onClick={handleNavigation}>
+                    <Link to="/instruction" className="view-all d-flex align-items-center">
                       <span className="ps-2 d-flex align-items-center">
                         <FaRoute size={30}  /> 
                       </span>

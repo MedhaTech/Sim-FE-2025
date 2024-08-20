@@ -20,19 +20,13 @@ import user from "../assets/img/user.png";
 const TeacherEditProfile = () => {
   const location = useLocation();
   const mentorData = location.state || {};
+  console.log(mentorData,"mentorData");
   const navigate = useNavigate();
 
   const currentUser = getCurrentUser("current_user");
   const getValidationSchema = () => {
     // where data = mentorData //
     const adminValidation = Yup.object({
-      //   whatapp_mobile: Yup.string()
-      //     .required("required")
-      //     .trim()
-      //     .matches(/^\d+$/, "Mobile number is not valid (Enter only digits)")
-      //     .min(10, "Please enter valid number")
-      //     .max(10, "Please enter valid number"),
-      //   gender: Yup.string().required("Please select valid gender"),
       title: Yup.string().required(
         <span style={{ color: "red" }}>Please select Title</span>
       ),
@@ -40,30 +34,109 @@ const TeacherEditProfile = () => {
         <span style={{ color: "red" }}>Please select Gender</span>
       ),
       full_name: Yup.string()
-        // .matches(/^[A-Za-z]*$/, 'Invalid name ')
-        // .min(2, 'Enter a valid name')
-        // .required('Name is Required'),
+      .trim()
+      .min(2, <span style={{ color: "red" }}>Please Enter Full Name</span>)
+      .matches(
+        /^[aA-zZ\s]+$/,
+        <span style={{ color: "red" }}>
+          Special Characters are not allowed
+        </span>
+      )
+      .required(<span style={{ color: "red" }}>Please Enter Full Name</span>),
+      organization_name : Yup.string()
+      .trim()
+      .min(2, <span style={{ color: "red" }}>Please Enter School Name</span>)
+      .matches(
+        /^[a-zA-Z0-9\s]+$/,
+        <span style={{ color: "red" }}>
+          Special Characters are not allowed
+        </span>
+      )
+      .max(
+        40,
+        <span style={{ color: "red" }}>
+          School Name cannot be more than 40 characters
+        </span>
+      )
+      .required(<span style={{ color: "red" }}>Please Enter School Name</span>),
+      principal_name: Yup.string()
         .trim()
-        .min(2, <span style={{ color: "red" }}>Please Enter Full Name</span>)
-        .matches(/^[aA-zZ\s]+$/, "Special Characters are not allowed")
-        .required(<span style={{ color: "red" }}>Please Enter Full Name</span>),
-      //   phone: Yup.string()
-      //     .trim()
-      //     .matches(/^\d+$/, "Mobile number is not valid (Enter only digits)")
-      //     .min(10, "Enter a valid mobile number")
-      //     .max(10, "Mobile number must be 10 Digit")
-      //     .required("Mobile Number is Required"),
+        .min(2, <span style={{ color: "red" }}>Please Enter Principal Name</span>)
+        .matches(
+          /^[aA-zZ\s]+$/,
+          <span style={{ color: "red" }}>
+            Special Characters are not allowed
+          </span>
+        )
+        .required(<span style={{ color: "red" }}>Please Enter Principal Name</span>),
+      
+      principal_mobile: Yup.string()
+          .required(
+            <span style={{ color: "red" }}>Please Enter Mobile Number</span>
+          )
+          .trim()
+          .matches(
+            /^\d+$/,
+            <span style={{ color: "red" }}>
+              Mobile number is not valid (Enter only digits)
+            </span>
+          )
+          .max(
+            10,
+            <span style={{ color: "red" }}>
+              Please enter only 10 digit valid number
+            </span>
+          )
+          .min(
+            10,
+            <span style={{ color: "red" }}>Number is less than 10 digits</span>
+          ),
+      principal_email: Yup.string()
+          .email(
+            <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
+          )
+          .required(
+            <span style={{ color: "red" }}>Please Enter Email Address</span>
+          )
+          .matches(
+            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            "Email Must be VALID"
+          )
+          .max(255),
+      whatapp_mobile: Yup.string()
+          .required(
+            <span style={{ color: "red" }}>Please Enter WhatsApp Number</span>
+          )
+          .trim()
+          .matches(
+            /^\d+$/,
+            <span style={{ color: "red" }}>
+              Mobile number is not valid (Enter only digit)
+            </span>
+          )
+          .max(
+            10,
+            <span style={{ color: "red" }}>
+              Please enter only 10 digit valid number
+            </span>
+          )
+          .min(
+            10,
+            <span style={{ color: "red" }}>Number is less than 10 digits</span>
+          ),
     });
     return adminValidation;
   };
   const getInitialValues = (mentorData) => {
     const commonInitialValues = {
       full_name: mentorData?.full_name,
-
-      //   email: mentorData.name,
+      principal_name : mentorData?.principal_name,
+      principal_mobile : mentorData?.principal_mobile,
+      principal_email : mentorData?.principal_email,
       title: mentorData.title,
-      //   whatapp_mobile: mentorData.whatapp_mobile,
-        gender: mentorData.gender,
+      whatapp_mobile: mentorData.whatapp_mobile,
+      gender: mentorData.gender,
+      organization_name : mentorData.organization_name
     };
     return commonInitialValues;
   };
@@ -72,19 +145,28 @@ const TeacherEditProfile = () => {
     validationSchema: getValidationSchema(),
     onSubmit: (values) => {
       const full_name = values.full_name;
-      // const mobile = values.phone;
+      const principal_name = values.principal_name;
+      const principal_mobile = values.principal_mobile;
+      const principal_email = values.principal_email;
       const title = values.title;
-      //   const whatapp_mobile = values.whatapp_mobile;
-        const gender = values.gender;
+      const whatapp_mobile = values.whatapp_mobile;
+      const gender = values.gender;
+      const organization_name = values.organization_name;
       //   const mobile = values.phone;
-      const body = JSON.stringify({
+      const bodyt = JSON.stringify({
         full_name: full_name,
-        // mobile: mobile,
         title: title,
-        // whatapp_mobile: whatapp_mobile,
+        whatapp_mobile: whatapp_mobile,
         gender: gender,
-        // mobile: mobile,
         username: mentorData.username,
+      });
+      const bodys = JSON.stringify({
+        organization_code : mentorData?.organization_code,
+        status : mentorData?.status,
+        principal_email : principal_email,
+        principal_mobile : principal_mobile,
+        principal_name : principal_name,
+        organization_name : organization_name,
       });
       const ment = encryptGlobal(JSON.stringify(mentorData.mentor_id));
       const url = process.env.REACT_APP_API_BASE_URL + "/mentors/" + ment;
@@ -95,25 +177,55 @@ const TeacherEditProfile = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${currentUser?.data[0]?.token}`,
         },
-        data: body,
+        data: bodyt,
       };
       axios(config)
         .then(function (response) {
           if (response.status === 200) {
-            openNotificationWithIcon("success", "Updated Successfully");
+            openNotificationWithIcon("success", "Teacher Details Updated Successfully");
             currentUser.data[0].full_name = values.full_name;
             currentUser.data[0].title = values.title;
             currentUser.data[0].gender = values.gender;
+            currentUser.data[0].whatapp_mobile = values.whatapp_mobile;
 
             setCurrentUser(currentUser);
-            setTimeout(() => {
-              navigate("/mentorprofile");
-            }, 2000);
+            
           }
         })
         .catch(function (error) {
           console.log(error);
         });
+      const editId = encryptGlobal(
+          JSON.stringify(mentorData?.organization_id)
+      );
+      var config2 = {
+          method: 'put',
+          url:
+              process.env.REACT_APP_API_BASE_URL +
+              '/organizations/' +
+              editId,
+          headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${currentUser?.data[0]?.token}`
+          },
+          data: bodys
+      };
+      axios(config2)
+          .then((checkOrgRes) => {
+              if (checkOrgRes.status == 200) {
+                  openNotificationWithIcon(
+                      'success',
+                      'School Details Updated Successfully'
+                  );
+                  setTimeout(() => {
+                    navigate("/mentorprofile");
+                    window.location.reload();
+                  }, 2000);
+              }
+          })
+          .catch((err) => {
+              return err.response;
+          });
     },
   });
   const formLoginStyle = {
@@ -164,7 +276,7 @@ const TeacherEditProfile = () => {
                 </div>
               </div>
               <div className="row">
-                <div className="form-login col-lg-4 col-sm-12">
+                <div className="form-login col-lg-3 col-sm-12">
                   <div className="input-blocks">
                     <label>Title</label>
                     <select
@@ -186,7 +298,7 @@ const TeacherEditProfile = () => {
                     ) : null}
                   </div>
                 </div>
-                <div className="form-login col-lg-4 col-sm-12">
+                <div className="form-login col-lg-3 col-sm-12">
                   <div className="input-blocks">
                     <label className="form-label">Teacher Name</label>
                     <input
@@ -213,7 +325,7 @@ const TeacherEditProfile = () => {
                     ) : null}
                   </div>
                 </div>
-                <div className="form-login col-lg-4 col-sm-12">
+                <div className="form-login col-lg-3 col-sm-12">
                   <div className="input-blocks">
                     <label>Gender</label>
                     <select
@@ -231,6 +343,144 @@ const TeacherEditProfile = () => {
                     </select>
                     {formik.touched.gender && formik.errors.gender ? (
                       <small className="error-cls">{formik.errors.gender}</small>
+                    ) : null}
+                  </div>
+                </div>
+                <div className="form-login col-lg-3 col-sm-12">
+                  <div className="input-blocks">
+                    <label>Whatsapp Number</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="whatapp_mobile"
+                      name="whatapp_mobile"
+                      onChange={(e) => {
+                        const inputValue = e.target.value;
+                        const numericValue = inputValue.replace(
+                          /\D/g,
+                          ""
+                        );
+                        formik.setFieldValue("whatapp_mobile", numericValue);
+                      }}
+                      maxLength={10}
+                      minLength={10}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.whatapp_mobile}
+                    />
+
+                    {formik.touched.whatapp_mobile && formik.errors.whatapp_mobile ? (
+                      <small className="error-cls">
+                        {formik.errors.whatapp_mobile}
+                      </small>
+                    ) : null}
+                  </div>
+                </div>
+                {/* New fields  */}
+                <div className="form-login col-lg-6 col-sm-12">
+                  <div className="input-blocks">
+                    <label className="form-label">School Name</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="organization_name"
+                      name="organization_name"
+                      // onChange={formik.handleChange}
+                      onChange={(e) => {
+                        const inputValue = e.target.value;
+                        const lettersOnly = inputValue.replace(/[^a-zA-Z0-9\s]/g, ""); 
+                        formik.setFieldValue("organization_name", lettersOnly);
+                      }}
+                      maxLength={40}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.organization_name}
+                    />
+                    {formik.touched.organization_name && formik.errors.organization_name ? (
+                      <small className="error-cls">
+                        {formik.errors.organization_name}
+                      </small>
+                    ) : null}
+                  </div>
+                </div>
+                <div className="form-login col-lg-6 col-sm-12">
+                  <div className="input-blocks">
+                    <label className="form-label">Principal Name</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="principal_name"
+                      name="principal_name"
+                      // onChange={formik.handleChange}
+                      onChange={(e) => {
+                        const inputValue = e.target.value;
+                        const lettersOnly = inputValue.replace(
+                          /[^a-zA-Z\s]/g,
+                          ""
+                        );
+                        formik.setFieldValue("principal_name", lettersOnly);
+                      }}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.principal_name}
+                    />
+                    {formik.touched.principal_name && formik.errors.principal_name ? (
+                      <small className="error-cls">
+                        {formik.errors.principal_name}
+                      </small>
+                    ) : null}
+                  </div>
+                </div>
+                <div className="form-login col-lg-6 col-sm-12">
+                  <div className="input-blocks">
+                    <label className="form-label">Principal Email ID</label>
+                    <input
+                      type="email"
+                      className="form-control"
+                      id="principal_email"
+                      name="principal_email"
+                      // onChange={formik.handleChange}
+                      onChange={(e) => {
+                        // const inputValue = e.target.value;
+                        // const lettersOnly = inputValue.replace(
+                        //   /[^a-zA-Z\s]/g,
+                        //   ""
+                        // );
+                        formik.setFieldValue("principal_email", e.target.value);
+                      }}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.principal_email}
+                    />
+                    {formik.touched.principal_email && formik.errors.principal_email ? (
+                      <small className="error-cls">
+                        {formik.errors.principal_email}
+                      </small>
+                    ) : null}
+                  </div>
+                </div>
+                <div className="form-login col-lg-6 col-sm-12">
+                  <div className="input-blocks">
+                    <label>Principal Mobile No</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="principal_mobile"
+                      name="principal_mobile"
+                      onChange={(e) => {
+                        const inputValue = e.target.value;
+                        const numericValue = inputValue.replace(
+                          /\D/g,
+                          ""
+                        );
+                        formik.setFieldValue("principal_mobile", numericValue);
+                      }}
+                      maxLength={10}
+                      minLength={10}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.principal_mobile}
+                    />
+
+                    {formik.touched.principal_mobile && formik.errors.principal_mobile ? (
+                      <small className="error-cls">
+                        {formik.errors.principal_mobile}
+                      </small>
                     ) : null}
                   </div>
                 </div>
