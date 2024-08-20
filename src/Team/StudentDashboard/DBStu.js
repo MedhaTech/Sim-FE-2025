@@ -42,7 +42,7 @@ const GreetingModal = (props) => {
           onHide={props.handleClose}
           backdrop={true}
       >
-          <Modal.Header closeButton></Modal.Header>
+          {/* <Modal.Header closeButton></Modal.Header> */}
 
           <Modal.Body>
               <figure>
@@ -54,17 +54,20 @@ const GreetingModal = (props) => {
               </figure>
           </Modal.Body>
           <Modal.Footer>
-          {props.state !=null &&   
-                    <Link
-                                to={props.state}
-                                type="button"
-                                className="product-img"
-                              >
-                                <FaPoll size={30} style={{marginRight : "10px", color:"orange"}} />
-                              </Link>}
-                </Modal.Footer>
-                              
-
+            {props.state !=null &&   
+              <Link
+                to={props.state}
+                type="button"
+                className="product-img"
+              >
+                <button
+                  label={"Navigate"}
+                  className="btn btn-warning"
+                >
+                  Navigate
+                </button>
+              </Link>}
+          </Modal.Footer>
       </Modal>
   );
 };
@@ -87,6 +90,8 @@ const DBStu = () => {
   const [stuIdeaSub, setStuIdeaSub] = useState("");
   const [coursepercentage, setCoursepercentage] = useState();
   const [video , setVideo] = useState("");
+  const [message , setMessage] = useState("");
+  
   const [show , setShow] = useState(false);
   const language = useSelector(
     (state) => state?.studentRegistration?.studentLanguage
@@ -178,12 +183,49 @@ useEffect(() => {
         stuQuizCount();
         stuVideosCount();
         stuSurveyStatus();
+        fetchInstructions();
         scroll();
     }
   }, [currentUser?.data[0]?.user_id]);
   const [badges,setBadges] = useState(0);
   const [quiz,setQuiz] = useState(0);
   const [videos,setVideos] = useState(0);
+
+  const handleNavigation = () => {
+    navigate("/instruction", { state: { instruction: message } });
+  };
+
+  const fetchInstructions = () => {
+    // Function to fetch the WhatsApp link from the API
+    const statenameApi = encryptGlobal(
+      JSON.stringify({
+        state_name : currentUser?.data[0]?.state 
+      })
+    );
+    var config = {
+      method: 'get',
+      url:
+          process.env.REACT_APP_API_BASE_URL +
+          `/dashboard/whatappLink?Data=${statenameApi}`,
+      headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${currentUser.data[0]?.token}`
+      }
+      };
+      axios(config)
+      .then(function (response) {
+          if (response.status === 200) {
+              //console.log(response);
+              setMessage(response.data.data[0].student_note);
+              console.log(response.data.data[0].student_note,"message");
+          }
+      })
+      .catch(function (error) {
+          console.log(error);
+      }
+    );
+  };
 
   const stuSurveyStatus = () => {
     const surveyApi = encryptGlobal(
@@ -205,9 +247,9 @@ useEffect(() => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-                // console.log(response);
-                const po = (response.data.data[0].postSurvey);
-                const pre = (response.data.data[0].preSurvey);
+                console.log(response);
+                const po = (response.data.data[0].post_survey_completed_date);
+                const pre = (response.data.data[0].pre_survey_completed_date);
                 setStuPostSurvey(po);
                 setStuPreSurvey(pre);
                 setStuPostSLoading(false);
@@ -365,37 +407,7 @@ useEffect(() => {
             </div>
             <div className="d-flex align-items-center">
               <div className="dropdown">
-                  {/* <button
-                      className="btn btn-primary dropdown-toggle"
-                      type="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                  >
-                      {selectedLanguage}
-                  </button> */}
-                  {/* <LanguageSelectorComp module="student" /> */}
-                  {/* <ul className="dropdown-menu">
-                      <li>
-                        <Link className="dropdown-item" onClick={() => handleLanguageChange('English')} to="#">
-                              English
-                          </Link>
-                      </li>
-                      <li>
-                        <Link className="dropdown-item" onClick={() => handleLanguageChange('Hindi')} to="#">
-                              Hindi
-                          </Link>
-                      </li>
-                      <li>
-                        <Link className="dropdown-item" onClick={() => handleLanguageChange('Telugu')} to="#">
-                              Telugu
-                          </Link>
-                      </li>
-                      <li>
-                        <Link className="dropdown-item" onClick={() => handleLanguageChange('Tamil')} to="#">
-                              Tamil
-                          </Link>
-                      </li>
-                  </ul> */}
+                  <LanguageSelectorComp module="student" />
               </div>
             </div>
           </div>
@@ -454,8 +466,8 @@ useEffect(() => {
               <div className="card flex-fill default-cover w-100 mb-4">
                 <div className="card-header d-flex justify-content-between align-items-center">
                   <h4 className="card-title mb-0">SIM Road Map</h4>
-                  <div className="dropdown">
-                    <Link to="#" className="view-all d-flex align-items-center">
+                  <div className="dropdown" onClick={handleNavigation}>
+                    <Link to="/instruction" className="view-all d-flex align-items-center">
                       <span className="ps-2 d-flex align-items-center">
                         <FaRoute size={30}  /> 
                       </span>
@@ -483,7 +495,7 @@ useEffect(() => {
                               </div>
                             </div>
                           </td>
-                          <td>
+                          {/* <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -499,7 +511,7 @@ useEffect(() => {
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td>
+                          </td> */}
                           <td>
                             {stuPreSLoading ? ( 
                                 <Loader />
@@ -552,7 +564,7 @@ useEffect(() => {
                               </div>
                             </div>
                           </td>
-                          <td>
+                          {/* <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -568,7 +580,7 @@ useEffect(() => {
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td>
+                          </td> */}
                           <td>
                             {stuCourseLoading ? ( 
                                 <Loader />
@@ -612,7 +624,7 @@ useEffect(() => {
                             </div>
                           </td>
                         </tr>
-                        {/* <tr>
+                        <tr>
                           <td>
                             <div className="product-info">
                               <Link
@@ -629,7 +641,7 @@ useEffect(() => {
                               </div>
                             </div>
                           </td>
-                          <td>
+                          {/* <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -645,7 +657,7 @@ useEffect(() => {
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td>
+                          </td> */}
                           <td>
                             {stuIdeaLoading ? ( 
                                 <Loader />
@@ -679,8 +691,8 @@ useEffect(() => {
                               </div>
                             </div>
                           </td>
-                        </tr> */}
-                        {/* <tr>
+                        </tr> 
+                         <tr>
                           <td>
                             <div className="product-info">
                               <Link
@@ -697,7 +709,7 @@ useEffect(() => {
                               </div>
                             </div>
                           </td>
-                          <td>
+                          {/* <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -713,7 +725,7 @@ useEffect(() => {
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td>
+                          </td> */}
                           <td>
                             {stuPostSLoading ? ( 
                                 <Loader />
@@ -747,7 +759,7 @@ useEffect(() => {
                               </div>
                             </div>
                           </td>
-                        </tr> */}
+                        </tr>
                         <tr>
                           <td>
                             <div className="product-info">
@@ -765,7 +777,7 @@ useEffect(() => {
                               </div>
                             </div>
                           </td>
-                          <td>
+                          {/* <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -781,7 +793,7 @@ useEffect(() => {
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td>
+                          </td> */}
                           <td>
                             <span
                               className={"badge badge-linesuccess"}
@@ -801,60 +813,6 @@ useEffect(() => {
                             </div>
                           </td>
                         </tr>
-                        {/* <tr>
-                          <td>
-                            <div className="product-info">
-                              <Link
-                                to={"/mentorsupport"}
-                                className="product-img"
-                              >
-                                <FaLifeRing size={30} style={{marginRight : "10px", color:"orange"}} />
-                              </Link>
-                              <div className="info">
-                                <Link to={"/mentorsupport"}>
-                                  <h4>Support</h4>
-                                </Link>
-                                <p className="dull-text">Raise your queries here</p>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <div className="action-table-data">
-                              <div className="edit-delete-action">
-                                <OverlayTrigger placement="top" overlay={renderTooltip}>
-                                  <Link
-                                      to="#"
-                                      className="me-2 p-2"
-                                      onClick={() => handleShow(4)}
-                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
-                                      
-                                  >
-                                    <FaPlay  style={{color:"red"}} />
-                                  </Link>
-                                </OverlayTrigger>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <span
-                              className={"badge badge-linesuccess"}
-                            >
-                              HelpLine
-                            </span>
-                          </td>
-                          <td>
-                            <div className="action-table-data">
-                              <div className="edit-delete-action">
-                                <OverlayTrigger placement="top" overlay={renderViewTooltip}>
-                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/mentorsupport"} >
-                                    <Eye className="feather-view" />
-                                  </Link>
-                                </OverlayTrigger>
-                              </div>
-                            </div>
-                          </td>
-                        </tr> */}
-                        
                       </tbody>
                     </table>
                   </div>

@@ -28,10 +28,18 @@
   }
   
   .imgWidthSize {
-    width: 25%;
+    width: auto;
   }
   @media only screen and (max-width: 600px) {
     .imgWidthSize {
+      width: 100%;
+    }
+  }
+  .imgSize {
+    width: 25%;
+  }
+  @media only screen and (max-width: 600px) {
+    .imgSize {
       width: 100%;
     }
   }

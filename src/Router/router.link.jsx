@@ -87,10 +87,15 @@ import MentorView from "../Admin/UsersList/MentorView";
 import MentorEdit from "../Admin/UsersList/MentorEdit";
 import StudentTableView from "../Admin/UsersList/StudentTableView";
 import StuEdit from "../Admin/UsersList/StudentEdit";
+
 import InstructionsPage from "../Team/IdeaSubmission/InstuctionPage";
 import IdeaSubmission from "../Team/IdeaSubmission/IdeaSubmission";
 // import IdeasPageNew from "../Team/IdeaSubmission/IdeaPageCopy";
 // import Idea from "../Team/IdeaSubmission/Idea";
+
+import InstructionsTeacher from "../Teacher/Dashboard/Instructions";
+import InstructionsStudent from "../Team/StudentDashboard/instructions";
+
 
 
 
@@ -405,7 +410,7 @@ export const teamRoutes = [
     route: Route,
   },
   {
-    id: 5,
+    id: 6,
     path: routes.studentresource,
     name: "studentresource",
     element: <StuResource />,
@@ -413,10 +418,18 @@ export const teamRoutes = [
     route: Route,
   },
   {
-    id: 6,
+    id: 7,
     path: routes.instruction,
     name: "instruction",
     element: <InstructionsPage />,
+    //protected: true,
+    route: Route,
+  },
+   {
+    id: 8,
+    path: routes.instructionstu,
+    name: "instructionstu",
+    element: <InstructionsStudent />,
     //protected: true,
     route: Route,
   },
@@ -532,6 +545,14 @@ export const mentorRoutes = [
     path: routes.mentorchangepwd,
     name: "mentorchangepwd",
     element: <ChangePwd />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 14,
+    path: routes.instructions,
+    name: "instructions",
+    element: <InstructionsTeacher />,
     protected: true,
     route: Route,
   },

@@ -68,11 +68,11 @@
        border: 0;
        justify-content: flex-start;
         .btn {
-            min-width: 130px;
-            @include margin-padding(null, 12px);
+            min-width: auto;
+            @include margin-padding(null, 5px 7px);
             @include respond-below(custom991) {
                 min-width: auto;
-                @include margin-padding(null, 7px 12px);
+                @include margin-padding(null, 5px 7px);
             }
         }
         .btn-print {

@@ -26,12 +26,20 @@
     border: 27px;
   }
 }
+.imgWidthSize{
+  width: auto;
+}
+@media only screen and (max-width: 600px) {
+  .imgSize {
+    width: 100%;
+  }
+}
 
-.imgWidthSize {
+.imgSize {
   width: 25%;
 }
 @media only screen and (max-width: 600px) {
-  .imgWidthSize {
+  .imgSize {
     width: 100%;
   }
 }

@@ -22,7 +22,7 @@ import {
   openNotificationWithIcon,
 } from "../../helpers/Utils";
 import axios from "axios";
-import Congo from "../../assets/img/survey-success.jpg";
+import Congo from "../../assets/img/chek.png";
 import { useDispatch, useSelector } from "react-redux";
 import { UncontrolledAlert } from "reactstrap";
 import { useTranslation } from "react-i18next";
@@ -95,7 +95,6 @@ const StuPostSurvey = () => {
       };
 
       const handleSubmit = async (e) => {
-        alert("hii");
         e.preventDefault();
     
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
@@ -190,10 +189,10 @@ return (
           </div>
         </div>
        </div>
-        <Container className="presuervey mb-50 mt-5 ">
+        <Container className="presuervey mb-50">
           <Col>
             <Row className=" justify-content-center">
-              <div className="aside  p-4 bg-white">
+              <div className="aside  p-4">
                 <CardBody>
                   {
                     // teamsCount !== 0 &&
@@ -653,8 +652,7 @@ return (
                         </div>
                         <div>
                           <h4>
-                            Thank you for completing the survey. Your responses
-                            are important for us.
+                            Thanks for taking part.<br/> Your Survey responses have been submitted Successfully..!
                           </h4>
                         </div>
                       </div>
