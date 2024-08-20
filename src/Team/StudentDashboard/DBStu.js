@@ -192,7 +192,7 @@ useEffect(() => {
   const [videos,setVideos] = useState(0);
 
   const handleNavigation = () => {
-    navigate("/instruction", { state: { instruction: message } });
+    navigate("/instructionstu", { state: { instruction: message } });
   };
 
   const fetchInstructions = () => {
@@ -467,7 +467,7 @@ useEffect(() => {
                 <div className="card-header d-flex justify-content-between align-items-center">
                   <h4 className="card-title mb-0">SIM Road Map</h4>
                   <div className="dropdown" onClick={handleNavigation}>
-                    <Link to="/instruction" className="view-all d-flex align-items-center">
+                    <Link to="/instructionstu" className="view-all d-flex align-items-center">
                       <span className="ps-2 d-flex align-items-center">
                         <FaRoute size={30}  /> 
                       </span>
