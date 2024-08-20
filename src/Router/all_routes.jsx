@@ -42,7 +42,8 @@ export const all_routes = {
   mentorpostsurvey: "/mentorpostsurvey",
   mentorcourse: "/mentorcourse/:id",
   studentcourse: "/studentcourse/:id",
-
+  instructions : "/instructions",
+  instruction : "/instruction",
   mentorsupport: "/mentorsupport",
   mentorcertificate: "/mentorcertificate",
   mentorchangepwd: "/mentorchangepwd",
