@@ -1227,19 +1227,19 @@ const PlayVideoCourses = (props) => {
                                 </Modal.Header>
                                 <Modal.Body>
                                   <Row>
-                                    <Col md={12}>
+                                    <Col md={12} className="text-center">
                                       <div>
                                         <img
                                           className="img-fluid imgWidthSize"
                                           src={Congo}
                                         ></img>
                                       </div>
-                                      <p
+                                      <h5
                                         className="w-100 d-block"
                                         dangerouslySetInnerHTML={{
                                           __html: t("student_course.quiz_com_note"),
                                         }}
-                                      ></p>
+                                      ></h5>
                                       {/* <div
                                         className="w-100 d-block text-left mb-3"
                                         dangerouslySetInnerHTML={{
