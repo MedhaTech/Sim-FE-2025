@@ -243,7 +243,7 @@ const PlayVideoCourses = (props) => {
     (state) => state?.studentRegistration
   );
   // console.log(dashboardStatus ,"ccc");
-const[dashboard,setDashboard]=useState("");
+  const [dashboard, setDashboard] = useState("");
   React.useEffect(() => {
     // if (dashboardStatus) {
     //   dispatch(
@@ -254,51 +254,51 @@ const[dashboard,setDashboard]=useState("");
   }, []);
   const stuCoursePercent = () => {
     const corseApi = encryptGlobal(
-        JSON.stringify({
-            user_id: currentUser?.data[0]?.user_id
-        })
+      JSON.stringify({
+        user_id: currentUser?.data[0]?.user_id
+      })
     );
     var config = {
-        method: 'get',
-        url:
-            process.env.REACT_APP_API_BASE_URL +
-            `/dashboard/stuCourseStats?Data=${corseApi}`,
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${currentUser.data[0]?.token}`
-        }
+      method: 'get',
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/dashboard/stuCourseStats?Data=${corseApi}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${currentUser.data[0]?.token}`
+      }
     };
     axios(config)
-        .then(function (response) {
-            if (response.status === 200) {
-              // console.log(response,"course");
-              setDashboard(response.data.data[0]);
-                // const per = Math.round(
-                //     (response.data.data[0].topics_completed_count /
-                //         response.data.data[0].all_topics_count) *
-                //         100
-                // );
-                // console.log(per);
-                // setCoursepercentage(per);
-                // setStuCourseLoading(false);
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+      .then(function (response) {
+        if (response.status === 200) {
+          // console.log(response,"course");
+          setDashboard(response.data.data[0]);
+          // const per = Math.round(
+          //     (response.data.data[0].topics_completed_count /
+          //         response.data.data[0].all_topics_count) *
+          //         100
+          // );
+          // console.log(per);
+          // setCoursepercentage(per);
+          // setStuCourseLoading(false);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
   React.useEffect(() => {
     if (
       dashboard?.all_topics_count === dashboard?.topics_completed_count
-     
+
     ) {
       setShowCompleteMessage(true);
     } else {
       setShowCompleteMessage(false);
     }
   }, [dashboard]);
-// console.log(showCompleteMessage,"ss");
+  // console.log(showCompleteMessage,"ss");
   const toggle = (id) => {
     if (id === 1) {
       setOpen("1");
@@ -344,7 +344,7 @@ const[dashboard,setDashboard]=useState("");
     // setAdminCourseDetails(props.adminCoursesDetails[0].description);
     setAdminCourseDetails(
       props.adminCoursesDetails[0] &&
-        props.adminCoursesDetails[0].course_modules
+      props.adminCoursesDetails[0].course_modules
     );
     props.adminCoursesDetails[0] &&
       props.adminCoursesDetails[0].course_modules.map((course, index) => {
@@ -569,9 +569,9 @@ const[dashboard,setDashboard]=useState("");
     if (event.reflective_quiz_status !== "INCOMPLETE") {
       if (
         topicObj.topic_type_id !==
-          setTopicArrays[setTopicArrays?.length - 1]?.topic_type_id ||
+        setTopicArrays[setTopicArrays?.length - 1]?.topic_type_id ||
         topicObj.topic_type !=
-          setTopicArrays[setTopicArrays?.length - 1]?.topic_type
+        setTopicArrays[setTopicArrays?.length - 1]?.topic_type
       ) {
         setTopic(setTopicArrays[topixIndex]);
         modulesListUpdateApi(topicObj.course_topic_id);
@@ -676,7 +676,7 @@ const[dashboard,setDashboard]=useState("");
                   response?.data?.data[0].data.length - 1
                 ]?.score /
                   response?.data?.data[0]?.all[0]?.allquestions) *
-                  100
+                100
               ) < 60;
             if (!cuttOff) {
               setQuizStart(false);
@@ -746,7 +746,7 @@ const[dashboard,setDashboard]=useState("");
     const notDone = (
       <FeatherIcon
         icon="play-circle"
-        style={{ width: "16px", height: "16px" }}
+        style={{ color: "#adb5bd", width: "16px", height: "16px" }}
       />
     );
     if (type === "VIDEO" && status === "COMPLETED") {
@@ -929,22 +929,22 @@ const[dashboard,setDashboard]=useState("");
       <div className="content settings-content">
         <div className="page-header settings-pg-header">
           <div className="add-item d-flex">
-              <div className="page-title">
-                  <h4>Course</h4>
-                  <h6>Join us on this problem solving journey.</h6>
-              </div>
+            <div className="page-title">
+              <h4>Course</h4>
+              <h6>Join us on this problem solving journey.</h6>
+            </div>
           </div>
           <ul className="table-top-head">
-              <li>
-                  <div>
-                  <FullScreenButton
-                    fullScreen={fullScreen}
-                    setFullScreen={setFullScreen}
-                  />
-                </div>
-              </li>
+            <li>
+              <div>
+                <FullScreenButton
+                  fullScreen={fullScreen}
+                  setFullScreen={setFullScreen}
+                />
+              </div>
+            </li>
           </ul>
-      </div>
+        </div>
         {!showPage ? (
           <CommonPage text={comingSoonText} />
         ) : (
@@ -954,24 +954,24 @@ const[dashboard,setDashboard]=useState("");
             >
               <Row
                 className="m-0 courser-video-section "
-                // style={{ border: "1px solid red" }}
+              // style={{ border: "1px solid red" }}
               >
                 <Col
                   xl={4}
                   className="course-assement order-2 order-xl-1 mb-5"
                   style={{
                     display: `${fullScreen.isFullSCreen ? "none" : ""}`,
-                    border: "1px solid Lightgrey",
-                    borderRadius: "0",
+                    // border: "1px solid Lightgrey",
+                    // borderRadius: "0",
                   }}
                 >
-                  <div className="assement-info">
-                    <p
+                  <div className="assement-info1">
+                    {/* <p
                       className="content-title"
                       style={{ "font-weight": "600" }}
                     >
                       {t("student_course.lessons")}
-                    </p>
+                    </p> */}
                     <div className="view-head"></div>
                     <div className="assement-item " id="scrollbar">
                       <Accordion open={open} toggle={toggle}>
@@ -1024,27 +1024,25 @@ const[dashboard,setDashboard]=useState("");
                                         return (
                                           <div
                                             key={index}
-                                            className={`course-sec-list ${
-                                              lecture.progress === "COMPLETED"
-                                                ? "hHover"
-                                                : "noHover"
-                                            }  `}
+                                            className={`course-sec-list ${lecture.progress === "COMPLETED"
+                                              ? "hHover"
+                                              : "noHover"
+                                              }  `}
                                           >
                                             <Row
                                               style={{
                                                 background:
                                                   currentTopicId ===
-                                                    lecture.course_topic_id &&
+                                                  lecture.course_topic_id &&
                                                   "#FE9F4314",
                                                 position: "relative",
                                                 // color: "#FE9F4314",
                                                 left: "0.75rem",
                                               }}
-                                              className={`justify-content-between w-100 py-2 ${
-                                                lecture.progress === "COMPLETED"
-                                                  ? "hHover"
-                                                  : "noCurser"
-                                              }`}
+                                              className={`justify-content-between w-100 py-2 ${lecture.progress === "COMPLETED"
+                                                ? "hHover"
+                                                : "noCurser"
+                                                }`}
                                             >
                                               <Col
                                                 md={12}
@@ -1150,7 +1148,6 @@ const[dashboard,setDashboard]=useState("");
                 >
                   {showCompleteMessage ? (
                     <div className="bg-white rounded">
-
                       <CourseSuccessMessage />
                     </div>
                   ) : (
@@ -1158,13 +1155,13 @@ const[dashboard,setDashboard]=useState("");
                       {item === "QUIZ" && !showQuiz ? (
                         <div
                           size="lg"
-                          className="modal-popup text-screen text-center  modal-popup"
+                          className="modal-popup text-screen modal-popup"
                         >
-                          <div className="modal-content">
+                          <div className="modal-content card p-4">
                             {quizStart ? (
                               <Modal.Header>
                                 <Modal.Title className="w-100 d-block mb-2">
-                                  <div
+                                  <div className="text-left text-primary"
                                     dangerouslySetInnerHTML={{
                                       __html: t(
                                         "student_course.quiz_start_title"
@@ -1172,12 +1169,12 @@ const[dashboard,setDashboard]=useState("");
                                     }}
                                   ></div>
                                 </Modal.Title>
-                                <div
+                                {/* <div
                                   className="w-100 d-block text-left"
                                   dangerouslySetInnerHTML={{
                                     __html: t("student_course.quiz_inst_msg"),
                                   }}
-                                ></div>
+                                ></div> */}
                               </Modal.Header>
                             ) : quizCompleted ? (
                               <Modal.Header>
@@ -1218,28 +1215,37 @@ const[dashboard,setDashboard]=useState("");
                             )}
 
                             <Modal.Body>
-                              <figure>
-                                <img
-                                  src={ModuleAssesmentImg}
-                                  alt="test"
-                                  className="img-fluid w-50"
-                                />
-                              </figure>
-                              <Button
-                                label={
-                                  quizStart
-                                    ? t("student.lets_start")
-                                    : quizCompleted
-                                    ? t("student.see_result")
-                                    : t("student.resume_quiz")
-                                }
-                                btnClass="primary mt-4"
-                                size="small"
-                                onClick={() => {
-                                  setHideQuiz(true);
-                                  setQuizAttempted(true);
-                                }}
-                              />
+                              <Row>
+                                <Col md={12}>
+                                  <div
+                                    className="w-100 d-block text-left mb-3"
+                                    dangerouslySetInnerHTML={{
+                                      __html: t("student_course.quiz_inst_msg1"),
+                                    }}
+                                  ></div>
+                                  <div
+                                    className="w-100 d-block text-left"
+                                    dangerouslySetInnerHTML={{
+                                      __html: t("student_course.quiz_inst_msg2"),
+                                    }}
+                                  ></div>
+                                  <Button
+                                    label={
+                                      quizStart
+                                        ? t("student.lets_start")
+                                        : quizCompleted
+                                          ? t("student.see_result")
+                                          : t("student.resume_quiz")
+                                    }
+                                    btnClass="primary mt-4"
+                                    size="small"
+                                    onClick={() => {
+                                      setHideQuiz(true);
+                                      setQuizAttempted(true);
+                                    }}
+                                  />
+                                </Col>
+                              </Row>
                             </Modal.Body>
                           </div>
                         </div>
@@ -1411,8 +1417,8 @@ const[dashboard,setDashboard]=useState("");
                       ) : item === "VIDEO" && condition === "Video1" ? (
                         <>
                           <Card className="embed-container">
-                            <CardTitle className=" text-left p-4 d-flex justify-content-between align-items-center">
-                              <h3>{topic?.title + " " + quizTopic}</h3>
+                            <CardTitle className=" text-left p-4 pt-2 pb-0 d-flex justify-content-between align-items-center">
+                              <h4>{topic?.title + " " + quizTopic}</h4>
                               {backToQuiz && (
                                 <Button
                                   label={t("student.backto_quiz")}
@@ -1480,7 +1486,7 @@ const[dashboard,setDashboard]=useState("");
                                   ></div>
                                 </text>
                                 {firstObj[0] &&
-                                firstObj[0].progress == "INCOMPLETE" ? (
+                                  firstObj[0].progress == "INCOMPLETE" ? (
                                   <div>
                                     <Button
                                       label={t("student_course.start course")}

@@ -99,7 +99,7 @@ const DetaledQuiz = (props) => {
             );
             setCurrentScore(
               response?.data?.data[0].data[
-                response?.data?.data[0].data.length - 1
+              response?.data?.data[0].data.length - 1
               ]
             );
             setCurrentPercentage(
@@ -108,12 +108,12 @@ const DetaledQuiz = (props) => {
                   response?.data?.data[0].data.length - 1
                 ]?.score /
                   response?.data?.data[0]?.all[0]?.allquestions) *
-                  100
+                100
               )
             );
           }
           setTotalQstCount(response?.data?.data[0]?.all[0]?.allquestions);
-          setQuizData(response.data && response.data.data[0] );
+          setQuizData(response.data && response.data.data[0]);
         }
       })
       .catch(function (error) {
@@ -175,8 +175,8 @@ const DetaledQuiz = (props) => {
       setSubmitted(true);
     }
   };
- 
-  
+
+
   // const goToTop = () => {
   //   window.scrollTo(0, 0);
 
@@ -187,7 +187,7 @@ const DetaledQuiz = (props) => {
   //   });
 
   // };
- 
+
   const goToTop = () => {
     console.log("Scrolling to top...");
 
@@ -202,20 +202,20 @@ const DetaledQuiz = (props) => {
 
     // Check if the section exists
     if (section) {
-        console.log("Element found:", section);
+      console.log("Element found:", section);
 
-        section.scrollIntoView({
-            behavior: 'smooth', // Smooth scroll effect
-            block: 'start'      // Aligns the top of the element with the top of the viewport
-        });
+      section.scrollIntoView({
+        behavior: 'smooth', // Smooth scroll effect
+        block: 'start'      // Aligns the top of the element with the top of the viewport
+      });
 
-        console.log("Scroll initiated to #start with smooth behavior.");
+      console.log("Scroll initiated to #start with smooth behavior.");
     } else {
-        console.warn("Element with id 'start' not found.");
+      console.warn("Element with id 'start' not found.");
     }
-};
+  };
 
- 
+
 
   const handleNxtQst = () => {
     // console.log("/resu");
@@ -234,10 +234,10 @@ const DetaledQuiz = (props) => {
       SetType("");
       goToTop();
       setSubmitted(false);
-      resultdata();            
+      resultdata();
     }, 500);
   };
-  
+
   const handlevideo = (id) => {
     SetVideo(false);
     props.handleNxtVideo(id);
@@ -268,7 +268,7 @@ const DetaledQuiz = (props) => {
           {video === true &&
             props.adminCourseQst &&
             props.adminCourseQst.data ===
-              "Quiz has been completed no more questions to display" && (
+            "Quiz has been completed no more questions to display" && (
               <div>
                 {currentRole === "MENTOR" ? (
                   <Confetti className="w-100" />
@@ -279,8 +279,8 @@ const DetaledQuiz = (props) => {
             )}
 
           {condition === true &&
-          props.adminCourseQst &&
-          props.adminCourseQst.status === 200 ? (
+            props.adminCourseQst &&
+            props.adminCourseQst.status === 200 ? (
             <Fragment>
               {/* <ProgressComp
                         level={
@@ -293,10 +293,10 @@ const DetaledQuiz = (props) => {
             </Fragment>
           ) : null}
 
-          <Card className="quiz">
+          <Card className="quiz p-4">
             {video === true &&
-            props.adminCourseQst &&
-            props.adminCourseQst.data ===
+              props.adminCourseQst &&
+              props.adminCourseQst.data ===
               "Quiz has been completed no more questions to display" ? (
               <div className="container new-result">
                 <div className="row justify-content-md-center ">
@@ -445,13 +445,13 @@ const DetaledQuiz = (props) => {
                 <div className="question-section" id="start">
                   <div className="score"></div>
                   <Row>
-                    <Col xs={10}>
-                      <p>
-                        {t("teacher.question")}{" "}
+                    <Col xs={12}>
+                      <h6 className="text-primary">
+                        {t("teacher.question")}{" # "}
                         {props?.adminCourseQst?.data &&
                           props?.adminCourseQst?.data[0] &&
                           props?.adminCourseQst?.data[0]?.question_no}
-                      </p>
+                      </h6>
                     </Col>
                   </Row>
 
@@ -466,14 +466,14 @@ const DetaledQuiz = (props) => {
                   />
 
                   {video === true &&
-                  props.adminQstResponce &&
-                  props.adminQstResponce.status === 200 ? (
+                    props.adminQstResponce &&
+                    props.adminQstResponce.status === 200 ? (
                     <div>
                       <div className="score">
                         {props.adminQstResponce &&
                           props.adminQstResponce.data[0] &&
                           props.adminQstResponce.data[0].is_correct ===
-                            true && (
+                          true && (
                             <div className="w-100">
                               <QuizResponse
                                 response={props.adminQstResponce.data[0]}
@@ -484,7 +484,7 @@ const DetaledQuiz = (props) => {
                         {props.adminQstResponce &&
                           props.adminQstResponce.data[0] &&
                           props.adminQstResponce.data[0].is_correct ===
-                            false && (
+                          false && (
                             <QuizResponse
                               response={props.adminQstResponce.data[0]}
                             />
@@ -492,11 +492,11 @@ const DetaledQuiz = (props) => {
                         <br />
                       </div>
 
-                      <Row className="justify-content-between mt-5">
+                      <Row className="justify-content-between mt-3">
                         {props.adminQstResponce &&
                           props.adminQstResponce.data[0] &&
                           props.adminQstResponce.data[0].is_correct ===
-                            true && (
+                          true && (
                             <Col md={12} className="text-right">
                               <Button
                                 btnClass="primary"
@@ -509,12 +509,12 @@ const DetaledQuiz = (props) => {
                         {props.adminQstResponce &&
                           props.adminQstResponce.data[0] &&
                           props.adminQstResponce.data[0].is_correct ===
-                            false && (
+                          false && (
                             <Col md={12} className="text-right">
                               {props.adminQstResponce &&
                                 props.adminQstResponce.data[0] &&
                                 props.adminQstResponce.data[0].redirect_to !=
-                                  null && (
+                                null && (
                                   <Button
                                     btnClass="primary px-5 mx-sm-3 mx-1 mb-3"
                                     size="small"
@@ -522,9 +522,9 @@ const DetaledQuiz = (props) => {
                                     onClick={() =>
                                       handlevideo(
                                         props.adminQstResponce &&
-                                          props.adminQstResponce.data[0] &&
-                                          props.adminQstResponce.data[0]
-                                            .redirect_to
+                                        props.adminQstResponce.data[0] &&
+                                        props.adminQstResponce.data[0]
+                                          .redirect_to
                                       )
                                     }
                                   />
@@ -542,8 +542,8 @@ const DetaledQuiz = (props) => {
                   ) : null}
 
                   {props.adminQstResponce &&
-                  props.adminQstResponce.status === 200 ? null : (
-                    <Row className="justify-content-between mt-5">
+                    props.adminQstResponce.status === 200 ? null : (
+                    <Row className="justify-content-between mt-3">
                       <Col md={12} className="text-right">
                         <Button
                           size="small"
