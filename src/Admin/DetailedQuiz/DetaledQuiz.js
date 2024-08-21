@@ -313,13 +313,13 @@ const DetaledQuiz = (props) => {
                             {currentScore?.score ? currentScore?.score : "0"}/
                             {totalQstCount}
                           </h2>
-                          <h2
+                          <h4
                             style={{
                               color: "green",
                             }}
                           >
                             {t("student.quiz_completed")}
-                          </h2>
+                          </h4>
                           <Button
                             label="continue"
                             btnClass="primary w-auto"
@@ -374,21 +374,21 @@ const DetaledQuiz = (props) => {
                           }}
                         >
                           {currentPercentage >= 60 ? (
-                            <h2
+                            <h4
                               style={{
                                 color: "green",
                               }}
                             >
                               {t("student.quiz_completed")}
-                            </h2>
+                            </h4>
                           ) : (
-                            <h2
+                            <h4
                               style={{
                                 color: "red",
                               }}
                             >
                               {t("student.cutoff")}
-                            </h2>
+                            </h4>
                           )}
                         </div>
                       </>
@@ -480,7 +480,6 @@ const DetaledQuiz = (props) => {
                               />
                             </div>
                           )}
-                        <br />
                         {props.adminQstResponce &&
                           props.adminQstResponce.data[0] &&
                           props.adminQstResponce.data[0].is_correct ===
@@ -489,7 +488,6 @@ const DetaledQuiz = (props) => {
                               response={props.adminQstResponce.data[0]}
                             />
                           )}
-                        <br />
                       </div>
 
                       <Row className="justify-content-between mt-3">
