@@ -183,6 +183,7 @@ useEffect(() => {
         stuQuizCount();
         stuVideosCount();
         stuSurveyStatus();
+        stuIdeaSubStatus();
         fetchInstructions();
         scroll();
     }
@@ -260,6 +261,42 @@ useEffect(() => {
             console.log(error);
         });
     };
+
+  const stuIdeaSubStatus = () => {
+      const ideaSubApi = encryptGlobal(
+          JSON.stringify({
+            team_id: currentUser?.data[0]?.team_id
+          })
+      );
+      var config = {
+          method: 'get',
+          url:
+              process.env.REACT_APP_API_BASE_URL +
+              `/challenge_response/submittedDetails?Data=${ideaSubApi}`,
+          headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+              Authorization: `Bearer ${currentUser.data[0]?.token}`
+          }
+      };
+      axios(config)
+          .then(function (response) {
+              console.log(response, "res");
+              if (response.status === 200) {
+                  console.log(response, "ideaSubApi");
+                  setStuIdeaSub("custom");
+                  setStuIdeaLoading(false);
+              }
+          })
+          .catch(function (error) {
+              console.log(error,"error");
+              if(error.response.data.status === 404){
+                setStuIdeaSub("Not Started");
+                setStuIdeaLoading(false);
+              }
+
+          });
+      };
     
   const stuCoursePercent = () => {
     const corseApi = encryptGlobal(
@@ -661,21 +698,31 @@ useEffect(() => {
                           <td>
                             {stuIdeaLoading ? ( 
                                 <Loader />
-                              ) : stuIdeaSub != "SUBMITTED" ?  (
+                              ) : stuIdeaSub == "SUBMITTED" ?  (
+                                <>
+                                  <span
+                                    className={"badge badge-linesuccess"}
+                                  >
+                                    Submitted
+                                  </span>
+                                </>
+                              
+                            ) : stuIdeaSub == "Not Started" ? (
                               <>
                                 <span
                                   className={"badge badge-linedangered"}
                                   onClick={redirectToIdea}
                                 >
-                                  Not Done!
+                                  Not Started
                                 </span>
                               </>
-                            ) : (
+                            ):(
                               <>
                                 <span
-                                  className={"badge badge-linesuccess"}
+                                  className={"badge badge-bgdanger"}
+                                  onClick={redirectToIdea}
                                 >
-                                  Submitted
+                                  In Draft
                                 </span>
                               </>
                             )}
