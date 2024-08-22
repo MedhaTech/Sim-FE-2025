@@ -101,7 +101,7 @@ const Question = (props) => {
                                     src={x}
                                     alt={x}
                                     className="img-fluid"
-                                    style={{ height: '43rem' }}
+                                    style={{ height: 'auto' }}
                                 />
                             );
                         })}
