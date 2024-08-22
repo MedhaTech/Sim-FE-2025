@@ -249,14 +249,14 @@ const SidebarData = () => {
           showSubRoute: false,
           submenu: false,
         },
-        {
-          label:"My Certificate",
-          link: "/certificate",
-          icon: <Icon.Tag />,
-          role: "STUDENT",
-          showSubRoute: false,
-          submenu: false,
-        },
+        // {
+        //   label:"My Certificate",
+        //   link: "/certificate",
+        //   icon: <Icon.Tag />,
+        //   role: "STUDENT",
+        //   showSubRoute: false,
+        //   submenu: false,
+        // },
       ],
     },
   ]

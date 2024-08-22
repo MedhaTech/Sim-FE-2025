@@ -33,7 +33,7 @@ const CourseSuccessMessage = () => {
     <div className="container new-result">
       <Confetti className="w-100" />
       <div className="row justify-content-md-center ">
-        <div className="col col-lg-9">
+        <div className="col col-lg-10">
           {/* <div className="results-heading"> */}
 
           {/* <img src={ResultStar} alt="star" /> */}

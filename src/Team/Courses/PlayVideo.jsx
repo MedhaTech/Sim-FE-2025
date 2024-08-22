@@ -1332,7 +1332,7 @@ const PlayVideoCourses = (props) => {
                               <Card className="course-sec-basic p-3">
                                 <div className="container new-result">
                                   <div className="row justify-content-md-center ">
-                                    <div className="col col-lg-9">
+                                    <div className="col col-lg-10">
                                       <div className="congratulations text-center">
                                         <div
                                           dangerouslySetInnerHTML={{
@@ -1346,13 +1346,9 @@ const PlayVideoCourses = (props) => {
                                       <div className="text-center">
                                         <Button
                                           label={t("student.continue")}
-                                          btnClass=" mx-4"
+                                          btnClass="primary mt-4"
                                           size="small"
                                           type="submit"
-                                          style={{
-                                            background: "#00ced1",
-                                            color: "#fff",
-                                          }}
                                           onClick={() => {
                                             handleNextCourse();
                                           }}
@@ -1425,7 +1421,7 @@ const PlayVideoCourses = (props) => {
                                       <Col md={4} className="text-right">
                                         <Button
                                           label={t("student.continue")}
-                                          btnClass=" mx-4"
+                                          btnClass="primary mt-4"
                                           size="small"
                                           type="submit"
                                           className="btn btn-primary"
