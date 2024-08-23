@@ -26,13 +26,7 @@
 //     { qid: 7, title: 'Share video link of your idea prototype' },
 //   ];
 
-//   const [step, setStep] = useState(1);
-//   const formEndRef = useRef(null);
-//   const MySwal = withReactContent(Swal);
 
-//   const handleNext = () => {
-//     setStep(step + 1);
-//   };
 
 //   const handleInputChange = (e) => {
 //     const { name, value } = e.target;
