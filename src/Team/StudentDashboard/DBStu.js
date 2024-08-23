@@ -284,7 +284,7 @@ useEffect(() => {
               console.log(response, "res");
               if (response.status === 200) {
                   console.log(response, "ideaSubApi");
-                  setStuIdeaSub("custom");
+                  setStuIdeaSub(response.data.data[0].status);
                   setStuIdeaLoading(false);
               }
           })
@@ -707,16 +707,7 @@ useEffect(() => {
                                   </span>
                                 </>
                               
-                            ) : stuIdeaSub == "Not Started" ? (
-                              <>
-                                <span
-                                  className={"badge badge-linedangered"}
-                                  onClick={redirectToIdea}
-                                >
-                                  Not Started
-                                </span>
-                              </>
-                            ):(
+                            ) : stuIdeaSub == "DRAFT" ? (
                               <>
                                 <span
                                   className={"badge badge-bgdanger"}
@@ -725,6 +716,16 @@ useEffect(() => {
                                   In Draft
                                 </span>
                               </>
+                            ):(
+                              <>
+                                <span
+                                  className={"badge badge-linedangered"}
+                                  onClick={redirectToIdea}
+                                >
+                                  Not Initiated
+                                </span>
+                              </>
+                              
                             )}
                           </td>
                           <td>

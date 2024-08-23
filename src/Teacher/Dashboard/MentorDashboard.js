@@ -32,6 +32,8 @@ import { useReactToPrint } from 'react-to-print';
 import TCertificate from '../Certificate/TCertificate';
 import SchoolTeamPDF from './SchoolTeamPDF';
 import { Modal } from 'react-bootstrap';
+import Swal from 'sweetalert2/dist/sweetalert2';
+import logout from '../../assets/img/support.png';
 
 const GreetingModal = (props) => {
   
@@ -402,6 +404,26 @@ console.log(message,"m");
   const handleClose = () => {
     setShowsPopup(false);
 };
+
+const handleWhatsapp = () => {
+  const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+          confirmButton: 'btn btn-submit',
+      },
+      buttonsStyling: false
+  });
+
+  swalWithBootstrapButtons
+      .fire({
+          title: "<h4>Looking for Support?</h4>",
+          text: "Pls contact your State Program Officer.",
+          imageUrl: `${logout}`,
+          confirmButtonText: 'Ok',
+      });
+  };
+
+
+
   return (
     <>
      <GreetingModal
@@ -622,9 +644,16 @@ console.log(message,"m");
                   <h5>Support here</h5>
                 </div>
                 <div className="dash-imgs" >
+                {whatsappLink === null ? (
                   <a href={whatsappLink} target="_blank" rel="noopener noreferrer" >
-                    <FaWhatsapp style={{color:"white"}}/>
+                    <FaWhatsapp onClick={handleWhatsapp} style={{color:"white"}}/>
                   </a>
+                ):
+                (
+                    <a href={whatsappLink} target="_blank" rel="noopener noreferrer" >
+                      <FaWhatsapp style={{color:"white"}}/>
+                    </a>
+                )}
                 </div>
               </div>
             </div>
