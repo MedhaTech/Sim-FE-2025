@@ -17,7 +17,6 @@ const InstructionsPage = (props) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const handleNext = () => {
-        // alert('hii');
         navigate('/idea');
     };
 
