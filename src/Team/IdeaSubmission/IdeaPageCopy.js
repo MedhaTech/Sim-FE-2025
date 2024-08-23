@@ -367,7 +367,6 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
         });
 };
   const handleSubmit = async (item, stats) => {
-    alert("hello");
     setIsDisabled(true);
 
     if (error4){
@@ -516,6 +515,7 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
           if (response.status === 200) {
             if (stats === "SUBMITTED") {
               openNotificationWithIcon("success", "Idea submission successful");
+              localStorage.setItem("ideaSubStatus", 1);
               onclick();
             } else {
               openNotificationWithIcon("success", "Save as Draft success");
