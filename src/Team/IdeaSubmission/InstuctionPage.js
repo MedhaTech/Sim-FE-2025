@@ -46,25 +46,23 @@ const InstructionsPage = (props) => {
       <div className='content'>
             <div className="courses-page">
                 <div
-                    className="pb-5 my-5 px-5 container-fluid"
+                    className="container-fluid"
                 >
                     <Row>
                         <Col
                             xl={12}
                         >
                             <Fragment>
-                                <Card className="course-sec-basic p-5">
-                                    <CardTitle className="text-left" tag="h2">
-                                        <p
+                                <Card className="course-sec-basic p-4">
+                                    <CardTitle className="text-center">
+                                        <h3
                                             style={{
-                                                color: 'blue',
-                                                fontSize: '2.5rem',
-                                                fontWeight: 'bold'
+                                                color: 'orange',
                                             }}
                                         >
                                             {' '}
                                             {t('idea_page.main')}{' '}
-                                        </p>
+                                        </h3>
                                     </CardTitle>
                                     <CardBody>
                                         <div
