@@ -112,7 +112,6 @@ const [initiate,setInitiate]=useState("");
     }, [ideaSubmittedRes]);
     const commonPageText = t('student.idea_submitted_desc');
     const handleView = () => {
-      
         // here we can see the idea submission //
         setShowCompleted(false);
         setShowChallenges(true);

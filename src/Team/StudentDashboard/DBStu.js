@@ -141,9 +141,6 @@ useEffect(() => {
   const redirectToPost = () => {
     navigate(`/studentpostsurvey`);
   };
-  const redirectToIdea = () => {
-    navigate(`/idea`);
-  };
 
   const renderTooltip = (props) => (
     <Tooltip id="pdf-tooltip" {...props} >
@@ -665,13 +662,13 @@ useEffect(() => {
                           <td>
                             <div className="product-info">
                               <Link
-                                to={"/idea"}
+                                to="/instruction"
                                 className="product-img"
                               >
                                 <FaLightbulb size={30} style={{marginRight : "10px", color:"orange"}} />
                               </Link>
                               <div className="info">
-                                <Link to={"/idea"}>
+                                <Link to="/instruction">
                                   <h4>Idea Submission</h4>
                                 </Link>
                                 <p className="dull-text">Select a theme & submit idea</p>
@@ -711,7 +708,6 @@ useEffect(() => {
                               <>
                                 <span
                                   className={"badge badge-bgdanger"}
-                                  onClick={redirectToIdea}
                                 >
                                   In Draft
                                 </span>
@@ -720,7 +716,6 @@ useEffect(() => {
                               <>
                                 <span
                                   className={"badge badge-linedangered"}
-                                  onClick={redirectToIdea}
                                 >
                                   Not Initiated
                                 </span>
@@ -732,7 +727,7 @@ useEffect(() => {
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderViewTooltip}>
-                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/idea"} >
+                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/instruction"} >
                                     <Eye className="feather-view" />
                                   </Link>
                                 </OverlayTrigger>
