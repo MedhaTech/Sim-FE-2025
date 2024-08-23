@@ -32,7 +32,7 @@ import {
 import axios from "axios";
 import { KEY, URL } from "../../constants/defaultValues";
 import CommonPage from "../../components/CommonPage";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";  
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 import logout from "../../assets/img/logout.svg";
@@ -367,6 +367,7 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
         });
 };
   const handleSubmit = async (item, stats) => {
+
     setIsDisabled(true);
 
     if (error4){
