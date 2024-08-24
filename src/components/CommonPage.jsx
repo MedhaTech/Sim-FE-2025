@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import { Fragment } from "react";
 import { Card, Container } from "reactstrap";
@@ -11,6 +12,7 @@ const CommonPage = ({
   text,
   showButton,
   showChallenges,
+  showChallenge,
   ideaSubmissionComButton,
 }) => {
   // here we can see showChallenges button means we can see the submitted idea //
@@ -19,7 +21,7 @@ const CommonPage = ({
   // const history = useHistory();
   const handleClick = () => {
     // here we can go for the next course //
-    navigate("/student/post-survey");
+    navigate("/studentpostsurvey");
   };
 
   return (

@@ -7,7 +7,9 @@ import ImageWithBasePath from '../../core/img/imagewithbasebath';
 import { Check } from 'react-feather';
 import FeatherIcon from "feather-icons-react";
 import {themes,themesList}  from "./themesData";
-
+import { getCurrentUser } from '../../helpers/Utils';
+import { encryptGlobal } from '../../constants/encryptDecrypt';
+import axios from 'axios';
 
 const settings = {
   dots: false,
@@ -49,24 +51,61 @@ const settings = {
   ],
 };
 
-const Idea = ({setShowChallenges }) => {
+const Idea = ({showChallenge, idea }) => {
   const [theme, setTheme] = useState(null);
+  const currentUser = getCurrentUser('current_user');
+  const TeamId = currentUser?.data[0]?.team_id;
+  const [themeInt,setThemeInt]=useState("");
+  const [error4,seterror4]=useState(false);
+
   const [data, setData] = useState(0);
-  console.log(data,"11");
   const formRef = useRef(null);
+  const [initiate,setInitiate]=useState("");
 
-  // useEffect(() => {
-  //   if (selectedTheme && formRef.current) {
-  //     formRef.current.scrollIntoView({ behavior: 'smooth' });
-  //   }
-  // }, [selectedTheme]);
+  const submittedApi = () => {
+    const Param = encryptGlobal(
+      JSON.stringify({
+        team_id: TeamId,
+      })
+    );
+    var configidea = {
+      method: "get",
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/challenge_response/submittedDetails?Data=${Param}`,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+      },
+    };
+    axios(configidea)
+      .then(function (response) {
+        if (response.status === 200) {
+          console.log(response.data.data);
+          if (response.data.data && response.data.data.length > 0) {
+            const data = response.data.data[0]; 
+            setInitiate(response.data.data[0].initiate_by);
+            idea();
 
-  const handleDiscard = () => {
-    setTheme(null);
+          } 
+        } 
+      })
+      .catch(function (error) {
+        if (error.response.status === 404) {
+        //   seterror4( true);
+        } 
+
+      });
   };
-  const handleSelect = (data) => {
-   
-    
+useEffect(() => {
+    submittedApi();
+}, []);
+ 
+
+ 
+const challenges =()=>{
+  showChallenge();
 };
   return (
     <div className='page-wrapper'>
@@ -77,7 +116,8 @@ const Idea = ({setShowChallenges }) => {
             <h6>Share your Amazing Ideas with us</h6>
           </div>
         </div>
-        {!theme ? (
+          
+        {!theme  ? (
           <div className="row align-items-start pos-wrapper pos-design">
             <div className="col-md-12 col-lg-8">
               <div className="pos-categories tabs_wrapper">
@@ -188,9 +228,10 @@ const Idea = ({setShowChallenges }) => {
           </div>
         ) : (
           <div >
-            <IdeaPageCopy theme={theme}/>
+            <IdeaPageCopy theme={theme} showChallenges={challenges}/>
           </div>
         )}
+      
       </div>
     </div>
   );

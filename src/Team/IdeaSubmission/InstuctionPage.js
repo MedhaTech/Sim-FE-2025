@@ -8,7 +8,8 @@ import { Row, Col } from 'react-bootstrap';
 import { Button } from '../../stories/Button';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-
+import Swal from 'sweetalert2/dist/sweetalert2';
+import logout from '../../assets/img/logout.png';
 import { Card, CardBody, CardTitle } from 'reactstrap';
 
 // import Layout from '../../Layout';
@@ -16,10 +17,27 @@ import { Card, CardBody, CardTitle } from 'reactstrap';
 const InstructionsPage = (props) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const ideaenableornot = localStorage.getItem("ideaenablestatus");
     const handleNext = () => {
-        // alert('hii');
         navigate('/idea');
     };
+
+    const handleideaenable = () => {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-submit',
+            },
+            buttonsStyling: false
+        });
+      
+        swalWithBootstrapButtons
+            .fire({
+                title: "<h4>Oops..! Idea submission not enabled?</h4>",
+                text: "You can access idea submission only after all your teammates complete course.",
+                imageUrl: `${logout}`,
+                confirmButtonText: 'Ok',
+            });
+        };
 
     const pdfFileURL =
         'https://s3.ap-south-1.amazonaws.com/aim1.0-bkt-cba6e2a/resources/stage/Final_Themes_AIM.pdf';
@@ -28,26 +46,23 @@ const InstructionsPage = (props) => {
       <div className='content'>
             <div className="courses-page">
                 <div
-                    className="pb-5 my-5 px-5 container-fluid"
-                    // style={{ minHeight: '72vh' }}
+                    className="container-fluid"
                 >
                     <Row>
                         <Col
                             xl={12}
                         >
                             <Fragment>
-                                <Card className="course-sec-basic p-5">
-                                    <CardTitle className="text-left" tag="h2">
-                                        <p
+                                <Card className="course-sec-basic p-4">
+                                    <CardTitle className="text-center">
+                                        <h3
                                             style={{
-                                                color: 'blue',
-                                                fontSize: '2.5rem',
-                                                fontWeight: 'bold'
+                                                color: 'orange',
                                             }}
                                         >
                                             {' '}
                                             {t('idea_page.main')}{' '}
-                                        </p>
+                                        </h3>
                                     </CardTitle>
                                     <CardBody>
                                         <div
@@ -59,7 +74,6 @@ const InstructionsPage = (props) => {
                                         ></div>
 
                                         <div className="text-right">
-                                            {/* <div className="m-5"> */}
                                             <a
                                                 href={pdfFileURL}
                                                 target="_blank"
@@ -67,7 +81,6 @@ const InstructionsPage = (props) => {
                                                 className="primary"
                                             >
                                                 <Button
-                                                    // button="submit"
                                                     label={t(
                                                         'student.download_theme'
                                                     )}
@@ -75,15 +88,18 @@ const InstructionsPage = (props) => {
                                                     size="small"
                                                 />
                                             </a>
-                                            {/* </div> */}
-                                            {/* <div className="mx-5"> */}
-                                            <Button
-                                                label={t('idea_page.next')}
-                                                btnClass="primary mt-4 mx-4"
-                                                size="small"
-                                                onClick={handleNext}
-                                            />
-                                            {/* </div> */}
+                                            {ideaenableornot==1 ? 
+                                            (
+                                                <Button
+                                                    label={t('idea_page.next')}
+                                                    btnClass="primary mt-4 mx-4"
+                                                    size="small"
+                                                    onClick={handleNext}
+                                                />
+                                            ) : (
+                                                <button onClick={handleideaenable} className='btn btn-secondary'>{t('idea_page.next')}</button>
+                                            )}
+                                            
                                         </div>
                                     </CardBody>
                                 </Card>

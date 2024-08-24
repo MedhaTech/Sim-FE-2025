@@ -32,7 +32,7 @@ import {
 import axios from "axios";
 import { KEY, URL } from "../../constants/defaultValues";
 import CommonPage from "../../components/CommonPage";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";  
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 import logout from "../../assets/img/logout.svg";
@@ -43,6 +43,7 @@ import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { themes, themesList, focusareasList } from "./themesData";
 import { use } from "i18next";
 import { initiateIdea } from "../../redux/studentRegistration/actions";
+import { setIn } from "formik";
 const LinkComponent = ({ original, item, url, removeFileHandler, i }) => {
   let a_link;
   let count;
@@ -74,7 +75,7 @@ const LinkComponent = ({ original, item, url, removeFileHandler, i }) => {
     </>
   );
 };
-const IdeasPageNew = (props) => {
+const IdeasPageNew = ({showChallenges, ...props}) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({});
@@ -94,6 +95,8 @@ const IdeasPageNew = (props) => {
   const showPage = false;
   //    console.log(props.theme,"11");
   const [isDisabled, setIsDisabled] = useState(false);
+  const initialLoadingStatus = { draft: false, submit: false };
+  const [loading, setLoading] = useState(initialLoadingStatus);
   const currentUser = getCurrentUser("current_user");
 
   const TeamId = currentUser?.data[0]?.team_id;
@@ -104,12 +107,9 @@ const IdeasPageNew = (props) => {
   const [theme, setTheme] = useState(props?.theme);
   const [focusarea, setFocusArea] = useState(formData?.focusarea);
   const [files, setFiles] = useState([]);
-
+  const [message, setMessage] = useState('');
   const [title, setTitle] = useState(formData?.title);
-  // console.log(formData?.title,"tt");
-  const initiatedBy =
  
-  formData?.initiated_by;
   const [problemStatement, setProblemStatement] = useState(
     formData?.problemStatement
   );
@@ -117,19 +117,22 @@ const IdeasPageNew = (props) => {
   const [effects, setEffects] = useState(formData?.effects);
   const [community, setCommunity] = useState(formData?.community);
   const [facing, setFacing] = useState(formData?.facing);
-  const [Solution, setSolution] = useState(formData?.Solution);
+  const [solution, setSolution] = useState(formData?.solution);
   const [stakeholders, setStakeholders] = useState(formData?.stakeholders);
   const [problemSolving, setProblemSolving] = useState(
     formData?.problemSolving || []
   );
+  const [error4,seterror4]=useState(false);
+  const [ideaInitiation,setIdeaInitiation]=useState("");
   const [feedback, setFeedback] = useState(formData?.feedback);
   const [prototypeImage, setPrototypeImage] = useState(
     formData?.prototypeImage ? formData?.prototypeImage.split(",") : []
   );
+  const [id,setId]=useState("");
   const [prototypeLink, setPrototypeLink] = useState(formData?.prototypeLink);
   const [workbook, setWorkbook] = useState(formData?.workbook);
   const people = ["None", "2-4 people", "5+ people", "10+ people"];
-  const submit = ["Yes", "No"];
+  const submit = ["YES", "NO"];
   const journey = [
     "We did the full problem solving journey by ourselves.",
     "We got feedback on our problem and modified it",
@@ -145,24 +148,28 @@ const IdeasPageNew = (props) => {
   const language = useSelector(
     (state) => state?.studentRegistration?.studentLanguage
   );
-  const dispatch = useDispatch();
-
+  const initiatedBy =
+  formData?.initiated_by;
   const handleThemeChange = (e) => {
     const selectedTheme = e.target.value;
     setTheme(selectedTheme);
     setFocusArea("");
   };
-// console.log(focusarea,"ff");
+  const handleFocusAreaChange = (e) => {
+    setFocusArea(e.target.value);
+  };
   useEffect(() => {
     if (theme && focusareasList[theme]) {
       setFocusArea(focusareasList[theme]);
     } else {
-      setFocusArea(""); // Reset if no theme is selected
+      setFocusArea(""); 
     }
   }, [theme]);
+ 
   useEffect(() => {
-    setFocusArea(formData?.focus_area);
+   
     setTitle(formData?.title);
+    setFocusArea(focusareasList[formData.theme] || []);
     setProblemStatement(formData?.problem_statement);
     setCauses(formData?.causes);
     setEffects(formData?.effects);
@@ -170,20 +177,28 @@ const IdeasPageNew = (props) => {
     setFacing(formData?.facing);
     setSolution(formData?.solution);
     setStakeholders(formData?.stakeholders);
-    setProblemSolving(formData?.problem_solving);
     setFeedback(formData?.feedback);
     setPrototypeImage(formData?.prototype_image);
-    setPrototypeLink(formData?.prototype_link? formData?.prototype_link.split(","):[]);
+    setPrototypeLink(formData?.prototype_link);
+
     setWorkbook(formData?.workbook);
   }, [formData]);
+  useEffect(() => {
+  
+    if (formData?.problem_solving) {
+      setProblemSolving(JSON.parse(formData.problem_solving));
+    } else {
+      setProblemSolving([]);  
+    }
+   
+   
+  }, [formData?.problem_solving]);
+  // console.log(formData?.prototype_image);
   const handleCheckboxChange = (item) => {
-    // Check if the item is already selected
-    if (problemSolving.includes(item)) {
-      // If selected, remove it from the array
+    if (Array.isArray(problemSolving) && problemSolving.includes(item)) {
       setProblemSolving(problemSolving.filter((i) => i !== item));
     } else {
-      // If not selected, add it to the array
-      setProblemSolving([...problemSolving, item]);
+      setProblemSolving([...(problemSolving || []), item]);
     }
   };
   const [immediateLink, setImmediateLink] = useState(null);
@@ -243,6 +258,7 @@ const IdeasPageNew = (props) => {
 
   useEffect(() => {
     submittedApi();
+   
   }, []);
   const submittedApi = () => {
     const Param = encryptGlobal(
@@ -264,44 +280,129 @@ const IdeasPageNew = (props) => {
     axios(configidea)
       .then(function (response) {
         if (response.status === 200) {
-          console.log(response, "11");
           if (response.data.data && response.data.data.length > 0) {
-            const data = response.data.data[0]; // Store the data in state
+            const data = response.data.data[0]; 
+            console.log(data);
+            data && setIsDisabled(true);
             setFormData(data);
-          } else {
-            console.log("No data found");
-          }
-        }
+            setId(response.data.data[0].challenge_response_id);
+
+          } 
+        } 
       })
       .catch(function (error) {
-        console.log(error);
+        if (error.response.status === 404) {
+          seterror4( true);
+        } 
+
       });
   };
-  // const handle =()=>{
-  //   console.log(submit,"hhhh");
+  const apiCall=()=> {
+    const challengeParamID = encryptGlobal("1");
+    const locale = getLanguage(language);
+    const queryObj = JSON.stringify({
+      team_id: TeamId,
+      locale,
+    });
+    const queryObjEn = encryptGlobal(queryObj);
+  
+    const body = {
+      theme: theme,
+      focus_area: focusarea,
+      title: title,
+      problem_statement: problemStatement,
+    };
+    if (causes !== "") {
+      body["causes"] = causes;
+    }
+    if (effects !== "") {
+      body["effects"] = effects;
+    }
+    if (community !== "") {
+      body["community"] = community;
+    } if (facing !== "") {
+      body["facing"] = facing;
+    } if (solution !== "") {
+      body["solution"] = solution;
+    } if (stakeholders !== "") {
+      body["stakeholders"] = stakeholders;
+    }   
+    if (problemSolving !== "") {
+      body["problem_solving"] = JSON.stringify(problemSolving);
+    
+      
+    } if (feedback !== "") {
+      body["feedback"] = feedback;
+    }   if (prototypeLink !== "") {
+      body["prototype_link"] = prototypeLink;
+    }
+    if (workbook !== "") {
+      body["workbook"] = workbook;
+    }
+    var config = {
+        method: 'post',
+        url: process.env.REACT_APP_API_BASE_URL + `/challenge_response/${challengeParamID}/initiate?Data=${queryObjEn}`,
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${currentUser?.data[0]?.token}`
+        },
+        data: JSON.stringify(body)
+    };
 
-  // };
+   axios(config)
+        .then(async function (response) {
+            if (response.status == 200) {
+              setIdeaInitiation(response?.data?.data[0]?.initiated_by);
+              localStorage.setItem('savedTheme', theme);
+              localStorage.setItem('savedFocusArea', focusarea);
+                openNotificationWithIcon(
+                    'success',
+                    'Idea Initiated Successfully'
+                );
+            }
+        })
+        .catch(function (error) {
+          openNotificationWithIcon("error", "Please fill Focus Area, Title, ProblemStatement for Idea Initiation.");
+            console.log(error);
+        });
+};
   const handleSubmit = async (item, stats) => {
-    // alert("hii");
-    // e.preventDefault();
-    if (files.length > 0) {
-      console.log(files,"ff");
-      const formeData = new FormData();
-      for (let i = 0; i < files.length; i++) {
-        let fieldName = 'file' + i ? i : '';
 
-        formeData.append(fieldName, files[i]);
+    setIsDisabled(true);
+
+    if (error4){
+      apiCall ();
+    }else {
+      if (stats) {
+        setLoading({ ...loading, draft: true });
+    } else {
+        setLoading({ ...loading, submit: true });
+    }
+    if (files.length > 0) {
+
+      const formsData = new FormData();
+      for (let i = 0; i < files.length; i++) {
+        formsData.append(`file${i}`, files[i]); 
       }
-      // for (let pair of formeData.entries()) {
-      //   console.log(pair[0] + ': ' + pair[1]);  // Logs the key-value pairs in FormData
-      // }
-      console.log(formeData,"11");
-      const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+      
+      for (let [key, value] of formsData.entries()) {
+        console.log(`${key}:`, value);  
+      }
+      
+      const axiosConfig = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${currentUser?.data[0]?.token}`
+      }
+      };
+      
       const subId = encryptGlobal(
         JSON.stringify({ team_id: currentUser?.data[0]?.team_id })
       );
+      
+     
       const result = await axios
-        .post(`${URL.uploadFile}?Data=${subId}`, formeData, axiosConfig)
+        .post(`${URL.uploadFile}?Data=${subId}`, formsData, axiosConfig)
         .then((res) => res)
         .catch((err) => {
           return err.response;
@@ -309,19 +410,24 @@ const IdeasPageNew = (props) => {
       if (result && result.status === 200) {
         setImmediateLink(result.data?.data[0]?.attachments);
         setPrototypeImage(result.data?.data[0]?.attachments);
-
+        // setLoading(initialLoadingStatus);
         handleSubmitAll(item, stats, result.data?.data[0]?.attachments);
       } else {
+
         openNotificationWithIcon("error", `${result?.data?.message}`);
+        setLoading(initialLoadingStatus);
+
         return;
       }
     } 
     else {
       handleSubmitAll(item, stats);
-      // console.log()
     }
+  }
   };
   const handleSubmitAll = async (item, stats, file) => {
+    setLoading(initialLoadingStatus);
+
     let attachmentsList = "";
     if (file) {
       attachmentsList = file.join(", ");
@@ -332,19 +438,38 @@ const IdeasPageNew = (props) => {
       focus_area: focusarea,
       title: title,
       problem_statement: problemStatement,
-      causes: causes,
-      effects: effects,
-      community: community,
-      facing: facing,
-      Solution: Solution,
-      stakeholders: stakeholders,
-      problem_solving: problemSolving,
-      feedback: feedback,
-      prototype_link: prototypeLink,
-      workbook: workbook,
+      status: stats
     };
+    if (causes !== null) {
+      body["causes"] = causes;
+    }
+    if (effects !== null) {
+      body["effects"] = effects;
+    }
+    if (community !== null) {
+      body["community"] = community;
+    } if (facing !== null) {
+      body["facing"] = facing;
+    } if (solution !== null) {
+      body["solution"] = solution;
+    } if (stakeholders !== null) {
+      body["stakeholders"] = stakeholders;
+    }   
+    if (problemSolving !== null) {
+      body["problem_solving"] = JSON.stringify(problemSolving);
+     
+    } if (feedback !== null) {
+      body["feedback"] = feedback;
+    }  
+     if (prototypeLink !== null) {
+      body["prototype_link"] =prototypeLink;
+    }
+    
+    if (workbook !== null) {
+      body["workbook"] = workbook;
+    }
     if (attachmentsList !== "") {
-      body["Prototype_image"] = attachmentsList;
+      body["prototype_image"] = attachmentsList;
     }
     var allques = true;
     if (stats === "SUBMITTED") {
@@ -357,7 +482,7 @@ const IdeasPageNew = (props) => {
         effects === "" ||
         community === "" ||
         facing === "" ||
-        Solution === "" ||
+        solution === "" ||
         stakeholders === "" ||
       problemSolving === "" ||
       feedback === "" ||
@@ -366,20 +491,20 @@ const IdeasPageNew = (props) => {
       ) {
         allques = false;
       }
-      if (
-      
-        attachmentsList.length === 0 &&
-        prototypeImage.length === 0
+   
+    if (
+      (attachmentsList?.length === 0 || attachmentsList === null || attachmentsList === undefined) &&
+      (prototypeImage?.length === 0 || prototypeImage === null || prototypeImage === undefined)
     ) {
-        allques = false;
+      allques = false;
     }
-
     
     }
     if (allques || stats === "DRAFT") {
+      const editParam = encryptGlobal(JSON.stringify(id));
       var config = {
         method: "put",
-        url: `${process.env.REACT_APP_API_BASE_URL + "/ideas/ideaUpdate"}`,
+        url: `${process.env.REACT_APP_API_BASE_URL + "/challenge_response/updateEntry/"+editParam}`,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${currentUser?.data[0]?.token}`,
@@ -389,9 +514,10 @@ const IdeasPageNew = (props) => {
       axios(config)
         .then(function (response) {
           if (response.status === 200) {
-            // localStorage.setItem("condition", true);
             if (stats === "SUBMITTED") {
               openNotificationWithIcon("success", "Idea submission successful");
+              localStorage.setItem("ideaSubStatus", 1);
+              onclick();
             } else {
               openNotificationWithIcon("success", "Save as Draft success");
               setIsDisabled(true);
@@ -400,14 +526,21 @@ const IdeasPageNew = (props) => {
           }
         })
         .catch(function (error) {
-          openNotificationWithIcon(
-              'error',
-              error?.response?.data?.message
-          );
+          // openNotificationWithIcon(
+          //     'error',
+          //     error?.response?.data?.message
+          // );
           console.log(error);
         });
     } else {
       openNotificationWithIcon("error", "Please fill all the questions");
+    }
+  };
+  const onclick =()=>{
+    if (typeof showChallenges === "function") {
+      showChallenges(); 
+    } else {
+      console.error("showChallenges is not a function");
     }
   };
   const scroll = () => {
@@ -421,33 +554,27 @@ const IdeasPageNew = (props) => {
   const comingSoonText = t("dummytext.student_idea_sub");
   // const acceptedParamfileTypes =
   //     'Accepting only png,jpg,jpeg,pdf,mp4,doc,docx Only, file size should be below 10MB';
-  const saveBtn = theme && focusarea && title && problemStatement;
   return (
     <div>
       {/* <div className='content'> */}
       {showPage ? (
-        <CommonPage text={comingSoonText} />
+        <CommonPage text={comingSoonText}  showButton={true} />
       ) : (
+        <div className='page-wrapper'>
+      <div className='content'>
         <Container className="presuervey mt-1" id="start">
-          {/* <h2>{t('student_course.idea_submission')}</h2> */}
           <Col>
             <Row className=" justify-content-center">
               <div className="aside">
                 <CardBody>
                   <Form className="form-row row" isSubmitting>
-                  {initiatedBy &&
-                                                initiatedBy ===
-                                                    currentUser?.data[0]
-                                                        ?.user_id &&
-                                                formData
-                                                    ?.status === 'DRAFT' && (
-                                                    <div className="text-right">
-                                                        {isDisabled ? (
+                 
+                                                    {/* <div className="text-right">
+                                                        { (
                                                             <>
                                                                 <Button
                                                                     type="button"
-                                                                    btnClass="me-3 text-white"
-                                                                    backgroundColor="#067DE1"
+                                                                    btnClass="me-3 btn btn-info"
                                                                     onClick={
                                                                         handleEdit
                                                                     }
@@ -455,6 +582,7 @@ const IdeasPageNew = (props) => {
                                                                     label={t(
                                                                         'teacher_teams.edit_idea'
                                                                     )}
+                                                                    style={{ marginRight: '1rem' }}
                                                                 />
                                                                 <Button
                                                     type="button"
@@ -470,77 +598,47 @@ const IdeasPageNew = (props) => {
                                                         'teacher_teams.submit'
                                                     )}
                                                 />
-                                                            </>
-                                                        ) : (
-                                                            <div className="d-flex justify-content-between">
-                                                                {/* <Button
+                                                            </>)}
+                                                      
+                                                    </div> */}
+                                                       <div className="text-right">
+                                                        {
+                                                //         initiatedBy &&
+                                                // initiatedBy ===
+                                                //     currentUser?.data[0]
+                                                //         ?.user_id && 
+
+                                                        formData.status !== "SUBMITTED" && isDisabled && (
+                                                            <>
+                                                                <Button
                                                                     type="button"
-                                                                    btnClass="secondary me-3"
+                                                                    btnClass="me-3 btn btn-info"
                                                                     onClick={
-                                                                        redirect
+                                                                        handleEdit
                                                                     }
                                                                     size="small"
                                                                     label={t(
-                                                                        'teacher_teams.discard'
+                                                                        'teacher_teams.edit_idea'
                                                                     )}
-                                                                /> */}
-                                                                {/* <h3>
-                                                                    {
-                                                                        screenTitle
-                                                                    }
-                                                                </h3> */}
-
-                                                                <div>
-                                                                    {/* <Button
-                                                                        type="button"
-                                                                        btnClass="me-3 text-white"
-                                                                        backgroundColor="#067DE1"
-                                                                        onClick={(
-                                                                            e
-                                                                        ) =>
-                                                                            handleSubmit(
-                                                                                e,
-                                                                                'DRAFT'
-                                                                            )
-                                                                        }
-                                                                        size="small"
-                                                                        label={`${
-                                                                            loading.draft
-                                                                                ? t(
-                                                                                      'teacher_teams.loading'
-                                                                                  )
-                                                                                : t(
-                                                                                      'teacher_teams.draft'
-                                                                                  )
-                                                                        }`}
-                                                                    /> */}
-                                                                    {/* <Button
-                                                                        type="button"
-                                                                        btnClass="primary"
-                                                                        disabled={
-                                                                            answerResponses &&
-                                                                            answerResponses.length ===
-                                                                                0
-                                                                        }
-                                                                        onClick={
-                                                                            swalWrapper
-                                                                        }
-                                                                        size="small"
-                                                                        label={`${
-                                                                            loading.submit
-                                                                                ? t(
-                                                                                      'teacher_teams.loading'
-                                                                                  )
-                                                                                : t(
-                                                                                      'teacher_teams.submit'
-                                                                                  )
-                                                                        }`}
-                                                                    /> */}
-                                                                </div>
-                                                            </div>
-                                                        )}
+                                                                    style={{ marginRight: '1rem' }}
+                                                                />
+                                                                <Button
+                                                    type="button"
+                                                    btnClass="primary"
+                                                    onClick={(e) =>
+                                                        handleSubmit(
+                                                            e,
+                                                            'SUBMITTED'
+                                                        )
+                                                    }
+                                                    size="small"
+                                                    label={t(
+                                                        'teacher_teams.submit'
+                                                    )}
+                                                />
+                                                            </>)}
+                                                      
                                                     </div>
-                                                )}
                     {currentSection === 1 && (
                       <Row className="mb-2">
                         <b>Section 1: {t("ideaform_questions.section1")}</b>
@@ -559,8 +657,13 @@ const IdeasPageNew = (props) => {
                             <div className=" answers row flex-column p-4">
                               <select
                                 onChange={handleThemeChange}
+                                
+                                disabled={
+                                  isDisabled
+                              }
                                 name="theme"
                                 id="theme"
+                                
                               >
                                 <option value={""}>
                                   Please select the Theme
@@ -604,7 +707,11 @@ const IdeasPageNew = (props) => {
                             ) : (
                               <div className=" answers row flex-column p-4">
                                 <select
-                                  onChange={(e) => setFocusArea(e.target.value)}
+                                  // onChange={(e) => setFocusArea(e.target.value)}
+                                  onChange={handleFocusAreaChange}
+                                  disabled={
+                                    isDisabled
+                                }
                                   name="focusarea"
                                   id="focusarea"
                                 >
@@ -800,6 +907,7 @@ const IdeasPageNew = (props) => {
                         </Row>
                       </Row>
                     )}
+                 
                     {currentSection === 2 && (
                       <Row className="mb-2">
                         <b>Section 2: {t("ideaform_questions.section2")}</b>
@@ -818,13 +926,13 @@ const IdeasPageNew = (props) => {
                               <textarea
                                 disabled={isDisabled}
                                 placeholder="Enter the solution to the problem"
-                                value={Solution}
+                                value={solution}
                                 maxLength={500}
                                 onChange={(e) => setSolution(e.target.value)}
                               />
                               <div className="text-end">
                                 {t("student_course.chars")} :
-                                {500 - (Solution ? Solution.length : 0)}
+                                {500 - (solution ? solution.length : 0)}
                               </div>
                             </div>
                           </Row>
@@ -890,7 +998,9 @@ const IdeasPageNew = (props) => {
                                       <input
                                         type="checkbox"
                                         value={item}
-                                        checked={problemSolving.includes(item)}
+                                        checked={Array.isArray(problemSolving) && problemSolving.includes(item)}
+
+                                        // checked={problemSolving.includes(item)}
                                         disabled={isDisabled}
                                         // checked={
                                         //     item ===
@@ -899,15 +1009,7 @@ const IdeasPageNew = (props) => {
                                         onChange={() =>
                                           handleCheckboxChange(item)
                                         }
-                                        // onChange={(
-                                        //     e
-                                        // ) =>
-                                        //     setProblemSolving(
-                                        //         e
-                                        //             .target
-                                        //             .value
-                                        //     )
-                                        // }
+                                      
                                       />{" "}
                                       {item}
                                     </label>
@@ -959,8 +1061,7 @@ const IdeasPageNew = (props) => {
                               </button>
                             </Col>
                           </Row>
-                          {/* <button className='btn btn-info' onClick={goToBack}>Back</button>
-                                                    <button className='btn btn-secondary' onClick={goToNext}>Next</button>      */}
+                         
                         </Row>
                       </Row>
                     )}
@@ -980,20 +1081,26 @@ const IdeasPageNew = (props) => {
                           <div className=" answers row flex-column">
                             {/* <FormGroup check className="answers"> */}
                               <div className="wrapper my-3 common-flex">
-                                {/* <Button
-                                                                            type="button"
-                                                                            // btnClass={
-                                                                            //     ? 'secondary'
-                                                                            //     : 'primary'
-                                                                            //     } me-3 pointer `}
-                                                                            size="small"
-                                                                            label={t(
-                                                                                'student.upload_file'
-                                                                            )}
-                                                                        /> */}
+                              {/* {!isDisabled && (
+                                                                                                    <Button
+                                                                                                        type="button"
+                                                                                                        btnClass={`${
+                                                                                                            isDisabled
+                                                                                                                ? 'secondary'
+                                                                                                                : 'primary'
+                                                                                                        } me-3 pointer `}
+                                                                                                        size="small"
+                                                                                                        label={t(
+                                                                                                            'student.upload_file'
+                                                                                                        )}
+                                                                                                    />
+                                                                                                )} */}
                                 <input
                                   type="file"
                                   name="file"
+                                  disabled={
+                                    isDisabled
+                                }
                                   accept="image/jpeg,image/jpg,image/png,application/pdf"
                                   multiple
                                   onChange={(e) => fileHandler(e)}
@@ -1097,18 +1204,35 @@ const IdeasPageNew = (props) => {
                    
                   </Form>
                   <div className="d-flex justify-content-start">
-                      <button
+                      {/* <button
                         className="btn btn-info"
                         onClick={(e) => handleSubmit(e, "DRAFT")}
                       >
                         Save As Draft
-                      </button>
+                      </button> */}
+                     {!isDisabled && (   <Button
+                                            type="button"
+                                            btnClass="me-3 btn btn-warning"
+                                            // backgroundColor="#067DE1"
+                                            onClick={(e) =>
+                                                handleSubmit(e, 'DRAFT')
+                                            }
+                                            size="small"
+                                            label={`${
+                                                loading.draft
+                                                    ? t('teacher_teams.loading')
+                                                    : t('teacher_teams.draft')
+                                            }`}
+                                        />)}
                     </div>
                 </CardBody>
               </div>
             </Row>
           </Col>
         </Container>
+        </div>
+        </div>
+
       )}
       {/* </div> */}
     </div>

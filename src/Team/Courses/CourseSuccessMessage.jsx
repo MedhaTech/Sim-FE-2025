@@ -33,25 +33,23 @@ const CourseSuccessMessage = () => {
     <div className="container new-result">
       <Confetti className="w-100" />
       <div className="row justify-content-md-center ">
-        <div className="col col-lg-9">
+        <div className="col col-lg-10">
           {/* <div className="results-heading"> */}
 
-            {/* <img src={ResultStar} alt="star" /> */}
+          {/* <img src={ResultStar} alt="star" /> */}
           {/* </div> */}
           <div className="congratulations text-center">
             <div className="success_img text-center w-100">
-            <Confetti className="w-100" />;
-
+              <Confetti className="w-100" />
               <img src={succesImg} alt=".." />
-
               <br />
             </div>
-            <p style={{ fontSize: "16px" }}>
+            <h4 className="text-success">
               {t("student_course.course_completed_succ")}
-            </p>
-            <p style={{ fontSize: "16px" }}>
+            </h4>
+            <h5>
               {t("student_course.continue_to_idea")}
-            </p>
+            </h5>
           </div>
           <div className="d-sm-flex justify-content-center mb-3 text-center">
             <Button
@@ -59,7 +57,7 @@ const CourseSuccessMessage = () => {
               btnClass="primary mt-4 mx-4"
               className="btn btn-warning"
               size="small"
-              // onClick={() => handleClick(true)}
+            // onClick={() => handleClick(true)}
             />
             {/* {t("student_course.go_idea_submission")}
             </button> */}

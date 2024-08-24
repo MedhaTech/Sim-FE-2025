@@ -141,9 +141,6 @@ useEffect(() => {
   const redirectToPost = () => {
     navigate(`/studentpostsurvey`);
   };
-  const redirectToIdea = () => {
-    navigate(`/idea`);
-  };
 
   const renderTooltip = (props) => (
     <Tooltip id="pdf-tooltip" {...props} >
@@ -183,6 +180,7 @@ useEffect(() => {
         stuQuizCount();
         stuVideosCount();
         stuSurveyStatus();
+        stuIdeaSubStatus();
         fetchInstructions();
         scroll();
     }
@@ -260,6 +258,42 @@ useEffect(() => {
             console.log(error);
         });
     };
+
+  const stuIdeaSubStatus = () => {
+      const ideaSubApi = encryptGlobal(
+          JSON.stringify({
+            team_id: currentUser?.data[0]?.team_id
+          })
+      );
+      var config = {
+          method: 'get',
+          url:
+              process.env.REACT_APP_API_BASE_URL +
+              `/challenge_response/submittedDetails?Data=${ideaSubApi}`,
+          headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+              Authorization: `Bearer ${currentUser.data[0]?.token}`
+          }
+      };
+      axios(config)
+          .then(function (response) {
+              console.log(response, "res");
+              if (response.status === 200) {
+                  console.log(response, "ideaSubApi");
+                  setStuIdeaSub(response.data.data[0].status);
+                  setStuIdeaLoading(false);
+              }
+          })
+          .catch(function (error) {
+              console.log(error,"error");
+              if(error.response.data.status === 404){
+                setStuIdeaSub("Not Started");
+                setStuIdeaLoading(false);
+              }
+
+          });
+      };
     
   const stuCoursePercent = () => {
     const corseApi = encryptGlobal(
@@ -628,13 +662,13 @@ useEffect(() => {
                           <td>
                             <div className="product-info">
                               <Link
-                                to={"/idea"}
+                                to="/instruction"
                                 className="product-img"
                               >
                                 <FaLightbulb size={30} style={{marginRight : "10px", color:"orange"}} />
                               </Link>
                               <div className="info">
-                                <Link to={"/idea"}>
+                                <Link to="/instruction">
                                   <h4>Idea Submission</h4>
                                 </Link>
                                 <p className="dull-text">Select a theme & submit idea</p>
@@ -661,30 +695,39 @@ useEffect(() => {
                           <td>
                             {stuIdeaLoading ? ( 
                                 <Loader />
-                              ) : stuIdeaSub != "SUBMITTED" ?  (
+                              ) : stuIdeaSub == "SUBMITTED" ?  (
+                                <>
+                                  <span
+                                    className={"badge badge-linesuccess"}
+                                  >
+                                    Submitted
+                                  </span>
+                                </>
+                              
+                            ) : stuIdeaSub == "DRAFT" ? (
+                              <>
+                                <span
+                                  className={"badge badge-bgdanger"}
+                                >
+                                  In Draft
+                                </span>
+                              </>
+                            ):(
                               <>
                                 <span
                                   className={"badge badge-linedangered"}
-                                  onClick={redirectToIdea}
                                 >
-                                  Not Done!
+                                  Not Initiated
                                 </span>
                               </>
-                            ) : (
-                              <>
-                                <span
-                                  className={"badge badge-linesuccess"}
-                                >
-                                  Submitted
-                                </span>
-                              </>
+                              
                             )}
                           </td>
                           <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderViewTooltip}>
-                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/idea"} >
+                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/instruction"} >
                                     <Eye className="feather-view" />
                                   </Link>
                                 </OverlayTrigger>

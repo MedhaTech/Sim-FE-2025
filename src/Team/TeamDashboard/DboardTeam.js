@@ -60,9 +60,24 @@ const EmployeesGrid = () => {
       <span className="visually-hidden">Loading...</span>
     </div>
   );
-
+  
   useEffect(() => {
       if(teamsMembersStatus.length != 0){
+        localStorage.setItem("ideaSubStatus", teamsMembersStatus[0].idea_submission);
+        if (Array.isArray(teamsMembersStatus)) {
+          let allCompleted = true;
+        
+          // Loop over each record in data
+          teamsMembersStatus.forEach(record => {
+            let percent = 100 - percentageBWNumbers(record.all_topics_count, record.topics_completed_count);
+        
+            // If any percentage is not 100, set allCompleted to false
+            if (percent !== 100) {
+              allCompleted = false;
+            }
+          });
+        localStorage.setItem("ideaenablestatus", allCompleted ? 1 : 0);
+      }
         setStuInstructionsLoading(false);
       }
   }, [teamsMembersStatus]);

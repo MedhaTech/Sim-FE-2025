@@ -22,14 +22,14 @@ const IdeaSubmission = () => {
     const challengesSubmittedResponse = useSelector(
         (state) => state?.studentRegistration.challengesSubmittedResponse
     );
-    console.log(challengesSubmittedResponse,"res");
     const currentUser = getCurrentUser('current_user');
     const [showChallenges, setShowChallenges] = useState(false);
     const [showCompleted, setShowCompleted] = useState(false);
     const [view, setView] = useState(false);
     const [isideadisable, setIsideadisable] = useState(false);
-
-    console.log(showChallenges,"11");
+    const TeamId = currentUser?.data[0]?.team_id;
+    const [ideaSubmittedRes,setIdeaSubmittedRes]=useState({});
+const [initiate,setInitiate]=useState("");
     useEffect(() => {
         const popParam = encryptGlobal(
             JSON.stringify({
@@ -60,18 +60,48 @@ const IdeaSubmission = () => {
                 console.log(error);
             });
     }, []);
-   
-    useLayoutEffect(() => {
-        dispatch(
-            getStudentChallengeSubmittedResponse(
-                currentUser?.data[0]?.team_id,
-                language
-            )
+    const submittedApi = () => {
+        const Param = encryptGlobal(
+          JSON.stringify({
+            team_id: TeamId,
+          })
         );
-    }, [dispatch, language, currentUser?.data[0]?.team_id]);
+        var configidea = {
+          method: "get",
+          url:
+            process.env.REACT_APP_API_BASE_URL +
+            `/challenge_response/submittedDetails?Data=${Param}`,
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${currentUser.data[0]?.token}`,
+          },
+        };
+        axios(configidea)
+          .then(function (response) {
+            if (response.status === 200) {
+              if (response.data.data && response.data.data.length > 0) {
+                const data = response.data.data[0]; 
+                setInitiate(response.data.data[0].initiate_by);
+
+                setIdeaSubmittedRes(data);
+
+              } 
+            } 
+          })
+          .catch(function (error) {
+            if (error.response.status === 404) {
+            //   seterror4( true);
+            } 
+    
+          });
+      };
+    useEffect(() => {
+        submittedApi();
+    }, []);
     useLayoutEffect(() => {
-        if (challengesSubmittedResponse && challengesSubmittedResponse.length > 0) {
-            challengesSubmittedResponse[0].status === 'DRAFT'
+        if (ideaSubmittedRes && ideaSubmittedRes.length > 0) {
+            ideaSubmittedRes.status === 'DRAFT'
                 ? setShowChallenges(true)
                 : view
                 ? setShowChallenges(true)
@@ -79,14 +109,24 @@ const IdeaSubmission = () => {
         } else {
             setShowChallenges(false);
         }
-    }, [challengesSubmittedResponse, view]);
+    }, [ideaSubmittedRes]);
     const commonPageText = t('student.idea_submitted_desc');
     const handleView = () => {
         // here we can see the idea submission //
-        setShowChallenges(true);
         setShowCompleted(false);
+        setShowChallenges(true);
         setView(true);
     };
+    const handleShow = () => {
+        // here we can see the idea submission //
+        // setShowChallenges(true);
+        setShowCompleted(true);
+        setView(false);
+    };
+    const submitted = () => {
+        setShowChallenges(true);
+    };
+
     return showCompleted ? (
         <div>
             <CommonPage
@@ -96,10 +136,13 @@ const IdeaSubmission = () => {
             />
         </div>
     ) : showChallenges ? (
-        <IdeasPageNew/>
-    ) : isideadisable ? (
-        // <SDG setShowChallenges={setShowChallenges} />
-        <Idea/>
+        <IdeasPageNew
+        showChallenges={handleShow}/>
+    ) : 
+    isideadisable ?
+     (
+        <Idea showChallenge={handleShow} idea={submitted}/>
+     
     ) : (
         <div>
             <CommonPage

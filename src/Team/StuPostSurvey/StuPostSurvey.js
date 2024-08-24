@@ -40,6 +40,7 @@ const StuPostSurvey = () => {
     const [postSurveyStatus, setPostSurveyStatus] = useState("");
     const [isDisabled, setIsDisabled] = useState(false);
     const [answerResponses, setAnswerResponses] = useState([]);
+    const ideastatus = localStorage.getItem("ideaSubStatus");
     const userID = currentUser?.data[0]?.user_id;
     const filterAnswer = (questionId) => {
       const data =
@@ -196,7 +197,7 @@ return (
                 <CardBody>
                   {
                     // teamsCount !== 0 &&
-                    postSurveyStatus != "COMPLETED" ? (
+                    ideastatus == 1 && postSurveyStatus != "COMPLETED" ? (
                       <>
                         <UncontrolledAlert color="danger" className="mb-2">
                           Please complete the following post survey to get your
@@ -642,7 +643,7 @@ return (
                           </div>
                         </Form>
                       </>
-                    ) : postSurveyStatus == "COMPLETED" ? (
+                    ) : ideastatus == 1 && postSurveyStatus == "COMPLETED" ? (
                       <div style={{ textAlign: "center" }}>
                         <div>
                           <img
