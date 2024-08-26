@@ -104,8 +104,9 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
   const [currentSection, setCurrentSection] = useState(1);
   const goToNext = () => setCurrentSection(currentSection + 1);
   const goToBack = () => setCurrentSection(currentSection - 1);
-  const [theme, setTheme] = useState(props?.theme);
-  const [focusarea, setFocusArea] = useState(formData?.focusarea);
+  const [theme, setTheme] = useState(props?.theme!== "" ? formData?.theme :props?.theme);
+  const [focusarea, setFocusArea] = useState(formData?.focus_area);
+
   const [files, setFiles] = useState([]);
   const [message, setMessage] = useState('');
   const [title, setTitle] = useState(formData?.title);
@@ -128,6 +129,7 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
   const [prototypeImage, setPrototypeImage] = useState(
     formData?.prototypeImage ? formData?.prototypeImage.split(",") : []
   );
+  const [focus,setFocus]=useState([]);
   const [id,setId]=useState("");
   const [prototypeLink, setPrototypeLink] = useState(formData?.prototypeLink);
   const [workbook, setWorkbook] = useState(formData?.workbook);
@@ -153,23 +155,31 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
   const handleThemeChange = (e) => {
     const selectedTheme = e.target.value;
     setTheme(selectedTheme);
-    setFocusArea("");
+    // setFocusArea("");
+    setFocus(focusareasList[selectedTheme] || []);
   };
   const handleFocusAreaChange = (e) => {
     setFocusArea(e.target.value);
   };
-  useEffect(() => {
-    if (theme && focusareasList[theme]) {
-      setFocusArea(focusareasList[theme]);
-    } else {
-      setFocusArea(""); 
-    }
-  }, [theme]);
+  useEffect(()=>{
+    setFocus(
+        focusareasList[
+            
+        formData.theme
+        ] || []
+    );
+   },[formData.theme]);
+  // useEffect(() => {
+  //   if (theme && focusareasList[theme]) {
+  //     setFocusArea(focusareasList[theme]);
+  //   } else {
+  //     setFocusArea(""); 
+  //   }
+  // }, [theme]);
  
   useEffect(() => {
-   
+   setTheme(formData?.theme);
     setTitle(formData?.title);
-    setFocusArea(focusareasList[formData.theme] || []);
     setProblemStatement(formData?.problem_statement);
     setCauses(formData?.causes);
     setEffects(formData?.effects);
@@ -190,10 +200,9 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
     } else {
       setProblemSolving([]);  
     }
-   
-   
-  }, [formData?.problem_solving]);
-  // console.log(formData?.prototype_image);
+
+  
+  }, [formData?.problem_solving,formData?.theme]);
   const handleCheckboxChange = (item) => {
     if (Array.isArray(problemSolving) && problemSolving.includes(item)) {
       setProblemSolving(problemSolving.filter((i) => i !== item));
@@ -282,7 +291,6 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
         if (response.status === 200) {
           if (response.data.data && response.data.data.length > 0) {
             const data = response.data.data[0]; 
-            console.log(data);
             data && setIsDisabled(true);
             setFormData(data);
             setId(response.data.data[0].challenge_response_id);
@@ -353,8 +361,6 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
         .then(async function (response) {
             if (response.status == 200) {
               setIdeaInitiation(response?.data?.data[0]?.initiated_by);
-              localStorage.setItem('savedTheme', theme);
-              localStorage.setItem('savedFocusArea', focusarea);
                 openNotificationWithIcon(
                     'success',
                     'Idea Initiated Successfully'
@@ -532,7 +538,7 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
           console.log(error);
         });
     } else {
-      openNotificationWithIcon("error", "Please fill all the questions");
+      openNotificationWithIcon("error", "Please attempt all questions to submit");
     }
   };
   const onclick =()=>{
@@ -551,8 +557,9 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
     scroll();
   };
   const comingSoonText = t("dummytext.student_idea_sub");
-  // const acceptedParamfileTypes =
+  // const acceptedParamfileTypes =>
   //     'Accepting only png,jpg,jpeg,pdf,mp4,doc,docx Only, file size should be below 10MB';
+  const enableSaveBtn = (theme?.length > 0 && focusarea?.length >0 && title?.length >0 && problemStatement?.length >0); 
   return (
     <div>
       {/* <div className='content'> */}
@@ -567,7 +574,40 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
               <div className="aside">
                 <CardBody>
                   <Form className="form-row row" isSubmitting>
-                 
+                  {/* {initiatedBy &&
+                            initiatedBy !== currentUser?.data[0]?.user_id && (
+                                <div className="d-md-flex justify-content-end px-4">
+                                    <Card className="p-3">
+                                        {t(
+                                            'student_course.idea_submission_msg1'
+                                        )}
+                                        {formData
+                                            ?.status === 'DRAFT'
+                                            ? t('student_course.idea_status1')
+                                            : t('student_course.idea_status2')}
+                                        {t(
+                                            'student_course.idea_submission_msg2'
+                                        )}
+                                        {
+                                            formData
+                                                ?.initiated_name
+                                        }
+                                        {t(
+                                            'student_course.idea_submission_msg3'
+                                        )}
+                                        {formData
+                                            ?.status === 'DRAFT'
+                                            ? moment(
+                                              formData
+                                                      ?.created_at
+                                              ).format('DD-MM-YYYY')
+                                            : moment(
+                                              formData
+                                                      ?.submitted_at
+                                              ).format('DD-MM-YYYY')}
+                                    </Card>
+                                </div>
+                            )} */}
                                                     {/* <div className="text-right">
                                                         { (
                                                             <>
@@ -695,12 +735,12 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
                                   disabled={isDisabled}
                                   placeholder="Enter the Focus Area"
                                   value={focusarea}
-                                  maxLength={100}
+                                  maxLength={300}
                                   onChange={(e) => setFocusArea(e.target.value)}
                                 />
                                 <div className="text-end">
                                   {t("student_course.chars")} :
-                                  {100 - (focusarea ? focusarea.length : 0)}
+                                  {300 - (focusarea ? focusarea.length : 0)}
                                 </div>
                               </div>
                             ) : (
@@ -717,11 +757,13 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
                                   <option value={""}>
                                     Please select the Focus Area
                                   </option>
-                                  {focusareasList[theme]?.map((item, i) => (
+                                  {focus.map((item, i) => (
                                     <option
                                       key={i}
                                       value={item}
+
                                       selected={item === focusarea}
+                                      
                                     >
                                       {item}
                                     </option>
@@ -745,12 +787,12 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
                                 disabled={isDisabled}
                                 placeholder="Enter Idea Title"
                                 value={title}
-                                maxLength={50}
+                                maxLength={200}
                                 onChange={(e) => setTitle(e.target.value)}
                               />
                               <div className="text-end">
                                 {t("student_course.chars")} :
-                                {100 - (title ? title.length : 0)}
+                                {200 - (title ? title.length : 0)}
                               </div>
                             </div>
                           </Row>
@@ -769,14 +811,14 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
                                 disabled={isDisabled}
                                 placeholder="Enter Problem Statement"
                                 value={problemStatement}
-                                maxLength={100}
+                                maxLength={200}
                                 onChange={(e) =>
                                   setProblemStatement(e.target.value)
                                 }
                               />
                               <div className="text-end">
                                 {t("student_course.chars")} :
-                                {100 -
+                                {200 -
                                   (problemStatement
                                     ? problemStatement.length
                                     : 0)}
@@ -798,12 +840,12 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
                                 disabled={isDisabled}
                                 placeholder="Enter List of Causes"
                                 value={causes}
-                                maxLength={100}
+                                maxLength={300}
                                 onChange={(e) => setCauses(e.target.value)}
                               />
                               <div className="text-end">
                                 {t("student_course.chars")} :
-                                {100 - (causes ? causes.length : 0)}
+                                {300 - (causes ? causes.length : 0)}
                               </div>
                             </div>
                           </Row>
@@ -822,12 +864,12 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
                                 disabled={isDisabled}
                                 placeholder="Enter List of Effects of the problem"
                                 value={effects}
-                                maxLength={100}
+                                maxLength={300}
                                 onChange={(e) => setEffects(e.target.value)}
                               />
                               <div className="text-end">
                                 {t("student_course.chars")} :
-                                {100 - (causes ? causes.length : 0)}
+                                {300 - (causes ? causes.length : 0)}
                               </div>
                             </div>
                           </Row>
@@ -884,12 +926,12 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
                                 disabled={isDisabled}
                                 placeholder="Enter List of Effects of the problem"
                                 value={facing}
-                                maxLength={100}
+                                maxLength={300}
                                 onChange={(e) => setFacing(e.target.value)}
                               />
                               <div className="text-end">
                                 {t("student_course.chars")} :
-                                {100 - (facing ? facing.length : 0)}
+                                {300 - (facing ? facing.length : 0)}
                               </div>
                             </div>
                           </Row>
@@ -926,12 +968,12 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
                                 disabled={isDisabled}
                                 placeholder="Enter the solution to the problem"
                                 value={solution}
-                                maxLength={500}
+                                maxLength={1000}
                                 onChange={(e) => setSolution(e.target.value)}
                               />
                               <div className="text-end">
                                 {t("student_course.chars")} :
-                                {500 - (solution ? solution.length : 0)}
+                                {1000 - (solution ? solution.length : 0)}
                               </div>
                             </div>
                           </Row>
@@ -1033,12 +1075,12 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
                                 disabled={isDisabled}
                                 placeholder="Enter your Feedback"
                                 value={feedback}
-                                maxLength={100}
+                                maxLength={300}
                                 onChange={(e) => setFeedback(e.target.value)}
                               />
                               <div className="text-end">
                                 {t("student_course.chars")} :
-                                {100 - (feedback ? feedback.length : 0)}
+                                {300 - (feedback ? feedback.length : 0)}
                               </div>
                             </div>
                           </Row>
@@ -1146,12 +1188,12 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
                               disabled={isDisabled}
                               placeholder="Upload your Link"
                               value={prototypeLink}
-                              maxLength={100}
+                              maxLength={300}
                               onChange={(e) => setPrototypeLink(e.target.value)}
                             />
                             <div className="text-end">
                               {t("student_course.chars")} :
-                              {100 - (prototypeLink ? prototypeLink.length : 0)}
+                              {300 - (prototypeLink ? prototypeLink.length : 0)}
                             </div>
                           </div>
                         </Row>
@@ -1203,12 +1245,7 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
                    
                   </Form>
                   <div className="d-flex justify-content-start">
-                      {/* <button
-                        className="btn btn-info"
-                        onClick={(e) => handleSubmit(e, "DRAFT")}
-                      >
-                        Save As Draft
-                      </button> */}
+                     
                      {!isDisabled && (   <Button
                                             type="button"
                                             btnClass="me-3 btn btn-warning"
@@ -1222,6 +1259,7 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
                                                     ? t('teacher_teams.loading')
                                                     : t('teacher_teams.draft')
                                             }`}
+                                            disabled={!enableSaveBtn}
                                         />)}
                     </div>
                 </CardBody>

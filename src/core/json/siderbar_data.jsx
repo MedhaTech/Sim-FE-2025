@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React from "react";
+import React ,{ useState, useEffect,  } from "react";
 
 import * as Icon from "react-feather";
 // import { useTranslation } from "react-i18next";
@@ -148,11 +148,58 @@ import * as Icon from "react-feather";
 //   },
 
 // ];
-const SidebarData = () => {
-  // const { t } = useTranslation();
-  const presurvey = localStorage.getItem("stupresurveystatus") ;
-  // console.log(presurvey,"status");
+import { encryptGlobal } from '../../constants/encryptDecrypt';
+import { getCurrentUser } from '../../helpers/Utils';
+import axios from 'axios';
 
+const SidebarData = () => {
+  const currentUser = getCurrentUser('current_user');
+  const TeamId = currentUser?.data[0]?.team_id;
+  const [link, setLink] = useState('/instruction');
+  // const { t } = useTranslation();
+  const submittedApi = () => {
+    const Param = encryptGlobal(
+      JSON.stringify({
+        team_id: TeamId,
+      })
+    );
+    var configidea = {
+      method: "get",
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/challenge_response/submittedDetails?Data=${Param}`,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+      },
+    };
+    axios(configidea)
+      .then(function (response) {
+        if (response.status === 200) {
+          // console.log(response.data.data);
+          if (response.data.data && response.data.data.length > 0) {
+            const data = response.data.data[0];
+            if (response.data.data[0].status === 'SUBMITTED') {
+              setLink('/idea');
+            } else {
+              setLink('/instruction');
+            } 
+
+          } 
+        } 
+      })
+      .catch(function (error) {
+        if (error.response.status === 404) {
+        //   seterror4( true);
+        } 
+
+      });
+  };
+useEffect(() => {
+    submittedApi();
+}, []);
+ 
   return( [
     {
       // label: t("team"),
@@ -235,7 +282,7 @@ const SidebarData = () => {
         },
         {
           label: "Idea Submission",
-          link: "/instruction",
+          link: link,
           icon: <Icon.PlusSquare />,
           role: "STUDENT",
           showSubRoute: false,

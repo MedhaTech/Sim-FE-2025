@@ -347,7 +347,7 @@ const MentorDashboard = () => {
         axios(config)
         .then(function (response) {
             if (response.status === 200) {
-                console.log(response);
+                // console.log(response);
                 setWhatsappLink(response.data.data[0].whatapp_link);
                 setMessage(response.data.data[0].mentor_note);
                 console.log(response.data.data[0].mentor_note,"message");
@@ -395,7 +395,7 @@ const MentorDashboard = () => {
         section.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
   
-console.log(message,"m");
+// console.log(message,"m");
     
   const componentRef = useRef();
   const handlePrintCertificate = useReactToPrint({

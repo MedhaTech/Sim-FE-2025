@@ -127,7 +127,8 @@ const [initiate,setInitiate]=useState("");
     const submitted = () => {
         setShowChallenges(true);
     };
-
+    
+// console.log(showChallenges,"showChallenges",showCompleted,"showCompleted",);
     return showCompleted ? (
         <div>
             <CommonPage
