@@ -82,7 +82,7 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
   const initialSizeData = {
     data: formData,
   };
-  // console.log(initialSizeData,"111");
+  
   // dispatch(
   //     initiateIdea(
   //         currentUser?.data[0]?.team_id,
@@ -93,7 +93,7 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
   //     )
   // );
   const showPage = false;
-  //    console.log(props.theme,"11");
+
   const [isDisabled, setIsDisabled] = useState(false);
   const initialLoadingStatus = { draft: false, submit: false };
   const [loading, setLoading] = useState(initialLoadingStatus);
@@ -106,11 +106,9 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
   const goToBack = () => setCurrentSection(currentSection - 1);
   const [theme, setTheme] = useState(props?.theme!== "" ? formData?.theme :props?.theme);
   const [focusarea, setFocusArea] = useState(formData?.focus_area);
-
   const [files, setFiles] = useState([]);
   const [message, setMessage] = useState('');
   const [title, setTitle] = useState(formData?.title);
- 
   const [problemStatement, setProblemStatement] = useState(
     formData?.problemStatement
   );
@@ -127,11 +125,11 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
   const [ideaInitiation,setIdeaInitiation]=useState("");
   const [feedback, setFeedback] = useState(formData?.feedback);
   const [prototypeImage, setPrototypeImage] = useState(
-    formData?.prototypeImage ? formData?.prototypeImage.split(",") : []
+    formData.prototype_image ||[]
   );
   const [focus,setFocus]=useState([]);
   const [id,setId]=useState("");
-  const [prototypeLink, setPrototypeLink] = useState(formData?.prototypeLink);
+  const [prototypeLink, setPrototypeLink] = useState(formData?.prototype_link);
   const [workbook, setWorkbook] = useState(formData?.workbook);
   const people = ["None", "2-4 people", "5+ people", "10+ people"];
   const submit = ["YES", "NO"];
@@ -155,7 +153,6 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
   const handleThemeChange = (e) => {
     const selectedTheme = e.target.value;
     setTheme(selectedTheme);
-    // setFocusArea("");
     setFocus(focusareasList[selectedTheme] || []);
   };
   const handleFocusAreaChange = (e) => {
@@ -169,14 +166,7 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
         ] || []
     );
    },[formData.theme]);
-  // useEffect(() => {
-  //   if (theme && focusareasList[theme]) {
-  //     setFocusArea(focusareasList[theme]);
-  //   } else {
-  //     setFocusArea(""); 
-  //   }
-  // }, [theme]);
- 
+
   useEffect(() => {
    setTheme(formData?.theme);
     setTitle(formData?.title);
@@ -199,6 +189,11 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
       setProblemSolving(JSON.parse(formData.problem_solving));
     } else {
       setProblemSolving([]);  
+    }
+    if (formData?.prototype_image) {
+      setPrototypeImage(JSON.parse(formData.prototype_image));
+    } else {
+      setPrototypeImage([]);  
     }
 
   
@@ -293,6 +288,7 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
             const data = response.data.data[0]; 
             data && setIsDisabled(true);
             setFormData(data);
+            setFocusArea(response.data.data[0].focus_area);
             setId(response.data.data[0].challenge_response_id);
 
           } 
@@ -475,7 +471,7 @@ const IdeasPageNew = ({showChallenges, ...props}) => {
       body["workbook"] = workbook;
     }
     if (attachmentsList !== "") {
-      body["prototype_image"] = attachmentsList;
+      body["prototype_image"] = JSON.stringify(file);
     }
     var allques = true;
     if (stats === "SUBMITTED") {
