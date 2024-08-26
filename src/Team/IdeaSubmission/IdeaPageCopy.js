@@ -737,14 +737,14 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                       disabled={isDisabled}
                                       placeholder="Enter the Focus Area"
                                       value={focusarea}
-                                      maxLength={300}
+                                      maxLength={500}
                                       onChange={(e) =>
                                         setFocusArea(e.target.value)
                                       }
                                     />
                                     <div className="text-end">
                                       {t("student_course.chars")} :
-                                      {300 - (focusarea ? focusarea.length : 0)}
+                                      {500 - (focusarea ? focusarea.length : 0)}
                                     </div>
                                   </div>
                                 ) : (
@@ -787,12 +787,12 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                     disabled={isDisabled}
                                     placeholder="Enter Idea Title"
                                     value={title}
-                                    maxLength={200}
+                                    maxLength={300}
                                     onChange={(e) => setTitle(e.target.value)}
                                   />
                                   <div className="text-end">
                                     {t("student_course.chars")} :
-                                    {200 - (title ? title.length : 0)}
+                                    {300 - (title ? title.length : 0)}
                                   </div>
                                 </div>
                               </Row>
@@ -811,14 +811,14 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                     disabled={isDisabled}
                                     placeholder="Enter Problem Statement"
                                     value={problemStatement}
-                                    maxLength={200}
+                                    maxLength={500}
                                     onChange={(e) =>
                                       setProblemStatement(e.target.value)
                                     }
                                   />
                                   <div className="text-end">
                                     {t("student_course.chars")} :
-                                    {200 -
+                                    {500 -
                                       (problemStatement
                                         ? problemStatement.length
                                         : 0)}
@@ -840,12 +840,12 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                     disabled={isDisabled}
                                     placeholder="Enter List of Causes"
                                     value={causes}
-                                    maxLength={300}
+                                    maxLength={500}
                                     onChange={(e) => setCauses(e.target.value)}
                                   />
                                   <div className="text-end">
                                     {t("student_course.chars")} :
-                                    {300 - (causes ? causes.length : 0)}
+                                    {500 - (causes ? causes.length : 0)}
                                   </div>
                                 </div>
                               </Row>
@@ -864,12 +864,12 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                     disabled={isDisabled}
                                     placeholder="Enter List of Effects of the problem"
                                     value={effects}
-                                    maxLength={300}
+                                    maxLength={500}
                                     onChange={(e) => setEffects(e.target.value)}
                                   />
                                   <div className="text-end">
                                     {t("student_course.chars")} :
-                                    {300 - (causes ? causes.length : 0)}
+                                    {500 - (causes ? causes.length : 0)}
                                   </div>
                                 </div>
                               </Row>
@@ -926,12 +926,12 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                     disabled={isDisabled}
                                     placeholder="Enter List of Effects of the problem"
                                     value={facing}
-                                    maxLength={300}
+                                    maxLength={500}
                                     onChange={(e) => setFacing(e.target.value)}
                                   />
                                   <div className="text-end">
                                     {t("student_course.chars")} :
-                                    {300 - (facing ? facing.length : 0)}
+                                    {500 - (facing ? facing.length : 0)}
                                   </div>
                                 </div>
                               </Row>
@@ -1078,14 +1078,14 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                     disabled={isDisabled}
                                     placeholder="Enter your Feedback"
                                     value={feedback}
-                                    maxLength={300}
+                                    maxLength={500}
                                     onChange={(e) =>
                                       setFeedback(e.target.value)
                                     }
                                   />
                                   <div className="text-end">
                                     {t("student_course.chars")} :
-                                    {300 - (feedback ? feedback.length : 0)}
+                                    {500 - (feedback ? feedback.length : 0)}
                                   </div>
                                 </div>
                               </Row>
