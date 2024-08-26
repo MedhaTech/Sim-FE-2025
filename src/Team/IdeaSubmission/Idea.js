@@ -82,7 +82,7 @@ const Idea = ({showChallenge, idea }) => {
     axios(configidea)
       .then(function (response) {
         if (response.status === 200) {
-          console.log(response.data.data);
+          // console.log(response.data.data);
           if (response.data.data && response.data.data.length > 0) {
             const data = response.data.data[0]; 
             setInitiate(response.data.data[0].initiate_by);
