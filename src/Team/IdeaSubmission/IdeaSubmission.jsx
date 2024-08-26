@@ -103,8 +103,8 @@ const [initiate,setInitiate]=useState("");
         if (ideaSubmittedRes && ideaSubmittedRes.length > 0) {
             ideaSubmittedRes.status === 'DRAFT'
                 ? setShowChallenges(true)
-                : view
-                ? setShowChallenges(true)
+                // : view
+                // ? setShowChallenges(true)
                 : setShowCompleted(true);
         } else {
             setShowChallenges(false);
@@ -112,19 +112,25 @@ const [initiate,setInitiate]=useState("");
     }, [ideaSubmittedRes]);
     const commonPageText = t('student.idea_submitted_desc');
     const handleView = () => {
+        // console.log("1");
         // here we can see the idea submission //
         setShowCompleted(false);
         setShowChallenges(true);
         setView(true);
     };
     const handleShow = () => {
+        // console.log("2");
+
         // here we can see the idea submission //
         // setShowChallenges(true);
         setShowCompleted(true);
         setView(false);
     };
     const submitted = () => {
-        setShowChallenges(true);
+        // console.log("3");
+        ideaSubmittedRes.status === 'DRAFT' ? setShowChallenges(true) : setShowCompleted(true);
+        // setShowCompleted(true);
+        // setShowChallenges(true);
     };
     
 // console.log(showChallenges,"showChallenges",showCompleted,"showCompleted",);
