@@ -146,7 +146,7 @@ const [initiate,setInitiate]=useState("");
         <IdeasPageNew
         showChallenges={handleShow}/>
     ) : 
-    isideadisable ?
+    !isideadisable ?
      (
         <Idea showChallenge={handleShow} idea={submitted}/>
      
