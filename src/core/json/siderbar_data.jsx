@@ -211,28 +211,16 @@ useEffect(() => {
       submenuItems: [
         {
           label: "Team Dashboard",
-          // label: t("team_dashboard"),
           link: "/team-dashboard",
-          icon: <Icon.Box />,
+          icon: <Icon.Grid />,
           showSubRoute: false,
           role: "TEAM",
           submenu: false,
         },
-        // {
-        //   label:"Idea Submission",
-
-        //   link: "/idea",
-        //   icon: <Icon.PlusSquare />,
-        //   role: "TEAM",
-        //   showSubRoute: false,
-        //   submenu: false,
-        // },
         {
           label:"Resources",
-          // label: t("resources"),
-
           link: "/studentresource",
-          icon: <Icon.Codesandbox />,
+          icon: <Icon.FilePlus />,
           role: "TEAM",
           showSubRoute: false,
           submenu: false,
@@ -253,14 +241,14 @@ useEffect(() => {
           // label: t("pre_survey"),
 
           link: "/studentpresurvey",
-          icon: <Icon.Bookmark />,
+          icon: <Icon.Edit />,
           showSubRoute: false,
           submenu: false,
         },
         {
           label:"Student Dashboard",
           link: "/student-dashboard",
-          icon: <Icon.Box />,
+          icon: <Icon.Grid />,
           showSubRoute: false,
           role: "STUDENT",
           submenu: false,
@@ -268,22 +256,15 @@ useEffect(() => {
         {
           label:"Course",
           link: `/studentcourse/${1}`,
-          icon: <Icon.Speaker />,
+          icon: <Icon.Monitor />,
           showSubRoute: false,
           submenu: false,
         },
-        {
-          label: "Resources",
-          link: "/studentresource",
-          icon: <Icon.Codesandbox />,
-          role: "STUDENT",
-          showSubRoute: false,
-          submenu: false,
-        },
+        
         {
           label: "Idea Submission",
           link: link,
-          icon: <Icon.PlusSquare />,
+          icon: <Icon.Send />,
           role: "STUDENT",
           showSubRoute: false,
           submenu: false,
@@ -291,12 +272,20 @@ useEffect(() => {
         {
           label:"Post Survey",
           link: "/studentpostsurvey",
-          icon:<Icon.Layers />,
+          icon:<Icon.Edit3 />,
           role: "STUDENT",
           showSubRoute: false,
           submenu: false,
         },
-        // {
+        {
+          label: "Resources",
+          link: "/studentresource",
+          icon: <Icon.FilePlus />,
+          role: "STUDENT",
+          showSubRoute: false,
+          submenu: false,
+        },
+        // { <Icon.Shield />
         //   label:"My Certificate",
         //   link: "/certificate",
         //   icon: <Icon.Tag />,
@@ -304,6 +293,14 @@ useEffect(() => {
         //   showSubRoute: false,
         //   submenu: false,
         // },
+        {
+          label:"Badges",
+          link: "",
+          icon: <Icon.Shield />,
+          role: "STUDENT",
+          showSubRoute: false,
+          submenu: false,
+        },
       ],
     },
   ]
