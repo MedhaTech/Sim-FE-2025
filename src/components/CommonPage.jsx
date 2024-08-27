@@ -63,7 +63,7 @@ const CommonPage = ({
               <Button
                 type="button"
                 btnClass="primary mt-4 mx-4"
-                onClick={() => navigate(`/playCourse/${1}`)}
+                onClick={() => navigate(`/studentcourse/${1}`)}
                 size="small"
                 label={t("student_course.go_to_course_button")}
               />

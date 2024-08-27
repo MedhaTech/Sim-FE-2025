@@ -582,7 +582,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                   <div className="aside">
                     <CardBody>
                       <Form className="form-row row" isSubmitting>
-                        {
+                        {formData?.status === 'SUBMITTED' &&(
                                 <div className="d-md-flex justify-content-end px-4">
                                     <Card className="p-3">
                                         {t(
@@ -623,6 +623,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                               </p>
                                     </Card>
                                 </div>
+                        )
                             }
                         {/* <div className="text-right">
                                                         { (
@@ -787,12 +788,12 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                     disabled={isDisabled}
                                     placeholder="Enter Idea Title"
                                     value={title}
-                                    maxLength={300}
+                                    maxLength={500}
                                     onChange={(e) => setTitle(e.target.value)}
                                   />
                                   <div className="text-end">
                                     {t("student_course.chars")} :
-                                    {300 - (title ? title.length : 0)}
+                                    {500 - (title ? title.length : 0)}
                                   </div>
                                 </div>
                               </Row>
@@ -869,7 +870,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                   />
                                   <div className="text-end">
                                     {t("student_course.chars")} :
-                                    {500 - (causes ? causes.length : 0)}
+                                    {500 - (effects ? effects.length : 0)}
                                   </div>
                                 </div>
                               </Row>
