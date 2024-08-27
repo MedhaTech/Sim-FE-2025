@@ -82,7 +82,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const initialSizeData = {
     data: formData,
   };
-  
+
   // dispatch(
   //     initiateIdea(
   //         currentUser?.data[0]?.team_id,
@@ -105,7 +105,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const goToNext = () => setCurrentSection(currentSection + 1);
   const goToBack = () => setCurrentSection(currentSection - 1);
   const [theme, setTheme] = useState(
-    props?.theme !== "" && props?.theme !== undefined ? props?.theme : formData?.theme 
+    props?.theme !== "" && props?.theme !== undefined
+      ? props?.theme
+      : formData?.theme
   );
   // console.log(props?.theme !== "" && props?.theme !== undefined ? "true" : "false" );
   // console.log(formData?.theme ,"form");
@@ -130,7 +132,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const [ideaInitiation, setIdeaInitiation] = useState("");
   const [feedback, setFeedback] = useState(formData?.feedback);
   const [prototypeImage, setPrototypeImage] = useState(
-    formData.prototype_image ||[]
+    formData.prototype_image || []
   );
   const [focus, setFocus] = useState([]);
   const [id, setId] = useState("");
@@ -162,14 +164,23 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const handleFocusAreaChange = (e) => {
     setFocusArea(e.target.value);
   };
-  
-  useEffect(() => {
-    setFocus(focusareasList[props?.theme !== "" && props?.theme !== undefined ? props?.theme : formData?.theme] || []);
 
+  useEffect(() => {
+    setFocus(
+      focusareasList[
+        props?.theme !== "" && props?.theme !== undefined
+          ? props?.theme
+          : formData?.theme
+      ] || []
+    );
   }, [formData.theme]);
 
   useEffect(() => {
-    setTheme( props?.theme !== "" && props?.theme !== undefined ? props?.theme : formData?.theme);
+    setTheme(
+      props?.theme !== "" && props?.theme !== undefined
+        ? props?.theme
+        : formData?.theme
+    );
     setTitle(formData?.title);
     setProblemStatement(formData?.problem_statement);
     setCauses(formData?.causes);
@@ -184,7 +195,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
 
     setWorkbook(formData?.workbook);
   }, [formData]);
-  
+
   useEffect(() => {
     if (formData?.problem_solving) {
       setProblemSolving(JSON.parse(formData.problem_solving));
@@ -195,10 +206,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     if (formData?.prototype_image) {
       setPrototypeImage(JSON.parse(formData.prototype_image));
     } else {
-      setPrototypeImage([]);  
+      setPrototypeImage([]);
     }
-
-  }, [formData?.problem_solving,formData?.theme,formData?.prototype_image]);
+  }, [formData?.problem_solving, formData?.theme, formData?.prototype_image]);
 
   const handleCheckboxChange = (item) => {
     if (Array.isArray(problemSolving) && problemSolving.includes(item)) {
@@ -490,8 +500,10 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
         stakeholders === "" ||
         problemSolving === "" ||
         feedback === "" ||
-       ( prototypeLink === "" || prototypeLink == null) ||
-       ( workbook === ""  || workbook == null )
+        prototypeLink === "" ||
+        prototypeLink == null ||
+        workbook === "" ||
+        workbook == null
       ) {
         allques = false;
       }
@@ -587,50 +599,48 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                   <div className="aside">
                     <CardBody>
                       <Form className="form-row row" isSubmitting>
-                        {formData?.status === 'SUBMITTED' &&(
-                                <div className="d-md-flex justify-content-end px-4">
-                                    <Card className="p-3">
-                                        {t(
-                                            'student_course.idea_submission_msg1'
-                                        )}
-                                        {formData
-                                            ?.status === 'DRAFT'
-                                            ? t('student_course.idea_status1')
-                                            : t('student_course.idea_status2')}
-                                        {t(
-                                            'student_course.idea_submission_msg2'
-                                        )}
-                                        {
-                                            formData
-                                                ?.initiated_name
-                                        }
-                                        {t(
-                                            'student_course.idea_submission_msg3'
-                                        )}
-                                        {formData
-                                            ?.status === 'DRAFT'
-                                            ? moment(
-                                              formData
-                                                      ?.created_at
-                                              ).format('DD-MM-YYYY')
-                                            : moment(
-                                              formData
-                                                      ?.submitted_at
-                                              ).format('DD-MM-YYYY')}
-                                              <br/>
-                                              <p>
-                                              Teacher Verified Status : {formData
+                        {formData?.status === "SUBMITTED" && (
+                          <div className="d-md-flex justify-content-end px-4">
+                            <Card className="p-3">
+                              {t("student_course.idea_submission_msg1")}
+                              {formData?.status === "DRAFT"
+                                ? t("student_course.idea_status1")
+                                : t("student_course.idea_status2")}
+                              {t("student_course.idea_submission_msg2")}
+                              {formData?.initiated_name}
+                              {t("student_course.idea_submission_msg3")}
+                              {formData?.status === "DRAFT"
+                                ? moment(formData?.created_at).format(
+                                    "DD-MM-YYYY"
+                                  )
+                                : moment(formData?.submitted_at).format(
+                                    "DD-MM-YYYY"
+                                  )}
+                              <br />
+                              <p>
+                                {/* Teacher Verified Status : {formData
                                                     ?.verified_status ==
                                                     null ? "Yet to be Review"  : moment(
                                                       formData
                                                               ?.verified_at
                                                       ).format('DD-MM-YYYY')
-                                                }
-                                              </p>
-                                    </Card>
-                                </div>
-                        )
-                            }
+                                                } */}
+                                Teacher Verified Status : {""}
+                                {formData?.verified_status === null
+                                  ? "Yet to be Reviewed"
+                                  : formData?.verified_status === "ACCEPTED"
+                                  ? `Accepted on ${moment(
+                                      formData?.verified_at
+                                    ).format("DD-MM-YYYY")}`
+                                  : formData?.verified_status === "REJECTED"
+                                  ? "Rejected"
+                                  : moment(formData?.verified_at).format(
+                                      "DD-MM-YYYY"
+                                    )}
+                              </p>
+                            </Card>
+                          </div>
+                        )}
                         {/* <div className="text-right">
                                                         { (
                                                             <>

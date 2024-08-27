@@ -131,9 +131,11 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props, setIdeaCount,
                     );
                     setHide(false);
                     handleClose();
+                    ideaSubmittedApi(teamId);
                     dispatch(getTeamMemberStatus(teamId, setshowDefault));
+                    window.location.reload();
+
                     mentorIdeaCount();
-                     ideaSubmittedApi();
                 }
             })
             .catch(function (error) {
@@ -141,7 +143,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props, setIdeaCount,
                 openNotificationWithIcon('error', 'Something went wrong');
             });
     };
-    const ideaSubmittedApi = () => {
+    const ideaSubmittedApi = (teamId) => {
         const Param = encryptGlobal(
           JSON.stringify({
             team_id: teamId,
@@ -197,7 +199,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props, setIdeaCount,
                 if (response.status === 200) {
                     // console.log(response, 'ideasubmission page');
                     setIdeaCount(response.data.data[0].idea_count);
-                    setApproval(response.data.data[0].PendingForApproval);
+                    // setApproval(response.data.data[0].PendingForApproval);
                 }
             })
             .catch(function (error) {
@@ -505,7 +507,7 @@ effects
                 <Modal.Footer>
                     {/* <FaDownload size={22} onClick={handlePrint} /> */}
                    
-                    {hide && submittedResponse?.verified_status !== "ACCEPTED"  ? (
+                    {(hide && submittedResponse?.status === "SUBMITTED" &&submittedResponse?.verified_status !== "REJECTED" && (submittedResponse?.verified_status !== "ACCEPTED")  )? (
                         <Button
                             size="small"
                             label={'Approve'}
@@ -515,7 +517,7 @@ effects
                     ) : (
                         
                         <>
-                            <div>
+                          {submittedResponse?.status === "SUBMITTED" &&(  <div>
                                 <p
                                     style={{ fontSize: '1rem' }}
                                     className="fw-bold"
@@ -523,9 +525,9 @@ effects
                                     Submitted By :{' '}
                                     {submittedResponse.initiated_name}
                                 </p>
-                            </div>
+                            </div>)}
                             <br />
-                            <div>
+                           {submittedResponse?.verified_status == "ACCEPTED" && (<div>
                                 <p
                                     style={{ fontSize: '1rem' }}
                                     className="fw-bold"
@@ -537,7 +539,7 @@ effects
                                           ).format('DD-MM-YYYY')
                                         : '-'}
                                 </p>
-                            </div>
+                            </div>)}
                         </>
                     )}
                     <Button
