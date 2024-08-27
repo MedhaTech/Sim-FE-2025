@@ -361,9 +361,17 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
       if (isEvlCom) {
         setIdeaStatusEval("Better luck next time");
       }
-    } else {
+    } else if (formData?.verified_status === "ACCEPTED") {
+      setIdeaStatusEval("ACCEPTED");
+      
+    }else if(formData?.verified_status === "REJECTED"){
+      setIdeaStatusEval("REJECTED");
+    }else {
       setIdeaStatusEval(formData?.status);
     }
+  //  else  {
+  //   setIdeaStatusEval(formData?.status);
+  // }
   }, [formData]);
   // console.log(formData?.status,"ss");
   // const handleRevoke = async (id, type) => {
@@ -418,7 +426,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
             : "You are attempting to reject this Idea",
         text: "Are you sure?",
         imageUrl: `${logout}`,
-        confirmButtonText: "Delete",
+        confirmButtonText: "Reject",
         showCancelButton: true,
         cancelButtonText: "Cancel",
         reverseButtons: false,
@@ -439,13 +447,13 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
    
     const body = JSON.stringify({
       verified_status: "REJECTED",
-      // verified_at: new Date().currentTime(),
+      status: "DRAFT",
       mentor_rejected_reason: handledText == "reject" ? reason : "",
     });
     const ideaID = encryptGlobal(
-      JSON.stringify({
-        challenge_response_id: formData.challenge_response_id,
-      })
+      JSON.stringify(
+        formData.challenge_response_id
+      )
     );
     var config = {
       method: "put",
@@ -466,7 +474,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
         openNotificationWithIcon(
           "success",
           response?.data?.message == "OK"
-            ? "Idea processed successfully!"
+            ? "Idea rejected and moved to draft"
             : response?.data?.message
         );
         // props?.setIsDetail(false);
@@ -595,7 +603,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
                                 </div> */}
                 <div>
                   {formData?.status === "SUBMITTED" &&
-                  formData?.evaluation_status === null ? (
+                 (formData?.verified_status === null  || formData?.verified_status !== "ACCEPTED") ?(
                     <button
                       className="btn btn-lg px-5 py-2 btn-danger me-3 rounded-pill"
                       onClick={() => {
