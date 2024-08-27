@@ -295,7 +295,7 @@ useEffect(() => {
         // },
         {
           label:"Badges",
-          link: "",
+          link:"/badges",
           icon: <Icon.Shield />,
           role: "STUDENT",
           showSubRoute: false,

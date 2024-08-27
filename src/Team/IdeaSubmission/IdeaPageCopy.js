@@ -105,8 +105,11 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const goToNext = () => setCurrentSection(currentSection + 1);
   const goToBack = () => setCurrentSection(currentSection - 1);
   const [theme, setTheme] = useState(
-    props?.theme !== "" ? formData?.theme : props?.theme
+    props?.theme !== "" && props?.theme !== undefined ? props?.theme : formData?.theme 
   );
+  // console.log(props?.theme !== "" && props?.theme !== undefined ? "true" : "false" );
+  // console.log(formData?.theme ,"form");
+
   const [focusarea, setFocusArea] = useState(formData?.focus_area);
   const [files, setFiles] = useState([]);
   const [message, setMessage] = useState("");
@@ -161,11 +164,12 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   };
   
   useEffect(() => {
-    setFocus(focusareasList[formData.theme] || []);
+    setFocus(focusareasList[props?.theme !== "" && props?.theme !== undefined ? props?.theme : formData?.theme] || []);
+
   }, [formData.theme]);
 
   useEffect(() => {
-    setTheme(formData?.theme);
+    setTheme( props?.theme !== "" && props?.theme !== undefined ? props?.theme : formData?.theme);
     setTitle(formData?.title);
     setProblemStatement(formData?.problem_statement);
     setCauses(formData?.causes);
@@ -308,6 +312,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       focus_area: focusarea,
       title: title,
       problem_statement: problemStatement,
+      initiated_by: currentUser?.data[0]?.user_id,
     };
     if (causes !== "") {
       body["causes"] = causes;
@@ -485,7 +490,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
         stakeholders === "" ||
         problemSolving === "" ||
         feedback === "" ||
-        prototypeLink === "" ||
+       ( prototypeLink === "" || prototypeLink == null) ||
        ( workbook === ""  || workbook == null )
       ) {
         allques = false;
@@ -616,10 +621,11 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                               <p>
                                               Teacher Verified Status : {formData
                                                     ?.verified_status ==
-                                                    null ? "Yet to be Review"  : (
-                                                           formData
-                                                                ?.verified_at
-                                                )}
+                                                    null ? "Yet to be Review"  : moment(
+                                                      formData
+                                                              ?.verified_at
+                                                      ).format('DD-MM-YYYY')
+                                                }
                                               </p>
                                     </Card>
                                 </div>
