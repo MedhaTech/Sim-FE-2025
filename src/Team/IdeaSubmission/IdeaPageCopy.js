@@ -105,8 +105,11 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const goToNext = () => setCurrentSection(currentSection + 1);
   const goToBack = () => setCurrentSection(currentSection - 1);
   const [theme, setTheme] = useState(
-    props?.theme !== "" ? formData?.theme : props?.theme
+    props?.theme !== "" && props?.theme !== undefined ? props?.theme : formData?.theme 
   );
+  // console.log(props?.theme !== "" && props?.theme !== undefined ? "true" : "false" );
+  // console.log(formData?.theme ,"form");
+
   const [focusarea, setFocusArea] = useState(formData?.focus_area);
   const [files, setFiles] = useState([]);
   const [message, setMessage] = useState("");
@@ -161,11 +164,12 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   };
   
   useEffect(() => {
-    setFocus(focusareasList[formData.theme] || []);
+    setFocus(focusareasList[props?.theme !== "" && props?.theme !== undefined ? props?.theme : formData?.theme] || []);
+
   }, [formData.theme]);
 
   useEffect(() => {
-    setTheme(formData?.theme);
+    setTheme( props?.theme !== "" && props?.theme !== undefined ? props?.theme : formData?.theme);
     setTitle(formData?.title);
     setProblemStatement(formData?.problem_statement);
     setCauses(formData?.causes);
@@ -308,6 +312,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       focus_area: focusarea,
       title: title,
       problem_statement: problemStatement,
+      initiated_by: currentUser?.data[0]?.user_id,
     };
     if (causes !== "") {
       body["causes"] = causes;
@@ -485,8 +490,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
         stakeholders === "" ||
         problemSolving === "" ||
         feedback === "" ||
-        prototypeLink === "" ||
-        workbook === ""
+       ( prototypeLink === "" || prototypeLink == null) ||
+       ( workbook === ""  || workbook == null )
       ) {
         allques = false;
       }
@@ -582,7 +587,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                   <div className="aside">
                     <CardBody>
                       <Form className="form-row row" isSubmitting>
-                        {
+                        {formData?.status === 'SUBMITTED' &&(
                                 <div className="d-md-flex justify-content-end px-4">
                                     <Card className="p-3">
                                         {t(
@@ -616,13 +621,15 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                               <p>
                                               Teacher Verified Status : {formData
                                                     ?.verified_status ==
-                                                    null ? "Yet to be Review"  : (
-                                                           formData
-                                                                ?.verified_at
-                                                )}
+                                                    null ? "Yet to be Review"  : moment(
+                                                      formData
+                                                              ?.verified_at
+                                                      ).format('DD-MM-YYYY')
+                                                }
                                               </p>
                                     </Card>
                                 </div>
+                        )
                             }
                         {/* <div className="text-right">
                                                         { (
@@ -787,12 +794,12 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                     disabled={isDisabled}
                                     placeholder="Enter Idea Title"
                                     value={title}
-                                    maxLength={300}
+                                    maxLength={500}
                                     onChange={(e) => setTitle(e.target.value)}
                                   />
                                   <div className="text-end">
                                     {t("student_course.chars")} :
-                                    {300 - (title ? title.length : 0)}
+                                    {500 - (title ? title.length : 0)}
                                   </div>
                                 </div>
                               </Row>
@@ -869,7 +876,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                   />
                                   <div className="text-end">
                                     {t("student_course.chars")} :
-                                    {500 - (causes ? causes.length : 0)}
+                                    {500 - (effects ? effects.length : 0)}
                                   </div>
                                 </div>
                               </Row>

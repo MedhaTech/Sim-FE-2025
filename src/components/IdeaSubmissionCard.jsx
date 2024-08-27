@@ -56,6 +56,13 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props, setIdeaCount,
     const [hide, setHide] = useState(true);
     const [submittedResponse, setIdeaSubmittedData] = React.useState(submitted);
     const Id =submittedResponse.challenge_response_id;
+    const problemSolvingArray = JSON.parse(submittedResponse.problem_solving);
+    // const prototypeImageArray = JSON.parse(response.prototype_image);
+    const files = submittedResponse?.prototype_image
+    ? JSON.parse(submittedResponse.prototype_image)
+    : [];
+
+    // const fileName = prototypeImageArray[0].split('/').pop();
     // const [id,setId]=useState();
     // console.log(submittedResponse,"11");
     // console.log(Id,"id");
@@ -100,9 +107,9 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props, setIdeaCount,
             // verified_at: currentTime,
         });
         const ideaID = encryptGlobal(
-            JSON.stringify({
-                challenge_response_id:Id
-            })
+            JSON.stringify(
+                Id
+            )
         );
         var config = {
             method: 'put',
@@ -120,13 +127,13 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props, setIdeaCount,
                     // console.log(response, 'response');
                     openNotificationWithIcon(
                         'success',
-                        'Approve the Idea successfully'
+                        'Idea Approved Successfully'
                     );
                     setHide(false);
                     handleClose();
                     dispatch(getTeamMemberStatus(teamId, setshowDefault));
                     mentorIdeaCount();
-                    await ideaSubmittedApi();
+                     ideaSubmittedApi();
                 }
             })
             .catch(function (error) {
@@ -203,6 +210,35 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props, setIdeaCount,
             response[0]?.team_name ? response[0]?.team_name : 'temp'
         }_IdeaSubmission`
     });
+    const downloadFile = (item) => {
+        // const link = document.createElement('a');
+        // link.href = item;
+        // link.download = 'upload.pdf';
+        // document.body.appendChild(link);
+        // link.click();
+        // document.body.removeChild(link);
+        fetch(item)
+            .then((response) => {
+                // Convert the response to a blob
+                return response.blob();
+            })
+            .then((blob) => {
+                // Create a download link
+                const url = window.URL.createObjectURL(new Blob([blob]));
+                const link = document.createElement('a');
+                link.href = url;
+                const fileName = item.split('/').pop();
+                link.setAttribute('download', fileName);
+                // const parts = item.split('/');
+                // link.setAttribute('download', parts[parts.length - 1]);
+                document.body.appendChild(link);
+                link.click();
+                link.parentNode.removeChild(link);
+            })
+            .catch((error) => {
+                console.error('Error downloading file:', error);
+            });
+    };
     return (
         <div>
             <div style={{ display: 'none' }}>
@@ -270,7 +306,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props, setIdeaCount,
                                Write down your Problem statement
                             </label>
                             <CardText>
-                                {
+                               {
                                     submittedResponse.problem_statement
                                 }
                             </CardText>
@@ -372,7 +408,8 @@ effects
                               Pick the actions your team did in your problem solving journey (You can choose multiple options)
                             </label>
                             <CardText>
-                                {submittedResponse.problem_solving}
+                                {/* {submittedResponse.problem_solving} */}
+                                {problemSolvingArray}
                             </CardText>
                         </CardBody>
                     </Card>  <Card className="p-1">
@@ -398,9 +435,41 @@ effects
                             >
                               Upload image of your prototype.  (total size limit : 10mb)
                             </label>
-                            <CardText>
+                            {/* <CardText>
                                 {submittedResponse.prototype_image}
-                            </CardText>
+                                {fileName}
+                            </CardText> */}
+                             <CardText>
+                                            {files.length > 0 &&
+                                                files.map((item, i) => (
+                                                    <Card key={i}>
+                                                        {/* <CardTitle className="fw-bold">
+                                                    {item.question}
+                                                </CardTitle> */}
+                                                        {/* <CardBody> */}
+                                                        <a
+                                                            key={i}
+                                                            className="badge bg-info col-3"
+                                                            target="_blank"
+                                                            rel="noreferrer"
+                                                            onClick={() =>
+                                                                downloadFile(
+                                                                    item
+                                                                )
+                                                            }
+                                                        >
+                                                            {item
+                                                                .split('/')
+                                                                .pop()}
+                                                        </a>
+                                                        {/* </CardBody> */}
+                                                    </Card>
+                                                ))}
+                                            {/* {}{' '}
+                                    <button onClick={downloadFile}>
+                                        Download PDF
+                                    </button> */}
+                                        </CardText>
                         </CardBody>
                     </Card>
                     <Card className="p-1">
@@ -436,7 +505,7 @@ effects
                 <Modal.Footer>
                     {/* <FaDownload size={22} onClick={handlePrint} /> */}
                    
-                    {hide && submittedResponse?.verified_status === null ? (
+                    {hide && submittedResponse?.verified_status !== "ACCEPTED"  ? (
                         <Button
                             size="small"
                             label={'Approve'}
@@ -448,17 +517,17 @@ effects
                         <>
                             <div>
                                 <p
-                                    style={{ fontSize: '1.5rem' }}
+                                    style={{ fontSize: '1rem' }}
                                     className="fw-bold"
                                 >
-                                     By :{' '}
+                                    Submitted By :{' '}
                                     {submittedResponse.initiated_name}
                                 </p>
                             </div>
                             <br />
                             <div>
                                 <p
-                                    style={{ fontSize: '1.5rem' }}
+                                    style={{ fontSize: '1rem' }}
                                     className="fw-bold"
                                 >
                                     Verified At :{' '}

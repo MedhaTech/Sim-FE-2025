@@ -95,6 +95,7 @@ import IdeaSubmission from "../Team/IdeaSubmission/IdeaSubmission";
 
 import InstructionsTeacher from "../Teacher/Dashboard/Instructions";
 import InstructionsStudent from "../Team/StudentDashboard/instructions";
+import BadgesComp from "../Team/Badges/Badges";
 
 
 
@@ -430,6 +431,14 @@ export const teamRoutes = [
     path: routes.instructionstu,
     name: "instructionstu",
     element: <InstructionsStudent />,
+    //protected: true,
+    route: Route,
+  },
+  {
+    id: 9,
+    path: routes.badge,
+    name: "badge",
+    element: <BadgesComp/>,
     //protected: true,
     route: Route,
   },
