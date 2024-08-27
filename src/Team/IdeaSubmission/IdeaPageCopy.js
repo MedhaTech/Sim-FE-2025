@@ -486,7 +486,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
         problemSolving === "" ||
         feedback === "" ||
         prototypeLink === "" ||
-        workbook === ""
+       ( workbook === ""  || workbook == null )
       ) {
         allques = false;
       }
