@@ -488,8 +488,14 @@ useEffect(() => {
                     +
                   </CountUp> / 8
                 </h3>
-                <p>Badges Achieved</p>
+               
+                <div className="info">
+                                <Link to={"/badges"}>
+                                <p>Badges Achieved</p>
+
+                                </Link>
                 <FeatherIcon icon="award" />
+                              </div>
               </div>
             </div>
           </div>
