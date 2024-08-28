@@ -140,6 +140,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const [workbook, setWorkbook] = useState(formData?.workbook);
   const people = ["None", "2-4 people", "5+ people", "10+ people"];
   const submit = ["YES", "NO"];
+  // console.log(error4,"111");
   const journey = [
     "We did the full problem solving journey by ourselves.",
     "We got feedback on our problem and modified it",
@@ -159,22 +160,37 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const handleThemeChange = (e) => {
     const selectedTheme = e.target.value;
     setTheme(selectedTheme);
-    setFocus(focusareasList[selectedTheme] || []);
+    if (selectedTheme === "Others") {
+      setFocus([]);
+      setFocusArea(""); 
+    } else {
+      setFocus(focusareasList[selectedTheme] || []);
+    }
   };
   const handleFocusAreaChange = (e) => {
     setFocusArea(e.target.value);
   };
 
+  // useEffect(() => {
+  //   setFocus(
+  //     focusareasList[
+  //       props?.theme !== "" && props?.theme !== undefined
+  //         ? props?.theme
+  //         : formData?.theme
+  //     ] || []
+  //   );
+  // }, [formData.theme]);
   useEffect(() => {
-    setFocus(
-      focusareasList[
-        props?.theme !== "" && props?.theme !== undefined
-          ? props?.theme
-          : formData?.theme
-      ] || []
-    );
+    const activeTheme = props?.theme !== "" && props?.theme !== undefined
+            ? props?.theme
+            : formData?.theme;
+    
+    if (activeTheme === "Others") {
+      setFocus([]);
+    } else {
+      setFocus(focusareasList[activeTheme] || []);
+    }
   }, [formData.theme]);
-
   useEffect(() => {
     setTheme(
       props?.theme !== "" && props?.theme !== undefined
@@ -371,6 +387,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
         if (response.status == 200) {
           setIdeaInitiation(response?.data?.data[0]?.initiated_by);
           openNotificationWithIcon("success", "Idea Initiated Successfully");
+          seterror4(false);
+          // console.log("200");
         }
       })
       .catch(function (error) {
@@ -378,6 +396,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
           "error",
           "Please fill Focus Area, Title, ProblemStatement for Idea Initiation."
         );
+        // console.log("errors");
         console.log(error);
       });
   };
@@ -386,6 +405,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
 
     if (error4) {
       apiCall();
+      return; 
     } else {
       if (stats) {
         setLoading({ ...loading, draft: true });

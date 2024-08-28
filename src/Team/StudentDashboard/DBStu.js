@@ -216,7 +216,7 @@ useEffect(() => {
           if (response.status === 200) {
               //console.log(response);
               setMessage(response.data.data[0].student_note);
-              console.log(response.data.data[0].student_note,"message");
+              // console.log(response.data.data[0].student_note,"message");
           }
       })
       .catch(function (error) {
@@ -245,7 +245,7 @@ useEffect(() => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-                console.log(response);
+                // console.log(response);
                 const po = (response.data.data[0].post_survey_completed_date);
                 const pre = (response.data.data[0].pre_survey_completed_date);
                 setStuPostSurvey(po);
@@ -278,15 +278,15 @@ useEffect(() => {
       };
       axios(config)
           .then(function (response) {
-              console.log(response, "res");
+              // console.log(response, "res");
               if (response.status === 200) {
-                  console.log(response, "ideaSubApi");
+                  // console.log(response, "ideaSubApi");
                   setStuIdeaSub(response.data.data[0].status);
                   setStuIdeaLoading(false);
               }
           })
           .catch(function (error) {
-              console.log(error,"error");
+              // console.log(error,"error");
               if(error.response.data.status === 404){
                 setStuIdeaSub("Not Started");
                 setStuIdeaLoading(false);
@@ -439,11 +439,11 @@ useEffect(() => {
               
               <h6> here&apos;s what&apos;s happening with your School Innovation Marathon 2024 today.</h6>
             </div>
-            <div className="d-flex align-items-center">
+            {/* <div className="d-flex align-items-center">
               <div className="dropdown">
                   <LanguageSelectorComp module="student" />
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="row sales-cards">
             <div className="col-xl-3 col-sm-6 col-12">
