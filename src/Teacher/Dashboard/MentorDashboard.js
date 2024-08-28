@@ -617,9 +617,13 @@ const handleWhatsapp = () => {
                           <>
                             <div className="dash-counts">
                               <h4>Congrats</h4>
-                              <h5>Download Certificate</h5>
+                              {/* <h5>Download Certificate</h5> */}
+                              <h5>Certificate yet to enable</h5>
+
                             </div>
-                            <div className="dash-imgs" onClick={handleCertificateDownload}>
+                            <div className="dash-imgs" 
+                            // onClick={handleCertificateDownload}
+                            >
                                 <GiAchievement size={30} />
                             </div>
                           </>

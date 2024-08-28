@@ -277,7 +277,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props, setIdeaCount,
                                 className=""
                                 style={{ fontSize: '1rem' }}
                             >
-                              Focus Area
+                             1. Focus Area
                             </label>
                             <CardText>
                                 {response.focus_area}
@@ -291,7 +291,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props, setIdeaCount,
                                 className=""
                                 style={{ fontSize: '1rem' }}
                             >
-                              Title of your idea (Think of a proper name. Don't describe the solution or problem statement here.)
+                             2. Title of your idea (Think of a proper name. Don't describe the solution or problem statement here.)
                             </label>
                             <CardText>
                                 {submittedResponse.title}
@@ -305,7 +305,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props, setIdeaCount,
                                 className=""
                                 style={{ fontSize: '1rem' }}
                             >
-                               Write down your Problem statement
+                               3. Write down your Problem statement
                             </label>
                             <CardText>
                                {
@@ -321,7 +321,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props, setIdeaCount,
                                 className=""
                                 style={{ fontSize: '1rem' }}
                             >
-                               List the Causes of the problem
+                               4. List the Causes of the problem
                             </label>
                             <CardText>
                                 {
@@ -338,7 +338,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props, setIdeaCount,
                                 className=""
                                 style={{ fontSize: '1rem' }}
                             >
-                                List the Effects of the problem
+                               5. List the Effects of the problem
                             </label>
                             <CardText>{submittedResponse.
 effects
@@ -352,7 +352,7 @@ effects
                                 className=""
                                 style={{ fontSize: '1rem' }}
                             >
-                                In which places in your community did you find this problem?
+                               6. In which places in your community did you find this problem?
                             </label>
                             <CardText>
                                 {submittedResponse.community}
@@ -366,7 +366,7 @@ effects
                                 className=""
                                 style={{ fontSize: '1rem' }}
                             >
-                               Who all are facing this problem?
+                              7. Who all are facing this problem?
                             </label>
                             <CardText>
                                 {submittedResponse.facing}
@@ -380,7 +380,7 @@ effects
                                 className=""
                                 style={{ fontSize: '1rem' }}
                             >
-                               Describe the solution to the problem your team found. Explain your solution clearly - how does it work, who is it helping, and how will it solve the problem.
+                              8. Describe the solution to the problem your team found. Explain your solution clearly - how does it work, who is it helping, and how will it solve the problem.
                             </label>
                             <CardText>
                                 {submittedResponse.solution}
@@ -394,7 +394,7 @@ effects
                                 className=""
                                 style={{ fontSize: '1rem' }}
                             >
-                               Apart from your teacher, how many people/stakeholders did you speak to to understand or improve your problem or solution?
+                              9. Apart from your teacher, how many people/stakeholders did you speak to to understand or improve your problem or solution?
                             </label>
                             <CardText>
                                 {submittedResponse.stakeholders}
@@ -407,7 +407,7 @@ effects
                                 className=""
                                 style={{ fontSize: '1rem' }}
                             >
-                              Pick the actions your team did in your problem solving journey (You can choose multiple options)
+                             10. Pick the actions your team did in your problem solving journey (You can choose multiple options)
                             </label>
                             <CardText>
                                 {/* {submittedResponse.problem_solving} */}
@@ -421,7 +421,7 @@ effects
                                 className=""
                                 style={{ fontSize: '1rem' }}
                             >
-                               Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.
+                              11. Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.
                             </label>
                             <CardText>
                                 {submittedResponse.feedback}
@@ -435,7 +435,7 @@ effects
                                 className=""
                                 style={{ fontSize: '1rem' }}
                             >
-                              Upload image of your prototype.  (total size limit : 10mb)
+                            12.  Upload image of your prototype.  (total size limit : 10mb)
                             </label>
                             {/* <CardText>
                                 {submittedResponse.prototype_image}
@@ -495,7 +495,7 @@ effects
                                 className=""
                                 style={{ fontSize: '1rem' }}
                             >
-                              Did your team complete and submit the workbook to your school Guide teacher?
+                           13.   Did your team complete and submit the workbook to your school Guide teacher?
                             </label>
                             <CardText>
                                 {submittedResponse.workbook}
