@@ -560,7 +560,10 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
           if (response.status === 200) {
             if (stats === "SUBMITTED") {
               openNotificationWithIcon("success", "Idea submission successful");
-              window.location.reload();
+              setTimeout(function() {
+                window.location.reload();
+              }, 500);
+              // window.location.reload();
 
               localStorage.setItem("ideaSubStatus", 1);
               onclick();
