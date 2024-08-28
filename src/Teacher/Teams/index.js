@@ -45,7 +45,7 @@ const Dashboard = (props) => {
   const [teamchangeobj, setteamchangeObj] = useState({});
   const [value, setvalue] = useState("");
   const [ViewedTeam , setViewedTeam] = useState();
-
+console.log(IdeaStatus,"ii");
   useEffect(() => {
     if (currentUser?.data[0]?.mentor_id) {
       teamListbymentorid(currentUser?.data[0]?.mentor_id);
@@ -84,9 +84,48 @@ const Dashboard = (props) => {
   useEffect(() => {
     setDataFinal(teamsListData);
     if (selectedTeam) {
+      submittedApi(selectedTeam);
       // ideaStatusfun(selectedTeam);
     }
   }, [selectedTeam]);
+  const submittedApi = (id) => {
+    const Param = encryptGlobal(
+      JSON.stringify({
+        team_id: id,
+      })
+    );
+    var configidea = {
+      method: "get",
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/challenge_response/submittedDetails?Data=${Param}`,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+      },
+    };
+    axios(configidea)
+      .then(function (response) {
+        if (response.status === 200) {
+          if (response.data.data && response.data.data.length > 0) {
+            const data = response.data.data[0]; 
+            setIdeaStatus(response.data.data[0].status);
+
+            // console.log(data, "data");
+
+
+          } 
+        } 
+      })
+      .catch(function (error) {
+        if (error.response.status === 404) {
+        //   seterror4( true);
+        } 
+
+      });
+  };
+
   const teamListbymentorid = (mentorid) => {
     const teamparam = encryptGlobal(
       JSON.stringify({
@@ -485,6 +524,7 @@ const Dashboard = (props) => {
       });
     setShow(false);
   };
+ 
   return (
     <div>
       <div className="page-wrapper">
@@ -637,7 +677,7 @@ const Dashboard = (props) => {
                       <h4 className="card-title mb-0">Team Members</h4>
                       <div className="view-all-link">
                         <Link to="#" className="view-all d-flex align-items-center">
-                          {stuList == 2 && (
+                          {stuList == 2 && IdeaStatus === 'No Idea' &&(
                             <button
                               className="btn btn-danger btn-sm"
                               onClick={() => handleDeleteTeam(selectedTeam)}
@@ -684,7 +724,7 @@ const Dashboard = (props) => {
                                         </Link>
                                       </OverlayTrigger> 
                                           
-                                          {stuList > 2 && (
+                                          {stuList > 2 &&  IdeaStatus === 'No Idea' &&(
                                             <OverlayTrigger placement="top" overlay={renderSwitchTooltip}>
                                               <Link data-bs-toggle="tooltip" data-bs-placement="top" 
                                                 className="p-2 me-2"
@@ -708,7 +748,7 @@ const Dashboard = (props) => {
                                         // />
                                         //   </Link>
                                           )}
-                                          {stuList > 2 && (
+                                          {stuList > 2 && IdeaStatus === 'No Idea' && (
                                             <OverlayTrigger placement="top" overlay={renderDelTooltip}>
                                             <Link data-bs-toggle="tooltip" data-bs-placement="top" 
                                               className="p-2"

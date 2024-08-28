@@ -1275,7 +1275,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                     fontSize: "1rem",
                                   }}
                                 >
-                                  {t("ideaform_questions.communityq")}
+                                  {t("ideaform_questions.workbookq")}
                                 </b>
                               </div>
                               <div className=" answers row flex-column">
