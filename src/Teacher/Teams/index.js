@@ -301,8 +301,8 @@ const Dashboard = (props) => {
               teamListbymentorid(currentUser?.data[0]?.mentor_id);
               // dispatch(getAdminTeamMembersList(selectedTeam));
               openNotificationWithIcon("success", "Team Deleted Successfully");
-
-              navigate("/teacher-dashboard");
+              window.location.reload();
+              // navigate("/teacher-dashboard");
             } else {
               openNotificationWithIcon("error", "Opps! Something Wrong");
             }
