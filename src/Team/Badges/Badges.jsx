@@ -55,7 +55,6 @@ const BadgesComp = () => {
                                                 style={{ width: '7.4rem' }}
                                             />
                                         </Figure>
-   {console.log(process.env.REACT_APP_API_IMAGE_BASE_URL + badge.icon)}
                                         <CardBody>
                                             <CardTitle className="badge-name mb-3">
                                                 {badge.name}
