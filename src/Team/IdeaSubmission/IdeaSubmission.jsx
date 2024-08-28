@@ -82,7 +82,7 @@ const [initiate,setInitiate]=useState("");
             if (response.status === 200) {
               if (response.data.data && response.data.data.length > 0) {
                 const data = response.data.data[0]; 
-                console.log(data, "data");
+                // console.log(data, "data");
                 setInitiate(response.data.data[0].initiate_by);
 
                 setIdeaSubmittedRes(data);
