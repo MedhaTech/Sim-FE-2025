@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import "./style.scss";
+import "./tepostyle.scss";
 import {
   Container,
   Row,
@@ -22,7 +22,7 @@ import {
   openNotificationWithIcon,
 } from "../../helpers/Utils";
 import axios from "axios";
-import Congo from "../../assets/img/survey-success.jpg";
+import Congo from "../../assets/img/chek.png";
 import { useDispatch, useSelector } from "react-redux";
 import { UncontrolledAlert } from "reactstrap";
 import { useTranslation } from "react-i18next";
@@ -758,11 +758,9 @@ const PostSurvey = () => {
                           ></img>
                         </div>
                         <div>
-                          <h4>
-                            Thank you for completing the survey. Your responses
-                            are important for us to get to know you and your
-                            students better.
-                          </h4>
+                            <h4>
+                              Thanks for taking part.<br/> Your Survey responses have been submitted Successfully..!
+                            </h4>
                         </div>
                       </div>
                     ) : (

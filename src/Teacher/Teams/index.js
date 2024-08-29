@@ -45,7 +45,7 @@ const Dashboard = (props) => {
   const [teamchangeobj, setteamchangeObj] = useState({});
   const [value, setvalue] = useState("");
   const [ViewedTeam , setViewedTeam] = useState();
-
+console.log(IdeaStatus,"ii");
   useEffect(() => {
     if (currentUser?.data[0]?.mentor_id) {
       teamListbymentorid(currentUser?.data[0]?.mentor_id);
@@ -79,14 +79,18 @@ const Dashboard = (props) => {
       })
       .catch(function (error) {
         console.log(error);
+
       });
   };
   useEffect(() => {
     setDataFinal(teamsListData);
     if (selectedTeam) {
-      // ideaStatusfun(selectedTeam);
+      // submittedApi(selectedTeam);
+      ideaStatusfun(selectedTeam);
     }
   }, [selectedTeam]);
+ 
+
   const teamListbymentorid = (mentorid) => {
     const teamparam = encryptGlobal(
       JSON.stringify({
@@ -255,7 +259,9 @@ const Dashboard = (props) => {
            
 
             <div  key={params} onClick={() => handleCreate(params)}>
-              {process.env.REACT_APP_TEAM_LENGTH > params.StudentCount && (
+              {process.env.REACT_APP_TEAM_LENGTH > params.StudentCount && params.
+ideaStatus===  null &&
+(
                 <OverlayTrigger placement="top" overlay={renderAddTooltip}>
                   <Link data-bs-toggle="tooltip" data-bs-placement="top" >
                     <div className="btn btn-success btn-sm btn-added"> <i data-feather="plus-circle" className="feather-plus-circle" /></div>
@@ -301,8 +307,8 @@ const Dashboard = (props) => {
               teamListbymentorid(currentUser?.data[0]?.mentor_id);
               // dispatch(getAdminTeamMembersList(selectedTeam));
               openNotificationWithIcon("success", "Team Deleted Successfully");
-
-              navigate("/teacher-dashboard");
+              window.location.reload();
+              // navigate("/teacher-dashboard");
             } else {
               openNotificationWithIcon("error", "Opps! Something Wrong");
             }
@@ -485,6 +491,7 @@ const Dashboard = (props) => {
       });
     setShow(false);
   };
+ 
   return (
     <div>
       <div className="page-wrapper">
@@ -637,7 +644,7 @@ const Dashboard = (props) => {
                       <h4 className="card-title mb-0">Team Members</h4>
                       <div className="view-all-link">
                         <Link to="#" className="view-all d-flex align-items-center">
-                          {stuList == 2 && (
+                          {stuList == 2 && IdeaStatus === 'No Idea' &&(
                             <button
                               className="btn btn-danger btn-sm"
                               onClick={() => handleDeleteTeam(selectedTeam)}
@@ -684,7 +691,7 @@ const Dashboard = (props) => {
                                         </Link>
                                       </OverlayTrigger> 
                                           
-                                          {stuList > 2 && (
+                                          {stuList > 2 &&  IdeaStatus === 'No Idea' &&(
                                             <OverlayTrigger placement="top" overlay={renderSwitchTooltip}>
                                               <Link data-bs-toggle="tooltip" data-bs-placement="top" 
                                                 className="p-2 me-2"
@@ -708,7 +715,7 @@ const Dashboard = (props) => {
                                         // />
                                         //   </Link>
                                           )}
-                                          {stuList > 2 && (
+                                          {stuList > 2 && IdeaStatus === 'No Idea' && (
                                             <OverlayTrigger placement="top" overlay={renderDelTooltip}>
                                             <Link data-bs-toggle="tooltip" data-bs-placement="top" 
                                               className="p-2"

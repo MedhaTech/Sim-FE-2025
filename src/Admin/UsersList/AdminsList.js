@@ -23,7 +23,7 @@ import { getNormalHeaders } from '../../helpers/Utils';
 
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
-import logout from '../../assets/img/logout.svg';
+import logout from '../../assets/img/logout.png';
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
@@ -292,21 +292,22 @@ const updateStatesList=["All States",...stateList];
     };
 
     const handleStatus = (status, id, type, all) => {
-        console.log(all,"all");
+        // console.log(all,"all");
         // where we can update the status Active to InActive //
         // where id = student id / mentor id  / admin id / evaluator  id//
         // where status = status //
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
-                confirmButton: 'btn btn-success',
-                cancelButton: 'btn btn-danger'
+                confirmButton: 'btn btn-submit',
+                cancelButton: 'btn btn-cancel'
             },
             buttonsStyling: false
         });
 
         swalWithBootstrapButtons
             .fire({
-                title: `You are attempting to ${
+                title: "<h4>Are you sure?</h4>" ,
+                text: `You are attempting to ${
                     status.toLowerCase() === 'active'
                         ? 'activate'
                         : 'inactivate'
@@ -319,9 +320,7 @@ const updateStatesList=["All States",...stateList];
                         ? 'Admin'
                         : 'Mentor'
                 }.`,
-                text: 'Are you sure?',
                 imageUrl: `${logout}`,
-                showCloseButton: true,
                 confirmButtonText: status,
                 showCancelButton: true,
                 cancelButtonText: 'Cancel',
@@ -387,13 +386,7 @@ const updateStatesList=["All States",...stateList];
                         'Successfully updated.',
                         'success'
                     );
-                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    swalWithBootstrapButtons.fire(
-                        'Cancelled',
-                        'Not updated successfully',
-                        'error'
-                    );
-                }
+                } 
             });
     };
 

@@ -76,7 +76,7 @@ const LogInTeam = (props) => {
 
   return (
     <div className="main-wrapper">
-      {/* <div className="account-content">
+      <div className="account-content">
         <div className="login-wrapper email-veri-wrap bg-img">
           <div className="login-content">
             <form onSubmit={formik.handleSubmit} action="index">
@@ -91,9 +91,9 @@ const LogInTeam = (props) => {
                
                 <div className="login-userheading">
                   <h3> Team Login</h3>
-                  <h3>
+                  {/* <h3>
                    Student Team Journey coming soon ...
-                  </h3>
+                  </h3> */}
                   <h4>
                     Access the Team panel using your Team ID and password.
                   </h4>
@@ -175,16 +175,16 @@ const LogInTeam = (props) => {
                 </div> 
                 
                 
-                  <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
+                  {/* <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
                     <p>Copyright © 2023 DreamsPOS. All rights reserved</p>
-                  </div>
+                  </div> */}
                  
               </div>
             </form>
           </div>
         </div>
-      </div> */}
-      <div className="comming-soon-pg w-100">
+      </div> 
+      {/* <div className="comming-soon-pg w-100">
         <div className="coming-soon-box">
           <div className="pos-logo" onClick={handleLogoClick}>
               <img
@@ -211,7 +211,7 @@ const LogInTeam = (props) => {
           
           
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

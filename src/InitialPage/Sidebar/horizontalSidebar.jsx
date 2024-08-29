@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState } from "react";
-import { Grid, Users } from "react-feather";
+import { Grid, Users,Shield } from "react-feather";
 import { Link } from "react-router-dom";
 import logo from "../../assets/img/teac.png";
 import support from "../../assets/img/icons/purchase1.svg";
-
 import FeatherIcon from "feather-icons-react";
 import { ToolFilled } from "@ant-design/icons";
 const HorizontalSidebar = () => {
@@ -16,6 +15,7 @@ const HorizontalSidebar = () => {
   const [isActive5, setIsActive5] = useState(false);
   // const [isActive6, setIsActive6] = useState(false);
   const [isActive7, setIsActive7] = useState(false);
+  const [isActive8, setIsActive8] = useState(false);
   const presurvey = localStorage.getItem("presurveystatus") ;
 
   // const [subActive, setsubActive] = useState(false);
@@ -145,6 +145,7 @@ const HorizontalSidebar = () => {
     setIsActive5(false);
     // setIsActive6(false);
     setIsActive7(false);
+    setIsActive8(false);
   };
   const handleSelectClick2 = () => {
     setIsActive(false);
@@ -154,6 +155,7 @@ const HorizontalSidebar = () => {
     setIsActive5(false);
     // setIsActive6(false);
     setIsActive7(false);
+    setIsActive8(false);
   };
   const handleSelectClick3 = () => {
     setIsActive(false);
@@ -163,6 +165,7 @@ const HorizontalSidebar = () => {
     setIsActive5(false);
     // setIsActive6(false);
     setIsActive7(false);
+    setIsActive8(false);
   };
   const handleSelectClick4 = () => {
     setIsActive(false);
@@ -172,6 +175,7 @@ const HorizontalSidebar = () => {
     setIsActive5(false);
     // setIsActive6(false);
     setIsActive7(false);
+    setIsActive8(false);
   };
   const handleSelectClick5 = () => {
     setIsActive(false);
@@ -181,6 +185,7 @@ const HorizontalSidebar = () => {
     setIsActive5(!isActive5);
     // setIsActive6(false);
     setIsActive7(false);
+    setIsActive8(false);
   };
   // const handleSelectClick6 = () => {
   //   setIsActive(false);
@@ -191,6 +196,17 @@ const HorizontalSidebar = () => {
   //   setIsActive6(!isActive6);
   //   setIsActive7(false);
   // };
+  const handleSelectClick8 = () => {
+    setIsActive(false);
+    setIsActive2(false);
+    setIsActive3(false);
+    setIsActive4(false);
+    setIsActive5(false);
+    // setIsActive6(false);
+    setIsActive7(false);
+    setIsActive8(!isActive8);
+  };
+
   const handleSelectClick7 = () => {
     setIsActive(false);
     setIsActive2(false);
@@ -1422,6 +1438,16 @@ const HorizontalSidebar = () => {
               </li> 
             </ul> */}
           </li>
+          {/* <li className="submenu">
+            <Link
+              to="/teacherBadges"
+              onClick={handleSelectClick8}
+              className={isActive8 ? "subdrop" : ""}
+            >
+              <Shield />
+              <span>Badges</span>
+            </Link>
+            </li> */}
         </ul>
       </div>
     </div>

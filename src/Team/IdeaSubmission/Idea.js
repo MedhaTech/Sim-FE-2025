@@ -1,30 +1,15 @@
 /* eslint-disable indent */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from 'react';
-import IdeaForm from './IdeaForm';
+import IdeaPageCopy from './IdeaPageCopy';
 import { Link } from 'react-router-dom';
 import ImageWithBasePath from '../../core/img/imagewithbasebath';
 import { Check } from 'react-feather';
-import i1 from "../../assets/img/Themes/1.png";
-import i2 from "../../assets/img/Themes/2.png";
-import i3 from "../../assets/img/Themes/3.png";
-import i4 from "../../assets/img/Themes/4.png";
-import i5 from "../../assets/img/Themes/5.png";
-import i6 from "../../assets/img/Themes/6.png";
-import i7 from "../../assets/img/Themes/7.png";
-import i8 from "../../assets/img/Themes/8.png";
 import FeatherIcon from "feather-icons-react";
-
-const themes = [
-  { id: 1, image: i1, title: 'Sustainable Development', focusareas: ["Environmental Conservation", "Renewable energy", "Sustainable Agriculture", "Water Management"], desc: "This theme emphasizes the importance of balancing economic growth with environmental protection to ensure a sustainable future for coming generations." },
-  { id: 2, image: i2, title: 'Digital Transformation', focusareas: ["Digital literacy", "Access to technology", "Cybersecurity", "AI technology based"], desc: "Highlights the critical role of digital technologies in bridging the digital divide and fostering innovation, making India a leader in the digital economy." },
-  { id: 3, image: i3, title: 'Health and Well-being', focusareas: ["Physical health", "mental health", "healthcare innovations", "community well-being"], desc: "Focuses on enhancing the overall health and wellness of communities, ensuring that physical and mental health are prioritized in development plans." },
-  { id: 4, image: i4, title: 'Assuring Quality Education', focusareas: ["Inclusive education", "remote learning", "lifelong learning", "teacher training"], desc: "Stresses the necessity of providing equitable, high-quality education for all, fostering lifelong learning and preparing a skilled workforce for the future." },
-  { id: 5, image: i5, title: 'Economic Empowerment', focusareas: ["Financial literacy", "entrepreneurship", "vocational training", "economic development"], desc: " Aims to uplift communities by promoting financial literacy, entrepreneurship, and vocational skills, driving inclusive economic growth." },
-  { id: 6, image: i6, title: 'Smart & Resilient Communities', focusareas: ["Smart cities", "disaster management", "infrastructure development", "social innovation"], desc: " Encourages the development of adaptive and innovative communities capable of withstanding and thriving amid future challenges and disasters." },
-  { id: 7, image: i7, title: 'Cultural Heritage and Creativity', focusareas: ["Preserving cultural heritage", "promoting arts and crafts", "fostering creativity"], desc: "Recognizes the value of preserving cultural heritage while promoting creativity and the arts as essential components of a vibrant society." },
-  { id: 8, image: i8, title: 'Others - Any Theme', focusareas: ["Any other area that broadly qualifies for the vision of Viksit Bharat"], desc: "Encourages innovative solutions in any other area that aligns with the vision of Viksit Bharat 2047, fostering a culture of broad-based development and progress." }
-];
+import { themes, themesList } from "./themesData";
+import { getCurrentUser } from '../../helpers/Utils';
+import { encryptGlobal } from '../../constants/encryptDecrypt';
+import axios from 'axios';
 
 const settings = {
   dots: false,
@@ -66,21 +51,62 @@ const settings = {
   ],
 };
 
-const Idea = () => {
-  const [selectedTheme, setSelectedTheme] = useState(null);
+const Idea = ({ showChallenge, idea }) => {
+  const [theme, setTheme] = useState(null);
+  const currentUser = getCurrentUser('current_user');
+  const TeamId = currentUser?.data[0]?.team_id;
+  const [themeInt, setThemeInt] = useState("");
+  const [error4, seterror4] = useState(false);
+
   const [data, setData] = useState(0);
   const formRef = useRef(null);
+  const [initiate, setInitiate] = useState("");
 
-  useEffect(() => {
-    if (selectedTheme && formRef.current) {
-      formRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [selectedTheme]);
+  const submittedApi = () => {
+    const Param = encryptGlobal(
+      JSON.stringify({
+        team_id: TeamId,
+      })
+    );
+    var configidea = {
+      method: "get",
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/challenge_response/submittedDetails?Data=${Param}`,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+      },
+    };
+    axios(configidea)
+      .then(function (response) {
+        if (response.status === 200) {
+          // console.log(response.data.data);
+          if (response.data.data && response.data.data.length > 0) {
+            const data = response.data.data[0];
+            setInitiate(response.data.data[0].initiate_by);
+            idea();
 
-  const handleDiscard = () => {
-    setSelectedTheme(null);
+          }
+        }
+      })
+      .catch(function (error) {
+        if (error.response.status === 404) {
+          //   seterror4( true);
+        }
+
+      });
   };
+  useEffect(() => {
+    submittedApi();
+  }, []);
 
+
+
+  const challenges = () => {
+    showChallenge();
+  };
   return (
     <div className='page-wrapper'>
       <div className='content'>
@@ -90,44 +116,44 @@ const Idea = () => {
             <h6>Share your Amazing Ideas with us</h6>
           </div>
         </div>
-        {!selectedTheme ? (
+
+        {!theme ? (
           <div className="row align-items-start pos-wrapper pos-design">
             <div className="col-md-12 col-lg-8">
               <div className="pos-categories tabs_wrapper">
                 <div className="pos-products">
-                    <div className="tabs_container">
-                        <div className="tab_content active">
-                            <div className="row">
-                            {themes.map((theme) => (
-                                <div id={theme.id} key={theme.id} className="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2" onClick={() => setData(theme.id)}>
-                                    <div className="product-info default-cover card">
-                                        <Link to="#" className="img-bg">
-                                            <img
-                                            src={theme.image}
-                                            alt={theme.id}
-                                            />
-                                            <span>
-                                        
-                                            <Check className="feather-16"/>
-                                            </span>
-                                        </Link>
-                                        {/* <h6 className="cat-name">
+                  <div className="tabs_container">
+                    <div className="tab_content active">
+                      <div className="row">
+                        {themes.map((theme) => (
+                          <div id={theme.id} key={theme.id} className="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2" onClick={() => setData(theme.id)}>
+                            <div className="product-info default-cover card">
+                              <Link className="img-bg">
+                                <img
+                                  src={theme.image}
+                                  alt={theme.id}
+                                />
+                                <span>
+
+                                  <Check className="feather-16" />
+                                </span>
+                              </Link>
+                              {/* <h6 className="cat-name">
                                             <Link to="#">Mobiles</Link>
                                         </h6> */}
-                                        <h6 className="product-name">
-                                            <Link to="#">{theme.title}</Link>
-                                        </h6>
-                                        <div className="d-flex align-items-center justify-content-between price">
-                                            <span>Focus Areas</span>
-                                            {theme.id === 8? (<p><FeatherIcon size={20} icon="loader" /></p>):(<p>{theme.focusareas.length}</p>)}
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                ))}
+                              <h6 className="product-name">
+                                <Link to="#">{theme.title}</Link>
+                              </h6>
+                              <div className="d-flex align-items-center justify-content-between price">
+                                <span>Focus Areas</span>
+                                {theme.id === 8 ? (<p><FeatherIcon size={20} icon="loader" /></p>) : (<p>{theme.focusareas.length - 1}</p>)}
+                              </div>
                             </div>
-                        </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -154,33 +180,39 @@ const Idea = () => {
                   <div className="product-added block-section">
                     <div className="head-text d-flex align-items-center justify-content-between">
                       <h6 className="d-flex align-items-center mb-0">
-                        Focus Areas<span className="count">{themes[data - 1].focusareas.length}</span>
+                        Focus Areas<span className="count">{themes[data - 1].id === 8 ? (<p><FeatherIcon size={20} icon="loader" /></p>) : (<p>{themes[data - 1].focusareas.length - 1}</p>)}</span>
                       </h6>
                     </div>
                     <div className="product-wrap">
                       <div className="product-list d-flex align-items-center justify-content-between">
                         <div className="d-flex align-items-center product-info">
                           <div className="info">
-                            <h6>
-                              <span>{themes[data - 1].focusareas[0]}</span>
-                            </h6>
-                            <h6>
-                              <span>{themes[data - 1].focusareas[1]}</span>
-                            </h6>
-                            <h6>
-                              <span>{themes[data - 1].focusareas[2]}</span>
-                            </h6>
-                            <h6>
-                              <span>{themes[data - 1].focusareas[3]}</span>
-                            </h6>
+                            {themes[data - 1].focusareas.slice(0, themes[data - 1].focusareas.length - 1).map((focusarea, index) => (
+                              <h6 key={index}>
+                                <span>{focusarea}</span>
+                              </h6>
+                            ))}
+                            {/* {themes[data - 1].focusareas.length} to display others also
+                              {themes[data - 1].focusareas.map((focusarea, index) => (
+                                <h6 key={index}>
+                                  <span>{focusarea}</span>
+                                </h6>
+                              ))} */}
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className="btn-row d-sm-flex align-items-center justify-content-between" onClick={() => setSelectedTheme(themes[data - 1].title)}>
+                  <div className="btn-row d-sm-flex align-items-center justify-content-between"
+                    onClick={() => setTheme(themes[data - 1].title)}
+                  //   onClick={() =>
+                  //     handleSelect(
+                  //       (themes[data - 1].title)
+                  //     )
+                  // }
+                  >
                     <Link
-                      to="#"
+                      // to="#"
                       className="btn btn-info btn-icon flex-fill"
                     >
                       <span className="me-1 d-flex align-items-center">
@@ -194,10 +226,11 @@ const Idea = () => {
             )}
           </div>
         ) : (
-          <div ref={formRef}>
-            <IdeaForm selectedTheme={selectedTheme} themes={themes} onDiscard={handleDiscard} />
+          <div className='page-wrapper'>
+            <IdeaPageCopy theme={theme} showChallenges={challenges} />
           </div>
         )}
+
       </div>
     </div>
   );

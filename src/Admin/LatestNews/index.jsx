@@ -14,7 +14,7 @@ import { useHistory } from 'react-router-dom';
 // import { ReactDOM } from 'react-dom';
 // import * as ReactDOM from 'react-dom';
 import Swal from 'sweetalert2/dist/sweetalert2';
-import logout from '../../assets/media/logout.svg';
+import logout from '../../assets/img/logout.png';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import 'sweetalert2/src/sweetalert2.scss';
 const AdminLatestNews = () => {
@@ -126,18 +126,17 @@ const AdminLatestNews = () => {
         // here we can delete the team //
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
-                confirmButton: 'btn btn-success',
-                cancelButton: 'btn btn-danger'
+                confirmButton: 'btn btn-submit',
+                cancelButton: 'btn btn-cancel'
             },
             buttonsStyling: false
         });
 
         swalWithBootstrapButtons
             .fire({
-                title: 'Are you sure you want to delete this news?',
-                text: 'Are you sure?',
+                title: "<h4>Are you sure?</h4>",
+                text: "Do you really want to delete this item, This process cannot be undone.",
                 imageUrl: `${logout}`,
-                showCloseButton: true,
                 confirmButtonText: 'Delete',
                 showCancelButton: true,
                 cancelButtonText: 'Cancel',
@@ -178,12 +177,6 @@ const AdminLatestNews = () => {
                         .catch(function (error) {
                             console.log(error);
                         });
-                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    swalWithBootstrapButtons.fire(
-                        'Cancelled',
-                        'Team not Deleted',
-                        'error'
-                    );
                 }
             });
     };

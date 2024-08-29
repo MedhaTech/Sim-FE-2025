@@ -32,13 +32,11 @@ import { useReactToPrint } from 'react-to-print';
 import TCertificate from '../Certificate/TCertificate';
 import SchoolTeamPDF from './SchoolTeamPDF';
 import { Modal } from 'react-bootstrap';
+import Swal from 'sweetalert2/dist/sweetalert2';
+import logout from '../../assets/img/support.png';
 
 const GreetingModal = (props) => {
-  // console.log(props.state,"sss");
- const  navigate=useNavigate();
-  const handleNavigate =()=>{
-    // navigate("");
-  };
+  
   return (
       <Modal
           show={props.show}
@@ -48,7 +46,7 @@ const GreetingModal = (props) => {
           onHide={props.handleClose}
           backdrop={true}
       >
-          <Modal.Header closeButton></Modal.Header>
+          {/* <Modal.Header closeButton></Modal.Header> */}
 
           <Modal.Body>
               <figure>
@@ -60,21 +58,20 @@ const GreetingModal = (props) => {
               </figure>
           </Modal.Body>
           <Modal.Footer>
-                 {/* {props.state !=null &&   <button
-                       className='btn btn-secondary'
-                        onClick={navigate(props.state)}
-                    >
-                      Navigate
-                    </button>} */}
-                    {props.state !=null &&   
-                    <Link
-                                to={props.state}
-                                type="button"
-                                className="product-img"
-                              >
-                                <FaPoll size={30} style={{marginRight : "10px", color:"orange"}} />
-                              </Link>}
-                </Modal.Footer>
+            {props.state !=null &&   
+            <Link
+              to={props.state}
+              type="button"
+              className="product-img"
+            >
+              <button
+                label={"Navigate"}
+                className="btn btn-warning"
+              >
+                Navigate
+              </button>
+            </Link>}
+          </Modal.Footer>
       </Modal>
   );
 };
@@ -108,6 +105,7 @@ const MentorDashboard = () => {
   const [teacCourseLoading, setTeacCourseLoading] = useState(true);
   const [teacPostSLoading, setTeacPostSLoading] = useState(true);
   const [whatsappLink, setWhatsappLink] = useState('');
+  const [message, setMessage] = useState('');
   
   useEffect(() => {
     
@@ -228,6 +226,8 @@ const MentorDashboard = () => {
       axios(config)
           .then(function (response) {
               if (response.status === 200) {
+                // console.log(response, 'idea count');
+
                   setIdeaCount(response.data.data[0].idea_count);
                   setIdeaCountLoading(false);
               }
@@ -350,7 +350,9 @@ const MentorDashboard = () => {
         .then(function (response) {
             if (response.status === 200) {
                 // console.log(response);
-                setWhatsappLink(response.data.data);
+                setWhatsappLink(response.data.data[0].whatapp_link);
+                setMessage(response.data.data[0].mentor_note);
+                // console.log(response.data.data[0].mentor_note,"message");
             }
         })
         .catch(function (error) {
@@ -386,12 +388,16 @@ const MentorDashboard = () => {
     handlePrintCertificate();
   };
 
+  const handleNavigation = () => {
+    navigate("/instructions", { state: { instruction: message } });
+  };
+
   const scroll = () => {
         const section = document.querySelector('#start');
         section.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
   
-
+// console.log(message,"m");
     
   const componentRef = useRef();
   const handlePrintCertificate = useReactToPrint({
@@ -400,6 +406,26 @@ const MentorDashboard = () => {
   const handleClose = () => {
     setShowsPopup(false);
 };
+
+const handleWhatsapp = () => {
+  const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+          confirmButton: 'btn btn-submit',
+      },
+      buttonsStyling: false
+  });
+
+  swalWithBootstrapButtons
+      .fire({
+          title: "<h4>Looking for Support?</h4>",
+          text: "Pls contact your State Program Officer.",
+          imageUrl: `${logout}`,
+          confirmButtonText: 'Ok',
+      });
+  };
+
+
+
   return (
     <>
      <GreetingModal
@@ -591,9 +617,13 @@ const MentorDashboard = () => {
                           <>
                             <div className="dash-counts">
                               <h4>Congrats</h4>
-                              <h5>Download Certificate</h5>
+                              {/* <h5>Download Certificate</h5> */}
+                              <h5>Certificate yet to enable</h5>
+
                             </div>
-                            <div className="dash-imgs" onClick={handleCertificateDownload}>
+                            <div className="dash-imgs" 
+                            // onClick={handleCertificateDownload}
+                            >
                                 <GiAchievement size={30} />
                             </div>
                           </>
@@ -620,9 +650,16 @@ const MentorDashboard = () => {
                   <h5>Support here</h5>
                 </div>
                 <div className="dash-imgs" >
+                {whatsappLink === null ? (
                   <a href={whatsappLink} target="_blank" rel="noopener noreferrer" >
-                    <FaWhatsapp style={{color:"white"}}/>
+                    <FaWhatsapp onClick={handleWhatsapp} style={{color:"white"}}/>
                   </a>
+                ):
+                (
+                    <a href={whatsappLink} target="_blank" rel="noopener noreferrer" >
+                      <FaWhatsapp style={{color:"white"}}/>
+                    </a>
+                )}
                 </div>
               </div>
             </div>
@@ -634,8 +671,8 @@ const MentorDashboard = () => {
               <div className="card flex-fill default-cover w-100 mb-4">
                 <div className="card-header d-flex justify-content-between align-items-center">
                   <h4 className="card-title mb-0">SIM Road Map </h4>
-                  <div className="dropdown">
-                    <Link to="#" className="view-all d-flex align-items-center">
+                  <div className="dropdown" onClick={handleNavigation} >
+                    <Link to="/instructions"  className="view-all d-flex align-items-center">
                       <span className="ps-2 d-flex align-items-center">
                         <FaRoute size={30} />
                       </span>
@@ -981,7 +1018,7 @@ const MentorDashboard = () => {
           </div>
           {/* Teams Progress */}
           <div>
-            <TeamsProgDD  user={currentUser?.data}/>
+            <TeamsProgDD  user={currentUser?.data}  setIdeaCount={setIdeaCount}/>
           </div>
         </div>
       </div>

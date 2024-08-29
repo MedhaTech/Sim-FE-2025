@@ -95,7 +95,7 @@ const EditSchool = (props) => {
                 .required('Organization  Name is Required')
                 .matches(/^[a-zA-Z\s]+$/, 'Only Alpha characters are allowed'),
             unique_code: Yup.string()
-                .matches(/^[0-9]*$/, 'Please enter Numeric values')
+                .matches(/^[A-Za-z0-9/-]*$/, 'Please enter only alphanumeric characters')
                 .optional(),
             address: Yup.string()
                  .optional()
@@ -211,7 +211,6 @@ const EditSchool = (props) => {
                                                 <Label
                                                     className="form-label"
                                                     htmlFor="organization_code"
-                                                    // style={{ fontSize: 15 }}
                                                 >
                                                     UDISE Code
                                                     <span required>*</span>
@@ -566,7 +565,12 @@ const EditSchool = (props) => {
 
                                 <Row>
                         <div style={buttonContainerStyle}>
-                          <button type="submit" className="btn btn-warning" style={buttonStyle}>
+                          <button type="submit"  className={`btn btn-warning  ${
+                        !(formik.dirty && formik.isValid)
+                          ? "default"
+                          : "primary"
+                      }`}
+                      disabled={!(formik.dirty && formik.isValid)} style={buttonStyle}>
                             Submit
                           </button>
                         

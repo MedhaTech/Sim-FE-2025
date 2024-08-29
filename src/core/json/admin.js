@@ -34,13 +34,13 @@ const AdminSidebarData = () => {
           showSubRoute: false,
           submenu: false,
         },
-        // {
-        //   label:"Resource",
-        //   link: "/resource",
-        //   icon: <Icon.Layers />,
-        //   showSubRoute: false,
-        //   submenu: false,
-        // },
+        {
+          label:"Resource",
+          link: "/adminresources",
+          icon: <Icon.Layers />,
+          showSubRoute: false,
+          submenu: false,
+        },
         {
           label:"Latest News",
           link: "/latest-news",

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React from "react";
 import { Route} from "react-router-dom";
@@ -48,7 +49,7 @@ import TeacherSupport from "../Teacher/Support/TeacherSupport";
 import TCertificate from "../Teacher/Certificate/TCertificate";
 import ChangePwd from "../Teacher/ChangePwd";
 
-import Idea from "../Team/IdeaSubmission/Idea";
+// import Idea from "../Team/IdeaSubmission/Idea";
 
 import TeamDashboard from "../Team/TeamDashboard/DboardTeam";
 
@@ -74,7 +75,35 @@ import TeamsList from "../Admin/UsersList/TeamsList";
 import AdminsList from "../Admin/UsersList/AdminsList";
 import MentorTableView from "../Admin/UsersList/MentorTableView";
 import PopUp from "../Admin/PopUp/Popuplist";
-import CreateResource from "../Admin/PopUp/CreatePopUp";
+import Createpopup from "../Admin/PopUp/CreatePopUp";
+import AdminResources from "../Admin/Resources/index";
+import EditResource from "../Admin/Resources/editResource";
+import TeacherProgressDetailed from "../Admin/Reports/Helpers/TeacherProgressDetailed";
+
+import CreateResource from "../Admin/Resources/createResource";
+
+import StudentProgressReport from "../Admin/Reports/Helpers/StudentProgressReport";
+
+import MentorView from "../Admin/UsersList/MentorView";
+import MentorEdit from "../Admin/UsersList/MentorEdit";
+import StudentTableView from "../Admin/UsersList/StudentTableView";
+import StuEdit from "../Admin/UsersList/StudentEdit";
+
+import InstructionsPage from "../Team/IdeaSubmission/InstuctionPage";
+import IdeaSubmission from "../Team/IdeaSubmission/IdeaSubmission";
+// import IdeasPageNew from "../Team/IdeaSubmission/IdeaPageCopy";
+// import Idea from "../Team/IdeaSubmission/Idea";
+
+import InstructionsTeacher from "../Teacher/Dashboard/Instructions";
+import InstructionsStudent from "../Team/StudentDashboard/instructions";
+import BadgesComp from "../Team/Badges/Badges";
+import Badgesteach from "../Teacher/Badges/Badges";
+
+
+
+
+
+
 
 
 
@@ -223,7 +252,79 @@ export const publicRoutes = [
     id: 16,
     path: routes.createpopup,
     name: "createpopup",
+    element: <Createpopup/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 17,
+    path: routes.mentordetails,
+    name: "mentordetails",
+    element: <MentorView/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 18,
+    path: routes.mentorEdit,
+    name: "mentorEdit",
+    element: <MentorEdit/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 19,
+    path: routes.studenttableview,
+    name: "studenttableview",
+    element: <StudentTableView/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 20,
+    path: routes.stuedit,
+    name: "stuedit",
+    element: <StuEdit/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 21,
+    path: routes.reportsteacher,
+    name: "reportsteacher",
+    element: <TeacherProgressDetailed/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 22,
+    path: routes.adminresources,
+    name: "adminresources",
+    element: <AdminResources/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 23,
+    path: routes.createResource,
+    name: "createResource",
     element: <CreateResource/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 24,
+    path: routes.editResource,
+    name: "editResource",
+    element: <EditResource/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 25,
+    path: routes.studentreport,
+    name: "studentreport",
+    element: <StudentProgressReport/>,
     protected: true,
     route: Route,
   },
@@ -308,15 +409,39 @@ export const teamRoutes = [
     id: 5,
     path: routes.idea,
     name: "idea",
-    element: <Idea />,
+    element: <IdeaSubmission/>,
     //protected: true,
     route: Route,
   },
   {
-    id: 5,
+    id: 6,
     path: routes.studentresource,
     name: "studentresource",
     element: <StuResource />,
+    //protected: true,
+    route: Route,
+  },
+  {
+    id: 7,
+    path: routes.instruction,
+    name: "instruction",
+    element: <InstructionsPage />,
+    //protected: true,
+    route: Route,
+  },
+   {
+    id: 8,
+    path: routes.instructionstu,
+    name: "instructionstu",
+    element: <InstructionsStudent />,
+    //protected: true,
+    route: Route,
+  },
+  {
+    id: 9,
+    path: routes.badge,
+    name: "badge",
+    element: <BadgesComp/>,
     //protected: true,
     route: Route,
   },
@@ -432,6 +557,22 @@ export const mentorRoutes = [
     path: routes.mentorchangepwd,
     name: "mentorchangepwd",
     element: <ChangePwd />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 14,
+    path: routes.instructions,
+    name: "instructions",
+    element: <InstructionsTeacher />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 15,
+    path: routes.badgeTeacher,
+    name: "badge",
+    element: <Badgesteach/>,
     protected: true,
     route: Route,
   },

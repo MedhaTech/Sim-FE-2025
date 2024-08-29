@@ -24,9 +24,9 @@ import {
   openNotificationWithIcon,
 } from "../../helpers/Utils";
 import axios from "axios";
-import getStart from "../../assets/img/survey1.jpg";
+import getStart from "../../assets/img/survey1.png";
 import { useNavigate } from "react-router-dom";
-import Congo from "../../assets/img/survey-success.jpg";
+import Congo from "../../assets/img/chek.png";
 import { useDispatch, useSelector } from "react-redux";
 import { UncontrolledAlert } from "reactstrap";
 import { useTranslation } from "react-i18next";
@@ -228,7 +228,7 @@ return (
           <Container className="presuervey" id="start">
             <Col>
               <Row className=" justify-content-center">
-                <div className="aside  p-4 bg-white">
+                <div className="aside  p-4">
                   {preSurveyStatus &&
                   preSurveyStatus !== "COMPLETED" &&
                   !show ? (
@@ -723,8 +723,7 @@ return (
                           </figure>
                           <div>
                             <h4>
-                              Congratulations... Pre-Survey Submitted
-                              Successfully..!
+                              Thanks for taking part.<br/> Your Survey responses have been submitted Successfully..!
                             </h4>
                           </div>
                         </div>

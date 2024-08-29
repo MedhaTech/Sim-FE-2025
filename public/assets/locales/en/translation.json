@@ -193,7 +193,7 @@
     },
     "student": {
         "profile": "My Profile",
-        "worksheet": "<p><b>Dear Student,</b></p><p>The workbook is a set of activity sheets that will help you do the course, understand and practice your problem solving journey better. They are based on the concepts you learnt in the videos and are expected to do it as a team. Every team will have a workbook.</p><p><b>Step-1:</b> While it is good to have a printed workbook, it is not compulsory to take a print out. In case you do not have a printed workbook, you can refer to the workbook on a digital device and write down the page number and question number and then answer the questions in notebooks / papers.</p><p><b>Step-2:</b>After watching the videos, discuss the concepts you learnt and the related module workbook pages with your team before you start to do the workbook. (Remember that Workbook is a Team Activity, not individual task)</p><p>Hope you and your team learn new things and enjoy completing this workbook.</p><h2 style='color:blue' >Themes & Problem Statements</h2><p> Go through themes and problems statements document and choose one problem among  all. Keep working on the chosen problem using the problem solving the techniques you learn as part of this course to submit your idea for it during idea submission process. </p>",
+        "worksheet": "<p><b>Dear Student,</b></p><p>The workbook is a set of activity sheets that will help you do the course, understand and practice your problem solving journey better. They are based on the concepts you learnt in the videos and are expected to do it as a team. Every team will have a workbook.</p><p><b>Step-1:</b> While it is good to have a printed workbook, it is not compulsory to take a print out. In case you do not have a printed workbook, you can refer to the workbook on a digital device and write down the page number and question number and then answer the questions in notebooks / papers.</p><p><b>Step-2:</b>After watching the videos, discuss the concepts you learnt and the related module workbook pages with your team before you start to do the workbook. (Remember that Workbook is a Team Activity, not individual task)</p><p>Hope you and your team learn new things and enjoy completing this workbook.</p><h4 class='text-primary'>Themes & Focus Areas</h4> <br/> <p> Go through themes and problems statements document and choose one problem among  all. Keep working on the chosen problem using the problem solving the techniques you learn as part of this course to submit your idea for it during idea submission process. </p>",
         "download_worksheet": "Download WorkBook",
         "download_theme": "Download Themes",
         "continue": "Continue",
@@ -226,12 +226,12 @@
         "idea_submitted_desc": "<h2>Congratulations for successfully submitting the idea</h2>.</br><p>Please click continue to complete your post survey and get your certificate.</p>",
         "post_survey_desc": "Congratulations! your journey in this program is complete.",
         "click_button_post_survey": "Your certificate will be ready soon and you can download it from ‘My Certificate Page’",
-        "max_length_msg1": "Maximum length of characters is ",
+        "max_length_msg1": "Maximum length of words are",
         "max_length_msg2": " only...",
         "cutoff": "You scored less than the cutoff (60%)",
-        "retest": "Retest",
+        "retest": "Retake Quiz",
         "resume_quiz": "Resume Quiz",
-        "see_result": "See Result"
+        "see_result": "View Result"
     },
     "teacher_presurvey": {
         "completed_text": "Thank you for completing the Survey. Your responses are important for us to get to know you and your students better."
@@ -384,15 +384,17 @@
         "continue course": "Continue Course",
         "exitfullscreen": "Exit Full Screen",
         "quiz_completed": "Successfully Completed!",
-        "go_idea_submission": "Continue",
+        "go_idea_submission": "Start Idea Submission",
+        "submission": "Idea Submission ",
+
         "go_certificate": "Go to My Certificate",
         "course_completed_succ": "Congratulations for successful completion of all the lessons!",
-        "continue_to_idea": "Click on continue to proceed to Idea Submission.",
+        "continue_to_idea": "Click to proceed to Idea Submission.",
         "sdg": "Which theme are you targeting with your solution ?",
         "subCategory": "Which problem statement are you targeting with your solution ?",
         "sdg_desc": "",
         "others": "If you picked the option ‘others’ in the above question, Describe your theme",
-        "chars": "Characters Remaining",
+        "chars": "Words Remaining",
         "idea_submission": "Idea Submission",
         "idea_submission_msg1": "Idea submission is",
         "idea_status1": " initiated by ",
@@ -403,13 +405,15 @@
         "go_to_course_button": "Go to course",
         "go_to_post_survey_button": "Go to Post Survey",
         "cong_msg_menu": "<p class='text-success'><b>🎉 Congratulations on completing the course! 🎉</b></p><p>You did it! Your dedication and hard work have brought you to this exciting milestone. We are incredibly proud of your achievement and the effort you've put into the program.</p><p>This accomplishment marks just the beginning of your journey. The knowledge you've gained will be a valuable asset as you move forward in the program. Remember, learning is a lifelong adventure, and you've proven your ability to thrive in it.</p><p><b>We can't wait to see all the amazing Ideas you & your team are going to submit.</b></p>",
-        "quiz_inst_msg": "<p class='text-center' style='font-size:1.5rem'>Now that you have watched some videos, learnt new concepts, discussed them with your team and teacher and practiced them using the workbook,  it's time to check how much you have understood.</p><b style='color:blue'>Instructions:</b><ol><li>Read and understand the question carefully before answering.</li><li>Quiz will consist of 10-15 questions and will take  5-10  minutes to complete.</li><li>Score will be displayed at the end of the quiz for your reference.</li><li>You need to get at least 60% i.e., at least answer 6-8 questions correctly to move to the next module and unlock the videos.</li><li>You can retake the quiz again if you score less than 60%.</li></ol>",
+        "quiz_inst_msg":"",
+        "quiz_inst_msg1": "<p class='text-left' style='font-size:1rem'>Now that you have watched some videos, learnt new concepts, discussed them with your team and teacher and practiced them using the workbook,  it's time to check how much you have understood.</p>",
+        "quiz_inst_msg2": "<b>INSTRUCTIONS:</b><ol style='list-style-type: decimal; margin-left:25px; line-height:25px'><li>Read and understand the question carefully before answering.</li><li>Quiz will consist of 10-15 questions and will take  5-10  minutes to complete.</li><li>Score will be displayed at the end of the quiz for your reference.</li><li>You need to get at least 60% i.e., at least answer 6-8 questions correctly to move to the next module and unlock the videos.</li><li>You can retake the quiz again if you score less than 60%.</li></ol>",
         "quiz_start_title": "Ready for a quick test?",
         "quiz_con_title": " Continue your quick test",
-        "idea_ins_note": "<p>As you are getting ready to submit your idea, remember these important things to make sure you do it well:</p><p><b>Step-1:</b>Go through Idea submission Process video in Resources section. Discuss with all your team members and the guide teacher to select the final idea for submission.</p><p><b>Step-2:</b> Write down your idea on a paper or notebook before you start submitting it on the website.</p><p><b>Step-3:</b> Fill the form carefully and ensure you double-check everything before you save or submit your idea. Do not forget to ask your guide teacher to go through the details entered by you to make sure they are correct.</p><p><b>Note:</b>  You cannot make changes once the idea is submitted. Invalid/Wrong entries will not be selected.</p><p style='color:blue'><b>Details  to keep ready before you proceed to submit your idea:</b></p><ul><li>Go through Themes and Problem statements document.</li><li>Select your theme and Problem Statement.</li><li>Write down Innovation Title and working in detail. Idea name should convey the uniqueness of your solution.</li><li>List out the ATL tools / technologies you used to develop your project and how.</li><li>Get ready with Project Research Document , Images & Video (Youtube link) of your project’s prototype/design if you have done the Make & test process to upload during Idea submission.</li></ul><p><b>Go ahead and submit your idea! Wish you All the best 👍</b></p>",
+        "idea_ins_note": "<p>As you prepare to submit your idea, follow these important steps to ensure a successful submission:</p><p><b>Step-1:</b> 📹 Watch the Idea Submission Process video in the Resources section. Discuss with your team members and guide the teacher to finalize your idea.</p><p><b>Step-2:</b>✍️ Write down your idea on paper or in a notebook before entering it on the website.</p><p><b>Step-3:</b> 📝 Only the student who initiates the idea can edit and submit it. Coordinate with your team and teacher before starting the submission process.</p><p><b>Step-4:</b> 💾 Use the <b>'Save as Draft'</b> option regularly to prevent data loss in case of disconnections.</p><p><b>Step-5:</b> 🕵️‍♂️ Fill out the form carefully. Double-check all entries before saving or submitting. Ask your guide teacher to review the details to ensure accuracy.</p><p><b><b style='color:red'>Note:</b> 🚫 Once submitted, you cannot make changes.</b> Invalid or incorrect entries will not be considered.</p><h4 style='color:orange'><b>Details to Prepare Before Submitting Your Idea:</b></h4><br/><ul><li><b>1. Review Themes & Focus Areas:</b> 📚 Carefully examine the Themes document to identify the one that best aligns with your concept.</li><li><b>2. Select Your Theme and Focus Area:</b> 🎯 Choose the theme and focus area that are most pertinent to your project.</li><li><b>3. Craft Your Idea Title and Description:</b> ✍️ Formulate a precise and compelling title along with detailed description that highlights uniqueness of your Idea.</li><li><b>4. Document Technologies and Concepts Utilized:</b> 🛠️ List the technologies or concepts used in your project and explain how they were applied.</li><li><b>5. Assemble Supporting Materials:</b> 📄 Ensure your Project Research Document is complete, and gather any relevant images, videos of your prototype or design, and presentations, especially if you've completed the Make & Test phase.</li></ul><br/><p><b>If you've completed all the steps above, go ahead and submit your ideas to make an impact!</b></p>" ,
         "my_cer_note": "<p class='text-success'><b>👏🏻 Congratulations on successfully completing the course and submitting the idea 🥳</b></p><p>We wish you All the best 👍& hope you and your team will continue this journey of exploring the world around, learning new things, working together & spreading joy😃</p>",
-        "quiz_com_title": "Quick test Completed successfully",
-        "quiz_com_note": "Check your score.",
+        "quiz_com_title": "Quick Test Completed.!",
+        "quiz_com_note": "Your quick test has been completed successfully! <br/> Click below button to see detiled results.",
         "quiz_score_attempts": "Attempts",
         "quiz_score_correctanswers": "Correct Answers",
         "quiz_score_wronganswers": "Wrong Answers",
@@ -430,5 +434,110 @@
     "translation": {
         "tamil": "English Content :-",
         "tamil_to": "tn"
+    },
+    "ideaform_questions":{
+        "section1" : "Problem Identification",
+        "section2" : "Solution & User Analysis",
+        "section3" : "Prototyping",
+        "themeq" : "Choose your theme",
+        "focusareaq" : "Select Focus Area of your Idea",
+        "ideatitleq" : "Title of your idea (Think of a proper name. Don't describe the solution or problem statement here.)",
+        "problemstatementq" : "Write down your Problem statement",
+        "causesq" : "List the Causes of the problem.",
+        "effectsq" : "List the Effects of the problem",
+        "communityq" : "In which places in your community did you find this problem?",
+        "communityop1" : "School",
+        "communityop2" : "Home",
+        "communityop3" : "Other places in the surroundings (Market/Park/Playground etc.)",
+        "communityop4" : "Others (Read in newspapers, saw on the internet, etc.)",
+        "facingq" : "Who all are facing this problem?",
+        "solutiondetailsq" : "Describe the solution to the problem your team found. Explain your solution clearly - how does it work, who is it helping, and how will it solve the problem.",
+        "stakeholdersq" : "Apart from your teacher, how many people/stakeholders did you speak to to understand or improve your problem or solution?",
+        "stakeholdersop1" : "None",
+        "stakeholdersop2" : "2-4 people",
+        "stakeholdersop3" : "5+ people",
+        "stakeholdersop4" : "10+ people",
+        "probsoljourneyq" : "Pick the actions your team did in your problem solving journey (You can choose multiple options)",
+        "probsoljourneyop1" : "We did the full problem solving journey by ourselves." ,
+        "probsoljourneyop2" : "We got feedback on our problem and modified it" ,
+        "probsoljourneyop3" : "We got feedback on our idea and modified it" ,
+        "probsoljourneyop4" : "We got feedback on our prototype and modified it" ,
+        "feedbackq" : " Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.",
+        "uploadq" : "Upload images/documents & video links of your prototype.  (total size limit : 10mb)",
+        "workbookq" : "Did your team complete and submit the workbook to your school Guide teacher?",
+        "workbookyes" : "YES" ,
+        "workbookno" : "NO",
+        "ideawarning" : "Save your idea & Ask your guide teacher to go through the details entered by you to make sure they are correct. You cannot make changes once the idea is submitted. Invalid/Wrong entries will not be selected.",
+        "placeholdertext" : "List one by one with numbering…"
+    },
+    "themes" : {
+        "sustainabletheme" : "Sustainable Development & Environment",
+        "digitaltheme" : "Digital Transformation",
+        "healththeme" : "Health and Well-being",
+        "educationtheme" : "Quality Education",
+        "economictheme" : "Economic Empowerment",
+        "smarttheme" : "Smart and Resilient Communities",
+        "agritheme" : "Agriculture & Rural Development",
+        "othertheme" : "Others"
+    },
+    "themedetails" : {
+        "sustainabletheme" : "Sustainable Development is about balancing economic growth, environmental care, and social well-being to ensure a better future for all.",
+        "digitaltheme" : "Highlights the critical role of digital technologies in bridging the digital divide and fostering innovation, making India a leader in the digital economy.",
+        "healththeme" : "Focuses on ensuring physical, mental, and social wellness for individuals and communities to lead fulfilling lives.",
+        "educationtheme" : "Quality Education ensures inclusive, equitable learning opportunities that empower individuals with the knowledge and skills needed for lifelong success.",
+        "economictheme" : "Economic Empowerment enables individuals and communities to improve their financial stability and independence through access to resources, opportunities, and skills.",
+        "smarttheme" : "Smart and Resilient Communities use technology and sustainable practices to adapt to challenges, ensuring safety, efficiency, and long-term well-being for all members.",
+        "agritheme" : "Focuses on improving farming practices and infrastructure in rural areas to boost productivity, sustainability, and quality of life for rural communities.",
+        "othertheme" : "Encourages innovative solutions in any other area that aligns with the vision of Viksit Bharat 2047, fostering a culture of broad-based development and progress."
+    },
+    "sustainablefocusareas" : {
+        "focusarea1" : "Renewable Energy (e.g., solar, wind, hydro)",
+        "focusarea2" : "Waste Management (e.g., recycling, composting)",
+        "focusarea3" : "Clean Water (e.g., water purification, rainwater harvesting)",
+        "focusarea4" : "Environment Protection (e.g., pollution control, reforestation)",
+        "focusarea5" : "Sustainable Agriculture (e.g., organic farming, soil conservation)"
+    },
+    "digitalfocusareas" : {
+        "focusarea1" : "Internet of Things (IoT) (e.g., smart homes, connected devices)",
+        "focusarea2" : "Information Technology (e.g., software, apps)",
+        "focusarea3" : "Cybersecurity (e.g., protecting data, secure online practices)",
+        "focusarea4" : "Blockchain (e.g., secure transactions, decentralized systems)",
+        "focusarea5" : "Artificial Intelligence (AI) & Machine Learning (ML) (e.g., smart assistants, predictive analytics)"
+    },
+    "healthfocusareas" : {
+        "focusarea1" : "Medical Devices (e.g., health monitors, diagnostic tools)",
+        "focusarea2" : "Nutrition and Healthy Eating (e.g., balanced diets, fortified foods)",
+        "focusarea3" : "Mental Health (e.g., stress management, counseling tools)",
+        "focusarea4" : "Fitness and Sports (e.g., exercise programs, sports innovations)"      
+    },
+    "educationfocusareas" : {
+        "focusarea1" : "Online Learning (e.g., e-learning platforms, virtual classrooms)",
+        "focusarea2" : "Inclusive Education (e.g., education for all, special needs education)",
+        "focusarea3" : "Teacher Training (e.g., professional development, new teaching methods)",
+        "focusarea4" : "Educational Technology (e.g., interactive learning tools, digital textbooks)" 
+    },
+    "economicfocusareas" : {
+        "focusarea1" : "Financial Education (e.g., budgeting, saving, investing)",
+        "focusarea2" : "Start-up Innovations (e.g., new business ideas, entrepreneurship support)",
+        "focusarea3" : "Vocational Training (e.g., skill development, job readiness)",
+        "focusarea4" : "Retail Innovations (e.g., new products, better shopping experiences)"  
+    },
+    "smartfocusareas" : {
+        "focusarea1" : "Smart Cities (e.g., smart traffic systems, digital public services)",
+        "focusarea2" : "Electric Vehicles (e.g., electric cars, charging stations)",
+        "focusarea3" : "Disaster Management (e.g., emergency response systems, disaster-proof buildings)",
+        "focusarea4" : "Robotics and Drones (e.g., automation, aerial surveys)",
+        "focusarea5" : "Smart Textiles (e.g., wearable technology, smart fabrics)",
+        "focusarea6" : "Travel and Tourism (e.g., eco-tourism, smart travel apps)"
+    },
+    "agrifocusareas" : {
+        "focusarea1" : "Modern Farming Techniques (e.g., hydroponics, precision farming)",
+        "focusarea2" : "Rural Development (e.g., rural infrastructure, community projects)",
+        "focusarea3" : "Food Security (e.g., food storage, distribution systems)",
+        "focusarea4" : "Nutrition (e.g., healthy diets, fortified foods)"  
+    },
+    "otherfocusareas" : {
+        "focusarea1" : "Any other area that broadly qualifies for the vision of Viksit Bharat"
     }
+
 }

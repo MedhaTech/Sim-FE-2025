@@ -53,19 +53,19 @@ class Schoolpdf extends React.Component {
                             aria-valuemin={0}
                             aria-valuemax={100}
                         >
-                            <div 
-                      style={{ width: `${percent}%` }}
-                            
-                            className={percent
-                                ? percent <= 25
-                                    ? "progress-bar bg-danger"
-                                    : percent > 25 && percent <= 50
-                                        ? "progress-bar bg-primary"
-                                        : percent > 50 && percent <= 75
-                                            ? "progress-bar bg-info"
-                                            : "progress-bar bg-success"
-                                : "progress-bar bg-danger"
-                            } >
+                            <div
+                                style={{ width: `${percent}%` }}
+
+                                className={percent
+                                    ? percent <= 25
+                                        ? "progress-bar bg-danger"
+                                        : percent > 25 && percent <= 50
+                                            ? "progress-bar bg-primary"
+                                            : percent > 50 && percent <= 75
+                                                ? "progress-bar bg-info"
+                                                : "progress-bar bg-success"
+                                    : "progress-bar bg-danger"
+                                } >
                                 <div
                                     className={percent
                                         ? percent <= 25
@@ -290,8 +290,7 @@ class Schoolpdf extends React.Component {
                                 fontFamily: 'Poppins'
                             }}
                         >
-                            {/* {this?.props?.remMentor?.IdeaCount[0]?.idea_count} */}
-                            0
+                            {this?.props?.remMentor?.IdeaCount[0]?.idea_count}
                         </span>
                         <img
                             src={schoolpdfpage1}
@@ -408,7 +407,7 @@ class Schoolpdf extends React.Component {
                                     </>
                                 );
                             })}
-                            {/* <table style={{ border: '1px solid black' }}>
+                            <table style={{ border: '1px solid black' }}>
                                 <tr>
                                     <th
                                         style={{
@@ -480,13 +479,13 @@ class Schoolpdf extends React.Component {
                                                     }}
                                                 >
                                                     {idea?.ideaStatus ===
-                                                    'SUBMITTED' ? (
-                                                        <FaCheckCircle
+                                                        'SUBMITTED' ? (
+                                                        <CheckCircle
                                                             size={20}
                                                             color="green"
                                                         />
                                                     ) : (
-                                                        <FaTimesCircle
+                                                        <IoHelpOutline
                                                             size={20}
                                                             color="red"
                                                         />
@@ -496,7 +495,7 @@ class Schoolpdf extends React.Component {
                                         );
                                     }
                                 )}
-                            </table> */}
+                            </table>
                         </div>
                     </div>
                     <img

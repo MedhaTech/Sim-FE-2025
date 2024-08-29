@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState } from "react";
 //import { Link } from "react-router-dom";
@@ -7,303 +9,718 @@ import Table from "../../core/pagination/datatable";
 // //import { ArrowRight } from "react-feather";
 // import { FaUsers } from 'react-icons/fa';
 ////////////////////New Code//////////////////////////
-import { getCurrentUser } from '../../helpers/Utils';
-import axios from 'axios';
+import { getCurrentUser } from "../../helpers/Utils";
+import axios from "axios";
 import { Mail } from "feather-icons-react/build/IconComponents";
-import{ IoHelpOutline,
-} from "react-icons/io5";
-import {  CheckCircle } from 'react-feather';
-import { useEffect } from 'react';
-import { encryptGlobal } from '../../constants/encryptDecrypt';
-import { getTeamMemberStatus } from '../store/teams/actions';
+import { IoHelpOutline } from "react-icons/io5";
+import { CheckCircle } from "react-feather";
+import { useEffect } from "react";
+import { encryptGlobal } from "../../constants/encryptDecrypt";
+import { getTeamMemberStatus } from "../store/teams/actions";
 import { openNotificationWithIcon } from "../../helpers/Utils";
 import team from "../../assets/img/icons/team.svg";
+import { Row, Col } from "reactstrap";
+import { Card, Progress } from "reactstrap";
+import { Button } from "../../stories/Button";
+import { Modal } from "react-bootstrap";
+import Selects from "./Select";
+import Swal from "sweetalert2/dist/sweetalert2";
+import logout from "../../assets/img/logout.png";
+import IdeaSubmissionCard from "../../components/IdeaSubmissionCard";
 
+const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
+  const [ideaShow, setIdeaShow] = useState(false);
+  const [ChangeShow, setChangeShow] = useState(false);
 
+  //////////////New Code/////////////////////////
+  const dispatch = useDispatch();
+  const currentUser = getCurrentUser("current_user");
+  // const TeamId = currentUser?.data[0]?.team_id;
 
-const TeamsProgDD = ({user}) => {
-  
-    //////////////New Code/////////////////////////
-    const dispatch = useDispatch();
-    const currentUser = getCurrentUser('current_user');
-    const { teamsMembersStatus, teamsMembersStatusErr } = useSelector(
-        (state) => state.teams
+  const { teamsMembersStatus, teamsMembersStatusErr } = useSelector(
+    (state) => state.teams
+  );
+  // console.log(teamsMembersStatus,"11");
+  const [isEvlCom, setIsEvlCom] = useState(false);
+  const [isideadisable, setIsideadisable] = useState(false);
+
+  const [formData, setFormData] = useState({});
+  const [teamId, setTeamId] = useState(null);
+  const [mentorid, setmentorid] = useState("");
+  const [showDefault, setshowDefault] = useState(true);
+  const [ideaStatusEval, setIdeaStatusEval] = useState("-");
+  const [isReject, setIsreject] = React.useState(false);
+  const [reason, setReason] = React.useState("");
+  const [noData,setNoData]=useState(false);
+  const selectData = [
+    "Not novel - Idea and problem common and already in use.",
+    "Not novel - Idea has been 100% plagiarized.",
+    "Not useful - Idea does not solve the problem identified / problem & solution not connected.",
+    "Not understandable - Idea Submission does not have proper details to make a decision.",
+    "Not clear (usefulness)",
+    "Not filled - Inaccurate data (form is not filled properly)",
+  ];
+  useEffect(() => {
+    if (teamId) {
+      dispatch(getTeamMemberStatus(teamId, setshowDefault));
+      submittedApi(teamId);
+      //dispatch(getStudentChallengeSubmittedResponse(teamId));
+    }
+  }, [teamId, dispatch]);
+  const percentageBWNumbers = (a, b) => {
+    return (((a - b) / a) * 100).toFixed(2);
+  };
+  useEffect(() => {
+    if (user) {
+      setmentorid(user[0].mentor_id);
+    }
+  }, [user]);
+  const [teamsList, setTeamsList] = useState([]);
+  useEffect(() => {
+    if (mentorid) {
+      setshowDefault(true);
+      teamNameandIDsbymentorid(mentorid);
+    }
+  }, [mentorid]);
+
+  const teamNameandIDsbymentorid = (mentorid) => {
+    const teamApi = encryptGlobal(
+      JSON.stringify({
+        mentor_id: mentorid,
+      })
     );
-    const [teamId, setTeamId] = useState(null);
-    const [mentorid, setmentorid] = useState('');
-    const [showDefault, setshowDefault] = useState(true);
-    useEffect(() => {
-        if(teamId){
-            dispatch(getTeamMemberStatus(teamId, setshowDefault));
-            //dispatch(getStudentChallengeSubmittedResponse(teamId));
-        }
-    }, [teamId, dispatch]);
-    const percentageBWNumbers = (a, b) => {
-        return (((a - b) / a) * 100).toFixed(2);
+    var config = {
+      method: "get",
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/teams/namebymenterid?Data=${teamApi}`,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+      },
     };
-    useEffect(() => {
-        if (user) {
-            setmentorid(user[0].mentor_id);
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          setTeamsList(response.data.data);
         }
-    }, [user]);
-    const [teamsList, setTeamsList] = useState([]);
-    useEffect(() => {
-        if (mentorid) {
-            setshowDefault(true);
-            teamNameandIDsbymentorid(mentorid);
-        }
-    }, [mentorid]);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
-    const teamNameandIDsbymentorid = (mentorid) => {
-        const teamApi = encryptGlobal(
-            JSON.stringify({
-                mentor_id: mentorid
-            })
-        );
-        var config = {
-            method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                `/teams/namebymenterid?Data=${teamApi}`,
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${currentUser.data[0]?.token}`
-            }
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 200) {
-                    setTeamsList(response.data.data);
+  const columns = [
+    {
+      title: "Name",
+      dataIndex: "full_name",
+      width: "15rem",
+    },
+    {
+      title: "Pre Survey",
+      dataIndex: "pre_survey_status",
+      align: "center",
+      width: "15rem",
+      render: (_, record) =>
+        record?.pre_survey_status ? (
+          <CheckCircle size={20} color="#28C76F" />
+        ) : (
+          <IoHelpOutline size={20} color="#FF0000" />
+        ),
+    },
+    {
+      title: "Lesson Progress",
+      dataIndex: "address",
+      align: "center",
+      width: "30rem",
+      render: (_, record) => {
+        let percent =
+          100 -
+          percentageBWNumbers(
+            record.all_topics_count,
+            record.topics_completed_count
+          );
+        return (
+          // <div className="d-flex">
+          //     <div style={{ width: '80%' }}>
+          //         <Progress
+          //             key={'25'}
+          //             className="progress-height"
+          //             animated
+          //             color={
+          //                 percent
+          //                     ? percent <= 25
+          //                         ? 'danger'
+          //                         : percent > 25 && percent <= 50
+          //                         ? 'info'
+          //                         : percent > 50 && percent <= 75
+          //                         ? 'warning'
+          //                         : 'sucess'
+          //                     : 'danger'
+          //             }
+          //             value={percent}
+          //         />
+          //     </div>
+          //     <span className="ms-2">
+          //         {Math.round(percent) ? Math.round(percent) : '0'}%
+          //     </span>
+          // </div>
+          <div
+            className="progress progress-sm progress-custom progress-animate"
+            role="progressbar"
+            aria-valuenow={Math.round(percent) ? Math.round(percent) : "0"}
+            aria-valuemin={0}
+            aria-valuemax={100}
+          >
+            <div
+              style={{ width: `${percent}%` }}
+              className={
+                percent
+                  ? percent <= 25
+                    ? "progress-bar bg-danger"
+                    : percent > 25 && percent <= 50
+                    ? "progress-bar bg-primary"
+                    : percent > 50 && percent <= 75
+                    ? "progress-bar bg-info"
+                    : "progress-bar bg-success"
+                  : "progress-bar bg-danger"
+              }
+            >
+              <div
+                className={
+                  percent
+                    ? percent <= 25
+                      ? "progress-bar-value bg-danger"
+                      : percent > 25 && percent <= 50
+                      ? "progress-bar-value bg-primary"
+                      : percent > 50 && percent <= 75
+                      ? "progress-bar-value bg-info"
+                      : "progress-bar-value bg-success"
+                    : "progress-bar-value bg-danger"
                 }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    };
-
-    const columns = [
-        {
-            title: 'Name',
-            dataIndex: 'full_name',
-            width: '15rem'
-        },
-        {
-            title: 'Pre Survey',
-            dataIndex: 'pre_survey_status',
-            align: 'center',
-            width: '15rem',
-            render: (_, record) =>
-                record?.pre_survey_status ? (
-                    <CheckCircle size={20} color="#28C76F" />
-                ) : (
-                    <IoHelpOutline size={20} color="#FF0000"/>
-                )
-        },
-        {
-            title: 'Lesson Progress',
-            dataIndex: 'address',
-            align: 'center',
-            width: '30rem',
-            render: (_, record) => {
-                let percent =
-                    100 -
-                    percentageBWNumbers(
-                        record.all_topics_count,
-                        record.topics_completed_count
-                    );
-                return (
-                    // <div className="d-flex">
-                    //     <div style={{ width: '80%' }}>
-                    //         <Progress
-                    //             key={'25'}
-                    //             className="progress-height"
-                    //             animated
-                    //             color={
-                    //                 percent
-                    //                     ? percent <= 25
-                    //                         ? 'danger'
-                    //                         : percent > 25 && percent <= 50
-                    //                         ? 'info'
-                    //                         : percent > 50 && percent <= 75
-                    //                         ? 'warning'
-                    //                         : 'sucess'
-                    //                     : 'danger'
-                    //             }
-                    //             value={percent}
-                    //         />
-                    //     </div>
-                    //     <span className="ms-2">
-                    //         {Math.round(percent) ? Math.round(percent) : '0'}%
-                    //     </span>
-                    // </div>
-                <div className="progress progress-sm progress-custom progress-animate"
-                    role="progressbar"
-                    aria-valuenow={Math.round(percent) ? Math.round(percent) : '0'}
-                    aria-valuemin={0}
-                    aria-valuemax={100}
-                  >
-                    <div 
-                      style={{ width: `${percent}%` }}
-                    className={percent
-                                ? percent <= 25
-                                    ?  "progress-bar bg-danger"
-                                    : percent > 25 && percent <= 50
-                                    ? "progress-bar bg-primary"
-                                    : percent > 50 && percent <= 75
-                                    ? "progress-bar bg-info"
-                                    : "progress-bar bg-success"
-                                : "progress-bar bg-danger"
-                        } >
-                      <div 
-                        className= {percent
-                          ? percent <= 25
-                              ?  "progress-bar-value bg-danger"
-                              : percent > 25 && percent <= 50
-                              ? "progress-bar-value bg-primary"
-                              : percent > 50 && percent <= 75
-                              ? "progress-bar-value bg-info"
-                              : "progress-bar-value bg-success"
-                          : "progress-bar-value bg-danger"} >
-                        {Math.round(percent) ? Math.round(percent) : '0'}%</div>
-                    </div>
-                </div>
-                );
-            }
-        },
-        {
-            title: 'Idea Submission',
-            dataIndex: 'idea_submission',
-            align: 'center',
-            width: '20rem',
-            render: (_, record) =>
-                record?.idea_submission ? (
-                    <CheckCircle size={20} color="#28C76F" />
-                ) : (
-                    <IoHelpOutline size={20} color="#FF0000"/>
-                )
-        },
-        {
-            title: 'Post Survey',
-            dataIndex: 'post_survey_status',
-            align: 'center',
-            width: '10rem',
-            render: (_, record) =>
-                record?.post_survey_status ? (
-                    <CheckCircle size={20} color="#28C76F" />
-                ) : (
-                    <IoHelpOutline size={20} color="#FF0000"/>
-                )
-        },
-        {
-            title: 'Certificate',
-            dataIndex: 'certificate',
-            align: 'center',
-            width: '10rem',
-            render: (_, record) =>
-                record?.certificate ? (
-                    <CheckCircle size={20} color="#28C76F" />
-                ) : (
-                    <IoHelpOutline size={20} color="#FF0000"/>
-                )
-        }
-    ];
-
-    
-    const customer = teamsList.map((team) => ({
-        value: team.team_id,
-        label: team.team_name,
-    }));
-
-    const handleSelectChange = (selectedOption) => {
-        setTeamId(selectedOption ? selectedOption.value : '');
-    };
-
-    const handleemailapi=()=>{
-        emailTeamCredentials();
-    };
-
-      ////////Email Team Credentisl////////////
-    const emailTeamCredentials = () => {
-        
-        const teamCredMailApi = encryptGlobal(
-            JSON.stringify({
-                mentor_id: currentUser?.data[0]?.mentor_id,
-                email:currentUser?.data[0]?.name
-            })
+              >
+                {Math.round(percent) ? Math.round(percent) : "0"}%
+              </div>
+            </div>
+          </div>
         );
-        var config = {
-            method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/teamCredentials?Data=${teamCredMailApi}`,
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${currentUser.data[0]?.token}`
-            }
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 200) {
-                    openNotificationWithIcon("success", "All Teams login's sent to your email");
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+      },
+    },
+    {
+      title: "Idea Submission",
+      dataIndex: "idea_submission",
+      align: "center",
+      width: "20rem",
+      render: (_, record) =>
+        record?.idea_submission ? (
+          <CheckCircle size={20} color="#28C76F" />
+        ) : (
+          <IoHelpOutline size={20} color="#FF0000" />
+        ),
+    },
+    {
+      title: "Post Survey",
+      dataIndex: "post_survey_status",
+      align: "center",
+      width: "10rem",
+      render: (_, record) =>
+        record?.post_survey_status ? (
+          <CheckCircle size={20} color="#28C76F" />
+        ) : (
+          <IoHelpOutline size={20} color="#FF0000" />
+        ),
+    },
+    {
+      title: "Certificate",
+      dataIndex: "certificate",
+      align: "center",
+      width: "10rem",
+      render: (_, record) =>
+        record?.certificate ? (
+          <CheckCircle size={20} color="#28C76F" />
+        ) : (
+          <IoHelpOutline size={20} color="#FF0000" />
+        ),
+    },
+  ];
+  const submittedApi = (teamId) => {
+    const Param = encryptGlobal(
+      JSON.stringify({
+        team_id: teamId,
+      })
+    );
+    var configidea = {
+      method: "get",
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/challenge_response/submittedDetails?Data=${Param}`,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+      },
     };
+    axios(configidea)
+      .then(function (response) {
+        if (response.status === 200) {
+          if (response.data.data && response.data.data.length > 0) {
+            setFormData(response.data.data[0]);
+            setNoData(false);
 
-    
+          }
+        }
+      })
+      .catch(function (error) {
+        if (error.response.status === 404) {
+            setNoData(true);
+        }
+      });
+  };
+
+  const customer = teamsList.map((team) => ({
+    value: team.team_id,
+    label: team.team_name,
+  }));
+
+  const handleSelectChange = (selectedOption) => {
+    setTeamId(selectedOption ? selectedOption.value : "");
+  };
+
+  const handleemailapi = () => {
+    emailTeamCredentials();
+  };
+  useEffect(() => {
+    const popaddParam = encryptGlobal("3");
+    var config = {
+      method: "get",
+      url: process.env.REACT_APP_API_BASE_URL + `/popup/${popaddParam}`,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          if (response.data.data[0]?.on_off === "0") {
+            setIsEvlCom(true);
+          } else {
+            setIsEvlCom(false);
+          }
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+  ////////Email Team Credentisl////////////
+  const emailTeamCredentials = () => {
+    const teamCredMailApi = encryptGlobal(
+      JSON.stringify({
+        mentor_id: currentUser?.data[0]?.mentor_id,
+        email: currentUser?.data[0]?.name,
+      })
+    );
+    var config = {
+      method: "get",
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/dashboard/teamCredentials?Data=${teamCredMailApi}`,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          openNotificationWithIcon(
+            "success",
+            "All Teams login's sent to your email"
+          );
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    // if (noData == true){
+    //   setIdeaStatusEval("NOT STARTED");
+    // }else if(formData?.verified_status === "ACCEPTED"){
+    //   setIdeaStatusEval("ACCEPTED");
+    // }  else if(formData?.verified_status === "REJECTED"){
+    //   setIdeaStatusEval("REJECTED");
+    // } else {
+    //   setIdeaStatusEval(formData?.status);
+    // }
+    // if (formData.length === 0) {
+    //   setIdeaStatusEval("NOT STARTED");
+    // } else if (formData.final_result === "1") {
+    //   setIdeaStatusEval("Congratulations,Idea is selected for grand finale");
+    // } else if (formData.final_result === "0") {
+    //   setIdeaStatusEval("Shortlisted for final round of evaluation");
+    //   if (isEvlCom) {
+    //     setIdeaStatusEval("Better luck next time");
+    //   }
+    // } else if (formData.evaluation_status === "REJECTEDROUND1") {
+    //   setIdeaStatusEval("Better luck next time");
+    // } else if (formData.evaluation_status === "SELECTEDROUND1") {
+    //   setIdeaStatusEval("Promoted to Level 2 round of evaluation");
+    //   if (isEvlCom) {
+    //     setIdeaStatusEval("Better luck next time");
+    //   }
+    // } else if (formData?.verified_status === "ACCEPTED") {
+    //   setIdeaStatusEval("ACCEPTED");
+      
+    // }else if(formData?.verified_status === "REJECTED"){
+    //   setIdeaStatusEval("REJECTED");
+    // }else {
+    //   setIdeaStatusEval(formData?.status);
+    // }
+  //  else  {
+  //   setIdeaStatusEval(formData?.status);
+  // }
+  }, [formData]);
+  // console.log(formData?.status,"ss");
+  // const handleRevoke = async (id, type) => {
+  //     // alert("hii");
+  //     const handleRevokeId = encryptGlobal(JSON.stringify(id));
+  //     let submitData = {
+  //         status: type == 'DRAFT' ? 'SUBMITTED' : 'DRAFT'
+  //     };
+  //     var config = {
+  //         method: 'put',
+  //         url:
+  //             process.env.REACT_APP_API_BASE_URL +
+  //             `/challenge_response/updateEntry/${handleRevokeId}`,
+  //         headers: {
+  //             'Content-Type': 'application/json',
+  //             Authorization: `Bearer ${currentUser?.data[0]?.token}`
+  //         },
+  //         data: submitData
+  //     };
+  //     axios(config)
+  //         .then(function (response) {
+  //             if (response.status === 200) {
+  //                 openNotificationWithIcon(
+  //                     'success',
+  //                     'Idea Submission Status Successfully Update!',
+  //                     ''
+  //                 );
+  //                 dispatch(getTeamMemberStatus(teamId, setshowDefault));
+  //                 submittedApi(teamId);
+  //                 // dispatch(getStudentChallengeSubmittedResponse(teamId));
+  //             }
+  //         })
+  //         .catch(function (error) {
+  //             console.log(error);
+  //         });
+  // };
+  const handleAlert = (handledText) => {
+    // here we can delete the team //
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-submit",
+        cancelButton: "btn btn-cancel",
+      },
+      buttonsStyling: false,
+    });
+
+    swalWithBootstrapButtons
+      .fire({
+        title:
+          handledText === "accept"
+            ? "You are attempting to accept this Idea"
+            : "You are attempting to reject this Idea",
+        text: "Are you sure?",
+        imageUrl: `${logout}`,
+        confirmButtonText: "Reject",
+        showCancelButton: true,
+        cancelButtonText: "Cancel",
+        reverseButtons: false,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          if (result.isConfirmed) {
+            handleL1Round(handledText);
+          }
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire("Cancelled", "", "error");
+        }
+      });
+  };
+  const handleL1Round = (handledText) => {
+    // const currentTime = new Date().toLocaleString();
+
+   
+    const body = JSON.stringify({
+      verified_status: "REJECTED",
+      status: "DRAFT",
+      mentor_rejected_reason: handledText == "reject" ? reason : "",
+    });
+    const ideaID = encryptGlobal(
+      JSON.stringify(
+        formData.challenge_response_id
+      )
+    );
+    var config = {
+      method: "put",
+      url: `${
+        process.env.REACT_APP_API_BASE_URL +
+        "/challenge_response/updateEntry/" +
+        ideaID
+      }`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+      },
+      data: body,
+    };
+    axios(config)
+      .then(function (response) {
+        // console.log(response, "11");
+        openNotificationWithIcon(
+          "success",
+          response?.data?.message == "OK"
+            ? "Idea rejected and moved to draft"
+            : response?.data?.message
+        );
+        dispatch(getTeamMemberStatus(teamId, setshowDefault));
+        submittedApi(teamId);
+        window.location.reload();
+
+        // props?.setIsDetail(false);
+      })
+      .catch(function (error) {
+        openNotificationWithIcon("error", error?.response?.data?.message);
+      });
+  };
+  const handleReject = () => {
+    if (reason) {
+      handleAlert("reject");
+      setIsreject(false);
+    }
+  };
+// console.log(formData,"ddd");
   return (
     <div>
-        <div className="card table-list-card">
-            <div className="card-header d-flex justify-content-between align-items-center">
-                <h4 className="card-title mb-0"> <img src={team} style={{ marginRight:"6px", width: "7%", verticalAlign: "middle"}}/>Team Progress</h4>
-                <button
-                  className="btn btn-secondary d-flex align-items-center"
-                  onClick={handleemailapi}
-                >
-                  <Mail className="feather-mail" size={20} style={{marginRight : "5px"}}/> Teams Login&apos;s
-                </button>
-            </div>
-            <div className="card-body">
-                <div className="table-top">
-                    <div className="form-sort select-bluk">
-                        <Select
-                        classNamePrefix="react-select"
-                        options={customer}
-                        placeholder="Choose a team"
-                        onChange={handleSelectChange}
-                        value={customer.find(option => option.value === teamId)}
-                        />
-                    </div>
-                </div>
-                <div className="table-responsive">
-                    {showDefault && (
-                        <div className="d-flex justify-content-center align-items-center">
-                            <h4 className="text-primary">Select a Team to check SIM Progress</h4>
-                        </div>
-                    )}
-                    {teamsMembersStatus.length > 0 && !showDefault ? (
-                    <Table
-                        //bordered
-                        pagination={false}
-                        dataSource={teamsMembersStatus}
-                        columns={columns}
-                    />
-                    ) : teamsMembersStatusErr ? (
-                        <div
-                            className="d-flex justify-content-center align-items-center">
-                            <h4 className="text-danger">
-                                There are no students in selected Team
-                            </h4>
-                        </div>
-                    ) : null}
-                    
-                </div>
-            </div>
+      <div className="card table-list-card">
+        <div className="card-header d-flex justify-content-between align-items-center">
+          <h4 className="card-title mb-0">
+            {" "}
+            <img
+              src={team}
+              style={{
+                marginRight: "6px",
+                width: "7%",
+                verticalAlign: "middle",
+              }}
+            />
+            Team Progress
+          </h4>
+          <button
+            className="btn btn-secondary d-flex align-items-center"
+            onClick={handleemailapi}
+          >
+            <Mail
+              className="feather-mail"
+              size={20}
+              style={{ marginRight: "5px" }}
+            />{" "}
+            Teams Login&apos;s
+          </button>
         </div>
+        <div className="card-body">
+          <div className="table-top">
+            <div className="form-sort select-bluk">
+              <Select
+                classNamePrefix="react-select"
+                options={customer}
+                placeholder="Choose a team"
+                onChange={handleSelectChange}
+                value={customer.find((option) => option.value === teamId)}
+              />
+            </div>
+          </div>
+          {teamId && (
+            <>
+              <Row>
+                <div className="singlediv">
+                  <Card
+                    className="p-3 mx-4 d-flex flex-row"
+                    style={{
+                      marginTop: ".5rem",
+                      marginBottom: "1rem",
+                    }}
+                  >
+                    <span className="fw-bold">IDEA STATUS :</span>
+                    <span style={{ paddingLeft: "1rem" }}>
+                      {noData
+          ? "Not Started"
+          : formData?.verified_status === "ACCEPTED"
+          ? "ACCEPTED"
+          : formData?.verified_status === "REJECTED"
+          ?  "REJECTED"
+          : formData?.status || "Not Started"}
+                    </span>
+                  </Card>
+                </div>
+              </Row>
+              <>
+                <div>
+                  {!noData && (formData?.status === "SUBMITTED" || formData?.status === "DRAFT" ) && (
+                    <Button
+                      button="button"
+                      label="View Idea"
+                      // disabled={
+                      //   teamsMembersStatus.length > 0 &&
+                      //   formData?.status === "SUBMITTED"
+                      //     ? false
+                      //     : true
+                      // }
+                      btnClass={`${
+                        teamsMembersStatus.length > 0 &&
+                        formData?.status === "SUBMITTED"
+                          ? "primary"
+                          : "primary"
+                      }`}
+                      size="small"
+                      shape="btn-square"
+                      style={{ padding: "1rem 2.4rem" }}
+                      onClick={() => setIdeaShow(true)}
+                    />
+                  )}
+                </div>
+                {/* <div className="m-3">
+                                    {formData?.status !==
+                                        'SUBMITTED' && (
+                                        <Button
+                                            label={' Change  '}
+                                            disabled={
+                                                teamsMembersStatus.length > 0 &&
+                                                formData?.status
+                                                    ? false
+                                                    : true
+                                            }
+                                            btnClass={`${
+                                                teamsMembersStatus.length > 0 &&
+                                                formData?.status
+                                                    ? 'primary'
+                                                    : 'default'
+                                            }`}
+                                            size="small"
+                                            shape="btn-square"
+                                            style={{ padding: '1rem 3rem' }}
+                                            onClick={() => setChangeShow(true)}
+                                        />
+                                    )}
+                                </div> */}
+                <div>
+                  {!noData &&(formData?.status === "SUBMITTED" && formData?.verified_status !=="REJECTED" &&
+                 (formData?.verified_status === null  || formData?.verified_status !== "ACCEPTED" )) ?(
+                    <button
+                      className="btn btn-lg px-5 py-2 btn-danger me-3 rounded-pill"
+                      onClick={() => {
+                        // handleAlert('reject');
+                        setIsreject(true);
+                        setReason("");
+                      }}
+                    >
+                      <span className="fs-4">Reject</span>
+                    </button>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </>
+            </>
+          )}
+          <div className="table-responsive">
+            {showDefault && (
+              <div className="d-flex justify-content-center align-items-center">
+                <h4 className="text-primary">
+                  Select a Team to check SIM Progress
+                </h4>
+              </div>
+            )}
+            {teamsMembersStatus.length > 0 && !showDefault ? (
+              <Table
+                //bordered
+                pagination={false}
+                dataSource={teamsMembersStatus}
+                columns={columns}
+              />
+            ) : teamsMembersStatusErr ? (
+              <div className="d-flex justify-content-center align-items-center">
+                <h4 className="text-danger">
+                  There are no students in selected Team
+                </h4>
+              </div>
+            ) : null}
+          </div>
+          {ideaShow && (
+            <IdeaSubmissionCard
+              show={ideaShow}
+              handleClose={() => setIdeaShow(false)}
+              response={formData}
+              setIdeaCount={setIdeaCount}
+              // setApproval={setApproval}
+            />
+          )}
+          {isReject && (
+            <Modal
+              show={isReject}
+              onHide={() => setIsreject(false)}
+              // {...props}
+              size="lg"
+              aria-labelledby="contained-modal-title-vcenter"
+              centered
+              className="assign-evaluator ChangePSWModal teacher-register-modal"
+              backdrop="static"
+              scrollable={true}
+            >
+              <Modal.Header closeButton onHide={() => setIsreject(false)}>
+                <Modal.Title
+                  id="contained-modal-title-vcenter"
+                  className="w-100 d-block text-center"
+                >
+                  Rejection for Idea
+                </Modal.Title>
+              </Modal.Header>
+
+              <Modal.Body>
+                <div className="my-3 text-center">
+                  <h3>Please Select the reason for rejection.</h3>
+                  <Col>
+                    <Col className="m-5">
+                      <Selects
+                        list={selectData}
+                        setValue={setReason}
+                        placeHolder={"Please Select Reject Reason"}
+                        value={reason}
+                      />
+                    </Col>
+                  
+                  </Col>
+                </div>
+                <div className="text-center">
+                  <Button
+                    label={"Submit"}
+                    btnClass={!reason ? "default" : "primary"}
+                    size="small "
+                    onClick={() => handleReject()}
+                    disabled={!reason}
+                  />
+                </div>
+              </Modal.Body>
+            </Modal>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
