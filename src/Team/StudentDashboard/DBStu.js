@@ -668,13 +668,17 @@ useEffect(() => {
                           <td>
                             <div className="product-info">
                               <Link
-                                to="/instruction"
+                                // to="/instruction"
+                                to="#"
                                 className="product-img"
                               >
                                 <FaLightbulb size={30} style={{marginRight : "10px", color:"orange"}} />
                               </Link>
                               <div className="info">
-                                <Link to="/instruction">
+                                <Link 
+                                  to="#"
+                                // to="/instruction"
+                                >
                                   <h4>Idea Submission</h4>
                                 </Link>
                                 <p className="dull-text">Select a theme & submit idea</p>
