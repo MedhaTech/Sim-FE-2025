@@ -226,9 +226,7 @@ const Idea = ({ showChallenge, idea }) => {
             )}
           </div>
         ) : (
-          <div className='page-wrapper'>
-            <IdeaPageCopy theme={theme} showChallenges={challenges} />
-          </div>
+          <IdeaPageCopy theme={theme} showChallenges={challenges} />
         )}
 
       </div>

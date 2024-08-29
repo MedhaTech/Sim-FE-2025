@@ -465,7 +465,6 @@ const IdeaSubmissionCard = ({
                     Reason for Rejection :{" "}
                     {submittedResponse?.mentor_rejected_reason}
                   </p>
-                  
                 </div>
               )}
             </>
