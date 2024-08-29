@@ -462,7 +462,7 @@ const IdeaSubmissionCard = ({
                     {submittedResponse?.mentor_rejected_reason}
                   </p>
                   <p style={{ fontSize: "1rem" }} className="fw-bold">
-                    Submitted By :{" "}
+                    Last Modified By: :{" "}
                     {submittedResponse?.initiated_name}
                   </p>
                 </div>

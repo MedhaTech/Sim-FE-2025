@@ -1,7 +1,7 @@
 
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React , { useEffect, useState }from "react";
+import React, { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import Chart from "react-apexcharts";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -24,7 +24,7 @@ import { FaPoll } from 'react-icons/fa';
 import { FaRoute } from 'react-icons/fa';
 import { FaPlay } from 'react-icons/fa';
 import { FaUsers } from 'react-icons/fa';
-import { FaChalkboardTeacher } from 'react-icons/fa'; 
+import { FaChalkboardTeacher } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import VideoModal from '../../HelpVideo/VideoModal';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
@@ -34,48 +34,48 @@ import { Modal } from 'react-bootstrap';
 import LanguageSelectorComp from '../../components/LanguageSelectorComp/index.js';
 const GreetingModal = (props) => {
   return (
-      <Modal
-          show={props.show}
-          size="lg"
-          centered
-          className="modal-popup text-center"
-          onHide={props.handleClose}
-          backdrop={true}
-      >
-          {/* <Modal.Header closeButton></Modal.Header> */}
+    <Modal
+      show={props.show}
+      size="lg"
+      centered
+      className="modal-popup text-center"
+      onHide={props.handleClose}
+      backdrop={true}
+    >
+      {/* <Modal.Header closeButton></Modal.Header> */}
 
-          <Modal.Body>
-              <figure>
-                  <img
-                      src={props.imgUrl}
-                      alt="popup image"
-                      className="img-fluid"
-                  />
-              </figure>
-          </Modal.Body>
-          <Modal.Footer>
-            {props.state !=null &&   
-              <Link
-                to={props.state}
-                type="button"
-                className="product-img"
-              >
-                <button
-                  label={"Navigate"}
-                  className="btn btn-warning"
-                >
-                  Navigate
-                </button>
-              </Link>}
-          </Modal.Footer>
-      </Modal>
+      <Modal.Body>
+        <figure>
+          <img
+            src={props.imgUrl}
+            alt="popup image"
+            className="img-fluid"
+          />
+        </figure>
+      </Modal.Body>
+      <Modal.Footer>
+        {props.state != null &&
+          <Link
+            to={props.state}
+            type="button"
+            className="product-img"
+          >
+            <button
+              label={"Navigate"}
+              className="btn btn-warning"
+            >
+              Navigate
+            </button>
+          </Link>}
+      </Modal.Footer>
+    </Modal>
   );
 };
 
 const DBStu = () => {
   const [showsPopup, setShowsPopup] = useState(false);
   const [imgUrl, setImgUrl] = useState('');
-  const[state,setState]=useState("");
+  const [state, setState] = useState("");
 
   /////////my code//////////////////
   const currentUser = getCurrentUser("current_user");
@@ -89,43 +89,43 @@ const DBStu = () => {
   const [stuPreSurvey, setStuPreSurvey] = useState("");
   const [stuIdeaSub, setStuIdeaSub] = useState("");
   const [coursepercentage, setCoursepercentage] = useState();
-  const [video , setVideo] = useState("");
-  const [message , setMessage] = useState("");
-  
-  const [show , setShow] = useState(false);
+  const [video, setVideo] = useState("");
+  const [message, setMessage] = useState("");
+
+  const [show, setShow] = useState(false);
   const language = useSelector(
     (state) => state?.studentRegistration?.studentLanguage
-);
-useEffect(() => {
-  const popParam = encryptGlobal(
-    JSON.stringify({
-      state:currentUser.data[0]?.state,
-      role:currentUser.data[0]?.role
-    })
-);
-  var config = {
+  );
+  useEffect(() => {
+    const popParam = encryptGlobal(
+      JSON.stringify({
+        state: currentUser.data[0]?.state,
+        role: currentUser.data[0]?.role
+      })
+    );
+    var config = {
       method: 'get',
       url: process.env.REACT_APP_API_BASE_URL + `/popup?Data=${popParam}`,
       headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${currentUser.data[0]?.token}`
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${currentUser.data[0]?.token}`
       }
-  };
-  axios(config)
+    };
+    axios(config)
       .then(function (res) {
-          if (res.status === 200 && res.data.data[0]?.on_off === '1') {
-            // console.log(res,"res");
-              setShowsPopup(true);
-              setImgUrl(res?.data?.data[0]?.url);
-              setState(res?.data?.data[0]?.navigate);
-          }
+        if (res.status === 200 && res.data.data[0]?.on_off === '1') {
+          // console.log(res,"res");
+          setShowsPopup(true);
+          setImgUrl(res?.data?.data[0]?.url);
+          setState(res?.data?.data[0]?.navigate);
+        }
       })
       .catch(function (error) {
-          setShowsPopup(false);
-          console.log(error);
+        setShowsPopup(false);
+        console.log(error);
       });
-}, []);
+  }, []);
   const Loader = () => (
     <div className="spinner-border text-primary" role="status">
       <span className="visually-hidden">Loading...</span>
@@ -158,11 +158,11 @@ useEffect(() => {
     setShow(true);
   };
   const vimeoId = ["https://www.youtube.com/embed/CiYa_iLdpXo?si=8t7wj1idLOrW4se0",
-      "https://www.youtube.com/embed/q40BSRm_cJM?si=ALZHPloc04lqH25O",
-      "https://www.youtube.com/embed/eCYCvTu03X4?si=3zA5lyM9UOUoW5Yb",
-      "https://www.youtube.com/embed/s-LUZN38Fik?si=rz10HpY0ZqDaYqD6",
-      "https://www.youtube.com/embed/1WvwMypdVaY?si=8GPHpUqV7Jdewh__",
-      ];
+    "https://www.youtube.com/embed/q40BSRm_cJM?si=ALZHPloc04lqH25O",
+    "https://www.youtube.com/embed/eCYCvTu03X4?si=3zA5lyM9UOUoW5Yb",
+    "https://www.youtube.com/embed/s-LUZN38Fik?si=rz10HpY0ZqDaYqD6",
+    "https://www.youtube.com/embed/1WvwMypdVaY?si=8GPHpUqV7Jdewh__",
+  ];
 
   // const handleLanguageChange = (language) => {
   //   setSelectedLanguage(language);
@@ -175,19 +175,19 @@ useEffect(() => {
 
   useEffect(() => {
     if (currentUser?.data[0]?.user_id) {
-        stuCoursePercent();
-        stuBadgesCount();
-        stuQuizCount();
-        stuVideosCount();
-        stuSurveyStatus();
-        stuIdeaSubStatus();
-        fetchInstructions();
-        scroll();
+      stuCoursePercent();
+      stuBadgesCount();
+      stuQuizCount();
+      stuVideosCount();
+      stuSurveyStatus();
+      stuIdeaSubStatus();
+      fetchInstructions();
+      scroll();
     }
   }, [currentUser?.data[0]?.user_id]);
-  const [badges,setBadges] = useState(0);
-  const [quiz,setQuiz] = useState(0);
-  const [videos,setVideos] = useState(0);
+  const [badges, setBadges] = useState(0);
+  const [quiz, setQuiz] = useState(0);
+  const [videos, setVideos] = useState(0);
 
   const handleNavigation = () => {
     navigate("/instructionstu", { state: { instruction: message } });
@@ -197,237 +197,237 @@ useEffect(() => {
     // Function to fetch the WhatsApp link from the API
     const statenameApi = encryptGlobal(
       JSON.stringify({
-        state_name : currentUser?.data[0]?.state 
+        state_name: currentUser?.data[0]?.state
       })
     );
     var config = {
       method: 'get',
       url:
-          process.env.REACT_APP_API_BASE_URL +
-          `/dashboard/whatappLink?Data=${statenameApi}`,
+        process.env.REACT_APP_API_BASE_URL +
+        `/dashboard/whatappLink?Data=${statenameApi}`,
       headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${currentUser.data[0]?.token}`
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${currentUser.data[0]?.token}`
       }
-      };
-      axios(config)
+    };
+    axios(config)
       .then(function (response) {
-          if (response.status === 200) {
-              //console.log(response);
-              setMessage(response.data.data[0].student_note);
-              // console.log(response.data.data[0].student_note,"message");
-          }
+        if (response.status === 200) {
+          //console.log(response);
+          setMessage(response.data.data[0].student_note);
+          // console.log(response.data.data[0].student_note,"message");
+        }
       })
       .catch(function (error) {
-          console.log(error);
+        console.log(error);
       }
-    );
+      );
   };
 
   const stuSurveyStatus = () => {
     const surveyApi = encryptGlobal(
-        JSON.stringify({
-            user_id: currentUser?.data[0]?.user_id
-        })
+      JSON.stringify({
+        user_id: currentUser?.data[0]?.user_id
+      })
     );
     var config = {
-        method: 'get',
-        url:
-            process.env.REACT_APP_API_BASE_URL +
-            `/dashboard/stuPrePostStats?Data=${surveyApi}`,
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${currentUser.data[0]?.token}`
-        }
+      method: 'get',
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/dashboard/stuPrePostStats?Data=${surveyApi}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${currentUser.data[0]?.token}`
+      }
     };
     axios(config)
-        .then(function (response) {
-            if (response.status === 200) {
-                // console.log(response);
-                const po = (response.data.data[0].post_survey_completed_date);
-                const pre = (response.data.data[0].pre_survey_completed_date);
-                setStuPostSurvey(po);
-                setStuPreSurvey(pre);
-                setStuPostSLoading(false);
-                setStuPreSLoading(false);
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    };
+      .then(function (response) {
+        if (response.status === 200) {
+          // console.log(response);
+          const po = (response.data.data[0].post_survey_completed_date);
+          const pre = (response.data.data[0].pre_survey_completed_date);
+          setStuPostSurvey(po);
+          setStuPreSurvey(pre);
+          setStuPostSLoading(false);
+          setStuPreSLoading(false);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   const stuIdeaSubStatus = () => {
-      const ideaSubApi = encryptGlobal(
-          JSON.stringify({
-            team_id: currentUser?.data[0]?.team_id
-          })
-      );
-      var config = {
-          method: 'get',
-          url:
-              process.env.REACT_APP_API_BASE_URL +
-              `/challenge_response/submittedDetails?Data=${ideaSubApi}`,
-          headers: {
-              'Content-Type': 'application/json',
-              Accept: 'application/json',
-              Authorization: `Bearer ${currentUser.data[0]?.token}`
-          }
-      };
-      axios(config)
-          .then(function (response) {
-              // console.log(response, "res");
-              if (response.status === 200) {
-                  // console.log(response, "ideaSubApi");
-                  setStuIdeaSub(response.data.data[0].status);
-                  setStuIdeaLoading(false);
-              }
-          })
-          .catch(function (error) {
-              // console.log(error,"error");
-              if(error.response.data.status === 404){
-                setStuIdeaSub("Not Started");
-                setStuIdeaLoading(false);
-              }
-
-          });
-      };
-    
-  const stuCoursePercent = () => {
-    const corseApi = encryptGlobal(
-        JSON.stringify({
-            user_id: currentUser?.data[0]?.user_id
-        })
+    const ideaSubApi = encryptGlobal(
+      JSON.stringify({
+        team_id: currentUser?.data[0]?.team_id
+      })
     );
     var config = {
-        method: 'get',
-        url:
-            process.env.REACT_APP_API_BASE_URL +
-            `/dashboard/stuCourseStats?Data=${corseApi}`,
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${currentUser.data[0]?.token}`
-        }
+      method: 'get',
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/challenge_response/submittedDetails?Data=${ideaSubApi}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${currentUser.data[0]?.token}`
+      }
     };
     axios(config)
-        .then(function (response) {
-            if (response.status === 200) {
-              // console.log(response);
-                const per = Math.round(
-                    (response.data.data[0].topics_completed_count /
-                        response.data.data[0].all_topics_count) *
-                        100
-                );
-                // console.log(per);
-                setCoursepercentage(per);
-                setStuCourseLoading(false);
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+      .then(function (response) {
+        // console.log(response, "res");
+        if (response.status === 200) {
+          // console.log(response, "ideaSubApi");
+          setStuIdeaSub(response.data.data[0].status);
+          setStuIdeaLoading(false);
+        }
+      })
+      .catch(function (error) {
+        // console.log(error,"error");
+        if (error.response.data.status === 404) {
+          setStuIdeaSub("Not Started");
+          setStuIdeaLoading(false);
+        }
+
+      });
+  };
+
+  const stuCoursePercent = () => {
+    const corseApi = encryptGlobal(
+      JSON.stringify({
+        user_id: currentUser?.data[0]?.user_id
+      })
+    );
+    var config = {
+      method: 'get',
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/dashboard/stuCourseStats?Data=${corseApi}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${currentUser.data[0]?.token}`
+      }
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          // console.log(response);
+          const per = Math.round(
+            (response.data.data[0].topics_completed_count /
+              response.data.data[0].all_topics_count) *
+            100
+          );
+          // console.log(per);
+          setCoursepercentage(per);
+          setStuCourseLoading(false);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   const stuBadgesCount = () => {
     const badgeApi = encryptGlobal(
-        JSON.stringify({
-          user_id: currentUser?.data[0]?.user_id
-        })
+      JSON.stringify({
+        user_id: currentUser?.data[0]?.user_id
+      })
     );
     var config = {
-        method: 'get',
-        url:
-            process.env.REACT_APP_API_BASE_URL +
-            `/dashboard/stuBadgesStats?Data=${badgeApi}`,
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${currentUser.data[0]?.token}`
-        }
+      method: 'get',
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/dashboard/stuBadgesStats?Data=${badgeApi}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${currentUser.data[0]?.token}`
+      }
     };
     axios(config)
-        .then(function (response) {
-            if (response.status === 200) {
-                // console.log(response);
-                setBadges(response.data.data[0].badges_earned_count);
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+      .then(function (response) {
+        if (response.status === 200) {
+          // console.log(response);
+          setBadges(response.data.data[0].badges_earned_count);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   const stuQuizCount = () => {
     const quizApi = encryptGlobal(
-        JSON.stringify({
-          user_id: currentUser?.data[0]?.user_id
-        })
+      JSON.stringify({
+        user_id: currentUser?.data[0]?.user_id
+      })
     );
     var config = {
-        method: 'get',
-        url:
-            process.env.REACT_APP_API_BASE_URL +
-            `/dashboard/stuQuizStats?Data=${quizApi}`,
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${currentUser.data[0]?.token}`
-        }
+      method: 'get',
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/dashboard/stuQuizStats?Data=${quizApi}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${currentUser.data[0]?.token}`
+      }
     };
     axios(config)
-        .then(function (response) {
-            if (response.status === 200) {
-                // console.log(response);
-                setQuiz(response.data.data[0].quiz_completed_count);
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+      .then(function (response) {
+        if (response.status === 200) {
+          // console.log(response);
+          setQuiz(response.data.data[0].quiz_completed_count);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   const stuVideosCount = () => {
     const videoApi = encryptGlobal(
-        JSON.stringify({
-          user_id: currentUser?.data[0]?.user_id
-        })
+      JSON.stringify({
+        user_id: currentUser?.data[0]?.user_id
+      })
     );
     var config = {
-        method: 'get',
-        url:
-            process.env.REACT_APP_API_BASE_URL +
-            `/dashboard/stuVideoStats?Data=${videoApi}`,
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${currentUser.data[0]?.token}`
-        }
+      method: 'get',
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/dashboard/stuVideoStats?Data=${videoApi}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${currentUser.data[0]?.token}`
+      }
     };
     axios(config)
-        .then(function (response) {
-            if (response.status === 200) {
-                // console.log(response);
-                setVideos(response.data.data[0].videos_completed_count);
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+      .then(function (response) {
+        if (response.status === 200) {
+          // console.log(response);
+          setVideos(response.data.data[0].videos_completed_count);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
   const handleClose = () => {
     setShowsPopup(false);
-};
+  };
   return (
     <>
-     <GreetingModal
-                handleClose={handleClose}
-                show={showsPopup}
-                imgUrl={imgUrl}
-                state={state}
-            ></GreetingModal>
+      <GreetingModal
+        handleClose={handleClose}
+        show={showsPopup}
+        imgUrl={imgUrl}
+        state={state}
+      ></GreetingModal>
       <div className="page-wrapper" id="start">
         <div className="content">
           <div className="welcome d-lg-flex align-items-center justify-content-between">
@@ -436,7 +436,7 @@ useEffect(() => {
                 <span style={{ fontSize: '30px' }}>👋</span>
                 &nbsp;Hi {currentUser?.data[0]?.full_name}&nbsp;
               </h3>
-              
+
               <h6> here&apos;s what&apos;s happening with your School Innovation Marathon 2024 today.</h6>
             </div>
             {/* <div className="d-flex align-items-center">
@@ -459,7 +459,7 @@ useEffect(() => {
               </div>
             </div>
             <div className="col-xl-3 col-sm-6 col-12">
-              <div className="card color-info"  style={{background:"#00CFE8"}}>
+              <div className="card color-info" style={{ background: "#00CFE8" }}>
                 <h3>
                   {" "}
                   <CountUp end={quiz} duration={4}>
@@ -486,16 +486,16 @@ useEffect(() => {
                 <h3>
                   <CountUp end={badges} duration={4}>
                     +
-                  </CountUp> / 8
+                  </CountUp> / 5
                 </h3>
-               
-                <div className="info">
-                                <Link to={"/badges"}>
-                                <p>Badges Achieved</p>
 
-                                </Link>
-                <FeatherIcon icon="award" />
-                              </div>
+                <div className="info">
+                  <Link to={"/badges"}>
+                    <p>Badges Achieved</p>
+
+                  </Link>
+                  <FeatherIcon icon="award" />
+                </div>
               </div>
             </div>
           </div>
@@ -509,7 +509,7 @@ useEffect(() => {
                   <div className="dropdown" onClick={handleNavigation}>
                     <Link to="/instructionstu" className="view-all d-flex align-items-center">
                       <span className="ps-2 d-flex align-items-center">
-                        <FaRoute size={30}  /> 
+                        <FaRoute size={30} />
                       </span>
                     </Link>
                   </div>
@@ -525,7 +525,7 @@ useEffect(() => {
                                 to={"/studentpresurvey"}
                                 className="product-img"
                               >
-                                <FaPoll size={30} style={{marginRight : "10px", color:"orange"}}/>
+                                <FaPoll size={30} style={{ marginRight: "10px", color: "orange" }} />
                               </Link>
                               <div className="info">
                                 <Link to={"/studentpresurvey"}>
@@ -553,9 +553,9 @@ useEffect(() => {
                             </div>
                           </td> */}
                           <td>
-                            {stuPreSLoading ? ( 
-                                <Loader />
-                              ) : stuPreSurvey === null ?  (
+                            {stuPreSLoading ? (
+                              <Loader />
+                            ) : stuPreSurvey === null ? (
                               <>
                                 <span
                                   className={"badge badge-linedangered"}
@@ -594,7 +594,7 @@ useEffect(() => {
                                 to={"/studentcourse/1"}
                                 className="product-img"
                               >
-                                <FaChalkboardTeacher size={30} style={{marginRight : "10px", color:"orange"}} />
+                                <FaChalkboardTeacher size={30} style={{ marginRight: "10px", color: "orange" }} />
                               </Link>
                               <div className="info">
                                 <Link to={"/studentcourse/1"}>
@@ -622,9 +622,9 @@ useEffect(() => {
                             </div>
                           </td> */}
                           <td>
-                            {stuCourseLoading ? ( 
-                                <Loader />
-                              ) : ((coursepercentage === 0) ?  (
+                            {stuCourseLoading ? (
+                              <Loader />
+                            ) : ((coursepercentage === 0) ? (
                               <>
                                 <span
                                   className={"badge badge-linedangered"}
@@ -642,7 +642,7 @@ useEffect(() => {
                                   InProgress
                                 </span>
                               </>
-                            ):(
+                            ) : (
                               <>
                                 <span
                                   className={"badge badge-linesuccess"}
@@ -672,7 +672,7 @@ useEffect(() => {
                                 to="#"
                                 className="product-img"
                               >
-                                <FaLightbulb size={30} style={{marginRight : "10px", color:"orange"}} />
+                                <FaLightbulb size={30} style={{ marginRight: "10px", color: "orange" }} />
                               </Link>
                               <div className="info">
                                 <Link 
@@ -703,17 +703,17 @@ useEffect(() => {
                             </div>
                           </td> */}
                           <td>
-                            {stuIdeaLoading ? ( 
-                                <Loader />
-                              ) : stuIdeaSub == "SUBMITTED" ?  (
-                                <>
-                                  <span
-                                    className={"badge badge-linesuccess"}
-                                  >
-                                    Submitted
-                                  </span>
-                                </>
-                              
+                            {stuIdeaLoading ? (
+                              <Loader />
+                            ) : stuIdeaSub == "SUBMITTED" ? (
+                              <>
+                                <span
+                                  className={"badge badge-linesuccess"}
+                                >
+                                  Submitted
+                                </span>
+                              </>
+
                             ) : stuIdeaSub == "DRAFT" ? (
                               <>
                                 <span
@@ -722,7 +722,7 @@ useEffect(() => {
                                   In Draft
                                 </span>
                               </>
-                            ):(
+                            ) : (
                               <>
                                 <span
                                   className={"badge badge-linedangered"}
@@ -730,32 +730,32 @@ useEffect(() => {
                                   Not Initiated
                                 </span>
                               </>
-                              
+
                             )}
                           </td>
                           <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderViewTooltip}>
-                                {stuIdeaSub == "SUBMITTED" ?  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/idea"} >
+                                  {stuIdeaSub == "SUBMITTED" ? <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/idea"} >
                                     <Eye className="feather-view" />
-                                  </Link>:
-                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/instruction"} >
-                                  <Eye className="feather-view" />
-                                </Link>}
+                                  </Link> :
+                                    <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/instruction"} >
+                                      <Eye className="feather-view" />
+                                    </Link>}
                                 </OverlayTrigger>
                               </div>
                             </div>
                           </td>
-                        </tr> 
-                         <tr>
+                        </tr>
+                        <tr>
                           <td>
                             <div className="product-info">
                               <Link
                                 to={"/studentpostsurvey"}
                                 className="product-img"
                               >
-                                <FaPoll size={30} style={{marginRight : "10px", color:"orange"}} />
+                                <FaPoll size={30} style={{ marginRight: "10px", color: "orange" }} />
                               </Link>
                               <div className="info">
                                 <Link to={"/studentpostsurvey"}>
@@ -783,9 +783,9 @@ useEffect(() => {
                             </div>
                           </td> */}
                           <td>
-                            {stuPostSLoading ? ( 
-                                <Loader />
-                              ) : stuPostSurvey === null ?  (
+                            {stuPostSLoading ? (
+                              <Loader />
+                            ) : stuPostSurvey === null ? (
                               <>
                                 <span
                                   className={"badge badge-linedangered"}
@@ -823,7 +823,7 @@ useEffect(() => {
                                 to={"/studentresource"}
                                 className="product-img"
                               >
-                                <FaBook size={30} style={{marginRight : "10px", color:"orange"}} />
+                                <FaBook size={30} style={{ marginRight: "10px", color: "orange" }} />
                               </Link>
                               <div className="info">
                                 <Link to={"/studentresource"}>
@@ -861,7 +861,7 @@ useEffect(() => {
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderViewTooltip}>
-                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2"  to={"/studentresource"} >
+                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/studentresource"} >
                                     <Eye className="feather-view" />
                                   </Link>
                                 </OverlayTrigger>
@@ -880,10 +880,10 @@ useEffect(() => {
               <LatestNews />
             </div>
           </div>
-          
+
         </div>
       </div>
-      {show &&  <VideoModal v={video} setShow={setShow}/>}
+      {show && <VideoModal v={video} setShow={setShow} />}
     </>
   );
 };
