@@ -621,7 +621,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
                                     )}
                                 </div> */}
                 <div>
-                  {(formData?.status === "SUBMITTED" && formData?.verified_status !=="REJECTED" &&
+                  {!noData &&(formData?.status === "SUBMITTED" && formData?.verified_status !=="REJECTED" &&
                  (formData?.verified_status === null  || formData?.verified_status !== "ACCEPTED" )) ?(
                     <button
                       className="btn btn-lg px-5 py-2 btn-danger me-3 rounded-pill"

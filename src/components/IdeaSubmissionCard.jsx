@@ -405,7 +405,7 @@ const IdeaSubmissionCard = ({
           <Card className="p-1">
             <CardBody>
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
-                Upload documents & video links of your prototype.
+               13. Upload documents & video links of your prototype.
               </label>
               <CardText>{submittedResponse.prototype_link}</CardText>
             </CardBody>
@@ -413,7 +413,7 @@ const IdeaSubmissionCard = ({
           <Card className="p-1">
             <CardBody>
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
-                13. Did your team complete and submit the workbook to your
+                14. Did your team complete and submit the workbook to your
                 school Guide teacher?
               </label>
               <CardText>{submittedResponse.workbook}</CardText>

@@ -733,9 +733,12 @@ useEffect(() => {
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderViewTooltip}>
-                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/instruction"} >
+                                {stuIdeaSub == "SUBMITTED" ?  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/idea"} >
                                     <Eye className="feather-view" />
-                                  </Link>
+                                  </Link>:
+                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/instruction"} >
+                                  <Eye className="feather-view" />
+                                </Link>}
                                 </OverlayTrigger>
                               </div>
                             </div>

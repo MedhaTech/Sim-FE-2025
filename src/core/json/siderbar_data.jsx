@@ -293,14 +293,14 @@ useEffect(() => {
         //   showSubRoute: false,
         //   submenu: false,
         // },
-        {
-          label:"Badges",
-          link:"/badges",
-          icon: <Icon.Shield />,
-          role: "STUDENT",
-          showSubRoute: false,
-          submenu: false,
-        },
+        // {
+        //   label:"Badges",
+        //   link:"/badges",
+        //   icon: <Icon.Shield />,
+        //   role: "STUDENT",
+        //   showSubRoute: false,
+        //   submenu: false,
+        // },
       ],
     },
   ]
