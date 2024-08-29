@@ -39,8 +39,8 @@ const InstructionsPage = (props) => {
             });
         };
 
-    const pdfFileURL =
-        'https://s3.ap-south-1.amazonaws.com/aim1.0-bkt-cba6e2a/resources/stage/Final_Themes_AIM.pdf';
+    // const pdfFileURL =
+    //     'https://s3.ap-south-1.amazonaws.com/aim1.0-bkt-cba6e2a/resources/stage/Final_Themes_AIM.pdf';
     return (
         <div className='page-wrapper'>
       <div className='content'>
@@ -74,7 +74,7 @@ const InstructionsPage = (props) => {
                                         ></div>
 
                                         <div className="text-right">
-                                            <a
+                                            {/* <a
                                                 href={pdfFileURL}
                                                 target="_blank"
                                                 rel="noreferrer"
@@ -87,7 +87,7 @@ const InstructionsPage = (props) => {
                                                     btnClass="primary mt-4 mx-4 "
                                                     size="small"
                                                 />
-                                            </a>
+                                            </a> */}
                                             {ideaenableornot==1 ? 
                                             (
                                                 <Button
