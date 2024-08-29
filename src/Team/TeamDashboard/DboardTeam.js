@@ -446,7 +446,7 @@ const EmployeesGrid = () => {
                     </ul>
                     <div className="departments">
                       {stuInstructionsLoad?(<Loader />):(
-                      teamsMembersStatus[i].pre_survey_status?(teamsMembersStatus[i].topics_completed_count?(teamsMembersStatus[i].all_topics_count-teamsMembersStatus[i].topics_completed_count===0?(teamsMembersStatus[i].idea_submission?(teamsMembersStatus[i].post_survey_status?(<p>🥳 Congratulations! on achieving your Certificate. Login & download ✅</p>)
+                      teamsMembersStatus[i].pre_survey_status?(teamsMembersStatus[i].topics_completed_count?(teamsMembersStatus[i].all_topics_count-teamsMembersStatus[i].topics_completed_count===0?(teamsMembersStatus[i].idea_submission?(teamsMembersStatus[i].post_survey_status?(<p>🥳 Congratulations! on achieving your Certificate. Will be enabled soon to download. ✅</p>)
                       :(<p>🥳 Congrats! Your idea is submitted💡 It&apos;s time to take Post-Survey</p>))
                       :(<p>👏 Well Done Problem Solver! You&apos;re ready to submit idea💡</p>))
                       :(<p>😄 Hope you are learning good techniques to solve problems👍🏻</p>))

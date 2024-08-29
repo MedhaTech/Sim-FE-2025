@@ -185,8 +185,10 @@ const IdeaSubmission = () => {
     </div>
   ) : showChallenges ? (
     <div className='page-wrapper'>
-      <IdeasPageNew
-        showChallenges={handleShow} />
+      <div className="content">
+        <IdeasPageNew
+          showChallenges={handleShow} />
+      </div>
     </div>
   ) :
     !isideadisable ?
