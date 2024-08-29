@@ -252,7 +252,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   let maxFileSize = 10000000;
   const fileHandler = (e) => {
     let choosenFiles = Array.prototype.slice.call(e.target.files);
-    e.target.files = null;
+    // e.target.files = null;
     let pattern = /^[a-zA-Z0-9_-\s]{0,}$/;
     const checkPat = choosenFiles.filter((item) => {
       let pat = item.name.split(".");
@@ -387,6 +387,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
         if (response.status == 200) {
           setIdeaInitiation(response?.data?.data[0]?.initiated_by);
           openNotificationWithIcon("success", "Idea Initiated Successfully");
+          submittedApi();
           seterror4(false);
           // console.log("200");
         }
@@ -559,6 +560,11 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
           if (response.status === 200) {
             if (stats === "SUBMITTED") {
               openNotificationWithIcon("success", "Idea submission successful");
+              setTimeout(function() {
+                window.location.reload();
+              }, 500);
+              // window.location.reload();
+
               localStorage.setItem("ideaSubStatus", 1);
               onclick();
             } else {
@@ -626,7 +632,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               {formData?.status === "DRAFT"
                                 ? t("student_course.idea_status1")
                                 : t("student_course.idea_status2")}
-                              {t("student_course.idea_submission_msg2")}
+                              {formData?.initiated_by !== currentUser?.data[0]?.user_id && t("student_course.idea_submission_msg2")}
+
                               {formData?.initiated_name}
                               {t("student_course.idea_submission_msg3")}
                               {formData?.status === "DRAFT"
@@ -1177,12 +1184,35 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                                                                                         )}
                                                                                                     />
                                                                                                 )} */}
+                                                                                                {!isDisabled && <Button
+                                                    label="Upload File "
+                                                    // btnClass="primary"
+                                                    btnClass={`${
+                                                      isDisabled
+                                                          ? 'secondary'
+                                                          : 'primary'
+                                                  } me-3 pointer `}
+                                                    size="small"
+                                                    onClick={() => {
+                                                        document
+                                                            .getElementById(
+                                                                'file'
+                                                            )
+                                                            .click();
+                                                    }}
+                                                />}
                                   <input
                                     type="file"
                                     name="file"
+                                     id="file"
+                                    style={{
+                                      display: 'none'
+                                  }}
                                     disabled={isDisabled}
                                     accept="image/jpeg,image/jpg,image/png,application/pdf"
                                     multiple
+                                    // className="hidden"
+                                    // style='display: none'
                                     onChange={(e) => fileHandler(e)}
                                   />
                                 </div>
@@ -1245,7 +1275,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                     fontSize: "1rem",
                                   }}
                                 >
-                                  {t("ideaform_questions.communityq")}
+                                  {t("ideaform_questions.workbookq")}
                                 </b>
                               </div>
                               <div className=" answers row flex-column">

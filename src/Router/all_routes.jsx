@@ -51,6 +51,7 @@ export const all_routes = {
   mentorteams: "/mentorteams",
   idea: "/idea",
   badge:"/badges",
+  badgeTeacher:"/teacherBadges",
   statedashboard: "/state-dashboard",
   eadmindashboard: "/eadmin-dashboard",
   adminpassword: "/admin-password",

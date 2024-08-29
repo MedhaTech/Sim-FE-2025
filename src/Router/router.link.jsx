@@ -96,6 +96,8 @@ import IdeaSubmission from "../Team/IdeaSubmission/IdeaSubmission";
 import InstructionsTeacher from "../Teacher/Dashboard/Instructions";
 import InstructionsStudent from "../Team/StudentDashboard/instructions";
 import BadgesComp from "../Team/Badges/Badges";
+import Badgesteach from "../Teacher/Badges/Badges";
+
 
 
 
@@ -562,6 +564,14 @@ export const mentorRoutes = [
     path: routes.instructions,
     name: "instructions",
     element: <InstructionsTeacher />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 15,
+    path: routes.badgeTeacher,
+    name: "badge",
+    element: <Badgesteach/>,
     protected: true,
     route: Route,
   },
