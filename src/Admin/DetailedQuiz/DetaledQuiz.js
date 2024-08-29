@@ -12,7 +12,7 @@ import DoubleBounce from "../../components/Loaders/DoubleBounce";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { getCurrentUser } from "../../helpers/Utils";
-import {  CheckCircle } from 'react-feather';
+import { CheckCircle } from 'react-feather';
 import { FaTimesCircle } from 'react-icons/fa';
 import {
   getAdminQuizQuestions,
@@ -342,115 +342,119 @@ const DetaledQuiz = (props) => {
                     </div>
                     {currentRole === "STUDENT" && (
                       <>
-                      {currentPercentage >= 60 ? (
-                        <>
-                        <div className="success_img text-center w-100">
-                          <img src={succesImg} alt=".." />
-                          <br />
-                        </div>
-                        <Table>
-                          <thead>
-                              <tr>
-                                <th className="text-secondary">{t("student_course.quiz_score_attempts")}</th>
-                                <th className="text-success">
-                                  {t("student_course.quiz_score_correctanswers")}
-                                </th>
-                                <th className="text-danger">
-                                  {t("student_course.quiz_score_wronganswers")}
-                                </th>
-                                <th className="text-secondary">{t("student_course.quiz_score_result")}</th>
-                              </tr>
-                            </thead>
-                          {quizdata.data.map((item, index) => {
-                            return (
-                              <tbody key={index}>
-                                <tr className="text-center">
-                                  <td>{item.attempts}</td>
-                                  <td>{item.score ? item.score : "0"} <CheckCircle size={20} color="#28C76F" /></td>
-                                  <td>{totalQstCount - item.score} <FaTimesCircle size={20} color="#FF0000" /></td>
-                                  <td>
-                                    {Math.round(
-                                      (item.score / totalQstCount) * 100
-                                    )}
-                                    %
-                                  </td>
-                                </tr>
-                              </tbody>
-                            );
-                          })}
-                        </Table>
-                        <div
-                          style={{
-                            textAlign: "center",
-                            marginTop: "1rem",
-                          }}
-                        >
-                            <h4
-                              style={{
-                                color: "green",
-                              }}
-                            >
-                              {t("student.quiz_completed")}
-                            </h4>
-                          </div>
-                          </>
-                        ) : ( 
+                        {currentPercentage >= 60 ? (
                           <>
-                          <div className="success_img text-center w-100">
-                            <img src={failedImg} alt=".." />
-                            <br />
-                          </div>
-                          <Table>
-                            <thead>
-                              <tr>
-                                <th className="text-secondary">{t("student_course.quiz_score_attempts")}</th>
-                                <th className="text-success">
-                                  {t("student_course.quiz_score_correctanswers")}
-                                </th>
-                                <th className="text-danger">
-                                  {t("student_course.quiz_score_wronganswers")}
-                                </th>
-                                <th className="text-secondary">{t("student_course.quiz_score_result")}</th>
-                              </tr>
-                            </thead>
-                            {quizdata.data.map((item, index) => {
-                              return (
-                                <tbody key={index}>
-                                  <tr className="text-center">
-                                    <td>{item.attempts}</td>
-                                    <td>{item.score ? item.score : "0"} <CheckCircle size={20} color="#28C76F" /></td>
-                                    <td>{totalQstCount - item.score} <FaTimesCircle size={20} color="#FF0000" /></td>
-                                    <td>
-                                      {Math.round(
-                                        (item.score / totalQstCount) * 100
-                                      )}
-                                      %
-                                    </td>
+                            <div className="success_img text-center w-100">
+                              <img src={succesImg} alt=".." />
+                              <br />
+                            </div>
+                            <div className="table-responsive">
+                              <Table>
+                                <thead>
+                                  <tr>
+                                    <th width="10%" className="text-secondary">{t("student_course.quiz_score_attempts")}</th>
+                                    <th width="30%" className="text-success">
+                                      {t("student_course.quiz_score_correctanswers")}
+                                    </th>
+                                    <th width="30%" className="text-danger">
+                                      {t("student_course.quiz_score_wronganswers")}
+                                    </th>
+                                    <th width="30%" className="text-secondary">{t("student_course.quiz_score_result")}</th>
                                   </tr>
-                                </tbody>
-                              );
-                            })}
-                          </Table>
-                          <div
-                            style={{
-                              textAlign: "center",
-                              marginTop: "1rem",
-                            }}
-                          >
-                            <h4
+                                </thead>
+                                {quizdata.data.map((item, index) => {
+                                  return (
+                                    <tbody key={index}>
+                                      <tr className="text-center">
+                                        <td>{item.attempts}</td>
+                                        <td>{item.score ? item.score : "0"} <CheckCircle size={20} color="#28C76F" /></td>
+                                        <td>{totalQstCount - item.score} <FaTimesCircle size={20} color="#FF0000" /></td>
+                                        <td>
+                                          {Math.round(
+                                            (item.score / totalQstCount) * 100
+                                          )}
+                                          %
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  );
+                                })}
+                              </Table>
+                            </div>
+                            <div
                               style={{
-                                color: "red",
+                                textAlign: "center",
+                                marginTop: "1rem",
                               }}
                             >
-                              {t("student.cutoff")}
-                            </h4>
+                              <h4
+                                style={{
+                                  color: "green",
+                                }}
+                              >
+                                {t("student.quiz_completed")}
+                              </h4>
                             </div>
                           </>
-                          )}
-                      
+                        ) : (
+                          <>
+                            <div className="success_img text-center w-100">
+                              <img src={failedImg} alt=".." />
+                              <br />
+                            </div>
+                            <div className="table-responsive">
+                              <Table>
+                                <thead>
+                                  <tr>
+                                    <th className="text-secondary">{t("student_course.quiz_score_attempts")}</th>
+                                    <th className="text-success">
+                                      {t("student_course.quiz_score_correctanswers")}
+                                    </th>
+                                    <th className="text-danger">
+                                      {t("student_course.quiz_score_wronganswers")}
+                                    </th>
+                                    <th className="text-secondary">{t("student_course.quiz_score_result")}</th>
+                                  </tr>
+                                </thead>
+                                {quizdata.data.map((item, index) => {
+                                  return (
+                                    <tbody key={index}>
+                                      <tr className="text-center">
+                                        <td>{item.attempts}</td>
+                                        <td>{item.score ? item.score : "0"} <CheckCircle size={20} color="#28C76F" /></td>
+                                        <td>{totalQstCount - item.score} <FaTimesCircle size={20} color="#FF0000" /></td>
+                                        <td>
+                                          {Math.round(
+                                            (item.score / totalQstCount) * 100
+                                          )}
+                                          %
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  );
+                                })}
+                              </Table>
+                            </div>
+                            <div
+                              style={{
+                                textAlign: "center",
+                                marginTop: "1rem",
+                              }}
+                            >
+                              <h4
+                                style={{
+                                  color: "red",
+                                }}
+                              >
+                                {t("student.cutoff")}
+                              </h4>
+                            </div>
+                          </>
+                        )}
+
                       </>
-                          )}
-                      
+                    )}
+
 
                     <div className="results-heading">
                       <img src={ResultStar} alt="star" />
