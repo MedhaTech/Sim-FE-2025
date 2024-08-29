@@ -259,7 +259,9 @@ console.log(IdeaStatus,"ii");
            
 
             <div  key={params} onClick={() => handleCreate(params)}>
-              {process.env.REACT_APP_TEAM_LENGTH > params.StudentCount && (
+              {process.env.REACT_APP_TEAM_LENGTH > params.StudentCount && params.
+ideaStatus===  null &&
+(
                 <OverlayTrigger placement="top" overlay={renderAddTooltip}>
                   <Link data-bs-toggle="tooltip" data-bs-placement="top" >
                     <div className="btn btn-success btn-sm btn-added"> <i data-feather="plus-circle" className="feather-plus-circle" /></div>

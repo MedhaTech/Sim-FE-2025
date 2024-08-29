@@ -1438,7 +1438,7 @@ const HorizontalSidebar = () => {
               </li> 
             </ul> */}
           </li>
-          <li className="submenu">
+          {/* <li className="submenu">
             <Link
               to="/teacherBadges"
               onClick={handleSelectClick8}
@@ -1447,7 +1447,7 @@ const HorizontalSidebar = () => {
               <Shield />
               <span>Badges</span>
             </Link>
-            </li>
+            </li> */}
         </ul>
       </div>
     </div>
