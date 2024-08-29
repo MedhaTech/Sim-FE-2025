@@ -334,12 +334,12 @@
         }
         .info {
             span {
-                background-color: $primary;
+                background-color: #ff9f4333;
                 @include rounded(3px);
                 font-weight: $font-weight-semibold;
-                color: $white;
+                color: $black;
                 font-size: $font-size-base;
-                padding: 0 10px;
+                padding: 10px 10px;
                 min-width: 64px;
             }
             h6 {
