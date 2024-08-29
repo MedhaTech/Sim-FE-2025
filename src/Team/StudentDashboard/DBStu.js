@@ -668,13 +668,17 @@ useEffect(() => {
                           <td>
                             <div className="product-info">
                               <Link
-                                to="/instruction"
+                                // to="/instruction"
+                                to="#"
                                 className="product-img"
                               >
                                 <FaLightbulb size={30} style={{marginRight : "10px", color:"orange"}} />
                               </Link>
                               <div className="info">
-                                <Link to="/instruction">
+                                <Link 
+                                  to="#"
+                                // to="/instruction"
+                                >
                                   <h4>Idea Submission</h4>
                                 </Link>
                                 <p className="dull-text">Select a theme & submit idea</p>
@@ -733,9 +737,12 @@ useEffect(() => {
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderViewTooltip}>
-                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/instruction"} >
+                                {stuIdeaSub == "SUBMITTED" ?  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/idea"} >
                                     <Eye className="feather-view" />
-                                  </Link>
+                                  </Link>:
+                                  <Link data-bs-toggle="tooltip" data-bs-placement="top" className="me-2 p-2" to={"/instruction"} >
+                                  <Eye className="feather-view" />
+                                </Link>}
                                 </OverlayTrigger>
                               </div>
                             </div>
