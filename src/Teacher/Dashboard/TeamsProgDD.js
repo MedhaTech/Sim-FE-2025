@@ -564,8 +564,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
           : formData?.verified_status === "ACCEPTED"
           ? "ACCEPTED"
           : formData?.verified_status === "REJECTED"
-          ?  `REJECTED : Reason ${formData?.mentor_rejected_reason
-          }`
+          ?  "REJECTED"
           : formData?.status || "Not Started"}
                     </span>
                   </Card>
