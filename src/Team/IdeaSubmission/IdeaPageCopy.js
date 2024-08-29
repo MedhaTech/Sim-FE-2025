@@ -623,14 +623,21 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
               <div className="aside p-4">
                 <CardBody>
                   <Form className="form-row row" isSubmitting>
-                     {formData?.verified_status !== null &&
-                        formData?.verified_status === "REJECTED"
-                          ? `Rejected on ${moment(formData?.verified_at).format(
-                              "DD-MM-YYYY"
-                            )} - Reason: ${
-                              formData?.mentor_rejected_reason
-                            } - Submitted by: ${formData?.initiated_name}`
-                          : ""}
+                    {formData?.verified_status !== null && (
+                      <div className="d-md-flex justify-content-end px-4">
+                        <Card className="p-3 card-bg-danger">
+                          <h5 className="text-white p-1">
+                            formData?.verified_status === "REJECTED"
+                            ?
+                            <h5>Last modified by : ${formData?.initiated_name}`</h5>
+                            <h5>Last submission rejected on : ${moment(formData?.verified_at).format("DD-MM-YYYY")} </h5>
+                            <h5>Reason : ${formData?.mentor_rejected_reason} </h5>
+                            : ""
+                          </h5>
+                        </Card>
+                      </div>
+                    )}
+
                     {formData?.status === "SUBMITTED" && (
                       <div className="d-md-flex justify-content-end px-4">
                         <Card className="p-3 card-bg-info">
@@ -643,30 +650,17 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               currentUser?.data[0]?.user_id &&
                               t("student_course.idea_submission_msg2")}
                             {formData?.initiated_name}
-                            {t("student_course.idea_submission_msg3")}
                             {formData?.status === "DRAFT"
                               ? moment(formData?.created_at).format(
                                 "DD-MM-YYYY H:I A"
                               )
-                              : (formData?.submitted_at) ? moment(formData?.submitted_at).format("DD-MM-YYYY HH:MM A") : ""}
+                              : (formData?.submitted_at) ? " On " + moment(formData?.submitted_at).format("DD-MM-YYYY HH:MM A") : ""}
                           </h5>
-                          {/* Teacher Verified Status : {""}
-                                {(formData?.verified_status === null ||formData?.verified_status === "")
-                                  ? "Yet to be Reviewed"
-                                  : formData?.verified_status === "ACCEPTED"
-                                  ? `Accepted on ${moment(
-                                      formData?.verified_at
-                                    ).format("DD-MM-YYYY")}`
-                                  : formData?.verified_status === "REJECTED"
-                                  ? "Rejected"
-                                  : moment(formData?.verified_at).format(
-                                      "DD-MM-YYYY"
-                                    )} */}
                           <h5 className="text-white p-1">
-                            Teacher Verified Status :
+                            Teacher Verification Status :
                             {formData?.verified_status === null ||
                               formData?.verified_status === ""
-                              ? "Yet to be Reviewed"
+                              ? " Yet to be Reviewed"
                               : formData?.verified_status === "ACCEPTED"
                                 ? `Accepted on ${moment(
                                   formData?.verified_at
@@ -680,7 +674,6 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                     "DD-MM-YYYY"
                                   )}
                           </h5>
-
                         </Card>
                       </div>
                     )}
