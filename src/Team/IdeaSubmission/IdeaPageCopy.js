@@ -624,20 +624,19 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                 <CardBody>
                   <Form className="form-row row" isSubmitting>
                     {formData?.verified_status !== null && (
-                      <div className="d-md-flex justify-content-end px-4">
-                        <Card className="p-3 card-bg-danger">
-                          <h5 className="text-white p-1">
-                            formData?.verified_status === "REJECTED"
-                            ?
-                            <h5>Last modified by : ${formData?.initiated_name}`</h5>
-                            <h5>Last submission rejected on : ${moment(formData?.verified_at).format("DD-MM-YYYY")} </h5>
-                            <h5>Reason : ${formData?.mentor_rejected_reason} </h5>
-                            : ""
-                          </h5>
-                        </Card>
-                      </div>
+                      <>
+                        {formData?.verified_status === "REJECTED"
+                          ? <div className="d-md-flex justify-content-end px-4">
+                            <Card className="p-3 card-bg-warning">
+                              <h5 className="text-white p-1">Last modified by : {formData?.initiated_name} </h5>
+                              <h5 className="text-white p-1">Last submission rejected by your teacher on : {moment(formData?.verified_at).format("DD-MM-YYYY")} </h5>
+                              <h5 className="text-white p-1">Reason for Rejection : {formData?.mentor_rejected_reason} </h5>
+                            </Card>
+                          </div>
+                          : ""}
+                      </>
                     )}
-
+                    
                     {formData?.status === "SUBMITTED" && (
                       <div className="d-md-flex justify-content-end px-4">
                         <Card className="p-3 card-bg-info">
@@ -662,16 +661,16 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               formData?.verified_status === ""
                               ? " Yet to be Reviewed"
                               : formData?.verified_status === "ACCEPTED"
-                                ? `Accepted on ${moment(
+                                ? ` Accepted on ${moment(
                                   formData?.verified_at
-                                ).format("DD-MM-YYYY")}`
+                                ).format("DD-MM-YYYY HH:MM A")}`
                                 : formData?.verified_status === "REJECTED"
-                                  ? `Rejected on ${moment(
+                                  ? ` Rejected on ${moment(
                                     formData?.verified_at
-                                  ).format("DD-MM-YYYY")} - Reason: ${formData?.mentor_rejected_reason
+                                  ).format("DD-MM-YYYY HH:MM A")} - Reason: ${formData?.mentor_rejected_reason
                                   }`
                                   : moment(formData?.verified_at).format(
-                                    "DD-MM-YYYY"
+                                    "DD-MM-YYYY HH:MM A"
                                   )}
                           </h5>
                         </Card>
@@ -1380,8 +1379,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                 </CardBody>
               </div>
             </div>
-          </Col>
-        </div>
+          </Col >
+        </div >
       )}
       {/* </div> */}
     </>
