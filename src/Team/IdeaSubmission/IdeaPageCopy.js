@@ -162,7 +162,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     setTheme(selectedTheme);
     if (selectedTheme === "Others") {
       setFocus([]);
-      setFocusArea(""); 
+      setFocusArea("");
     } else {
       setFocus(focusareasList[selectedTheme] || []);
     }
@@ -181,10 +181,11 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   //   );
   // }, [formData.theme]);
   useEffect(() => {
-    const activeTheme = props?.theme !== "" && props?.theme !== undefined
-            ? props?.theme
-            : formData?.theme;
-    
+    const activeTheme =
+      props?.theme !== "" && props?.theme !== undefined
+        ? props?.theme
+        : formData?.theme;
+
     if (activeTheme === "Others") {
       setFocus([]);
     } else {
@@ -406,7 +407,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
 
     if (error4) {
       apiCall();
-      return; 
+      return;
     } else {
       if (stats) {
         setLoading({ ...loading, draft: true });
@@ -560,7 +561,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
           if (response.status === 200) {
             if (stats === "SUBMITTED") {
               openNotificationWithIcon("success", "Idea submission successful");
-              setTimeout(function() {
+              setTimeout(function () {
                 window.location.reload();
               }, 500);
               // window.location.reload();
@@ -632,7 +633,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               {formData?.status === "DRAFT"
                                 ? t("student_course.idea_status1")
                                 : t("student_course.idea_status2")}
-                              {formData?.initiated_by !== currentUser?.data[0]?.user_id && t("student_course.idea_submission_msg2")}
+                              {formData?.initiated_by !==
+                                currentUser?.data[0]?.user_id &&
+                                t("student_course.idea_submission_msg2")}
 
                               {formData?.initiated_name}
                               {t("student_course.idea_submission_msg3")}
@@ -645,15 +648,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                   )}
                               <br />
                               <p>
-                                {/* Teacher Verified Status : {formData
-                                                    ?.verified_status ==
-                                                    null ? "Yet to be Review"  : moment(
-                                                      formData
-                                                              ?.verified_at
-                                                      ).format('DD-MM-YYYY')
-                                                } */}
-                                Teacher Verified Status : {""}
-                                {formData?.verified_status === null
+                                {/* Teacher Verified Status : {""}
+                                {(formData?.verified_status === null ||formData?.verified_status === "")
                                   ? "Yet to be Reviewed"
                                   : formData?.verified_status === "ACCEPTED"
                                   ? `Accepted on ${moment(
@@ -661,6 +657,23 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                     ).format("DD-MM-YYYY")}`
                                   : formData?.verified_status === "REJECTED"
                                   ? "Rejected"
+                                  : moment(formData?.verified_at).format(
+                                      "DD-MM-YYYY"
+                                    )} */}
+                                Teacher Verified Status :
+                                {formData?.verified_status === null ||
+                                formData?.verified_status === ""
+                                  ? "Yet to be Reviewed"
+                                  :  formData?.verified_status === "ACCEPTED"
+                                  ? `Accepted on ${moment(
+                                      formData?.verified_at
+                                    ).format("DD-MM-YYYY")}`
+                                  : formData?.verified_status === "REJECTED"
+                                  ? `Rejected on ${moment(
+                                      formData?.verified_at
+                                    ).format("DD-MM-YYYY")} - Reason: ${
+                                      formData?.mentor_rejected_reason
+                                    }`
                                   : moment(formData?.verified_at).format(
                                       "DD-MM-YYYY"
                                     )}
@@ -1184,30 +1197,26 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                                                                                         )}
                                                                                                     />
                                                                                                 )} */}
-                                                                                                {!isDisabled && <Button
-                                                    label="Upload File "
-                                                    // btnClass="primary"
-                                                    btnClass={`${
-                                                      isDisabled
-                                                          ? 'secondary'
-                                                          : 'primary'
-                                                  } me-3 pointer `}
-                                                    size="small"
-                                                    onClick={() => {
-                                                        document
-                                                            .getElementById(
-                                                                'file'
-                                                            )
-                                                            .click();
-                                                    }}
-                                                />}
+                                  {!isDisabled && (
+                                    <Button
+                                      label="Upload File "
+                                      // btnClass="primary"
+                                      btnClass={`${
+                                        isDisabled ? "secondary" : "primary"
+                                      } me-3 pointer `}
+                                      size="small"
+                                      onClick={() => {
+                                        document.getElementById("file").click();
+                                      }}
+                                    />
+                                  )}
                                   <input
                                     type="file"
                                     name="file"
-                                     id="file"
+                                    id="file"
                                     style={{
-                                      display: 'none'
-                                  }}
+                                      display: "none",
+                                    }}
                                     disabled={isDisabled}
                                     accept="image/jpeg,image/jpg,image/png,application/pdf"
                                     multiple

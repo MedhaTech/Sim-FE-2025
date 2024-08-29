@@ -559,13 +559,13 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
                   >
                     <span className="fw-bold">IDEA STATUS :</span>
                     <span style={{ paddingLeft: "1rem" }}>
-                      {/* {!noData ? formData?.status :"Not Started"} */}
                       {noData
           ? "Not Started"
           : formData?.verified_status === "ACCEPTED"
           ? "ACCEPTED"
           : formData?.verified_status === "REJECTED"
-          ? "REJECTED"
+          ?  `REJECTED : Reason ${formData?.mentor_rejected_reason
+          }`
           : formData?.status || "Not Started"}
                     </span>
                   </Card>
@@ -573,7 +573,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
               </Row>
               <>
                 <div>
-                  {(formData?.status === "SUBMITTED" || formData?.status === "DRAFT") && (
+                  {!noData && (formData?.status === "SUBMITTED" || formData?.status === "DRAFT" ) && (
                     <Button
                       button="button"
                       label="View Idea"
