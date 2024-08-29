@@ -79,52 +79,17 @@ console.log(IdeaStatus,"ii");
       })
       .catch(function (error) {
         console.log(error);
+
       });
   };
   useEffect(() => {
     setDataFinal(teamsListData);
     if (selectedTeam) {
-      submittedApi(selectedTeam);
-      // ideaStatusfun(selectedTeam);
+      // submittedApi(selectedTeam);
+      ideaStatusfun(selectedTeam);
     }
   }, [selectedTeam]);
-  const submittedApi = (id) => {
-    const Param = encryptGlobal(
-      JSON.stringify({
-        team_id: id,
-      })
-    );
-    var configidea = {
-      method: "get",
-      url:
-        process.env.REACT_APP_API_BASE_URL +
-        `/challenge_response/submittedDetails?Data=${Param}`,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${currentUser.data[0]?.token}`,
-      },
-    };
-    axios(configidea)
-      .then(function (response) {
-        if (response.status === 200) {
-          if (response.data.data && response.data.data.length > 0) {
-            const data = response.data.data[0]; 
-            setIdeaStatus(response.data.data[0].status);
-
-            // console.log(data, "data");
-
-
-          } 
-        } 
-      })
-      .catch(function (error) {
-        if (error.response.status === 404) {
-        //   seterror4( true);
-        } 
-
-      });
-  };
+ 
 
   const teamListbymentorid = (mentorid) => {
     const teamparam = encryptGlobal(
