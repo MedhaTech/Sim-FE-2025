@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import ImageWithBasePath from '../../core/img/imagewithbasebath';
 import { Check } from 'react-feather';
 import FeatherIcon from "feather-icons-react";
-import {themes,themesList}  from "./themesData";
+import { themes, themesList } from "./themesData";
 import { getCurrentUser } from '../../helpers/Utils';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import axios from 'axios';
@@ -51,16 +51,16 @@ const settings = {
   ],
 };
 
-const Idea = ({showChallenge, idea }) => {
+const Idea = ({ showChallenge, idea }) => {
   const [theme, setTheme] = useState(null);
   const currentUser = getCurrentUser('current_user');
   const TeamId = currentUser?.data[0]?.team_id;
-  const [themeInt,setThemeInt]=useState("");
-  const [error4,seterror4]=useState(false);
+  const [themeInt, setThemeInt] = useState("");
+  const [error4, seterror4] = useState(false);
 
   const [data, setData] = useState(0);
   const formRef = useRef(null);
-  const [initiate,setInitiate]=useState("");
+  const [initiate, setInitiate] = useState("");
 
   const submittedApi = () => {
     const Param = encryptGlobal(
@@ -84,29 +84,29 @@ const Idea = ({showChallenge, idea }) => {
         if (response.status === 200) {
           // console.log(response.data.data);
           if (response.data.data && response.data.data.length > 0) {
-            const data = response.data.data[0]; 
+            const data = response.data.data[0];
             setInitiate(response.data.data[0].initiate_by);
             idea();
 
-          } 
-        } 
+          }
+        }
       })
       .catch(function (error) {
         if (error.response.status === 404) {
-        //   seterror4( true);
-        } 
+          //   seterror4( true);
+        }
 
       });
   };
-useEffect(() => {
+  useEffect(() => {
     submittedApi();
-}, []);
- 
+  }, []);
 
- 
-const challenges =()=>{
-  showChallenge();
-};
+
+
+  const challenges = () => {
+    showChallenge();
+  };
   return (
     <div className='page-wrapper'>
       <div className='content'>
@@ -116,45 +116,44 @@ const challenges =()=>{
             <h6>Share your Amazing Ideas with us</h6>
           </div>
         </div>
-          
-        {!theme  ? (
+
+        {!theme ? (
           <div className="row align-items-start pos-wrapper pos-design">
             <div className="col-md-12 col-lg-8">
               <div className="pos-categories tabs_wrapper">
                 <div className="pos-products">
-                    <div className="tabs_container">
-                        <div className="tab_content active">
-                            <div className="row">
-                            {themes.map((theme) => (
-                                <div id={theme.id} key={theme.id} className="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2" onClick={() => setData(theme.id)}>
-                                    <div className="product-info default-cover card">
-                                        <Link className="img-bg">
-                                            <img
-                                            src={theme.image}
-                                            alt={theme.id}
-                                            />
-                                            <span>
-                                        
-                                            <Check className="feather-16"/>
-                                            </span>
-                                        </Link>
-                                        {/* <h6 className="cat-name">
+                  <div className="tabs_container">
+                    <div className="tab_content active">
+                      <div className="row">
+                        {themes.map((theme) => (
+                          <div id={theme.id} key={theme.id} className="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2" onClick={() => setData(theme.id)}>
+                            <div className="product-info default-cover card">
+                              <Link className="img-bg">
+                                <img
+                                  src={theme.image}
+                                  alt={theme.id}
+                                />
+                                <span>
+
+                                  <Check className="feather-16" />
+                                </span>
+                              </Link>
+                              {/* <h6 className="cat-name">
                                             <Link to="#">Mobiles</Link>
                                         </h6> */}
-                                        <h6 className="product-name">
-                                            <Link to="#">{theme.title}</Link>
-                                        </h6>
-                                        <div className="d-flex align-items-center justify-content-between price">
-                                            <span>Focus Areas</span>
-                                            {theme.id === 8? (<p><FeatherIcon size={20} icon="loader" /></p>):(<p>{theme.focusareas.length -1}</p>)}
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                ))}
+                              <h6 className="product-name">
+                                <Link to="#">{theme.title}</Link>
+                              </h6>
+                              <div className="d-flex align-items-center justify-content-between price">
+                                <span>Focus Areas</span>
+                                {theme.id === 8 ? (<p><FeatherIcon size={20} icon="loader" /></p>) : (<p>{theme.focusareas.length - 1}</p>)}
+                              </div>
                             </div>
-                        </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -181,7 +180,7 @@ const challenges =()=>{
                   <div className="product-added block-section">
                     <div className="head-text d-flex align-items-center justify-content-between">
                       <h6 className="d-flex align-items-center mb-0">
-                        Focus Areas<span className="count">{themes[data - 1].id === 8? (<p><FeatherIcon size={20} icon="loader" /></p>):(<p>{themes[data - 1].focusareas.length -1}</p>)}</span>
+                        Focus Areas<span className="count">{themes[data - 1].id === 8 ? (<p><FeatherIcon size={20} icon="loader" /></p>) : (<p>{themes[data - 1].focusareas.length - 1}</p>)}</span>
                       </h6>
                     </div>
                     <div className="product-wrap">
@@ -204,14 +203,14 @@ const challenges =()=>{
                       </div>
                     </div>
                   </div>
-                  <div className="btn-row d-sm-flex align-items-center justify-content-between" 
-                  onClick={() => setTheme(themes[data - 1].title)}
-                //   onClick={() =>
-                //     handleSelect(
-                //       (themes[data - 1].title)
-                //     )
-                // }
-                >
+                  <div className="btn-row d-sm-flex align-items-center justify-content-between"
+                    onClick={() => setTheme(themes[data - 1].title)}
+                  //   onClick={() =>
+                  //     handleSelect(
+                  //       (themes[data - 1].title)
+                  //     )
+                  // }
+                  >
                     <Link
                       // to="#"
                       className="btn btn-info btn-icon flex-fill"
@@ -227,11 +226,11 @@ const challenges =()=>{
             )}
           </div>
         ) : (
-          <div >
-            <IdeaPageCopy theme={theme} showChallenges={challenges}/>
+          <div className='page-wrapper'>
+            <IdeaPageCopy theme={theme} showChallenges={challenges} />
           </div>
         )}
-      
+
       </div>
     </div>
   );
