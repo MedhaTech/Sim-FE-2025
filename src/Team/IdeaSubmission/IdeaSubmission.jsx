@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect, useCallback } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CommonPage from '../../components/CommonPage';
@@ -82,6 +82,7 @@ const [initiate,setInitiate]=useState("");
             if (response.status === 200) {
               if (response.data.data && response.data.data.length > 0) {
                 const data = response.data.data[0]; 
+                // console.log(data, "data");
                 setInitiate(response.data.data[0].initiate_by);
 
                 setIdeaSubmittedRes(data);
@@ -126,14 +127,54 @@ const [initiate,setInitiate]=useState("");
         setShowCompleted(true);
         setView(false);
     };
+
     const submitted = () => {
-        // console.log("3");
-        ideaSubmittedRes.status === 'DRAFT' ? setShowChallenges(true) : setShowCompleted(true);
-        // setShowCompleted(true);
-        // setShowChallenges(true);
+        // console.log("3", ideaSubmittedRes);
+        const Param = encryptGlobal(
+            JSON.stringify({
+              team_id: TeamId,
+            })
+          );
+          var configidea = {
+            method: "get",
+            url:
+              process.env.REACT_APP_API_BASE_URL +
+              `/challenge_response/submittedDetails?Data=${Param}`,
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+              Authorization: `Bearer ${currentUser.data[0]?.token}`,
+            },
+          };
+          axios(configidea)
+            .then(function (response) {
+              if (response.status === 200) {
+                if (response.data.data && response.data.data.length > 0) {
+                  const data = response.data.data[0]; 
+                  data.status === 'DRAFT' ? setShowChallenges(true) : setShowCompleted(true);
+  
+                } 
+              } 
+            })
+            .catch(function (error) {
+              if (error.response.status === 404) {
+              //   seterror4( true);
+              } 
+      
+            });
+        
     };
+
+    // const submitted = useCallback(a () => {
+    //     console.log("3", ideaSubmittedRes); 
+    //     if (ideaSubmittedRes.status === 'DRAFT') {
+    //       setShowChallenges(true);
+    //     } else {
+    //       setShowCompleted(true);
+    //     }
+    //   }, [ideaSubmittedRes]);
     
-// console.log(showChallenges,"showChallenges",showCompleted,"showCompleted",);
+    // console.log(showChallenges,"showChallenges",showCompleted,"showCompleted",);
     return showCompleted ? (
         <div>
             <CommonPage
@@ -146,7 +187,7 @@ const [initiate,setInitiate]=useState("");
         <IdeasPageNew
         showChallenges={handleShow}/>
     ) : 
-    isideadisable ?
+    !isideadisable ?
      (
         <Idea showChallenge={handleShow} idea={submitted}/>
      

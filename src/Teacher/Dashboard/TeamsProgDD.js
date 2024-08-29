@@ -51,6 +51,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
   const [ideaStatusEval, setIdeaStatusEval] = useState("-");
   const [isReject, setIsreject] = React.useState(false);
   const [reason, setReason] = React.useState("");
+  const [noData,setNoData]=useState(false);
   const selectData = [
     "Not novel - Idea and problem common and already in use.",
     "Not novel - Idea has been 100% plagiarized.",
@@ -265,12 +266,14 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
         if (response.status === 200) {
           if (response.data.data && response.data.data.length > 0) {
             setFormData(response.data.data[0]);
+            setNoData(false);
+
           }
         }
       })
       .catch(function (error) {
         if (error.response.status === 404) {
-          //   seterror4( true);
+            setNoData(true);
         }
       });
   };
@@ -345,25 +348,42 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
       });
   };
   useEffect(() => {
-    if (formData.length === 0) {
-      setIdeaStatusEval("NOT STARTED");
-    } else if (formData.final_result === "1") {
-      setIdeaStatusEval("Congratulations,Idea is selected for grand finale");
-    } else if (formData.final_result === "0") {
-      setIdeaStatusEval("Shortlisted for final round of evaluation");
-      if (isEvlCom) {
-        setIdeaStatusEval("Better luck next time");
-      }
-    } else if (formData.evaluation_status === "REJECTEDROUND1") {
-      setIdeaStatusEval("Better luck next time");
-    } else if (formData.evaluation_status === "SELECTEDROUND1") {
-      setIdeaStatusEval("Promoted to Level 2 round of evaluation");
-      if (isEvlCom) {
-        setIdeaStatusEval("Better luck next time");
-      }
-    } else {
-      setIdeaStatusEval(formData?.status);
-    }
+    // if (noData == true){
+    //   setIdeaStatusEval("NOT STARTED");
+    // }else if(formData?.verified_status === "ACCEPTED"){
+    //   setIdeaStatusEval("ACCEPTED");
+    // }  else if(formData?.verified_status === "REJECTED"){
+    //   setIdeaStatusEval("REJECTED");
+    // } else {
+    //   setIdeaStatusEval(formData?.status);
+    // }
+    // if (formData.length === 0) {
+    //   setIdeaStatusEval("NOT STARTED");
+    // } else if (formData.final_result === "1") {
+    //   setIdeaStatusEval("Congratulations,Idea is selected for grand finale");
+    // } else if (formData.final_result === "0") {
+    //   setIdeaStatusEval("Shortlisted for final round of evaluation");
+    //   if (isEvlCom) {
+    //     setIdeaStatusEval("Better luck next time");
+    //   }
+    // } else if (formData.evaluation_status === "REJECTEDROUND1") {
+    //   setIdeaStatusEval("Better luck next time");
+    // } else if (formData.evaluation_status === "SELECTEDROUND1") {
+    //   setIdeaStatusEval("Promoted to Level 2 round of evaluation");
+    //   if (isEvlCom) {
+    //     setIdeaStatusEval("Better luck next time");
+    //   }
+    // } else if (formData?.verified_status === "ACCEPTED") {
+    //   setIdeaStatusEval("ACCEPTED");
+      
+    // }else if(formData?.verified_status === "REJECTED"){
+    //   setIdeaStatusEval("REJECTED");
+    // }else {
+    //   setIdeaStatusEval(formData?.status);
+    // }
+  //  else  {
+  //   setIdeaStatusEval(formData?.status);
+  // }
   }, [formData]);
   // console.log(formData?.status,"ss");
   // const handleRevoke = async (id, type) => {
@@ -418,7 +438,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
             : "You are attempting to reject this Idea",
         text: "Are you sure?",
         imageUrl: `${logout}`,
-        confirmButtonText: "Delete",
+        confirmButtonText: "Reject",
         showCancelButton: true,
         cancelButtonText: "Cancel",
         reverseButtons: false,
@@ -439,13 +459,13 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
    
     const body = JSON.stringify({
       verified_status: "REJECTED",
-      // verified_at: new Date().currentTime(),
+      status: "DRAFT",
       mentor_rejected_reason: handledText == "reject" ? reason : "",
     });
     const ideaID = encryptGlobal(
-      JSON.stringify({
-        challenge_response_id: formData.challenge_response_id,
-      })
+      JSON.stringify(
+        formData.challenge_response_id
+      )
     );
     var config = {
       method: "put",
@@ -466,9 +486,13 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
         openNotificationWithIcon(
           "success",
           response?.data?.message == "OK"
-            ? "Idea processed successfully!"
+            ? "Idea rejected and moved to draft"
             : response?.data?.message
         );
+        dispatch(getTeamMemberStatus(teamId, setshowDefault));
+        submittedApi(teamId);
+        window.location.reload();
+
         // props?.setIsDetail(false);
       })
       .catch(function (error) {
@@ -481,7 +505,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
       setIsreject(false);
     }
   };
-
+// console.log(formData,"ddd");
   return (
     <div>
       <div className="card table-list-card">
@@ -535,32 +559,35 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
                   >
                     <span className="fw-bold">IDEA STATUS :</span>
                     <span style={{ paddingLeft: "1rem" }}>
-                      {isEvlCom
-                        ? ideaStatusEval
-                        : formData.length === 0
-                        ? "Not Started"
-                        : formData?.status}
+                      {/* {!noData ? formData?.status :"Not Started"} */}
+                      {noData
+          ? "Not Started"
+          : formData?.verified_status === "ACCEPTED"
+          ? "ACCEPTED"
+          : formData?.verified_status === "REJECTED"
+          ? "REJECTED"
+          : formData?.status || "Not Started"}
                     </span>
                   </Card>
                 </div>
               </Row>
               <>
                 <div>
-                  {formData?.status === "SUBMITTED" && (
+                  {(formData?.status === "SUBMITTED" || formData?.status === "DRAFT") && (
                     <Button
                       button="button"
                       label="View Idea"
-                      disabled={
-                        teamsMembersStatus.length > 0 &&
-                        formData?.status === "SUBMITTED"
-                          ? false
-                          : true
-                      }
+                      // disabled={
+                      //   teamsMembersStatus.length > 0 &&
+                      //   formData?.status === "SUBMITTED"
+                      //     ? false
+                      //     : true
+                      // }
                       btnClass={`${
                         teamsMembersStatus.length > 0 &&
                         formData?.status === "SUBMITTED"
                           ? "primary"
-                          : "default"
+                          : "primary"
                       }`}
                       size="small"
                       shape="btn-square"
@@ -594,8 +621,8 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
                                     )}
                                 </div> */}
                 <div>
-                  {formData?.status === "SUBMITTED" &&
-                  formData?.evaluation_status === null ? (
+                  {(formData?.status === "SUBMITTED" && formData?.verified_status !=="REJECTED" &&
+                 (formData?.verified_status === null  || formData?.verified_status !== "ACCEPTED" )) ?(
                     <button
                       className="btn btn-lg px-5 py-2 btn-danger me-3 rounded-pill"
                       onClick={() => {
@@ -642,7 +669,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
               handleClose={() => setIdeaShow(false)}
               response={formData}
               setIdeaCount={setIdeaCount}
-              setApproval={setApproval}
+              // setApproval={setApproval}
             />
           )}
           {isReject && (

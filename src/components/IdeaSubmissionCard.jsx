@@ -56,6 +56,13 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props, setIdeaCount,
     const [hide, setHide] = useState(true);
     const [submittedResponse, setIdeaSubmittedData] = React.useState(submitted);
     const Id =submittedResponse.challenge_response_id;
+    const problemSolvingArray = JSON.parse(submittedResponse.problem_solving);
+    // const prototypeImageArray = JSON.parse(response.prototype_image);
+    const files = submittedResponse?.prototype_image
+    ? JSON.parse(submittedResponse.prototype_image)
+    : [];
+
+    // const fileName = prototypeImageArray[0].split('/').pop();
     // const [id,setId]=useState();
     // console.log(submittedResponse,"11");
     // console.log(Id,"id");
@@ -100,9 +107,9 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props, setIdeaCount,
             // verified_at: currentTime,
         });
         const ideaID = encryptGlobal(
-            JSON.stringify({
-                challenge_response_id:Id
-            })
+            JSON.stringify(
+                Id
+            )
         );
         var config = {
             method: 'put',
@@ -120,13 +127,15 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props, setIdeaCount,
                     // console.log(response, 'response');
                     openNotificationWithIcon(
                         'success',
-                        'Approve the Idea successfully'
+                        'Idea Approved Successfully'
                     );
                     setHide(false);
                     handleClose();
+                    ideaSubmittedApi(teamId);
                     dispatch(getTeamMemberStatus(teamId, setshowDefault));
+                    window.location.reload();
+
                     mentorIdeaCount();
-                    await ideaSubmittedApi();
                 }
             })
             .catch(function (error) {
@@ -134,7 +143,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props, setIdeaCount,
                 openNotificationWithIcon('error', 'Something went wrong');
             });
     };
-    const ideaSubmittedApi = () => {
+    const ideaSubmittedApi = (teamId) => {
         const Param = encryptGlobal(
           JSON.stringify({
             team_id: teamId,
@@ -190,7 +199,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props, setIdeaCount,
                 if (response.status === 200) {
                     // console.log(response, 'ideasubmission page');
                     setIdeaCount(response.data.data[0].idea_count);
-                    setApproval(response.data.data[0].PendingForApproval);
+                    // setApproval(response.data.data[0].PendingForApproval);
                 }
             })
             .catch(function (error) {
@@ -203,6 +212,35 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props, setIdeaCount,
             response[0]?.team_name ? response[0]?.team_name : 'temp'
         }_IdeaSubmission`
     });
+    const downloadFile = (item) => {
+        // const link = document.createElement('a');
+        // link.href = item;
+        // link.download = 'upload.pdf';
+        // document.body.appendChild(link);
+        // link.click();
+        // document.body.removeChild(link);
+        fetch(item)
+            .then((response) => {
+                // Convert the response to a blob
+                return response.blob();
+            })
+            .then((blob) => {
+                // Create a download link
+                const url = window.URL.createObjectURL(new Blob([blob]));
+                const link = document.createElement('a');
+                link.href = url;
+                const fileName = item.split('/').pop();
+                link.setAttribute('download', fileName);
+                // const parts = item.split('/');
+                // link.setAttribute('download', parts[parts.length - 1]);
+                document.body.appendChild(link);
+                link.click();
+                link.parentNode.removeChild(link);
+            })
+            .catch((error) => {
+                console.error('Error downloading file:', error);
+            });
+    };
     return (
         <div>
             <div style={{ display: 'none' }}>
@@ -239,7 +277,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props, setIdeaCount,
                                 className=""
                                 style={{ fontSize: '1rem' }}
                             >
-                              Focus Area
+                             1. Focus Area
                             </label>
                             <CardText>
                                 {response.focus_area}
@@ -253,7 +291,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props, setIdeaCount,
                                 className=""
                                 style={{ fontSize: '1rem' }}
                             >
-                              Title of your idea (Think of a proper name. Don't describe the solution or problem statement here.)
+                             2. Title of your idea (Think of a proper name. Don't describe the solution or problem statement here.)
                             </label>
                             <CardText>
                                 {submittedResponse.title}
@@ -267,10 +305,10 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props, setIdeaCount,
                                 className=""
                                 style={{ fontSize: '1rem' }}
                             >
-                               Write down your Problem statement
+                               3. Write down your Problem statement
                             </label>
                             <CardText>
-                                {
+                               {
                                     submittedResponse.problem_statement
                                 }
                             </CardText>
@@ -283,7 +321,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props, setIdeaCount,
                                 className=""
                                 style={{ fontSize: '1rem' }}
                             >
-                               List the Causes of the problem
+                               4. List the Causes of the problem
                             </label>
                             <CardText>
                                 {
@@ -300,7 +338,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props, setIdeaCount,
                                 className=""
                                 style={{ fontSize: '1rem' }}
                             >
-                                List the Effects of the problem
+                               5. List the Effects of the problem
                             </label>
                             <CardText>{submittedResponse.
 effects
@@ -314,7 +352,7 @@ effects
                                 className=""
                                 style={{ fontSize: '1rem' }}
                             >
-                                In which places in your community did you find this problem?
+                               6. In which places in your community did you find this problem?
                             </label>
                             <CardText>
                                 {submittedResponse.community}
@@ -328,7 +366,7 @@ effects
                                 className=""
                                 style={{ fontSize: '1rem' }}
                             >
-                               Who all are facing this problem?
+                              7. Who all are facing this problem?
                             </label>
                             <CardText>
                                 {submittedResponse.facing}
@@ -342,7 +380,7 @@ effects
                                 className=""
                                 style={{ fontSize: '1rem' }}
                             >
-                               Describe the solution to the problem your team found. Explain your solution clearly - how does it work, who is it helping, and how will it solve the problem.
+                              8. Describe the solution to the problem your team found. Explain your solution clearly - how does it work, who is it helping, and how will it solve the problem.
                             </label>
                             <CardText>
                                 {submittedResponse.solution}
@@ -356,7 +394,7 @@ effects
                                 className=""
                                 style={{ fontSize: '1rem' }}
                             >
-                               Apart from your teacher, how many people/stakeholders did you speak to to understand or improve your problem or solution?
+                              9. Apart from your teacher, how many people/stakeholders did you speak to to understand or improve your problem or solution?
                             </label>
                             <CardText>
                                 {submittedResponse.stakeholders}
@@ -369,10 +407,11 @@ effects
                                 className=""
                                 style={{ fontSize: '1rem' }}
                             >
-                              Pick the actions your team did in your problem solving journey (You can choose multiple options)
+                             10. Pick the actions your team did in your problem solving journey (You can choose multiple options)
                             </label>
                             <CardText>
-                                {submittedResponse.problem_solving}
+                                {/* {submittedResponse.problem_solving} */}
+                                {problemSolvingArray}
                             </CardText>
                         </CardBody>
                     </Card>  <Card className="p-1">
@@ -382,7 +421,7 @@ effects
                                 className=""
                                 style={{ fontSize: '1rem' }}
                             >
-                               Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.
+                              11. Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.
                             </label>
                             <CardText>
                                 {submittedResponse.feedback}
@@ -396,11 +435,43 @@ effects
                                 className=""
                                 style={{ fontSize: '1rem' }}
                             >
-                              Upload image of your prototype.  (total size limit : 10mb)
+                            12.  Upload image of your prototype.  (total size limit : 10mb)
                             </label>
-                            <CardText>
+                            {/* <CardText>
                                 {submittedResponse.prototype_image}
-                            </CardText>
+                                {fileName}
+                            </CardText> */}
+                             <CardText>
+                                            {files.length > 0 &&
+                                                files.map((item, i) => (
+                                                    <Card key={i}>
+                                                        {/* <CardTitle className="fw-bold">
+                                                    {item.question}
+                                                </CardTitle> */}
+                                                        {/* <CardBody> */}
+                                                        <a
+                                                            key={i}
+                                                            className="badge bg-info col-3"
+                                                            target="_blank"
+                                                            rel="noreferrer"
+                                                            onClick={() =>
+                                                                downloadFile(
+                                                                    item
+                                                                )
+                                                            }
+                                                        >
+                                                            {item
+                                                                .split('/')
+                                                                .pop()}
+                                                        </a>
+                                                        {/* </CardBody> */}
+                                                    </Card>
+                                                ))}
+                                            {/* {}{' '}
+                                    <button onClick={downloadFile}>
+                                        Download PDF
+                                    </button> */}
+                                        </CardText>
                         </CardBody>
                     </Card>
                     <Card className="p-1">
@@ -424,7 +495,7 @@ effects
                                 className=""
                                 style={{ fontSize: '1rem' }}
                             >
-                              Did your team complete and submit the workbook to your school Guide teacher?
+                           13.   Did your team complete and submit the workbook to your school Guide teacher?
                             </label>
                             <CardText>
                                 {submittedResponse.workbook}
@@ -436,7 +507,7 @@ effects
                 <Modal.Footer>
                     {/* <FaDownload size={22} onClick={handlePrint} /> */}
                    
-                    {hide && submittedResponse?.verified_status === null ? (
+                    {(hide && submittedResponse?.status === "SUBMITTED" &&submittedResponse?.verified_status !== "REJECTED" && (submittedResponse?.verified_status !== "ACCEPTED")  )? (
                         <Button
                             size="small"
                             label={'Approve'}
@@ -446,19 +517,19 @@ effects
                     ) : (
                         
                         <>
-                            <div>
+                          {submittedResponse?.status === "SUBMITTED" &&(  <div>
                                 <p
-                                    style={{ fontSize: '1.5rem' }}
+                                    style={{ fontSize: '1rem' }}
                                     className="fw-bold"
                                 >
-                                     By :{' '}
+                                    Submitted By :{' '}
                                     {submittedResponse.initiated_name}
                                 </p>
-                            </div>
+                            </div>)}
                             <br />
-                            <div>
+                           {submittedResponse?.verified_status == "ACCEPTED" && (<div>
                                 <p
-                                    style={{ fontSize: '1.5rem' }}
+                                    style={{ fontSize: '1rem' }}
                                     className="fw-bold"
                                 >
                                     Verified At :{' '}
@@ -468,7 +539,7 @@ effects
                                           ).format('DD-MM-YYYY')
                                         : '-'}
                                 </p>
-                            </div>
+                            </div>)}
                         </>
                     )}
                     <Button

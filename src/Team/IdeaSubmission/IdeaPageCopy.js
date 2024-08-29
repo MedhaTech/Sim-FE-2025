@@ -82,7 +82,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const initialSizeData = {
     data: formData,
   };
-  
+
   // dispatch(
   //     initiateIdea(
   //         currentUser?.data[0]?.team_id,
@@ -105,8 +105,13 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const goToNext = () => setCurrentSection(currentSection + 1);
   const goToBack = () => setCurrentSection(currentSection - 1);
   const [theme, setTheme] = useState(
-    props?.theme !== "" ? formData?.theme : props?.theme
+    props?.theme !== "" && props?.theme !== undefined
+      ? props?.theme
+      : formData?.theme
   );
+  // console.log(props?.theme !== "" && props?.theme !== undefined ? "true" : "false" );
+  // console.log(formData?.theme ,"form");
+
   const [focusarea, setFocusArea] = useState(formData?.focus_area);
   const [files, setFiles] = useState([]);
   const [message, setMessage] = useState("");
@@ -127,7 +132,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const [ideaInitiation, setIdeaInitiation] = useState("");
   const [feedback, setFeedback] = useState(formData?.feedback);
   const [prototypeImage, setPrototypeImage] = useState(
-    formData.prototype_image ||[]
+    formData.prototype_image || []
   );
   const [focus, setFocus] = useState([]);
   const [id, setId] = useState("");
@@ -135,6 +140,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const [workbook, setWorkbook] = useState(formData?.workbook);
   const people = ["None", "2-4 people", "5+ people", "10+ people"];
   const submit = ["YES", "NO"];
+  // console.log(error4,"111");
   const journey = [
     "We did the full problem solving journey by ourselves.",
     "We got feedback on our problem and modified it",
@@ -154,18 +160,43 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const handleThemeChange = (e) => {
     const selectedTheme = e.target.value;
     setTheme(selectedTheme);
-    setFocus(focusareasList[selectedTheme] || []);
+    if (selectedTheme === "Others") {
+      setFocus([]);
+      setFocusArea(""); 
+    } else {
+      setFocus(focusareasList[selectedTheme] || []);
+    }
   };
   const handleFocusAreaChange = (e) => {
     setFocusArea(e.target.value);
   };
-  
-  useEffect(() => {
-    setFocus(focusareasList[formData.theme] || []);
-  }, [formData.theme]);
 
+  // useEffect(() => {
+  //   setFocus(
+  //     focusareasList[
+  //       props?.theme !== "" && props?.theme !== undefined
+  //         ? props?.theme
+  //         : formData?.theme
+  //     ] || []
+  //   );
+  // }, [formData.theme]);
   useEffect(() => {
-    setTheme(formData?.theme);
+    const activeTheme = props?.theme !== "" && props?.theme !== undefined
+            ? props?.theme
+            : formData?.theme;
+    
+    if (activeTheme === "Others") {
+      setFocus([]);
+    } else {
+      setFocus(focusareasList[activeTheme] || []);
+    }
+  }, [formData.theme]);
+  useEffect(() => {
+    setTheme(
+      props?.theme !== "" && props?.theme !== undefined
+        ? props?.theme
+        : formData?.theme
+    );
     setTitle(formData?.title);
     setProblemStatement(formData?.problem_statement);
     setCauses(formData?.causes);
@@ -180,7 +211,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
 
     setWorkbook(formData?.workbook);
   }, [formData]);
-  
+
   useEffect(() => {
     if (formData?.problem_solving) {
       setProblemSolving(JSON.parse(formData.problem_solving));
@@ -191,10 +222,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     if (formData?.prototype_image) {
       setPrototypeImage(JSON.parse(formData.prototype_image));
     } else {
-      setPrototypeImage([]);  
+      setPrototypeImage([]);
     }
-
-  }, [formData?.problem_solving,formData?.theme,formData?.prototype_image]);
+  }, [formData?.problem_solving, formData?.theme, formData?.prototype_image]);
 
   const handleCheckboxChange = (item) => {
     if (Array.isArray(problemSolving) && problemSolving.includes(item)) {
@@ -222,7 +252,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   let maxFileSize = 10000000;
   const fileHandler = (e) => {
     let choosenFiles = Array.prototype.slice.call(e.target.files);
-    e.target.files = null;
+    // e.target.files = null;
     let pattern = /^[a-zA-Z0-9_-\s]{0,}$/;
     const checkPat = choosenFiles.filter((item) => {
       let pat = item.name.split(".");
@@ -308,6 +338,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       focus_area: focusarea,
       title: title,
       problem_statement: problemStatement,
+      initiated_by: currentUser?.data[0]?.user_id,
     };
     if (causes !== "") {
       body["causes"] = causes;
@@ -356,6 +387,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
         if (response.status == 200) {
           setIdeaInitiation(response?.data?.data[0]?.initiated_by);
           openNotificationWithIcon("success", "Idea Initiated Successfully");
+          submittedApi();
+          seterror4(false);
+          // console.log("200");
         }
       })
       .catch(function (error) {
@@ -363,6 +397,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
           "error",
           "Please fill Focus Area, Title, ProblemStatement for Idea Initiation."
         );
+        // console.log("errors");
         console.log(error);
       });
   };
@@ -371,6 +406,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
 
     if (error4) {
       apiCall();
+      return; 
     } else {
       if (stats) {
         setLoading({ ...loading, draft: true });
@@ -486,7 +522,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
         problemSolving === "" ||
         feedback === "" ||
         prototypeLink === "" ||
-        workbook === ""
+        prototypeLink == null ||
+        workbook === "" ||
+        workbook == null
       ) {
         allques = false;
       }
@@ -522,6 +560,11 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
           if (response.status === 200) {
             if (stats === "SUBMITTED") {
               openNotificationWithIcon("success", "Idea submission successful");
+              setTimeout(function() {
+                window.location.reload();
+              }, 500);
+              // window.location.reload();
+
               localStorage.setItem("ideaSubStatus", 1);
               onclick();
             } else {
@@ -582,48 +625,49 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                   <div className="aside">
                     <CardBody>
                       <Form className="form-row row" isSubmitting>
-                        {
-                                <div className="d-md-flex justify-content-end px-4">
-                                    <Card className="p-3">
-                                        {t(
-                                            'student_course.idea_submission_msg1'
-                                        )}
-                                        {formData
-                                            ?.status === 'DRAFT'
-                                            ? t('student_course.idea_status1')
-                                            : t('student_course.idea_status2')}
-                                        {t(
-                                            'student_course.idea_submission_msg2'
-                                        )}
-                                        {
-                                            formData
-                                                ?.initiated_name
-                                        }
-                                        {t(
-                                            'student_course.idea_submission_msg3'
-                                        )}
-                                        {formData
-                                            ?.status === 'DRAFT'
-                                            ? moment(
-                                              formData
-                                                      ?.created_at
-                                              ).format('DD-MM-YYYY')
-                                            : moment(
-                                              formData
-                                                      ?.submitted_at
-                                              ).format('DD-MM-YYYY')}
-                                              <br/>
-                                              <p>
-                                              Teacher Verified Status : {formData
+                        {formData?.status === "SUBMITTED" && (
+                          <div className="d-md-flex justify-content-end px-4">
+                            <Card className="p-3">
+                              {t("student_course.idea_submission_msg1")}
+                              {formData?.status === "DRAFT"
+                                ? t("student_course.idea_status1")
+                                : t("student_course.idea_status2")}
+                              {formData?.initiated_by !== currentUser?.data[0]?.user_id && t("student_course.idea_submission_msg2")}
+
+                              {formData?.initiated_name}
+                              {t("student_course.idea_submission_msg3")}
+                              {formData?.status === "DRAFT"
+                                ? moment(formData?.created_at).format(
+                                    "DD-MM-YYYY"
+                                  )
+                                : moment(formData?.submitted_at).format(
+                                    "DD-MM-YYYY"
+                                  )}
+                              <br />
+                              <p>
+                                {/* Teacher Verified Status : {formData
                                                     ?.verified_status ==
-                                                    null ? "Yet to be Review"  : (
-                                                           formData
-                                                                ?.verified_at
-                                                )}
-                                              </p>
-                                    </Card>
-                                </div>
-                            }
+                                                    null ? "Yet to be Review"  : moment(
+                                                      formData
+                                                              ?.verified_at
+                                                      ).format('DD-MM-YYYY')
+                                                } */}
+                                Teacher Verified Status : {""}
+                                {formData?.verified_status === null
+                                  ? "Yet to be Reviewed"
+                                  : formData?.verified_status === "ACCEPTED"
+                                  ? `Accepted on ${moment(
+                                      formData?.verified_at
+                                    ).format("DD-MM-YYYY")}`
+                                  : formData?.verified_status === "REJECTED"
+                                  ? "Rejected"
+                                  : moment(formData?.verified_at).format(
+                                      "DD-MM-YYYY"
+                                    )}
+                              </p>
+                            </Card>
+                          </div>
+                        )}
                         {/* <div className="text-right">
                                                         { (
                                                             <>
@@ -787,12 +831,12 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                     disabled={isDisabled}
                                     placeholder="Enter Idea Title"
                                     value={title}
-                                    maxLength={300}
+                                    maxLength={500}
                                     onChange={(e) => setTitle(e.target.value)}
                                   />
                                   <div className="text-end">
                                     {t("student_course.chars")} :
-                                    {300 - (title ? title.length : 0)}
+                                    {500 - (title ? title.length : 0)}
                                   </div>
                                 </div>
                               </Row>
@@ -869,7 +913,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                   />
                                   <div className="text-end">
                                     {t("student_course.chars")} :
-                                    {500 - (causes ? causes.length : 0)}
+                                    {500 - (effects ? effects.length : 0)}
                                   </div>
                                 </div>
                               </Row>
@@ -1140,12 +1184,35 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                                                                                         )}
                                                                                                     />
                                                                                                 )} */}
+                                                                                                {!isDisabled && <Button
+                                                    label="Upload File "
+                                                    // btnClass="primary"
+                                                    btnClass={`${
+                                                      isDisabled
+                                                          ? 'secondary'
+                                                          : 'primary'
+                                                  } me-3 pointer `}
+                                                    size="small"
+                                                    onClick={() => {
+                                                        document
+                                                            .getElementById(
+                                                                'file'
+                                                            )
+                                                            .click();
+                                                    }}
+                                                />}
                                   <input
                                     type="file"
                                     name="file"
+                                     id="file"
+                                    style={{
+                                      display: 'none'
+                                  }}
                                     disabled={isDisabled}
                                     accept="image/jpeg,image/jpg,image/png,application/pdf"
                                     multiple
+                                    // className="hidden"
+                                    // style='display: none'
                                     onChange={(e) => fileHandler(e)}
                                   />
                                 </div>
@@ -1208,7 +1275,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                     fontSize: "1rem",
                                   }}
                                 >
-                                  {t("ideaform_questions.communityq")}
+                                  {t("ideaform_questions.workbookq")}
                                 </b>
                               </div>
                               <div className=" answers row flex-column">

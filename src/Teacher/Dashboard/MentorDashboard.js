@@ -226,6 +226,8 @@ const MentorDashboard = () => {
       axios(config)
           .then(function (response) {
               if (response.status === 200) {
+                // console.log(response, 'idea count');
+
                   setIdeaCount(response.data.data[0].idea_count);
                   setIdeaCountLoading(false);
               }
@@ -350,7 +352,7 @@ const MentorDashboard = () => {
                 // console.log(response);
                 setWhatsappLink(response.data.data[0].whatapp_link);
                 setMessage(response.data.data[0].mentor_note);
-                console.log(response.data.data[0].mentor_note,"message");
+                // console.log(response.data.data[0].mentor_note,"message");
             }
         })
         .catch(function (error) {
@@ -615,9 +617,13 @@ const handleWhatsapp = () => {
                           <>
                             <div className="dash-counts">
                               <h4>Congrats</h4>
-                              <h5>Download Certificate</h5>
+                              {/* <h5>Download Certificate</h5> */}
+                              <h5>Certificate yet to enable</h5>
+
                             </div>
-                            <div className="dash-imgs" onClick={handleCertificateDownload}>
+                            <div className="dash-imgs" 
+                            // onClick={handleCertificateDownload}
+                            >
                                 <GiAchievement size={30} />
                             </div>
                           </>
@@ -1012,7 +1018,7 @@ const handleWhatsapp = () => {
           </div>
           {/* Teams Progress */}
           <div>
-            <TeamsProgDD  user={currentUser?.data}/>
+            <TeamsProgDD  user={currentUser?.data}  setIdeaCount={setIdeaCount}/>
           </div>
         </div>
       </div>
