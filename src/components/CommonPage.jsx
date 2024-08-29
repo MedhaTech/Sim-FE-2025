@@ -25,9 +25,9 @@ const CommonPage = ({
   };
 
   return (
-    <Container className="presuervey mb-50 mt-5 ">
+    <div className="content">
       <Fragment>
-        <Card className="course-sec-basic p-5">
+        <Card className="courses-page">
           <div className="text-center">
             <div>
               <img
@@ -77,7 +77,7 @@ const CommonPage = ({
           )}
         </Card>
       </Fragment>
-    </Container>
+    </div>
   );
 };
 

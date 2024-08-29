@@ -151,7 +151,7 @@ const [initiate,setInitiate]=useState("");
         <Idea showChallenge={handleShow} idea={submitted}/>
      
     ) : (
-        <div>
+        <div className='page-wrapper'>
             <CommonPage
                 text={t('student_course.idea_submission_date_com_desc')}
                 ideaSubmissionComButton={true}
