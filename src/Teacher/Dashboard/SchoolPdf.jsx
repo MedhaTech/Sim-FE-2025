@@ -4,7 +4,6 @@ import React from 'react';
 import { Table } from 'antd';
 import { CheckCircle } from 'react-feather';
 import { IoHelpOutline } from "react-icons/io5";
-import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import schoolpdfpage1 from '../../assets/img/schoolPDF/page_1.png';
 import Footerimg from '../../assets/img/schoolPDF/Footer.png';
 
@@ -481,12 +480,12 @@ class Schoolpdf extends React.Component {
                                                 >
                                                     {idea?.ideaStatus ===
                                                         'SUBMITTED' ? (
-                                                        <FaCheckCircle
+                                                        <CheckCircle
                                                             size={20}
                                                             color="green"
                                                         />
                                                     ) : (
-                                                        <FaTimesCircle
+                                                        <IoHelpOutline
                                                             size={20}
                                                             color="red"
                                                         />
