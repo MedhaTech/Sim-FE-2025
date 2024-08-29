@@ -545,92 +545,56 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
                 value={customer.find((option) => option.value === teamId)}
               />
             </div>
-          </div>
+          
           {teamId && (
             <>
               <Row>
                 <div className="singlediv">
-                  <Card
-                    className="p-3 mx-4 d-flex flex-row"
-                    style={{
-                      marginTop: ".5rem",
-                      marginBottom: "1rem",
-                    }}
-                  >
-                    <span className="fw-bold">IDEA STATUS :</span>
+                    <span className="fw-bold text-info">IDEA STATUS :</span>
                     <span style={{ paddingLeft: "1rem" }}>
                       {noData
-          ? "Not Started"
+          ? <span className="text-warning">NOT STARTED</span>
           : formData?.verified_status === "ACCEPTED"
-          ? "ACCEPTED"
+          ? <span className="text-success">ACCEPTED</span>
           : formData?.verified_status === "REJECTED"
-          ?  "REJECTED"
-          : formData?.status || "Not Started"}
+          ?  <span className="text-danger">REJECTED</span>
+          : formData?.status || <span className="text-warning">NOT STARTED</span>}
                     </span>
-                  </Card>
                 </div>
               </Row>
               <>
                 <div>
                   {!noData && (formData?.status === "SUBMITTED" || formData?.status === "DRAFT" ) && (
-                    <Button
-                      button="button"
-                      label="View Idea"
+                    <button
+                      className="btn btn-primary d-flex align-items-center"
                       // disabled={
                       //   teamsMembersStatus.length > 0 &&
                       //   formData?.status === "SUBMITTED"
                       //     ? false
                       //     : true
                       // }
-                      btnClass={`${
-                        teamsMembersStatus.length > 0 &&
-                        formData?.status === "SUBMITTED"
-                          ? "primary"
-                          : "primary"
-                      }`}
-                      size="small"
-                      shape="btn-square"
-                      style={{ padding: "1rem 2.4rem" }}
+                      // btnClass={`${
+                      //   teamsMembersStatus.length > 0 &&
+                      //   formData?.status === "SUBMITTED"
+                      //     ? "primary"
+                      //     : "primary"
+                      // }`}
                       onClick={() => setIdeaShow(true)}
-                    />
+                    >View Idea</button>
                   )}
                 </div>
-                {/* <div className="m-3">
-                                    {formData?.status !==
-                                        'SUBMITTED' && (
-                                        <Button
-                                            label={' Change  '}
-                                            disabled={
-                                                teamsMembersStatus.length > 0 &&
-                                                formData?.status
-                                                    ? false
-                                                    : true
-                                            }
-                                            btnClass={`${
-                                                teamsMembersStatus.length > 0 &&
-                                                formData?.status
-                                                    ? 'primary'
-                                                    : 'default'
-                                            }`}
-                                            size="small"
-                                            shape="btn-square"
-                                            style={{ padding: '1rem 3rem' }}
-                                            onClick={() => setChangeShow(true)}
-                                        />
-                                    )}
-                                </div> */}
                 <div>
                   {!noData &&(formData?.status === "SUBMITTED" && formData?.verified_status !=="REJECTED" &&
                  (formData?.verified_status === null  || formData?.verified_status !== "ACCEPTED" )) ?(
                     <button
-                      className="btn btn-lg px-5 py-2 btn-danger me-3 rounded-pill"
+                      className="btn btn-danger d-flex align-items-center"
                       onClick={() => {
                         // handleAlert('reject');
                         setIsreject(true);
                         setReason("");
                       }}
                     >
-                      <span className="fs-4">Reject</span>
+                      Reject Submission
                     </button>
                   ) : (
                     ""
@@ -639,6 +603,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
               </>
             </>
           )}
+          </div>
           <div className="table-responsive">
             {showDefault && (
               <div className="d-flex justify-content-center align-items-center">
@@ -688,13 +653,13 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
                   id="contained-modal-title-vcenter"
                   className="w-100 d-block text-center"
                 >
-                  Rejection for Idea
+                  Reject Idea submission
                 </Modal.Title>
               </Modal.Header>
 
               <Modal.Body>
                 <div className="my-3 text-center">
-                  <h3>Please Select the reason for rejection.</h3>
+                  <h4>Please select reason for rejection.</h4>
                   <Col>
                     <Col className="m-5">
                       <Selects

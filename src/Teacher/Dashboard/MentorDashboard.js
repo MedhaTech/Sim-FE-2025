@@ -16,6 +16,7 @@ import { FaUserGraduate } from 'react-icons/fa';
 import { FaPaperPlane } from 'react-icons/fa';
 import { FaChalkboardTeacher } from 'react-icons/fa'; 
 import { FaRoute } from 'react-icons/fa';
+import { CheckCircle } from "react-feather";
 import { FaPlay } from 'react-icons/fa';
 import LatestNews from './LatestNews';
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -569,7 +570,7 @@ const handleWhatsapp = () => {
                         <h5>
                           <CountUp start={0} end={ideaCount} duration={2} />
                         </h5>
-                        <h6>Ideas Submissions</h6>
+                        <h6>Idea Submissions</h6>
                       </>
                     )}
                 </div>
@@ -581,18 +582,20 @@ const handleWhatsapp = () => {
                   <div className="dash-widgetcontent">
                     {teacPostSLoading ? ( 
                         <Loader />
-                      ) : ideaCount === 0 ? (
+                      ) : ideaCount != teamsCount ? (
                         <>
-                          <h5>Teams yet to submit ideas for your Post-Survey to enable</h5>
+                          <h5>All teams yet to submit ideas for Post-Survey to enable</h5>
                         </>
                       ) : (teacPostSurvey === "COMPLETED"? (
                         <>
-                          <FaCheckCircle style={{ color: 'green' }} />
-                          <h6>Post Survey</h6>
+                          
+                          <h4>Post Survey</h4>
+                          <h5>Submitted <CheckCircle size={15} color="white" /></h5>
                         </>
                       ):(
                         <>
-                          <h5>Yet to take survey?</h5>
+                          <h4>Post Survey</h4>
+                          <h5>Click here to complete</h5>
                         </>
                       ))}
                   </div>
@@ -618,8 +621,7 @@ const handleWhatsapp = () => {
                             <div className="dash-counts">
                               <h4>Congrats</h4>
                               {/* <h5>Download Certificate</h5> */}
-                              <h5>Certificate yet to enable</h5>
-
+                              <h5>Certificate enables soon</h5>
                             </div>
                             <div className="dash-imgs" 
                             // onClick={handleCertificateDownload}

@@ -612,7 +612,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     title?.length > 0 &&
     problemStatement?.length > 0;
   return (
-    <div className="content">
+    <>
       {/* <div className='content'> */}
       {showPage ? (
         <CommonPage text={comingSoonText} showButton={true} />
@@ -623,65 +623,56 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
               <div className="aside p-4">
                 <CardBody>
                   <Form className="form-row row" isSubmitting>
-                     {formData?.verified_status !== null &&
-                        formData?.verified_status === "REJECTED"
-                          ? `Rejected on ${moment(formData?.verified_at).format(
-                              "DD-MM-YYYY"
-                            )} - Reason: ${
-                              formData?.mentor_rejected_reason
-                            } - Submitted by: ${formData?.initiated_name}`
+                    {formData?.verified_status !== null && (
+                      <>
+                        {formData?.verified_status === "REJECTED"
+                          ? <div className="d-md-flex justify-content-end px-4">
+                            <Card className="p-3 card-bg-warning">
+                              <h5 className="text-white p-1">Last modified by : {formData?.initiated_name} </h5>
+                              <h5 className="text-white p-1">Last submission rejected by your teacher on : {moment(formData?.verified_at).format("DD-MM-YYYY")} </h5>
+                              <h5 className="text-white p-1">Reason for Rejection : {formData?.mentor_rejected_reason} </h5>
+                            </Card>
+                          </div>
                           : ""}
+                      </>
+                    )}
+                    
                     {formData?.status === "SUBMITTED" && (
                       <div className="d-md-flex justify-content-end px-4">
-                        <Card className="p-3">
-                          {t("student_course.idea_submission_msg1")}
-                          {formData?.status === "DRAFT"
-                            ? t("student_course.idea_status1")
-                            : t("student_course.idea_status2")}
-                          {formData?.initiated_by !==
-                            currentUser?.data[0]?.user_id &&
-                            t("student_course.idea_submission_msg2")}
-
-                          {formData?.initiated_name}
-                          {t("student_course.idea_submission_msg3")}
-                          {formData?.status === "DRAFT"
-                            ? moment(formData?.created_at).format(
-                              "DD-MM-YYYY"
-                            )
-                            : moment(formData?.submitted_at).format(
-                              "DD-MM-YYYY"
-                            )}
-                          <br />
-                          <p>
-                            {/* Teacher Verified Status : {""}
-                                {(formData?.verified_status === null ||formData?.verified_status === "")
-                                  ? "Yet to be Reviewed"
-                                  : formData?.verified_status === "ACCEPTED"
-                                  ? `Accepted on ${moment(
-                                      formData?.verified_at
-                                    ).format("DD-MM-YYYY")}`
-                                  : formData?.verified_status === "REJECTED"
-                                  ? "Rejected"
-                                  : moment(formData?.verified_at).format(
-                                      "DD-MM-YYYY"
-                                    )} */}
-                            Teacher Verified Status :
+                        <Card className="p-3 card-bg-info">
+                          <h5 className="text-white p-1">
+                            {t("student_course.idea_submission_msg1")}
+                            {formData?.status === "DRAFT"
+                              ? t("student_course.idea_status1")
+                              : t("student_course.idea_status2")}
+                            {formData?.initiated_by !==
+                              currentUser?.data[0]?.user_id &&
+                              t("student_course.idea_submission_msg2")}
+                            {formData?.initiated_name}
+                            {formData?.status === "DRAFT"
+                              ? moment(formData?.created_at).format(
+                                "DD-MM-YYYY H:I A"
+                              )
+                              : (formData?.submitted_at) ? " On " + moment(formData?.submitted_at).format("DD-MM-YYYY HH:MM A") : ""}
+                          </h5>
+                          <h5 className="text-white p-1">
+                            Teacher Verification Status :
                             {formData?.verified_status === null ||
                               formData?.verified_status === ""
-                              ? "Yet to be Reviewed"
+                              ? " Yet to be Reviewed"
                               : formData?.verified_status === "ACCEPTED"
-                                ? `Accepted on ${moment(
+                                ? ` Accepted on ${moment(
                                   formData?.verified_at
-                                ).format("DD-MM-YYYY")}`
+                                ).format("DD-MM-YYYY HH:MM A")}`
                                 : formData?.verified_status === "REJECTED"
-                                  ? `Rejected on ${moment(
+                                  ? ` Rejected on ${moment(
                                     formData?.verified_at
-                                  ).format("DD-MM-YYYY")} - Reason: ${formData?.mentor_rejected_reason
+                                  ).format("DD-MM-YYYY HH:MM A")} - Reason: ${formData?.mentor_rejected_reason
                                   }`
                                   : moment(formData?.verified_at).format(
-                                    "DD-MM-YYYY"
+                                    "DD-MM-YYYY HH:MM A"
                                   )}
-                          </p>
+                          </h5>
                         </Card>
                       </div>
                     )}
@@ -718,6 +709,20 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                                       
                                                     </div> */}
                     <div className="text-right">
+                      {!isDisabled && (
+                        <Button
+                          type="button"
+                          btnClass="me-3 btn btn-warning"
+                          // backgroundColor="#067DE1"
+                          onClick={(e) => handleSubmit(e, "DRAFT")}
+                          size="small"
+                          label={`${loading.draft
+                            ? t("teacher_teams.loading")
+                            : t("teacher_teams.draft")
+                            }`}
+                          disabled={!enableSaveBtn}
+                        />
+                      )}
                       {
                         //         initiatedBy &&
                         // initiatedBy ===
@@ -748,7 +753,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                       <div className="d-md-flex justify-content-end px-0">
                         <Row>
                           <Row>
-                            <h5 className="py-2 text-warning">Section 1: {t("ideaform_questions.section1")}</h5>
+                            <h5 className="py-2 text-warning text-uppercase">SECTION 1: {t("ideaform_questions.section1")}</h5>
                           </Row>
                           <div className="card comment-card">
                             <div className="question quiz mb-0">
@@ -847,12 +852,13 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 {t("ideaform_questions.ideatitleq")}
                               </b>
                             </div>
-                            <div className=" answers row flex-column">
+                            <div className="answers row flex-column p-4">
                               <textarea
                                 className="form-control"
                                 disabled={isDisabled}
                                 placeholder="Enter Idea Title"
                                 value={title}
+                                rows={4}
                                 maxLength={500}
                                 onChange={(e) => setTitle(e.target.value)}
                               />
@@ -872,20 +878,21 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 {t("ideaform_questions.problemstatementq")}
                               </b>
                             </div>
-                            <div className=" answers row flex-column">
+                            <div className="answers row flex-column p-4">
                               <textarea
                                 className="form-control"
                                 disabled={isDisabled}
+                                rows={6}
                                 placeholder="Enter Problem Statement"
                                 value={problemStatement}
-                                maxLength={500}
+                                maxLength={1000}
                                 onChange={(e) =>
                                   setProblemStatement(e.target.value)
                                 }
                               />
                               <div className="text-end">
                                 {t("student_course.chars")} :
-                                {500 -
+                                {1000 -
                                   (problemStatement
                                     ? problemStatement.length
                                     : 0)}
@@ -902,11 +909,12 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 {t("ideaform_questions.causesq")}
                               </b>
                             </div>
-                            <div className=" answers row flex-column">
+                            <div className="answers row flex-column p-4">
                               <textarea
                                 className="form-control"
                                 disabled={isDisabled}
                                 placeholder="Enter List of Causes"
+                                rows={4}
                                 value={causes}
                                 maxLength={500}
                                 onChange={(e) => setCauses(e.target.value)}
@@ -927,12 +935,13 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 {t("ideaform_questions.effectsq")}
                               </b>
                             </div>
-                            <div className=" answers row flex-column">
+                            <div className="answers row flex-column p-4">
                               <textarea
                                 className="form-control"
                                 disabled={isDisabled}
                                 placeholder="Enter List of Effects of the problem"
                                 value={effects}
+                                rows={4}
                                 maxLength={500}
                                 onChange={(e) => setEffects(e.target.value)}
                               />
@@ -990,12 +999,13 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 {t("ideaform_questions.facingq")}
                               </b>
                             </div>
-                            <div className=" answers row flex-column">
+                            <div className=" answers row flex-column p-4">
                               <textarea
                                 className="form-control"
                                 disabled={isDisabled}
                                 placeholder="Enter List of Effects of the problem"
                                 value={facing}
+                                rows={4}
                                 maxLength={500}
                                 onChange={(e) => setFacing(e.target.value)}
                               />
@@ -1011,7 +1021,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 className="btn btn-secondary"
                                 onClick={goToNext}
                               >
-                                Next
+                                NEXT
                               </button>
                             </Col>
                           </div>
@@ -1020,10 +1030,12 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                     )}
 
                     {currentSection === 2 && (
-                      <Row className="mb-2">
-                        <h5 className="py-2 text-warning">Section 2: {t("ideaform_questions.section2")}</h5>
+                      <div className="d-md-flex justify-content-end px-0">
                         <Row>
-                          <Row className="card comment-card">
+                          <Row>
+                            <h5 className="py-2 text-warning text-uppercase">SECTION 2: {t("ideaform_questions.section2")}</h5>
+                          </Row>
+                          <div className="card comment-card">
                             <div className="question quiz mb-0">
                               <b
                                 style={{
@@ -1033,12 +1045,13 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 {t("ideaform_questions.solutiondetailsq")}
                               </b>
                             </div>
-                            <div className="answers row flex-column">
+                            <div className="answers row flex-column p-4">
                               <textarea
                                 className="form-control"
                                 disabled={isDisabled}
                                 placeholder="Enter the solution to the problem"
                                 value={solution}
+                                rows={6}
                                 maxLength={1000}
                                 onChange={(e) =>
                                   setSolution(e.target.value)
@@ -1049,9 +1062,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 {1000 - (solution ? solution.length : 0)}
                               </div>
                             </div>
-                          </Row>
-                          <Row className="card comment-card">
-                            <div className="question quiz mb-0">
+                          </div>
+                          <div className="card comment-card">
+                            <div className="question quiz mb-0 p-4">
                               <b
                                 style={{
                                   fontSize: "1rem",
@@ -1087,8 +1100,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 ))}
                               </div>
                             </div>
-                          </Row>
-                          <Row className="card comment-card">
+                          </div>
+                          <div className="card comment-card">
                             <div className="question quiz mb-0">
                               <b
                                 style={{
@@ -1133,8 +1146,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 ))}
                               </div>
                             </div>
-                          </Row>
-                          <Row className="card comment-card">
+                          </div>
+                          <div className="card comment-card">
                             <div className="question quiz mb-0">
                               <b
                                 style={{
@@ -1144,10 +1157,11 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 {t("ideaform_questions.feedbackq")}
                               </b>
                             </div>
-                            <div className=" answers row flex-column">
+                            <div className=" answers row flex-column p-4">
                               <textarea
                                 className="form-control"
                                 disabled={isDisabled}
+                                rows={6}
                                 placeholder="Enter your Feedback"
                                 value={feedback}
                                 maxLength={500}
@@ -1160,14 +1174,14 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 {500 - (feedback ? feedback.length : 0)}
                               </div>
                             </div>
-                          </Row>
+                          </div>
                           <Row>
                             <Col className="d-flex justify-content-start">
                               <button
                                 className="btn btn-info"
                                 onClick={goToBack}
                               >
-                                Back
+                                BACK
                               </button>
                             </Col>
                             <Col className="d-flex justify-content-end">
@@ -1175,30 +1189,33 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 className="btn btn-secondary"
                                 onClick={goToNext}
                               >
-                                Next
+                                NEXT
                               </button>
                             </Col>
                           </Row>
                         </Row>
-                      </Row>
+                      </div>
                     )}
                     {currentSection === 3 && (
-                      <Row className="mb-2">
-                        <h5 className="py-2 text-warning">Section 3: {t("ideaform_questions.section3")}</h5>
-                        <Row className="card comment-card">
-                          <div className="question quiz mb-0">
-                            <b
-                              style={{
-                                fontSize: "1rem",
-                              }}
-                            >
-                              {t("ideaform_questions.uploadq")}
-                            </b>
-                          </div>
-                          <div className=" answers row flex-column">
-                            {/* <FormGroup check className="answers"> */}
-                            <div className="wrapper my-3 common-flex">
-                              {/* {!isDisabled && (
+                      <div className="d-md-flex justify-content-end px-0">
+                        <Row>
+                          <Row>
+                            <h5 className="py-2 text-warning text-uppercase">SECTION 3: {t("ideaform_questions.section3")}</h5>
+                          </Row>
+                          <div className="card comment-card">
+                            <div className="question quiz mb-0">
+                              <b
+                                style={{
+                                  fontSize: "1rem",
+                                }}
+                              >
+                                {t("ideaform_questions.uploadq")}
+                              </b>
+                            </div>
+                            <div className=" answers row flex-column p-4 pb-0">
+                              {/* <FormGroup check className="answers"> */}
+                              <div className="wrapper my-3 common-flex">
+                                {/* {!isDisabled && (
                                                                                                     <Button
                                                                                                         type="button"
                                                                                                         btnClass={`${
@@ -1212,137 +1229,138 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                                                                                         )}
                                                                                                     />
                                                                                                 )} */}
-                              {!isDisabled && (
-                                <Button
-                                  label="Upload File "
-                                  // btnClass="primary"
-                                  btnClass={`${isDisabled ? "secondary" : "primary"
-                                    } me-3 pointer `}
-                                  size="small"
-                                  onClick={() => {
-                                    document.getElementById("file").click();
-                                  }}
-                                />
-                              )}
-                              <input
-                                type="file"
-                                name="file"
-                                className="form-control"
-                                id="file"
-                                style={{
-                                  display: "none",
-                                }}
-                                disabled={isDisabled}
-                                accept="image/jpeg,image/jpg,image/png,application/pdf"
-                                multiple
-                                // className="hidden"
-                                // style='display: none'
-                                onChange={(e) => fileHandler(e)}
-                              />
-                            </div>
-                            {/* </FormGroup> */}
-                            <div className="mx-4">
-                              {immediateLink &&
-                                immediateLink.length > 0 &&
-                                immediateLink.map((item, i) => (
-                                  <LinkComponent
-                                    item={item}
-                                    url={true}
-                                    key={i}
-                                  />
-                                ))}
-                              {!immediateLink &&
-                                files.length > 0 &&
-                                files.map((item, i) => (
-                                  <LinkComponent
-                                    original={true}
-                                    item={item}
-                                    i={i}
-                                    key={i}
-                                    removeFileHandler={removeFileHandler}
-                                  />
-                                ))}
-
-                              {!immediateLink &&
-                                files.length === 0 &&
-                                Array.isArray(prototypeImage) &&
-                                prototypeImage.map((item, i) => (
-                                  <LinkComponent
-                                    item={item}
-                                    url={true}
-                                    key={i}
-                                  />
-                                ))}
-                            </div>
-                          </div>
-                          <div className=" answers row flex-column">
-                            <textarea
-                              className="form-control"
-                              disabled={isDisabled}
-                              placeholder="Upload your Link"
-                              value={prototypeLink}
-                              maxLength={300}
-                              onChange={(e) =>
-                                setPrototypeLink(e.target.value)
-                              }
-                            />
-                            <div className="text-end">
-                              {t("student_course.chars")} :
-                              {300 -
-                                (prototypeLink ? prototypeLink.length : 0)}
-                            </div>
-                          </div>
-                        </Row>
-                        <Row className="card comment-card">
-                          <div className="question quiz mb-0">
-                            <b
-                              style={{
-                                fontSize: "1rem",
-                              }}
-                            >
-                              {t("ideaform_questions.workbookq")}
-                            </b>
-                          </div>
-                          <div className=" answers row flex-column">
-                            <div>
-                              {submit.map((item, i) => (
-                                <>
-                                  <label
-                                    key={i}
-                                    style={{
-                                      margin: "1rem",
-                                      fontSize: "1rem",
+                                {!isDisabled && (
+                                  <Button
+                                    label="Upload File "
+                                    // btnClass="primary"
+                                    btnClass={`${isDisabled ? "secondary" : "primary"
+                                      } me-3 pointer `}
+                                    size="small"
+                                    onClick={() => {
+                                      document.getElementById("file").click();
                                     }}
-                                  >
-                                    <input
-                                      type="radio"
-                                      value={item}
-                                      disabled={isDisabled}
-                                      checked={item === workbook}
-                                      onChange={(e) =>
-                                        setWorkbook(e.target.value)
-                                      }
-                                    />{" "}
-                                    {item}
-                                  </label>
-                                  <br />
-                                </>
-                              ))}
+                                  />
+                                )}
+                                <input
+                                  type="file"
+                                  name="file"
+                                  className="form-control"
+                                  id="file"
+                                  style={{
+                                    display: "none",
+                                  }}
+                                  disabled={isDisabled}
+                                  accept="image/jpeg,image/jpg,image/png,application/pdf"
+                                  multiple
+                                  // className="hidden"
+                                  // style='display: none'
+                                  onChange={(e) => fileHandler(e)}
+                                />
+                              </div>
+                              {/* </FormGroup> */}
+                              <div className="mx-4">
+                                {immediateLink &&
+                                  immediateLink.length > 0 &&
+                                  immediateLink.map((item, i) => (
+                                    <LinkComponent
+                                      item={item}
+                                      url={true}
+                                      key={i}
+                                    />
+                                  ))}
+                                {!immediateLink &&
+                                  files.length > 0 &&
+                                  files.map((item, i) => (
+                                    <LinkComponent
+                                      original={true}
+                                      item={item}
+                                      i={i}
+                                      key={i}
+                                      removeFileHandler={removeFileHandler}
+                                    />
+                                  ))}
+
+                                {!immediateLink &&
+                                  files.length === 0 &&
+                                  Array.isArray(prototypeImage) &&
+                                  prototypeImage.map((item, i) => (
+                                    <LinkComponent
+                                      item={item}
+                                      url={true}
+                                      key={i}
+                                    />
+                                  ))}
+                              </div>
+                            </div>
+                            <div className=" answers row flex-column p-4 pt-0">
+                              <textarea
+                                className="form-control"
+                                disabled={isDisabled}
+                                placeholder="Upload your Link"
+                                value={prototypeLink}
+                                maxLength={300}
+                                onChange={(e) =>
+                                  setPrototypeLink(e.target.value)
+                                }
+                              />
+                              <div className="text-end">
+                                {t("student_course.chars")} :
+                                {300 -
+                                  (prototypeLink ? prototypeLink.length : 0)}
+                              </div>
                             </div>
                           </div>
+                          <div className="card comment-card">
+                            <div className="question quiz mb-0">
+                              <b
+                                style={{
+                                  fontSize: "1rem",
+                                }}
+                              >
+                                {t("ideaform_questions.workbookq")}
+                              </b>
+                            </div>
+                            <div className=" answers row flex-column">
+                              <div>
+                                {submit.map((item, i) => (
+                                  <>
+                                    <label
+                                      key={i}
+                                      style={{
+                                        margin: "1rem",
+                                        fontSize: "1rem",
+                                      }}
+                                    >
+                                      <input
+                                        type="radio"
+                                        value={item}
+                                        disabled={isDisabled}
+                                        checked={item === workbook}
+                                        onChange={(e) =>
+                                          setWorkbook(e.target.value)
+                                        }
+                                      />{" "}
+                                      {item}
+                                    </label>
+                                    <br />
+                                  </>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="d-flex justify-content-start">
+                            <button
+                              className="btn btn-info "
+                              onClick={goToBack}
+                            >
+                              BACK
+                            </button>
+                          </div>
                         </Row>
-                        <div className="d-flex justify-content-end">
-                          <button
-                            className="btn btn-info "
-                            onClick={goToBack}
-                          >
-                            Back
-                          </button>
-                        </div>
-                      </Row>
+                      </div>
                     )}
                   </Form>
-                  <div className="d-flex justify-content-start">
+                  {/* <div className="d-flex justify-content-start">
                     {!isDisabled && (
                       <Button
                         type="button"
@@ -1357,15 +1375,15 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                         disabled={!enableSaveBtn}
                       />
                     )}
-                  </div>
+                  </div> */}
                 </CardBody>
               </div>
             </div>
-          </Col>
-        </div>
+          </Col >
+        </div >
       )}
       {/* </div> */}
-    </div>
+    </>
   );
 };
 
