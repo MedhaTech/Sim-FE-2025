@@ -450,6 +450,10 @@ const IdeaSubmissionCard = ({
               {submittedResponse?.verified_status === "REJECTED" && (
                 <div>
                   <p style={{ fontSize: "1rem" }} className="fw-bold">
+                    Last Modifiled By :{" "}
+                    {submittedResponse?.initiated_name}
+                  </p>
+                  <p style={{ fontSize: "1rem" }} className="fw-bold">
                     Rejected At :{" "}
                     {submittedResponse.verified_at
                       ? moment(submittedResponse.verified_at).format(
@@ -461,10 +465,7 @@ const IdeaSubmissionCard = ({
                     Reason for Rejection :{" "}
                     {submittedResponse?.mentor_rejected_reason}
                   </p>
-                  <p style={{ fontSize: "1rem" }} className="fw-bold">
-                    Submitted By :{" "}
-                    {submittedResponse?.initiated_name}
-                  </p>
+                  
                 </div>
               )}
             </>

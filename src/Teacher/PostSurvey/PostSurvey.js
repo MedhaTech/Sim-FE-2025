@@ -114,7 +114,7 @@ const PostSurvey = () => {
   };
   useEffect(() => {
     if (currentUser?.data[0]?.user_id) {
-      // mentorTeamsCount();
+      mentorTeamsCount();
       mentorIdeaCount();
     }
   }, [currentUser?.data[0]?.user_id]);
@@ -303,7 +303,7 @@ const PostSurvey = () => {
                 <CardBody>
                   {
                     // teamsCount !== 0 &&
-                    ideaCount !== 0 && postSurveyStatus != "COMPLETED" ? (
+                    (ideaCount === teamsCount) && postSurveyStatus != "COMPLETED" ? (
                       <>
                         <UncontrolledAlert color="danger" className="mb-2">
                           Please complete the following post survey to get your
