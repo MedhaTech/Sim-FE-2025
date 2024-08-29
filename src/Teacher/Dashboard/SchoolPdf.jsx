@@ -291,8 +291,7 @@ class Schoolpdf extends React.Component {
                                 fontFamily: 'Poppins'
                             }}
                         >
-                            {/* {this?.props?.remMentor?.IdeaCount[0]?.idea_count} */}
-                            0
+                            {this?.props?.remMentor?.IdeaCount[0]?.idea_count}
                         </span>
                         <img
                             src={schoolpdfpage1}
