@@ -626,6 +626,16 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                   <div className="aside">
                     <CardBody>
                       <Form className="form-row row" isSubmitting>
+                       
+                        {formData?.verified_status !== null &&
+                        formData?.verified_status === "REJECTED"
+                          ? `Rejected on ${moment(formData?.verified_at).format(
+                              "DD-MM-YYYY"
+                            )} - Reason: ${
+                              formData?.mentor_rejected_reason
+                            } - Submitted by: ${formData?.initiated_name}`
+                          : ""}
+
                         {formData?.status === "SUBMITTED" && (
                           <div className="d-md-flex justify-content-end px-4">
                             <Card className="p-3">
@@ -664,7 +674,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 {formData?.verified_status === null ||
                                 formData?.verified_status === ""
                                   ? "Yet to be Reviewed"
-                                  :  formData?.verified_status === "ACCEPTED"
+                                  : formData?.verified_status === "ACCEPTED"
                                   ? `Accepted on ${moment(
                                       formData?.verified_at
                                     ).format("DD-MM-YYYY")}`
