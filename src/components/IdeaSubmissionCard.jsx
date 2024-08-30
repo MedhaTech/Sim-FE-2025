@@ -17,6 +17,7 @@ import { getTeamMemberStatus } from "../Teacher/store/teams/actions";
 import axios from "axios";
 import { encryptGlobal } from "../constants/encryptDecrypt";
 import { useDispatch } from "react-redux";
+import Ideapdf from "../Teacher/Dashboard/DetailToDownload";
 
 const LinkComponent = ({ item }) => {
   return (
@@ -52,8 +53,6 @@ const IdeaSubmissionCard = ({
   const submitted = response;
   // console.log(response,"formData");
   const [showDefault, setshowDefault] = useState(true);
-
-  const componentRef = useRef();
   const currentUser = getCurrentUser("current_user");
   const dispatch = useDispatch();
   const [teamResponse, setTeamResponse] = React.useState([]);
@@ -205,12 +204,7 @@ const IdeaSubmissionCard = ({
         console.log(error);
       });
   };
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-    documentTitle: `${
-      response[0]?.team_name ? response[0]?.team_name : "temp"
-    }_IdeaSubmission`,
-  });
+
   const downloadFile = (item) => {
     // const link = document.createElement('a');
     // link.href = item;
@@ -240,16 +234,68 @@ const IdeaSubmissionCard = ({
         console.error("Error downloading file:", error);
       });
   };
+
+  ///idea pdf 
+  const [ideaPdfValues, setIdeaPdfValues] = useState();
+  const ideaDataforPDF = () => {
+    const ideaDataApi = encryptGlobal(
+      JSON.stringify({
+        team_id: teamId
+      })
+    );
+    var config = {
+      method: 'get',
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/challenge_response/submittedDetailsforideapdf?Data=${ideaDataApi}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${currentUser.data[0]?.token}`
+      }
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          setIdeaPdfValues(response?.data?.data[0]);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    if (ideaPdfValues !== undefined) {
+      handlePrint();
+      console.log('printcontinue');
+    } else {
+      console.log("Some PDF printing related api's are failing");
+    }
+  }, [ideaPdfValues]);
+
+
+  const ideaPdfDownload = () => {
+    ideaDataforPDF();
+  };
+
+
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current
+  });
+
+
+
+
   return (
     <div>
-      <div style={{ display: "none" }}>
-        {/* <DetailToDownload
-                    ref={componentRef}
-                    ideaDetails={response[0]}
-                    teamResponse={teamResponse}
-                    level={'Draft'}
-                /> */}
+      <div style={{ display: 'none' }}>
+        <Ideapdf
+          ref={componentRef}
+          ideaDetails={ideaPdfValues}
+        />
       </div>
+
       <Modal
         show={show}
         size="lg"
@@ -405,7 +451,7 @@ const IdeaSubmissionCard = ({
           <Card className="p-1">
             <CardBody>
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
-               13. Upload documents & video links of your prototype.
+                13. Upload documents & video links of your prototype.
               </label>
               <CardText>{submittedResponse.prototype_link}</CardText>
             </CardBody>
@@ -424,9 +470,9 @@ const IdeaSubmissionCard = ({
           {/* <FaDownload size={22} onClick={handlePrint} /> */}
 
           {hide &&
-          submittedResponse?.status === "SUBMITTED" &&
-          submittedResponse?.verified_status !== "REJECTED" &&
-          submittedResponse?.verified_status !== "ACCEPTED" ? (
+            submittedResponse?.status === "SUBMITTED" &&
+            submittedResponse?.verified_status !== "REJECTED" &&
+            submittedResponse?.verified_status !== "ACCEPTED" ? (
             <Button
               size="small"
               label={"Approve"}
@@ -441,8 +487,8 @@ const IdeaSubmissionCard = ({
                     Accepted At :{" "}
                     {submittedResponse.verified_at
                       ? moment(submittedResponse.verified_at).format(
-                          "DD-MM-YYYY"
-                        )
+                        "DD-MM-YYYY"
+                      )
                       : "-"}
                   </p>
                 </div>
@@ -457,8 +503,8 @@ const IdeaSubmissionCard = ({
                     Rejected At :{" "}
                     {submittedResponse.verified_at
                       ? moment(submittedResponse.verified_at).format(
-                          "DD-MM-YYYY"
-                        )
+                        "DD-MM-YYYY"
+                      )
                       : "-"}
                   </p>
                   <p style={{ fontSize: "1rem" }} className="fw-bold">
@@ -485,9 +531,9 @@ const IdeaSubmissionCard = ({
           )}
           <Button
             size="small"
-            label={"Close"}
+            label={"Download"}
             btnClass="primary ms-auto"
-            onClick={handleClose}
+            onClick={ideaPdfDownload}
           />
         </Modal.Footer>
       </Modal>
