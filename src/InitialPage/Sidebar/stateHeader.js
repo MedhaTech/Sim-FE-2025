@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { getCurrentUser } from "../../helpers/Utils";
 import logoutIcon from "../../assets/img/icons/log-out.svg";
 // import avtar from "../../assets/img/profiles/avator1.jpg";
+import logo from "../../assets/img/new-logo.png";
 
 const MentorHeader = () => {
   const route = all_routes;
@@ -146,7 +147,13 @@ const MentorHeader = () => {
           onMouseLeave={expandMenu}
           onMouseOver={expandMenuOpen}
         >
-          <Link to="/dashboard" className="logo logo-normal">
+           <img
+            src={logo}
+            alt="Logo"
+            style={{ padding: "0.7rem" }}
+            // className="logo-image"
+          />
+          {/* <Link to="/dashboard" className="logo logo-normal">
             <ImageWithBasePath src="assets/img/logo.png" alt="img" />
           </Link>
           <Link to="/dashboard" className="logo logo-white">
@@ -154,7 +161,7 @@ const MentorHeader = () => {
           </Link>
           <Link to="/dashboard" className="logo-small">
             <ImageWithBasePath src="assets/img/logo-small.png" alt="img" />
-          </Link>
+          </Link> */}
           {/* <Link
             id="toggle_btn"
             to="#"
@@ -193,7 +200,7 @@ const MentorHeader = () => {
                 <Search />
               </Link>
               <form action="#" className="dropdown">
-                <div
+                {/* <div
                   className="searchinputs dropdown-toggle"
                   id="dropdownMenuClickable"
                   data-bs-toggle="dropdown"
@@ -205,7 +212,7 @@ const MentorHeader = () => {
                       <XCircle className="feather-14" />
                     </span>
                   </div>
-                </div>
+                </div> */}
                 <div
                   className="dropdown-menu search-dropdown"
                   aria-labelledby="dropdownMenuClickable"
@@ -604,9 +611,9 @@ const MentorHeader = () => {
                   {/* {currentUser?.data[0]?.role} */}
                   <span className="user-name">
                     {" "}
-                    {currentUser?.data[0]?.full_name}
+                    {currentUser?.data[0]?.state_name}
                   </span>
-                  <span className="user-role">Teacher</span>
+                  <span className="user-role">State</span>
                 </span>
               </span>
             </Link>
@@ -622,15 +629,15 @@ const MentorHeader = () => {
                     <span className="status online" />
                   </span>
                   <div className="profilesets">
-                    <h6> {currentUser?.data[0]?.full_name}</h6>
-                    <h5>Teacher</h5>
+                    <h6> {currentUser?.data[0]?.state_name}</h6>
+                    <h5>State</h5>
                   </div>
                 </div>
                 <hr className="m-0" />
                 <Link
                   className="dropdown-item"
                   // onClick={handleProfile}
-                  to={"/mentorprofile"}
+                  // to={"/mentorprofile"}
                   // onClick={() => navigate("/admin/profile")}
                 >
                   <User className="me-2" /> My Profile
@@ -671,7 +678,7 @@ const MentorHeader = () => {
           <div className="dropdown-menu dropdown-menu-right">
             <Link
               className="dropdown-item"
-              onClick={() => navigate("/mentor-profile")}
+              // onClick={() => navigate("/mentor-profile")}
             >
               My Profile
             </Link>
