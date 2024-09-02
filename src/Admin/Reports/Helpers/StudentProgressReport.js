@@ -129,6 +129,10 @@ const StudentProgress = () => {
       key: "organization_code",
     },
     {
+      label: 'ATL CODE',
+      key: 'organization_code'
+  },
+    {
       label: "School Name",
       key: "organization_name",
     },
@@ -144,11 +148,18 @@ const StudentProgress = () => {
       label: "District",
       key: "district",
     },
-    // {
-    //   label: "City",
-    //   key: "city",
-    // },
-  
+    {
+      label: "City",
+      key: "city",
+    },
+    {
+      label: 'HM Name',
+      key: 'principal_name'
+  },
+  {
+      label: 'HM Contact',
+      key: 'principal_mobile'
+  },
     {
       label: "Teacher Name",
       key: "full_name",
@@ -174,14 +185,15 @@ const StudentProgress = () => {
         label: 'Team Name',
         key: 'team_name'
     },
+     {
+        label: 'Team Username',
+        key: 'team_username'
+    },
     {
         label: 'Student Name',
         key: 'studentfullname'
     },
-    // {
-    //     label: 'Student Username',
-    //     key: 'Student Username'
-    // },
+   
     {
         label: 'Age',
         key: 'Age'
@@ -211,6 +223,14 @@ const StudentProgress = () => {
         label: 'Course Status',
         key: 'user_count'
     },
+    {
+      label: 'Course Completion%',
+      key: 'course_per'
+  },
+  {
+    label: 'Idea Status',
+    key: 'idea_status'
+},
     // {
     //     label: 'No.of Teams Idea Submitted',
     //     key: 'submittedcout'
@@ -576,7 +596,7 @@ const StudentProgress = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-        //   console.log(response, "res");
+          console.log(response, "res");
           // console.log(response.data.data[0].preSurvey,"preSurvey");
           // console.log(response.data.data[0].Username,"Username");
           // console.log(response.data.data[0],"response");
@@ -621,9 +641,39 @@ const StudentProgress = () => {
             },
             {}
           );
+          const userTopicMap = response.data.data[0].userTopicData.reduce(
+            (map, item) => {
+              map[item.user_id
+                
+                ] = item.user_count;
+              return map;
+            },
+            {}
+          );
+        
           const mentorUsernameMap = response.data.data[0].mentorUsername.reduce(
             (map, item) => {
               map[item.user_id] = item;
+              return map;
+            },
+            {}
+          );
+          const teamUsernameMap = response.data.data[0].
+          teamUsername
+          .reduce(
+            (map, item) => {
+              map[item.
+                teamuserId
+                ] = item;
+              return map;
+            },
+            {}
+          );
+          const 
+          ideaStatusDataMap = response.data.data[0].
+          ideaStatusData.reduce(
+            (map, item) => {
+              map[item.team_id] = item;
               return map;
             },
             {}
@@ -633,13 +683,23 @@ const StudentProgress = () => {
             const mentorData = teamDataMap[item.team_id];
             const mentStats = mentorMap[item.team_id];
             const mentUser =mentorUsernameMap[item.team_id];
- 
+            const teamUser =teamUsernameMap[item.team_id];
+
+            const idea =ideaStatusDataMap[item.team_id];
+
+const courses = userTopicMap[item.user_id]; 
+const course_per = courses && typeof courses === "number" ? Math.round((courses / 31) * 100) : 0;
             return {
               ...item,
               pre_survey_status: preSurveyMap[item.user_id] || "Not started",
               post_survey_status: postSurveyMap[item.user_id] || "Not started",
               username: mentUser?.username,
+              team_username: teamUser?.teamUsername
+              ,
+
+              idea_status:idea?.status, 
               user_count: userTopicDataMap[item.user_id] === 0 ? "Not Started" : userTopicDataMap[item.user_id] === 31 ? "Completed" : "In Progress",
+              course_per,
               team_name: mentorData?.team_name,
               team_email: mentorData?.team_email,
               mentor_id: mentorData?.mentor_id,
