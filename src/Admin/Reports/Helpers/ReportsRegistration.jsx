@@ -58,6 +58,8 @@ const ReportsRegistration = () => {
     const [filteredData, setFilteredData] = useState([]);
     const filterOptions = ['Registered', 'Not Registered'];
     const categoryData = ['All Categories', 'ATL', 'Non ATL'];
+    const categoryDataTn= ["Select All","Fully Aided-High School","Fully Aided-Higher Secondary School","Government-High School","Government-Higher Secondary School","Partially Aided-High School","Partially Aided-Higher Secondary School",];
+
     const newstateList = ["All States", ...stateList];
 
     // const categoryData =
@@ -85,11 +87,17 @@ const ReportsRegistration = () => {
         datasets: []
     });
     
-    // const fullStatesNames = useSelector(
-    //     (state) => newstateList
-    // );
+   
     const fullStatesNames =newstateList;
-    const fiterDistData = districtList[RegTeachersState];
+    const allDistricts = {
+        "All Districts": [...Object.values(districtList).flat()], 
+        ...districtList
+      };
+    const fiterDistData = [
+        'All Districts',
+        ...allDistricts[RegTeachersState] || [] 
+    ];
+    // const fiterDistData = districtList[RegTeachersState];
     
     const [downloadTableData, setDownloadTableData] = useState(null);
     const summaryHeaders = [
@@ -246,9 +254,7 @@ const ReportsRegistration = () => {
             key: 'principal_email'
         }
     ];
-    // useEffect(() => {
-    //     dispatch(getStateData());
-    // }, []);
+  
     useEffect(() => {
         // if (RegTeachersState !== '') {
         //     (RegTeachersState);
@@ -257,11 +263,7 @@ const ReportsRegistration = () => {
         fetchChartTableData();
     }, []);
 
-    // useEffect(() => {
-    //     // dispatch(getDistrictData());
-    //     fetchChartTableData();
-    // }, []);
-
+  
     const chartOption = {
         maintainAspectRatio: false,
         legend: {
@@ -643,12 +645,23 @@ const ReportsRegistration = () => {
                                 </Col>
                                 <Col md={2}>
                                     <div className="my-2 d-md-block d-flex justify-content-center">
-                                        <Select
+                                        {/* <Select
                                             list={categoryData}
                                             setValue={setCategory}
                                             placeHolder={'Select Category'}
                                             value={category}
-                                        />
+                                        /> */}
+                                         {RegTeachersState === "Tamil Nadu" ?(<Select
+                                            list={categoryDataTn}
+                                            setValue={setCategory}
+                                            placeHolder={'Select Category'}
+                                            value={category}
+                                        />):(<Select
+                                            list={categoryData}
+                                            setValue={setCategory}
+                                            placeHolder={'Select Category'}
+                                            value={category}
+                                        />)}
                                     </div>
                                 </Col>
 

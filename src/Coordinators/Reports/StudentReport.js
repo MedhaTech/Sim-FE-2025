@@ -82,7 +82,6 @@ const StudentProgress = () => {
     "All Districts": [...Object.values(districtList).flat()], 
     ...districtList
   };
-// const fiterDistData = allDistricts[RegTeachersState];
 const fiterDistData = [
     'All Districts',
     ...allDistricts[selectstate] || [] 

@@ -217,7 +217,9 @@ return (
                                 <h5 className="active">Ideas Submitted</h5>
                             </div>
                         </div>
-                        <Link  to="/admin/reports-registration">
+                        <Link   to ="#"
+                        // to="/admin/reports-registration"
+                        >
                             <div className="profile-info department-profile-info" >
                                 
                                     <div className="profile-pic">

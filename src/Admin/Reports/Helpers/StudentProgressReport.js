@@ -38,6 +38,8 @@ const StudentProgress = () => {
   const [category, setCategory] = useState("");
   const [isDownload, setIsDownload] = useState(false);
   const categoryData = ["All Categories", "ATL", "Non ATL"];
+  const categoryDataTn= ["Select All","Fully Aided-High School","Fully Aided-Higher Secondary School","Government-High School","Government-Higher Secondary School","Partially Aided-High School","Partially Aided-Higher Secondary School",];
+
   const newstateList = ["All States", ...stateList];
   // const categoryData =
   //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
@@ -75,10 +77,16 @@ const StudentProgress = () => {
     datasets: [],
   });
   const fullStatesNames = newstateList;
-  const fiterDistData = districtList[selectstate];
-  // useEffect(() => {
-  //     dispatch(getStateData());
-  // }, []);
+  const allDistricts = {
+    "All Districts": [...Object.values(districtList).flat()], 
+    ...districtList
+  };
+const fiterDistData = [
+    'All Districts',
+    ...allDistricts[selectstate] || [] 
+];
+  // const fiterDistData = districtList[selectstate];
+ 
   useEffect(() => {
     // if (selectstate !== '') {
     //     dispatch(getFetchDistData(selectstate));
@@ -946,12 +954,24 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
               </Col>
               <Col md={3}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
-                  <Select
+                  {/* <Select
                     list={categoryData}
                     setValue={setCategory}
                     placeHolder={"Select Category"}
                     value={category}
-                  />
+                  /> */}
+                   {selectstate === "Tamil Nadu"?( 
+                            <Select
+                                list={categoryDataTn}
+                                setValue={setCategory}
+                                placeHolder={'Select Category'}
+                                value={category}
+                            />):(  <Select
+                                list={categoryData}
+                                setValue={setCategory}
+                                placeHolder={'Select Category'}
+                                value={category}
+                            />)}
                 </div>
               </Col>
               <Col
