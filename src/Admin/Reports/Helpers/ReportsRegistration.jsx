@@ -56,6 +56,8 @@ const ReportsRegistration = () => {
     const [filterType, setFilterType] = useState('');
     const [category, setCategory] = useState('');
     const [filteredData, setFilteredData] = useState([]);
+    const [filteresData, setFilteresData] = useState([]);
+
     const filterOptions = ['Registered', 'Not Registered'];
     const categoryData = ['All Categories', 'ATL', 'Non ATL'];
     const categoryDataTn= ["Select All","Fully Aided-High School","Fully Aided-Higher Secondary School","Government-High School","Government-Higher Secondary School","Partially Aided-High School","Partially Aided-Higher Secondary School",];
@@ -456,12 +458,14 @@ const ReportsRegistration = () => {
                         setFilteredData(response?.data?.data || []);
                         setDownloadData(response?.data?.data || []);
 
-                        csvLinkRef.current.link.click();
+                        // csvLinkRef.current.link.click();
                     } else if (item === 'Not Registered') {
+                        setFilteresData(response?.data?.data || []);
                         setDownloadNotRegisteredData(
                             response?.data?.data || []
                         );
-                        csvLinkRefNotRegistered.current.link.click();
+                      
+                        // csvLinkRefNotRegistered.current.link.click();
                     }
                     openNotificationWithIcon(
                         'success',
@@ -496,6 +500,13 @@ const ReportsRegistration = () => {
     useEffect(() => {
         if (filteredData.length > 0) {
             setDownloadData(filteredData);
+                        csvLinkRef.current.link.click();
+
+        }
+        if (filteresData.length > 0) {
+            setDownloadNotRegisteredData(filteresData);
+            csvLinkRefNotRegistered.current.link.click();
+            console.log("Performing operation with the updated data.");
         }
     }, [filteredData, downloadNotRegisteredData]);
 
