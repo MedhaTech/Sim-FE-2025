@@ -2,24 +2,24 @@
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from 'react';
 import { Container, Row, Col, Table } from 'reactstrap';
-import { Button } from '../../../stories/Button';
+import { Button } from '../../stories/Button';
 import { CSVLink } from 'react-csv';
 import {
     openNotificationWithIcon,
     getCurrentUser
-} from '../../../helpers/Utils';
-import {
-    getDistrictData,
-    getStateData,
-    getFetchDistData
-} from '../../../redux/studentRegistration/actions';
+} from '../../helpers/Utils';
+// import {
+//     getDistrictData,
+//     getStateData,
+//     getFetchDistData
+// } from '../../../redux/studentRegistration/actions';
 import { ArrowRight  } from "feather-icons-react/build/IconComponents";
 import { useDispatch, useSelector } from 'react-redux';
-import Select from '../Helpers/Select';
+import Select from './Select';
 import { Chart } from "primereact/chart";
 import { useNavigate , Link } from 'react-router-dom';
 import axios from 'axios';
-import '../reports.scss';
+import './reports.scss';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -41,8 +41,8 @@ import {
   );
 import { Doughnut } from 'react-chartjs-2';
 import { notification } from 'antd';
-import { encryptGlobal } from '../../../constants/encryptDecrypt';
-import { stateList, districtList } from "../../../RegPage/ORGData";
+import { encryptGlobal } from '../../constants/encryptDecrypt';
+import { stateList, districtList } from "../../RegPage/ORGData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMale, faFemale, faSchool } from '@fortawesome/free-solid-svg-icons';
 import ReactApexChart from "react-apexcharts";
@@ -51,7 +51,7 @@ import ReactApexChart from "react-apexcharts";
 
 const ReportsRegistration = () => {
     const [RegTeachersdistrict, setRegTeachersdistrict] = React.useState('');
-    const [RegTeachersState, setRegTeachersState] = React.useState('');
+    // const [RegTeachersState, setRegTeachersState] = React.useState('');
     const navigate = useNavigate();
     const [filterType, setFilterType] = useState('');
     const [category, setCategory] = useState('');
@@ -64,9 +64,7 @@ const ReportsRegistration = () => {
 
     const newstateList = ["All States", ...stateList];
 
-    // const categoryData =
-    //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
-
+  
     const [downloadData, setDownloadData] = useState(null);
     const [downloadNotRegisteredData, setDownloadNotRegisteredData] =
         useState(null);
@@ -88,19 +86,23 @@ const ReportsRegistration = () => {
         labels: [],
         datasets: []
     });
-    
-   
+    const [RegTeachersState, setRegTeachersState] = React.useState(
+        currentUser?.data[0]?.state_name
+    );
+    // const fullStatesNames = useSelector(
+    //     (state) => newstateList
+    // );
     const fullStatesNames =newstateList;
     const allDistricts = {
         "All Districts": [...Object.values(districtList).flat()], 
         ...districtList
       };
+    // const fiterDistData = allDistricts[RegTeachersState];
     const fiterDistData = [
         'All Districts',
         ...allDistricts[RegTeachersState] || [] 
     ];
-    // const fiterDistData = districtList[RegTeachersState];
-    
+   
     const [downloadTableData, setDownloadTableData] = useState(null);
     const summaryHeaders = [
         {
@@ -256,7 +258,9 @@ const ReportsRegistration = () => {
             key: 'principal_email'
         }
     ];
-  
+    // useEffect(() => {
+    //     dispatch(getStateData());
+    // }, []);
     useEffect(() => {
         // if (RegTeachersState !== '') {
         //     (RegTeachersState);
@@ -265,7 +269,11 @@ const ReportsRegistration = () => {
         fetchChartTableData();
     }, []);
 
-  
+    // useEffect(() => {
+    //     // dispatch(getDistrictData());
+    //     fetchChartTableData();
+    // }, []);
+
     const chartOption = {
         maintainAspectRatio: false,
         legend: {
@@ -422,7 +430,7 @@ const ReportsRegistration = () => {
             JSON.stringify({
                 state: RegTeachersState,
                 status: 'ACTIVE',
-                district: RegTeachersdistrict === '' ? 'All Districts' : RegTeachersdistrict,
+                district: RegTeachersdistrict,
                 category: category
             })
         );
@@ -430,7 +438,7 @@ const ReportsRegistration = () => {
         const params = encryptGlobal(
             JSON.stringify({
                 state: RegTeachersState,
-                district: RegTeachersdistrict === '' ? 'All Districts' : RegTeachersdistrict,
+                district: RegTeachersdistrict,
                 status: 'ACTIVE',
                 category: category
             })
@@ -458,13 +466,12 @@ const ReportsRegistration = () => {
                         setFilteredData(response?.data?.data || []);
                         setDownloadData(response?.data?.data || []);
 
-                        // csvLinkRef.current.link.click();
+                        csvLinkRef.current.link.click();
                     } else if (item === 'Not Registered') {
                         setFilteresData(response?.data?.data || []);
                         setDownloadNotRegisteredData(
                             response?.data?.data || []
                         );
-                      
                         // csvLinkRefNotRegistered.current.link.click();
                     }
                     openNotificationWithIcon(
@@ -479,17 +486,23 @@ const ReportsRegistration = () => {
                 setIsDownloading(false);
             });
     };
-
+    // useEffect(() => {
+    //     if (studentDetailedReportsData.length > 0) {
+    //       console.log("Performing operation with the updated data.");
+    //       csvLinkRef.current.link.click();
+    
+    //     }
+    //   }, [studentDetailedReportsData]);
     const handleDownload = () => {
         if (
             !RegTeachersState ||
-            // !RegTeachersdistrict ||
+            !RegTeachersdistrict ||
             !filterType ||
             !category
         ) {
             notification.warning({
                 message:
-                    'Please select a state,category and filter type before Downloading Reports.'
+                    'Please select a district, category and filter type before Downloading Reports.'
             });
             return;
         }
@@ -500,15 +513,16 @@ const ReportsRegistration = () => {
     useEffect(() => {
         if (filteredData.length > 0) {
             setDownloadData(filteredData);
-                        csvLinkRef.current.link.click();
-
+            csvLinkRef.current.link.click();
+            // csvLinkRefNotRegistered.current.link.click();
+            console.log("Performing operation with the updated data.");
         }
         if (filteresData.length > 0) {
             setDownloadNotRegisteredData(filteresData);
             csvLinkRefNotRegistered.current.link.click();
             console.log("Performing operation with the updated data.");
         }
-    }, [filteredData, downloadNotRegisteredData]);
+    }, [filteredData, filteresData]);
 
     useEffect(() => {
         if (downloadComplete) {
@@ -611,7 +625,7 @@ const ReportsRegistration = () => {
                             <h6>Regristration Status Reports</h6>
                         </div>
                     </div>
-                    <div className="page-btn">
+                    {/* <div className="page-btn">
                         <button
                             type="button"
                             className="btn btn-secondary"
@@ -619,19 +633,20 @@ const ReportsRegistration = () => {
                         >
                             <i className="fas fa-arrow-left"></i> Back
                         </button>
-                    </div>
+                    </div> */}
                 </div>
                 <Container className="RegReports userlist">
                         <div className="reports-data mt-2 mb-2">
                             <Row className="align-items-center mt-3 mb-2">
                                 <Col md={2}>
                                     <div className="my-2 d-md-block d-flex justify-content-center">
-                                        <Select
+                                    <p>{RegTeachersState}</p>
+                                        {/* <Select
                                             list={fullStatesNames}
                                             setValue={setRegTeachersState}
                                             placeHolder={'Select State'}
                                             value={RegTeachersState}
-                                        />
+                                        /> */}
                                     </div>
                                 </Col>
                                 <Col md={2}>
@@ -656,13 +671,7 @@ const ReportsRegistration = () => {
                                 </Col>
                                 <Col md={2}>
                                     <div className="my-2 d-md-block d-flex justify-content-center">
-                                        {/* <Select
-                                            list={categoryData}
-                                            setValue={setCategory}
-                                            placeHolder={'Select Category'}
-                                            value={category}
-                                        /> */}
-                                         {RegTeachersState === "Tamil Nadu" ?(<Select
+                                      {RegTeachersState === "Tamil Nadu" ?(<Select
                                             list={categoryDataTn}
                                             setValue={setCategory}
                                             placeHolder={'Select Category'}

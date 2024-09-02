@@ -13,14 +13,15 @@ import logo from "../assets/img/new-logo.png";
 // import email from "../assets/img/icons/mail.svg";
 import { openNotificationWithIcon } from "../helpers/Utils";
 import { coordinatorLoginUser } from "../Coordinators/store/Coordinator/actions";
+import { stateList } from '../RegPage/ORGData';
 
 const StateLogin = (props) => {
   const navigate = useNavigate();
   const [isPasswordVisible, setPasswordVisible] = useState(false);
-  const inputUserId = {
-    type: "text",
-    placeholder: "Please Enter State Name",
-  };
+  // const inputUserId = {
+  //   type: "text",
+  //   placeholder: "Please Enter State Name",
+  // };
   const togglePasswordVisibility = () => {
     setPasswordVisible((prevState) => !prevState);
   };
@@ -44,16 +45,16 @@ const StateLogin = (props) => {
   }, []);
   const formik = useFormik({
     initialValues: {
-      district: "",
+      state: "",
       password: "",
     },
 
     validationSchema: Yup.object({
-      district: Yup.string()
+      state: Yup.string()
         .trim()
-        .min(2, "Please Enter State Name")
-        .matches(/^[aA-zZ\s]+$/, "Special Characters are not allowed")
-        .required("Required"),
+        // .min(2, "Please Enter State Name")
+        // .matches(/^[aA-zZ\s]+$/, "Special Characters are not allowed")
+        .required("Please Select State Name"),
       password: Yup.string().required("required"),
     }),
     onSubmit: (values) => {
@@ -76,7 +77,7 @@ const StateLogin = (props) => {
         padding: CryptoJS.pad.NoPadding,
       }).toString();
       const body = {
-        username: values.district,
+        username: values.state.toLowerCase().replace(/\s+/g, ''),
         password: encrypted,
         // role: 'STATE',
       };
@@ -84,6 +85,9 @@ const StateLogin = (props) => {
       props.coordinatorLoginUserAction(body, navigate, "STATE");
     },
   });
+  const handleStateChange = (event) => {
+    formik.setFieldValue("state", event.target.value);
+  };
   return (
     <div className="main-wrapper">
       <div className="account-content">
@@ -111,17 +115,26 @@ const StateLogin = (props) => {
                 <div className="form-login mb-3">
                   <label className="form-label">State Name</label>
                   <div className="form-addons">
-                    <input
-                      {...inputUserId}
-                      id="district"
-                      className="form- control"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.district}
-                    />
-                    {formik.touched.district && formik.errors.district ? (
-                      <small className="error-cls">Required</small>
-                    ) : null}
+                  <select
+                            id="inputState"
+                            className="form-select"
+                            value={formik.values.state}
+                            onChange={(e)=>handleStateChange(e)}
+                          >
+                            <option value="">Select State</option>
+                            {stateList.map((state) => (
+                              <option key={state} value={state}>
+                                {state}
+                              </option>
+                            ))}
+                          </select>
+
+                                                {formik.touched.state &&
+                                                formik.errors.state ? (
+                                                    <small className="error-cls" style={{color:"red"}}>
+                                                        {formik.errors.state}
+                                                    </small>
+                                                ) : null}
                     {/* <ImageWithBasePath
                       src="assets/img/icons/mail.svg"
                       alt="img"

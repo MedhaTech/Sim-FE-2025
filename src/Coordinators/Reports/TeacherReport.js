@@ -2,41 +2,43 @@
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from 'react';
 import { Container, Row, Col, Table } from 'reactstrap';
-import { Button } from '../../../stories/Button';
+import { Button } from '../../stories/Button';
 import { CSVLink } from 'react-csv';
-import { getCurrentUser } from '../../../helpers/Utils';
+import { getCurrentUser } from '../../helpers/Utils';
 import { useNavigate , Link } from 'react-router-dom';
-import {
-    getDistrictData,
-    getStateData,
-    getFetchDistData
-} from '../../../redux/studentRegistration/actions';
+// import {
+//     getDistrictData,
+//     getStateData,
+//     getFetchDistData
+// } from '../../../redux/studentRegistration/actions';
 import { ArrowRight  } from "feather-icons-react/build/IconComponents";
 import { useDispatch, useSelector } from 'react-redux';
-import Select from '../Helpers/Select';
+import Select from './Select';
 import axios from 'axios';
 // import '../reports.scss';
 import { Doughnut } from 'react-chartjs-2';
 import { Bar } from 'react-chartjs-2';
-import { categoryValue } from '../../Schools/constentText';
+// import { categoryValue } from '../../Schools/constentText';
 import { notification } from 'antd';
-import { encryptGlobal } from '../../../constants/encryptDecrypt';
-import { stateList, districtList } from "../../../RegPage/ORGData";
+import { encryptGlobal } from '../../constants/encryptDecrypt';
+import { stateList, districtList } from "../../RegPage/ORGData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMale, faFemale, faChalkboardTeacher  } from '@fortawesome/free-solid-svg-icons';
 import ReactApexChart from "react-apexcharts";
 import {
     openNotificationWithIcon
-} from '../../../helpers/Utils';
+} from '../../helpers/Utils';
 
 const TeacherProgressDetailed = () => {
     const navigate = useNavigate();
     const [district, setdistrict] = React.useState('');
-    const [selectstate, setSelectState] = React.useState('');
+    const currentUser = getCurrentUser('current_user');
+
+    const [selectstate, setSelectState] = React.useState(currentUser?.data[0]?.state_name);
     const [category, setCategory] = useState('');
     const [isDownload, setIsDownload] = useState(false);
     const categoryData = ['All Categories', 'ATL', 'Non ATL'];
-  const categoryDataTn= ["Select All","Fully Aided-High School","Fully Aided-Higher Secondary School","Government-High School","Government-Higher Secondary School","Partially Aided-High School","Partially Aided-Higher Secondary School",];
+    const categoryDataTn= ["Select All","Fully Aided-High School","Fully Aided-Higher Secondary School","Government-High School","Government-Higher Secondary School","Partially Aided-High School","Partially Aided-Higher Secondary School",];
 
     const newstateList = ["All States", ...stateList];
     // const categoryData =
@@ -45,7 +47,6 @@ const TeacherProgressDetailed = () => {
         []
     );
     const [doughnutChartData, setDoughnutChartData] = useState(null);
-    const currentUser = getCurrentUser('current_user');
     const csvLinkRef = useRef();
     const csvLinkRefTable = useRef();
     const dispatch = useDispatch();
@@ -76,6 +77,7 @@ const TeacherProgressDetailed = () => {
         datasets: []
     });
     const fullStatesNames = newstateList ;
+    // const fiterDistData = districtList[selectstate];
     const allDistricts = {
         "All Districts": [...Object.values(districtList).flat()], 
         ...districtList
@@ -84,7 +86,6 @@ const TeacherProgressDetailed = () => {
         'All Districts',
         ...allDistricts[selectstate] || [] 
     ];
-    // const fiterDistData = districtList[selectstate];
     // useEffect(() => {
     //     dispatch(getStateData());
     // }, []);
@@ -565,12 +566,12 @@ const TeacherProgressDetailed = () => {
     const handleDownload = () => {
         if (
             !selectstate ||
-            //  || !district
+             !district  ||
             !category
         ) {
             notification.warning({
                 message:
-                    'Please select a state and category type before Downloading Reports.'
+                    'Please select a district, category type before Downloading Reports.'
             });
             return;
         }
@@ -581,7 +582,7 @@ const TeacherProgressDetailed = () => {
         const apiRes = encryptGlobal(
             JSON.stringify({
                 state: selectstate,
-                district: district === '' ? 'All Districts' : district,
+                district: district,
                 category: category
             })
         );
@@ -932,7 +933,7 @@ return (
                     <h6>School Progress - Presurvey , Course, Teams , Post survey Status Report</h6>
                 </div>
             </div>
-            <div className="page-btn">
+            {/* <div className="page-btn">
                 <button
                     type="button"
                     className="btn btn-secondary"
@@ -940,7 +941,7 @@ return (
                 >
                     <i className="fas fa-arrow-left"></i> Back
                 </button>
-            </div>
+            </div> */}
         </div>
 
         <Container className="RegReports userlist">
@@ -948,12 +949,13 @@ return (
                 <Row className="align-items-center mt-3 mb-2">
                     <Col md={3}>
                         <div className="my-2 d-md-block d-flex justify-content-center">
-                            <Select
+                        <p>{selectstate}</p>
+                            {/* <Select
                                 list={fullStatesNames}
                                 setValue={setSelectState}
                                 placeHolder={'Select State'}
                                 value={selectstate}
-                            />
+                            /> */}
                         </div>
                     </Col>
                     <Col md={3}>
@@ -974,7 +976,7 @@ return (
                                 placeHolder={'Select Category'}
                                 value={category}
                             /> */}
-                              {selectstate === "Tamil Nadu"?( 
+                             {selectstate === "Tamil Nadu"?( 
                             <Select
                                 list={categoryDataTn}
                                 setValue={setCategory}

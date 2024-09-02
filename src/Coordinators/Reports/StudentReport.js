@@ -2,26 +2,26 @@
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Table } from "reactstrap";
-import { Button } from "../../../stories/Button";
+import { Button } from "../../stories/Button";
 import { CSVLink } from "react-csv";
-import { getCurrentUser } from "../../../helpers/Utils";
+import { getCurrentUser } from "../../helpers/Utils";
 import { useNavigate, Link } from "react-router-dom";
-import {
-  getDistrictData,
-  getStateData,
-  getFetchDistData,
-} from "../../../redux/studentRegistration/actions";
+// import {
+//   getDistrictData,
+//   getStateData,
+//   getFetchDistData,
+// } from "../../../redux/studentRegistration/actions";
 import { ArrowRight } from "feather-icons-react/build/IconComponents";
 import { useDispatch, useSelector } from "react-redux";
-import Select from "../Helpers/Select";
+import Select from "./Select";
 import axios from "axios";
 // import '../reports.scss';
 import { Doughnut } from "react-chartjs-2";
 import { Bar } from "react-chartjs-2";
-import { categoryValue } from "../../Schools/constentText";
+// import { categoryValue } from "../../Schools/constentText";
 import { notification } from "antd";
-import { encryptGlobal } from "../../../constants/encryptDecrypt";
-import { stateList, districtList } from "../../../RegPage/ORGData";
+import { encryptGlobal } from "../../constants/encryptDecrypt";
+import { stateList, districtList } from "../../RegPage/ORGData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMale,
@@ -29,12 +29,14 @@ import {
   faChalkboardTeacher,
 } from "@fortawesome/free-solid-svg-icons";
 import ReactApexChart from "react-apexcharts";
-import { openNotificationWithIcon } from "../../../helpers/Utils";
+import { openNotificationWithIcon } from "../../helpers/Utils";
 
 const StudentProgress = () => {
   const navigate = useNavigate();
   const [district, setdistrict] = React.useState("");
-  const [selectstate, setSelectState] = React.useState("");
+  const currentUser = getCurrentUser("current_user");
+
+  const [selectstate, setSelectState] = React.useState(currentUser?.data[0]?.state_name);
   const [category, setCategory] = useState("");
   const [isDownload, setIsDownload] = useState(false);
   const categoryData = ["All Categories", "ATL", "Non ATL"];
@@ -47,7 +49,6 @@ const StudentProgress = () => {
     []
   );
   const [doughnutChartData, setDoughnutChartData] = useState(null);
-  const currentUser = getCurrentUser("current_user");
   const csvLinkRef = useRef();
   const csvLinkRefTable = useRef();
   const dispatch = useDispatch();
@@ -86,7 +87,9 @@ const fiterDistData = [
     ...allDistricts[selectstate] || [] 
 ];
   // const fiterDistData = districtList[selectstate];
- 
+  // useEffect(() => {
+  //     dispatch(getStateData());
+  // }, []);
   useEffect(() => {
     // if (selectstate !== '') {
     //     dispatch(getFetchDistData(selectstate));
@@ -563,12 +566,12 @@ const fiterDistData = [
   const handleDownload = () => {
     if (
       !selectstate ||
-      //  || !district
+      !district  || 
       !category
     ) {
       notification.warning({
         message:
-          "Please select a state and category type before Downloading Reports.",
+          "Please select a district, category type before Downloading Reports.",
       });
       return;
     }
@@ -586,7 +589,7 @@ const fiterDistData = [
     const apiRes = encryptGlobal(
       JSON.stringify({
         state: selectstate,
-        district: district === "" ? "All Districts" : district,
+        district: district,
         category: category,
       })
     );
@@ -604,7 +607,7 @@ const fiterDistData = [
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          console.log(response, "res");
+          // console.log(response, "res");
           // console.log(response.data.data[0].preSurvey,"preSurvey");
           // console.log(response.data.data[0].Username,"Username");
           // console.log(response.data.data[0],"response");
@@ -918,7 +921,7 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
               </h6>
             </div>
           </div>
-          <div className="page-btn">
+          {/* <div className="page-btn">
             <button
               type="button"
               className="btn btn-secondary"
@@ -926,7 +929,7 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
             >
               <i className="fas fa-arrow-left"></i> Back
             </button>
-          </div>
+          </div> */}
         </div>
 
         <Container className="RegReports userlist">
@@ -934,12 +937,13 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
             <Row className="align-items-center mt-3 mb-2">
               <Col md={3}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
-                  <Select
+                <p>{selectstate}</p>
+                  {/* <Select
                     list={fullStatesNames}
                     setValue={setSelectState}
                     placeHolder={"Select State"}
                     value={selectstate}
-                  />
+                  /> */}
                 </div>
               </Col>
               <Col md={3}>

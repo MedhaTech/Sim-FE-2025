@@ -98,6 +98,12 @@ import InstructionsTeacher from "../Teacher/Dashboard/Instructions";
 import InstructionsStudent from "../Team/StudentDashboard/instructions";
 import BadgesComp from "../Team/Badges/Badges";
 import Badgesteach from "../Teacher/Badges/Badges";
+import CooRegist from "../Coordinators/Reports/RegistReport";
+import CooSchool from "../Coordinators/Reports/TeacherReport";
+import CooStudent from "../Coordinators/Reports/StudentReport";
+import CooInst from "../Coordinators/Reports/InstReport";
+
+
 
 
 
@@ -583,6 +589,38 @@ export const stateRoutes = [
     path: routes.statedashboard,
     name: "statehome",
     element: <StateDashboard />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 2,
+    path: routes.stateregist,
+    name: "stateregist",
+    element: <CooRegist />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 3,
+    path: routes.schoolcoo,
+    name: "schoolcoo",
+    element: <CooSchool />,
+    protected: true,
+    route: Route,
+  }, 
+  {
+    id: 4,
+    path: routes.studentcoo,
+    name: "studentcoo",
+    element: <CooStudent />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 5,
+    path: routes.intitutioncoo,
+    name: "intitutioncoo",
+    element: <CooInst />,
     protected: true,
     route: Route,
   },
