@@ -220,21 +220,37 @@ const TeacherProgressDetailed = () => {
             label: 'No.of Students Course Inprogress',
             key: 'courseinprogess'
         },
+        {
+            label: 'No.of Students Course Not Started',
+            key: 'courses_not_started'
+        },
+        {
+            label: 'No.of Teams Idea Submitted',
+            key: 'submittedcout'
+        },
+        {
+            label: 'No.of Teams Idea in Draft',
+            key: 'draftcout'
+        },
+        {
+            label: 'No.of Teams Idea Not Initiated',
+            key: 'notInitatedIdeas'
+        },
+        {
+            label: 'No.of Students Presurvey Not Started',
+            key: 'not_start_pre'
+        },
+        {
+            label: 'No.of Students Presurvey Completed',
+            key: 'preSur_cmp'
+        },
         // {
-        //     label: 'No.of Students Course Not Started',
-        //     key: 'courseNotStarted'
+        //     label: 'No.of Students Postsurvey Not Started',
+        //     key: 'not_start_pre'
         // },
         // {
-        //     label: 'No.of Teams Idea Submitted',
-        //     key: 'submittedcout'
-        // },
-        // {
-        //     label: 'No.of Teams Idea in Draft',
-        //     key: 'draftcout'
-        // },
-        // {
-        //     label: 'No.of Teams Idea NOt Initiated',
-        //     key: 'ideanotIN'
+        //     label: 'No.of Students Posturvey Completed',
+        //     key: 'preSur_cmp'
         // }
     ];
 
@@ -574,10 +590,8 @@ const TeacherProgressDetailed = () => {
             .then(function (response) {
                 
                 if (response.status === 200) {
-                    console.log(response,"22");
-                    // console.log(response.data.data[0].preSurvey,"preSurvey");
-                    // console.log(response.data.data[0].Username,"Username");
-                    // console.log(response.data.data[0],"response");
+                    // console.log(response,"22");
+                   
                     const preSurveyMap = response.data.data[0].preSurvey.reduce((map, item) => {
                         map[item.user_id] = item.pre_survey_status;
                         return map;
@@ -606,16 +620,61 @@ const TeacherProgressDetailed = () => {
                         map[item.mentor_id] = item.courseinprogess;
                         return map;
                     }, {});
+                    const StudentCourseNotStartedMap = Object.keys(studentCountMap).reduce((map, mentor_id) => {
+                        const totalStudents = studentCountMap[mentor_id] || 0;
+                        const completedCourses = StudentCourseCmpMap[mentor_id] || 0;
+                        const coursesInProgress = StudentCourseINproMap[mentor_id] || 0;
+                        
+                        map[mentor_id] = totalStudents - (completedCourses + coursesInProgress);
+                        return map;
+                    }, {});
+                    
                     const UsernameeMap = response.data.data[0].Username.reduce((map, item) => {
                         map[item.user_id] = item.username;
                         return map;
                     }, {});
-                    // const StuIdeaDraftCountMap = response.data.data[0].StuIdeaDraftCount.reduce((map, item) => {
-                    //     map[item.user_id] = item.username;
+                    const StuIdeaDraftCountMap = response.data.data[0].StuIdeaDraftCount.reduce((map, item) => {
+                        map[item.mentor_id] = item.draftcout;
+                        return map;
+                    }, {});
+                    const StuIdeaSubCountMap = response.data.data[0].StuIdeaSubCount.reduce((map, item) => {
+                        map[item.mentor_id] = item.submittedcout;
+                        return map;
+                    }, {});
+
+                    const notInitiatedMap = Object.keys(teamCountMap).reduce((map, mentor_id) => {
+                        const teamCount = teamCountMap[mentor_id] || 0;
+                        const submittedCount = StuIdeaSubCountMap[mentor_id] || 0;
+                        const draftCount = StuIdeaDraftCountMap[mentor_id] || 0;
+                    
+                        map[mentor_id]= teamCount - (submittedCount + draftCount);
+                    
+                        
+                        return map;
+                    }, {});
+                    const StuPreComCountMap = response.data.data[0].studentpresurvey
+                    .reduce((map, item) => {
+                        map[item.mentor_id] = item.preSur_cmp
+                        ;
+                        return map;
+                    }, {});
+
+                    const stuPreNotStartedMap = Object.keys(studentCountMap).reduce((map, mentor_id) => {
+                        const totalStudents = studentCountMap[mentor_id] || 0;
+                        const preSurveyCompleted = StuPreComCountMap[mentor_id] || 0;
+                        map[mentor_id] = totalStudents - preSurveyCompleted; 
+                        return map;
+                    }, {});
+                    // const StuPostComCountMap = response.data.data[0].studentpostsurvey
+                    // .reduce((map, item) => {
+                    //     map[item.mentor_id] = item.preSur_cmp
+                    //     ;
                     //     return map;
                     // }, {});
-                    // const StuIdeaSubCountMap = response.data.data[0].StuIdeaSubCount.reduce((map, item) => {
-                    //     map[item.user_id] = item.username;
+                    // const stuPostNotStartedMap = Object.keys(studentCountMap).reduce((map, mentor_id) => {
+                    //     const totalStudents = studentCountMap[mentor_id] || 0;
+                    //     const postSurveyCompleted = StuPostComCountMap[mentor_id] || 0;
+                    //     map[mentor_id] = totalStudents - postSurveyCompleted; 
                     //     return map;
                     // }, {});
                     const newdatalist = response.data.data[0].summary.map(item => ({
@@ -627,11 +686,26 @@ const TeacherProgressDetailed = () => {
                         student_count : studentCountMap[item.mentor_id] || 0,
                         countop : StudentCourseCmpMap[item.mentor_id] || 0,
                         courseinprogess : StudentCourseINproMap[item.mentor_id] || 0,
-                        username : UsernameeMap[item.user_id]
-                    }));
+                        username : UsernameeMap[item.user_id],
+                        courses_not_started: StudentCourseNotStartedMap[item.mentor_id] || 0 ,
+                        draftcout:StuIdeaDraftCountMap[item.mentor_id] || 0 ,
+                        submittedcout:StuIdeaSubCountMap[item.mentor_id] || 0 ,
+                        notInitatedIdeas: notInitiatedMap[item.mentor_id] || 0 ,
+                        preSur_cmp: StuPreComCountMap[item.mentor_id] || 0 ,
+                        not_start_pre: stuPreNotStartedMap[item.mentor_id] || 0 ,
+                        // postSur_cmp: StuPostComCountMap[item.mentor_id] || 0 ,
+                        // not_start_post: stuPostNotStartedMap[item.mentor_id] || 0 ,
 
+
+
+
+
+                        
+
+                    }));
+// console.log(newdatalist,"dd");
                     setmentorDetailedReportsData(newdatalist);
-                    csvLinkRef.current.link.click();
+                    // csvLinkRef.current.link.click();
                     openNotificationWithIcon(
                         'success',
                         "Report Downloaded Successfully"
@@ -644,7 +718,13 @@ const TeacherProgressDetailed = () => {
                 setIsDownload(false);
             });
     };
-
+    useEffect(() => {
+        if (mentorDetailedReportsData.length > 0) {
+          console.log("Performing operation with the updated data.");
+          csvLinkRef.current.link.click();
+    
+        }
+      }, [mentorDetailedReportsData]);
     const fetchChartTableData = () => {
         const config = {
             method: 'get',
