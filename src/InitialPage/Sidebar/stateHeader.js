@@ -634,14 +634,12 @@ const MentorHeader = () => {
                   </div>
                 </div>
                 <hr className="m-0" />
-                <Link
+                {/* <Link
                   className="dropdown-item"
-                  // onClick={handleProfile}
-                  // to={"/mentorprofile"}
-                  // onClick={() => navigate("/admin/profile")}
+                  
                 >
                   <User className="me-2" /> My Profile
-                </Link>
+                </Link> */}
                 {/* <Link className="dropdown-item" to={route.generalsettings}>
                   <Settings className="me-2" />
                   Settings
@@ -676,12 +674,11 @@ const MentorHeader = () => {
             <i className="fa fa-ellipsis-v" />
           </Link>
           <div className="dropdown-menu dropdown-menu-right">
-            <Link
+            {/* <Link
               className="dropdown-item"
-              // onClick={() => navigate("/mentor-profile")}
             >
               My Profile
-            </Link>
+            </Link> */}
             {/* <Link className="dropdown-item" to="generalsettings">
               Settings
             </Link> */}
