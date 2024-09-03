@@ -106,8 +106,8 @@ const ReportsRegistration = () => {
     const [downloadTableData, setDownloadTableData] = useState(null);
     const summaryHeaders = [
         {
-            label: 'State Name',
-            key: 'state'
+            label: 'District Name',
+            key: 'district'
         },
         {
             label: 'Total Eligible ATL Schools',
@@ -541,9 +541,14 @@ const ReportsRegistration = () => {
     }, [downloadComplete]);
 
     const fetchChartTableData = () => {
+        const tabParam = encryptGlobal(
+            JSON.stringify({
+                state: currentUser?.data[0]?.state_name
+            })
+        );
         const config = {
             method: 'get',
-            url: process.env.REACT_APP_API_BASE_URL + '/reports/mentorsummary',
+            url: process.env.REACT_APP_API_BASE_URL + `/reports/mentorsummary?Data=${tabParam}`,
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -553,16 +558,19 @@ const ReportsRegistration = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
+
                     const chartTableData = response?.data?.data || [];
+                   
                     setChartTableData(chartTableData);
                     setDownloadTableData(chartTableData);
-                    // console.log(chartTableData, "table data");
-
+                   
                     const lastRow = chartTableData[chartTableData.length - 1];
-                    const maleCount = lastRow?.male_mentor_count || 0;
-                    const femaleCount = lastRow?.female_mentor_count || 0;
-                    const ATLregCount = lastRow?.ATL_Reg_Count || 0;
-                    const NONATLregNotCount = lastRow?.NONATL_Reg_Count || 0;
+
+                    const maleCount = lastRow.male_mentor_count || 0;
+
+                    const femaleCount = lastRow.female_mentor_count || 0;
+                    const ATLregCount = lastRow.ATL_Reg_Count || 0;
+                    const NONATLregNotCount = lastRow.NONATL_Reg_Count || 0;
 
                     setRegisteredGenderChartData({
                         labels: ['Male Teachers', 'Female Teachers'],
@@ -585,9 +593,9 @@ const ReportsRegistration = () => {
                             }
                         ]
                     });
-                    const GraphfilteredData = chartTableData.filter(item => item.state !== "Total");
+                    const GraphfilteredData = chartTableData.filter(item => item.district !== "Total");
                     const barData = {
-                        labels: GraphfilteredData.map((item) => item.state),
+                        labels: GraphfilteredData.map((item) => item.district),
                         datasets: [
                             {
                                 label: 'Registered ATL Schools',
@@ -606,6 +614,7 @@ const ReportsRegistration = () => {
                         ]
                     };
                     setBarChart1Data(barData);
+
                     setseries1(barData.datasets[0].data);
                     setseries2(barData.datasets[1].data);
                 }
@@ -801,7 +810,7 @@ const ReportsRegistration = () => {
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
-                                                            <th>State Name</th>
+                                                            <th>District Name</th>
                                                             <th style={{whiteSpace: 'wrap'}}>Eligible ATL <FontAwesomeIcon icon={faSchool} /></th>
                                                             <th style={{whiteSpace: 'wrap'}}>ATL Teachers</th>
                                                             <th style={{whiteSpace: 'wrap'}}>Non-ATL Teachers</th>
@@ -819,7 +828,7 @@ const ReportsRegistration = () => {
                                                                         {index + 1}
                                                                     </td>
                                                                     <td style={{maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis"}}>
-                                                                        {item.state}
+                                                                        {item.district}
                                                                     </td>
                                                                     <td>
                                                                         {item.ATL_Count}

@@ -105,8 +105,8 @@ const TeacherProgressDetailed = () => {
     
     const tableHeaders = [
         {
-            label: 'State Name',
-            key: 'state'
+            label: 'District Name',
+            key: 'district'
         },
         {
             label: 'Total Registered Teachers',
@@ -509,11 +509,16 @@ const TeacherProgressDetailed = () => {
         nonAtlCount();
     }, []);
     const nonAtlCount = () => {
+        const tecSt = encryptGlobal(
+            JSON.stringify({
+                state: currentUser?.data[0]?.state_name
+            })
+        );
         var config = {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/reports/studentATLnonATLcount`,
+                `/reports/studentATLnonATLcount?Data=${tecSt}`,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -554,7 +559,7 @@ const TeacherProgressDetailed = () => {
                         ]
                     };
                     setBarChart3Data(barStudentData);
-                    // console.log(barStudentData,"barStudentData");
+                    console.log(barStudentData,"barStudentData");
                     setseries7(barStudentData.datasets[0].data);
                     setseries6(barStudentData.datasets[1].data);
                 }
@@ -737,11 +742,16 @@ const TeacherProgressDetailed = () => {
         }
       }, [mentorDetailedReportsData]);
     const fetchChartTableData = () => {
+        const staParam = encryptGlobal(
+            JSON.stringify({
+                state: currentUser?.data[0]?.state_name
+            })
+        );
         const config = {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                '/reports/mentordetailstable',
+                `/reports/mentordetailstable?Data=${staParam}`,
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -751,7 +761,6 @@ const TeacherProgressDetailed = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    // console.log(response.data.data[0].studentCountDetails[0].totalstudent,"whole");
                     const summary = response.data.data[0].summary;
                     const teamCount = response.data.data[0].teamCount;
                     const studentCountDetails = response.data.data[0].studentCountDetails.map((item) => {
@@ -768,18 +777,18 @@ const TeacherProgressDetailed = () => {
                         response.data.data[0].courseINcompleted;
 
                     const combinedArray = summary.map((summaryItem) => {
-                        const state = summaryItem.state;
+                        const district = summaryItem.district;
                         const teamCountItem = teamCount.find(
-                            (item) => item.state === state
+                            (item) => item.district === district
                         );
                         const studentCountItem = studentCountDetails.find(
-                            (item) => item.state === state
+                            (item) => item.district === district
                         );
                         const courseCompletedItem = courseCompleted.find(
-                            (item) => item.state === state
+                            (item) => item.district === district
                         );
                         const courseINcompletedItem = courseINcompleted.find(
-                            (item) => item.state === state
+                            (item) => item.district === district
                         );
                         const courseNotStarted =
                             summaryItem.totalReg -
@@ -790,7 +799,7 @@ const TeacherProgressDetailed = () => {
                                     ? courseINcompletedItem.courseIN
                                     : 0));
                         return {
-                            state,
+                            district,
                             totalReg: summaryItem.totalReg,
                             totalTeams: teamCountItem
                                 ? teamCountItem.totalTeams
@@ -818,7 +827,7 @@ const TeacherProgressDetailed = () => {
                     });
                     const total = combinedArray.reduce(
                         (acc, item) => {
-                            acc.state = "Total";
+                            acc.district = "Total";
                             acc.totalReg += item.totalReg;
                             acc.totalTeams += item.totalTeams;
                             acc.totalStudents += item.totalStudents;
@@ -831,7 +840,7 @@ const TeacherProgressDetailed = () => {
                             return acc;
                         },
                         {
-                            state:"None",
+                            district:"None",
                             totalReg: 0,
                             totalTeams: 0,
                             totalStudents: 0,
@@ -859,7 +868,7 @@ const TeacherProgressDetailed = () => {
                     
 
                     const barData = {
-                        labels: combinedArray.map((item) => item.state),
+                        labels: combinedArray.map((item) => item.district),
                         datasets: [
                             {
                                 label: 'No.of Students Enrolled',
@@ -881,7 +890,7 @@ const TeacherProgressDetailed = () => {
                     setseries1(barData.datasets[1].data);
 
                     const stackedBarChartData = {
-                        labels: combinedArray.map((item) => item.state),
+                        labels: combinedArray.map((item) => item.district),
                         datasets: [
                             {
                                 label: 'No. of Teachers not started course',
@@ -1098,7 +1107,7 @@ return (
                                             <thead>
                                                 <tr>
                                                     <th style={{color:"#36A2EB"}}>#</th>
-                                                    <th style={{color:"#36A2EB"}}>State Name</th>
+                                                    <th style={{color:"#36A2EB"}}>District Name</th>
                                                     <th style={{whiteSpace: 'wrap' ,color:"#36A2EB"}}>#Registered Teachers</th>
                                                     <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}>#Teams Created</th>
                                                     <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}>#Students Enrolled</th>
@@ -1127,7 +1136,7 @@ return (
                                                             </td>
                                                             <td style={{textAlign: "left", maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis",color:"crimson"}}>
                                                                 {
-                                                                    item.state
+                                                                    item.district
                                                                 }
                                                             </td>
                                                             <td>
