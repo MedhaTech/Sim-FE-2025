@@ -106,8 +106,8 @@ const fiterDistData = [
 
   const tableHeaders = [
     {
-      label: "State Name",
-      key: "state",
+      label: "District Name",
+      key: "district",
     },
     {
       label: "Total No.Of TEAMS created",
@@ -281,9 +281,9 @@ const fiterDistData = [
       "Not Started Idea Submission",
     ],
     series: [
-      totalCount.maleStudents,
-      totalCount.femaleStudents,
-      totalCount.otherStudents,
+      totalCount.submittedCount,
+      totalCount.draftCount,
+      totalCount.ideaNotStarted,
     ],
     legend: {
       position: "top",
@@ -607,10 +607,7 @@ const fiterDistData = [
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response, "res");
-          // console.log(response.data.data[0].preSurvey,"preSurvey");
-          // console.log(response.data.data[0].Username,"Username");
-          // console.log(response.data.data[0],"response");
+          
           const preSurveyMap = response.data.data[0].preSurvey.reduce(
             (map, item) => {
               map[item.user_id] = item.pre_survey_status;
@@ -726,7 +723,6 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
               whatapp_mobile: mentStats?.whatapp_mobile,
             };
           });
-        //   console.log(newdatalist, "fina");
           setstudentDetailedReportsData(newdatalist);
         //   csvLinkRef.current.link.click();
         //   console.log(studentDetailedReportsData,"ttt");
@@ -741,9 +737,14 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
   };
 
   const fetchChartTableData = () => {
+    const staParam = encryptGlobal(
+      JSON.stringify({
+          state: currentUser?.data[0]?.state_name
+      })
+  );
     const config = {
       method: "get",
-      url: process.env.REACT_APP_API_BASE_URL + "/reports/studentdetailstable",
+      url: process.env.REACT_APP_API_BASE_URL + `/reports/studentdetailstable?Data=${staParam}`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${currentUser?.data[0]?.token}`,
@@ -759,22 +760,37 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
 
           const courseCompleted = response.data.data[0].courseCompleted;
           const courseINprogesss = response.data.data[0].courseINprogesss;
-
+          const draftCount=response.data.data[0].draftCount;
+          const submittedCount=response.data.data[0].submittedCount;
           const combinedArray = summary.map((summaryItem) => {
-            const state = summaryItem.state;
+            const district = summaryItem.district;
             const totalTeams = summaryItem.totalTeams;
             // const teamCountItem = teamCount.find(
             //     (item) => item.state === state
             // );
+            const draftCountItem = draftCount.find(
+              (item) => item.district === district
+          );
+          const submittedCountItem = submittedCount.find(
+            (item) => item.district === district
+        );
             const studentCountItem = studentCountDetails.find(
-              (item) => item.state === state
+              (item) => item.district === district
             );
             const courseCompletedItem = courseCompleted.find(
-              (item) => item.state === state
+              (item) => item.district === district
             );
             const courseINprogesssItem = courseINprogesss.find(
-              (item) => item.state === state
+              (item) => item.district === district
             );
+            const ideaNotStarted =
+            summaryItem.totalTeams -
+            ((submittedCountItem
+                ? submittedCountItem.submittedCount
+                : 0) +
+                (draftCountItem
+                    ? draftCountItem.draftCount
+                    : 0));
             const courseNotStarted =
               summaryItem.totalTeams -
               ((courseCompletedItem
@@ -796,7 +812,7 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
                   )
                 : 0;
             return {
-              state,
+              district,
               coursePercentage,
               totalTeams,
               totalStudents: studentCountItem
@@ -809,19 +825,24 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
                 ? courseINprogesssItem.studentCourseIN
                 : 0,
               courseNotStarted,
+              draftCount:draftCountItem ? draftCountItem.draftCount : 0,
+              submittedCount:submittedCountItem ? submittedCountItem.submittedCount : 0,
+              ideaNotStarted,
             };
           });
           const total = combinedArray.reduce(
             (acc, item) => {
-              acc.state = "Total";
+              acc.district = "Total";
               // acc.totalReg += item.totalReg;
               acc.totalTeams += item.totalTeams;
               acc.totalStudents += item.totalStudents;
-              // acc.maleStudents += item.maleStudents;
-              // acc.femaleStudents += item.femaleStudents;
-              // acc.otherStudents += item.otherStudents;
+              acc.draftCount += item.draftCount;
+              acc.submittedCount += item.submittedCount;
               acc.courseCompleted += item.courseCompleted;
               acc.courseINprogesss += item.courseINprogesss;
+              acc.ideaNotStarted =
+              acc.totalTeams -
+              (acc.submittedCount + acc.draftCount);
               // acc.courseNotStarted += item.courseNotStarted;
               acc.courseNotStarted =
                 acc.totalStudents -
@@ -829,11 +850,13 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
               return acc;
             },
             {
-              state: "None",
+              district: "None",
               // totalReg: 0,
               totalTeams: 0,
               totalStudents: 0,
-
+              draftCount: 0,
+              submittedCount: 0,
+              ideaNotStarted: 0,
               // maleStudents: 0,
               // femaleStudents: 0,
               // otherStudents : 0,
@@ -843,10 +866,10 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
             }
           );
           const doughnutData = {
-            labels: ["Male", "Female"],
+            labels: ["Draft Ideas", "Submitted Ideas","Not Started Idea Submission"],
             datasets: [
               {
-                data: [total.maleStudents, total.femaleStudents],
+                data: [total.draftCount, total.submittedCount,total.ideaNotStarted],
                 backgroundColor: ["#8bcaf4", "#ff99af"],
                 hoverBackgroundColor: ["#36A2EB", "#FF6384"],
               },
@@ -854,7 +877,7 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
           };
 
           const barData = {
-            labels: combinedArray.map((item) => item.state),
+            labels: combinedArray.map((item) => item.district),
             datasets: [
               {
                 label: "No.of Students Enrolled",
@@ -872,7 +895,7 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
           setseries1(barData.datasets[1].data);
 
           const stackedBarChartData = {
-            labels: combinedArray.map((item) => item.state),
+            labels: combinedArray.map((item) => item.district),
             datasets: [
               {
                 label: "No. of Students not started course",
@@ -1020,7 +1043,7 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
                                   Students as per Idea Submission {newFormat}
                                 </b>
                               </p>
-                              {/* {doughnutChartData && (
+                              {doughnutChartData && (
                                                     <div id="donut-chart" >
                                                         <ReactApexChart
                                                         options={chartOption}
@@ -1029,7 +1052,7 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
                                                         height={330}
                                                         />
                                                     </div>
-                                                )} */}
+                                                )}
                             </div>
                             <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
                               <p>
@@ -1086,7 +1109,7 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
                                 <tr>
                                   <th style={{ color: "#36A2EB" }}>#</th>
                                   <th style={{ color: "#36A2EB" }}>
-                                    State Name
+                                    District Name
                                   </th>
                                   <th
                                     style={{
@@ -1163,7 +1186,7 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
                                         color: "crimson",
                                       }}
                                     >
-                                      {item.state}
+                                      {item.district}
                                     </td>
 
                                     <td>{item.totalTeams}</td>
