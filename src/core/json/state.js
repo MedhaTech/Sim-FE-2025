@@ -20,46 +20,54 @@ const StateSidebarData = () => {
           showSubRoute: false,
           submenu: false,
         },
-          {
-    label: "Reports",
-    submenuOpen: true,
-    // link: "/state-reports",
-    icon: <Icon.Bookmark />,
-    showSubRoute: false,
-    submenuHdr: "Reports",
-    role: "STATE",
-    submenuItems: [
-      {
-        label: "Institutions",
-        link: "/institution-report",
-        icon: <Icon.Codesandbox />,
-        showSubRoute: false,
-        submenu: false,
-      },
-      {
-        label: "Registration",
-        link: "/state-registration",
-        icon: <Icon.Box />,
-        showSubRoute: false,
-        submenu: false,
-      },
-      {
-        label: "School Progress",
-        link: "/school-report",
-        icon: <Icon.PlusSquare />,
-        showSubRoute: false,
-        submenu: false,
-      },
-      {
-        label: "Students Progress",
-        link: "/studentcoo-report",
-        icon: <Icon.Codesandbox />,
-        showSubRoute: false,
-        submenu: false,
-      },
+        {
+          label: "Institutions Report",
+          link: "/institution-report",
+          icon: <Icon.Codesandbox />,
+          showSubRoute: false,
+          submenu: false,
+        },
+        {
+          label: "Registration Report",
+          link: "/state-registration",
+          icon: <Icon.Layers />,
+          showSubRoute: false,
+          submenu: false,
+        },
+        {
+          label: "School Progress Report",
+          link: "/school-report",
+          icon: <Icon.PlusSquare />,
+          showSubRoute: false,
+          submenu: false,
+        },
+        {
+          label: "Students Progress Report",
+          link: "/studentcoo-report",
+          icon: <Icon.Database />,
+          showSubRoute: false,
+          submenu: false,
+        },
+  //         {
+  //   label: "Reports",
+  //   submenuOpen: true,
+  //   // link: "/state-reports",
+  //   icon: <Icon.Bookmark />,
+  //   showSubRoute: false,
+  //   submenuHdr: "Reports",
+  //   role: "STATE",
+  //   submenuItems: [
+  //     {
+  //       label: "Institutions",
+  //       link: "/institution-report",
+  //       icon: <Icon.Codesandbox />,
+  //       showSubRoute: false,
+  //       submenu: false,
+  //     },
      
-    ],
-  },
+     
+  //   ],
+  // },
     
        
       ],
