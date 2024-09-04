@@ -13,6 +13,8 @@ import { getCurrentUser } from "../../helpers/Utils";
 import logoutIcon from "../../assets/img/icons/log-out.svg";
 // import avtar from "../../assets/img/profiles/avator1.jpg";
 import logo from "../../assets/img/new-logo.png";
+import axios from "axios";
+import Icon from "../../assets/img/logos.jpg";
 
 const Header = () => {
   const route = all_routes;
@@ -20,6 +22,16 @@ const Header = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const { t } = useTranslation();
   const currentUser = getCurrentUser("current_user");
+  const [diesCode, setDiesCode] = useState('');
+  const [multiOrgData, setMultiOrgData] = useState({});
+
+  const handleOnChange = (e) => {
+    // we can give diescode as input //
+    //where organization_code = diescode //
+  
+    setDiesCode(e.target.value);
+   
+};
   // console.log(currentUser, " currentUser");
   const isElementVisible = (element) => {
     return element.offsetWidth > 0 || element.offsetHeight > 0;
@@ -137,7 +149,40 @@ const Header = () => {
       }
     }
   };
+  const handleSearch = (e) => {
+    //where we can search through diescode //
+    // we can see Registration Details & Mentor Details //
 
+    const body = JSON.stringify({
+      organization_code: diesCode
+    });
+    var config = {
+        method: 'post',
+        url: process.env.REACT_APP_API_BASE_URL + "/organizations/checkOrg",
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
+        },
+        data: body
+    };
+
+    axios(config)
+        .then(async function (response) {
+            if (response.status == 200) {
+               console.log(response,"res");
+               const multiOrgData = response?.data?.data;
+              //  setMultiOrgData(response?.data?.data);
+              //  navigate('/target-page', { state: { multiOrgData } });
+            }
+        })
+        .catch(function (error) {
+            if (error?.response?.data?.status === 404) {
+                // setError('Entered Invalid Institution Unique Code');
+            }
+        });
+    e.preventDefault();
+};
+// console.log(multiOrgData,"mm");
   return (
     <>
       <div className="header">
@@ -195,18 +240,21 @@ const Header = () => {
         <ul className="nav user-menu">
           {/* Search */}
           <li className="nav-item nav-searchinputs">
-            {/* <div className="top-nav-search"> */}
-            {/* <Link to="#" className="responsive-search">
+            <div className="top-nav-search">
+            <Link to="#" className="responsive-search">
                 <Search />
-              </Link> */}
-            {/* <form action="#" className="dropdown">
+              </Link>
+            <form action="#" className="dropdown">
                 <div
                   className="searchinputs dropdown-toggle"
                   id="dropdownMenuClickable"
                   data-bs-toggle="dropdown"
                   data-bs-auto-close="false"
                 >
-                  <input type="text" placeholder="Search" />
+                  <input type="text" placeholder="Search"  onChange={(e) => handleOnChange(e)}
+    onBlur={(e) => handleSearch(e)}  // This will trigger the API call when the input field loses focus
+    value={diesCode}
+    name="organization_code"/>
                   <div className="search-addon">
                     <span>
                       <XCircle className="feather-14" />
@@ -236,63 +284,10 @@ const Header = () => {
                       </li>
                     </ul>
                   </div>
-                  <div className="search-info">
-                    <h6>
-                      <span>
-                        <i data-feather="help-circle" className="feather-16" />
-                      </span>
-                      Help
-                    </h6>
-                    <p>
-                      How to Change Product Volume from 0 to 200 on Inventory
-                      management
-                    </p>
-                    <p>Change Product Name</p>
-                    <p>Aim Unisolve</p>
-                  </div>
-                  <div className="search-info">
-                    <h6>
-                      <span>
-                        <i data-feather="user" className="feather-16" />
-                      </span>
-                      Customers
-                    </h6>
-                    <ul className="customers">
-                      <li>
-                        <Link to="#">
-                          Aron Varu
-                          <ImageWithBasePath
-                            src="assets/img/profiles/avator1.jpg"
-                            alt
-                            className="img-fluid"
-                          />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="#">
-                          Jonita
-                          <ImageWithBasePath
-                            src="assets/img/profiles/avatar-01.jpg"
-                            alt
-                            className="img-fluid"
-                          />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="#">
-                          Aaron
-                          <ImageWithBasePath
-                            src="assets/img/profiles/avatar-10.jpg"
-                            alt
-                            className="img-fluid"
-                          />
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
+                
                 </div>
-              </form> */}
-            {/* </div> */}
+              </form>
+            </div>
           </li>
           {/* /Search */}
 
@@ -605,6 +600,8 @@ const Header = () => {
                     className="img-fluid"
                   /> */}
                   {/* <img src={avtar} alt="Avtar" className="img-fluid" /> */}
+                  <img src={Icon} alt="Team" id="blah" />
+
                 </span>
                 <span className="user-detail">
                   {/* {currentUser?.data[0]?.role} */}
