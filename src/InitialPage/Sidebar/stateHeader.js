@@ -13,6 +13,8 @@ import { getCurrentUser } from "../../helpers/Utils";
 import logoutIcon from "../../assets/img/icons/log-out.svg";
 // import avtar from "../../assets/img/profiles/avator1.jpg";
 import logo from "../../assets/img/new-logo.png";
+import Icon from "../../assets/img/logos.jpg";
+
 
 const MentorHeader = () => {
   const route = all_routes;
@@ -606,6 +608,8 @@ const MentorHeader = () => {
                     className="img-fluid"
                   /> */}
                   {/* <img src={avtar} alt="Avtar" className="img-fluid" /> */}
+                  <img src={Icon} alt="Team" id="blah" />
+
                 </span>
                 <span className="user-detail">
                   {/* {currentUser?.data[0]?.role} */}

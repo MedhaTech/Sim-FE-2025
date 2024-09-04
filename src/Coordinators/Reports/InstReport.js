@@ -192,10 +192,14 @@ const TeacherProgressDetailed = () => {
                     setChartTableData(chartTableData);
                     setDownloadTableData(chartTableData);
               
-                    openNotificationWithIcon(
-                        'success',
-                        "Report Downloaded Successfully"
-                    );
+                    if(response?.data?.data[0].count > 0){
+                        openNotificationWithIcon(
+                                            'success',
+                                            " Report Downloaded Successfully"
+                                        );  
+                    }else{
+                        openNotificationWithIcon('error', 'No Data Found');
+                    }
                     setIsDownload(false);
                 }
             })

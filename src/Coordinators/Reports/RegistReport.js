@@ -140,11 +140,11 @@ const ReportsRegistration = () => {
     ];
     const RegHeaders = [
         {
-            label: 'ATL CODE',
+            label: 'UDISE Code',
             key: 'organization.organization_code'
         },
         {
-            label: 'UDISE CODE',
+            label: 'ATL Code',
             key: 'organization.unique_code'
         },
         {
@@ -206,11 +206,11 @@ const ReportsRegistration = () => {
     ];
     const notRegHeaders = [
         {
-            label: 'ATL CODE',
+            label: 'UDISE Code',
             key: 'organization_code'
         },
         {
-            label: 'UDISE CODE',
+            label: 'ATL Code',
             key: 'unique_code'
         },
         {
@@ -462,22 +462,34 @@ const ReportsRegistration = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
+                    // let data = response?.data?.data || [];
                     if (item === 'Registered') {
-                        setFilteredData(response?.data?.data || []);
-                        setDownloadData(response?.data?.data || []);
-
-                        csvLinkRef.current.link.click();
+                        setFilteredData( response?.data?.data || []);
+                        setDownloadData( response?.data?.data || []);
+                        if(response?.data.count > 0){
+                            openNotificationWithIcon(
+                                                'success',
+                                                `${filterType} Report Downloaded Successfully`
+                                            );  
+                        }else{
+                            openNotificationWithIcon('error', 'No Data Found');
+                        }
+                  
                     } else if (item === 'Not Registered') {
                         setFilteresData(response?.data?.data || []);
                         setDownloadNotRegisteredData(
                             response?.data?.data || []
                         );
-                        // csvLinkRefNotRegistered.current.link.click();
+                        if(response?.data.count > 0){
+                            openNotificationWithIcon(
+                                                'success',
+                                                `${filterType} Report Downloaded Successfully`
+                                            );  
+                        }else{
+                            openNotificationWithIcon('error', 'No Data Found');
+                        }
                     }
-                    openNotificationWithIcon(
-                        'success',
-                        `${filterType} Report Downloaded Successfully`
-                    );
+                   
                     setIsDownloading(false);
                 }
             })
@@ -509,12 +521,13 @@ const ReportsRegistration = () => {
         setIsDownloading(true);
         fetchData(filterType);
     };
-
+  
+    
     useEffect(() => {
         if (filteredData.length > 0) {
             setDownloadData(filteredData);
             csvLinkRef.current.link.click();
-            // csvLinkRefNotRegistered.current.link.click();
+         
             console.log("Performing operation with the updated data.");
         }
         if (filteresData.length > 0) {
@@ -523,7 +536,6 @@ const ReportsRegistration = () => {
             console.log("Performing operation with the updated data.");
         }
     }, [filteredData, filteresData]);
-
     useEffect(() => {
         if (downloadComplete) {
             setDownloadComplete(false);
