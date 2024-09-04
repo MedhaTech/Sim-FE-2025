@@ -24,7 +24,7 @@ const StateSidebarData = () => {
     label: "Reports",
     submenuOpen: true,
     // link: "/state-reports",
-
+    icon: <Icon.Bookmark />,
     showSubRoute: false,
     submenuHdr: "Reports",
     role: "STATE",

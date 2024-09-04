@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable react/prop-types */
@@ -55,7 +56,7 @@ const StateLogin = (props) => {
         // .min(2, "Please Enter State Name")
         // .matches(/^[aA-zZ\s]+$/, "Special Characters are not allowed")
         .required("Please Select State Name"),
-      password: Yup.string().required("required"),
+      password: Yup.string().required("Please Enter Password"),
     }),
     onSubmit: (values) => {
       if (
@@ -144,7 +145,7 @@ const StateLogin = (props) => {
                 </div>
                 <div className="form-login mb-3">
                   <label className="form-label">Password</label>
-                  <div className="pass-group">
+                  <div className="pass-group" >
                     <input
                       type={isPasswordVisible ? "text" : "password"}
                       id="password"
@@ -154,16 +155,23 @@ const StateLogin = (props) => {
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
                     />
-                    {formik.touched.password && formik.errors.password ? (
-                      <small className="error-cls">Required</small>
-                    ) : null}
-                    <span
+                    <div
                       className={`fas toggle-password ${
                         isPasswordVisible ? "fa-eye" : "fa-eye-slash"
                       }`}
                       onClick={togglePasswordVisibility}
-                    ></span>
+                    ></div>
                   </div>
+
+                    {formik.touched.password && formik.errors.password ? (
+                      <small className="error-cls" style={{color:"red"}}>{formik.errors.password}</small>
+                    ) : null}
+                    {/* <span
+                      className={`fas toggle-password ${
+                        isPasswordVisible ? "fa-eye" : "fa-eye-slash"
+                      }`}
+                      onClick={togglePasswordVisibility}
+                    ></span> */}
                 </div>
                 <div className="form-login authentication-check">
                   <div className="row">
@@ -175,9 +183,9 @@ const StateLogin = (props) => {
                           Remember me
                         </label>
                       </div>
-                      <div className="text-end">
+                      {/* <div className="text-end">
                         <Link className="forgot-link">Forgot Password?</Link>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>

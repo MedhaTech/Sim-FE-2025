@@ -559,7 +559,7 @@ const TeacherProgressDetailed = () => {
                         ]
                     };
                     setBarChart3Data(barStudentData);
-                    console.log(barStudentData,"barStudentData");
+                    // console.log(barStudentData,"barStudentData");
                     setseries7(barStudentData.datasets[0].data);
                     setseries6(barStudentData.datasets[1].data);
                 }
@@ -721,11 +721,20 @@ const TeacherProgressDetailed = () => {
                     }));
 // console.log(newdatalist,"dd");
                     setmentorDetailedReportsData(newdatalist);
+                    if(response.data.data[0].summary.length > 0){
+                        openNotificationWithIcon(
+                            'success',
+                            "Report Downloaded Successfully"
+                        ); 
+                    }else{
+                        openNotificationWithIcon('error', 'No Data Found');
+                    }
+              
                     // csvLinkRef.current.link.click();
-                    openNotificationWithIcon(
-                        'success',
-                        "Report Downloaded Successfully"
-                    );
+                    // openNotificationWithIcon(
+                    //     'success',
+                    //     "Report Downloaded Successfully"
+                    // );
                     setIsDownload(false);
                 }
             })
@@ -736,8 +745,8 @@ const TeacherProgressDetailed = () => {
     };
     useEffect(() => {
         if (mentorDetailedReportsData.length > 0) {
+            csvLinkRef.current.link.click();
           console.log("Performing operation with the updated data.");
-          csvLinkRef.current.link.click();
     
         }
       }, [mentorDetailedReportsData]);

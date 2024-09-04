@@ -724,9 +724,17 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
             };
           });
           setstudentDetailedReportsData(newdatalist);
+          if(response.data.data[0].summary.length > 0){
+            openNotificationWithIcon(
+                'success',
+                "Report Downloaded Successfully"
+            ); 
+        }else{
+            openNotificationWithIcon('error', 'No Data Found');
+        }
         //   csvLinkRef.current.link.click();
         //   console.log(studentDetailedReportsData,"ttt");
-          openNotificationWithIcon("success", "Report Downloaded Successfully");
+          // openNotificationWithIcon("success", "Report Downloaded Successfully");
           setIsDownload(false);
         }
       })
