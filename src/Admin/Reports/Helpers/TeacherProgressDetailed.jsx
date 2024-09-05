@@ -581,7 +581,8 @@ const TeacherProgressDetailed = () => {
         const apiRes = encryptGlobal(
             JSON.stringify({
                 state: selectstate,
-                district: district === '' ? 'All Districts' : district,
+                district:district,
+                // district: district === '' ? 'All Districts' : district,
                 category: category
             })
         );
@@ -715,11 +716,19 @@ const TeacherProgressDetailed = () => {
                     }));
 // console.log(newdatalist,"dd");
                     setmentorDetailedReportsData(newdatalist);
+                    if(response.data.data[0].summary.length > 0){
+                        openNotificationWithIcon(
+                            'success',
+                            "Report Downloaded Successfully"
+                        ); 
+                    }else{
+                        openNotificationWithIcon('error', 'No Data Found');
+                    }
                     // csvLinkRef.current.link.click();
-                    openNotificationWithIcon(
-                        'success',
-                        "Report Downloaded Successfully"
-                    );
+                    // openNotificationWithIcon(
+                    //     'success',
+                    //     "Report Downloaded Successfully"
+                    // );
                     setIsDownload(false);
                 }
             })

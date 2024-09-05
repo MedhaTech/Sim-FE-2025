@@ -71,6 +71,18 @@ const DiesEdit = () => {
           10,
           <span style={{ color: "red" }}>Number is less than 10 digits</span>
         ),
+        username: Yup.string()
+        .email(
+          <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
+        )
+        .required(
+          <span style={{ color: "red" }}>Please Enter Email Address</span>
+        )
+        .matches(
+          /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+          "Email Must be VALID"
+        )
+        .max(255),
         whatapp_mobile: Yup.string()
         .required(
           <span style={{ color: "red" }}>Please Enter WhatsApp Number</span>
@@ -102,6 +114,8 @@ const DiesEdit = () => {
       title: mentorData?.title,
         whatapp_mobile: mentorData?.whatapp_mobile,
         gender: mentorData?.gender,
+        username:mentorData?.username
+
     };
     return commonInitialValues;
   };
@@ -114,16 +128,27 @@ const DiesEdit = () => {
       const title = values.title;
         const whatapp_mobile = values.whatapp_mobile;
         const gender = values.gender;
+        const username = values.username;
+
       //   const mobile = values.phone;
-      const body = JSON.stringify({
+      const body = {
         full_name: full_name,
         // mobile: mobile,
         title: title,
         whatapp_mobile: whatapp_mobile,
         gender: gender,
         mobile: mobile,
-        username: mentorData.username,
-      });
+        username: username,
+      };
+      if (
+        mentorData &&
+        mentorData.username !==  values.username
+
+    ) {
+        body['username'] = values.username
+
+        ;
+    }
       const ment = encryptGlobal(JSON.stringify(mentorData.mentor_id));
       const url = process.env.REACT_APP_API_BASE_URL + "/mentors/" + ment;
       var config = {
@@ -245,7 +270,7 @@ const DiesEdit = () => {
                   </Row>
                  
                   <Row className="mb-3 modal-body-table search-modal-header">
-                 <Col md={6}>
+                 <Col md={4}>
                  <label className="form-label">
                                 Mobile Number
                               </label>
@@ -275,7 +300,7 @@ const DiesEdit = () => {
                                 </small>
                               ) : null}
                  </Col>
-                 <Col md={6}>
+                 <Col md={4}>
                  <label className="form-label">
                                 WhatsApp Number
                               </label>
@@ -304,7 +329,27 @@ const DiesEdit = () => {
                                   {formik.errors.whatapp_mobile}
                                 </small>
                               ) : null}</Col>
+<Col md={4}>
+                 <label className="form-label">
+                               Email Address
+                              </label>
 
+                              <input
+                                type="text"
+                                className="form-control"
+                                id="inputEmail4"
+                                name="username"
+                                 onChange={formik.handleChange}
+                               
+                                onBlur={formik.handleBlur}
+                                value={formik.values.username}
+                              />
+
+                              {formik.touched.username && formik.errors.username ? (
+                                <small className="error-cls">
+                                  {formik.errors.username}
+                                </small>
+                              ) : null}</Col>
               
             </Row>
             <div className="form-login" style={formLoginStyle}>
