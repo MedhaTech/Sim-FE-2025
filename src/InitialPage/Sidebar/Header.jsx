@@ -15,6 +15,7 @@ import logoutIcon from "../../assets/img/icons/log-out.svg";
 import logo from "../../assets/img/new-logo.png";
 import axios from "axios";
 import Icon from "../../assets/img/logos.jpg";
+import { openNotificationWithIcon } from "../../helpers/Utils.js";
 
 const Header = () => {
   const route = all_routes;
@@ -23,13 +24,16 @@ const Header = () => {
   const { t } = useTranslation();
   const currentUser = getCurrentUser("current_user");
   const [diesCode, setDiesCode] = useState('');
-  const [multiOrgData, setMultiOrgData] = useState({});
+  const [multiOrgData, setMultiOrgData] = useState([]);
 
   const handleOnChange = (e) => {
     // we can give diescode as input //
     //where organization_code = diescode //
-  
-    setDiesCode(e.target.value);
+    const numericValue = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
+    const trimmedValue = numericValue.trim();
+
+    setDiesCode(trimmedValue);
+    // setDiesCode(e.target.value);
    
 };
   // console.log(currentUser, " currentUser");
@@ -149,7 +153,13 @@ const Header = () => {
       }
     }
   };
-  const handleSearch = (e) => {
+  useEffect(()=>{
+    if(diesCode.length == 11){
+      handleSearch(diesCode);
+    }
+
+  },[diesCode]);
+  const handleSearch = (diesCode) => {
     //where we can search through diescode //
     // we can see Registration Details & Mentor Details //
 
@@ -169,10 +179,18 @@ const Header = () => {
     axios(config)
         .then(async function (response) {
             if (response.status == 200) {
-               console.log(response,"res");
-               const multiOrgData = response?.data?.data;
-              //  setMultiOrgData(response?.data?.data);
-              //  navigate('/target-page', { state: { multiOrgData } });
+              //  console.log(response,"res");
+               if(response?.data?.count > 0){
+                const multiOrgData = response?.data?.data;
+        localStorage.setItem('diesCode', JSON.stringify(diesCode));
+        localStorage.setItem("multiOrgData", JSON.stringify(multiOrgData));
+                 setMultiOrgData(multiOrgData);
+                 navigate('/diescode-search', { state: { multiOrgData,diesCode } });
+                 setDiesCode('');
+               }else{
+                openNotificationWithIcon("error", "Oops..!  UDISE Code seems incorrect");
+               }
+             
             }
         })
         .catch(function (error) {
@@ -180,7 +198,7 @@ const Header = () => {
                 // setError('Entered Invalid Institution Unique Code');
             }
         });
-    e.preventDefault();
+    // e.preventDefault();
 };
 // console.log(multiOrgData,"mm");
   return (
@@ -252,8 +270,10 @@ const Header = () => {
                   data-bs-auto-close="false"
                 >
                   <input type="text" placeholder="Search"  onChange={(e) => handleOnChange(e)}
-    onBlur={(e) => handleSearch(e)}  // This will trigger the API call when the input field loses focus
+    // onBlur={(e) => handleSearch(e)}  // This will trigger the API call when the input field loses focus
     value={diesCode}
+    maxLength={11}
+    minLength={11}
     name="organization_code"/>
                   <div className="search-addon">
                     <span>
