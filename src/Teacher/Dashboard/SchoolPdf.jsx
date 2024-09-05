@@ -441,6 +441,14 @@ class Schoolpdf extends React.Component {
                                     >
                                         Status
                                     </th>
+                                    <th
+                                        style={{
+                                            border: '1px solid black',
+                                            padding: '1rem'
+                                        }}
+                                    >
+                                        Idea Acceptance
+                                    </th>
                                 </tr>
                                 {this?.props?.ideaStatusDetails?.map(
                                     (idea, i) => {
@@ -490,6 +498,16 @@ class Schoolpdf extends React.Component {
                                                             color="red"
                                                         />
                                                     )}
+                                                </td>
+                                                <td
+                                                    style={{
+                                                        border: '1px solid black',
+                                                        padding: '1rem'
+                                                    }}
+                                                >
+                                                    {idea?.verified_status
+                                                        ? idea?.verified_status
+                                                        : 'Yet to Review'}
                                                 </td>
                                             </tr>
                                         );
