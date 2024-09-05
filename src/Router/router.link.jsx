@@ -102,6 +102,9 @@ import CooRegist from "../Coordinators/Reports/RegistReport";
 import CooSchool from "../Coordinators/Reports/TeacherReport";
 import CooStudent from "../Coordinators/Reports/StudentReport";
 import CooInst from "../Coordinators/Reports/InstReport";
+import DiescodeScreen from "../Admin/Dashboard/DiescodeScreen";
+import DiesView from "../Admin/Dashboard/DiesView";
+import DiesEdit from "../Admin/Dashboard/DiesEdit";
 
 
 
@@ -331,6 +334,30 @@ export const publicRoutes = [
     path: routes.studentreport,
     name: "studentreport",
     element: <StudentProgressReport/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 26,
+    path: routes.diescode,
+    name: "diescode",
+    element: <DiescodeScreen/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 27,
+    path: routes.diesview,
+    name: "diesview",
+    element: <DiesView/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 28,
+    path: routes.diesedit,
+    name: "diesedit",
+    element: <DiesEdit/>,
     protected: true,
     route: Route,
   },
