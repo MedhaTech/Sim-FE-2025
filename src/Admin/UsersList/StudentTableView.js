@@ -343,6 +343,12 @@ const CommonUserProfile = (props) => {
                                 </span>
                                 <b>{StudentsDaTa?.team.team_name}</b>
                             </CardText>
+                            <CardText>
+                                <span className="mx-3">
+                                    <b>Team User Id : </b>
+                                </span>
+                                <b>{StudentsDaTa?.team?.user?.username}</b>
+                            </CardText>
                         </CardBody>
                     </Card>
                 </Row>

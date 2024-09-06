@@ -38,7 +38,7 @@ const StudentProgress = () => {
   const [category, setCategory] = useState("");
   const [isDownload, setIsDownload] = useState(false);
   const categoryData = ["All Categories", "ATL", "Non ATL"];
-  const categoryDataTn= ["Select All","Fully Aided-High School","Fully Aided-Higher Secondary School","Government-High School","Government-Higher Secondary School","Partially Aided-High School","Partially Aided-Higher Secondary School",];
+  const categoryDataTn= ["Select All","Fully Aided-High School","Fully Aided-Higher Secondary School","Government-High School","Government-Higher Secondary School","Partially Aided-High School","Partially Aided-Higher Secondary School",'Non ATL'];
 
   const newstateList = ["All States", ...stateList];
   // const categoryData =
@@ -586,7 +586,7 @@ const fiterDistData = [
     const apiRes = encryptGlobal(
       JSON.stringify({
         state: selectstate,
-        district: district === "" ? "All Districts" : district,
+        district: district,
         category: category,
       })
     );
@@ -604,7 +604,7 @@ const fiterDistData = [
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          console.log(response, "res");
+          // console.log(response, "res");
           // console.log(response.data.data[0].preSurvey,"preSurvey");
           // console.log(response.data.data[0].Username,"Username");
           // console.log(response.data.data[0],"response");
@@ -725,9 +725,16 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
           });
         //   console.log(newdatalist, "fina");
           setstudentDetailedReportsData(newdatalist);
+          if(response.data.data[0].summary.length > 0){
+            openNotificationWithIcon(
+                'success',
+                "Report Downloaded Successfully"
+            ); 
+        }else{
+            openNotificationWithIcon('error', 'No Data Found');
+        }
         //   csvLinkRef.current.link.click();
         //   console.log(studentDetailedReportsData,"ttt");
-          openNotificationWithIcon("success", "Report Downloaded Successfully");
           setIsDownload(false);
         }
       })

@@ -189,6 +189,23 @@ const AdminResources = () => {
             }
         ]
     };
+    const customStyles = {
+        rows: {
+          style: {
+            fontSize: "14px",
+          },
+        },
+        headCells: {
+          style: {
+            fontSize: "16px",
+          },
+        },
+        cells: {
+          style: {
+            fontSize: "14px",
+          },
+        },
+      };
     return (
         <div className="page-wrapper">
             <div className="content">
@@ -222,6 +239,8 @@ const AdminResources = () => {
                                     data={setResList}
                                     // noHeader
                                     defaultSortField="id"
+                                    customStyles={customStyles}
+
                                     defaultSortAsc={false}
                                     pagination
                                     highlightOnHover

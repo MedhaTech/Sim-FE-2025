@@ -17,9 +17,9 @@ import axios from "axios";
 const TeacherProfile = () => {
   const dispatch = useDispatch();
   const currentUser = getCurrentUser("current_user");
-  console.log(currentUser,"currentuser");
+  // console.log(currentUser,"currentuser");
   const { teacher } = useSelector((state) => state.teacher);
-  console.log(teacher,"11");
+  // console.log(teacher,"11");
   const navigate = useNavigate();
 const [data,setData]=useState({});
   const handleEdit = () => {

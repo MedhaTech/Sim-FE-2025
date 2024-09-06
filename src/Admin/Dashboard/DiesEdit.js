@@ -19,10 +19,10 @@ import { useNavigate } from "react-router-dom";
 // import female from "../assets/img/Female_Profile.png";
 // import male from "../assets/img/Male_Profile.png";
 // import user from "../assets/img/user.png";
-const TeacherEditProfile = () => {
+const DiesEdit = () => {
   const location = useLocation();
   const mentorData = location.state || {};
-  // console.log(mentorData,"11");
+//   console.log(mentorData,"11");
   const navigate = useNavigate();
 
   const currentUser = getCurrentUser("current_user");
@@ -42,18 +42,6 @@ const TeacherEditProfile = () => {
       gender:Yup.string().required(
         <span style={{ color: "red" }}>Please select Gender</span>
       ),
-      username: Yup.string()
-      .email(
-        <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
-      )
-      .required(
-        <span style={{ color: "red" }}>Please Enter Email Address</span>
-      )
-      .matches(
-        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-        "Email Must be VALID"
-      )
-      .max(255),
       full_name: Yup.string()
         // .matches(/^[A-Za-z]*$/, 'Invalid name ')
         // .min(2, 'Enter a valid name')
@@ -83,6 +71,18 @@ const TeacherEditProfile = () => {
           10,
           <span style={{ color: "red" }}>Number is less than 10 digits</span>
         ),
+        username: Yup.string()
+        .email(
+          <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
+        )
+        .required(
+          <span style={{ color: "red" }}>Please Enter Email Address</span>
+        )
+        .matches(
+          /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+          "Email Must be VALID"
+        )
+        .max(255),
         whatapp_mobile: Yup.string()
         .required(
           <span style={{ color: "red" }}>Please Enter WhatsApp Number</span>
@@ -115,6 +115,7 @@ const TeacherEditProfile = () => {
         whatapp_mobile: mentorData?.whatapp_mobile,
         gender: mentorData?.gender,
         username:mentorData?.username
+
     };
     return commonInitialValues;
   };
@@ -128,6 +129,8 @@ const TeacherEditProfile = () => {
         const whatapp_mobile = values.whatapp_mobile;
         const gender = values.gender;
         const username = values.username;
+
+      //   const mobile = values.phone;
       const body = {
         full_name: full_name,
         // mobile: mobile,
@@ -136,8 +139,7 @@ const TeacherEditProfile = () => {
         gender: gender,
         mobile: mobile,
         username: username,
-      }
-      ;
+      };
       if (
         mentorData &&
         mentorData.username !==  values.username
@@ -156,7 +158,7 @@ const TeacherEditProfile = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${currentUser?.data[0]?.token}`,
         },
-        data: JSON.stringify(body),
+        data: body,
       };
       axios(config)
         .then(function (response) {
@@ -167,7 +169,7 @@ const TeacherEditProfile = () => {
             // currentUser.data[0].gender = values.gender;
 
             // setCurrentUser(currentUser);
-            navigate("/mentor-view");
+            navigate("/diescode-search");
             // setTimeout(() => {
             // }, 2000);
           }
@@ -327,7 +329,6 @@ const TeacherEditProfile = () => {
                                   {formik.errors.whatapp_mobile}
                                 </small>
                               ) : null}</Col>
-
 <Col md={4}>
                  <label className="form-label">
                                Email Address
@@ -349,7 +350,7 @@ const TeacherEditProfile = () => {
                                   {formik.errors.username}
                                 </small>
                               ) : null}</Col>
-
+              
             </Row>
             <div className="form-login" style={formLoginStyle}>
                   <button
@@ -363,7 +364,7 @@ const TeacherEditProfile = () => {
                   >
                     Submit
                   </button>
-                  <Link className="btn btn-cancel" to={"/mentor-view"}  style={cancelLinkStyle}>
+                  <Link className="btn btn-cancel" to={"/diescode-search"}  style={cancelLinkStyle}>
                     Cancel
                   </Link>
                 </div>
@@ -379,4 +380,4 @@ const TeacherEditProfile = () => {
   );
 };
 
-export default TeacherEditProfile;
+export default DiesEdit;

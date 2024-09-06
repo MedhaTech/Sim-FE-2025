@@ -310,7 +310,7 @@ const AdminLatestNews = () => {
             {
                 name: 'Role',
                 selector: (row) => row.category,
-                width: 'r8em'
+                width: '8rem'
             },
             {
                 name: 'New Icon',
@@ -344,7 +344,7 @@ const AdminLatestNews = () => {
             {
                 name: 'Details',
                 selector: (row) => row.details,
-                width: '15rem'
+                width: '20rem'
             },
             {
                 name: 'File',
@@ -464,7 +464,7 @@ const AdminLatestNews = () => {
             {
                 name: 'Details',
                 selector: (row) => row.details,
-                width: '15rem'
+                width: '20rem'
             },
             {
                 name: 'File',
@@ -538,9 +538,19 @@ const AdminLatestNews = () => {
         ]
     };
     const customStyles = {
-        head: {
+        rows: {
           style: {
-            fontSize: "1em", // Adjust as needed
+            fontSize: "14px",
+          },
+        },
+        headCells: {
+          style: {
+            fontSize: "16px",
+          },
+        },
+        cells: {
+          style: {
+            fontSize: "14px",
           },
         },
       };
