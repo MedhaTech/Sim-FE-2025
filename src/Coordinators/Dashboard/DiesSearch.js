@@ -44,6 +44,7 @@ const DiescodeScreen = () => {
   const dispatch = useDispatch();
 //   const multiOrgData = location.state?.multiOrgData;
   const multiOrg = localStorage.getItem('multiOrgData');
+  const currentUser = getCurrentUser('current_user');
 
   const [mentorTeam, setMentorTeam] = useState([]);
   const [orgData, setOrgData] = useState({});
@@ -199,6 +200,42 @@ const downloadPDF = () => {
       },
     },
   };
+  const handleRevoke = async (id, type) => {
+    // where id = challenge response id //
+    // here we  can see the Revoke button when ever idea is submitted //
+    // where type = ideaStatus //
+    let submitData = {
+        status: type == 'DRAFT' ? 'SUBMITTED' : 'DRAFT'
+    };
+    const handleRevPram = encryptGlobal(JSON.stringify(id));
+
+    var config = {
+        method: 'put',
+        url:
+            process.env.REACT_APP_API_BASE_URL +
+            '/challenge_response/updateEntry/' +
+            handleRevPram,
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${currentUser?.data[0]?.token}`
+        },
+        data: submitData
+    };
+    axios(config)
+        .then(async function (response) {
+            if (response.status === 200) {
+                openNotificationWithIcon(
+                    'success',
+                    'Idea Submission Status Successfully Update!',
+                    ''
+                );
+                await getMentorIdApi(mentorId);
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+};
   const MentorsData = {
     data: mentorTeam,
     columns: [
@@ -227,16 +264,49 @@ const downloadPDF = () => {
         width: "25%",
       },
       {
-        name: "Mentor Approval",
-        // selector: (row) =>
-        //   row.PFAStatus === null
-        //     ? ""
-        //     : row.PFAStatus === "Pending"
-        //     ? "PENDING"
-        //     : "APPROVED",
-        center: true,
+        name: "Actions",
+        cell: (params) => {
+          return [
+            <>
+              {params.ideaStatus == "SUBMITTED" &&
+                params.ideaAcceptance === null && params.ideaAcceptance !== "" &&(
+                  <Button
+                    key={params}
+                    //   className={
+                    //       isideadisable
+                    //           ? `btn btn-success btn-lg mr-5 mx-2`
+                    //           : `btn btn-lg mr-5 mx-2`
+                    //   }
+                    className="btn btn-secondary"
+                    label={"REVOKE"}
+                    size="small"
+                    shape="btn-square"
+                    onClick={() =>
+                      handleRevoke(
+                        params.challenge_response_id,
+                        params.ideaStatus
+                      )
+                    }
+                    //   disabled={!isideadisable}
+                  />
+                )}
+            </>,
+          ];
+        },
         width: "20%",
+        center: true,
       },
+    //   {
+    //     name: "Mentor Approval",
+    //     selector: (row) =>
+    //       row.PFAStatus === null
+    //         ? ""
+    //         : row.PFAStatus === "Pending"
+    //         ? "PENDING"
+    //         : "APPROVED",
+    //     center: true,
+    //     width: "20%",
+    //   },
       //     name: 'Actions',
       //     cell: (params) => {
       //         return [

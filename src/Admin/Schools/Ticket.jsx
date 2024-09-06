@@ -322,7 +322,7 @@ const TicketsPage = (props) => {
                 name: 'Category',
                 selector: (row) => row.category,
                 cellExport: (row) => row.category,
-                width: '6rem'
+                width: '8rem'
             },
             // {
             //     name: 'Principal Name',
@@ -425,7 +425,7 @@ const TicketsPage = (props) => {
                 name: 'Category',
                 selector: (row) => row.category,
                 cellExport: (row) => row.category,
-                width: '6rem'
+                width: '8rem'
             },
             // {
             //     name: 'Principal Name',
@@ -518,7 +518,7 @@ const TicketsPage = (props) => {
                 name: 'Category',
                 selector: (row) => row.category,
                 cellExport: (row) => row.category,
-                width: '6rem'
+                width: '8rem'
             },
             // {
             //     name: 'Principal Name',
@@ -575,10 +575,27 @@ const TicketsPage = (props) => {
             }
         ]
     };
-    const customStyles = {
-        head: {
+    // const customStyles = {
+    //     head: {
+    //       style: {
+    //         fontSize: "1em", // Adjust as needed
+    //       },
+    //     },
+    //   };
+      const customStyles = {
+        rows: {
           style: {
-            fontSize: "1em", // Adjust as needed
+            fontSize: "14px",
+          },
+        },
+        headCells: {
+          style: {
+            fontSize: "16px",
+          },
+        },
+        cells: {
+          style: {
+            fontSize: "14px",
           },
         },
       };
@@ -647,11 +664,11 @@ const TicketsPage = (props) => {
                     </Row>
 
                     {reqList ? (
-                        <div className="my-2">
+                        <div className="my-4">
                             <DataTableExtensions
                                 print={false}
                                 export={true}
-                                style={{marginTop:"2rem"}}
+                                style={{margin:"2rem"}}
                                 {...reqSchoolsData}
                                 exportHeaders
                             >
@@ -668,10 +685,12 @@ const TicketsPage = (props) => {
                             </DataTableExtensions>
                         </div>
                     ) : newList ? (
-                        <div className="my-2">
+                        <div className="my-4">
                             <DataTableExtensions
                                 print={false}
                                 export={true}
+                                style={{marginTop:"2rem"}}
+
                                 {...newSchoolsData}
                                 exportHeaders
                             >
@@ -687,9 +706,11 @@ const TicketsPage = (props) => {
                             </DataTableExtensions>
                         </div>
                     ) : (
-                        <div className="my-2">
+                        <div className="my-4">
                             <DataTableExtensions
                                 {...SchoolsData}
+                                style={{marginTop:"2rem"}}
+
                                 export={true}
                                 print={false}
                                 exportHeaders
