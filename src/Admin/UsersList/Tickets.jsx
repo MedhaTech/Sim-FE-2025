@@ -466,9 +466,9 @@ const updateStatesList=["All States",...stateList];
                 width: '8rem'
             },
             {
-                name: 'Team Email Id',
-                selector: (row) => row?.team?.team_email,
-                width: '12rem'
+                name: 'Team User Id',
+                selector: (row) => row?.team?.user?.username,
+                width: '9rem'
             },
 
           

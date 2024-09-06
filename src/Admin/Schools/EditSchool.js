@@ -69,6 +69,15 @@ const EditSchool = (props) => {
     };
 
     const filterCategory = ['ATL', 'Non ATL'];
+    const categoryDataTn = [
+        "Fully Aided-High School",
+        "Fully Aided-Higher Secondary School",
+        "Government-High School",
+        "Government-Higher Secondary School",
+        "Partially Aided-High School",
+        "Partially Aided-Higher Secondary School",
+        "Non ATL",
+      ];
     const formik = useFormik({
         initialValues: {
             organization_name: listId && listId.organization_name,
@@ -109,7 +118,7 @@ const EditSchool = (props) => {
                 // .matches(/^[aA-zZ\s]+$/, 'Invalid district')
                 .required('District is Required'),
             category: Yup.string()
-                .matches(/^[aA-zZ\s]+$/, 'Invalid category')
+                // .matches(/^[aA-zZ\s]+$/, 'Invalid category')
                 .required('category is Required'),
             state: Yup.string().required('State is required'),
             // .optional()
@@ -365,16 +374,14 @@ const EditSchool = (props) => {
                                            
                                         </Row>
                                         <Row className="mb-3 modal-body-table search-modal-header">
-                                        <Col md={4}>
+                                        {/* <Col md={4}>
                                                 <Label
-                                                    // className="mb-2"
                                                    className="form-label"
                                                     htmlFor="category"
                                                 >
                                                     category
                                                     <span required>*</span>
                                                 </Label>
-                                                {/* <Col md={3}> */}
                                                     {' '}
                                                     <select
                             id="inputState"
@@ -400,8 +407,71 @@ const EditSchool = (props) => {
                                                         {formik.errors.category}
                                                     </small>
                                                 ) : null}
-                                            </Col>
-                                           
+                                            </Col> */}
+                                            {formik.values.state == "Tamil Nadu" ? (<Col md={4}>
+                        <Label
+                          // className="mb-2"
+                          className="form-label"
+                          htmlFor="category"
+                        >
+                          category
+                          <span required>*</span>
+                        </Label>
+                        {/* <Col md={3}> */}{" "}
+                        
+                        <select
+                          id="inputState"
+                          name="category"
+                          className="form-select"
+                          onBlur={formik.handleBlur}
+                          value={formik.values.category}
+                          onChange={formik.handleChange}
+                        >
+                          <option value="">Select Category</option>
+                          {categoryDataTn.map((category) => (
+                            <option key={category} value={category}>
+                              {category}
+                            </option>
+                          ))}
+                        </select>
+                        {formik.touched.category && formik.errors.category ? (
+                          <small className="error-cls" style={{ color: "red" }}>
+                            {formik.errors.category}
+                          </small>
+                        ) : null}
+                      </Col>) :(
+                      <Col md={4}>
+                        <Label
+                          // className="mb-2"
+                          className="form-label"
+                          htmlFor="category"
+                        >
+                          category
+                          <span required>*</span>
+                        </Label>
+                        {/* <Col md={3}> */}{" "}
+                        
+                        <select
+                          id="inputState"
+                          name="category"
+                          className="form-select"
+                          onBlur={formik.handleBlur}
+                          value={formik.values.category}
+                          onChange={formik.handleChange}
+                        >
+                          <option value="">Select Category</option>
+                          {filterCategory.map((category) => (
+                            <option key={category} value={category}>
+                              {category}
+                            </option>
+                          ))}
+                        </select>
+                        {formik.touched.category && formik.errors.category ? (
+                          <small className="error-cls" style={{ color: "red" }}>
+                            {formik.errors.category}
+                          </small>
+                        ) : null}
+                      </Col>)}
                                             <Col md={4}>
                                                 <Label
                                                     className="form-label"

@@ -20,7 +20,7 @@ import user from "../assets/img/user.png";
 const TeacherEditProfile = () => {
   const location = useLocation();
   const mentorData = location.state || {};
-  console.log(mentorData,"mentorData");
+  // console.log(mentorData,"mentorData");
   const navigate = useNavigate();
 
   const currentUser = getCurrentUser("current_user");

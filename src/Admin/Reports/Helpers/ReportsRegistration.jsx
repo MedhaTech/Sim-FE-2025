@@ -430,7 +430,7 @@ const ReportsRegistration = () => {
         const params = encryptGlobal(
             JSON.stringify({
                 state: RegTeachersState,
-                district: RegTeachersdistrict === '' ? 'All Districts' : RegTeachersdistrict,
+                district: RegTeachersdistrict ,
                 status: 'ACTIVE',
                 category: category
             })
@@ -457,20 +457,34 @@ const ReportsRegistration = () => {
                     if (item === 'Registered') {
                         setFilteredData(response?.data?.data || []);
                         setDownloadData(response?.data?.data || []);
-
+                        if(response?.data.count > 0){
+                            openNotificationWithIcon(
+                                                'success',
+                                                `${filterType} Report Downloaded Successfully`
+                                            );  
+                        }else{
+                            openNotificationWithIcon('error', 'No Data Found');
+                        }
                         // csvLinkRef.current.link.click();
                     } else if (item === 'Not Registered') {
                         setFilteresData(response?.data?.data || []);
                         setDownloadNotRegisteredData(
                             response?.data?.data || []
                         );
-                      
+                        if(response?.data.count > 0){
+                            openNotificationWithIcon(
+                                                'success',
+                                                `${filterType} Report Downloaded Successfully`
+                                            );  
+                        }else{
+                            openNotificationWithIcon('error', 'No Data Found');
+                        }
                         // csvLinkRefNotRegistered.current.link.click();
                     }
-                    openNotificationWithIcon(
-                        'success',
-                        `${filterType} Report Downloaded Successfully`
-                    );
+                    // openNotificationWithIcon(
+                    //     'success',
+                    //     `${filterType} Report Downloaded Successfully`
+                    // );
                     setIsDownloading(false);
                 }
             })
@@ -508,7 +522,7 @@ const ReportsRegistration = () => {
             csvLinkRefNotRegistered.current.link.click();
             console.log("Performing operation with the updated data.");
         }
-    }, [filteredData, downloadNotRegisteredData]);
+    }, [filteredData, filteresData]);
 
     useEffect(() => {
         if (downloadComplete) {
