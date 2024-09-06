@@ -104,7 +104,12 @@ import CooStudent from "../Coordinators/Reports/StudentReport";
 import CooInst from "../Coordinators/Reports/InstReport";
 import DiescodeScreen from "../Admin/Dashboard/DiescodeScreen";
 import DiesView from "../Admin/Dashboard/DiesView";
+import DiesViewcoo from "../Coordinators/Dashboard/DiesView";
+
+
 import DiesEdit from "../Admin/Dashboard/DiesEdit";
+import DiesSearch from "../Coordinators/Dashboard/DiesSearch";
+
 
 
 
@@ -648,6 +653,22 @@ export const stateRoutes = [
     path: routes.intitutioncoo,
     name: "intitutioncoo",
     element: <CooInst />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 6,
+    path: routes.coodies,
+    name: "coodies",
+    element: <DiesSearch />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 6,
+    path: routes.cooview,
+    name: "cooview",
+    element: <DiesViewcoo />,
     protected: true,
     route: Route,
   },
