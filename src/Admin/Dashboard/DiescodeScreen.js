@@ -263,6 +263,13 @@ const DiescodeScreen = () => {
         center: true,
         width: "25%",
       },
+      {
+        name: 'Mentor Approval',
+        selector: (row) =>
+            row.ideaAcceptance,
+        center: true,
+        width: '20%'
+    },
       //   {
       //     name: "Mentor Approval",
       //     selector: (row) =>

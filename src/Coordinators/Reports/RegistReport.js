@@ -60,7 +60,7 @@ const ReportsRegistration = () => {
 
     const filterOptions = ['Registered', 'Not Registered'];
     const categoryData = ['All Categories', 'ATL', 'Non ATL'];
-    const categoryDataTn= ["Select All","Fully Aided-High School","Fully Aided-Higher Secondary School","Government-High School","Government-Higher Secondary School","Partially Aided-High School","Partially Aided-Higher Secondary School",'Non ATL'];
+    const categoryDataTn= [ 'All Categories',"Fully Aided-High School","Fully Aided-Higher Secondary School","Government-High School","Government-Higher Secondary School","Partially Aided-High School","Partially Aided-Higher Secondary School",'Non ATL'];
 
     const newstateList = ["All States", ...stateList];
 
@@ -114,29 +114,37 @@ const ReportsRegistration = () => {
             key: 'ATL_Count'
         },
         {
-            label: 'Total Not Registered ATL Schools',
-            key: 'total_not_Reg_ATL'
-        },
+            label: "Registered Schools",
+            key: "reg_school",
+          },
+        // {
+        //     label: 'Total Not Registered ATL Schools',
+        //     key: 'total_not_Reg_ATL'
+        // },
         {
             label: 'Total Registered ATL Schools',
-            key: 'ATL_Reg_Count'
+            key: 'ATL_Count'
         },
         {
             label: 'Total Registered NON-ATL Schools',
-            key: 'NONATL_Reg_Count'
+            key: 'NONATL_Count'
         },
+        // {
+        //     label: 'Total Registered Teachers (ATL+Non-ATL)',
+        //     key: 'total_registered_teachers'
+        // },
         {
-            label: 'Total Registered Teachers (ATL+Non-ATL)',
-            key: 'total_registered_teachers'
-        },
-        {
-            label: ' Registered Male Teachers',
-            key: 'male_mentor_count'
+            label: 'Registered Male Teachers',
+            key: 'Male'
         },
         {
             label: ' Registered Female Teachers',
-            key: 'female_mentor_count'
-        }
+            key: 'Female'
+        },
+        {
+            label: " Registered Others Teachers",
+            key: "others",
+          },
     ];
     const RegHeaders = [
         {
@@ -578,19 +586,20 @@ const ReportsRegistration = () => {
                    
                     const lastRow = chartTableData[chartTableData.length - 1];
 
-                    const maleCount = lastRow.male_mentor_count || 0;
+                    const maleCount = lastRow.Male || 0;
+                    const othersCount = lastRow.others || 0;
 
-                    const femaleCount = lastRow.female_mentor_count || 0;
-                    const ATLregCount = lastRow.ATL_Reg_Count || 0;
-                    const NONATLregNotCount = lastRow.NONATL_Reg_Count || 0;
+                    const femaleCount = lastRow.Female || 0;
+                    const ATLregCount = lastRow.ATL_Count || 0;
+                    const NONATLregNotCount = lastRow.NonATL_Count || 0;
 
                     setRegisteredGenderChartData({
-                        labels: ['Male Teachers', 'Female Teachers'],
+                        labels: ['Male Teachers', 'Female Teachers',"Others"],
                         datasets: [
                             {
-                                data: [maleCount, femaleCount],
-                                backgroundColor: ['#8bcaf4', '#ff99af'],
-                                hoverBackgroundColor: ['#36A2EB', '#FF6384']
+                                data: [maleCount, femaleCount,othersCount],
+                                backgroundColor: ['#8bcaf4', '#ff99af',"rgb(255, 206, 122)"],
+                                hoverBackgroundColor: ['#36A2EB', '#FF6384','rgb(254, 176, 25)']
                             }
                         ]
                     });
@@ -612,14 +621,14 @@ const ReportsRegistration = () => {
                             {
                                 label: 'Registered ATL Schools',
                                 data: GraphfilteredData.map(
-                                    (item) => item.ATL_Reg_Count
+                                    (item) => item.ATL_Count
                                 ),
                                 backgroundColor: "#47d147"
                             },
                             {
                                 label: 'Registered Non ATL Schools',
                                 data: GraphfilteredData.map(
-                                    (item) => item.NONATL_Reg_Count
+                                    (item) => item.NonATL_Count
                                 ),
                                 backgroundColor: "#ffa31a"
                             }
@@ -824,11 +833,14 @@ const ReportsRegistration = () => {
                                                             <th>#</th>
                                                             <th>District Name</th>
                                                             <th style={{whiteSpace: 'wrap'}}>Eligible ATL <FontAwesomeIcon icon={faSchool} /></th>
+                                                            <th style={{whiteSpace: 'wrap'}}>Registered Schools</th>
                                                             <th style={{whiteSpace: 'wrap'}}>ATL Teachers</th>
                                                             <th style={{whiteSpace: 'wrap'}}>Non-ATL Teachers</th>
                                                             <th style={{whiteSpace: 'wrap'}}>Total Teachers</th>
                                                             <th style={{whiteSpace: 'wrap'}}><FontAwesomeIcon icon={faMale} />Male</th>
                                                             <th style={{whiteSpace: 'wrap'}}><FontAwesomeIcon icon={faFemale} />Female</th>
+                                                            <th style={{whiteSpace: 'wrap'}}><FontAwesomeIcon icon={faFemale} />Others</th>
+
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -843,22 +855,28 @@ const ReportsRegistration = () => {
                                                                         {item.district}
                                                                     </td>
                                                                     <td>
+                                                                        {item.Eligible_school}
+                                                                    </td>
+                                                                    <td>
+                                                                        {item.reg_school}
+                                                                    </td>
+                                                                    <td>
                                                                         {item.ATL_Count}
                                                                     </td>
                                                                     <td>
-                                                                        {item.ATL_Reg_Count}
+                                                                        {item.NonATL_Count}
                                                                     </td>
                                                                     <td>
-                                                                        {item.NONATL_Reg_Count}
+                                                                        {item.Male+item.Female+item.others}
                                                                     </td>
                                                                     <td>
-                                                                        {item.total_registered_teachers}
+                                                                        {item.Male}
                                                                     </td>
                                                                     <td>
-                                                                        {item.male_mentor_count}
+                                                                        {item.Female}
                                                                     </td>
                                                                     <td>
-                                                                        {item.female_mentor_count}
+                                                                        {item.others}
                                                                     </td>
                                                                 </tr>
                                                             )
