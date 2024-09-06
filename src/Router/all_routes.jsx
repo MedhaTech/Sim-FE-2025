@@ -20,7 +20,10 @@ export const all_routes = {
   studenttableview:"/student-view",
   stuedit:"student-edit",
   diescode:"/diescode-search",
+  coodies:"/coo-search",
   diesview:"/diescode-view",
+  cooview:"/coo-view",
+
   diesedit:"/diescode-mentor-edit",
   createpopup:"/create-popup",
   reportsregistration : "/reportsregistration",

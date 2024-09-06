@@ -5,7 +5,7 @@ import { useNavigate} from 'react-router-dom';
 // import Layout from '../Layout';
 import { Container, Row, Card, CardBody, CardText, Col } from 'reactstrap';
 // import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
-import DoughnutChart from '../../Teacher/Dashboard/TeamsProgDD';
+import DoughnutChart from '../../Teacher/Dashboard/TeamsProgDS';
 // import { Button } from '../../stories/Button';
 import axios from 'axios';
 import { getCurrentUser } from '../../helpers/Utils';

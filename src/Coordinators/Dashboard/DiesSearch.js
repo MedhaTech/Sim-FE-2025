@@ -27,7 +27,7 @@ import { encryptGlobal } from "../../constants/encryptDecrypt";
 import {
   deleteTempMentorById,
   teacherResetPassword,
-} from "../store/admin/actions";
+} from "../../Admin/store/admin/actions";
 import {
   getCurrentUser,
   getNormalHeaders,
@@ -305,7 +305,7 @@ const downloadPDF = () => {
 };
 const viewDetails = () => {
     // alert("hii"),
-    navigate("/diescode-view");
+    navigate("/coo-view");
     localStorage.setItem('orgData', JSON.stringify(orgData));
 };
 const handleresetpassword = (data) => {
@@ -716,11 +716,11 @@ const handleEdit = () => {
                                         {/* <Row  className="mb-3 modal-body-table search-modal-header"> */}
                                         <div className="d-flex justify-content-between flex-column flex-md-row mb-3 ">
                                            
-                                            <button type="button" className="btn btn-outline-info" 
+                                            {/* <button type="button" className="btn btn-outline-info" 
                                               onClick={handleEdit}
                                             >
                                        Edit
-                                    </button>
+                                    </button> */}
                                           
 
                                             <button type="button" className="btn btn-outline-success" 
@@ -751,7 +751,7 @@ const handleEdit = () => {
                                             </button>
 
                                           
-                                            <button type="button" className="btn btn-outline-danger"
+                                            {/* <button type="button" className="btn btn-outline-danger"
                                              onClick={() => {
                                                     handleAlert(
                                                         orgData.mentor?.user_id
@@ -759,7 +759,7 @@ const handleEdit = () => {
                                                 }}
                                             >
                                             Delete
-                                    </button>
+                                    </button> */}
                                         </div>
 {/* </Row> */}
                                         <Row  className="mb-2 modal-body-table search-modal-header">

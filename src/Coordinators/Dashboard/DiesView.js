@@ -30,7 +30,7 @@ const DiesView = () => {
 
     const handleBack = () => {
        
-        navigate("/diescode-search");
+        navigate("/coo-search");
         localStorage.setItem(
             'organization_code',
             JSON.stringify(orgDaTa.organization_code)
