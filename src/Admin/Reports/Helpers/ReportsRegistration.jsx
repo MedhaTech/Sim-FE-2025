@@ -120,9 +120,13 @@ const ReportsRegistration = () => {
       key: "ATL_Count",
     },
     {
-      label: "Total Not Registered ATL Schools",
-      key: "total_not_Reg_ATL",
+      label: "Registered Schools",
+      key: "reg_school",
     },
+    // {
+    //   label: "Total Not Registered ATL Schools",
+    //   key: "total_not_Reg_ATL",
+    // },
     {
       label: "Total Registered ATL Schools",
       key: "ATL_Reg_Count",
@@ -131,17 +135,21 @@ const ReportsRegistration = () => {
       label: "Total Registered NON-ATL Schools",
       key: "NONATL_Reg_Count",
     },
+    // {
+    //   label: "Total Registered Teachers (ATL+Non-ATL)",
+    //   key: "total_registered_teachers",
+    // },
     {
-      label: "Total Registered Teachers (ATL+Non-ATL)",
-      key: "total_registered_teachers",
-    },
-    {
-      label: " Registered Male Teachers",
-      key: "male_mentor_count",
+      label: "Registered Male Teachers",
+      key: "Male",
     },
     {
       label: " Registered Female Teachers",
-      key: "female_mentor_count",
+      key: "Female",
+    },
+    {
+      label: " Registered Others Teachers",
+      key: "others",
     },
   ];
   const RegHeaders = [
@@ -806,6 +814,9 @@ const ReportsRegistration = () => {
                                   <FontAwesomeIcon icon={faSchool} />
                                 </th>
                                 <th style={{ whiteSpace: "wrap" }}>
+                                  Registered Schools
+                                </th>
+                                <th style={{ whiteSpace: "wrap" }}>
                                   ATL Teachers
                                 </th>
                                 <th style={{ whiteSpace: "wrap" }}>
@@ -842,6 +853,8 @@ const ReportsRegistration = () => {
                                     {item.state}
                                   </td>
                                   <td>{item.ATL_Count}</td>
+                                  <td>{item.reg_school
+}</td>
                                   <td>{item.ATL_Reg_Count}</td>
                                   <td>{item.NONATL_Reg_Count}</td>
                                   <td>{item.Male+item.Female+item.others}</td>
