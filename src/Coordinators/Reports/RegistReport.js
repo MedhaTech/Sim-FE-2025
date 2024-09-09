@@ -125,10 +125,7 @@ const ReportsRegistration = () => {
       label: "Registered Schools",
       key: "reg_school",
     },
-    // {
-    //     label: 'Total Not Registered ATL Schools',
-    //     key: 'total_not_Reg_ATL'
-    // },
+
     {
       label: "Total Registered ATL Schools",
       key: "ATL_Count",
@@ -138,9 +135,61 @@ const ReportsRegistration = () => {
       key: "NONATL_Count",
     },
     // {
-    //     label: 'Total Registered Teachers (ATL+Non-ATL)',
-    //     key: 'total_registered_teachers'
+    //     label: 'FullyAidedHighSchool',
+    //     key: 'FullyAidedHighSchool_Count'
     // },
+    {
+      label: "Registered Male Teachers",
+      key: "Male",
+    },
+    {
+      label: " Registered Female Teachers",
+      key: "Female",
+    },
+    {
+      label: " Registered Others Teachers",
+      key: "others",
+    },
+  ];
+  const summaryHeadersState = [
+    {
+      label: "District Name",
+      key: "district",
+    },
+    {
+      label: "Total Eligible ATL Schools",
+      key: "ATL_Count",
+    },
+    {
+      label: "Registered Schools",
+      key: "reg_school",
+    },
+
+    {
+      label: "FullyAidedHighSchool",
+      key: "FullyAidedHighSchool_Count",
+    },
+    {
+      label: "Fully Aided Higher Secondary Schools",
+      key: "FullyAidedHigherSecondarySchool_Count",
+    },
+    {
+      label: "Government High Schools",
+      key: "GovernmentHighSchool_Count",
+    },
+
+    {
+      label: "Government Higher Secondary Schools",
+      key: "GovernmentHigherSecondarySchool_Count",
+    },
+    {
+      label: "Partially Aided High Schools",
+      key: "PartiallyAidedHighSchool_Count",
+    },
+    {
+      label: "Partially Aided Higher Secondary Schools",
+      key: "PartiallyAidedHigherSecondarySchool_Count",
+    },
     {
       label: "Registered Male Teachers",
       key: "Male",
@@ -653,9 +702,30 @@ const ReportsRegistration = () => {
             ],
             datasets: [
               {
-                data: [FullyAidedHighSchoolCount, FullyAidedHigherSecondarySchoolCount,GovernmentHighSchoolCount,GovernmentHigherSecondarySchoolCount,PartiallyAidedHighSchoolCount,PartiallyAidedHigherSecondarySchoolCount],
-                backgroundColor: ["#85e085", "#ffcc80","#7FFFD4","#9932CC","#808080","#A0522D"],
-                hoverBackgroundColor: ["#33cc33", "#ffa31a","#00FFFF","#8B008B","Gray","#8B4513"],
+                data: [
+                  FullyAidedHighSchoolCount,
+                  FullyAidedHigherSecondarySchoolCount,
+                  GovernmentHighSchoolCount,
+                  GovernmentHigherSecondarySchoolCount,
+                  PartiallyAidedHighSchoolCount,
+                  PartiallyAidedHigherSecondarySchoolCount,
+                ],
+                backgroundColor: [
+                  "#85e085",
+                  "#ffcc80",
+                  "#7FFFD4",
+                  "#9932CC",
+                  "#808080",
+                  "#A0522D",
+                ],
+                hoverBackgroundColor: [
+                  "#33cc33",
+                  "#ffa31a",
+                  "#00FFFF",
+                  "#8B008B",
+                  "Gray",
+                  "#8B4513",
+                ],
               },
             ],
           });
@@ -826,13 +896,17 @@ const ReportsRegistration = () => {
                                 )}
                               </div>
                             </>
-                          ):(
+                          ) : (
                             <>
                               <div className="col-md-12 text-center mt-3">
                                 <p>
                                   <b>
-                                    Overall Registered Fully Aided High Schools vs Fully Aided Higher Secondary Schools vs Government High Schools vs Government Higher Secondary Schools vs Partially Aided High Schools vs Partially Aided Higher Secondary Schools As
-                                    of {newFormat}
+                                    Overall Registered Fully Aided High Schools
+                                    vs Fully Aided Higher Secondary Schools vs
+                                    Government High Schools vs Government Higher
+                                    Secondary Schools vs Partially Aided High
+                                    Schools vs Partially Aided Higher Secondary
+                                    Schools As of {newFormat}
                                   </b>
                                 </p>
                               </div>
@@ -1068,21 +1142,30 @@ const ReportsRegistration = () => {
                                         </div>
                                     </div>
                                 </div> */}
-              {downloadTableData && (
-                <CSVLink
-                  data={downloadTableData}
-                  headers={summaryHeaders}
-                  filename={`MentorSummaryTable_${newFormat}.csv`}
-                  className="hidden"
-                  ref={csvLinkRefTable}
-                  // onDownloaded={() => {
-                  //     setIsDownloading(false);
-                  //     setDownloadComplete(true);
-                  // }}
-                >
-                  Download Table CSV
-                </CSVLink>
-              )}
+              {downloadTableData &&
+                (RegTeachersState !== "Tamil Nadu" ? (
+                  <CSVLink
+                    data={downloadTableData}
+                    headers={summaryHeaders}
+                    filename={`MentorSummaryTable_${newFormat}.csv`}
+                    className="hidden"
+                    ref={csvLinkRefTable}
+                  >
+                    Download Table CSV
+                  </CSVLink>
+                ) : (
+                  <CSVLink
+                    data={downloadTableData}
+                    headers={summaryHeadersState}
+                    filename={`MentorSummaryTable_${newFormat}.csv`}
+                    className="hidden"
+                    ref={csvLinkRefTable}
+                  >
+                    Download Table CSV
+                  </CSVLink>
+                ))}
+
+             
               {downloadData && (
                 <CSVLink
                   data={downloadData}
