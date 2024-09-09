@@ -36,11 +36,22 @@ const StudentProgress = () => {
   const [district, setdistrict] = React.useState("");
   const currentUser = getCurrentUser("current_user");
 
-  const [selectstate, setSelectState] = React.useState(currentUser?.data[0]?.state_name);
+  const [selectstate, setSelectState] = React.useState(
+    currentUser?.data[0]?.state_name
+  );
   const [category, setCategory] = useState("");
   const [isDownload, setIsDownload] = useState(false);
   const categoryData = ["All Categories", "ATL", "Non ATL"];
-  const categoryDataTn= [ 'All Categories',"Fully Aided-High School","Fully Aided-Higher Secondary School","Government-High School","Government-Higher Secondary School","Partially Aided-High School","Partially Aided-Higher Secondary School",'Non ATL'];
+  const categoryDataTn = [
+    "All Categories",
+    "Fully Aided-High School",
+    "Fully Aided-Higher Secondary School",
+    "Government-High School",
+    "Government-Higher Secondary School",
+    "Partially Aided-High School",
+    "Partially Aided-Higher Secondary School",
+    "Non ATL",
+  ];
 
   const newstateList = ["All States", ...stateList];
   // const categoryData =
@@ -79,13 +90,10 @@ const StudentProgress = () => {
   });
   const fullStatesNames = newstateList;
   const allDistricts = {
-    "All Districts": [...Object.values(districtList).flat()], 
-    ...districtList
+    "All Districts": [...Object.values(districtList).flat()],
+    ...districtList,
   };
-const fiterDistData = [
-    'All Districts',
-    ...allDistricts[selectstate] || [] 
-];
+  const fiterDistData = ["All Districts", ...(allDistricts[selectstate] || [])];
   // const fiterDistData = districtList[selectstate];
   // useEffect(() => {
   //     dispatch(getStateData());
@@ -140,9 +148,9 @@ const fiterDistData = [
       key: "organization_code",
     },
     {
-      label: 'ATL CODE',
-      key: 'organization_code'
-  },
+      label: "ATL CODE",
+      key: "organization_code",
+    },
     {
       label: "School Name",
       key: "organization_name",
@@ -164,13 +172,13 @@ const fiterDistData = [
       key: "city",
     },
     {
-      label: 'HM Name',
-      key: 'principal_name'
-  },
-  {
-      label: 'HM Contact',
-      key: 'principal_mobile'
-  },
+      label: "HM Name",
+      key: "principal_name",
+    },
+    {
+      label: "HM Contact",
+      key: "principal_mobile",
+    },
     {
       label: "Teacher Name",
       key: "full_name",
@@ -191,57 +199,57 @@ const fiterDistData = [
       label: "Teacher WhatsApp Contact",
       key: "whatapp_mobile",
     },
-  
+
     {
-        label: 'Team Name',
-        key: 'team_name'
-    },
-     {
-        label: 'Team Username',
-        key: 'team_username'
+      label: "Team Name",
+      key: "team_name",
     },
     {
-        label: 'Student Name',
-        key: 'studentfullname'
-    },
-   
-    {
-        label: 'Age',
-        key: 'Age'
+      label: "Team Username",
+      key: "team_username",
     },
     {
-        label: 'Gender',
-        key: 'studentgender'
+      label: "Student Name",
+      key: "studentfullname",
+    },
+
+    {
+      label: "Age",
+      key: "Age",
     },
     {
-        label: 'Class',
-        key: 'Grade'
+      label: "Gender",
+      key: "studentgender",
     },
     {
-        label: 'Disability status',
-        key: 'disability'
+      label: "Class",
+      key: "Grade",
     },
     {
-        label: "Pre Survey Status",
-        key: "pre_survey_status",
-      },
-     
-      {
-        label: "Post Survey Status",
-        key: "post_survey_status",
-      },
-    {
-        label: 'Course Status',
-        key: 'user_count'
+      label: "Disability status",
+      key: "disability",
     },
     {
-      label: 'Course Completion%',
-      key: 'course_per'
-  },
-  {
-    label: 'Idea Status',
-    key: 'idea_status'
-},
+      label: "Pre Survey Status",
+      key: "pre_survey_status",
+    },
+
+    {
+      label: "Post Survey Status",
+      key: "post_survey_status",
+    },
+    {
+      label: "Course Status",
+      key: "user_count",
+    },
+    {
+      label: "Course Completion%",
+      key: "course_per",
+    },
+    {
+      label: "Idea Status",
+      key: "idea_status",
+    },
     // {
     //     label: 'No.of Teams Idea Submitted',
     //     key: 'submittedcout'
@@ -564,11 +572,7 @@ const fiterDistData = [
       });
   };
   const handleDownload = () => {
-    if (
-      !selectstate ||
-      !district  || 
-      !category
-    ) {
+    if (!selectstate || !district || !category) {
       notification.warning({
         message:
           "Please select a district, category type before Downloading Reports.",
@@ -582,7 +586,6 @@ const fiterDistData = [
     if (studentDetailedReportsData.length > 0) {
       console.log("Performing operation with the updated data.");
       csvLinkRef.current.link.click();
-
     }
   }, [studentDetailedReportsData]);
   const fetchData = () => {
@@ -607,7 +610,6 @@ const fiterDistData = [
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          
           const preSurveyMap = response.data.data[0].preSurvey.reduce(
             (map, item) => {
               map[item.user_id] = item.pre_survey_status;
@@ -642,23 +644,19 @@ const fiterDistData = [
 
           const userTopicDataMap = response.data.data[0].userTopicData.reduce(
             (map, item) => {
-              map[item.
-                mentorUserId
-                ] = item.user_count;
+              map[item.mentorUserId] = item.user_count;
               return map;
             },
             {}
           );
           const userTopicMap = response.data.data[0].userTopicData.reduce(
             (map, item) => {
-              map[item.user_id
-                
-                ] = item.user_count;
+              map[item.user_id] = item.user_count;
               return map;
             },
             {}
           );
-        
+
           const mentorUsernameMap = response.data.data[0].mentorUsername.reduce(
             (map, item) => {
               map[item.user_id] = item;
@@ -666,47 +664,47 @@ const fiterDistData = [
             },
             {}
           );
-          const teamUsernameMap = response.data.data[0].
-          teamUsername
-          .reduce(
+          const teamUsernameMap = response.data.data[0].teamUsername.reduce(
             (map, item) => {
-              map[item.
-                teamuserId
-                ] = item;
+              map[item.teamuserId] = item;
               return map;
             },
             {}
           );
-          const 
-          ideaStatusDataMap = response.data.data[0].
-          ideaStatusData.reduce(
+          const ideaStatusDataMap = response.data.data[0].ideaStatusData.reduce(
             (map, item) => {
               map[item.team_id] = item;
               return map;
             },
             {}
           );
-         
+
           const newdatalist = response.data.data[0].summary.map((item) => {
             const mentorData = teamDataMap[item.team_id];
             const mentStats = mentorMap[item.team_id];
-            const mentUser =mentorUsernameMap[item.team_id];
-            const teamUser =teamUsernameMap[item.team_id];
+            const mentUser = mentorUsernameMap[item.team_id];
+            const teamUser = teamUsernameMap[item.team_id];
 
-            const idea =ideaStatusDataMap[item.team_id];
+            const idea = ideaStatusDataMap[item.team_id];
 
-const courses = userTopicMap[item.user_id]; 
-const course_per = courses && typeof courses === "number" ? Math.round((courses / 31) * 100) : 0;
+            const courses = userTopicMap[item.user_id];
+            const course_per =
+              courses && typeof courses === "number"
+                ? Math.round((courses / 31) * 100)
+                : 0;
             return {
               ...item,
               pre_survey_status: preSurveyMap[item.user_id] || "Not started",
               post_survey_status: postSurveyMap[item.user_id] || "Not started",
               username: mentUser?.username,
-              team_username: teamUser?.teamUsername
-              ,
-
-              idea_status:idea?.status, 
-              user_count: userTopicDataMap[item.user_id] === 0 ? "Not Started" : userTopicDataMap[item.user_id] === 31 ? "Completed" : "In Progress",
+              team_username: teamUser?.teamUsername,
+              idea_status: idea?.status,
+              user_count:
+                userTopicDataMap[item.user_id] === 0
+                  ? "Not Started"
+                  : userTopicDataMap[item.user_id] === 31
+                  ? "Completed"
+                  : "In Progress",
               course_per,
               team_name: mentorData?.team_name,
               team_email: mentorData?.team_email,
@@ -724,16 +722,16 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
             };
           });
           setstudentDetailedReportsData(newdatalist);
-          if(response.data.data[0].summary.length > 0){
+          if (response.data.data[0].summary.length > 0) {
             openNotificationWithIcon(
-                'success',
-                "Report Downloaded Successfully"
-            ); 
-        }else{
-            openNotificationWithIcon('error', 'No Data Found');
-        }
-        //   csvLinkRef.current.link.click();
-        //   console.log(studentDetailedReportsData,"ttt");
+              "success",
+              "Report Downloaded Successfully"
+            );
+          } else {
+            openNotificationWithIcon("error", "No Data Found");
+          }
+          //   csvLinkRef.current.link.click();
+          //   console.log(studentDetailedReportsData,"ttt");
           // openNotificationWithIcon("success", "Report Downloaded Successfully");
           setIsDownload(false);
         }
@@ -747,12 +745,14 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
   const fetchChartTableData = () => {
     const staParam = encryptGlobal(
       JSON.stringify({
-          state: currentUser?.data[0]?.state_name
+        state: currentUser?.data[0]?.state_name,
       })
-  );
+    );
     const config = {
       method: "get",
-      url: process.env.REACT_APP_API_BASE_URL + `/reports/studentdetailstable?Data=${staParam}`,
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/reports/studentdetailstable?Data=${staParam}`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${currentUser?.data[0]?.token}`,
@@ -768,8 +768,8 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
 
           const courseCompleted = response.data.data[0].courseCompleted;
           const courseINprogesss = response.data.data[0].courseINprogesss;
-          const draftCount=response.data.data[0].draftCount;
-          const submittedCount=response.data.data[0].submittedCount;
+          const draftCount = response.data.data[0].draftCount;
+          const submittedCount = response.data.data[0].submittedCount;
           const combinedArray = summary.map((summaryItem) => {
             const district = summaryItem.district;
             const totalTeams = summaryItem.totalTeams;
@@ -778,10 +778,10 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
             // );
             const draftCountItem = draftCount.find(
               (item) => item.district === district
-          );
-          const submittedCountItem = submittedCount.find(
-            (item) => item.district === district
-        );
+            );
+            const submittedCountItem = submittedCount.find(
+              (item) => item.district === district
+            );
             const studentCountItem = studentCountDetails.find(
               (item) => item.district === district
             );
@@ -792,13 +792,9 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
               (item) => item.district === district
             );
             const ideaNotStarted =
-            summaryItem.totalTeams -
-            ((submittedCountItem
-                ? submittedCountItem.submittedCount
-                : 0) +
-                (draftCountItem
-                    ? draftCountItem.draftCount
-                    : 0));
+              summaryItem.totalTeams -
+              ((submittedCountItem ? submittedCountItem.submittedCount : 0) +
+                (draftCountItem ? draftCountItem.draftCount : 0));
             const courseNotStarted =
               summaryItem.totalTeams -
               ((courseCompletedItem
@@ -833,8 +829,10 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
                 ? courseINprogesssItem.studentCourseIN
                 : 0,
               courseNotStarted,
-              draftCount:draftCountItem ? draftCountItem.draftCount : 0,
-              submittedCount:submittedCountItem ? submittedCountItem.submittedCount : 0,
+              draftCount: draftCountItem ? draftCountItem.draftCount : 0,
+              submittedCount: submittedCountItem
+                ? submittedCountItem.submittedCount
+                : 0,
               ideaNotStarted,
             };
           });
@@ -849,8 +847,7 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
               acc.courseCompleted += item.courseCompleted;
               acc.courseINprogesss += item.courseINprogesss;
               acc.ideaNotStarted =
-              acc.totalTeams -
-              (acc.submittedCount + acc.draftCount);
+                acc.totalTeams - (acc.submittedCount + acc.draftCount);
               // acc.courseNotStarted += item.courseNotStarted;
               acc.courseNotStarted =
                 acc.totalStudents -
@@ -874,10 +871,18 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
             }
           );
           const doughnutData = {
-            labels: ["Draft Ideas", "Submitted Ideas","Not Started Idea Submission"],
+            labels: [
+              "Draft Ideas",
+              "Submitted Ideas",
+              "Not Started Idea Submission",
+            ],
             datasets: [
               {
-                data: [total.draftCount, total.submittedCount,total.ideaNotStarted],
+                data: [
+                  total.draftCount,
+                  total.submittedCount,
+                  total.ideaNotStarted,
+                ],
                 backgroundColor: ["#8bcaf4", "#ff99af"],
                 hoverBackgroundColor: ["#36A2EB", "#FF6384"],
               },
@@ -968,7 +973,7 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
             <Row className="align-items-center mt-3 mb-2">
               <Col md={3}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
-                <p>{selectstate}</p>
+                  <p>{selectstate}</p>
                   {/* <Select
                     list={fullStatesNames}
                     setValue={setSelectState}
@@ -995,18 +1000,21 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
                     placeHolder={"Select Category"}
                     value={category}
                   /> */}
-                   {selectstate === "Tamil Nadu"?( 
-                            <Select
-                                list={categoryDataTn}
-                                setValue={setCategory}
-                                placeHolder={'Select Category'}
-                                value={category}
-                            />):(  <Select
-                                list={categoryData}
-                                setValue={setCategory}
-                                placeHolder={'Select Category'}
-                                value={category}
-                            />)}
+                  {selectstate === "Tamil Nadu" ? (
+                    <Select
+                      list={categoryDataTn}
+                      setValue={setCategory}
+                      placeHolder={"Select Category"}
+                      value={category}
+                    />
+                  ) : (
+                    <Select
+                      list={categoryData}
+                      setValue={setCategory}
+                      placeHolder={"Select Category"}
+                      value={category}
+                    />
+                  )}
                 </div>
               </Col>
               <Col
@@ -1052,15 +1060,15 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
                                 </b>
                               </p>
                               {doughnutChartData && (
-                                                    <div id="donut-chart" >
-                                                        <ReactApexChart
-                                                        options={chartOption}
-                                                        series={chartOption.series}
-                                                        type="donut"
-                                                        height={330}
-                                                        />
-                                                    </div>
-                                                )}
+                                <div id="donut-chart">
+                                  <ReactApexChart
+                                    options={chartOption}
+                                    series={chartOption.series}
+                                    type="donut"
+                                    height={330}
+                                  />
+                                </div>
+                              )}
                             </div>
                             <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
                               <p>
@@ -1179,6 +1187,30 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
                                     />{" "}
                                     Course Completion%
                                   </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    #No of Teams Submitted Ideas
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    #No of Teams Ideas in Draft
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    #No of Teams Not Started Idea Submission
+                                  </th>
                                 </tr>
                               </thead>
                               <tbody className="text-center">
@@ -1196,14 +1228,15 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
                                     >
                                       {item.district}
                                     </td>
-
                                     <td>{item.totalTeams}</td>
                                     <td>{item.totalStudents}</td>
-
                                     <td>{item.courseCompleted}</td>
                                     <td>{item.courseINprogesss}</td>
                                     <td>{item.courseNotStarted}</td>
                                     <td>{item.coursePercentage}%</td>
+                                    <td>{item.submittedCount}</td>{" "}
+                                    <td>{item.draftCount}</td>{" "}
+                                    <td>{item.ideaNotStarted}</td>
                                   </tr>
                                 ))}
                                 <tr>
@@ -1244,6 +1277,9 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
                                     )}
                                     %
                                   </td>
+                                  <td style={{ color: "crimson" }}>{totalCount.submittedCount}</td>{" "}
+                                    <td style={{ color: "crimson" }}>{totalCount.draftCount}</td>{" "}
+                                    <td style={{ color: "crimson" }}>{totalCount.ideaNotStarted}</td>
                                 </tr>
                               </tbody>
                             </table>

@@ -714,52 +714,45 @@ const adminStudentCourseCount = () => {
                   <h6>Total Female Students</h6>
                 </div>
               </div>
-            </div><div className="col-xl-6 col-sm-6 col-12 d-flex">
-              <div className="dash-widget w-100">
-                <div className="dash-widgetimg">
-                  <span>
-                    <ImageWithBasePath
-                      src="assets/img/icons/dash1.svg"
-                      alt="img"
-                    />
-                  </span>
-                </div>
-                <div className="dash-widgetcontent">
-                  <h5>
-                    {/* <CountUp start={0} end={307144} duration={3} prefix="$" /> */}
-                    {nonAtl}
-
-                  </h5>
-                  <h6>Total Non ATL Count</h6>
-                </div>
-              </div>
             </div>
-            <div className="col-xl-6 col-sm-6 col-12 d-flex">
-              <div className="dash-widget dash1 w-100">
-                <div className="dash-widgetimg">
-                  <span>
-                    <ImageWithBasePath
-                      src="assets/img/icons/dash2.svg"
-                      alt="img"
-                    />
-                  </span>
-                </div>
-                <div className="dash-widgetcontent">
-                  <h5>
-                    {/* $
-                    <CountUp
-                      start={0}
-                      end={4385}
-                      duration={3} // Duration in seconds
-                    /> */}
-                                                    {atl}
+           {currentUser?.data[0]?.state_name !== "Tamil Nadu" && (
+    <><div className="col-xl-6 col-sm-6 col-12 d-flex">
+                <div className="dash-widget w-100">
+                  <div className="dash-widgetimg">
+                    <span>
+                      <ImageWithBasePath
+                        src="assets/img/icons/dash1.svg"
+                        alt="img" />
+                    </span>
+                  </div>
+                  <div className="dash-widgetcontent">
+                    <h5>
+                      {nonAtl}
 
-                  </h5>
-                  <h6>Total Atl Count</h6>
+                    </h5>
+                    <h6>Total Non ATL Count</h6>
+                  </div>
                 </div>
-              </div>
-            </div>
-          
+              </div><div className="col-xl-6 col-sm-6 col-12 d-flex">
+                  <div className="dash-widget dash1 w-100">
+                    <div className="dash-widgetimg">
+                      <span>
+                        <ImageWithBasePath
+                          src="assets/img/icons/dash2.svg"
+                          alt="img" />
+                      </span>
+                    </div>
+                    <div className="dash-widgetcontent">
+                      <h5>
+
+                        {atl}
+
+                      </h5>
+                      <h6>Total Atl Count</h6>
+                    </div>
+                  </div>
+                </div></>
+           )}
            
           </div>
           {/* Button trigger modal */}
