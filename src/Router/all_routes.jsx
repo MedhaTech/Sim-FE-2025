@@ -23,7 +23,8 @@ export const all_routes = {
   coodies:"/coo-search",
   diesview:"/diescode-view",
   cooview:"/coo-view",
-
+coosupport:"/state-support",
+cooresponse:"/coordinator/support-journey/ans-ticket",
   diesedit:"/diescode-mentor-edit",
   createpopup:"/create-popup",
   reportsregistration : "/reportsregistration",
