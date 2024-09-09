@@ -17,7 +17,7 @@ const Createpopup = () => {
   const { t } = useTranslation();
   const currentUser = getCurrentUser("current_user");
   const [path, setPath] = useState([]);
-  const allData = ["All Districts", ...stateList];
+  const allData = ["All States", ...stateList];
   const navigate = useNavigate();
   // const inputDICE = {
   //     type: 'text',
