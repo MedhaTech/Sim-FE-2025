@@ -93,7 +93,7 @@ const TeacherProgressDetailed = () => {
     const summaryHeaders = [
         
         {
-            label: 'Institution Code',
+            label: 'UDISE Code',
             key: 'organization_code'
         },
         // {
@@ -101,7 +101,7 @@ const TeacherProgressDetailed = () => {
         //     key: 'organization_code'
         // },
         {
-            label: 'Institution Name',
+            label: 'School Name',
             key: 'organization_name'
         },
         {
