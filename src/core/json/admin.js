@@ -28,6 +28,13 @@ const AdminSidebarData = () => {
           submenu: false,
         },
         {
+          label:"Support",
+          link: "/admin-support",
+          icon: <Icon.Codesandbox />,
+          showSubRoute: false,
+          submenu: false,
+        },
+        {
           label:"PopUp",
           link: "/popup",
           icon: <Icon.Codesandbox />,

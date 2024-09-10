@@ -294,14 +294,14 @@ const Header = () => {
                     </h6>
                     <ul className="search-tags">
                       <li>
-                        <Link to="#">Products</Link>
+                        <Link to="#">Enter School UDISE Code</Link>
                       </li>
-                      <li>
+                      {/* <li>
                         <Link to="#">Sales</Link>
                       </li>
                       <li>
                         <Link to="#">Applications</Link>
-                      </li>
+                      </li> */}
                     </ul>
                   </div>
                 

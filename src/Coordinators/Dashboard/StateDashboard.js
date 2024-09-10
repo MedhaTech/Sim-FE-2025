@@ -44,6 +44,8 @@ const [totalSubmittedideasCount, setTotalSubmittedideasCount] =
     useState('-');
 const [totalMentorCount, setTotalMentorCount] = useState('-');
 const [totalMentorMaleCount, setTotalMentorMaleCount] = useState('-');
+const [totalMentorFeMaleCount, setTotalMentorFeMaleCount] = useState('-');
+
 const [totalStudentMaleCount, setTotalStudentMaleCount] = useState('-');
 const [totalStudentFemaleCount, setTotalStudentFemaleCount] = useState('-');
 const [totalSchoolCount, setTotalSchoolCount] = useState('-');
@@ -185,6 +187,9 @@ const adminMentorCount = () => {
             if (response.status === 200) {
 
                 setTotalMentorCount(response.data.data[0].mentorCount);
+                setTotalMentorFeMaleCount(response.data.data[0].mentorFemale
+                );
+
                 setTotalMentorMaleCount(response.data.data[0].mentorMale);
             }
         })
@@ -311,7 +316,7 @@ const adminStudentCourseCount = () => {
             console.log(error);
         });
 };
-
+// console.log(atl+nonAtl,"11");
   return (
     <div>
       <div className="page-wrapper">
@@ -432,13 +437,13 @@ const adminStudentCourseCount = () => {
                 </div>
                 <div className="dash-widgetcontent">
                   <h5>
-                    {totalMentorCount}
-                    {/* <CountUp start={0} end={307144} duration={3} prefix="$" /> */}
+                    {Number(atl)+Number(nonAtl)}
                   </h5>
                   <h6>Total Reg Schools</h6>
                 </div>
               </div>
             </div>
+            
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-widget dash1 w-100">
                 <div className="dash-widgetimg">
@@ -516,7 +521,35 @@ const adminStudentCourseCount = () => {
                   <h6>Total Female Teachers</h6>
                 </div>
               </div>
-            </div><div className="col-xl-3 col-sm-6 col-12 d-flex">
+            </div>
+            <div className="col-xl-3 col-sm-6 col-12 d-flex">
+              <div className="dash-widget dash3 w-100">
+                <div className="dash-widgetimg">
+                  <span>
+                    <ImageWithBasePath
+                      src="assets/img/icons/dash4.svg"
+                      alt="img"
+                    />
+                  </span>
+                </div>
+                <div className="dash-widgetcontent">
+                  <h5>
+                    {/* $
+                    <CountUp
+                      start={0}
+                      end={40000}
+                      duration={3} // Duration in seconds
+                    /> */}
+                      {/* {totalMentorCount -
+                                                    totalMentorMaleCount} */}
+                                                {(Number(totalMentorCount)-(Number(totalMentorMaleCount)+Number(totalMentorFeMaleCount)))}
+
+                  </h5>
+                  <h6>Total Others Teachers</h6>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-widget w-100">
                 <div className="dash-widgetimg">
                   <span>
@@ -715,8 +748,36 @@ const adminStudentCourseCount = () => {
                 </div>
               </div>
             </div>
+            <div className="col-xl-3 col-sm-6 col-12 d-flex">
+              <div className="dash-widget dash3 w-100">
+                <div className="dash-widgetimg">
+                  {/* <span>
+                    <ImageWithBasePath
+                      src="assets/img/icons/dash4.svg"
+                      alt="img"
+                    />
+                  </span> */}
+                  <span>
+                  <FontAwesomeIcon icon={faFemale} size={100} style={{ color: 'red' }}/>
+                  </span>
+                </div>
+                <div className="dash-widgetcontent">
+                  <h5>
+                    {/* $
+                    <CountUp
+                      start={0}
+                      end={40000}
+                      duration={3} // Duration in seconds
+                    /> */}
+                                                {(Number(totalStudentCount)-(Number(totalStudentMaleCount)+Number(totalStudentFemaleCount)))}
+
+                  </h5>
+                  <h6>Total Others Students</h6>
+                </div>
+              </div>
+            </div>
            {currentUser?.data[0]?.state_name !== "Tamil Nadu" && (
-    <><div className="col-xl-6 col-sm-6 col-12 d-flex">
+    <><div className="col-xl-3 col-sm-6 col-12 d-flex">
                 <div className="dash-widget w-100">
                   <div className="dash-widgetimg">
                     <span>
@@ -733,7 +794,7 @@ const adminStudentCourseCount = () => {
                     <h6>Total Non ATL Count</h6>
                   </div>
                 </div>
-              </div><div className="col-xl-6 col-sm-6 col-12 d-flex">
+              </div><div className="col-xl-3 col-sm-6 col-12 d-flex">
                   <div className="dash-widget dash1 w-100">
                     <div className="dash-widgetimg">
                       <span>

@@ -972,58 +972,58 @@ const ReportsRegistration = () => {
                           <table className="table table-borderless recent-transactions">
                             <thead>
                               <tr>
-                                <th>#</th>
-                                <th>District Name</th>
-                                <th style={{ whiteSpace: "wrap" }}>
+                                <th style={{ color: "#36A2EB" }}>#</th>
+                                <th style={{ color: "#36A2EB" }}>District Name</th>
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
                                   Eligible ATL{" "}
                                   <FontAwesomeIcon icon={faSchool} />
                                 </th>
-                                <th style={{ whiteSpace: "wrap" }}>
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
                                   Registered Schools
                                 </th>
                                 {RegTeachersState !== "Tamil Nadu" && (
                                   <>
-                                    <th style={{ whiteSpace: "wrap" }}>
+                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
                                       ATL Teachers
                                     </th>
-                                    <th style={{ whiteSpace: "wrap" }}>
+                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
                                       Non-ATL Teachers
                                     </th>
                                   </>
                                 )}
-                                <th style={{ whiteSpace: "wrap" }}>
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
                                   Total Teachers
                                 </th>
-                                <th style={{ whiteSpace: "wrap" }}>
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
                                   <FontAwesomeIcon icon={faMale} />
                                   Male
                                 </th>
-                                <th style={{ whiteSpace: "wrap" }}>
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
                                   <FontAwesomeIcon icon={faFemale} />
                                   Female
                                 </th>
-                                <th style={{ whiteSpace: "wrap" }}>
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
                                   <FontAwesomeIcon icon={faFemale} />
                                   Others
                                 </th>
                                 {RegTeachersState === "Tamil Nadu" && (
                                   <>
-                                    <th style={{ whiteSpace: "wrap" }}>
+                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
                                       Fully Aided High Schools
                                     </th>
-                                    <th style={{ whiteSpace: "wrap" }}>
+                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
                                       Fully Aided-Higher Secondary Schools
                                     </th>
-                                    <th style={{ whiteSpace: "wrap" }}>
+                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
                                       Government High Schools
                                     </th>
-                                    <th style={{ whiteSpace: "wrap" }}>
+                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
                                       Government-Higher Secondary Schools
                                     </th>
-                                    <th style={{ whiteSpace: "wrap" }}>
+                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
                                       Partially Aided-High Schools
                                     </th>
-                                    <th style={{ whiteSpace: "wrap" }}>
+                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
                                       Partially Aided-Higher Secondary Schools
                                     </th>
                                   </>
@@ -1039,6 +1039,7 @@ const ReportsRegistration = () => {
                                       maxWidth: "150px",
                                       overflow: "hidden",
                                       textOverflow: "ellipsis",
+                                      color: "crimson"
                                     }}
                                   >
                                     {item.district}
