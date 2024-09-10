@@ -109,6 +109,8 @@ import DiesViewcoo from "../Coordinators/Dashboard/DiesView";
 
 import DiesEdit from "../Admin/Dashboard/DiesEdit";
 import DiesSearch from "../Coordinators/Dashboard/DiesSearch";
+import StateSupport from "../Coordinators/CooTickets/Tickets";
+import StateRes from "../Coordinators/CooTickets/TicketResponse";
 
 
 
@@ -669,6 +671,22 @@ export const stateRoutes = [
     path: routes.cooview,
     name: "cooview",
     element: <DiesViewcoo />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 7,
+    path: routes.coosupport,
+    name: "coosupport",
+    element: <StateSupport />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 8,
+    path: routes.cooresponse,
+    name: "cooresponse",
+    element: <StateRes />,
     protected: true,
     route: Route,
   },

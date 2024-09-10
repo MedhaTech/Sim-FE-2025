@@ -48,6 +48,13 @@ const StateSidebarData = () => {
           showSubRoute: false,
           submenu: false,
         },
+        {
+          label: "Support",
+          link: "/state-support",
+          icon: <Icon.Bookmark />,
+          showSubRoute: false,
+          submenu: false,
+        },
   //         {
   //   label: "Reports",
   //   submenuOpen: true,
