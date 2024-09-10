@@ -43,7 +43,7 @@ const StudentProgress = () => {
   const [isDownload, setIsDownload] = useState(false);
   const categoryData = ["All Categories", "ATL", "Non ATL"];
   const categoryDataTn = [
-    "All Categories",
+    "All Categories",
     "Fully Aided-High School",
     "Fully Aided-Higher Secondary School",
     "Government-High School",
