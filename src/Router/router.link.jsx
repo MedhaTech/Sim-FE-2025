@@ -112,6 +112,8 @@ import DiesSearch from "../Coordinators/Dashboard/DiesSearch";
 import StateSupport from "../Coordinators/CooTickets/Tickets";
 import StateRes from "../Coordinators/CooTickets/TicketResponse";
 
+import AdminSupport from "../Admin/AdminTickets/Tickets";
+import AdminRes from "../Admin/AdminTickets/TicketResponse";
 
 
 
@@ -365,6 +367,22 @@ export const publicRoutes = [
     path: routes.diesedit,
     name: "diesedit",
     element: <DiesEdit/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 29,
+    path: routes.adminsupport,
+    name: "adminsupport",
+    element: <AdminSupport/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 30,
+    path: routes.adminresponse,
+    name: "adminresponse",
+    element: <AdminRes />,
     protected: true,
     route: Route,
   },

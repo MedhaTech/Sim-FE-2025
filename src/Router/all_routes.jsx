@@ -24,7 +24,11 @@ export const all_routes = {
   diesview:"/diescode-view",
   cooview:"/coo-view",
 coosupport:"/state-support",
+adminsupport:"/admin-support",
+adminresponse:"/admin/support-journey/ans-ticket",
+
 cooresponse:"/coordinator/support-journey/ans-ticket",
+
   diesedit:"/diescode-mentor-edit",
   createpopup:"/create-popup",
   reportsregistration : "/reportsregistration",

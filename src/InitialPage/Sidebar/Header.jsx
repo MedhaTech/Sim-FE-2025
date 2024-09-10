@@ -264,9 +264,9 @@ const Header = () => {
               </Link>
             <form action="#" className="dropdown">
                 <div
-                  className="searchinputs dropdown-toggle"
-                  id="dropdownMenuClickable"
-                  data-bs-toggle="dropdown"
+                  className="searchinputs"
+                  // id="dropdownMenuClickable"
+                  // data-bs-toggle="dropdown"
                   data-bs-auto-close="false"
                 >
                   <input type="text" placeholder="Search"  onChange={(e) => handleOnChange(e)}
@@ -281,7 +281,7 @@ const Header = () => {
                     </span>
                   </div>
                 </div>
-                <div
+                {/* <div
                   className="dropdown-menu search-dropdown"
                   aria-labelledby="dropdownMenuClickable"
                 >
@@ -294,18 +294,13 @@ const Header = () => {
                     </h6>
                     <ul className="search-tags">
                       <li>
-                        <Link to="#">Products</Link>
+                        <Link to="#">Enter School UDISE Code</Link>
                       </li>
-                      <li>
-                        <Link to="#">Sales</Link>
-                      </li>
-                      <li>
-                        <Link to="#">Applications</Link>
-                      </li>
+                     
                     </ul>
                   </div>
                 
-                </div>
+                </div> */}
               </form>
             </div>
           </li>
