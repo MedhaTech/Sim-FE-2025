@@ -889,3 +889,4 @@ export const navList = {
       "/studentresource",
       "/student-profile"],
 };
+export const teamLength=[{"Tamil Nadu" :5},{default:3}];

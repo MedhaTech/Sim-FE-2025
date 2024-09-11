@@ -188,11 +188,16 @@ const AdminLatestNews = () => {
                 name: 'No',
                 selector: (row, key) => key + 1,
                 sortable: true,
-                width: '10rem'
+                width: '6rem'
             },
             {
                 name: 'Role',
                 selector: (row) => row.category,
+                width: '12rem'
+            },
+            {
+                name: 'State',
+                selector: (row) => row.state,
                 width: '12rem'
             },
             {
