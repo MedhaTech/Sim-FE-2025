@@ -132,7 +132,7 @@ const ReportsRegistration = () => {
     },
     {
       label: "Total Registered Non-ATL Schools",
-      key: "NONATL_Count",
+      key: "NonATL_Count",
     },
     // {
     //     label: 'FullyAidedHighSchool',
@@ -158,7 +158,7 @@ const ReportsRegistration = () => {
     },
     {
       label: "Total Eligible ATL Schools",
-      key: "ATL_Count",
+      key: "Eligible_school",
     },
     {
       label: "Registered Schools",
@@ -189,6 +189,10 @@ const ReportsRegistration = () => {
     {
       label: "Partially Aided Higher Secondary Schools",
       key: "PartiallyAidedHigherSecondarySchool_Count",
+    },
+    {
+      label: "Non-ATL Schools",
+      key: "NonATL_Count",
     },
     {
       label: "Registered Male Teachers",
@@ -253,7 +257,7 @@ const ReportsRegistration = () => {
       key: "full_name",
     },
     {
-      label: " Teacher Email I",
+      label: " Teacher Email Id",
       key: "user.username",
     },
     {
@@ -663,6 +667,7 @@ const ReportsRegistration = () => {
           const femaleCount = lastRow.Female || 0;
           const ATLregCount = lastRow.ATL_Count || 0;
           const NONATLregNotCount = lastRow.NonATL_Count || 0;
+          console.log(NONATLregNotCount,"11");
           const FullyAidedHighSchoolCount =
             lastRow.FullyAidedHighSchool_Count || 0;
           const FullyAidedHigherSecondarySchoolCount =
@@ -699,6 +704,7 @@ const ReportsRegistration = () => {
               "Government Higher Secondary Schools",
               "Partially Aided High Schools",
               "Partially Aided Higher Secondary Schools",
+              "Non-ATL Schools"
             ],
             datasets: [
               {
@@ -709,6 +715,7 @@ const ReportsRegistration = () => {
                   GovernmentHigherSecondarySchoolCount,
                   PartiallyAidedHighSchoolCount,
                   PartiallyAidedHigherSecondarySchoolCount,
+                  NONATLregNotCount
                 ],
                 backgroundColor: [
                   "#85e085",
@@ -717,6 +724,7 @@ const ReportsRegistration = () => {
                   "#9932CC",
                   "#808080",
                   "#A0522D",
+                  "#ff99af"
                 ],
                 hoverBackgroundColor: [
                   "#33cc33",
@@ -725,6 +733,7 @@ const ReportsRegistration = () => {
                   "#8B008B",
                   "Gray",
                   "#8B4513",
+                  "#FF6384",
                 ],
               },
             ],
@@ -906,7 +915,7 @@ const ReportsRegistration = () => {
                                     Government High Schools vs Government Higher
                                     Secondary Schools vs Partially Aided High
                                     Schools vs Partially Aided Higher Secondary
-                                    Schools As of {newFormat}
+                                    Schools vs Non-ATL As of {newFormat}
                                   </b>
                                 </p>
                               </div>
@@ -1026,6 +1035,9 @@ const ReportsRegistration = () => {
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
                                       Partially Aided-Higher Secondary Schools
                                     </th>
+                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                      Non-ATL Schools
+                                    </th>
                                   </>
                                 )}
                               </tr>
@@ -1083,6 +1095,7 @@ const ReportsRegistration = () => {
                                           item.PartiallyAidedHigherSecondarySchool_Count
                                         }
                                       </td>
+                                      <td>{item.NonATL_Count ? item.NonATL_Count : 0}</td>
                                     </>
                                   )}
                                 </tr>
