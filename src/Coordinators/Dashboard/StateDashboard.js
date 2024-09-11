@@ -515,8 +515,8 @@ const adminStudentCourseCount = () => {
                       end={40000}
                       duration={3} // Duration in seconds
                     /> */}
-                      {totalMentorCount -
-                                                    totalMentorMaleCount}
+                      {totalMentorFeMaleCount
+}
                   </h5>
                   <h6>Total Female Teachers</h6>
                 </div>
