@@ -130,6 +130,11 @@ const AdminResources = () => {
                 // center: true,
             },
             {
+                name: 'State',
+                selector: (row) => row.state,
+                width: '12rem'
+            },
+            {
                 name: 'Details',
                 selector: (row) => row.description,
                 width: '25rem'

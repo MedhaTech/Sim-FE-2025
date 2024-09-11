@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 // import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { stateList  } from "../../RegPage/ORGData";
 
 const CreateLatestNews = () => {
     const { t } = useTranslation();
@@ -21,6 +22,7 @@ const CreateLatestNews = () => {
         type: 'text',
         className: 'defaultInput'
     };
+    const allData = ["All States", ...stateList];
 
     const fileHandler = (e) => {
         let file = e.target.files[0];
@@ -64,12 +66,13 @@ const CreateLatestNews = () => {
             details: '',
             file_name: '',
             url: '',
-            new_status: ''
+            new_status: '',state:""
         },
         validationSchema: Yup.object({
             role: Yup.string()
                 .optional()
                 .oneOf(['mentor', 'student'], 'Role is Required'),
+                state: Yup.string().required("Please Select State"),
             details: Yup.string().optional().required('details is Required'),
             new_status: Yup.string()
                 .optional()
@@ -99,6 +102,8 @@ const CreateLatestNews = () => {
                 const body = {
                     category: values.role,
                     details: values.details,
+          state: values.state,
+
                     new_status: values.new_status
                 };
                 if (values.file_name !== '') {
@@ -142,6 +147,10 @@ const CreateLatestNews = () => {
       const buttonStyle = {
         marginRight: '10px',
       };
+      const handleStateChange = (event) => {
+        const state = event.target.value;
+        formik.setFieldValue("state", state);
+      };
     return (
         <div className="page-wrapper">
         <div className="content">
@@ -155,7 +164,7 @@ const CreateLatestNews = () => {
                                 <div className="create-ticket register-block">
                                     {/* <FormGroup className="form-group" md={12}> */}
                                         <Row className="mb-3 modal-body-table search-modal-header">
-                                            <Col>
+                                            <Col md={4}>
                                                 <Label
                                                     className="mb-2"
                                                     htmlFor="role"
@@ -189,7 +198,7 @@ const CreateLatestNews = () => {
                                                         </small>
                                                     )}
                                             </Col>
-                                            <Col>
+                                            <Col md={4}>
                                                 <Label
                                                     className="mb-2"
                                                     htmlFor="new_status"
@@ -229,6 +238,33 @@ const CreateLatestNews = () => {
                                                         </small>
                                                     )}
                                             </Col>
+                                            <Col md={4}>
+                          <Label className="form-label" htmlFor="state">
+                            State
+                            {/* <span required>*</span> */}
+                          </Label>
+                          <select
+                            id="inputState"
+                            className="form-select"
+                            onChange={(e) => handleStateChange(e)}
+                          >
+                            <option value="">Select State</option>
+                            {allData.map((state) => (
+                              <option key={state} value={state}>
+                                {state}
+                              </option>
+                            ))}
+                          </select>
+
+                          {formik.touched.state && formik.errors.state ? (
+                            <small
+                              className="error-cls"
+                              style={{ color: "red" }}
+                            >
+                              {formik.errors.state}
+                            </small>
+                          ) : null}
+                        </Col>
                                         </Row>
                                         <Row className="mb-3 modal-body-table search-modal-header">
                                         <Label

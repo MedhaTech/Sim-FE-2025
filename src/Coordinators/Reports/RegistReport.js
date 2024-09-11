@@ -131,7 +131,7 @@ const ReportsRegistration = () => {
       key: "ATL_Count",
     },
     {
-      label: "Total Registered NON-ATL Schools",
+      label: "Total Registered Non-ATL Schools",
       key: "NONATL_Count",
     },
     // {
@@ -253,7 +253,7 @@ const ReportsRegistration = () => {
       key: "full_name",
     },
     {
-      label: "Email ID",
+      label: " Teacher Email I",
       key: "user.username",
     },
     {

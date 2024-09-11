@@ -142,15 +142,15 @@ const TeacherProgressDetailed = () => {
       key: "otherStudents",
     },
     {
-      label: "No.of Teachers completed the course",
+      label: "No.of Teachers Completed the Course",
       key: "courseCompleted",
     },
     {
-      label: "No.of Teachers course IN Progress",
+      label: "No.of Teachers Course IN Progress",
       key: "courseINcompleted",
     },
     {
-      label: "No.of Teachers NOT Started Course",
+      label: "No.of Teachers Not Started Course",
       key: "courseNotStarted",
     },
   ];
@@ -159,10 +159,10 @@ const TeacherProgressDetailed = () => {
       label: "UDISE CODE",
       key: "organization_code",
     },
-    {
-      label: "ATL CODE",
-      key: "organization_code",
-    },
+    // {
+    //   label: "ATL CODE",
+    //   key: "organization_code",
+    // },
     {
       label: "School Name",
       key: "organization_name",
@@ -223,6 +223,7 @@ const TeacherProgressDetailed = () => {
       label: "Post Survey Status",
       key: "post_survey_status",
     },
+   
     {
       label: "NO.of Teams Created",
       key: "team_count",
@@ -230,6 +231,14 @@ const TeacherProgressDetailed = () => {
     {
       label: "No.of Students Enrolled",
       key: "student_count",
+    },
+    {
+      label: "No.of Students Presurvey Completed",
+      key: "preSur_cmp",
+    },
+    {
+      label: "No.of Students Presurvey Not Started",
+      key: "not_start_pre",
     },
     {
       label: "No.of Students Course Completed",
@@ -255,14 +264,8 @@ const TeacherProgressDetailed = () => {
       label: "No.of Teams Idea Not Initiated",
       key: "notInitatedIdeas",
     },
-    {
-      label: "No.of Students Presurvey Not Started",
-      key: "not_start_pre",
-    },
-    {
-      label: "No.of Students Presurvey Completed",
-      key: "preSur_cmp",
-    },
+   
+   
     // {
     //     label: 'No.of Students Postsurvey Not Started',
     //     key: 'not_start_pre'

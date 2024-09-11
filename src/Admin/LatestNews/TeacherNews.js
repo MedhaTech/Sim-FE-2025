@@ -313,6 +313,11 @@ const AdminLatestNews = () => {
                 width: '8rem'
             },
             {
+                name: 'State',
+                selector: (row) => row.state,
+                width: '12rem'
+            },
+            {
                 name: 'New Icon',
                 width: '8rem',
                 cell: (record) => {
@@ -431,6 +436,11 @@ const AdminLatestNews = () => {
                 name: 'Role',
                 selector: (row) => row.category,
                 width: '8rem'
+            },
+            {
+                name: 'State',
+                selector: (row) => row.state,
+                width: '12rem'
             },
             {
                 name: 'New Icon',
