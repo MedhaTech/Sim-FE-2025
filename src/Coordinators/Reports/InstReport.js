@@ -143,6 +143,10 @@ const TeacherProgressDetailed = () => {
       label: "Partially Aided Higher Secondary Schools",
       key: "PartiallyAidedHigherSecondarySchool_Count",
     },
+    {
+      label: "Non-ATL Schools",
+      key: "NonATL_Count",
+    },
   ];
   const summaryHeaders = [
     {
@@ -310,6 +314,8 @@ const TeacherProgressDetailed = () => {
               "Government Higher Secondary Schools",
               "Partially Aided High Schools",
               "Partially Aided Higher Secondary Schools",
+               "Non-ATL Schools"
+
             ],
             datasets: [
               {
@@ -320,6 +326,7 @@ const TeacherProgressDetailed = () => {
                   GovernmentHigherSecondarySchoolCount,
                   PartiallyAidedHighSchoolCount,
                   PartiallyAidedHigherSecondarySchoolCount,
+                  NonATLCount
                 ],
                 backgroundColor: [
                   "#85e085",
@@ -328,6 +335,7 @@ const TeacherProgressDetailed = () => {
                   "#9932CC",
                   "#808080",
                   "#A0522D",
+                   "#ff99af"
                 ],
                 hoverBackgroundColor: [
                   "#33cc33",
@@ -336,6 +344,7 @@ const TeacherProgressDetailed = () => {
                   "#8B008B",
                   "Gray",
                   "#8B4513",
+                  "#FF6384",
                 ],
               },
             ],
@@ -509,7 +518,7 @@ const TeacherProgressDetailed = () => {
               {instType.length > 0 && (
                 <>
                   <div className="row">
-                    <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
+                    <div className="col-sm-1 col-md-12 col-xl-4 d-flex">
                       <div className="card flex-fill default-cover w-100 mb-4">
                         <div className="card-header d-flex justify-content-between align-items-center">
                           <h4 className="card-title mb-0">Data Analytics</h4>
@@ -557,7 +566,7 @@ const TeacherProgressDetailed = () => {
                                       Schools vs Government High Schools vs
                                       Government Higher Secondary Schools vs
                                       Partially Aided High Schools vs Partially
-                                      Aided Higher Secondary Schools As of{" "}
+                                      Aided Higher Secondary Schools vs Non-ATL As of{" "}
                                       {newFormat}
                                     </b>
                                   </p>
@@ -592,9 +601,9 @@ const TeacherProgressDetailed = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
+                  {/* </div>
+                  <div className="row"> */}
+                    <div className="col-sm-12 col-md-12 col-xl-8 d-flex">
                       <div className="card flex-fill default-cover w-100 mb-4">
                         <div className="card-header d-flex justify-content-between align-items-center">
                           <h4 className="card-title mb-0">
@@ -658,6 +667,9 @@ const TeacherProgressDetailed = () => {
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
                                       Partially Aided-Higher Secondary Schools
                                     </th>
+                                    <th style={{ color: "#36A2EB", whiteSpace: "wrap", }}>
+                                      Non-ATL Schools
+                                    </th>
                                   </>
                                 )}
                                 </tr>
@@ -701,6 +713,7 @@ const TeacherProgressDetailed = () => {
                                           item.PartiallyAidedHigherSecondarySchool_Count
                                         }
                                       </td>
+                                      <td>{item.NonATL_Count ? item.NonATL_Count : 0}</td>
                                     </>
                                   )}
                                     {/* <td>{item.totalStudents}</td>
