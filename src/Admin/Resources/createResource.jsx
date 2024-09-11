@@ -8,12 +8,15 @@ import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { stateList } from "../../RegPage/ORGData";
 
 
 const CreateResource = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const currentUser = getCurrentUser('current_user');
+  const allData = ["All States", ...stateList];
+
     const inputDICE = {
         type: 'text',
         className: 'defaultInput'
@@ -62,6 +65,7 @@ const CreateResource = () => {
             role: '',
             description: '',
             type: '',
+            state: "",
             attachments: ''
         },
         validationSchema: Yup.object({
@@ -71,6 +75,8 @@ const CreateResource = () => {
             description: Yup.string()
                 .optional()
                 .required('Details is Required'),
+      state: Yup.string().required("Please Select State"),
+
             type: Yup.string()
                 .optional()
                 .oneOf(['file', 'link'], 'Type is Required'),
@@ -107,6 +113,8 @@ const CreateResource = () => {
                 const body = {
                     role: values.role,
                     type: values.type,
+                    state: values.state,
+
                     description: values.description,
                     attachments: values.attachments
                 };
@@ -146,7 +154,10 @@ const CreateResource = () => {
       const buttonStyle = {
         marginRight: '10px',
       };
-
+      const handleStateChange = (event) => {
+        const state = event.target.value;
+        formik.setFieldValue("state", state);
+      };
     return (
         <div className="page-wrapper">
         <div className="content">
@@ -165,7 +176,7 @@ const CreateResource = () => {
                             <Form onSubmit={formik.handleSubmit} isSubmitting>
                                 <div className="create-ticket register-block">
                                     <Row className="mb-3 modal-body-table search-modal-header">
-                                        <Col>
+                                        <Col md={4}>
                                             <Label className="mb-2" htmlFor="role">
                                                 Role
                                             </Label>
@@ -202,7 +213,34 @@ const CreateResource = () => {
                                                     </small>
                                                 )}
                                         </Col>
-                                        <Col>
+                                        <Col md={4}>
+                          <Label className="form-label" htmlFor="state">
+                            State
+                            {/* <span required>*</span> */}
+                          </Label>
+                          <select
+                            id="inputState"
+                            className="form-select"
+                            onChange={(e) => handleStateChange(e)}
+                          >
+                            <option value="">Select State</option>
+                            {allData.map((state) => (
+                              <option key={state} value={state}>
+                                {state}
+                              </option>
+                            ))}
+                          </select>
+
+                          {formik.touched.state && formik.errors.state ? (
+                            <small
+                              className="error-cls"
+                              style={{ color: "red" }}
+                            >
+                              {formik.errors.state}
+                            </small>
+                          ) : null}
+                        </Col>
+                                        <Col  md={4}>
                                             <Label
                                                 className="mb-2"
                                                 htmlFor="description"
@@ -228,7 +266,7 @@ const CreateResource = () => {
                                         </Col>
                                     </Row>
                                     <Row className="mb-3 modal-body-table search-modal-header">
-                                        <Col>
+                                        <Col >
                                             <Label className="mb-2" htmlFor="type">
                                                 Type
                                             </Label>

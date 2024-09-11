@@ -118,39 +118,51 @@ const StudentProgress = () => {
       key: "district",
     },
     {
-      label: "Total No.Of TEAMS created",
+      label: "Total No.Of Teams created",
       key: "totalTeams",
     },
     {
-      label: "Total No.Of STUDENTS enrolled",
+      label: "Total No.Of Students enrolled",
       key: "totalStudents",
     },
     {
-      label: "No.Of Students completed the Course",
+      label: "No.Of Students Completed the Course",
       key: "courseCompleted",
     },
     {
-      label: "No.Of Students course In Progress",
+      label: "No.Of Students Course In Progress",
       key: "courseINprogesss",
     },
     {
-      label: "No.Of students NOT STARTED Course",
+      label: "No.Of Students Not Started Course",
       key: "courseNotStarted",
     },
     {
       label: "Course Completion Percentage",
       key: "coursePercentage",
     },
+    {
+      label: 'No.Of Teams Submitted Ideas',
+      key: 'submittedCount'
+  },
+  {
+      label: 'No.Of Teams Ideas in Draft',
+      key: 'draftCount'
+  },
+  {
+      label: 'No.Of Teams Not Stated Idea Submission',
+      key: 'ideaNotStarted'
+  },
   ];
   const teacherDetailsHeaders = [
     {
       label: "UDISE CODE",
       key: "organization_code",
     },
-    {
-      label: "ATL CODE",
-      key: "organization_code",
-    },
+    // {
+    //   label: "ATL CODE",
+    //   key: "organization_code",
+    // },
     {
       label: "School Name",
       key: "organization_name",
@@ -234,22 +246,24 @@ const StudentProgress = () => {
       key: "pre_survey_status",
     },
 
+  
     {
-      label: "Post Survey Status",
-      key: "post_survey_status",
+      label: "Course Completion%",
+      key: "course_per",
     },
     {
       label: "Course Status",
       key: "user_count",
     },
     {
-      label: "Course Completion%",
-      key: "course_per",
-    },
-    {
       label: "Idea Status",
       key: "idea_status",
     },
+    {
+      label: "Post Survey Status",
+      key: "post_survey_status",
+    },
+   
     // {
     //     label: 'No.of Teams Idea Submitted',
     //     key: 'submittedcout'

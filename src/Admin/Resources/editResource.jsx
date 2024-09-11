@@ -10,6 +10,7 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import { useNavigate } from 'react-router-dom';
+import { stateList} from "../../RegPage/ORGData";
 
 
 const EditResource = () => {
@@ -17,6 +18,8 @@ const EditResource = () => {
     const navigate = useNavigate();
     const resID = JSON.parse(localStorage.getItem('resID'));
     const currentUser = getCurrentUser('current_user');
+  const allData = ["All States", ...stateList];
+
     const inputDICE = {
         type: 'text',
         className: 'defaultInput'
@@ -74,12 +77,16 @@ const EditResource = () => {
             role: resID && resID.role,
             description: resID && resID.description,
             type: resID && resID.type,
+            state: resID && resID.state,
+
             attachments: (resID && resID.attachments) || ''
         },
         validationSchema: Yup.object({
             role: Yup.string()
                 .optional()
                 .oneOf(['mentor', 'student'], 'Role is Required'),
+      state: Yup.string().required("Please Select State"),
+
             description: Yup.string()
                 .optional()
                 .required('Details is Required'),
@@ -124,6 +131,7 @@ const EditResource = () => {
                     status: 'ACTIVE',
                     role: values.role,
                     type: values.type,
+                    state: values.state,
                     description: values.description,
                     attachments: values.attachments
                 };
@@ -167,7 +175,10 @@ const EditResource = () => {
         marginRight: '10px',
       };
 
-
+      const handleStateChange = (event) => {
+        const state = event.target.value;
+        formik.setFieldValue("state", state);
+      };
     return (
         <div className="page-wrapper">
             <div className="content">
@@ -186,7 +197,7 @@ const EditResource = () => {
                                 <Form onSubmit={formik.handleSubmit} isSubmitting>
                                     <div className="create-ticket register-block">
                                         <Row className="mb-3 modal-body-table search-modal-header">
-                                            <Col>
+                                            <Col md={4}>
                                                 <Label className="mb-2" htmlFor="role">
                                                     Role
                                                 </Label>
@@ -212,13 +223,40 @@ const EditResource = () => {
                                                         </small>
                                                     )}
                                             </Col>
-                                            <Col>
+                                            <Col md={4}>
+                          <Label className="form-label" htmlFor="state">
+                            State
+                            {/* <span required>*</span> */}
+                          </Label>
+                          <select
+                            id="inputState"
+                            className="form-select"
+                            onChange={(e) => handleStateChange(e)}
+                          >
+                            <option value="">Select State</option>
+                            {allData.map((state) => (
+                              <option key={state} value={state}>
+                                {state}
+                              </option>
+                            ))}
+                          </select>
+
+                          {formik.touched.state && formik.errors.state ? (
+                            <small
+                              className="error-cls"
+                              style={{ color: "red" }}
+                            >
+                              {formik.errors.state}
+                            </small>
+                          ) : null}
+                        </Col>
+                                            <Col md={4}>
 
                                             <Label
                                                 className="mb-2"
                                                 htmlFor="description"
                                             >
-                                                Description
+                                                Details
                                             </Label>
                                             <Input
                                                 {...inputDICE}
