@@ -3,8 +3,8 @@
 import React ,{ useState, useEffect,  } from "react";
 
 import * as Icon from "react-feather";
-// import { useTranslation } from "react-i18next";
-// import { label } from "yet-another-react-lightbox";
+import { useTranslation } from "react-i18next";
+import { label } from "yet-another-react-lightbox";
 // export const SidebarData = [
   
 //   {
@@ -156,7 +156,7 @@ const SidebarData = () => {
   const currentUser = getCurrentUser('current_user');
   const TeamId = currentUser?.data[0]?.team_id;
   const [link, setLink] = useState('/instruction');
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
   const submittedApi = () => {
     const Param = encryptGlobal(
       JSON.stringify({
@@ -228,8 +228,8 @@ useEffect(() => {
       ],
     },
     {
-      // label: t("student"),
-      label: "Student",
+      label: t("home.student"),
+      // label: "Student",
 
       submenuOpen: true,
       showSubRoute: false,
@@ -237,8 +237,8 @@ useEffect(() => {
       role: "STUDENT",
       submenuItems: [
         {
-          label:"PreSurvey",
-          // label: t("pre_survey"),
+          // label:"PreSurvey",
+          label: t("home.pre_survey"),
 
           link: "/studentpresurvey",
           icon: <Icon.Edit />,
@@ -246,7 +246,9 @@ useEffect(() => {
           submenu: false,
         },
         {
-          label:"Student Dashboard",
+          // label:"Student Dashboard",
+          label: t("home.dashboard"),
+
           link: "/student-dashboard",
           icon: <Icon.Grid />,
           showSubRoute: false,
@@ -254,7 +256,9 @@ useEffect(() => {
           submenu: false,
         },
         {
-          label:"Course",
+          // label:"Course",
+          label: t("home.courses"),
+
           link: `/studentcourse/${1}`,
           icon: <Icon.Monitor />,
           showSubRoute: false,
@@ -262,7 +266,9 @@ useEffect(() => {
         },
         
         {
-          label: "Idea Submission",
+          // label: "Idea Submission",
+          label: t("home.idea_submission"),
+
           link: link,
           icon: <Icon.Send />,
           role: "STUDENT",
@@ -270,7 +276,9 @@ useEffect(() => {
           submenu: false,
         },
         {
-          label:"Post Survey",
+          // label:"Post Survey",
+          label: t("home.post_survey"),
+
           link: "/studentpostsurvey",
           icon:<Icon.Edit3 />,
           role: "STUDENT",
@@ -278,7 +286,9 @@ useEffect(() => {
           submenu: false,
         },
         {
-          label: "Resources",
+          // label: "Resources",
+          label: t("home.resources"),
+
           link: "/studentresource",
           icon: <Icon.FilePlus />,
           role: "STUDENT",

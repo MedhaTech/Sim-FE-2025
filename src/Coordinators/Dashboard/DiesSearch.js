@@ -242,33 +242,33 @@ const downloadPDF = () => {
       {
         name: "No",
         selector: (row) => row.key,
-        width: "12%",
+        width: "6rem",
       },
       {
         name: "Team Name",
         selector: (row) => row.team_name,
         sortable: true,
         center: true,
-        width: "25%",
+        width: "13rem",
       },
       {
         name: "Student Count",
         selector: (row) => row.student_count,
         center: true,
-        width: "20%",
+        width: "13rem",
       },
       {
         name: "Idea Sub Status",
         selector: (row) => row.ideaStatus,
         center: true,
-        width: "25%",
+        width: "13rem",
       },
       {
         name: 'Mentor Approval',
         selector: (row) =>
             row.ideaAcceptance,
         center: true,
-        width: '20%'
+        width: '15rem'
     },
       {
         name: "Actions",
@@ -300,7 +300,7 @@ const downloadPDF = () => {
             </>,
           ];
         },
-        width: "20%",
+        width: "20rem",
         center: true,
       },
     //   {
@@ -816,7 +816,7 @@ const handleEdit = () => {
                                     </button>
                                            
                                             <button type="button" className="btn btn-outline-secondary"   onClick={() => {
-                                                    // downloadPDF();
+                                                    downloadPDF();
                                                 }}>
                                        Download
                                     </button>
