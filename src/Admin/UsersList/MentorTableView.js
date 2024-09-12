@@ -269,33 +269,33 @@ const Dashboard = () => {
             {
                 name: 'No',
                 selector: (row) => row.key,
-                width: '12%'
+                width: '6rem'
             },
             {
                 name: 'Team Name',
                 selector: (row) => row.team_name,
                 sortable: true,
                 center: true,
-                width: '25%'
+                width: '10rem'
             },
             {
                 name: 'Student Count',
                 selector: (row) => row.student_count,
                 center: true,
-                width: '20%'
+                width: '12rem'
             },
             {
                 name: 'Idea Sub Status',
                 selector: (row) => row.ideaStatus,
                 center: true,
-                width: '25%'
+                width: '15rem'
             },
             {
                 name: 'Mentor Approval',
                 selector: (row) =>
                     row.ideaAcceptance,
                 center: true,
-                width: '20%'
+                width: '13rem'
             },
             {
                 name: "Actions",
@@ -327,7 +327,7 @@ const Dashboard = () => {
                     </>,
                   ];
                 },
-                width: "20%",
+                width: "15rem",
                 center: true,
               },
             // {

@@ -109,6 +109,10 @@ const TeacherProgressDetailed = () => {
 
   const tableHeaders = [
     {
+      label: "District",
+      key: "district",
+    },
+    {
       label: "ATL Schools",
       key: "ATL_Count",
     },
@@ -118,6 +122,10 @@ const TeacherProgressDetailed = () => {
     },
   ];
   const tableHeadersState = [
+    {
+      label: "District",
+      key: "district",
+    },
     {
       label: "FullyAidedHighSchool",
       key: "FullyAidedHighSchool_Count",
@@ -637,7 +645,7 @@ const TeacherProgressDetailed = () => {
                               <thead>
                                 <tr>
                                   <th style={{ color: "#36A2EB" }}>#</th>
-
+                                  <th style={{ color: "#36A2EB" }}>District Name</th>
                                   {selectstate !== "Tamil Nadu" && (
                                   <>
                                     <th style={{  color: "#36A2EB", }}>
@@ -679,6 +687,16 @@ const TeacherProgressDetailed = () => {
                                 {instType.map((item, index) => (
                                   <tr key={index}>
                                     <td>{index + 1}</td>
+                                    <td
+                                    style={{
+                                      maxWidth: "150px",
+                                      overflow: "hidden",
+                                      textOverflow: "ellipsis",
+                                      color: "crimson"
+                                    }}
+                                  >
+                                    {item.district}
+                                  </td>
                                     {/* <td
                                    
                                     >
