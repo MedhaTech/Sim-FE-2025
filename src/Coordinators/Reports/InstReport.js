@@ -109,15 +109,23 @@ const TeacherProgressDetailed = () => {
 
   const tableHeaders = [
     {
-      label: "Total Registered ATL Schools",
+      label: "District",
+      key: "district",
+    },
+    {
+      label: "ATL Schools",
       key: "ATL_Count",
     },
     {
-      label: "Total Registered Non-ATL Schools",
+      label: "Non-ATL Schools",
       key: "NonATL_Count",
     },
   ];
   const tableHeadersState = [
+    {
+      label: "District",
+      key: "district",
+    },
     {
       label: "FullyAidedHighSchool",
       key: "FullyAidedHighSchool_Count",
@@ -276,9 +284,10 @@ const TeacherProgressDetailed = () => {
     axios(config)
       .then((response) => {
         if (response.status === 200) {
-          console.log(response, "view");
+          // console.log(response, "view");
           const chartTableData1 = response?.data?.data || [];
           setInstType(chartTableData1);
+          
           setDownloadTableData1(chartTableData1);
 
           const lastRow = chartTableData1[chartTableData1.length - 1];
@@ -636,14 +645,14 @@ const TeacherProgressDetailed = () => {
                               <thead>
                                 <tr>
                                   <th style={{ color: "#36A2EB" }}>#</th>
-
+                                  <th style={{ color: "#36A2EB" }}>District Name</th>
                                   {selectstate !== "Tamil Nadu" && (
                                   <>
                                     <th style={{  color: "#36A2EB", }}>
-                                      ATL Teachers
+                                      ATL Schools
                                     </th>
                                     <th style={{ color: "#36A2EB", }}>
-                                      Non-ATL Teachers
+                                      Non-ATL Schools
                                     </th>
                                   </>
                                 )}
@@ -678,6 +687,16 @@ const TeacherProgressDetailed = () => {
                                 {instType.map((item, index) => (
                                   <tr key={index}>
                                     <td>{index + 1}</td>
+                                    <td
+                                    style={{
+                                      maxWidth: "150px",
+                                      overflow: "hidden",
+                                      textOverflow: "ellipsis",
+                                      color: "crimson"
+                                    }}
+                                  >
+                                    {item.district}
+                                  </td>
                                     {/* <td
                                    
                                     >

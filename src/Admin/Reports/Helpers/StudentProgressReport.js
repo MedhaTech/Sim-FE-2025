@@ -38,7 +38,7 @@ const StudentProgress = () => {
   const [category, setCategory] = useState("");
   const [isDownload, setIsDownload] = useState(false);
   const categoryData = ["All Categories", "ATL", "Non ATL"];
-  const categoryDataTn= ["Select All","Fully Aided-High School","Fully Aided-Higher Secondary School","Government-High School","Government-Higher Secondary School","Partially Aided-High School","Partially Aided-Higher Secondary School",'Non ATL'];
+  const categoryDataTn = ["Select All", "Fully Aided-High School", "Fully Aided-Higher Secondary School", "Government-High School", "Government-Higher Secondary School", "Partially Aided-High School", "Partially Aided-Higher Secondary School", 'Non ATL'];
 
   const newstateList = ["All States", ...stateList];
   // const categoryData =
@@ -78,15 +78,15 @@ const StudentProgress = () => {
   });
   const fullStatesNames = newstateList;
   const allDistricts = {
-    "All Districts": [...Object.values(districtList).flat()], 
+    "All Districts": [...Object.values(districtList).flat()],
     ...districtList
   };
-const fiterDistData = [
+  const fiterDistData = [
     'All Districts',
-    ...allDistricts[selectstate] || [] 
-];
+    ...allDistricts[selectstate] || []
+  ];
   // const fiterDistData = districtList[selectstate];
- 
+
   useEffect(() => {
     // if (selectstate !== '') {
     //     dispatch(getFetchDistData(selectstate));
@@ -94,9 +94,8 @@ const fiterDistData = [
     // setdistrict('');
     fetchChartTableData();
     const newDate = new Date();
-    const formattedDate = `${newDate.getUTCDate()}/${
-      1 + newDate.getMonth()
-    }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
+    const formattedDate = `${newDate.getUTCDate()}/${1 + newDate.getMonth()
+      }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
     setNewFormat(formattedDate);
   }, []);
   const [totalCount, setTotalCount] = useState([]);
@@ -139,7 +138,7 @@ const fiterDistData = [
     {
       label: 'ATL CODE',
       key: 'organization_code'
-  },
+    },
     {
       label: "School Name",
       key: "organization_name",
@@ -163,11 +162,11 @@ const fiterDistData = [
     {
       label: 'HM Name',
       key: 'principal_name'
-  },
-  {
+    },
+    {
       label: 'HM Contact',
       key: 'principal_mobile'
-  },
+    },
     {
       label: "Teacher Name",
       key: "full_name",
@@ -188,57 +187,57 @@ const fiterDistData = [
       label: "Teacher WhatsApp Contact",
       key: "whatapp_mobile",
     },
-  
+
     {
-        label: 'Team Name',
-        key: 'team_name'
-    },
-     {
-        label: 'Team Username',
-        key: 'team_username'
+      label: 'Team Name',
+      key: 'team_name'
     },
     {
-        label: 'Student Name',
-        key: 'studentfullname'
-    },
-   
-    {
-        label: 'Age',
-        key: 'Age'
+      label: 'Team Username',
+      key: 'team_username'
     },
     {
-        label: 'Gender',
-        key: 'studentgender'
+      label: 'Student Name',
+      key: 'studentfullname'
+    },
+
+    {
+      label: 'Age',
+      key: 'Age'
     },
     {
-        label: 'Class',
-        key: 'Grade'
+      label: 'Gender',
+      key: 'studentgender'
     },
     {
-        label: 'Disability status',
-        key: 'disability'
+      label: 'Class',
+      key: 'Grade'
     },
     {
-        label: "Pre Survey Status",
-        key: "pre_survey_status",
-      },
-     
-      {
-        label: "Post Survey Status",
-        key: "post_survey_status",
-      },
+      label: 'Disability status',
+      key: 'disability'
+    },
     {
-        label: 'Course Status',
-        key: 'user_count'
+      label: "Pre Survey Status",
+      key: "pre_survey_status",
+    },
+
+    {
+      label: "Post Survey Status",
+      key: "post_survey_status",
+    },
+    {
+      label: 'Course Status',
+      key: 'user_count'
     },
     {
       label: 'Course Completion%',
       key: 'course_per'
-  },
-  {
-    label: 'Idea Status',
-    key: 'idea_status'
-},
+    },
+    {
+      label: 'Idea Status',
+      key: 'idea_status'
+    },
     // {
     //     label: 'No.of Teams Idea Submitted',
     //     key: 'submittedcout'
@@ -501,7 +500,7 @@ const fiterDistData = [
         ((totalCount.totalStudents -
           (totalCount.courseCompleted + totalCount.courseINprogesss)) *
           100) /
-          totalCount.totalStudents
+        totalCount.totalStudents
       ),
     ],
     labels: ["Completed", "InProgress", "NotStarted"],
@@ -604,21 +603,17 @@ const fiterDistData = [
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response, "res");
-          // console.log(response.data.data[0].preSurvey,"preSurvey");
-          // console.log(response.data.data[0].Username,"Username");
-          // console.log(response.data.data[0],"response");
-          const preSurveyMap = response.data.data[0].preSurvey.reduce(
+
+          const teamDataMap = response.data.data[0].teamData.reduce(
             (map, item) => {
-              map[item.user_id] = item.pre_survey_status;
+              map[item.team_id] = item;
               return map;
             },
             {}
           );
-
-          const postSurveyMap = response.data.data[0].postSurvey.reduce(
+          const teamUsernameMap = response.data.data[0].teamUsername.reduce(
             (map, item) => {
-              map[item.user_id] = item.post_survey_status;
+              map[item.teamuserId] = item.teamUsername;
               return map;
             },
             {}
@@ -626,115 +621,105 @@ const fiterDistData = [
           const mentorMap = response.data.data[0].mentorData.reduce(
             (map, item) => {
               map[item.mentor_id] = item;
-
               return map;
             },
             {}
           );
-
-          const teamDataMap = response.data.data[0].teamData.reduce(
-            (map, item) => {
-              map[item.mentor_id] = item;
-              return map;
-            },
-            {}
-          );
-
-          const userTopicDataMap = response.data.data[0].userTopicData.reduce(
-            (map, item) => {
-              map[item.
-                mentorUserId
-                ] = item.user_count;
-              return map;
-            },
-            {}
-          );
-          const userTopicMap = response.data.data[0].userTopicData.reduce(
-            (map, item) => {
-              map[item.user_id
-                
-                ] = item.user_count;
-              return map;
-            },
-            {}
-          );
-        
           const mentorUsernameMap = response.data.data[0].mentorUsername.reduce(
             (map, item) => {
-              map[item.user_id] = item;
+              map[item.user_id] = item.username;
               return map;
             },
             {}
           );
-          const teamUsernameMap = response.data.data[0].
-          teamUsername
-          .reduce(
+          const preSurveyMap = response.data.data[0].preSurvey.reduce(
             (map, item) => {
-              map[item.
-                teamuserId
-                ] = item;
+              map[item.user_id] = item.pre_survey_status;
               return map;
             },
             {}
           );
-          const 
-          ideaStatusDataMap = response.data.data[0].
-          ideaStatusData.reduce(
+          const postSurveyMap = response.data.data[0].postSurvey.reduce(
             (map, item) => {
-              map[item.team_id] = item;
+              map[item.user_id] = item.post_survey_status;
               return map;
             },
             {}
           );
-         
-          const newdatalist = response.data.data[0].summary.map((item) => {
-            const mentorData = teamDataMap[item.team_id];
-            const mentStats = mentorMap[item.team_id];
-            const mentUser =mentorUsernameMap[item.team_id];
-            const teamUser =teamUsernameMap[item.team_id];
+          const ideaStatusDataMap = response.data.data[0].ideaStatusData.reduce(
+            (map, item) => {
+              map[item.team_id] = item.status;
+              return map;
+            },
+            {}
+          );
+          const userTopicDataMap = response.data.data[0].userTopicData.reduce(
+            (map, item) => {
+              map[item.user_id] = item.user_count;
+              return map;
+            },
+            {}
+          );
 
-            const idea =ideaStatusDataMap[item.team_id];
-
-const courses = userTopicMap[item.user_id]; 
-const course_per = courses && typeof courses === "number" ? Math.round((courses / 31) * 100) : 0;
+          const studentAndteam = response.data.data[0].summary.map((item) => {
             return {
               ...item,
               pre_survey_status: preSurveyMap[item.user_id] || "Not started",
               post_survey_status: postSurveyMap[item.user_id] || "Not started",
-              username: mentUser?.username,
-              team_username: teamUser?.teamUsername
-              ,
-
-              idea_status:idea?.status, 
-              user_count: userTopicDataMap[item.user_id] === 0 ? "Not Started" : userTopicDataMap[item.user_id] === 31 ? "Completed" : "In Progress",
-              course_per,
-              team_name: mentorData?.team_name,
-              team_email: mentorData?.team_email,
-              mentor_id: mentorData?.mentor_id,
-              category: mentStats?.category,
-              district: mentStats?.district,
-
-              full_name: mentStats?.full_name,
-              gender: mentStats?.gender,
-              mobile: mentStats?.mobile,
-              organization_code: mentStats?.organization_code,
-              organization_name: mentStats?.organization_name,
-              state: mentStats?.state,
-              whatapp_mobile: mentStats?.whatapp_mobile,
+              idea_status: ideaStatusDataMap[item.team_id] || "Not Initiated",
+              user_count:
+                (userTopicDataMap[item.user_id] === 0 || userTopicDataMap[item.user_id] === undefined)
+                  ? "Not Started"
+                  : userTopicDataMap[item.user_id] === 31
+                    ? "Completed"
+                    : "In Progress",
+              course_per: userTopicDataMap[item.user_id] && typeof userTopicDataMap[item.user_id] === "number"
+                ? `${Math.round((userTopicDataMap[item.user_id] / 31) * 100)}%`
+                : `0%`,
+              team_name: teamDataMap[item.team_id].team_name,
+              team_email: teamDataMap[item.team_id].team_email,
+              mentor_id: teamDataMap[item.team_id].mentor_id,
+              teamuserId: teamDataMap[item.team_id].teamuserId
             };
           });
-        //   console.log(newdatalist, "fina");
+
+          const mentorAndOrg = studentAndteam.map((item) => {
+            return {
+              ...item,
+              team_username: teamUsernameMap[item.teamuserId],
+              category: mentorMap[item.mentor_id].category,
+              district: mentorMap[item.mentor_id].district,
+              full_name: mentorMap[item.mentor_id].full_name,
+              gender: mentorMap[item.mentor_id].gender,
+              mobile: mentorMap[item.mentor_id].mobile,
+              organization_code: mentorMap[item.mentor_id].organization_code,
+              organization_name: mentorMap[item.mentor_id].organization_name,
+              state: mentorMap[item.mentor_id].state,
+              whatapp_mobile: mentorMap[item.mentor_id].whatapp_mobile,
+              mentorUserId: mentorMap[item.mentor_id].mentorUserId,
+              city: mentorMap[item.mentor_id].city,
+              principal_name: mentorMap[item.mentor_id].principal_name,
+              principal_mobile: mentorMap[item.mentor_id].principal_mobile,
+            };
+          });
+          const newdatalist = mentorAndOrg.map((item) => {
+            return {
+              ...item,
+              username: mentorUsernameMap[item.mentorUserId]
+            };
+          });
+
           setstudentDetailedReportsData(newdatalist);
-          if(response.data.data[0].summary.length > 0){
+          if (response.data.data[0].summary.length > 0) {
             openNotificationWithIcon(
-                'success',
-                "Report Downloaded Successfully"
-            ); 
-        }else{
+              'success',
+              "Report Downloaded Successfully"
+            );
+          } else {
             openNotificationWithIcon('error', 'No Data Found');
-        }
-        //   csvLinkRef.current.link.click();
-        //   console.log(studentDetailedReportsData,"ttt");
+          }
+          //   csvLinkRef.current.link.click();
+          //   console.log(studentDetailedReportsData,"ttt");
           setIsDownload(false);
         }
       })
@@ -763,19 +748,19 @@ const course_per = courses && typeof courses === "number" ? Math.round((courses 
 
           const courseCompleted = response.data.data[0].courseCompleted;
           const courseINprogesss = response.data.data[0].courseINprogesss;
-const draftCount=response.data.data[0].draftCount;
-const submittedCount=response.data.data[0].submittedCount;
+          const draftCount = response.data.data[0].draftCount;
+          const submittedCount = response.data.data[0].submittedCount;
 
 
           const combinedArray = summary.map((summaryItem) => {
             const state = summaryItem.state;
             const totalTeams = summaryItem.totalTeams;
             const draftCountItem = draftCount.find(
-                (item) => item.state === state
+              (item) => item.state === state
             );
             const submittedCountItem = submittedCount.find(
               (item) => item.state === state
-          );
+            );
             const studentCountItem = studentCountDetails.find(
               (item) => item.state === state
             );
@@ -795,22 +780,22 @@ const submittedCount=response.data.data[0].submittedCount;
                   : 0));
             // console.log(courseNotStarted,"11");
             const ideaNotStarted =
-            summaryItem.totalTeams -
-            ((submittedCountItem
+              summaryItem.totalTeams -
+              ((submittedCountItem
                 ? submittedCountItem.submittedCount
                 : 0) +
                 (draftCountItem
-                    ? draftCountItem.draftCount
-                    : 0));
+                  ? draftCountItem.draftCount
+                  : 0));
             const coursePercentage =
               studentCountItem && studentCountItem.totalstudent > 0
                 ? Math.round(
-                    ((courseCompletedItem
-                      ? courseCompletedItem.studentCourseCMP
-                      : 0) /
-                      studentCountItem.totalstudent) *
-                      100
-                  )
+                  ((courseCompletedItem
+                    ? courseCompletedItem.studentCourseCMP
+                    : 0) /
+                    studentCountItem.totalstudent) *
+                  100
+                )
                 : 0;
             return {
               state,
@@ -825,9 +810,9 @@ const submittedCount=response.data.data[0].submittedCount;
               courseINprogesss: courseINprogesssItem
                 ? courseINprogesssItem.studentCourseIN
                 : 0,
-                draftCount:draftCountItem ? draftCountItem.draftCount : 0,
-                submittedCount:submittedCountItem ? submittedCountItem.submittedCount : 0,
-                ideaNotStarted,
+              draftCount: draftCountItem ? draftCountItem.draftCount : 0,
+              submittedCount: submittedCountItem ? submittedCountItem.submittedCount : 0,
+              ideaNotStarted,
               courseNotStarted,
             };
           });
@@ -843,8 +828,8 @@ const submittedCount=response.data.data[0].submittedCount;
               acc.courseCompleted += item.courseCompleted;
               acc.courseINprogesss += item.courseINprogesss;
               acc.ideaNotStarted =
-              acc.totalTeams -
-              (acc.submittedCount + acc.draftCount);
+                acc.totalTeams -
+                (acc.submittedCount + acc.draftCount);
               acc.courseNotStarted =
                 acc.totalStudents -
                 (acc.courseCompleted + acc.courseINprogesss);
@@ -866,10 +851,10 @@ const submittedCount=response.data.data[0].submittedCount;
             }
           );
           const doughnutData = {
-            labels: ["Draft Ideas", "Submitted Ideas","Not Started Idea Submission"],
+            labels: ["Draft Ideas", "Submitted Ideas", "Not Started Idea Submission"],
             datasets: [
               {
-                data: [total.draftCount, total.submittedCount,total.ideaNotStarted],
+                data: [total.draftCount, total.submittedCount, total.ideaNotStarted],
                 backgroundColor: ["#8bcaf4", "#ff99af"],
                 hoverBackgroundColor: ["#36A2EB", "#FF6384"],
               },
@@ -986,18 +971,18 @@ const submittedCount=response.data.data[0].submittedCount;
                     placeHolder={"Select Category"}
                     value={category}
                   /> */}
-                   {selectstate === "Tamil Nadu"?( 
-                            <Select
-                                list={categoryDataTn}
-                                setValue={setCategory}
-                                placeHolder={'Select Category'}
-                                value={category}
-                            />):(  <Select
-                                list={categoryData}
-                                setValue={setCategory}
-                                placeHolder={'Select Category'}
-                                value={category}
-                            />)}
+                  {selectstate === "Tamil Nadu" ? (
+                    <Select
+                      list={categoryDataTn}
+                      setValue={setCategory}
+                      placeHolder={'Select Category'}
+                      value={category}
+                    />) : (<Select
+                      list={categoryData}
+                      setValue={setCategory}
+                      placeHolder={'Select Category'}
+                      value={category}
+                    />)}
                 </div>
               </Col>
               <Col
@@ -1043,15 +1028,15 @@ const submittedCount=response.data.data[0].submittedCount;
                                 </b>
                               </p>
                               {doughnutChartData && (
-                                                    <div id="donut-chart" >
-                                                        <ReactApexChart
-                                                        options={chartOption}
-                                                        series={chartOption.series}
-                                                        type="donut"
-                                                        height={330}
-                                                        />
-                                                    </div>
-                                                )}
+                                <div id="donut-chart" >
+                                  <ReactApexChart
+                                    options={chartOption}
+                                    series={chartOption.series}
+                                    type="donut"
+                                    height={330}
+                                  />
+                                </div>
+                              )}
                             </div>
                             <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
                               <p>
@@ -1198,7 +1183,7 @@ const submittedCount=response.data.data[0].submittedCount;
                                   </tr>
                                 ))}
                                 <tr>
-                                  <td>{}</td>
+                                  <td>{ }</td>
                                   <td
                                     style={{
                                       color: "crimson",
@@ -1231,7 +1216,7 @@ const submittedCount=response.data.data[0].submittedCount;
                                     {Math.round(
                                       (totalCount.courseCompleted /
                                         totalCount.totalStudents) *
-                                        100
+                                      100
                                     )}
                                     %
                                   </td>

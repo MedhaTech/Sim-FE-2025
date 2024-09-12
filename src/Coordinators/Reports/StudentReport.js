@@ -105,9 +105,8 @@ const StudentProgress = () => {
     // setdistrict('');
     fetchChartTableData();
     const newDate = new Date();
-    const formattedDate = `${newDate.getUTCDate()}/${
-      1 + newDate.getMonth()
-    }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
+    const formattedDate = `${newDate.getUTCDate()}/${1 + newDate.getMonth()
+      }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
     setNewFormat(formattedDate);
   }, []);
   const [totalCount, setTotalCount] = useState([]);
@@ -118,23 +117,23 @@ const StudentProgress = () => {
       key: "district",
     },
     {
-      label: "Total No.Of Teams created",
+      label: "Total No.of Teams created",
       key: "totalTeams",
     },
     {
-      label: "Total No.Of Students enrolled",
+      label: "Total No.of Students enrolled",
       key: "totalStudents",
     },
     {
-      label: "No.Of Students Completed the Course",
+      label: "No.of Students Completed the Course",
       key: "courseCompleted",
     },
     {
-      label: "No.Of Students Course In Progress",
+      label: "No.of Students Course In Progress",
       key: "courseINprogesss",
     },
     {
-      label: "No.Of Students Not Started Course",
+      label: "No.of Students Not Started Course",
       key: "courseNotStarted",
     },
     {
@@ -142,18 +141,18 @@ const StudentProgress = () => {
       key: "coursePercentage",
     },
     {
-      label: 'No.Of Teams Submitted Ideas',
+      label: 'No.of Teams Submitted Ideas',
       key: 'submittedCount'
   },
   {
-      label: 'No.Of Teams Ideas in Draft',
+      label: 'No.of Teams Ideas in Draft',
       key: 'draftCount'
   },
   {
-      label: 'No.Of Teams Not Stated Idea Submission',
+      label: 'No.of Teams Not Stated Idea Submission',
       key: 'ideaNotStarted'
   },
-  ];
+ ];
   const teacherDetailsHeaders = [
     {
       label: "UDISE CODE",
@@ -246,7 +245,7 @@ const StudentProgress = () => {
       key: "pre_survey_status",
     },
 
-  
+
     {
       label: "Course Completion%",
       key: "course_per",
@@ -263,7 +262,7 @@ const StudentProgress = () => {
       label: "Post Survey Status",
       key: "post_survey_status",
     },
-   
+
     // {
     //     label: 'No.of Teams Idea Submitted',
     //     key: 'submittedcout'
@@ -526,7 +525,7 @@ const StudentProgress = () => {
         ((totalCount.totalStudents -
           (totalCount.courseCompleted + totalCount.courseINprogesss)) *
           100) /
-          totalCount.totalStudents
+        totalCount.totalStudents
       ),
     ],
     labels: ["Completed", "InProgress", "NotStarted"],
@@ -624,17 +623,17 @@ const StudentProgress = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          const preSurveyMap = response.data.data[0].preSurvey.reduce(
+          
+          const teamDataMap = response.data.data[0].teamData.reduce(
             (map, item) => {
-              map[item.user_id] = item.pre_survey_status;
+              map[item.team_id] = item;
               return map;
             },
             {}
           );
-
-          const postSurveyMap = response.data.data[0].postSurvey.reduce(
+          const teamUsernameMap = response.data.data[0].teamUsername.reduce(
             (map, item) => {
-              map[item.user_id] = item.post_survey_status;
+              map[item.teamuserId] = item.teamUsername;
               return map;
             },
             {}
@@ -642,28 +641,39 @@ const StudentProgress = () => {
           const mentorMap = response.data.data[0].mentorData.reduce(
             (map, item) => {
               map[item.mentor_id] = item;
-
               return map;
             },
             {}
           );
-
-          const teamDataMap = response.data.data[0].teamData.reduce(
+          const mentorUsernameMap = response.data.data[0].mentorUsername.reduce(
             (map, item) => {
-              map[item.mentor_id] = item;
+              map[item.user_id] = item.username;
               return map;
             },
             {}
           );
-
+          const preSurveyMap = response.data.data[0].preSurvey.reduce(
+            (map, item) => {
+              map[item.user_id] = item.pre_survey_status;
+              return map;
+            },
+            {}
+          );
+          const postSurveyMap = response.data.data[0].postSurvey.reduce(
+            (map, item) => {
+              map[item.user_id] = item.post_survey_status;
+              return map;
+            },
+            {}
+          );
+          const ideaStatusDataMap = response.data.data[0].ideaStatusData.reduce(
+            (map, item) => {
+              map[item.team_id] = item.status;
+              return map;
+            },
+            {}
+          );
           const userTopicDataMap = response.data.data[0].userTopicData.reduce(
-            (map, item) => {
-              map[item.mentorUserId] = item.user_count;
-              return map;
-            },
-            {}
-          );
-          const userTopicMap = response.data.data[0].userTopicData.reduce(
             (map, item) => {
               map[item.user_id] = item.user_count;
               return map;
@@ -671,70 +681,54 @@ const StudentProgress = () => {
             {}
           );
 
-          const mentorUsernameMap = response.data.data[0].mentorUsername.reduce(
-            (map, item) => {
-              map[item.user_id] = item;
-              return map;
-            },
-            {}
-          );
-          const teamUsernameMap = response.data.data[0].teamUsername.reduce(
-            (map, item) => {
-              map[item.teamuserId] = item;
-              return map;
-            },
-            {}
-          );
-          const ideaStatusDataMap = response.data.data[0].ideaStatusData.reduce(
-            (map, item) => {
-              map[item.team_id] = item;
-              return map;
-            },
-            {}
-          );
-
-          const newdatalist = response.data.data[0].summary.map((item) => {
-            const mentorData = teamDataMap[item.team_id];
-            const mentStats = mentorMap[item.team_id];
-            const mentUser = mentorUsernameMap[item.team_id];
-            const teamUser = teamUsernameMap[item.team_id];
-
-            const idea = ideaStatusDataMap[item.team_id];
-
-            const courses = userTopicMap[item.user_id];
-            const course_per =
-              courses && typeof courses === "number"
-                ? Math.round((courses / 31) * 100)
-                : 0;
+          const studentAndteam = response.data.data[0].summary.map((item) => {
             return {
               ...item,
               pre_survey_status: preSurveyMap[item.user_id] || "Not started",
               post_survey_status: postSurveyMap[item.user_id] || "Not started",
-              username: mentUser?.username,
-              team_username: teamUser?.teamUsername,
-              idea_status: idea?.status,
+              idea_status: ideaStatusDataMap[item.team_id] || "Not Initiated",
               user_count:
-                userTopicDataMap[item.user_id] === 0
+                (userTopicDataMap[item.user_id] === 0 || userTopicDataMap[item.user_id] === undefined)
                   ? "Not Started"
                   : userTopicDataMap[item.user_id] === 31
-                  ? "Completed"
-                  : "In Progress",
-              course_per,
-              team_name: mentorData?.team_name,
-              team_email: mentorData?.team_email,
-              mentor_id: mentorData?.mentor_id,
-              category: mentStats?.category,
-              district: mentStats?.district,
-
-              full_name: mentStats?.full_name,
-              gender: mentStats?.gender,
-              mobile: mentStats?.mobile,
-              organization_code: mentStats?.organization_code,
-              organization_name: mentStats?.organization_name,
-              state: mentStats?.state,
-              whatapp_mobile: mentStats?.whatapp_mobile,
+                    ? "Completed"
+                    : "In Progress",
+              course_per: userTopicDataMap[item.user_id] && typeof userTopicDataMap[item.user_id] === "number"
+                ? `${Math.round((userTopicDataMap[item.user_id] / 31) * 100)}%`
+                : `0%`,
+              team_name: teamDataMap[item.team_id].team_name,
+              team_email: teamDataMap[item.team_id].team_email,
+              mentor_id: teamDataMap[item.team_id].mentor_id,
+              teamuserId: teamDataMap[item.team_id].teamuserId
             };
           });
+
+          const mentorAndOrg = studentAndteam.map((item) => {
+            return {
+              ...item,
+              team_username: teamUsernameMap[item.teamuserId],
+              category: mentorMap[item.mentor_id].category,
+              district: mentorMap[item.mentor_id].district,
+              full_name: mentorMap[item.mentor_id].full_name,
+              gender: mentorMap[item.mentor_id].gender,
+              mobile: mentorMap[item.mentor_id].mobile,
+              organization_code: mentorMap[item.mentor_id].organization_code,
+              organization_name: mentorMap[item.mentor_id].organization_name,
+              state: mentorMap[item.mentor_id].state,
+              whatapp_mobile: mentorMap[item.mentor_id].whatapp_mobile,
+              mentorUserId: mentorMap[item.mentor_id].mentorUserId,
+              city: mentorMap[item.mentor_id].city,
+              principal_name: mentorMap[item.mentor_id].principal_name,
+              principal_mobile: mentorMap[item.mentor_id].principal_mobile,
+            };
+          });
+          const newdatalist = mentorAndOrg.map((item) => {
+            return {
+              ...item,
+              username: mentorUsernameMap[item.mentorUserId]
+            };
+          });
+
           setstudentDetailedReportsData(newdatalist);
           if (response.data.data[0].summary.length > 0) {
             openNotificationWithIcon(
@@ -822,12 +816,12 @@ const StudentProgress = () => {
             const coursePercentage =
               studentCountItem && studentCountItem.totalstudent > 0
                 ? Math.round(
-                    ((courseCompletedItem
-                      ? courseCompletedItem.studentCourseCMP
-                      : 0) /
-                      studentCountItem.totalstudent) *
-                      100
-                  )
+                  ((courseCompletedItem
+                    ? courseCompletedItem.studentCourseCMP
+                    : 0) /
+                    studentCountItem.totalstudent) *
+                  100
+                )
                 : 0;
             return {
               district,
@@ -862,7 +856,7 @@ const StudentProgress = () => {
               acc.courseINprogesss += item.courseINprogesss;
               acc.ideaNotStarted =
                 acc.totalTeams - (acc.submittedCount + acc.draftCount);
-              // acc.courseNotStarted += item.courseNotStarted;
+              acc.coursePercentage += item.coursePercentage;
               acc.courseNotStarted =
                 acc.totalStudents -
                 (acc.courseCompleted + acc.courseINprogesss);
@@ -879,6 +873,7 @@ const StudentProgress = () => {
               // maleStudents: 0,
               // femaleStudents: 0,
               // otherStudents : 0,
+              coursePercentage:0,
               courseCompleted: 0,
               courseINprogesss: 0,
               courseNotStarted: 0,
@@ -951,6 +946,7 @@ const StudentProgress = () => {
           setBarChart1Data(barData);
           setBarChart2Data(stackedBarChartData);
           setTotalCount(total);
+          // console.log(total,"11");
         }
       })
       .catch((error) => {
@@ -1254,7 +1250,7 @@ const StudentProgress = () => {
                                   </tr>
                                 ))}
                                 <tr>
-                                  <td>{}</td>
+                                  <td>{ }</td>
                                   <td
                                     style={{
                                       color: "crimson",
@@ -1284,16 +1280,19 @@ const StudentProgress = () => {
                                     {totalCount.courseNotStarted}
                                   </td>
                                   <td style={{ color: "crimson" }}>
+                                    {totalCount.coursePercentage}%
+                                  </td>
+                                  {/* <td style={{ color: "crimson" }}>
                                     {Math.round(
                                       (totalCount.courseCompleted /
                                         totalCount.totalStudents) *
-                                        100
+                                      100
                                     )}
                                     %
-                                  </td>
+                                  </td> */}
                                   <td style={{ color: "crimson" }}>{totalCount.submittedCount}</td>{" "}
-                                    <td style={{ color: "crimson" }}>{totalCount.draftCount}</td>{" "}
-                                    <td style={{ color: "crimson" }}>{totalCount.ideaNotStarted}</td>
+                                  <td style={{ color: "crimson" }}>{totalCount.draftCount}</td>{" "}
+                                  <td style={{ color: "crimson" }}>{totalCount.ideaNotStarted}</td>
                                 </tr>
                               </tbody>
                             </table>

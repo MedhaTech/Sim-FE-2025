@@ -182,10 +182,16 @@ const MentorHeader = () => {
             if (response.status == 200) {
               //  console.log(response,"res");
                if(response?.data?.count > 0){
-                if (
+if(response?.data?.data[0].state ===
+  currentUser?.data[0]?.state_name && response?.data?.data[0].mentor === null ){
+    openNotificationWithIcon("error", 'No Teacher are Register');
+    setDiesCode('');
+  }
+              else if (
                   response?.data?.data[0].state ===
-                  currentUser?.data[0]?.state_name
+                  currentUser?.data[0]?.state_name 
               ) {
+               
                 const multiOrgData = response?.data?.data;
         localStorage.setItem('diesCode', JSON.stringify(diesCode));
         localStorage.setItem("multiOrgData", JSON.stringify(multiOrgData));
@@ -193,13 +199,14 @@ const MentorHeader = () => {
                  navigate('/coo-search', { state: { multiOrgData,diesCode } });
                  setDiesCode('');
                }else{
-                // openNotificationWithIcon("error", "Oops..!  UDISE Code seems incorrect");
 
                 openNotificationWithIcon("error", 'You are not authorised to look at other state data');
                 setDiesCode('');
 
                }
+             
               }
+             
               else{
                 openNotificationWithIcon("error", "Oops..!  UDISE Code seems incorrect");
                 setDiesCode('');

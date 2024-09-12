@@ -138,7 +138,7 @@ const TeacherProgressDetailed = () => {
       key: "maleStudents",
     },
     {
-      label: "No.of Male Students",
+      label: "No.of Other Students",
       key: "otherStudents",
     },
     {
