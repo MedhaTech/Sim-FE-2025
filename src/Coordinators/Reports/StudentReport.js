@@ -117,23 +117,23 @@ const StudentProgress = () => {
       key: "district",
     },
     {
-      label: "Total No.Of Teams created",
+      label: "Total No.of Teams created",
       key: "totalTeams",
     },
     {
-      label: "Total No.Of Students enrolled",
+      label: "Total No.of Students enrolled",
       key: "totalStudents",
     },
     {
-      label: "No.Of Students Completed the Course",
+      label: "No.of Students Completed the Course",
       key: "courseCompleted",
     },
     {
-      label: "No.Of Students Course In Progress",
+      label: "No.of Students Course In Progress",
       key: "courseINprogesss",
     },
     {
-      label: "No.Of Students Not Started Course",
+      label: "No.of Students Not Started Course",
       key: "courseNotStarted",
     },
     {
@@ -141,18 +141,18 @@ const StudentProgress = () => {
       key: "coursePercentage",
     },
     {
-      label: 'No.Of Teams Submitted Ideas',
+      label: 'No.of Teams Submitted Ideas',
       key: 'submittedCount'
-    },
-    {
-      label: 'No.Of Teams Ideas in Draft',
+  },
+  {
+      label: 'No.of Teams Ideas in Draft',
       key: 'draftCount'
-    },
-    {
-      label: 'No.Of Teams Not Stated Idea Submission',
+  },
+  {
+      label: 'No.of Teams Not Stated Idea Submission',
       key: 'ideaNotStarted'
-    },
-  ];
+  },
+ ];
   const teacherDetailsHeaders = [
     {
       label: "UDISE CODE",
@@ -856,7 +856,7 @@ const StudentProgress = () => {
               acc.courseINprogesss += item.courseINprogesss;
               acc.ideaNotStarted =
                 acc.totalTeams - (acc.submittedCount + acc.draftCount);
-              // acc.courseNotStarted += item.courseNotStarted;
+              acc.coursePercentage += item.coursePercentage;
               acc.courseNotStarted =
                 acc.totalStudents -
                 (acc.courseCompleted + acc.courseINprogesss);
@@ -873,6 +873,7 @@ const StudentProgress = () => {
               // maleStudents: 0,
               // femaleStudents: 0,
               // otherStudents : 0,
+              coursePercentage:0,
               courseCompleted: 0,
               courseINprogesss: 0,
               courseNotStarted: 0,
@@ -945,6 +946,7 @@ const StudentProgress = () => {
           setBarChart1Data(barData);
           setBarChart2Data(stackedBarChartData);
           setTotalCount(total);
+          // console.log(total,"11");
         }
       })
       .catch((error) => {
@@ -1278,13 +1280,16 @@ const StudentProgress = () => {
                                     {totalCount.courseNotStarted}
                                   </td>
                                   <td style={{ color: "crimson" }}>
+                                    {totalCount.coursePercentage}%
+                                  </td>
+                                  {/* <td style={{ color: "crimson" }}>
                                     {Math.round(
                                       (totalCount.courseCompleted /
                                         totalCount.totalStudents) *
                                       100
                                     )}
                                     %
-                                  </td>
+                                  </td> */}
                                   <td style={{ color: "crimson" }}>{totalCount.submittedCount}</td>{" "}
                                   <td style={{ color: "crimson" }}>{totalCount.draftCount}</td>{" "}
                                   <td style={{ color: "crimson" }}>{totalCount.ideaNotStarted}</td>

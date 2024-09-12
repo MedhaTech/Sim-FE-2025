@@ -439,11 +439,11 @@ const DBStu = () => {
 
               <h6> here&apos;s what&apos;s happening with your School Innovation Marathon 2024 today.</h6>
             </div>
-            {/* <div className="d-flex align-items-center">
+            <div className="d-flex align-items-center">
               <div className="dropdown">
                   <LanguageSelectorComp module="student" />
               </div>
-            </div> */}
+            </div>
           </div>
           <div className="row sales-cards">
             <div className="col-xl-3 col-sm-6 col-12">

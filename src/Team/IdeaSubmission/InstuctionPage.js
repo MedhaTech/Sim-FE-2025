@@ -33,7 +33,9 @@ const InstructionsPage = (props) => {
         swalWithBootstrapButtons
             .fire({
                 title: "<h4>Oops..! Idea submission not enabled?</h4>",
-                text: "You can access idea submission only after all your teammates complete course.",
+                // text: "You can access idea submission only after all your teammates complete course.",
+                text:"You can access idea submission as long as at least one of your teammates has completed the course.",
+
                 imageUrl: `${logout}`,
                 confirmButtonText: 'Ok',
             });

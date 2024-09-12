@@ -125,29 +125,32 @@ const ReportsRegistration = () => {
       label: "Registered Schools",
       key: "reg_school",
     },
-
     {
-      label: "Total Registered ATL Schools",
+      label: 'Total Teachers',
+      key: "allTeachers",
+  },
+    {
+      label: "ATL Teachers",
       key: "ATL_Count",
     },
     {
-      label: "Total Registered Non-ATL Schools",
+      label: "Non-ATL Teachers",
       key: "NonATL_Count",
     },
     // {
-    //     label: 'FullyAidedHighSchool',
-    //     key: 'FullyAidedHighSchool_Count'
+    //     label: 'Total Teachers',
+    //     key: 'allTeachers'
     // },
     {
       label: "Registered Male Teachers",
       key: "Male",
     },
     {
-      label: " Registered Female Teachers",
+      label: "Registered Female Teachers",
       key: "Female",
     },
     {
-      label: " Registered Others Teachers",
+      label: "Registered Others Teachers",
       key: "others",
     },
   ];
@@ -203,7 +206,7 @@ const ReportsRegistration = () => {
       key: "Female",
     },
     {
-      label: " Registered Others Teachers",
+      label: "Registered Others Teachers",
       key: "others",
     },
   ];
@@ -657,7 +660,12 @@ const ReportsRegistration = () => {
           const chartTableData = response?.data?.data || [];
 
           setChartTableData(chartTableData);
-          setDownloadTableData(chartTableData);
+          const updatedData = chartTableData.map((item) => ({
+            ...item,
+            allTeachers: item.Male + item.Female + item.others, // Calculate total teachers
+          }));
+          setDownloadTableData(updatedData);
+          // console.log(downloadTableData,"all");
 
           const lastRow = chartTableData[chartTableData.length - 1];
 
@@ -667,7 +675,7 @@ const ReportsRegistration = () => {
           const femaleCount = lastRow.Female || 0;
           const ATLregCount = lastRow.ATL_Count || 0;
           const NONATLregNotCount = lastRow.NonATL_Count || 0;
-          console.log(NONATLregNotCount,"11");
+          // console.log(NONATLregNotCount,"11");
           const FullyAidedHighSchoolCount =
             lastRow.FullyAidedHighSchool_Count || 0;
           const FullyAidedHigherSecondarySchoolCount =
@@ -680,7 +688,7 @@ const ReportsRegistration = () => {
             lastRow.PartiallyAidedHighSchool_Count || 0;
           const PartiallyAidedHigherSecondarySchoolCount =
             lastRow.PartiallyAidedHigherSecondarySchool_Count || 0;
-
+// const allTeachers=( lastRow.Female +lastRow.others+lastRow.Male);
           setRegisteredGenderChartData({
             labels: ["Male Teachers", "Female Teachers", "Others"],
             datasets: [

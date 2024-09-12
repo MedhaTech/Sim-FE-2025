@@ -109,11 +109,11 @@ const TeacherProgressDetailed = () => {
 
   const tableHeaders = [
     {
-      label: "Total Registered ATL Schools",
+      label: "ATL Schools",
       key: "ATL_Count",
     },
     {
-      label: "Total Registered Non-ATL Schools",
+      label: "Non-ATL Schools",
       key: "NonATL_Count",
     },
   ];
@@ -276,9 +276,10 @@ const TeacherProgressDetailed = () => {
     axios(config)
       .then((response) => {
         if (response.status === 200) {
-          console.log(response, "view");
+          // console.log(response, "view");
           const chartTableData1 = response?.data?.data || [];
           setInstType(chartTableData1);
+          
           setDownloadTableData1(chartTableData1);
 
           const lastRow = chartTableData1[chartTableData1.length - 1];
@@ -640,10 +641,10 @@ const TeacherProgressDetailed = () => {
                                   {selectstate !== "Tamil Nadu" && (
                                   <>
                                     <th style={{  color: "#36A2EB", }}>
-                                      ATL Teachers
+                                      ATL Schools
                                     </th>
                                     <th style={{ color: "#36A2EB", }}>
-                                      Non-ATL Teachers
+                                      Non-ATL Schools
                                     </th>
                                   </>
                                 )}
