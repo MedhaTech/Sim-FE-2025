@@ -119,16 +119,13 @@ const ReportsRegistration = () => {
     },
     {
       label: "Total Eligible ATL Schools",
-      key: "ATL_Count",
+      key: "Eligible_school",
     },
     {
       label: "Registered Schools",
       key: "reg_school",
     },
-    {
-      label: 'Total Teachers',
-      key: "allTeachers",
-  },
+   
     {
       label: "ATL Teachers",
       key: "ATL_Count",
@@ -137,6 +134,10 @@ const ReportsRegistration = () => {
       label: "Non-ATL Teachers",
       key: "NonATL_Count",
     },
+    {
+      label: 'Total Teachers',
+      key: "allTeachers",
+  },
     // {
     //     label: 'Total Teachers',
     //     key: 'allTeachers'
@@ -167,7 +168,22 @@ const ReportsRegistration = () => {
       label: "Registered Schools",
       key: "reg_school",
     },
-
+    {
+      label: 'Total Teachers',
+      key: "allTeachers",
+  },
+    {
+      label: "Registered Male Teachers",
+      key: "Male",
+    },
+    {
+      label: " Registered Female Teachers",
+      key: "Female",
+    },
+    {
+      label: "Registered Others Teachers",
+      key: "others",
+    },
     {
       label: "FullyAidedHighSchool",
       key: "FullyAidedHighSchool_Count",
@@ -197,28 +213,17 @@ const ReportsRegistration = () => {
       label: "Non-ATL Schools",
       key: "NonATL_Count",
     },
-    {
-      label: "Registered Male Teachers",
-      key: "Male",
-    },
-    {
-      label: " Registered Female Teachers",
-      key: "Female",
-    },
-    {
-      label: "Registered Others Teachers",
-      key: "others",
-    },
+   
   ];
   const RegHeaders = [
     {
       label: "UDISE Code",
       key: "organization.organization_code",
     },
-    {
-      label: "ATL Code",
-      key: "organization.unique_code",
-    },
+    // {
+    //   label: "ATL Code",
+    //   key: "organization.unique_code",
+    // },
     {
       label: "School Name",
       key: "organization.organization_name",
