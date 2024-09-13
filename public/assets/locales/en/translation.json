@@ -12,6 +12,10 @@
     "signupwelcome": "Together let’s learn and build something amazing.",
     "login": {
         "logIn": "Log in",
+        "logOut": "Logout",
+        "cancel": "Cancel",
+
+
         "Title": "Together let’s learn and build something amazing.",
         "subtitle": "Creating change makers of tomorrow",
         "join_us": "Join Unisolve as a",
@@ -143,6 +147,11 @@
         "Change_password": "Change password"
     },
     "home": {
+        "preinst":"",
+        "startnow":"Start Now",
+        "dolater":"Do Later",
+
+
         "pre_survey": "Pre Survey",
         "dashboard": "Dashboard",
         "courses": "Courses",
