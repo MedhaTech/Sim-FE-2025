@@ -1113,7 +1113,7 @@ const StudentProgress = () => {
                               className="view-all d-flex align-items-center"
                             >
                               <button
-                                className="btn mx-2 btn-primary"
+                                className="btn mx-2 btn-primary btn-sm"
                                 type="button"
                                 onClick={() => {
                                   if (downloadTableData) {
@@ -1123,14 +1123,14 @@ const StudentProgress = () => {
                                   }
                                 }}
                               >
-                                Get Statistics
+                                Download
                               </button>
                             </Link>
                           </div>
                         </div>
                         <div className="card-body">
                           <div className="table-responsive">
-                            <table className="table table-borderless recent-transactions">
+                            <table className="table table-border recent-transactions">
                               <thead>
                                 <tr>
                                   <th style={{ color: "#36A2EB" }}>#</th>
