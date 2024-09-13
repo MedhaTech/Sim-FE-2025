@@ -644,39 +644,39 @@ const TeacherProgressDetailed = () => {
                             <table className="table table-border recent-transactions">
                               <thead>
                                 <tr>
-                                  <th style={{ color: "#36A2EB" }}>#</th>
-                                  <th style={{ color: "#36A2EB" }}>District Name</th>
+                                  <th style={{ color: "#36A2EB" ,fontWeight: "bold"}}>#No</th>
+                                  <th style={{ color: "#36A2EB",fontWeight: "bold" }}>District Name</th>
                                   {selectstate !== "Tamil Nadu" && (
                                     <>
-                                      <th style={{ color: "#36A2EB", }}>
+                                      <th style={{ color: "#36A2EB",fontWeight: "bold" }}>
                                         ATL Schools
                                       </th>
-                                      <th style={{ color: "#36A2EB", }}>
+                                      <th style={{ color: "#36A2EB",fontWeight: "bold" }}>
                                         Non-ATL Schools
                                       </th>
                                     </>
                                   )}
                                   {selectstate === "Tamil Nadu" && (
                                     <>
-                                      <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                      <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                         Fully Aided High Schools
                                       </th>
-                                      <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                      <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                         Fully Aided-Higher Secondary Schools
                                       </th>
-                                      <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                      <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                         Government High Schools
                                       </th>
-                                      <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                      <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                         Government-Higher Secondary Schools
                                       </th>
-                                      <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                      <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                         Partially Aided-High Schools
                                       </th>
-                                      <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                      <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                         Partially Aided-Higher Secondary Schools
                                       </th>
-                                      <th style={{ color: "#36A2EB", whiteSpace: "wrap", }}>
+                                      <th style={{ color: "#36A2EB", whiteSpace: "wrap",fontWeight: "bold" }}>
                                         Non-ATL Schools
                                       </th>
                                     </>

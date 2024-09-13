@@ -1137,15 +1137,16 @@ const TeacherProgressDetailed = () => {
                           <div className="table-responsive">
                             <table className="table table-border recent-transactions">
                               <thead>
-                                <tr>
-                                  <th style={{ color: "#36A2EB" }}>#</th>
-                                  <th style={{ color: "#36A2EB" }}>
+                                <tr >
+                                  <th style={{ color: "#36A2EB",fontWeight: "bold", }}>#No</th>
+                                  <th style={{ color: "#36A2EB",fontWeight: "bold", }}>
                                     District Name
                                   </th>
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
                                       color: "#36A2EB",
+                                      fontWeight: "bold",
                                     }}
                                   >
                                     #Registered Teachers
@@ -1154,6 +1155,7 @@ const TeacherProgressDetailed = () => {
                                     style={{
                                       whiteSpace: "wrap",
                                       color: "#36A2EB",
+                                      fontWeight: "bold",
                                     }}
                                   >
                                     #Teams Created
@@ -1162,6 +1164,7 @@ const TeacherProgressDetailed = () => {
                                     style={{
                                       whiteSpace: "wrap",
                                       color: "#36A2EB",
+                                      fontWeight: "bold",
                                     }}
                                   >
                                     #Students Enrolled
@@ -1170,6 +1173,7 @@ const TeacherProgressDetailed = () => {
                                     style={{
                                       whiteSpace: "wrap",
                                       color: "#36A2EB",
+                                      fontWeight: "bold",
                                     }}
                                   >
                                     <FontAwesomeIcon icon={faFemale} />
@@ -1179,6 +1183,7 @@ const TeacherProgressDetailed = () => {
                                     style={{
                                       whiteSpace: "wrap",
                                       color: "#36A2EB",
+                                      fontWeight: "bold",
                                     }}
                                   >
                                     <FontAwesomeIcon icon={faMale} /> Male
@@ -1188,6 +1193,7 @@ const TeacherProgressDetailed = () => {
                                     style={{
                                       whiteSpace: "wrap",
                                       color: "#36A2EB",
+                                      fontWeight: "bold",
                                     }}
                                   >
                                     Other Students
@@ -1196,6 +1202,7 @@ const TeacherProgressDetailed = () => {
                                     style={{
                                       whiteSpace: "wrap",
                                       color: "#36A2EB",
+                                      fontWeight: "bold",
                                     }}
                                   >
                                     <FontAwesomeIcon
@@ -1207,6 +1214,7 @@ const TeacherProgressDetailed = () => {
                                     style={{
                                       whiteSpace: "wrap",
                                       color: "#36A2EB",
+                                      fontWeight: "bold",
                                     }}
                                   >
                                     <FontAwesomeIcon
@@ -1218,6 +1226,7 @@ const TeacherProgressDetailed = () => {
                                     style={{
                                       whiteSpace: "wrap",
                                       color: "#36A2EB",
+                                      fontWeight: "bold",
                                     }}
                                   >
                                     <FontAwesomeIcon

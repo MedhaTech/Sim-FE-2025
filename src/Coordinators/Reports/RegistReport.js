@@ -113,6 +113,7 @@ const ReportsRegistration = () => {
 
   const [downloadTableData, setDownloadTableData] = useState(null);
   const summaryHeaders = [
+   
     {
       label: "District Name",
       key: "district",
@@ -941,14 +942,23 @@ const ReportsRegistration = () => {
                               </div>
                             </>
                           )}
-                          {/* <div className="col-md-12 text-center mt-3">
+                         
+                            <div className="card-header d-flex justify-content-between align-items-center">
+                           {/* <h4 className="card-title mb-0">Institution Type Stats</h4> */}
+                           </div>
+                           <div className="card-header d-flex justify-content-between align-items-center">
+                           <h4 className="card-title mb-0">Institution Type Gender Stats</h4>
+                           </div>
+                           <div className="col-md-12 text-center mt-3">
                             <p>
                               <b>
                                 Overall Registered Female vs Male vs Others
                                 Teachers As of {newFormat}
                               </b>
                             </p>
-                          </div> */}
+                          </div>
+                           <div className="card-body">
+                           <div className="row">
                           <div className="col-md-12 doughnut-chart-container">
                             {registeredGenderChartData && (
                               <Doughnut
@@ -956,6 +966,8 @@ const ReportsRegistration = () => {
                                 options={chartOptions}
                               />
                             )}
+                            </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -977,7 +989,6 @@ const ReportsRegistration = () => {
                               type="button"
                               onClick={() => {
                                 if (downloadTableData) {
-                                  // setIsDownloading(true);
                                   setDownloadTableData(null);
                                   csvLinkRefTable.current.link.click();
                                 }
@@ -993,61 +1004,61 @@ const ReportsRegistration = () => {
                           <table className="table table-border recent-transactions">
                             <thead>
                               <tr>
-                                <th style={{ color: "#36A2EB" }}>#</th>
-                                <th style={{ color: "#36A2EB" }}>District Name</th>
-                                <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                <th style={{ color: "#36A2EB" ,fontWeight: "bold", }}>#No</th>
+                                <th style={{ color: "#36A2EB",fontWeight: "bold" }}>District Name</th>
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                   Eligible ATL{" "}
                                   <FontAwesomeIcon icon={faSchool} />
                                 </th>
-                                <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                   Registered Schools
                                 </th>
                                 {RegTeachersState !== "Tamil Nadu" && (
                                   <>
-                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                       ATL Teachers
                                     </th>
-                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB", fontWeight: "bold"}}>
                                       Non-ATL Teachers
                                     </th>
                                   </>
                                 )}
-                                <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                   Total Teachers
                                 </th>
-                                <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                   <FontAwesomeIcon icon={faMale} />
                                   Male
                                 </th>
-                                <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                   <FontAwesomeIcon icon={faFemale} />
                                   Female
                                 </th>
-                                <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                   <FontAwesomeIcon icon={faFemale} />
                                   Others
                                 </th>
                                 {RegTeachersState === "Tamil Nadu" && (
                                   <>
-                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                       Fully Aided High Schools
                                     </th>
-                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                       Fully Aided-Higher Secondary Schools
                                     </th>
-                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                       Government High Schools
                                     </th>
-                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                       Government-Higher Secondary Schools
                                     </th>
-                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                       Partially Aided-High Schools
                                     </th>
-                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                       Partially Aided-Higher Secondary Schools
                                     </th>
-                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                       Non-ATL Schools
                                     </th>
                                   </>
