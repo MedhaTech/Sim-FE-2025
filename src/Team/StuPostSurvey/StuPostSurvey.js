@@ -650,7 +650,8 @@ return (
                               className="btn btn-warning m-2"
                               onClick={(e) => handleSubmit(e)}
                             >
-                              SUBMIT
+                              {t('teacher.submit')}
+                              {/* SUBMIT */}
                             </button>
                           </div>
                         </Form>

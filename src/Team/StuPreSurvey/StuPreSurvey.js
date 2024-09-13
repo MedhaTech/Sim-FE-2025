@@ -294,14 +294,17 @@ return (
                             className="btn btn-primary m-3"
                             onClick={handleStart}
                           >
-                            Start Now
+                             {t('home.startnow')}
+                            {/* Start Now */}
                           </button>
                           <button
                               className="btn btn-secondary"
                               onClick={handleLogout}
                             >
                               <img src={logoutIcon} alt="LogoutIcon" />{" "}
-                              Do Later
+                              {/* Do Later */}
+                             {t('home.dolater')}
+
                           </button>
                         </Col>
                       </Row>
@@ -743,7 +746,8 @@ return (
                               className="btn btn-warning m-2"
                               onClick={(e) => handleOnSubmit(e)}
                             >
-                              SUBMIT
+                               {t('teacher.submit')}
+                              {/* SUBMIT */}
                             </button>
                           </div>
                         </Form>
