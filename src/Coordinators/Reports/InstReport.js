@@ -259,9 +259,8 @@ const TeacherProgressDetailed = () => {
   useEffect(() => {
     fetchChartTableData();
     const newDate = new Date();
-    const formattedDate = `${newDate.getUTCDate()}/${
-      1 + newDate.getMonth()
-    }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
+    const formattedDate = `${newDate.getUTCDate()}/${1 + newDate.getMonth()
+      }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
     setNewFormat(formattedDate);
   }, []);
   const fetchChartTableData = () => {
@@ -287,24 +286,24 @@ const TeacherProgressDetailed = () => {
           // console.log(response, "view");
           const chartTableData1 = response?.data?.data || [];
           setInstType(chartTableData1);
-          
+
           setDownloadTableData1(chartTableData1);
 
           const lastRow = chartTableData1[chartTableData1.length - 1];
           const ATLCount = lastRow?.ATL_Count || 0;
           const NonATLCount = lastRow?.NonATL_Count || 0;
           const FullyAidedHighSchoolCount =
-          lastRow.FullyAidedHighSchool_Count || 0;
-        const FullyAidedHigherSecondarySchoolCount =
-          lastRow.FullyAidedHigherSecondarySchool_Count || 0;
-        const GovernmentHighSchoolCount =
-          lastRow.GovernmentHighSchool_Count || 0;
-        const GovernmentHigherSecondarySchoolCount =
-          lastRow.GovernmentHigherSecondarySchool_Count || 0;
-        const PartiallyAidedHighSchoolCount =
-          lastRow.PartiallyAidedHighSchool_Count || 0;
-        const PartiallyAidedHigherSecondarySchoolCount =
-          lastRow.PartiallyAidedHigherSecondarySchool_Count || 0;
+            lastRow.FullyAidedHighSchool_Count || 0;
+          const FullyAidedHigherSecondarySchoolCount =
+            lastRow.FullyAidedHigherSecondarySchool_Count || 0;
+          const GovernmentHighSchoolCount =
+            lastRow.GovernmentHighSchool_Count || 0;
+          const GovernmentHigherSecondarySchoolCount =
+            lastRow.GovernmentHigherSecondarySchool_Count || 0;
+          const PartiallyAidedHighSchoolCount =
+            lastRow.PartiallyAidedHighSchool_Count || 0;
+          const PartiallyAidedHigherSecondarySchoolCount =
+            lastRow.PartiallyAidedHigherSecondarySchool_Count || 0;
           setDoughnutChartData({
             labels: ["ATL", "Non-ATL"],
             datasets: [
@@ -323,7 +322,7 @@ const TeacherProgressDetailed = () => {
               "Government Higher Secondary Schools",
               "Partially Aided High Schools",
               "Partially Aided Higher Secondary Schools",
-               "Non-ATL Schools"
+              "Non-ATL Schools"
 
             ],
             datasets: [
@@ -344,7 +343,7 @@ const TeacherProgressDetailed = () => {
                   "#9932CC",
                   "#808080",
                   "#A0522D",
-                   "#ff99af"
+                  "#ff99af"
                 ],
                 hoverBackgroundColor: [
                   "#33cc33",
@@ -435,8 +434,9 @@ const TeacherProgressDetailed = () => {
         <div className="page-header">
           <div className="add-item d-flex">
             <div className="page-title">
-              <h4>Institutions /Organizations /Schools List</h4>
-              {/* <h6>Institution </h6> */}
+              {/* <h4>Institutions /Organizations /Schools List</h4> */}
+              <h4>Institutions Report </h4>
+              <h6>List of overall Institutions details</h6>
             </div>
           </div>
           {/* <div className="page-btn">
@@ -513,10 +513,10 @@ const TeacherProgressDetailed = () => {
                     filename={`InstitutionSummaryTable_${newFormat}.csv`}
                     className="hidden"
                     ref={csvLinkRef}
-                    // onDownloaded={() => {
-                    //     setIsDownload(false);
-                    //     setDownloadComplete(true);
-                    // }}
+                  // onDownloaded={() => {
+                  //     setIsDownload(false);
+                  //     setDownloadComplete(true);
+                  // }}
                   >
                     Download Table CSV
                   </CSVLink>
@@ -530,8 +530,8 @@ const TeacherProgressDetailed = () => {
                     <div className="col-sm-1 col-md-12 col-xl-4 d-flex">
                       <div className="card flex-fill default-cover w-100 mb-4">
                         <div className="card-header d-flex justify-content-between align-items-center">
-                          <h4 className="card-title mb-0">Data Analytics</h4>
-                          <div className="dropdown">
+                          <h4 className="card-title mb-0">Statistics</h4>
+                          {/* <div className="dropdown">
                             <Link
                               to="#"
                               className="view-all d-flex align-items-center"
@@ -541,22 +541,22 @@ const TeacherProgressDetailed = () => {
                                 <ArrowRight className="feather-16" />
                               </span>
                             </Link>
-                          </div>
+                          </div> */}
                         </div>
 
                         <div className="card-body">
                           <div className="row">
                             {selectstate !== "Tamil Nadu" ? (
                               <>
-                                <div className="col-md-6 text-center mt-3">
+                                {/* <div className="col-md-6 text-center mt-3">
                                   <p>
                                     <b>
                                       Overall Institution Types ATL vs Non-ATL
                                       As of {newFormat}
                                     </b>
                                   </p>
-                                </div>
-                                <div className="col-md-6 doughnut-chart-container">
+                                </div> */}
+                                <div className="col-md-12 doughnut-chart-container">
                                   {doughnutChartData && (
                                     <Doughnut
                                       data={doughnutChartData}
@@ -567,7 +567,7 @@ const TeacherProgressDetailed = () => {
                               </>
                             ) : (
                               <>
-                                <div className="col-md-6 text-center mt-3">
+                                {/* <div className="col-md-6 text-center mt-3">
                                   <p>
                                     <b>
                                       Overall Institution Types Fully Aided High
@@ -579,8 +579,8 @@ const TeacherProgressDetailed = () => {
                                       {newFormat}
                                     </b>
                                   </p>
-                                </div>
-                                <div className="col-md-6 doughnut-chart-container">
+                                </div> */}
+                                <div className="col-md-12 doughnut-chart-container">
                                   {doughnutChartDataTN && (
                                     <Doughnut
                                       data={doughnutChartDataTN}
@@ -610,7 +610,7 @@ const TeacherProgressDetailed = () => {
                         </div>
                       </div>
                     </div>
-                  {/* </div>
+                    {/* </div>
                   <div className="row"> */}
                     <div className="col-sm-12 col-md-12 col-xl-8 d-flex">
                       <div className="card flex-fill default-cover w-100 mb-4">
@@ -624,7 +624,7 @@ const TeacherProgressDetailed = () => {
                               className="view-all d-flex align-items-center"
                             >
                               <button
-                                className="btn mx-2 btn-primary"
+                                className="btn mx-2 btn-primary btn-sm"
                                 type="button"
                                 onClick={() => {
                                   if (downloadTableData1) {
@@ -634,53 +634,53 @@ const TeacherProgressDetailed = () => {
                                   }
                                 }}
                               >
-                                Get Statistics
+                                Download
                               </button>
                             </Link>
                           </div>
                         </div>
                         <div className="card-body">
                           <div className="table-responsive">
-                            <table className="table table-borderless recent-transactions">
+                            <table className="table table-border recent-transactions">
                               <thead>
                                 <tr>
                                   <th style={{ color: "#36A2EB" }}>#</th>
                                   <th style={{ color: "#36A2EB" }}>District Name</th>
                                   {selectstate !== "Tamil Nadu" && (
-                                  <>
-                                    <th style={{  color: "#36A2EB", }}>
-                                      ATL Schools
-                                    </th>
-                                    <th style={{ color: "#36A2EB", }}>
-                                      Non-ATL Schools
-                                    </th>
-                                  </>
-                                )}
-                                 {selectstate === "Tamil Nadu" && (
-                                  <>
-                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
-                                      Fully Aided High Schools
-                                    </th>
-                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
-                                      Fully Aided-Higher Secondary Schools
-                                    </th>
-                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
-                                      Government High Schools
-                                    </th>
-                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
-                                      Government-Higher Secondary Schools
-                                    </th>
-                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
-                                      Partially Aided-High Schools
-                                    </th>
-                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
-                                      Partially Aided-Higher Secondary Schools
-                                    </th>
-                                    <th style={{ color: "#36A2EB", whiteSpace: "wrap", }}>
-                                      Non-ATL Schools
-                                    </th>
-                                  </>
-                                )}
+                                    <>
+                                      <th style={{ color: "#36A2EB", }}>
+                                        ATL Schools
+                                      </th>
+                                      <th style={{ color: "#36A2EB", }}>
+                                        Non-ATL Schools
+                                      </th>
+                                    </>
+                                  )}
+                                  {selectstate === "Tamil Nadu" && (
+                                    <>
+                                      <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                        Fully Aided High Schools
+                                      </th>
+                                      <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                        Fully Aided-Higher Secondary Schools
+                                      </th>
+                                      <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                        Government High Schools
+                                      </th>
+                                      <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                        Government-Higher Secondary Schools
+                                      </th>
+                                      <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                        Partially Aided-High Schools
+                                      </th>
+                                      <th style={{ whiteSpace: "wrap", color: "#36A2EB", }}>
+                                        Partially Aided-Higher Secondary Schools
+                                      </th>
+                                      <th style={{ color: "#36A2EB", whiteSpace: "wrap", }}>
+                                        Non-ATL Schools
+                                      </th>
+                                    </>
+                                  )}
                                 </tr>
                               </thead>
                               <tbody className="text-left">
@@ -688,15 +688,15 @@ const TeacherProgressDetailed = () => {
                                   <tr key={index}>
                                     <td>{index + 1}</td>
                                     <td
-                                    style={{
-                                      maxWidth: "150px",
-                                      overflow: "hidden",
-                                      textOverflow: "ellipsis",
-                                      color: "crimson"
-                                    }}
-                                  >
-                                    {item.district}
-                                  </td>
+                                      style={{
+                                        maxWidth: "150px",
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
+                                        color: "crimson"
+                                      }}
+                                    >
+                                      {item.district}
+                                    </td>
                                     {/* <td
                                    
                                     >
@@ -704,37 +704,37 @@ const TeacherProgressDetailed = () => {
                                     </td>
                                     <td>{item.NonATL_Count}</td> */}
                                     {selectstate !== "Tamil Nadu" && (
-                                    <>
-                                      {" "}
-                                      <td>{item.ATL_Count}</td>
-                                      <td>{item.NonATL_Count}</td>
-                                    </>
-                                  )}
+                                      <>
+                                        {" "}
+                                        <td>{item.ATL_Count}</td>
+                                        <td>{item.NonATL_Count}</td>
+                                      </>
+                                    )}
                                     {selectstate === "Tamil Nadu" && (
-                                    <>
-                                      <td>{item.FullyAidedHighSchool_Count}</td>
-                                      <td>
-                                        {
-                                          item.FullyAidedHigherSecondarySchool_Count
-                                        }
-                                      </td>
-                                      <td>{item.GovernmentHighSchool_Count}</td>
-                                      <td>
-                                        {
-                                          item.GovernmentHigherSecondarySchool_Count
-                                        }
-                                      </td>
-                                      <td>
-                                        {item.PartiallyAidedHighSchool_Count}
-                                      </td>
-                                      <td>
-                                        {
-                                          item.PartiallyAidedHigherSecondarySchool_Count
-                                        }
-                                      </td>
-                                      <td>{item.NonATL_Count ? item.NonATL_Count : 0}</td>
-                                    </>
-                                  )}
+                                      <>
+                                        <td>{item.FullyAidedHighSchool_Count}</td>
+                                        <td>
+                                          {
+                                            item.FullyAidedHigherSecondarySchool_Count
+                                          }
+                                        </td>
+                                        <td>{item.GovernmentHighSchool_Count}</td>
+                                        <td>
+                                          {
+                                            item.GovernmentHigherSecondarySchool_Count
+                                          }
+                                        </td>
+                                        <td>
+                                          {item.PartiallyAidedHighSchool_Count}
+                                        </td>
+                                        <td>
+                                          {
+                                            item.PartiallyAidedHigherSecondarySchool_Count
+                                          }
+                                        </td>
+                                        <td>{item.NonATL_Count ? item.NonATL_Count : 0}</td>
+                                      </>
+                                    )}
                                     {/* <td>{item.totalStudents}</td>
                                     <td>{item.courseCompleted}</td>
                                     <td>{item.courseINprogesss}</td>
