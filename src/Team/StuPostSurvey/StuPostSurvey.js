@@ -29,6 +29,7 @@ import { useTranslation } from "react-i18next";
 import StuPostSurveyStatic from "./StuPostSurveyStatic";
 // import { useHistory } from "react-router-dom";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
+import { getLanguage } from '../../constants/languageOptions';
 
 const StuPostSurvey = () => {
     const { t } = useTranslation();
@@ -42,6 +43,9 @@ const StuPostSurvey = () => {
     const [answerResponses, setAnswerResponses] = useState([]);
     const ideastatus = localStorage.getItem("ideaSubStatus");
     const userID = currentUser?.data[0]?.user_id;
+    const language = useSelector(
+      (state) => state?.studentRegistration?.studentLanguage
+  );
     const filterAnswer = (questionId) => {
       const data =
         answerResponses &&
@@ -143,16 +147,23 @@ const StuPostSurvey = () => {
             });
         }
       };
-
       useEffect(() => {
+        console.log("pre page id");
+      apiData(language);
+      }, [count]);
+    
+      // useEffect(() => {
+        const apiData=(language)=>{
+        const locale = getLanguage(language);
+
         let enDataone = encryptGlobal("4");
         let axiosConfig = getNormalHeaders(KEY.User_API_Key);
-        const lang = "locale=en";
-        const final = lang.split("=");
+        // const lang = "locale=en";
+        // const final = lang.split("=");
         let enParamData = encryptGlobal(
           JSON.stringify({
             role: "STUDENT",
-            locale: final[1],
+            locale,
             user_id : userID,
           })
         );
@@ -173,7 +184,8 @@ const StuPostSurvey = () => {
           .catch((err) => {
             return err.response;
           });
-      }, [count]);
+        };
+      // }, [count]);
 
 
 
