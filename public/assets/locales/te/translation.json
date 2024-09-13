@@ -144,7 +144,9 @@
         "idea_submission": "ఆలోచన సమర్పణ",
         "my_profile": "నా జీవన వివరణ",
         "change_pass": "పాస్‌వర్డ్ మార్చండి",
-        "resources": "రిసోర్స్"
+        "resources": "రిసోర్స్",
+        "student":"స్టడ్నెట్",
+        "reshead":"ప్రోగ్రామ్ సంబంధిత వనరుల జాబితా"
     },
     "get_started": {
         "heading": "Welcome Students!",

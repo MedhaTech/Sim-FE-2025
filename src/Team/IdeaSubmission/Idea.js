@@ -10,6 +10,7 @@ import { themes, themesList } from "./themesData";
 import { getCurrentUser } from '../../helpers/Utils';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import axios from 'axios';
+import { useTranslation } from "react-i18next";
 
 const settings = {
   dots: false,
@@ -52,6 +53,8 @@ const settings = {
 };
 
 const Idea = ({ showChallenge, idea }) => {
+const { t } = useTranslation();
+
   const [theme, setTheme] = useState(null);
   const currentUser = getCurrentUser('current_user');
   const TeamId = currentUser?.data[0]?.team_id;
@@ -112,7 +115,7 @@ const Idea = ({ showChallenge, idea }) => {
       <div className='content'>
         <div className="page-header">
           <div className="page-title">
-            <h4>Idea Submission</h4>
+            <h4>  {t('home.idea_submission')}</h4>
             <h6>Share your Amazing Ideas with us</h6>
           </div>
         </div>
@@ -142,7 +145,7 @@ const Idea = ({ showChallenge, idea }) => {
                                             <Link to="#">Mobiles</Link>
                                         </h6> */}
                               <h6 className="product-name">
-                                <Link to="#">{theme.title}</Link>
+                                <Link to="#">{t(theme.title)}</Link>
                               </h6>
                               <div className="d-flex align-items-center justify-content-between price">
                                 <span>Focus Areas</span>
@@ -173,8 +176,8 @@ const Idea = ({ showChallenge, idea }) => {
                 <aside className="product-order-list">
                   <div className="head d-flex align-items-center justify-content-between w-100">
                     <div className="">
-                      <h5>{themes[data - 1].title}</h5><br />
-                      <span>{themes[data - 1].desc}</span>
+                      <h5>{t(themes[data - 1].title)}</h5><br />
+                      <span>{t(themes[data - 1].desc)}</span>
                     </div>
                   </div>
                   <div className="product-added block-section">
@@ -189,7 +192,7 @@ const Idea = ({ showChallenge, idea }) => {
                           <div className="info">
                             {themes[data - 1].focusareas.slice(0, themes[data - 1].focusareas.length - 1).map((focusarea, index) => (
                               <h6 key={index}>
-                                <span>{focusarea}</span>
+                                <span>{t(focusarea)}</span>
                               </h6>
                             ))}
                             {/* {themes[data - 1].focusareas.length} to display others also
@@ -218,7 +221,7 @@ const Idea = ({ showChallenge, idea }) => {
                       <span className="me-1 d-flex align-items-center">
                         <i data-feather="pause" className="feather-16" />
                       </span>
-                      Proceed
+                      {t('idea_page.proceed')}
                     </Link>
                   </div>
                 </aside>

@@ -4,11 +4,11 @@ export const languageOptions = [
         name: 'English',
         country_code: 'in'
     },
-    {
-        code: 'tn',
-        name: 'Tamil',
-        country_code: 'in'
-    },
+    // {
+    //     code: 'tn',
+    //     name: 'Tamil',
+    //     country_code: 'in'
+    // },
     {
         code: 'hi',
         name: 'Hindi',
@@ -19,11 +19,11 @@ export const languageOptions = [
         name: 'Telugu',
         country_code: 'in'
     },
-    {
-        code: 'ka',
-        name: 'Kannada',
-        country_code: 'in'
-    }
+    // {
+    //     code: 'ka',
+    //     name: 'Kannada',
+    //     country_code: 'in'
+    // }
 
     // {
     //     code: process.env.REACT_APP_LOCAL_LANGUAGE_CODE,
@@ -39,10 +39,10 @@ export const getLanguage = (lang) => {
         return `hi`;
     } else if (lang?.code == 'te') {
         return `te`;
-    } else if (lang?.code == 'ka') {
-        return `ka`;
-    } else if (lang?.code == 'tn') {
-        return `tn`;
+    // } else if (lang?.code == 'ka') {
+    //     return `ka`;
+    // } else if (lang?.code == 'tn') {
+    //     return `tn`;
     } else {
         return `en`;
     }

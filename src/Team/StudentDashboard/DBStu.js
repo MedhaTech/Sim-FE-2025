@@ -294,6 +294,7 @@ const DBStu = () => {
 
       });
   };
+  const [ideaEnableStatus, setIdeaEnableStatus] = useState(0);
 
   const stuCoursePercent = () => {
     const corseApi = encryptGlobal(
@@ -315,12 +316,26 @@ const DBStu = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response);
+          console.log(response,"111");
           const per = Math.round(
             (response.data.data[0].topics_completed_count /
               response.data.data[0].all_topics_count) *
             100
           );
+          console.log(per,"per");
+        let anyCompleted = false;
+        if (per === 100) {
+          anyCompleted = true;
+        }
+        const ideaStatus = anyCompleted ? 1 : 0;
+        localStorage.setItem("ideaenablestatus", ideaStatus);
+        setIdeaEnableStatus(ideaStatus); 
+        console.log(ideaEnableStatus,"11");
+
+          // if (per === 100) {
+          //   const ideaStatus = "enabled"; // You can set any value based on your logic
+          //   localStorage.setItem("ideaenablestatus", ideaStatus);
+          // }
           // console.log(per);
           setCoursepercentage(per);
           setStuCourseLoading(false);
