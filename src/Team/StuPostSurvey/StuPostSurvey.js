@@ -197,8 +197,8 @@ return (
       <div className="page-header">
         <div className="add-item d-flex">
           <div className="page-title">
-              <h4>Post Survey</h4>
-              <h6>We value your response the most.</h6>
+              <h4>{t('home.post_survey')}</h4>
+              <h6>{t('home.text')}</h6>
           </div>
         </div>
        </div>
@@ -665,7 +665,7 @@ return (
                         </div>
                         <div>
                           <h4>
-                            Thanks for taking part.<br/> Your Survey responses have been submitted Successfully..!
+                          {t('home.presucess')}<br/> {t('home.precong')}
                           </h4>
                         </div>
                       </div>

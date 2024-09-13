@@ -241,8 +241,8 @@ return (
           <div className="page-header">
             <div className="add-item d-flex">
               <div className="page-title">
-                  <h4>Pre Survey</h4>
-                  <h6>We value your response the most.</h6>
+                  <h4>{t('home.pre_survey')}</h4>
+                  <h6>{t('home.text')}</h6>
               </div>
               {/* <ul className="table-top-head">
             <li>
@@ -759,7 +759,7 @@ return (
                           </figure>
                           <div>
                             <h4>
-                              Thanks for taking part.<br/> Your Survey responses have been submitted Successfully..!
+                            {t('home.presucess')}<br/> {t('home.precong')}
                             </h4>
                           </div>
                         </div>

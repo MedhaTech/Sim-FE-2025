@@ -153,7 +153,37 @@
         "idea_submission": "Idea Submission",
         "my_profile": "My Profile",
         "change_pass": "Change password",
-        "resources": "Resources"
+        "resources": "Resources",
+        "ideatit":"Enter Idea Title",
+        "ideaprob":"Enter Problem Statement",
+        "ideaFoc":"Enter the Focus Area",
+
+"ideaList":"Enter List of Causes",
+"ideaEff":"Enter List of Effects of the problem",
+"ideaSol":"Enter the solution to the problem",
+"ideaFee":"Enter your Feedback",
+"ideaUp":"Upload your Link",
+"ideaFi":"Upload File",
+"ideaSubPop":"Idea submission successful",
+"ideaInitPop":"Idea Initiated Successfully",
+"ideaFullPop": "Please attempt all questions to submit",
+
+
+"ideaDraPop":"Save as Draft success",
+"formfill":"Please attempt all questions to submit",
+"condition":"Only alphanumeric and '_' are allowed ",
+"firstfour":"Please fill Focus Area, Title, ProblemStatement for Idea Initiation.",
+
+
+         "student":"Student",
+         "reshead":"List of program related resources",
+         "presucess":"Thanks for taking part.",
+         "text":"We value your response the most.",
+         "certi":"Certificate will be generated once you complete the post survey.",
+"sub":"Please ensure your team submited the idea to fill the post survey..",
+         
+         "precong":" Your Survey responses have been submitted Successfully..!"
+
     },
     "get_started": {
         "heading": "Welcome Students!",
@@ -429,7 +459,8 @@
         "title3": "Let's take User Feedback",
         "title4": "Prototype - Make & Test",
         "next": "Next",
-        "back": "Back"
+        "back": "Back",
+        "proceed":"proceed"
     },
     "translation": {
         "tamil": "English Content :-",
@@ -489,6 +520,7 @@
         "smarttheme" : "Smart and Resilient Communities use technology and sustainable practices to adapt to challenges, ensuring safety, efficiency, and long-term well-being for all members.",
         "agritheme" : "Focuses on improving farming practices and infrastructure in rural areas to boost productivity, sustainability, and quality of life for rural communities.",
         "othertheme" : "Encourages innovative solutions in any other area that aligns with the vision of Viksit Bharat 2047, fostering a culture of broad-based development and progress."
+        
     },
     "sustainablefocusareas" : {
         "focusarea1" : "Renewable Energy (e.g., solar, wind, hydro)",
