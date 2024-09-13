@@ -1133,14 +1133,14 @@ const StudentProgress = () => {
                             <table className="table table-border recent-transactions">
                               <thead>
                                 <tr>
-                                  <th style={{ color: "#36A2EB" }}>#</th>
-                                  <th style={{ color: "#36A2EB" }}>
+                                  <th style={{ color: "#36A2EB",fontWeight: "bold" }}>#No</th>
+                                  <th style={{ color: "#36A2EB",fontWeight: "bold" }}>
                                     District Name
                                   </th>
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
-                                      color: "#36A2EB",
+                                      color: "#36A2EB",fontWeight: "bold"
                                     }}
                                   >
                                     #Teams Created
@@ -1148,7 +1148,7 @@ const StudentProgress = () => {
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
-                                      color: "#36A2EB",
+                                      color: "#36A2EB",fontWeight: "bold"
                                     }}
                                   >
                                     #Students Enrolled
@@ -1156,7 +1156,7 @@ const StudentProgress = () => {
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
-                                      color: "#36A2EB",
+                                      color: "#36A2EB",fontWeight: "bold"
                                     }}
                                   >
                                     <FontAwesomeIcon
@@ -1167,7 +1167,7 @@ const StudentProgress = () => {
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
-                                      color: "#36A2EB",
+                                      color: "#36A2EB",fontWeight: "bold"
                                     }}
                                   >
                                     <FontAwesomeIcon
@@ -1178,7 +1178,7 @@ const StudentProgress = () => {
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
-                                      color: "#36A2EB",
+                                      color: "#36A2EB",fontWeight: "bold"
                                     }}
                                   >
                                     <FontAwesomeIcon
@@ -1189,7 +1189,7 @@ const StudentProgress = () => {
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
-                                      color: "#36A2EB",
+                                      color: "#36A2EB",fontWeight: "bold"
                                     }}
                                   >
                                     <FontAwesomeIcon
@@ -1200,7 +1200,7 @@ const StudentProgress = () => {
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
-                                      color: "#36A2EB",
+                                      color: "#36A2EB",fontWeight: "bold"
                                     }}
                                   >
                                     #No of Teams Submitted Ideas
@@ -1208,7 +1208,7 @@ const StudentProgress = () => {
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
-                                      color: "#36A2EB",
+                                      color: "#36A2EB",fontWeight: "bold"
                                     }}
                                   >
                                     #No of Teams Ideas in Draft
@@ -1216,7 +1216,7 @@ const StudentProgress = () => {
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
-                                      color: "#36A2EB",
+                                      color: "#36A2EB",fontWeight: "bold"
                                     }}
                                   >
                                     #No of Teams Not Started Idea Submission

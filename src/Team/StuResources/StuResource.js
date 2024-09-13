@@ -4,12 +4,15 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getCurrentUser } from "../../helpers/Utils";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
+import { useTranslation } from 'react-i18next';
 
 import { useNavigate } from "react-router-dom";
 import DataTableExtensions from "react-data-table-component-extensions";
 import DataTable, { Alignment } from "react-data-table-component";
 import axios from "axios";
 const StuResource = () => {
+  const { t } = useTranslation();
+
   const currentUser = getCurrentUser("current_user");
   const navigate = useNavigate();
   const [resList, setResList] = useState([]);
@@ -113,8 +116,8 @@ return (
       <div className="content">
         <div className="page-header">
           <div className="page-title">
-            <h4>Resources</h4>
-            <h6>List of program related resources</h6>
+            <h4>{t('home.resources')}</h4>
+            <h6>{t('home.reshead')}</h6>
           </div>
         </div>
         <div className="card table-list-card my-2">

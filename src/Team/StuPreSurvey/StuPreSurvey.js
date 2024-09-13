@@ -241,8 +241,8 @@ return (
           <div className="page-header">
             <div className="add-item d-flex">
               <div className="page-title">
-                  <h4>Pre Survey</h4>
-                  <h6>We value your response the most.</h6>
+                  <h4>{t('home.pre_survey')}</h4>
+                  <h6>{t('home.text')}</h6>
               </div>
               {/* <ul className="table-top-head">
             <li>
@@ -294,14 +294,17 @@ return (
                             className="btn btn-primary m-3"
                             onClick={handleStart}
                           >
-                            Start Now
+                             {t('home.startnow')}
+                            {/* Start Now */}
                           </button>
                           <button
                               className="btn btn-secondary"
                               onClick={handleLogout}
                             >
                               <img src={logoutIcon} alt="LogoutIcon" />{" "}
-                              Do Later
+                              {/* Do Later */}
+                             {t('home.dolater')}
+
                           </button>
                         </Col>
                       </Row>
@@ -743,7 +746,8 @@ return (
                               className="btn btn-warning m-2"
                               onClick={(e) => handleOnSubmit(e)}
                             >
-                              SUBMIT
+                               {t('teacher.submit')}
+                              {/* SUBMIT */}
                             </button>
                           </div>
                         </Form>
@@ -759,7 +763,7 @@ return (
                           </figure>
                           <div>
                             <h4>
-                              Thanks for taking part.<br/> Your Survey responses have been submitted Successfully..!
+                            {t('home.presucess')}<br/> {t('home.precong')}
                             </h4>
                           </div>
                         </div>
