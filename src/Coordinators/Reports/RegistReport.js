@@ -125,7 +125,7 @@ const ReportsRegistration = () => {
       label: "Registered Schools",
       key: "reg_school",
     },
-   
+
     {
       label: "ATL Teachers",
       key: "ATL_Count",
@@ -137,7 +137,7 @@ const ReportsRegistration = () => {
     {
       label: 'Total Teachers',
       key: "allTeachers",
-  },
+    },
     // {
     //     label: 'Total Teachers',
     //     key: 'allTeachers'
@@ -171,7 +171,7 @@ const ReportsRegistration = () => {
     {
       label: 'Total Teachers',
       key: "allTeachers",
-  },
+    },
     {
       label: "Registered Male Teachers",
       key: "Male",
@@ -213,7 +213,7 @@ const ReportsRegistration = () => {
       label: "Non-ATL Schools",
       key: "NonATL_Count",
     },
-   
+
   ];
   const RegHeaders = [
     {
@@ -546,8 +546,8 @@ const ReportsRegistration = () => {
       item === "Registered"
         ? `/reports/mentorRegList?Data=${param}`
         : item === "Not Registered"
-        ? `/reports/notRegistered?Data=${params}`
-        : "";
+          ? `/reports/notRegistered?Data=${params}`
+          : "";
 
     const config = {
       method: "get",
@@ -636,9 +636,8 @@ const ReportsRegistration = () => {
       setFilterType("");
     }
     const newDate = new Date();
-    const formattedDate = `${newDate.getUTCDate()}/${
-      1 + newDate.getMonth()
-    }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
+    const formattedDate = `${newDate.getUTCDate()}/${1 + newDate.getMonth()
+      }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
     setNewFormat(formattedDate);
   }, [downloadComplete]);
 
@@ -693,7 +692,7 @@ const ReportsRegistration = () => {
             lastRow.PartiallyAidedHighSchool_Count || 0;
           const PartiallyAidedHigherSecondarySchoolCount =
             lastRow.PartiallyAidedHigherSecondarySchool_Count || 0;
-// const allTeachers=( lastRow.Female +lastRow.others+lastRow.Male);
+          // const allTeachers=( lastRow.Female +lastRow.others+lastRow.Male);
           setRegisteredGenderChartData({
             labels: ["Male Teachers", "Female Teachers", "Others"],
             datasets: [
@@ -882,10 +881,10 @@ const ReportsRegistration = () => {
               {chartTableData.length > 0 && (
                 <div className="row">
                   <div className="col-sm-12 col-md-12 col-xl-4 d-flex">
-                    <div className="card flex-fill default-cover w-100 mb-4">
+                    <div className="card default-cover mb-4">
                       <div className="card-header d-flex justify-content-between align-items-center">
-                        <h4 className="card-title mb-0">Data Analytics</h4>
-                        <div className="dropdown">
+                        <h4 className="card-title mb-0">Institution Type Stats</h4>
+                        {/* <div className="dropdown">
                           <Link
                             to="#"
                             className="view-all d-flex align-items-center"
@@ -895,7 +894,7 @@ const ReportsRegistration = () => {
                               <ArrowRight className="feather-16" />
                             </span>
                           </Link>
-                        </div>
+                        </div> */}
                       </div>
                       <div className="card-body">
                         <div className="row">
@@ -920,7 +919,7 @@ const ReportsRegistration = () => {
                             </>
                           ) : (
                             <>
-                              <div className="col-md-12 text-center mt-3">
+                              {/* <div className="col-md-12 text-center mt-3">
                                 <p>
                                   <b>
                                     Overall Registered Fully Aided High Schools
@@ -931,7 +930,7 @@ const ReportsRegistration = () => {
                                     Schools vs Non-ATL As of {newFormat}
                                   </b>
                                 </p>
-                              </div>
+                              </div> */}
                               <div className="col-md-12 doughnut-chart-container">
                                 {registeredChartDataState && (
                                   <Doughnut
@@ -942,14 +941,14 @@ const ReportsRegistration = () => {
                               </div>
                             </>
                           )}
-                          <div className="col-md-12 text-center mt-3">
+                          {/* <div className="col-md-12 text-center mt-3">
                             <p>
                               <b>
                                 Overall Registered Female vs Male vs Others
                                 Teachers As of {newFormat}
                               </b>
                             </p>
-                          </div>
+                          </div> */}
                           <div className="col-md-12 doughnut-chart-container">
                             {registeredGenderChartData && (
                               <Doughnut
@@ -974,7 +973,7 @@ const ReportsRegistration = () => {
                             className="view-all d-flex align-items-center"
                           >
                             <button
-                              className="btn mx-2 btn-primary"
+                              className="btn mx-2 btn-primary btn-sm"
                               type="button"
                               onClick={() => {
                                 if (downloadTableData) {
@@ -984,14 +983,14 @@ const ReportsRegistration = () => {
                                 }
                               }}
                             >
-                              Get Statistics
+                              Download
                             </button>
                           </Link>
                         </div>
                       </div>
                       <div className="card-body">
                         <div className="table-responsive">
-                          <table className="table table-borderless recent-transactions">
+                          <table className="table table-border recent-transactions">
                             <thead>
                               <tr>
                                 <th style={{ color: "#36A2EB" }}>#</th>
@@ -1192,7 +1191,7 @@ const ReportsRegistration = () => {
                   </CSVLink>
                 ))}
 
-             
+
               {downloadData && (
                 <CSVLink
                   data={downloadData}
@@ -1200,10 +1199,10 @@ const ReportsRegistration = () => {
                   filename={`Teacher_${filterType}Report_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRef}
-                  // onDownloaded={() => {
-                  //     setIsDownloading(false);
-                  //     setDownloadComplete(true);
-                  // }}
+                // onDownloaded={() => {
+                //     setIsDownloading(false);
+                //     setDownloadComplete(true);
+                // }}
                 >
                   Download CSV
                 </CSVLink>
@@ -1215,10 +1214,10 @@ const ReportsRegistration = () => {
                   filename={`Teacher_${filterType}Report_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRefNotRegistered}
-                  // onDownloaded={() => {
-                  //     setIsDownloading(false);
-                  //     setDownloadComplete(true);
-                  // }}
+                // onDownloaded={() => {
+                //     setIsDownloading(false);
+                //     setDownloadComplete(true);
+                // }}
                 >
                   Download Not Registered CSV
                 </CSVLink>
