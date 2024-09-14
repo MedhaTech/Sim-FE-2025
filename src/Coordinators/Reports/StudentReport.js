@@ -801,17 +801,26 @@ const StudentProgress = () => {
             );
             const ideaNotStarted =
               summaryItem.totalTeams -
-              ((submittedCountItem ? submittedCountItem.submittedCount : 0) +
-                (draftCountItem ? draftCountItem.draftCount : 0));
-            const courseNotStarted =
-              summaryItem.totalTeams -
-              ((courseCompletedItem
-                ? courseCompletedItem.studentCourseCMP
-                : 0) +
-                (courseINprogesssItem
-                  ? courseINprogesssItem.studentCourseIN
-                  : 0));
-            // console.log(courseNotStarted,"11");
+              ((submittedCountItem ? submittedCountItem?.submittedCount : 0) +
+                (draftCountItem ? draftCountItem?.draftCount : 0));
+            // const courseNotStarted =
+            //   summaryItem.totalTeams -
+            //   ((courseCompletedItem
+            //     ? courseCompletedItem?.studentCourseCMP
+            //     : 0) +
+            //     (courseINprogesssItem
+            //       ? courseINprogesssItem?.studentCourseIN
+            //       : 0));
+                  const courseNotStarted =
+  Math.abs(
+    summaryItem.totalTeams -
+    (
+      (courseCompletedItem ? courseCompletedItem?.studentCourseCMP : 0) +
+      (courseINprogesssItem ? courseINprogesssItem?.studentCourseIN : 0)
+    )
+  );
+
+            console.log(courseNotStarted,"11");
 
             const coursePercentage =
               studentCountItem && studentCountItem.totalstudent > 0
@@ -1247,6 +1256,7 @@ const StudentProgress = () => {
                                     <td>{item.submittedCount}</td>{" "}
                                     <td>{item.draftCount}</td>{" "}
                                     <td>{item.ideaNotStarted}</td>
+           { console.log(item.courseNotStarted,"course not")}
                                   </tr>
                                 ))}
                                 <tr>
@@ -1293,6 +1303,7 @@ const StudentProgress = () => {
                                   <td style={{ color: "crimson" }}>{totalCount.submittedCount}</td>{" "}
                                   <td style={{ color: "crimson" }}>{totalCount.draftCount}</td>{" "}
                                   <td style={{ color: "crimson" }}>{totalCount.ideaNotStarted}</td>
+
                                 </tr>
                               </tbody>
                             </table>
