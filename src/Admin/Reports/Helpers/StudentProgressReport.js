@@ -38,8 +38,16 @@ const StudentProgress = () => {
   const [category, setCategory] = useState("");
   const [isDownload, setIsDownload] = useState(false);
   const categoryData = ["All Categories", "ATL", "Non ATL"];
-  const categoryDataTn = ["Select All", "Fully Aided-High School", "Fully Aided-Higher Secondary School", "Government-High School", "Government-Higher Secondary School", "Partially Aided-High School", "Partially Aided-Higher Secondary School", 'Non ATL'];
-
+  const categoryDataTn = [
+    "All Categories",
+    "Fully Aided-High School",
+    "Fully Aided-Higher Secondary School",
+    "Government-High School",
+    "Government-Higher Secondary School",
+    "Partially Aided-High School",
+    "Partially Aided-Higher Secondary School",
+    "Non ATL",
+  ];
   const newstateList = ["All States", ...stateList];
   // const categoryData =
   //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
@@ -129,6 +137,18 @@ const StudentProgress = () => {
       label: "Course Completion Percentage",
       key: "coursePercentage",
     },
+    {
+      label: 'No.of Teams Submitted Ideas',
+      key: 'submittedCount'
+    },
+    {
+        label: 'No.of Teams Ideas in Draft',
+        key: 'draftCount'
+    },
+    {
+        label: 'No.of Teams Not Stated Idea Submission',
+        key: 'ideaNotStarted'
+    },
   ];
   const teacherDetailsHeaders = [
     {
@@ -137,7 +157,7 @@ const StudentProgress = () => {
     },
     {
       label: 'ATL CODE',
-      key: 'organization_code'
+      key: 'unique_code'
     },
     {
       label: "School Name",
@@ -193,7 +213,7 @@ const StudentProgress = () => {
       key: 'team_name'
     },
     {
-      label: 'Team Username',
+      label: 'Team Username/Login',
       key: 'team_username'
     },
     {
@@ -214,29 +234,28 @@ const StudentProgress = () => {
       key: 'Grade'
     },
     {
-      label: 'Disability status',
+      label: 'Disability Type',
       key: 'disability'
     },
     {
       label: "Pre Survey Status",
       key: "pre_survey_status",
-    },
-
+    }, 
     {
-      label: "Post Survey Status",
-      key: "post_survey_status",
-    },
+      label: 'Course Completion%',
+      key: 'course_per'
+    },   
     {
       label: 'Course Status',
       key: 'user_count'
     },
     {
-      label: 'Course Completion%',
-      key: 'course_per'
-    },
-    {
       label: 'Idea Status',
       key: 'idea_status'
+    },
+    {
+      label: "Post Survey Status",
+      key: "post_survey_status",
     },
     // {
     //     label: 'No.of Teams Idea Submitted',
@@ -693,6 +712,7 @@ const StudentProgress = () => {
               gender: mentorMap[item.mentor_id].gender,
               mobile: mentorMap[item.mentor_id].mobile,
               organization_code: mentorMap[item.mentor_id].organization_code,
+              unique_code: mentorMap[item.mentor_id].unique_code,
               organization_name: mentorMap[item.mentor_id].organization_name,
               state: mentorMap[item.mentor_id].state,
               whatapp_mobile: mentorMap[item.mentor_id].whatapp_mobile,
@@ -1088,7 +1108,7 @@ const StudentProgress = () => {
                         </div>
                         <div className="card-body">
                           <div className="table-responsive">
-                            <table className="table table-borderless recent-transactions">
+                            <table className="table table-border recent-transactions">
                               <thead>
                                 <tr>
                                   <th style={{ color: "#36A2EB" }}>#</th>
@@ -1120,7 +1140,17 @@ const StudentProgress = () => {
                                     <FontAwesomeIcon
                                       icon={faChalkboardTeacher}
                                     />{" "}
-                                    Course Completed
+                                    Student Course Completed
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    <FontAwesomeIcon
+                                      icon={faChalkboardTeacher}
+                                    />Student Course InProgress
                                   </th>
                                   <th
                                     style={{
@@ -1131,18 +1161,7 @@ const StudentProgress = () => {
                                     <FontAwesomeIcon
                                       icon={faChalkboardTeacher}
                                     />{" "}
-                                    Course InProgress
-                                  </th>
-                                  <th
-                                    style={{
-                                      whiteSpace: "wrap",
-                                      color: "#36A2EB",
-                                    }}
-                                  >
-                                    <FontAwesomeIcon
-                                      icon={faChalkboardTeacher}
-                                    />{" "}
-                                    Course NotStarted{" "}
+                                    Student Course NotStarted{" "}
                                   </th>
                                   <th
                                     style={{
@@ -1154,6 +1173,30 @@ const StudentProgress = () => {
                                       icon={faChalkboardTeacher}
                                     />{" "}
                                     Course Completion%
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",fontWeight: "bold"
+                                    }}
+                                  >
+                                    #Teams Submitted Ideas
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",fontWeight: "bold"
+                                    }}
+                                  >
+                                    #Teams Ideas in Draft
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",fontWeight: "bold"
+                                    }}
+                                  >
+                                    #Teams Idea Not Started
                                   </th>
                                 </tr>
                               </thead>
@@ -1180,6 +1223,9 @@ const StudentProgress = () => {
                                     <td>{item.courseINprogesss}</td>
                                     <td>{item.courseNotStarted}</td>
                                     <td>{item.coursePercentage}%</td>
+                                    <td>{item.submittedCount}</td>{" "}
+                                    <td>{item.draftCount}</td>{" "}
+                                    <td>{item.ideaNotStarted}</td>
                                   </tr>
                                 ))}
                                 <tr>
@@ -1220,6 +1266,10 @@ const StudentProgress = () => {
                                     )}
                                     %
                                   </td>
+                                  <td style={{ color: "crimson" }}>{totalCount.submittedCount}</td>{" "}
+                                  <td style={{ color: "crimson" }}>{totalCount.draftCount}</td>{" "}
+                                  <td style={{ color: "crimson" }}>{totalCount.ideaNotStarted}</td>
+
                                 </tr>
                               </tbody>
                             </table>

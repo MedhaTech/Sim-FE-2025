@@ -61,7 +61,7 @@ const ReportsRegistration = () => {
   const filterOptions = ["Registered", "Not Registered"];
   const categoryData = ["All Categories", "ATL", "Non ATL"];
   const categoryDataTn = [
-    "Select All",
+    "All Categories",
     "Fully Aided-High School",
     "Fully Aided-Higher Secondary School",
     "Government-High School",
@@ -154,11 +154,11 @@ const ReportsRegistration = () => {
   ];
   const RegHeaders = [
     {
-      label: "ATL CODE",
+      label: "UDISE CODE",
       key: "organization.organization_code",
     },
     {
-      label: "UDISE CODE",
+      label: "ATL CODE",
       key: "organization.unique_code",
     },
     {
@@ -202,7 +202,7 @@ const ReportsRegistration = () => {
       key: "full_name",
     },
     {
-      label: "Email ID",
+      label: "Teacher Email ID",
       key: "user.username",
     },
     {
@@ -220,11 +220,11 @@ const ReportsRegistration = () => {
   ];
   const notRegHeaders = [
     {
-      label: "ATL CODE",
+      label: "UDISE CODE",
       key: "organization_code",
     },
     {
-      label: "UDISE CODE",
+      label: "ATL CODE",
       key: "unique_code",
     },
     {
@@ -631,8 +631,8 @@ const ReportsRegistration = () => {
         <div className="page-header">
           <div className="add-item d-flex">
             <div className="page-title">
-              <h4>Schools &amp; Teachers</h4>
-              <h6>Regristration Status Reports</h6>
+              <h4>Regristration Status Report</h4>
+              <h6>Schools &amp; Teachers registered</h6>
             </div>
           </div>
           <div className="page-btn">
@@ -804,36 +804,36 @@ const ReportsRegistration = () => {
                       </div>
                       <div className="card-body">
                         <div className="table-responsive">
-                          <table className="table table-borderless recent-transactions">
+                          <table className="table table-border recent-transactions">
                             <thead>
                               <tr>
-                                <th>#</th>
-                                <th>State Name</th>
-                                <th style={{ whiteSpace: "wrap" }}>
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>#</th>
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>State Name</th>
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                   Eligible ATL{" "}
                                   <FontAwesomeIcon icon={faSchool} />
                                 </th>
-                                <th style={{ whiteSpace: "wrap" }}>
-                                  Registered Schools
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
+                                  Registered ATL Schools
                                 </th>
-                                <th style={{ whiteSpace: "wrap" }}>
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                   ATL Teachers
                                 </th>
-                                <th style={{ whiteSpace: "wrap" }}>
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                   Non-ATL Teachers
                                 </th>
-                                <th style={{ whiteSpace: "wrap" }}>
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                   Total Teachers
                                 </th>
-                                <th style={{ whiteSpace: "wrap" }}>
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                   <FontAwesomeIcon icon={faMale} />
                                   Male
                                 </th>
-                                <th style={{ whiteSpace: "wrap" }}>
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                   <FontAwesomeIcon icon={faFemale} />
                                   Female
                                 </th>
-                                <th style={{ whiteSpace: "wrap" }}>
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                   <FontAwesomeIcon icon={faMale} />
                                   Others
                                 </th>
@@ -848,6 +848,7 @@ const ReportsRegistration = () => {
                                       maxWidth: "150px",
                                       overflow: "hidden",
                                       textOverflow: "ellipsis",
+                                      color: "crimson"
                                     }}
                                   >
                                     {item.state}

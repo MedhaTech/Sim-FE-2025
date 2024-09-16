@@ -36,8 +36,16 @@ const TeacherProgressDetailed = () => {
     const [category, setCategory] = useState('');
     const [isDownload, setIsDownload] = useState(false);
     const categoryData = ['All Categories', 'ATL', 'Non ATL'];
-  const categoryDataTn= ["Select All","Fully Aided-High School","Fully Aided-Higher Secondary School","Government-High School","Government-Higher Secondary School","Partially Aided-High School","Partially Aided-Higher Secondary School",'Non ATL'];
-
+  const categoryDataTn= [
+    "All Categories",
+    "Fully Aided-High School",
+    "Fully Aided-Higher Secondary School",
+    "Government-High School",
+    "Government-Higher Secondary School",
+    "Partially Aided-High School",
+    "Partially Aided-Higher Secondary School",
+    "Non ATL",
+  ];
     const newstateList = ["All States", ...stateList];
     // const categoryData =
     //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
@@ -152,7 +160,7 @@ const TeacherProgressDetailed = () => {
         },
         {
             label: 'ATL CODE',
-            key: 'organization_code'
+            key: 'unique_code'
         },
         {
             label: 'School Name',
@@ -203,15 +211,15 @@ const TeacherProgressDetailed = () => {
             key: 'whatapp_mobile'
         },
         {
-            label: 'Pre Survey Status',
+            label: 'Teacher Pre Survey Status',
             key: 'pre_survey_status'
         },
         {
-            label: 'Course Status',
+            label: 'Teacher Course Status',
             key: 'course_status'
         },
         {
-            label: 'Post Survey Status',
+            label: 'Teacher Post Survey Status',
             key: 'post_survey_status'
         },
         {
@@ -221,6 +229,14 @@ const TeacherProgressDetailed = () => {
         {
             label: 'No.of Students Enrolled',
             key: 'student_count'
+        },
+        {
+            label: 'No.of Students Presurvey Not Started',
+            key: 'not_start_pre'
+        },
+        {
+            label: 'No.of Students Presurvey Completed',
+            key: 'preSur_cmp'
         },
         {
             label: 'No.of Students Course Completed',
@@ -246,14 +262,7 @@ const TeacherProgressDetailed = () => {
             label: 'No.of Teams Idea Not Initiated',
             key: 'notInitatedIdeas'
         },
-        {
-            label: 'No.of Students Presurvey Not Started',
-            key: 'not_start_pre'
-        },
-        {
-            label: 'No.of Students Presurvey Completed',
-            key: 'preSur_cmp'
-        },
+        
         // {
         //     label: 'No.of Students Postsurvey Not Started',
         //     key: 'not_start_pre'
@@ -937,8 +946,8 @@ return (
         <div className="page-header">
             <div className="add-item d-flex">
                 <div className="page-title">
-                    <h4>School Detailed Report</h4>
-                    <h6>School Progress - Presurvey , Course, Teams , Post survey Status Report</h6>
+                    <h4>School & Teacher Detailed Report</h4>
+                    <h6>Teacher Progress - Presurvey , Course, Teams , Post survey Status Report</h6>
                 </div>
             </div>
             <div className="page-btn">
@@ -1101,7 +1110,7 @@ return (
                                 </div>
                                 <div className="card-body">
                                     <div className="table-responsive">
-                                        <table className="table table-borderless recent-transactions">
+                                        <table className="table table-border recent-transactions">
                                             <thead>
                                                 <tr>
                                                     <th style={{color:"#36A2EB"}}>#</th>
@@ -1112,9 +1121,9 @@ return (
                                                     <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}><FontAwesomeIcon icon={faFemale} />Female Students</th>
                                                     <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}><FontAwesomeIcon icon={faMale} /> Male Students</th>
                                                     <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}>Other Students</th>
-                                                    <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}><FontAwesomeIcon icon={faChalkboardTeacher}  /> Course Completed</th>                                                
-                                                    <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}><FontAwesomeIcon icon={faChalkboardTeacher} /> Course InProgress</th>
-                                                    <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}><FontAwesomeIcon icon={faChalkboardTeacher}  /> Course NotStarted </th>                                     
+                                                    <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}><FontAwesomeIcon icon={faChalkboardTeacher}  /> Teacher Course Completed</th>                                                
+                                                    <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}><FontAwesomeIcon icon={faChalkboardTeacher} /> Teacher Course InProgress</th>
+                                                    <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}><FontAwesomeIcon icon={faChalkboardTeacher}  /> Teacher Course NotStarted </th>                                     
                                                 </tr>
                                             </thead>
                                             <tbody className='text-center' >
