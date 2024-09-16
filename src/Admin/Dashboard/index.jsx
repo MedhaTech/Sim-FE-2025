@@ -385,7 +385,7 @@ const adminStudentCourseCount = () => {
                 </div>
                 <div className="dash-widgetcontent">
                   <h5>
-                    {totalMentorCount}
+                  {Number(atl) + Number(nonAtl)}
                     {/* <CountUp start={0} end={307144} duration={3} prefix="$" /> */}
                   </h5>
                   <h6>Total Reg Schools</h6>

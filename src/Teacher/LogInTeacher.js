@@ -12,6 +12,8 @@ import { teacherLoginUser } from "../redux/actions";
 import { connect } from "react-redux";
 import { openNotificationWithIcon } from "../helpers/Utils";
 import { useNavigate } from "react-router-dom";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import play from "../assets/img/playicon.png";
 
 const LogInTeacher = (props) => {
   const navigate = useNavigate();
@@ -72,6 +74,13 @@ const LogInTeacher = (props) => {
   const handleLogoClick = () => {
     navigate('/');
   };
+
+  const renderTooltip = (props) => (
+    <Tooltip id="pdf-tooltip" {...props}>
+      Watch Demo
+    </Tooltip>
+  );
+
   return (
     <div className="main-wrapper">
       <div className="account-content">
@@ -91,7 +100,22 @@ const LogInTeacher = (props) => {
                   <ImageWithBasePath src="assets/img/logo-white.png" alt />
                 </Link> */}
                 <div className="login-userheading">
-                  <h3> Teacher Login</h3>
+                  <h3> Teacher Login{" "}
+                  <OverlayTrigger placement="top" overlay={renderTooltip}>
+                        <a
+                          href="https://www.youtube.com/watch?v=MIZcxs9pJuA"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <img
+                            src={play}
+                            className="icon"
+                            alt="play"
+                            style={{ verticalAlign: "middle", width: "7%" }}
+                          />
+                        </a>
+                      </OverlayTrigger>
+                  </h3>
                   <h4>
                     Access the teacher panel using your registered email and
                     password.

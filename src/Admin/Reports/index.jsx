@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React from 'react';
+import React, { useState ,useEffect} from "react";
 import { Link } from 'react-router-dom';
 import reg from "../../assets/img/reportregister1.png";
 import school from "../../assets/img/reportschool.png";
@@ -10,9 +10,85 @@ import user from "../../assets/img/user.png";
 import user1 from "../../assets/img/reportuser1.png";
 import user2 from "../../assets/img/reportuser2.png";
 import user3 from "../../assets/img/reportuser3.png";
-
+import {
+    getCurrentUser,
+   
+  } from '../../helpers/Utils';
+  import axios from 'axios';
 const Reports = () => {
     
+  const currentUser = getCurrentUser('current_user');
+  // const route = all_routes;
+  useEffect(() => {
+    adminTeamsCount();
+    adminSudentCount();
+    adminMentorCount();
+}, []);
+    const [totalteamsCount, setTotalteamsCount] = useState('-');
+    const [totalStudentCount, setTotalStudentCount] = useState('-');
+    const [totalMentorCount, setTotalMentorCount] = useState('-');
+    const adminTeamsCount = () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/teamCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTotalteamsCount(response.data.data[0].teams_count);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const adminSudentCount = () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/studentCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+    
+                    setTotalStudentCount(response.data.data[0].student_count);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const adminMentorCount = () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/mentorCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+    
+                    setTotalMentorCount(response.data.data[0].mentorCount);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
 return (
 <div>
     <div className="page-wrapper">
@@ -43,11 +119,11 @@ return (
                                         alt=""
                                     />
                                     </div>
-                                    <h4>Schools Vs Teachers</h4>
+                                    <h4>Schools & Teachers</h4>
                             </div>
                         </Link>
                         <ul className="team-members">
-                            <li>Total Teachers: 07</li>
+                            <li>Total Teachers: {totalMentorCount}</li>
                             <li>
                             <ul>
                                 <li>
@@ -80,7 +156,7 @@ return (
                                         src={user}
                                         alt=""
                                     />
-                                    <span>+4</span>
+                                    <span> +</span>
                                 </Link>
                                 </li>
                             </ul>
@@ -92,7 +168,7 @@ return (
                         <div className="employee-grid-profile">
                         <div className="profile-head">
                             <div className="dep-name">
-                                <h5 className="active">School Progress</h5>
+                                <h5 className="active">School-Teacher Progress</h5>
                             </div>
                         </div>
                         <Link  to="/reportsteacher">
@@ -104,11 +180,11 @@ return (
                                         alt=""
                                     />
                                     </div>
-                                    <h4>Schools Vs Teams</h4>
+                                    <h4>Teachers & Teams</h4>
                             </div>
                         </Link>
                         <ul className="team-members">
-                            <li>Total Teams: 07</li>
+                            <li>Total Teams: {totalteamsCount}</li>
                             <li>
                             <ul>
                                 <li>
@@ -141,7 +217,7 @@ return (
                                         src={user}
                                         alt=""
                                     />
-                                    <span>+4</span>
+                                    <span> +</span>
                                 </Link>
                                 </li>
                             </ul>
@@ -169,7 +245,7 @@ return (
                             </div>
                         </Link>
                         <ul className="team-members">
-                            <li>Total Students: 07</li>
+                            <li>Total Students: {totalStudentCount}</li>
                             <li>
                             <ul>
                                 <li>
@@ -202,7 +278,7 @@ return (
                                         src={user}
                                         alt=""
                                     />
-                                    <span>+4</span>
+                                    <span> +</span>
                                 </Link>
                                 </li>
                             </ul>

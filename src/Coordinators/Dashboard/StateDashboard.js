@@ -23,6 +23,8 @@ import { FaUserGraduate } from 'react-icons/fa';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMale, faFemale, faSchool } from '@fortawesome/free-solid-svg-icons';
 import { FcLibrary } from "react-icons/fc";
+import { FaMapMarkerAlt } from 'react-icons/fa';
+
 const Dashboard = () => {
   const currentUser = getCurrentUser('current_user');
   // const route = all_routes;
@@ -57,7 +59,7 @@ const Dashboard = () => {
     useState('-');
   const [totalstudentCoursesCount, setTotalstudentCoursesCount] =
     useState('-');
-
+  const statename = localStorage.getItem("stateName");
   const nonAtlCount = () => {
     const newParam = encryptGlobal(
       JSON.stringify({
@@ -330,17 +332,20 @@ const Dashboard = () => {
                       src="assets/img/icons/dash1.svg"
                       alt="img"
                     /> */}
-                    <FcLibrary size={30} style={{ color: 'crimson' }} />
+                    {/* <FcLibrary size={30} style={{ color: 'crimson' }} /> */}
+                    <FaMapMarkerAlt size={30} style={{ color: 'crimson' }} />
                   </span>
 
                 </div>
                 <div className="dash-widgetcontent">
                   <h5>
                     {/* <CountUp start={0} end={307144} duration={3} prefix="$" /> */}
-                    {totalSchoolCount}
+                    {/* {totalSchoolCount} */}
+                    {statename}
 
                   </h5>
-                  <h6>Total Eligible Schools</h6>
+                  {/* <h6>Total Eligible Schools</h6> */}
+                  <h6>State Statistics</h6>
                 </div>
               </div>
             </div>

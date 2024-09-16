@@ -376,11 +376,12 @@ const MentorDashboard = () => {
       setVideo(vimeoId[i]);
       setShow(true);
     };
-    const vimeoId = ["https://www.youtube.com/embed/CiYa_iLdpXo?si=8t7wj1idLOrW4se0",
-        "https://www.youtube.com/embed/q40BSRm_cJM?si=ALZHPloc04lqH25O",
-        "https://www.youtube.com/embed/eCYCvTu03X4?si=3zA5lyM9UOUoW5Yb",
-        "https://www.youtube.com/embed/s-LUZN38Fik?si=rz10HpY0ZqDaYqD6",
-        "https://www.youtube.com/embed/1WvwMypdVaY?si=8GPHpUqV7Jdewh__",
+    const vimeoId = ["https://www.youtube.com/embed/sT3I44RzZAI?si=W92OEckd0iS7rHvZ",
+        "https://www.youtube.com/embed/dWpG-TMyMrQ?si=J2NcbBCjxeelG2Us",
+        "https://www.youtube.com/embed/siaE-HPVvk0?si=GnJZoZgwLjGMmco7",
+        "https://www.youtube.com/embed/fse1a6IaeB0?si=DHOB_c2ngQV3C6SX",
+        "https://www.youtube.com/embed/LYS2A3ozZRU?si=Ds2b_17nrPiYH1aF",
+        "https://www.youtube.com/embed/OIsCwczsT0o?si=I6tpZPCZAMqvwIK-",
         ];
 
 
@@ -457,11 +458,26 @@ const handleWhatsapp = () => {
               <h6>here&apos;s what&apos;s happening with your School Innovation Marathon 2024 journey.</h6>
             </div>
             <div className="d-flex align-items-center">
-              <OverlayTrigger placement="top" overlay={renderRefreshTooltip}>
+              <div className="action-table-data">
+                <div className="edit-delete-action">
+                  <OverlayTrigger placement="top" overlay={renderTooltip}>
+                    <Link
+                        to="#"
+                        className="me-2 p-2"
+                        onClick={() => handleShow(5)}
+                        {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
+                        
+                    >
+                      <FaPlay  style={{color:"red"}} />
+                    </Link>
+                  </OverlayTrigger>
+                </div>
+              </div>
+              {/* <OverlayTrigger placement="top" overlay={renderRefreshTooltip}>
                 <Link data-bs-toggle="tooltip" data-bs-placement="top" onClick={handleRefresh} >
                   <RotateCcw className="feather feather-rotate-ccw feather-16" />
                 </Link>
-              </OverlayTrigger>
+              </OverlayTrigger> */}
             </div>
           </div>
           {/* Teacher dashboard stats */}
@@ -702,7 +718,7 @@ const handleWhatsapp = () => {
                               </div>
                             </div>
                           </td>
-                          {/* <td>
+                          <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -718,7 +734,7 @@ const handleWhatsapp = () => {
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td> */}
+                          </td>
                           <td>
                             {teamCountLoading ? ( 
                                 <Loader />
@@ -771,7 +787,7 @@ const handleWhatsapp = () => {
                               </div>
                             </div>
                           </td>
-                          {/* <td>
+                          <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -787,7 +803,7 @@ const handleWhatsapp = () => {
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td> */}
+                          </td>
                           <td>
                             {teacCourseLoading ? ( 
                                 <Loader />
@@ -848,7 +864,7 @@ const handleWhatsapp = () => {
                               </div>
                             </div>
                           </td>
-                          {/* <td>
+                          <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -864,7 +880,7 @@ const handleWhatsapp = () => {
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td> */}
+                          </td>
                           <td>
                             {teacPostSLoading ? ( 
                                 <Loader />
@@ -917,7 +933,7 @@ const handleWhatsapp = () => {
                               </div>
                             </div>
                           </td>
-                          {/* <td>
+                          <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -933,7 +949,7 @@ const handleWhatsapp = () => {
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td> */}
+                          </td>
                           <td>
                             <span
                               className={"badge badge-linesuccess"}
@@ -970,7 +986,7 @@ const handleWhatsapp = () => {
                               </div>
                             </div>
                           </td>
-                          {/* <td>
+                          <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -986,7 +1002,7 @@ const handleWhatsapp = () => {
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td> */}
+                          </td>
                           <td>
                             <span
                               className={"badge badge-linesuccess"}

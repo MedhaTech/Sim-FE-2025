@@ -118,14 +118,14 @@ const ReportsRegistration = () => {
       label: "District Name",
       key: "district",
     },
-    {
-      label: "Total Eligible ATL Schools",
-      key: "Eligible_school",
-    },
-    {
-      label: "Registered Schools",
-      key: "reg_school",
-    },
+    // {
+    //   label: "Total Eligible ATL Schools",
+    //   key: "Eligible_school",
+    // },
+    // {
+    //   label: "Registered Schools",
+    //   key: "reg_school",
+    // },
 
     {
       label: "ATL Teachers",
@@ -161,14 +161,14 @@ const ReportsRegistration = () => {
       label: "District Name",
       key: "district",
     },
-    {
-      label: "Total Eligible ATL Schools",
-      key: "Eligible_school",
-    },
-    {
-      label: "Registered Schools",
-      key: "reg_school",
-    },
+    // {
+    //   label: "Total Eligible ATL Schools",
+    //   key: "Eligible_school",
+    // },
+    // {
+    //   label: "Registered Schools",
+    //   key: "reg_school",
+    // },
     {
       label: 'Total Teachers',
       key: "allTeachers",
@@ -796,8 +796,8 @@ const ReportsRegistration = () => {
         <div className="page-header">
           <div className="add-item d-flex">
             <div className="page-title">
-              <h4>Schools &amp; Teachers</h4>
-              <h6>Regristration Status Reports</h6>
+            <h4>Regristration Status Report</h4>
+            <h6>Schools &amp; Teachers registered</h6>
             </div>
           </div>
           {/* <div className="page-btn">
@@ -1006,13 +1006,13 @@ const ReportsRegistration = () => {
                               <tr>
                                 <th style={{ color: "#36A2EB" ,fontWeight: "bold", }}>#No</th>
                                 <th style={{ color: "#36A2EB",fontWeight: "bold" }}>District Name</th>
-                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
+                                {/* <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                   Eligible ATL{" "}
                                   <FontAwesomeIcon icon={faSchool} />
-                                </th>
-                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                  Registered Schools
-                                </th>
+                                </th> */}
+                                {/* <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
+                                  Registered ATL Schools
+                                </th> */}
                                 {RegTeachersState !== "Tamil Nadu" && (
                                   <>
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
@@ -1079,8 +1079,8 @@ const ReportsRegistration = () => {
                                   >
                                     {item.district}
                                   </td>
-                                  <td>{item.Eligible_school}</td>
-                                  <td>{item.reg_school}</td>
+                                  {/* <td>{item.Eligible_school}</td> */}
+                                  {/* <td>{item.reg_school}</td> */}
                                   {/* <td>{item.ATL_Count}</td> */}
                                   {/* <td>{item.NonATL_Count}</td> */}
                                   {RegTeachersState !== "Tamil Nadu" && (
