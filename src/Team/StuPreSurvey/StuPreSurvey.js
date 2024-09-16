@@ -18,6 +18,12 @@ import { useFormik } from "formik";
 import { URL, KEY } from "../../constants/defaultValues";
 import { logout } from "../../helpers/Utils";
 import logoutIcon from "../../assets/img/icons/log-out.svg";
+import LanguageSelectorComp from '../../components/LanguageSelectorComp/index.js';
+import {
+  getPresurveyData,
+  getStudentDashboardStatus,
+  updateStudentBadges
+} from '../../redux/studentRegistration/actions';
 import {
   getCurrentUser,
   getNormalHeaders,
@@ -31,6 +37,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { UncontrolledAlert } from "reactstrap";
 import { useTranslation } from "react-i18next";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
+import { config } from "exceljs";
+import { getLanguage } from '../../constants/languageOptions';
 
 const StuPreSurvey = () => {
     const { t } = useTranslation();
@@ -44,6 +52,9 @@ const StuPreSurvey = () => {
     const [preSurveyStatus, setPreSurveyStatus] = useState("");
     const [isDisabled, setIsDisabled] = useState(false);
     const [answerResponses, setAnswerResponses] = useState([]);
+    const language = useSelector(
+        (state) => state?.studentRegistration?.studentLanguage
+    );
     //console.log(currentUser , "current user");
     const userID = currentUser?.data[0]?.user_id;
     // console.log(userID , " user");
@@ -60,12 +71,18 @@ const StuPreSurvey = () => {
       };
     const handleStart = () => {
         setShow(true);
+        // dispatch(getPresurveyData(language));
+      apiData(language);
+
         scroll();
     };
     const handleLogout = (e) => {
         logout(navigate, t, "TEAM");
         e.preventDefault();
     };
+  //   useEffect(() => {
+  //     dispatch(getPresurveyData(language));
+  // }, [language]);
 
     const handleOnChange = (e) => {
         let newItems = [...answerResponses];
@@ -179,21 +196,28 @@ const StuPreSurvey = () => {
       }, []);
 
       useEffect(() => {
+        console.log("pre page id");
+      apiData(language);
+      }, [count]);
+    
+
+      const apiData=(language)=>{
+        const locale = getLanguage(language);
         let enDataone = encryptGlobal("2");
         let axiosConfig = getNormalHeaders(KEY.User_API_Key);
-        const lang = "locale=en";
-        const final = lang.split("=");
+        // const lang = "locale=en";
+        // const final = lang.split("=");
         let enParamData = encryptGlobal(
           JSON.stringify({
             role: "STUDENT",
-            locale: final[1],
+            locale,
             user_id : userID,
           })
         );
         axiosConfig["params"] = {
           Data: enParamData,
         };
-    
+      
         axios
           .get(`${URL.getPreSurveyList}/${enDataone}`, axiosConfig)
           .then((preSurveyRes) => {
@@ -207,10 +231,7 @@ const StuPreSurvey = () => {
           .catch((err) => {
             return err.response;
           });
-      }, [count]);
-    
-
-
+        };
 
 
 
@@ -220,19 +241,34 @@ return (
           <div className="page-header">
             <div className="add-item d-flex">
               <div className="page-title">
-                  <h4>Pre Survey</h4>
-                  <h6>We value your response the most.</h6>
+                  <h4>{t('home.pre_survey')}</h4>
+                  <h6>{t('home.text')}</h6>
               </div>
+              {/* <ul className="table-top-head">
+            <li>
+              <div>
+              <LanguageSelectorComp module="student" />
+              </div>
+            </li>
+          </ul> */}
             </div>
           </div>
           <Container className="presuervey" id="start">
             <Col>
               <Row className=" justify-content-center">
                 <div className="aside  p-4">
+               
                   {preSurveyStatus &&
                   preSurveyStatus !== "COMPLETED" &&
                   !show ? (
                     <CardBody>
+                       <ul className="table-top-head">
+            <li>
+              <div>
+              <LanguageSelectorComp module="student" />
+              </div>
+            </li>
+          </ul>
                       <Row>
                         <Col md={4} style={{alignContent:"center"}}>
                           <figure>
@@ -258,14 +294,17 @@ return (
                             className="btn btn-primary m-3"
                             onClick={handleStart}
                           >
-                            Start Now
+                             {t('home.startnow')}
+                            {/* Start Now */}
                           </button>
                           <button
                               className="btn btn-secondary"
                               onClick={handleLogout}
                             >
                               <img src={logoutIcon} alt="LogoutIcon" />{" "}
-                              Do Later
+                              {/* Do Later */}
+                             {t('home.dolater')}
+
                           </button>
                         </Col>
                       </Row>
@@ -707,7 +746,8 @@ return (
                               className="btn btn-warning m-2"
                               onClick={(e) => handleOnSubmit(e)}
                             >
-                              SUBMIT
+                               {t('teacher.submit')}
+                              {/* SUBMIT */}
                             </button>
                           </div>
                         </Form>
@@ -723,7 +763,7 @@ return (
                           </figure>
                           <div>
                             <h4>
-                              Thanks for taking part.<br/> Your Survey responses have been submitted Successfully..!
+                            {t('home.presucess')}<br/> {t('home.precong')}
                             </h4>
                           </div>
                         </div>

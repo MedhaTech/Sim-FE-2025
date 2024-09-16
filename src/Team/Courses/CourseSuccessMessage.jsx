@@ -16,6 +16,7 @@ import axios from 'axios';
 
 const CourseSuccessMessage = () => {
   const { t } = useTranslation();
+  
   // const history = useHistory();
   const navigate = useNavigate();
   const dispatch = useDispatch();

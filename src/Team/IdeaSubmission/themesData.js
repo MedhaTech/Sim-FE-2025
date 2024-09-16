@@ -8,10 +8,22 @@ import i5 from "../../assets/img/Themes/5.png";
 import i6 from "../../assets/img/Themes/6.png";
 import i7 from "../../assets/img/Themes/7.png";
 import i8 from "../../assets/img/Themes/8.png";
+// import { useTranslation } from 'react-i18next';
+
+// const { t } = useTranslation();
 
 export const themesList = [
-    "Sustainable Development and Environment",
-    "Digital Transformation",
+    // "themes.sustainabletheme",
+    // "themes.digitaltheme",
+    // "themes.healththeme",
+    // "themes.educationtheme",
+    // "themes.economictheme",
+    // "themes.smarttheme",
+    // "themes.agritheme",
+    // "themes.othertheme",
+
+
+"Sustainable Development & Environment",
     "Health and Well-being",
     "Quality Education",
     "Economic Empowerment",
@@ -78,104 +90,121 @@ export const focusareasList = {
 export const themes = [
     {   id: 1, 
         image: i1, 
-        title: 'Sustainable Development and Environment', 
+        title: 'themes.sustainabletheme', 
         focusareas: [
-            "Renewable Energy (e.g., solar, wind, hydro)",
-            "Waste Management (e.g., recycling, composting)",
-            "Clean Water (e.g., water purification, rainwater harvesting)",
-            "Environment Protection (e.g., pollution control, reforestation)",
-            "Sustainable Agriculture (e.g., organic farming, soil conservation)",
+            "sustainablefocusareas.focusarea1",
+            "sustainablefocusareas.focusarea2",
+           "sustainablefocusareas.focusarea3",
+           "sustainablefocusareas.focusarea4",
+           "sustainablefocusareas.focusarea5",
             "Others"
         ], 
-        desc: "Sustainable Development is about balancing economic growth, environmental care, and social well-being to ensure a better future for all.",
+        desc:  "themedetails.sustainabletheme",
     },
     { 
         id: 2, 
         image: i2, 
-        title: 'Digital Transformation', 
+        title: "themes.digitaltheme", 
         focusareas: [
-            "Internet of Things (IoT) (e.g., smart homes, connected devices)",
-            "Information Technology (e.g., software, apps)",
-            "Cybersecurity (e.g., protecting data, secure online practices)",
-            "Blockchain (e.g., secure transactions, decentralized systems)",
-            "Artificial Intelligence (AI) and Machine Learning (ML) (e.g., smart assistants, predictive analytics)",
+            "digitalfocusareas.focusarea1",
+            "digitalfocusareas.focusarea2",
+
+            "digitalfocusareas.focusarea3",
+
+            "digitalfocusareas.focusarea4",
+
+            "digitalfocusareas.focusarea5",
+
             "Others"
         ], 
-        desc: "Highlights the critical role of digital technologies in bridging the digital divide and fostering innovation, making India a leader in the digital economy.",
+        desc:  "themedetails.digitaltheme",
     },
     { 
         id: 3, 
         image: i3, 
-        title: 'Health and Well-being', 
+        title:  "themes.healththeme", 
         focusareas: [
-            "Medical Devices (e.g., health monitors, diagnostic tools)",
-            "Nutrition and Healthy Eating (e.g., balanced diets, fortified foods)",
-            "Mental Health (e.g., stress management, counseling tools)",
-            "Fitness and Sports (e.g., exercise programs, sports innovations)",
+           "healthfocusareas.focusarea1",
+           "healthfocusareas.focusarea2",
+           "healthfocusareas.focusarea3",
+           "healthfocusareas.focusarea4",
             "Others"
         ], 
-        desc: "Focuses on ensuring physical, mental, and social wellness for individuals and communities to lead fulfilling lives.",
+        desc: "themedetails.healththeme",
     },
     { 
         id: 4, 
         image: i4, 
-        title: 'Quality Education', 
+        title: "themes.educationtheme", 
         focusareas: [
-            "Online Learning (e.g., e-learning platforms, virtual classrooms)",
-            "Inclusive Education (e.g., education for all, special needs education)",
-            "Teacher Training (e.g., professional development, new teaching methods)",
-            "Educational Technology (e.g., interactive learning tools, digital textbooks)" ,
+            "educationfocusareas.focusarea1",
+            "educationfocusareas.focusarea2",
+
+            "educationfocusareas.focusarea3",
+
+            "educationfocusareas.focusarea4",
+
             "Others"
         ], 
-        desc: "Quality Education ensures inclusive, equitable learning opportunities that empower individuals with the knowledge and skills needed for lifelong success.",
+    desc: "themedetails.educationtheme",
+
     },
     { 
         id: 5, 
         image: i5, 
-        title: 'Economic Empowerment', 
+        title:  "themes.economictheme", 
         focusareas: [
-            "Financial Education (e.g., budgeting, saving, investing)",
-            "Start-up Innovations (e.g., new business ideas, entrepreneurship support)",
-            "Vocational Training (e.g., skill development, job readiness)",
-            "Retail Innovations (e.g., new products, better shopping experiences)"  ,
+            "economicfocusareas.focusarea1",
+            "economicfocusareas.focusarea2",
+            "economicfocusareas.focusarea3",
+            "economicfocusareas.focusarea4",
             "Others"
         ], 
-        desc: "Economic Empowerment enables individuals and communities to improve their financial stability and independence through access to resources, opportunities, and skills.",
+        desc:"themedetails.economictheme",
     },
     { 
         id: 6, 
         image: i6, 
-        title: 'Smart and Resilient Communities', 
+        title: "themes.smarttheme",
         focusareas: [
-            "Smart Cities (e.g., smart traffic systems, digital public services)",
-            "Electric Vehicles (e.g., electric cars, charging stations)",
-            "Disaster Management (e.g., emergency response systems, disaster-proof buildings)",
-            "Robotics and Drones (e.g., automation, aerial surveys)",
-            "Smart Textiles (e.g., wearable technology, smart fabrics)",
-            "Travel and Tourism (e.g., eco-tourism, smart travel apps)",
+            "smartfocusareas.focusarea1",
+            "smartfocusareas.focusarea2",
+
+            "smartfocusareas.focusarea3",
+
+            "smartfocusareas.focusarea4",
+
+            "smartfocusareas.focusarea5",
+
+            "smartfocusareas.focusarea6",
+
             "Others"
         ], 
-        desc: "Smart and Resilient Communities use technology and sustainable practices to adapt to challenges, ensuring safety, efficiency, and long-term well-being for all members.",
+        desc:"themedetails.smarttheme",
     },
     { 
         id: 7, 
         image: i7, 
-        title: 'Agriculture and Rural Development', 
+        title: "themes.agritheme",
         focusareas: [
-            "Modern Farming Techniques (e.g., hydroponics, precision farming)",
-            "Rural Development (e.g., rural infrastructure, community projects)",
-            "Food Security (e.g., food storage, distribution systems)",
-            "Nutrition (e.g., healthy diets, fortified foods)"  ,
+            "agrifocusareas.focusarea1",
+
+            "agrifocusareas.focusarea2",
+
+            "agrifocusareas.focusarea3",
+            "agrifocusareas.focusarea4",
+
+
             "Others"
         ], 
-        desc: "Encourages innovative solutions in any other area that aligns with the vision of Viksit Bharat 2047, fostering a culture of broad-based development and progress."
+        desc:"themedetails.agritheme",
     },
     { 
         id: 8, 
         image: i8, 
-        title: 'Others', 
-        focusareas: ["Other area that broadly qualifies for the vision of Viksit Bharat"], 
-        desc: "Encourages innovative solutions in any other area that aligns with the vision of Viksit Bharat 2047, fostering a culture of broad-based development and progress." 
+        title: "themes.othertheme", 
+        focusareas:  ["otherfocusareas.focusarea1"], 
+        desc:"themedetails.othertheme",
     }
   ];
 

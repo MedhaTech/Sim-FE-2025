@@ -258,65 +258,78 @@ const Dashboard = () => {
     const viewDetails = () => {
         // where we can see all details //
         // where orgData = orgnization details , Mentor details //
-        // history.push({
-        //     pathname: '/admin/teacher/View-More-details',
-        //     data: orgData
-        // });
+      
         navigate("/mentor-details");
         localStorage.setItem('orgData', JSON.stringify(orgData));
     };
-    // useEffect(() => {
-    //     const popParam = encryptGlobal('2');
-    //     var config = {
-    //         method: 'get',
-    //         url: process.env.REACT_APP_API_BASE_URL + `/popup/${popParam}`,
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             Accept: 'application/json',
-    //             Authorization: `Bearer ${currentUser.data[0]?.token}`
-    //         }
-    //     };
-    //     axios(config)
-    //         .then(function (response) {
-    //             if (response.status === 200) {
-    //                 if (response.data.data[0]?.on_off === '1') {
-    //                     setIsideadisable(true);
-    //                 } else {
-    //                     setIsideadisable(false);
-    //                 }
-    //             }
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         });
-    // }, []);
+   
     const MentorsData = {
         data: mentorTeam,
         columns: [
             {
                 name: 'No',
                 selector: (row) => row.key,
-                width: '12%'
+                width: '6rem'
             },
             {
                 name: 'Team Name',
                 selector: (row) => row.team_name,
                 sortable: true,
                 center: true,
-                width: '25%'
+                width: '10rem'
             },
             {
                 name: 'Student Count',
                 selector: (row) => row.student_count,
                 center: true,
-                width: '20%'
+                width: '12rem'
             },
-            // {
-            //     name: 'Idea Sub Status',
-            //     selector: (row) => row.ideaStatus,
-            //     center: true,
-            //     width: '25%'
-            // }
+            {
+                name: 'Idea Sub Status',
+                selector: (row) => row.ideaStatus,
+                center: true,
+                width: '15rem'
+            },
+            {
+                name: 'Mentor Approval',
+                selector: (row) =>
+                    row.ideaAcceptance,
+                center: true,
+                width: '13rem'
+            },
+            {
+                name: "Actions",
+                cell: (params) => {
+                  return [
+                    <>
+                      {params.ideaStatus == "SUBMITTED" &&
+                        params.ideaAcceptance === null && params.ideaAcceptance !== "" &&(
+                          <Button
+                            key={params}
+                            //   className={
+                            //       isideadisable
+                            //           ? `btn btn-success btn-lg mr-5 mx-2`
+                            //           : `btn btn-lg mr-5 mx-2`
+                            //   }
+                            className="btn btn-secondary"
+                            label={"REVOKE"}
+                            size="small"
+                            shape="btn-square"
+                            onClick={() =>
+                              handleRevoke(
+                                params.challenge_response_id,
+                                params.ideaStatus
+                              )
+                            }
+                            //   disabled={!isideadisable}
+                          />
+                        )}
+                    </>,
+                  ];
+                },
+                width: "15rem",
+                center: true,
+              },
             // {
             //     name: 'Actions',
             //     cell: (params) => {
@@ -649,7 +662,7 @@ const Dashboard = () => {
                                                             </p>
                                                         </Col>
                                                     </Row>
-                                                    <Row className="pt-3 pb-3">
+                                                    {/* <Row className="pt-3 pb-3">
                                                         <Col
                                                             xs={5}
                                                             sm={5}
@@ -680,7 +693,7 @@ const Dashboard = () => {
                                                                 }
                                                             </p>
                                                         </Col>
-                                                    </Row>
+                                                    </Row> */}
                                                     <Row className="pt-3 pb-3">
                                                         <Col
                                                             xs={5}

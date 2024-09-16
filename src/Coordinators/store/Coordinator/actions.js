@@ -45,7 +45,8 @@ export const coordinatorLoginUser =
         setCurrentUser(item);
         localStorage.setItem("module", module);
         localStorage.setItem("time", new Date().toString());
-        localStorage.setItem("layoutStyling", "modern");
+        localStorage.setItem("stateName", item.data[0].state_name);
+        localStorage.setItem("layoutStyling", "default");
         dispatch(coordinatorLoginUserSuccess(result));
         navigate("/state-dashboard");
       } else {

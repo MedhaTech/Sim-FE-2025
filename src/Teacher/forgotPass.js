@@ -9,6 +9,8 @@ import axios from "axios";
 import { URL, KEY } from "../constants/defaultValues";
 import { useNavigate } from "react-router-dom";
 import { getNormalHeaders, openNotificationWithIcon } from "../helpers/Utils";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import play from "../assets/img/playicon.png";
 
 const Forgotpassword = () => {
   const [errorMsg, seterrorMsg] = useState("");
@@ -67,6 +69,13 @@ const Forgotpassword = () => {
   const handleLogoClick = () => {
     navigate('/');
   };
+
+  const renderTooltip = (props) => (
+    <Tooltip id="pdf-tooltip" {...props}>
+      Watch Demo
+    </Tooltip>
+  );
+
   return (
     <div className="main-wrapper">
       <div className="account-content">
@@ -85,7 +94,22 @@ const Forgotpassword = () => {
                   <ImageWithBasePath src="assets/img/logo-white.png" alt />
                 </Link> */}
                 <div className="login-userheading">
-                  <h3>Forgot your SIM password?</h3>
+                  <h3>Forgot your SIM password?{" "}
+                  <OverlayTrigger placement="top" overlay={renderTooltip}>
+                        <a
+                          href="https://www.youtube.com/watch?v=D434mJUmGpk"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <img
+                            src={play}
+                            className="icon"
+                            alt="play"
+                            style={{ verticalAlign: "middle", width: "7%" }}
+                          />
+                        </a>
+                      </OverlayTrigger>
+                  </h3>
                   {/* <h4>
                     If you forgot your password, well, then we’ll email you
                     instructions to reset your password.

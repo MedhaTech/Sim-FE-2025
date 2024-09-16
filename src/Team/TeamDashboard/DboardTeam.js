@@ -61,27 +61,52 @@ const EmployeesGrid = () => {
     </div>
   );
   
+  // useEffect(() => {
+  //     if(teamsMembersStatus.length != 0){
+  //       localStorage.setItem("ideaSubStatus", teamsMembersStatus[0].idea_submission);
+  //       if (Array.isArray(teamsMembersStatus)) {
+  //         let allCompleted = true;
+        
+  //         // Loop over each record in data
+  //         teamsMembersStatus.forEach(record => {
+  //           let percent = 100 - percentageBWNumbers(record.all_topics_count, record.topics_completed_count);
+        
+  //           // If any percentage is not 100, set allCompleted to false
+  //           if (percent !== 100) {
+  //             allCompleted = false;
+  //           }
+  //         });
+  //       localStorage.setItem("ideaenablestatus", allCompleted ? 1 : 0);
+  //     }
+  //       setStuInstructionsLoading(false);
+  //     }
+  // }, [teamsMembersStatus]);
+  const [ideaEnableStatus, setIdeaEnableStatus] = useState(0);
   useEffect(() => {
-      if(teamsMembersStatus.length != 0){
-        localStorage.setItem("ideaSubStatus", teamsMembersStatus[0].idea_submission);
-        if (Array.isArray(teamsMembersStatus)) {
-          let allCompleted = true;
+    if (teamsMembersStatus.length >= 2 && teamsMembersStatus.length <= 3) {
+      localStorage.setItem("ideaSubStatus", teamsMembersStatus[0].idea_submission);
+      if (Array.isArray(teamsMembersStatus)) {
+        let anyCompleted = false;
         
-          // Loop over each record in data
-          teamsMembersStatus.forEach(record => {
-            let percent = 100 - percentageBWNumbers(record.all_topics_count, record.topics_completed_count);
-        
-            // If any percentage is not 100, set allCompleted to false
-            if (percent !== 100) {
-              allCompleted = false;
-            }
-          });
-        localStorage.setItem("ideaenablestatus", allCompleted ? 1 : 0);
+        // Loop over each record in data
+        teamsMembersStatus.forEach(record => {
+          let percent = 100 - percentageBWNumbers(record.all_topics_count, record.topics_completed_count);
+          
+          // If any student has completed 100%, set anyCompleted to true
+          if (percent === 100) {
+            anyCompleted = true;
+          }
+        });
+        const ideaStatus = anyCompleted ? 1 : 0;
+        localStorage.setItem("ideaenablestatus", ideaStatus);
+        setIdeaEnableStatus(ideaStatus); 
+        // Enable idea submission if at least one student has completed 100%
+        // localStorage.setItem("ideaenablestatus", anyCompleted ? 1 : 0);
       }
-        setStuInstructionsLoading(false);
-      }
+      setStuInstructionsLoading(false);
+    }
   }, [teamsMembersStatus]);
-
+  console.log("Idea enable status:", ideaEnableStatus);
   useEffect(() => {
     if (teamId) {
       dispatch(getTeamMemberStatus(teamId, setshowDefault));

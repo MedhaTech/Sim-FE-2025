@@ -130,6 +130,11 @@ const AdminResources = () => {
                 // center: true,
             },
             {
+                name: 'State',
+                selector: (row) => row.state,
+                width: '12rem'
+            },
+            {
                 name: 'Details',
                 selector: (row) => row.description,
                 width: '25rem'
@@ -189,6 +194,23 @@ const AdminResources = () => {
             }
         ]
     };
+    const customStyles = {
+        rows: {
+          style: {
+            fontSize: "14px",
+          },
+        },
+        headCells: {
+          style: {
+            fontSize: "16px",
+          },
+        },
+        cells: {
+          style: {
+            fontSize: "14px",
+          },
+        },
+      };
     return (
         <div className="page-wrapper">
             <div className="content">
@@ -222,6 +244,8 @@ const AdminResources = () => {
                                     data={setResList}
                                     // noHeader
                                     defaultSortField="id"
+                                    customStyles={customStyles}
+
                                     defaultSortAsc={false}
                                     pagination
                                     highlightOnHover

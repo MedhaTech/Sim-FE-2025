@@ -73,13 +73,13 @@ export const compareDates = (filterDate) => {
 export const logout = (navigate, t, module, dispatch) => {
   const MySwal = withReactContent(Swal);
   MySwal.fire({
-    title: "Are you sure?",
-    text: "You won't be able to revert this!",
+    title:  t('general_req.attempt_logout'),
+    text:  t('general_req.are_you_sure'),
     showCancelButton: true,
     confirmButtonColor: "#00ff00",
-    confirmButtonText: "Logout",
+    confirmButtonText: t('general_req.btn_logout'),
     cancelButtonColor: "#ff0000",
-    cancelButtonText: "Cancel",
+    cancelButtonText:  t('general_req.btn_cancel'),
   }).then((result) => {
     if (result.isConfirmed) {
       if (result.isConfirmed) {
@@ -111,7 +111,8 @@ export const logout = (navigate, t, module, dispatch) => {
         }
       }
     } else if (result.dismiss === Swal.DismissReason.cancel) {
-      MySwal.fire("Cancelled", "You are Logged in", "error");
+      MySwal.fire(  t('general_req.cancelled'),
+      t('general_req.logged_in'), "error");
     }
   });
 };

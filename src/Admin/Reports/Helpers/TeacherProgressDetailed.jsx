@@ -36,6 +36,16 @@ const TeacherProgressDetailed = () => {
     const [category, setCategory] = useState('');
     const [isDownload, setIsDownload] = useState(false);
     const categoryData = ['All Categories', 'ATL', 'Non ATL'];
+  const categoryDataTn= [
+    "All Categories",
+    "Fully Aided-High School",
+    "Fully Aided-Higher Secondary School",
+    "Government-High School",
+    "Government-Higher Secondary School",
+    "Partially Aided-High School",
+    "Partially Aided-Higher Secondary School",
+    "Non ATL",
+  ];
     const newstateList = ["All States", ...stateList];
     // const categoryData =
     //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
@@ -74,7 +84,15 @@ const TeacherProgressDetailed = () => {
         datasets: []
     });
     const fullStatesNames = newstateList ;
-    const fiterDistData = districtList[selectstate];
+    const allDistricts = {
+        "All Districts": [...Object.values(districtList).flat()], 
+        ...districtList
+      };
+    const fiterDistData = [
+        'All Districts',
+        ...allDistricts[selectstate] || [] 
+    ];
+    // const fiterDistData = districtList[selectstate];
     // useEffect(() => {
     //     dispatch(getStateData());
     // }, []);
@@ -142,7 +160,7 @@ const TeacherProgressDetailed = () => {
         },
         {
             label: 'ATL CODE',
-            key: 'organization_code'
+            key: 'unique_code'
         },
         {
             label: 'School Name',
@@ -193,15 +211,15 @@ const TeacherProgressDetailed = () => {
             key: 'whatapp_mobile'
         },
         {
-            label: 'Pre Survey Status',
+            label: 'Teacher Pre Survey Status',
             key: 'pre_survey_status'
         },
         {
-            label: 'Course Status',
+            label: 'Teacher Course Status',
             key: 'course_status'
         },
         {
-            label: 'Post Survey Status',
+            label: 'Teacher Post Survey Status',
             key: 'post_survey_status'
         },
         {
@@ -213,6 +231,14 @@ const TeacherProgressDetailed = () => {
             key: 'student_count'
         },
         {
+            label: 'No.of Students Presurvey Not Started',
+            key: 'not_start_pre'
+        },
+        {
+            label: 'No.of Students Presurvey Completed',
+            key: 'preSur_cmp'
+        },
+        {
             label: 'No.of Students Course Completed',
             key: 'countop'
         },
@@ -220,21 +246,30 @@ const TeacherProgressDetailed = () => {
             label: 'No.of Students Course Inprogress',
             key: 'courseinprogess'
         },
+        {
+            label: 'No.of Students Course Not Started',
+            key: 'courses_not_started'
+        },
+        {
+            label: 'No.of Teams Idea Submitted',
+            key: 'submittedcout'
+        },
+        {
+            label: 'No.of Teams Idea in Draft',
+            key: 'draftcout'
+        },
+        {
+            label: 'No.of Teams Idea Not Initiated',
+            key: 'notInitatedIdeas'
+        },
+        
         // {
-        //     label: 'No.of Students Course Not Started',
-        //     key: 'courseNotStarted'
+        //     label: 'No.of Students Postsurvey Not Started',
+        //     key: 'not_start_pre'
         // },
         // {
-        //     label: 'No.of Teams Idea Submitted',
-        //     key: 'submittedcout'
-        // },
-        // {
-        //     label: 'No.of Teams Idea in Draft',
-        //     key: 'draftcout'
-        // },
-        // {
-        //     label: 'No.of Teams Idea NOt Initiated',
-        //     key: 'ideanotIN'
+        //     label: 'No.of Students Posturvey Completed',
+        //     key: 'preSur_cmp'
         // }
     ];
 
@@ -555,7 +590,8 @@ const TeacherProgressDetailed = () => {
         const apiRes = encryptGlobal(
             JSON.stringify({
                 state: selectstate,
-                district: district === '' ? 'All Districts' : district,
+                district:district,
+                // district: district === '' ? 'All Districts' : district,
                 category: category
             })
         );
@@ -574,10 +610,8 @@ const TeacherProgressDetailed = () => {
             .then(function (response) {
                 
                 if (response.status === 200) {
-                    console.log(response,"22");
-                    // console.log(response.data.data[0].preSurvey,"preSurvey");
-                    // console.log(response.data.data[0].Username,"Username");
-                    // console.log(response.data.data[0],"response");
+                    // console.log(response,"22");
+                   
                     const preSurveyMap = response.data.data[0].preSurvey.reduce((map, item) => {
                         map[item.user_id] = item.pre_survey_status;
                         return map;
@@ -606,16 +640,61 @@ const TeacherProgressDetailed = () => {
                         map[item.mentor_id] = item.courseinprogess;
                         return map;
                     }, {});
+                    const StudentCourseNotStartedMap = Object.keys(studentCountMap).reduce((map, mentor_id) => {
+                        const totalStudents = studentCountMap[mentor_id] || 0;
+                        const completedCourses = StudentCourseCmpMap[mentor_id] || 0;
+                        const coursesInProgress = StudentCourseINproMap[mentor_id] || 0;
+                        
+                        map[mentor_id] = totalStudents - (completedCourses + coursesInProgress);
+                        return map;
+                    }, {});
+                    
                     const UsernameeMap = response.data.data[0].Username.reduce((map, item) => {
                         map[item.user_id] = item.username;
                         return map;
                     }, {});
-                    // const StuIdeaDraftCountMap = response.data.data[0].StuIdeaDraftCount.reduce((map, item) => {
-                    //     map[item.user_id] = item.username;
+                    const StuIdeaDraftCountMap = response.data.data[0].StuIdeaDraftCount.reduce((map, item) => {
+                        map[item.mentor_id] = item.draftcout;
+                        return map;
+                    }, {});
+                    const StuIdeaSubCountMap = response.data.data[0].StuIdeaSubCount.reduce((map, item) => {
+                        map[item.mentor_id] = item.submittedcout;
+                        return map;
+                    }, {});
+
+                    const notInitiatedMap = Object.keys(teamCountMap).reduce((map, mentor_id) => {
+                        const teamCount = teamCountMap[mentor_id] || 0;
+                        const submittedCount = StuIdeaSubCountMap[mentor_id] || 0;
+                        const draftCount = StuIdeaDraftCountMap[mentor_id] || 0;
+                    
+                        map[mentor_id]= teamCount - (submittedCount + draftCount);
+                    
+                        
+                        return map;
+                    }, {});
+                    const StuPreComCountMap = response.data.data[0].studentpresurvey
+                    .reduce((map, item) => {
+                        map[item.mentor_id] = item.preSur_cmp
+                        ;
+                        return map;
+                    }, {});
+
+                    const stuPreNotStartedMap = Object.keys(studentCountMap).reduce((map, mentor_id) => {
+                        const totalStudents = studentCountMap[mentor_id] || 0;
+                        const preSurveyCompleted = StuPreComCountMap[mentor_id] || 0;
+                        map[mentor_id] = totalStudents - preSurveyCompleted; 
+                        return map;
+                    }, {});
+                    // const StuPostComCountMap = response.data.data[0].studentpostsurvey
+                    // .reduce((map, item) => {
+                    //     map[item.mentor_id] = item.preSur_cmp
+                    //     ;
                     //     return map;
                     // }, {});
-                    // const StuIdeaSubCountMap = response.data.data[0].StuIdeaSubCount.reduce((map, item) => {
-                    //     map[item.user_id] = item.username;
+                    // const stuPostNotStartedMap = Object.keys(studentCountMap).reduce((map, mentor_id) => {
+                    //     const totalStudents = studentCountMap[mentor_id] || 0;
+                    //     const postSurveyCompleted = StuPostComCountMap[mentor_id] || 0;
+                    //     map[mentor_id] = totalStudents - postSurveyCompleted; 
                     //     return map;
                     // }, {});
                     const newdatalist = response.data.data[0].summary.map(item => ({
@@ -627,15 +706,38 @@ const TeacherProgressDetailed = () => {
                         student_count : studentCountMap[item.mentor_id] || 0,
                         countop : StudentCourseCmpMap[item.mentor_id] || 0,
                         courseinprogess : StudentCourseINproMap[item.mentor_id] || 0,
-                        username : UsernameeMap[item.user_id]
-                    }));
+                        username : UsernameeMap[item.user_id],
+                        courses_not_started: StudentCourseNotStartedMap[item.mentor_id] || 0 ,
+                        draftcout:StuIdeaDraftCountMap[item.mentor_id] || 0 ,
+                        submittedcout:StuIdeaSubCountMap[item.mentor_id] || 0 ,
+                        notInitatedIdeas: notInitiatedMap[item.mentor_id] || 0 ,
+                        preSur_cmp: StuPreComCountMap[item.mentor_id] || 0 ,
+                        not_start_pre: stuPreNotStartedMap[item.mentor_id] || 0 ,
+                        // postSur_cmp: StuPostComCountMap[item.mentor_id] || 0 ,
+                        // not_start_post: stuPostNotStartedMap[item.mentor_id] || 0 ,
 
+
+
+
+
+                        
+
+                    }));
+// console.log(newdatalist,"dd");
                     setmentorDetailedReportsData(newdatalist);
-                    csvLinkRef.current.link.click();
-                    openNotificationWithIcon(
-                        'success',
-                        "Report Downloaded Successfully"
-                    );
+                    if(response.data.data[0].summary.length > 0){
+                        openNotificationWithIcon(
+                            'success',
+                            "Report Downloaded Successfully"
+                        ); 
+                    }else{
+                        openNotificationWithIcon('error', 'No Data Found');
+                    }
+                    // csvLinkRef.current.link.click();
+                    // openNotificationWithIcon(
+                    //     'success',
+                    //     "Report Downloaded Successfully"
+                    // );
                     setIsDownload(false);
                 }
             })
@@ -644,7 +746,13 @@ const TeacherProgressDetailed = () => {
                 setIsDownload(false);
             });
     };
-
+    useEffect(() => {
+        if (mentorDetailedReportsData.length > 0) {
+          console.log("Performing operation with the updated data.");
+          csvLinkRef.current.link.click();
+    
+        }
+      }, [mentorDetailedReportsData]);
     const fetchChartTableData = () => {
         const config = {
             method: 'get',
@@ -838,8 +946,8 @@ return (
         <div className="page-header">
             <div className="add-item d-flex">
                 <div className="page-title">
-                    <h4>School Detailed Report</h4>
-                    <h6>School Progress - Presurvey , Course, Teams , Post survey Status Report</h6>
+                    <h4>School & Teacher Detailed Report</h4>
+                    <h6>Teacher Progress - Presurvey , Course, Teams , Post survey Status Report</h6>
                 </div>
             </div>
             <div className="page-btn">
@@ -878,12 +986,24 @@ return (
                     </Col>
                     <Col md={3}>
                         <div className="my-2 d-md-block d-flex justify-content-center">
-                            <Select
+                            {/* <Select
                                 list={categoryData}
                                 setValue={setCategory}
                                 placeHolder={'Select Category'}
                                 value={category}
-                            />
+                            /> */}
+                              {selectstate === "Tamil Nadu"?( 
+                            <Select
+                                list={categoryDataTn}
+                                setValue={setCategory}
+                                placeHolder={'Select Category'}
+                                value={category}
+                            />):(  <Select
+                                list={categoryData}
+                                setValue={setCategory}
+                                placeHolder={'Select Category'}
+                                value={category}
+                            />)}
                         </div>
                     </Col>
                     <Col
@@ -990,7 +1110,7 @@ return (
                                 </div>
                                 <div className="card-body">
                                     <div className="table-responsive">
-                                        <table className="table table-borderless recent-transactions">
+                                        <table className="table table-border recent-transactions">
                                             <thead>
                                                 <tr>
                                                     <th style={{color:"#36A2EB"}}>#</th>
@@ -1001,9 +1121,9 @@ return (
                                                     <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}><FontAwesomeIcon icon={faFemale} />Female Students</th>
                                                     <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}><FontAwesomeIcon icon={faMale} /> Male Students</th>
                                                     <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}>Other Students</th>
-                                                    <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}><FontAwesomeIcon icon={faChalkboardTeacher}  /> Course Completed</th>                                                
-                                                    <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}><FontAwesomeIcon icon={faChalkboardTeacher} /> Course InProgress</th>
-                                                    <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}><FontAwesomeIcon icon={faChalkboardTeacher}  /> Course NotStarted </th>                                     
+                                                    <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}><FontAwesomeIcon icon={faChalkboardTeacher}  /> Teacher Course Completed</th>                                                
+                                                    <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}><FontAwesomeIcon icon={faChalkboardTeacher} /> Teacher Course InProgress</th>
+                                                    <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}><FontAwesomeIcon icon={faChalkboardTeacher}  /> Teacher Course NotStarted </th>                                     
                                                 </tr>
                                             </thead>
                                             <tbody className='text-center' >

@@ -47,6 +47,7 @@ import EadminSidebar from "../InitialPage/Sidebar/eadminSidebar";
 import LogInTeam from "../Team/LogInTeam";
 import TeacherPSW from "../Teacher/forgotPass";
 import CollapsedSidebar from "../InitialPage/Sidebar/collapsedSidebar";
+import CooSidebar from "../InitialPage/Sidebar/stateBar";
 const AllRoutes = () => {
   const data = useSelector((state) => state?.admin?.toggle_header);
   const HeaderLayout = () => (
@@ -89,7 +90,9 @@ const AllRoutes = () => {
   const StateHeaderLayout = () => (
     <div className={`main-wrapper ${data ? "header-collapse" : ""}`}>
       <StateHeader />
-      <StateSidebar />
+      {/* <StateSidebar /> */}
+      <CooSidebar/>
+
 
       <Outlet />
       <ThemeSettings />

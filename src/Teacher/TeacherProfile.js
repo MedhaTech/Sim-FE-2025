@@ -12,15 +12,20 @@ import male from "../assets/img/Male_Profile.png";
 import { useDispatch, useSelector } from 'react-redux';
 import { getTeacherByID } from '../redux/actions';
 import user from "../assets/img/user.png";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import { FaPlay } from 'react-icons/fa';
+import VideoModal from '../HelpVideo/VideoModal';
 
 import axios from "axios";
 const TeacherProfile = () => {
   const dispatch = useDispatch();
   const currentUser = getCurrentUser("current_user");
-  console.log(currentUser,"currentuser");
+  // console.log(currentUser,"currentuser");
   const { teacher } = useSelector((state) => state.teacher);
-  console.log(teacher,"11");
+  // console.log(teacher,"11");
   const navigate = useNavigate();
+  const [show , setShow] = useState(false);
+  const [video , setVideo] = useState("");
 const [data,setData]=useState({});
   const handleEdit = () => {
     navigate("/mentoreditprofile", {
@@ -48,12 +53,41 @@ const [data,setData]=useState({});
         dispatch(getTeacherByID(currentUser?.data[0]?.mentor_id));
     }
 }, [currentUser?.data[0]?.mentor_id]);
+
+const renderTooltip = (props) => (
+  <Tooltip id="pdf-tooltip" {...props} >
+    Watch Demo
+  </Tooltip>
+);
+
+const handleShow = () => {
+  setVideo("https://www.youtube.com/embed/Go8alatAXhE?si=QUtgk5bWg3160RpS");
+  setShow(true);
+};
+
   return (
     <div className="page-wrapper">
       <div className="content">
         <div className="page-header">
           <div className="page-title">
-            <h4>Teacher Profile</h4>
+            <h4>Teacher Profile
+            {" "}
+            <div className="action-table-data" style={{"display": "inline-block"}}>
+                <div className="edit-delete-action">
+                  <OverlayTrigger placement="top" overlay={renderTooltip}>
+                    <Link
+                        to="#"
+                        className="me-2 p-2"
+                        onClick={() => handleShow()}
+                        {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
+                        
+                    >
+                      <FaPlay  style={{color:"red"}} />
+                    </Link>
+                  </OverlayTrigger>
+                </div>
+              </div>
+            </h4>
             {/* <h6>User Profile</h6> */}
           </div>
           <div>
@@ -263,6 +297,7 @@ const [data,setData]=useState({});
           </div>
         </div>
         {/* /product list */}
+        {show &&  <VideoModal v={video} setShow={setShow}/>}
       </div>
     </div>
   );

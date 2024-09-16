@@ -273,9 +273,20 @@ export const getSupportTicketByIdSuccess = (tickets) => async (dispatch) => {
 export const getSupportTicketById = (id) => async (dispatch) => {
   try {
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-    const supId = encryptGlobal(
+    // const supId = encryptGlobal(
+    //   JSON.stringify(id)
+    // );
+    // const supId = encryptGlobal(id);
+    let supId;
+    if(typeof(id) !== "string"){
+  supId = encryptGlobal(
       JSON.stringify(id)
     );
+    }else{
+     supId = encryptGlobal(id);
+
+    }
+    // console.log(typeof(id),"id");
     const lang = "locale=en";
     const final = lang.split("=");
     let enParamData = encryptGlobal(
@@ -294,6 +305,7 @@ export const getSupportTicketById = (id) => async (dispatch) => {
       });
 
     if (result && result.status === 200) {
+      // console.log(result, "rr");
       const data = result.data.data[0];
       dispatch(getSupportTicketByIdSuccess(data));
     } else {
@@ -336,7 +348,7 @@ export const getTeacherPresurveyStatusSuccess = (data) => async (dispatch) => {
     type: GET_TEACHERS_PRESURVEY_STATUS,
     payload: data,
   });
-  console.log(data, "pree");
+  // console.log(data, "pree");
 };
 
 export const getTeacherPresurveyStatus = () => async (dispatch) => {
@@ -349,7 +361,7 @@ export const getTeacherPresurveyStatus = () => async (dispatch) => {
         return err.response;
       });
     if (result && result.status === 200) {
-      console.log(result, "1111");
+      // console.log(result, "1111");
       dispatch(getTeacherPresurveyStatusSuccess(result));
     } else {
       dispatch(getTeacherPresurveyStatusSuccess(null));

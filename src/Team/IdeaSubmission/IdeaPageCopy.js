@@ -138,20 +138,25 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const [id, setId] = useState("");
   const [prototypeLink, setPrototypeLink] = useState(formData?.prototype_link);
   const [workbook, setWorkbook] = useState(formData?.workbook);
-  const people = ["None", "2-4 people", "5+ people", "10+ people"];
-  const submit = ["YES", "NO"];
+  // const people = ["None", "2-4 people", "5+ people", "10+ people"];
+  const people = [ t("ideaform_questions.stakeholdersop1"),  t("ideaform_questions.stakeholdersop2"),  t("ideaform_questions.stakeholdersop3"),  t("ideaform_questions.stakeholdersop4")];
+
+  const submit = [ t("ideaform_questions.workbookyes"),  t("ideaform_questions.workbookno")];
   // console.log(error4,"111");
   const journey = [
-    "We did the full problem solving journey by ourselves.",
-    "We got feedback on our problem and modified it",
-    "We got feedback on our idea and modified it",
-    "We got feedback on our prototype and modified it",
+    t("ideaform_questions.probsoljourneyop1"),
+    t("ideaform_questions.probsoljourneyop2"),
+
+    t("ideaform_questions.probsoljourneyop3"),
+
+    t("ideaform_questions.probsoljourneyop4"),
+
   ];
   const place = [
-    "School",
-    "Home",
-    "Other places in the surroundings(Market/Park/Playground etc.)",
-    "Others (Read in newspapers,saw on the internet etc.)",
+    t("ideaform_questions.communityop1"),
+    t("ideaform_questions.communityop2"),
+    t("ideaform_questions.communityop3"),
+    t("ideaform_questions.communityop4"),
   ];
   const language = useSelector(
     (state) => state?.studentRegistration?.studentLanguage
@@ -263,7 +268,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     if (checkPat.length > 0) {
       openNotificationWithIcon(
         "error",
-        "Only alphanumeric and '_' are allowed "
+        t("home.condition")
       );
       return;
     }
@@ -387,7 +392,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       .then(async function (response) {
         if (response.status == 200) {
           setIdeaInitiation(response?.data?.data[0]?.initiated_by);
-          openNotificationWithIcon("success", "Idea Initiated Successfully");
+          openNotificationWithIcon("success",  t("home.ideaInitPop"));
           submittedApi();
           seterror4(false);
           // console.log("200");
@@ -396,7 +401,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       .catch(function (error) {
         openNotificationWithIcon(
           "error",
-          "Please fill Focus Area, Title, ProblemStatement for Idea Initiation."
+          t("home.firstfour")
         );
         // console.log("errors");
         console.log(error);
@@ -559,7 +564,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
         .then(function (response) {
           if (response.status === 200) {
             if (stats === "SUBMITTED") {
-              openNotificationWithIcon("success", "Idea submission successful");
+              openNotificationWithIcon("success",  t("home.ideaSubPop"));
               setTimeout(function () {
                 window.location.reload();
               }, 500);
@@ -568,7 +573,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
               localStorage.setItem("ideaSubStatus", 1);
               onclick();
             } else {
-              openNotificationWithIcon("success", "Save as Draft success");
+              openNotificationWithIcon("success",  t("home.ideaDraPop"));
               setIsDisabled(true);
               scroll();
             }
@@ -584,7 +589,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     } else {
       openNotificationWithIcon(
         "error",
-        "Please attempt all questions to submit"
+        t("home.ideaFullPop")
       );
     }
   };
@@ -803,7 +808,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               <div className=" answers row flex-column">
                                 <textarea
                                   disabled={isDisabled}
-                                  placeholder="Enter the Focus Area"
+                                  placeholder={t("home.ideaFoc")}
                                   value={focusarea}
                                   maxLength={500}
                                   onChange={(e) =>
@@ -856,7 +861,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               <textarea
                                 className="form-control"
                                 disabled={isDisabled}
-                                placeholder="Enter Idea Title"
+                                placeholder={t("home.ideatit")}
+                                // {t("student_course.chars")}
                                 value={title}
                                 rows={4}
                                 maxLength={500}
@@ -883,7 +889,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 className="form-control"
                                 disabled={isDisabled}
                                 rows={6}
-                                placeholder="Enter Problem Statement"
+                                placeholder={t("home.ideaprob")}
                                 value={problemStatement}
                                 maxLength={1000}
                                 onChange={(e) =>
@@ -913,7 +919,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               <textarea
                                 className="form-control"
                                 disabled={isDisabled}
-                                placeholder="Enter List of Causes"
+                                placeholder={t("home.ideaList")}
                                 rows={4}
                                 value={causes}
                                 maxLength={500}
@@ -939,7 +945,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               <textarea
                                 className="form-control"
                                 disabled={isDisabled}
-                                placeholder="Enter List of Effects of the problem"
+                                placeholder={t("home.ideaEff")}
                                 value={effects}
                                 rows={4}
                                 maxLength={500}
@@ -1003,7 +1009,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               <textarea
                                 className="form-control"
                                 disabled={isDisabled}
-                                placeholder="Enter List of Effects of the problem"
+                                placeholder={t("home.ideaEff")}
                                 value={facing}
                                 rows={4}
                                 maxLength={500}
@@ -1021,7 +1027,10 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 className="btn btn-secondary"
                                 onClick={goToNext}
                               >
-                                NEXT
+                                {/* {t("student_course.chars")} */}
+                                {/* NEXT */}
+                                {t("idea_page.next")}
+
                               </button>
                             </Col>
                           </div>
@@ -1049,7 +1058,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               <textarea
                                 className="form-control"
                                 disabled={isDisabled}
-                                placeholder="Enter the solution to the problem"
+                                placeholder= {t("home.ideaSol")}
                                 value={solution}
                                 rows={6}
                                 maxLength={1000}
@@ -1162,7 +1171,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 className="form-control"
                                 disabled={isDisabled}
                                 rows={6}
-                                placeholder="Enter your Feedback"
+                                placeholder={t("home.ideaFee")}
                                 value={feedback}
                                 maxLength={500}
                                 onChange={(e) =>
@@ -1181,7 +1190,10 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 className="btn btn-info"
                                 onClick={goToBack}
                               >
-                                BACK
+                                {/* {t("student_course.chars")} */}
+                                {/* BACK */}
+                                {t("idea_page.back")}
+
                               </button>
                             </Col>
                             <Col className="d-flex justify-content-end">
@@ -1189,7 +1201,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 className="btn btn-secondary"
                                 onClick={goToNext}
                               >
-                                NEXT
+                                {t("idea_page.next")}
+                                {/* NEXT */}
                               </button>
                             </Col>
                           </Row>
@@ -1231,7 +1244,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                                                                                 )} */}
                                 {!isDisabled && (
                                   <Button
-                                    label="Upload File "
+                                    label= {t("home.ideaFi")}
                                     // btnClass="primary"
                                     btnClass={`${isDisabled ? "secondary" : "primary"
                                       } me-3 pointer `}
@@ -1296,7 +1309,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               <textarea
                                 className="form-control"
                                 disabled={isDisabled}
-                                placeholder="Upload your Link"
+                                placeholder={t("home.ideaUp")}
                                 value={prototypeLink}
                                 maxLength={300}
                                 onChange={(e) =>
@@ -1353,7 +1366,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               className="btn btn-info "
                               onClick={goToBack}
                             >
-                              BACK
+                               {t("idea_page.back")}
+                              {/* BACK */}
                             </button>
                           </div>
                         </Row>

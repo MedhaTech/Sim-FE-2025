@@ -98,6 +98,24 @@ import InstructionsTeacher from "../Teacher/Dashboard/Instructions";
 import InstructionsStudent from "../Team/StudentDashboard/instructions";
 import BadgesComp from "../Team/Badges/Badges";
 import Badgesteach from "../Teacher/Badges/Badges";
+import CooRegist from "../Coordinators/Reports/RegistReport";
+import CooSchool from "../Coordinators/Reports/TeacherReport";
+import CooStudent from "../Coordinators/Reports/StudentReport";
+import CooInst from "../Coordinators/Reports/InstReport";
+import DiescodeScreen from "../Admin/Dashboard/DiescodeScreen";
+import DiesView from "../Admin/Dashboard/DiesView";
+import DiesViewcoo from "../Coordinators/Dashboard/DiesView";
+
+
+import DiesEdit from "../Admin/Dashboard/DiesEdit";
+import DiesSearch from "../Coordinators/Dashboard/DiesSearch";
+import StateSupport from "../Coordinators/CooTickets/Tickets";
+import StateRes from "../Coordinators/CooTickets/TicketResponse";
+
+import AdminSupport from "../Admin/AdminTickets/Tickets";
+import AdminRes from "../Admin/AdminTickets/TicketResponse";
+
+
 
 
 
@@ -325,6 +343,46 @@ export const publicRoutes = [
     path: routes.studentreport,
     name: "studentreport",
     element: <StudentProgressReport/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 26,
+    path: routes.diescode,
+    name: "diescode",
+    element: <DiescodeScreen/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 27,
+    path: routes.diesview,
+    name: "diesview",
+    element: <DiesView/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 28,
+    path: routes.diesedit,
+    name: "diesedit",
+    element: <DiesEdit/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 29,
+    path: routes.adminsupport,
+    name: "adminsupport",
+    element: <AdminSupport/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 30,
+    path: routes.adminresponse,
+    name: "adminresponse",
+    element: <AdminRes />,
     protected: true,
     route: Route,
   },
@@ -583,6 +641,70 @@ export const stateRoutes = [
     path: routes.statedashboard,
     name: "statehome",
     element: <StateDashboard />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 2,
+    path: routes.stateregist,
+    name: "stateregist",
+    element: <CooRegist />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 3,
+    path: routes.schoolcoo,
+    name: "schoolcoo",
+    element: <CooSchool />,
+    protected: true,
+    route: Route,
+  }, 
+  {
+    id: 4,
+    path: routes.studentcoo,
+    name: "studentcoo",
+    element: <CooStudent />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 5,
+    path: routes.intitutioncoo,
+    name: "intitutioncoo",
+    element: <CooInst />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 6,
+    path: routes.coodies,
+    name: "coodies",
+    element: <DiesSearch />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 6,
+    path: routes.cooview,
+    name: "cooview",
+    element: <DiesViewcoo />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 7,
+    path: routes.coosupport,
+    name: "coosupport",
+    element: <StateSupport />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 8,
+    path: routes.cooresponse,
+    name: "cooresponse",
+    element: <StateRes />,
     protected: true,
     route: Route,
   },

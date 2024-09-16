@@ -404,9 +404,27 @@ const updateStatesList=["All States",...stateList];
                 cellExport: (row) => row?.mentor.
                 organization.
                 organization_code,
-                width: '10rem'
+                width: '8rem'
             },
-
+            {
+                name: 'State',
+                selector: (row) =>  row?.
+                mentor.organization.state,
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row?.
+                mentor.organization.state}
+                    </div>
+                ),
+                cellExport: (row) => row?.
+                mentor.organization.state,
+                width: '9rem'
+            },
             {
                 name: 'District',
                 selector: (row) =>  row?.
@@ -424,25 +442,24 @@ const updateStatesList=["All States",...stateList];
                 ),
                 cellExport: (row) => row?.
                 mentor.organization.district,
-                width: '13rem'
-            },
-            {
-                name: 'Team Name',
-                selector: (row) => row?.team_name
-                ,
-                cellExport: (row) => row?.team_name
-                ,
                 width: '9rem'
             },
             {
-                name: 'Students Count',
-                selector: (row) => row.
-                student_count
-                ,
-                cellExport: (row) => row.
-                student_count
-                ,
-                width: '10rem'
+                name: 'Organization Name',
+                selector: (row) =>row?.
+                mentor.organization.organization_name,
+                cellExport: (row) => row.mentor.organization.organization_name,
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row.mentor.organization.organization_name}
+                    </div>
+                ),
+                width: '13rem'
             },
             {
                 name: 'Mentor Name',
@@ -466,20 +483,36 @@ const updateStatesList=["All States",...stateList];
                 ,
                 width: '10rem'
             },
-
             {
-                name: 'Organization Name',
-                selector: (row) =>row?.
-                mentor.organization.organization_name,
-                cellExport: (row) => row.mentor.organization.organization_name,
-                width: '10rem'
+                name: 'User Id',
+                selector: (row) => row.user.username,
+                width: '9rem'
             },
-            // {
-            //     name: 'Age',
-            //     selector: (row) => row.Age,
-            //     width: '4rem'
-            // },
+            {
+                name: 'Team Name',
+                selector: (row) => row?.team_name
+                ,
+                cellExport: (row) => row?.team_name
+                ,
+                width: '9rem'
+            },
+           
 
+           
+            {
+                name: 'Students Count',
+                selector: (row) => row.
+                student_count
+                ,
+                cellExport: (row) => row.
+                student_count
+                ,
+                width: '9rem'
+            },
+          
+
+           
+          
             // {
             //     name: 'Gender',
             //     selector: (row) => row.gender,

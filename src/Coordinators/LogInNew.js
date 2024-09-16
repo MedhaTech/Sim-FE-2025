@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable react/prop-types */
@@ -13,14 +14,15 @@ import logo from "../assets/img/new-logo.png";
 // import email from "../assets/img/icons/mail.svg";
 import { openNotificationWithIcon } from "../helpers/Utils";
 import { coordinatorLoginUser } from "../Coordinators/store/Coordinator/actions";
+import { stateList } from '../RegPage/ORGData';
 
 const StateLogin = (props) => {
   const navigate = useNavigate();
   const [isPasswordVisible, setPasswordVisible] = useState(false);
-  const inputUserId = {
-    type: "text",
-    placeholder: "Please Enter State Name",
-  };
+  // const inputUserId = {
+  //   type: "text",
+  //   placeholder: "Please Enter State Name",
+  // };
   const togglePasswordVisibility = () => {
     setPasswordVisible((prevState) => !prevState);
   };
@@ -44,19 +46,20 @@ const StateLogin = (props) => {
   }, []);
   const formik = useFormik({
     initialValues: {
-      district: "",
+      state: "",
       password: "",
     },
 
     validationSchema: Yup.object({
-      district: Yup.string()
+      state: Yup.string()
         .trim()
-        .min(2, "Please Enter State Name")
-        .matches(/^[aA-zZ\s]+$/, "Special Characters are not allowed")
-        .required("Required"),
-      password: Yup.string().required("required"),
+        // .min(2, "Please Enter State Name")
+        // .matches(/^[aA-zZ\s]+$/, "Special Characters are not allowed")
+        .required("Please Select State Name"),
+      password: Yup.string().required("Please Enter Password"),
     }),
     onSubmit: (values) => {
+      localStorage.clear();
       if (
         localStorage.getItem("current_user") &&
         localStorage.getItem("module")
@@ -76,7 +79,7 @@ const StateLogin = (props) => {
         padding: CryptoJS.pad.NoPadding,
       }).toString();
       const body = {
-        username: values.district,
+        username: values.state.toLowerCase().replace(/\s+/g, ''),
         password: encrypted,
         // role: 'STATE',
       };
@@ -84,10 +87,13 @@ const StateLogin = (props) => {
       props.coordinatorLoginUserAction(body, navigate, "STATE");
     },
   });
+  const handleStateChange = (event) => {
+    formik.setFieldValue("state", event.target.value);
+  };
   return (
     <div className="main-wrapper">
       <div className="account-content">
-        <div className="login-wrapper bg-img">
+        <div className="login-wrapper admin-wrap bg-img">
           <div className="login-content">
             <form onSubmit={formik.handleSubmit} action="index">
               <div className="login-userset">
@@ -111,17 +117,26 @@ const StateLogin = (props) => {
                 <div className="form-login mb-3">
                   <label className="form-label">State Name</label>
                   <div className="form-addons">
-                    <input
-                      {...inputUserId}
-                      id="district"
-                      className="form- control"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.district}
-                    />
-                    {formik.touched.district && formik.errors.district ? (
-                      <small className="error-cls">Required</small>
-                    ) : null}
+                  <select
+                            id="inputState"
+                            className="form-select"
+                            value={formik.values.state}
+                            onChange={(e)=>handleStateChange(e)}
+                          >
+                            <option value="">Select State</option>
+                            {stateList.map((state) => (
+                              <option key={state} value={state}>
+                                {state}
+                              </option>
+                            ))}
+                          </select>
+
+                                                {formik.touched.state &&
+                                                formik.errors.state ? (
+                                                    <small className="error-cls" style={{color:"red"}}>
+                                                        {formik.errors.state}
+                                                    </small>
+                                                ) : null}
                     {/* <ImageWithBasePath
                       src="assets/img/icons/mail.svg"
                       alt="img"
@@ -131,7 +146,7 @@ const StateLogin = (props) => {
                 </div>
                 <div className="form-login mb-3">
                   <label className="form-label">Password</label>
-                  <div className="pass-group">
+                  <div className="pass-group" >
                     <input
                       type={isPasswordVisible ? "text" : "password"}
                       id="password"
@@ -141,16 +156,23 @@ const StateLogin = (props) => {
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
                     />
-                    {formik.touched.password && formik.errors.password ? (
-                      <small className="error-cls">Required</small>
-                    ) : null}
-                    <span
+                    <div
                       className={`fas toggle-password ${
                         isPasswordVisible ? "fa-eye" : "fa-eye-slash"
                       }`}
                       onClick={togglePasswordVisibility}
-                    ></span>
+                    ></div>
                   </div>
+
+                    {formik.touched.password && formik.errors.password ? (
+                      <small className="error-cls" style={{color:"red"}}>{formik.errors.password}</small>
+                    ) : null}
+                    {/* <span
+                      className={`fas toggle-password ${
+                        isPasswordVisible ? "fa-eye" : "fa-eye-slash"
+                      }`}
+                      onClick={togglePasswordVisibility}
+                    ></span> */}
                 </div>
                 <div className="form-login authentication-check">
                   <div className="row">
@@ -162,9 +184,9 @@ const StateLogin = (props) => {
                           Remember me
                         </label>
                       </div>
-                      <div className="text-end">
+                      {/* <div className="text-end">
                         <Link className="forgot-link">Forgot Password?</Link>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
