@@ -582,9 +582,9 @@ const Register = () => {
                     <h3>
                       {" "}
                       School Teacher Registration{" "}
-                      {/* <OverlayTrigger placement="top" overlay={renderTooltip}>
+                      <OverlayTrigger placement="top" overlay={renderTooltip}>
                         <a
-                          href="https://www.youtube.com/watch?v=CiYa_iLdpXo"
+                          href="https://www.youtube.com/watch?v=sVCgsJgfNJY"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
@@ -595,7 +595,7 @@ const Register = () => {
                             style={{ verticalAlign: "middle", width: "7%" }}
                           />
                         </a>
-                      </OverlayTrigger>*/}
+                      </OverlayTrigger>
                     </h3>
                     <h4>Register New Teacher account</h4>
                   </div>

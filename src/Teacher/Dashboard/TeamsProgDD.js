@@ -27,11 +27,17 @@ import Selects from "./Select";
 import Swal from "sweetalert2/dist/sweetalert2";
 import logout from "../../assets/img/logout.png";
 import IdeaSubmissionCard from "../../components/IdeaSubmissionCard";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { FaPlay } from 'react-icons/fa';
+import VideoModal from '../../HelpVideo/VideoModal';
 
 const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
   const [ideaShow, setIdeaShow] = useState(false);
   const [ChangeShow, setChangeShow] = useState(false);
-
+  
+  const [show , setShow] = useState(false);
+  const [video , setVideo] = useState("");
   //////////////New Code/////////////////////////
   const dispatch = useDispatch();
   const currentUser = getCurrentUser("current_user");
@@ -505,6 +511,19 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
       setIsreject(false);
     }
   };
+
+  const renderTooltip = (props) => (
+    <Tooltip id="pdf-tooltip" {...props} >
+      Watch Demo
+    </Tooltip>
+  );
+
+  const handleShow = () => {
+    setVideo("https://www.youtube.com/embed/e0S4PRXLo0U?si=2-Avy3FT6Ryj_xIi");
+    setShow(true);
+  };
+  
+
 // console.log(formData,"ddd");
   return (
     <div>
@@ -520,7 +539,22 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
                 verticalAlign: "middle",
               }}
             />
-            Team Progress
+            Team Progress {" "}
+            <div className="action-table-data" style={{"display": "inline-block"}}>
+                <div className="edit-delete-action">
+                  <OverlayTrigger placement="top" overlay={renderTooltip}>
+                    <Link
+                        to="#"
+                        className="me-2 p-2"
+                        onClick={() => handleShow()}
+                        {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
+                        
+                    >
+                      <FaPlay  style={{color:"red"}} />
+                    </Link>
+                  </OverlayTrigger>
+                </div>
+              </div>
           </h4>
           <button
             className="btn btn-secondary d-flex align-items-center"
@@ -685,6 +719,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
             </Modal>
           )}
         </div>
+        {show &&  <VideoModal v={video} setShow={setShow}/>}
       </div>
     </div>
   );

@@ -212,15 +212,15 @@ const TeacherProgressDetailed = () => {
       key: "whatapp_mobile",
     },
     {
-      label: "Pre Survey Status",
+      label: "Teacher Pre Survey Status",
       key: "pre_survey_status",
     },
     {
-      label: "Course Status",
+      label: "Teacher Course Status",
       key: "course_status",
     },
     {
-      label: "Post Survey Status",
+      label: "Teacher Post Survey Status",
       key: "post_survey_status",
     },
    
@@ -967,9 +967,9 @@ const TeacherProgressDetailed = () => {
         <div className="page-header">
           <div className="add-item d-flex">
             <div className="page-title">
-              <h4>School Detailed Report</h4>
+              <h4>School & Teacher Detailed Report</h4>
               <h6>
-                School Progress - Presurvey , Course, Teams , Post survey Status
+                Teacher Progress - Presurvey , Course, Teams , Post survey Status
                 Report
               </h6>
             </div>
@@ -1208,7 +1208,7 @@ const TeacherProgressDetailed = () => {
                                     <FontAwesomeIcon
                                       icon={faChalkboardTeacher}
                                     />{" "}
-                                    Course Completed
+                                    Teacher Course Completed
                                   </th>
                                   <th
                                     style={{
@@ -1220,7 +1220,7 @@ const TeacherProgressDetailed = () => {
                                     <FontAwesomeIcon
                                       icon={faChalkboardTeacher}
                                     />{" "}
-                                    Course InProgress
+                                    Teacher Course InProgress
                                   </th>
                                   <th
                                     style={{
@@ -1232,7 +1232,7 @@ const TeacherProgressDetailed = () => {
                                     <FontAwesomeIcon
                                       icon={faChalkboardTeacher}
                                     />{" "}
-                                    Course NotStarted{" "}
+                                    Teacher Course NotStarted{" "}
                                   </th>
                                 </tr>
                               </thead>

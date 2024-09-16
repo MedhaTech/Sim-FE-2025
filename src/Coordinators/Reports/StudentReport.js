@@ -216,7 +216,7 @@ const StudentProgress = () => {
       key: "team_name",
     },
     {
-      label: "Team Username",
+      label: "Team Username/Login",
       key: "team_username",
     },
     {
@@ -1168,10 +1168,7 @@ const StudentProgress = () => {
                                       color: "#36A2EB",fontWeight: "bold"
                                     }}
                                   >
-                                    <FontAwesomeIcon
-                                      icon={faChalkboardTeacher}
-                                    />{" "}
-                                    Course Completed
+                                    #Student Course Completed
                                   </th>
                                   <th
                                     style={{
@@ -1179,10 +1176,7 @@ const StudentProgress = () => {
                                       color: "#36A2EB",fontWeight: "bold"
                                     }}
                                   >
-                                    <FontAwesomeIcon
-                                      icon={faChalkboardTeacher}
-                                    />{" "}
-                                    Course InProgress
+                                    #Student Course InProgress
                                   </th>
                                   <th
                                     style={{
@@ -1190,10 +1184,7 @@ const StudentProgress = () => {
                                       color: "#36A2EB",fontWeight: "bold"
                                     }}
                                   >
-                                    <FontAwesomeIcon
-                                      icon={faChalkboardTeacher}
-                                    />{" "}
-                                    Course NotStarted{" "}
+                                    #Student Course NotStarted
                                   </th>
                                   <th
                                     style={{
@@ -1212,7 +1203,7 @@ const StudentProgress = () => {
                                       color: "#36A2EB",fontWeight: "bold"
                                     }}
                                   >
-                                    #No of Teams Submitted Ideas
+                                    #Teams Submitted Ideas
                                   </th>
                                   <th
                                     style={{
@@ -1220,7 +1211,7 @@ const StudentProgress = () => {
                                       color: "#36A2EB",fontWeight: "bold"
                                     }}
                                   >
-                                    #No of Teams Ideas in Draft
+                                    #Teams Ideas in Draft
                                   </th>
                                   <th
                                     style={{
@@ -1228,7 +1219,7 @@ const StudentProgress = () => {
                                       color: "#36A2EB",fontWeight: "bold"
                                     }}
                                   >
-                                    #No of Teams Not Started Idea Submission
+                                    #Teams Idea Not Started
                                   </th>
                                 </tr>
                               </thead>
