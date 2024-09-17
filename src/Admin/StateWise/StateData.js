@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import { PlusCircle } from "feather-icons-react/build/IconComponents";
 import { FaWhatsapp } from 'react-icons/fa';
 import { FaCheck, FaTimes } from 'react-icons/fa';  // For success and disable icons
-
+import ToggleButton from './Toggle'; 
 import 'sweetalert2/src/sweetalert2.scss';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 const StateData = () => {
@@ -185,27 +185,17 @@ state_coordinators_id
                 // center: true,
             },
 
-            // {
-            //     name: 'Role',
-            //     selector: (row) => row.role,
-            //     width: '7rem'
-            //     // center: true,
-            // },
+           
             {
                 name: 'State',
                 selector: (row) => row.
                 state_name,
-                width: '12rem'
+                width: '10rem'
             },
-            // {
-            //     name: 'whatsapp Link',
-            //     selector: (row) => row.whatapp_link
-            //     ,
-            //     width: '10rem'
-            // },
+           
             {
                 name: 'whatsapp Link',
-                width: '10rem',
+                width: '8rem',
                 center: true,
                 cell: (record) => {
                     if (record.whatapp_link === null) {
@@ -228,44 +218,15 @@ state_coordinators_id
                 name: 'Teacher Inst',
                 selector: (row) => row.mentor_note
                 ,
-                width: '17rem'
+                width: '13rem'
             },  {
                 name: 'student Inst',
                 selector: (row) => row.student_note
                 ,
-                width: '17rem'
+                width: '13rem'
             },
 
-            // {
-            //     name: 'File/Link',
-            //     width: '8rem',
-            //     cell: (record) => {
-            //         if (record.type === 'file') {
-            //             return (
-            //                 <a
-            //                     href={record.attachments}
-            //                     target="_blank"
-            //                     className="badge badge-md bg-secondary"
-            //                     rel="noopener noreferrer"
-            //                     >
-            //                     <i className="fas fa-file-lines"></i> Check File
-            //                 </a>
-            //             );
-            //         } else if (record.type === 'link') {
-            //             return (
-            //                 <a
-            //                     href={record.attachments}
-            //                     target="_blank"
-            //                     className="badge badge-md bg-secondary"
-            //                     rel="noopener noreferrer"
-            //                     >
-            //                     <i className="fa-brands fa-youtube"></i> Navigate
-            //                 </a>
-            //             );
-            //         }
-            //         return null;
-            //     }
-            // },
+         
             {
                 name: 'Actions',
                 center: true,
@@ -278,51 +239,54 @@ state_coordinators_id
                             >
                               <i data-feather="edit" className="feather-edit" /> Edit
                         </button>
-                        {/* <button
-                              className="btn btn-danger btn-sm mx-3"
-                              onClick={() => handleDelete(record)}
-                            >
-                              <i data-feather="trash-2" className="feather-trash-2" />{" "}
-                              Delete
-                        </button> */}
+                       
                     </>
                 ]
             },
             {
                 name: 'Enable/Disable',
-                width: '9rem',
-                cell: (record) => {
+                width: '12rem',
+                cell: (record) => (
+                  <ToggleButton
+                    isEnabled={record.ideaSubmission === 1}
+                    onToggle={(newStatus) => handleStatus(record, newStatus.toString())}
+                  />
+                )
+              },
+            // {
+            //     name: 'Enable/Disable',
+            //     width: '9rem',
+            //     cell: (record) => {
                     
-                    if (record.
-                        ideaSubmission === 1) {
-                        return (
-                            <a
-                                className="btn btn-danger"
-                                onClick={() => {
-                                    handleStatus(record
-                                        , '0');
-                                }}
-                            >
-                                 {/* <FaTimes style={{ marginRight: '5px' }} /> */}
-                                Disable
-                            </a>
-                        );
-                    } else if (record.
-                        ideaSubmission === 0) {
-                        return (
-                            <button
-                                className="btn btn-success"
-                                onClick={() => {
-                                    handleStatus(record
-                                        , '1');
-                                }}
-                            >
-                                Enable
-                            </button>
-                        );
-                    }
-                }
-            },
+            //         if (record.
+            //             ideaSubmission === 1) {
+            //             return (
+            //                 <a
+            //                     className="btn btn-danger"
+            //                     onClick={() => {
+            //                         handleStatus(record
+            //                             , '0');
+            //                     }}
+            //                 >
+            //                     Disable
+            //                 </a>
+            //             );
+            //         } else if (record.
+            //             ideaSubmission === 0) {
+            //             return (
+            //                 <button
+            //                     className="btn btn-success"
+            //                     onClick={() => {
+            //                         handleStatus(record
+            //                             , '1');
+            //                     }}
+            //                 >
+            //                     Enable
+            //                 </button>
+            //             );
+            //         }
+            //     }
+            // },
         ]
     };
     const customStyles = {
