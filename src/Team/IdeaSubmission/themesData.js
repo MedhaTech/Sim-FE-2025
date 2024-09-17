@@ -23,12 +23,14 @@ export const themesList = [
     // "themes.othertheme",
 
 
-"Sustainable Development & Environment",
+"Sustainable Development and Environment",
+ "Digital Transformation",
     "Health and Well-being",
     "Quality Education",
     "Economic Empowerment",
     "Smart and Resilient Communities",
     "Agriculture and Rural Development",
+
     "Others"
 ];
 export const focusareasList = {
