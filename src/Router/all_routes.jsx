@@ -26,6 +26,8 @@ export const all_routes = {
 coosupport:"/state-support",
 adminsupport:"/admin-support",
 adminresponse:"/admin/support-journey/ans-ticket",
+statewise:"state-wise",
+editstatewise:"edit-state-wise",
 
 cooresponse:"/coordinator/support-journey/ans-ticket",
 

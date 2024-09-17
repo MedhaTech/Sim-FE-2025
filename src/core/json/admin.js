@@ -92,6 +92,13 @@ const AdminSidebarData = () => {
           showSubRoute: false,
           submenu: false,
         },
+        {
+          label:"State Specific",
+          link: "/state-wise",
+          icon: <Icon.FilePlus />,
+          showSubRoute: false,
+          submenu: false,
+        },
        
       ],
     },
