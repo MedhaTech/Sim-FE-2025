@@ -297,7 +297,7 @@ state_coordinators_id
                         ideaSubmission === 1) {
                         return (
                             <a
-                                // className="btn btn-danger"
+                                className="btn btn-danger"
                                 onClick={() => {
                                     handleStatus(record
                                         , '0');
