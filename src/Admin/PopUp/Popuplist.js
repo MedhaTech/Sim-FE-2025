@@ -81,38 +81,7 @@ const AdminResources = () => {
                 selector: (row) => row.navigate,
                 width: '10rem'
             },
-            {
-                name: 'Enable/Disable',
-                width: '9rem',
-                cell: (record) => {
-                    
-                    if (record.on_off === '1') {
-                        return (
-                            <button
-                                className="btn btn-danger"
-                                onClick={() => {
-                                    handleStatus(record
-                                        , '0');
-                                }}
-                            >
-                                Disable
-                            </button>
-                        );
-                    } else if (record.on_off === '0') {
-                        return (
-                            <button
-                                className="btn btn-success"
-                                onClick={() => {
-                                    handleStatus(record
-                                        , '1');
-                                }}
-                            >
-                                Enable
-                            </button>
-                        );
-                    }
-                }
-            },
+         
             // {
             //     name: 'Type',
             //     selector: 'type',
@@ -179,7 +148,39 @@ const AdminResources = () => {
                         </div>
                     </>
                 ]
-            }
+            },
+            {
+                name: 'Enable/Disable',
+                width: '9rem',
+                cell: (record) => {
+                    
+                    if (record.on_off === '1') {
+                        return (
+                            <button
+                                className="btn btn-danger"
+                                onClick={() => {
+                                    handleStatus(record
+                                        , '0');
+                                }}
+                            >
+                                Disable
+                            </button>
+                        );
+                    } else if (record.on_off === '0') {
+                        return (
+                            <button
+                                className="btn btn-success"
+                                onClick={() => {
+                                    handleStatus(record
+                                        , '1');
+                                }}
+                            >
+                                Enable
+                            </button>
+                        );
+                    }
+                }
+            },
         ]
     };
     const handleTecherDelete = (items) => {

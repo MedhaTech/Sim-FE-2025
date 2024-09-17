@@ -51,11 +51,29 @@ const GreetingModal = (props) => {
 
           <Modal.Body>
               <figure>
-                  <img
+              {props.poptype === "link" ? (
+                  <div className="modal-body custom-modal-body">
+                                    <div style={{ width: '100%', height: '400px' }}>
+                      <iframe
+                         
+                          src={props.popLink}
+                          title="Video popup"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                      ></iframe>
+                      </div></div>
+                  ) : (
+                      <img
+                          src={props.imgUrl}
+                          alt="popup image"
+                          className="img-fluid"
+                      />
+                  )}
+                  {/* <img
                       src={props.imgUrl}
                       alt="popup image"
                       className="img-fluid"
-                  />
+                  /> */}
               </figure>
           </Modal.Body>
           <Modal.Footer>
@@ -80,6 +98,10 @@ const GreetingModal = (props) => {
 const MentorDashboard = () => {
   const [showsPopup, setShowsPopup] = useState(false);
   const [imgUrl, setImgUrl] = useState('');
+  const [popLink, setPopLink] = useState('');
+  const [poptype, setPopType] = useState('');
+
+
   const[state,setState]=useState("");
   // console.log(state,"sss");
 
@@ -106,6 +128,7 @@ const MentorDashboard = () => {
   const [teacCourseLoading, setTeacCourseLoading] = useState(true);
   const [teacPostSLoading, setTeacPostSLoading] = useState(true);
   const [whatsappLink, setWhatsappLink] = useState('');
+
   const [message, setMessage] = useState('');
   
   useEffect(() => {
@@ -130,9 +153,18 @@ const MentorDashboard = () => {
             if (res.status === 200 && res.data.data[0]?.on_off === '1') {
               // console.log(res,"res");
               setShowsPopup(true);
-                setImgUrl(res?.data?.data[0]?.url);
+              setPopType(res?.data?.data[0]?.type);
+
+                setPopLink(res?.data?.data[0]?.url);
+              setImgUrl(res?.data?.data[0]?.url);
                 setState(res?.data?.data[0]?.navigate);
-             
+
+              // if(res?.data?.data[0]?.type == "link"){
+
+              // }else{
+              //   setImgUrl(res?.data?.data[0]?.url);
+              //   setState(res?.data?.data[0]?.navigate);
+              // }
             }
         })
         .catch(function (error) {
@@ -434,6 +466,8 @@ const handleWhatsapp = () => {
                 handleClose={handleClose}
                 show={showsPopup}
                 imgUrl={imgUrl}
+                popLink={popLink}
+poptype={poptype}
                 state={state}
             ></GreetingModal>
     <div style={{ display: 'none' }}>
