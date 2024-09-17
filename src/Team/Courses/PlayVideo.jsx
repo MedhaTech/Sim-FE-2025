@@ -931,7 +931,7 @@ const PlayVideoCourses = (props) => {
           <div className="add-item d-flex">
             <div className="page-title">
               <h4>Course</h4>
-              <h6> t{("home.textdata")}</h6>
+              <h6>  {t("home.textdata")}</h6>
             </div>
           </div>
           <ul className="table-top-head">
