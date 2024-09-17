@@ -20,35 +20,35 @@ const AdminSidebarData = () => {
           showSubRoute: false,
           submenu: false,
         },
-        // {
-        //   label:"Institution",
-        //   link: "/institution",
-        //   icon: <Icon.Codesandbox />,
-        //   showSubRoute: false,
-        //   submenu: false,
-        // },
+        {
+          label:"Institution",
+          link: "/institution",
+          icon: <Icon.Codesandbox />,
+          showSubRoute: false,
+          submenu: false,
+        },
         
-        // {
-        //   label:"PopUp",
-        //   link: "/popup",
-        //   icon: <Icon.Codesandbox />,
-        //   showSubRoute: false,
-        //   submenu: false,
-        // },
-        // {
-        //   label:"Resource",
-        //   link: "/adminresources",
-        //   icon: <Icon.Layers />,
-        //   showSubRoute: false,
-        //   submenu: false,
-        // },
-        // {
-        //   label:"Latest News",
-        //   link: "/latest-news",
-        //   icon: <Icon.Bookmark />,
-        //   showSubRoute: false,
-        //   submenu: false,
-        // },
+        {
+          label:"PopUp",
+          link: "/popup",
+          icon: <Icon.Codesandbox />,
+          showSubRoute: false,
+          submenu: false,
+        },
+        {
+          label:"Resource",
+          link: "/adminresources",
+          icon: <Icon.Layers />,
+          showSubRoute: false,
+          submenu: false,
+        },
+        {
+          label:"Latest News",
+          link: "/latest-news",
+          icon: <Icon.Bookmark />,
+          showSubRoute: false,
+          submenu: false,
+        },
         
         {
           label:"Mentors",

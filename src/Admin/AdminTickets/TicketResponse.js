@@ -31,6 +31,7 @@ import moment from 'moment';
 import { useLayoutEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaComments, FaFile, FaLink } from 'react-icons/fa';
+import { UncontrolledAlert } from "reactstrap";
 
 const StateRes = (props) => {
     const { search } = useLocation();
@@ -39,8 +40,8 @@ const StateRes = (props) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const id = new URLSearchParams(search).get('id');
-    const { supportTicket } = useSelector((state) => state.mentors);
-console.log(supportTicket,"ss");
+    const { supportTicket } = useSelector((state) => state?.mentors);
+// console.log(supportTicket,"ss");
     const language = useSelector((state) => state?.mentors.mentorLanguage);
    
     useEffect(() => {
@@ -53,7 +54,7 @@ console.log(supportTicket,"ss");
     const formik = useFormik({
         initialValues: {
             ansTicket: '',
-            selectStatusTicket:supportTicket.status,
+            selectStatusTicket:supportTicket?.status,
              file_name: "",
             url: ""
         },
@@ -268,7 +269,7 @@ console.log(supportTicket,"ss");
                                             }
                                         )}
 
-                                    {(supportTicket.status != 'INVALID' && supportTicket.status != 'RESOLVED') ? (
+                                    {(supportTicket?.status != 'INVALID' && supportTicket?.status != 'RESOLVED') ? (
                                         <Row className="p-2">
                                             <Col md={12}>
                                                 <div>
@@ -435,7 +436,10 @@ console.log(supportTicket,"ss");
                                                 </div>
                                             </Col>
                                         </Row>
-                                    ) : null}
+
+                                    ) :    <UncontrolledAlert color="danger" className="mb-2">
+                        Chat window was closed. If your query is not cleared raise a new ticket
+                        </UncontrolledAlert>}
                                 </Card>
 
                                 <div className='mb-3'>
