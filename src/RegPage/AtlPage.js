@@ -150,7 +150,8 @@ const Register = () => {
         // }
         if (response?.status == 200) {
           if (response?.data.count === 0) {
-            setError("Enter Valid School UDISE Code ");
+            navigate("/non-atl-register", { state: diesCode });
+            // setError("Enter Valid School UDISE Code ");
           }
           if (
             response?.data?.data[0] &&
