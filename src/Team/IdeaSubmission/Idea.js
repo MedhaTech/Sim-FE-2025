@@ -116,7 +116,7 @@ const { t } = useTranslation();
         <div className="page-header">
           <div className="page-title">
             <h4>  {t('home.idea_submission')}</h4>
-            <h6>Share your Amazing Ideas with us</h6>
+            <h6>{t('home.share')}</h6>
           </div>
         </div>
 
@@ -148,7 +148,7 @@ const { t } = useTranslation();
                                 <Link to="#">{t(theme.title)}</Link>
                               </h6>
                               <div className="d-flex align-items-center justify-content-between price">
-                                <span>Focus Areas</span>
+                                <span>{t('home.ideafocus')}</span>
                                 {theme.id === 8 ? (<p><FeatherIcon size={20} icon="loader" /></p>) : (<p>{theme.focusareas.length - 1}</p>)}
                               </div>
                             </div>
@@ -165,8 +165,9 @@ const { t } = useTranslation();
                 <aside className="product-order-list">
                   <div className="head d-flex align-items-center justify-content-between w-100">
                     <div className="">
-                      <h5>Select a Theme</h5>
-                      <span>to know more</span>
+                    <h5>{t('home.select')}</h5>
+                      {/* <h5>Select a Theme</h5> */}
+                      {/* <span>to know more</span> */}
                     </div>
                   </div>
                 </aside>
@@ -183,7 +184,7 @@ const { t } = useTranslation();
                   <div className="product-added block-section">
                     <div className="head-text d-flex align-items-center justify-content-between">
                       <h6 className="d-flex align-items-center mb-0">
-                        Focus Areas<span className="count">{themes[data - 1].id === 8 ? (<p><FeatherIcon size={20} icon="loader" /></p>) : (<p>{themes[data - 1].focusareas.length - 1}</p>)}</span>
+                      {t('home.ideafocus')}<span className="count">{themes[data - 1].id === 8 ? (<p><FeatherIcon size={20} icon="loader" /></p>) : (<p>{themes[data - 1].focusareas.length - 1}</p>)}</span>
                       </h6>
                     </div>
                     <div className="product-wrap">

@@ -759,9 +759,10 @@ const Dashboard = () => {
                 <div className="dash-widget w-100">
                   <div className="dash-widgetimg">
                     <span>
-                      <ImageWithBasePath
+                      {/* <ImageWithBasePath
                         src="assets/img/icons/dash1.svg"
-                        alt="img" />
+                        alt="img" /> */}
+                         <FcLibrary size={30} style={{ color: "mediumseagreen" }} />
                     </span>
                   </div>
                   <div className="dash-widgetcontent">
@@ -769,16 +770,17 @@ const Dashboard = () => {
                       {nonAtl}
 
                     </h5>
-                    <h6>Total Non ATL Count</h6>
+                    <h6>Total Non ATL Schools</h6>
                   </div>
                 </div>
               </div><div className="col-xl-4 col-sm-6 col-12 d-flex">
                   <div className="dash-widget dash1 w-100">
                     <div className="dash-widgetimg">
                       <span>
-                        <ImageWithBasePath
+                      <FcLibrary size={30} style={{ color: "mediumseagreen" }} />
+                        {/* <ImageWithBasePath
                           src="assets/img/icons/dash2.svg"
-                          alt="img" />
+                          alt="img" /> */}
                       </span>
                     </div>
                     <div className="dash-widgetcontent">
@@ -787,7 +789,7 @@ const Dashboard = () => {
                         {atl}
 
                       </h5>
-                      <h6>Total Atl Count</h6>
+                      <h6>Total Atl Schools</h6>
                     </div>
                   </div>
                 </div></>
