@@ -23,6 +23,7 @@ const TecResource = () => {
     const fectchTecParam = encryptGlobal(
       JSON.stringify({
         role: "mentor",
+        state:currentUser?.data[0]?.state
       })
     );
 

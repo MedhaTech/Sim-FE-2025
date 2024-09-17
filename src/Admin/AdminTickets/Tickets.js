@@ -262,19 +262,19 @@ const AdminSupport = () => {
 
                 width: '8rem',
                 cell: (params) => [
-                    params.status === 'OPEN' ? (
+                    params?.status === 'OPEN' ? (
                         <span className="btn btn-soft-danger">
                             Open
                         </span>
-                    ) : params.status === 'INPROGRESS' ? (
+                    ) : params?.status === 'INPROGRESS' ? (
                         <span className="btn btn-soft-info">
                             Inprogress
                         </span>
-                    ) : params.status === 'RESOLVED' ? (
+                    ) : params?.status === 'RESOLVED' ? (
                         <span className="btn btn-soft-success">
                             Resolved
                         </span>
-                    ) : params.status === 'INVALID' ? (
+                    ) : params?.status === 'INVALID' ? (
                         <span className="btn btn-soft-warning">
                             Invalid
                         </span>

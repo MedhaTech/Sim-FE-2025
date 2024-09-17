@@ -52,7 +52,7 @@ const DiescodeScreen = () => {
   const [diesCode, setDiesCode] = useState("");
   const [multiOrgData, setMultiOrgData] = useState({ multiOrg });
 
-  //   console.log(multiOrgData,"mm");
+    // console.log(JSON.parse(multiOrgData),"mm");
   const [mentorId, setMentorId] = useState("");
 
   const pdfRef = React.useRef(null);
@@ -409,7 +409,7 @@ const DiescodeScreen = () => {
           <div className="create-ticket register-block">
             <Row className="mb-3 modal-body-table search-modal-header">
               <div className="dashboard p-2">
-                <h4>Teachers List </h4>
+                <h4>Teachers List  Of Udise Code : {diesCode} </h4>
                 <Row className="mb-3 modal-body-table search-modal-header">
                   {multiOrgData.length !== undefined &&
                     multiOrgData.length !== 0 &&
