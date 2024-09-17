@@ -266,7 +266,9 @@ const DiescodeScreen = () => {
       {
         name: 'Mentor Approval',
         selector: (row) =>
-            row.ideaAcceptance,
+        row.ideaStatus === 
+"SUBMITTED" ? "Not yet Reviwed" :row.ideaAcceptance ,
+       
         center: true,
         width: '15rem'
     },
