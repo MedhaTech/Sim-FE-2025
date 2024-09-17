@@ -303,8 +303,8 @@ state_coordinators_id
                                         , '0');
                                 }}
                             >
-                                 <FaTimes style={{ marginRight: '5px' }} />
-                                {/* Disable */}
+                                 {/* <FaTimes style={{ marginRight: '5px' }} /> */}
+                                Disable
                             </a>
                         );
                     } else if (record.
