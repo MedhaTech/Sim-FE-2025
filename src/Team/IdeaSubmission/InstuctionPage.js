@@ -28,46 +28,62 @@ const InstructionsPage = (props) => {
     const navigate = useNavigate();
   const [ideaEnableStatus, setIdeaEnableStatus] = useState(0);
 const teamId= currentUser.data[0]?.team_id;
-    // const ideaenableornot = localStorage.getItem("ideaenablestatus");
     const { teamsMembersStatus} = useSelector(
         (state) => state.teams
       );
-    // console.log(ideaenableornot,"11");
     useEffect(() => {
         if (teamId) {
           dispatch(getTeamMemberStatus(teamId,setshowDefault));
-          //dispatch(getStudentChallengeSubmittedResponse(teamId));
         }
       }, [teamId, dispatch]);
       const percentageBWNumbers = (a, b) => {
         return (((a - b) / a) * 100).toFixed(2);
       };
+      useEffect(() => {
+        handleResList();
+    }, []);
+    async function handleResList() {
+        //  handleResList Api where we can see list of all resource //
+        let config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + '/state_coordinators',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            }
+        };
+        await axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    // console.log(response,"ress");
+                    setResList(response.data && response.data.data);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+   
     useEffect(() => {
         if (teamsMembersStatus.length >= 2 && teamsMembersStatus.length <= 3) {
           localStorage.setItem("ideaSubStatus", teamsMembersStatus[0].idea_submission);
           if (Array.isArray(teamsMembersStatus)) {
             let anyCompleted = false;
             
-            // Loop over each record in data
             teamsMembersStatus.forEach(record => {
               let percent = 100 - percentageBWNumbers(record.all_topics_count, record.topics_completed_count);
               
-              // If any student has completed 100%, set anyCompleted to true
               if (percent === 100) {
                 anyCompleted = true;
               }
             });
             const ideaStatus = anyCompleted ? 1 : 0;
-            // localStorage.setItem("ideaenablestatus", ideaStatus);
             setIdeaEnableStatus(ideaStatus); 
-            // Enable idea submission if at least one student has completed 100%
-            // localStorage.setItem("ideaenablestatus", anyCompleted ? 1 : 0);
+           
           }
-        //   setStuInstructionsLoading(false);
         }
       }, [teamsMembersStatus]);
     
-    //   console.log("Idea enable status:", ideaEnableStatus);
     const handleNext = () => {
         navigate('/idea');
     };
@@ -82,12 +98,12 @@ const teamId= currentUser.data[0]?.team_id;
       
         swalWithBootstrapButtons
             .fire({
-                title: "<h4>Oops..! Idea submission not enabled?</h4>",
+                title: t('login.popinst'),
                 // text: "You can access idea submission only after all your teammates complete course.",
-                text:"You can access idea submission as long as at least one of your teammates has completed the course.",
+                text:t('login.popcheck'),
 
                 imageUrl: `${logout}`,
-                confirmButtonText: 'Ok',
+                confirmButtonText: t('login.ok'),
             });
         };
 
