@@ -943,10 +943,10 @@ const IdeaReport = () => {
         <div className="page-header">
           <div className="add-item d-flex">
             <div className="page-title">
-              <h4>Student Detailed Report</h4>
+              <h4>Ideas Detailed Report</h4>
               <h6>
-                Student Progress - Presurvey , Course, Teams , Post survey
-                Status Report
+                {/* Student Progress - Presurvey , Course, Teams , Post survey
+                Status Report */}
               </h6>
             </div>
           </div>
