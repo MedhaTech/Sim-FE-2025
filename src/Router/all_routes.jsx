@@ -28,7 +28,7 @@ adminsupport:"/admin-support",
 adminresponse:"/admin/support-journey/ans-ticket",
 statewise:"state-wise",
 editstatewise:"edit-state-wise",
-
+ideareport:"/idea-report",
 cooresponse:"/coordinator/support-journey/ans-ticket",
 
   diesedit:"/diescode-mentor-edit",

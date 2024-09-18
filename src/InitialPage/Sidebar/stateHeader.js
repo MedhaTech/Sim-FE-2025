@@ -184,7 +184,7 @@ const MentorHeader = () => {
                if(response?.data?.count > 0){
 if(response?.data?.data[0].state ===
   currentUser?.data[0]?.state_name && response?.data?.data[0].mentor === null ){
-    openNotificationWithIcon("error", 'No Teacher are Register');
+    openNotificationWithIcon("error", 'No Teachers are Registered from the given UDISE Code');
     setDiesCode('');
   }
               else if (
