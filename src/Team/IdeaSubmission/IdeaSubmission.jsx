@@ -13,6 +13,8 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import Idea from './Idea';
+import { getLanguage } from "../../constants/languageOptions";
+
 const IdeaSubmission = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -60,10 +62,12 @@ const IdeaSubmission = () => {
         console.log(error);
       });
   }, []);
-  const submittedApi = () => {
+  const submittedApi = (language) => {
+    const locale = getLanguage(language);
     const Param = encryptGlobal(
       JSON.stringify({
         team_id: TeamId,
+        locale,
       })
     );
     var configidea = {
@@ -98,7 +102,7 @@ const IdeaSubmission = () => {
       });
   };
   useEffect(() => {
-    submittedApi();
+    submittedApi(language);
   }, []);
   useLayoutEffect(() => {
     if (ideaSubmittedRes && ideaSubmittedRes.length > 0) {
@@ -128,11 +132,13 @@ const IdeaSubmission = () => {
     setView(false);
   };
 
-  const submitted = () => {
+  const submitted = (language) => {
     // console.log("3", ideaSubmittedRes);
+    const locale = getLanguage(language);
     const Param = encryptGlobal(
       JSON.stringify({
         team_id: TeamId,
+        locale,
       })
     );
     var configidea = {

@@ -39,11 +39,13 @@ import logout from "../../assets/img/logout.svg";
 // import { cardData, subCategoryData } from './SDGData';
 import moment from "moment";
 import { getLanguage } from "../../constants/languageOptions";
+
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { themes, themesList, focusareasList } from "./themesData";
 import { use } from "i18next";
 import { initiateIdea } from "../../redux/studentRegistration/actions";
 import { setIn } from "formik";
+
 const LinkComponent = ({ original, item, url, removeFileHandler, i }) => {
   let a_link;
   let count;
@@ -93,7 +95,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   //     )
   // );
   const showPage = false;
-
+  const language = useSelector(
+    (state) => state?.studentRegistration?.studentLanguage
+);
   const [isDisabled, setIsDisabled] = useState(false);
   const initialLoadingStatus = { draft: false, submit: false };
   const [loading, setLoading] = useState(initialLoadingStatus);
@@ -158,9 +162,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     t("ideaform_questions.communityop3"),
     t("ideaform_questions.communityop4"),
   ];
-  const language = useSelector(
-    (state) => state?.studentRegistration?.studentLanguage
-  );
+
   const initiatedBy = formData?.initiated_by;
   const handleThemeChange = (e) => {
     const selectedTheme = e.target.value;
@@ -293,12 +295,14 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   };
 
   useEffect(() => {
-    submittedApi();
+    submittedApi(language);
   }, []);
-  const submittedApi = () => {
+  const submittedApi = (language) => {
+    const locale = getLanguage(language);
     const Param = encryptGlobal(
       JSON.stringify({
         team_id: TeamId,
+        locale,
       })
     );
     var configidea = {
@@ -393,7 +397,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
         if (response.status == 200) {
           setIdeaInitiation(response?.data?.data[0]?.initiated_by);
           openNotificationWithIcon("success",  t("home.ideaInitPop"));
-          submittedApi();
+          submittedApi(language);
           seterror4(false);
           // console.log("200");
         }
@@ -463,6 +467,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     }
   };
   const handleSubmitAll = async (item, stats, file) => {
+    // alert("hii");
     setLoading(initialLoadingStatus);
 
     let attachmentsList = "";
