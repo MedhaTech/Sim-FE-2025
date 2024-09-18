@@ -15,10 +15,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { current } from '@reduxjs/toolkit';
 import { getCurrentUser, setCurrentUser } from "../../helpers/Utils";
 import { getTeamMemberStatus } from "../../Teacher/store/teams/actions";
+import axios from "axios";
+import { encryptGlobal } from "../../constants/encryptDecrypt";
 
 // import Layout from '../../Layout';
 
 const InstructionsPage = (props) => {
+    const [resList,setResList]=useState("");
     const { t } = useTranslation();
   const currentUser = getCurrentUser("current_user");
   const [showDefault, setshowDefault] = useState(true);
@@ -39,30 +42,38 @@ const teamId= currentUser.data[0]?.team_id;
       const percentageBWNumbers = (a, b) => {
         return (((a - b) / a) * 100).toFixed(2);
       };
-    //   useEffect(() => {
-    //     handleResList();
-    // }, []);
-    // async function handleResList() {
-    //     //  handleResList Api where we can see list of all resource //
-    //     let config = {
-    //         method: 'get',
-    //         url: process.env.REACT_APP_API_BASE_URL + '/state_coordinators',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             Authorization: `Bearer ${currentUser?.data[0]?.token}`
-    //         }
-    //     };
-    //     await axios(config)
-    //         .then(function (response) {
-    //             if (response.status === 200) {
-    //                 // console.log(response,"ress");
-    //                 setResList(response.data && response.data.data);
-    //             }
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         });
-    // }
+      useEffect(() => {
+        handleResList();
+    }, []);
+    async function handleResList() {
+        const fectchTecParam = encryptGlobal(
+            JSON.stringify({
+              state: currentUser?.data[0]?.state,
+            })
+          );
+      
+        //  handleResList Api where we can see list of all resource //
+        let config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/state_coordinators?Data=${fectchTecParam}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            }
+        };
+        await axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    console.log(response,"ress");
+                    setResList(response.data.data[0].
+                        ideaSubmission
+                        );
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
    
     useEffect(() => {
         if (teamsMembersStatus.length >= 2 && teamsMembersStatus.length <= 3) {
@@ -156,7 +167,7 @@ const teamId= currentUser.data[0]?.team_id;
                                                     size="small"
                                                 />
                                             </a> */}
-                                            {ideaEnableStatus ==1 ? 
+                                            {(ideaEnableStatus ==1  && resList == 1)  ? 
                                             (
                                                 <Button
                                                     label={t('idea_page.next')}
