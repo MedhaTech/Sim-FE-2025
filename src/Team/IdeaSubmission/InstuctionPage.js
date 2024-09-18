@@ -39,30 +39,30 @@ const teamId= currentUser.data[0]?.team_id;
       const percentageBWNumbers = (a, b) => {
         return (((a - b) / a) * 100).toFixed(2);
       };
-      useEffect(() => {
-        handleResList();
-    }, []);
-    async function handleResList() {
-        //  handleResList Api where we can see list of all resource //
-        let config = {
-            method: 'get',
-            url: process.env.REACT_APP_API_BASE_URL + '/state_coordinators',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser?.data[0]?.token}`
-            }
-        };
-        await axios(config)
-            .then(function (response) {
-                if (response.status === 200) {
-                    // console.log(response,"ress");
-                    setResList(response.data && response.data.data);
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
+    //   useEffect(() => {
+    //     handleResList();
+    // }, []);
+    // async function handleResList() {
+    //     //  handleResList Api where we can see list of all resource //
+    //     let config = {
+    //         method: 'get',
+    //         url: process.env.REACT_APP_API_BASE_URL + '/state_coordinators',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Authorization: `Bearer ${currentUser?.data[0]?.token}`
+    //         }
+    //     };
+    //     await axios(config)
+    //         .then(function (response) {
+    //             if (response.status === 200) {
+    //                 // console.log(response,"ress");
+    //                 setResList(response.data && response.data.data);
+    //             }
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    // }
    
     useEffect(() => {
         if (teamsMembersStatus.length >= 2 && teamsMembersStatus.length <= 3) {
