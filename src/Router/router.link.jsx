@@ -83,6 +83,8 @@ import TeacherProgressDetailed from "../Admin/Reports/Helpers/TeacherProgressDet
 import CreateResource from "../Admin/Resources/createResource";
 
 import StudentProgressReport from "../Admin/Reports/Helpers/StudentProgressReport";
+import IdeaReport from "../Admin/Reports/Helpers/IdeaReport";
+
 
 import MentorView from "../Admin/UsersList/MentorView";
 import MentorEdit from "../Admin/UsersList/MentorEdit";
@@ -102,6 +104,7 @@ import CooRegist from "../Coordinators/Reports/RegistReport";
 import CooSchool from "../Coordinators/Reports/TeacherReport";
 import CooStudent from "../Coordinators/Reports/StudentReport";
 import CooInst from "../Coordinators/Reports/InstReport";
+
 import DiescodeScreen from "../Admin/Dashboard/DiescodeScreen";
 import DiesView from "../Admin/Dashboard/DiesView";
 import DiesViewcoo from "../Coordinators/Dashboard/DiesView";
@@ -401,6 +404,14 @@ export const publicRoutes = [
     path: routes.editstatewise,
     name: "editstatewise",
     element: <EditStateData />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 32,
+    path: routes.ideareport,
+    name: "ideareport",
+    element: <IdeaReport />,
     protected: true,
     route: Route,
   },

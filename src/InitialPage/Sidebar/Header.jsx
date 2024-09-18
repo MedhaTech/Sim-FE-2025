@@ -181,14 +181,21 @@ const Header = () => {
             if (response.status == 200) {
               //  console.log(response,"res");
                if(response?.data?.count > 0){
+                if(response?.data?.data[0].mentor == null){
+                  openNotificationWithIcon("error", 'No Teachers are Registered from the given UDISE Code');
+    setDiesCode(''); 
+                }else if(response?.data?.data[0].mentor !== null){
                 const multiOrgData = response?.data?.data;
         localStorage.setItem('diesCode', JSON.stringify(diesCode));
         localStorage.setItem("multiOrgData", JSON.stringify(multiOrgData));
                  setMultiOrgData(multiOrgData);
                  navigate('/diescode-search', { state: { multiOrgData,diesCode } });
                  setDiesCode('');
+                }
                }else{
                 openNotificationWithIcon("error", "Oops..!  UDISE Code seems incorrect");
+                setDiesCode('');
+
                }
              
             }
