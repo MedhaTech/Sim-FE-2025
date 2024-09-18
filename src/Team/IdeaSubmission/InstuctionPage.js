@@ -17,10 +17,14 @@ import { getCurrentUser, setCurrentUser } from "../../helpers/Utils";
 import { getTeamMemberStatus } from "../../Teacher/store/teams/actions";
 import axios from "axios";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
+import { getLanguage } from "../../constants/languageOptions";
 
 // import Layout from '../../Layout';
 
 const InstructionsPage = (props) => {
+    const language = useSelector(
+        (state) => state?.studentRegistration?.studentLanguage
+    );
     const [resList,setResList]=useState("");
     const { t } = useTranslation();
   const currentUser = getCurrentUser("current_user");
@@ -64,7 +68,7 @@ const teamId= currentUser.data[0]?.team_id;
         await axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log(response,"ress");
+                    // console.log(response,"ress");
                     setResList(response.data.data[0].
                         ideaSubmission
                         );

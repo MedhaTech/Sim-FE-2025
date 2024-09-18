@@ -324,138 +324,27 @@ const Dashboard = () => {
       <div className="page-wrapper">
         <div className="content">
           <div className="row">
-            <div className="col-xl-4 col-sm-6 col-12 d-flex">
+            <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-widget w-100">
                 <div className="dash-widgetimg">
                   <span>
-                    {/* <ImageWithBasePath
-                      src="assets/img/icons/dash1.svg"
-                      alt="img"
-                    /> */}
-                    {/* <FcLibrary size={30} style={{ color: 'crimson' }} /> */}
-                    <FaMapMarkerAlt size={30} style={{ color: 'crimson' }} />
+                  <FcLibrary size={30} style={{ color: 'crimson' }}  />
+                    {/* <FaMapMarkerAlt size={30} style={{ color: 'crimson' }} /> */}
                   </span>
 
                 </div>
                 <div className="dash-widgetcontent">
                   <h5>
-                    {/* <CountUp start={0} end={307144} duration={3} prefix="$" /> */}
-                    {/* {totalSchoolCount} */}
-                    {statename}
+                  
+                    {totalSchoolCount}
 
                   </h5>
-                  {/* <h6>Total Eligible Schools</h6> */}
-                  <h6>State Statistics</h6>
+                  <h6>Total Eligible Schools</h6>
+                  {/* <h6>State Statistics</h6> */}
                 </div>
               </div>
             </div>
-
-            <div className="col-xl-4 col-sm-6 col-12 d-flex">
-              <div className="dash-widget w-100">
-                <div className="dash-widgetimg">
-                  <span>
-                    <FcLibrary size={30} style={{ color: "mediumseagreen" }} />
-                  </span>
-                </div>
-                <div className="dash-widgetcontent">
-                  <h5>
-                    {Number(atl) + Number(nonAtl)}
-                  </h5>
-                  <h6>Total Reg Schools</h6>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-4 col-sm-6 col-12 d-flex">
-              <div className="dash-widget dash2 w-100">
-                <div className="dash-widgetimg">
-                  <span>
-                    <FaChalkboardTeacher size={30} style={{ color: "royalblue" }} />
-                  </span>
-                </div>
-                <div className="dash-widgetcontent">
-                  <h5>
-                    {/* $ */}
-                    {/* <CountUp
-                      start={0}
-                      end={385656.5}
-                      duration={3} // Duration in seconds
-                      decimals={1}
-                    /> */}
-                    {studentCoursesCompletedCount}
-
-                  </h5>
-                  <h6>Students Course Completed</h6>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-4 col-sm-6 col-12 d-flex">
-              <div className="dash-widget w-100">
-                <div className="dash-widgetimg">
-                  <span>
-                    <FaUserGraduate size={30} style={{ color: "mediumseagreen" }} />
-                  </span>
-                </div>
-                <div className="dash-widgetcontent">
-                  <h5>
-                    {/* <CountUp start={0} end={307144} duration={3} prefix="$" /> */}
-                    {totalMentorCount}
-                  </h5>
-                  <h6>Total Reg Teachers</h6>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-xl-4 col-sm-6 col-12 d-flex">
-              <div className="dash-widget dash1 w-100">
-                <div className="dash-widgetimg">
-                  {/* <span>
-                    <ImageWithBasePath
-                      src="assets/img/icons/dash2.svg"
-                      alt="img"
-                    />
-                  </span> */}
-                  <span>
-                    <FaUsers size={30} style={{ color: 'crimson' }} />
-                  </span>
-                </div>
-                <div className="dash-widgetcontent">
-                  <h5>
-
-                    {/* <CountUp
-                      start={0}
-                      end={4385}
-                      duration={3} // Duration in seconds
-                    /> */}
-                    {totalteamsCount}
-                  </h5>
-                  <h6>Total Teams</h6>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-4 col-sm-6 col-12 d-flex">
-              <div className="dash-widget dash2 w-100">
-                <div className="dash-widgetimg">
-                  <span>
-                    <FaChalkboardTeacher size={30} style={{ color: "royalblue" }} />
-                  </span>
-                </div>
-                <div className="dash-widgetcontent">
-                  <h5>
-                    {/* $
-                    <CountUp
-                      start={0}
-                      end={385656.5}
-                      duration={3} // Duration in seconds
-                      decimals={1}
-                    /> */}
-                    {totalstudentCoursesCount -
-                      studentCoursesCompletedCount}
-                  </h5>
-                  <h6>Students course in progress</h6>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-4 col-sm-6 col-12 d-flex">
+            <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-widget dash3 w-100">
                 <div className="dash-widgetimg">
                   <span>
@@ -477,8 +366,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-
-            <div className="col-xl-4 col-sm-6 col-12 d-flex">
+            <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-widget dash2 w-100">
                 <div className="dash-widgetimg">
                   {/* <span>
@@ -507,7 +395,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-4 col-sm-6 col-12 d-flex">
+            <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-widget dash2 w-100">
                 <div className="dash-widgetimg">
                   <span>
@@ -523,14 +411,29 @@ const Dashboard = () => {
                       duration={3} // Duration in seconds
                       decimals={1}
                     /> */}
-                    {totalStudentCount -
-                      totalstudentCoursesCount}
+                    {totalstudentCoursesCount -
+                      studentCoursesCompletedCount}
                   </h5>
-                  <h6>Students Course not started</h6>
+                  <h6>Students course in progress</h6>
                 </div>
               </div>
             </div>
-            <div className="col-xl-4 col-sm-6 col-12 d-flex">
+            <div className="col-xl-3 col-sm-6 col-12 d-flex">
+              <div className="dash-widget w-100">
+                <div className="dash-widgetimg">
+                  <span>
+                    <FcLibrary size={30} style={{ color: "mediumseagreen" }} />
+                  </span>
+                </div>
+                <div className="dash-widgetcontent">
+                  <h5>
+                    {Number(atl) + Number(nonAtl)}
+                  </h5>
+                  <h6>Total Reg Schools</h6>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-widget dash3 w-100">
                 <div className="dash-widgetimg">
                   <span>
@@ -552,7 +455,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-4 col-sm-6 col-12 d-flex">
+            <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-widget dash3 w-100">
                 <div className="dash-widgetimg">
                   {/* <span>
@@ -580,17 +483,11 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-4 col-sm-6 col-12 d-flex">
-              <div className="dash-widget dash1 w-100">
+            <div className="col-xl-3 col-sm-6 col-12 d-flex">
+              <div className="dash-widget dash2 w-100">
                 <div className="dash-widgetimg">
-                  {/* <span>
-                    <ImageWithBasePath
-                      src="assets/img/icons/dash2.svg"
-                      alt="img"
-                    />
-                  </span> */}
                   <span>
-                    <FaPaperPlane size={30} style={{ color: 'purple' }} />
+                    <FaChalkboardTeacher size={30} style={{ color: "royalblue" }} />
                   </span>
                 </div>
                 <div className="dash-widgetcontent">
@@ -598,16 +495,38 @@ const Dashboard = () => {
                     {/* $
                     <CountUp
                       start={0}
-                      end={4385}
+                      end={385656.5}
                       duration={3} // Duration in seconds
+                      decimals={1}
                     /> */}
-                    {totalSubmittedideasCount}
+                    {totalStudentCount -
+                      totalstudentCoursesCount}
                   </h5>
-                  <h6>Total Teams Submitted Ideas</h6>
+                  <h6>Students Course not started</h6>
                 </div>
               </div>
             </div>
-            <div className="col-xl-4 col-sm-6 col-12 d-flex">
+            {currentUser?.data[0]?.state_name !== "Tamil Nadu" && (  <div className="col-xl-3 col-sm-6 col-12 d-flex">
+                  <div className="dash-widget dash1 w-100">
+                    <div className="dash-widgetimg">
+                      <span>
+                      <FcLibrary size={30} style={{ color: "mediumseagreen" }} />
+                        {/* <ImageWithBasePath
+                          src="assets/img/icons/dash2.svg"
+                          alt="img" /> */}
+                      </span>
+                    </div>
+                    <div className="dash-widgetcontent">
+                      <h5>
+
+                        {atl}
+
+                      </h5>
+                      <h6>Total Atl Schools</h6>
+                    </div>
+                  </div>
+                </div>)}
+                <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-widget dash3 w-100">
                 <div className="dash-widgetimg">
                   <span>
@@ -631,7 +550,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-4 col-sm-6 col-12 d-flex">
+            <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-widget dash3 w-100">
                 <div className="dash-widgetimg">
                   {/* <span>
@@ -659,29 +578,56 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-4 col-sm-6 col-12 d-flex">
+            <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-widget dash1 w-100">
                 <div className="dash-widgetimg">
+                  {/* <span>
+                    <ImageWithBasePath
+                      src="assets/img/icons/dash2.svg"
+                      alt="img"
+                    />
+                  </span> */}
                   <span>
                     <FaPaperPlane size={30} style={{ color: 'purple' }} />
                   </span>
                 </div>
                 <div className="dash-widgetcontent">
                   <h5>
-                    {/* $ */}
-                    {/* <CountUp
+                    {/* $
+                    <CountUp
                       start={0}
                       end={4385}
                       duration={3} // Duration in seconds
                     /> */}
-                    {totalideasCount -
-                      totalSubmittedideasCount}
+                    {totalSubmittedideasCount}
                   </h5>
-                  <h6>Total Teams Ideas in Draft</h6>
+                  <h6>Total Teams Submitted Ideas</h6>
                 </div>
               </div>
             </div>
-            <div className="col-xl-4 col-sm-6 col-12 d-flex">
+            {currentUser?.data[0]?.state_name !== "Tamil Nadu" && (
+              <><div className="col-xl-3 col-sm-6 col-12 d-flex">
+                <div className="dash-widget w-100">
+                  <div className="dash-widgetimg">
+                    <span>
+                      {/* <ImageWithBasePath
+                        src="assets/img/icons/dash1.svg"
+                        alt="img" /> */}
+                         <FcLibrary size={30} style={{ color: "mediumseagreen" }} />
+                    </span>
+                  </div>
+                  <div className="dash-widgetcontent">
+                    <h5>
+                      {nonAtl}
+
+                    </h5>
+                    <h6>Total Non ATL Schools</h6>
+                  </div>
+                </div>
+              </div>
+             </>
+            )}
+             <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-widget w-100">
                 <div className="dash-widgetimg">
                   {/* <span>
@@ -704,7 +650,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-4 col-sm-6 col-12 d-flex">
+            <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-widget dash3 w-100">
                 <div className="dash-widgetimg">
                   {/* <span>
@@ -732,7 +678,110 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-4 col-sm-6 col-12 d-flex">
+            <div className="col-xl-3 col-sm-6 col-12 d-flex">
+              <div className="dash-widget dash1 w-100">
+                <div className="dash-widgetimg">
+                  <span>
+                    <FaPaperPlane size={30} style={{ color: 'purple' }} />
+                  </span>
+                </div>
+                <div className="dash-widgetcontent">
+                  <h5>
+                    {/* $ */}
+                    {/* <CountUp
+                      start={0}
+                      end={4385}
+                      duration={3} // Duration in seconds
+                    /> */}
+                    {totalideasCount -
+                      totalSubmittedideasCount}
+                  </h5>
+                  <h6>Total Teams Ideas in Draft</h6>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-3 col-sm-6 col-12 d-flex">
+              <div className="dash-widget w-100">
+                <div className="dash-widgetimg">
+                  <span>
+                    <FaUserGraduate size={30} style={{ color: "mediumseagreen" }} />
+                  </span>
+                </div>
+                <div className="dash-widgetcontent">
+                  <h5>
+                    {/* <CountUp start={0} end={307144} duration={3} prefix="$" /> */}
+                    {totalMentorCount}
+                  </h5>
+                  <h6>Total Teachers</h6>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-3 col-sm-6 col-12 d-flex">
+              <div className="dash-widget dash1 w-100">
+                <div className="dash-widgetimg">
+                  {/* <span>
+                    <ImageWithBasePath
+                      src="assets/img/icons/dash2.svg"
+                      alt="img"
+                    />
+                  </span> */}
+                  <span>
+                    <FaUsers size={30} style={{ color: 'crimson' }} />
+                  </span>
+                </div>
+                <div className="dash-widgetcontent">
+                  <h5>
+
+                    {/* <CountUp
+                      start={0}
+                      end={4385}
+                      duration={3} // Duration in seconds
+                    /> */}
+                    {totalteamsCount}
+                  </h5>
+                  <h6>Total Teams</h6>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-3 col-sm-6 col-12 d-flex">
+              <div className="dash-widget dash2 w-100">
+                <div className="dash-widgetimg">
+                  <span>
+                    <FaChalkboardTeacher size={30} style={{ color: "royalblue" }} />
+                  </span>
+                </div>
+                <div className="dash-widgetcontent">
+                  <h5>
+                    {/* $ */}
+                    {/* <CountUp
+                      start={0}
+                      end={385656.5}
+                      duration={3} // Duration in seconds
+                      decimals={1}
+                    /> */}
+                    {studentCoursesCompletedCount}
+
+                  </h5>
+                  <h6>Students Course Completed</h6>
+                </div>
+              </div>
+            </div>
+          
+
+          
+           
+          
+           
+           
+          
+         
+           
+          
+           
+           
+           
+           
+            <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-widget dash1 w-100">
                 <div className="dash-widgetimg">
                   <span>
@@ -754,46 +803,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            {currentUser?.data[0]?.state_name !== "Tamil Nadu" && (
-              <><div className="col-xl-4 col-sm-6 col-12 d-flex">
-                <div className="dash-widget w-100">
-                  <div className="dash-widgetimg">
-                    <span>
-                      {/* <ImageWithBasePath
-                        src="assets/img/icons/dash1.svg"
-                        alt="img" /> */}
-                         <FcLibrary size={30} style={{ color: "mediumseagreen" }} />
-                    </span>
-                  </div>
-                  <div className="dash-widgetcontent">
-                    <h5>
-                      {nonAtl}
-
-                    </h5>
-                    <h6>Total Non ATL Schools</h6>
-                  </div>
-                </div>
-              </div><div className="col-xl-4 col-sm-6 col-12 d-flex">
-                  <div className="dash-widget dash1 w-100">
-                    <div className="dash-widgetimg">
-                      <span>
-                      <FcLibrary size={30} style={{ color: "mediumseagreen" }} />
-                        {/* <ImageWithBasePath
-                          src="assets/img/icons/dash2.svg"
-                          alt="img" /> */}
-                      </span>
-                    </div>
-                    <div className="dash-widgetcontent">
-                      <h5>
-
-                        {atl}
-
-                      </h5>
-                      <h6>Total Atl Schools</h6>
-                    </div>
-                  </div>
-                </div></>
-            )}
+          
 
           </div>
           {/* Button trigger modal */}
