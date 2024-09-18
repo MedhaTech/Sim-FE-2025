@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 const InstructionsTeacher = () => {
 const location = useLocation();
 const { instruction } = location.state || {};
-console.log(instruction,"instruction");
+// console.log(instruction,"instruction");
 
 return (
     <div className="page-wrapper">

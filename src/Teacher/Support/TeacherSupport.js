@@ -22,6 +22,8 @@ import {
     getSupportTicketById,
     SupportTicketStatusChange
 } from '../store/mentors/actions';
+import { UncontrolledAlert } from "reactstrap";
+
 import { FaUserCircle } from 'react-icons/fa';
 import { FaRegClock } from 'react-icons/fa';
 import moment from 'moment';
@@ -840,7 +842,9 @@ const TeacherSupport = () => {
                                                 </div>
                                             </Col>
                                         </Row>
-                                    ) : null}
+                                    ) : <UncontrolledAlert color="danger" className="mb-2">
+                                    Chat window was closed. If your query is not cleared raise a new ticket
+                                    </UncontrolledAlert>}
                                 </Card>
 
                                 <hr className="mt-4 mb-4"></hr>

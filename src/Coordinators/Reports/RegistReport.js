@@ -287,10 +287,10 @@ const ReportsRegistration = () => {
       label: "UDISE Code",
       key: "organization_code",
     },
-    {
-      label: "ATL Code",
-      key: "unique_code",
-    },
+    // {
+    //   label: "ATL Code",
+    //   key: "unique_code",
+    // },
     {
       label: "School Name",
       key: "organization_name",

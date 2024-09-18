@@ -14,8 +14,9 @@
         "logIn": "Log in",
         "logOut": "Logout",
         "cancel": "Cancel",
-
-
+"popinst":"Oops..! Idea submission not enabled?",
+"popcheck":"You can access idea submission as long as at least one of your teammates has completed the course.",
+"ok":"Ok",
         "Title": "Together let’s learn and build something amazing.",
         "subtitle": "Creating change makers of tomorrow",
         "join_us": "Join Unisolve as a",
@@ -157,7 +158,7 @@
 "section1":"Section-1",
 "section2":"Section-2",
 "section3":"Section-3",
-
+"wel":" Welcome Students!",
         "pre_survey": "Pre Survey",
         "dashboard": "Dashboard",
         "courses": "Courses",

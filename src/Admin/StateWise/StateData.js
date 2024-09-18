@@ -149,17 +149,28 @@ state_coordinators_id
             .then(function (response) {
                 if (response.status === 200) {
                     // console.log(response,"put");
-                    if (response.data.data[0] === 0) {
+                    if (value === '0') {
                         openNotificationWithIcon(
                             'success',
-                            'State Status Disabled successfully'
+                            'State status Disabled successfully'
                         );
-                    } else if (response.data.data[0] === 1) {
+                    } else if (value === '1') {
                         openNotificationWithIcon(
                             'success',
-                            'State Status Enabled successfully'
+                            'State status Enabled successfully'
                         );
                     }
+                    // if (response.data.data[0] === 0) {
+                    //     openNotificationWithIcon(
+                    //         'success',
+                    //         'State Status Disabled successfully'
+                    //     );
+                    // } else if (response.data.data[0] === 1) {
+                    //     openNotificationWithIcon(
+                    //         'success',
+                    //         'State Status Enabled successfully'
+                    //     );
+                    // }
                   
                     setTimeout(()=>{
 
