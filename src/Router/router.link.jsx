@@ -114,6 +114,8 @@ import StateRes from "../Coordinators/CooTickets/TicketResponse";
 
 import AdminSupport from "../Admin/AdminTickets/Tickets";
 import AdminRes from "../Admin/AdminTickets/TicketResponse";
+import StateData from "../Admin/StateWise/StateData";
+import EditStateData from "../Admin/StateWise/EditStateData";
 
 
 
@@ -383,6 +385,22 @@ export const publicRoutes = [
     path: routes.adminresponse,
     name: "adminresponse",
     element: <AdminRes />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 31,
+    path: routes.statewise,
+    name: "statewise",
+    element: <StateData />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 31,
+    path: routes.editstatewise,
+    name: "editstatewise",
+    element: <EditStateData />,
     protected: true,
     route: Route,
   },
