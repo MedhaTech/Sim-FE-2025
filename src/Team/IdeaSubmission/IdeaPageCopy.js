@@ -1042,7 +1042,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                       <div className="d-md-flex justify-content-end px-0">
                         <Row>
                           <Row>
-                            <h5 className="py-2 text-warning text-uppercase">{t("home.section1")}: {t("ideaform_questions.section2")}</h5>
+                            <h5 className="py-2 text-warning text-uppercase">{t("home.section2")}: {t("ideaform_questions.section2")}</h5>
                           </Row>
                           <div className="card comment-card">
                             <div className="question quiz mb-0">
@@ -1213,7 +1213,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                       <div className="d-md-flex justify-content-end px-0">
                         <Row>
                           <Row>
-                            <h5 className="py-2 text-warning text-uppercase">{t("home.section1")}: {t("ideaform_questions.section3")}</h5>
+                            <h5 className="py-2 text-warning text-uppercase">{t("home.section3")}: {t("ideaform_questions.section3")}</h5>
                           </Row>
                           <div className="card comment-card">
                             <div className="question quiz mb-0">

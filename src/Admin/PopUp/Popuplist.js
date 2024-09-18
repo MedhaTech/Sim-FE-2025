@@ -46,7 +46,8 @@ const AdminResources = () => {
                 }
             );
             if (response.status === 200) {
-                // console.log(response,"11");
+                console.log(response,"11");
+                
                 setTecList(response.data?.data);
             }
         } catch (error) {
@@ -248,17 +249,18 @@ const AdminResources = () => {
     async function handleStatus(item, value) {
         // alert("hii");
         const body = {
-            role: item.role,
-            type: item.type,
-            url: item.url,
-            state:item.state,
+            // role: item.role,
+            // type: item.type,
+            // url: item.url,
+            // state:item.state,
             on_off: value
         };
-        if (
-            item.navigate !== item.navigate
-            ) {
-                body['navigate'] = item.navigate;
-            }
+       
+            if (
+                item.navigate !== item.navigate
+                ) {
+                    body['navigate'] = item.navigate;
+                }
         const popParam = encryptGlobal(JSON.stringify(item.
             popup_id
             ));

@@ -158,10 +158,10 @@ const TeacherProgressDetailed = () => {
             label: 'UDISE CODE',
             key: 'organization_code'
         },
-        {
-            label: 'ATL CODE',
-            key: 'unique_code'
-        },
+        // {
+        //     label: 'ATL CODE',
+        //     key: 'unique_code'
+        // },
         {
             label: 'School Name',
             key: 'organization_name'
