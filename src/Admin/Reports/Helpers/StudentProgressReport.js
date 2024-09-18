@@ -213,7 +213,7 @@ const StudentProgress = () => {
       key: 'team_name'
     },
     {
-      label: 'Team Username/Login',
+      label: 'Team Username',
       key: 'team_username'
     },
     {
