@@ -12,6 +12,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
+import {teamLength} from "../../RegPage/ORGData";
 
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import { Tooltip } from "react-bootstrap";
@@ -45,7 +46,17 @@ const Dashboard = (props) => {
   const [teamchangeobj, setteamchangeObj] = useState({});
   const [value, setvalue] = useState("");
   const [ViewedTeam , setViewedTeam] = useState();
-console.log(IdeaStatus,"ii");
+  const loginState=currentUser?.data[0]?.state;
+  // console.log(loginState,"state");
+  const getTeamLength = (loginState) => {
+    // Use `teamLength` object to determine the team length.
+    return loginState === "Tamil Nadu" ? teamLength["Tamil Nadu"] : teamLength.default;
+  };
+  
+  const teamLengthValue = getTeamLength(loginState);
+  
+  console.log(typeof(teamLengthValue), '11');
+// console.log(IdeaStatus,"ii");
   useEffect(() => {
     if (currentUser?.data[0]?.mentor_id) {
       teamListbymentorid(currentUser?.data[0]?.mentor_id);
@@ -203,6 +214,7 @@ console.log(IdeaStatus,"ii");
   //     }
   //   }
   // };
+  console.log(typeof(process.env.REACT_APP_TEAM_LENGTH),'11');
   const adminTeamsList = {
     data: teamsArray,
     columns: [
@@ -236,7 +248,8 @@ console.log(IdeaStatus,"ii");
                 handleViewClick(params.team_id, params.StudentCount)
               }
             >
-              {!params.StudentCount < 4 && (
+              {
+                !params.StudentCount < 4 && (
                 
                 <div>
                 {selectedTeam === params.team_id ? 
@@ -253,13 +266,23 @@ console.log(IdeaStatus,"ii");
                   </Link>
                 </OverlayTrigger> 
                  }</div>
-              )}
+             )}
             </div>,
 
            
 
             <div  key={params} onClick={() => handleCreate(params)}>
-              {process.env.REACT_APP_TEAM_LENGTH > params.StudentCount && params.
+              {/* {process.env.REACT_APP_TEAM_LENGTH > params.StudentCount && params.
+ideaStatus===  null &&
+(
+                <OverlayTrigger placement="top" overlay={renderAddTooltip}>
+                  <Link data-bs-toggle="tooltip" data-bs-placement="top" >
+                    <div className="btn btn-success btn-sm btn-added"> <i data-feather="plus-circle" className="feather-plus-circle" /></div>
+                  </Link>
+                </OverlayTrigger> 
+                
+              )} */}
+               {teamLengthValue > params.StudentCount && params.
 ideaStatus===  null &&
 (
                 <OverlayTrigger placement="top" overlay={renderAddTooltip}>
@@ -393,6 +416,7 @@ ideaStatus===  null &&
     },
   };
   const handleSwitchTeam = (item) => {
+    // alert("hii");
     if (teamsListData.length > 2) {
       teamListby();
       setselectedstudent(item);
@@ -424,10 +448,13 @@ ideaStatus===  null &&
           const teamlistobj = {};
           const listofteams = response.data.data
             .map((item) => {
-              if (item.StudentCount < 3 && item.ideaStatus === null) {
-                teamlistobj[item.team_name] = item.team_id;
-                return item.team_name;
-              }
+            
+                if (item.StudentCount < 3 && item.ideaStatus === null) {
+                  teamlistobj[item.team_name] = item.team_id;
+                  return item.team_name;
+                }
+           
+             
             })
             .filter(Boolean);
           if (Object.keys(teamlistobj).length > 0) {
@@ -644,7 +671,8 @@ ideaStatus===  null &&
                       <h4 className="card-title mb-0">Team Members</h4>
                       <div className="view-all-link">
                         <Link to="#" className="view-all d-flex align-items-center">
-                          {stuList == 2 && IdeaStatus === 'No Idea' &&(
+                        
+                           { stuList == 2 && IdeaStatus === 'No Idea' &&(
                             <button
                               className="btn btn-danger btn-sm"
                               onClick={() => handleDeleteTeam(selectedTeam)}
@@ -652,6 +680,7 @@ ideaStatus===  null &&
                               <i data-feather="trash-2" className="feather-trash-2" />
                               {" Delete Team"}
                             </button>
+                        
                           )}
                         </Link>
                       </div>
@@ -691,7 +720,8 @@ ideaStatus===  null &&
                                         </Link>
                                       </OverlayTrigger> 
                                           
-                                          {stuList > 2 &&  IdeaStatus === 'No Idea' &&(
+                                          { 
+                                            stuList > 2 &&  IdeaStatus === 'No Idea' &&(
                                             <OverlayTrigger placement="top" overlay={renderSwitchTooltip}>
                                               <Link data-bs-toggle="tooltip" data-bs-placement="top" 
                                                 className="p-2 me-2"
@@ -704,18 +734,10 @@ ideaStatus===  null &&
                                                 />  
                                               </Link>
                                             </OverlayTrigger> 
-                                        //   <Link
-                                        //     className="p-2 me-2"
-                                        //     to="#"
-                                        //     onClick={() => handleSwitchTeam(student)}
-                                        //   >
-                                        //   <FontAwesomeIcon
-                                        //   icon={faUsers}
-                                        //   title="fa fa-users"
-                                        // />
-                                        //   </Link>
-                                          )}
-                                          {stuList > 2 && IdeaStatus === 'No Idea' && (
+                                      
+                                         )}
+                                          {
+                                            stuList > 2 && IdeaStatus === 'No Idea' && (
                                             <OverlayTrigger placement="top" overlay={renderDelTooltip}>
                                             <Link data-bs-toggle="tooltip" data-bs-placement="top" 
                                               className="p-2"
@@ -728,17 +750,8 @@ ideaStatus===  null &&
                                               />
                                             </Link>
                                           </OverlayTrigger> 
-                                          // <Link
-                                          //   className="p-2"
-                                          //   to="#"
-                                          //   onClick={() => handleDeleteStudent(student)}
-                                          // >
-                                          //   <i
-                                          //     data-feather="trash-2"
-                                          //     className="feather-trash-2"
-                                          //   />
-                                          // </Link>
-                                          )}
+                                       
+                                         )}
                                           
                                         </div> 
                                     {/* <button

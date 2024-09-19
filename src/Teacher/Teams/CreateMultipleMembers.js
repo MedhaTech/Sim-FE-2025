@@ -12,6 +12,7 @@ import { teacherCreateMultipleStudent } from "../store/teacher/actions";
 import { useLocation } from "react-router-dom";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { useNavigate } from "react-router-dom";
+import {teamLength} from "../../RegPage/ORGData";
 
 // import { all_routes } from "../../Router/all_routes";
 const studentBody = {
@@ -22,10 +23,12 @@ const studentBody = {
   disability: "",
   // username: "",
 };
+
 const grades = [6, 7, 8, 9, 10, 11, 12];
 const allowedAge = [10, 11, 12, 13, 14, 15, 16, 17, 18];
 
-const CreateMultipleMembers = ({ id }) => {
+const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
+  // console.log(teamLengthValue,"teamLengthValue");
   const [teamId, setTeamId] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(true);
   // const [itemDataErrors, setItemDataErrors] = useState([]);
@@ -42,6 +45,16 @@ const CreateMultipleMembers = ({ id }) => {
   const dispatch = useDispatch();
   const [itemDataErrors, setItemDataErrors] = useState([studentBody]);
   const currentUser = getCurrentUser("current_user");
+  const loginState=currentUser?.data[0]?.state;
+  const getTeamLength = (loginState) => {
+    if (loginState === "Tamil Nadu") {
+      return teamLength["Tamil Nadu"];
+    } else {
+      return teamLength.default;
+    }
+  };
+  // const teamLengthValue = getTeamLength(loginState);
+  // console.log(teamLengthValue,"11");
 
   //   const history = useHistory();
   const navigate = useNavigate();
@@ -98,8 +111,24 @@ const CreateMultipleMembers = ({ id }) => {
       setEmailError("");
     }
   };
-  const [studentData, setStudentData] = useState([
-    {
+  // const loginState = currentUser?.data[0]?.state;
+  const numberOfFields = getTeamLength(loginState);
+  const initialStudentData = Array.from({ length: numberOfFields }, () => ({
+    team_id: teamId,
+    role: "STUDENT",
+    full_name: "",
+    Age: "",
+    Grade: "",
+    Gender: "",
+    // username: "",
+    disability: "",
+  }));
+  const MIN_STUDENTS = loginState === "Tamil Nadu" ? 2 : 2;
+  const MAX_STUDENTS = loginState === "Tamil Nadu" ? 5 : 2;
+  // Initialize state with the calculated initialStudentData
+  const [studentData, setStudentData] = useState(initialStudentData);
+  useEffect(() => {
+    const updatedStudentData = Array.from({ length: numberOfFields }, () => ({
       team_id: teamId,
       role: "STUDENT",
       full_name: "",
@@ -108,28 +137,42 @@ const CreateMultipleMembers = ({ id }) => {
       Gender: "",
       // username: "",
       disability: "",
-    },
-    {
-      team_id: teamId,
-      role: "STUDENT",
-      full_name: "",
-      Age: "",
-      Grade: "",
-      Gender: "",
-      // username: "",
-      disability: "",
-    },
-    {
-      team_id: teamId,
-      role: "STUDENT",
-      full_name: "",
-      Age: "",
-      Grade: "",
-      Gender: "",
-      // username: "",
-      disability: "",
-    },
-  ]);
+    }));
+    setStudentData(updatedStudentData);
+  }, [loginState, numberOfFields, teamId]);
+  // const [studentData, setStudentData] = useState([
+  //   {
+  //     team_id: teamId,
+  //     role: "STUDENT",
+  //     full_name: "",
+  //     Age: "",
+  //     Grade: "",
+  //     Gender: "",
+  //     // username: "",
+  //     disability: "",
+  //   },
+  //   {
+  //     team_id: teamId,
+  //     role: "STUDENT",
+  //     full_name: "",
+  //     Age: "",
+  //     Grade: "",
+  //     Gender: "",
+  //     // username: "",
+  //     disability: "",
+  //   },
+  //   {
+  //     team_id: teamId,
+  //     role: "STUDENT",
+  //     full_name: "",
+  //     Age: "",
+  //     Grade: "",
+  //     Gender: "",
+  //     // username: "",
+  //     disability: "",
+  //   },
+
+  // ]);
   let pattern = /^[A-Za-z\s]+$/;
   // const emailRegex = /[A-Za-z-@+.-]*$/;
   const emailRegex = /^[\w.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -307,6 +350,8 @@ const CreateMultipleMembers = ({ id }) => {
           const updatedStudentData = studentData.map((student) => ({
             ...student,
             team_id: JSON.stringify(newTeamId),
+        state:currentUser?.data[0]?.state,
+
           }));
           setTimeout(() => {
             dispatch(
@@ -423,11 +468,19 @@ const CreateMultipleMembers = ({ id }) => {
           </div>
           {studentData.map((item, i) => {
             const foundErrObject = { ...itemDataErrors[i] };
+            // const showRemoveButton = (
+            //   (loginState === "Tamil Nadu" && studentData.length > MIN_STUDENTS) ||
+            //   (loginState !== "Tamil Nadu" && studentData.length > MIN_STUDENTS)
+            // );
+            const showRemoveButton = (
+              (loginState === "Tamil Nadu" && studentData.length > MIN_STUDENTS && i >= MIN_STUDENTS) ||
+              (loginState !== "Tamil Nadu" && studentData.length > MIN_STUDENTS && i >= MIN_STUDENTS)
+            );
             return (
-              <div key={i + item} className="mb-3">
+              <div key={i} className="mb-3">
                 <div className="d-flex justify-content-between align-items-center">
                   <h6 className="mt-2 mb-2">STUDENT {i + 1} DETAILS</h6>
-                  {i > 1 && (
+                  {showRemoveButton && (
                     <button
                       onClick={() => removeItem(i)}
                       className="btn btn-sm btn-square btn-soft-danger"
