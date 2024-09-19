@@ -120,7 +120,7 @@ const IdeaSubmissionCard = ({
         title:
           handledText === "accept"
             ? "You are attempting to accept this Idea"
-            : "You are attempting to reject this Idea",
+            : "You are attempting to approve this Idea",
         text: "Are you sure?",
         imageUrl: `${logout}`,
         confirmButtonText: "Approve",

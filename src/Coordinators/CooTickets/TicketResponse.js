@@ -31,6 +31,7 @@ import moment from 'moment';
 import { useLayoutEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaComments, FaFile, FaLink } from 'react-icons/fa';
+import { UncontrolledAlert } from "reactstrap";
 
 const StateRes = (props) => {
     const { search } = useLocation();
@@ -435,7 +436,9 @@ const StateRes = (props) => {
                                                 </div>
                                             </Col>
                                         </Row>
-                                    ) : null}
+                                    ) :  <UncontrolledAlert color="danger" className="mb-2">
+                                    Chat window was closed. If your query is not cleared raise a new ticket
+                                    </UncontrolledAlert>}
                                 </Card>
 
                                 <div className='mb-3'>

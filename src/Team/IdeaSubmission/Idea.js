@@ -165,9 +165,9 @@ const { t } = useTranslation();
                 <aside className="product-order-list">
                   <div className="head d-flex align-items-center justify-content-between w-100">
                     <div className="">
-                    <h5>{t('home.select')}</h5>
-                      {/* <h5>Select a Theme</h5> */}
-                      {/* <span>to know more</span> */}
+                    {/* <h5>{t('home.select')}</h5> */}
+                      <h5>{t('home.select')}</h5> 
+                      <span>{t('home.selectv')}</span>
                     </div>
                   </div>
                 </aside>

@@ -38,12 +38,15 @@ import "sweetalert2/src/sweetalert2.scss";
 import logout from "../../assets/img/logout.svg";
 // import { cardData, subCategoryData } from './SDGData';
 import moment from "moment";
-import { getLanguage } from "../../constants/languageOptions";
+// import { getLanguage } from "../../constants/languageOptions";
+
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { themes, themesList, focusareasList } from "./themesData";
 import { use } from "i18next";
 import { initiateIdea } from "../../redux/studentRegistration/actions";
 import { setIn } from "formik";
+import { getLanguage } from "../../constants/languageOptions";
+
 const LinkComponent = ({ original, item, url, removeFileHandler, i }) => {
   let a_link;
   let count;
@@ -93,7 +96,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   //     )
   // );
   const showPage = false;
-
+//   const language = useSelector(
+//     (state) => state?.studentRegistration?.studentLanguage
+// );
   const [isDisabled, setIsDisabled] = useState(false);
   const initialLoadingStatus = { draft: false, submit: false };
   const [loading, setLoading] = useState(initialLoadingStatus);
@@ -158,9 +163,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     t("ideaform_questions.communityop3"),
     t("ideaform_questions.communityop4"),
   ];
-  const language = useSelector(
-    (state) => state?.studentRegistration?.studentLanguage
-  );
+  
+
   const initiatedBy = formData?.initiated_by;
   const handleThemeChange = (e) => {
     const selectedTheme = e.target.value;
@@ -332,10 +336,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   };
   const apiCall = () => {
     const challengeParamID = encryptGlobal("1");
-    const locale = getLanguage(language);
     const queryObj = JSON.stringify({
       team_id: TeamId,
-      locale,
     });
     const queryObjEn = encryptGlobal(queryObj);
 
@@ -462,7 +464,18 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       }
     }
   };
+  // const englishTranslations = {
+  //   [t("ideaform_questions.communityop1")]: "School",
+  //   [t("ideaform_questions.communityop2")]: "Home",
+  //   [t("ideaform_questions.communityop3")]: "Other places in the surroundings",
+  //   [t("ideaform_questions.communityop4")]: "Others (Read in newspapers, saw on the internet)"
+  // };
+  // const translateToEnglish = (value) => {
+  //   return englishTranslations[value] || value; 
+  // };
+  // console.log(translateToEnglish(community),"tt");
   const handleSubmitAll = async (item, stats, file) => {
+    // alert("hii");
     setLoading(initialLoadingStatus);
 
     let attachmentsList = "";
@@ -478,6 +491,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       status: stats,
       initiated_by: currentUser?.data[0]?.user_id,
     };
+   
     if (causes !== null) {
       body["causes"] = causes;
     }
@@ -616,6 +630,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     focusarea?.length > 0 &&
     title?.length > 0 &&
     problemStatement?.length > 0;
+    // console.log(stakeholders,"staake",community,"community");
   return (
     <>
       {/* <div className='content'> */}

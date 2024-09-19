@@ -13,12 +13,14 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import Idea from './Idea';
+// import { getLanguage } from "../../constants/languageOptions";
+
 const IdeaSubmission = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const language = useSelector(
-    (state) => state?.studentRegistration?.studentLanguage
-  );
+  // const language = useSelector(
+  //   (state) => state?.studentRegistration?.studentLanguage
+  // );
   const challengesSubmittedResponse = useSelector(
     (state) => state?.studentRegistration.challengesSubmittedResponse
   );
