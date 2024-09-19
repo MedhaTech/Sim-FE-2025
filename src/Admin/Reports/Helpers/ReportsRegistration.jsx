@@ -742,7 +742,7 @@ const ReportsRegistration = () => {
                           <div className="col-md-12 text-center mt-3">
                             <p>
                               <b>
-                                Overall Registered ATL vs Non ATL Schools As of{" "}
+                                Overall Registered ATL vs Non ATL Teachers As of{" "}
                                 {newFormat}
                               </b>
                             </p>

@@ -14,7 +14,7 @@ import { useLocation } from "react-router-dom";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import CreateMultipleMembers from "./CreateMultipleMembers";
 import { useNavigate } from "react-router-dom";
-
+import {teamLength} from "../../RegPage/ORGData";
 export const CreateTeamMember = () => {
   const location = useLocation();
 
@@ -68,6 +68,7 @@ export const CreateTeamMember = () => {
         Grade: values.grade,
         Gender: values.gender,
         disability: values.disability,
+        state:currentUser?.data[0]?.state,
       };
       var config = {
         method: "post",

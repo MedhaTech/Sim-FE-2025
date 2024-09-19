@@ -13,6 +13,7 @@ import { useLocation } from "react-router-dom";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import CreateMultipleMembers from "./CreateMultipleMembers";
 import { useNavigate } from "react-router-dom";
+import {teamLength} from "../../RegPage/ORGData";
 
 // import { all_routes } from "../../Router/all_routes";
 const studentBody = {
@@ -531,7 +532,25 @@ export const CreateTeamMember = (props) => {
   const [teamMemberData, setTeamMemberData] = useState({});
   const [isClicked, setIsClicked] = useState(false);
   const navigate = useNavigate();
-
+  const loginState=currentUser?.data[0]?.state;
+  console.log(loginState,"sss");
+  const getTeamLength = (loginState) => {
+    // Use `teamLength` object to determine the team length.
+    return loginState === "Tamil Nadu" ? teamLength["Tamil Nadu"] : teamLength.default;
+  };
+  
+  const teamLengthValue = getTeamLength(loginState);
+  
+  console.log(teamLengthValue, "11");
+  // const getTeamLength = (loginState) => {
+  //   if (loginState === "Tamil Nadu") {
+  //     return teamLength["Tamil Nadu"];
+  //   } else {
+  //     return teamLength.default;
+  //   }
+  // };
+  // const teamLengthValue = getTeamLength(loginState);
+  // console.log(teamLengthValue,"11");
   // const headingDetails = {
   //   title: t("teacher_teams.create_team_members"),
 
@@ -671,7 +690,7 @@ export const CreateTeamMember = (props) => {
               <Col className="col-xl-10 offset-xl-1 offset-md-0"> */}
                 {/* <BreadcrumbTwo {...headingDetails} /> */}
                 {studentCount && studentCount !== "new" && (
-                  <CreateMultipleMembers id={id} />
+                  <CreateMultipleMembers id={id} teamLengthValue={teamLengthValue} />
                   // ) : (
                   //   <>
                   //     <h3 className="m-4">Team and Student Creation</h3>

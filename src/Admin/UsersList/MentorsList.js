@@ -167,6 +167,7 @@ const navigate = useNavigate();
                 setshowspin(false);
             });
     }
+
 // console.log(tableData,"state");
     const handleSelect = (item, num) => {
 
@@ -180,7 +181,7 @@ const navigate = useNavigate();
                 num: num}}
                
             );
-            localStorage.setItem('studentId', item.user_id);
+            localStorage.setItem('teacherId', item.mentor_id);
             localStorage.setItem('studentData', JSON.stringify(item));
         } else {
             props.history.push({
@@ -190,11 +191,15 @@ const navigate = useNavigate();
                 num: num
             });
         }
+
         localStorage.setItem('mentor', JSON.stringify(item));
     };
+  
     const viewDetail = (item) => {
-       navigate(
-             '/mentor-view',
+            localStorage.setItem('mentor', JSON.stringify(item));
+            navigate("/mentor-view",{state:{data:item,
+            // dist:studentDist,
+            }}
         );
         // localStorage.setItem(
         //     'institution_code',
@@ -507,7 +512,7 @@ const navigate = useNavigate();
                 cell: (record) => [
                     <div
                         key={record.id}
-                        onClick={() => handleSelect(record, '1')}
+                        onClick={() => viewDetail(record)}
                         style={{ marginRight: '10px' }}
                     >
                         <div className="btn btn-primary  mr-5">View</div>

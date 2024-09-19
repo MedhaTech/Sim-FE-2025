@@ -153,7 +153,9 @@
         "dolater":"Do Later",
 "textdata":"Join us on this problem solving journey.",
 "ideafocus": "Focus Area",
-"select":"Select a theme to know more , Focus areas",
+"select":"Select a theme",
+"selectv":"to know more",
+
 "share":"Share your Amazing Ideas with us ",
 "section1":"Section-1",
 "section2":"Section-2",
