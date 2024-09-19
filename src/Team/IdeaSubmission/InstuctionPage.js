@@ -17,14 +17,14 @@ import { getCurrentUser, setCurrentUser } from "../../helpers/Utils";
 import { getTeamMemberStatus } from "../../Teacher/store/teams/actions";
 import axios from "axios";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
-import { getLanguage } from "../../constants/languageOptions";
+// import { getLanguage } from "../../constants/languageOptions";
 
 // import Layout from '../../Layout';
 
 const InstructionsPage = (props) => {
-    const language = useSelector(
-        (state) => state?.studentRegistration?.studentLanguage
-    );
+    // const language = useSelector(
+    //     (state) => state?.studentRegistration?.studentLanguage
+    // );
     const [resList,setResList]=useState("");
     const { t } = useTranslation();
   const currentUser = getCurrentUser("current_user");

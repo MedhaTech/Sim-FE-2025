@@ -584,7 +584,7 @@ const TeacherSupport = () => {
                                     <div style={{ borderStyle: "solid", borderWidth: "thin", borderColor: "aqua", borderRadius: "1rem", padding: "1.5rem 1rem", marginBottom: "2rem" }}>
                                         <Row>
                                             <Col md={12}>
-                                                <strong>
+                                                <strong style={{ whiteSpace: 'pre-line' }}>
                                                     {
                                                         supportTicket.query_details
                                                     }
