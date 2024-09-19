@@ -13,14 +13,14 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import Idea from './Idea';
-import { getLanguage } from "../../constants/languageOptions";
+// import { getLanguage } from "../../constants/languageOptions";
 
 const IdeaSubmission = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const language = useSelector(
-    (state) => state?.studentRegistration?.studentLanguage
-  );
+  // const language = useSelector(
+  //   (state) => state?.studentRegistration?.studentLanguage
+  // );
   const challengesSubmittedResponse = useSelector(
     (state) => state?.studentRegistration.challengesSubmittedResponse
   );
@@ -62,12 +62,10 @@ const IdeaSubmission = () => {
         console.log(error);
       });
   }, []);
-  const submittedApi = (language) => {
-    const locale = getLanguage(language);
+  const submittedApi = () => {
     const Param = encryptGlobal(
       JSON.stringify({
         team_id: TeamId,
-        locale,
       })
     );
     var configidea = {
@@ -102,7 +100,7 @@ const IdeaSubmission = () => {
       });
   };
   useEffect(() => {
-    submittedApi(language);
+    submittedApi();
   }, []);
   useLayoutEffect(() => {
     if (ideaSubmittedRes && ideaSubmittedRes.length > 0) {
@@ -132,13 +130,11 @@ const IdeaSubmission = () => {
     setView(false);
   };
 
-  const submitted = (language) => {
+  const submitted = () => {
     // console.log("3", ideaSubmittedRes);
-    const locale = getLanguage(language);
     const Param = encryptGlobal(
       JSON.stringify({
         team_id: TeamId,
-        locale,
       })
     );
     var configidea = {
