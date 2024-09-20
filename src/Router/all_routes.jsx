@@ -30,7 +30,7 @@ statewise:"state-wise",
 editstatewise:"edit-state-wise",
 ideareport:"/idea-report",
 cooresponse:"/coordinator/support-journey/ans-ticket",
-
+institutionreport:"/institution-report",
   diesedit:"/diescode-mentor-edit",
   createpopup:"/create-popup",
   reportsregistration : "/reportsregistration",

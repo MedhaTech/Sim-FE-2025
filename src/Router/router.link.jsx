@@ -120,7 +120,7 @@ import AdminRes from "../Admin/AdminTickets/TicketResponse";
 import StateData from "../Admin/StateWise/StateData";
 import EditStateData from "../Admin/StateWise/EditStateData";
 
-
+import InstitutionReport from "../Admin/Reports/Helpers/InstitutionReport";
 
 
 
@@ -412,6 +412,14 @@ export const publicRoutes = [
     path: routes.ideareport,
     name: "ideareport",
     element: <IdeaReport />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 33,
+    path: routes.institutionreport,
+    name: "institutionreport",
+    element: <InstitutionReport />,
     protected: true,
     route: Route,
   },
