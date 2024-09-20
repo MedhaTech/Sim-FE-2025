@@ -347,6 +347,68 @@ return (
                             </li>
                         </ul>
                         </div>
+                    </div> 
+                    <div className="col-xxl-3 col-xl-4 col-lg-6 col-md-6">
+                        <div className="employee-grid-profile">
+                        <div className="profile-head">
+                            <div className="dep-name">
+                                <h5 className="active">Institution</h5>
+                            </div>
+                        </div>
+                        <Link   to ="/institution-report"
+                        >
+                            <div className="profile-info department-profile-info" >
+                                
+                                    <div className="profile-pic">
+                                    <img
+                                        src={idea}
+                                        alt=""
+                                    />
+                                    </div>
+                                    <h4>Innovations</h4>
+                            </div>
+                        </Link>
+                        <ul className="team-members">
+                            <li>Total Ideas: 07</li>
+                            <li>
+                            <ul>
+                                <li>
+                                <Link to="#">
+                                    <img
+                                        src={user1}
+                                        alt=""
+                                    />
+                                </Link>
+                                </li>
+                                <li>
+                                <Link to="#">
+                                    <img
+                                        src={user2}
+                                        alt=""
+                                    />
+                                </Link>
+                                </li>
+                                <li>
+                                <Link to="#">
+                                    <img
+                                        src={user3}
+                                        alt=""
+                                    />
+                                </Link>
+                                </li>
+                                <li>
+                                <Link to="#">
+                                    <img
+                                        src={user}
+                                        alt=""
+                                    />
+                                    <span>+4</span>
+                                </Link>
+                                </li>
+                            </ul>
+                            </li>
+                        </ul>
+                        </div>
                     </div>                    
                 </div>
             </div>
