@@ -118,10 +118,10 @@ const ReportsRegistration = () => {
       label: "District Name",
       key: "district",
     },
-    // {
-    //   label: "Total Eligible ATL Schools",
-    //   key: "Eligible_school",
-    // },
+    {
+      label: "Total Schools",
+      key: "Eligible_school",
+    },
     // {
     //   label: "Registered Schools",
     //   key: "reg_school",
@@ -161,10 +161,10 @@ const ReportsRegistration = () => {
       label: "District Name",
       key: "district",
     },
-    // {
-    //   label: "Total Eligible ATL Schools",
-    //   key: "Eligible_school",
-    // },
+    {
+      label: "Total Schools",
+      key: "Eligible_school",
+    },
     // {
     //   label: "Registered Schools",
     //   key: "reg_school",
@@ -1006,10 +1006,10 @@ const ReportsRegistration = () => {
                               <tr>
                                 <th style={{ color: "#36A2EB" ,fontWeight: "bold", }}>#No</th>
                                 <th style={{ color: "#36A2EB",fontWeight: "bold" }}>District Name</th>
-                                {/* <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                  Eligible ATL{" "}
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
+                                  Total Schools{" "}
                                   <FontAwesomeIcon icon={faSchool} />
-                                </th> */}
+                                </th>
                                 {/* <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                   Registered ATL Schools
                                 </th> */}
@@ -1079,7 +1079,7 @@ const ReportsRegistration = () => {
                                   >
                                     {item.district}
                                   </td>
-                                  {/* <td>{item.Eligible_school}</td> */}
+                                  <td>{item.Eligible_school}</td>
                                   {/* <td>{item.reg_school}</td> */}
                                   {/* <td>{item.ATL_Count}</td> */}
                                   {/* <td>{item.NonATL_Count}</td> */}

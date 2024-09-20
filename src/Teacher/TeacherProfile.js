@@ -43,6 +43,9 @@ const [data,setData]=useState({});
         organization_name : teacher?.organization?.organization_name,
         organization_id : teacher?.organization?.organization_id,
         organization_code : teacher?.organization?.organization_code,
+        state:teacher?.organization?.state,
+        district:teacher?.organization?.district,
+
         status :teacher?.status
 
       },
