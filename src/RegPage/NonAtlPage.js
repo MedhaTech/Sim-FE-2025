@@ -224,6 +224,10 @@ const NonAtlPage = () => {
         //   }
         // }
         if (response?.status == 200) {
+          if (response?.data.count === 0) {
+              setBtn(true);
+              setCondition(true);
+          }
           if (
             response?.data?.data[0] &&
             process.env.REACT_APP_USEDICECODE == 1
