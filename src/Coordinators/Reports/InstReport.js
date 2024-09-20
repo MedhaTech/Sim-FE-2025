@@ -156,6 +156,7 @@ const TeacherProgressDetailed = () => {
       key: "NonATL_Count",
     },
   ];
+  // const registrationStatus = mentor_reg !== 0 ? "Completed" : "Not Started";
   const summaryHeaders = [
     {
       label: "UDISE Code",
@@ -165,6 +166,15 @@ const TeacherProgressDetailed = () => {
     //     label: 'ATL CODE',
     //     key: 'organization_code'
     // },
+    {
+      label: "Registration status",
+      key: "registration_status",
+      // render: () => <span>{registrationStatus}</span>,
+    },
+    {
+      label: "No of teachers registered",
+      key: "mentor_reg",
+    },
     {
       label: "School Name",
       key: "organization_name",
@@ -400,9 +410,16 @@ const TeacherProgressDetailed = () => {
         if (response.status === 200) {
           // console.log(response,"22");
           const chartTableData = response?.data?.data[0].rows || [];
+          const modifiedChartTableData = chartTableData.map((item) => ({
+            ...item,
+            registration_status: item.mentor_reg !== 0 ? "Completed" : "Not Started",
+          }));
+          
+          // Set the modified data for download
+          setDownloadTableData(modifiedChartTableData);
+          setChartTableData(modifiedChartTableData);
 
-          setChartTableData(chartTableData);
-          setDownloadTableData(chartTableData);
+          setDownloadTableData(modifiedChartTableData);
 
           if (response?.data?.data[0].count > 0) {
             openNotificationWithIcon(
