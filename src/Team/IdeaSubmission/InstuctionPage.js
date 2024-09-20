@@ -102,8 +102,10 @@ const teamId= currentUser.data[0]?.team_id;
     const handleNext = () => {
         navigate('/idea');
     };
-
+  
     const handleideaenable = () => {
+        // alert("course Not completed");
+        console.log("course Not completed");
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-submit',
@@ -121,6 +123,27 @@ const teamId= currentUser.data[0]?.team_id;
                 confirmButtonText: t('login.ok'),
             });
         };
+        const handlePopup = () => {
+        // alert("Idea is Disabled");
+        console.log("Idea is Disabled");
+
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-submit',
+                },
+                buttonsStyling: false
+            });
+          
+            swalWithBootstrapButtons
+                .fire({
+                    title: t('login.popdi'),
+                    // text: "You can access idea submission only after all your teammates complete course.",
+                    text:t('login.popcheckD'),
+    
+                    imageUrl: `${logout}`,
+                    confirmButtonText: t('login.ok'),
+                });
+            };
 
     // const pdfFileURL =
     //     'https://s3.ap-south-1.amazonaws.com/aim1.0-bkt-cba6e2a/resources/stage/Final_Themes_AIM.pdf';
@@ -171,7 +194,20 @@ const teamId= currentUser.data[0]?.team_id;
                                                     size="small"
                                                 />
                                             </a> */}
-                                            {(ideaEnableStatus ==1  && resList == 1)  ? 
+                                              {ideaEnableStatus !==1 ? 
+                                           
+                                                (<button onClick={handleideaenable} className='btn btn-secondary'>{t('idea_page.next')}</button>
+                                            ):resList !==1 ?(
+                                                <button onClick={handlePopup} className='btn btn-secondary'>{t('idea_page.next')}</button>
+
+                                            ): <Button
+                                            label={t('idea_page.next')}
+                                            btnClass="primary mt-4 mx-4"
+                                            size="small"
+                                            onClick={handleNext}
+                                        />}
+
+                                            {/* {ideaEnableStatus ==1 ? 
                                             (
                                                 <Button
                                                     label={t('idea_page.next')}
@@ -180,8 +216,9 @@ const teamId= currentUser.data[0]?.team_id;
                                                     onClick={handleNext}
                                                 />
                                             ) : (
-                                                <button onClick={handleideaenable} className='btn btn-secondary'>{t('idea_page.next')}</button>
-                                            )}
+                                                <button onClick={handleButtonClick} className='btn btn-secondary'>{t('idea_page.next')}</button>
+                                            )} */}
+                                          
                                             
                                         </div>
                                     </CardBody>

@@ -27,6 +27,7 @@ function LatestNews() {
       let teacherParam = encryptGlobal(
         JSON.stringify({
           category: "student",
+          state:currentUser?.data[0]?.state
         })
       );
       var config = {

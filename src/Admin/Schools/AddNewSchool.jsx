@@ -110,20 +110,23 @@ const AddNewSchool = (props) => {
     }),
 
     onSubmit: async (values) => {
-      const body = JSON.stringify({
+      const body = {
         organization_code: values.organization_code.trim(),
         organization_name: values.organization_name.trim(),
         state: values.state.trim(),
         category: values.category.trim(),
         district: values.district.trim(),
-      });
-      if (values.city !== values.city) {
+      };
+      if (values.city !== "") {
         body["city"] = values.city;
-      } else if (values.address !== values.address) {
+      } 
+      if (values.address !== "") {
         body["address"] = values.address;
-      } else if (values.unique_code !== values.unique_code) {
+      } 
+       if (values.unique_code !== "") {
         body["unique_code"] = values.unique_code;
-      } else if (values.pin_code !== values.pin_code) {
+      } 
+      if (values.pin_code !== "") {
         body["pin_code"] = values.pin_code;
       }
       var config = {
@@ -143,7 +146,7 @@ const AddNewSchool = (props) => {
           }
         })
         .catch((err) => {
-          openNotificationWithIcon("error", err.response.data.message);
+          openNotificationWithIcon("error", "Udise code must be unique");
           return err.response;
         });
       // const axiosConfig = getNormalHeaders(KEY.User_API_Key);

@@ -160,9 +160,7 @@ const Header = () => {
 
   },[diesCode]);
   const handleSearch = (diesCode) => {
-    //where we can search through diescode //
-    // we can see Registration Details & Mentor Details //
-
+   
     const body = JSON.stringify({
       organization_code: diesCode
     });
@@ -186,14 +184,17 @@ const Header = () => {
     setDiesCode(''); 
                 }else if(response?.data?.data[0].mentor !== null){
                 const multiOrgData = response?.data?.data;
+                // localStorage.removeItem('diesCode');
+                // localStorage.removeItem('multiOrgData');
         localStorage.setItem('diesCode', JSON.stringify(diesCode));
         localStorage.setItem("multiOrgData", JSON.stringify(multiOrgData));
                  setMultiOrgData(multiOrgData);
                  navigate('/diescode-search', { state: { multiOrgData,diesCode } });
                  setDiesCode('');
+                //  window.location.reload();
                 }
                }else{
-                openNotificationWithIcon("error", "Oops..!  UDISE Code seems incorrect");
+                openNotificationWithIcon("error", "Udise code seems to be invalid");
                 setDiesCode('');
 
                }

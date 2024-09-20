@@ -227,7 +227,7 @@ const StateRes = (props) => {
                                                     <div key={i} style={{ borderStyle: "solid", borderWidth: "thin", borderColor: "aquamarine", borderRadius: "1rem", padding: "1.5rem 1rem", margin: "1rem" }}>
                                                         <Row>
                                                             <Col md={12}>
-                                                                <strong>
+                                                                <strong style={{ whiteSpace: "pre-line" }}>
                                                                     {
                                                                         data.reply_details
                                                                     }
