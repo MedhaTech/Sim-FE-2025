@@ -55,7 +55,7 @@ const Dashboard = (props) => {
   
   const teamLengthValue = getTeamLength(loginState);
   
-  console.log(typeof(teamLengthValue), '11');
+  // console.log(typeof(teamLengthValue), '11');
 // console.log(IdeaStatus,"ii");
   useEffect(() => {
     if (currentUser?.data[0]?.mentor_id) {
@@ -214,7 +214,7 @@ const Dashboard = (props) => {
   //     }
   //   }
   // };
-  console.log(typeof(process.env.REACT_APP_TEAM_LENGTH),'11');
+  // console.log(typeof(process.env.REACT_APP_TEAM_LENGTH),'11');
   const adminTeamsList = {
     data: teamsArray,
     columns: [
@@ -448,12 +448,17 @@ ideaStatus===  null &&
           const teamlistobj = {};
           const listofteams = response.data.data
             .map((item) => {
-            
+            if(loginState !== "Tamil Nadu"){
                 if (item.StudentCount < 3 && item.ideaStatus === null) {
                   teamlistobj[item.team_name] = item.team_id;
                   return item.team_name;
                 }
-           
+              }else{
+                if (item.StudentCount < 5 && item.ideaStatus === null) {
+                  teamlistobj[item.team_name] = item.team_id;
+                  return item.team_name;
+                }
+              }
              
             })
             .filter(Boolean);

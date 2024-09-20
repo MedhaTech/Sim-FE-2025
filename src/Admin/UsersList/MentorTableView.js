@@ -305,7 +305,7 @@ const Dashboard = () => {
                 name: 'Mentor Approval',
                 selector: (row) =>
                 row.ideaStatus === 
-        "SUBMITTED" ? "Not yet Reviwed" :row.ideaAcceptance ,
+        "SUBMITTED" ? "Not yet Reviewed" :row.ideaAcceptance ,
                
                 center: true,
                 width: '15rem'

@@ -40,7 +40,14 @@ const CommonUserProfile = (props) => {
     const dashboardStatus = useSelector(
         (state) => state?.studentRegistration.dashboardStatus
     );
-
+    const [badges, setBadges] = useState(0);
+  const [quiz, setQuiz] = useState(0);
+  const [videos, setVideos] = useState(0);
+useEffect(()=>{
+    stuQuizCount();
+    stuVideosCount();
+    stuBadgesCount();
+},[]);
     const dispatch = useDispatch();
     // useEffect(() => {
     //     if (currentUser) {
@@ -53,33 +60,124 @@ const CommonUserProfile = (props) => {
     //         );
     //     }
     // }, [currentUser?.data[0]?.user_id, language]);
-    // useEffect(() => {
-    //     const stuParam = encryptGlobal(
-    //         JSON.stringify({
-    //             user_id: StudentsDaTa.user_id
-    //         })
-    //     );
-    //     var config = {
-    //         method: 'get',
-    //         url:
-    //             process.env.REACT_APP_API_BASE_URL +
-    //             `/dashboard/quizscores?Data=${stuParam}`,
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             Accept: 'application/json',
-    //             Authorization: `Bearer ${currentUser.data[0]?.token}`
-    //         }
-    //     };
-    //     axios(config)
-    //         .then(function (response) {
-    //             if (response.status === 200) {
-    //                 setCourse(response.data.data[0]?.scores);
-    //             }
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         });
-    // }, []);
+    useEffect(() => {
+        const stuParam = encryptGlobal(
+            JSON.stringify({
+                user_id: StudentsDaTa.user_id
+            })
+        );
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/dashboard/stuCourseStats?Data=${stuParam}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    // console.log(response,"res");
+                    // const per = Math.round(
+                    //     (response.data.data[0].topics_completed_count /
+                    //       response.data.data[0].all_topics_count) *
+                    //     100
+                    //   );
+                    setCourse(response.data.data[0]);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+    }, []);
+    const stuQuizCount = () => {
+        const quizApi = encryptGlobal(
+          JSON.stringify({
+            user_id: StudentsDaTa?.user_id
+          })
+        );
+        var config = {
+          method: 'get',
+          url:
+            process.env.REACT_APP_API_BASE_URL +
+            `/dashboard/stuQuizStats?Data=${quizApi}`,
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${currentUser.data[0]?.token}`
+          }
+        };
+        axios(config)
+          .then(function (response) {
+            if (response.status === 200) {
+            //   console.log(response,"quiz");
+              setQuiz(response.data.data[0].quiz_completed_count);
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      };
+      const stuVideosCount = () => {
+        const videoApi = encryptGlobal(
+          JSON.stringify({
+            user_id: StudentsDaTa?.user_id
+          })
+        );
+        var config = {
+          method: 'get',
+          url:
+            process.env.REACT_APP_API_BASE_URL +
+            `/dashboard/stuVideoStats?Data=${videoApi}`,
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${currentUser.data[0]?.token}`
+          }
+        };
+        axios(config)
+          .then(function (response) {
+            if (response.status === 200) {
+              // console.log(response);
+              setVideos(response.data.data[0].videos_completed_count);
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      };
+    const stuBadgesCount = () => {
+        const badgeApi = encryptGlobal(
+          JSON.stringify({
+            user_id: StudentsDaTa?.user_id
+          })
+        );
+        var config = {
+          method: 'get',
+          url:
+            process.env.REACT_APP_API_BASE_URL +
+            `/dashboard/stuBadgesStats?Data=${badgeApi}`,
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${currentUser.data[0]?.token}`
+          }
+        };
+        axios(config)
+          .then(function (response) {
+            if (response.status === 200) {
+              // console.log(response);
+              setBadges(response.data.data[0].badges_earned_count);
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      };
     const dashboardTeamProgressStatus = useSelector(
         (state) => state?.studentRegistration.dashboardTeamProgressStatus
     );
@@ -324,12 +422,12 @@ const CommonUserProfile = (props) => {
                                 </span>
                                 <b>{StudentsDaTa?.disability}</b>
                             </CardText>
-                            <CardText>
+                            {/* <CardText>
                                 <span className="mx-3">
                                     <b>Email Id:</b>
                                 </span>
                                 <b>{StudentsDaTa?.username_email}</b>
-                            </CardText>
+                            </CardText> */}
 
                             <CardText>
                                 <span className="mx-3">
@@ -460,10 +558,8 @@ const CommonUserProfile = (props) => {
                                     <b>Completed Videos :</b>
                                 </span>
                                 <b>
-                                    {dashboardStatus &&
-                                    dashboardStatus?.videos_completed_count
-                                        ? dashboardStatus?.videos_completed_count
-                                        : '-'}
+                                    {videos
+                                    }
                                 </b>
                             </CardText>
 
@@ -472,10 +568,7 @@ const CommonUserProfile = (props) => {
                                     <b>Completed Quiz :</b>
                                 </span>
                                 <b>
-                                    {dashboardStatus &&
-                                    dashboardStatus?.quiz_completed_count
-                                        ? dashboardStatus?.quiz_completed_count
-                                        : '-'}
+                                    {quiz}
                                 </b>
                             </CardText>
                             <CardText>
@@ -483,12 +576,12 @@ const CommonUserProfile = (props) => {
                                     <b>Course Completion :</b>
                                 </span>
                                 <b>
-                                    {dashboardStatus?.topics_completed_count !==
+                                    {course?.topics_completed_count !==
                                     undefined
                                         ? `${
                                               Math.round(
-                                                  (dashboardStatus?.topics_completed_count /
-                                                      dashboardStatus?.all_topics_count) *
+                                                  (course?.topics_completed_count /
+                                                    course?.all_topics_count) *
                                                       100
                                               ) + '%'
                                           }`
@@ -500,10 +593,7 @@ const CommonUserProfile = (props) => {
                                     <b>Earned Badges :</b>
                                 </span>
                                 <b>
-                                    {dashboardStatus &&
-                                    dashboardStatus?.badges_earned_count
-                                        ? dashboardStatus?.badges_earned_count
-                                        : '-'}
+                                    {badges}
                                 </b>
                             </CardText>
                         </CardBody>
@@ -681,7 +771,7 @@ const CommonUserProfile = (props) => {
                         </div>
                     )}
                 </Row> */}
-                <Row>
+                {/* <Row>
                     <Card className="py-2">
                         <CardBody>
                             <h4 className="mb-2">Quiz Details Table Format</h4>
@@ -704,7 +794,7 @@ const CommonUserProfile = (props) => {
                             </DataTableExtensions>
                         </div>
                     </Card>
-                </Row>
+                </Row> */}
             </Container>
             </div>
             </div>

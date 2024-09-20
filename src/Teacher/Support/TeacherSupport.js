@@ -327,7 +327,7 @@ const TeacherSupport = () => {
     const handleChat = (id) => {
         dispatch(getSupportTicketById(id, language));
     };
-
+   
 
 
 
@@ -584,13 +584,25 @@ const TeacherSupport = () => {
                                     <div style={{ borderStyle: "solid", borderWidth: "thin", borderColor: "aqua", borderRadius: "1rem", padding: "1.5rem 1rem", marginBottom: "2rem" }}>
                                         <Row>
                                             <Col md={12}>
-                                                <strong style={{ whiteSpace: 'pre-line' }}>
+                                                <strong style={{ whiteSpace: "pre-line" }}>
                                                     {
                                                         supportTicket.query_details
                                                     }
                                                 </strong>
                                                 <hr />
+
+                                                  {/* <strong style={{ whiteSpace: "pre-line" }}>
+        <span 
+            dangerouslySetInnerHTML={{
+                __html: supportTicket.query_details 
+                    ? supportTicket.query_details.replace(/\n/g, '<br />')
+                    : ''
+            }}
+        />
+    </strong> */}
                                             </Col>
+                                            
+                                           
                                             <Col md={3}>
                                                 <span>
                                                     <FaUserCircle />{' '}

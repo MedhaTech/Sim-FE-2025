@@ -163,14 +163,7 @@ const IdeaReport = () => {
     //   label: 'ATL CODE',
     //   key: 'unique_code'
     // },
-    {
-      label: "School Name",
-      key: "organization_name",
-    },
-    {
-      label: "School Type/Category",
-      key: "category",
-    },
+   
     {
       label: "State",
       key: "state",
@@ -180,17 +173,37 @@ const IdeaReport = () => {
       key: "district",
     },
     {
-      label: "City",
-      key: "city",
+      label: 'CID',
+      key: 'challenge_response_id'
+  },
+    {
+      label: "School Name",
+      key: "organization_name",
     },
     {
-      label: "HM Name",
-      key: "principal_name",
+      label: "School Type/Category",
+      key: "category",
     },
     {
-      label: "HM Contact",
-      key: "principal_mobile",
-    },
+      label: 'Pin code',
+      key: 'pin_code'
+  },
+  {
+      label: 'Address',
+      key: 'address'
+  },
+    // {
+    //   label: "City",
+    //   key: "city",
+    // },
+    // {
+    //   label: "HM Name",
+    //   key: "principal_name",
+    // },
+    // {
+    //   label: "HM Contact",
+    //   key: "principal_mobile",
+    // },
     {
       label: "Teacher Name",
       key: "full_name",
@@ -207,72 +220,77 @@ const IdeaReport = () => {
       label: "Teacher Contact",
       key: "mobile",
     },
-    {
-      label: "Teacher WhatsApp Contact",
-      key: "whatapp_mobile",
-    },
+    // {
+    //   label: "Teacher WhatsApp Contact",
+    //   key: "whatapp_mobile",
+    // },
 
     {
       label: "Team Name",
       key: "team_name",
     },
     {
-      label: "Team Username/Login",
+      label: "Team Username",
       key: "team_username",
     },
     {
-      label: "Student Name",
-      key: "studentfullname",
+      label: "Student Names",
+      key: "names",
     },
 
     {
-      label: "Age",
-      key: "Age",
-    },
+      label: 'Theme',
+      key: 'theme'
+  },
+  {
+    label: 'Focus Area',
+    key: 'Focus Area'
+},
+  {
+      label: 'Title of your idea (Think of a proper name. Dont describe the solution or problem statement here.',
+      key: 'title'
+  },
+  {
+    label: 'Write down your Problem statement',
+    key: 'problem_statement'
+}, {
+  label: 'List the Causes of the problem',
+  key: 'causes'
+}, {
+  label: 'List the Effects of the problem',
+  key: 'effects'
+}, {
+  label: 'In which places in your community did you find this problem?',
+  key: 'community'
+}, {
+  label: 'Who all are facing this problem?',
+  key: 'facing'
+}, {
+  label: 'Describe the solution to the problem your team found. Explain your solution clearly - how does it work, who is it helping, and how will it solve the problem.',
+  key: 'facing'
+}, {
+  label: 'Apart from your teacher, how many people/stakeholders did you speak to to understand or improve your problem or solution?',
+  key: 'stakeholders'
+}, {
+  label: 'Pick the actions your team did in your problem solving journey (You can choose multiple options)',
+  key: 'problem_solving'
+},
     {
-      label: "Gender",
-      key: "studentgender",
-    },
-    {
-      label: "Class",
-      key: "Grade",
-    },
-    {
-      label: "Disability Type",
-      key: "disability",
-    },
-    {
-      label: "Pre Survey Status",
-      key: "pre_survey_status",
-    },
-    {
-      label: "Course Completion%",
-      key: "course_per",
-    },
-    {
-      label: "Course Status",
-      key: "user_count",
-    },
-    {
-      label: "Idea Status",
-      key: "idea_status",
-    },
-    {
-      label: "Post Survey Status",
-      key: "post_survey_status",
+        label: 'Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.',
+        key: 'feedback'
     },
     // {
-    //     label: 'No.of Teams Idea Submitted',
-    //     key: 'submittedcout'
-    // },
-    // {
-    //     label: 'No.of Teams Idea in Draft',
+    //     label: 'Upload image of your prototype.',
     //     key: 'draftcout'
     // },
-    // {
-    //     label: 'No.of Teams Idea NOt Initiated',
-    //     key: 'ideanotIN'
-    // }
+    {
+      label: 'Upload documents & video links of your prototype.',
+      key: 'prototype_link'
+  },
+    {
+        label: 'Did your team complete and submit the workbook to your school Guide teacher?',
+        key: 'workbook'
+    }
   ];
 
   // useEffect(() => {
@@ -598,41 +616,43 @@ const IdeaReport = () => {
       .then(function (response) {
         if (response.status === 200) {
           // console.log(response,"filter");
-          // const teamDataMap = response.data.data[0].teamData.reduce(
-          //   (map, item) => {
-          //     map[item.team_id] = item;
-          //     return map;
-          //   },
-          //   {}
-          // );
-          // const teamUsernameMap = response.data.data[0].teamUsername.reduce(
-          //   (map, item) => {
-          //     map[item.teamuserId] = item.teamUsername;
-          //     return map;
-          //   },
-          //   {}
-          // );
-          // const mentorMap = response.data.data[0].mentorData.reduce(
-          //   (map, item) => {
-          //     map[item.mentor_id] = item;
-          //     return map;
-          //   },
-          //   {}
-          // );
-          // const mentorUsernameMap = response.data.data[0].mentorUsername.reduce(
-          //   (map, item) => {
-          //     map[item.user_id] = item.username;
-          //     return map;
-          //   },
-          //   {}
-          // );
-          // const preSurveyMap = response.data.data[0].preSurvey.reduce(
-          //   (map, item) => {
-          //     map[item.user_id] = item.pre_survey_status;
-          //     return map;
-          //   },
-          //   {}
-          // );
+          const teamDataMap = response.data.data[0].teamData.reduce(
+            (map, item) => {
+              map[item.team_id] = item;
+              return map;
+            },
+            {}
+          );
+          const teamUsernameMap = response.data.data[0].teamUsername.reduce(
+            (map, item) => {
+              map[item.teamuserId] = item.teamUsername;
+              return map;
+            },
+            {}
+          );
+          const mentorMap = response.data.data[0].mentorData.reduce(
+            (map, item) => {
+              map[item.mentor_id] = item;
+              return map;
+            },
+            {}
+          );
+          const mentorUsernameMap = response.data.data[0].mentorUsername.reduce(
+            (map, item) => {
+              map[item.user_id] = item.username;
+              return map;
+            },
+            {}
+          );
+          const studentNamesMap = response.data.data[0].
+          student_names
+          .reduce(
+            (map, item) => {
+              map[item.team_id] = item.names;
+              return map;
+            },
+            {}
+          );
           // const postSurveyMap = response.data.data[0].postSurvey.reduce(
           //   (map, item) => {
           //     map[item.user_id] = item.post_survey_status;
@@ -655,61 +675,69 @@ const IdeaReport = () => {
           //   {}
           // );
 
-          // const studentAndteam = response.data.data[0].summary.map((item) => {
-          //   return {
-          //     ...item,
-          //     pre_survey_status: preSurveyMap[item.user_id] || "Not started",
-          //     post_survey_status: postSurveyMap[item.user_id] || "Not started",
-          //     idea_status: ideaStatusDataMap[item.team_id] || "Not Initiated",
-          //     user_count:
-          //       userTopicDataMap[item.user_id] === 0 ||
-          //       userTopicDataMap[item.user_id] === undefined
-          //         ? "Not Started"
-          //         : userTopicDataMap[item.user_id] === 31
-          //         ? "Completed"
-          //         : "In Progress",
-          //     course_per:
-          //       userTopicDataMap[item.user_id] &&
-          //       typeof userTopicDataMap[item.user_id] === "number"
-          //         ? `${Math.round(
-          //             (userTopicDataMap[item.user_id] / 31) * 100
-          //           )}%`
-          //         : `0%`,
-          //     team_name: teamDataMap[item.team_id].team_name,
-          //     team_email: teamDataMap[item.team_id].team_email,
-          //     mentor_id: teamDataMap[item.team_id].mentor_id,
-          //     teamuserId: teamDataMap[item.team_id].teamuserId,
-          //   };
-          // });
+          const studentAndteam = response.data.data[0].summary.map((item) => {
+            return {
+              ...item,
+              // pre_survey_status: preSurveyMap[item.user_id] || "Not started",
+              // post_survey_status: postSurveyMap[item.user_id] || "Not started",
+              // idea_status: ideaStatusDataMap[item.team_id] || "Not Initiated",
+              // user_count:
+              //   userTopicDataMap[item.user_id] === 0 ||
+              //   userTopicDataMap[item.user_id] === undefined
+              //     ? "Not Started"
+              //     : userTopicDataMap[item.user_id] === 31
+              //     ? "Completed"
+              //     : "In Progress",
+              // course_per:
+              //   userTopicDataMap[item.user_id] &&
+              //   typeof userTopicDataMap[item.user_id] === "number"
+              //     ? `${Math.round(
+              //         (userTopicDataMap[item.user_id] / 31) * 100
+              //       )}%`
+              //     : `0%`,
+              names: studentNamesMap[item.team_id],
 
-          // const mentorAndOrg = studentAndteam.map((item) => {
-          //   return {
-          //     ...item,
-          //     team_username: teamUsernameMap[item.teamuserId],
-          //     category: mentorMap[item.mentor_id].category,
-          //     district: mentorMap[item.mentor_id].district,
-          //     full_name: mentorMap[item.mentor_id].full_name,
-          //     gender: mentorMap[item.mentor_id].gender,
-          //     mobile: mentorMap[item.mentor_id].mobile,
-          //     organization_code: mentorMap[item.mentor_id].organization_code,
-          //     unique_code: mentorMap[item.mentor_id].unique_code,
-          //     organization_name: mentorMap[item.mentor_id].organization_name,
-          //     state: mentorMap[item.mentor_id].state,
-          //     whatapp_mobile: mentorMap[item.mentor_id].whatapp_mobile,
-          //     mentorUserId: mentorMap[item.mentor_id].mentorUserId,
-          //     city: mentorMap[item.mentor_id].city,
-          //     principal_name: mentorMap[item.mentor_id].principal_name,
-          //     principal_mobile: mentorMap[item.mentor_id].principal_mobile,
-          //   };
-          // });
-          // const newdatalist = mentorAndOrg.map((item) => {
-          //   return {
-          //     ...item,
-          //     username: mentorUsernameMap[item.mentorUserId],
-          //   };
-          // });
+              team_name: teamDataMap[item.team_id].team_name,
+              team_email: teamDataMap[item.team_id].team_email,
+              mentor_id: teamDataMap[item.team_id].mentor_id,
+              teamuserId: teamDataMap[item.team_id].teamuserId,
 
-          // setstudentDetailedReportsData(newdatalist);
+            };
+          });
+
+          const mentorAndOrg = studentAndteam.map((item) => {
+            return {
+              ...item,
+              
+              team_username: teamUsernameMap[item.teamuserId],
+              category: mentorMap[item.mentor_id].category,
+              district: mentorMap[item.mentor_id].district,
+              full_name: mentorMap[item.mentor_id].full_name,
+              gender: mentorMap[item.mentor_id].gender,
+              mobile: mentorMap[item.mentor_id].mobile,
+              organization_code: mentorMap[item.mentor_id].organization_code,
+              unique_code: mentorMap[item.mentor_id].unique_code,
+              organization_name: mentorMap[item.mentor_id].organization_name,
+              state: mentorMap[item.mentor_id].state,
+              // whatapp_mobile: mentorMap[item.mentor_id].whatapp_mobile,
+              mentorUserId: mentorMap[item.mentor_id].mentorUserId,
+              city: mentorMap[item.mentor_id].city,
+              principal_name: mentorMap[item.mentor_id].principal_name,
+              principal_mobile: mentorMap[item.mentor_id].principal_mobile,
+              pin_code: mentorMap[item.mentor_id].pin_code,
+              address: mentorMap[item.mentor_id].address,
+
+            };
+          });
+          const newdatalist = mentorAndOrg.map((item) => {
+            return {
+              ...item,
+              username: mentorUsernameMap[item.mentorUserId],
+            };
+          });
+
+          // console.log(newdatalist,"filter");
+          setstudentDetailedReportsData(newdatalist);
           if (response.data.data[0].summary.length > 0) {
             openNotificationWithIcon(
               "success",
@@ -728,6 +756,7 @@ const IdeaReport = () => {
         setIsDownload(false);
       });
   };
+  console.log(studentDetailedReportsData,"all");
 
   const fetchChartTableData = () => {
     const config = {
@@ -1327,11 +1356,11 @@ const IdeaReport = () => {
                 <CSVLink
                   headers={teacherDetailsHeaders}
                   data={studentDetailedReportsData}
-                  filename={`StudentProgressDetailedReport_${newFormat}.csv`}
+                  filename={`IdeasProgressDetailedReport_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRef}
                 >
-                  Download Teacherdetailed CSV
+                  Download Idea Detailed CSV
                 </CSVLink>
               )}
             </div>
