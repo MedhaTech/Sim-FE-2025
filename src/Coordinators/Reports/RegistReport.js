@@ -1016,50 +1016,50 @@ const ReportsRegistration = () => {
                                 {RegTeachersState !== "Tamil Nadu" && (
                                   <>
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                      ATL Teachers
+                                      #ATL Teachers
                                     </th>
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB", fontWeight: "bold"}}>
-                                      Non-ATL Teachers
+                                      #Non-ATL Teachers
                                     </th>
                                   </>
                                 )}
                                 <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                  Total Teachers
+                                  #Total Teachers
                                 </th>
                                 <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                   <FontAwesomeIcon icon={faMale} />
-                                  Male
+                                  #Male
                                 </th>
                                 <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                   <FontAwesomeIcon icon={faFemale} />
-                                  Female
+                                  #Female
                                 </th>
                                 <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                   <FontAwesomeIcon icon={faFemale} />
-                                  Others
+                                  #Others
                                 </th>
                                 {RegTeachersState === "Tamil Nadu" && (
                                   <>
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                      Fully Aided High Schools
+                                      #Fully Aided High Schools
                                     </th>
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                      Fully Aided-Higher Secondary Schools
+                                      #Fully Aided-Higher Secondary Schools
                                     </th>
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                      Government High Schools
+                                      #Government High Schools
                                     </th>
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                      Government-Higher Secondary Schools
+                                      #Government-Higher Secondary Schools
                                     </th>
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                      Partially Aided-High Schools
+                                      #Partially Aided-High Schools
                                     </th>
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                      Partially Aided-Higher Secondary Schools
+                                      #Partially Aided-Higher Secondary Schools
                                     </th>
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                      Non-ATL Schools
+                                      #Non-ATL Schools
                                     </th>
                                   </>
                                 )}

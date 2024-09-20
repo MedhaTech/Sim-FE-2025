@@ -262,13 +262,16 @@ return (
                   preSurveyStatus !== "COMPLETED" &&
                   !show ? (
                     <CardBody>
-                       <ul className="table-top-head">
-            <li>
+                       <div className="dropdown" style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  <LanguageSelectorComp module="student" />
+              </div>
+                       {/* <ul className="table-top-head"  style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <li >
               <div>
               <LanguageSelectorComp module="student" />
               </div>
             </li>
-          </ul>
+          </ul> */}
                       <Row>
                         <Col md={4} style={{alignContent:"center"}}>
                           <figure>
@@ -284,7 +287,12 @@ return (
                           {t('home.wel')}
                           </h2>
                           <br/>
-                          {t('home.preinst')}
+                          {/* {t('home.preinst')} */}
+                          <div
+  dangerouslySetInnerHTML={{
+    __html: t('home.preinst') 
+  }}
+/>
                           {/* <div
                             dangerouslySetInnerHTML={{
                               __html:

@@ -291,7 +291,7 @@ const adminStudentCourseCount = () => {
                     {totalSchoolCount}
 
                   </h5>
-                  <h6>Total Eligible Schools</h6>
+                  <h6>Total Schools in DB</h6>
                 </div>
               </div>
             </div>

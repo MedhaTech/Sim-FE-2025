@@ -178,7 +178,7 @@ const StateRes = (props) => {
                                     <div style={{ borderStyle: "solid", borderWidth: "thin", borderColor: "aqua", borderRadius: "1rem", padding: "1.5rem 1rem", margin: "1rem", }}>
                                         <Row>
                                             <Col md={12}>
-                                                <strong>
+                                                <strong style={{ whiteSpace: "pre-line" }}>
                                                     {
                                                         supportTicket?.query_details
                                                     }

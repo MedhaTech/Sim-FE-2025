@@ -286,7 +286,7 @@ return (
                         </ul>
                         </div>
                     </div>
-                    {/* <div className="col-xxl-3 col-xl-4 col-lg-6 col-md-6">
+                    <div className="col-xxl-3 col-xl-4 col-lg-6 col-md-6">
                         <div className="employee-grid-profile">
                         <div className="profile-head">
                             <div className="dep-name">
@@ -347,7 +347,7 @@ return (
                             </li>
                         </ul>
                         </div>
-                    </div>                     */}
+                    </div>                    
                 </div>
             </div>
         </div>

@@ -11,6 +11,7 @@ import axios from 'axios';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import { useNavigate } from 'react-router-dom';
 import { stateList} from "../../RegPage/ORGData";
+import Select from "../Reports/Helpers/Select";
 
 
 const EditResource = () => {
@@ -24,7 +25,7 @@ const EditResource = () => {
         type: 'text',
         className: 'defaultInput'
     };
-
+   
     const fileHandler = (e) => {
         let file = e.target.files[0];
 
@@ -77,10 +78,11 @@ const EditResource = () => {
             role: resID && resID.role,
             description: resID && resID.description,
             type: resID && resID.type,
-            state: resID && resID.state,
+            state: resID?.state,
 
             attachments: (resID && resID.attachments) || ''
         },
+        enableReinitialize: true,
         validationSchema: Yup.object({
             role: Yup.string()
                 .optional()
@@ -175,10 +177,11 @@ const EditResource = () => {
         marginRight: '10px',
       };
 
-      const handleStateChange = (event) => {
-        const state = event.target.value;
-        formik.setFieldValue("state", state);
-      };
+    //   const handleStateChange = (event) => {
+    //     const state = event.target.value;
+    //     formik.setFieldValue("state", state);
+    //   };
+      console.log(formik.values.state,"state");
     return (
         <div className="page-wrapper">
             <div className="content">
@@ -228,18 +231,24 @@ const EditResource = () => {
                             State
                             {/* <span required>*</span> */}
                           </Label>
-                          <select
+                          <Select
+  list={allData}
+  setValue={(value) => formik.setFieldValue("state", value)} // Update Formik state
+  placeHolder={"Select State"}
+  value={formik.values.state}  // Bind the Formik state value
+/>
+                          {/* <select
                             id="inputState"
                             className="form-select"
                             onChange={(e) => handleStateChange(e)}
                           >
                             <option value="">Select State</option>
                             {allData.map((state) => (
-                              <option key={state} value={state}>
+                              <option key={state} value={formik.values.state}>
                                 {state}
                               </option>
                             ))}
-                          </select>
+                          </select> */}
 
                           {formik.touched.state && formik.errors.state ? (
                             <small
@@ -351,7 +360,8 @@ const EditResource = () => {
                                                                 );
                                                             }}
                                                         >
-                                                            Download
+                                                             {formik.values.attachments ? formik.values.attachments.substring(formik.values.attachments.lastIndexOf('/') + 1) : 'Download'}
+                                                            {/* Download */}
                                                         </button>
                                                         
                                                         {formik.values
