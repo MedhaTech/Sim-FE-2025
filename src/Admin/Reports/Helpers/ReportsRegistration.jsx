@@ -117,7 +117,7 @@ const ReportsRegistration = () => {
     },
     {
       label: "Total Schools in DB",
-      key: "ATL_Count",
+      key: "Eligible_school",
     },
     {
       label: "Registered Schools",
@@ -855,7 +855,8 @@ const ReportsRegistration = () => {
                                   >
                                     {item.state}
                                   </td>
-                                  <td>{item.ATL_Count}</td>
+                                  <td>{item.Eligible_school
+                                  }</td>
                                   <td>{item.reg_school
 }</td>
                                   <td>{item.ATL_Reg_Count}</td>

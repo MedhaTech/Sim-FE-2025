@@ -590,14 +590,18 @@ const TeacherSupport = () => {
                                                     }
                                                 </strong>
                                                 <hr />
-                                            </Col>
-                                              {/* <strong style={{ whiteSpace: "pre-line" }}>
+
+                                                  {/* <strong style={{ whiteSpace: "pre-line" }}>
         <span 
             dangerouslySetInnerHTML={{
-                __html: supportTicket.query_details.replace(/\n/g, '<br />')
+                __html: supportTicket.query_details 
+                    ? supportTicket.query_details.replace(/\n/g, '<br />')
+                    : ''
             }}
         />
     </strong> */}
+                                            </Col>
+                                            
                                            
                                             <Col md={3}>
                                                 <span>
