@@ -583,21 +583,21 @@ const TeacherSupport = () => {
 
                                     <div style={{ borderStyle: "solid", borderWidth: "thin", borderColor: "aqua", borderRadius: "1rem", padding: "1.5rem 1rem", marginBottom: "2rem" }}>
                                         <Row>
-                                            {/* <Col md={12}>
+                                            <Col md={12}>
                                                 <strong style={{ whiteSpace: "pre-line" }}>
                                                     {
                                                         supportTicket.query_details
                                                     }
                                                 </strong>
                                                 <hr />
-                                            </Col> */}
-                                              <strong style={{ whiteSpace: "pre-line" }}>
+                                            </Col>
+                                              {/* <strong style={{ whiteSpace: "pre-line" }}>
         <span 
             dangerouslySetInnerHTML={{
                 __html: supportTicket.query_details.replace(/\n/g, '<br />')
             }}
         />
-    </strong>
+    </strong> */}
                                            
                                             <Col md={3}>
                                                 <span>
