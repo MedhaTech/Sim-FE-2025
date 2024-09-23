@@ -372,6 +372,8 @@ export const getTeacherPresurveyStatus = () => async (dispatch) => {
 };
 
 export const createSupportTicketResponse = (data) => async () => {
+  console.log(data,"statte");
+
   try {
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
     const result = await axios
@@ -400,6 +402,7 @@ export const SupportTicketStatus = (message) => async (dispatch) => {
 };
 
 export const SupportTicketStatusChange = (id, data) => async (dispatch) => {
+ 
   try {
     dispatch({ type: MENTORS_SUPPORT_TICKETS_STATUS });
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);

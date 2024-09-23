@@ -707,8 +707,8 @@ export const stateRoutes = [
   },
   {
     id: 5,
-    path: routes.intitutioncoo,
-    name: "intitutioncoo",
+    path: routes.intitutioncoostate,
+    name: "intitutioncoostate",
     element: <CooInst />,
     protected: true,
     route: Route,
