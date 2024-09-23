@@ -46,11 +46,29 @@ const GreetingModal = (props) => {
 
       <Modal.Body>
         <figure>
-          <img
+        {props.poptype === "link" ? (
+                  <div className="modal-body custom-modal-body">
+                                    <div style={{ width: '100%', height: '400px' }}>
+                      <iframe
+                         
+                          src={props.popLink}
+                          title="Video popup"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                      ></iframe>
+                      </div></div>
+                  ) : (
+                      <img
+                          src={props.imgUrl}
+                          alt="popup image"
+                          className="img-fluid"
+                      />
+                  )}
+          {/* <img
             src={props.imgUrl}
             alt="popup image"
             className="img-fluid"
-          />
+          /> */}
         </figure>
       </Modal.Body>
       <Modal.Footer>
@@ -75,6 +93,8 @@ const GreetingModal = (props) => {
 const DBStu = () => {
   const [showsPopup, setShowsPopup] = useState(false);
   const [imgUrl, setImgUrl] = useState('');
+  const [popLink, setPopLink] = useState('');
+  const [poptype, setPopType] = useState('');
   const [state, setState] = useState("");
 
   /////////my code//////////////////
@@ -117,6 +137,9 @@ const DBStu = () => {
         if (res.status === 200 && res.data.data[0]?.on_off === '1') {
           // console.log(res,"res");
           setShowsPopup(true);
+          setPopType(res?.data?.data[0]?.type);
+
+          setPopLink(res?.data?.data[0]?.url);
           setImgUrl(res?.data?.data[0]?.url);
           setState(res?.data?.data[0]?.navigate);
         }
@@ -316,13 +339,13 @@ const DBStu = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          console.log(response,"111");
+          // console.log(response,"111");
           const per = Math.round(
             (response.data.data[0].topics_completed_count /
               response.data.data[0].all_topics_count) *
             100
           );
-          console.log(per,"per");
+          // console.log(per,"per");
         let anyCompleted = false;
         if (per === 100) {
           anyCompleted = true;
@@ -330,7 +353,7 @@ const DBStu = () => {
         const ideaStatus = anyCompleted ? 1 : 0;
         localStorage.setItem("ideaenablestatus", ideaStatus);
         setIdeaEnableStatus(ideaStatus); 
-        console.log(ideaEnableStatus,"11");
+        // console.log(ideaEnableStatus,"11");
 
           // if (per === 100) {
           //   const ideaStatus = "enabled"; // You can set any value based on your logic
@@ -441,6 +464,8 @@ const DBStu = () => {
         handleClose={handleClose}
         show={showsPopup}
         imgUrl={imgUrl}
+        popLink={popLink}
+poptype={poptype}
         state={state}
       ></GreetingModal>
       <div className="page-wrapper" id="start">

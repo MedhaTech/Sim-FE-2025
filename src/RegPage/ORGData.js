@@ -177,6 +177,7 @@ export const districtList = {
     "West Champaran",
   ],
   Chandigarh: ["Chandigarh"],
+  
   Chhattisgarh: [
     "Balarampur Ramanujganj",
     "Balod",
@@ -187,6 +188,7 @@ export const districtList = {
     "Bemetara",
     "Bijapur",
     "Bilaspur",
+    "Bharatpur Manendragarh Chirmiri",
     "Dantewada (South Bastar)",
     "Dhamtari",
     "Durg",
@@ -203,6 +205,7 @@ export const districtList = {
     "Koriya (Korea)",
     "Mahasamund",
     "Mungeli",
+    "Mohla Manpur Ambagadh Chowki",
     "Narayanpur",
     "Raigarh",
     "Raipur",
@@ -211,6 +214,8 @@ export const districtList = {
     "Sukma",
     "Surajpur",
     "Surguja",
+    "Sakti",
+    "Sarangarh Bilaigarh"
   ],
   "Dadra and Nagar Haveli and Daman and Diu": [
     "Dadra and Nagar Haveli",
@@ -871,7 +876,6 @@ export const userList = [
 ];
 export const navList = {
   Mentor: [
-      "/teacher-dashboard",
       "/mentorcourse/1",
       "/mentorteams",
       "/tecresource",
@@ -881,12 +885,16 @@ export const navList = {
       "/mentorchangepwd",
   ],
   Student:[
-      "/student-dashboard",
       "/studentcourse/1",
       "/idea",
       "/studentpostsurvey",
       "/certificate",
       "/studentresource",
-      "/student-profile"],
+      // "/student-profile"
+    ],
 };
-export const teamLength=[{"Tamil Nadu" :5},{default:3}];
+export const teamLength = {
+  "Tamil Nadu": 5,
+  default: 3
+};
+// export const teamLength=[{"Tamil Nadu" :5},{default:3}];

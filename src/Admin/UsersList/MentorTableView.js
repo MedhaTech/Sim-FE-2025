@@ -35,8 +35,11 @@ import {
 } from '../../helpers/Utils';
 import { Card } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Dashboard = () => {
+  const location = useLocation();
+
     // here we can see the registration details //
     // const history = useHistory();
     const dispatch = useDispatch();
@@ -46,13 +49,20 @@ const Dashboard = () => {
         className: 'defaultInput'
     };
     const navigate = useNavigate();
-    const Mentor = JSON.parse(localStorage.getItem('mentor'));
+    const orgData = JSON.parse(localStorage.getItem('mentor'));
+    // console.log(orgData,"mm");
 
-    const diesdata=Mentor.organization.organization_code;
+    const MentorId = JSON.parse(localStorage.getItem('teacherId'));
+    // const orgData = location?.state?.data|| {};
+    // const orgData =
+    //     (history && history.location && history.location.data) || {};
+    // console.log(orgData,"mm");
+
+    // const diesdata=Mentor.organization.organization_code;
 
     const currentUser = getCurrentUser('current_user');
-    const [diesCode, setDiesCode] = useState(diesdata);
-    const [orgData, setOrgData] = useState({});
+    // const [diesCode, setDiesCode] = useState(diesdata);
+    // const [orgData, setOrgData] = useState({});
     const [mentorId, setMentorId] = useState('');
     const [SRows, setSRows] = React.useState([]);
     const [mentorTeam, setMentorTeam] = useState([]);
@@ -66,22 +76,25 @@ const Dashboard = () => {
         //where organization_code = diescode //
         localStorage.removeItem('organization_code');
         setCount(0);
-        setDiesCode(e.target.value);
-        setOrgData({});
+        // setDiesCode(e.target.value);
+        // setOrgData({});
         setError('');
     };
-    useEffect( () => {
+    useEffect(() => {
+        // apiCall();
+        getMentorIdApi(orgData.mentor_id);
+    }, []);
+    // useEffect( () => {
         // where list = diescode //
         //where organization_code = diescode //
         // const list = JSON.parse(localStorage.getItem('organization_code'));
         // setDiesCode(list);
-        apiCall();
-    }, []);
+        // apiCall();
+    // }, []);
     async function apiCall() {
-        // Dice code list API //
-        // where list = diescode //
+       
         const body = JSON.stringify({
-            organization_code: diesCode
+            // organization_code: diesCode
         });
         var config = {
             method: 'post',
@@ -96,65 +109,56 @@ const Dashboard = () => {
         await axios(config)
             .then(async function (response) {
                 if (response.status == 200) {
-                    setOrgData(response?.data?.data[0]);
-                    setCount(count + 1);
+                    // setOrgData(response?.data?.data[0]);
+                    // setCount(count + 1);
                     setMentorId(response?.data?.data[0]?.mentor.mentor_id);
                     setError('');
 
-                    if (response?.data?.data[0]?.mentor.mentor_id) {
-                        await getMentorIdApi(
-                            response?.data?.data[0]?.mentor.mentor_id
-                        );
-                    }
+                  
                 }
             })
             .catch(function (error) {
                 if (error?.response?.data?.status === 404) {
                     setError('Entered Invalid UDISE Code');
                 }
-                setOrgData({});
+                // setOrgData({});
             });
     }
 
-    const handleSearch = (e) => {
-        //where we can search through diescode //
-        // we can see Registration Details & Mentor Details //
+    // const handleSearch = (e) => {
+     
 
-        const body = JSON.stringify({
-            organization_code: diesCode
-        });
-        var config = {
-            method: 'post',
-            url: process.env.REACT_APP_API_BASE_URL + '/organizations/checkOrg',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization : 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
-            },
-            data: body
-        };
+    //     const body = JSON.stringify({
+    //         organization_code: diesCode
+    //     });
+    //     var config = {
+    //         method: 'post',
+    //         url: process.env.REACT_APP_API_BASE_URL + '/organizations/checkOrg',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Authorization : 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
+    //         },
+    //         data: body
+    //     };
 
-        axios(config)
-            .then(async function (response) {
-                if (response.status == 200) {
-                    setOrgData(response?.data?.data[0]);
-                    setCount(count + 1);
-                    setMentorId(response?.data?.data[0]?.mentor.mentor_id);
-                    setError('');
-                    if (response?.data?.data[0]?.mentor.mentor_id) {
-                        await getMentorIdApi(
-                            response?.data?.data[0]?.mentor.mentor_id
-                        );
-                    }
-                }
-            })
-            .catch(function (error) {
-                if (error?.response?.data?.status === 404) {
-                    setError('Entered Invalid Unique Code');
-                }
-                setOrgData({});
-            });
-        e.preventDefault();
-    };
+    //     axios(config)
+    //         .then(async function (response) {
+    //             if (response.status == 200) {
+    //                 setOrgData(response?.data?.data[0]);
+    //                 setCount(count + 1);
+    //                 setMentorId(response?.data?.data[0]?.mentor.mentor_id);
+    //                 setError('');
+                   
+    //             }
+    //         })
+    //         .catch(function (error) {
+    //             if (error?.response?.data?.status === 404) {
+    //                 setError('Entered Invalid Unique Code');
+    //             }
+    //             setOrgData({});
+    //         });
+    //     e.preventDefault();
+    // };
 
     async function getMentorIdApi(id) {
         // Mentor Id  Api//
@@ -198,15 +202,15 @@ const Dashboard = () => {
         navigate(
              '/admin-mentor-edit',
            { state: {
-                full_name: orgData.mentor?.full_name,
-                mobile: orgData.mentor?.mobile,
-                username: orgData.mentor?.user?.username,
-                mentor_id: orgData.mentor?.mentor_id,
+                full_name: orgData.full_name,
+                mobile: orgData.mobile,
+                username: orgData.username,
+                mentor_id: orgData.mentor_id,
                 where: 'Dashbord',
-                organization_code: orgData.organization_code,
-                title: orgData.mentor?.title,
-                gender: orgData.mentor?.gender,
-                whatapp_mobile: orgData.mentor?.whatapp_mobile
+                organization_code: orgData.organization.organization_code,
+                title: orgData.title,
+                gender: orgData.gender,
+                whatapp_mobile: orgData.whatapp_mobile
             }
         });
     };
@@ -235,7 +239,7 @@ const Dashboard = () => {
                 if (result.isConfirmed) {
                     dispatch(
                         teacherResetPassword({
-                            username: orgData.mentor?.user?.username,
+                            username: orgData.username,
                             mentor_id: data.mentor_id,
                             otp: false
                         })
@@ -282,7 +286,7 @@ const Dashboard = () => {
                 name: 'Student Count',
                 selector: (row) => row.student_count,
                 center: true,
-                width: '12rem'
+                width: '10rem'
             },
             {
                 name: 'Idea Sub Status',
@@ -290,12 +294,21 @@ const Dashboard = () => {
                 center: true,
                 width: '15rem'
             },
+            // {
+            //     name: 'Mentor Approval',
+            //     selector: (row) =>
+            //         row.ideaAcceptance,
+            //     center: true,
+            //     width: '13rem'
+            // },
             {
                 name: 'Mentor Approval',
                 selector: (row) =>
-                    row.ideaAcceptance,
+                row.ideaStatus === 
+        "SUBMITTED" ?  row.ideaAcceptance:"Not yet Reviewed" ,
+               
                 center: true,
-                width: '13rem'
+                width: '15rem'
             },
             {
                 name: "Actions",
@@ -327,7 +340,7 @@ const Dashboard = () => {
                     </>,
                   ];
                 },
-                width: "15rem",
+                width: "10rem",
                 center: true,
               },
             // {
@@ -392,7 +405,7 @@ const Dashboard = () => {
                         'Idea Submission Status Successfully Update!',
                         ''
                     );
-                    await getMentorIdApi(mentorId);
+                    await getMentorIdApi(orgData.mentor_id);
                 }
             })
             .catch(function (error) {
@@ -426,8 +439,8 @@ const Dashboard = () => {
                 if (result.isConfirmed) {
                     if (result.isConfirmed) {
                         await deleteTempMentorById(id);
-                        setOrgData({});
-                        setDiesCode('');
+                        // setOrgData({});
+                        // setDiesCode('');
                         navigate("/mentors");
 
                     }
@@ -497,9 +510,10 @@ const Dashboard = () => {
                                     </Col>
                                 </Row> */}
 
-                                {orgData &&
-                                orgData?.organization_name &&
-                                orgData?.mentor !== null ? (
+                                {/* {orgData &&
+                                orgData.organization_name &&
+                                // orgData?.mentor !== null && 
+                                ( */}
                                     <>
                                         {/* <div className="mb-5 p-3" >  */}
                                         {/* <div
@@ -595,7 +609,8 @@ const Dashboard = () => {
                                                         >
                                                             <p>
                                                                 {
-                                                                    orgData.organization_name
+                                                                    orgData?.organization?.
+                                                                    organization_name
                                                                 }
                                                             </p>
                                                         </Col>
@@ -626,7 +641,7 @@ const Dashboard = () => {
                                                             className="my-auto profile-detail"
                                                         >
                                                             <p>
-                                                                {orgData.state}
+                                                                {orgData?.organization?.state}
                                                             </p>
                                                         </Col>
                                                     </Row>
@@ -657,7 +672,7 @@ const Dashboard = () => {
                                                         >
                                                             <p>
                                                                 {
-                                                                    orgData.district
+                                                                    orgData?.organization?.district
                                                                 }
                                                             </p>
                                                         </Col>
@@ -722,11 +737,11 @@ const Dashboard = () => {
                                                             <p>
                                                             {
                                                                     orgData
-                                                                        .mentor
+                                                                        
                                                                         ?.title
                                                                 }. {
                                                                     orgData
-                                                                        .mentor
+                                                                        
                                                                         ?.full_name
                                                                 }
                                                             </p>
@@ -760,8 +775,7 @@ const Dashboard = () => {
                                                             <p>
                                                                 {
                                                                     orgData
-                                                                        .mentor
-                                                                        ?.user
+                                                                       
                                                                         ?.username
                                                                 }
                                                             </p>
@@ -795,7 +809,7 @@ const Dashboard = () => {
                                                             <p>
                                                                 {
                                                                     orgData
-                                                                        ?.mentor
+                                                                       
                                                                         ?.mobile
                                                                 }
                                                             </p>
@@ -832,7 +846,7 @@ const Dashboard = () => {
                                                             <p>
                                                                 {
                                                                     orgData
-                                                                        .mentor
+                                                                      
                                                                         ?.whatapp_mobile
                                                                 }
                                                             </p>
@@ -858,11 +872,11 @@ const Dashboard = () => {
                                                 onClick={() =>
                                                     handleresetpassword({
                                                         mentor_id:
-                                                            orgData.mentor
-                                                                .mentor_id,
+                                                            orgData
+                                                                ?.mentor_id,
                                                         username:
-                                                            orgData.mentor.user
-                                                                .username
+                                                            orgData
+                                                                ?.username
                                                     })
                                                 }
                                                 className="btn btn-info rounded-pill px-4  text-white mt-2 mt-md-0 ml-md-2"
@@ -888,7 +902,7 @@ const Dashboard = () => {
                                             <button
                                                 onClick={() => {
                                                     handleAlert(
-                                                        orgData.mentor?.user_id
+                                                        orgData?.user_id
                                                     );
                                                 }}
                                                 className="btn  btn-lg  rounded-pill mt-2 mt-md-0 ml-md-2"
@@ -928,27 +942,7 @@ const Dashboard = () => {
                                         </div>
                                         {/* </div> */}
                                     </>
-                                ) : (
-                                    count != 0 && (
-                                        <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
-                                            <span>
-                                                Still No Teacher Registered
-                                            </span>
-                                        </div>
-                                    )
-                                )}
-                                {error && diesCode && (
-                                    <div className="text-danger mt-3 p-4 fs-highlight d-flex justify-content-center align-items-center">
-                                        <span>{error}</span>
-                                    </div>
-                                )}
-                                {!diesCode && (
-                                    <div className="d-flex  mt-3 p-4 justify-content-center align-items-center">
-                                        <span className="text-primary fs-highlight">
-                                            Enter Unique Code
-                                        </span>
-                                    </div>
-                                )}
+                              
                             </div>
                         </div>
                     </div>

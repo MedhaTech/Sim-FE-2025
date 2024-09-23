@@ -1,5 +1,11 @@
 {
     "login": {
+        "popinst":"అయ్యో..! ఆలోచన సమర్పణ ప్రారంభించబడలేదా?",
+"popcheck":"మీ సహచరులలో కనీసం ఒకరు కోర్సును పూర్తి చేసినంత వరకు మీరు ఆలోచన సమర్పణను యాక్సెస్ చేయవచ్చు.",
+"ok":"సరే",
+"popcheckD":"అడ్మిన్ ద్వారా ఐడియా సమర్పణ నిలిపివేయబడినందున",
+"popdi":"అయ్యో..! మీరు ఫారమ్‌ని యాక్సెస్ చేయలేరు",
+
         "logOut": "Logout",
         "cancel": "Cancel",
         "logIn": "Log in",
@@ -134,12 +140,21 @@
         "Change_password": "పాస్వర్డ్ మార్చండి"
     },
     "home": {
+        "preinst":"ఈ ఉత్తేజకరమైన లర్నింగ్ ఎడ్వెంచర్కి మీరు మాతో చేరినందుకు మేము సంతోషిస్తున్నాము!</br></br> <b class='text-success'>ప్రోగ్రామ్లో మీరు చేయవలసిన ముఖ్యమైన పనులు క్రింద పెర్కొనపడ్దాయి</b></br></ప్రారంభించడానికి.</li><li>2. ప్రారంభించడానికి ముందు మీ ఆలోచనలను పంచుకోవడానికి ప్రీ-సర్వేని పూర్తి చేయండి.</libr><ol><li>1. పోర్టల్‌కి లాగిన్ చేయండి ><li>3. కోర్సులోకి వెళ్ళి అద్భుతమైన వీడియోలను అన్వేషించండి.</li><li>4. సమస్యను గుర్తించడానికి మీ టీంమేట్స్ తో కలిసి పని చేయండి మరియు పరిష్కారాన్ని కనుగొనడానికి కలిసి పని చేయండి.</li><li>5.ఇన్నోవేషన్ మారథాన్‌కు మీ ఇన్నోవేటివ్ ఐడియాస్ ని సబ్మిట్ చేసి, మీ సృజనాత్మకతను ప్రదర్శించండి.</li><li>6. మీ ఫీడ్‌బ్యాక్ మరియు అనుభవాన్ని పంచుకోవడానికి పోస్ట్-సర్వేని పూర్తి చేయండి.</li><li>7. మీ విజయాలను సెలబ్రేట్ చేసుకోవటానికి, మీ సర్టిఫికేట్‌లను డౌన్‌లోడ్ చేసుకోండి!</li></br>మీరు సబ్మిట్ చేసే అద్భుతమైన ఐడియాస్ కోసం మేము ఎదురు చూస్తుంటాం. మీరు ఈ ప్రాబ్లం సాల్వింగ్ జర్నీలో చాలా విషయాలు నేర్చుకుంటారని ఆశిస్తున్నాం!, చాలా నేర్చుకోండి మరియు దీనిని మరపురాని ప్రయాణంగా మార్చుకుందాం! స్క్రీన్ రీడర్ సపోర్ట్ ను ఆన్ చేయండి",
 
         "dolater":"తర్వాత చేయండి",
         "startnow":"ఇప్పుడే ప్రారంభించండి",
+"textdata":"ఈ సమస్య పరిష్కార ప్రయాణంలో మాతో చేరండి",
+"ideafocus": "ఫోకస్ ఏరియా",
+"select":"ఒక థీమ్‌ను ఎంచుకోండి",
+"selectv":"మరింత తెలుసుకోవడానికి",
 
+"share":"మీ అద్భుతమైన ఆలోచనలను మాతో పంచుకోండి",
+"section1":"విభాగం-1",
+"section2":"విభాగం-2",
+"section3":"విభాగం-3",
+"wel":" విద్యార్థులకు స్వాగతం!",
         "pre_survey": "ముందస్తు సర్వే",
-        "preinst":"",
         "dashboard": "డాష్బోర్డ్",
         "courses": "కోర్సులు",
         "teams": "Teams",
@@ -158,7 +173,7 @@
         "ideaprob":"సమస్య ప్రకటనను నమోదు చేయండి",
         "ideaFoc":"ఫోకస్ ఏరియాలోకి ప్రవేశించండి",
 
-"ideaList":"Enter List of Causes",
+"ideaList":"కారణాల జాబితాను నమోదు చేయండి",
 "ideaEff":"కారణాల జాబితాను నమోదు చేయండి",
 "ideaSol":"సమస్యకు పరిష్కారాన్ని నమోదు చేయండి",
 "ideaFee":"మీ అభిప్రాయాన్ని నమోదు చేయండి",
@@ -202,7 +217,7 @@
         "refer_video": "వీడియోను చూడండి"
     },
     "teacher_get_started": {
-        "heading": "Welcome Teachers and Mentors! ",
+        "heading":"స్వాగతం గైడ్ ఉపాధ్యాయులు!",
         "desc": "<p>We are glad that you have signed-up to this program and joined us in this exciting journey of nurturing an experience of learning, skilling and innovation for the young people. As you are aware you will be playing a role of guide and mentor for the participants in their learning journey.</p><p>This portal gives you an experience of learning modules and important resources for supporting the participants. You can also register and track progress of your teams using the dashboard.</p><p>Your journey as a teacher/mentor will involve the following key milestones:</p><ul><li><p class='my-0'>Step-1: Take Pre-Survey.</p></li><li><p class='my-0'>Step-2: Complete the course and reading material.</p></li><li><p class='my-0'>Step-3: Register the teams</p></li><li><p class='my-0'>Step-4: Support the participants in completing the learning journey.</p></li><li><p class='my-0'>Step-5: Support the participants in challenge/idea submission.</p></li><li><p class='my-0'>Step-6: Complete the post survey.</p></li></ul><p>We hope you and your teams will have a great learning experience and wish you all the best for this program!</p>",
         "btn": "START JOURNEY",
         "pre": "ముందస్తు సర్వే సమర్పించబడింది"

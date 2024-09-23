@@ -26,9 +26,11 @@ export const all_routes = {
 coosupport:"/state-support",
 adminsupport:"/admin-support",
 adminresponse:"/admin/support-journey/ans-ticket",
-
+statewise:"state-wise",
+editstatewise:"edit-state-wise",
+ideareport:"/idea-report",
 cooresponse:"/coordinator/support-journey/ans-ticket",
-
+institutionreport:"/institution-report",
   diesedit:"/diescode-mentor-edit",
   createpopup:"/create-popup",
   reportsregistration : "/reportsregistration",
@@ -66,6 +68,8 @@ cooresponse:"/coordinator/support-journey/ans-ticket",
   schoolcoo:"/school-report",
   studentcoo:"/studentcoo-report",
   intitutioncoo:"/institution-report",
+  intitutioncoostate:"/state-institution-report",
+
   badgeTeacher:"/teacherBadges",
   statedashboard: "/state-dashboard",
   eadmindashboard: "/eadmin-dashboard",

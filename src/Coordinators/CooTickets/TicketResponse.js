@@ -31,6 +31,7 @@ import moment from 'moment';
 import { useLayoutEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaComments, FaFile, FaLink } from 'react-icons/fa';
+import { UncontrolledAlert } from "reactstrap";
 
 const StateRes = (props) => {
     const { search } = useLocation();
@@ -53,7 +54,7 @@ const StateRes = (props) => {
     const formik = useFormik({
         initialValues: {
             ansTicket: '',
-            selectStatusTicket:supportTicket.status,
+            selectStatusTicket:supportTicket?.status,
              file_name: "",
             url: ""
         },
@@ -86,8 +87,8 @@ const StateRes = (props) => {
 
                 const body = {
                     support_ticket_id: id,
-                    reply_details: ansTicket
-
+                    reply_details: ansTicket,
+                    replied_by: `${currentUser.data[0]?.state_name}-Coordinator`,
                 };
                 if (values.file_name !== '') {
                     body['file'] = values.file_name;
@@ -97,7 +98,9 @@ const StateRes = (props) => {
                 }
 
                 dispatch(createSupportTicketResponse(body));
-                dispatch(SupportTicketStatusChange(id, { status: values.selectStatusTicket })
+                dispatch(SupportTicketStatusChange(id, { status: values.selectStatusTicket ,
+                   
+                    })
                 );
                 navigate('/state-support');
                 // document.getElementById("sendresponseID").click();
@@ -177,7 +180,7 @@ const StateRes = (props) => {
                                     <div style={{ borderStyle: "solid", borderWidth: "thin", borderColor: "aqua", borderRadius: "1rem", padding: "1.5rem 1rem", margin: "1rem", }}>
                                         <Row>
                                             <Col md={12}>
-                                                <strong>
+                                                <strong style={{ whiteSpace: "pre-line" }}>
                                                     {
                                                         supportTicket?.query_details
                                                     }
@@ -187,9 +190,11 @@ const StateRes = (props) => {
                                             <Col md={3}>
                                                 <span>
                                                     <FaUserCircle />{' '}
-                                                    {
-                                                        supportTicket?.created_by
-                                                    }
+                                                    {supportTicket?.created_by}
+                                                    {/* {
+                                                        supportTicket?.created_by !== null ? supportTicket?.created_by : supportTicket?.replied_by
+
+                                                    } */}
                                                 </span>{' '}
                                             </Col>
                                             <Col
@@ -236,9 +241,13 @@ const StateRes = (props) => {
                                                             <Col md={3}>
                                                                 <span>
                                                                     <FaUserCircle />{' '}
-                                                                    {
-                                                                        data.created_by
-                                                                    }
+                                                                    
+                                                                   
+                                                                     {
+            data.created_by == null 
+                ? data.replied_by 
+                : data.created_by 
+        }
                                                                 </span>{' '}
                                                             </Col>
                                                             <Col
@@ -268,7 +277,7 @@ const StateRes = (props) => {
                                             }
                                         )}
 
-                                    {(supportTicket.status != 'INVALID' && supportTicket.status != 'RESOLVED') ? (
+                                    {(supportTicket?.status != 'INVALID' && supportTicket?.status != 'RESOLVED') ? (
                                         <Row className="p-2">
                                             <Col md={12}>
                                                 <div>
@@ -401,9 +410,9 @@ const StateRes = (props) => {
                                                                 value=""
                                                                 disabled={true}
                                                             >
-                                                                {supportTicket &&
-                                                                    supportTicket.status
-                                                                    ? supportTicket.status
+                                                                {
+                                                                    supportTicket?.status
+                                                                    ? supportTicket?.status
                                                                     : 'Select Status'}
                                                             </option>
                                                             <option value="OPEN">
@@ -435,12 +444,14 @@ const StateRes = (props) => {
                                                 </div>
                                             </Col>
                                         </Row>
-                                    ) : null}
+                                    ) :  <UncontrolledAlert color="danger" className="mb-2">
+                                    Chat window was closed. If your query is not cleared raise a new ticket
+                                    </UncontrolledAlert>}
                                 </Card>
 
                                 <div className='mb-3'>
                                     <Row>
-                                        {(supportTicket.status != 'INVALID' && supportTicket.status != 'RESOLVED') ? (
+                                        {(supportTicket?.status != 'INVALID' && supportTicket?.status != 'RESOLVED') ? (
                                             <div className="col-lg-12">
                                                 <div className="view-btn d-flex justify-content-between">
                                                     <button type="button" onClick={()=>navigate("/state-support")} className="btn btn-secondary me-2"  >

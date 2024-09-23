@@ -15,6 +15,7 @@ const ViewMore = () => {
     const currentUser = getCurrentUser('current_user');
 
     const orgDaTa = JSON.parse(localStorage.getItem('orgData'));
+    // console.log(orgDaTa,"vv");
     // const tecDaTa = JSON.parse(localStorage.getItem('teacherId'));
 
     const [course, setCourse] = useState([]);
@@ -28,8 +29,8 @@ const ViewMore = () => {
     };
     var teamId = [];
     teamId.push({
-        mentor_id: orgDaTa.mentor.mentor_id,
-        user_id: orgDaTa.mentor.user_id
+        mentor_id: orgDaTa.mentor_id,
+        user_id: orgDaTa.user_id
     });
 
     const handleBack = () => {
@@ -39,14 +40,14 @@ const ViewMore = () => {
         navigate("/mentor-view");
         localStorage.setItem(
             'organization_code',
-            JSON.stringify(orgDaTa.organization_code)
+            JSON.stringify(orgDaTa.organization.organization_code)
         );
     };
 
     useEffect(() => {
         const userIdParam = encryptGlobal(
             JSON.stringify({
-                user_id: orgDaTa?.mentor.user_id,
+                user_id: orgDaTa?.user_id,
                 role: 'MENTOR'
             })
         );
@@ -101,7 +102,7 @@ const ViewMore = () => {
     //             console.log(error);
     //         });
     // };
-    const atlData = orgDaTa.organization_code;
+    const atlData = orgDaTa.organization.organization_code;
     const altRes = atlData.split('-');
     const atlNew = altRes[0];
     const percentageBWNumbers = (a, b) => {
@@ -132,13 +133,13 @@ const ViewMore = () => {
                                     <span className="mx-3">
                                         <b>Organization Name :</b>
                                     </span>
-                                    <b>{orgDaTa.organization_name}</b>
+                                    <b>{orgDaTa.organization.organization_name}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>UDISE Code :</b>
                                     </span>
-                                    <b>{orgDaTa.organization_code}</b>
+                                    <b>{orgDaTa.organization.organization_code}</b>
                                 </CardText>
                                 {/* <CardText>
                                     <span className="mx-3">
@@ -157,19 +158,19 @@ const ViewMore = () => {
                                     <span className="mx-3">
                                         <b>District :</b>
                                     </span>
-                                    <b>{orgDaTa.district}</b>
+                                    <b>{orgDaTa.organization.district}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>state :</b>
                                     </span>
-                                    <b>{orgDaTa.state}</b>
+                                    <b>{orgDaTa.organization.state}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Pincode :</b>
                                     </span>
-                                    <b>{orgDaTa.pin_code}</b>
+                                    <b>{orgDaTa.organization.pin_code}</b>
                                 </CardText>
                             </CardBody>
                         </Card>
@@ -223,44 +224,44 @@ const ViewMore = () => {
                                     <span className="mx-3">
                                         <b>Title :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.title}</b>
+                                    <b>{orgDaTa.title}</b>
                                 </CardText>
 
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Teacher Name :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.full_name}</b>
+                                    <b>{orgDaTa.full_name}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Gender :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.gender}</b>
+                                    <b>{orgDaTa.gender}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Mentor Id :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.mentor_id}</b>
+                                    <b>{orgDaTa.mentor_id}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Email Id :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.user.username}</b>
+                                    <b>{orgDaTa.username}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Mobile No :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.mobile}</b>
+                                    <b>{orgDaTa.mobile}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>WhatsApp No :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.whatapp_mobile}</b>
+                                    <b>{orgDaTa.whatapp_mobile}</b>
                                 </CardText>
                             </CardBody>
                         </Card>

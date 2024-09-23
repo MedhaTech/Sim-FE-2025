@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   getCurrentUser,
@@ -17,12 +17,30 @@ import { useNavigate } from "react-router-dom";
 import female from "../assets/img/Female_Profile.png";
 import male from "../assets/img/Male_Profile.png";
 import user from "../assets/img/user.png";
+import { stateList,districtList } from '../RegPage/ORGData';
+import Select from "../Admin/Reports/Helpers/Select";
+import { getTeacherByID } from '../redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+
 const TeacherEditProfile = () => {
+  const { teacher } = useSelector((state) => state.teacher);
+  const dispatch = useDispatch();
+
   const location = useLocation();
+  const [districts, setDistricts] = useState([]);
   const mentorData = location.state || {};
-  // console.log(mentorData,"mentorData");
+  console.log(mentorData,"mentorData");
   const navigate = useNavigate();
 
+
+ useEffect(()=>{
+  setDistricts(
+      districtList[
+          
+        mentorData.state
+      ] || []
+  );
+ },[mentorData.state]);
   const currentUser = getCurrentUser("current_user");
   const getValidationSchema = () => {
     // where data = mentorData //
@@ -91,6 +109,9 @@ const TeacherEditProfile = () => {
             10,
             <span style={{ color: "red" }}>Number is less than 10 digits</span>
           ),
+          state: Yup.string().required('State is required'),
+          district: Yup.string()
+          .required('District is Required'),
       principal_email: Yup.string()
           .email(
             <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
@@ -136,6 +157,8 @@ const TeacherEditProfile = () => {
       title: mentorData.title,
       whatapp_mobile: mentorData.whatapp_mobile,
       gender: mentorData.gender,
+      district: mentorData?.district || "",
+      state: mentorData?.state || '',
       organization_name : mentorData.organization_name
     };
     return commonInitialValues;
@@ -152,7 +175,9 @@ const TeacherEditProfile = () => {
       const whatapp_mobile = values.whatapp_mobile;
       const gender = values.gender;
       const organization_name = values.organization_name;
-      //   const mobile = values.phone;
+        const state = values.state;
+        const district = values.district;
+
       const bodyt = JSON.stringify({
         full_name: full_name,
         title: title,
@@ -163,6 +188,9 @@ const TeacherEditProfile = () => {
       const bodys = JSON.stringify({
         organization_code : mentorData?.organization_code,
         status : mentorData?.status,
+        state: values.state,
+        district: values.district,
+
         principal_email : principal_email,
         principal_mobile : principal_mobile,
         principal_name : principal_name,
@@ -217,6 +245,7 @@ const TeacherEditProfile = () => {
                       'success',
                       'School Details Updated Successfully'
                   );
+                  dispatch(getTeacherByID(currentUser?.data[0]?.mentor_id));
                   setTimeout(() => {
                     navigate("/mentorprofile");
                     window.location.reload();
@@ -240,6 +269,7 @@ const TeacherEditProfile = () => {
   const cancelLinkStyle = {
     marginLeft: 'auto'
   };
+  console.log(formik.values.state,"ss");
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -376,7 +406,7 @@ const TeacherEditProfile = () => {
                   </div>
                 </div>
                 {/* New fields  */}
-                <div className="form-login col-lg-6 col-sm-12">
+                <div className="form-login col-lg-3 col-sm-12">
                   <div className="input-blocks">
                     <label className="form-label">School Name</label>
                     <input
@@ -401,6 +431,124 @@ const TeacherEditProfile = () => {
                     ) : null}
                   </div>
                 </div>
+                <div className="form-login col-lg-6 col-sm-12">
+                  <div className="input-blocks">
+                    <label className="form-label">State </label>
+                    <select
+                                                      
+                    name="state"
+                    className="form-select"
+                    onBlur={
+                        formik.handleBlur
+                    }
+                    value={
+                        formik.values.state
+                    }
+
+                    onChange={(e) => {
+                        const selectedState =
+                            e.target.value;
+
+                        formik.setFieldValue(
+                            'state',
+                            selectedState
+                        );
+                        // formik.setFieldValue(
+                        //     'district',
+                        //     ''
+                        // ); 
+                    // {console.log(selectedState)};
+
+                        setDistricts(
+                            districtList[
+                            selectedState
+                            ] || []
+                        );
+                    }}
+                >
+                    <option value="">
+                        Select State
+                    </option>
+                    {stateList.map(
+                        (state) => (
+                            <option
+                                key={state}
+                                value={
+                                    state
+                                }
+                            >
+                                {state}
+                            </option>
+                        )
+                    )}
+                </select>
+                  {/* <Select
+  list={stateList}
+  setValue={(value) => {
+    formik.setFieldValue("state", value); 
+    setDistricts(districtList[value] || []); 
+}}
+  placeHolder={"Select State"}
+  value={formik.values.state}  
+/> */}
+            {formik.touched.state &&
+            formik.errors.state ? (
+                <small className="error-cls" style={{color:"red"}}>
+                    {formik.errors.state}
+                </small>
+            ) : null}
+                  </div>
+                </div><div className="form-login col-lg-3 col-sm-12">
+                  <div className="input-blocks">
+                    <label className="form-label">District Name</label>
+                    <select
+                                                       
+                                                       name="district"
+                                                      className="form-select"
+                                                       onBlur={
+                                                           formik.handleBlur
+                                                       }
+                                                       value={
+                                                           formik.values
+                                                               .district
+                                                       }
+                                                       onChange={(e) => {
+                                                           const selectedDistrict =
+                                                               e.target.value;
+                                                           formik.setFieldValue(
+                                                               'district',
+                                                               selectedDistrict
+                                                           );
+                                                       }}
+                                                   >
+                                                       <option value="">
+                                                           Select District
+                                                       </option>
+                                                       {districts.map(
+                                                           (district) => (
+                                                               <option
+                                                                   key={
+                                                                       district
+                                                                   }
+                                                                   value={
+                                                                       district
+                                                                   }
+                                                               >
+                                                                   {district}
+                                                               </option>
+                                                           )
+                                                       )}
+                                                   </select>
+                                              
+                                               {formik.touched.district &&
+                                               formik.errors.district ? (
+                                                   <small className="error-cls" style={{color:"red"}}>
+                                                       {formik.errors.district}
+                                                   </small>
+                                               ) : null}
+                  </div>
+                </div>
+
                 <div className="form-login col-lg-6 col-sm-12">
                   <div className="input-blocks">
                     <label className="form-label">Principal Name</label>

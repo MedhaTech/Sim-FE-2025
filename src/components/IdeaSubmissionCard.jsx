@@ -18,6 +18,8 @@ import axios from "axios";
 import { encryptGlobal } from "../constants/encryptDecrypt";
 import { useDispatch } from "react-redux";
 import Ideapdf from "../Teacher/Dashboard/DetailToDownload";
+import logout from "../assets/img/logout.png";
+import Swal from "sweetalert2/dist/sweetalert2";
 
 const LinkComponent = ({ item }) => {
   return (
@@ -103,6 +105,39 @@ const IdeaSubmissionCard = ({
   //         );
   //     }
   // }, [props]);
+  const handleAlert = (handledText) => {
+    // here we can delete the team //
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-submit",
+        cancelButton: "btn btn-cancel",
+      },
+      buttonsStyling: false,
+    });
+
+    swalWithBootstrapButtons
+      .fire({
+        title:
+          handledText === "accept"
+            ? "You are attempting to accept this Idea"
+            : "You are attempting to approve this Idea",
+        text: "Are you sure?",
+        imageUrl: `${logout}`,
+        confirmButtonText: "Approve",
+        showCancelButton: true,
+        cancelButtonText: "Cancel",
+        reverseButtons: false,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          if (result.isConfirmed) {
+            handleAccept();
+          }
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire("Cancelled", "", "error");
+        }
+      });
+  };
   const handleAccept = () => {
     // alert("helll");
     const currentTime = new Date().toLocaleString();
@@ -175,6 +210,7 @@ const IdeaSubmissionCard = ({
         }
       });
   };
+
   const mentorIdeaCount = async () => {
     const ideaApi = encryptGlobal(
       JSON.stringify({
@@ -477,7 +513,7 @@ const IdeaSubmissionCard = ({
               size="small"
               label={"Approve"}
               btnClass="primary text-left"
-              onClick={handleAccept}
+              onClick={handleAlert}
             />
           ) : (
             <>

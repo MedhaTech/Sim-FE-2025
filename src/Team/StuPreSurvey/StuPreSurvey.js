@@ -145,7 +145,7 @@ const StuPreSurvey = () => {
         if (preSurveyList.length != nonEmptySelectedOptions.length) {
           openNotificationWithIcon(
             "warning",
-            "Please Attempt All Questions..!!",
+            t('student.attempt_all_questions'),
             ""
           );
         } else {
@@ -162,7 +162,7 @@ const StuPreSurvey = () => {
                 // console.log(preSurveyRes, "aaaaa");
                 openNotificationWithIcon(
                   "success",
-                  "Pre Survey has been submitted successfully..!!",
+                  t('home.precong'),
                   ""
                 );
     
@@ -262,13 +262,16 @@ return (
                   preSurveyStatus !== "COMPLETED" &&
                   !show ? (
                     <CardBody>
-                       <ul className="table-top-head">
-            <li>
+                       <div className="dropdown" style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  <LanguageSelectorComp module="student" />
+              </div>
+                       {/* <ul className="table-top-head"  style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <li >
               <div>
               <LanguageSelectorComp module="student" />
               </div>
             </li>
-          </ul>
+          </ul> */}
                       <Row>
                         <Col md={4} style={{alignContent:"center"}}>
                           <figure>
@@ -281,15 +284,21 @@ return (
                         </Col>
                         <Col md={8}>
                           <h2 className="text-primary">
-                            Welcome Students!
+                          {t('home.wel')}
                           </h2>
                           <br/>
+                          {/* {t('home.preinst')} */}
                           <div
+  dangerouslySetInnerHTML={{
+    __html: t('home.preinst') 
+  }}
+/>
+                          {/* <div
                             dangerouslySetInnerHTML={{
                               __html:
                                 "We're happy to have you join us in this exciting learning adventure! </br></br> <b class='text-success'>Here's what you'll do during the program:</b></br></br><ol><li>1. Log in to the portal to get started.</li><li>2. Complete the pre-survey to share your thoughts before we begin.</li><li>3. Dive into the course and explore all the amazing videos.</li><li>4. Work with your teammates to identify a problem and work together to find a solution.</li><li>5. Submit your innovative idea to the Innovation Marathon and showcase your creativity.</li><li>6. Complete the post-survey to share your feedback and experience.</li><li>7. Download your certificates to celebrate your achievements!</li></br>We can't wait to see the incredible ideas you'll come up with. Have fun, learn a lot, and let's make this an unforgettable journey!",
                             }}
-                          ></div>
+                          ></div> */}
                           <button
                             className="btn btn-primary m-3"
                             onClick={handleStart}

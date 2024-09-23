@@ -83,6 +83,8 @@ import TeacherProgressDetailed from "../Admin/Reports/Helpers/TeacherProgressDet
 import CreateResource from "../Admin/Resources/createResource";
 
 import StudentProgressReport from "../Admin/Reports/Helpers/StudentProgressReport";
+import IdeaReport from "../Admin/Reports/Helpers/IdeaReport";
+
 
 import MentorView from "../Admin/UsersList/MentorView";
 import MentorEdit from "../Admin/UsersList/MentorEdit";
@@ -102,6 +104,7 @@ import CooRegist from "../Coordinators/Reports/RegistReport";
 import CooSchool from "../Coordinators/Reports/TeacherReport";
 import CooStudent from "../Coordinators/Reports/StudentReport";
 import CooInst from "../Coordinators/Reports/InstReport";
+
 import DiescodeScreen from "../Admin/Dashboard/DiescodeScreen";
 import DiesView from "../Admin/Dashboard/DiesView";
 import DiesViewcoo from "../Coordinators/Dashboard/DiesView";
@@ -114,8 +117,10 @@ import StateRes from "../Coordinators/CooTickets/TicketResponse";
 
 import AdminSupport from "../Admin/AdminTickets/Tickets";
 import AdminRes from "../Admin/AdminTickets/TicketResponse";
+import StateData from "../Admin/StateWise/StateData";
+import EditStateData from "../Admin/StateWise/EditStateData";
 
-
+import InstitutionReport from "../Admin/Reports/Helpers/InstitutionReport";
 
 
 
@@ -383,6 +388,38 @@ export const publicRoutes = [
     path: routes.adminresponse,
     name: "adminresponse",
     element: <AdminRes />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 31,
+    path: routes.statewise,
+    name: "statewise",
+    element: <StateData />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 31,
+    path: routes.editstatewise,
+    name: "editstatewise",
+    element: <EditStateData />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 32,
+    path: routes.ideareport,
+    name: "ideareport",
+    element: <IdeaReport />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 33,
+    path: routes.institutionreport,
+    name: "institutionreport",
+    element: <InstitutionReport />,
     protected: true,
     route: Route,
   },
@@ -670,8 +707,8 @@ export const stateRoutes = [
   },
   {
     id: 5,
-    path: routes.intitutioncoo,
-    name: "intitutioncoo",
+    path: routes.intitutioncoostate,
+    name: "intitutioncoostate",
     element: <CooInst />,
     protected: true,
     route: Route,

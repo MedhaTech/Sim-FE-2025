@@ -2,9 +2,9 @@
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Table } from "reactstrap";
-import { Button } from "../../stories/Button";
+import { Button } from "../../../stories/Button";
 import { CSVLink } from "react-csv";
-import { getCurrentUser } from "../../helpers/Utils";
+import { getCurrentUser } from "../../../helpers/Utils";
 import { useNavigate, Link } from "react-router-dom";
 // import {
 //     getDistrictData,
@@ -20,8 +20,8 @@ import { Doughnut } from "react-chartjs-2";
 import { Bar } from "react-chartjs-2";
 // import { categoryValue } from '../../Schools/constentText';
 import { notification } from "antd";
-import { encryptGlobal } from "../../constants/encryptDecrypt";
-import { stateList, districtList } from "../../RegPage/ORGData";
+import { encryptGlobal } from "../../../constants/encryptDecrypt";
+import { stateList, districtList } from "../../../RegPage/ORGData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMale,
@@ -29,9 +29,9 @@ import {
   faChalkboardTeacher,
 } from "@fortawesome/free-solid-svg-icons";
 import ReactApexChart from "react-apexcharts";
-import { openNotificationWithIcon } from "../../helpers/Utils";
+import { openNotificationWithIcon } from "../../../helpers/Utils";
 
-const TeacherProgressDetailed = () => {
+const InstitutionReport = () => {
   const navigate = useNavigate();
   const [district, setdistrict] = React.useState("");
   const currentUser = getCurrentUser("current_user");
@@ -274,16 +274,16 @@ const TeacherProgressDetailed = () => {
     setNewFormat(formattedDate);
   }, []);
   const fetchChartTableData = () => {
-    const staParam = encryptGlobal(
-      JSON.stringify({
-        state: currentUser?.data[0]?.state_name,
-      })
-    );
+    // const staParam = encryptGlobal(
+    //   JSON.stringify({
+    //     state: currentUser?.data[0]?.state_name,
+    //   })
+    // );
     const config = {
       method: "get",
       url:
         process.env.REACT_APP_API_BASE_URL +
-        `/reports/schoolcategorylistreport?Data=${staParam}`,
+        `/reports/schoolcategorylistreport`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${currentUser?.data[0]?.token}`,
@@ -456,7 +456,7 @@ const TeacherProgressDetailed = () => {
               <h6>List of overall Institutions details</h6>
             </div>
           </div>
-          {/* <div className="page-btn">
+          <div className="page-btn">
                 <button
                     type="button"
                     className="btn btn-secondary"
@@ -464,7 +464,7 @@ const TeacherProgressDetailed = () => {
                 >
                     <i className="fas fa-arrow-left"></i> Back
                 </button>
-            </div> */}
+            </div>
         </div>
 
         <Container className="RegReports userlist">
@@ -472,13 +472,13 @@ const TeacherProgressDetailed = () => {
             <Row className="align-items-center mt-3 mb-2">
               <Col md={3}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
-                  <p>{selectstate}</p>
-                  {/* <Select
+                  {/* <p>{selectstate}</p> */}
+                  <Select
                                 list={fullStatesNames}
                                 setValue={setSelectState}
                                 placeHolder={'Select State'}
                                 value={selectstate}
-                            /> */}
+                            />
                 </div>
               </Col>
               <Col md={3}>
@@ -540,271 +540,7 @@ const TeacherProgressDetailed = () => {
                 )}
               </Col>
             </Row>
-            <div className="chart mt-2 mb-2">
-              {instType.length > 0 && (
-                <>
-                  <div className="row">
-                    <div className="col-sm-1 col-md-12 col-xl-4 d-flex">
-                      <div className="card flex-fill default-cover w-100 mb-4">
-                        <div className="card-header d-flex justify-content-between align-items-center">
-                          <h4 className="card-title mb-0">Statistics</h4>
-                          {/* <div className="dropdown">
-                            <Link
-                              to="#"
-                              className="view-all d-flex align-items-center"
-                            >
-                              View All
-                              <span className="ps-2 d-flex align-items-center">
-                                <ArrowRight className="feather-16" />
-                              </span>
-                            </Link>
-                          </div> */}
-                        </div>
-
-                        <div className="card-body">
-                          <div className="row">
-                            {selectstate !== "Tamil Nadu" ? (
-                              <>
-                                {/* <div className="col-md-6 text-center mt-3">
-                                  <p>
-                                    <b>
-                                      Overall Institution Types ATL vs Non-ATL
-                                      As of {newFormat}
-                                    </b>
-                                  </p>
-                                </div> */}
-                                <div className="col-md-12 doughnut-chart-container">
-                                  {doughnutChartData && (
-                                    <Doughnut
-                                      data={doughnutChartData}
-                                      options={chartOptions}
-                                    />
-                                  )}
-                                </div>
-                              </>
-                            ) : (
-                              <>
-                                {/* <div className="col-md-6 text-center mt-3">
-                                  <p>
-                                    <b>
-                                      Overall Institution Types Fully Aided High
-                                      Schools vs Fully Aided Higher Secondary
-                                      Schools vs Government High Schools vs
-                                      Government Higher Secondary Schools vs
-                                      Partially Aided High Schools vs Partially
-                                      Aided Higher Secondary Schools vs Non-ATL As of{" "}
-                                      {newFormat}
-                                    </b>
-                                  </p>
-                                </div> */}
-                                <div className="col-md-12 doughnut-chart-container">
-                                  {doughnutChartDataTN && (
-                                    <Doughnut
-                                      data={doughnutChartDataTN}
-                                      options={chartOptionState}
-                                    />
-                                  )}
-                                </div>
-                              </>
-                            )}
-                            {/* <div className="col-md-12 text-center mt-3">
-                            <p>
-                              <b>
-                                Overall Registered Female vs Male vs Others
-                                Teachers As of {newFormat}
-                              </b>
-                            </p>
-                          </div>
-                          <div className="col-md-12 doughnut-chart-container">
-                            {registeredGenderChartData && (
-                              <Doughnut
-                                data={registeredGenderChartData}
-                                options={chartOptions}
-                              />
-                            )}
-                          </div> */}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    {/* </div>
-                  <div className="row"> */}
-                    <div className="col-sm-12 col-md-12 col-xl-8 d-flex">
-                      <div className="card flex-fill default-cover w-100 mb-4">
-                        <div className="card-header d-flex justify-content-between align-items-center">
-                          <h4 className="card-title mb-0">
-                            State Institution Types Stats
-                          </h4>
-                          <div className="dropdown">
-                            <Link
-                              to="#"
-                              className="view-all d-flex align-items-center"
-                            >
-                              <button
-                                className="btn mx-2 btn-primary btn-sm"
-                                type="button"
-                                onClick={() => {
-                                  if (downloadTableData1) {
-                                    // setIsDownloading(true);
-                                    setDownloadTableData1(null);
-                                    csvLinkRefTable.current.link.click();
-                                  }
-                                }}
-                              >
-                                Download
-                              </button>
-                            </Link>
-                          </div>
-                        </div>
-                        <div className="card-body">
-                          <div className="table-responsive">
-                            <table className="table table-border recent-transactions">
-                              <thead>
-                                <tr>
-                                  <th style={{ color: "#36A2EB" ,fontWeight: "bold"}}>#No</th>
-                                  <th style={{ color: "#36A2EB",fontWeight: "bold" }}>District Name</th>
-                                  {selectstate !== "Tamil Nadu" && (
-                                    <>
-                                      <th style={{ color: "#36A2EB",fontWeight: "bold" }}>
-                                        #ATL Schools
-                                      </th>
-                                      <th style={{ color: "#36A2EB",fontWeight: "bold" }}>
-                                        #Non-ATL Schools
-                                      </th>
-                                    </>
-                                  )}
-                                  {selectstate === "Tamil Nadu" && (
-                                    <>
-                                      <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                        #Fully Aided High Schools
-                                      </th>
-                                      <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                        #Fully Aided-Higher Secondary Schools
-                                      </th>
-                                      <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                        #Government High Schools
-                                      </th>
-                                      <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                        #Government-Higher Secondary Schools
-                                      </th>
-                                      <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                        #Partially Aided-High Schools
-                                      </th>
-                                      <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                        #Partially Aided-Higher Secondary Schools
-                                      </th>
-                                      <th style={{ color: "#36A2EB", whiteSpace: "wrap",fontWeight: "bold" }}>
-                                        #Non-ATL Schools
-                                      </th>
-                                    </>
-                                  )}
-                                </tr>
-                              </thead>
-                              <tbody className="text-left">
-                                {instType.map((item, index) => (
-                                  <tr key={index}>
-                                    <td>{index + 1}</td>
-                                    <td
-                                      style={{
-                                        maxWidth: "150px",
-                                        overflow: "hidden",
-                                        textOverflow: "ellipsis",
-                                        color: "crimson"
-                                      }}
-                                    >
-                                      {item.district}
-                                    </td>
-                                    {/* <td
-                                   
-                                    >
-                                      {item.ATL_Count}
-                                    </td>
-                                    <td>{item.NonATL_Count}</td> */}
-                                    {selectstate !== "Tamil Nadu" && (
-                                      <>
-                                        {" "}
-                                        <td>{item.ATL_Count}</td>
-                                        <td>{item.NonATL_Count}</td>
-                                      </>
-                                    )}
-                                    {selectstate === "Tamil Nadu" && (
-                                      <>
-                                        <td>{item.FullyAidedHighSchool_Count}</td>
-                                        <td>
-                                          {
-                                            item.FullyAidedHigherSecondarySchool_Count
-                                          }
-                                        </td>
-                                        <td>{item.GovernmentHighSchool_Count}</td>
-                                        <td>
-                                          {
-                                            item.GovernmentHigherSecondarySchool_Count
-                                          }
-                                        </td>
-                                        <td>
-                                          {item.PartiallyAidedHighSchool_Count}
-                                        </td>
-                                        <td>
-                                          {
-                                            item.PartiallyAidedHigherSecondarySchool_Count
-                                          }
-                                        </td>
-                                        <td>{item.NonATL_Count ? item.NonATL_Count : 0}</td>
-                                      </>
-                                    )}
-                                    {/* <td>{item.totalStudents}</td>
-                                    <td>{item.courseCompleted}</td>
-                                    <td>{item.courseINprogesss}</td>
-                                    <td>{item.courseNotStarted}</td>
-                                    <td>{item.coursePercentage}%</td>
-                                    <td>{item.submittedCount}</td>{" "}
-                                    <td>{item.draftCount}</td>{" "}
-                                    <td>{item.ideaNotStarted}</td> */}
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </>
-              )}
-              {downloadTableData1 &&
-                (selectstate !== "Tamil Nadu" ? (
-                  <CSVLink
-                    data={downloadTableData1}
-                    headers={tableHeaders}
-                    filename={`InstitutionTypesSummaryTable_${newFormat}.csv`}
-                    className="hidden"
-                    ref={csvLinkRefTable}
-                  >
-                    Download Table CSV
-                  </CSVLink>
-                ) : (
-                  <CSVLink
-                    data={downloadTableData1}
-                    headers={tableHeadersState}
-                    filename={`InstitutionTypesSummaryTable_${newFormat}.csv`}
-                    className="hidden"
-                    ref={csvLinkRefTable}
-                  >
-                    Download Table CSV
-                  </CSVLink>
-                ))}
-              {/* {downloadTableData && (
-                <CSVLink
-                  data={downloadTableData}
-                  headers={tableHeaders}
-                  filename={`StudentDetailedSummaryReport_${newFormat}.csv`}
-                  className="hidden"
-                  ref={csvLinkRefTable}
-                >
-                  Download Table CSV
-                </CSVLink>
-              )} */}
-            </div>
+          
           </div>
         </Container>
       </div>
@@ -812,4 +548,4 @@ const TeacherProgressDetailed = () => {
   );
 };
 
-export default TeacherProgressDetailed;
+export default InstitutionReport;

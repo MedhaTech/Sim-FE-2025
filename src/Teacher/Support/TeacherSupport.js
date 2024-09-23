@@ -22,6 +22,8 @@ import {
     getSupportTicketById,
     SupportTicketStatusChange
 } from '../store/mentors/actions';
+import { UncontrolledAlert } from "reactstrap";
+
 import { FaUserCircle } from 'react-icons/fa';
 import { FaRegClock } from 'react-icons/fa';
 import moment from 'moment';
@@ -325,7 +327,7 @@ const TeacherSupport = () => {
     const handleChat = (id) => {
         dispatch(getSupportTicketById(id, language));
     };
-
+   
 
 
 
@@ -582,13 +584,25 @@ const TeacherSupport = () => {
                                     <div style={{ borderStyle: "solid", borderWidth: "thin", borderColor: "aqua", borderRadius: "1rem", padding: "1.5rem 1rem", marginBottom: "2rem" }}>
                                         <Row>
                                             <Col md={12}>
-                                                <strong>
+                                                <strong style={{ whiteSpace: "pre-line" }}>
                                                     {
                                                         supportTicket.query_details
                                                     }
                                                 </strong>
                                                 <hr />
+
+                                                  {/* <strong style={{ whiteSpace: "pre-line" }}>
+        <span 
+            dangerouslySetInnerHTML={{
+                __html: supportTicket.query_details 
+                    ? supportTicket.query_details.replace(/\n/g, '<br />')
+                    : ''
+            }}
+        />
+    </strong> */}
                                             </Col>
+                                            
+                                           
                                             <Col md={3}>
                                                 <span>
                                                     <FaUserCircle />{' '}
@@ -840,7 +854,9 @@ const TeacherSupport = () => {
                                                 </div>
                                             </Col>
                                         </Row>
-                                    ) : null}
+                                    ) : <UncontrolledAlert color="danger" className="mb-2">
+                                    Chat window was closed. If your query is not cleared raise a new ticket
+                                    </UncontrolledAlert>}
                                 </Card>
 
                                 <hr className="mt-4 mb-4"></hr>

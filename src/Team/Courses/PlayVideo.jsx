@@ -930,8 +930,8 @@ const PlayVideoCourses = (props) => {
         <div className="page-header settings-pg-header">
           <div className="add-item d-flex">
             <div className="page-title">
-              <h4>Course</h4>
-              <h6>Join us on this problem solving journey.</h6>
+              <h4>{t("home.courses")}</h4>
+              <h6>  {t("home.textdata")}</h6>
             </div>
           </div>
           <ul className="table-top-head">

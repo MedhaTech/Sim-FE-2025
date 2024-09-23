@@ -354,7 +354,7 @@ const Createpopup = () => {
                         </Col>
                         {formik.values.type === "file" && (
                           <>
-                            <Label className="mb-2" htmlFor="attachments">
+                            <Label className="mb-2 mt-2" htmlFor="attachments">
                               File
                             </Label>
                             <div className="d-flex align-items-center">
@@ -371,8 +371,8 @@ const Createpopup = () => {
                                 onBlur={formik.handleBlur}
                               />
                               <Button
-                                label="Upload File "
-                                btnClass="primary"
+                                label="Upload File"
+                                btnClass="primary m-2"
                                 size="small"
                                 onClick={() => {
                                   document
@@ -410,7 +410,7 @@ const Createpopup = () => {
                             // md={6}
                           >
                             <Col md={12}>
-                              <Label className="mb-2" htmlFor="attachments">
+                              <Label className="mb-2 mt-2" htmlFor="attachments">
                                 Link
                               </Label>
                               <input

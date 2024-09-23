@@ -72,7 +72,7 @@ const StuEdit = () => {
     }),
 
     onSubmit: (values) => {
-      alert("hii");
+      // alert("hii");
       const body = {
         team_id: JSON.stringify(studentData.team_id),
         role: "STUDENT",

@@ -160,9 +160,7 @@ const Header = () => {
 
   },[diesCode]);
   const handleSearch = (diesCode) => {
-    //where we can search through diescode //
-    // we can see Registration Details & Mentor Details //
-
+   
     const body = JSON.stringify({
       organization_code: diesCode
     });
@@ -181,14 +179,24 @@ const Header = () => {
             if (response.status == 200) {
               //  console.log(response,"res");
                if(response?.data?.count > 0){
+                if(response?.data?.data[0].mentor == null){
+                  openNotificationWithIcon("error", 'No Teachers are Registered from the given UDISE Code');
+    setDiesCode(''); 
+                }else if(response?.data?.data[0].mentor !== null){
                 const multiOrgData = response?.data?.data;
+                // localStorage.removeItem('diesCode');
+                // localStorage.removeItem('multiOrgData');
         localStorage.setItem('diesCode', JSON.stringify(diesCode));
         localStorage.setItem("multiOrgData", JSON.stringify(multiOrgData));
                  setMultiOrgData(multiOrgData);
                  navigate('/diescode-search', { state: { multiOrgData,diesCode } });
                  setDiesCode('');
+                //  window.location.reload();
+                }
                }else{
-                openNotificationWithIcon("error", "Oops..!  UDISE Code seems incorrect");
+                openNotificationWithIcon("error", "Udise code seems to be invalid");
+                setDiesCode('');
+
                }
              
             }
@@ -269,7 +277,7 @@ const Header = () => {
                   // data-bs-toggle="dropdown"
                   data-bs-auto-close="false"
                 >
-                  <input type="text" placeholder="Search"  onChange={(e) => handleOnChange(e)}
+                  <input type="text" placeholder="Enter UDISE Code"  onChange={(e) => handleOnChange(e)}
     // onBlur={(e) => handleSearch(e)}  // This will trigger the API call when the input field loses focus
     value={diesCode}
     maxLength={11}

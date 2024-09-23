@@ -119,13 +119,13 @@ const ReportsRegistration = () => {
       key: "district",
     },
     // {
-    //   label: "Total Eligible ATL Schools",
+    //   label: "Registered Schools",
     //   key: "Eligible_school",
     // },
-    // {
-    //   label: "Registered Schools",
-    //   key: "reg_school",
-    // },
+    {
+      label: "Registered Schools",
+      key: "reg_school",
+    },
 
     {
       label: "ATL Teachers",
@@ -161,10 +161,10 @@ const ReportsRegistration = () => {
       label: "District Name",
       key: "district",
     },
-    // {
-    //   label: "Total Eligible ATL Schools",
-    //   key: "Eligible_school",
-    // },
+    {
+      label: "Total Schools",
+      key: "Eligible_school",
+    },
     // {
     //   label: "Registered Schools",
     //   key: "reg_school",
@@ -287,10 +287,10 @@ const ReportsRegistration = () => {
       label: "UDISE Code",
       key: "organization_code",
     },
-    {
-      label: "ATL Code",
-      key: "unique_code",
-    },
+    // {
+    //   label: "ATL Code",
+    //   key: "unique_code",
+    // },
     {
       label: "School Name",
       key: "organization_name",
@@ -463,67 +463,67 @@ const ReportsRegistration = () => {
   //     }
   // };
 
-  var options = {
-    chart: {
-      height: 500,
-      type: "area",
-      toolbar: {
-        show: false,
-      },
-      zoom: {
-        enabled: false,
-      },
-    },
-    colors: ["#4361ee", "#888ea8"],
-    dataLabels: {
-      enabled: false,
-    },
-    stroke: {
-      curve: "straight",
-    },
-    title: {
-      text: "ATL Vs Non-ATL Registrations",
-      align: "left",
-    },
-    series: [
-      {
-        name: "Registered ATL",
-        data: series1,
-      },
-      {
-        name: "Registered Non-ATL",
-        data: series2,
-      },
-    ],
-    yaxis: {
-      beginAtZero: true,
-      ticks: {
-        stepSize: 10,
-      },
-      labels: {
-        formatter: (val) => {
-          return val / 1;
-        },
-      },
-    },
+  // var options = {
+  //   chart: {
+  //     height: 500,
+  //     type: "area",
+  //     toolbar: {
+  //       show: false,
+  //     },
+  //     zoom: {
+  //       enabled: false,
+  //     },
+  //   },
+  //   colors: ["#4361ee", "#888ea8"],
+  //   dataLabels: {
+  //     enabled: false,
+  //   },
+  //   stroke: {
+  //     curve: "straight",
+  //   },
+  //   title: {
+  //     text: "ATL Vs Non-ATL Registrations",
+  //     align: "left",
+  //   },
+  //   series: [
+  //     {
+  //       name: "Registered ATL",
+  //       data: series1,
+  //     },
+  //     {
+  //       name: "Registered Non-ATL",
+  //       data: series2,
+  //     },
+  //   ],
+  //   yaxis: {
+  //     beginAtZero: true,
+  //     ticks: {
+  //       stepSize: 10,
+  //     },
+  //     labels: {
+  //       formatter: (val) => {
+  //         return val / 1;
+  //       },
+  //     },
+  //   },
 
-    xaxis: {
-      categories: barChart1Data.labels,
-      ticks: {
-        maxRotation: 80,
-        autoSkip: false,
-      },
-    },
-    legend: {
-      position: "top",
-      horizontalAlign: "left",
-    },
-    // tooltip: {
-    //   x: {
-    //     format: "dd/MM/yy HH:mm",
-    //   },
-    // },
-  };
+  //   xaxis: {
+  //     categories: barChart1Data.labels,
+  //     ticks: {
+  //       maxRotation: 80,
+  //       autoSkip: false,
+  //     },
+  //   },
+  //   legend: {
+  //     position: "top",
+  //     horizontalAlign: "left",
+  //   },
+  //   // tooltip: {
+  //   //   x: {
+  //   //     format: "dd/MM/yy HH:mm",
+  //   //   },
+  //   // },
+  // };
 
   const fetchData = (item) => {
     const param = encryptGlobal(
@@ -781,8 +781,8 @@ const ReportsRegistration = () => {
           };
           setBarChart1Data(barData);
 
-          setseries1(barData.datasets[0].data);
-          setseries2(barData.datasets[1].data);
+          // setseries1(barData.datasets[0].data);
+          // setseries2(barData.datasets[1].data);
         }
       })
       .catch((error) => {
@@ -883,8 +883,8 @@ const ReportsRegistration = () => {
                 <div className="row">
                   <div className="col-sm-12 col-md-12 col-xl-4 d-flex">
                     <div className="card default-cover mb-4">
-                      <div className="card-header d-flex justify-content-between align-items-center">
-                        <h4 className="card-title mb-0">Institution Type Stats</h4>
+                      {/* <div className="card-header d-flex justify-content-between align-items-center"> */}
+                        {/* <h4 className="card-title mb-0">Institution Type Stats</h4> */}
                         {/* <div className="dropdown">
                           <Link
                             to="#"
@@ -896,15 +896,15 @@ const ReportsRegistration = () => {
                             </span>
                           </Link>
                         </div> */}
-                      </div>
+                      {/* </div> */}
                       <div className="card-body">
                         <div className="row">
-                          {RegTeachersState !== "Tamil Nadu" ? (
+                          {/* {RegTeachersState !== "Tamil Nadu" ? (
                             <>
                               <div className="col-md-12 text-center mt-3">
                                 <p>
                                   <b>
-                                    Overall Registered ATL vs Non ATL Schools As
+                                    Overall Registered ATL vs Non ATL Teachers As
                                     of {newFormat}
                                   </b>
                                 </p>
@@ -920,18 +920,7 @@ const ReportsRegistration = () => {
                             </>
                           ) : (
                             <>
-                              {/* <div className="col-md-12 text-center mt-3">
-                                <p>
-                                  <b>
-                                    Overall Registered Fully Aided High Schools
-                                    vs Fully Aided Higher Secondary Schools vs
-                                    Government High Schools vs Government Higher
-                                    Secondary Schools vs Partially Aided High
-                                    Schools vs Partially Aided Higher Secondary
-                                    Schools vs Non-ATL As of {newFormat}
-                                  </b>
-                                </p>
-                              </div> */}
+                             
                               <div className="col-md-12 doughnut-chart-container">
                                 {registeredChartDataState && (
                                   <Doughnut
@@ -941,11 +930,11 @@ const ReportsRegistration = () => {
                                 )}
                               </div>
                             </>
-                          )}
+                          )} */}
                          
-                            <div className="card-header d-flex justify-content-between align-items-center">
+                            {/* <div className="card-header d-flex justify-content-between align-items-center"> */}
                            {/* <h4 className="card-title mb-0">Institution Type Stats</h4> */}
-                           </div>
+                           {/* </div> */}
                            <div className="card-header d-flex justify-content-between align-items-center">
                            <h4 className="card-title mb-0">Institution Type Gender Stats</h4>
                            </div>
@@ -1006,60 +995,60 @@ const ReportsRegistration = () => {
                               <tr>
                                 <th style={{ color: "#36A2EB" ,fontWeight: "bold", }}>#No</th>
                                 <th style={{ color: "#36A2EB",fontWeight: "bold" }}>District Name</th>
-                                {/* <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                  Eligible ATL{" "}
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
+                                  Registered Schools{" "}
                                   <FontAwesomeIcon icon={faSchool} />
-                                </th> */}
+                                </th>
                                 {/* <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                   Registered ATL Schools
                                 </th> */}
                                 {RegTeachersState !== "Tamil Nadu" && (
                                   <>
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                      ATL Teachers
+                                      #ATL Teachers
                                     </th>
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB", fontWeight: "bold"}}>
-                                      Non-ATL Teachers
+                                      #Non-ATL Teachers
                                     </th>
                                   </>
                                 )}
                                 <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                  Total Teachers
+                                  #Total Teachers
                                 </th>
                                 <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                   <FontAwesomeIcon icon={faMale} />
-                                  Male
+                                  #Male
                                 </th>
                                 <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                   <FontAwesomeIcon icon={faFemale} />
-                                  Female
+                                  #Female
                                 </th>
                                 <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                   <FontAwesomeIcon icon={faFemale} />
-                                  Others
+                                  #Others
                                 </th>
                                 {RegTeachersState === "Tamil Nadu" && (
                                   <>
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                      Fully Aided High Schools
+                                      #Fully Aided High Schools
                                     </th>
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                      Fully Aided-Higher Secondary Schools
+                                      #Fully Aided-Higher Secondary Schools
                                     </th>
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                      Government High Schools
+                                      #Government High Schools
                                     </th>
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                      Government-Higher Secondary Schools
+                                      #Government-Higher Secondary Schools
                                     </th>
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                      Partially Aided-High Schools
+                                      #Partially Aided-High Schools
                                     </th>
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                      Partially Aided-Higher Secondary Schools
+                                      #Partially Aided-Higher Secondary Schools
                                     </th>
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                      Non-ATL Schools
+                                      #Non-ATL Schools
                                     </th>
                                   </>
                                 )}
@@ -1079,7 +1068,7 @@ const ReportsRegistration = () => {
                                   >
                                     {item.district}
                                   </td>
-                                  {/* <td>{item.Eligible_school}</td> */}
+                                  <td>{item.reg_school}</td>
                                   {/* <td>{item.reg_school}</td> */}
                                   {/* <td>{item.ATL_Count}</td> */}
                                   {/* <td>{item.NonATL_Count}</td> */}
@@ -1131,7 +1120,7 @@ const ReportsRegistration = () => {
                   </div>
                 </div>
               )}
-              {RegTeachersState !== "Tamil Nadu" && (
+              {/* {RegTeachersState !== "Tamil Nadu" && (
                 <div className="col-md-12">
                   <div className="card">
                     <div className="card-header">
@@ -1151,7 +1140,7 @@ const ReportsRegistration = () => {
                     </div>
                   </div>
                 </div>
-              )}
+              )} */}
               {/* <div className="mt-5">
                                     <div
                                         className="col-md-12 chart-container mt-5"

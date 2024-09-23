@@ -20,6 +20,8 @@ import { useNavigate } from "react-router-dom";
 import logout from '../../assets/img/logout.png';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import 'sweetalert2/src/sweetalert2.scss';
+import ToggleButton from './Toggles'; 
+
 const AdminLatestNews = () => {
     // const history = useHistory();
     const navigate = useNavigate();
@@ -65,7 +67,7 @@ const AdminLatestNews = () => {
     };
     async function handleNewStatus(data, value) {
         const body = {
-            status: data.status,
+            status: "ACTIVE",
             category: data.category,
             details: data.details,
             new_status: value
@@ -233,7 +235,7 @@ const AdminLatestNews = () => {
     };
     async function handleNewStuStatus(item, number) {
         const body = {
-            status: item.status,
+            status: "ACTIVE",
             category: item.category,
             details: item.details,
             new_status: number
@@ -317,6 +319,16 @@ const AdminLatestNews = () => {
                 selector: (row) => row.state,
                 width: '12rem'
             },
+            // {
+            //     name: 'Enable/Disable',
+            //     width: '12rem',
+            //     cell: (record) => (
+            //       <ToggleButton
+            //         isEnabled={record.new_status === "1"}
+            //         onToggle={(newStatus) => handleNewStuStatus(record,"0" ,newStatus.toString())}
+            //       />
+            //     )
+            //   },
             {
                 name: 'New Icon',
                 width: '8rem',

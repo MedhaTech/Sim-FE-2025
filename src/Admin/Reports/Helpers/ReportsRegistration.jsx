@@ -116,8 +116,8 @@ const ReportsRegistration = () => {
       key: "state",
     },
     {
-      label: "Total Eligible ATL Schools",
-      key: "ATL_Count",
+      label: "Total Schools in DB",
+      key: "Eligible_school",
     },
     {
       label: "Registered Schools",
@@ -128,16 +128,16 @@ const ReportsRegistration = () => {
     //   key: "total_not_Reg_ATL",
     // },
     {
-      label: "Total Registered ATL Schools",
+      label: "Total Registered ATL Teachers",
       key: "ATL_Reg_Count",
     },
     {
-      label: "Total Registered NON-ATL Schools",
+      label: "Total Registered NON-ATL Teachers",
       key: "NONATL_Reg_Count",
     },
     // {
     //   label: "Total Registered Teachers (ATL+Non-ATL)",
-    //   key: "total_registered_teachers",
+    //   key: "totalTeachers",
     // },
     {
       label: "Registered Male Teachers",
@@ -157,10 +157,10 @@ const ReportsRegistration = () => {
       label: "UDISE CODE",
       key: "organization.organization_code",
     },
-    {
-      label: "ATL CODE",
-      key: "organization.unique_code",
-    },
+    // {
+    //   label: "ATL CODE",
+    //   key: "organization.unique_code",
+    // },
     {
       label: "School Name",
       key: "organization.organization_name",
@@ -223,10 +223,10 @@ const ReportsRegistration = () => {
       label: "UDISE CODE",
       key: "organization_code",
     },
-    {
-      label: "ATL CODE",
-      key: "unique_code",
-    },
+    // {
+    //   label: "ATL CODE",
+    //   key: "unique_code",
+    // },
     {
       label: "School Name",
       key: "organization_name",
@@ -575,7 +575,9 @@ const ReportsRegistration = () => {
           const femaleCount = lastRow?.Female || 0;
           const ATLregCount = lastRow?.ATL_Reg_Count || 0;
           const NONATLregNotCount = lastRow?.NONATL_Reg_Count || 0;
+          const totalTeachers = maleCount + femaleCount + othersCount;
 
+          // console.log("Total Teachers:", totalTeachers);
           setRegisteredGenderChartData({
             labels: ["Male Teachers", "Female Teachers","Others"],
             datasets: [
@@ -742,7 +744,7 @@ const ReportsRegistration = () => {
                           <div className="col-md-12 text-center mt-3">
                             <p>
                               <b>
-                                Overall Registered ATL vs Non ATL Schools As of{" "}
+                                Overall Registered ATL vs Non ATL Teachers As of{" "}
                                 {newFormat}
                               </b>
                             </p>
@@ -810,11 +812,11 @@ const ReportsRegistration = () => {
                                 <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>#</th>
                                 <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>State Name</th>
                                 <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                  Eligible ATL{" "}
+                                   Schools in DB{" "}
                                   <FontAwesomeIcon icon={faSchool} />
                                 </th>
                                 <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                  Registered ATL Schools
+                                  Registered Schools
                                 </th>
                                 <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                   ATL Teachers
@@ -853,7 +855,8 @@ const ReportsRegistration = () => {
                                   >
                                     {item.state}
                                   </td>
-                                  <td>{item.ATL_Count}</td>
+                                  <td>{item.Eligible_school
+                                  }</td>
                                   <td>{item.reg_school
 }</td>
                                   <td>{item.ATL_Reg_Count}</td>

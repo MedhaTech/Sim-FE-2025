@@ -46,7 +46,8 @@ const AdminResources = () => {
                 }
             );
             if (response.status === 200) {
-                // console.log(response,"11");
+                console.log(response,"11");
+                
                 setTecList(response.data?.data);
             }
         } catch (error) {
@@ -81,38 +82,7 @@ const AdminResources = () => {
                 selector: (row) => row.navigate,
                 width: '10rem'
             },
-            {
-                name: 'Enable/Disable',
-                width: '9rem',
-                cell: (record) => {
-                    
-                    if (record.on_off === '1') {
-                        return (
-                            <button
-                                className="btn btn-danger"
-                                onClick={() => {
-                                    handleStatus(record
-                                        , '0');
-                                }}
-                            >
-                                Disable
-                            </button>
-                        );
-                    } else if (record.on_off === '0') {
-                        return (
-                            <button
-                                className="btn btn-success"
-                                onClick={() => {
-                                    handleStatus(record
-                                        , '1');
-                                }}
-                            >
-                                Enable
-                            </button>
-                        );
-                    }
-                }
-            },
+         
             // {
             //     name: 'Type',
             //     selector: 'type',
@@ -179,7 +149,39 @@ const AdminResources = () => {
                         </div>
                     </>
                 ]
-            }
+            },
+            {
+                name: 'Enable/Disable',
+                width: '9rem',
+                cell: (record) => {
+                    
+                    if (record.on_off === '1') {
+                        return (
+                            <button
+                                className="btn btn-danger"
+                                onClick={() => {
+                                    handleStatus(record
+                                        , '0');
+                                }}
+                            >
+                                Disable
+                            </button>
+                        );
+                    } else if (record.on_off === '0') {
+                        return (
+                            <button
+                                className="btn btn-success"
+                                onClick={() => {
+                                    handleStatus(record
+                                        , '1');
+                                }}
+                            >
+                                Enable
+                            </button>
+                        );
+                    }
+                }
+            },
         ]
     };
     const handleTecherDelete = (items) => {
@@ -247,17 +249,18 @@ const AdminResources = () => {
     async function handleStatus(item, value) {
         // alert("hii");
         const body = {
-            role: item.role,
-            type: item.type,
-            url: item.url,
-            state:item.state,
+            // role: item.role,
+            // type: item.type,
+            // url: item.url,
+            // state:item.state,
             on_off: value
         };
-        if (
-            item.navigate !== item.navigate
-            ) {
-                body['navigate'] = item.navigate;
-            }
+       
+            if (
+                item.navigate !== item.navigate
+                ) {
+                    body['navigate'] = item.navigate;
+                }
         const popParam = encryptGlobal(JSON.stringify(item.
             popup_id
             ));

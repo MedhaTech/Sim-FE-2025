@@ -266,10 +266,19 @@ const downloadPDF = () => {
       {
         name: 'Mentor Approval',
         selector: (row) =>
-            row.ideaAcceptance,
+        row.ideaStatus === 
+"SUBMITTED" ?  row.ideaAcceptance:"Not yet Reviewed" ,
+       
         center: true,
         width: '15rem'
     },
+    //   {
+    //     name: 'Mentor Approval',
+    //     selector: (row) =>
+    //         row.ideaAcceptance,
+    //     center: true,
+    //     width: '15rem'
+    // },
       {
         name: "Actions",
         cell: (params) => {
@@ -443,7 +452,9 @@ const handleEdit = () => {
         <div className="create-ticket register-block">
         <Row  className="mb-3 modal-body-table search-modal-header">
           <div className="dashboard p-2">
-            <h4>Teachers List </h4>
+            {/* <h4>Teachers List </h4> */}
+            <h4>Teachers List  Of Udise Code : {diesCode} </h4>
+
             <Row  className="mb-3 modal-body-table search-modal-header">
             {multiOrgData.length !== undefined &&
               multiOrgData.length !== 0 &&
