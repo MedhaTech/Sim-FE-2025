@@ -67,7 +67,7 @@ const AdminLatestNews = () => {
     };
     async function handleNewStatus(data, value) {
         const body = {
-            status: data.status,
+            status: "ACTIVE",
             category: data.category,
             details: data.details,
             new_status: value
@@ -235,7 +235,7 @@ const AdminLatestNews = () => {
     };
     async function handleNewStuStatus(item, number) {
         const body = {
-            status: item.status,
+            status: "ACTIVE",
             category: item.category,
             details: item.details,
             new_status: number

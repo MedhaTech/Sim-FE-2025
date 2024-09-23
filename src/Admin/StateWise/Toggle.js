@@ -1,13 +1,14 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState } from 'react';
 import './style.css'; // Import the CSS file
 
 const ToggleSwitch = ({ isEnabled, onToggle }) => {
-  const [enabled, setEnabled] = useState(isEnabled);
+  // const [enabled, setEnabled] = useState(isEnabled);
 
   const handleToggle = () => {
-    const newStatus = !enabled ? 1 : 0;
-    setEnabled(!enabled);
+    const newStatus = !isEnabled ? 1 : 0;
+    // setEnabled(!enabled);
     onToggle(newStatus);
   };
 
@@ -15,7 +16,7 @@ const ToggleSwitch = ({ isEnabled, onToggle }) => {
     <label className="toggle-switch">
       <input
         type="checkbox"
-        checked={enabled}
+        checked={isEnabled}
         onChange={handleToggle}
       />
       <span className="slider"></span>

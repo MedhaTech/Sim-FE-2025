@@ -41,14 +41,26 @@ const StateData = () => {
             .then(function (response) {
                 if (response.status === 200) {
                     // console.log(response,"ress");
-                    setResList(response.data && response.data.data);
+                    setResList(response?.data?.data);
                 }
             })
             .catch(function (error) {
                 console.log(error);
             });
     }
-
+    const [array, setarray] = useState([]);
+    useEffect(() => {
+        if (
+            resList &&
+            resList.length > 0
+        ) {
+            let dataarray = [];
+            resList.forEach((item, index) => {
+                dataarray.push(Object.assign(item, { index: index + 1 }));
+            });
+            setarray([...dataarray]);
+        }
+    }, [resList]);
     const handleEdit = (item) => {
             navigate('/edit-state-wise');
             
@@ -116,6 +128,7 @@ const StateData = () => {
     };
     async function handleStatus(item, value) {
         // alert("hii");
+        // console.log('Toggled record:', item, 'New status:', value);
         const body = {
             mentor_note: item.mentor_note,
             // type: item.type,
@@ -148,16 +161,17 @@ state_coordinators_id
         await axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    // console.log(response,"put");
-                    if (value === '0') {
+                    // console.log(value,"put");
+
+                    if (value === 0) {
                         openNotificationWithIcon(
                             'success',
-                            'State status Disabled successfully'
+                            'Idea Submission Disabled successfully'
                         );
-                    } else if (value === '1') {
+                    } else if (value === 1) {
                         openNotificationWithIcon(
                             'success',
-                            'State status Enabled successfully'
+                            'Idea Submission Enabled successfully'
                         );
                     }
                     // if (response.data.data[0] === 0) {
@@ -185,17 +199,16 @@ state_coordinators_id
             });
     }
     const resData = {
-        data: resList && resList.length > 0 ? resList : [],
-        // data: staticData,
+        // data: resList || [],
+        data: array,
         columns: [
+           
             {
                 name: 'No',
-                selector: (row, key) => key + 1,
-                sortable: true,
-                width: '5rem'
-                // center: true,
+                selector: (row) => row.index,
+                cellExport: (row) => row.index,
+                width: '7rem'
             },
-
            
             {
                 name: 'State',
@@ -260,7 +273,7 @@ state_coordinators_id
                 cell: (record) => (
                   <ToggleButton
                     isEnabled={record.ideaSubmission === 1}
-                    onToggle={(newStatus) => handleStatus(record, newStatus.toString())}
+                    onToggle={(newStatus) => handleStatus(record, newStatus)}
                   />
                 )
               },
@@ -347,11 +360,13 @@ state_coordinators_id
                                 exportHeaders
                             >
                                 <DataTable
-                                    data={setResList}
+                                    // data={setResList}
                                     // noHeader
                                     defaultSortField="id"
                                     customStyles={customStyles}
-
+                                    // pagination={true} 
+                                    // paginationPerPage={10} 
+                                    // paginationRowsPerPageOptions={[10, 20, 30, 50]}
                                     defaultSortAsc={false}
                                     pagination
                                     highlightOnHover
