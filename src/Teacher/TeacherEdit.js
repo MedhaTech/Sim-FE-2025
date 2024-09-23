@@ -19,8 +19,13 @@ import male from "../assets/img/Male_Profile.png";
 import user from "../assets/img/user.png";
 import { stateList,districtList } from '../RegPage/ORGData';
 import Select from "../Admin/Reports/Helpers/Select";
+import { getTeacherByID } from '../redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
 
 const TeacherEditProfile = () => {
+  const { teacher } = useSelector((state) => state.teacher);
+  const dispatch = useDispatch();
+
   const location = useLocation();
   const [districts, setDistricts] = useState([]);
   const mentorData = location.state || {};
@@ -240,9 +245,10 @@ const TeacherEditProfile = () => {
                       'success',
                       'School Details Updated Successfully'
                   );
+                  dispatch(getTeacherByID(currentUser?.data[0]?.mentor_id));
                   setTimeout(() => {
                     navigate("/mentorprofile");
-                    // window.location.reload();
+                    window.location.reload();
                   }, 2000);
               }
           })
