@@ -104,6 +104,8 @@
     "start:development": "env-cmd -f ./environments/.env.development npm run start:naked",
     "start:dev": "env-cmd -f ./environments/.env.dev npm run start:naked",
     "start:local": "env-cmd -f ./environments/.env.local npm run start:naked",
+    "start:stage": "env-cmd -f ./environments/.env.stage npm run start:naked",
+
     "start-js": "react-scripts start",
     "build": "NODE_OPTIONS='--max-old-space-size=4096' react-scripts build",
     "build:dev": "env-cmd -f ./environments/.env.dev npm run build",

@@ -68,6 +68,8 @@ institutionreport:"/institution-report",
   schoolcoo:"/school-report",
   studentcoo:"/studentcoo-report",
   intitutioncoo:"/institution-report",
+  intitutioncoostate:"/state-institution-report",
+
   badgeTeacher:"/teacherBadges",
   statedashboard: "/state-dashboard",
   eadmindashboard: "/eadmin-dashboard",

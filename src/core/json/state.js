@@ -22,7 +22,7 @@ const StateSidebarData = () => {
         },
         {
           label: "Institutions Report",
-          link: "/institution-report",
+          link: "/state-institution-report",
           icon: <Icon.Codesandbox />,
           showSubRoute: false,
           submenu: false,
