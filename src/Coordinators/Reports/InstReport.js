@@ -166,15 +166,7 @@ const TeacherProgressDetailed = () => {
     //     label: 'ATL CODE',
     //     key: 'organization_code'
     // },
-    {
-      label: "Registration status",
-      key: "registration_status",
-      // render: () => <span>{registrationStatus}</span>,
-    },
-    {
-      label: "No of teachers registered",
-      key: "mentor_reg",
-    },
+   
     {
       label: "School Name",
       key: "organization_name",
@@ -214,6 +206,14 @@ const TeacherProgressDetailed = () => {
     {
       label: "Principal Email",
       key: "principal_email",
+    },
+    {
+      label: "Registration status",
+      key: "registration_status",
+    },
+    {
+      label: "No of teachers registered",
+      key: "mentor_reg",
     },
   ];
   const chartOptions = {
@@ -412,7 +412,7 @@ const TeacherProgressDetailed = () => {
           const chartTableData = response?.data?.data[0].rows || [];
           const modifiedChartTableData = chartTableData.map((item) => ({
             ...item,
-            registration_status: item.mentor_reg !== 0 ? "Completed" : "Not Started",
+            registration_status: item.mentor_reg !== 0 ? "Registered" : "Not Registered",
           }));
           
           // Set the modified data for download

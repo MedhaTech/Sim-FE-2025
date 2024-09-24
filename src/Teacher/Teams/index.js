@@ -461,7 +461,29 @@ ideaStatus===  null &&
               }
              
             })
+          // const teamlistobj = {};
+
+          // const listofteams = response.data.data;
+          // console.log(listofteams)
+          // .map((item) => {
+          //   const isTamilNadu = loginState === 'Tamil Nadu';
+        
+          //   // Set the StudentCount limit based on the login state
+          //   const studentCountLimit = isTamilNadu ? 5 : 3;
+          //     if (
+          //         item.StudentCount < studentCountLimit &&
+          //         item.ideaStatus === null
+          //     ) {
+          //         teamlistobj[item.team_name] = item.team_id;
+          //         return item.team_name;
+          //     }
+          // })
+          
             .filter(Boolean);
+// console.log(selectedTeam,"team");
+
+// console.log(selectedTeam.team_name,"select");
+
           if (Object.keys(teamlistobj).length > 0) {
             let index = listofteams.indexOf(selectedTeam.team_name);
 
@@ -469,7 +491,6 @@ ideaStatus===  null &&
               listofteams.splice(index, 1);
             }
           }
-
           setteamlist(listofteams);
           setteamchangeObj(teamlistobj);
           setShow(true);
@@ -479,6 +500,8 @@ ideaStatus===  null &&
         console.log(error);
       });
   };
+
+  // console.log(teamlist,"list");
   const handleChangeStudent = (name) => {
     const body = {
       team_id: teamchangeobj[name].toString(),
