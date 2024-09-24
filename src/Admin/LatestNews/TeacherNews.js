@@ -307,17 +307,19 @@ const AdminLatestNews = () => {
                 name: 'No',
                 selector: (row, key) => key + 1,
                 sortable: true,
-                width: '6rem'
+                width: '4rem'
             },
             {
                 name: 'Role',
                 selector: (row) => row.category,
-                width: '8rem'
+                sortable: true,
+                width: '6rem'
             },
             {
                 name: 'State',
                 selector: (row) => row.state,
-                width: '12rem'
+                sortable: true,
+                width: '10rem'
             },
             // {
             //     name: 'Enable/Disable',
@@ -329,77 +331,77 @@ const AdminLatestNews = () => {
             //       />
             //     )
             //   },
-            {
-                name: 'New Icon',
-                width: '8rem',
-                cell: (record) => {
-                    if (record.new_status === '1') {
-                        return (
-                            <button
-                                className="btn btn-danger mx-2"
-                                onClick={() => {
-                                    handleNewStuStatus(record, '0');
-                                }}
-                            >
-                                Disable
-                            </button>
-                        );
-                    } else if (record.new_status === '0') {
-                        return (
-                            <button
-                                className="btn btn-success mx-2"
-                                onClick={() => {
-                                    handleNewStuStatus(record, '1');
-                                }}
-                            >
-                                Enable
-                            </button>
-                        );
-                    }
-                }
-            },
+            
             {
                 name: 'Details',
                 selector: (row) => row.details,
-                width: '20rem'
+                width: '16rem'
             },
             {
                 name: 'File',
-                width: '10rem',
+                width: '8rem',
                 cell: (record) => {
                     if (record.file_name === null) {
                         return <p>No file</p>;
                     } else {
                         return (
-                            <button className="btn btn-warning mx-2">
-                                <a
+                            <a
                                     href={record.file_name}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    style={{ color: 'black' }}
+                                    className="badge badge-md bg-secondary"
                                 >
-                                    Download
+                                    <i className="fas fa-file-lines"></i> Check File
                                 </a>
-                            </button>
                         );
                     }
                 }
             },
             {
                 name: 'Link',
-                width: '10rem',
+                width: '8rem',
                 cell: (record) => {
                     if (record.url === null) {
                         return <p>No link</p>;
                     } else {
                         return (
                             <a
-                                href={record.url}
-                                target="_blank"
-                                rel="noreferrer"
+                            href={record.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="badge badge-md bg-secondary"
+                        >
+                            <i className="fa-brands fa-youtube"></i> Navigate
+                        </a>
+                        );
+                    }
+                }
+            },
+            {
+                name: 'New Icon',
+                width: '7rem',
+                cell: (record) => {
+                    if (record.new_status === '1') {
+                        return ( 
+                            <button
+                                className="badge badge-md bg-success"
+                                onClick={() => {
+                                    handleNewStuStatus(record, '0');
+                                }}
                             >
-                                Navigate
-                            </a>
+                                Turned ON
+                            </button>
+                        );
+                    } else if (record.new_status === '0') {
+                        return ( 
+                            <button
+                                className="badge badge-md bg-danger"
+                                onClick={() => {
+                                    handleNewStuStatus(record, '1');
+                                }}
+                            >
+                                Turned OFF
+                            </button>
                         );
                     }
                 }
@@ -409,26 +411,22 @@ const AdminLatestNews = () => {
                 width: '15rem',
                 center: true,
                 cell: (record) => [
-                    <>
-                        <div
-                            key={record}
-                            onClick={() => handleEdit(record)}
-                            style={{ marginRight: '12px' }}
-                        >
-                            <div className="btn btn-primary">
-                                Edit
-                            </div>
-                        </div>
-
-                        <div
-                            key={record}
-                            onClick={() => handleStuDelete(record)}
-                            style={{ marginRight: '12px' }}
-                        >
-                            <div className="btn btn-primary  mx-2">
-                                Delete
-                            </div>
-                        </div>
+                    <> 
+                        <button
+                              className="btn btn-info btn-sm"
+                              key={record}
+                              onClick={() => handleEdit(record)}
+                            >
+                              <i data-feather="edit" className="feather-edit" /> Edit
+                        </button>
+                        <button
+                              className="btn btn-danger btn-sm mx-3"
+                              key={record}
+                              onClick={() => handleStuDelete(record)}
+                            >
+                              <i data-feather="trash-2" className="feather-trash-2" />{" "}
+                              Delete
+                        </button>
                     </>
                 ]
             }
@@ -442,70 +440,44 @@ const AdminLatestNews = () => {
                 name: 'No',
                 selector: (row, key) => key + 1,
                 sortable: true,
-                width: '6rem'
+                width: '4rem'
             },
             {
                 name: 'Role',
                 selector: (row) => row.category,
-                width: '8rem'
+                sortable: true,
+                width: '6rem'
             },
             {
                 name: 'State',
                 selector: (row) => row.state,
-                width: '12rem'
+                sortable: true,
+                width: '10rem'
             },
-            {
-                name: 'New Icon',
-                width: '8rem',
-                cell: (record) => {
-                    if (record.new_status === '1') {
-                        return (
-                            <button
-                                className="btn btn-danger mx-2"
-                                onClick={() => {
-                                    handleNewStatus(record, '0');
-                                }}
-                            >
-                                Disable
-                            </button>
-                        );
-                    } else if (record.new_status === '0') {
-                        return (
-                            <button
-                                className="btn btn-success mx-2"
-                                onClick={() => {
-                                    handleNewStatus(record, '1');
-                                }}
-                            >
-                                Enable
-                            </button>
-                        );
-                    }
-                }
-            },
+            
             {
                 name: 'Details',
                 selector: (row) => row.details,
-                width: '20rem'
+                width: '16rem'
             },
             {
                 name: 'File',
-                width: '10rem',
+                width: '8rem',
                 cell: (record) => {
                     if (record.file_name === null) {
                         return <p>No file</p>;
                     } else {
                         return (
-                            <button className="btn btn-warning mx-2">
+                            
                                 <a
                                     href={record.file_name}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    style={{ color: 'black' }}
+                                    className="badge badge-md bg-secondary"
                                 >
-                                    Download
+                                    <i className="fas fa-file-lines"></i> Check File
                                 </a>
-                            </button>
+                           
                         );
                     }
                 }
@@ -522,9 +494,39 @@ const AdminLatestNews = () => {
                                 href={record.url}
                                 target="_blank"
                                 rel="noreferrer"
+                                className="badge badge-md bg-secondary"
                             >
-                                Navigate
+                                <i className="fa-brands fa-youtube"></i> Navigate
                             </a>
+                        );
+                    }
+                }
+            },
+            {
+                name: 'New Icon',
+                width: '7rem',
+                cell: (record) => {
+                    if (record.new_status === '1') {
+                        return (
+                            <button
+                                className="badge badge-md bg-success"
+                                onClick={() => {
+                                    handleNewStatus(record, '0');
+                                }}
+                            >
+                                Turned ON
+                            </button>
+                        );
+                    } else if (record.new_status === '0') {
+                        return (
+                            <button
+                                className="badge badge-md bg-danger"
+                                onClick={() => {
+                                    handleNewStatus(record, '1');
+                                }}
+                            >
+                                Turned OFF
+                            </button>
                         );
                     }
                 }
@@ -535,7 +537,23 @@ const AdminLatestNews = () => {
                 center: true,
                 cell: (record) => [
                     <>
-                        <div
+                        <button
+                              className="btn btn-info btn-sm"
+                              key={record}
+                              onClick={() => handleEdit(record)}
+                            >
+                              <i data-feather="edit" className="feather-edit" /> Edit
+                        </button>
+                        <button
+                              className="btn btn-danger btn-sm mx-3"
+                              key={record}
+                              onClick={() => handleDelete(record)}
+                            >
+                              <i data-feather="trash-2" className="feather-trash-2" />{" "}
+                              Delete
+                        </button>
+
+                        {/* <div
                             key={record}
                             onClick={() => handleEdit(record)}
                             style={{ marginRight: '12px' }}
@@ -543,9 +561,9 @@ const AdminLatestNews = () => {
                             <div className="btn btn-primary mx-2">
                                 Edit
                             </div>
-                        </div>
+                        </div> */}
 
-                        <div
+                        {/* <div
                             key={record}
                             onClick={() => handleDelete(record)}
                             style={{ marginRight: '12px' }}
@@ -553,7 +571,7 @@ const AdminLatestNews = () => {
                             <div className="btn btn-primary mx-2">
                                 Delete
                             </div>
-                        </div>
+                        </div> */}
                     </>
                 ]
             }

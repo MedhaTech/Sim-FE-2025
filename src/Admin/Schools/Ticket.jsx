@@ -295,7 +295,7 @@ const TicketsPage = (props) => {
                 cellExport: (row) => row.organization_code,
                 sortable: true,
 
-                width: '10rem'
+                width: '9rem'
             },
             {
                 name: 'State',
@@ -343,11 +343,11 @@ const TicketsPage = (props) => {
                         {row.status}
                     </Badge>
                 ],
-                width: '6rem'
+                width: '5rem'
             },
             {
                 name: 'Actions',
-                width: '20rem',
+                width: '16rem',
                 center: true,
                 cellExport: (row) => {},
                 cell: (record) => [
@@ -357,7 +357,7 @@ const TicketsPage = (props) => {
                             onClick={() => handleEdit(record)}
                             style={{ marginRight: '7px' }}
                         >
-                            <div className="btn btn-info  mx-2">Edit</div>
+                            <div className="btn btn-info">Edit</div>
                         </div>
                         {/* {disableBtn === false ? setDisableBtn(false) */}
                         <div
@@ -366,7 +366,7 @@ const TicketsPage = (props) => {
                                 !disableBtn &&
                                 handleActiveStatusUpdate(record, 'NEW')
                             }
-                            style={{ marginRight: '10px' }}
+                            style={{ marginRight: '7px' }}
                         >
                             <div className="btn btn-success ">Test</div>
                         </div>
@@ -377,7 +377,6 @@ const TicketsPage = (props) => {
                                 !disableBtn &&
                                 handleActiveStatusUpdate(record, 'INACTIVE')
                             }
-                            style={{ marginRight: '10px' }}
                         >
                             <div className="btn btn-danger ">Inactive</div>
                         </div>
@@ -440,12 +439,12 @@ const TicketsPage = (props) => {
                         {row.status}
                     </Badge>
                 ],
-                width: '6rem'
+                width: '4rem'
             },
             {
                 name: 'Actions',
                 center: true,
-                width: '20rem',
+                width: '16rem',
                 cell: (record) => [
                     <>
                         <div
@@ -453,7 +452,7 @@ const TicketsPage = (props) => {
                             onClick={() => handleEdit(record)}
                             style={{ marginRight: '7px' }}
                         >
-                            <div className="btn btn-info  mx-2">Edit</div>
+                            <div className="btn btn-info ">Edit</div>
                         </div>
                         <div
                             key={record}
@@ -461,7 +460,7 @@ const TicketsPage = (props) => {
                                 !disableBtn &&
                                 handleStatusUpdate(record, 'ACTIVE')
                             }
-                            style={{ marginRight: '10px' }}
+                            style={{ marginRight: '7px' }}
                         >
                             <div className="btn btn-warning ">Active</div>
                         </div>
@@ -470,7 +469,6 @@ const TicketsPage = (props) => {
                             onClick={() =>
                                 !disableBtn && handleStatusUpdate(record, 'NEW')
                             }
-                            style={{ marginRight: '10px' }}
                         >
                             <div className="btn btn-success">Test</div>
                         </div>
@@ -536,11 +534,11 @@ const TicketsPage = (props) => {
                         {row.status === 'NEW' ? 'TEST' : ''}
                     </Badge>
                 ],
-                width: '6rem'
+                width: '4rem'
             },
             {
                 name: 'Actions',
-                width: '20rem',
+                width: '16rem',
                 center: true,
                 cell: (record) => [
                     <>
@@ -549,14 +547,14 @@ const TicketsPage = (props) => {
                             onClick={() => handleEdit(record)}
                             style={{ marginRight: '7px' }}
                         >
-                            <div className="btn btn-info  mx-2">Edit</div>
+                            <div className="btn btn-info ">Edit</div>
                         </div>
                         <div
                             key={record}
                             onClick={() =>
                                 !disableBtn && handleNewUpdate(record, 'ACTIVE')
                             }
-                            style={{ marginRight: '10px' }}
+                            style={{ marginRight: '7px' }}
                         >
                             <div className="btn btn-warning ">Active</div>
                         </div>
@@ -566,7 +564,6 @@ const TicketsPage = (props) => {
                                 !disableBtn &&
                                 handleNewUpdate(record, 'INACTIVE')
                             }
-                            style={{ marginRight: '10px' }}
                         >
                             <div className="btn btn-danger">Inactive</div>
                         </div>
@@ -607,11 +604,11 @@ const TicketsPage = (props) => {
                     <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
                         <Col className="col-auto">
                             {reqList ? (
-                                <h3>List of inactive institutions</h3>
+                                <h3>List of Inactive institutions</h3>
                             ) : newList ? (
-                                <h3>List of test institutions</h3>
+                                <h3>List of Test institutions</h3>
                             ) : (
-                                <h3>List of active institutions</h3>
+                                <h3>List of Active institutions</h3>
                             )}
                         </Col>
 
@@ -637,7 +634,7 @@ const TicketsPage = (props) => {
                             ) : (
                                 <div className="d-flex justify-content-end p-2">
                                     <button
-                                        className='btn btn-success p-2 me-2'
+                                        className='btn btn-info p-2 me-2'
                                         onClick={() =>
                                           navigate(
                                                 '/addinstitution'
@@ -646,17 +643,18 @@ const TicketsPage = (props) => {
                                     >
                                         Add New Institution
                                       </button>
+                                    
                                     <button
-                                       className='btn btn-warning p-2 me-2'
-                                        onClick={(e) => handleReqSchoolsList(e)}
-                                    >
-                                        InActive List
-                                    </button>
-                                    <button
-                                      className='btn btn-warning'
+                                      className='btn btn-success p-2 me-2'
                                         onClick={() => handleNewSchoolsList()}
                                     >
                                         Test List
+                                    </button>
+                                    <button
+                                       className='btn btn-danger '
+                                        onClick={(e) => handleReqSchoolsList(e)}
+                                    >
+                                        InActive List
                                     </button>
                                 </div>
                             )}
@@ -668,7 +666,7 @@ const TicketsPage = (props) => {
                             <DataTableExtensions
                                 print={false}
                                 export={true}
-                                style={{margin:"2rem"}}
+                                style={{marginTop:"3rem"}}
                                 {...reqSchoolsData}
                                 exportHeaders
                             >
@@ -689,7 +687,7 @@ const TicketsPage = (props) => {
                             <DataTableExtensions
                                 print={false}
                                 export={true}
-                                style={{marginTop:"2rem"}}
+                                style={{marginTop:"3rem"}}
 
                                 {...newSchoolsData}
                                 exportHeaders
@@ -709,7 +707,7 @@ const TicketsPage = (props) => {
                         <div className="my-4">
                             <DataTableExtensions
                                 {...SchoolsData}
-                                style={{marginTop:"2rem"}}
+                                style={{marginTop:"3rem"}}
 
                                 export={true}
                                 print={false}

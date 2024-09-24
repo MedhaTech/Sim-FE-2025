@@ -1390,7 +1390,7 @@ const NonAtlPage = () => {
                                  {isSubmitting ? (
               <>
                 <i className="fas fa-spinner fa-spin me-2" />
-                Processing your Registration
+                Processing your Registration. 🚫 Donot Refresh
               </>
             ) : (
               "Verify My Account"
