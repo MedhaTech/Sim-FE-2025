@@ -351,7 +351,63 @@ const ReportsRegistration = () => {
   //     // dispatch(getDistrictData());
   //     fetchChartTableData();
   // }, []);
+  // var sColStacked = {
+  //   chart: {
+  //     height: 500,
+  //     type: "bar",
+  //     stacked: true,
+  //     toolbar: {
+  //       show: false,
+  //     },
+  //   },
+  //   colors: ["rgb(255, 69, 96)", "rgb(254, 176, 25)", "rgb(0, 227, 150)"],
 
+  //   plotOptions: {
+  //     bar: {
+  //       horizontal: false,
+  //     },
+  //   },
+  //   series: [
+  //     {
+  //       name: "#Not started",
+  //       data: series3,
+  //     },
+  //     {
+  //       name: "#InProgress",
+  //       data: series4,
+  //     },
+  //     {
+  //       name: "#Completed",
+  //       data: series5,
+  //     },
+  //   ],
+  //   xaxis: {
+  //     categories: barChart2Data.labels,
+  //     ticks: {
+  //       maxRotation: 80,
+  //       autoSkip: false,
+  //     },
+  //   },
+  //   yaxis: {
+  //     beginAtZero: true,
+  //     ticks: {
+  //       stepSize: 20,
+  //     },
+  //     labels: {
+  //       formatter: (val) => {
+  //         return val / 1;
+  //       },
+  //     },
+  //   },
+
+  //   legend: {
+  //     position: "top",
+  //     horizontalAlign: "center",
+  //   },
+  //   fill: {
+  //     opacity: 1,
+  //   },
+  // };
   const chartOption = {
     maintainAspectRatio: false,
     legend: {
@@ -463,67 +519,67 @@ const ReportsRegistration = () => {
   //     }
   // };
 
-  // var options = {
-  //   chart: {
-  //     height: 500,
-  //     type: "area",
-  //     toolbar: {
-  //       show: false,
-  //     },
-  //     zoom: {
-  //       enabled: false,
-  //     },
-  //   },
-  //   colors: ["#4361ee", "#888ea8"],
-  //   dataLabels: {
-  //     enabled: false,
-  //   },
-  //   stroke: {
-  //     curve: "straight",
-  //   },
-  //   title: {
-  //     text: "ATL Vs Non-ATL Registrations",
-  //     align: "left",
-  //   },
-  //   series: [
-  //     {
-  //       name: "Registered ATL",
-  //       data: series1,
-  //     },
-  //     {
-  //       name: "Registered Non-ATL",
-  //       data: series2,
-  //     },
-  //   ],
-  //   yaxis: {
-  //     beginAtZero: true,
-  //     ticks: {
-  //       stepSize: 10,
-  //     },
-  //     labels: {
-  //       formatter: (val) => {
-  //         return val / 1;
-  //       },
-  //     },
-  //   },
+  var options = {
+    chart: {
+      height: 500,
+      type: "bar",
+      toolbar: {
+        show: false,
+      },
+      zoom: {
+        enabled: false,
+      },
+    },
+    colors: ["#4361ee", "#888ea8"],
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      curve: "straight",
+    },
+    // title: {
+    //   text: "",
+    //   align: "left",
+    // },
+    series: [
+      {
+        name: "Registered Schools",
+        data: series1,
+      },
+      // {
+      //   name: "Registered Non-ATL",
+      //   data: series2,
+      // },
+    ],
+    yaxis: {
+      beginAtZero: true,
+      ticks: {
+        stepSize: 10,
+      },
+      labels: {
+        formatter: (val) => {
+          return val / 1;
+        },
+      },
+    },
 
-  //   xaxis: {
-  //     categories: barChart1Data.labels,
-  //     ticks: {
-  //       maxRotation: 80,
-  //       autoSkip: false,
-  //     },
-  //   },
-  //   legend: {
-  //     position: "top",
-  //     horizontalAlign: "left",
-  //   },
-  //   // tooltip: {
-  //   //   x: {
-  //   //     format: "dd/MM/yy HH:mm",
-  //   //   },
-  //   // },
-  // };
+    xaxis: {
+      categories: barChart1Data.labels,
+      ticks: {
+        maxRotation: 80,
+        autoSkip: false,
+      },
+    },
+    legend: {
+      position: "top",
+      horizontalAlign: "left",
+    },
+    // tooltip: {
+    //   x: {
+    //     format: "dd/MM/yy HH:mm",
+    //   },
+    // },
+  };
 
   const fetchData = (item) => {
     const param = encryptGlobal(
@@ -678,6 +734,10 @@ const ReportsRegistration = () => {
           const othersCount = lastRow.others || 0;
 
           const femaleCount = lastRow.Female || 0;
+          const regCount = lastRow.
+          reg_school
+           || 0;
+
           const ATLregCount = lastRow.ATL_Count || 0;
           const NONATLregNotCount = lastRow.NonATL_Count || 0;
           // console.log(NONATLregNotCount,"11");
@@ -768,20 +828,20 @@ const ReportsRegistration = () => {
             labels: GraphfilteredData.map((item) => item.district),
             datasets: [
               {
-                label: "Registered ATL Schools",
-                data: GraphfilteredData.map((item) => item.ATL_Count),
+                label: "Registered Schools",
+                data: GraphfilteredData.map((item) => item.reg_school),
                 backgroundColor: "#47d147",
               },
-              {
-                label: "Registered Non ATL Schools",
-                data: GraphfilteredData.map((item) => item.NonATL_Count),
-                backgroundColor: "#ffa31a",
-              },
+              // {
+              //   label: "Registered Non ATL Schools",
+              //   data: GraphfilteredData.map((item) => item.NonATL_Count),
+              //   backgroundColor: "#ffa31a",
+              // },
             ],
           };
           setBarChart1Data(barData);
 
-          // setseries1(barData.datasets[0].data);
+          setseries1(barData.datasets[0].data);
           // setseries2(barData.datasets[1].data);
         }
       })
@@ -1120,27 +1180,27 @@ const ReportsRegistration = () => {
                   </div>
                 </div>
               )}
-              {/* {RegTeachersState !== "Tamil Nadu" && (
+              {RegTeachersState !== "Tamil Nadu" && (
                 <div className="col-md-12">
                   <div className="card">
                     <div className="card-header">
                       <h5 className="card-title">
-                        Registered ATL Schools V/s Registered Non ATL Schools{" "}
+                        Registered Schools{" "}
                         {newFormat}
                       </h5>
                     </div>
                     <div className="card-body">
-                      <div id="s-line-area" />
+                      <div  id="s-col-stacked" />
                       <ReactApexChart
                         options={options}
                         series={options.series}
-                        type="area"
+                         type="bar"
                         height={400}
                       />
                     </div>
                   </div>
                 </div>
-              )} */}
+              )}
               {/* <div className="mt-5">
                                     <div
                                         className="col-md-12 chart-container mt-5"

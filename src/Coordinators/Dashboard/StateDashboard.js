@@ -506,14 +506,12 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            {currentUser?.data[0]?.state_name !== "Tamil Nadu" && (  <div className="col-xl-3 col-sm-6 col-12 d-flex">
+            {/* {currentUser?.data[0]?.state_name !== "Tamil Nadu" && (  <div className="col-xl-3 col-sm-6 col-12 d-flex">
                   <div className="dash-widget dash1 w-100">
                     <div className="dash-widgetimg">
                       <span>
                       <FcLibrary size={30} style={{ color: "mediumseagreen" }} />
-                        {/* <ImageWithBasePath
-                          src="assets/img/icons/dash2.svg"
-                          alt="img" /> */}
+                       
                       </span>
                     </div>
                     <div className="dash-widgetcontent">
@@ -525,8 +523,8 @@ const Dashboard = () => {
                       <h6>Total Atl Schools</h6>
                     </div>
                   </div>
-                </div>)}
-                <div className="col-xl-3 col-sm-6 col-12 d-flex">
+                </div>)} */}
+                <div className="col-xl-4 col-sm-6 col-12 d-flex">
               <div className="dash-widget dash3 w-100">
                 <div className="dash-widgetimg">
                   <span>
@@ -550,7 +548,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
+            <div className="col-xl-4 col-sm-6 col-12 d-flex">
               <div className="dash-widget dash3 w-100">
                 <div className="dash-widgetimg">
                   {/* <span>
@@ -578,7 +576,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
+            <div className="col-xl-4 col-sm-6 col-12 d-flex">
               <div className="dash-widget dash1 w-100">
                 <div className="dash-widgetimg">
                   {/* <span>
@@ -605,14 +603,12 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            {currentUser?.data[0]?.state_name !== "Tamil Nadu" && (
+            {/* {currentUser?.data[0]?.state_name !== "Tamil Nadu" && (
               <><div className="col-xl-3 col-sm-6 col-12 d-flex">
                 <div className="dash-widget w-100">
                   <div className="dash-widgetimg">
                     <span>
-                      {/* <ImageWithBasePath
-                        src="assets/img/icons/dash1.svg"
-                        alt="img" /> */}
+                     
                          <FcLibrary size={30} style={{ color: "mediumseagreen" }} />
                     </span>
                   </div>
@@ -626,8 +622,8 @@ const Dashboard = () => {
                 </div>
               </div>
              </>
-            )}
-             <div className="col-xl-3 col-sm-6 col-12 d-flex">
+            )} */}
+             <div className="col-xl-4 col-sm-6 col-12 d-flex">
               <div className="dash-widget w-100">
                 <div className="dash-widgetimg">
                   {/* <span>
@@ -650,7 +646,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
+            <div className="col-xl-4 col-sm-6 col-12 d-flex">
               <div className="dash-widget dash3 w-100">
                 <div className="dash-widgetimg">
                   {/* <span>
@@ -678,7 +674,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-3 col-sm-6 col-12 d-flex">
+            <div className="col-xl-4 col-sm-6 col-12 d-flex">
               <div className="dash-widget dash1 w-100">
                 <div className="dash-widgetimg">
                   <span>

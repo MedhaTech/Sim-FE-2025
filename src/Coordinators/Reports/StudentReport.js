@@ -60,6 +60,8 @@ const StudentProgress = () => {
     []
   );
   const [doughnutChartData, setDoughnutChartData] = useState(null);
+  const [doughnutChartDataBar, setDoughnutChartDataBar] = useState(null);
+
   const csvLinkRef = useRef();
   const csvLinkRefTable = useRef();
   const dispatch = useDispatch();
@@ -88,6 +90,7 @@ const StudentProgress = () => {
     labels: [],
     datasets: [],
   });
+  
   const fullStatesNames = newstateList;
   const allDistricts = {
     "All Districts": [...Object.values(districtList).flat()],
@@ -328,7 +331,7 @@ const StudentProgress = () => {
   var options = {
     chart: {
       height: 500,
-      type: "line",
+      type: "bar",
       toolbar: {
         show: false,
       },
@@ -345,11 +348,11 @@ const StudentProgress = () => {
     },
     series: [
       {
-        name: "# Teams",
+        name: "# Submitted Ideas",
         data: series1,
       },
       {
-        name: "# Students",
+        name: "# Teams",
         data: series2,
       },
     ],
@@ -488,47 +491,84 @@ const StudentProgress = () => {
     ],
   };
 
+  // var radialChart = {
+  //   chart: {
+  //     height: 350,
+  //     type: "donut",
+  //     toolbar: {
+  //       show: false,
+  //     },
+  //   },
+  //   colors: ["rgb(0, 227, 150)", "rgb(254, 176, 25)", "rgb(255, 69, 96)"],
+  //   plotOptions: {
+  //     radialBar: {
+  //       dataLabels: {
+  //         name: {
+  //           fontSize: "22px",
+  //         },
+  //         value: {
+  //           fontSize: "16px",
+  //         },
+  //         total: {
+  //           show: true,
+  //           label: "Total",
+  //           formatter: function () {
+  //             return totalCount.totalStudents;
+  //           },
+  //         },
+  //       },
+  //     },
+  //   },
+  //   series: [
+  //     Math.round((totalCount.courseCompleted * 100) / totalCount.totalStudents),
+  //     Math.round(
+  //       (totalCount.courseINprogesss * 100) / totalCount.totalStudents
+  //     ),
+  //     Math.round(
+  //       ((totalCount.totalStudents -
+  //         (totalCount.courseCompleted + totalCount.courseINprogesss)) *
+  //         100) /
+  //       totalCount.totalStudents
+  //     ),
+  //   ],
+  //   labels: ["Completed", "InProgress", "NotStarted"],
+  // };
   var radialChart = {
     chart: {
-      height: 350,
-      type: "radialBar",
+      height: 330,
+      type: "donut",
       toolbar: {
         show: false,
       },
     },
-    colors: ["rgb(0, 227, 150)", "rgb(254, 176, 25)", "rgb(255, 69, 96)"],
-    plotOptions: {
-      radialBar: {
-        dataLabels: {
-          name: {
-            fontSize: "22px",
+    colors: ["#36A2EB", "#FF6384", "rgb(254, 176, 25)"],
+    labels: [
+      "Completed",
+      "In Progress",
+      "Not Started ",
+    ],
+    series: [
+      totalCount.courseINprogesss,
+                  totalCount.courseCompleted,
+                  totalCount.courseNotStarted,
+    ],
+    legend: {
+      position: "top",
+      horizontalAlign: "center",
+    },
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200,
           },
-          value: {
-            fontSize: "16px",
-          },
-          total: {
-            show: true,
-            label: "Total",
-            formatter: function () {
-              return totalCount.totalStudents;
-            },
+          legend: {
+            position: "bottom",
           },
         },
       },
-    },
-    series: [
-      Math.round((totalCount.courseCompleted * 100) / totalCount.totalStudents),
-      Math.round(
-        (totalCount.courseINprogesss * 100) / totalCount.totalStudents
-      ),
-      Math.round(
-        ((totalCount.totalStudents -
-          (totalCount.courseCompleted + totalCount.courseINprogesss)) *
-          100) /
-        totalCount.totalStudents
-      ),
     ],
-    labels: ["Completed", "InProgress", "NotStarted"],
   };
 
   // useEffect(() => {
@@ -820,7 +860,7 @@ const StudentProgress = () => {
     )
   );
 
-            console.log(courseNotStarted,"11");
+            // console.log(courseNotStarted,"11");
 
             const coursePercentage =
               studentCountItem && studentCountItem.totalstudent > 0
@@ -906,18 +946,36 @@ const StudentProgress = () => {
               },
             ],
           };
+          const doughnutDataGraph = {
+            labels: [
+              "In progress",
+              "Completed",
+              "Not Started ",
+            ],
+            datasets: [
+              {
+                data: [
+                  total.courseINprogesss,
+                  total.courseCompleted,
+                  total.courseNotStarted,
+                ],
+                backgroundColor: ["#8bcaf4", "#ff99af"],
+                hoverBackgroundColor: ["#36A2EB", "#FF6384"],
+              },
+            ],
+          };
 
           const barData = {
             labels: combinedArray.map((item) => item.district),
             datasets: [
               {
-                label: "No.of Students Enrolled",
-                data: combinedArray.map((item) => item.totalStudents),
+                label: "No.of Teams Enrolled",
+                data: combinedArray.map((item) => item.totalTeams),
                 backgroundColor: "rgba(255, 0, 0, 0.6)",
               },
               {
-                label: "No. of Teams created",
-                data: combinedArray.map((item) => item.totalTeams),
+                label: "No. of Ideas Submitted",
+                data: combinedArray.map((item) => item.submittedCount),
                 backgroundColor: "rgba(75, 162, 192, 0.6)",
               },
             ],
@@ -952,6 +1010,8 @@ const StudentProgress = () => {
           setCombinedArray(combinedArray);
           setDownloadTableData(newcombinedArray);
           setDoughnutChartData(doughnutData);
+          setDoughnutChartDataBar(doughnutDataGraph);
+
           setBarChart1Data(barData);
           setBarChart2Data(stackedBarChartData);
           setTotalCount(total);
@@ -1093,12 +1153,12 @@ const StudentProgress = () => {
                               <p>
                                 <b>Students Course Status As of {newFormat}</b>
                               </p>
-                              {totalCount && (
-                                <div id="radial-chart">
+                              {doughnutChartDataBar && (
+                                <div id="donut-chart">
                                   <ReactApexChart
                                     options={radialChart}
                                     series={radialChart.series}
-                                    type="radialBar"
+                                      type="donut"
                                     height={350}
                                   />
                                 </div>
@@ -1247,7 +1307,7 @@ const StudentProgress = () => {
                                     <td>{item.submittedCount}</td>{" "}
                                     <td>{item.draftCount}</td>{" "}
                                     <td>{item.ideaNotStarted}</td>
-           { console.log(item.courseNotStarted,"course not")}
+           {/* { console.log(item.courseNotStarted,"course not")} */}
                                   </tr>
                                 ))}
                                 <tr>
@@ -1309,7 +1369,7 @@ const StudentProgress = () => {
                 <div className="card">
                   <div className="card-header">
                     <h5 className="card-title">
-                      Teams, Students Enrolled As of {newFormat}
+                      Teams, Submitted Ideas Enrolled As of {newFormat}
                     </h5>
                   </div>
                   <div className="card-body">
@@ -1317,7 +1377,7 @@ const StudentProgress = () => {
                     <ReactApexChart
                       options={options}
                       series={options.series}
-                      type="line"
+                       type="bar"
                       height={400}
                     />
                   </div>
