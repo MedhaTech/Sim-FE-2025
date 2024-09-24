@@ -126,12 +126,14 @@ const AdminResources = () => {
             {
                 name: 'Role',
                 selector: (row) => row.role,
+                sortable: true,
                 width: '7rem'
                 // center: true,
             },
             {
                 name: 'State',
                 selector: (row) => row.state,
+                sortable: true,
                 width: '12rem'
             },
             {

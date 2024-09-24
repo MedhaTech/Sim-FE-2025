@@ -193,11 +193,13 @@ const AdminLatestNews = () => {
             {
                 name: 'Role',
                 selector: (row) => row.category,
+                sortable: true,
                 width: '12rem'
             },
             {
                 name: 'State',
                 selector: (row) => row.state,
+                sortable: true,
                 width: '12rem'
             },
             {
