@@ -298,7 +298,7 @@ const StudentProgress = () => {
         show: false,
       },
     },
-    colors: ["#36A2EB", "#FF6384", "rgb(254, 176, 25)"],
+    colors: ["#36A2EB", "rgb(254, 176, 25)", "#FF6384",],
     labels: [
       "Submitted Ideas",
       "In Draft Ideas",
@@ -543,14 +543,14 @@ const StudentProgress = () => {
     },
     colors: ["rgba(255, 0, 0, 0.6)", "rgba(255, 255, 0, 0.6)","rgba(0, 128, 0, 0.6)"],
     labels: [
-      "Completed",
-      "In Progress",
       "Not Started ",
+      "In Progress",
+      "Completed",
     ],
     series: [
+      totalCount.courseNotStarted,
       totalCount.courseINprogesss,
                   totalCount.courseCompleted,
-                  totalCount.courseNotStarted,
     ],
     legend: {
       position: "top",
@@ -860,18 +860,27 @@ const StudentProgress = () => {
     )
   );
 
-            // console.log(courseNotStarted,"11");
 
-            const coursePercentage =
-              studentCountItem && studentCountItem.totalstudent > 0
-                ? Math.round(
-                  ((courseCompletedItem
-                    ? courseCompletedItem.studentCourseCMP
-                    : 0) /
-                    studentCountItem.totalstudent) *
-                  100
-                )
-                : 0;
+            // const coursePercentage =
+            //   studentCountItem && studentCountItem.totalstudent > 0
+            //     ? Math.round(
+            //       ((courseCompletedItem
+            //         ? courseCompletedItem.studentCourseCMP
+            //         : 0) /
+            //         studentCountItem.totalstudent) *
+            //       100
+            //     )
+            //     : 0;
+                const coursePercentage = 
+  studentCountItem && studentCountItem.totalstudent > 0
+    ? Math.round(
+        ((courseCompletedItem && courseCompletedItem.studentCourseCMP
+          ? courseCompletedItem.studentCourseCMP
+          : 0) / studentCountItem.totalstudent) * 100
+      )
+    : 0;
+              console.log(coursePercentage,"11");
+
             return {
               district,
               coursePercentage,
@@ -928,6 +937,7 @@ const StudentProgress = () => {
               courseNotStarted: 0,
             }
           );
+
           const doughnutData = {
             labels: [
               "Draft Ideas",
@@ -1304,6 +1314,7 @@ const StudentProgress = () => {
                                     <td>{item.courseINprogesss}</td>
                                     <td>{item.courseNotStarted}</td>
                                     <td>{item.coursePercentage}%</td>
+                                 
                                     <td>{item.submittedCount}</td>{" "}
                                     <td>{item.draftCount}</td>{" "}
                                     <td>{item.ideaNotStarted}</td>
@@ -1341,7 +1352,11 @@ const StudentProgress = () => {
                                     {totalCount.courseNotStarted}
                                   </td>
                                   <td style={{ color: "crimson" }}>
-                                    {totalCount.coursePercentage}%
+                                  {(totalCount.coursePercentage/totalCount.totalStudents)*100}%
+                                    {
+              // console.log(totalCount.coursePercentage,"%")
+
+                                    }
                                   </td>
                                   {/* <td style={{ color: "crimson" }}>
                                     {Math.round(
