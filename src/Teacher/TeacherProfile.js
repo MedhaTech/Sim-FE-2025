@@ -258,7 +258,7 @@ const handleShow = () => {
                   <input
                     type="text"
                     className="form-control"
-                    defaultValue={currentUser?.data[0]?.state}
+                    defaultValue={teacher?.organization?.state}
                     readOnly="readonly"
                   />
                 </div>

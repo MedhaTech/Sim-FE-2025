@@ -151,11 +151,12 @@ const Createpopup = () => {
         if (response.status === 201) {
           navigate("/popup");
           openNotificationWithIcon("success", "PopUp Created Successfully");
-        } else {
-          openNotificationWithIcon("error", "Opps! Something Wrong");
-        }
+        } 
       } catch (error) {
-        console.log(error);
+        //console.log(error.response.status);
+        if (error.response.status === 420) {
+          openNotificationWithIcon("error", "PopUp for this State & Role already exists");
+        }
       }
     },
     //   onSubmit: (values) => {
@@ -354,7 +355,7 @@ const Createpopup = () => {
                         </Col>
                         {formik.values.type === "file" && (
                           <>
-                            <Label className="mb-2 mt-2" htmlFor="attachments">
+                            <Label className="mb-2 mt-4" htmlFor="attachments">
                               File
                             </Label>
                             <div className="d-flex align-items-center">
@@ -410,7 +411,7 @@ const Createpopup = () => {
                             // md={6}
                           >
                             <Col md={12}>
-                              <Label className="mb-2 mt-2" htmlFor="attachments">
+                              <Label className="mb-2 mt-4" htmlFor="attachments">
                                 Link
                               </Label>
                               <input
@@ -418,7 +419,7 @@ const Createpopup = () => {
                                 name="attachments"
                                 id="attachments"
                                 className="form-control"
-                                placeholder="Please enter the link"
+                                placeholder="Please share 'Embedded link' of the video"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 value={formik.values.attachments}

@@ -2,6 +2,7 @@
 /* eslint-disable indent */
 import { useState } from 'react';
 import React, { useEffect } from 'react';
+import { Link } from "react-router-dom";
 // import Layout from '../Layout';
 import { Container, Row, Col } from 'reactstrap';
 import DataTableExtensions from 'react-data-table-component-extensions';
@@ -65,16 +66,17 @@ const AdminResources = () => {
                 width: '5rem'
             },
             {
+                name: 'Role',
+                selector: (row) => row.role,
+                width: '7rem',
+                sortable: true,
+                // center: true,
+            },{
                 name: 'State',
                 selector: (row) => row.
                 state,
+                sortable: true,
                 width: '9rem'
-                // center: true,
-            },
-            {
-                name: 'Role',
-                selector: (row) => row.role,
-                width: '7rem'
                 // center: true,
             },
             {
@@ -94,29 +96,29 @@ const AdminResources = () => {
                 cell: (record) => {
                     if (record.type === 'file') {
                         return (
-                            <button className="btn btn-warning">
+                            
                                 <a
                                     href={record.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    style={{ color: 'black' }}
+                                    className="badge badge-md bg-secondary"
                                 >
-                                    Navigate
+                                   <i className="fas fa-file-lines"></i> Check File
                                 </a>
-                            </button>
+                            
                         );
                     } else if (record.type === 'link') {
                         return (
-                            <button className="btn btn-warning">
+                            
                                 <a
                                     href={record.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    style={{ color: 'black' }}
+                                    className="badge badge-md bg-secondary"
                                 >
-                                    Navigate
+                                    <i className="fa-brands fa-youtube"></i> Navigate
                                 </a>
-                            </button>
+                           
                         );
                     }
                     return null;
@@ -128,55 +130,48 @@ const AdminResources = () => {
                 width: '15rem',
                 cell: (record) => [
                     <>
-                        {/* <div
-                            key={record}
-                            onClick={() => handleEdit(record)}
-                            style={{ marginRight: '12px' }}
-                        >
-                            <div className="btn btn-info">
-                                Edit
-                            </div>
-                        </div> */}
-
                         <div
                             key={record}
                             onClick={() => handleTecherDelete(record)}
-                            style={{ marginRight: '12px' }}
-                        >
-                            <div className="btn btn-danger">
-                                Delete
-                            </div>
+                            style={{ marginRight: '8px' }}
+                        >                  
+                            <a className="badge badge-md bg-info">
+                                <i
+                                    data-feather="trash-2"
+                                    className="feather-trash-2"
+                                    /> Delete
+                            </a>
                         </div>
                     </>
                 ]
             },
             {
-                name: 'Enable/Disable',
+                name: 'On/Off Popup',
                 width: '9rem',
                 cell: (record) => {
                     
                     if (record.on_off === '1') {
                         return (
                             <button
-                                className="btn btn-danger"
+                                className="btn btn-success"
                                 onClick={() => {
                                     handleStatus(record
                                         , '0');
                                 }}
                             >
-                                Disable
+                                Turned ON
                             </button>
                         );
                     } else if (record.on_off === '0') {
                         return (
                             <button
-                                className="btn btn-success"
+                                className="btn btn-danger"
                                 onClick={() => {
                                     handleStatus(record
                                         , '1');
                                 }}
                             >
-                                Enable
+                                Turned Off
                             </button>
                         );
                     }

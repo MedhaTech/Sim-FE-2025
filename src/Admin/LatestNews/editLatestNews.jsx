@@ -13,6 +13,8 @@ import axios from "axios";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { useNavigate } from "react-router-dom";
 import { stateList } from "../../RegPage/ORGData";
+import Select from "../Reports/Helpers/Select";
+
 
 const EditLatestNews = (props) => {
   const { t } = useTranslation();
@@ -70,17 +72,18 @@ const EditLatestNews = (props) => {
 
     formik.setFieldValue("file_name", file);
   };
-
+  console.log(newsID,"newsID");
   const formik = useFormik({
     initialValues: {
       role: newsID && newsID.category,
       details: newsID && newsID.details,
       file_name: newsID && newsID.file_name,
       url: newsID && newsID.url,
-      state: newsID && newsID.state,
-
+      state: newsID?.state,
       new_status: newsID && newsID.new_status,
     },
+    
+    
     validationSchema: Yup.object({
       role: Yup.string()
         .optional()
@@ -91,8 +94,8 @@ const EditLatestNews = (props) => {
       new_status: Yup.string()
         .optional()
         .oneOf(["0", "1"], "New Status type is Required"),
-      file_name: Yup.mixed(),
-      //url: Yup.string()
+      // file_name: Yup.mixed(),
+      // url: Yup.string()
     }),
     onSubmit: async (values) => {
       try {
@@ -235,20 +238,13 @@ const EditLatestNews = (props) => {
                           State
                           {/* <span required>*</span> */}
                         </Label>
-                        <select
-                          id="inputState"
-                          className="form-select"
-                          onChange={(e) => handleStateChange(e)}
-                        >
-                          <option value="">Select State</option>
-                          {allData.map((state) => (
-                            <option key={state} value={state}>
-                              {state}
-                            </option>
-                          ))}
-                        </select>
-
-                        {formik.touched.state && formik.errors.state ? (
+                        <Select
+                          list={allData}
+                          setValue={(value) => formik.setFieldValue("state", value)} // Update Formik state
+                          placeHolder={"Select State"}
+                          value={formik.values.state}  // Bind the Formik state value
+                        />
+                        {formik.errors.state ? (
                           <small className="error-cls" style={{ color: "red" }}>
                             {formik.errors.state}
                           </small>

@@ -66,9 +66,7 @@ const TeacherEditProfile = () => {
       .min(2, <span style={{ color: "red" }}>Please Enter School Name</span>)
       .matches(
         /^[a-zA-Z0-9\s]+$/,
-        <span style={{ color: "red" }}>
-          Special Characters are not allowed
-        </span>
+        'Special characters are not allowed in the School Name'
       )
       .max(
         40,
@@ -109,9 +107,9 @@ const TeacherEditProfile = () => {
             10,
             <span style={{ color: "red" }}>Number is less than 10 digits</span>
           ),
-          state: Yup.string().required('State is required'),
-          district: Yup.string()
-          .required('District is Required'),
+      state: Yup.string().required('State is required'),
+      district: Yup.string()
+      .required('District not in required format'),
       principal_email: Yup.string()
           .email(
             <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
@@ -124,6 +122,7 @@ const TeacherEditProfile = () => {
             "Email Must be VALID"
           )
           .max(255),
+      
       whatapp_mobile: Yup.string()
           .required(
             <span style={{ color: "red" }}>Please Enter WhatsApp Number</span>
@@ -157,15 +156,21 @@ const TeacherEditProfile = () => {
       title: mentorData.title,
       whatapp_mobile: mentorData.whatapp_mobile,
       gender: mentorData.gender,
-      district: mentorData?.district || "",
+      district: "",
       state: mentorData?.state || '',
       organization_name : mentorData.organization_name
     };
+    if (mentorData?.district && districtList[mentorData?.state]?.includes(mentorData?.district)) {
+      commonInitialValues.district = mentorData.district; // Set to mentorData district if valid
+    }
     return commonInitialValues;
   };
   const formik = useFormik({
     initialValues: getInitialValues(mentorData),
     validationSchema: getValidationSchema(),
+    validateOnMount: true,  // This validates on mount to show errors even if fields aren't touched
+    validateOnChange: true, // Validates on each field change
+    validateOnBlur: true,   // Validates when fields are blurred
     onSubmit: (values) => {
       const full_name = values.full_name;
       const principal_name = values.principal_name;
@@ -175,8 +180,8 @@ const TeacherEditProfile = () => {
       const whatapp_mobile = values.whatapp_mobile;
       const gender = values.gender;
       const organization_name = values.organization_name;
-        const state = values.state;
-        const district = values.district;
+      const state = values.state;
+      const district = values.district;
 
       const bodyt = JSON.stringify({
         full_name: full_name,
@@ -188,8 +193,8 @@ const TeacherEditProfile = () => {
       const bodys = JSON.stringify({
         organization_code : mentorData?.organization_code,
         status : mentorData?.status,
-        state: values.state,
-        district: values.district,
+        state: state,
+        district: district,
 
         principal_email : principal_email,
         principal_mobile : principal_mobile,
@@ -424,8 +429,8 @@ const TeacherEditProfile = () => {
                       onBlur={formik.handleBlur}
                       value={formik.values.organization_name}
                     />
-                    {formik.touched.organization_name && formik.errors.organization_name ? (
-                      <small className="error-cls">
+                    {formik.errors.organization_name ? (
+                      <small className="error-cls" style={{ color: "red" }}>
                         {formik.errors.organization_name}
                       </small>
                     ) : null}
@@ -491,8 +496,7 @@ const TeacherEditProfile = () => {
   placeHolder={"Select State"}
   value={formik.values.state}  
 /> */}
-            {formik.touched.state &&
-            formik.errors.state ? (
+            {formik.errors.state ? (
                 <small className="error-cls" style={{color:"red"}}>
                     {formik.errors.state}
                 </small>
@@ -501,51 +505,31 @@ const TeacherEditProfile = () => {
                 </div><div className="form-login col-lg-3 col-sm-12">
                   <div className="input-blocks">
                     <label className="form-label">District Name</label>
-                    <select
-                                                       
-                                                       name="district"
-                                                      className="form-select"
-                                                       onBlur={
-                                                           formik.handleBlur
-                                                       }
-                                                       value={
-                                                           formik.values
-                                                               .district
-                                                       }
-                                                       onChange={(e) => {
-                                                           const selectedDistrict =
-                                                               e.target.value;
-                                                           formik.setFieldValue(
-                                                               'district',
-                                                               selectedDistrict
-                                                           );
-                                                       }}
-                                                   >
-                                                       <option value="">
-                                                           Select District
-                                                       </option>
-                                                       {districts.map(
-                                                           (district) => (
-                                                               <option
-                                                                   key={
-                                                                       district
-                                                                   }
-                                                                   value={
-                                                                       district
-                                                                   }
-                                                               >
-                                                                   {district}
-                                                               </option>
-                                                           )
-                                                       )}
-                                                   </select>
-                                              
-                                               {formik.touched.district &&
-                                               formik.errors.district ? (
-                                                   <small className="error-cls" style={{color:"red"}}>
-                                                       {formik.errors.district}
-                                                   </small>
-                                               ) : null}
+                    <select                        
+                        name="district"
+                        className="form-select"
+                        onBlur={formik.handleBlur}
+                        value={formik.values.district}
+                        onChange={(e) => {
+                            const selectedDistrict = e.target.value;
+                            formik.setFieldValue( 'district', selectedDistrict );
+                        }}
+                      >
+                        <option value={""}> Select District </option>
+                        {districts.map( (district) => ( 
+                          <option key={district} value={district}>
+                                    {district}
+                            </option>
+                            )
+                        )}
+                      </select>
+                    
+                      {formik.errors.district ? (
+                          <small className="error-cls" style={{color:"red"}}>
+                              Current value : {mentorData?.district}<br/>
+                              {formik.errors.district}
+                          </small>
+                      ) : null}
                   </div>
                 </div>
 
@@ -569,7 +553,7 @@ const TeacherEditProfile = () => {
                       onBlur={formik.handleBlur}
                       value={formik.values.principal_name}
                     />
-                    {formik.touched.principal_name && formik.errors.principal_name ? (
+                    {formik.errors.principal_name ? (
                       <small className="error-cls">
                         {formik.errors.principal_name}
                       </small>
@@ -596,7 +580,7 @@ const TeacherEditProfile = () => {
                       onBlur={formik.handleBlur}
                       value={formik.values.principal_email}
                     />
-                    {formik.touched.principal_email && formik.errors.principal_email ? (
+                    {formik.errors.principal_email ? (
                       <small className="error-cls">
                         {formik.errors.principal_email}
                       </small>
@@ -605,7 +589,7 @@ const TeacherEditProfile = () => {
                 </div>
                 <div className="form-login col-lg-6 col-sm-12">
                   <div className="input-blocks">
-                    <label>Principal Mobile No</label>
+                    <label>Principal Mobile/WhatsApp No</label>
                     <input
                       type="text"
                       className="form-control"
@@ -625,7 +609,7 @@ const TeacherEditProfile = () => {
                       value={formik.values.principal_mobile}
                     />
 
-                    {formik.touched.principal_mobile && formik.errors.principal_mobile ? (
+                    {formik.errors.principal_mobile ? (
                       <small className="error-cls">
                         {formik.errors.principal_mobile}
                       </small>
@@ -640,7 +624,7 @@ const TeacherEditProfile = () => {
                     className={`btn btn-warning  ${
                       !(formik.dirty && formik.isValid) ? "default" : "primary"
                     }`}
-                    disabled={!(formik.dirty && formik.isValid)}
+                    disabled={!(formik.isValid)}
                   >
                     Submit
                   </button>
