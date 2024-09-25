@@ -391,7 +391,7 @@ const StudentProgress = () => {
         show: false,
       },
     },
-    colors: ["rgb(255, 69, 96)", "rgb(254, 176, 25)", "rgb(0, 227, 150)"],
+    colors: ["rgba(255, 0, 0, 0.6)", "rgba(255, 255, 0, 0.6)","rgba(0, 128, 0, 0.6)"],
 
     plotOptions: {
       bar: {
@@ -541,7 +541,7 @@ const StudentProgress = () => {
         show: false,
       },
     },
-    colors: ["#36A2EB", "#FF6384", "rgb(254, 176, 25)"],
+    colors: ["rgba(255, 0, 0, 0.6)", "rgba(255, 255, 0, 0.6)","rgba(0, 128, 0, 0.6)"],
     labels: [
       "Completed",
       "In Progress",
@@ -959,8 +959,8 @@ const StudentProgress = () => {
                   total.courseCompleted,
                   total.courseNotStarted,
                 ],
-                backgroundColor: ["#8bcaf4", "#ff99af"],
-                hoverBackgroundColor: ["#36A2EB", "#FF6384"],
+                backgroundColor: ["rgba(255, 0, 0, 0.6)", "rgba(255, 255, 0, 0.6)","rgba(0, 128, 0, 0.6)"],
+                hoverBackgroundColor: ["#e60026", "#ffae42","#087830"],
               },
             ],
           };

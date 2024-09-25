@@ -276,6 +276,13 @@ const Dashboard = () => {
                 width: '6rem'
             },
             {
+                name: "Username",
+                selector: (row) => row.user?.username,
+                sortable: true,
+                center: true,
+                width: "12rem",
+              },
+            {
                 name: 'Team Name',
                 selector: (row) => row.team_name,
                 sortable: true,
