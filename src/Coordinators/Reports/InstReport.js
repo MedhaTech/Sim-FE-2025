@@ -30,6 +30,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import ReactApexChart from "react-apexcharts";
 import { openNotificationWithIcon } from "../../helpers/Utils";
+import { faSchool } from "@fortawesome/free-solid-svg-icons";
 
 const TeacherProgressDetailed = () => {
   const navigate = useNavigate();
@@ -113,6 +114,10 @@ const TeacherProgressDetailed = () => {
       key: "district",
     },
     {
+      label: "Registered Schools",
+      key: "reg_school",
+    },
+    {
       label: "ATL Schools",
       key: "ATL_Count",
     },
@@ -125,6 +130,10 @@ const TeacherProgressDetailed = () => {
     {
       label: "District",
       key: "district",
+    },
+    {
+      label: "Registered Schools",
+      key: "reg_school",
     },
     {
       label: "FullyAidedHighSchool",
@@ -663,6 +672,10 @@ const TeacherProgressDetailed = () => {
                                 <tr>
                                   <th style={{ color: "#36A2EB" ,fontWeight: "bold"}}>#No</th>
                                   <th style={{ color: "#36A2EB",fontWeight: "bold" }}>District Name</th>
+                                  <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
+                                  Registered Schools{" "}
+                                  <FontAwesomeIcon icon={faSchool} />
+                                </th>
                                   {selectstate !== "Tamil Nadu" && (
                                     <>
                                       <th style={{ color: "#36A2EB",fontWeight: "bold" }}>
@@ -714,6 +727,7 @@ const TeacherProgressDetailed = () => {
                                     >
                                       {item.district}
                                     </td>
+                                    <td>{item.reg_school}</td>
                                     {/* <td
                                    
                                     >

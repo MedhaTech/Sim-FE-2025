@@ -245,6 +245,13 @@ const DiescodeScreen = () => {
         width: "6rem",
       },
       {
+        name: "Username",
+        selector: (row) => row.user?.username,
+        sortable: true,
+        center: true,
+        width: "12rem",
+      },
+      {
         name: "Team Name",
         selector: (row) => row.team_name,
         sortable: true,
@@ -255,7 +262,7 @@ const DiescodeScreen = () => {
         name: "Student Count",
         selector: (row) => row.student_count,
         center: true,
-        width: "13rem",
+        width: "12rem",
       },
       {
         name: "Idea Sub Status",
@@ -270,7 +277,7 @@ const DiescodeScreen = () => {
 "SUBMITTED" ?  row.ideaAcceptance:"Not yet Reviewed" ,
        
         center: true,
-        width: '15rem'
+        width: '14rem'
     },
       //   {
       //     name: "Mentor Approval",
@@ -313,7 +320,7 @@ const DiescodeScreen = () => {
             </>,
           ];
         },
-        width: "15rem",
+        width: "14rem",
         center: true,
       },
     ],
@@ -344,6 +351,8 @@ const DiescodeScreen = () => {
         if (result.isConfirmed) {
           if (result.isConfirmed) {
             await deleteTempMentorById(id);
+            window.location.reload();
+
             setOrgData({});
           }
         }
@@ -382,6 +391,7 @@ const DiescodeScreen = () => {
               mentor_id: data.mentor_id,
               otp: false,
             })
+
           );
         }
       })
