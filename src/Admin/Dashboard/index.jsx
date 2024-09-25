@@ -158,13 +158,12 @@ const adminMentorCount = () => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-console.log(response,"res");
-setTotalMentorCount(response.data.data[0].mentorCount);
-setTotalMentorFeMaleCount(response.data.data[0].mentorFemale
-);
-
-setTotalMentorMaleCount(response.data.data[0].mentorMale);
-}
+    console.log(response,"res");
+    setTotalMentorCount(response.data.data[0].mentorCount);
+    setTotalMentorFeMaleCount(response.data.data[0].mentorFemale
+    );
+    setTotalMentorMaleCount(response.data.data[0].mentorMale);
+  }
                 // setTotalMentorCount(response.data.data[0].mentorCount);
                 // setTotalMentorMaleCount(response.data.data[0].mentorMale);
         })

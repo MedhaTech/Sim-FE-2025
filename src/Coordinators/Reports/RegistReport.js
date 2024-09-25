@@ -1180,7 +1180,6 @@ const ReportsRegistration = () => {
                   </div>
                 </div>
               )}
-              {RegTeachersState !== "Tamil Nadu" && (
                 <div className="col-md-12">
                   <div className="card">
                     <div className="card-header">
@@ -1200,7 +1199,6 @@ const ReportsRegistration = () => {
                     </div>
                   </div>
                 </div>
-              )}
               {/* <div className="mt-5">
                                     <div
                                         className="col-md-12 chart-container mt-5"

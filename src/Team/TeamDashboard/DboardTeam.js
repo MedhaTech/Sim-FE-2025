@@ -83,7 +83,7 @@ const EmployeesGrid = () => {
   // }, [teamsMembersStatus]);
   const [ideaEnableStatus, setIdeaEnableStatus] = useState(0);
   useEffect(() => {
-    if (teamsMembersStatus.length >= 2 && teamsMembersStatus.length <= 3) {
+    if (teamsMembersStatus.length >= 2 && teamsMembersStatus.length <= 5) {
       localStorage.setItem("ideaSubStatus", teamsMembersStatus[0].idea_submission);
       if (Array.isArray(teamsMembersStatus)) {
         let anyCompleted = false;
@@ -385,54 +385,6 @@ const EmployeesGrid = () => {
                 Marathon 2024 today.
               </h6>
             </div>
-            {/* <div className="dropdown">
-              <button
-                className="btn btn-primary dropdown-toggle"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                {selectedLanguage}
-              </button>
-              <ul className="dropdown-menu">
-                <li>
-                  <Link
-                    className="dropdown-item"
-                    onClick={() => handleLanguageChange("English")}
-                    to="#"
-                  >
-                    English
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="dropdown-item"
-                    onClick={() => handleLanguageChange("Hindi")}
-                    to="#"
-                  >
-                    Hindi
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="dropdown-item"
-                    onClick={() => handleLanguageChange("Telugu")}
-                    to="#"
-                  >
-                    Telugu
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="dropdown-item"
-                    onClick={() => handleLanguageChange("Tamil")}
-                    to="#"
-                  >
-                    Tamil
-                  </Link>
-                </li>
-              </ul>
-            </div> */}
           </div>
           {/* Student Cards */}
           <div className="employee-grid-widget">
