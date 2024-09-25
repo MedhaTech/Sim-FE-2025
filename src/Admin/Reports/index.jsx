@@ -3,6 +3,7 @@
 import React, { useState ,useEffect} from "react";
 import { Link } from 'react-router-dom';
 import reg from "../../assets/img/reportregister1.png";
+import teacher from "../../assets/img/classroom.png";
 import school from "../../assets/img/reportschool.png";
 import student from "../../assets/img/reportsstudent1.png";
 import idea from "../../assets/img/reportidea.png";
@@ -23,10 +24,14 @@ const Reports = () => {
     adminTeamsCount();
     adminSudentCount();
     adminMentorCount();
+    adminideasCount();
 }, []);
     const [totalteamsCount, setTotalteamsCount] = useState('-');
     const [totalStudentCount, setTotalStudentCount] = useState('-');
     const [totalMentorCount, setTotalMentorCount] = useState('-');
+    const [totalideasCount, setTotalideasCount] = useState('-');
+    const [totalSubmittedideasCount, setTotalSubmittedideasCount] =
+    useState('-');
     const adminTeamsCount = () => {
         var config = {
             method: 'get',
@@ -89,6 +94,30 @@ const Reports = () => {
                 console.log(error);
             });
     };
+    const adminideasCount = () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/ideasCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+    
+                    setTotalideasCount(response.data.data[0].initiated_ideas);
+                    setTotalSubmittedideasCount(
+                        response.data.data[0].submitted_ideas
+                    );
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
 return (
 <div>
     <div className="page-wrapper">
@@ -103,6 +132,68 @@ return (
             </div>
             <div className="employee-grid-widget">
                 <div className="row">
+                    <div className="col-xxl-3 col-xl-4 col-lg-6 col-md-6">
+                        <div className="employee-grid-profile">
+                        <div className="profile-head">
+                            <div className="dep-name">
+                                <h5 className="active">Institution</h5>
+                            </div>
+                        </div>
+                        <Link   to ="/institution-report"
+                        >
+                            <div className="profile-info department-profile-info" >
+                                
+                                    <div className="profile-pic">
+                                    <img
+                                        src={school}
+                                        alt=""
+                                    />
+                                    </div>
+                                    <h4>School Registrations</h4>
+                            </div>
+                        </Link>
+                        <ul className="team-members">
+                            <li>Total Schools: </li>
+                            <li>
+                            <ul>
+                                <li>
+                                <Link to="#">
+                                    <img
+                                        src={user1}
+                                        alt=""
+                                    />
+                                </Link>
+                                </li>
+                                <li>
+                                <Link to="#">
+                                    <img
+                                        src={user2}
+                                        alt=""
+                                    />
+                                </Link>
+                                </li>
+                                <li>
+                                <Link to="#">
+                                    <img
+                                        src={user3}
+                                        alt=""
+                                    />
+                                </Link>
+                                </li>
+                                <li>
+                                <Link to="#">
+                                    <img
+                                        src={user}
+                                        alt=""
+                                    />
+                                    <span>+</span>
+                                </Link>
+                                </li>
+                            </ul>
+                            </li>
+                        </ul>
+                        </div>
+                    </div> 
                     <div className="col-xxl-3 col-xl-4 col-lg-6 col-md-6">
                         <div className="employee-grid-profile">
                         <div className="profile-head">
@@ -176,7 +267,7 @@ return (
                                 
                                     <div className="profile-pic">
                                     <img
-                                        src={school}
+                                        src={teacher}
                                         alt=""
                                     />
                                     </div>
@@ -307,7 +398,7 @@ return (
                             </div>
                         </Link>
                         <ul className="team-members">
-                            <li>Total Ideas: 07</li>
+                            <li>Total Ideas: {totalSubmittedideasCount}</li>
                             <li>
                             <ul>
                                 <li>
@@ -340,7 +431,7 @@ return (
                                         src={user}
                                         alt=""
                                     />
-                                    <span>+4</span>
+                                    <span>+</span>
                                 </Link>
                                 </li>
                             </ul>
@@ -348,68 +439,7 @@ return (
                         </ul>
                         </div>
                     </div> 
-                    <div className="col-xxl-3 col-xl-4 col-lg-6 col-md-6">
-                        <div className="employee-grid-profile">
-                        <div className="profile-head">
-                            <div className="dep-name">
-                                <h5 className="active">Institution</h5>
-                            </div>
-                        </div>
-                        <Link   to ="/institution-report"
-                        >
-                            <div className="profile-info department-profile-info" >
-                                
-                                    <div className="profile-pic">
-                                    <img
-                                        src={idea}
-                                        alt=""
-                                    />
-                                    </div>
-                                    <h4>Innovations</h4>
-                            </div>
-                        </Link>
-                        <ul className="team-members">
-                            <li>Total Ideas: 07</li>
-                            <li>
-                            <ul>
-                                <li>
-                                <Link to="#">
-                                    <img
-                                        src={user1}
-                                        alt=""
-                                    />
-                                </Link>
-                                </li>
-                                <li>
-                                <Link to="#">
-                                    <img
-                                        src={user2}
-                                        alt=""
-                                    />
-                                </Link>
-                                </li>
-                                <li>
-                                <Link to="#">
-                                    <img
-                                        src={user3}
-                                        alt=""
-                                    />
-                                </Link>
-                                </li>
-                                <li>
-                                <Link to="#">
-                                    <img
-                                        src={user}
-                                        alt=""
-                                    />
-                                    <span>+4</span>
-                                </Link>
-                                </li>
-                            </ul>
-                            </li>
-                        </ul>
-                        </div>
-                    </div>                    
+                                       
                 </div>
             </div>
         </div>

@@ -107,7 +107,7 @@ const TeacherEditProfile = () => {
             10,
             <span style={{ color: "red" }}>Number is less than 10 digits</span>
           ),
-      state: Yup.string().required('State is required'),
+      // state: Yup.string().required('State is required'),
       district: Yup.string()
       .required('District not in required format'),
       principal_email: Yup.string()
@@ -157,7 +157,7 @@ const TeacherEditProfile = () => {
       whatapp_mobile: mentorData.whatapp_mobile,
       gender: mentorData.gender,
       district: "",
-      state: mentorData?.state || '',
+      // state: mentorData?.state || '',
       organization_name : mentorData.organization_name
     };
     if (mentorData?.district && districtList[mentorData?.state]?.includes(mentorData?.district)) {
@@ -180,7 +180,7 @@ const TeacherEditProfile = () => {
       const whatapp_mobile = values.whatapp_mobile;
       const gender = values.gender;
       const organization_name = values.organization_name;
-      const state = values.state;
+      // const state = values.state;
       const district = values.district;
 
       const bodyt = JSON.stringify({
@@ -193,7 +193,7 @@ const TeacherEditProfile = () => {
       const bodys = JSON.stringify({
         organization_code : mentorData?.organization_code,
         status : mentorData?.status,
-        state: state,
+        // state: state,
         district: district,
 
         principal_email : principal_email,
@@ -411,7 +411,7 @@ const TeacherEditProfile = () => {
                   </div>
                 </div>
                 {/* New fields  */}
-                <div className="form-login col-lg-3 col-sm-12">
+                <div className="form-login col-lg-6 col-sm-12 ">
                   <div className="input-blocks">
                     <label className="form-label">School Name</label>
                     <input
@@ -436,7 +436,7 @@ const TeacherEditProfile = () => {
                     ) : null}
                   </div>
                 </div>
-                <div className="form-login col-lg-6 col-sm-12">
+                {/* <div className="form-login col-lg-6 col-sm-12">
                   <div className="input-blocks">
                     <label className="form-label">State </label>
                     <select
@@ -495,14 +495,16 @@ const TeacherEditProfile = () => {
 }}
   placeHolder={"Select State"}
   value={formik.values.state}  
-/> */}
+/> 
             {formik.errors.state ? (
                 <small className="error-cls" style={{color:"red"}}>
                     {formik.errors.state}
                 </small>
             ) : null}
                   </div>
-                </div><div className="form-login col-lg-3 col-sm-12">
+                </div> */}
+                
+                <div className="form-login col-lg-6 col-sm-12">
                   <div className="input-blocks">
                     <label className="form-label">District Name</label>
                     <select                        
@@ -533,7 +535,7 @@ const TeacherEditProfile = () => {
                   </div>
                 </div>
 
-                <div className="form-login col-lg-6 col-sm-12">
+                <div className="form-login col-lg-4 col-sm-12">
                   <div className="input-blocks">
                     <label className="form-label">Principal Name</label>
                     <input
@@ -560,7 +562,7 @@ const TeacherEditProfile = () => {
                     ) : null}
                   </div>
                 </div>
-                <div className="form-login col-lg-6 col-sm-12">
+                <div className="form-login col-lg-4 col-sm-12">
                   <div className="input-blocks">
                     <label className="form-label">Principal Email ID</label>
                     <input
@@ -587,7 +589,7 @@ const TeacherEditProfile = () => {
                     ) : null}
                   </div>
                 </div>
-                <div className="form-login col-lg-6 col-sm-12">
+                <div className="form-login col-lg-4 col-sm-12">
                   <div className="input-blocks">
                     <label>Principal Mobile/WhatsApp No</label>
                     <input
