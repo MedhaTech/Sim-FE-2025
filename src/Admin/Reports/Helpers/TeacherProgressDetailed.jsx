@@ -69,7 +69,17 @@ const TeacherProgressDetailed = () => {
     const [series5, setseries5] = useState([]);
     const [series6, setseries6] = useState([]);
     const [series7, setseries7] = useState([]);
-    
+    const [seriesa, setseriesa] = useState([]);
+    const [seriesb, setseriesb] = useState([]); 
+
+    const [barChartNew, setBarChartNew] = useState({
+        labels: [],
+        datasets: [],
+      });
+    const [barDought, setBarDought] = useState({
+        labels: [],
+        datasets: [],
+      });
 
     const [barChart1Data, setBarChart1Data] = useState({
         labels: [],
@@ -317,7 +327,7 @@ const TeacherProgressDetailed = () => {
     var options = {
         chart: {
           height: 500,
-          type: "line",
+          type: "bar",
           toolbar: {
             show: false,
           },
@@ -429,88 +439,153 @@ const TeacherProgressDetailed = () => {
         },
       };
 
-    
-    var optionsStudent = {
+      var optionsStudent = {
         chart: {
           height: 500,
-          type: "line",
+          type: "bar",
           toolbar: {
             show: false,
           },
+          zoom: {
+            enabled: false,
+          },
         },
         colors: ['rgb(0, 143, 251)', 'rgb(0, 227, 150)'],
+        dataLabels: {
+          enabled: false,
+        },
+        stroke: {
+          curve: "straight",
+        },
+        series: [
+          {
+            name: "# Registered Students",
+              data: seriesa,
+          },
+          {
+            name: "# Registered Teachers",
+              data: seriesb,
+          },
+        ],
+        
+        yaxis: {
+            beginAtZero: true,
+            ticks: {
+                stepSize: 20
+            },
+            labels: {
+              formatter: (val) => {
+                return val / 1 ;
+              },
+            },
+          },
+    
+        xaxis: {
+          categories: barChartNew.labels,
+          ticks: {
+                maxRotation: 80,
+                autoSkip: false
+            }
+        },
         legend: {
             position: "top",
             horizontalAlign: "center",
           },
-        series: [
-          {
-            name: "#NonATL Students",
-            type: "column",
-            data: series6,
-          },
-          {
-            name: "#ATL Students",
-            type: "line",
-            data: series7,
-          },
-        ],
-        stroke: {
-          width: [0, 4],
-        },
         
-        xaxis: {
-            categories: barChart3Data.labels,
-            ticks: {
-                    maxRotation: 80,
-                    autoSkip: false
-                },
-        },
-        yaxis: [
-          {
-            title: {
-              text: "NonATL Student",
-            },
-          },
-          {
-            opposite: true,
-            title: {
-              text: "ATL Student",
-            },
-          },
-        ],
       };
+
+    // var optionsStudent = {
+    //     chart: {
+    //       height: 500,
+    //       type: "bar",
+    //       toolbar: {
+    //         show: false,
+    //       },
+    //       zoom: {
+    //         enabled: false,
+    //       },
+    //     },
+    //     colors: ['rgb(0, 143, 251)', 'rgb(0, 227, 150)'],
+    //     legend: {
+    //         position: "top",
+    //         horizontalAlign: "center",
+    //       },
+    //       dataLabels: {
+    //         enabled: false,
+    //       },
+    //       series: [
+    //         {
+    //           name: "# Registered Students",
+    //           data: seriesa,
+    //         },
+    //         {
+    //           name: "# Registered Teachers",
+    //           data: seriesb,
+    //         },
+    //       ],
+    //       stroke: {
+    //         curve: "straight",
+    //       },
+    //     // stroke: {
+    //     //   width: [0, 4],
+    //     // },
+        
+    //     xaxis: {
+    //         categories: barChartNew.labels,
+    //         ticks: {
+    //                 maxRotation: 80,
+    //                 autoSkip: false
+    //             },
+    //     },
+    //     yaxis: {
+    //         beginAtZero: true,
+    //         ticks: {
+    //           stepSize: 20,
+    //         },
+    //         labels: {
+    //           formatter: (val) => {
+    //             return val / 1;
+    //           },
+    //         },
+    //       },
+          
+    //   };
 
     var radialChart = {
         chart: {
           height: 350,
-          type: "radialBar",
+          type: "donut",
           toolbar: {
             show: false,
           },
         },
-        colors: ["rgb(0, 227, 150)", 'rgb(254, 176, 25)','rgb(255, 69, 96)' ],
-        plotOptions: {
-          radialBar: {
-            dataLabels: {
-              name: {
-                fontSize: "22px",
-              },
-              value: {
-                fontSize: "16px",
-              },
-              total: {
-                show: true,
-                label: "Total",
-                formatter: function () {
-                  return totalCount.totalReg;
+        labels: [
+            "Not started",
+            "In progress",
+            "Completed",
+          ],
+        colors: ["rgba(255, 0, 0, 0.6)", "rgba(255, 255, 0, 0.6)","rgba(0, 128, 0, 0.6)"],
+        series: [
+            totalCount.courseNotStarted,
+            totalCount.courseINcompleted,totalCount.courseCompleted
+          ],
+          legend: {
+            position: "top",
+            horizontalAlign: "center",
+          },
+          responsive: [
+            {
+              breakpoint: 480,
+              options: {
+                chart: {
+                  width: 200,
+                },
+                legend: {
+                  position: "bottom",
                 },
               },
             },
-          },
-        },
-        series: [Math.round(totalCount.courseCompleted*100/totalCount.totalReg), Math.round(totalCount.courseINcompleted*100/totalCount.totalReg),  Math.round((totalCount.totalReg -(totalCount.courseCompleted + totalCount.courseINcompleted))*100/totalCount.totalReg)],
-        labels: ["Completed", "InProgress", "NotStarted"],
+          ],
       };
 
     useEffect(() => {
@@ -873,7 +948,16 @@ const TeacherProgressDetailed = () => {
                             }
                         ]
                     };
-                    
+                    const doughnutDataCourse = {
+                        labels: ["Not started", "In progress","Completed"],
+                        datasets: [
+                          {
+                            data: [total.courseNotStarted, total.courseINcompleted,total.courseCompleted],
+                            backgroundColor: ["rgba(255, 0, 0, 0.6)", "rgba(255, 255, 0, 0.6)","rgba(0, 128, 0, 0.6)"],
+                            hoverBackgroundColor: ["#e60026", "#ffae42","#087830"],
+                          },
+                        ],
+                      };
 
                     const barData = {
                         labels: combinedArray.map((item) => item.state),
@@ -896,6 +980,25 @@ const TeacherProgressDetailed = () => {
                     };
                     setseries2(barData.datasets[0].data);
                     setseries1(barData.datasets[1].data);
+
+                    const barDataA = {
+                        labels: combinedArray.map((item) => item.state),
+                        datasets: [
+                          {
+                            label: "No.of Registered Students Enrolled",
+                            data: combinedArray.map((item) => item.totalStudents),
+                            backgroundColor: "rgba(255, 0, 0, 0.6)",
+                          },
+                          {
+                            label: "No. of Registered Teachers Enrolled",
+                            data: combinedArray.map((item) => (item.totalReg)),
+                            backgroundColor: "rgba(75, 162, 192, 0.6)",
+                          },
+                        ],
+                      };
+                      setseriesa(barDataA.datasets[0].data);
+                      setseriesb(barDataA.datasets[1].data);
+
 
                     const stackedBarChartData = {
                         labels: combinedArray.map((item) => item.state),
@@ -930,7 +1033,11 @@ const TeacherProgressDetailed = () => {
                     setCombinedArray(combinedArray);
                     setDownloadTableData(newcombinedArray);
                     setDoughnutChartData(doughnutData);
+          setBarDought(doughnutDataCourse);
+
                     setBarChart1Data(barData);
+          setBarChartNew(barDataA);
+
                     setBarChart2Data(stackedBarChartData);
                     setTotalCount(total);
                 }
@@ -1067,12 +1174,12 @@ return (
                                                         {newFormat}
                                                     </b>
                                                 </p>
-                                                {totalCount && (
+                                                {barDought && (
                                                     <div id="radial-chart" >
                                                         <ReactApexChart
                                                         options={radialChart}
                                                         series={radialChart.series}
-                                                        type="radialBar"
+                                                        type="donut"
                                                         height={350}
                                                         />
                                                     </div>
@@ -1267,7 +1374,7 @@ return (
                             <ReactApexChart
                             options={options}
                             series={options.series}
-                            type="line"
+                            type="bar"
                             height={400}
                             />
                         </div>
@@ -1292,14 +1399,14 @@ return (
                     <div className="col-md-12">
                         <div className="card">
                         <div className="card-header">
-                            <h5 className="card-title">No.of Students Enrolled from ATL v/s Non ATL Schools{' '}{newFormat}</h5>
+                            <h5 className="card-title">Registered Teachers, Students Enrolled As of{' '}{newFormat}</h5>
                         </div>
                         <div className="card-body">
-                            <div id="mixed-chart" />
+                            <div  id="s-line-area" />
                             <ReactApexChart
                             options={optionsStudent}
                             series={optionsStudent.series}
-                            type="line"
+                            type="bar"
                             height={400}
                             />
                         </div>

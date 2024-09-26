@@ -115,14 +115,7 @@ const ReportsRegistration = () => {
       label: "State Name",
       key: "state",
     },
-    {
-      label: "Total Schools in DB",
-      key: "Eligible_school",
-    },
-    {
-      label: "Registered Schools",
-      key: "reg_school",
-    },
+   
     // {
     //   label: "Total Not Registered ATL Schools",
     //   key: "total_not_Reg_ATL",
@@ -150,6 +143,14 @@ const ReportsRegistration = () => {
     {
       label: " Registered Others Teachers",
       key: "others",
+    },
+    {
+      label: "Total Schools in DB",
+      key: "Eligible_school",
+    },
+    {
+      label: "Registered Schools",
+      key: "reg_school",
     },
   ];
   const RegHeaders = [
@@ -370,7 +371,7 @@ const ReportsRegistration = () => {
   var options = {
     chart: {
       height: 500,
-      type: "area",
+      type: "bar",
       toolbar: {
         show: false,
       },
@@ -385,19 +386,19 @@ const ReportsRegistration = () => {
     stroke: {
       curve: "straight",
     },
-    title: {
-      text: "ATL Vs Non-ATL Registrations",
-      align: "left",
-    },
+    // title: {
+    //   text: "ATL Vs Non-ATL Registrations",
+    //   align: "left",
+    // },
     series: [
       {
-        name: "Registered ATL",
+        name: "Registered Schools",
         data: series1,
       },
-      {
-        name: "Registered Non-ATL",
-        data: series2,
-      },
+      // {
+      //   name: "Registered Non-ATL",
+      //   data: series2,
+      // },
     ],
     yaxis: {
       beginAtZero: true,
@@ -879,16 +880,17 @@ const ReportsRegistration = () => {
                 <div className="card">
                   <div className="card-header">
                     <h5 className="card-title">
-                      Registered ATL Schools V/s Registered Non ATL Schools{" "}
+                      Registered Schools{" "}
                       {newFormat}
                     </h5>
                   </div>
                   <div className="card-body">
-                    <div id="s-line-area" />
+                    <div id="s-col-stacked" />
                     <ReactApexChart
                       options={options}
                       series={options.series}
-                      type="area"
+                      type="bar"
+                      // type="area"
                       height={400}
                     />
                   </div>

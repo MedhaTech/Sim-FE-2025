@@ -279,10 +279,10 @@ const IdeaReport = () => {
         label: 'Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.',
         key: 'feedback'
     },
-    // {
-    //     label: 'Upload image of your prototype.',
-    //     key: 'draftcout'
-    // },
+    {
+        label: 'Upload image of your prototype.',
+        key: 'prototype_image'
+    },
     {
       label: 'Upload documents & video links of your prototype.',
       key: 'prototype_link'
