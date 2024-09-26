@@ -96,9 +96,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   //     )
   // );
   const showPage = false;
-//   const language = useSelector(
-//     (state) => state?.studentRegistration?.studentLanguage
-// );
+  //   const language = useSelector(
+  //     (state) => state?.studentRegistration?.studentLanguage
+  // );
   const [isDisabled, setIsDisabled] = useState(false);
   const initialLoadingStatus = { draft: false, submit: false };
   const [loading, setLoading] = useState(initialLoadingStatus);
@@ -144,26 +144,60 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const [prototypeLink, setPrototypeLink] = useState(formData?.prototype_link);
   const [workbook, setWorkbook] = useState(formData?.workbook);
   // const people = ["None", "2-4 people", "5+ people", "10+ people"];
-  const people = [ t("ideaform_questions.stakeholdersop1"),  t("ideaform_questions.stakeholdersop2"),  t("ideaform_questions.stakeholdersop3"),  t("ideaform_questions.stakeholdersop4")];
+  // const people = [
+  //   t("ideaform_questions.stakeholdersop1"),
+  //   t("ideaform_questions.stakeholdersop2"),
+  //   t("ideaform_questions.stakeholdersop3"),
+  //   t("ideaform_questions.stakeholdersop4"),
+  // ];
 
-  const submit = [ t("ideaform_questions.workbookyes"),  t("ideaform_questions.workbookno")];
+  // const submit = [
+  //   t("ideaform_questions.workbookyes"),
+  //   t("ideaform_questions.workbookno"),
+  // ];
   // console.log(error4,"111");
-  const journey = [
-    t("ideaform_questions.probsoljourneyop1"),
-    t("ideaform_questions.probsoljourneyop2"),
+  // const journey = [
+  //   t("ideaform_questions.probsoljourneyop1"),
+  //   t("ideaform_questions.probsoljourneyop2"),
 
-    t("ideaform_questions.probsoljourneyop3"),
+  //   t("ideaform_questions.probsoljourneyop3"),
 
-    t("ideaform_questions.probsoljourneyop4"),
-
+  //   t("ideaform_questions.probsoljourneyop4"),
+  // ];
+  // const place = [
+  //   t("ideaform_questions.communityop1"),
+  //   t("ideaform_questions.communityop2"),
+  //   t("ideaform_questions.communityop3"),
+  //   t("ideaform_questions.communityop4"),
+  // ];
+    const submit = [
+    { value:"YES", label:  t("ideaform_questions.workbookyes") },
+    { value: "NO", label : t("ideaform_questions.workbookno") },
+  ];
+    const people = [
+    { value:"None", label: t("ideaform_questions.stakeholdersop1") },
+    { value: "2-4 people", label : t("ideaform_questions.stakeholdersop2") },
+    { value: "5+ people", label: t("ideaform_questions.stakeholdersop3") },
+    { value:  "10+ people", label: t("ideaform_questions.stakeholdersop4") },
+  ];
+    const journey = [
+    { value: "We did the full problem solving journey by ourselves." , label: t("ideaform_questions.probsoljourneyop1") },
+    { value:"We got feedback on our problem and modified it",  label : t("ideaform_questions.probsoljourneyop2") },
+    { value: "We got feedback on our idea and modified it", label: t("ideaform_questions.probsoljourneyop3") },
+    { value: "We got feedback on our prototype and modified it", label: t("ideaform_questions.probsoljourneyop4") },
   ];
   const place = [
-    t("ideaform_questions.communityop1"),
-    t("ideaform_questions.communityop2"),
-    t("ideaform_questions.communityop3"),
-    t("ideaform_questions.communityop4"),
+    { value: "School", label: t("ideaform_questions.communityop1") },
+    { value: "Home", label: t("ideaform_questions.communityop2") },
+    {
+      value: "Other places in the surroundings (Market/Park/Playground etc.)",
+      label: t("ideaform_questions.communityop3"),
+    },
+    {
+      value: "Others(Read in newspapers,saw on the internet, etc.)",
+      label: t("ideaform_questions.communityop4"),
+    },
   ];
-  
 
   const initiatedBy = formData?.initiated_by;
   const handleThemeChange = (e) => {
@@ -270,10 +304,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       return pat.join().search(pattern);
     });
     if (checkPat.length > 0) {
-      openNotificationWithIcon(
-        "error",
-        t("home.condition")
-      );
+      openNotificationWithIcon("error", t("home.condition"));
       return;
     }
     const allowedTypes = [
@@ -394,17 +425,14 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       .then(async function (response) {
         if (response.status == 200) {
           setIdeaInitiation(response?.data?.data[0]?.initiated_by);
-          openNotificationWithIcon("success",  t("home.ideaInitPop"));
+          openNotificationWithIcon("success", t("home.ideaInitPop"));
           submittedApi();
           seterror4(false);
           // console.log("200");
         }
       })
       .catch(function (error) {
-        openNotificationWithIcon(
-          "error",
-          t("home.firstfour")
-        );
+        openNotificationWithIcon("error", t("home.firstfour"));
         // console.log("errors");
         console.log(error);
       });
@@ -471,7 +499,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   //   [t("ideaform_questions.communityop4")]: "Others (Read in newspapers, saw on the internet)"
   // };
   // const translateToEnglish = (value) => {
-  //   return englishTranslations[value] || value; 
+  //   return englishTranslations[value] || value;
   // };
   // console.log(translateToEnglish(community),"tt");
   const handleSubmitAll = async (item, stats, file) => {
@@ -491,7 +519,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       status: stats,
       initiated_by: currentUser?.data[0]?.user_id,
     };
-   
+
     if (causes !== null) {
       body["causes"] = causes;
     }
@@ -564,10 +592,11 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       const editParam = encryptGlobal(JSON.stringify(id));
       var config = {
         method: "put",
-        url: `${process.env.REACT_APP_API_BASE_URL +
+        url: `${
+          process.env.REACT_APP_API_BASE_URL +
           "/challenge_response/updateEntry/" +
           editParam
-          }`,
+        }`,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${currentUser?.data[0]?.token}`,
@@ -578,7 +607,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
         .then(function (response) {
           if (response.status === 200) {
             if (stats === "SUBMITTED") {
-              openNotificationWithIcon("success",  t("home.ideaSubPop"));
+              openNotificationWithIcon("success", t("home.ideaSubPop"));
               setTimeout(function () {
                 window.location.reload();
               }, 500);
@@ -587,7 +616,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
               localStorage.setItem("ideaSubStatus", 1);
               onclick();
             } else {
-              openNotificationWithIcon("success",  t("home.ideaDraPop"));
+              openNotificationWithIcon("success", t("home.ideaDraPop"));
               setIsDisabled(true);
               scroll();
             }
@@ -601,10 +630,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
           console.log(error);
         });
     } else {
-      openNotificationWithIcon(
-        "error",
-        t("home.ideaFullPop")
-      );
+      openNotificationWithIcon("error", t("home.ideaFullPop"));
     }
   };
   const onclick = () => {
@@ -630,7 +656,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     focusarea?.length > 0 &&
     title?.length > 0 &&
     problemStatement?.length > 0;
-    // console.log(stakeholders,"staake",community,"community");
+  // console.log(stakeholders,"staake",community,"community");
   return (
     <>
       {/* <div className='content'> */}
@@ -645,18 +671,30 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                   <Form className="form-row row" isSubmitting>
                     {formData?.verified_status !== null && (
                       <>
-                        {formData?.verified_status === "REJECTED"
-                          ? <div className="d-md-flex justify-content-end px-4">
+                        {formData?.verified_status === "REJECTED" ? (
+                          <div className="d-md-flex justify-content-end px-4">
                             <Card className="p-3 card-bg-warning">
-                              <h5 className="text-white p-1">Last modified by : {formData?.initiated_name} </h5>
-                              <h5 className="text-white p-1">Last submission rejected by your teacher on : {moment(formData?.verified_at).format("DD-MM-YYYY")} </h5>
-                              <h5 className="text-white p-1">Reason for Rejection : {formData?.mentor_rejected_reason} </h5>
+                              <h5 className="text-white p-1">
+                                Last modified by : {formData?.initiated_name}{" "}
+                              </h5>
+                              <h5 className="text-white p-1">
+                                Last submission rejected by your teacher on :{" "}
+                                {moment(formData?.verified_at).format(
+                                  "DD-MM-YYYY"
+                                )}{" "}
+                              </h5>
+                              <h5 className="text-white p-1">
+                                Reason for Rejection :{" "}
+                                {formData?.mentor_rejected_reason}{" "}
+                              </h5>
                             </Card>
                           </div>
-                          : ""}
+                        ) : (
+                          ""
+                        )}
                       </>
                     )}
-                    
+
                     {formData?.status === "SUBMITTED" && (
                       <div className="d-md-flex justify-content-end px-4">
                         <Card className="p-3 card-bg-info">
@@ -671,27 +709,33 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             {formData?.initiated_name}
                             {formData?.status === "DRAFT"
                               ? moment(formData?.created_at).format(
-                                "DD-MM-YYYY H:I A"
-                              )
-                              : (formData?.submitted_at) ? " On " + moment(formData?.submitted_at).format("DD-MM-YYYY HH:MM A") : ""}
+                                  "DD-MM-YYYY H:I A"
+                                )
+                              : formData?.submitted_at
+                              ? " On " +
+                                moment(formData?.submitted_at).format(
+                                  "DD-MM-YYYY HH:MM A"
+                                )
+                              : ""}
                           </h5>
                           <h5 className="text-white p-1">
                             Teacher Verification Status :
                             {formData?.verified_status === null ||
-                              formData?.verified_status === ""
+                            formData?.verified_status === ""
                               ? " Yet to be Reviewed"
                               : formData?.verified_status === "ACCEPTED"
-                                ? ` Accepted on ${moment(
+                              ? ` Accepted on ${moment(
                                   formData?.verified_at
                                 ).format("DD-MM-YYYY HH:MM A")}`
-                                : formData?.verified_status === "REJECTED"
-                                  ? ` Rejected on ${moment(
-                                    formData?.verified_at
-                                  ).format("DD-MM-YYYY HH:MM A")} - Reason: ${formData?.mentor_rejected_reason
-                                  }`
-                                  : moment(formData?.verified_at).format(
-                                    "DD-MM-YYYY HH:MM A"
-                                  )}
+                              : formData?.verified_status === "REJECTED"
+                              ? ` Rejected on ${moment(
+                                  formData?.verified_at
+                                ).format("DD-MM-YYYY HH:MM A")} - Reason: ${
+                                  formData?.mentor_rejected_reason
+                                }`
+                              : moment(formData?.verified_at).format(
+                                  "DD-MM-YYYY HH:MM A"
+                                )}
                           </h5>
                         </Card>
                       </div>
@@ -736,10 +780,11 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                           // backgroundColor="#067DE1"
                           onClick={(e) => handleSubmit(e, "DRAFT")}
                           size="small"
-                          label={`${loading.draft
-                            ? t("teacher_teams.loading")
-                            : t("teacher_teams.draft")
-                            }`}
+                          label={`${
+                            loading.draft
+                              ? t("teacher_teams.loading")
+                              : t("teacher_teams.draft")
+                          }`}
                           disabled={!enableSaveBtn}
                         />
                       )}
@@ -773,7 +818,11 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                       <div className="d-md-flex justify-content-end px-0">
                         <Row>
                           <Row>
-                            <h5 className="py-2 text-warning text-uppercase"> {t("home.section1")}: {t("ideaform_questions.section1")}</h5>
+                            <h5 className="py-2 text-warning text-uppercase">
+                              {" "}
+                              {t("home.section1")}:{" "}
+                              {t("ideaform_questions.section1")}
+                            </h5>
                           </Row>
                           <div className="card comment-card">
                             <div className="question quiz mb-0">
@@ -826,9 +875,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                   placeholder={t("home.ideaFoc")}
                                   value={focusarea}
                                   maxLength={500}
-                                  onChange={(e) =>
-                                    setFocusArea(e.target.value)
-                                  }
+                                  onChange={(e) => setFocusArea(e.target.value)}
                                   className="form-control"
                                 />
                                 <div className="text-end">
@@ -984,7 +1031,28 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </div>
                             <div className=" answers row flex-column">
                               <div>
-                                {place.map((item, i) => (
+                                {place.map((item) => (
+                                  <div key={item.value}>
+                                    <input
+                                      type="radio"
+                                      value={item.value}
+                                      disabled={isDisabled}
+                                      checked={item.value === community}
+                                      onChange={(e) =>
+                                        setCommunity(e.target.value)
+                                      }
+                                    />
+                                    <label
+                                      style={{
+                                        margin: "1rem",
+                                        fontSize: "1rem",
+                                      }}
+                                    >
+                                      {item.label}
+                                    </label>
+                                  </div>
+                                ))}
+                                {/* {place.map((item, i) => (
                                   <>
                                     <label
                                       key={i}
@@ -1006,7 +1074,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                     </label>
                                     <br />
                                   </>
-                                ))}
+                                ))} */}
                               </div>
                             </div>
                           </div>
@@ -1045,7 +1113,6 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 {/* {t("student_course.chars")} */}
                                 {/* NEXT */}
                                 {t("idea_page.next")}
-
                               </button>
                             </Col>
                           </div>
@@ -1057,7 +1124,10 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                       <div className="d-md-flex justify-content-end px-0">
                         <Row>
                           <Row>
-                            <h5 className="py-2 text-warning text-uppercase">{t("home.section2")}: {t("ideaform_questions.section2")}</h5>
+                            <h5 className="py-2 text-warning text-uppercase">
+                              {t("home.section2")}:{" "}
+                              {t("ideaform_questions.section2")}
+                            </h5>
                           </Row>
                           <div className="card comment-card">
                             <div className="question quiz mb-0">
@@ -1073,13 +1143,11 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               <textarea
                                 className="form-control"
                                 disabled={isDisabled}
-                                placeholder= {t("home.ideaSol")}
+                                placeholder={t("home.ideaSol")}
                                 value={solution}
                                 rows={6}
                                 maxLength={1000}
-                                onChange={(e) =>
-                                  setSolution(e.target.value)
-                                }
+                                onChange={(e) => setSolution(e.target.value)}
                               />
                               <div className="text-end">
                                 {t("student_course.chars")} :
@@ -1098,7 +1166,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               </b>
                             </div>
                             <div className=" answers row flex-column">
-                              <div>
+                              {/* <div>
                                 {people.map((item, i) => (
                                   <>
                                     <label
@@ -1122,6 +1190,29 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                     <br />
                                   </>
                                 ))}
+                              </div> */}
+                              <div>
+                                {people.map((item) => (
+                                  <div key={item.value}>
+                                    <input
+                                      type="radio"
+                                      value={item.value}
+                                      disabled={isDisabled}
+                                      checked={item.value === stakeholders}
+                                      onChange={(e) =>
+                                        setStakeholders(e.target.value)
+                                      }
+                                    />
+                                    <label
+                                      style={{
+                                        margin: "1rem",
+                                        fontSize: "1rem",
+                                      }}
+                                    >
+                                      {item.label}
+                                    </label>
+                                  </div>
+                                ))}
                               </div>
                             </div>
                           </div>
@@ -1136,7 +1227,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               </b>
                             </div>
                             <div className=" answers row flex-column">
-                              <div>
+                              {/* <div>
                                 {journey.map((item, i) => (
                                   <>
                                     <label
@@ -1168,6 +1259,33 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                     <br />
                                   </>
                                 ))}
+                              </div> */}
+                              <div>
+                                {journey.map((item, i) => (
+                                  <div key={i}>
+                                    <label
+                                      style={{
+                                        margin: "1rem",
+                                        fontSize: "1rem",
+                                      }}
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        value={item.value} // Store English value
+                                        checked={
+                                          Array.isArray(problemSolving) &&
+                                          problemSolving.includes(item.value)
+                                        }
+                                        disabled={isDisabled}
+                                        onChange={() =>
+                                          handleCheckboxChange(item.value)
+                                        } // Use English value in handler
+                                      />{" "}
+                                      {item.label}
+                                    </label>
+                                    <br />
+                                  </div>
+                                ))}
                               </div>
                             </div>
                           </div>
@@ -1189,9 +1307,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 placeholder={t("home.ideaFee")}
                                 value={feedback}
                                 maxLength={500}
-                                onChange={(e) =>
-                                  setFeedback(e.target.value)
-                                }
+                                onChange={(e) => setFeedback(e.target.value)}
                               />
                               <div className="text-end">
                                 {t("student_course.chars")} :
@@ -1208,7 +1324,6 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 {/* {t("student_course.chars")} */}
                                 {/* BACK */}
                                 {t("idea_page.back")}
-
                               </button>
                             </Col>
                             <Col className="d-flex justify-content-end">
@@ -1228,7 +1343,10 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                       <div className="d-md-flex justify-content-end px-0">
                         <Row>
                           <Row>
-                            <h5 className="py-2 text-warning text-uppercase">{t("home.section3")}: {t("ideaform_questions.section3")}</h5>
+                            <h5 className="py-2 text-warning text-uppercase">
+                              {t("home.section3")}:{" "}
+                              {t("ideaform_questions.section3")}
+                            </h5>
                           </Row>
                           <div className="card comment-card">
                             <div className="question quiz mb-0">
@@ -1259,10 +1377,11 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                                                                                 )} */}
                                 {!isDisabled && (
                                   <Button
-                                    label= {t("home.ideaFi")}
+                                    label={t("home.ideaFi")}
                                     // btnClass="primary"
-                                    btnClass={`${isDisabled ? "secondary" : "primary"
-                                      } me-3 pointer `}
+                                    btnClass={`${
+                                      isDisabled ? "secondary" : "primary"
+                                    } me-3 pointer `}
                                     size="small"
                                     onClick={() => {
                                       document.getElementById("file").click();
@@ -1349,7 +1468,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               </b>
                             </div>
                             <div className=" answers row flex-column">
-                              <div>
+                              {/* <div>
                                 {submit.map((item, i) => (
                                   <>
                                     <label
@@ -1373,6 +1492,29 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                     <br />
                                   </>
                                 ))}
+                              </div> */}
+                              <div>
+                                {submit.map((item) => (
+                                  <div key={item.value}>
+                                    <input
+                                      type="radio"
+                                      value={item.value}
+                                      disabled={isDisabled}
+                                      checked={item.value === workbook}
+                                      onChange={(e) =>
+                                        setWorkbook(e.target.value)
+                                      }
+                                    />
+                                    <label
+                                      style={{
+                                        margin: "1rem",
+                                        fontSize: "1rem",
+                                      }}
+                                    >
+                                      {item.label}
+                                    </label>
+                                  </div>
+                                ))}
                               </div>
                             </div>
                           </div>
@@ -1381,7 +1523,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               className="btn btn-info "
                               onClick={goToBack}
                             >
-                               {t("idea_page.back")}
+                              {t("idea_page.back")}
                               {/* BACK */}
                             </button>
                           </div>
@@ -1408,8 +1550,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                 </CardBody>
               </div>
             </div>
-          </Col >
-        </div >
+          </Col>
+        </div>
       )}
       {/* </div> */}
     </>
