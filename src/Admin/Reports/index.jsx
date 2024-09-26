@@ -136,7 +136,7 @@ return (
                         <div className="employee-grid-profile">
                         <div className="profile-head">
                             <div className="dep-name">
-                                <h5 className="active">Institution</h5>
+                                <h5 className="active">Organizations Report</h5>
                             </div>
                         </div>
                         <Link   to ="/institution-report"
@@ -149,7 +149,7 @@ return (
                                         alt=""
                                     />
                                     </div>
-                                    <h4>School Registrations</h4>
+                                    <h4>Organizations</h4>
                             </div>
                         </Link>
                         <ul className="team-members">
