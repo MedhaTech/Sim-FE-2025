@@ -412,7 +412,7 @@ const InstitutionReport = () => {
           const chartTableData = response?.data?.data[0].rows || [];
           const modifiedChartTableData = chartTableData.map((item) => ({
             ...item,
-            registration_status: item.mentor_reg !== 0 ? "Completed" : "Not Started",
+            registration_status: item.mentor_reg !== 0 ? "Registered" : "Not Registered",
           }));
           
           // Set the modified data for download
