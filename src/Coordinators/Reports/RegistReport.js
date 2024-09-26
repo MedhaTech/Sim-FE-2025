@@ -996,7 +996,7 @@ const ReportsRegistration = () => {
                            {/* <h4 className="card-title mb-0">Institution Type Stats</h4> */}
                            {/* </div> */}
                            <div className="card-header d-flex justify-content-between align-items-center">
-                           <h4 className="card-title mb-0">Institution Type Gender Stats</h4>
+                           <h4 className="card-title mb-0">Statistics</h4>
                            </div>
                            <div className="col-md-12 text-center mt-3">
                             <p>

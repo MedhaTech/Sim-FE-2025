@@ -47,9 +47,9 @@ const Sidebar = () => {
     let submenuItems = sidebarData[0]?.submenuItems || [];
 
     if (currentUser?.data[0]?.state_name === "Tamil Nadu") {
-      if (!submenuItems.some(item => item.label === "Institutions Report")) {
+      if (!submenuItems.some(item => item.label === "Organizations Report")) {
         submenuItems.push({
-          label: "Institutions Report",
+          label: "Organizations Report",
           link: "/state-institution-report",
           icon: <Icon.FiCodesandbox />,
           showSubRoute: false,
@@ -58,7 +58,7 @@ const Sidebar = () => {
       }
     } else {
       submenuItems = submenuItems.filter(
-        item => item.label !== "Institutions Report"
+        item => item.label !== "Organizations Report"
       );
     }
 

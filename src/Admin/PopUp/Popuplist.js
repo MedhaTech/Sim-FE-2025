@@ -19,6 +19,7 @@ import Swal from 'sweetalert2/dist/sweetalert2';
 import logout from '../../assets/img/logout.png';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import 'sweetalert2/src/sweetalert2.scss';
+import { AlertOctagon,PlusCircle, Check} from 'feather-icons-react/build/IconComponents';
 const AdminResources = () => {
     const navigate = useNavigate();
     const [resList, setResList] = useState([]);
@@ -91,8 +92,8 @@ const AdminResources = () => {
             //     width: '25%'
             // },
             {
-                name: 'File/Link',
-                width: '8rem',
+                name: 'Attachment',
+                width: '6rem',
                 cell: (record) => {
                     if (record.type === 'file') {
                         return (
@@ -101,9 +102,9 @@ const AdminResources = () => {
                                     href={record.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="badge badge-md bg-secondary"
+                                    className="badge badge-md bg-light"
                                 >
-                                   <i className="fas fa-file-lines"></i> Check File
+                                   <i className="fas fa-file-lines" style={{color:"blue"}}></i>
                                 </a>
                             
                         );
@@ -114,9 +115,9 @@ const AdminResources = () => {
                                     href={record.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="badge badge-md bg-secondary"
+                                    className="badge badge-md bg-light"
                                 >
-                                    <i className="fa-brands fa-youtube"></i> Navigate
+                                    <i className="fa-brands fa-youtube" style={{color:"red"}}></i>
                                 </a>
                            
                         );
@@ -127,7 +128,7 @@ const AdminResources = () => {
             {
                 name: 'Actions',
                 center: true,
-                width: '15rem',
+                width: '8rem',
                 cell: (record) => [
                     <>
                         <div
@@ -135,11 +136,11 @@ const AdminResources = () => {
                             onClick={() => handleTecherDelete(record)}
                             style={{ marginRight: '8px' }}
                         >                  
-                            <a className="badge badge-md bg-info">
+                            <a className="badge badge-md bg-danger">
                                 <i
                                     data-feather="trash-2"
                                     className="feather-trash-2"
-                                    /> Delete
+                                    />
                             </a>
                         </div>
                     </>
@@ -147,7 +148,7 @@ const AdminResources = () => {
             },
             {
                 name: 'On/Off Popup',
-                width: '9rem',
+                width: '10rem',
                 cell: (record) => {
                     
                     if (record.on_off === '1') {
@@ -159,19 +160,20 @@ const AdminResources = () => {
                                         , '0');
                                 }}
                             >
-                                Turned ON
+                                Turned ON<Check className="ms-1"  style={{ height: 15, width: 15 }}/>
                             </button>
                         );
                     } else if (record.on_off === '0') {
                         return (
                             <button
-                                className="btn btn-danger"
+                                className="btn btn-light"
                                 onClick={() => {
                                     handleStatus(record
                                         , '1');
                                 }}
                             >
-                                Turned Off
+                                Turned Off<AlertOctagon className="ms-1"  style={{ height: 15, width: 15 }}/>
+                                
                             </button>
                         );
                     }
@@ -556,7 +558,7 @@ const AdminResources = () => {
                                                 '/create-popup'
                                             )
                                         }
-                                    >Create-PopUp</button>
+                                    ><PlusCircle className="me-2" style={{color:"white"}} /> <b>Create PopUp</b></button>
                         </Col>
                        
                             <div className="my-2">
