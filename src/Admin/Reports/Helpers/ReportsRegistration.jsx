@@ -128,10 +128,10 @@ const ReportsRegistration = () => {
       label: "Total Registered NON-ATL Teachers",
       key: "NONATL_Reg_Count",
     },
-    // {
-    //   label: "Total Registered Teachers (ATL+Non-ATL)",
-    //   key: "totalTeachers",
-    // },
+    {
+      label: "Total Registered Others Teachers ",
+      key: "Others_Reg_Count",
+    },
     {
       label: "Registered Male Teachers",
       key: "Male",
@@ -576,7 +576,8 @@ const ReportsRegistration = () => {
           const femaleCount = lastRow?.Female || 0;
           const ATLregCount = lastRow?.ATL_Reg_Count || 0;
           const NONATLregNotCount = lastRow?.NONATL_Reg_Count || 0;
-          const totalTeachers = maleCount + femaleCount + othersCount;
+          const OthersRegCount = lastRow?.Others_Reg_Count || 0;
+
 
           // console.log("Total Teachers:", totalTeachers);
           setRegisteredGenderChartData({
@@ -591,12 +592,12 @@ const ReportsRegistration = () => {
           });
 
           setRegisteredChartData({
-            labels: ["ATL Teachers Registered", "NON ATL Teachers Registered"],
+            labels: ["ATL Teachers Registered", "NON ATL Teachers Registered","Others Teachers Registered"],
             datasets: [
               {
-                data: [ATLregCount, NONATLregNotCount],
-                backgroundColor: ["#85e085", "#ffcc80"],
-                hoverBackgroundColor: ["#33cc33", "#ffa31a"],
+                data: [ATLregCount, NONATLregNotCount,OthersRegCount],
+                backgroundColor: ["#85e085", "#ffcc80","#A0522D"],
+                hoverBackgroundColor: ["#33cc33", "#ffa31a",'#8B4513'],
               },
             ],
           });
@@ -826,6 +827,9 @@ const ReportsRegistration = () => {
                                   Non-ATL Teachers
                                 </th>
                                 <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
+                                  Others Teachers
+                                </th>
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                   Total Teachers
                                 </th>
                                 <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
@@ -862,7 +866,9 @@ const ReportsRegistration = () => {
 }</td>
                                   <td>{item.ATL_Reg_Count}</td>
                                   <td>{item.NONATL_Reg_Count}</td>
-                                  <td>{item.Male+item.Female+item.others}</td>
+                                  <td>{item.Others_Reg_Count}</td>
+
+                                  <td>{item.ATL_Reg_Count+item.NONATL_Reg_Count+item.Others_Reg_Count}</td>
                                   <td>{item.Male}</td>
                                   <td>{item.Female}</td>
                                   <td>{item.others}</td>
