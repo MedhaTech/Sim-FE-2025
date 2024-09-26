@@ -36,8 +36,7 @@ const InstitutionReport = () => {
   const [district, setdistrict] = React.useState("");
   const currentUser = getCurrentUser("current_user");
 
-  const [selectstate, setSelectState] = React.useState(
-    currentUser?.data[0]?.state_name
+  const [selectstate, setSelectState] = React.useState(""
   );
   const [category, setCategory] = useState("");
   const [isDownload, setIsDownload] = useState(false);
@@ -102,6 +101,7 @@ const InstitutionReport = () => {
     ...districtList,
   };
   const fiterDistData = ["All Districts", ...(allDistricts[selectstate] || [])];
+  // const fiterDistData = selectstate ? ["All Districts", ...(allDistricts[selectstate] || [])] : [];
   const [instType, setInstType] = useState([]);
   //   const [instTypeTNChartData, setInstTypeTNChartData] = useState(null);
 
@@ -412,7 +412,7 @@ const InstitutionReport = () => {
           const chartTableData = response?.data?.data[0].rows || [];
           const modifiedChartTableData = chartTableData.map((item) => ({
             ...item,
-            registration_status: item.mentor_reg !== 0 ? "Completed" : "Not Started",
+            registration_status: item.mentor_reg !== 0 ? "Registered" : "Not Registered",
           }));
           
           // Set the modified data for download
@@ -452,8 +452,8 @@ const InstitutionReport = () => {
           <div className="add-item d-flex">
             <div className="page-title">
               {/* <h4>Institutions /Organizations /Schools List</h4> */}
-              <h4>Institutions Report </h4>
-              <h6>List of overall Institutions details</h6>
+              <h4>Organizations Report </h4>
+              <h6>List of overall Schools & its registration status</h6>
             </div>
           </div>
           <div className="page-btn">

@@ -115,14 +115,7 @@ const ReportsRegistration = () => {
       label: "State Name",
       key: "state",
     },
-    {
-      label: "Total Schools in DB",
-      key: "Eligible_school",
-    },
-    {
-      label: "Registered Schools",
-      key: "reg_school",
-    },
+   
     // {
     //   label: "Total Not Registered ATL Schools",
     //   key: "total_not_Reg_ATL",
@@ -135,10 +128,10 @@ const ReportsRegistration = () => {
       label: "Total Registered NON-ATL Teachers",
       key: "NONATL_Reg_Count",
     },
-    // {
-    //   label: "Total Registered Teachers (ATL+Non-ATL)",
-    //   key: "totalTeachers",
-    // },
+    {
+      label: "Total Registered Others Teachers ",
+      key: "Others_Reg_Count",
+    },
     {
       label: "Registered Male Teachers",
       key: "Male",
@@ -150,6 +143,14 @@ const ReportsRegistration = () => {
     {
       label: " Registered Others Teachers",
       key: "others",
+    },
+    {
+      label: "Total Schools in DB",
+      key: "Eligible_school",
+    },
+    {
+      label: "Registered Schools",
+      key: "reg_school",
     },
   ];
   const RegHeaders = [
@@ -370,7 +371,7 @@ const ReportsRegistration = () => {
   var options = {
     chart: {
       height: 500,
-      type: "area",
+      type: "bar",
       toolbar: {
         show: false,
       },
@@ -385,19 +386,19 @@ const ReportsRegistration = () => {
     stroke: {
       curve: "straight",
     },
-    title: {
-      text: "ATL Vs Non-ATL Registrations",
-      align: "left",
-    },
+    // title: {
+    //   text: "ATL Vs Non-ATL Registrations",
+    //   align: "left",
+    // },
     series: [
       {
-        name: "Registered ATL",
+        name: "Registered Schools",
         data: series1,
       },
-      {
-        name: "Registered Non-ATL",
-        data: series2,
-      },
+      // {
+      //   name: "Registered Non-ATL",
+      //   data: series2,
+      // },
     ],
     yaxis: {
       beginAtZero: true,
@@ -575,7 +576,8 @@ const ReportsRegistration = () => {
           const femaleCount = lastRow?.Female || 0;
           const ATLregCount = lastRow?.ATL_Reg_Count || 0;
           const NONATLregNotCount = lastRow?.NONATL_Reg_Count || 0;
-          const totalTeachers = maleCount + femaleCount + othersCount;
+          const OthersRegCount = lastRow?.Others_Reg_Count || 0;
+
 
           // console.log("Total Teachers:", totalTeachers);
           setRegisteredGenderChartData({
@@ -590,12 +592,12 @@ const ReportsRegistration = () => {
           });
 
           setRegisteredChartData({
-            labels: ["ATL Teachers Registered", "NON ATL Teachers Registered"],
+            labels: ["ATL Teachers Registered", "NON ATL Teachers Registered","Others Teachers Registered"],
             datasets: [
               {
-                data: [ATLregCount, NONATLregNotCount],
-                backgroundColor: ["#85e085", "#ffcc80"],
-                hoverBackgroundColor: ["#33cc33", "#ffa31a"],
+                data: [ATLregCount, NONATLregNotCount,OthersRegCount],
+                backgroundColor: ["#85e085", "#ffcc80","#A0522D"],
+                hoverBackgroundColor: ["#33cc33", "#ffa31a",'#8B4513'],
               },
             ],
           });
@@ -825,6 +827,9 @@ const ReportsRegistration = () => {
                                   Non-ATL Teachers
                                 </th>
                                 <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
+                                  Others Teachers
+                                </th>
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                   Total Teachers
                                 </th>
                                 <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
@@ -861,7 +866,9 @@ const ReportsRegistration = () => {
 }</td>
                                   <td>{item.ATL_Reg_Count}</td>
                                   <td>{item.NONATL_Reg_Count}</td>
-                                  <td>{item.Male+item.Female+item.others}</td>
+                                  <td>{item.Others_Reg_Count}</td>
+
+                                  <td>{item.ATL_Reg_Count+item.NONATL_Reg_Count+item.Others_Reg_Count}</td>
                                   <td>{item.Male}</td>
                                   <td>{item.Female}</td>
                                   <td>{item.others}</td>
@@ -879,16 +886,17 @@ const ReportsRegistration = () => {
                 <div className="card">
                   <div className="card-header">
                     <h5 className="card-title">
-                      Registered ATL Schools V/s Registered Non ATL Schools{" "}
+                      Registered Schools{" "}
                       {newFormat}
                     </h5>
                   </div>
                   <div className="card-body">
-                    <div id="s-line-area" />
+                    <div id="s-col-stacked" />
                     <ReactApexChart
                       options={options}
                       series={options.series}
-                      type="area"
+                      type="bar"
+                      // type="area"
                       height={400}
                     />
                   </div>

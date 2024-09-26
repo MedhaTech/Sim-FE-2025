@@ -69,6 +69,7 @@ const Dashboard = () => {
   const [totalSchoolCount, setTotalSchoolCount] = useState('-');
   const [nonAtl, setNonAtl] = useState('-');
   const [atl, setAtl] = useState('-');
+  const [other, setOther] = useState('-');
   const [mentorCoursesCompletedCount, setMentorCoursesCompletedCount] =
     useState('-');
   const [studentCoursesCompletedCount, setStudentCoursesCompletedCount] =
@@ -99,6 +100,7 @@ const Dashboard = () => {
 
           setAtl(response.data.data[0].ATLCount);
           setNonAtl(response.data.data[0].NONATLCount);
+          setOther(response.data.data[0].OthersCount);
         }
       })
       .catch(function (error) {
@@ -416,7 +418,7 @@ const Dashboard = () => {
                 </div>
                 <div className="dash-widgetcontent">
                   <h5>
-                    {Number(atl) + Number(nonAtl)}
+                    {Number(atl) + Number(nonAtl) + Number(other) }
                   </h5>
                   <h6>Total Registered Schools</h6>
                 </div>

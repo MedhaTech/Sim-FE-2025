@@ -20,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 import logout from '../../assets/img/logout.png';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import 'sweetalert2/src/sweetalert2.scss';
+import { AlertOctagon,PlusCircle, Check} from 'feather-icons-react/build/IconComponents';
 import ToggleButton from './Toggles'; 
 
 const AdminLatestNews = () => {
@@ -339,7 +340,7 @@ const AdminLatestNews = () => {
             },
             {
                 name: 'File',
-                width: '8rem',
+                width: '5rem',
                 cell: (record) => {
                     if (record.file_name === null) {
                         return <p>No file</p>;
@@ -349,9 +350,9 @@ const AdminLatestNews = () => {
                                     href={record.file_name}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="badge badge-md bg-secondary"
+                                    className="badge badge-md bg-light"
                                 >
-                                    <i className="fas fa-file-lines"></i> Check File
+                                    <i className="fas fa-file-lines" style={{color:"blue"}}></i>
                                 </a>
                         );
                     }
@@ -359,7 +360,7 @@ const AdminLatestNews = () => {
             },
             {
                 name: 'Link',
-                width: '8rem',
+                width: '5rem',
                 cell: (record) => {
                     if (record.url === null) {
                         return <p>No link</p>;
@@ -369,9 +370,9 @@ const AdminLatestNews = () => {
                             href={record.url}
                             target="_blank"
                             rel="noreferrer"
-                            className="badge badge-md bg-secondary"
+                            className="badge badge-md bg-light"
                         >
-                            <i className="fa-brands fa-youtube"></i> Navigate
+                            <i className="fa-brands fa-youtube" style={{color:"red"}}></i>
                         </a>
                         );
                     }
@@ -389,18 +390,18 @@ const AdminLatestNews = () => {
                                     handleNewStuStatus(record, '0');
                                 }}
                             >
-                                Turned ON
+                                Turned ON<Check className="ms-1"  style={{ height: 15, width: 15 }}/>
                             </button>
                         );
                     } else if (record.new_status === '0') {
                         return ( 
                             <button
-                                className="badge badge-md bg-danger"
+                                className="badge badge-md bg-light text-dark"
                                 onClick={() => {
                                     handleNewStuStatus(record, '1');
                                 }}
                             >
-                                Turned OFF
+                                Turned Off<AlertOctagon className="ms-1"  style={{ height: 15, width: 15 }}/>
                             </button>
                         );
                     }
@@ -408,7 +409,7 @@ const AdminLatestNews = () => {
             },
             {
                 name: 'Actions',
-                width: '15rem',
+                width: '14rem',
                 center: true,
                 cell: (record) => [
                     <> 
@@ -462,7 +463,7 @@ const AdminLatestNews = () => {
             },
             {
                 name: 'File',
-                width: '8rem',
+                width: '5rem',
                 cell: (record) => {
                     if (record.file_name === null) {
                         return <p>No file</p>;
@@ -473,9 +474,9 @@ const AdminLatestNews = () => {
                                     href={record.file_name}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="badge badge-md bg-secondary"
+                                    className="badge badge-md bg-light"
                                 >
-                                    <i className="fas fa-file-lines"></i> Check File
+                                    <i className="fas fa-file-lines" style={{color:"blue"}}></i>
                                 </a>
                            
                         );
@@ -484,7 +485,7 @@ const AdminLatestNews = () => {
             },
             {
                 name: 'Link',
-                width: '8rem',
+                width: '5rem',
                 cell: (record) => {
                     if (record.url === null) {
                         return <p>No link</p>;
@@ -494,9 +495,9 @@ const AdminLatestNews = () => {
                                 href={record.url}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="badge badge-md bg-secondary"
+                                className="badge badge-md bg-light"
                             >
-                                <i className="fa-brands fa-youtube"></i> Navigate
+                                <i className="fa-brands fa-youtube" style={{color:"red"}}></i>
                             </a>
                         );
                     }
@@ -514,18 +515,18 @@ const AdminLatestNews = () => {
                                     handleNewStatus(record, '0');
                                 }}
                             >
-                                Turned ON
+                                Turned ON<Check className="ms-1"  style={{ height: 15, width: 15 }}/>
                             </button>
                         );
                     } else if (record.new_status === '0') {
                         return (
                             <button
-                                className="badge badge-md bg-danger"
+                                className="badge badge-md bg-light text-dark"
                                 onClick={() => {
                                     handleNewStatus(record, '1');
                                 }}
                             >
-                                Turned OFF
+                                Turned Off<AlertOctagon className="ms-1"  style={{ height: 15, width: 15 }}/>
                             </button>
                         );
                     }
@@ -533,7 +534,7 @@ const AdminLatestNews = () => {
             },
             {
                 name: 'Actions',
-                width: '15rem',
+                width: '14rem',
                 center: true,
                 cell: (record) => [
                     <>
@@ -597,17 +598,24 @@ const AdminLatestNews = () => {
     return (
         <div className="page-wrapper">
         <div className="content">
-            <Container className="ticket-page mb-50">
-                <Row className="pt-3">
-                    <Col className="col-auto">
-                        {reqList ? (
-                            <h2>Student Latest News</h2>
-                        ) : (
-                            <h2>Teacher Latest News</h2>
-                        )}
-                    </Col>
-
-                    <Col className="ticket-btn col ml-auto ">
+            <div className="page-header">
+                    <div className="add-item d-flex">
+                        <div className="page-title">
+                            {reqList ? (
+                                <>
+                                    <h4>Student Latest News</h4>
+                                    <h6>Create , Edit , Del Student Latest News here</h6>
+                                </>
+                            ) : (
+                                <>
+                                    <h4>Teacher Latest News</h4>
+                                    <h6>Create , Edit , Del Teachers Latest News here</h6>
+                                </>
+                            )}
+                            
+                        </div>
+                    </div>
+                    <div className="page-btn">
                         {reqList ? (
                             <div className="d-flex justify-content-end">
                                  <button
@@ -632,60 +640,100 @@ const AdminLatestNews = () => {
                                             '/create-news'
                                         )
                                     }
-                                >
-Create LatestNews
+                                ><PlusCircle className="me-2" style={{color:"white"}} /><b>Create Latest News</b>
                             </button>
                             </div>
                         )}
-                    </Col>
-                    {reqList ? (
-                        <div className="my-2">
-                            <DataTableExtensions
-                                print={false}
-                                export={true}
-                                {...stuNewsData}
-                                exportHeaders
-                            >
-                                <DataTable
-                                    // data={SRows}
-                                    defaultSortField="id"
-                                    defaultSortAsc={false}
-                                    customStyles={customStyles}
+                    </div>
+                </div>
+                <Container className="ticket-page mb-50">
+                    <Row className="pt-3">
+                        {/* <Col className="col-auto">
+                            {reqList ? (
+                                <h2>Student Latest News</h2>
+                            ) : (
+                                <h2>Teacher Latest News</h2>
+                            )}
+                        </Col> */}
 
-                                    pagination
-                                    highlightOnHover
-                                    fixedHeader
-                                    subHeaderAlign={Alignment.Center}
-                                />
-                            </DataTableExtensions>
-                        </div>
-                    ) : (
-                        <div className="my-2">
-                            <DataTableExtensions
-                                print={false}
-                                export={false}
-                                {...resData}
-                                exportHeaders
-                            >
-                                <DataTable
-                                    // data={setResList}
-                                    // noHeader
-                                    defaultSortField="id"
-                                    customStyles={customStyles}
+                        {/* <Col className="ticket-btn col ml-auto ">
+                            {reqList ? (
+                                <div className="d-flex justify-content-end">
+                                    <button
+                                        className='btn btn-secondary'
+                                            onClick={(e) => handleBack(e)}
+                                        >
+                                        Back
+                                        </button>
+                                </div>
+                            ) : (
+                                <div className="d-flex justify-content-end">
+                                    <button
+                                    className='btn btn-warning me-2'
+                                        onClick={(e) => handleStudentList(e)}
+                                    >
+                                        Student Latest News
+                                    </button>
+                                    <button
+                                    className='btn btn-info'
+                                        onClick={() =>
+                                            navigate(
+                                                '/create-news'
+                                            )
+                                        }
+                                    >
+    Create LatestNews
+                                </button>
+                                </div>
+                            )}
+                        </Col> */}
+                        {reqList ? (
+                            <div>
+                                <DataTableExtensions
+                                    print={false}
+                                    export={true}
+                                    {...stuNewsData}
+                                    exportHeaders
+                                >
+                                    <DataTable
+                                        // data={SRows}
+                                        defaultSortField="id"
+                                        defaultSortAsc={false}
+                                        customStyles={customStyles}
 
-                                    defaultSortAsc={false}
-                                    pagination
-                                    highlightOnHover
-                                    fixedHeader
-                                    subHeaderAlign={Alignment.Center}
-                                />
-                            </DataTableExtensions>
-                        </div>
-                    )}
-                </Row>
-            </Container>
-            {/* <h1>hi</h1> */}
-        </div>
+                                        pagination
+                                        highlightOnHover
+                                        fixedHeader
+                                        subHeaderAlign={Alignment.Center}
+                                    />
+                                </DataTableExtensions>
+                            </div>
+                        ) : (
+                            <div>
+                                <DataTableExtensions
+                                    print={false}
+                                    export={false}
+                                    {...resData}
+                                    exportHeaders
+                                >
+                                    <DataTable
+                                        // data={setResList}
+                                        // noHeader
+                                        defaultSortField="id"
+                                        customStyles={customStyles}
+
+                                        defaultSortAsc={false}
+                                        pagination
+                                        highlightOnHover
+                                        fixedHeader
+                                        subHeaderAlign={Alignment.Center}
+                                    />
+                                </DataTableExtensions>
+                            </div>
+                        )}
+                    </Row>
+                </Container>
+            </div>
         </div>
     );
 };

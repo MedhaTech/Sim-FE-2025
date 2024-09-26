@@ -1352,12 +1352,15 @@ const StudentProgress = () => {
                                     {totalCount.courseNotStarted}
                                   </td>
                                   <td style={{ color: "crimson" }}>
-                                  {(totalCount.coursePercentage/totalCount.totalStudents)*100}%
-                                    {
-              // console.log(totalCount.coursePercentage,"%")
-
-                                    }
+                                    {Math.round(
+                                      (totalCount.courseCompleted /
+                                        totalCount.totalStudents) *
+                                      100
+                                    )}
+                                    %
                                   </td>
+
+                                 
                                   {/* <td style={{ color: "crimson" }}>
                                     {Math.round(
                                       (totalCount.courseCompleted /

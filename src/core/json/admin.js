@@ -21,7 +21,7 @@ const AdminSidebarData = () => {
           submenu: false,
         },
         {
-          label:"Institution",
+          label:"Overall Schools",
           link: "/institution",
           icon: <Icon.Codesandbox />,
           showSubRoute: false,

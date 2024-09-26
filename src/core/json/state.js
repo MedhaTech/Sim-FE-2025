@@ -21,7 +21,7 @@ const StateSidebarData = () => {
           submenu: false,
         },
         {
-          label: "Institutions Report",
+          label: "Organizations Report",
           link: "/state-institution-report",
           icon: <Icon.Codesandbox />,
           showSubRoute: false,
