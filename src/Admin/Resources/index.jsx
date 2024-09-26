@@ -127,34 +127,34 @@ const AdminResources = () => {
                 name: 'Role',
                 selector: (row) => row.role,
                 sortable: true,
-                width: '7rem'
+                width: '6rem'
                 // center: true,
             },
             {
                 name: 'State',
                 selector: (row) => row.state,
                 sortable: true,
-                width: '12rem'
+                width: '10rem'
             },
             {
                 name: 'Details',
                 selector: (row) => row.description,
-                width: '25rem'
+                width: '20rem'
             },
 
             {
-                name: 'File/Link',
-                width: '8rem',
+                name: 'Attachment',
+                width: '6rem',
                 cell: (record) => {
                     if (record.type === 'file') {
                         return (
                             <a
                                 href={record.attachments}
                                 target="_blank"
-                                className="badge badge-md bg-secondary"
+                                className="badge badge-md bg-light"
                                 rel="noopener noreferrer"
                                 >
-                                <i className="fas fa-file-lines"></i> Check File
+                                <i className="fas fa-file-lines" style={{color:"blue"}}></i>
                             </a>
                         );
                     } else if (record.type === 'link') {
@@ -162,10 +162,10 @@ const AdminResources = () => {
                             <a
                                 href={record.attachments}
                                 target="_blank"
-                                className="badge badge-md bg-secondary"
+                                className="badge badge-md bg-light"
                                 rel="noopener noreferrer"
                                 >
-                                <i className="fa-brands fa-youtube"></i> Navigate
+                                <i className="fa-brands fa-youtube" style={{color:"red"}}></i>
                             </a>
                         );
                     }
@@ -175,7 +175,7 @@ const AdminResources = () => {
             {
                 name: 'Actions',
                 center: true,
-                width: '15rem',
+                width: '14rem',
                 cell: (record) => [
                     <>
                         <button
@@ -226,10 +226,10 @@ const AdminResources = () => {
                     <div className="page-btn">
                         <button
                             type="button"
-                            className="btn btn-primary"
+                            className="btn btn-info"
                             onClick={() => navigate("/createResource")}
                         >
-                            <PlusCircle className="me-2" style={{color:"white"}} />Create Resources
+                            <PlusCircle className="me-2" style={{color:"white"}} /><b>Create Resources</b>
                         </button>
                     </div>
                 </div>

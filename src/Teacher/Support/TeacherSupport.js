@@ -587,9 +587,15 @@ const TeacherSupport = () => {
                   >
                     <Row>
                       <Col md={12}>
-                        <strong style={{ whiteSpace: "pre-line" }}>
+                            <div
+                              className="saved-text"
+                              style={{ whiteSpace: "pre-wrap", marginTop: "1rem" }}
+                            >
+                              {supportTicket.query_details}
+                            </div>
+                        {/* <strong style={{ whiteSpace: "pre-line" }}>
                           {supportTicket.query_details}
-                        </strong>
+                        </strong> */}
                         <hr />
 
                         {/* <strong style={{ whiteSpace: "pre-line" }}>
@@ -658,7 +664,13 @@ const TeacherSupport = () => {
                         >
                           <Row>
                             <Col md={12}>
-                              <strong>{data.reply_details}</strong>
+                              <div
+                                  className="saved-text"
+                                  style={{ whiteSpace: "pre-wrap", marginTop: "1rem" }}
+                                >
+                                  {data.reply_details}
+                                </div>
+                              {/* <strong>{data.reply_details}</strong> */}
                               <hr />
                             </Col>
                             <Col md={3}>

@@ -193,7 +193,13 @@ const StateRes = (props) => {
                 >
                   <Row>
                     <Col md={12}>
-                      <strong>{supportTicket?.query_details}</strong>
+                      <div
+                          className="saved-text"
+                          style={{ whiteSpace: "pre-wrap", marginTop: "1rem" }}
+                        >
+                          {supportTicket?.query_details}
+                        </div>
+                      {/* <strong>{supportTicket?.query_details}</strong> */}
                       <hr />
                     </Col>
                     <Col md={3}>
@@ -251,9 +257,15 @@ const StateRes = (props) => {
                       >
                         <Row>
                           <Col md={12}>
-                            <strong style={{ whiteSpace: "pre-line" }}>
+                            <div
+                              className="saved-text"
+                              style={{ whiteSpace: "pre-wrap", marginTop: "1rem" }}
+                            >
                               {data.reply_details}
-                            </strong>
+                            </div>
+                            {/* <strong style={{ whiteSpace: "pre-line" }}>
+                              {data.reply_details}
+                            </strong> */}
                             <hr />
                           </Col>
                           <Col md={3}>

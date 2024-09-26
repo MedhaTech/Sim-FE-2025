@@ -312,7 +312,7 @@ const TicketsPage = (props) => {
             },
 
             {
-                name: 'Institution Name',
+                name: 'School Name',
                 selector: (row) => row.organization_name,
                 cellExport: (row) => row.organization_name,
                 width: '15rem'
@@ -334,14 +334,7 @@ const TicketsPage = (props) => {
                 name: 'Status',
                 cellExport: (row) => row.status,
                 cell: (row) => [
-                    <Badge
-                        key={row.organization_id}
-                        bg={`${
-                            row.status === 'ACTIVE' ? 'secondary' : 'danger'
-                        }`}
-                    >
-                        {row.status}
-                    </Badge>
+                    <span key={row.organization_id} className="badge bg-success">{row.status}</span>
                 ],
                 width: '5rem'
             },
@@ -368,7 +361,7 @@ const TicketsPage = (props) => {
                             }
                             style={{ marginRight: '7px' }}
                         >
-                            <div className="btn btn-success ">Test</div>
+                            <div className="btn btn-warning ">Test</div>
                         </div>
                         {/* : setDisableBtn(true)} */}
                         <div
@@ -414,7 +407,7 @@ const TicketsPage = (props) => {
                 width: '10rem'
             },
             {
-                name: 'Institution Name',
+                name: 'School Name',
                 selector: (row) => row.organization_name,
                 cellExport: (row) => row.organization_name,
                 width: '15rem'
@@ -435,9 +428,7 @@ const TicketsPage = (props) => {
             {
                 name: 'Status',
                 cell: (row) => [
-                    <Badge key={row.organization_id} bg={`${'danger'}`}>
-                        {row.status}
-                    </Badge>
+                    <span key={row.organization_id} className="badge bg-danger">{row.status}</span>
                 ],
                 width: '4rem'
             },
@@ -462,7 +453,7 @@ const TicketsPage = (props) => {
                             }
                             style={{ marginRight: '7px' }}
                         >
-                            <div className="btn btn-warning ">Active</div>
+                            <div className="btn btn-success">Active</div>
                         </div>
                         <div
                             key={record}
@@ -470,7 +461,7 @@ const TicketsPage = (props) => {
                                 !disableBtn && handleStatusUpdate(record, 'NEW')
                             }
                         >
-                            <div className="btn btn-success">Test</div>
+                            <div className="btn btn-warning ">Test</div>
                         </div>
                     </>
                 ]
@@ -506,7 +497,7 @@ const TicketsPage = (props) => {
                 width: '10rem'
             },
             {
-                name: 'Institution Name',
+                name: 'School Name',
                 selector: (row) => row.organization_name,
                 cellExport: (row) => row.organization_name,
                 width: '15rem'
@@ -527,12 +518,7 @@ const TicketsPage = (props) => {
             {
                 name: 'Status',
                 cell: (row) => [
-                    <Badge
-                        key={row.organization_id}
-                        bg={`${row.status === 'NEW' ? 'secondary' : 'success'}`}
-                    >
-                        {row.status === 'NEW' ? 'TEST' : ''}
-                    </Badge>
+                    <span key={row.organization_id} className="badge bg-warning">{row.status}</span>
                 ],
                 width: '4rem'
             },
@@ -556,7 +542,7 @@ const TicketsPage = (props) => {
                             }
                             style={{ marginRight: '7px' }}
                         >
-                            <div className="btn btn-warning ">Active</div>
+                            <div className="btn btn-success ">Active</div>
                         </div>
                         <div
                             key={record}
@@ -597,75 +583,85 @@ const TicketsPage = (props) => {
         },
       };
     return (
-        <div className="page-wrapper">
+    <div className="page-wrapper">
         <div className="content">
-            <Container className="ticket-page mb-50">
-                <Row className="pt-3">
-                    <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
-                        <Col className="col-auto">
-                            {reqList ? (
-                                <h3>List of Inactive institutions</h3>
-                            ) : newList ? (
-                                <h3>List of Test institutions</h3>
+            <div className="page-header">
+                <div className="add-item d-flex">
+                    <div className="page-title">
+                        {reqList ? (
+                            <>
+                                <h4 style={{color:"red"}}>InActive Schools</h4>
+                                <h5 style={{color:"red"}}>Users from below schools cannot access portal and data doesn&apos;t reflect in reports</h5>
+                            </> 
+                           ) : newList ? (
+                            <>
+                                <h4 style={{color:"orange"}}>Test Schools</h4>
+                                <h5 style={{color:"orange"}}>Users from below schools can access portal but data doesn&apos;t reflect in reports</h5>
+                            </>
                             ) : (
-                                <h3>List of Active institutions</h3>
+                                <>
+                                    <h4 style={{color:"#28C76F"}}>Active Schools</h4>
+                                    <h5 style={{color:"#28C76F"}}>Users from below schools can access portal and data reflects in reports</h5>
+                                </>
                             )}
-                        </Col>
-
-                        <Col className="ticket-btn col ml-auto ">
-                            {reqList ? (
-                                <div className="d-flex justify-content-end">
-                                    <button
-                                       className='btn btn-secondary'
-                                        onClick={(e) => handleBack(e)}
-                                    >
-                                    Back
-                                    </button>
-                                </div>
-                            ) : newList ? (
-                                <div className="d-flex justify-content-end">
-                                    <button
-                                        className='btn btn-secondary'
-                                        onClick={(e) => handleNewBack(e)}
-                                    >
-                                        Back
-                                      </button>
-                                </div>
-                            ) : (
-                                <div className="d-flex justify-content-end p-2">
-                                    <button
-                                        className='btn btn-info p-2 me-2'
-                                        onClick={() =>
-                                          navigate(
-                                                '/addinstitution'
-                                            )
-                                        }
-                                    >
-                                        Add New Institution
-                                      </button>
-                                    
-                                    <button
-                                      className='btn btn-success p-2 me-2'
-                                        onClick={() => handleNewSchoolsList()}
-                                    >
-                                        Test List
-                                    </button>
-                                    <button
-                                       className='btn btn-danger '
-                                        onClick={(e) => handleReqSchoolsList(e)}
-                                    >
-                                        InActive List
-                                    </button>
-                                </div>
-                            )}
-                        </Col>
-                    </Row>
-
+                    </div>
+                </div>
+                <div className="page-btn">
                     {reqList ? (
-                        <div className="my-4">
+                        <div className="d-flex justify-content-end">
+                            <button
+                                className='btn btn-secondary'
+                                onClick={(e) => handleBack(e)}
+                            >
+                            Back
+                            </button>
+                        </div>
+                    ) : newList ? (
+                        <div className="d-flex justify-content-end">
+                            <button
+                                className='btn btn-secondary'
+                                onClick={(e) => handleNewBack(e)}
+                            >
+                                Back
+                                </button>
+                        </div>
+                    ) : (
+                        <div className="d-flex justify-content-end p-2">
+                            <button
+                                className='btn btn-info p-2 me-2'
+                                onClick={() =>
+                                    navigate(
+                                        '/addinstitution'
+                                    )
+                                }
+                            >
+                                Add New School
+                                </button>
+                            
+                            <button
+                                className='btn btn-warning p-2 me-2'
+                                onClick={() => handleNewSchoolsList()}
+                            >
+                                Test List
+                            </button>
+                            <button
+                                className='btn btn-danger '
+                                onClick={(e) => handleReqSchoolsList(e)}
+                            >
+                                InActive List
+                            </button>
+                        </div>
+                    )}
+                </div>
+            </div>
+            <Container className="ticket-page mb-50">
+                <Row>
+                    {reqList ? (
+                        <div>
                             <DataTableExtensions
                                 print={false}
                                 export={true}
+                                fileName="SIM_InactiveSchoolsList"
                                 style={{marginTop:"3rem"}}
                                 {...reqSchoolsData}
                                 exportHeaders
@@ -683,10 +679,11 @@ const TicketsPage = (props) => {
                             </DataTableExtensions>
                         </div>
                     ) : newList ? (
-                        <div className="my-4">
+                        <div>
                             <DataTableExtensions
                                 print={false}
                                 export={true}
+                                fileName="SIM_TestSchoolsList"
                                 style={{marginTop:"3rem"}}
 
                                 {...newSchoolsData}
@@ -704,11 +701,11 @@ const TicketsPage = (props) => {
                             </DataTableExtensions>
                         </div>
                     ) : (
-                        <div className="my-4">
+                        <div>
                             <DataTableExtensions
                                 {...SchoolsData}
                                 style={{marginTop:"3rem"}}
-
+                                fileName="SIM_ActiveSchoolsList"
                                 export={true}
                                 print={false}
                                 exportHeaders

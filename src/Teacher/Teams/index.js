@@ -461,7 +461,7 @@ ideaStatus===  null &&
                   teamlistobj[item.team_name] = item.team_id;
                   return item.team_name;
                 }
-                console.log("not tamil");
+                console.log("tamil");
 
               }
              
@@ -486,12 +486,17 @@ ideaStatus===  null &&
           //     }
           // })
           
-console.log(selectedTeam,"teamId");
+//console.log(selectedTeam,"selectedTeam",listofteams , "listofteams", teamlistobj , "teamlistobj");
+
 
 // console.log(selectedTeam.team_name,"select");
 
           if (Object.keys(teamlistobj).length > 0) {
-            let index = listofteams.indexOf(selectedTeam.team_name);
+            const matchingTeamKey = Object.entries(teamlistobj).find(
+              ([key, value]) => value === selectedTeam
+            )?.[0];
+            //console.log(matchingTeamKey,"matchingTeamKey");
+            let index = listofteams.indexOf(matchingTeamKey);
 
             if (index >= 0) {
               listofteams.splice(index, 1);
