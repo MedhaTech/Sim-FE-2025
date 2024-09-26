@@ -36,8 +36,7 @@ const InstitutionReport = () => {
   const [district, setdistrict] = React.useState("");
   const currentUser = getCurrentUser("current_user");
 
-  const [selectstate, setSelectState] = React.useState(
-    currentUser?.data[0]?.state_name
+  const [selectstate, setSelectState] = React.useState(""
   );
   const [category, setCategory] = useState("");
   const [isDownload, setIsDownload] = useState(false);
@@ -102,6 +101,7 @@ const InstitutionReport = () => {
     ...districtList,
   };
   const fiterDistData = ["All Districts", ...(allDistricts[selectstate] || [])];
+  // const fiterDistData = selectstate ? ["All Districts", ...(allDistricts[selectstate] || [])] : [];
   const [instType, setInstType] = useState([]);
   //   const [instTypeTNChartData, setInstTypeTNChartData] = useState(null);
 
