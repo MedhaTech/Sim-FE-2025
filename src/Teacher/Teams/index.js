@@ -417,6 +417,7 @@ ideaStatus===  null &&
   };
   const handleSwitchTeam = (item) => {
     // alert("hii");
+    console.log(item,"item");
     if (teamsListData.length > 2) {
       teamListby();
       setselectedstudent(item);
@@ -445,6 +446,7 @@ ideaStatus===  null &&
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
+          console.log(response,"res");
           const teamlistobj = {};
           const listofteams = response.data.data
             .map((item) => {
@@ -453,14 +455,19 @@ ideaStatus===  null &&
                   teamlistobj[item.team_name] = item.team_id;
                   return item.team_name;
                 }
+                console.log("not tamil");
               }else{
                 if (item.StudentCount < 5 && item.ideaStatus === null) {
                   teamlistobj[item.team_name] = item.team_id;
                   return item.team_name;
                 }
+                console.log("not tamil");
+
               }
              
             })
+            .filter(Boolean);
+
           // const teamlistobj = {};
 
           // const listofteams = response.data.data;
@@ -479,8 +486,7 @@ ideaStatus===  null &&
           //     }
           // })
           
-            .filter(Boolean);
-// console.log(selectedTeam,"team");
+console.log(selectedTeam,"teamId");
 
 // console.log(selectedTeam.team_name,"select");
 
