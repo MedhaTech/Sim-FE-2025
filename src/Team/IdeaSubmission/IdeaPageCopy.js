@@ -492,16 +492,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       }
     }
   };
-  // const englishTranslations = {
-  //   [t("ideaform_questions.communityop1")]: "School",
-  //   [t("ideaform_questions.communityop2")]: "Home",
-  //   [t("ideaform_questions.communityop3")]: "Other places in the surroundings",
-  //   [t("ideaform_questions.communityop4")]: "Others (Read in newspapers, saw on the internet)"
-  // };
-  // const translateToEnglish = (value) => {
-  //   return englishTranslations[value] || value;
-  // };
-  // console.log(translateToEnglish(community),"tt");
+ 
   const handleSubmitAll = async (item, stats, file) => {
     // alert("hii");
     setLoading(initialLoadingStatus);
@@ -1271,7 +1262,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                     >
                                       <input
                                         type="checkbox"
-                                        value={item.value} // Store English value
+                                        value={item.value} 
                                         checked={
                                           Array.isArray(problemSolving) &&
                                           problemSolving.includes(item.value)
@@ -1279,7 +1270,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                         disabled={isDisabled}
                                         onChange={() =>
                                           handleCheckboxChange(item.value)
-                                        } // Use English value in handler
+                                        } 
                                       />{" "}
                                       {item.label}
                                     </label>
