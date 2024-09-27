@@ -457,7 +457,7 @@ const StateRes = (props) => {
                                             </Col>
                                         </Row>
                                     ) :  <UncontrolledAlert color="danger" className="mb-2">
-                                    Chat window was closed. If your query is not cleared raise a new ticket
+                                    Chat window closed.
                                     </UncontrolledAlert>}
                                 </Card>
 
