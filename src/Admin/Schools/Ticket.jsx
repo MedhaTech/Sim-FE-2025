@@ -430,7 +430,7 @@ const TicketsPage = (props) => {
                 cell: (row) => [
                     <span key={row.organization_id} className="badge bg-danger">{row.status}</span>
                 ],
-                width: '4rem'
+                width: '5rem'
             },
             {
                 name: 'Actions',
@@ -520,7 +520,7 @@ const TicketsPage = (props) => {
                 cell: (row) => [
                     <span key={row.organization_id} className="badge bg-warning">{row.status}</span>
                 ],
-                width: '4rem'
+                width: '5rem'
             },
             {
                 name: 'Actions',
