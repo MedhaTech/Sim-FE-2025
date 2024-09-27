@@ -166,15 +166,7 @@ const InstitutionReport = () => {
     //     label: 'ATL CODE',
     //     key: 'organization_code'
     // },
-    {
-      label: "Registration status",
-      key: "registration_status",
-      // render: () => <span>{registrationStatus}</span>,
-    },
-    {
-      label: "No of teachers registered",
-      key: "mentor_reg",
-    },
+    
     {
       label: "School Name",
       key: "organization_name",
@@ -214,6 +206,15 @@ const InstitutionReport = () => {
     {
       label: "Principal Email",
       key: "principal_email",
+    },
+    {
+      label: "Registration status",
+      key: "registration_status",
+      // render: () => <span>{registrationStatus}</span>,
+    },
+    {
+      label: "No of teachers registered",
+      key: "mentor_reg",
     },
   ];
   const chartOptions = {
@@ -527,7 +528,7 @@ const InstitutionReport = () => {
                   <CSVLink
                     data={downloadTableData}
                     headers={summaryHeaders}
-                    filename={`InstitutionSummaryTable_${newFormat}.csv`}
+                    filename={`Org_Registration_Status_Report_${newFormat}.csv`}
                     className="hidden"
                     ref={csvLinkRef}
                   // onDownloaded={() => {

@@ -914,7 +914,6 @@ const StudentProgress = () => {
               acc.courseINprogesss += item.courseINprogesss;
               acc.ideaNotStarted =
                 acc.totalTeams - (acc.submittedCount + acc.draftCount);
-              acc.coursePercentage += item.coursePercentage;
               acc.courseNotStarted =
                 acc.totalStudents -
                 (acc.courseCompleted + acc.courseINprogesss);
@@ -1013,6 +1012,11 @@ const StudentProgress = () => {
               },
             ],
           };
+          total.coursePercentage = Math.round(
+            (total.courseCompleted /
+              total.totalStudents) *
+            100
+          );
           setseries3(stackedBarChartData.datasets[0].data);
           setseries4(stackedBarChartData.datasets[1].data);
           setseries5(stackedBarChartData.datasets[2].data);
