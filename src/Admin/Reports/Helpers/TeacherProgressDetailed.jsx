@@ -5,13 +5,13 @@ import { Container, Row, Col, Table } from 'reactstrap';
 import { Button } from '../../../stories/Button';
 import { CSVLink } from 'react-csv';
 import { getCurrentUser } from '../../../helpers/Utils';
-import { useNavigate , Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import {
     getDistrictData,
     getStateData,
     getFetchDistData
 } from '../../../redux/studentRegistration/actions';
-import { ArrowRight  } from "feather-icons-react/build/IconComponents";
+import { ArrowRight } from "feather-icons-react/build/IconComponents";
 import { useDispatch, useSelector } from 'react-redux';
 import Select from '../Helpers/Select';
 import axios from 'axios';
@@ -23,7 +23,7 @@ import { notification } from 'antd';
 import { encryptGlobal } from '../../../constants/encryptDecrypt';
 import { stateList, districtList } from "../../../RegPage/ORGData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMale, faFemale, faChalkboardTeacher  } from '@fortawesome/free-solid-svg-icons';
+import { faMale, faFemale, faChalkboardTeacher } from '@fortawesome/free-solid-svg-icons';
 import ReactApexChart from "react-apexcharts";
 import {
     openNotificationWithIcon
@@ -31,21 +31,22 @@ import {
 
 const TeacherProgressDetailed = () => {
     const navigate = useNavigate();
+    const [isloader, setIsloader] = useState(false);
     const [district, setdistrict] = React.useState('');
     const [selectstate, setSelectState] = React.useState('');
     const [category, setCategory] = useState('');
     const [isDownload, setIsDownload] = useState(false);
     const categoryData = ['All Categories', 'ATL', 'Non ATL'];
-  const categoryDataTn= [
-    "All Categories",
-    "Fully Aided-High School",
-    "Fully Aided-Higher Secondary School",
-    "Government-High School",
-    "Government-Higher Secondary School",
-    "Partially Aided-High School",
-    "Partially Aided-Higher Secondary School",
-    "Non ATL",
-  ];
+    const categoryDataTn = [
+        "All Categories",
+        "Fully Aided-High School",
+        "Fully Aided-Higher Secondary School",
+        "Government-High School",
+        "Government-Higher Secondary School",
+        "Partially Aided-High School",
+        "Partially Aided-Higher Secondary School",
+        "Non ATL",
+    ];
     const newstateList = ["All States", ...stateList];
     // const categoryData =
     //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
@@ -70,16 +71,16 @@ const TeacherProgressDetailed = () => {
     const [series6, setseries6] = useState([]);
     const [series7, setseries7] = useState([]);
     const [seriesa, setseriesa] = useState([]);
-    const [seriesb, setseriesb] = useState([]); 
+    const [seriesb, setseriesb] = useState([]);
 
     const [barChartNew, setBarChartNew] = useState({
         labels: [],
         datasets: [],
-      });
+    });
     const [barDought, setBarDought] = useState({
         labels: [],
         datasets: [],
-      });
+    });
 
     const [barChart1Data, setBarChart1Data] = useState({
         labels: [],
@@ -93,14 +94,14 @@ const TeacherProgressDetailed = () => {
         labels: [],
         datasets: []
     });
-    const fullStatesNames = newstateList ;
+    const fullStatesNames = newstateList;
     const allDistricts = {
-        "All Districts": [...Object.values(districtList).flat()], 
+        "All Districts": [...Object.values(districtList).flat()],
         ...districtList
-      };
+    };
     const fiterDistData = [
         'All Districts',
-        ...allDistricts[selectstate] || [] 
+        ...allDistricts[selectstate] || []
     ];
     // const fiterDistData = districtList[selectstate];
     // useEffect(() => {
@@ -113,13 +114,12 @@ const TeacherProgressDetailed = () => {
         // setdistrict('');
         fetchChartTableData();
         const newDate = new Date();
-        const formattedDate = `${newDate.getUTCDate()}/${
-            1 + newDate.getMonth()
-        }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
+        const formattedDate = `${newDate.getUTCDate()}/${1 + newDate.getMonth()
+            }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
         setNewFormat(formattedDate);
     }, [selectstate]);
     const [totalCount, setTotalCount] = useState([]);
-    
+
     const tableHeaders = [
         {
             label: 'State Name',
@@ -163,7 +163,7 @@ const TeacherProgressDetailed = () => {
         }
     ];
     const teacherDetailsHeaders = [
-        
+
         {
             label: 'UDISE CODE',
             key: 'organization_code'
@@ -272,7 +272,7 @@ const TeacherProgressDetailed = () => {
             label: 'No.of Teams Idea Not Initiated',
             key: 'notInitatedIdeas'
         },
-        
+
         // {
         //     label: 'No.of Students Postsurvey Not Started',
         //     key: 'not_start_pre'
@@ -295,79 +295,79 @@ const TeacherProgressDetailed = () => {
 
     var chartOption = {
         chart: {
-          height: 330,
-          type: "donut",
-          toolbar: {
-            show: false,
-          },
+            height: 330,
+            type: "donut",
+            toolbar: {
+                show: false,
+            },
         },
-        colors: ['#36A2EB', '#FF6384','rgb(254, 176, 25)'],
-        labels: ["Male", "Female" , "Others"],
-        series:  [totalCount.maleStudents, totalCount.femaleStudents,totalCount.otherStudents],
+        colors: ['#36A2EB', '#FF6384', 'rgb(254, 176, 25)'],
+        labels: ["Male", "Female", "Others"],
+        series: [totalCount.maleStudents, totalCount.femaleStudents, totalCount.otherStudents],
         legend: {
             position: "top",
             horizontalAlign: "center",
-          },
+        },
         responsive: [
-          {
-            breakpoint: 480,
-            options: {
-              chart: {
-                width: 200,
-              },
-              legend: {
-                position: "bottom",
-              },
+            {
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 200,
+                    },
+                    legend: {
+                        position: "bottom",
+                    },
+                },
             },
-          },
         ],
-      };
+    };
 
-    
+
     var options = {
         chart: {
-          height: 500,
-          type: "bar",
-          toolbar: {
-            show: false,
-          },
-          zoom: {
-            enabled: false,
-          },
+            height: 500,
+            type: "bar",
+            toolbar: {
+                show: false,
+            },
+            zoom: {
+                enabled: false,
+            },
         },
         colors: ['rgb(0, 143, 251)', 'rgb(0, 227, 150)'],
         dataLabels: {
-          enabled: false,
+            enabled: false,
         },
         stroke: {
-          curve: "straight",
+            curve: "straight",
         },
         series: [
-          {
-            name: "# Teams",
-            data: series1,
-          },
-          {
-            name: "# Students",
-            data: series2,
-          },
+            {
+                name: "# Teams",
+                data: series1,
+            },
+            {
+                name: "# Students",
+                data: series2,
+            },
         ],
-        
+
         yaxis: {
             beginAtZero: true,
             ticks: {
                 stepSize: 20
             },
             labels: {
-              formatter: (val) => {
-                return val / 1 ;
-              },
+                formatter: (val) => {
+                    return val / 1;
+                },
             },
-          },
-    
+        },
+
         xaxis: {
-          categories: barChart1Data.labels,
-          ticks: {
+            categories: barChart1Data.labels,
+            ticks: {
                 maxRotation: 80,
                 autoSkip: false
             }
@@ -375,48 +375,48 @@ const TeacherProgressDetailed = () => {
         legend: {
             position: "top",
             horizontalAlign: "center",
-          },
-        
-      };
+        },
 
-    
+    };
+
+
     var sColStacked = {
         chart: {
-          height: 500,
-          type: "bar",
-          stacked: true,
-          toolbar: {
-            show: false,
-          },
+            height: 500,
+            type: "bar",
+            stacked: true,
+            toolbar: {
+                show: false,
+            },
         },
         colors: ['rgb(255, 69, 96)', 'rgb(254, 176, 25)', "rgb(0, 227, 150)"],
-        
+
         plotOptions: {
-          bar: {
-            horizontal: false,
-          },
+            bar: {
+                horizontal: false,
+            },
         },
         series: [
-          {
-            name: "#Not started",
-            data: series3,
-          },
-          {
-            name: "#InProgress",
-            data: series4,
-          },
-          {
-            name: "#Completed",
-            data: series5,
-          },
-          
+            {
+                name: "#Not started",
+                data: series3,
+            },
+            {
+                name: "#InProgress",
+                data: series4,
+            },
+            {
+                name: "#Completed",
+                data: series5,
+            },
+
         ],
         xaxis: {
             categories: barChart2Data.labels,
             ticks: {
-                    maxRotation: 80,
-                    autoSkip: false
-                },
+                maxRotation: 80,
+                autoSkip: false
+            },
         },
         yaxis: {
             beginAtZero: true,
@@ -424,65 +424,65 @@ const TeacherProgressDetailed = () => {
                 stepSize: 20
             },
             labels: {
-              formatter: (val) => {
-                return val / 1 ;
-              },
+                formatter: (val) => {
+                    return val / 1;
+                },
             },
-          },
-    
+        },
+
         legend: {
             position: "top",
             horizontalAlign: "center",
         },
         fill: {
-          opacity: 1,
+            opacity: 1,
         },
-      };
+    };
 
-      var optionsStudent = {
+    var optionsStudent = {
         chart: {
-          height: 500,
-          type: "bar",
-          toolbar: {
-            show: false,
-          },
-          zoom: {
-            enabled: false,
-          },
+            height: 500,
+            type: "bar",
+            toolbar: {
+                show: false,
+            },
+            zoom: {
+                enabled: false,
+            },
         },
         colors: ['rgb(0, 143, 251)', 'rgb(0, 227, 150)'],
         dataLabels: {
-          enabled: false,
+            enabled: false,
         },
         stroke: {
-          curve: "straight",
+            curve: "straight",
         },
         series: [
-          {
-            name: "# Registered Students",
-              data: seriesa,
-          },
-          {
-            name: "# Registered Teachers",
-              data: seriesb,
-          },
+            {
+                name: "# Registered Students",
+                data: seriesa,
+            },
+            {
+                name: "# Registered Teachers",
+                data: seriesb,
+            },
         ],
-        
+
         yaxis: {
             beginAtZero: true,
             ticks: {
                 stepSize: 20
             },
             labels: {
-              formatter: (val) => {
-                return val / 1 ;
-              },
+                formatter: (val) => {
+                    return val / 1;
+                },
             },
-          },
-    
+        },
+
         xaxis: {
-          categories: barChartNew.labels,
-          ticks: {
+            categories: barChartNew.labels,
+            ticks: {
                 maxRotation: 80,
                 autoSkip: false
             }
@@ -490,9 +490,9 @@ const TeacherProgressDetailed = () => {
         legend: {
             position: "top",
             horizontalAlign: "center",
-          },
-        
-      };
+        },
+
+    };
 
     // var optionsStudent = {
     //     chart: {
@@ -529,7 +529,7 @@ const TeacherProgressDetailed = () => {
     //     // stroke: {
     //     //   width: [0, 4],
     //     // },
-        
+
     //     xaxis: {
     //         categories: barChartNew.labels,
     //         ticks: {
@@ -548,45 +548,45 @@ const TeacherProgressDetailed = () => {
     //           },
     //         },
     //       },
-          
+
     //   };
 
     var radialChart = {
         chart: {
-          height: 350,
-          type: "donut",
-          toolbar: {
-            show: false,
-          },
+            height: 350,
+            type: "donut",
+            toolbar: {
+                show: false,
+            },
         },
         labels: [
             "Not started",
             "In progress",
             "Completed",
-          ],
-        colors: ["rgba(255, 0, 0, 0.6)", "rgba(255, 255, 0, 0.6)","rgba(0, 128, 0, 0.6)"],
+        ],
+        colors: ["rgba(255, 0, 0, 0.6)", "rgba(255, 255, 0, 0.6)", "rgba(0, 128, 0, 0.6)"],
         series: [
             totalCount.courseNotStarted,
-            totalCount.courseINcompleted,totalCount.courseCompleted
-          ],
-          legend: {
+            totalCount.courseINcompleted, totalCount.courseCompleted
+        ],
+        legend: {
             position: "top",
             horizontalAlign: "center",
-          },
-          responsive: [
+        },
+        responsive: [
             {
-              breakpoint: 480,
-              options: {
-                chart: {
-                  width: 200,
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 200,
+                    },
+                    legend: {
+                        position: "bottom",
+                    },
                 },
-                legend: {
-                  position: "bottom",
-                },
-              },
             },
-          ],
-      };
+        ],
+    };
 
     useEffect(() => {
         nonAtlCount();
@@ -665,7 +665,7 @@ const TeacherProgressDetailed = () => {
         const apiRes = encryptGlobal(
             JSON.stringify({
                 state: selectstate,
-                district:district,
+                district: district,
                 // district: district === '' ? 'All Districts' : district,
                 category: category
             })
@@ -683,10 +683,10 @@ const TeacherProgressDetailed = () => {
         };
         axios(config)
             .then(function (response) {
-                
+
                 if (response.status === 200) {
                     // console.log(response,"22");
-                   
+
                     const preSurveyMap = response.data.data[0].preSurvey.reduce((map, item) => {
                         map[item.user_id] = item.pre_survey_status;
                         return map;
@@ -719,11 +719,11 @@ const TeacherProgressDetailed = () => {
                         const totalStudents = studentCountMap[mentor_id] || 0;
                         const completedCourses = StudentCourseCmpMap[mentor_id] || 0;
                         const coursesInProgress = StudentCourseINproMap[mentor_id] || 0;
-                        
+
                         map[mentor_id] = totalStudents - (completedCourses + coursesInProgress);
                         return map;
                     }, {});
-                    
+
                     const UsernameeMap = response.data.data[0].Username.reduce((map, item) => {
                         map[item.user_id] = item.username;
                         return map;
@@ -741,23 +741,23 @@ const TeacherProgressDetailed = () => {
                         const teamCount = teamCountMap[mentor_id] || 0;
                         const submittedCount = StuIdeaSubCountMap[mentor_id] || 0;
                         const draftCount = StuIdeaDraftCountMap[mentor_id] || 0;
-                    
-                        map[mentor_id]= teamCount - (submittedCount + draftCount);
-                    
-                        
+
+                        map[mentor_id] = teamCount - (submittedCount + draftCount);
+
+
                         return map;
                     }, {});
                     const StuPreComCountMap = response.data.data[0].studentpresurvey
-                    .reduce((map, item) => {
-                        map[item.mentor_id] = item.preSur_cmp
-                        ;
-                        return map;
-                    }, {});
+                        .reduce((map, item) => {
+                            map[item.mentor_id] = item.preSur_cmp
+                                ;
+                            return map;
+                        }, {});
 
                     const stuPreNotStartedMap = Object.keys(studentCountMap).reduce((map, mentor_id) => {
                         const totalStudents = studentCountMap[mentor_id] || 0;
                         const preSurveyCompleted = StuPreComCountMap[mentor_id] || 0;
-                        map[mentor_id] = totalStudents - preSurveyCompleted; 
+                        map[mentor_id] = totalStudents - preSurveyCompleted;
                         return map;
                     }, {});
                     // const StuPostComCountMap = response.data.data[0].studentpostsurvey
@@ -776,18 +776,18 @@ const TeacherProgressDetailed = () => {
                         ...item,
                         pre_survey_status: preSurveyMap[item.user_id] || "Not started",
                         post_survey_status: postSurveyMap[item.user_id] || "Not started",
-                        course_status : CourseMap[item.user_id] || "Not started",
-                        team_count : teamCountMap[item.mentor_id] || 0,
-                        student_count : studentCountMap[item.mentor_id] || 0,
-                        countop : StudentCourseCmpMap[item.mentor_id] || 0,
-                        courseinprogess : StudentCourseINproMap[item.mentor_id] || 0,
-                        username : UsernameeMap[item.user_id],
-                        courses_not_started: StudentCourseNotStartedMap[item.mentor_id] || 0 ,
-                        draftcout:StuIdeaDraftCountMap[item.mentor_id] || 0 ,
-                        submittedcout:StuIdeaSubCountMap[item.mentor_id] || 0 ,
-                        notInitatedIdeas: notInitiatedMap[item.mentor_id] || 0 ,
-                        preSur_cmp: StuPreComCountMap[item.mentor_id] || 0 ,
-                        not_start_pre: stuPreNotStartedMap[item.mentor_id] || 0 ,
+                        course_status: CourseMap[item.user_id] || "Not started",
+                        team_count: teamCountMap[item.mentor_id] || 0,
+                        student_count: studentCountMap[item.mentor_id] || 0,
+                        countop: StudentCourseCmpMap[item.mentor_id] || 0,
+                        courseinprogess: StudentCourseINproMap[item.mentor_id] || 0,
+                        username: UsernameeMap[item.user_id],
+                        courses_not_started: StudentCourseNotStartedMap[item.mentor_id] || 0,
+                        draftcout: StuIdeaDraftCountMap[item.mentor_id] || 0,
+                        submittedcout: StuIdeaSubCountMap[item.mentor_id] || 0,
+                        notInitatedIdeas: notInitiatedMap[item.mentor_id] || 0,
+                        preSur_cmp: StuPreComCountMap[item.mentor_id] || 0,
+                        not_start_pre: stuPreNotStartedMap[item.mentor_id] || 0,
                         // postSur_cmp: StuPostComCountMap[item.mentor_id] || 0 ,
                         // not_start_post: stuPostNotStartedMap[item.mentor_id] || 0 ,
 
@@ -795,17 +795,17 @@ const TeacherProgressDetailed = () => {
 
 
 
-                        
+
 
                     }));
-// console.log(newdatalist,"dd");
+                    // console.log(newdatalist,"dd");
                     setmentorDetailedReportsData(newdatalist);
-                    if(response.data.data[0].summary.length > 0){
+                    if (response.data.data[0].summary.length > 0) {
                         openNotificationWithIcon(
                             'success',
                             "Report Downloaded Successfully"
-                        ); 
-                    }else{
+                        );
+                    } else {
                         openNotificationWithIcon('error', 'No Data Found');
                     }
                     // csvLinkRef.current.link.click();
@@ -823,11 +823,11 @@ const TeacherProgressDetailed = () => {
     };
     useEffect(() => {
         if (mentorDetailedReportsData.length > 0) {
-          console.log("Performing operation with the updated data.");
-          csvLinkRef.current.link.click();
-    
+            console.log("Performing operation with the updated data.");
+            csvLinkRef.current.link.click();
+
         }
-      }, [mentorDetailedReportsData]);
+    }, [mentorDetailedReportsData]);
     const fetchChartTableData = () => {
         const config = {
             method: 'get',
@@ -843,14 +843,15 @@ const TeacherProgressDetailed = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
+                    setIsloader(true);
                     // console.log(response.data.data[0].studentCountDetails[0].totalstudent,"whole");
                     const summary = response.data.data[0].summary;
                     const teamCount = response.data.data[0].teamCount;
                     const studentCountDetails = response.data.data[0].studentCountDetails.map((item) => {
                         const otherCount = item.totalstudent - (parseInt(item.male) + parseInt(item.female));
                         return {
-                            ...item,  
-                            other: otherCount  
+                            ...item,
+                            other: otherCount
                         };
                     });
                     // console.log(studentCountDetails,"student");
@@ -897,8 +898,8 @@ const TeacherProgressDetailed = () => {
                                 ? parseInt(studentCountItem.female)
                                 : 0,
                             otherStudents: studentCountItem
-                            ? (studentCountItem.other)
-                            : 0,
+                                ? (studentCountItem.other)
+                                : 0,
                             courseCompleted: courseCompletedItem
                                 ? courseCompletedItem.courseCMP
                                 : 0,
@@ -923,16 +924,16 @@ const TeacherProgressDetailed = () => {
                             return acc;
                         },
                         {
-                            state:"None",
+                            state: "None",
                             totalReg: 0,
                             totalTeams: 0,
                             totalStudents: 0,
                             maleStudents: 0,
                             femaleStudents: 0,
-                            otherStudents : 0,
+                            otherStudents: 0,
                             courseCompleted: 0,
                             courseINcompleted: 0,
-                            courseNotStarted:0
+                            courseNotStarted: 0
                         }
                     );
                     const doughnutData = {
@@ -949,15 +950,15 @@ const TeacherProgressDetailed = () => {
                         ]
                     };
                     const doughnutDataCourse = {
-                        labels: ["Not started", "In progress","Completed"],
+                        labels: ["Not started", "In progress", "Completed"],
                         datasets: [
-                          {
-                            data: [total.courseNotStarted, total.courseINcompleted,total.courseCompleted],
-                            backgroundColor: ["rgba(255, 0, 0, 0.6)", "rgba(255, 255, 0, 0.6)","rgba(0, 128, 0, 0.6)"],
-                            hoverBackgroundColor: ["#e60026", "#ffae42","#087830"],
-                          },
+                            {
+                                data: [total.courseNotStarted, total.courseINcompleted, total.courseCompleted],
+                                backgroundColor: ["rgba(255, 0, 0, 0.6)", "rgba(255, 255, 0, 0.6)", "rgba(0, 128, 0, 0.6)"],
+                                hoverBackgroundColor: ["#e60026", "#ffae42", "#087830"],
+                            },
                         ],
-                      };
+                    };
 
                     const barData = {
                         labels: combinedArray.map((item) => item.state),
@@ -984,20 +985,20 @@ const TeacherProgressDetailed = () => {
                     const barDataA = {
                         labels: combinedArray.map((item) => item.state),
                         datasets: [
-                          {
-                            label: "No.of Registered Students Enrolled",
-                            data: combinedArray.map((item) => item.totalStudents),
-                            backgroundColor: "rgba(255, 0, 0, 0.6)",
-                          },
-                          {
-                            label: "No. of Registered Teachers Enrolled",
-                            data: combinedArray.map((item) => (item.totalReg)),
-                            backgroundColor: "rgba(75, 162, 192, 0.6)",
-                          },
+                            {
+                                label: "No.of Registered Students Enrolled",
+                                data: combinedArray.map((item) => item.totalStudents),
+                                backgroundColor: "rgba(255, 0, 0, 0.6)",
+                            },
+                            {
+                                label: "No. of Registered Teachers Enrolled",
+                                data: combinedArray.map((item) => (item.totalReg)),
+                                backgroundColor: "rgba(75, 162, 192, 0.6)",
+                            },
                         ],
-                      };
-                      setseriesa(barDataA.datasets[0].data);
-                      setseriesb(barDataA.datasets[1].data);
+                    };
+                    setseriesa(barDataA.datasets[0].data);
+                    setseriesb(barDataA.datasets[1].data);
 
 
                     const stackedBarChartData = {
@@ -1029,14 +1030,14 @@ const TeacherProgressDetailed = () => {
                     setseries3(stackedBarChartData.datasets[0].data);
                     setseries4(stackedBarChartData.datasets[1].data);
                     setseries5(stackedBarChartData.datasets[2].data);
-                    const newcombinedArray = [...combinedArray,total];
+                    const newcombinedArray = [...combinedArray, total];
                     setCombinedArray(combinedArray);
                     setDownloadTableData(newcombinedArray);
                     setDoughnutChartData(doughnutData);
-          setBarDought(doughnutDataCourse);
+                    setBarDought(doughnutDataCourse);
 
                     setBarChart1Data(barData);
-          setBarChartNew(barDataA);
+                    setBarChartNew(barDataA);
 
                     setBarChart2Data(stackedBarChartData);
                     setTotalCount(total);
@@ -1047,405 +1048,412 @@ const TeacherProgressDetailed = () => {
             });
     };
 
-return (
-<div className="page-wrapper">
-    <div className="content">
-        <div className="page-header">
-            <div className="add-item d-flex">
-                <div className="page-title">
-                    <h4>School & Teacher Detailed Report</h4>
-                    <h6>Teacher Progress - Presurvey , Course, Teams , Post survey Status Report</h6>
+    return (
+        <div className="page-wrapper">
+            <div className="content">
+                <div className="page-header">
+                    <div className="add-item d-flex">
+                        <div className="page-title">
+                            <h4>School & Teacher Detailed Report</h4>
+                            <h6>Teacher Progress - Presurvey , Course, Teams , Post survey Status Report</h6>
+                        </div>
+                    </div>
+                    <div className="page-btn">
+                        <button
+                            type="button"
+                            className="btn btn-secondary"
+                            onClick={() => navigate("/reports")}
+                        >
+                            <i className="fas fa-arrow-left"></i> Back
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div className="page-btn">
-                <button
-                    type="button"
-                    className="btn btn-secondary"
-                    onClick={() => navigate("/reports")}
-                >
-                    <i className="fas fa-arrow-left"></i> Back
-                </button>
-            </div>
-        </div>
 
-        <Container className="RegReports userlist">
-            <div className="reports-data mt-2 mb-2">
-                <Row className="align-items-center mt-3 mb-2">
-                    <Col md={3}>
-                        <div className="my-2 d-md-block d-flex justify-content-center">
-                            <Select
-                                list={fullStatesNames}
-                                setValue={setSelectState}
-                                placeHolder={'Select State'}
-                                value={selectstate}
-                            />
-                        </div>
-                    </Col>
-                    <Col md={3}>
-                        <div className="my-2 d-md-block d-flex justify-content-center">
-                            <Select
-                                list={fiterDistData}
-                                setValue={setdistrict}
-                                placeHolder={'Select District'}
-                                value={district}
-                            />
-                        </div>
-                    </Col>
-                    <Col md={3}>
-                        <div className="my-2 d-md-block d-flex justify-content-center">
-                            {/* <Select
+                <Container className="RegReports userlist">
+                    <div className="reports-data mt-2 mb-2">
+                        <Row className="align-items-center mt-3 mb-2">
+                            <Col md={3}>
+                                <div className="my-2 d-md-block d-flex justify-content-center">
+                                    <Select
+                                        list={fullStatesNames}
+                                        setValue={setSelectState}
+                                        placeHolder={'Select State'}
+                                        value={selectstate}
+                                    />
+                                </div>
+                            </Col>
+                            <Col md={3}>
+                                <div className="my-2 d-md-block d-flex justify-content-center">
+                                    <Select
+                                        list={fiterDistData}
+                                        setValue={setdistrict}
+                                        placeHolder={'Select District'}
+                                        value={district}
+                                    />
+                                </div>
+                            </Col>
+                            <Col md={3}>
+                                <div className="my-2 d-md-block d-flex justify-content-center">
+                                    {/* <Select
                                 list={categoryData}
                                 setValue={setCategory}
                                 placeHolder={'Select Category'}
                                 value={category}
                             /> */}
-                              {selectstate === "Tamil Nadu"?( 
-                            <Select
-                                list={categoryDataTn}
-                                setValue={setCategory}
-                                placeHolder={'Select Category'}
-                                value={category}
-                            />):(  <Select
-                                list={categoryData}
-                                setValue={setCategory}
-                                placeHolder={'Select Category'}
-                                value={category}
-                            />)}
-                        </div>
-                    </Col>
-                    <Col
-                        md={3}
-                        className="d-flex align-items-center justify-content-center"
-                    >
-                        <button
-                            onClick={handleDownload}
-                            type="button"
-                            disabled={isDownload}
-                            className="btn btn-primary"
-                        >
-                            {
-                                isDownload
-                                    ? 'Downloading'
-                                    : 'Download Report'
-                            }
-                        </button>
-                    </Col>
-                </Row>
-                <div className="chart mt-2 mb-2">
-                    {combinedArray.length > 0 && (
-                        <>
-                        <div className="row">
-                            <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
-                                <div className="card flex-fill default-cover w-100 mb-4">
-                                    <div className="card-header d-flex justify-content-between align-items-center">
-                                        <h4 className="card-title mb-0">Data Analytics</h4>
-                                        <div className="dropdown">
-                                        <Link to="#" className="view-all d-flex align-items-center">
-                                            View All
-                                            <span className="ps-2 d-flex align-items-center">
-                                            <ArrowRight className="feather-16" />
-                                            </span>
-                                        </Link>
-                                        </div>
-                                    </div>
-                                    <div className="card-body">
+                                    {selectstate === "Tamil Nadu" ? (
+                                        <Select
+                                            list={categoryDataTn}
+                                            setValue={setCategory}
+                                            placeHolder={'Select Category'}
+                                            value={category}
+                                        />) : (<Select
+                                            list={categoryData}
+                                            setValue={setCategory}
+                                            placeHolder={'Select Category'}
+                                            value={category}
+                                        />)}
+                                </div>
+                            </Col>
+                            <Col
+                                md={3}
+                                className="d-flex align-items-center justify-content-center"
+                            >
+                                <button
+                                    onClick={handleDownload}
+                                    type="button"
+                                    disabled={isDownload}
+                                    className="btn btn-primary"
+                                >
+                                    {
+                                        isDownload
+                                            ? 'Downloading'
+                                            : 'Download Report'
+                                    }
+                                </button>
+                            </Col>
+                        </Row>
+                        {isloader ?
+                            <div className="chart mt-2 mb-2">
+                                {combinedArray.length > 0 && (
+                                    <>
                                         <div className="row">
-                                            <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
-                                                <p>
-                                                    <b>
-                                                    Students as per Gender{' '}{newFormat}
-                                                    </b>
-                                                </p>
-                                                {doughnutChartData && (
-                                                    <div id="donut-chart" >
-                                                        <ReactApexChart
-                                                        options={chartOption}
-                                                        series={chartOption.series}
-                                                        type="donut"
-                                                        height={330}
-                                                        />
+                                            <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
+                                                <div className="card flex-fill default-cover w-100 mb-4">
+                                                    <div className="card-header d-flex justify-content-between align-items-center">
+                                                        <h4 className="card-title mb-0">Data Analytics</h4>
+                                                        <div className="dropdown">
+                                                            <Link to="#" className="view-all d-flex align-items-center">
+                                                                View All
+                                                                <span className="ps-2 d-flex align-items-center">
+                                                                    <ArrowRight className="feather-16" />
+                                                                </span>
+                                                            </Link>
+                                                        </div>
                                                     </div>
-                                                )}
-                                            </div>
-                                            <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
-                                                <p>
-                                                    <b>
-                                                        Teachers Course Status As of{' '}
-                                                        {newFormat}
-                                                    </b>
-                                                </p>
-                                                {barDought && (
-                                                    <div id="radial-chart" >
-                                                        <ReactApexChart
-                                                        options={radialChart}
-                                                        series={radialChart.series}
-                                                        type="donut"
-                                                        height={350}
-                                                        />
+                                                    <div className="card-body">
+                                                        <div className="row">
+                                                            <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
+                                                                <p>
+                                                                    <b>
+                                                                        Students as per Gender{' '}{newFormat}
+                                                                    </b>
+                                                                </p>
+                                                                {doughnutChartData && (
+                                                                    <div id="donut-chart" >
+                                                                        <ReactApexChart
+                                                                            options={chartOption}
+                                                                            series={chartOption.series}
+                                                                            type="donut"
+                                                                            height={330}
+                                                                        />
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                            <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
+                                                                <p>
+                                                                    <b>
+                                                                        Teachers Course Status As of{' '}
+                                                                        {newFormat}
+                                                                    </b>
+                                                                </p>
+                                                                {barDought && (
+                                                                    <div id="radial-chart" >
+                                                                        <ReactApexChart
+                                                                            options={radialChart}
+                                                                            series={radialChart.series}
+                                                                            type="donut"
+                                                                            height={350}
+                                                                        />
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                )}
+                                                </div>
                                             </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
+                                                <div className="card flex-fill default-cover w-100 mb-4">
+                                                    <div className="card-header d-flex justify-content-between align-items-center">
+                                                        <h4 className="card-title mb-0">State School Progress Stats</h4>
+                                                        <div className="dropdown">
+                                                            <Link to="#" className="view-all d-flex align-items-center">
+                                                                <button
+                                                                    className="btn mx-2 btn-primary"
+                                                                    type="button"
+                                                                    onClick={() => {
+                                                                        if (downloadTableData) {
+                                                                            // setIsDownloading(true);
+                                                                            setDownloadTableData(
+                                                                                null
+                                                                            );
+                                                                            csvLinkRefTable.current.link.click();
+                                                                        }
+                                                                    }}
+                                                                >
+                                                                    Get Statistics
+                                                                </button>
+                                                            </Link>
+                                                        </div>
+                                                    </div>
+                                                    <div className="card-body">
+                                                        <div className="table-responsive">
+                                                            <table className="table table-border recent-transactions">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th style={{ color: "#36A2EB" }}>#</th>
+                                                                        <th style={{ color: "#36A2EB" }}>State Name</th>
+                                                                        <th style={{ whiteSpace: 'wrap', color: "#36A2EB" }}>#Registered Teachers</th>
+                                                                        <th style={{ whiteSpace: 'wrap', color: "#36A2EB" }}>#Teams Created</th>
+                                                                        <th style={{ whiteSpace: 'wrap', color: "#36A2EB" }}>#Students Enrolled</th>
+                                                                        <th style={{ whiteSpace: 'wrap', color: "#36A2EB" }}><FontAwesomeIcon icon={faFemale} />Female Students</th>
+                                                                        <th style={{ whiteSpace: 'wrap', color: "#36A2EB" }}><FontAwesomeIcon icon={faMale} /> Male Students</th>
+                                                                        <th style={{ whiteSpace: 'wrap', color: "#36A2EB" }}>Other Students</th>
+                                                                        <th style={{ whiteSpace: 'wrap', color: "#36A2EB" }}><FontAwesomeIcon icon={faChalkboardTeacher} /> Teacher Course Completed</th>
+                                                                        <th style={{ whiteSpace: 'wrap', color: "#36A2EB" }}><FontAwesomeIcon icon={faChalkboardTeacher} /> Teacher Course InProgress</th>
+                                                                        <th style={{ whiteSpace: 'wrap', color: "#36A2EB" }}><FontAwesomeIcon icon={faChalkboardTeacher} /> Teacher Course NotStarted </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody className='text-center' >
+                                                                    {combinedArray.map(
+                                                                        (
+                                                                            item,
+                                                                            index
+                                                                        ) => (
+                                                                            <tr
+                                                                                key={
+                                                                                    index
+                                                                                }
+                                                                            >
+                                                                                <td>
+                                                                                    {index +
+                                                                                        1}
+                                                                                </td>
+                                                                                <td style={{ textAlign: "left", maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis", color: "crimson" }}>
+                                                                                    {
+                                                                                        item.state
+                                                                                    }
+                                                                                </td>
+                                                                                <td>
+                                                                                    {
+                                                                                        item.totalReg
+                                                                                    }
+                                                                                </td>
+                                                                                <td>
+                                                                                    {
+                                                                                        item.totalTeams
+                                                                                    }
+                                                                                </td>
+                                                                                <td>
+                                                                                    {
+                                                                                        item.totalStudents
+                                                                                    }
+                                                                                </td>
+                                                                                <td>
+                                                                                    {
+                                                                                        item.femaleStudents
+                                                                                    }
+                                                                                </td>
+                                                                                <td>
+                                                                                    {
+                                                                                        item.maleStudents
+                                                                                    }
+                                                                                </td>
+                                                                                <td>
+                                                                                    {
+                                                                                        item.otherStudents
+                                                                                    }
+                                                                                </td>
+                                                                                <td>
+                                                                                    {
+                                                                                        item.courseCompleted
+                                                                                    }
+                                                                                </td>
+                                                                                <td>
+                                                                                    {
+                                                                                        item.courseINcompleted
+                                                                                    }
+                                                                                </td>
+                                                                                <td>
+                                                                                    {
+                                                                                        item.courseNotStarted
+                                                                                    }
+                                                                                </td>
+                                                                            </tr>
+                                                                        )
+                                                                    )}
+                                                                    <tr>
+                                                                        <td>{ }</td>
+                                                                        <td style={{ color: "crimson", textAlign: "left", maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis" }}>
+                                                                            {
+                                                                                'Total Count'
+                                                                            }
+                                                                        </td>
+                                                                        <td style={{ color: "crimson" }}>
+                                                                            {
+                                                                                totalCount.totalReg
+                                                                            }
+                                                                        </td>
+                                                                        <td style={{ color: "crimson" }}>
+                                                                            {
+                                                                                totalCount.totalTeams
+                                                                            }
+                                                                        </td>
+                                                                        <td style={{ color: "crimson" }}>
+                                                                            {
+                                                                                totalCount.totalStudents
+                                                                            }
+                                                                        </td>
+                                                                        <td style={{ color: "crimson" }}>
+                                                                            {
+                                                                                totalCount.femaleStudents
+                                                                            }
+                                                                        </td>
+                                                                        <td style={{ color: "crimson" }}>
+                                                                            {
+                                                                                totalCount.maleStudents
+                                                                            }
+                                                                        </td>
+                                                                        <td style={{ color: "crimson" }}>
+                                                                            {
+                                                                                totalCount.otherStudents
+                                                                            }
+                                                                        </td>
+                                                                        <td style={{ color: "crimson" }}>
+                                                                            {
+                                                                                totalCount.courseCompleted
+                                                                            }
+                                                                        </td>
+                                                                        <td style={{ color: "crimson" }}>
+                                                                            {
+                                                                                totalCount.courseINcompleted
+                                                                            }
+                                                                        </td>
+                                                                        <td style={{ color: "crimson" }}>
+                                                                            {totalCount.totalReg -
+                                                                                (totalCount.courseCompleted +
+                                                                                    totalCount.courseINcompleted)}
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </>
+                                )}
+                                <div className="col-md-12">
+                                    <div className="card">
+                                        <div className="card-header">
+                                            <h5 className="card-title">Teams, Students Enrolled As of{' '}
+                                                {newFormat}</h5>
+                                        </div>
+                                        <div className="card-body">
+                                            <div id="s-line-area" />
+                                            <ReactApexChart
+                                                options={options}
+                                                series={options.series}
+                                                type="bar"
+                                                height={400}
+                                            />
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
-                            <div className="card flex-fill default-cover w-100 mb-4">
-                                <div className="card-header d-flex justify-content-between align-items-center">
-                                    <h4 className="card-title mb-0">State School Progress Stats</h4>
-                                    <div className="dropdown">
-                                        <Link to="#" className="view-all d-flex align-items-center">
-                                            <button
-                                                className="btn mx-2 btn-primary"
-                                                type="button"
-                                                onClick={() => {
-                                                    if (downloadTableData) {
-                                                        // setIsDownloading(true);
-                                                        setDownloadTableData(
-                                                            null
-                                                        );
-                                                        csvLinkRefTable.current.link.click();
-                                                    }
-                                                }}
-                                            >
-                                                Get Statistics
-                                            </button>
-                                        </Link>
+                                <div className="col-md-12">
+                                    <div className="card">
+                                        <div className="card-header">
+                                            <h5 className="card-title">Teacher Course Status As of{' '}{newFormat}</h5>
+                                        </div>
+                                        <div className="card-body">
+                                            <div id="s-col-stacked" />
+                                            <ReactApexChart
+                                                options={sColStacked}
+                                                series={sColStacked.series}
+                                                type="bar"
+                                                height={400}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="card-body">
-                                    <div className="table-responsive">
-                                        <table className="table table-border recent-transactions">
-                                            <thead>
-                                                <tr>
-                                                    <th style={{color:"#36A2EB"}}>#</th>
-                                                    <th style={{color:"#36A2EB"}}>State Name</th>
-                                                    <th style={{whiteSpace: 'wrap' ,color:"#36A2EB"}}>#Registered Teachers</th>
-                                                    <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}>#Teams Created</th>
-                                                    <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}>#Students Enrolled</th>
-                                                    <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}><FontAwesomeIcon icon={faFemale} />Female Students</th>
-                                                    <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}><FontAwesomeIcon icon={faMale} /> Male Students</th>
-                                                    <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}>Other Students</th>
-                                                    <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}><FontAwesomeIcon icon={faChalkboardTeacher}  /> Teacher Course Completed</th>                                                
-                                                    <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}><FontAwesomeIcon icon={faChalkboardTeacher} /> Teacher Course InProgress</th>
-                                                    <th style={{whiteSpace: 'wrap',color:"#36A2EB"}}><FontAwesomeIcon icon={faChalkboardTeacher}  /> Teacher Course NotStarted </th>                                     
-                                                </tr>
-                                            </thead>
-                                            <tbody className='text-center' >
-                                                {combinedArray.map(
-                                                    (
-                                                        item,
-                                                        index
-                                                    ) => (
-                                                        <tr
-                                                            key={
-                                                                index
-                                                            }
-                                                        >
-                                                            <td>
-                                                                {index +
-                                                                    1}
-                                                            </td>
-                                                            <td style={{textAlign: "left", maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis",color:"crimson"}}>
-                                                                {
-                                                                    item.state
-                                                                }
-                                                            </td>
-                                                            <td>
-                                                                {
-                                                                    item.totalReg
-                                                                }
-                                                            </td>
-                                                            <td>
-                                                                {
-                                                                    item.totalTeams
-                                                                }
-                                                            </td>
-                                                            <td>
-                                                                {
-                                                                    item.totalStudents
-                                                                }
-                                                            </td>
-                                                            <td>
-                                                                {
-                                                                    item.femaleStudents
-                                                                }
-                                                            </td>
-                                                            <td>
-                                                                {
-                                                                    item.maleStudents
-                                                                }
-                                                            </td>
-                                                            <td>
-                                                                {
-                                                                    item.otherStudents
-                                                                }
-                                                            </td>
-                                                            <td>
-                                                                {
-                                                                    item.courseCompleted
-                                                                }
-                                                            </td>
-                                                            <td>
-                                                                {
-                                                                    item.courseINcompleted
-                                                                }
-                                                            </td>
-                                                            <td>
-                                                                {
-                                                                    item.courseNotStarted
-                                                                }
-                                                            </td>
-                                                        </tr>
-                                                    )
-                                                )}
-                                                <tr>
-                                                    <td>{}</td>
-                                                    <td style={{color:"crimson",textAlign: "left", maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis"}}>
-                                                        {
-                                                            'Total Count'
-                                                        }
-                                                    </td>
-                                                    <td style={{color:"crimson"}}>
-                                                        {
-                                                            totalCount.totalReg
-                                                        }
-                                                    </td>
-                                                    <td style={{color:"crimson"}}>
-                                                        {
-                                                            totalCount.totalTeams
-                                                        }
-                                                    </td>
-                                                    <td style={{color:"crimson"}}>
-                                                        {
-                                                            totalCount.totalStudents
-                                                        }
-                                                    </td>
-                                                    <td style={{color:"crimson"}}>
-                                                        {
-                                                            totalCount.femaleStudents
-                                                        }
-                                                    </td>
-                                                    <td style={{color:"crimson"}}>
-                                                        {
-                                                            totalCount.maleStudents
-                                                        }
-                                                    </td>
-                                                    <td style={{color:"crimson"}}>
-                                                        {
-                                                            totalCount.otherStudents
-                                                        }
-                                                    </td>
-                                                    <td style={{color:"crimson"}}>
-                                                        {
-                                                            totalCount.courseCompleted
-                                                        }
-                                                    </td>
-                                                    <td style={{color:"crimson"}}>
-                                                        {
-                                                            totalCount.courseINcompleted
-                                                        }
-                                                    </td>
-                                                    <td style={{color:"crimson"}}>
-                                                        {totalCount.totalReg -
-                                                            (totalCount.courseCompleted +
-                                                                totalCount.courseINcompleted)}
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                <div className="col-md-12">
+                                    <div className="card">
+                                        <div className="card-header">
+                                            <h5 className="card-title">Registered Teachers, Students Enrolled As of{' '}{newFormat}</h5>
+                                        </div>
+                                        <div className="card-body">
+                                            <div id="s-line-area" />
+                                            <ReactApexChart
+                                                options={optionsStudent}
+                                                series={optionsStudent.series}
+                                                type="bar"
+                                                height={400}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            </div>
-                        </div>
-                        </>
-                    )}
-                    <div className="col-md-12">
-                        <div className="card">
-                        <div className="card-header">
-                            <h5 className="card-title">Teams, Students Enrolled As of{' '}
-                                                    {newFormat}</h5>
-                        </div>
-                        <div className="card-body">
-                            <div id="s-line-area" />
-                            <ReactApexChart
-                            options={options}
-                            series={options.series}
-                            type="bar"
-                            height={400}
-                            />
-                        </div>
-                        </div>
-                    </div>
-                    <div className="col-md-12">
-                        <div className="card">
-                            <div className="card-header">
-                                <h5 className="card-title">Teacher Course Status As of{' '}{newFormat}</h5>
-                            </div>
-                            <div className="card-body">
-                                <div id="s-col-stacked" />
-                                <ReactApexChart
-                                options={sColStacked}
-                                series={sColStacked.series}
-                                type="bar"
-                                height={400}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-12">
-                        <div className="card">
-                        <div className="card-header">
-                            <h5 className="card-title">Registered Teachers, Students Enrolled As of{' '}{newFormat}</h5>
-                        </div>
-                        <div className="card-body">
-                            <div  id="s-line-area" />
-                            <ReactApexChart
-                            options={optionsStudent}
-                            series={optionsStudent.series}
-                            type="bar"
-                            height={400}
-                            />
-                        </div>
-                        </div>
-                    </div>
 
-                    {downloadTableData && (
-                        <CSVLink
-                            data={downloadTableData}
-                            headers={tableHeaders}
-                            filename={`SchoolDetailedSummaryReport_${newFormat}.csv`}
-                            className="hidden"
-                            ref={csvLinkRefTable}
-                        >
-                            Download Table CSV
-                        </CSVLink>
-                    )}
+                                {downloadTableData && (
+                                    <CSVLink
+                                        data={downloadTableData}
+                                        headers={tableHeaders}
+                                        filename={`SchoolDetailedSummaryReport_${newFormat}.csv`}
+                                        className="hidden"
+                                        ref={csvLinkRefTable}
+                                    >
+                                        Download Table CSV
+                                    </CSVLink>
+                                )}
 
-                    {mentorDetailedReportsData && (
-                        <CSVLink
-                            headers={teacherDetailsHeaders}
-                            data={mentorDetailedReportsData}
-                            filename={`SchoolProgressDetailedReport_${newFormat}.csv`}
-                            className="hidden"
-                            ref={csvLinkRef}
-                        >
-                            Download Teacherdetailed CSV
-                        </CSVLink>
-                    )}
-                </div>
+                                {mentorDetailedReportsData && (
+                                    <CSVLink
+                                        headers={teacherDetailsHeaders}
+                                        data={mentorDetailedReportsData}
+                                        filename={`SchoolProgressDetailedReport_${newFormat}.csv`}
+                                        className="hidden"
+                                        ref={csvLinkRef}
+                                    >
+                                        Download Teacherdetailed CSV
+                                    </CSVLink>
+                                )}
+                            </div>
+                            :
+                            <div className="spinner-border text-info" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div>
+                        }
 
+
+
+                    </div>
+                </Container>
 
             </div>
-        </Container>
+        </div>
 
-    </div>
-</div>
-
-);
+    );
 };
 
 export default TeacherProgressDetailed;

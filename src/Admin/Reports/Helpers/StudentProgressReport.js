@@ -143,12 +143,12 @@ const StudentProgress = () => {
       key: 'submittedCount'
     },
     {
-        label: 'No.of Teams Ideas in Draft',
-        key: 'draftCount'
+      label: 'No.of Teams Ideas in Draft',
+      key: 'draftCount'
     },
     {
-        label: 'No.of Teams Not Stated Idea Submission',
-        key: 'ideaNotStarted'
+      label: 'No.of Teams Not Stated Idea Submission',
+      key: 'ideaNotStarted'
     },
   ];
   const teacherDetailsHeaders = [
@@ -241,11 +241,11 @@ const StudentProgress = () => {
     {
       label: "Pre Survey Status",
       key: "pre_survey_status",
-    }, 
+    },
     {
       label: 'Course Completion%',
       key: 'course_per'
-    },   
+    },
     {
       label: 'Course Status',
       key: 'user_count'
@@ -491,7 +491,7 @@ const StudentProgress = () => {
         show: false,
       },
     },
-    colors: ["rgba(255, 0, 0, 0.6)", "rgba(255, 255, 0, 0.6)","rgba(0, 128, 0, 0.6)"],
+    colors: ["rgba(255, 0, 0, 0.6)", "rgba(255, 255, 0, 0.6)", "rgba(0, 128, 0, 0.6)"],
     labels: [
       "Not Started ",
       "In Progress",
@@ -500,7 +500,7 @@ const StudentProgress = () => {
     series: [
       totalCount.courseNotStarted,
       totalCount.courseINprogesss,
-                  totalCount.courseCompleted,
+      totalCount.courseCompleted,
     ],
     legend: {
       position: "top",
@@ -794,7 +794,7 @@ const StudentProgress = () => {
                 (courseINprogesssItem
                   ? courseINprogesssItem.studentCourseIN
                   : 0))
-                );
+            );
             // console.log(courseNotStarted,"11");
             const ideaNotStarted =
               summaryItem.totalTeams -
@@ -890,8 +890,8 @@ const StudentProgress = () => {
                   total.courseCompleted,
                   total.courseNotStarted,
                 ],
-                backgroundColor: ["rgba(255, 0, 0, 0.6)", "rgba(255, 255, 0, 0.6)","rgba(0, 128, 0, 0.6)"],
-                hoverBackgroundColor: ["#e60026", "#ffae42","#087830"],
+                backgroundColor: ["rgba(255, 0, 0, 0.6)", "rgba(255, 255, 0, 0.6)", "rgba(0, 128, 0, 0.6)"],
+                hoverBackgroundColor: ["#e60026", "#ffae42", "#087830"],
               },
             ],
           };
@@ -933,6 +933,11 @@ const StudentProgress = () => {
               },
             ],
           };
+          total.coursePercentage = Math.round(
+            (total.courseCompleted /
+              total.totalStudents) *
+            100
+          );
           setseries3(stackedBarChartData.datasets[0].data);
           setseries4(stackedBarChartData.datasets[1].data);
           setseries5(stackedBarChartData.datasets[2].data);
@@ -1193,7 +1198,7 @@ const StudentProgress = () => {
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
-                                      color: "#36A2EB",fontWeight: "bold"
+                                      color: "#36A2EB", fontWeight: "bold"
                                     }}
                                   >
                                     #Teams Submitted Ideas
@@ -1201,7 +1206,7 @@ const StudentProgress = () => {
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
-                                      color: "#36A2EB",fontWeight: "bold"
+                                      color: "#36A2EB", fontWeight: "bold"
                                     }}
                                   >
                                     #Teams Ideas in Draft
@@ -1209,7 +1214,7 @@ const StudentProgress = () => {
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
-                                      color: "#36A2EB",fontWeight: "bold"
+                                      color: "#36A2EB", fontWeight: "bold"
                                     }}
                                   >
                                     #Teams Idea Not Started

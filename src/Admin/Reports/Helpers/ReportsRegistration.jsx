@@ -115,11 +115,14 @@ const ReportsRegistration = () => {
       label: "State Name",
       key: "state",
     },
-   
-    // {
-    //   label: "Total Not Registered ATL Schools",
-    //   key: "total_not_Reg_ATL",
-    // },
+    {
+      label: "Total Schools in DB",
+      key: "Eligible_school",
+    },
+    {
+      label: "Registered Schools",
+      key: "reg_school",
+    },
     {
       label: "Total Registered ATL Teachers",
       key: "ATL_Reg_Count",
@@ -133,6 +136,10 @@ const ReportsRegistration = () => {
       key: "Others_Reg_Count",
     },
     {
+      label: "Total Registered Teachers",
+      key: "total",
+    },
+    {
       label: "Registered Male Teachers",
       key: "Male",
     },
@@ -143,15 +150,7 @@ const ReportsRegistration = () => {
     {
       label: " Registered Others Teachers",
       key: "others",
-    },
-    {
-      label: "Total Schools in DB",
-      key: "Eligible_school",
-    },
-    {
-      label: "Registered Schools",
-      key: "reg_school",
-    },
+    }
   ];
   const RegHeaders = [
     {
@@ -566,7 +565,10 @@ const ReportsRegistration = () => {
         if (response.status === 200) {
           const chartTableData = response?.data?.data || [];
           setChartTableData(chartTableData);
-          setDownloadTableData(chartTableData);
+          const formattedData = chartTableData.map(item => ({...item,
+            total: `${item.ATL_Reg_Count+item.NONATL_Reg_Count+item.Others_Reg_Count}`
+          }));
+          setDownloadTableData(formattedData);
           // console.log(chartTableData, "table data");
 
           const lastRow = chartTableData[chartTableData.length - 1];
