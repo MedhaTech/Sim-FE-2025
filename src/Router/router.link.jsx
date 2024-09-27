@@ -76,6 +76,7 @@ import AdminsList from "../Admin/UsersList/AdminsList";
 import MentorTableView from "../Admin/UsersList/MentorTableView";
 import PopUp from "../Admin/PopUp/Popuplist";
 import Createpopup from "../Admin/PopUp/CreatePopUp";
+import EmailList from "../Admin/BulkEmail/EmailList";
 import AdminResources from "../Admin/Resources/index";
 import EditResource from "../Admin/Resources/editResource";
 import TeacherProgressDetailed from "../Admin/Reports/Helpers/TeacherProgressDetailed";
@@ -121,6 +122,8 @@ import StateData from "../Admin/StateWise/StateData";
 import EditStateData from "../Admin/StateWise/EditStateData";
 
 import InstitutionReport from "../Admin/Reports/Helpers/InstitutionReport";
+import CreateEmail from "../Admin/BulkEmail/CreatePopUp";
+import ResendEmail from "../Admin/BulkEmail/ResendEmail";
 
 
 
@@ -423,6 +426,31 @@ export const publicRoutes = [
     protected: true,
     route: Route,
   },
+  {
+    id: 34,
+    path: routes.EmailList,
+    name: "EmailList",
+    element: <EmailList />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 35,
+    path: routes.createemail,
+    name: "createemail",
+    element: <CreateEmail />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 36,
+    path: routes.resendemail,
+    name: "resendemail",
+    element: <ResendEmail />,
+    protected: true,
+    route: Route,
+  },
+  
  
 ];
 // export const studentRoutes = [
