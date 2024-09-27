@@ -1051,6 +1051,12 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               <div>
                                 {place.map((item,i) => (
                                   <div key={i}>
+                                     <label
+                                    style={{
+                                      margin: "1rem",
+                                      fontSize: "1rem",
+                                    }}
+                                  >
                                     <input
                                       type="radio"
                                       value={item.value}
@@ -1060,12 +1066,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                         setCommunity(e.target.value)
                                       }
                                     />
-                                    <label
-                                      style={{
-                                        margin: "1rem",
-                                        fontSize: "1rem",
-                                      }}
-                                    >
+                                   
                                       {item.label}
                                     </label>
                                   </div>
@@ -1212,6 +1213,12 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               <div>
                                 {people.map((item,i) => (
                                   <div key={i}>
+                                     <label
+                                    style={{
+                                      margin: "1rem",
+                                      fontSize: "1rem",
+                                    }}
+                                  >
                                     <input
                                       type="radio"
                                       value={item.value}
@@ -1221,12 +1228,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                         setStakeholders(e.target.value)
                                       }
                                     />
-                                    <label
-                                      style={{
-                                        margin: "1rem",
-                                        fontSize: "1rem",
-                                      }}
-                                    >
+                                   
                                       {item.label}
                                     </label>
                                   </div>
@@ -1514,6 +1516,12 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               <div>
                                 {submit.map((item,i) => (
                                   <div key={i}>
+                                  <label
+                                    style={{
+                                      margin: "1rem",
+                                      fontSize: "1rem",
+                                    }}
+                                  >
                                     <input
                                       type="radio"
                                       value={item.value}
@@ -1523,12 +1531,6 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                         setWorkbook(e.target.value)
                                       }
                                     />
-                                    <label
-                                      style={{
-                                        margin: "1rem",
-                                        fontSize: "1rem",
-                                      }}
-                                    >
                                       {item.label}
                                     </label>
                                   </div>
