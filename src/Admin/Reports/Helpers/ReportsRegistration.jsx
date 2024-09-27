@@ -619,10 +619,16 @@ const ReportsRegistration = () => {
                 data: GraphfilteredData.map((item) => item.NONATL_Reg_Count),
                 backgroundColor: "#ffa31a",
               },
+              {
+                label: "Registered Schools",
+                data: GraphfilteredData.map((item) => item.reg_school),
+                backgroundColor: "#ffa31a",
+              }
+
             ],
           };
           setBarChart1Data(barData);
-          setseries1(barData.datasets[0].data);
+          setseries1(barData.datasets[2].data);
           setseries2(barData.datasets[1].data);
         }
       })
@@ -630,7 +636,7 @@ const ReportsRegistration = () => {
         console.log("API error:", error);
       });
   };
-
+  
   return (
     <div className="page-wrapper">
       <div className="content">

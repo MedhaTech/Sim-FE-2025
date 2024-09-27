@@ -162,8 +162,8 @@ const ReportsRegistration = () => {
       key: "district",
     },
     {
-      label: "Total Schools",
-      key: "Eligible_school",
+      label: "Registered Schools",
+      key: "reg_school",
     },
     // {
     //   label: "Registered Schools",
