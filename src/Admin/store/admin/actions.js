@@ -84,7 +84,8 @@ export const adminLoginUser = (data, navigate, module) => async (dispatch) => {
 
       navigate("/admin-dashboard");
     } else {
-      openNotificationWithIcon("error", "Invalid Username or Password");
+      openNotificationWithIcon("error", "Your account is inactive"
+);
       dispatch(adminLoginUserError(result.statusText));
     }
   } catch (error) {

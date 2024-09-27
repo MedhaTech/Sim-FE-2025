@@ -129,7 +129,7 @@ const EditSchool = (props) => {
                 .optional(),
             address: Yup.string()
                  .optional()
-                .matches(/^[a-zA-Z0-9\s\-,/._-]+$/, 'please enter valid address'),
+                .matches(/^[a-zA-Z0-9\s\-,/._-]+$/, 'Special characters are not allowed in the Address'),
 
             pin_code: Yup.string()
                 .matches(/^[0-9]*$/, 'Please enter Numeric values')

@@ -80,6 +80,7 @@ const Register = (props) => {
                         dispatch(getAdmin());
 
                         }, 500);
+                        window.location.reload();
                         openNotificationWithIcon(
                             'success',
                             evaluatorRegRes?.data?.message
