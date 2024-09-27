@@ -230,7 +230,7 @@ const { t } = useTranslation();
             )}
           </div>
         ) : (
-          <IdeaPageCopy theme={theme} showChallenges={challenges} />
+          <IdeaPageCopy  showChallenges={challenges} />
         )}
 
       </div>

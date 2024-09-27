@@ -198,7 +198,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       label: t("ideaform_questions.communityop4"),
     },
   ];
-
+// console.log(theme,"theme",props?.theme,"props?.theme");
   const initiatedBy = formData?.initiated_by;
   const handleThemeChange = (e) => {
     const selectedTheme = e.target.value;
@@ -549,19 +549,46 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     if (stats === "SUBMITTED") {
       if (
         theme === "" ||
+        theme === null ||
+
+
         focusarea === "" ||
+        focusarea === null ||
+
+
         problemStatement === "" ||
+        problemStatement === null ||
+
         title === "" ||
+        title ===  null ||
+
         causes === "" ||
+        causes === null ||
+
         effects === "" ||
+        effects === null ||
+
         community === "" ||
+        community === null ||
+
         facing === "" ||
+        facing === null ||
+
         solution === "" ||
+        solution === null ||
+
         stakeholders === "" ||
+        stakeholders === null ||
+
         problemSolving === "" ||
+        problemSolving === null ||
+
         feedback === "" ||
+        feedback === null ||
+
         prototypeLink === "" ||
         prototypeLink == null ||
+
         workbook === "" ||
         workbook == null
       ) {
@@ -666,16 +693,16 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                           <div className="d-md-flex justify-content-end px-4">
                             <Card className="p-3 card-bg-warning">
                               <h5 className="text-white p-1">
-                                Last modified by : {formData?.initiated_name}{" "}
+                              {t("idea_page.modified")} : {formData?.initiated_name}{" "}
                               </h5>
                               <h5 className="text-white p-1">
-                                Last submission rejected by your teacher on :{" "}
+                              {t("idea_page.date")} :{" "}
                                 {moment(formData?.verified_at).format(
                                   "DD-MM-YYYY"
                                 )}{" "}
                               </h5>
                               <h5 className="text-white p-1">
-                                Reason for Rejection :{" "}
+                              {t("idea_page.reject")} :{" "}
                                 {formData?.mentor_rejected_reason}{" "}
                               </h5>
                             </Card>
@@ -710,7 +737,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               : ""}
                           </h5>
                           <h5 className="text-white p-1">
-                            Teacher Verification Status :
+                          {t("idea_page.review")}  :
                             {formData?.verified_status === null ||
                             formData?.verified_status === ""
                               ? " Yet to be Reviewed"
@@ -1022,8 +1049,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </div>
                             <div className=" answers row flex-column">
                               <div>
-                                {place.map((item) => (
-                                  <div key={item.value}>
+                                {place.map((item,i) => (
+                                  <div key={i}>
                                     <input
                                       type="radio"
                                       value={item.value}
@@ -1183,8 +1210,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 ))}
                               </div> */}
                               <div>
-                                {people.map((item) => (
-                                  <div key={item.value}>
+                                {people.map((item,i) => (
+                                  <div key={i}>
                                     <input
                                       type="radio"
                                       value={item.value}
@@ -1485,8 +1512,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 ))}
                               </div> */}
                               <div>
-                                {submit.map((item) => (
-                                  <div key={item.value}>
+                                {submit.map((item,i) => (
+                                  <div key={i}>
                                     <input
                                       type="radio"
                                       value={item.value}

@@ -290,7 +290,19 @@ const IdeaReport = () => {
     {
         label: 'Did your team complete and submit the workbook to your school Guide teacher?',
         key: 'workbook'
-    }
+    },
+    {
+      label: 'Idea Submission Status',
+      key: 'status'
+  },
+  {
+    label: 'Teacher Verified Status',
+    key: 'verifiedment'
+},
+{
+  label: 'Teacher Verified At',
+  key: 'verified_at'
+},
   ];
 
   // useEffect(() => {
@@ -732,7 +744,9 @@ const IdeaReport = () => {
           const newdatalist = mentorAndOrg.map((item) => {
             return {
               ...item,
+              verifiedment: item.verified_status == null ? "Not yet Reviewed" : item.verified_status,
               username: mentorUsernameMap[item.mentorUserId],
+
             };
           });
 

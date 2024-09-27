@@ -886,7 +886,7 @@ export const navList = {
   ],
   Student:[
       "/studentcourse/1",
-      "/idea",
+      "/instruction",
       "/studentpostsurvey",
       "/certificate",
       "/studentresource",
