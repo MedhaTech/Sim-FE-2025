@@ -76,6 +76,7 @@ import AdminsList from "../Admin/UsersList/AdminsList";
 import MentorTableView from "../Admin/UsersList/MentorTableView";
 import PopUp from "../Admin/PopUp/Popuplist";
 import Createpopup from "../Admin/PopUp/CreatePopUp";
+import EmailList from "../Admin/BulkEmail/EmailList";
 import AdminResources from "../Admin/Resources/index";
 import EditResource from "../Admin/Resources/editResource";
 import TeacherProgressDetailed from "../Admin/Reports/Helpers/TeacherProgressDetailed";
@@ -423,6 +424,15 @@ export const publicRoutes = [
     protected: true,
     route: Route,
   },
+  {
+    id: 34,
+    path: routes.EmailList,
+    name: "EmailList",
+    element: <EmailList />,
+    protected: true,
+    route: Route,
+  },
+  
  
 ];
 // export const studentRoutes = [
