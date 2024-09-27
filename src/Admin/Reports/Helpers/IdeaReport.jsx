@@ -31,6 +31,7 @@ import {
 import ReactApexChart from "react-apexcharts";
 import { openNotificationWithIcon } from "../../../helpers/Utils";
 import { themesList } from "../../../Team/IdeaSubmission/themesData";
+import moment from "moment/moment";
 
 const IdeaReport = () => {
   const navigate = useNavigate();
@@ -105,9 +106,8 @@ const IdeaReport = () => {
     // setdistrict('');
     fetchChartTableData();
     const newDate = new Date();
-    const formattedDate = `${newDate.getUTCDate()}/${
-      1 + newDate.getMonth()
-    }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
+    const formattedDate = `${newDate.getUTCDate()}/${1 + newDate.getMonth()
+      }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
     setNewFormat(formattedDate);
   }, []);
   const [totalCount, setTotalCount] = useState([]);
@@ -122,15 +122,15 @@ const IdeaReport = () => {
       key: "totalSubmited",
     },
     {
-      label:  "Agriculture and Rural Development",
+      label: "Agriculture and Rural Development",
       key: "AgricultureandRuralDevelopment",
     },
     {
-      label:"Digital Transformation",
+      label: "Digital Transformation",
       key: "DigitalTransformation",
     },
     {
-      label:  "Economic Empowerment",
+      label: "Economic Empowerment",
       key: "EconomicEmpowerment",
     },
     {
@@ -138,11 +138,11 @@ const IdeaReport = () => {
       key: "HealthandWellbeing",
     },
     {
-      label:  "Quality Education",
+      label: "Quality Education",
       key: "QualityEducation",
     },
     {
-      label:  "Smart and Resilient Communities",
+      label: "Smart and Resilient Communities",
       key: "SmartandResilientCommunities",
     },
     {
@@ -150,7 +150,7 @@ const IdeaReport = () => {
       key: "SustainableDevelopmentandEnvironment",
     },
     {
-      label:  "Others",
+      label: "Others",
       key: "OTHERS",
     },
   ];
@@ -159,11 +159,6 @@ const IdeaReport = () => {
       label: "UDISE CODE",
       key: "organization_code",
     },
-    // {
-    //   label: 'ATL CODE',
-    //   key: 'unique_code'
-    // },
-   
     {
       label: "State",
       key: "state",
@@ -175,7 +170,7 @@ const IdeaReport = () => {
     {
       label: 'CID',
       key: 'challenge_response_id'
-  },
+    },
     {
       label: "School Name",
       key: "organization_name",
@@ -187,23 +182,11 @@ const IdeaReport = () => {
     {
       label: 'Pin code',
       key: 'pin_code'
-  },
-  {
+    },
+    {
       label: 'Address',
       key: 'address'
-  },
-    // {
-    //   label: "City",
-    //   key: "city",
-    // },
-    // {
-    //   label: "HM Name",
-    //   key: "principal_name",
-    // },
-    // {
-    //   label: "HM Contact",
-    //   key: "principal_mobile",
-    // },
+    },
     {
       label: "Teacher Name",
       key: "full_name",
@@ -220,11 +203,6 @@ const IdeaReport = () => {
       label: "Teacher Contact",
       key: "mobile",
     },
-    // {
-    //   label: "Teacher WhatsApp Contact",
-    //   key: "whatapp_mobile",
-    // },
-
     {
       label: "Team Name",
       key: "team_name",
@@ -237,72 +215,78 @@ const IdeaReport = () => {
       label: "Student Names",
       key: "names",
     },
-
     {
       label: 'Theme',
       key: 'theme'
-  },
-  {
-    label: 'Focus Area',
-    key: 'Focus Area'
-},
-  {
-      label: 'Title of your idea (Think of a proper name. Dont describe the solution or problem statement here.',
-      key: 'title'
-  },
-  {
-    label: 'Write down your Problem statement',
-    key: 'problem_statement'
-}, {
-  label: 'List the Causes of the problem',
-  key: 'causes'
-}, {
-  label: 'List the Effects of the problem',
-  key: 'effects'
-}, {
-  label: 'In which places in your community did you find this problem?',
-  key: 'community'
-}, {
-  label: 'Who all are facing this problem?',
-  key: 'facing'
-}, {
-  label: 'Describe the solution to the problem your team found. Explain your solution clearly - how does it work, who is it helping, and how will it solve the problem.',
-  key: 'facing'
-}, {
-  label: 'Apart from your teacher, how many people/stakeholders did you speak to to understand or improve your problem or solution?',
-  key: 'stakeholders'
-}, {
-  label: 'Pick the actions your team did in your problem solving journey (You can choose multiple options)',
-  key: 'problem_solving'
-},
-    {
-        label: 'Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.',
-        key: 'feedback'
     },
     {
-        label: 'Upload image of your prototype.',
-        key: 'prototype_image'
+      label: 'Focus Area',
+      key: 'focus_area'
+    },
+    {
+      label: 'Title of your idea (Think of a proper name. Dont describe the solution or problem statement here.',
+      key: 'title'
+    },
+    {
+      label: 'Write down your Problem statement',
+      key: 'problem_statement'
+    },
+    {
+      label: 'List the Causes of the problem',
+      key: 'causes'
+    },
+    {
+      label: 'List the Effects of the problem',
+      key: 'effects'
+    },
+    {
+      label: 'In which places in your community did you find this problem?',
+      key: 'community'
+    },
+    {
+      label: 'Who all are facing this problem?',
+      key: 'facing'
+    },
+    {
+      label: 'Describe the solution to the problem your team found. Explain your solution clearly - how does it work, who is it helping, and how will it solve the problem.',
+      key: 'solution'
+    },
+    {
+      label: 'Apart from your teacher, how many people/stakeholders did you speak to to understand or improve your problem or solution?',
+      key: 'stakeholders'
+    },
+    {
+      label: 'Pick the actions your team did in your problem solving journey (You can choose multiple options)',
+      key: 'problem_solving'
+    },
+    {
+      label: 'Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.',
+      key: 'feedback'
+    },
+    {
+      label: 'Upload image of your prototype.',
+      key: 'prototype_image'
     },
     {
       label: 'Upload documents & video links of your prototype.',
       key: 'prototype_link'
-  },
+    },
     {
-        label: 'Did your team complete and submit the workbook to your school Guide teacher?',
-        key: 'workbook'
+      label: 'Did your team complete and submit the workbook to your school Guide teacher?',
+      key: 'workbook'
     },
     {
       label: 'Idea Submission Status',
       key: 'status'
-  },
-  {
-    label: 'Teacher Verified Status',
-    key: 'verifiedment'
-},
-{
-  label: 'Teacher Verified At',
-  key: 'verified_at'
-},
+    },
+    {
+      label: 'Teacher Verified Status',
+      key: 'verifiedment'
+    },
+    {
+      label: 'Teacher Verified At',
+      key: 'verified_at'
+    },
   ];
 
   // useEffect(() => {
@@ -323,7 +307,7 @@ const IdeaReport = () => {
         show: false,
       },
     },
-    colors: [ "#36A2EB",
+    colors: ["#36A2EB",
       "#FF6384",
       "#ff6666",
       "#954535",
@@ -332,15 +316,15 @@ const IdeaReport = () => {
       "#4169e1",
       "#dda0dd",],
     labels: [
-     
+
       "Agriculture and Rural Development",
       "Digital Transformation",
       "Economic Empowerment",
       "Health and Well-being",
       "Quality Education",
       "Smart and Resilient Communities",
-"Sustainable Development and Environment",
-   "Others"
+      "Sustainable Development and Environment",
+      "Others"
     ],
     series: [
       totalCount.AgricultureandRuralDevelopment,
@@ -581,7 +565,7 @@ const IdeaReport = () => {
   // useEffect(() => {
   //     nonAtlCount();
   // }, []);
- 
+
   const handleDownload = () => {
     if (
       !selectstate ||
@@ -610,7 +594,7 @@ const IdeaReport = () => {
         state: selectstate,
         district: district,
         category: category,
-        theme:sdg,
+        theme: sdg,
       })
     );
     // console.log(selectstate,district,category);
@@ -657,14 +641,14 @@ const IdeaReport = () => {
             {}
           );
           const studentNamesMap = response.data.data[0].
-          student_names
-          .reduce(
-            (map, item) => {
-              map[item.team_id] = item.names;
-              return map;
-            },
-            {}
-          );
+            student_names
+            .reduce(
+              (map, item) => {
+                map[item.team_id] = item.names;
+                return map;
+              },
+              {}
+            );
           // const postSurveyMap = response.data.data[0].postSurvey.reduce(
           //   (map, item) => {
           //     map[item.user_id] = item.post_survey_status;
@@ -720,7 +704,7 @@ const IdeaReport = () => {
           const mentorAndOrg = studentAndteam.map((item) => {
             return {
               ...item,
-              
+
               team_username: teamUsernameMap[item.teamuserId],
               category: mentorMap[item.mentor_id].category,
               district: mentorMap[item.mentor_id].district,
@@ -746,7 +730,21 @@ const IdeaReport = () => {
               ...item,
               verifiedment: item.verified_status == null ? "Not yet Reviewed" : item.verified_status,
               username: mentorUsernameMap[item.mentorUserId],
-
+              focus_area: item.focus_area ? item.focus_area.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+              prototype_image: item.prototype_image ? item.prototype_image.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+              problem_solving: item.problem_solving ? item.problem_solving.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+              feedback: item.feedback ? item.feedback.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+              stakeholders: item.stakeholders ? item.stakeholders.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+              solution: item.solution ? item.solution.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+              facing: item.facing ? item.facing.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+              community: item.community ? item.community.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+              effects: item.effects ? item.effects.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+              causes: item.causes ? item.causes.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+              problem_statement: item.problem_statement ? item.problem_statement.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+              title: item.title ? item.title.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+              verified_at:item.verified_at ? moment(item.verified_at).format(
+                "DD-MM-YYYY"
+              ) : ''
             };
           });
 
@@ -770,7 +768,6 @@ const IdeaReport = () => {
         setIsDownload(false);
       });
   };
-  console.log(studentDetailedReportsData,"all");
 
   const fetchChartTableData = () => {
     const config = {
@@ -790,10 +787,11 @@ const IdeaReport = () => {
 
           const total = combinedArray.reduce(
             (acc, item) => {
+              acc.state = "Total";
               (acc.totalSubmited += item.totalSubmited),
-              // (acc.ATL_Count += item.ATL_Count);
-              // acc.NonATL_Count += item.NonATL_Count;
-              acc.AgricultureandRuralDevelopment +=
+                // (acc.ATL_Count += item.ATL_Count);
+                // acc.NonATL_Count += item.NonATL_Count;
+                acc.AgricultureandRuralDevelopment +=
                 item.AgricultureandRuralDevelopment;
               acc.DigitalTransformation += item.DigitalTransformation;
               acc.EconomicEmpowerment += item.EconomicEmpowerment;
@@ -1169,7 +1167,7 @@ const IdeaReport = () => {
                                     /> */}
                                     #Health and Well-being
                                   </th>
-                                  
+
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
@@ -1181,7 +1179,7 @@ const IdeaReport = () => {
                                     />{" "} */}
                                     #Quality Education{" "}
                                   </th>
-                                 
+
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
@@ -1199,9 +1197,9 @@ const IdeaReport = () => {
                                   >
                                     #Sustainable Development and Environment
                                   </th>
-                                 
-                                 
-                                
+
+
+
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
@@ -1249,7 +1247,7 @@ const IdeaReport = () => {
                                   </tr>
                                 ))}
                                 <tr>
-                                  <td>{}</td>
+                                  <td>{ }</td>
                                   <td
                                     style={{
                                       color: "crimson",
@@ -1279,7 +1277,7 @@ const IdeaReport = () => {
                                   <td style={{ color: "crimson" }}>
                                     {totalCount.QualityEducation}
                                   </td>
-                                 
+
                                   <td style={{ color: "crimson" }}>
                                     {totalCount.SmartandResilientCommunities}
                                   </td>{" "}
