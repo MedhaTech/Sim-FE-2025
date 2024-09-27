@@ -42,7 +42,13 @@
         "error_required": "Required",
         "error_invalid_email": "Invalid email address",
         "error_terms": "You must accept the terms and conditions.",
-        "error:job_type": "Invalid Job Type"
+        "error:job_type": "Invalid Job Type",
+        "popinst":"அச்சச்சோ..! யோசனை சமர்ப்பிப்பு செயல்படுத்தப்படவில்லையா?",
+"popdi":"அச்சச்சோ... நீங்கள் படிவத்தை அணுக முடியாது",
+"popcheckD":"யோசனை சமர்ப்பிப்பு நிர்வாகியால் முடக்கப்பட்டுள்ளது",
+
+"popcheck":"உங்கள் அணியினரில் ஒருவராவது பாடத்திட்டத்தை முடித்திருக்கும் வரை நீங்கள் யோசனை சமர்ப்பிப்பை அணுகலாம்.",
+"ok":"சரி"
     },
     "loginPage": {
         "Student": "மாணவர்",
@@ -108,12 +114,12 @@
         "Change_password": "கடவுச்சொல்லை மாற்று"
     },
     "home": {
-        "preinst":"We're happy to have you join us in this exciting learning adventure!</br></br> <b class='text-success'>Here's what you'll do during the program:</b></br></br><ol><li>1. Log in to the portal to get started.</li><li>2. Complete the pre-survey to share your thoughts before we begin.</li><li>3. Dive into the course and explore all the amazing videos.</li><li>4. Work with your teammates to identify a problem and work together to find a solution.</li><li>5. Submit your innovative idea to the Innovation Marathon and showcase your creativity.</li><li>6. Complete the post-survey to share your feedback and experience.</li><li>7. Download your certificates to celebrate your achievements!</li></br>We can't wait to see the incredible ideas you'll come up with. Have fun, learn a lot, and let's make this an unforgettable journey!",
+        "preinst":"இந்தஅற்புதமான கற்றுக்கொள்ளும் சாகசத்தில் நீங்கள் எங்களுடன் இணைந்ததில் நாங்கள் மகிழ்ச்சியடைகிறோம்! </br></br> <b class='text-success'> நிகழ்ச்சியின் போதுநீங்கள் என்ன செய்வீர்கள் என்பதைபற்றி இங்கே உள்ளது:</b></br></br><ol><li>1. தொடங்குவதற்கு இணையத்தில் உள்நுழைக.</li><li>2. நாம் தொடங்கும் முன் உங்கள் எண்ணங்களைப்பகிர்ந்து கொள்ள முன்-கணிப்பை நிறைவு செய்யவும்.</li><li>3. பாடத்திட்டத்தைதொடங்குங்கள் மற்றும் அனைத்து அற்புதமான காணொளிகளையும் ஆராயுங்கள்.</li><li>4. ஒரு பிரச்சனையை கண்டறிய உங்கள் அணி உறுப்பினர்களுடன் இணைந்துபணியாற்றுங்கள் மற்றும் தீர்வு காண ஒன்றாகச் செயல்படுங்கள்.</li><li>5. உங்கள் புதுமையான யோசனையை புதுமை நெடுந்தொலை ஓட்ட நிகழ்ச்சியில் சமர்ப்பித்துஉங்கள் படைப்பாற்றலை வெளிப்படுத்துங்கள்.</li><li>6. உங்கள் கருத்தையும் அனுபவத்தையும் பகிர்ந்துகொள்ள பிந்தைய கணக்கெடுப்பை நிறைவு செய்யவும்.</li><li>7. உங்கள் சாதனைகளைக் கொண்டாட உங்கள் சான்றிதழ்களைப் பதிவிறக்கவும்!</li></br> நீங்கள் கொண்டு வரும் நம்பமுடியாத யோசனைகளைப் பார்க்க நாங்கள் ஆவலாக உள்ளோம். மகிழுங்கள், நிறைய கற்றுக்கொள்ளுங்கள், இதை மறக்க முடியாத பயணமாக மாற்றுவோம்!",
         "startnow":"இப்போது தொடங்கு",
         "dolater":"பின்னர் செய்",
 "textdata":"இந்தச் சிக்கலைத் தீர்க்கும் பயணத்தில் எங்களுடன் சேருங்கள்.",
 "ideafocus": "ஃபோகஸ் ஏரியா",
-"select":"Select a theme",
+"select":"ஒரு தீம் தேர்ந்தெடுக்கவும்",
 "selectv":"ஒரு தீம் தேர்ந்தெடு",
 
 "share":"உங்கள் அற்புதமான யோசனைகளை எங்களுடன் பகிர்ந்து கொள்ளுங்கள்",
@@ -429,7 +435,13 @@
         "title3": "பயனர் கருத்துகளை எடுத்துக் கொள்வோம்",
         "title4": "முன்மாதிரி - மேக் & டெஸ்",
         "next": "அடுத்தது",
-        "back": "மீண்டும்"
+        "back": "மீண்டும்",
+         "proceed":"தொடரவும்",
+         "review":"ஆசிரியர் மதிப்பாய்வு நிலை",
+         "reject":"நிராகரிப்புக்கான காரணம்",
+         "modified":"கடைசியாக மாற்றப்பட்டது",
+         "date":"அன்று கடைசி சமர்ப்பிப்பு உங்கள் ஆசிரியரால் நிராகரிக்கப்பட்டது",
+ "otheruser":"யோசனை சமர்ப்பிப்பு உங்கள் அணி உறுப்பினரால் நிறைவேற்றப்பட்டது ---- அன்று ----"
     },
     "translation": {
         "tamil": "Tamil Content :-",

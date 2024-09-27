@@ -409,7 +409,7 @@ const updateStatesList=["All States",...stateList];
                 width: '15rem'
             },
             {
-                name: 'Email',
+                name: 'Email/Password',
                 selector: (row) => row?.user?.username,
                 cellExport: (row) => row?.user?.username,
 

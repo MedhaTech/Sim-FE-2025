@@ -151,7 +151,7 @@ const ViewMore = () => {
                                     <span className="mx-3">
                                         <b>Category :</b>
                                     </span>
-                                    <b>{orgDaTa.category}</b>
+                                    <b>{orgDaTa.organization.category}</b>
                                 </CardText>
 
                                 <CardText>

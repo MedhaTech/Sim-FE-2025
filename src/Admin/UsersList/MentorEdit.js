@@ -167,7 +167,8 @@ const TeacherEditProfile = () => {
             // currentUser.data[0].gender = values.gender;
 
             // setCurrentUser(currentUser);
-            navigate("/mentor-view");
+            navigate("/mentors");
+            // window.location.reload();
             // setTimeout(() => {
             // }, 2000);
           }

@@ -197,7 +197,7 @@ const Header = () => {
                  window.location.reload();
                 }
                }else{
-                openNotificationWithIcon("error", "Udise code seems to be invalid");
+                openNotificationWithIcon("error", "Udise code is inactive");
                 setDiesCode('');
 
                }
