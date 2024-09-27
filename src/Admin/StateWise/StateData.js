@@ -198,6 +198,9 @@ state_coordinators_id
                 // setshowspin(false);
             });
     }
+    const stripHTMLTags = (text) => {
+        return text.replace(/<\/?[^>]+(>|$)/g, ""); // Removes all HTML tags
+      };
     const resData = {
         // data: resList || [],
         data: array,
@@ -240,12 +243,11 @@ state_coordinators_id
             },
             {
                 name: 'Teacher Inst',
-                selector: (row) => row.mentor_note
-                ,
+                selector: (row) =>stripHTMLTags(row.mentor_note),
                 width: '13rem'
             },  {
                 name: 'student Inst',
-                selector: (row) => row.student_note
+                selector: (row) => stripHTMLTags(row.student_note)
                 ,
                 width: '13rem'
             },

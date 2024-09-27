@@ -93,7 +93,7 @@ const AdminResources = () => {
             // },
             {
                 name: 'Attachment',
-                width: '6rem',
+                width: '8rem',
                 cell: (record) => {
                     if (record.type === 'file') {
                         return (

@@ -352,15 +352,29 @@ const EditResource = () => {
                                                         <button
                                                             className='btn btn-info mx-2'
                                                             type="button"
+                                                            disabled={!formik.values.attachments}
                                                             onClick={() => {
-                                                                window.open(
-                                                                    formik.values
-                                                                        .attachments,
-                                                                    '_blank'
-                                                                );
+                                                                if (formik.values.attachments instanceof File) {
+                                                                    const fileURL = URL.createObjectURL(formik.values.attachments);
+                                                                    window.open(fileURL, '_blank');
+                                                                } else {
+                                                                    window.open(formik.values.attachments, '_blank');
+                                                                }
                                                             }}
+                                                            // onClick={() => {
+                                                            //     window.open(
+                                                            //         formik.values
+                                                            //             .attachments,
+                                                            //         '_blank'
+                                                            //     );
+                                                            // }}
                                                         >
-                                                             {formik.values.attachments ? formik.values.attachments.substring(formik.values.attachments.lastIndexOf('/') + 1) : 'Download'}
+                                                             {formik.values.attachments
+                    ? formik.values.attachments instanceof File
+                        ? formik.values.attachments.name  
+                        : formik.values.attachments.substring(formik.values.attachments.lastIndexOf('/') + 1)  
+                    : 'Download'}
+                                                             {/* {formik.values.attachments ? formik.values.attachments.substring(formik.values.attachments.lastIndexOf('/') + 1) : 'Download'} */}
                                                             {/* Download */}
                                                         </button>
                                                         
