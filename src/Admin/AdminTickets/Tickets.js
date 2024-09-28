@@ -206,36 +206,36 @@ const AdminSupport = () => {
                 selector: (row) => row.organization_code,
                 cellExport: (row) => row.organization_code,
                 sortable: true,
-                width: '10rem'
+                width: '9rem'
             },
             {
                 name: 'State',
                 selector: (row) => row.state,
                 cellExport: (row) => row.state,
                 sortable: true,
-                width: '10rem'
+                width: '9rem'
             },
             {
                 name: 'District',
                 selector: (row) => row.district,
                 cellExport: (row) => row.district,
                 sortable: true,
-                width: '10rem'
+                width: '9rem'
             },
             {
                 name: 'Created By',
                 selector: (row) => row.created_by,
                 cellExport: (row) => row.created_by,
                 sortable: true,
-                width: '10rem'
+                width: '9rem'
             },
 
             {
-                name: 'Query Type',
+                name: 'Type',
                 selector: (row) => row.query_category,
                 cellExport: (row) => row.query_category,
                 sortable: true,
-                width: '12rem'
+                width: '6rem'
             },
             {
                 name: ' Query Details',
@@ -263,19 +263,19 @@ const AdminSupport = () => {
                 width: '8rem',
                 cell: (params) => [
                     params?.status === 'OPEN' ? (
-                        <span className="btn btn-soft-danger">
+                        <span className="badge bg-warning">
                             Open
                         </span>
                     ) : params?.status === 'INPROGRESS' ? (
-                        <span className="btn btn-soft-info">
+                        <span className="badge bg-info">
                             Inprogress
                         </span>
                     ) : params?.status === 'RESOLVED' ? (
-                        <span className="btn btn-soft-success">
+                        <span className="badge bg-success">
                             Resolved
                         </span>
                     ) : params?.status === 'INVALID' ? (
-                        <span className="btn btn-soft-warning">
+                        <span className="badge bg-light text-dark">
                             Invalid
                         </span>
                     ) : (
@@ -326,13 +326,263 @@ const AdminSupport = () => {
     return (
         // <Layout>
         <div className="page-wrapper">
-    <div className="content">
-            {/* <PageConstruction /> */}
-            <div className='mb-3'>
-                                <h4>Support</h4>
-                                <h6>Raise your queries here</h6>
-                            </div>
-            <Container className="ticket-page mb-50">
+    <div className="content">            
+            <div className="card">
+            <div className="card-header d-flex align-items-center flex-wrap justify-content-between">
+                    <div className="card-title">Support Queries Raised by teachers</div>
+                    <div>
+                        <ul
+                            className="nav nav-pills justify-content-end nav-style-2"
+                            role="tablist"
+                        
+                        >
+                            <li className="nav-item" onClick={(key) => changeTab("1")}>
+                                <Link
+                                    className="nav-link active"
+                                    data-bs-toggle="tab"
+                                    role="tab"
+                                    aria-current="page"
+                                    to="#home-center"
+                                    aria-selected="true"
+                                    
+                                >
+                                    All Tickets
+                                </Link>
+                            </li>
+                            <li className="nav-item" onClick={(key) => changeTab("2")}>
+                                <Link
+                                    className="nav-link"
+                                    data-bs-toggle="tab"
+                                    role="tab"
+                                    aria-current="page"
+                                    to="#about-center"
+                                    aria-selected="false"
+                                    key = "2"
+                                >
+                                    Open
+                                </Link>
+                            </li>
+                            <li className="nav-item" onClick={(key) => changeTab("3")}>
+                                <Link
+                                    className="nav-link"
+                                    data-bs-toggle="tab"
+                                    role="tab"
+                                    aria-current="page"
+                                    to="#services-center"
+                                    aria-selected="false"
+                                >
+                                    InProgress
+                                </Link>
+                            </li>
+                            <li className="nav-item" onClick={(key) => changeTab("4")}>
+                                <Link
+                                    className="nav-link"
+                                    data-bs-toggle="tab"
+                                    role="tab"
+                                    aria-current="page"
+                                    to="#contacts-center"
+                                    aria-selected="false"
+                                >
+                                    Resolved
+                                </Link>
+                            </li>
+                            <li className="nav-item" onClick={(key) => changeTab("5")}>
+                                <Link
+                                    className="nav-link"
+                                    data-bs-toggle="tab"
+                                    role="tab"
+                                    aria-current="page"
+                                    to="#invalid-center"
+                                    aria-selected="false"
+                                >
+                                    Invalid
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="card-body">
+                    <div className="tab-content">
+                        <div
+                            className="tab-pane show active text-muted"
+                            id="home-center"
+                            role="tabpanel"
+                        >
+                            {fetchData ? (
+                                    <ClipLoader
+
+                                        // fetchData={fetchData}
+                                        color={'blue'}
+                                        size={20}
+                                    />
+                                ) : (
+                                    <div className="my-2">
+                                        <DataTableExtensions
+                                            print={false}
+                                            export={true}
+                                            {...allData}
+                                            exportHeaders
+                                        >
+                                            <DataTable
+                                                data={rows}
+                                                customStyles={customStyles}
+                                                defaultSortField="1"
+                                                defaultSortAsc={false}
+                                                pagination
+                                                highlightOnHover
+                                                fixedHeader
+                                                subHeaderAlign={
+                                                    Alignment.Center
+                                                }
+                                            />
+                                        </DataTableExtensions>
+                                    </div>
+                                )}
+                        </div>
+                        <div
+                            className="tab-pane text-muted"
+                            id="about-center"
+                            role="tabpanel"
+                        >
+                            {fetchData ? (
+                                    <ClipLoader
+                                        // fetchData={fetchData}
+                                        color={'blue'}
+                                        size={20}
+                                    />
+                                ) : (
+                                    <div className="my-2">
+                                        <DataTableExtensions
+                                            print={false}
+                                            export={true}
+                                            {...allData}
+                                            exportHeaders
+                                        >
+                                            <DataTable
+                                                data={rows}
+                                                customStyles={customStyles}
+                                                defaultSortField="2"
+                                                defaultSortAsc={false}
+                                                pagination
+                                                highlightOnHover
+                                                fixedHeader
+                                                subHeaderAlign={
+                                                    Alignment.Center
+                                                }
+                                            />
+                                        </DataTableExtensions>
+                                    </div>
+                                )}
+                        </div>
+                        <div
+                            className="tab-pane text-muted"
+                            id="services-center"
+                            role="tabpanel"
+                        >
+                            {fetchData ? (
+                                    <ClipLoader
+                                        // fetchData={fetchData}
+                                        color={'blue'}
+                                        size={20}
+                                    />
+                                ) : (
+                                    <div className="my-2">
+                                        <DataTableExtensions
+                                            print={false}
+                                            export={true}
+                                            {...allData}
+                                            exportHeaders
+                                        >
+                                            <DataTable
+                                                data={rows}
+                                                customStyles={customStyles}
+                                                defaultSortField="3"
+                                                defaultSortAsc={false}
+                                                pagination
+                                                highlightOnHover
+                                                fixedHeader
+                                                subHeaderAlign={
+                                                    Alignment.Center
+                                                }
+                                            />
+                                        </DataTableExtensions>
+                                    </div>
+                                )}
+                        </div>
+                        <div
+                            className="tab-pane text-muted"
+                            id="contacts-center"
+                            role="tabpanel"
+                        >
+                           {fetchData ? (
+                                    <ClipLoader
+                                        // fetchData={fetchData}
+                                        color={'blue'}
+                                        size={20}
+                                    />
+                                ) : (
+                                    <div className="my-2">
+                                        <DataTableExtensions
+                                            print={false}
+                                            export={true}
+                                            {...allData}
+                                            exportHeaders
+                                        >
+                                            <DataTable
+                                                data={rows}
+                                                defaultSortField="4"
+                                                defaultSortAsc={false}
+                                                pagination
+                                                highlightOnHover
+                                                fixedHeader
+                                                subHeaderAlign={
+                                                    Alignment.Center
+                                                }
+                                            />
+                                        </DataTableExtensions>
+                                    </div>
+                                )}
+                        </div>
+                        <div
+                            className="tab-pane text-muted"
+                            id="invalid-center"
+                            role="tabpanel"
+                        >
+                           {fetchData ? (
+                                    <ClipLoader
+                                        // fetchData={fetchData}
+                                        color={'blue'}
+                                        size={20}
+                                    />
+                                ) : (
+                                    <div className="my-2">
+                                        <DataTableExtensions
+                                            print={false}
+                                            // export={false}
+                                            {...allData}
+                                            exportHeaders
+                                        >
+                                            <DataTable
+                                                data={rows}
+                                                defaultSortField="5"
+                                                defaultSortAsc={false}
+                                                pagination
+                                                highlightOnHover
+                                                fixedHeader
+                                                subHeaderAlign={
+                                                    Alignment.Center
+                                                }
+                                            />
+                                        </DataTableExtensions>
+                                    </div>
+                                )}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            {/* <Container className="ticket-page mb-50">
                 <Row >
                
                     <div className="ticket-data">
@@ -499,7 +749,7 @@ const AdminSupport = () => {
                         </Tabs>
                     </div>
                 </Row>
-            </Container>
+            </Container> */}
             </div>
             </div>
         // </Layout>

@@ -461,7 +461,7 @@ const TeacherProgressDetailed = () => {
           <div className="add-item d-flex">
             <div className="page-title">
               {/* <h4>Institutions /Organizations /Schools List</h4> */}
-              <h4>Organizations Report </h4>
+              <h4>School Registration Report</h4>
               <h6>List of overall Schools & its registration status</h6>
             </div>
           </div>
@@ -536,7 +536,7 @@ const TeacherProgressDetailed = () => {
                   <CSVLink
                     data={downloadTableData}
                     headers={summaryHeaders}
-                    filename={`InstitutionSummaryTable_${newFormat}.csv`}
+                    filename={`School_Registration_Status_Report_${newFormat}.csv`}
                     className="hidden"
                     ref={csvLinkRef}
                   // onDownloaded={() => {

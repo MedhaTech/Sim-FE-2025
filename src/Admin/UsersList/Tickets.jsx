@@ -403,6 +403,7 @@ const updateStatesList=["All States",...stateList];
                         {row?.team?.mentor?.organization?.organization_code}
                     </div>
                 ),
+                sortable: true,
                 cellExport: (row) => row?.team?.mentor?.organization?.organization_code,
                 width: '9rem'
             },
@@ -410,12 +411,14 @@ const updateStatesList=["All States",...stateList];
                 name: 'State',
                 selector: (row) => row?.team?.mentor?.organization.
                 state,
+                sortable: true,
                 width: '8rem'
             },
             {
                 name: 'Category',
                 selector: (row) => row?.team?.mentor?.organization?.category,
                 cellExport: (row) => row?.team?.mentor?.organization?.category,
+                sortable: true,
                 width: '6rem'
             },
             // {
@@ -468,6 +471,7 @@ const updateStatesList=["All States",...stateList];
             {
                 name: 'Team User Id',
                 selector: (row) => row?.team?.user?.username,
+                sortable: true,
                 width: '9rem'
             },
 

@@ -220,7 +220,7 @@ const AdminResources = () => {
                     <div className="add-item d-flex">
                         <div className="page-title">
                             <h4>Resources</h4>
-                            <h6>Student &amp; Teachers Resourses</h6>
+                            <h6>Create , Edit , Del State & User specific Resourses here</h6>
                         </div>
                     </div>
                     <div className="page-btn">
