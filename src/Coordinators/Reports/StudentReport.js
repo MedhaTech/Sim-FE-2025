@@ -35,7 +35,8 @@ const StudentProgress = () => {
   const navigate = useNavigate();
   const [district, setdistrict] = React.useState("");
   const currentUser = getCurrentUser("current_user");
-
+  
+  const [isloader, setIsloader] = useState(false);
   const [selectstate, setSelectState] = React.useState(
     currentUser?.data[0]?.state_name
   );
@@ -330,7 +331,8 @@ const StudentProgress = () => {
 
   var options = {
     chart: {
-      height: 500,
+      height: 700,
+      width:1000,
       type: "bar",
       toolbar: {
         show: false,
@@ -371,8 +373,19 @@ const StudentProgress = () => {
 
     xaxis: {
       categories: barChart1Data.labels,
+      labels: {
+        style: {
+          fontSize: "10px",
+        },
+        formatter: (val) => {
+          // Shorten long labels or wrap them by breaking lines
+          if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
+          return val;
+        },
+      },
       ticks: {
         maxRotation: 80,
+        minRotation: 45,
         autoSkip: false,
       },
     },
@@ -384,7 +397,8 @@ const StudentProgress = () => {
 
   var sColStacked = {
     chart: {
-      height: 500,
+      height: 700,
+      width:1000,
       type: "bar",
       stacked: true,
       toolbar: {
@@ -414,8 +428,19 @@ const StudentProgress = () => {
     ],
     xaxis: {
       categories: barChart2Data.labels,
+      labels: {
+        style: {
+          fontSize: "10px",
+        },
+        formatter: (val) => {
+          // Shorten long labels or wrap them by breaking lines
+          if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
+          return val;
+        },
+      },
       ticks: {
         maxRotation: 80,
+        minRotation: 45,
         autoSkip: false,
       },
     },
@@ -442,7 +467,8 @@ const StudentProgress = () => {
 
   var optionsStudent = {
     chart: {
-      height: 500,
+      height: 700,
+      width:1000,
       type: "line",
       toolbar: {
         show: false,
@@ -471,8 +497,19 @@ const StudentProgress = () => {
 
     xaxis: {
       categories: barChart3Data.labels,
+      labels: {
+        style: {
+          fontSize: "10px",
+        },
+        formatter: (val) => {
+          // Shorten long labels or wrap them by breaking lines
+          if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
+          return val;
+        },
+      },
       ticks: {
         maxRotation: 80,
+        minRotation: 45,
         autoSkip: false,
       },
     },
@@ -810,6 +847,7 @@ const StudentProgress = () => {
     axios(config)
       .then((response) => {
         if (response.status === 200) {
+          setIsloader(true);
           // console.log(response,"view");
           const summary = response.data.data[0].summary;
           const studentCountDetails = response.data.data[0].studentCountDetails;
@@ -1043,9 +1081,9 @@ const StudentProgress = () => {
         <div className="page-header">
           <div className="add-item d-flex">
             <div className="page-title">
-              <h4>Student Detailed Report</h4>
+              <h4>Student Progress Detailed Report</h4>
               <h6>
-                Student Progress - Presurvey , Course, Teams , Post survey
+                Student Progress - Presurvey , Course, Idea submission , Post survey
                 Status Report
               </h6>
             </div>
@@ -1124,6 +1162,7 @@ const StudentProgress = () => {
                 </button>
               </Col>
             </Row>
+            {isloader ?
             <div className="chart mt-2 mb-2">
               {combinedArray.length > 0 && (
                 <>
@@ -1149,7 +1188,7 @@ const StudentProgress = () => {
                             <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
                               <p>
                                 <b>
-                                  Students as per Idea Submission {newFormat}
+                                  Idea Submission Status As of {newFormat}
                                 </b>
                               </p>
                               {doughnutChartData && (
@@ -1188,7 +1227,7 @@ const StudentProgress = () => {
                       <div className="card flex-fill default-cover w-100 mb-4">
                         <div className="card-header d-flex justify-content-between align-items-center">
                           <h4 className="card-title mb-0">
-                            State Student Progress Stats
+                            District wise Students Progress Stats
                           </h4>
                           <div className="dropdown">
                             <Link
@@ -1206,7 +1245,7 @@ const StudentProgress = () => {
                                   }
                                 }}
                               >
-                                Download
+                                Get Statistics
                               </button>
                             </Link>
                           </div>
@@ -1391,7 +1430,7 @@ const StudentProgress = () => {
                 <div className="card">
                   <div className="card-header">
                     <h5 className="card-title">
-                      Teams, Submitted Ideas Enrolled As of {newFormat}
+                    Teams, Submitted Ideas As of {newFormat}
                     </h5>
                   </div>
                   <div className="card-body">
@@ -1444,7 +1483,7 @@ const StudentProgress = () => {
                 <CSVLink
                   data={downloadTableData}
                   headers={tableHeaders}
-                  filename={`StudentDetailedSummaryReport_${newFormat}.csv`}
+                  filename={`StudentProgressSummaryReport_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRefTable}
                 >
@@ -1464,6 +1503,11 @@ const StudentProgress = () => {
                 </CSVLink>
               )}
             </div>
+            :
+            <div className="spinner-border text-info" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+          }
           </div>
         </Container>
       </div>

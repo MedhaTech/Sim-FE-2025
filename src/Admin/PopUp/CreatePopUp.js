@@ -218,10 +218,17 @@ const Createpopup = () => {
   return (
     <div className="page-wrapper">
       <div className="content">
+                <div className="page-header">
+                    <div className="add-item d-flex">
+                        <div className="page-title">
+                            <h4>Add PopUp</h4>
+                            <h6>You can add new PopUp by submitting details here</h6>
+                        </div>
+                    </div>
+                </div>
         <div className="EditPersonalDetails new-member-page">
           <Row>
             <Col className="col-xl-10 offset-xl-1 offset-md-0">
-              <h3 className="mt-2 mb-2"> Add PopUp</h3>
               <div>
                 <Form onSubmit={formik.handleSubmit} isSubmitting>
                   <div className="create-ticket register-block">

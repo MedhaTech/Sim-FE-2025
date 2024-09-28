@@ -127,7 +127,7 @@ const ViewMore = () => {
                     <Row>
                         <Card className="py-2">
                             <CardBody>
-                                <h2 className="mb-4">Organization Details</h2>
+                                <h4 className="mb-4 text-primary">Organization Details</h4>
 
                                 <CardText>
                                     <span className="mx-3">
@@ -219,7 +219,7 @@ const ViewMore = () => {
                     <Row className="py-2">
                         <Card className="py-2">
                             <CardBody>
-                                <h4 className="mb-4">Teacher Details</h4>
+                                <h4 className="mb-4 text-primary">Teacher Details</h4>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Title :</b>

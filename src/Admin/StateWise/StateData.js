@@ -210,7 +210,7 @@ state_coordinators_id
                 name: 'No',
                 selector: (row) => row.index,
                 cellExport: (row) => row.index,
-                width: '7rem'
+                width: '4rem'
             },
            
             {
@@ -221,7 +221,7 @@ state_coordinators_id
             },
            
             {
-                name: 'whatsapp Link',
+                name: 'Whatsapp Link',
                 width: '8rem',
                 center: true,
                 cell: (record) => {
@@ -246,7 +246,7 @@ state_coordinators_id
                 selector: (row) =>stripHTMLTags(row.mentor_note),
                 width: '13rem'
             },  {
-                name: 'student Inst',
+                name: 'Student Inst',
                 selector: (row) => stripHTMLTags(row.student_note)
                 ,
                 width: '13rem'
@@ -270,7 +270,7 @@ state_coordinators_id
                 ]
             },
             {
-                name: 'Enable/Disable',
+                name: 'Idea Activation',
                 width: '12rem',
                 cell: (record) => (
                   <ToggleButton
@@ -279,40 +279,6 @@ state_coordinators_id
                   />
                 )
               },
-            // {
-            //     name: 'Enable/Disable',
-            //     width: '9rem',
-            //     cell: (record) => {
-                    
-            //         if (record.
-            //             ideaSubmission === 1) {
-            //             return (
-            //                 <a
-            //                     className="btn btn-danger"
-            //                     onClick={() => {
-            //                         handleStatus(record
-            //                             , '0');
-            //                     }}
-            //                 >
-            //                     Disable
-            //                 </a>
-            //             );
-            //         } else if (record.
-            //             ideaSubmission === 0) {
-            //             return (
-            //                 <button
-            //                     className="btn btn-success"
-            //                     onClick={() => {
-            //                         handleStatus(record
-            //                             , '1');
-            //                     }}
-            //                 >
-            //                     Enable
-            //                 </button>
-            //             );
-            //         }
-            //     }
-            // },
         ]
     };
     const customStyles = {
@@ -338,23 +304,14 @@ state_coordinators_id
                 <div className="page-header">
                     <div className="add-item d-flex">
                         <div className="page-title">
-                            <h4>State Specific</h4>
-                            {/* <h6>Student &amp; Teachers Resourses</h6> */}
+                            <h4>State Specific Operations</h4>
+                            <h6>WhatsApp Links, Student-Teacher instructions and Idea Submission Activation</h6>
                         </div>
                     </div>
-                    {/* <div className="page-btn">
-                        <button
-                            type="button"
-                            className="btn btn-primary"
-                            onClick={() => navigate("/createResource")}
-                        >
-                            <PlusCircle className="me-2" style={{color:"white"}} />Create Resources
-                        </button>
-                    </div> */}
                 </div>
                 <Container className="ticket-page mb-50">
                     <Row>
-                        <div className="my-2">
+                        <div>
                             <DataTableExtensions
                                 print={false}
                                 export={false}

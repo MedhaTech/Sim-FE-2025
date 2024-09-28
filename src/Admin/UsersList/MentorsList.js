@@ -412,7 +412,25 @@ const navigate = useNavigate();
                 cellExport: (row) => row?.
                 organization.
                 organization_code,
+                sortable: true,
                 width: '8rem'
+            },
+            {
+                name: 'State',
+                selector: (row) => row.organization.state,
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row.organization.state}
+                    </div>
+                ),
+                sortable: true,
+                cellExport: (row) => row.organization.state,
+                width: '6rem'
             },
 
             {
@@ -428,6 +446,7 @@ const navigate = useNavigate();
                         {row.organization.district}
                     </div>
                 ),
+                sortable: true,
                 cellExport: (row) => row.organization.district,
                 width: '6rem'
             },
@@ -441,6 +460,7 @@ const navigate = useNavigate();
                 name: 'Category',
                 selector: (row) => row.organization.category,
                 cellExport: (row) => row.organization.category,
+                sortable: true,
                 width: '6rem'
             },
             {

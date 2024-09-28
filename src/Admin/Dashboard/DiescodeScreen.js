@@ -186,17 +186,17 @@ const DiescodeScreen = () => {
   const customStyles = {
     rows: {
       style: {
-        fontSize: "16px",
+        fontSize: "13px",
       },
     },
     headCells: {
       style: {
-        fontSize: "18px",
+        fontSize: "14px",
       },
     },
     cells: {
       style: {
-        fontSize: "16px",
+        fontSize: "13px",
       },
     },
   };
@@ -242,42 +242,42 @@ const DiescodeScreen = () => {
       {
         name: "No",
         selector: (row) => row.key,
-        width: "6rem",
+        width: "4rem",
       },
       {
         name: "Username",
         selector: (row) => row.user?.username,
         sortable: true,
         center: true,
-        width: "12rem",
+        width: "8rem",
       },
       {
         name: "Team Name",
         selector: (row) => row.team_name,
         sortable: true,
         center: true,
-        width: "13rem",
+        width: "10rem",
       },
       {
-        name: "Student Count",
+        name: "#Students",
         selector: (row) => row.student_count,
         center: true,
-        width: "12rem",
+        width: "6rem",
       },
       {
-        name: "Idea Sub Status",
+        name: "Idea Status",
         selector: (row) => row.ideaStatus,
         center: true,
-        width: "15rem",
+        width: "8rem",
       },
       {
-        name: 'Mentor Approval',
+        name: 'Mentor Idea Review',
         selector: (row) =>
         row.ideaStatus === 
 "SUBMITTED" ?  row.ideaAcceptance:"Not yet Reviewed" ,
        
         center: true,
-        width: '14rem'
+        width: '12rem'
     },
       //   {
       //     name: "Mentor Approval",
@@ -305,7 +305,7 @@ const DiescodeScreen = () => {
                     //           : `btn btn-lg mr-5 mx-2`
                     //   }
                     className="btn btn-secondary"
-                    label={"REVOKE"}
+                    label={"Revoke"}
                     size="small"
                     shape="btn-square"
                     onClick={() =>
@@ -320,7 +320,7 @@ const DiescodeScreen = () => {
             </>,
           ];
         },
-        width: "14rem",
+        width: "8rem",
         center: true,
       },
     ],
@@ -421,7 +421,7 @@ const DiescodeScreen = () => {
           <div className="create-ticket register-block">
             <Row className="mb-3 modal-body-table search-modal-header">
               <div className="dashboard p-2">
-                <h4>Teachers List  Of Udise Code : {diesCode} </h4>
+                <h4>Teachers List Of Udise Code : {diesCode} </h4>
                 <Row className="mb-3 modal-body-table search-modal-header">
                   {multiOrgData.length !== undefined &&
                     multiOrgData.length !== 0 &&
@@ -453,15 +453,15 @@ const DiescodeScreen = () => {
                           <div ref={pdfRef}>
                             <div className="row">
                               <div className="col">
-                                <h2 className="text-center m-3 text-primary ">
-                                  <span style={{ color: "violet" }}>
+                                <h4 className="text-center m-3 text-primary ">
+                                  <span>
                                     {" "}
                                     {orgData?.mentor.title +
                                       "." +
                                       orgData?.mentor.full_name}{" "}
                                   </span>{" "}
                                   Registration Details
-                                </h2>
+                                </h4>
                                 <hr />
                               </div>
                             </div>
@@ -693,7 +693,7 @@ const DiescodeScreen = () => {
                           <div className="d-flex justify-content-between flex-column flex-md-row mb-3 ">
                             <button
                               type="button"
-                              className="btn btn-outline-info"
+                              className="btn btn-outline-primary"
                               onClick={handleEdit}
                             >
                               Edit
@@ -709,9 +709,17 @@ const DiescodeScreen = () => {
                                 })
                               }
                             >
-                              Reset
+                              Reset Pwd
                             </button>
 
+                            
+                            <button
+                              onClick={viewDetails}
+                              type="button"
+                              className="btn btn-outline-info"
+                            >
+                              View Details
+                            </button>
                             <button
                               type="button"
                               className="btn btn-outline-secondary"
@@ -721,22 +729,15 @@ const DiescodeScreen = () => {
                             >
                               Download
                             </button>
-                            <button
-                              onClick={viewDetails}
-                              type="button"
-                              className="btn btn-outline-warning"
-                            >
-                              View Details
-                            </button>
 
                             <button
                               type="button"
-                              className="btn btn-outline-danger"
+                              className="btn btn-danger"
                               onClick={() => {
                                 handleAlert(orgData.mentor?.user_id);
                               }}
                             >
-                              Delete
+                              Delete Registration
                             </button>
                           </div>
                           {/* </Row> */}
@@ -744,10 +745,10 @@ const DiescodeScreen = () => {
                             <div>
                               <div className="row">
                                 <div className="col">
-                                  <h2 className="text-center m-3 text-primary">
-                                    Teams Registered
-                                  </h2>
-                                  <hr />
+                                  <h4 className="text-center m-3 text-primary">
+                                    Enrolled Teams
+                                  </h4>
+                                 
                                 </div>
                               </div>
                               <div>

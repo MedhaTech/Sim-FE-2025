@@ -369,7 +369,6 @@ const Dashboard = () => {
                 <div className="dash-widgetimg">
                   <span>
                     <img src={teacherreg} style={{width:"70%"}} />
-                    {/* <FaUserAltSlash size={30} style={{ color: "mediumseagreen" }} /> */}
                   </span>
                 </div>
                 <div className="dash-widgetcontent">
@@ -556,7 +555,6 @@ const Dashboard = () => {
                 <div className="dash-widgetimg">
                   <span>
                   <img src={ideanotsub} style={{ width:"70%"}} />
-                    
                   </span>
                 </div>
                 <div className="dash-widgetcontent">
@@ -757,7 +755,6 @@ const Dashboard = () => {
                   </span> */}
                   <span>
                   <img src={ideasub} style={{ width:"70%"}} />
-                    {/* <FaPaperPlane size={30} style={{ color: 'purple' }} /> */}
                   </span>
                 </div>
                 <div className="dash-widgetcontent">
