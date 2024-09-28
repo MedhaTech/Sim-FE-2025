@@ -404,6 +404,7 @@ const updateStatesList=["All States",...stateList];
                 cellExport: (row) => row?.mentor.
                 organization.
                 organization_code,
+                sortable: true,
                 width: '8rem'
             },
             {
@@ -423,6 +424,7 @@ const updateStatesList=["All States",...stateList];
                 ),
                 cellExport: (row) => row?.
                 mentor.organization.state,
+                sortable: true,
                 width: '9rem'
             },
             {
@@ -440,6 +442,7 @@ const updateStatesList=["All States",...stateList];
                 mentor.organization.district}
                     </div>
                 ),
+                sortable: true,
                 cellExport: (row) => row?.
                 mentor.organization.district,
                 width: '9rem'
@@ -486,6 +489,7 @@ const updateStatesList=["All States",...stateList];
             {
                 name: 'User Id',
                 selector: (row) => row.user.username,
+                sortable: true,
                 width: '9rem'
             },
             {
@@ -507,6 +511,7 @@ const updateStatesList=["All States",...stateList];
                 cellExport: (row) => row.
                 student_count
                 ,
+                sortable: true,
                 width: '9rem'
             },
           

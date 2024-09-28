@@ -355,24 +355,15 @@ useEffect(()=>{
         <div className="content">
             <Container className="dynamic-form">
                 <Row>
-                    <div className="col-6">
-                        {/* <BreadcrumbTwo {...headingDetails} /> */}
-                        <h4 className="mt-2"> User List Details</h4>
-                    </div>
-                    <div className="col-6 text-end mb-2">
-                      
-                         <button
+                    <div className="col-6 mb-2">
+                        <button
                           className='btn btn-info me-2'
                           onClick={handleEdit}
                         >
                         Edit
                         </button> 
-                        {/* <button
-                          className='btn btn-success me-2'
-                          onClick={handleReset}
-                        >
-                    Reset
-                        </button> */}
+                    </div>
+                    <div className="col-6 text-end mb-2">
                         <button
                           className='btn btn-secondary'
                             onClick={handleViewBack}
@@ -384,6 +375,7 @@ useEffect(()=>{
                 <Row>
                     <Card className="py-1 mb-2">
                         <CardBody>
+                        <h4 className="text-primary mb-3">Student Details</h4>
                             <CardText>
                                 <span className="mx-3">
                                     <b>Name :</b>
@@ -453,7 +445,7 @@ useEffect(()=>{
                 <Row className="my-1">
                     <Card className="py-1">
                         <CardBody>
-                            <h4 className="mb-2">Organization Details</h4>
+                            <h4 className="mb-3 text-primary">Organization Details</h4>
 
                             <CardText>
                                 <span className="mx-3">
@@ -551,7 +543,7 @@ useEffect(()=>{
                 <Row className="my-1">
                     <Card className="py-1">
                         <CardBody>
-                            <h4 className="mb-2">Course Details</h4>
+                            <h4 className="mb-3 text-primary">Course Details</h4>
 
                             <CardText>
                                 <span className="mx-3">

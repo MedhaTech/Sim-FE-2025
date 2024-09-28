@@ -3,7 +3,7 @@ import React from 'react';
 import { Modal, Form, FormGroup } from 'react-bootstrap';
 // import { InputBox } from '../../stories/InputBox/InputBox';
 import { Label } from 'reactstrap';
-import { Button } from '../../stories/Button';
+//import { Button } from '../../stories/Button';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -108,36 +108,36 @@ const Register = (props) => {
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
-            className="assign-evaluator ChangePSWModal teacher-register-modal"
+            className="assign-evaluator ChangePSWModal teacher-register-modal py-3 px-3"
             backdrop="static"
             scrollable={true}
         >
             <Modal.Header closeButton onHide={handleClose}>
                 <Modal.Title
                     id="contained-modal-title-vcenter"
-                    className="w-100 d-block text-center"
+                    className="w-100 d-block text-center text-primary"
                 >
-                    {'ADD ADMIN'}
+                    {'Add New Admin'}
                 </Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
                 <div>
                     <Form
-                        className="form-row row  mt-0 pb-5"
+                        className="form-row row  mt-0 px-5"
                         onSubmit={formik.handleSubmit}
                         isSubmitting
                     >
                         <div
                             className={`row justify-content-center pe-md-0 add-admin`}
                         >
-                            <div className={`col-md-6 p-0 w-100`}>
+                            <div className={`col-md-6 p-2 w-100`}>
                                 <FormGroup
                                     className={`form-group mt-md-0 mt-5 `}
                                     md={12}
                                 >
                                     <Label className="mb-2" htmlFor="name">
-                                        Name
+                                        User Full Name
                                     </Label>
 
                                     <input
@@ -152,19 +152,19 @@ const Register = (props) => {
 
                                     {formik.touched.full_name &&
                                     formik.errors.full_name ? (
-                                        <small className="error-cls">
+                                        <small className="error-cls" style={{color:"red"}}>
                                             {formik.errors.full_name}
                                         </small>
                                     ) : null}
                                 </FormGroup>
                             </div>
-                            <div className="col-md-6 p-0 w-100">
+                            <div className="col-md-6 p-2 w-100">
                                 <FormGroup
                                     className={`form-group  w-100`}
                                     md={12}
                                 >
                                     <Label className="mb-2" htmlFor="username">
-                                        Email Address
+                                        Email Address & Pwd
                                     </Label>
 
                                     <input
@@ -180,13 +180,13 @@ const Register = (props) => {
 
                                     {formik.touched.username &&
                                     formik.errors.username ? (
-                                        <small className="error-cls">
+                                        <small className="error-cls" style={{color:"red"}}>
                                             {formik.errors.username}
                                         </small>
                                     ) : null}
                                 </FormGroup>
                                 <FormGroup
-                                    className={`form-group me-md-3 w-100`}
+                                    className={`form-group me-md-3 pt-3 w-100`}
                                     md={12}
                                 >
                                     <Label className="mb-2" htmlFor="username">
@@ -208,14 +208,26 @@ const Register = (props) => {
                                     </select>
                                     {formik.touched.role &&
                                     formik.errors.role ? (
-                                        <small className="error-cls">
+                                        <small className="error-cls" style={{color:"red"}}>
                                             {formik.errors.role}
                                         </small>
                                     ) : null}
                                 </FormGroup>
                             </div>
                         </div>
-                        <div className="mt-5">
+                        <div className="mb-3 mt-3 text-center">
+                            <button 
+                            className={
+                                !(formik.dirty && formik.isValid)
+                                    ? 'btn btn-light'
+                                    : "btn btn-primary"
+                            } 
+                            disabled={!(formik.dirty && formik.isValid)}
+                            type="submit">
+                              Add User
+                            </button>
+                          </div>
+                        {/* <div className="mt-3">
                             <Button
                                 label={'Add Admin'}
                                 btnClass={
@@ -223,11 +235,11 @@ const Register = (props) => {
                                         ? 'default'
                                         : 'primary'
                                 }
-                                size="large "
+                                size="large"
                                 type="submit"
                                 disabled={!(formik.dirty && formik.isValid)}
                             />
-                        </div>
+                        </div> */}
                     </Form>
                 </div>
             </Modal.Body>

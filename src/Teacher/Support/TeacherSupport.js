@@ -98,24 +98,24 @@ const TeacherSupport = () => {
         width: "8rem",
         cell: (params) => [
           params.status === "OPEN" ? (
-            <span className="py-1 px-2 rounded-pill bg-danger bg-opacity-25 text-danger fw-bold">
-              Open
-            </span>
-          ) : params.status === "INPROGRESS" ? (
-            <span className="py-1 px-2 rounded-pill bg-info bg-opacity-25 text-info fw-bold">
-              Inprogress
-            </span>
-          ) : params.status === "RESOLVED" ? (
-            <span className="bg-success bg-opacity-25 py-1 px-2 rounded-pill text-success fw-bold">
-              Resolved
-            </span>
-          ) : params.status === "INVALID" ? (
-            <span className="bg-warning bg-opacity-25 py-1 px-2 rounded-pill text-warning fw-bold">
-              Invalid
-            </span>
-          ) : (
-            ""
-          ),
+            <span className="badge bg-secondary">
+                            Open
+                        </span>
+                    ) : params?.status === 'INPROGRESS' ? (
+                        <span className="badge bg-info">
+                            Inprogress
+                        </span>
+                    ) : params?.status === 'RESOLVED' ? (
+                        <span className="badge bg-success">
+                            Resolved
+                        </span>
+                    ) : params?.status === 'INVALID' ? (
+                        <span className="badge bg-light text-dark">
+                            Invalid
+                        </span>
+                    ) : (
+                        ''
+                    )
         ],
       },
     ],

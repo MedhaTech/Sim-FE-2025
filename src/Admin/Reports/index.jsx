@@ -25,13 +25,17 @@ const Reports = () => {
     adminSudentCount();
     adminMentorCount();
     adminideasCount();
+    nonAtlCount();
 }, []);
     const [totalteamsCount, setTotalteamsCount] = useState('-');
     const [totalStudentCount, setTotalStudentCount] = useState('-');
     const [totalMentorCount, setTotalMentorCount] = useState('-');
-    const [totalideasCount, setTotalideasCount] = useState('-');
     const [totalSubmittedideasCount, setTotalSubmittedideasCount] =
     useState('-');
+    const [nonAtl, setNonAtl] = useState('-');
+    const [atl, setAtl] = useState('-');
+    const [other, setOther] = useState('-');
+
     const adminTeamsCount = () => {
         var config = {
             method: 'get',
@@ -107,11 +111,32 @@ const Reports = () => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
+                    setTotalSubmittedideasCount(response.data.data[0].submitted_ideas);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const nonAtlCount = () => {
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/dashboard/ATLNonATLRegCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
     
-                    setTotalideasCount(response.data.data[0].initiated_ideas);
-                    setTotalSubmittedideasCount(
-                        response.data.data[0].submitted_ideas
-                    );
+                    setAtl(response.data.data[0].ATLCount);
+                    setNonAtl(response.data.data[0].NONATLCount);
+                    setOther(response.data.data[0].OthersCount);
                 }
             })
             .catch(function (error) {
@@ -132,11 +157,12 @@ return (
             </div>
             <div className="employee-grid-widget">
                 <div className="row">
-                    <div className="col-xxl-3 col-xl-4 col-lg-6 col-md-6">
+                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-md-6"></div>
+                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-md-6">
                         <div className="employee-grid-profile">
                         <div className="profile-head">
                             <div className="dep-name">
-                                <h5 className="active">Organizations Report</h5>
+                                <h5 className="active">1-School Registration</h5>
                             </div>
                         </div>
                         <Link   to ="/institution-report"
@@ -149,11 +175,11 @@ return (
                                         alt=""
                                     />
                                     </div>
-                                    <h4>Organizations</h4>
+                                    <h4>Schools Reg Status</h4>
                             </div>
                         </Link>
                         <ul className="team-members">
-                            <li>Total Schools: </li>
+                            <li>Schools Reg: {Number(atl) + Number(nonAtl) + Number(other) } </li>
                             <li>
                             <ul>
                                 <li>
@@ -194,11 +220,12 @@ return (
                         </ul>
                         </div>
                     </div> 
+                    <div className="col-xxl-4 col-xl-4 col-lg-6 col-md-6"></div>
                     <div className="col-xxl-3 col-xl-4 col-lg-6 col-md-6">
                         <div className="employee-grid-profile">
                         <div className="profile-head">
                             <div className="dep-name">
-                                <h5 className="active">Registration</h5>
+                                <h5 className="active">2-Teacher Registration</h5>
                             </div>
                         </div>
                         <Link  to="/reportsregistration">
@@ -210,11 +237,11 @@ return (
                                         alt=""
                                     />
                                     </div>
-                                    <h4>Schools & Teachers</h4>
+                                    <h4>Teachers Reg details</h4>
                             </div>
                         </Link>
                         <ul className="team-members">
-                            <li>Total Teachers: {totalMentorCount}</li>
+                            <li>Teachers Reg: {totalMentorCount}</li>
                             <li>
                             <ul>
                                 <li>
@@ -259,7 +286,7 @@ return (
                         <div className="employee-grid-profile">
                         <div className="profile-head">
                             <div className="dep-name">
-                                <h5 className="active">School-Teacher Progress</h5>
+                                <h5 className="active">3-Teacher Progress</h5>
                             </div>
                         </div>
                         <Link  to="/reportsteacher">
@@ -271,7 +298,7 @@ return (
                                         alt=""
                                     />
                                     </div>
-                                    <h4>Teachers & Teams</h4>
+                                    <h4>Teachers & Teams details</h4>
                             </div>
                         </Link>
                         <ul className="team-members">
@@ -320,7 +347,7 @@ return (
                         <div className="employee-grid-profile">
                         <div className="profile-head">
                             <div className="dep-name">
-                                <h5 className="active">Students Progress</h5>
+                                <h5 className="active">4-Students Progress</h5>
                             </div>
                         </div>
                         <Link  to="/student-Report">
@@ -332,7 +359,7 @@ return (
                                         alt=""
                                     />
                                     </div>
-                                    <h4>Individuals status</h4>
+                                    <h4>Individuals details & status</h4>
                             </div>
                         </Link>
                         <ul className="team-members">
@@ -381,7 +408,7 @@ return (
                         <div className="employee-grid-profile">
                         <div className="profile-head">
                             <div className="dep-name">
-                                <h5 className="active">Ideas Submitted</h5>
+                                <h5 className="active">5-Submitted Ideas</h5>
                             </div>
                         </div>
                         <Link   to ="/idea-report"
@@ -394,7 +421,7 @@ return (
                                         alt=""
                                     />
                                     </div>
-                                    <h4>Innovations</h4>
+                                    <h4>Innovations Details</h4>
                             </div>
                         </Link>
                         <ul className="team-members">

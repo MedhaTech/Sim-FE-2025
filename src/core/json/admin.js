@@ -8,7 +8,7 @@ const AdminSidebarData = () => {
 
   return( [
     {
-      label:"Admin",
+      label:"Super Admin",
       submenuOpen: true,
       showSubRoute: false,
       submenuHdr: "Inventory",
