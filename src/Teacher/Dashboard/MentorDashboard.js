@@ -632,7 +632,7 @@ poptype={poptype}
                   <div className="dash-widgetcontent">
                     {teacPostSLoading ? ( 
                         <Loader />
-                      ) : ideaCount != teamsCount ? (
+                      ) : (ideaCount != teamsCount) || (teamsCount === 0) ? (
                         <>
                           <h5>All teams yet to submit ideas for Post-Survey to enable</h5>
                         </>
