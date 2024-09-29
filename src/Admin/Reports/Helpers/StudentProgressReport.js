@@ -826,7 +826,7 @@ const StudentProgress = () => {
               (item) => item.state === state
             );
             const courseNotStarted = Math.abs(
-              summaryItem.totalTeams -
+              studentCountItem.totalstudent -
               ((courseCompletedItem
                 ? courseCompletedItem.studentCourseCMP
                 : 0) +
