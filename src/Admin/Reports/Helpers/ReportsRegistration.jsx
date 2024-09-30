@@ -581,14 +581,14 @@ const ReportsRegistration = () => {
           const OthersRegCount = lastRow?.Others_Reg_Count || 0;
 
 
-          // console.log("Total Teachers:", totalTeachers);
+          console.log("others Teachers:", othersCount);
           setRegisteredGenderChartData({
             labels: ["Male Teachers", "Female Teachers","Others"],
             datasets: [
               {
                 data: [maleCount, femaleCount,othersCount],
-                backgroundColor: ["#8bcaf4", "#ff99af","rgb(255, 206, 122)"],
-                hoverBackgroundColor: ["#36A2EB", "#FF6384",'rgb(254, 176, 25)'],
+                backgroundColor: ["#8bcaf4", "#ff99af","#A0522D"],
+                hoverBackgroundColor: ["#36A2EB", "#FF6384",'#8B4513'],
               },
             ],
           });

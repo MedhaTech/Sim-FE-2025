@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 const TicketsPage = (props) => {
     const navigate = useNavigate();
+    const [isloader, setIsloader] = useState(false);
 
     // here we can see all the support tickets //
     const currentUser = getCurrentUser('current_user');
@@ -272,6 +273,7 @@ const TicketsPage = (props) => {
             props.schoolsRegistrationList &&
             props.schoolsRegistrationList.length > 0
         ) {
+            setIsloader(true);  
             let dataarray = [];
             props.schoolsRegistrationList.forEach((item, index) => {
                 dataarray.push(Object.assign(item, { index: index + 1 }));
@@ -279,7 +281,6 @@ const TicketsPage = (props) => {
             setarray([...dataarray]);
         }
     }, [props.schoolsRegistrationList]);
-    // console.log( props.schoolsRegistrationList," props.schoolsRegistrationList");
     const SchoolsData = {
         data: array,
         columns: [
@@ -378,6 +379,8 @@ const TicketsPage = (props) => {
             }
         ]
     };
+    console.log(SchoolsData,"Data");
+
     const reqSchoolsData = {
         data: reqSchoolsResponse,
         columns: [
@@ -700,7 +703,7 @@ const TicketsPage = (props) => {
                                 />
                             </DataTableExtensions>
                         </div>
-                    ) : (
+                    ) : isloader ? (
                         <div>
                             <DataTableExtensions
                                 {...SchoolsData}
@@ -722,7 +725,9 @@ const TicketsPage = (props) => {
                                 />
                             </DataTableExtensions>
                         </div>
-                    )}
+                    ):( <div className="spinner-border text-info" role="status">
+                        <span className="sr-only">Loading...</span>
+                      </div>)}
                 </Row>
             </Container>
         </div>
