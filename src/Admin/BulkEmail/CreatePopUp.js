@@ -72,14 +72,14 @@ const CreateEmail = () => {
           }
         );
 
-        if (response.status === 201) {
+        if (response.status === 200) {
           navigate("/emailList");
-          openNotificationWithIcon("success", "PopUp Created Successfully");
+          openNotificationWithIcon("success", "Email Created Successfully");
         } 
       } catch (error) {
         //console.log(error.response.status);
-        if (error.response.status === 420) {
-          openNotificationWithIcon("error", "PopUp for this State & Role already exists");
+        if (error.response.status === 400) {
+          openNotificationWithIcon("error", "Please Select State Name");
         }
       }
     },
@@ -91,7 +91,7 @@ const CreateEmail = () => {
     const state = event.target.value;
     formik.setFieldValue("state", state);
   };
- console.log(formik.values.msg,"msg");
+//  console.log(formik.values.msg,"msg");
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -131,14 +131,24 @@ const CreateEmail = () => {
                           Subject
                           {/* <span required>*</span> */}
                         </Label>
-                        <ReactQuill
+                        <textarea
+                          {...inputDICE1}
+                          id="subject"
+                          name="subject"
+                          rows={5} 
+                          placeholder="Please enter Subject"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.subject}
+                        />
+                        {/* <ReactQuill
             id="subject"
             name="subject"
             value={formik.values.subject}
             onChange={(value) => formik.setFieldValue("subject", value)} 
             onBlur={() => formik.setFieldTouched("subject", true)} 
             placeholder="Please enter Subject"
-          />
+          /> */}
                         {formik.touched.subject && formik.errors.subject ? (
                           <small className="error-cls" style={{ color: "red" }}>
                             {formik.errors.subject}

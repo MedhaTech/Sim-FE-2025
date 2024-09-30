@@ -60,15 +60,13 @@ const ResendEmail = () => {
           state: values.state,
           subject: values.subject,
         };
-        // if (values.navigate !== "") {
-        //   body["navigate"] = values.navigate;
-        // }
+       
         // console.log(body,"body");
-        const newsId = encryptGlobal(JSON.stringify(resID.email_id
-        ));
+        // const newsId = encryptGlobal(JSON.stringify(resID.email_id
+        // ));
 
         const response = await axios.post(
-          `${process.env.REACT_APP_API_BASE_URL}/admins/bulkEmail/${newsId}`,
+          `${process.env.REACT_APP_API_BASE_URL}/admins/bulkEmail`,
           body,
           {
             headers: {
@@ -78,15 +76,15 @@ const ResendEmail = () => {
           }
         );
 
-        if (response.status === 201) {
+        if (response.status === 200) {
 
           navigate("/emailList");
-          openNotificationWithIcon("success", "PopUp Created Successfully");
+          openNotificationWithIcon("success", "Email Updated Successfully");
         } 
       } catch (error) {
         //console.log(error.response.status);
-        if (error.response.status === 420) {
-          openNotificationWithIcon("error", "PopUp for this State & Role already exists");
+        if (error.response.status === 400) {
+          openNotificationWithIcon("error", "Please Select State Name");
         }
       }
     },
@@ -138,14 +136,24 @@ const ResendEmail = () => {
                           Subject
                           {/* <span required>*</span> */}
                         </Label>
-                        <ReactQuill
+                        <textarea
+                          {...inputDICE1}
+                          id="subject"
+                          name="subject"
+                          rows={5} 
+                          placeholder="Please enter Subject"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.subject}
+                        />
+                        {/* <ReactQuill
             id="subject"
             name="subject"
             value={formik.values.subject}
             onChange={(value) => formik.setFieldValue("subject", value)}
             onBlur={() => formik.setFieldTouched("subject", true)} 
             placeholder="Please enter Subject"
-          />
+          /> */}
                         {formik.touched.subject && formik.errors.subject ? (
                           <small className="error-cls" style={{ color: "red" }}>
                             {formik.errors.subject}

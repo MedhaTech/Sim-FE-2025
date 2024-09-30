@@ -58,7 +58,7 @@ const EmailList = () => {
             {
                 name: 'subject',
                 selector: (row) => row.subject,
-                width: '7rem',
+                width: '20rem',
                 sortable: true,
             },
             {
@@ -144,6 +144,23 @@ const EmailList = () => {
                 }
             });
     };
+    const customStyles = {
+        rows: {
+          style: {
+            fontSize: "14px",
+          },
+        },
+        headCells: {
+          style: {
+            fontSize: "16px",
+          },
+        },
+        cells: {
+          style: {
+            fontSize: "14px",
+          },
+        },
+      };
     return (
         <div className="page-wrapper">
             <div className="content">
@@ -174,6 +191,7 @@ const EmailList = () => {
                                 >
                                     <DataTable
                                         defaultSortField="id"
+                                        customStyles={customStyles}
                                         defaultSortAsc={false}
                                         pagination
                                         highlightOnHover
