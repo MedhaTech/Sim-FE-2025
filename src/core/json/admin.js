@@ -98,7 +98,6 @@ const AdminSidebarData = () => {
           showSubRoute: false,
           submenu: false,
         },
- bulkemail2609
         {
           label:"Support",
           link: "/admin-support",
@@ -122,7 +121,6 @@ const AdminSidebarData = () => {
         },
 
         
- development
        
       ],
     },
