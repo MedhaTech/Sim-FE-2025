@@ -418,7 +418,7 @@ const TeacherProgressDetailed = () => {
       .then(function (response) {
         if (response.status === 200) {
           // console.log(response,"22");
-          const chartTableData = response?.data?.data[0].rows || [];
+          const chartTableData = response?.data?.data || [];
           const modifiedChartTableData = chartTableData.map((item) => ({
             ...item,
             registration_status: item.mentor_reg !== 0 ? "Registered" : "Not Registered",
@@ -430,7 +430,7 @@ const TeacherProgressDetailed = () => {
 
           setDownloadTableData(modifiedChartTableData);
 
-          if (response?.data?.data[0].count > 0) {
+          if (response?.data?.count > 0) {
             openNotificationWithIcon(
               "success",
               " Report Downloaded Successfully"

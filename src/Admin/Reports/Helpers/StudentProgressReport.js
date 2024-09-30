@@ -1394,7 +1394,14 @@ const StudentProgress = () => {
                         </div>
                     </div> */}
 
-              {downloadTableData && (
+             
+            </div>
+            :
+            <div className="spinner-border text-info" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+          }
+           {downloadTableData && (
                 <CSVLink
                   data={downloadTableData}
                   headers={tableHeaders}
@@ -1417,12 +1424,6 @@ const StudentProgress = () => {
                   Download Teacherdetailed CSV
                 </CSVLink>
               )}
-            </div>
-            :
-            <div className="spinner-border text-info" role="status">
-              <span className="sr-only">Loading...</span>
-            </div>
-          }
           </div>
         </Container>
       </div>
