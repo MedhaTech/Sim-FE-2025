@@ -98,7 +98,31 @@ const AdminSidebarData = () => {
           showSubRoute: false,
           submenu: false,
         },
+ bulkemail2609
+        {
+          label:"Support",
+          link: "/admin-support",
+          icon: <Icon.Codesandbox />,
+          showSubRoute: false,
+          submenu: false,
+        },
+        {
+          label:"State Specific",
+          link: "/state-wise",
+          icon: <Icon.FilePlus />,
+          showSubRoute: false,
+          submenu: false,
+        },
+        {
+          label:"Bulk Email",
+          link: "/emailList",
+          icon: <Icon.Mail />,
+          showSubRoute: false,
+          submenu: false,
+        },
+
         
+ development
        
       ],
     },
