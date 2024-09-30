@@ -568,7 +568,7 @@ const ReportsRegistration = () => {
       categories: barChart1Data.labels,
       labels: {
         style: {
-          fontSize: "10px",
+          fontSize: "8px",
         },
         formatter: (val) => {
           // Shorten long labels or wrap them by breaking lines
@@ -951,36 +951,10 @@ const ReportsRegistration = () => {
               </Col>
             </Row>
             <div className="chart mt-2 mb-2">
+              <div className="row">
               {chartTableData.length > 0 && (
-                <div className="row">
-                  <div className="col-sm-12 col-md-12 col-xl-4 d-flex">
-                    <div className="card flex-fill default-cover w-100 mb-4">
-                        <div className="card-header d-flex justify-content-between align-items-center">
-                          <h4 className="card-title">Data Analytics</h4>
-                        </div> 
-                        <div className="card-body">
-                          <div className="row">
-                            <div className="col-md-12 text-center mt-3">
-                              <p>
-                                <b>
-                                  Overall Registered Female vs Male vs Others
-                                  Teachers As of {newFormat}
-                                </b>
-                              </p>
-                            </div>
-                          <div className="col-md-12 doughnut-chart-container">
-                            {registeredGenderChartData && (
-                              <Doughnut
-                                data={registeredGenderChartData}
-                                options={chartOptions}
-                              />
-                            )}
-                            </div>
-                            </div>
-                          </div>
-                        </div>
-                  </div>
-                  <div className="col-sm-12 col-md-12 col-xl-8 d-flex">
+                <>
+                  <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
                     <div className="card flex-fill default-cover w-100 mb-4">
                       <div className="card-header d-flex justify-content-between align-items-center">
                         <h4 className="card-title mb-0">
@@ -1136,9 +1110,36 @@ const ReportsRegistration = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                  <div className="col-sm-12 col-md-12 col-xl-3 d-flex">
+                    <div className="card flex-fill default-cover w-100 mb-4">
+                        <div className="card-header d-flex justify-content-between align-items-center">
+                          <h4 className="card-title">Gender Analytics</h4>
+                        </div> 
+                        <div className="card-body">
+                          <div className="row">
+                            <div className="col-md-12 text-center mt-3">
+                              <p>
+                                <b>
+                                  Overall Registered Female vs Male vs Others
+                                  Teachers As of {newFormat}
+                                </b>
+                              </p>
+                            </div>
+                          <div className="col-md-12 doughnut-chart-container">
+                            {registeredGenderChartData && (
+                              <Doughnut
+                                data={registeredGenderChartData}
+                                options={chartOptions}
+                              />
+                            )}
+                            </div>
+                            </div>
+                          </div>
+                        </div>
+                  </div>
+                </>
               )}
-                <div className="col-md-12">
+                <div className="col-sm-12 col-md-12 col-xl-9 d-flex">
                   <div className="card">
                     <div className="card-header">
                       <h5 className="card-title">
@@ -1156,6 +1157,7 @@ const ReportsRegistration = () => {
                       />
                     </div>
                   </div>
+                </div>
                 </div>
               {/* <div className="mt-5">
                                     <div
