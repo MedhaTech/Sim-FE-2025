@@ -973,14 +973,15 @@ const TeacherProgressDetailed = () => {
                         }
                     );
                     const doughnutData = {
-                        labels: ['Male', 'Female'],
+                        labels: ['Male', 'Female',"Others"],
                         datasets: [
                             {
                                 data: [
                                     total.maleStudents,
-                                    total.femaleStudents
+                                    total.femaleStudents,
+                                    total.otherStudents
                                 ],
-                                backgroundColor: ['#8bcaf4', '#ff99af'],
+                                backgroundColor: ['#8bcaf4', '#ff99af','rgb(254, 176, 25)'],
                                 hoverBackgroundColor: ['#36A2EB', '#FF6384']
                             }
                         ]
@@ -1451,7 +1452,14 @@ const TeacherProgressDetailed = () => {
                                     </div>
                                 </div>
 
-                                {downloadTableData && (
+                            </div>
+                            :
+                            <div className="spinner-border text-info" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div>
+                        }
+
+{downloadTableData && (
                                     <CSVLink
                                         data={downloadTableData}
                                         headers={tableHeaders}
@@ -1474,13 +1482,6 @@ const TeacherProgressDetailed = () => {
                                         Download Teacherdetailed CSV
                                     </CSVLink>
                                 )}
-                            </div>
-                            :
-                            <div className="spinner-border text-info" role="status">
-                                <span className="sr-only">Loading...</span>
-                            </div>
-                        }
-
 
 
                     </div>

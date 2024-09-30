@@ -272,10 +272,14 @@ const DiescodeScreen = () => {
       },
       {
         name: 'Mentor Idea Review',
-        selector: (row) =>
-        row.ideaStatus === 
-"SUBMITTED" ?  row.ideaAcceptance:"Not yet Reviewed" ,
-       
+          selector: (row) =>
+            row.ideaStatus === null 
+    ? "Not Initiated" 
+    : row.ideaStatus === "SUBMITTED" 
+        ? row.ideaAcceptance 
+        : row.ideaStatus === "DRAFT" 
+            ? "" 
+            : "Not yet Reviewed",
         center: true,
         width: '12rem'
     },
@@ -296,7 +300,9 @@ const DiescodeScreen = () => {
           return [
             <>
               {params.ideaStatus == "SUBMITTED" &&
-                params.ideaAcceptance === null && params.ideaAcceptance !== "" &&(
+                params.ideaAcceptance === null &&
+                //  params.ideaAcceptance !== "" &&
+                 (
                   <Button
                     key={params}
                     //   className={

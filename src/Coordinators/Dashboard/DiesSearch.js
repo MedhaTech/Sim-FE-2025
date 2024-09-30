@@ -276,8 +276,16 @@ const downloadPDF = () => {
         name: 'Mentor Idea Review',
         sortable: true,
         selector: (row) =>
-        row.ideaStatus === 
-"SUBMITTED" ?  row.ideaAcceptance:"Not yet Reviewed" ,
+            row.ideaStatus === null 
+    ? "Not Initiated" 
+    : row.ideaStatus === "SUBMITTED" 
+        ? row.ideaAcceptance 
+        : row.ideaStatus === "DRAFT" 
+            ? "" 
+            : "Not yet Reviewed",
+          
+//         row.ideaStatus === 
+// "SUBMITTED" ?  row.ideaAcceptance:"Not yet Reviewed" ,
        
         center: true,
         width: '12rem'
