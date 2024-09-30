@@ -303,7 +303,9 @@ const downloadPDF = () => {
           return [
             <>
               {params.ideaStatus == "SUBMITTED" &&
-                params.ideaAcceptance === null && params.ideaAcceptance !== "" &&(
+                params.ideaAcceptance === null && 
+                // params.ideaAcceptance !== "" &&
+                (
                   <Button
                     key={params}
                     //   className={
