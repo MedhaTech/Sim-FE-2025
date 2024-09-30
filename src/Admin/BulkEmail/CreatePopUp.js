@@ -10,6 +10,8 @@ import { Button } from "../../stories/Button";
 import { getCurrentUser, openNotificationWithIcon } from "../../helpers/Utils";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 // import { URL, KEY } from '../../constants/defaultValues';
 import { stateList, } from "../../RegPage/ORGData";
 const CreateEmail = () => {
@@ -58,6 +60,7 @@ const CreateEmail = () => {
         //   body["navigate"] = values.navigate;
         // }
         // console.log(body,"body");
+        
         const response = await axios.post(
           `${process.env.REACT_APP_API_BASE_URL}/admins/bulkEmail`,
           body,
@@ -88,7 +91,7 @@ const CreateEmail = () => {
     const state = event.target.value;
     formik.setFieldValue("state", state);
   };
- 
+ console.log(formik.values.msg,"msg");
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -106,16 +109,14 @@ const CreateEmail = () => {
                         To
                           {/* <span required>*</span> */}
                         </Label>
-                        <textarea
-                          {...inputDICE}
-                          id="msg"
-                          name="msg"
-                          // rows={5} 
-                          placeholder="Please enter Message"
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.values.msg}
-                        />
+                        <ReactQuill
+            id="msg"
+            name="msg"
+            value={formik.values.msg}
+            onChange={(value) => formik.setFieldValue("msg", value)} 
+            onBlur={() => formik.setFieldTouched("msg", true)} 
+            placeholder="Please enter Message"
+          />
                         {formik.touched.msg && formik.errors.msg ? (
                           <small className="error-cls" style={{ color: "red" }}>
                             {formik.errors.msg}
@@ -130,16 +131,14 @@ const CreateEmail = () => {
                           Subject
                           {/* <span required>*</span> */}
                         </Label>
-                        <textarea
-                          {...inputDICE1}
-                          id="subject"
-                          name="subject"
-                          rows={5} 
-                          placeholder="Please enter Subject"
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.values.subject}
-                        />
+                        <ReactQuill
+            id="subject"
+            name="subject"
+            value={formik.values.subject}
+            onChange={(value) => formik.setFieldValue("subject", value)} 
+            onBlur={() => formik.setFieldTouched("subject", true)} 
+            placeholder="Please enter Subject"
+          />
                         {formik.touched.subject && formik.errors.subject ? (
                           <small className="error-cls" style={{ color: "red" }}>
                             {formik.errors.subject}

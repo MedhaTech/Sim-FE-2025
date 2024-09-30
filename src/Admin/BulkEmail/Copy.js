@@ -12,13 +12,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 // import { URL, KEY } from '../../constants/defaultValues';
 import { stateList, } from "../../RegPage/ORGData";
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-import { encryptGlobal } from "../../constants/encryptDecrypt";
-
-const ResendEmail = () => {
-    const resID = JSON.parse(localStorage.getItem('resID'));
-
+const CreateEmail = () => {
   const currentUser = getCurrentUser("current_user");
   const allData = ["All States", ...stateList];
   const navigate = useNavigate();
@@ -37,17 +31,17 @@ const ResendEmail = () => {
  
   const formik = useFormik({
     initialValues: {
-      msg: resID && resID.msg,
-      subject: resID && resID.subject,
+      msg: "",
+      subject: "",
      
       state: "",
       
     },
     validationSchema: Yup.object({
-        msg: Yup.string().required("Role is Required"),
+      msg: Yup.string().required("Role is Required"),
      
-        state: Yup.string().optional(),
-        subject: Yup.string().required("Subject is Required"),
+      state: Yup.string().optional(),
+      subject: Yup.string().required("Subject is Required"),
 
      
      
@@ -57,18 +51,15 @@ const ResendEmail = () => {
        
         const body = {
           msg: values.msg,
-          state: values.state,
           subject: values.subject,
+          state: values.state,
         };
         // if (values.navigate !== "") {
         //   body["navigate"] = values.navigate;
         // }
         // console.log(body,"body");
-        const newsId = encryptGlobal(JSON.stringify(resID.email_id
-        ));
-
         const response = await axios.post(
-          `${process.env.REACT_APP_API_BASE_URL}/admins/bulkEmail/${newsId}`,
+          `${process.env.REACT_APP_API_BASE_URL}/admins/bulkEmail`,
           body,
           {
             headers: {
@@ -79,7 +70,6 @@ const ResendEmail = () => {
         );
 
         if (response.status === 201) {
-
           navigate("/emailList");
           openNotificationWithIcon("success", "PopUp Created Successfully");
         } 
@@ -105,7 +95,7 @@ const ResendEmail = () => {
         <div className="EditPersonalDetails new-member-page">
           <Row>
             <Col className="col-xl-10 offset-xl-1 offset-md-0">
-              <h4 className="mt-2 mb-2">Resend Email</h4>
+              <h4 className="mt-2 mb-2">Create Email</h4>
               <div>
                 <Form onSubmit={formik.handleSubmit} isSubmitting>
                   <div className="create-ticket register-block">
@@ -116,14 +106,16 @@ const ResendEmail = () => {
                         To
                           {/* <span required>*</span> */}
                         </Label>
-                        <ReactQuill
-            id="msg"
-            name="msg"
-            value={formik.values.msg}
-            onChange={(value) => formik.setFieldValue("msg", value)} 
-            onBlur={() => formik.setFieldTouched("msg", true)} 
-            placeholder="Please enter Message"
-          />
+                        <textarea
+                          {...inputDICE}
+                          id="msg"
+                          name="msg"
+                          // rows={5} 
+                          placeholder="Please enter Message"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.msg}
+                        />
                         {formik.touched.msg && formik.errors.msg ? (
                           <small className="error-cls" style={{ color: "red" }}>
                             {formik.errors.msg}
@@ -138,14 +130,16 @@ const ResendEmail = () => {
                           Subject
                           {/* <span required>*</span> */}
                         </Label>
-                        <ReactQuill
-            id="subject"
-            name="subject"
-            value={formik.values.subject}
-            onChange={(value) => formik.setFieldValue("subject", value)}
-            onBlur={() => formik.setFieldTouched("subject", true)} 
-            placeholder="Please enter Subject"
-          />
+                        <textarea
+                          {...inputDICE1}
+                          id="subject"
+                          name="subject"
+                          rows={5} 
+                          placeholder="Please enter Subject"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.subject}
+                        />
                         {formik.touched.subject && formik.errors.subject ? (
                           <small className="error-cls" style={{ color: "red" }}>
                             {formik.errors.subject}
@@ -223,4 +217,4 @@ const ResendEmail = () => {
   );
 };
 
-export default ResendEmail;
+export default CreateEmail;
