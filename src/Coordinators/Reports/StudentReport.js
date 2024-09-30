@@ -889,14 +889,18 @@ const StudentProgress = () => {
             //     (courseINprogesssItem
             //       ? courseINprogesssItem?.studentCourseIN
             //       : 0));
-                  const courseNotStarted =
-  Math.abs(
-    studentCountItem.totalstudent  -
+            
+              const courseNotStarted = (studentCountItem) ? (Math.abs(
+    studentCountItem?.totalstudent  -
     (
       (courseCompletedItem ? courseCompletedItem?.studentCourseCMP : 0) +
       (courseINprogesssItem ? courseINprogesssItem?.studentCourseIN : 0)
     )
-  );
+  )
+  ): 0;
+  
+
+                  
 
 
             // const coursePercentage =
