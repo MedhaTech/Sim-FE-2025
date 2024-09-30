@@ -8,7 +8,7 @@ const AdminSidebarData = () => {
 
   return( [
     {
-      label:"Admin",
+      label:"Super Admin",
       submenuOpen: true,
       showSubRoute: false,
       submenuHdr: "Inventory",
@@ -16,14 +16,14 @@ const AdminSidebarData = () => {
         {
           label: "Admin Dashboard",
           link: "/admin-dashboard",
-          icon: <Icon.Box />,
+          icon: <Icon.Grid />,
           showSubRoute: false,
           submenu: false,
         },
         {
           label:"Overall Schools",
           link: "/institution",
-          icon: <Icon.Codesandbox />,
+          icon: <Icon.Home/>,
           showSubRoute: false,
           submenu: false,
         },
@@ -31,25 +31,38 @@ const AdminSidebarData = () => {
         {
           label:"PopUp",
           link: "/popup",
-          icon: <Icon.Codesandbox />,
+          icon: <Icon.Star />,
           showSubRoute: false,
           submenu: false,
         },
         {
           label:"Resource",
           link: "/adminresources",
-          icon: <Icon.Layers />,
+          icon: <Icon.FilePlus />,
           showSubRoute: false,
           submenu: false,
         },
         {
           label:"Latest News",
           link: "/latest-news",
-          icon: <Icon.Bookmark />,
+          icon: <Icon.Bell />,
           showSubRoute: false,
           submenu: false,
         },
-        
+        {
+          label:"State Specific",
+          link: "/state-wise",
+          icon: <Icon.Settings />,
+          showSubRoute: false,
+          submenu: false,
+        },
+        {
+          label:"Support",
+          link: "/admin-support",
+          icon: <Icon.Inbox />,
+          showSubRoute: false,
+          submenu: false,
+        },
         {
           label:"Mentors",
           link: "/mentors",
@@ -60,21 +73,21 @@ const AdminSidebarData = () => {
         {
           label:"Teams",
           link: "/teams",
-          icon: <Icon.Users />,
+          icon: <Icon.UserPlus />,
           showSubRoute: false,
           submenu: false,
         },
         {
           label:"Students",
           link: "/students",
-          icon: <Icon.Users />,
+          icon: <Icon.UserCheck />,
           showSubRoute: false,
           submenu: false,
         },
         {
           label:"Admins",
           link: "/admins",
-          icon: <Icon.Users />,
+          icon: <Icon.User />,
           showSubRoute: false,
           submenu: false,
         },
@@ -85,6 +98,7 @@ const AdminSidebarData = () => {
           showSubRoute: false,
           submenu: false,
         },
+ bulkemail2609
         {
           label:"Support",
           link: "/admin-support",
@@ -106,6 +120,9 @@ const AdminSidebarData = () => {
           showSubRoute: false,
           submenu: false,
         },
+
+        
+ development
        
       ],
     },

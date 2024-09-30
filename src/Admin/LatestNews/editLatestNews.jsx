@@ -175,11 +175,17 @@ const EditLatestNews = (props) => {
   return (
     <div className="page-wrapper">
       <div className="content">
+                <div className="page-header">
+                    <div className="add-item d-flex">
+                        <div className="page-title">
+                            <h4>Edit Latest News</h4>
+                            <h6>You can modify details in this Latest News</h6>
+                        </div>
+                    </div>
+                </div>
         <div className="EditPersonalDetails new-member-page">
           <Row>
             <Col className="col-xl-10 offset-xl-1 offset-md-0">
-              <h3 className="mb-5">Edit LatestNews Details</h3>
-
               <div>
                 <Form onSubmit={formik.handleSubmit} isSubmitting>
                   <div className="create-ticket register-block">

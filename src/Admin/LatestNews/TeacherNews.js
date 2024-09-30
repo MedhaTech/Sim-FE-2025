@@ -604,12 +604,12 @@ const AdminLatestNews = () => {
                             {reqList ? (
                                 <>
                                     <h4>Student Latest News</h4>
-                                    <h6>Create , Edit , Del Student Latest News here</h6>
+                                    <h6>Create , Edit , Del State & User specific Latest News here</h6>
                                 </>
                             ) : (
                                 <>
                                     <h4>Teacher Latest News</h4>
-                                    <h6>Create , Edit , Del Teachers Latest News here</h6>
+                                    <h6>Create , Edit , Del State & User specific Latest News here</h6>
                                 </>
                             )}
                             

@@ -543,25 +543,31 @@ const AdminResources = () => {
     return (
         <div className="page-wrapper">
         <div className="content">
+            <div className="page-header">
+                <div className="add-item d-flex">
+                    <div className="page-title">
+                        <h4>PopUp List</h4>
+                        <h6>Create State & User specific Popups here </h6>
+                    </div>
+                </div>
+                <div className="page-btn">
+                    <button
+                        type="button"
+                        className="btn btn-info"
+                        onClick={() =>
+                            navigate(
+                                    '/create-popup'
+                                )
+                            }
+                    >
+                        <PlusCircle className="me-2" style={{color:"white"}} /><b>Create PopUp</b>
+                    </button>
+                </div>
+            </div>
             <Container className="ticket-page mb-50">
                 <Row>
                     <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
-                        <Col className="col-auto">
-                          <h3> PopUp List </h3>
-                        </Col>
-                        <Col className="ml-auto text-right">
-                           
-                                    <button
-                                        className='btn btn-info'
-                                        onClick={() =>
-                                        navigate(
-                                                '/create-popup'
-                                            )
-                                        }
-                                    ><PlusCircle className="me-2" style={{color:"white"}} /> <b>Create PopUp</b></button>
-                        </Col>
-                       
-                            <div className="my-2">
+                            <div>
                                 <DataTableExtensions
                                     print={false}
                                     export={false}

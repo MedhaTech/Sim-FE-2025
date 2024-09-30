@@ -212,8 +212,9 @@ return (
                     ideastatus == 1 && postSurveyStatus != "COMPLETED" ? (
                       <>
                         <UncontrolledAlert color="danger" className="mb-2">
-                          Please complete the following post survey to get your
-                          certificate.
+                        {t('student.please_com_postsurvey_for_certificate')}
+                          {/* Please complete the following post survey to get your
+                          certificate. */}
                         </UncontrolledAlert>
                         <Form
                           className="form-row"

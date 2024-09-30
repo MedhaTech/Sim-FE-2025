@@ -331,7 +331,8 @@ const TeacherProgressDetailed = () => {
 
   var options = {
     chart: {
-      height: 500,
+      height: 700,
+      width:1000,
       type: "bar",
       toolbar: {
         show: false,
@@ -372,8 +373,19 @@ const TeacherProgressDetailed = () => {
 
     xaxis: {
       categories: barChart1Data.labels,
+      labels: {
+        style: {
+          fontSize: "10px",
+        },
+        formatter: (val) => {
+          // Shorten long labels or wrap them by breaking lines
+          if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
+          return val;
+        },
+      },
       ticks: {
         maxRotation: 80,
+        minRotation: 45,
         autoSkip: false,
       },
     },
@@ -384,7 +396,8 @@ const TeacherProgressDetailed = () => {
   };
   var optionsNew = {
     chart: {
-      height: 500,
+      height: 700,
+      width:1000,
       type: "bar",
       toolbar: {
         show: false,
@@ -425,8 +438,19 @@ const TeacherProgressDetailed = () => {
 
     xaxis: {
       categories: barChartNew.labels,
+      labels: {
+        style: {
+          fontSize: "10px",
+        },
+        formatter: (val) => {
+          // Shorten long labels or wrap them by breaking lines
+          if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
+          return val;
+        },
+      },
       ticks: {
         maxRotation: 80,
+        minRotation: 45,
         autoSkip: false,
       },
     },
@@ -438,7 +462,8 @@ const TeacherProgressDetailed = () => {
 
   var sColStacked = {
     chart: {
-      height: 500,
+      height: 700,
+      width:1000,
       type: "bar",
       stacked: true,
       toolbar: {
@@ -470,8 +495,19 @@ const TeacherProgressDetailed = () => {
     ],
     xaxis: {
       categories: barChart2DataBar.labels,
+      labels: {
+        style: {
+          fontSize: "10px",
+        },
+        formatter: (val) => {
+          // Shorten long labels or wrap them by breaking lines
+          if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
+          return val;
+        },
+      },
       ticks: {
         maxRotation: 80,
+        minRotation: 45,
         autoSkip: false,
       },
     },
@@ -498,7 +534,8 @@ const TeacherProgressDetailed = () => {
 
   var optionsStudent = {
     chart: {
-      height: 500,
+      height: 700,
+      width:1000,
       type: "line",
       toolbar: {
         show: false,
@@ -527,8 +564,19 @@ const TeacherProgressDetailed = () => {
 
     xaxis: {
       categories: barChart3Data.labels,
+      labels: {
+        style: {
+          fontSize: "10px",
+        },
+        formatter: (val) => {
+          // Shorten long labels or wrap them by breaking lines
+          if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
+          return val;
+        },
+      },
       ticks: {
         maxRotation: 80,
+        minRotation: 45,
         autoSkip: false,
       },
     },
@@ -1098,11 +1146,8 @@ const TeacherProgressDetailed = () => {
         <div className="page-header">
           <div className="add-item d-flex">
             <div className="page-title">
-              <h4>School & Teacher Detailed Report</h4>
-              <h6>
-                Teacher Progress - Presurvey , Course, Teams , Post survey Status
-                Report
-              </h6>
+              <h4>Teacher Progress Detailed Report</h4>
+                <h6>Teacher Progress - Presurvey , Course, Post survey, Teams&Progress Status Report</h6>
             </div>
           </div>
           {/* <div className="page-btn">
@@ -1243,7 +1288,7 @@ const TeacherProgressDetailed = () => {
                         <div className="card flex-fill default-cover w-100 mb-4">
                           <div className="card-header d-flex justify-content-between align-items-center">
                             <h4 className="card-title mb-0">
-                              State School Progress Stats
+                              District wise Teacher Progress Stats
                             </h4>
                             <div className="dropdown">
                               <Link
@@ -1261,7 +1306,7 @@ const TeacherProgressDetailed = () => {
                                     }
                                   }}
                                 >
-                                  Download
+                                  Get Statistics
                                 </button>
                               </Link>
                             </div>
@@ -1520,11 +1565,20 @@ const TeacherProgressDetailed = () => {
                         </div>
                     </div>
 )} */}
-                {downloadTableData && (
+              
+              </div>
+              :
+              <div className="spinner-border text-info" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            }
+
+          </div>
+          {downloadTableData && (
                   <CSVLink
                     data={downloadTableData}
                     headers={tableHeaders}
-                    filename={`SchoolDetailedSummaryReport_${newFormat}.csv`}
+                    filename={`TeacherProgressSummaryReport_${newFormat}.csv`}
                     className="hidden"
                     ref={csvLinkRefTable}
                   >
@@ -1536,21 +1590,13 @@ const TeacherProgressDetailed = () => {
                   <CSVLink
                     headers={teacherDetailsHeaders}
                     data={mentorDetailedReportsData}
-                    filename={`SchoolProgressDetailedReport_${newFormat}.csv`}
+                    filename={`TeacherProgressDetailedReport_${newFormat}.csv`}
                     className="hidden"
                     ref={csvLinkRef}
                   >
                     Download Teacherdetailed CSV
                   </CSVLink>
                 )}
-              </div>
-              :
-              <div className="spinner-border text-info" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-            }
-
-          </div>
         </Container>
       </div>
     </div>

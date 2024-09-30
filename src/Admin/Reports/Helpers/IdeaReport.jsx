@@ -931,10 +931,9 @@ const IdeaReport = () => {
         <div className="page-header">
           <div className="add-item d-flex">
             <div className="page-title">
-              <h4>Ideas Detailed Report</h4>
+              <h4>5. Submitted Ideas Detailed Report</h4>
               <h6>
-                {/* Student Progress - Presurvey , Course, Teams , Post survey
-                Status Report */}
+                Idea Details - Theme, Focusarea, Problem, Solution, Feedback, Prototype Info & Attachments
               </h6>
             </div>
           </div>
@@ -1046,7 +1045,7 @@ const IdeaReport = () => {
                             <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
                               <p>
                                 <b>
-                                  Ideas Themes as of {newFormat}
+                                  Themes vs #Ideas Submitted as of {newFormat}
                                 </b>
                               </p>
                               {doughnutChartData && (
@@ -1085,7 +1084,7 @@ const IdeaReport = () => {
                       <div className="card flex-fill default-cover w-100 mb-4">
                         <div className="card-header d-flex justify-content-between align-items-center">
                           <h4 className="card-title mb-0">
-                            State Ideas Progress Stats
+                            State wise Submitted Ideas Stats
                           </h4>
                           <div className="dropdown">
                             <Link
@@ -1356,7 +1355,7 @@ const IdeaReport = () => {
                 <CSVLink
                   data={downloadTableData}
                   headers={tableHeaders}
-                  filename={`IdeasDetailedSummaryReport_${newFormat}.csv`}
+                  filename={`SubmittedIdeasSummaryReport_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRefTable}
                 >
@@ -1368,7 +1367,7 @@ const IdeaReport = () => {
                 <CSVLink
                   headers={teacherDetailsHeaders}
                   data={studentDetailedReportsData}
-                  filename={`IdeasProgressDetailedReport_${newFormat}.csv`}
+                  filename={`SubmittedIdeasDetailedReport_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRef}
                 >

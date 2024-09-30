@@ -162,8 +162,8 @@ const ReportsRegistration = () => {
       key: "district",
     },
     {
-      label: "Total Schools",
-      key: "Eligible_school",
+      label: "Registered Schools",
+      key: "reg_school",
     },
     // {
     //   label: "Registered Schools",
@@ -521,7 +521,8 @@ const ReportsRegistration = () => {
 
   var options = {
     chart: {
-      height: 500,
+      height: 700,
+      width:1000,
       type: "bar",
       toolbar: {
         show: false,
@@ -565,8 +566,19 @@ const ReportsRegistration = () => {
 
     xaxis: {
       categories: barChart1Data.labels,
+      labels: {
+        style: {
+          fontSize: "8px",
+        },
+        formatter: (val) => {
+          // Shorten long labels or wrap them by breaking lines
+          if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
+          return val;
+        },
+      },
       ticks: {
         maxRotation: 80,
+        minRotation: 45,
         autoSkip: false,
       },
     },
@@ -856,8 +868,8 @@ const ReportsRegistration = () => {
         <div className="page-header">
           <div className="add-item d-flex">
             <div className="page-title">
-            <h4>Regristration Status Report</h4>
-            <h6>Schools &amp; Teachers registered</h6>
+            <h4>Teacher Registration Report</h4>
+            <h6>List of Teachers registered and their details</h6>
             </div>
           </div>
           {/* <div className="page-btn">
@@ -939,94 +951,14 @@ const ReportsRegistration = () => {
               </Col>
             </Row>
             <div className="chart mt-2 mb-2">
+              <div className="row">
               {chartTableData.length > 0 && (
-                <div className="row">
-                  <div className="col-sm-12 col-md-12 col-xl-4 d-flex">
-                    <div className="card default-cover mb-4">
-                      {/* <div className="card-header d-flex justify-content-between align-items-center"> */}
-                        {/* <h4 className="card-title mb-0">Institution Type Stats</h4> */}
-                        {/* <div className="dropdown">
-                          <Link
-                            to="#"
-                            className="view-all d-flex align-items-center"
-                          >
-                            View All
-                            <span className="ps-2 d-flex align-items-center">
-                              <ArrowRight className="feather-16" />
-                            </span>
-                          </Link>
-                        </div> */}
-                      {/* </div> */}
-                      <div className="card-body">
-                        <div className="row">
-                          {/* {RegTeachersState !== "Tamil Nadu" ? (
-                            <>
-                              <div className="col-md-12 text-center mt-3">
-                                <p>
-                                  <b>
-                                    Overall Registered ATL vs Non ATL Teachers As
-                                    of {newFormat}
-                                  </b>
-                                </p>
-                              </div>
-                              <div className="col-md-12 doughnut-chart-container">
-                                {registeredChartData && (
-                                  <Doughnut
-                                    data={registeredChartData}
-                                    options={chartOption}
-                                  />
-                                )}
-                              </div>
-                            </>
-                          ) : (
-                            <>
-                             
-                              <div className="col-md-12 doughnut-chart-container">
-                                {registeredChartDataState && (
-                                  <Doughnut
-                                    data={registeredChartDataState}
-                                    options={chartOptionState}
-                                  />
-                                )}
-                              </div>
-                            </>
-                          )} */}
-                         
-                            {/* <div className="card-header d-flex justify-content-between align-items-center"> */}
-                           {/* <h4 className="card-title mb-0">Institution Type Stats</h4> */}
-                           {/* </div> */}
-                           <div className="card-header d-flex justify-content-between align-items-center">
-                           <h4 className="card-title mb-0">Statistics</h4>
-                           </div>
-                           <div className="col-md-12 text-center mt-3">
-                            <p>
-                              <b>
-                                Overall Registered Female vs Male vs Others
-                                Teachers As of {newFormat}
-                              </b>
-                            </p>
-                          </div>
-                           <div className="card-body">
-                           <div className="row">
-                          <div className="col-md-12 doughnut-chart-container">
-                            {registeredGenderChartData && (
-                              <Doughnut
-                                data={registeredGenderChartData}
-                                options={chartOptions}
-                              />
-                            )}
-                            </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-sm-12 col-md-12 col-xl-8 d-flex">
+                <>
+                  <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
                     <div className="card flex-fill default-cover w-100 mb-4">
                       <div className="card-header d-flex justify-content-between align-items-center">
                         <h4 className="card-title mb-0">
-                          States Registration Stats
+                          District wise Teacher Registration Stats
                         </h4>
                         <div className="dropdown">
                           <Link
@@ -1043,7 +975,7 @@ const ReportsRegistration = () => {
                                 }
                               }}
                             >
-                              Download
+                              Get Statistics
                             </button>
                           </Link>
                         </div>
@@ -1178,13 +1110,40 @@ const ReportsRegistration = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                  <div className="col-sm-12 col-md-12 col-xl-3 d-flex">
+                    <div className="card flex-fill default-cover w-100 mb-4">
+                        <div className="card-header d-flex justify-content-between align-items-center">
+                          <h4 className="card-title">Gender Analytics</h4>
+                        </div> 
+                        <div className="card-body">
+                          <div className="row">
+                            <div className="col-md-12 text-center mt-3">
+                              <p>
+                                <b>
+                                  Overall Registered Female vs Male vs Others
+                                  Teachers As of {newFormat}
+                                </b>
+                              </p>
+                            </div>
+                          <div className="col-md-12 doughnut-chart-container">
+                            {registeredGenderChartData && (
+                              <Doughnut
+                                data={registeredGenderChartData}
+                                options={chartOptions}
+                              />
+                            )}
+                            </div>
+                            </div>
+                          </div>
+                        </div>
+                  </div>
+                </>
               )}
-                <div className="col-md-12">
+                <div className="col-sm-12 col-md-12 col-xl-9 d-flex">
                   <div className="card">
                     <div className="card-header">
                       <h5 className="card-title">
-                        Registered Schools{" "}
+                        Registered Schools As of{" "}
                         {newFormat}
                       </h5>
                     </div>
@@ -1198,6 +1157,7 @@ const ReportsRegistration = () => {
                       />
                     </div>
                   </div>
+                </div>
                 </div>
               {/* <div className="mt-5">
                                     <div
@@ -1231,7 +1191,7 @@ const ReportsRegistration = () => {
                   <CSVLink
                     data={downloadTableData}
                     headers={summaryHeaders}
-                    filename={`MentorSummaryTable_${newFormat}.csv`}
+                    filename={`TeacherRegistrationSummaryTable_${newFormat}.csv`}
                     className="hidden"
                     ref={csvLinkRefTable}
                   >
@@ -1241,7 +1201,7 @@ const ReportsRegistration = () => {
                   <CSVLink
                     data={downloadTableData}
                     headers={summaryHeadersState}
-                    filename={`MentorSummaryTable_${newFormat}.csv`}
+                    filename={`TeacherRegistrationSummaryTable_${newFormat}.csv`}
                     className="hidden"
                     ref={csvLinkRefTable}
                   >

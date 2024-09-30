@@ -326,7 +326,8 @@ const TeacherProgressDetailed = () => {
 
     var options = {
         chart: {
-            height: 500,
+            height: 700, 
+            width: 1000,
             type: "bar",
             toolbar: {
                 show: false,
@@ -367,10 +368,21 @@ const TeacherProgressDetailed = () => {
 
         xaxis: {
             categories: barChart1Data.labels,
-            ticks: {
+            labels: {
+                style: {
+                  fontSize: "10px",
+                },
+                formatter: (val) => {
+                  // Shorten long labels or wrap them by breaking lines
+                  if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
+                  return val;
+                },
+              },
+              ticks: {
                 maxRotation: 80,
-                autoSkip: false
-            }
+                minRotation: 45,
+                autoSkip: false,
+              },
         },
         legend: {
             position: "top",
@@ -382,7 +394,8 @@ const TeacherProgressDetailed = () => {
 
     var sColStacked = {
         chart: {
-            height: 500,
+            height: 700,
+            width:1000,
             type: "bar",
             stacked: true,
             toolbar: {
@@ -413,10 +426,21 @@ const TeacherProgressDetailed = () => {
         ],
         xaxis: {
             categories: barChart2Data.labels,
-            ticks: {
+            labels: {
+                style: {
+                  fontSize: "10px",
+                },
+                formatter: (val) => {
+                  // Shorten long labels or wrap them by breaking lines
+                  if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
+                  return val;
+                },
+              },
+              ticks: {
                 maxRotation: 80,
-                autoSkip: false
-            },
+                minRotation: 45,
+                autoSkip: false,
+              },
         },
         yaxis: {
             beginAtZero: true,
@@ -441,7 +465,8 @@ const TeacherProgressDetailed = () => {
 
     var optionsStudent = {
         chart: {
-            height: 500,
+            height: 700,
+            width:1000,
             type: "bar",
             toolbar: {
                 show: false,
@@ -482,10 +507,21 @@ const TeacherProgressDetailed = () => {
 
         xaxis: {
             categories: barChartNew.labels,
-            ticks: {
+            labels: {
+                style: {
+                  fontSize: "10px",
+                },
+                formatter: (val) => {
+                  // Shorten long labels or wrap them by breaking lines
+                  if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
+                  return val;
+                },
+              },
+              ticks: {
                 maxRotation: 80,
-                autoSkip: false
-            }
+                minRotation: 45,
+                autoSkip: false,
+              },
         },
         legend: {
             position: "top",
@@ -937,14 +973,15 @@ const TeacherProgressDetailed = () => {
                         }
                     );
                     const doughnutData = {
-                        labels: ['Male', 'Female'],
+                        labels: ['Male', 'Female',"Others"],
                         datasets: [
                             {
                                 data: [
                                     total.maleStudents,
-                                    total.femaleStudents
+                                    total.femaleStudents,
+                                    total.otherStudents
                                 ],
-                                backgroundColor: ['#8bcaf4', '#ff99af'],
+                                backgroundColor: ['#8bcaf4', '#ff99af','rgb(254, 176, 25)'],
                                 hoverBackgroundColor: ['#36A2EB', '#FF6384']
                             }
                         ]
@@ -1054,8 +1091,8 @@ const TeacherProgressDetailed = () => {
                 <div className="page-header">
                     <div className="add-item d-flex">
                         <div className="page-title">
-                            <h4>School & Teacher Detailed Report</h4>
-                            <h6>Teacher Progress - Presurvey , Course, Teams , Post survey Status Report</h6>
+                            <h4>3. Teacher Progress Detailed Report</h4>
+                            <h6>Teacher Progress - Presurvey , Course, Post survey, Teams&Progress Status Report</h6>
                         </div>
                     </div>
                     <div className="page-btn">
@@ -1196,7 +1233,7 @@ const TeacherProgressDetailed = () => {
                                             <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
                                                 <div className="card flex-fill default-cover w-100 mb-4">
                                                     <div className="card-header d-flex justify-content-between align-items-center">
-                                                        <h4 className="card-title mb-0">State School Progress Stats</h4>
+                                                        <h4 className="card-title mb-0">States wise Teacher Progress Stats</h4>
                                                         <div className="dropdown">
                                                             <Link to="#" className="view-all d-flex align-items-center">
                                                                 <button
@@ -1368,7 +1405,7 @@ const TeacherProgressDetailed = () => {
                                 <div className="col-md-12">
                                     <div className="card">
                                         <div className="card-header">
-                                            <h5 className="card-title">Teams, Students Enrolled As of{' '}
+                                            <h5 className="card-title">Teams & Students Enrolled As of{' '}
                                                 {newFormat}</h5>
                                         </div>
                                         <div className="card-body">
@@ -1385,7 +1422,7 @@ const TeacherProgressDetailed = () => {
                                 <div className="col-md-12">
                                     <div className="card">
                                         <div className="card-header">
-                                            <h5 className="card-title">Teacher Course Status As of{' '}{newFormat}</h5>
+                                            <h5 className="card-title">Teachers Course Status As of{' '}{newFormat}</h5>
                                         </div>
                                         <div className="card-body">
                                             <div id="s-col-stacked" />
@@ -1401,7 +1438,7 @@ const TeacherProgressDetailed = () => {
                                 <div className="col-md-12">
                                     <div className="card">
                                         <div className="card-header">
-                                            <h5 className="card-title">Registered Teachers, Students Enrolled As of{' '}{newFormat}</h5>
+                                            <h5 className="card-title">Registered Teachers & Students As of{' '}{newFormat}</h5>
                                         </div>
                                         <div className="card-body">
                                             <div id="s-line-area" />
@@ -1415,11 +1452,18 @@ const TeacherProgressDetailed = () => {
                                     </div>
                                 </div>
 
-                                {downloadTableData && (
+                            </div>
+                            :
+                            <div className="spinner-border text-info" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div>
+                        }
+
+{downloadTableData && (
                                     <CSVLink
                                         data={downloadTableData}
                                         headers={tableHeaders}
-                                        filename={`SchoolDetailedSummaryReport_${newFormat}.csv`}
+                                        filename={`TeacherProgressSummaryReport_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRefTable}
                                     >
@@ -1431,20 +1475,13 @@ const TeacherProgressDetailed = () => {
                                     <CSVLink
                                         headers={teacherDetailsHeaders}
                                         data={mentorDetailedReportsData}
-                                        filename={`SchoolProgressDetailedReport_${newFormat}.csv`}
+                                        filename={`TeacherProgressDetailedReport_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRef}
                                     >
                                         Download Teacherdetailed CSV
                                     </CSVLink>
                                 )}
-                            </div>
-                            :
-                            <div className="spinner-border text-info" role="status">
-                                <span className="sr-only">Loading...</span>
-                            </div>
-                        }
-
 
 
                     </div>
