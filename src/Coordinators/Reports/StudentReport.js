@@ -35,7 +35,8 @@ const StudentProgress = () => {
   const navigate = useNavigate();
   const [district, setdistrict] = React.useState("");
   const currentUser = getCurrentUser("current_user");
-
+  
+  const [isloader, setIsloader] = useState(false);
   const [selectstate, setSelectState] = React.useState(
     currentUser?.data[0]?.state_name
   );
@@ -60,6 +61,8 @@ const StudentProgress = () => {
     []
   );
   const [doughnutChartData, setDoughnutChartData] = useState(null);
+  const [doughnutChartDataBar, setDoughnutChartDataBar] = useState(null);
+
   const csvLinkRef = useRef();
   const csvLinkRefTable = useRef();
   const dispatch = useDispatch();
@@ -88,6 +91,7 @@ const StudentProgress = () => {
     labels: [],
     datasets: [],
   });
+  
   const fullStatesNames = newstateList;
   const allDistricts = {
     "All Districts": [...Object.values(districtList).flat()],
@@ -295,7 +299,7 @@ const StudentProgress = () => {
         show: false,
       },
     },
-    colors: ["#36A2EB", "#FF6384", "rgb(254, 176, 25)"],
+    colors: ["#36A2EB", "rgb(254, 176, 25)", "#FF6384",],
     labels: [
       "Submitted Ideas",
       "In Draft Ideas",
@@ -327,8 +331,9 @@ const StudentProgress = () => {
 
   var options = {
     chart: {
-      height: 500,
-      type: "line",
+      height: 700,
+      width:1000,
+      type: "bar",
       toolbar: {
         show: false,
       },
@@ -345,11 +350,11 @@ const StudentProgress = () => {
     },
     series: [
       {
-        name: "# Teams",
+        name: "# Submitted Ideas",
         data: series1,
       },
       {
-        name: "# Students",
+        name: "# Teams",
         data: series2,
       },
     ],
@@ -368,8 +373,19 @@ const StudentProgress = () => {
 
     xaxis: {
       categories: barChart1Data.labels,
+      labels: {
+        style: {
+          fontSize: "10px",
+        },
+        formatter: (val) => {
+          // Shorten long labels or wrap them by breaking lines
+          if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
+          return val;
+        },
+      },
       ticks: {
         maxRotation: 80,
+        minRotation: 45,
         autoSkip: false,
       },
     },
@@ -381,14 +397,15 @@ const StudentProgress = () => {
 
   var sColStacked = {
     chart: {
-      height: 500,
+      height: 700,
+      width:1000,
       type: "bar",
       stacked: true,
       toolbar: {
         show: false,
       },
     },
-    colors: ["rgb(255, 69, 96)", "rgb(254, 176, 25)", "rgb(0, 227, 150)"],
+    colors: ["rgba(255, 0, 0, 0.6)", "rgba(255, 255, 0, 0.6)","rgba(0, 128, 0, 0.6)"],
 
     plotOptions: {
       bar: {
@@ -411,8 +428,19 @@ const StudentProgress = () => {
     ],
     xaxis: {
       categories: barChart2Data.labels,
+      labels: {
+        style: {
+          fontSize: "10px",
+        },
+        formatter: (val) => {
+          // Shorten long labels or wrap them by breaking lines
+          if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
+          return val;
+        },
+      },
       ticks: {
         maxRotation: 80,
+        minRotation: 45,
         autoSkip: false,
       },
     },
@@ -439,7 +467,8 @@ const StudentProgress = () => {
 
   var optionsStudent = {
     chart: {
-      height: 500,
+      height: 700,
+      width:1000,
       type: "line",
       toolbar: {
         show: false,
@@ -468,8 +497,19 @@ const StudentProgress = () => {
 
     xaxis: {
       categories: barChart3Data.labels,
+      labels: {
+        style: {
+          fontSize: "10px",
+        },
+        formatter: (val) => {
+          // Shorten long labels or wrap them by breaking lines
+          if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
+          return val;
+        },
+      },
       ticks: {
         maxRotation: 80,
+        minRotation: 45,
         autoSkip: false,
       },
     },
@@ -488,47 +528,84 @@ const StudentProgress = () => {
     ],
   };
 
+  // var radialChart = {
+  //   chart: {
+  //     height: 350,
+  //     type: "donut",
+  //     toolbar: {
+  //       show: false,
+  //     },
+  //   },
+  //   colors: ["rgb(0, 227, 150)", "rgb(254, 176, 25)", "rgb(255, 69, 96)"],
+  //   plotOptions: {
+  //     radialBar: {
+  //       dataLabels: {
+  //         name: {
+  //           fontSize: "22px",
+  //         },
+  //         value: {
+  //           fontSize: "16px",
+  //         },
+  //         total: {
+  //           show: true,
+  //           label: "Total",
+  //           formatter: function () {
+  //             return totalCount.totalStudents;
+  //           },
+  //         },
+  //       },
+  //     },
+  //   },
+  //   series: [
+  //     Math.round((totalCount.courseCompleted * 100) / totalCount.totalStudents),
+  //     Math.round(
+  //       (totalCount.courseINprogesss * 100) / totalCount.totalStudents
+  //     ),
+  //     Math.round(
+  //       ((totalCount.totalStudents -
+  //         (totalCount.courseCompleted + totalCount.courseINprogesss)) *
+  //         100) /
+  //       totalCount.totalStudents
+  //     ),
+  //   ],
+  //   labels: ["Completed", "InProgress", "NotStarted"],
+  // };
   var radialChart = {
     chart: {
-      height: 350,
-      type: "radialBar",
+      height: 330,
+      type: "donut",
       toolbar: {
         show: false,
       },
     },
-    colors: ["rgb(0, 227, 150)", "rgb(254, 176, 25)", "rgb(255, 69, 96)"],
-    plotOptions: {
-      radialBar: {
-        dataLabels: {
-          name: {
-            fontSize: "22px",
+    colors: ["rgba(255, 0, 0, 0.6)", "rgba(255, 255, 0, 0.6)","rgba(0, 128, 0, 0.6)"],
+    labels: [
+      "Not Started ",
+      "In Progress",
+      "Completed",
+    ],
+    series: [
+      totalCount.courseNotStarted,
+      totalCount.courseINprogesss,
+                  totalCount.courseCompleted,
+    ],
+    legend: {
+      position: "top",
+      horizontalAlign: "center",
+    },
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200,
           },
-          value: {
-            fontSize: "16px",
-          },
-          total: {
-            show: true,
-            label: "Total",
-            formatter: function () {
-              return totalCount.totalStudents;
-            },
+          legend: {
+            position: "bottom",
           },
         },
       },
-    },
-    series: [
-      Math.round((totalCount.courseCompleted * 100) / totalCount.totalStudents),
-      Math.round(
-        (totalCount.courseINprogesss * 100) / totalCount.totalStudents
-      ),
-      Math.round(
-        ((totalCount.totalStudents -
-          (totalCount.courseCompleted + totalCount.courseINprogesss)) *
-          100) /
-        totalCount.totalStudents
-      ),
     ],
-    labels: ["Completed", "InProgress", "NotStarted"],
   };
 
   // useEffect(() => {
@@ -770,6 +847,7 @@ const StudentProgress = () => {
     axios(config)
       .then((response) => {
         if (response.status === 200) {
+          setIsloader(true);
           // console.log(response,"view");
           const summary = response.data.data[0].summary;
           const studentCountDetails = response.data.data[0].studentCountDetails;
@@ -811,27 +889,40 @@ const StudentProgress = () => {
             //     (courseINprogesssItem
             //       ? courseINprogesssItem?.studentCourseIN
             //       : 0));
-                  const courseNotStarted =
-  Math.abs(
-    summaryItem.totalTeams -
+            
+              const courseNotStarted = (studentCountItem) ? (Math.abs(
+    studentCountItem?.totalstudent  -
     (
       (courseCompletedItem ? courseCompletedItem?.studentCourseCMP : 0) +
       (courseINprogesssItem ? courseINprogesssItem?.studentCourseIN : 0)
     )
-  );
+  )
+  ): 0;
+  
 
-            console.log(courseNotStarted,"11");
+                  
 
-            const coursePercentage =
-              studentCountItem && studentCountItem.totalstudent > 0
-                ? Math.round(
-                  ((courseCompletedItem
-                    ? courseCompletedItem.studentCourseCMP
-                    : 0) /
-                    studentCountItem.totalstudent) *
-                  100
-                )
-                : 0;
+
+            // const coursePercentage =
+            //   studentCountItem && studentCountItem.totalstudent > 0
+            //     ? Math.round(
+            //       ((courseCompletedItem
+            //         ? courseCompletedItem.studentCourseCMP
+            //         : 0) /
+            //         studentCountItem.totalstudent) *
+            //       100
+            //     )
+            //     : 0;
+                const coursePercentage = 
+  studentCountItem && studentCountItem.totalstudent > 0
+    ? Math.round(
+        ((courseCompletedItem && courseCompletedItem.studentCourseCMP
+          ? courseCompletedItem.studentCourseCMP
+          : 0) / studentCountItem.totalstudent) * 100
+      )
+    : 0;
+              console.log(coursePercentage,"11");
+
             return {
               district,
               coursePercentage,
@@ -865,7 +956,6 @@ const StudentProgress = () => {
               acc.courseINprogesss += item.courseINprogesss;
               acc.ideaNotStarted =
                 acc.totalTeams - (acc.submittedCount + acc.draftCount);
-              acc.coursePercentage += item.coursePercentage;
               acc.courseNotStarted =
                 acc.totalStudents -
                 (acc.courseCompleted + acc.courseINprogesss);
@@ -888,6 +978,7 @@ const StudentProgress = () => {
               courseNotStarted: 0,
             }
           );
+
           const doughnutData = {
             labels: [
               "Draft Ideas",
@@ -906,18 +997,36 @@ const StudentProgress = () => {
               },
             ],
           };
+          const doughnutDataGraph = {
+            labels: [
+              "In progress",
+              "Completed",
+              "Not Started ",
+            ],
+            datasets: [
+              {
+                data: [
+                  total.courseINprogesss,
+                  total.courseCompleted,
+                  total.courseNotStarted,
+                ],
+                backgroundColor: ["rgba(255, 0, 0, 0.6)", "rgba(255, 255, 0, 0.6)","rgba(0, 128, 0, 0.6)"],
+                hoverBackgroundColor: ["#e60026", "#ffae42","#087830"],
+              },
+            ],
+          };
 
           const barData = {
             labels: combinedArray.map((item) => item.district),
             datasets: [
               {
-                label: "No.of Students Enrolled",
-                data: combinedArray.map((item) => item.totalStudents),
+                label: "No.of Teams Enrolled",
+                data: combinedArray.map((item) => item.totalTeams),
                 backgroundColor: "rgba(255, 0, 0, 0.6)",
               },
               {
-                label: "No. of Teams created",
-                data: combinedArray.map((item) => item.totalTeams),
+                label: "No. of Ideas Submitted",
+                data: combinedArray.map((item) => item.submittedCount),
                 backgroundColor: "rgba(75, 162, 192, 0.6)",
               },
             ],
@@ -945,6 +1054,11 @@ const StudentProgress = () => {
               },
             ],
           };
+          total.coursePercentage = Math.round(
+            (total.courseCompleted /
+              total.totalStudents) *
+            100
+          );
           setseries3(stackedBarChartData.datasets[0].data);
           setseries4(stackedBarChartData.datasets[1].data);
           setseries5(stackedBarChartData.datasets[2].data);
@@ -952,6 +1066,8 @@ const StudentProgress = () => {
           setCombinedArray(combinedArray);
           setDownloadTableData(newcombinedArray);
           setDoughnutChartData(doughnutData);
+          setDoughnutChartDataBar(doughnutDataGraph);
+
           setBarChart1Data(barData);
           setBarChart2Data(stackedBarChartData);
           setTotalCount(total);
@@ -969,9 +1085,9 @@ const StudentProgress = () => {
         <div className="page-header">
           <div className="add-item d-flex">
             <div className="page-title">
-              <h4>Student Detailed Report</h4>
+              <h4>Student Progress Detailed Report</h4>
               <h6>
-                Student Progress - Presurvey , Course, Teams , Post survey
+                Student Progress - Presurvey , Course, Idea submission , Post survey
                 Status Report
               </h6>
             </div>
@@ -1050,6 +1166,7 @@ const StudentProgress = () => {
                 </button>
               </Col>
             </Row>
+            {isloader ?
             <div className="chart mt-2 mb-2">
               {combinedArray.length > 0 && (
                 <>
@@ -1075,7 +1192,7 @@ const StudentProgress = () => {
                             <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
                               <p>
                                 <b>
-                                  Students as per Idea Submission {newFormat}
+                                  Idea Submission Status As of {newFormat}
                                 </b>
                               </p>
                               {doughnutChartData && (
@@ -1093,12 +1210,12 @@ const StudentProgress = () => {
                               <p>
                                 <b>Students Course Status As of {newFormat}</b>
                               </p>
-                              {totalCount && (
-                                <div id="radial-chart">
+                              {doughnutChartDataBar && (
+                                <div id="donut-chart">
                                   <ReactApexChart
                                     options={radialChart}
                                     series={radialChart.series}
-                                    type="radialBar"
+                                      type="donut"
                                     height={350}
                                   />
                                 </div>
@@ -1114,7 +1231,7 @@ const StudentProgress = () => {
                       <div className="card flex-fill default-cover w-100 mb-4">
                         <div className="card-header d-flex justify-content-between align-items-center">
                           <h4 className="card-title mb-0">
-                            State Student Progress Stats
+                            District wise Students Progress Stats
                           </h4>
                           <div className="dropdown">
                             <Link
@@ -1132,7 +1249,7 @@ const StudentProgress = () => {
                                   }
                                 }}
                               >
-                                Download
+                                Get Statistics
                               </button>
                             </Link>
                           </div>
@@ -1244,10 +1361,11 @@ const StudentProgress = () => {
                                     <td>{item.courseINprogesss}</td>
                                     <td>{item.courseNotStarted}</td>
                                     <td>{item.coursePercentage}%</td>
+                                 
                                     <td>{item.submittedCount}</td>{" "}
                                     <td>{item.draftCount}</td>{" "}
                                     <td>{item.ideaNotStarted}</td>
-           { console.log(item.courseNotStarted,"course not")}
+           {/* { console.log(item.courseNotStarted,"course not")} */}
                                   </tr>
                                 ))}
                                 <tr>
@@ -1281,8 +1399,15 @@ const StudentProgress = () => {
                                     {totalCount.courseNotStarted}
                                   </td>
                                   <td style={{ color: "crimson" }}>
-                                    {totalCount.coursePercentage}%
+                                    {Math.round(
+                                      (totalCount.courseCompleted /
+                                        totalCount.totalStudents) *
+                                      100
+                                    )}
+                                    %
                                   </td>
+
+                                 
                                   {/* <td style={{ color: "crimson" }}>
                                     {Math.round(
                                       (totalCount.courseCompleted /
@@ -1309,7 +1434,7 @@ const StudentProgress = () => {
                 <div className="card">
                   <div className="card-header">
                     <h5 className="card-title">
-                      Teams, Students Enrolled As of {newFormat}
+                    Teams, Submitted Ideas As of {newFormat}
                     </h5>
                   </div>
                   <div className="card-body">
@@ -1317,7 +1442,7 @@ const StudentProgress = () => {
                     <ReactApexChart
                       options={options}
                       series={options.series}
-                      type="line"
+                       type="bar"
                       height={400}
                     />
                   </div>
@@ -1362,7 +1487,7 @@ const StudentProgress = () => {
                 <CSVLink
                   data={downloadTableData}
                   headers={tableHeaders}
-                  filename={`StudentDetailedSummaryReport_${newFormat}.csv`}
+                  filename={`StudentProgressSummaryReport_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRefTable}
                 >
@@ -1382,6 +1507,11 @@ const StudentProgress = () => {
                 </CSVLink>
               )}
             </div>
+            :
+            <div className="spinner-border text-info" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+          }
           </div>
         </Container>
       </div>

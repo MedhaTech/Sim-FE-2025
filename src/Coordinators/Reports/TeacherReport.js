@@ -35,7 +35,7 @@ const TeacherProgressDetailed = () => {
   const navigate = useNavigate();
   const [district, setdistrict] = React.useState("");
   const currentUser = getCurrentUser("current_user");
-
+  const [isloader, setIsloader] = useState(false);
   const [selectstate, setSelectState] = React.useState(
     currentUser?.data[0]?.state_name
   );
@@ -75,8 +75,14 @@ const TeacherProgressDetailed = () => {
   const [series5, setseries5] = useState([]);
   const [series6, setseries6] = useState([]);
   const [series7, setseries7] = useState([]);
+  const [seriesa, setseriesa] = useState([]);
+  const [seriesb, setseriesb] = useState([]);
 
   const [barChart1Data, setBarChart1Data] = useState({
+    labels: [],
+    datasets: [],
+  });
+  const [barChartNew, setBarChartNew] = useState({
     labels: [],
     datasets: [],
   });
@@ -85,6 +91,10 @@ const TeacherProgressDetailed = () => {
     datasets: [],
   });
   const [barChart2Data, setBarChart2Data] = useState({
+    labels: [],
+    datasets: [],
+  });
+  const [barChart2DataBar, setBarChart2DataBar] = useState({
     labels: [],
     datasets: [],
   });
@@ -105,9 +115,8 @@ const TeacherProgressDetailed = () => {
     // setdistrict('');
     fetchChartTableData();
     const newDate = new Date();
-    const formattedDate = `${newDate.getUTCDate()}/${
-      1 + newDate.getMonth()
-    }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
+    const formattedDate = `${newDate.getUTCDate()}/${1 + newDate.getMonth()
+      }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
     setNewFormat(formattedDate);
   }, [selectstate]);
   const [totalCount, setTotalCount] = useState([]);
@@ -223,7 +232,7 @@ const TeacherProgressDetailed = () => {
       label: "Teacher Post Survey Status",
       key: "post_survey_status",
     },
-   
+
     {
       label: "NO.of Teams Created",
       key: "team_count",
@@ -264,8 +273,8 @@ const TeacherProgressDetailed = () => {
       label: "No.of Teams Idea Not Initiated",
       key: "notInitatedIdeas",
     },
-   
-   
+
+
     // {
     //     label: 'No.of Students Postsurvey Not Started',
     //     key: 'not_start_pre'
@@ -322,8 +331,9 @@ const TeacherProgressDetailed = () => {
 
   var options = {
     chart: {
-      height: 500,
-      type: "line",
+      height: 700,
+      width:1000,
+      type: "bar",
       toolbar: {
         show: false,
       },
@@ -363,8 +373,84 @@ const TeacherProgressDetailed = () => {
 
     xaxis: {
       categories: barChart1Data.labels,
+      labels: {
+        style: {
+          fontSize: "10px",
+        },
+        formatter: (val) => {
+          // Shorten long labels or wrap them by breaking lines
+          if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
+          return val;
+        },
+      },
       ticks: {
         maxRotation: 80,
+        minRotation: 45,
+        autoSkip: false,
+      },
+    },
+    legend: {
+      position: "top",
+      horizontalAlign: "center",
+    },
+  };
+  var optionsNew = {
+    chart: {
+      height: 700,
+      width:1000,
+      type: "bar",
+      toolbar: {
+        show: false,
+      },
+      zoom: {
+        enabled: false,
+      },
+    },
+    colors: ["rgb(0, 143, 251)", "rgb(0, 227, 150)"],
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      curve: "straight",
+    },
+    series: [
+      {
+        name: "# Registered Students",
+        data: seriesa,
+      },
+      {
+        name: "# Registered Teachers",
+        data: seriesb,
+      },
+    ],
+
+    yaxis: {
+      beginAtZero: true,
+      ticks: {
+        stepSize: 20,
+      },
+      labels: {
+        formatter: (val) => {
+          return val / 1;
+        },
+      },
+    },
+
+    xaxis: {
+      categories: barChartNew.labels,
+      labels: {
+        style: {
+          fontSize: "10px",
+        },
+        formatter: (val) => {
+          // Shorten long labels or wrap them by breaking lines
+          if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
+          return val;
+        },
+      },
+      ticks: {
+        maxRotation: 80,
+        minRotation: 45,
         autoSkip: false,
       },
     },
@@ -376,14 +462,15 @@ const TeacherProgressDetailed = () => {
 
   var sColStacked = {
     chart: {
-      height: 500,
+      height: 700,
+      width:1000,
       type: "bar",
       stacked: true,
       toolbar: {
         show: false,
       },
     },
-    labels: [ "Not started", "InProgress", "Completed"],
+    labels: ["Not started", "InProgress", "Completed"],
 
     colors: ["rgb(255, 69, 96)", "rgb(254, 176, 25)", "rgb(0, 227, 150)"],
 
@@ -407,9 +494,20 @@ const TeacherProgressDetailed = () => {
       },
     ],
     xaxis: {
-      categories: barChart2Data.labels,
+      categories: barChart2DataBar.labels,
+      labels: {
+        style: {
+          fontSize: "10px",
+        },
+        formatter: (val) => {
+          // Shorten long labels or wrap them by breaking lines
+          if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
+          return val;
+        },
+      },
       ticks: {
         maxRotation: 80,
+        minRotation: 45,
         autoSkip: false,
       },
     },
@@ -436,7 +534,8 @@ const TeacherProgressDetailed = () => {
 
   var optionsStudent = {
     chart: {
-      height: 500,
+      height: 700,
+      width:1000,
       type: "line",
       toolbar: {
         show: false,
@@ -465,8 +564,19 @@ const TeacherProgressDetailed = () => {
 
     xaxis: {
       categories: barChart3Data.labels,
+      labels: {
+        style: {
+          fontSize: "10px",
+        },
+        formatter: (val) => {
+          // Shorten long labels or wrap them by breaking lines
+          if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
+          return val;
+        },
+      },
       ticks: {
         maxRotation: 80,
+        minRotation: 45,
         autoSkip: false,
       },
     },
@@ -488,7 +598,7 @@ const TeacherProgressDetailed = () => {
   var radialChart = {
     chart: {
       height: 350,
-      type: "radialBar",
+      type: "donut",
       toolbar: {
         show: false,
       },
@@ -520,20 +630,20 @@ const TeacherProgressDetailed = () => {
       Math.round((totalCount.courseINcompleted * 100) / totalCount.totalReg),
       Math.round(
         ((totalCount.totalReg -
-          (totalCount.courseCompleted + totalCount.courseINcompleted) )* 100) /
-          totalCount.totalReg
+          (totalCount.courseCompleted + totalCount.courseINcompleted)) * 100) /
+        totalCount.totalReg
       ),
     ],
     legend: {
-        position: "top",
-        horizontalAlign: "center",
-      },
-      fill: {
-        opacity: 1,
-      },
+      position: "top",
+      horizontalAlign: "center",
+    },
+    fill: {
+      opacity: 1,
+    },
   };
   //   console.log(totalCount.totalReg,"courseINcompleted",);
-//   console.log(totalCount.totalReg, "tt");
+  //   console.log(totalCount.totalReg, "tt");
 
   useEffect(() => {
     nonAtlCount();
@@ -784,6 +894,42 @@ const TeacherProgressDetailed = () => {
         setIsDownload(false);
       });
   };
+  var chartOptionOf = {
+    chart: {
+      height: 330,
+      type: "donut",
+      toolbar: {
+        show: false,
+      },
+    },
+    colors: ["rgba(255, 0, 0, 0.6)", "rgba(255, 255, 0, 0.6)", "rgba(0, 128, 0, 0.6)"],
+    labels: [
+      "Not started",
+      "In progress",
+      "Completed",
+    ],
+    series: [
+      totalCount.courseNotStarted,
+      totalCount.courseINcompleted, totalCount.courseCompleted
+    ],
+    legend: {
+      position: "top",
+      horizontalAlign: "center",
+    },
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200,
+          },
+          legend: {
+            position: "bottom",
+          },
+        },
+      },
+    ],
+  };
   useEffect(() => {
     if (mentorDetailedReportsData.length > 0) {
       csvLinkRef.current.link.click();
@@ -810,6 +956,7 @@ const TeacherProgressDetailed = () => {
     axios(config)
       .then((response) => {
         if (response.status === 200) {
+          setIsloader(true);
           const summary = response.data.data[0].summary;
           const teamCount = response.data.data[0].teamCount;
           const studentCountDetails =
@@ -905,7 +1052,16 @@ const TeacherProgressDetailed = () => {
               },
             ],
           };
-
+          const doughnutDataCourse = {
+            labels: ["Not started", "In progress", "Completed"],
+            datasets: [
+              {
+                data: [total.courseNotStarted, total.courseINcompleted, total.courseCompleted],
+                backgroundColor: ["rgba(255, 0, 0, 0.6)", "rgba(255, 255, 0, 0.6)", "rgba(0, 128, 0, 0.6)"],
+                hoverBackgroundColor: ["#e60026", "#ffae42", "#087830"],
+              },
+            ],
+          };
           const barData = {
             labels: combinedArray.map((item) => item.district),
             datasets: [
@@ -923,6 +1079,26 @@ const TeacherProgressDetailed = () => {
           };
           setseries2(barData.datasets[0].data);
           setseries1(barData.datasets[1].data);
+
+          const barDataA = {
+            labels: combinedArray.map((item) => item.district),
+            datasets: [
+              {
+                label: "No.of Registered Students Enrolled",
+                data: combinedArray.map((item) => item.totalStudents),
+                backgroundColor: "rgba(255, 0, 0, 0.6)",
+              },
+              {
+                label: "No. of Registered Teachers Enrolled",
+                data: combinedArray.map((item) => (item.totalReg)),
+                backgroundColor: "rgba(75, 162, 192, 0.6)",
+              },
+            ],
+          };
+          setseriesa(barDataA.datasets[0].data);
+          setseriesb(barDataA.datasets[1].data);
+
+
 
           const stackedBarChartData = {
             labels: combinedArray.map((item) => item.district),
@@ -952,7 +1128,10 @@ const TeacherProgressDetailed = () => {
           setDownloadTableData(newcombinedArray);
           setDoughnutChartData(doughnutData);
           setBarChart1Data(barData);
-          setBarChart2Data(stackedBarChartData);
+          setBarChartNew(barDataA);
+          setBarChart2Data(doughnutDataCourse);
+          setBarChart2DataBar(stackedBarChartData);
+
           setTotalCount(total);
         }
       })
@@ -967,11 +1146,8 @@ const TeacherProgressDetailed = () => {
         <div className="page-header">
           <div className="add-item d-flex">
             <div className="page-title">
-              <h4>School & Teacher Detailed Report</h4>
-              <h6>
-                Teacher Progress - Presurvey , Course, Teams , Post survey Status
-                Report
-              </h6>
+              <h4>Teacher Progress Detailed Report</h4>
+                <h6>Teacher Progress - Presurvey , Course, Post survey, Teams&Progress Status Report</h6>
             </div>
           </div>
           {/* <div className="page-btn">
@@ -1048,309 +1224,331 @@ const TeacherProgressDetailed = () => {
                 </button>
               </Col>
             </Row>
-            <div className="chart mt-2 mb-2">
-              {combinedArray.length > 0 && (
-                <>
-                  <div className="row">
-                    <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
-                      <div className="card flex-fill default-cover w-100 mb-4">
-                        <div className="card-header d-flex justify-content-between align-items-center">
-                          <h4 className="card-title mb-0">Data Analytics</h4>
-                          <div className="dropdown">
-                            <Link
-                              to="#"
-                              className="view-all d-flex align-items-center"
-                            >
-                              View All
-                              <span className="ps-2 d-flex align-items-center">
-                                <ArrowRight className="feather-16" />
-                              </span>
-                            </Link>
-                          </div>
-                        </div>
-                        <div className="card-body">
-                          <div className="row">
-                            <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
-                              <p>
-                                <b>Students as per Gender {newFormat}</b>
-                              </p>
-                              {doughnutChartData && (
-                                <div id="donut-chart">
-                                  <ReactApexChart
-                                    options={chartOption}
-                                    series={chartOption.series}
-                                    type="donut"
-                                    height={330}
-                                  />
-                                </div>
-                              )}
+            {isloader ?
+              <div className="chart mt-2 mb-2">
+                {combinedArray.length > 0 && (
+                  <>
+                    <div className="row">
+                      <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
+                        <div className="card flex-fill default-cover w-100 mb-4">
+                          <div className="card-header d-flex justify-content-between align-items-center">
+                            <h4 className="card-title mb-0">Data Analytics</h4>
+                            <div className="dropdown">
+                              <Link
+                                to="#"
+                                className="view-all d-flex align-items-center"
+                              >
+                                View All
+                                <span className="ps-2 d-flex align-items-center">
+                                  <ArrowRight className="feather-16" />
+                                </span>
+                              </Link>
                             </div>
-                            <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
-                              <p>
-                                <b>Teachers Course Status As of {newFormat}</b>
-                              </p>
-                              {totalCount && (
-                                <div id="radial-chart">
-                                  <ReactApexChart
-                                    options={radialChart}
-                                    series={radialChart.series}
-                                    type="radialBar"
-                                    height={350}
-                                  />
-                                </div>
-                              )}
+                          </div>
+                          <div className="card-body">
+                            <div className="row">
+                              <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
+                                <p>
+                                  <b>Students as per Gender {newFormat}</b>
+                                </p>
+                                {doughnutChartData && (
+                                  <div id="donut-chart">
+                                    <ReactApexChart
+                                      options={chartOption}
+                                      series={chartOption.series}
+                                      type="donut"
+                                      height={330}
+                                    />
+                                  </div>
+                                )}
+                              </div>
+                              <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
+                                <p>
+                                  <b>Teachers Course Status As of {newFormat}</b>
+                                </p>
+                                {barChart2Data && (
+                                  <div id="radial-chart">
+                                    <ReactApexChart
+                                      options={chartOptionOf}
+                                      series={chartOptionOf.series}
+                                      // series={radialChart.series}
+                                      type="donut"
+                                      height={350}
+                                    />
+                                  </div>
+                                )}
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
-                      <div className="card flex-fill default-cover w-100 mb-4">
-                        <div className="card-header d-flex justify-content-between align-items-center">
-                          <h4 className="card-title mb-0">
-                            State School Progress Stats
-                          </h4>
-                          <div className="dropdown">
-                            <Link
-                              to="#"
-                              className="view-all d-flex align-items-center"
-                            >
-                              <button
-                                className="btn mx-2 btn-primary btn-sm"
-                                type="button"
-                                onClick={() => {
-                                  if (downloadTableData) {
-                                    // setIsDownloading(true);
-                                    setDownloadTableData(null);
-                                    csvLinkRefTable.current.link.click();
-                                  }
-                                }}
+                    <div className="row">
+                      <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
+                        <div className="card flex-fill default-cover w-100 mb-4">
+                          <div className="card-header d-flex justify-content-between align-items-center">
+                            <h4 className="card-title mb-0">
+                              District wise Teacher Progress Stats
+                            </h4>
+                            <div className="dropdown">
+                              <Link
+                                to="#"
+                                className="view-all d-flex align-items-center"
                               >
-                                Download
-                              </button>
-                            </Link>
+                                <button
+                                  className="btn mx-2 btn-primary btn-sm"
+                                  type="button"
+                                  onClick={() => {
+                                    if (downloadTableData) {
+                                      // setIsDownloading(true);
+                                      setDownloadTableData(null);
+                                      csvLinkRefTable.current.link.click();
+                                    }
+                                  }}
+                                >
+                                  Get Statistics
+                                </button>
+                              </Link>
+                            </div>
                           </div>
-                        </div>
-                        <div className="card-body">
-                          <div className="table-responsive">
-                            <table className="table table-border recent-transactions">
-                              <thead>
-                                <tr >
-                                  <th style={{ color: "#36A2EB",fontWeight: "bold", }}>#No</th>
-                                  <th style={{ color: "#36A2EB",fontWeight: "bold", }}>
-                                    District Name
-                                  </th>
-                                  <th
-                                    style={{
-                                      whiteSpace: "wrap",
-                                      color: "#36A2EB",
-                                      fontWeight: "bold",
-                                    }}
-                                  >
-                                    #Registered Teachers
-                                  </th>
-                                  <th
-                                    style={{
-                                      whiteSpace: "wrap",
-                                      color: "#36A2EB",
-                                      fontWeight: "bold",
-                                    }}
-                                  >
-                                    #Teams Created
-                                  </th>
-                                  <th
-                                    style={{
-                                      whiteSpace: "wrap",
-                                      color: "#36A2EB",
-                                      fontWeight: "bold",
-                                    }}
-                                  >
-                                    #Students Enrolled
-                                  </th>
-                                  <th
-                                    style={{
-                                      whiteSpace: "wrap",
-                                      color: "#36A2EB",
-                                      fontWeight: "bold",
-                                    }}
-                                  >
-                                    <FontAwesomeIcon icon={faFemale} />
-                                    Female Students
-                                  </th>
-                                  <th
-                                    style={{
-                                      whiteSpace: "wrap",
-                                      color: "#36A2EB",
-                                      fontWeight: "bold",
-                                    }}
-                                  >
-                                    <FontAwesomeIcon icon={faMale} /> Male
-                                    Students
-                                  </th>
-                                  <th
-                                    style={{
-                                      whiteSpace: "wrap",
-                                      color: "#36A2EB",
-                                      fontWeight: "bold",
-                                    }}
-                                  >
-                                    Other Students
-                                  </th>
-                                  <th
-                                    style={{
-                                      whiteSpace: "wrap",
-                                      color: "#36A2EB",
-                                      fontWeight: "bold",
-                                    }}
-                                  >
-                                    <FontAwesomeIcon
-                                      icon={faChalkboardTeacher}
-                                    />{" "}
-                                    Teacher Course Completed
-                                  </th>
-                                  <th
-                                    style={{
-                                      whiteSpace: "wrap",
-                                      color: "#36A2EB",
-                                      fontWeight: "bold",
-                                    }}
-                                  >
-                                    <FontAwesomeIcon
-                                      icon={faChalkboardTeacher}
-                                    />{" "}
-                                    Teacher Course InProgress
-                                  </th>
-                                  <th
-                                    style={{
-                                      whiteSpace: "wrap",
-                                      color: "#36A2EB",
-                                      fontWeight: "bold",
-                                    }}
-                                  >
-                                    <FontAwesomeIcon
-                                      icon={faChalkboardTeacher}
-                                    />{" "}
-                                    Teacher Course NotStarted{" "}
-                                  </th>
-                                </tr>
-                              </thead>
-                              <tbody className="text-center">
-                                {combinedArray.map((item, index) => (
-                                  <tr key={index}>
-                                    <td>{index + 1}</td>
+                          <div className="card-body">
+                            <div className="table-responsive">
+                              <table className="table table-border recent-transactions">
+                                <thead>
+                                  <tr >
+                                    <th style={{ color: "#36A2EB", fontWeight: "bold", }}>#No</th>
+                                    <th style={{ color: "#36A2EB", fontWeight: "bold", }}>
+                                      District Name
+                                    </th>
+                                    <th
+                                      style={{
+                                        whiteSpace: "wrap",
+                                        color: "#36A2EB",
+                                        fontWeight: "bold",
+                                      }}
+                                    >
+                                      #Registered Teachers
+                                    </th>
+                                    <th
+                                      style={{
+                                        whiteSpace: "wrap",
+                                        color: "#36A2EB",
+                                        fontWeight: "bold",
+                                      }}
+                                    >
+                                      #Teams Created
+                                    </th>
+                                    <th
+                                      style={{
+                                        whiteSpace: "wrap",
+                                        color: "#36A2EB",
+                                        fontWeight: "bold",
+                                      }}
+                                    >
+                                      #Students Enrolled
+                                    </th>
+                                    <th
+                                      style={{
+                                        whiteSpace: "wrap",
+                                        color: "#36A2EB",
+                                        fontWeight: "bold",
+                                      }}
+                                    >
+                                      <FontAwesomeIcon icon={faFemale} />
+                                      Female Students
+                                    </th>
+                                    <th
+                                      style={{
+                                        whiteSpace: "wrap",
+                                        color: "#36A2EB",
+                                        fontWeight: "bold",
+                                      }}
+                                    >
+                                      <FontAwesomeIcon icon={faMale} /> Male
+                                      Students
+                                    </th>
+                                    <th
+                                      style={{
+                                        whiteSpace: "wrap",
+                                        color: "#36A2EB",
+                                        fontWeight: "bold",
+                                      }}
+                                    >
+                                      Other Students
+                                    </th>
+                                    <th
+                                      style={{
+                                        whiteSpace: "wrap",
+                                        color: "#36A2EB",
+                                        fontWeight: "bold",
+                                      }}
+                                    >
+                                      <FontAwesomeIcon
+                                        icon={faChalkboardTeacher}
+                                      />{" "}
+                                      Teacher Course Completed
+                                    </th>
+                                    <th
+                                      style={{
+                                        whiteSpace: "wrap",
+                                        color: "#36A2EB",
+                                        fontWeight: "bold",
+                                      }}
+                                    >
+                                      <FontAwesomeIcon
+                                        icon={faChalkboardTeacher}
+                                      />{" "}
+                                      Teacher Course InProgress
+                                    </th>
+                                    <th
+                                      style={{
+                                        whiteSpace: "wrap",
+                                        color: "#36A2EB",
+                                        fontWeight: "bold",
+                                      }}
+                                    >
+                                      <FontAwesomeIcon
+                                        icon={faChalkboardTeacher}
+                                      />{" "}
+                                      Teacher Course NotStarted{" "}
+                                    </th>
+                                  </tr>
+                                </thead>
+                                <tbody className="text-center">
+                                  {combinedArray.map((item, index) => (
+                                    <tr key={index}>
+                                      <td>{index + 1}</td>
+                                      <td
+                                        style={{
+                                          textAlign: "left",
+                                          maxWidth: "150px",
+                                          overflow: "hidden",
+                                          textOverflow: "ellipsis",
+                                          color: "crimson",
+                                        }}
+                                      >
+                                        {item.district}
+                                      </td>
+                                      <td>{item.totalReg}</td>
+                                      <td>{item.totalTeams}</td>
+                                      <td>{item.totalStudents}</td>
+                                      <td>{item.femaleStudents}</td>
+                                      <td>{item.maleStudents}</td>
+                                      <td>{item.otherStudents}</td>
+                                      <td>{item.courseCompleted}</td>
+                                      <td>{item.courseINcompleted}</td>
+                                      <td>{item.courseNotStarted}</td>
+                                    </tr>
+                                  ))}
+                                  <tr>
+                                    <td>{ }</td>
                                     <td
                                       style={{
+                                        color: "crimson",
                                         textAlign: "left",
                                         maxWidth: "150px",
                                         overflow: "hidden",
                                         textOverflow: "ellipsis",
-                                        color: "crimson",
                                       }}
                                     >
-                                      {item.district}
+                                      {"Total Count"}
                                     </td>
-                                    <td>{item.totalReg}</td>
-                                    <td>{item.totalTeams}</td>
-                                    <td>{item.totalStudents}</td>
-                                    <td>{item.femaleStudents}</td>
-                                    <td>{item.maleStudents}</td>
-                                    <td>{item.otherStudents}</td>
-                                    <td>{item.courseCompleted}</td>
-                                    <td>{item.courseINcompleted}</td>
-                                    <td>{item.courseNotStarted}</td>
+                                    <td style={{ color: "crimson" }}>
+                                      {totalCount.totalReg}
+                                    </td>
+                                    <td style={{ color: "crimson" }}>
+                                      {totalCount.totalTeams}
+                                    </td>
+                                    <td style={{ color: "crimson" }}>
+                                      {totalCount.totalStudents}
+                                    </td>
+                                    <td style={{ color: "crimson" }}>
+                                      {totalCount.femaleStudents}
+                                    </td>
+                                    <td style={{ color: "crimson" }}>
+                                      {totalCount.maleStudents}
+                                    </td>
+                                    <td style={{ color: "crimson" }}>
+                                      {totalCount.otherStudents}
+                                    </td>
+                                    <td style={{ color: "crimson" }}>
+                                      {totalCount.courseCompleted}
+                                    </td>
+                                    <td style={{ color: "crimson" }}>
+                                      {totalCount.courseINcompleted}
+                                    </td>
+                                    <td style={{ color: "crimson" }}>
+                                      {totalCount.totalReg -
+                                        (totalCount.courseCompleted +
+                                          totalCount.courseINcompleted)}
+                                    </td>
                                   </tr>
-                                ))}
-                                <tr>
-                                  <td>{}</td>
-                                  <td
-                                    style={{
-                                      color: "crimson",
-                                      textAlign: "left",
-                                      maxWidth: "150px",
-                                      overflow: "hidden",
-                                      textOverflow: "ellipsis",
-                                    }}
-                                  >
-                                    {"Total Count"}
-                                  </td>
-                                  <td style={{ color: "crimson" }}>
-                                    {totalCount.totalReg}
-                                  </td>
-                                  <td style={{ color: "crimson" }}>
-                                    {totalCount.totalTeams}
-                                  </td>
-                                  <td style={{ color: "crimson" }}>
-                                    {totalCount.totalStudents}
-                                  </td>
-                                  <td style={{ color: "crimson" }}>
-                                    {totalCount.femaleStudents}
-                                  </td>
-                                  <td style={{ color: "crimson" }}>
-                                    {totalCount.maleStudents}
-                                  </td>
-                                  <td style={{ color: "crimson" }}>
-                                    {totalCount.otherStudents}
-                                  </td>
-                                  <td style={{ color: "crimson" }}>
-                                    {totalCount.courseCompleted}
-                                  </td>
-                                  <td style={{ color: "crimson" }}>
-                                    {totalCount.courseINcompleted}
-                                  </td>
-                                  <td style={{ color: "crimson" }}>
-                                    {totalCount.totalReg -
-                                      (totalCount.courseCompleted +
-                                        totalCount.courseINcompleted)}
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
+                                </tbody>
+                              </table>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </>
-              )}
-              <div className="col-md-12">
-                <div className="card">
-                  <div className="card-header">
-                    <h5 className="card-title">
-                      Teams, Students Enrolled As of {newFormat}
-                    </h5>
-                  </div>
-                  <div className="card-body">
-                    <div id="s-line-area" />
-                    <ReactApexChart
-                      options={options}
-                      series={options.series}
-                      type="line"
-                      height={400}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-12">
-                <div className="card">
-                  <div className="card-header">
-                    <h5 className="card-title">
-                      Teacher Course Status As of {newFormat}
-                    </h5>
-                  </div>
-                  <div className="card-body">
-                    <div id="s-col-stacked" />
-                    <ReactApexChart
-                      options={sColStacked}
-                      series={sColStacked.series}
-                      type="bar"
-                      height={400}
-                    />
+                  </>
+                )}
+                <div className="col-md-12">
+                  <div className="card">
+                    <div className="card-header">
+                      <h5 className="card-title">
+                        Teams, Students Enrolled As of {newFormat}
+                      </h5>
+                    </div>
+                    <div className="card-body">
+                      <div id="s-line-area" />
+                      <ReactApexChart
+                        options={options}
+                        series={options.series}
+                        type="bar"
+                        // type="line"
+                        height={400}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-              {/* {selectstate !== "Tamil Nadu" &&( <div className="col-md-12">
+                <div className="col-md-12">
+                  <div className="card">
+                    <div className="card-header">
+                      <h5 className="card-title">
+                        Teacher Course Status As of {newFormat}
+                      </h5>
+                    </div>
+                    <div className="card-body">
+                      <div id="s-col-stacked" />
+                      <ReactApexChart
+                        options={sColStacked}
+                        series={sColStacked.series}
+                        type="bar"
+                        height={400}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-12">
+                  <div className="card">
+                    <div className="card-header">
+                      <h5 className="card-title">
+                        Registered Teachers, Students Enrolled As of {newFormat}
+                      </h5>
+                    </div>
+                    <div className="card-body">
+                      <div id="s-line-area" />
+                      <ReactApexChart
+                        options={optionsNew}
+                        series={optionsNew.series}
+                        type="bar"
+                        // type="line"
+                        height={400}
+                      />
+                    </div>
+                  </div>
+                </div>
+                {/* {selectstate !== "Tamil Nadu" &&( <div className="col-md-12">
                         <div className="card">
                         <div className="card-header">
                             <h5 className="card-title">No.of Students Enrolled from ATL v/s Non ATL Schools{' '}{newFormat}</h5>
@@ -1367,30 +1565,36 @@ const TeacherProgressDetailed = () => {
                         </div>
                     </div>
 )} */}
-              {downloadTableData && (
-                <CSVLink
-                  data={downloadTableData}
-                  headers={tableHeaders}
-                  filename={`SchoolDetailedSummaryReport_${newFormat}.csv`}
-                  className="hidden"
-                  ref={csvLinkRefTable}
-                >
-                  Download Table CSV
-                </CSVLink>
-              )}
+                {downloadTableData && (
+                  <CSVLink
+                    data={downloadTableData}
+                    headers={tableHeaders}
+                    filename={`TeacherProgressSummaryReport_${newFormat}.csv`}
+                    className="hidden"
+                    ref={csvLinkRefTable}
+                  >
+                    Download Table CSV
+                  </CSVLink>
+                )}
 
-              {mentorDetailedReportsData && (
-                <CSVLink
-                  headers={teacherDetailsHeaders}
-                  data={mentorDetailedReportsData}
-                  filename={`SchoolProgressDetailedReport_${newFormat}.csv`}
-                  className="hidden"
-                  ref={csvLinkRef}
-                >
-                  Download Teacherdetailed CSV
-                </CSVLink>
-              )}
-            </div>
+                {mentorDetailedReportsData && (
+                  <CSVLink
+                    headers={teacherDetailsHeaders}
+                    data={mentorDetailedReportsData}
+                    filename={`TeacherProgressDetailedReport_${newFormat}.csv`}
+                    className="hidden"
+                    ref={csvLinkRef}
+                  >
+                    Download Teacherdetailed CSV
+                  </CSVLink>
+                )}
+              </div>
+              :
+              <div className="spinner-border text-info" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            }
+
           </div>
         </Container>
       </div>

@@ -186,17 +186,17 @@ const downloadPDF = () => {
   const customStyles = {
     rows: {
       style: {
-        fontSize: '16px', 
+        fontSize: '13px', 
       },
     },
     headCells: {
       style: {
-        fontSize: '18px', 
+        fontSize: '14px', 
       },
     },
     cells: {
       style: {
-        fontSize: '16px', 
+        fontSize: '13px', 
       },
     },
   };
@@ -242,35 +242,45 @@ const downloadPDF = () => {
       {
         name: "No",
         selector: (row) => row.key,
-        width: "6rem",
+        width: "4rem",
+      },
+      {
+        name: "Username",
+        selector: (row) => row.user?.username,
+        sortable: true,
+        center: true,
+        width: "8rem",
       },
       {
         name: "Team Name",
         selector: (row) => row.team_name,
         sortable: true,
         center: true,
-        width: "13rem",
+        width: "10rem",
       },
       {
-        name: "Student Count",
+        name: "#Students",
         selector: (row) => row.student_count,
         center: true,
-        width: "13rem",
+        sortable: true,
+        width: "6rem",
       },
       {
-        name: "Idea Sub Status",
+        name: "Idea Status",
         selector: (row) => row.ideaStatus,
         center: true,
-        width: "13rem",
+        sortable: true,
+        width: "8rem",
       },
       {
-        name: 'Mentor Approval',
+        name: 'Mentor Idea Review',
+        sortable: true,
         selector: (row) =>
         row.ideaStatus === 
 "SUBMITTED" ?  row.ideaAcceptance:"Not yet Reviewed" ,
        
         center: true,
-        width: '15rem'
+        width: '12rem'
     },
     //   {
     //     name: 'Mentor Approval',
@@ -309,7 +319,7 @@ const downloadPDF = () => {
             </>,
           ];
         },
-        width: "20rem",
+        width: "8rem",
         center: true,
       },
     //   {
@@ -485,9 +495,9 @@ const handleEdit = () => {
                                         <div ref={pdfRef}>
                                             <div className="row">
                                                 <div className="col">
-                                                    <h2 className="text-center m-3 text-primary ">
-                                                     <span style={{color:"violet"}}> {(orgData?.mentor.title+"."+orgData?.mentor.full_name)} </span> Registration Details
-                                                    </h2>
+                                                    <h4 className="text-center m-3 text-primary ">
+                                                     <span> {(orgData?.mentor.title+"."+orgData?.mentor.full_name)} </span> Registration Details
+                                                    </h4>
                                                     <hr />
                                                 </div>
                                             </div>
@@ -823,7 +833,7 @@ const handleEdit = () => {
                                                     })
                                                 }
                                             >
-                                         Reset
+                                         Reset Pwd
                                     </button>
                                            
                                             <button type="button" className="btn btn-outline-secondary"   onClick={() => {
@@ -833,7 +843,7 @@ const handleEdit = () => {
                                     </button>
                                             <button
                                                 onClick={viewDetails}
-                                               type="button" className="btn btn-outline-warning"
+                                               type="button" className="btn btn-outline-primary"
                                             >
                                                 View Details
                                             </button>
@@ -854,9 +864,9 @@ const handleEdit = () => {
                                         <div>
                                             <div className="row">
                                                 <div className="col">
-                                                    <h2 className="text-center m-3 text-primary">
-                                                        Teams Registered
-                                                    </h2>
+                                                    <h4 className="text-center m-3 text-primary">
+                                                        Enrolled Teams
+                                                    </h4>
                                                     <hr />
                                                 </div>
                                             </div>

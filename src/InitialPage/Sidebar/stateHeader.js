@@ -193,14 +193,14 @@ if(response?.data?.data[0].state ===
               ) {
                
                 const multiOrgData = response?.data?.data;
-                // localStorage.removeItem('diesCode');
-                // localStorage.removeItem('multiOrgData');
+                localStorage.removeItem('diesCode');
+                localStorage.removeItem('multiOrgData');
         localStorage.setItem('diesCode', JSON.stringify(diesCode));
         localStorage.setItem("multiOrgData", JSON.stringify(multiOrgData));
                  setMultiOrgData(multiOrgData);
                  navigate('/coo-search', { state: { multiOrgData,diesCode } });
                  setDiesCode('');
-                //  window.location.reload();
+                 window.location.reload();
                }else{
 
                 openNotificationWithIcon("error", 'You are not authorised to look at other state data');
@@ -211,7 +211,7 @@ if(response?.data?.data[0].state ===
               }
              
               else{
-                openNotificationWithIcon("error", "Udise code seems to be invalid");
+                openNotificationWithIcon("error", "Udise code is inactive");
                 setDiesCode('');
               }
              

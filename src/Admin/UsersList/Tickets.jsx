@@ -403,6 +403,7 @@ const updateStatesList=["All States",...stateList];
                         {row?.team?.mentor?.organization?.organization_code}
                     </div>
                 ),
+                sortable: true,
                 cellExport: (row) => row?.team?.mentor?.organization?.organization_code,
                 width: '9rem'
             },
@@ -410,12 +411,14 @@ const updateStatesList=["All States",...stateList];
                 name: 'State',
                 selector: (row) => row?.team?.mentor?.organization.
                 state,
+                sortable: true,
                 width: '8rem'
             },
             {
                 name: 'Category',
                 selector: (row) => row?.team?.mentor?.organization?.category,
                 cellExport: (row) => row?.team?.mentor?.organization?.category,
+                sortable: true,
                 width: '6rem'
             },
             // {
@@ -468,6 +471,7 @@ const updateStatesList=["All States",...stateList];
             {
                 name: 'Team User Id',
                 selector: (row) => row?.team?.user?.username,
+                sortable: true,
                 width: '9rem'
             },
 
@@ -527,49 +531,54 @@ const updateStatesList=["All States",...stateList];
         },
       };
     const showbutton =state ;
+    const handleStateChange = (event) => {
+        const state = event.target.value;
+        setState(state);
+      };
     return (
         <div className="page-wrapper">
         <div className="content">
+        <div className="page-header">
+                <div className="add-item d-flex">
+                    <div className="page-title">
+                        <h4>Students</h4>
+                        <h6>State wise Registered Students list</h6>
+                    </div>
+                </div>
+                <div className="page-btn">
+                    <div className="d-flex justify-content-end">
+                        <select
+                                className="form-select mx-2"
+                                onChange={(e) => handleStateChange(e)}
+                            >
+                                <option value="">Select State</option>
+                                {updateStatesList.map((state) => (
+                                <option key={state} value={state}>
+                                    {state}
+                                </option>
+                                ))}
+                            </select>
+                            <Button
+                                    btnClass={
+                                        showbutton
+                                            ? 'primary'
+                                            : 'default'
+                                    }
+                                    size="small"
+                                    label="Search"
+                                    disabled={!showbutton}
+                                    onClick={() =>
+                                        handleclickcall()
+                                    }
+                                />
+                    </div>
+                    
+                </div>
+            </div>
             <Container className="ticket-page mb-50 userlist">
                 <Row className="mt-0">
-                    <h2>Students List</h2>
                     <Container fluid className="px-0">
-                                        <Row className="align-items-center">
-                                            <Col md={2}>
-                                                {/* <div className="my-3 d-md-block d-flex justify-content-center"> */}
-                                                    <Select
-                                                        list={updateStatesList}
-                                                        setValue={setState}
-                                                        placeHolder={
-                                                            'State'
-                                                        }
-                                                        value={state}
-                                                         className="form-select"
-                                                    />
-                                                {/* </div> */}
-                                            </Col>
-                                           
-                                           
-                                           
-                                            <Col md={2}>
-                                                <div className="text-center">
-                                                    <Button
-                                                        btnClass={
-                                                            showbutton
-                                                                ? 'primary'
-                                                                : 'default'
-                                                        }
-                                                        size="small"
-                                                        label="Search"
-                                                        disabled={!showbutton}
-                                                        onClick={() =>
-                                                            handleclickcall()
-                                                        }
-                                                    />
-                                                </div>
-                                            </Col>
-                                        </Row>
-                                        <div className="bg-white border card pt-3 mt-5">
+                                        <div className="bg-white border card pt-3 mt-3">
                                         <DataTableExtensions
                                             print={false}
                                             export={false}

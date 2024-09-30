@@ -78,19 +78,29 @@ const EditSchool = (props) => {
         "Partially Aided-Higher Secondary School",
         "Non ATL",
       ];
-    const formik = useFormik({
-        initialValues: {
-            organization_name: listId && listId.organization_name,
-            organization_code: listId && listId.organization_code,
-            unique_code: listId && listId.unique_code || "",
-            pin_code: listId && listId.pin_code || "",
-            city: listId && listId.city || "",
-            district: listId?.district || "",
+
+    const getInitialValues = (listId) => {
+        const commonInitialValues = {
+            organization_name: listId?.organization_name || '',
+            organization_code: listId?.organization_code || '',
+            unique_code: listId?.unique_code || '',
+            pin_code: listId?.pin_code || '',
+            city: listId?.city || '',
+            district: '',  // Default to empty string
             state: listId?.state || '',
-            status: listId && listId.status,
-            address: listId && listId.address || "",
-            category: listId && listId.category
-        },
+            status: listId?.status || '',
+            address: listId?.address || '',
+            category: listId?.category || ''
+        };
+        if (listId?.district && districtList[listId?.state]?.includes(listId?.district)) {
+            commonInitialValues.district = listId.district; // Set to valid district
+        }
+        return commonInitialValues;
+    };
+    
+
+    const formik = useFormik({
+        initialValues: getInitialValues(listId),
 
         validationSchema: Yup.object({
             organization_code: Yup.string()
@@ -100,15 +110,26 @@ const EditSchool = (props) => {
                 )
                 .trim()
                 .required('UDISE  Code is Required'),
-            organization_name: Yup.string()
-                .required('Organization  Name is Required')
-                .matches(/^[a-zA-Z\s]+$/, 'Only Alpha characters are allowed'),
+            organization_name : Yup.string()
+                .trim()
+                .min(2, <span style={{ color: "red" }}>Please Enter School Name</span>)
+                .matches(
+                    /^[a-zA-Z0-9\s]+$/,
+                    'Special characters are not allowed in the School Name'
+                )
+                .max(
+                    40,
+                    <span style={{ color: "red" }}>
+                    School Name cannot be more than 40 characters
+                    </span>
+                )
+                .required(<span style={{ color: "red" }}>Please Enter School Name</span>),
             unique_code: Yup.string()
                 .matches(/^[A-Za-z0-9/-]*$/, 'Please enter only alphanumeric characters')
                 .optional(),
             address: Yup.string()
                  .optional()
-                .matches(/^[a-zA-Z0-9\s\-,/._-]+$/, 'please enter valid address'),
+                .matches(/^[a-zA-Z0-9\s\-,/._-]+$/, 'Special characters are not allowed in the Address'),
 
             pin_code: Yup.string()
                 .matches(/^[0-9]*$/, 'Please enter Numeric values')
@@ -116,7 +137,7 @@ const EditSchool = (props) => {
                  .optional(),
             district: Yup.string()
                 // .matches(/^[aA-zZ\s]+$/, 'Invalid district')
-                .required('District is Required'),
+                .required('District not in required format'),
             category: Yup.string()
                 // .matches(/^[aA-zZ\s]+$/, 'Invalid category')
                 .required('category is Required'),
@@ -130,7 +151,9 @@ const EditSchool = (props) => {
             )
              .optional()
         }),
-
+        validateOnMount: true,  // This validates on mount to show errors even if fields aren't touched
+        validateOnChange: true, // Validates on each field change
+        validateOnBlur: true,   // Validates when fields are blurred
         onSubmit: (values) => {
             const body = {
                 organization_code: values.organization_code,
@@ -140,15 +163,16 @@ const EditSchool = (props) => {
                 organization_name: values.organization_name,
                 status: values.status
             };
-            if (
-                listId && listId.city !== values.city
-                ) {
+            if (listId && listId.city !== values.city) {
                     body['city'] = values.city;
-                }else if (listId && listId !== values.address){
+                }
+            if (listId && listId !== values.address){
                     body['address'] = values.address;
-                }else if (listId && listId !== values.unique_code){
+                }
+            if (listId && listId !== values.unique_code){
                     body['unique_code'] = values.unique_code;
-                }else if (listId && listId !== values.pin_code){
+                }
+            if (listId && listId !== values.pin_code){
                     body['pin_code'] = values.pin_code;
                 }
             const editId = encryptGlobal(
@@ -239,9 +263,7 @@ const EditSchool = (props) => {
                                                             .organization_code
                                                     }
                                                 />
-                                                {formik.touched
-                                                    .organization_code &&
-                                                formik.errors
+                                                { formik.errors
                                                     .organization_code ? (
                                                     <small className="error-cls" style={{color:"red"}}>
                                                         {
@@ -308,8 +330,7 @@ const EditSchool = (props) => {
                                                             )
                                                         )}
                                                     </select>
-                                                {formik.touched.state &&
-                                                formik.errors.state ? (
+                                                {formik.errors.state ? (
                                                     <small className="error-cls" style={{color:"red"}}>
                                                         {formik.errors.state}
                                                     </small>
@@ -363,9 +384,9 @@ const EditSchool = (props) => {
                                                         )}
                                                     </select>
                                                
-                                                {formik.touched.district &&
-                                                formik.errors.district ? (
+                                                {formik.errors.district ? (
                                                     <small className="error-cls" style={{color:"red"}}>
+                                                        Current value : {listId?.district}<br/>
                                                         {formik.errors.district}
                                                     </small>
                                                 ) : null}
@@ -434,7 +455,7 @@ const EditSchool = (props) => {
                             </option>
                           ))}
                         </select>
-                        {formik.touched.category && formik.errors.category ? (
+                        {formik.errors.category ? (
                           <small className="error-cls" style={{ color: "red" }}>
                             {formik.errors.category}
                           </small>
@@ -466,7 +487,7 @@ const EditSchool = (props) => {
                             </option>
                           ))}
                         </select>
-                        {formik.touched.category && formik.errors.category ? (
+                        {formik.errors.category ? (
                           <small className="error-cls" style={{ color: "red" }}>
                             {formik.errors.category}
                           </small>
@@ -497,9 +518,7 @@ const EditSchool = (props) => {
                                                             .organization_name
                                                     }
                                                 />
-                                                {formik.touched
-                                                    .organization_name &&
-                                                formik.errors
+                                                {formik.errors
                                                     .organization_name ? (
                                                     <small className="error-cls" style={{color:"red"}}>
                                                         {
@@ -530,8 +549,7 @@ const EditSchool = (props) => {
                                                         formik.values.address
                                                     }
                                                 />
-                                                {formik.touched.address &&
-                                                formik.errors.address ? (
+                                                {formik.errors.address ? (
                                                     <small className="error-cls" style={{color:"red"}}>
                                                         {formik.errors.address}
                                                     </small>
@@ -562,9 +580,8 @@ const EditSchool = (props) => {
                                                         formik.values.pin_code
                                                     }
                                                 />
-                                                {formik.touched.pin_code &&
-                                                formik.errors.pin_code ? (
-                                                    <small className="error-cls">
+                                                {formik.errors.pin_code ? (
+                                                    <small className="error-cls" style={{color:"red"}}>
                                                         {formik.errors.pin_code}
                                                     </small>
                                                 ) : null}
@@ -594,8 +611,7 @@ const EditSchool = (props) => {
                                                     }
                                                     // isDisabled={holdKey ? true : false}
                                                 />
-                                                {formik.touched.unique_code &&
-                                                formik.errors.unique_code ? (
+                                                {formik.errors.unique_code ? (
                                                     <small className="error-cls" style={{color:"red"}}>
                                                         {
                                                             formik.errors
@@ -623,8 +639,7 @@ const EditSchool = (props) => {
                                                     onBlur={formik.handleBlur}
                                                     value={formik.values.city}
                                                 />
-                                                {formik.touched.city &&
-                                                formik.errors.city ? (
+                                                {formik.errors.city ? (
                                                     <small className="error-cls" style={{color:"red"}}>
                                                         {formik.errors.city}
                                                     </small>
@@ -640,7 +655,7 @@ const EditSchool = (props) => {
                           ? "default"
                           : "primary"
                       }`}
-                      disabled={!(formik.dirty && formik.isValid)} style={buttonStyle}>
+                      disabled={!(formik.isValid)} style={buttonStyle}>
                             Submit
                           </button>
                         

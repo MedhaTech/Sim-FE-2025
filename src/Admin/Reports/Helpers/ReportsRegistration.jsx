@@ -123,10 +123,6 @@ const ReportsRegistration = () => {
       label: "Registered Schools",
       key: "reg_school",
     },
-    // {
-    //   label: "Total Not Registered ATL Schools",
-    //   key: "total_not_Reg_ATL",
-    // },
     {
       label: "Total Registered ATL Teachers",
       key: "ATL_Reg_Count",
@@ -135,10 +131,14 @@ const ReportsRegistration = () => {
       label: "Total Registered NON-ATL Teachers",
       key: "NONATL_Reg_Count",
     },
-    // {
-    //   label: "Total Registered Teachers (ATL+Non-ATL)",
-    //   key: "totalTeachers",
-    // },
+    {
+      label: "Total Registered Others Teachers ",
+      key: "Others_Reg_Count",
+    },
+    {
+      label: "Total Registered Teachers",
+      key: "total",
+    },
     {
       label: "Registered Male Teachers",
       key: "Male",
@@ -150,7 +150,7 @@ const ReportsRegistration = () => {
     {
       label: " Registered Others Teachers",
       key: "others",
-    },
+    }
   ];
   const RegHeaders = [
     {
@@ -369,8 +369,9 @@ const ReportsRegistration = () => {
 
   var options = {
     chart: {
-      height: 500,
-      type: "area",
+      height: 700, 
+      width: 1000,
+      type: "bar",
       toolbar: {
         show: false,
       },
@@ -385,18 +386,10 @@ const ReportsRegistration = () => {
     stroke: {
       curve: "straight",
     },
-    title: {
-      text: "ATL Vs Non-ATL Registrations",
-      align: "left",
-    },
     series: [
       {
-        name: "Registered ATL",
+        name: "Registered Schools",
         data: series1,
-      },
-      {
-        name: "Registered Non-ATL",
-        data: series2,
       },
     ],
     yaxis: {
@@ -413,20 +406,27 @@ const ReportsRegistration = () => {
 
     xaxis: {
       categories: barChart1Data.labels,
+      labels: {
+        style: {
+          fontSize: "10px",
+        },
+        formatter: (val) => {
+          // Shorten long labels or wrap them by breaking lines
+          if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
+          return val;
+        },
+      },
       ticks: {
         maxRotation: 80,
+        minRotation: 45,
         autoSkip: false,
       },
     },
+    
     legend: {
       position: "top",
       horizontalAlign: "left",
     },
-    // tooltip: {
-    //   x: {
-    //     format: "dd/MM/yy HH:mm",
-    //   },
-    // },
   };
 
   const fetchData = (item) => {
@@ -565,7 +565,10 @@ const ReportsRegistration = () => {
         if (response.status === 200) {
           const chartTableData = response?.data?.data || [];
           setChartTableData(chartTableData);
-          setDownloadTableData(chartTableData);
+          const formattedData = chartTableData.map(item => ({...item,
+            total: `${item.ATL_Reg_Count+item.NONATL_Reg_Count+item.Others_Reg_Count}`
+          }));
+          setDownloadTableData(formattedData);
           // console.log(chartTableData, "table data");
 
           const lastRow = chartTableData[chartTableData.length - 1];
@@ -575,7 +578,8 @@ const ReportsRegistration = () => {
           const femaleCount = lastRow?.Female || 0;
           const ATLregCount = lastRow?.ATL_Reg_Count || 0;
           const NONATLregNotCount = lastRow?.NONATL_Reg_Count || 0;
-          const totalTeachers = maleCount + femaleCount + othersCount;
+          const OthersRegCount = lastRow?.Others_Reg_Count || 0;
+
 
           // console.log("Total Teachers:", totalTeachers);
           setRegisteredGenderChartData({
@@ -590,12 +594,12 @@ const ReportsRegistration = () => {
           });
 
           setRegisteredChartData({
-            labels: ["ATL Teachers Registered", "NON ATL Teachers Registered"],
+            labels: ["ATL Teachers Registered", "NON ATL Teachers Registered","Others Teachers Registered"],
             datasets: [
               {
-                data: [ATLregCount, NONATLregNotCount],
-                backgroundColor: ["#85e085", "#ffcc80"],
-                hoverBackgroundColor: ["#33cc33", "#ffa31a"],
+                data: [ATLregCount, NONATLregNotCount,OthersRegCount],
+                backgroundColor: ["#85e085", "#ffcc80","#A0522D"],
+                hoverBackgroundColor: ["#33cc33", "#ffa31a",'#8B4513'],
               },
             ],
           });
@@ -615,10 +619,17 @@ const ReportsRegistration = () => {
                 data: GraphfilteredData.map((item) => item.NONATL_Reg_Count),
                 backgroundColor: "#ffa31a",
               },
+              {
+                label: "Registered Schools",
+                data: GraphfilteredData.map((item) => item.reg_school),
+                backgroundColor: "#ffa31a",
+              }
+
             ],
           };
           setBarChart1Data(barData);
-          setseries1(barData.datasets[0].data);
+          console.log(barData,"barData");
+          setseries1(barData.datasets[2].data);
           setseries2(barData.datasets[1].data);
         }
       })
@@ -626,15 +637,15 @@ const ReportsRegistration = () => {
         console.log("API error:", error);
       });
   };
-
+  
   return (
     <div className="page-wrapper">
       <div className="content">
         <div className="page-header">
           <div className="add-item d-flex">
             <div className="page-title">
-              <h4>Regristration Status Report</h4>
-              <h6>Schools &amp; Teachers registered</h6>
+              <h4>2. Teacher Regristration Report</h4>
+              <h6>List of Teachers registered and their details</h6>
             </div>
           </div>
           <div className="page-btn">
@@ -744,7 +755,7 @@ const ReportsRegistration = () => {
                           <div className="col-md-12 text-center mt-3">
                             <p>
                               <b>
-                                Overall Registered ATL vs Non ATL Teachers As of{" "}
+                                Overall Registered ATL vs Non ATL vs Other Teachers As of{" "}
                                 {newFormat}
                               </b>
                             </p>
@@ -760,7 +771,7 @@ const ReportsRegistration = () => {
                           <div className="col-md-12 text-center mt-3">
                             <p>
                               <b>
-                                Overall Registered Female vs Male Teachers As of{" "}
+                                Overall Registered Female vs Male vs Other Teachers As of{" "}
                                 {newFormat}
                               </b>
                             </p>
@@ -781,7 +792,7 @@ const ReportsRegistration = () => {
                     <div className="card flex-fill default-cover w-100 mb-4">
                       <div className="card-header d-flex justify-content-between align-items-center">
                         <h4 className="card-title mb-0">
-                          States Registration Stats
+                          States wise Teacher Registration Stats
                         </h4>
                         <div className="dropdown">
                           <Link
@@ -825,6 +836,9 @@ const ReportsRegistration = () => {
                                   Non-ATL Teachers
                                 </th>
                                 <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
+                                  Others Teachers
+                                </th>
+                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                   Total Teachers
                                 </th>
                                 <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
@@ -861,7 +875,9 @@ const ReportsRegistration = () => {
 }</td>
                                   <td>{item.ATL_Reg_Count}</td>
                                   <td>{item.NONATL_Reg_Count}</td>
-                                  <td>{item.Male+item.Female+item.others}</td>
+                                  <td>{item.Others_Reg_Count}</td>
+
+                                  <td>{item.ATL_Reg_Count+item.NONATL_Reg_Count+item.Others_Reg_Count}</td>
                                   <td>{item.Male}</td>
                                   <td>{item.Female}</td>
                                   <td>{item.others}</td>
@@ -879,16 +895,17 @@ const ReportsRegistration = () => {
                 <div className="card">
                   <div className="card-header">
                     <h5 className="card-title">
-                      Registered ATL Schools V/s Registered Non ATL Schools{" "}
+                      Registered Schools As of{" "}
                       {newFormat}
                     </h5>
                   </div>
                   <div className="card-body">
-                    <div id="s-line-area" />
+                    <div id="s-col-stacked" />
                     <ReactApexChart
                       options={options}
                       series={options.series}
-                      type="area"
+                      type="bar"
+                      // type="area"
                       height={400}
                     />
                   </div>
@@ -925,7 +942,7 @@ const ReportsRegistration = () => {
                 <CSVLink
                   data={downloadTableData}
                   headers={summaryHeaders}
-                  filename={`MentorSummaryTable_${newFormat}.csv`}
+                  filename={`TeacherRegistrationSummaryTable_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRefTable}
                   // onDownloaded={() => {

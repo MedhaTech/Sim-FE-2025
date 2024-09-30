@@ -303,7 +303,7 @@ const PostSurvey = () => {
                 <CardBody>
                   {
                     // teamsCount !== 0 &&
-                    (ideaCount === teamsCount) && postSurveyStatus != "COMPLETED" ? (
+                    (ideaCount === teamsCount) && (postSurveyStatus != "COMPLETED") && (teamsCount!= 0) ? (
                       <>
                         <UncontrolledAlert color="danger" className="mb-2">
                           Please complete the following post survey to get your

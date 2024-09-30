@@ -30,6 +30,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import ReactApexChart from "react-apexcharts";
 import { openNotificationWithIcon } from "../../helpers/Utils";
+import { faSchool } from "@fortawesome/free-solid-svg-icons";
 
 const TeacherProgressDetailed = () => {
   const navigate = useNavigate();
@@ -113,6 +114,10 @@ const TeacherProgressDetailed = () => {
       key: "district",
     },
     {
+      label: "Registered Schools",
+      key: "reg_school",
+    },
+    {
       label: "ATL Schools",
       key: "ATL_Count",
     },
@@ -125,6 +130,10 @@ const TeacherProgressDetailed = () => {
     {
       label: "District",
       key: "district",
+    },
+    {
+      label: "Registered Schools",
+      key: "reg_school",
     },
     {
       label: "FullyAidedHighSchool",
@@ -166,15 +175,7 @@ const TeacherProgressDetailed = () => {
     //     label: 'ATL CODE',
     //     key: 'organization_code'
     // },
-    {
-      label: "Registration status",
-      key: "registration_status",
-      // render: () => <span>{registrationStatus}</span>,
-    },
-    {
-      label: "No of teachers registered",
-      key: "mentor_reg",
-    },
+   
     {
       label: "School Name",
       key: "organization_name",
@@ -214,6 +215,14 @@ const TeacherProgressDetailed = () => {
     {
       label: "Principal Email",
       key: "principal_email",
+    },
+    {
+      label: "Registration status",
+      key: "registration_status",
+    },
+    {
+      label: "No of teachers registered",
+      key: "mentor_reg",
     },
   ];
   const chartOptions = {
@@ -412,7 +421,7 @@ const TeacherProgressDetailed = () => {
           const chartTableData = response?.data?.data[0].rows || [];
           const modifiedChartTableData = chartTableData.map((item) => ({
             ...item,
-            registration_status: item.mentor_reg !== 0 ? "Completed" : "Not Started",
+            registration_status: item.mentor_reg !== 0 ? "Registered" : "Not Registered",
           }));
           
           // Set the modified data for download
@@ -452,8 +461,8 @@ const TeacherProgressDetailed = () => {
           <div className="add-item d-flex">
             <div className="page-title">
               {/* <h4>Institutions /Organizations /Schools List</h4> */}
-              <h4>Institutions Report </h4>
-              <h6>List of overall Institutions details</h6>
+              <h4>School Registration Report</h4>
+              <h6>List of overall Schools & its registration status</h6>
             </div>
           </div>
           {/* <div className="page-btn">
@@ -527,7 +536,7 @@ const TeacherProgressDetailed = () => {
                   <CSVLink
                     data={downloadTableData}
                     headers={summaryHeaders}
-                    filename={`InstitutionSummaryTable_${newFormat}.csv`}
+                    filename={`School_Registration_Status_Report_${newFormat}.csv`}
                     className="hidden"
                     ref={csvLinkRef}
                   // onDownloaded={() => {
@@ -540,7 +549,7 @@ const TeacherProgressDetailed = () => {
                 )}
               </Col>
             </Row>
-            <div className="chart mt-2 mb-2">
+            {/* <div className="chart mt-2 mb-2">
               {instType.length > 0 && (
                 <>
                   <div className="row">
@@ -558,7 +567,7 @@ const TeacherProgressDetailed = () => {
                                 <ArrowRight className="feather-16" />
                               </span>
                             </Link>
-                          </div> */}
+                          </div> *
                         </div>
 
                         <div className="card-body">
@@ -572,7 +581,7 @@ const TeacherProgressDetailed = () => {
                                       As of {newFormat}
                                     </b>
                                   </p>
-                                </div> */}
+                                </div> 
                                 <div className="col-md-12 doughnut-chart-container">
                                   {doughnutChartData && (
                                     <Doughnut
@@ -596,7 +605,7 @@ const TeacherProgressDetailed = () => {
                                       {newFormat}
                                     </b>
                                   </p>
-                                </div> */}
+                                </div> 
                                 <div className="col-md-12 doughnut-chart-container">
                                   {doughnutChartDataTN && (
                                     <Doughnut
@@ -622,13 +631,13 @@ const TeacherProgressDetailed = () => {
                                 options={chartOptions}
                               />
                             )}
-                          </div> */}
+                          </div> 
                           </div>
                         </div>
                       </div>
                     </div>
                     {/* </div>
-                  <div className="row"> */}
+                  <div className="row"> 
                     <div className="col-sm-12 col-md-12 col-xl-8 d-flex">
                       <div className="card flex-fill default-cover w-100 mb-4">
                         <div className="card-header d-flex justify-content-between align-items-center">
@@ -663,6 +672,10 @@ const TeacherProgressDetailed = () => {
                                 <tr>
                                   <th style={{ color: "#36A2EB" ,fontWeight: "bold"}}>#No</th>
                                   <th style={{ color: "#36A2EB",fontWeight: "bold" }}>District Name</th>
+                                  <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
+                                  Registered Schools{" "}
+                                  <FontAwesomeIcon icon={faSchool} />
+                                </th>
                                   {selectstate !== "Tamil Nadu" && (
                                     <>
                                       <th style={{ color: "#36A2EB",fontWeight: "bold" }}>
@@ -714,12 +727,13 @@ const TeacherProgressDetailed = () => {
                                     >
                                       {item.district}
                                     </td>
+                                    <td>{item.reg_school}</td>
                                     {/* <td
                                    
                                     >
                                       {item.ATL_Count}
                                     </td>
-                                    <td>{item.NonATL_Count}</td> */}
+                                    <td>{item.NonATL_Count}</td> 
                                     {selectstate !== "Tamil Nadu" && (
                                       <>
                                         {" "}
@@ -759,7 +773,7 @@ const TeacherProgressDetailed = () => {
                                     <td>{item.coursePercentage}%</td>
                                     <td>{item.submittedCount}</td>{" "}
                                     <td>{item.draftCount}</td>{" "}
-                                    <td>{item.ideaNotStarted}</td> */}
+                                    <td>{item.ideaNotStarted}</td> 
                                   </tr>
                                 ))}
                               </tbody>
@@ -803,8 +817,8 @@ const TeacherProgressDetailed = () => {
                 >
                   Download Table CSV
                 </CSVLink>
-              )} */}
-            </div>
+              )} 
+            </div> */}
           </div>
         </Container>
       </div>

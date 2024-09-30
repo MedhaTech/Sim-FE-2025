@@ -2,6 +2,7 @@
 /* eslint-disable indent */
 import { useState } from 'react';
 import React, { useEffect } from 'react';
+import { Link } from "react-router-dom";
 // import Layout from '../Layout';
 import { Container, Row, Col } from 'reactstrap';
 import DataTableExtensions from 'react-data-table-component-extensions';
@@ -18,6 +19,7 @@ import Swal from 'sweetalert2/dist/sweetalert2';
 import logout from '../../assets/img/logout.png';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import 'sweetalert2/src/sweetalert2.scss';
+import { AlertOctagon,PlusCircle, Check} from 'feather-icons-react/build/IconComponents';
 const AdminResources = () => {
     const navigate = useNavigate();
     const [resList, setResList] = useState([]);
@@ -65,16 +67,17 @@ const AdminResources = () => {
                 width: '5rem'
             },
             {
+                name: 'Role',
+                selector: (row) => row.role,
+                width: '7rem',
+                sortable: true,
+                // center: true,
+            },{
                 name: 'State',
                 selector: (row) => row.
                 state,
+                sortable: true,
                 width: '9rem'
-                // center: true,
-            },
-            {
-                name: 'Role',
-                selector: (row) => row.role,
-                width: '7rem'
                 // center: true,
             },
             {
@@ -89,34 +92,34 @@ const AdminResources = () => {
             //     width: '25%'
             // },
             {
-                name: 'File/Link',
+                name: 'Attachment',
                 width: '8rem',
                 cell: (record) => {
                     if (record.type === 'file') {
                         return (
-                            <button className="btn btn-warning">
+                            
                                 <a
                                     href={record.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    style={{ color: 'black' }}
+                                    className="badge badge-md bg-light"
                                 >
-                                    Navigate
+                                   <i className="fas fa-file-lines" style={{color:"blue"}}></i>
                                 </a>
-                            </button>
+                            
                         );
                     } else if (record.type === 'link') {
                         return (
-                            <button className="btn btn-warning">
+                            
                                 <a
                                     href={record.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    style={{ color: 'black' }}
+                                    className="badge badge-md bg-light"
                                 >
-                                    Navigate
+                                    <i className="fa-brands fa-youtube" style={{color:"red"}}></i>
                                 </a>
-                            </button>
+                           
                         );
                     }
                     return null;
@@ -125,58 +128,52 @@ const AdminResources = () => {
             {
                 name: 'Actions',
                 center: true,
-                width: '15rem',
+                width: '8rem',
                 cell: (record) => [
                     <>
-                        {/* <div
-                            key={record}
-                            onClick={() => handleEdit(record)}
-                            style={{ marginRight: '12px' }}
-                        >
-                            <div className="btn btn-info">
-                                Edit
-                            </div>
-                        </div> */}
-
                         <div
                             key={record}
                             onClick={() => handleTecherDelete(record)}
-                            style={{ marginRight: '12px' }}
-                        >
-                            <div className="btn btn-danger">
-                                Delete
-                            </div>
+                            style={{ marginRight: '8px' }}
+                        >                  
+                            <a className="badge badge-md bg-danger">
+                                <i
+                                    data-feather="trash-2"
+                                    className="feather-trash-2"
+                                    />
+                            </a>
                         </div>
                     </>
                 ]
             },
             {
-                name: 'Enable/Disable',
-                width: '9rem',
+                name: 'On/Off Popup',
+                width: '10rem',
                 cell: (record) => {
                     
                     if (record.on_off === '1') {
                         return (
                             <button
-                                className="btn btn-danger"
+                                className="btn btn-success"
                                 onClick={() => {
                                     handleStatus(record
                                         , '0');
                                 }}
                             >
-                                Disable
+                                Turned ON<Check className="ms-1"  style={{ height: 15, width: 15 }}/>
                             </button>
                         );
                     } else if (record.on_off === '0') {
                         return (
                             <button
-                                className="btn btn-success"
+                                className="btn btn-light"
                                 onClick={() => {
                                     handleStatus(record
                                         , '1');
                                 }}
                             >
-                                Enable
+                                Turned Off<AlertOctagon className="ms-1"  style={{ height: 15, width: 15 }}/>
+                                
                             </button>
                         );
                     }
@@ -546,25 +543,31 @@ const AdminResources = () => {
     return (
         <div className="page-wrapper">
         <div className="content">
+            <div className="page-header">
+                <div className="add-item d-flex">
+                    <div className="page-title">
+                        <h4>PopUp List</h4>
+                        <h6>Create State & User specific Popups here </h6>
+                    </div>
+                </div>
+                <div className="page-btn">
+                    <button
+                        type="button"
+                        className="btn btn-info"
+                        onClick={() =>
+                            navigate(
+                                    '/create-popup'
+                                )
+                            }
+                    >
+                        <PlusCircle className="me-2" style={{color:"white"}} /><b>Create PopUp</b>
+                    </button>
+                </div>
+            </div>
             <Container className="ticket-page mb-50">
                 <Row>
                     <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
-                        <Col className="col-auto">
-                          <h3> PopUp List </h3>
-                        </Col>
-                        <Col className="ml-auto text-right">
-                           
-                                    <button
-                                        className='btn btn-info'
-                                        onClick={() =>
-                                        navigate(
-                                                '/create-popup'
-                                            )
-                                        }
-                                    >Create-PopUp</button>
-                        </Col>
-                       
-                            <div className="my-2">
+                            <div>
                                 <DataTableExtensions
                                     print={false}
                                     export={false}

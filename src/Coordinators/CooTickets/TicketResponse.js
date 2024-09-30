@@ -180,11 +180,17 @@ const StateRes = (props) => {
                                     <div style={{ borderStyle: "solid", borderWidth: "thin", borderColor: "aqua", borderRadius: "1rem", padding: "1.5rem 1rem", margin: "1rem", }}>
                                         <Row>
                                             <Col md={12}>
-                                                <strong style={{ whiteSpace: "pre-line" }}>
+                                            <div
+                                                className="saved-text"
+                                                style={{ whiteSpace: "pre-wrap", marginTop: "1rem" }}
+                                                >
+                                                {supportTicket?.query_details}
+                                            </div>
+                                                {/* <strong style={{ whiteSpace: "pre-line" }}>
                                                     {
                                                         supportTicket?.query_details
                                                     }
-                                                </strong>
+                                                </strong> */}
                                                 <hr />
                                             </Col>
                                             <Col md={3}>
@@ -231,11 +237,17 @@ const StateRes = (props) => {
                                                     <div key={i} style={{ borderStyle: "solid", borderWidth: "thin", borderColor: "aquamarine", borderRadius: "1rem", padding: "1.5rem 1rem", margin: "1rem" }}>
                                                         <Row>
                                                             <Col md={12}>
-                                                                <strong>
+                                                                <div
+                                                                    className="saved-text"
+                                                                    style={{ whiteSpace: "pre-wrap", marginTop: "1rem" }}
+                                                                    >
+                                                                    {data.reply_details}
+                                                                </div>
+                                                                {/* <strong>
                                                                     {
                                                                         data.reply_details
                                                                     }
-                                                                </strong>
+                                                                </strong> */}
                                                                 <hr />
                                                             </Col>
                                                             <Col md={3}>
@@ -445,7 +457,7 @@ const StateRes = (props) => {
                                             </Col>
                                         </Row>
                                     ) :  <UncontrolledAlert color="danger" className="mb-2">
-                                    Chat window was closed. If your query is not cleared raise a new ticket
+                                    Chat window closed.
                                     </UncontrolledAlert>}
                                 </Card>
 

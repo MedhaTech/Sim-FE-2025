@@ -417,6 +417,7 @@ ideaStatus===  null &&
   };
   const handleSwitchTeam = (item) => {
     // alert("hii");
+    console.log(item,"item");
     if (teamsListData.length > 2) {
       teamListby();
       setselectedstudent(item);
@@ -445,6 +446,7 @@ ideaStatus===  null &&
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
+          console.log(response,"res");
           const teamlistobj = {};
           const listofteams = response.data.data
             .map((item) => {
@@ -453,23 +455,53 @@ ideaStatus===  null &&
                   teamlistobj[item.team_name] = item.team_id;
                   return item.team_name;
                 }
+                console.log("not tamil");
               }else{
                 if (item.StudentCount < 5 && item.ideaStatus === null) {
                   teamlistobj[item.team_name] = item.team_id;
                   return item.team_name;
                 }
+                console.log("tamil");
+
               }
              
             })
             .filter(Boolean);
+
+          // const teamlistobj = {};
+
+          // const listofteams = response.data.data;
+          // console.log(listofteams)
+          // .map((item) => {
+          //   const isTamilNadu = loginState === 'Tamil Nadu';
+        
+          //   // Set the StudentCount limit based on the login state
+          //   const studentCountLimit = isTamilNadu ? 5 : 3;
+          //     if (
+          //         item.StudentCount < studentCountLimit &&
+          //         item.ideaStatus === null
+          //     ) {
+          //         teamlistobj[item.team_name] = item.team_id;
+          //         return item.team_name;
+          //     }
+          // })
+          
+//console.log(selectedTeam,"selectedTeam",listofteams , "listofteams", teamlistobj , "teamlistobj");
+
+
+// console.log(selectedTeam.team_name,"select");
+
           if (Object.keys(teamlistobj).length > 0) {
-            let index = listofteams.indexOf(selectedTeam.team_name);
+            const matchingTeamKey = Object.entries(teamlistobj).find(
+              ([key, value]) => value === selectedTeam
+            )?.[0];
+            //console.log(matchingTeamKey,"matchingTeamKey");
+            let index = listofteams.indexOf(matchingTeamKey);
 
             if (index >= 0) {
               listofteams.splice(index, 1);
             }
           }
-
           setteamlist(listofteams);
           setteamchangeObj(teamlistobj);
           setShow(true);
@@ -479,6 +511,8 @@ ideaStatus===  null &&
         console.log(error);
       });
   };
+
+  // console.log(teamlist,"list");
   const handleChangeStudent = (name) => {
     const body = {
       team_id: teamchangeobj[name].toString(),

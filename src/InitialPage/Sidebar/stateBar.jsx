@@ -1,18 +1,29 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React, { useState,useMemo } from "react";
+import React, { useState,useMemo ,useEffect} from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import { Link, useLocation, } from "react-router-dom";
 import  getStateSidebarData  from "../../core/json/state";
 // import  getCooSidebarData  from "../../core/json/state";
-
+import {
+  getCurrentUser,
+} from "../../helpers/Utils";
 import HorizontalSidebar from "./horizontalSidebar";
 import CollapsedSidebar from "./collapsedSidebar";
-
+// import * as Icon from "react-feather";
+import * as Icon from "react-icons/fi"; 
 const Sidebar = () => {
+  const [currentUser, setCurrentUser] = useState(null);
   const Location = useLocation();
   const [subOpen, setSubopen] = useState("");
   const [subsidebar, setSubsidebar] = useState("");
-
+  useEffect(() => {
+    const user = getCurrentUser("current_user");
+    if (user) {
+      setCurrentUser(user);
+    }
+    // console.log(user,"user");
+  }, []);
   const toggleSidebar = (title) => {
     if (title == subOpen) {
       setSubopen("");
@@ -28,8 +39,50 @@ const Sidebar = () => {
       setSubsidebar(subitem);
     }
   };
-  const SidebarData = useMemo(() => getStateSidebarData(), []);
+  // const SidebarData = useMemo(() => getStateSidebarData(), []);
 
+  const SidebarData = useMemo(() => {
+    const sidebarData = getStateSidebarData();
+
+    let submenuItems = sidebarData[0]?.submenuItems || [];
+
+    if (currentUser?.data[0]?.state_name === "Tamil Nadu") {
+      if (!submenuItems.some(item => item.label === "School Registration Report")) {
+        submenuItems.push({
+          label: "School Registration Report",
+          link: "/state-institution-report",
+          icon: <Icon.FiCodesandbox />,
+          showSubRoute: false,
+          submenu: false,
+        });
+      }
+    } else {
+      submenuItems = submenuItems.filter(
+        item => item.label !== "School Registration Report"
+      );
+    }
+
+    sidebarData[0].submenuItems = submenuItems;
+
+    return sidebarData;
+  }, [currentUser]);
+  // const SidebarData = useMemo(() => {
+  //   const sidebarData = getStateSidebarData();
+
+   
+  //   if (currentUser && currentUser.data[0]?.state_name === "Tamil Nadu") {
+  //     sidebarData[0].submenuItems.push({
+  //       label: "Institutions Report",
+  //       link: "/state-institution-report",
+  //       icon: <Icon.FiCodesandbox />,
+  //       showSubRoute: false,
+  //       submenu: false,
+  //     });
+  //   }
+
+  //   return sidebarData;
+  // }, [currentUser]);
+  // console.log(SidebarData,"data");
   return (
     <div>
       <div className="sidebar " id="sidebar">

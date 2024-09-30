@@ -273,8 +273,15 @@ const Dashboard = () => {
             {
                 name: 'No',
                 selector: (row) => row.key,
-                width: '6rem'
+                width: '4rem'
             },
+            {
+                name: "Username",
+                selector: (row) => row.user?.username,
+                sortable: true,
+                center: true,
+                width: "8rem",
+              },
             {
                 name: 'Team Name',
                 selector: (row) => row.team_name,
@@ -283,16 +290,18 @@ const Dashboard = () => {
                 width: '10rem'
             },
             {
-                name: 'Student Count',
+                name: '#Students',
                 selector: (row) => row.student_count,
                 center: true,
-                width: '10rem'
+                sortable: true,
+                width: '6rem'
             },
             {
-                name: 'Idea Sub Status',
+                name: 'Idea Status',
                 selector: (row) => row.ideaStatus,
                 center: true,
-                width: '15rem'
+                sortable: true,
+                width: '8rem'
             },
             // {
             //     name: 'Mentor Approval',
@@ -302,13 +311,14 @@ const Dashboard = () => {
             //     width: '13rem'
             // },
             {
-                name: 'Mentor Approval',
+                name: 'Mentor Idea Review',
+                sortable: true,
                 selector: (row) =>
                 row.ideaStatus === 
         "SUBMITTED" ?  row.ideaAcceptance:"Not yet Reviewed" ,
                
                 center: true,
-                width: '15rem'
+                width: '12rem'
             },
             {
                 name: "Actions",
@@ -325,7 +335,7 @@ const Dashboard = () => {
                             //           : `btn btn-lg mr-5 mx-2`
                             //   }
                             className="btn btn-secondary"
-                            label={"REVOKE"}
+                            label={"Revoke"}
                             size="small"
                             shape="btn-square"
                             onClick={() =>
@@ -340,7 +350,7 @@ const Dashboard = () => {
                     </>,
                   ];
                 },
-                width: "10rem",
+                width: "8rem",
                 center: true,
               },
             // {
@@ -413,6 +423,24 @@ const Dashboard = () => {
             });
     };
 
+    const customStyles = {
+        rows: {
+          style: {
+            fontSize: "13px",
+          },
+        },
+        headCells: {
+          style: {
+            fontSize: "14px",
+          },
+        },
+        cells: {
+          style: {
+            fontSize: "13px",
+          },
+        },
+      };
+
     const handleAlert = (id) => {
         // where id = mentor.userid //
         // we can delete the userid //
@@ -451,10 +479,25 @@ const Dashboard = () => {
     return (
         <div className="page-wrapper">
         <div className="content">
+            <div className="page-header">
+                    <div className="add-item d-flex">
+                        <div className="page-title">
+                            <h4>Mentor Progress & Details</h4>
+                            <h6>Edit , Del Reg , Reset pwd , Revoke & View more details here</h6>
+                        </div>
+                    </div>
+                    <div className="page-btn">
+                        <button
+                            type="button"
+                            className="btn btn-secondary"
+                            onClick={() => navigate('/mentors')}
+                        > <b>Back</b>
+                        </button>
+                    </div>
+                </div>
             <div className="dashboard-wrappermy-5 px-5">
                 <div className="dashboard p-2">
-                <h4>Dashboard </h4>
-                    <div className="text-right">
+                    {/* <div className="text-right">
                         <Button
                             label="Back"
                             size="small"
@@ -462,7 +505,7 @@ const Dashboard = () => {
                             type="cancel"
                             onClick={() => navigate('/mentors')}
                         />
-                    </div>
+                    </div> */}
                     <div className="row " style={{ overflow: 'auto' }}>
                         <div className=" row  col-12 col-md-12">
                             <div
@@ -526,9 +569,9 @@ const Dashboard = () => {
                                         <div ref={pdfRef}>
                                             <div className="row">
                                                 <div className="col">
-                                                    <h2 className="text-center m-3 text-primary ">
-                                                        Registration Details
-                                                    </h2>
+                                                    <h4 className="text-center m-3 text-primary ">
+                                                        Teacher Registration Details
+                                                    </h4>
                                                     <hr />
                                                 </div>
                                             </div>
@@ -859,10 +902,7 @@ const Dashboard = () => {
                                         {/* <div className="d-flex justify-content-between"> */}
                                         <div className="d-flex justify-content-between flex-column flex-md-row">
                                             <button
-                                                className="btn  rounded-pill px-4  text-white mt-2 mt-md-0 ml-md-2"
-                                                style={{
-                                                    backgroundColor: '#ffcb34'
-                                                }}
+                                                className="btn btn-outline-primary"
                                                 onClick={handleEdit}
                                                 //className="btn btn-warning btn-lg  px-4"
                                             >
@@ -879,24 +919,25 @@ const Dashboard = () => {
                                                                 ?.username
                                                     })
                                                 }
-                                                className="btn btn-info rounded-pill px-4  text-white mt-2 mt-md-0 ml-md-2"
+                                                className="btn btn-outline-success"
                                             >
-                                                Reset
-                                            </button>
-                                            <button
-                                                onClick={() => {
-                                                    downloadPDF();
-                                                }}
-                                                className="btn btn-primary rounded-pill px-4 mt-2 mt-md-0 ml-md-2"
-                                            >
-                                                Download
+                                                Reset Pwd
                                             </button>
 
                                             <button
                                                 onClick={viewDetails}
-                                                className="btn btn-success rounded-pill px-4 mt-2 mt-md-0 ml-md-2"
+                                                className="btn btn-outline-info"
                                             >
                                                 View Details
+                                            </button>
+                                            
+                                            <button
+                                                onClick={() => {
+                                                    downloadPDF();
+                                                }}
+                                                className="btn btn-outline-secondary"
+                                            >
+                                                Download
                                             </button>
 
                                             <button
@@ -905,24 +946,22 @@ const Dashboard = () => {
                                                         orgData?.user_id
                                                     );
                                                 }}
-                                                className="btn  btn-lg  rounded-pill mt-2 mt-md-0 ml-md-2"
-                                                style={{
-                                                    backgroundColor: '#dc3545'
-                                                }}
+                                                className="btn btn-danger"
+                                                
                                             >
-                                                Delete
+                                                Delete Registration
                                             </button>
                                         </div>
+                                        <hr/>
 
                                         {/* <div className="mb-5 p-3"> */}
                                         {/* <div className="container-fluid card shadow border"> */}
                                         <div>
                                             <div className="row">
                                                 <div className="col">
-                                                    <h2 className="text-center m-3 text-primary">
-                                                        Teams Registered
-                                                    </h2>
-                                                    <hr />
+                                                    <h4 className="text-center m-3 text-primary">
+                                                        Enrolled Teams
+                                                    </h4>
                                                 </div>
                                             </div>
                                             <div>
@@ -936,6 +975,7 @@ const Dashboard = () => {
                                                         defaultSortField="id"
                                                         defaultSortAsc={false}
                                                         highlightOnHover
+                                                        customStyles={customStyles}
                                                     />
                                                 </DataTableExtensions>
                                             </div>

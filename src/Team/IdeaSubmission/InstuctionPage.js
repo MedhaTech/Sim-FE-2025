@@ -78,26 +78,53 @@ const teamId= currentUser.data[0]?.team_id;
                 console.log(error);
             });
     }
-   
     useEffect(() => {
-        if (teamsMembersStatus.length >= 2 && teamsMembersStatus.length <= 3) {
+        // Assuming you have a variable `currentState` that holds the current state value
+        const isTamilNadu = currentUser?.data[0]?.state === 'Tamil Nadu';
+      
+        // Adjust the length condition based on the state
+        const minLength = 2; // Minimum length based on state
+        const maxLength = isTamilNadu ? 5 : 3; // Maximum length based on state
+      
+        if (teamsMembersStatus.length >= minLength && teamsMembersStatus.length <= maxLength) {
           localStorage.setItem("ideaSubStatus", teamsMembersStatus[0].idea_submission);
+      
           if (Array.isArray(teamsMembersStatus)) {
             let anyCompleted = false;
-            
+      
             teamsMembersStatus.forEach(record => {
               let percent = 100 - percentageBWNumbers(record.all_topics_count, record.topics_completed_count);
-              
+      
               if (percent === 100) {
                 anyCompleted = true;
               }
             });
+            
             const ideaStatus = anyCompleted ? 1 : 0;
             setIdeaEnableStatus(ideaStatus); 
-           
           }
         }
-      }, [teamsMembersStatus]);
+      }, [teamsMembersStatus, currentUser?.data[0]?.state]); // Include currentState in the dependency array
+      
+    // useEffect(() => {
+    //     if (teamsMembersStatus.length >= 2 && teamsMembersStatus.length <= 3) {
+    //       localStorage.setItem("ideaSubStatus", teamsMembersStatus[0].idea_submission);
+    //       if (Array.isArray(teamsMembersStatus)) {
+    //         let anyCompleted = false;
+            
+    //         teamsMembersStatus.forEach(record => {
+    //           let percent = 100 - percentageBWNumbers(record.all_topics_count, record.topics_completed_count);
+              
+    //           if (percent === 100) {
+    //             anyCompleted = true;
+    //           }
+    //         });
+    //         const ideaStatus = anyCompleted ? 1 : 0;
+    //         setIdeaEnableStatus(ideaStatus); 
+           
+    //       }
+    //     }
+    //   }, [teamsMembersStatus]);
     
     const handleNext = () => {
         navigate('/idea');

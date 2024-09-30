@@ -153,6 +153,7 @@ const Header = () => {
       }
     }
   };
+  // const [multiOrgData, setMultiOrgData] = useState(null);
   useEffect(()=>{
     if(diesCode.length == 11){
       handleSearch(diesCode);
@@ -184,17 +185,19 @@ const Header = () => {
     setDiesCode(''); 
                 }else if(response?.data?.data[0].mentor !== null){
                 const multiOrgData = response?.data?.data;
-                // localStorage.removeItem('diesCode');
-                // localStorage.removeItem('multiOrgData');
+                localStorage.removeItem('diesCode');
+                localStorage.removeItem('multiOrgData');
         localStorage.setItem('diesCode', JSON.stringify(diesCode));
         localStorage.setItem("multiOrgData", JSON.stringify(multiOrgData));
                  setMultiOrgData(multiOrgData);
-                 navigate('/diescode-search', { state: { multiOrgData,diesCode } });
+                //  console.log(multiOrgData,"dd");
+                navigate('/diescode-search', { state: { multiOrgData,diesCode } });
+               
                  setDiesCode('');
-                //  window.location.reload();
+                 window.location.reload();
                 }
                }else{
-                openNotificationWithIcon("error", "Udise code seems to be invalid");
+                openNotificationWithIcon("error", "Udise code is inactive");
                 setDiesCode('');
 
                }
@@ -278,7 +281,6 @@ const Header = () => {
                   data-bs-auto-close="false"
                 >
                   <input type="text" placeholder="Enter UDISE Code"  onChange={(e) => handleOnChange(e)}
-    // onBlur={(e) => handleSearch(e)}  // This will trigger the API call when the input field loses focus
     value={diesCode}
     maxLength={11}
     minLength={11}
