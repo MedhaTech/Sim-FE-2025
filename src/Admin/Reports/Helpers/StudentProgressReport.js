@@ -825,15 +825,15 @@ const StudentProgress = () => {
             const courseINprogesssItem = courseINprogesss.find(
               (item) => item.state === state
             );
-            const courseNotStarted = Math.abs(
-              studentCountItem.totalstudent -
+            const courseNotStarted = (studentCountItem) ? (Math.abs(
+              studentCountItem?.totalstudent -
               ((courseCompletedItem
                 ? courseCompletedItem.studentCourseCMP
                 : 0) +
                 (courseINprogesssItem
                   ? courseINprogesssItem.studentCourseIN
                   : 0))
-            );
+            )) : 0;
             // console.log(courseNotStarted,"11");
             const ideaNotStarted =
               summaryItem.totalTeams -
