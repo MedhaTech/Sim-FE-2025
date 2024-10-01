@@ -180,11 +180,13 @@ const DBStu = () => {
     setVideo(vimeoId[i]);
     setShow(true);
   };
-  const vimeoId = ["https://www.youtube.com/embed/CiYa_iLdpXo?si=8t7wj1idLOrW4se0",
-    "https://www.youtube.com/embed/q40BSRm_cJM?si=ALZHPloc04lqH25O",
-    "https://www.youtube.com/embed/eCYCvTu03X4?si=3zA5lyM9UOUoW5Yb",
-    "https://www.youtube.com/embed/s-LUZN38Fik?si=rz10HpY0ZqDaYqD6",
-    "https://www.youtube.com/embed/1WvwMypdVaY?si=8GPHpUqV7Jdewh__",
+  const vimeoId = ["https://www.youtube.com/embed/WxafskPsMog",
+    "https://www.youtube.com/embed/g5bDS1x5C4g",
+    "https://www.youtube.com/embed/0sG7Ew1fr6A",
+    "https://www.youtube.com/embed/mDkYsD1ZxYA",
+    "https://www.youtube.com/embed/NYxbFvjG8vQ",
+    "https://www.youtube.com/embed/A5vvpfnVvcE",
+
   ];
 
   // const handleLanguageChange = (language) => {
@@ -545,7 +547,19 @@ poptype={poptype}
             <div className="col-xl-6 col-sm-12 col-12 d-flex">
               <div className="card flex-fill default-cover w-100 mb-4">
                 <div className="card-header d-flex justify-content-between align-items-center">
-                  <h4 className="card-title mb-0">SIM Road Map</h4>
+                  <h4 className="card-title mb-0">SIM Road Map{""}
+                  <OverlayTrigger placement="top" overlay={renderTooltip}>
+                                  <Link
+                                      to="#"
+                                      className="me-2 p-2"
+                                      onClick={() => handleShow(5)}
+                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
+                                      
+                                  >
+                                    <FaPlay  style={{color:"red"}} />
+                                  </Link>
+                                </OverlayTrigger>
+                  </h4>
                   <div className="dropdown" onClick={handleNavigation}>
                     <Link to="/instructionstu" className="view-all d-flex align-items-center">
                       <span className="ps-2 d-flex align-items-center">
@@ -575,7 +589,7 @@ poptype={poptype}
                               </div>
                             </div>
                           </td>
-                          {/* <td>
+                          <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -591,7 +605,7 @@ poptype={poptype}
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td> */}
+                          </td>
                           <td>
                             {stuPreSLoading ? (
                               <Loader />
@@ -644,7 +658,7 @@ poptype={poptype}
                               </div>
                             </div>
                           </td>
-                          {/* <td>
+                          <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -660,7 +674,7 @@ poptype={poptype}
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td> */}
+                          </td>
                           <td>
                             {stuCourseLoading ? (
                               <Loader />
@@ -725,7 +739,7 @@ poptype={poptype}
                               </div>
                             </div>
                           </td>
-                          {/* <td>
+                          <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -741,7 +755,7 @@ poptype={poptype}
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td> */}
+                          </td>
                           <td>
                             {stuIdeaLoading ? (
                               <Loader />
@@ -805,14 +819,14 @@ poptype={poptype}
                               </div>
                             </div>
                           </td>
-                          {/* <td>
+                          <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
                                   <Link
                                       to="#"
                                       className="me-2 p-2"
-                                      onClick={() => handleShow(2)}
+                                      onClick={() => handleShow(3)}
                                       {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
                                       
                                   >
@@ -821,7 +835,7 @@ poptype={poptype}
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td> */}
+                          </td>
                           <td>
                             {stuPostSLoading ? (
                               <Loader />
@@ -873,14 +887,14 @@ poptype={poptype}
                               </div>
                             </div>
                           </td>
-                          {/* <td>
+                          <td>
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
                                   <Link
                                       to="#"
                                       className="me-2 p-2"
-                                      onClick={() => handleShow(3)}
+                                      onClick={() => handleShow(4)}
                                       {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
                                       
                                   >
@@ -889,7 +903,7 @@ poptype={poptype}
                                 </OverlayTrigger>
                               </div>
                             </div>
-                          </td> */}
+                          </td>
                           <td>
                             <span
                               className={"badge badge-linesuccess"}
