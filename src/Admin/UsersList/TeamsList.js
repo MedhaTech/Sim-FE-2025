@@ -145,11 +145,9 @@ const updateStatesList=["All States",...stateList];
         .get(`${URL.getTeamsList}?Data=${resparam}`, axiosConfig)
             .then(function (response) {
                 if (response.status === 200) {
-                    // console.log(response,"11");
                     const updatedWithKey =
                         response.data &&
-                        response.data.data[0] &&
-                        response.data.data[0].dataValues.
+                        response.data.data.
                         map((item, i) => {
                             const upd = { ...item };
                             upd['key'] = i + 1;
