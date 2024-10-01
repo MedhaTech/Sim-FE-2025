@@ -13,7 +13,8 @@ import { teamloginUser } from "../redux/actions";
 import { connect } from "react-redux";
 import { openNotificationWithIcon } from "../helpers/Utils";
 import { useNavigate } from "react-router-dom";
-
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import play from "../assets/img/playicon.png";
 const LogInTeam = (props) => {
   const navigate = useNavigate();
 
@@ -73,7 +74,11 @@ const LogInTeam = (props) => {
   const handleLogoClick = () => {
     navigate('/');
   };
-
+  const renderTooltip = (props) => (
+    <Tooltip id="pdf-tooltip" {...props}>
+      Watch Demo
+    </Tooltip>
+  );
   return (
     <div className="main-wrapper">
       <div className="account-content">
@@ -90,7 +95,22 @@ const LogInTeam = (props) => {
                 </div>
                
                 <div className="login-userheading">
-                  <h3> Team Login</h3>
+                  <h3> Team Login{" "}
+                  <OverlayTrigger placement="top" overlay={renderTooltip}>
+                        <a
+                          href="https://youtu.be/WxafskPsMog"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <img
+                            src={play}
+                            className="icon"
+                            alt="play"
+                            style={{ verticalAlign: "middle", width: "7%" }}
+                          />
+                        </a>
+                      </OverlayTrigger>
+                  </h3>
                   {/* <h3>
                    Student Team Journey coming soon ...
                   </h3> */}
