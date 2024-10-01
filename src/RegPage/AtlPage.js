@@ -154,8 +154,8 @@ const Register = () => {
           if (response?.data.count === 0) {
             navigate("/non-atl-register", { state: diesCode });
           }
-          if(response?.data?.data[0].status !== "ACTIVE"){
-  openNotificationWithIcon("error","UDISE Code is Inactive");
+          if(response?.data?.data[0].status === "INACTIVE"){
+  openNotificationWithIcon("error","UDISE Code is Inactive. Portal Access Restricted");
 }else{
           if (
             response?.data?.data[0] &&

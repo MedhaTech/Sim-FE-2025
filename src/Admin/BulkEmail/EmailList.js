@@ -13,6 +13,7 @@ import Swal from 'sweetalert2/dist/sweetalert2';
 import logout from '../../assets/img/logout.png';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import 'sweetalert2/src/sweetalert2.scss';
+import * as Icon from "react-feather";
 const EmailList = () => {
     const navigate = useNavigate();
     const [emailList, setEmailList] = useState([]);
@@ -56,7 +57,7 @@ const EmailList = () => {
                 width: '5rem'
             },
             {
-                name: 'subject',
+                name:  'Email Subject',
                 selector: (row) => row.subject,
                 width: '20rem',
                 sortable: true,
@@ -78,7 +79,7 @@ const EmailList = () => {
                                     data-feather="trash-2"
                                     className="feather-trash-2"
                                 /> */}
-                                Resend
+                                <Icon.Send size={15}/>  RESEND
                             </a>
                         </div>
                     </>
@@ -179,7 +180,7 @@ const EmailList = () => {
                                             '/create-email'
                                         )
                                     }
-                                >Compose</button>
+                                >COMPOSE <Icon.Mail size={20}/></button>
                             </Col>
 
                             <div className="my-2">
