@@ -174,7 +174,11 @@ const TeacherEditProfile = () => {
           }
         })
         .catch(function (error) {
-          console.log(error);
+          if (error?.response?.data?.status === 420) {
+  openNotificationWithIcon("error","Email Id to already existing email");
+           
+          }
+          
         });
     },
   });
