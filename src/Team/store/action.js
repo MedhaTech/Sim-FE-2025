@@ -56,7 +56,7 @@ export const teamloginUser = (data, navigate, module) => async (dispatch) => {
       // history.push('/dashboard');
     } else {
       dispatch(teamloginUserError(result.statusText));
-      openNotificationWithIcon("error", "Invalid Team ID or Password");
+      openNotificationWithIcon("error", "School is Inactive, Portal access restricted");
     }
   } catch (error) {
     dispatch(teamloginUserError({}));

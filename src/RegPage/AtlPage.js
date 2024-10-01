@@ -149,6 +149,13 @@ const Register = () => {
         //   }
         // }
         if (response?.status == 200) {
+if(response?.data?.data[0].status !== "ACTIVE"){
+  openNotificationWithIcon("error","UDISE Code is Inactive");
+  // console.log("iff");
+}else{
+  // console.log("else iff");
+
+  //         openNotificationWithIcon("error","UDISE Code is INactive");
           if (response?.data.count === 0) {
             navigate("/non-atl-register", { state: diesCode });
             // setError("Enter Valid School UDISE Code ");
@@ -197,6 +204,8 @@ const Register = () => {
             // navigate("/non-atl-register", { state: diesCode });
           }
         }
+      }
+       
       })
       .catch(function (error) {
         if (error?.response?.data?.status === 404) {
