@@ -97,6 +97,7 @@ const ReportsRegistration = () => {
     labels: [],
     datasets: [],
   });
+  const [isloader, setIsloader] = useState(false);
 
   const fullStatesNames = newstateList;
   const allDistricts = {
@@ -563,6 +564,8 @@ const ReportsRegistration = () => {
     axios(config)
       .then((response) => {
         if (response.status === 200) {
+          setIsloader(true);
+
           const chartTableData = response?.data?.data || [];
           setChartTableData(chartTableData);
           const formattedData = chartTableData.map(item => ({...item,
@@ -730,7 +733,8 @@ const ReportsRegistration = () => {
                   {isDownloading ? "Downloading" : "Download Report"}
                 </button>
               </Col>
-            </Row>
+            </Row> 
+            {isloader ?
             <div className="chart mt-2 mb-2">
               {chartTableData.length > 0 && (
                 <div className="row">
@@ -938,7 +942,14 @@ const ReportsRegistration = () => {
                                         </div>
                                     </div>
                                 </div> */}
-              {downloadTableData && (
+             
+            </div>
+            :
+             <div className="spinner-border text-info" role="status">
+             <span className="sr-only">Loading...</span>
+           </div>
+         }
+          {downloadTableData && (
                 <CSVLink
                   data={downloadTableData}
                   headers={summaryHeaders}
@@ -983,7 +994,6 @@ const ReportsRegistration = () => {
                   Download Not Registered CSV
                 </CSVLink>
               )}
-            </div>
           </div>
         </Container>
       </div>
