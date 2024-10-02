@@ -149,10 +149,14 @@ const Register = () => {
         //   }
         // }
         if (response?.status == 200) {
+
+
           if (response?.data.count === 0) {
             navigate("/non-atl-register", { state: diesCode });
-            // setError("Enter Valid School UDISE Code ");
           }
+          if(response?.data?.data[0].status === "INACTIVE"){
+  openNotificationWithIcon("error","UDISE Code is Inactive. Portal Access Restricted");
+}else{
           if (
             response?.data?.data[0] &&
             // response?.data?.data[0].category == "ATL" &&
@@ -191,12 +195,10 @@ const Register = () => {
               //   "Entered Code belongs to Non-Atl school. Kindly register as Non-ATL"
               // );
             }
-          } else {
-            // const nonAtl = response?.data?.data[0];
-            // setMultiData(nonAtl);
-            // navigate("/non-atl-register", { state: diesCode });
-          }
-        }
+          } 
+      }
+      }
+       
       })
       .catch(function (error) {
         if (error?.response?.data?.status === 404) {

@@ -1045,7 +1045,7 @@ const IdeaReport = () => {
                             <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
                               <p>
                                 <b>
-                                  Themes vs #Ideas Submitted as of {newFormat}
+                                  Theme-Wise Ideas Submissions as of {newFormat}
                                 </b>
                               </p>
                               {doughnutChartData && (

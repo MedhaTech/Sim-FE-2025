@@ -263,11 +263,12 @@ const downloadPDF = () => {
         selector: (row) => row.student_count,
         center: true,
         sortable: true,
-        width: "6rem",
+        width: "8rem",
       },
       {
         name: "Idea Status",
-        selector: (row) => row.ideaStatus,
+        selector: (row) =>  row.ideaStatus === null ? "Not Initiated" 
+        : row.ideaStatus,
         center: true,
         sortable: true,
         width: "8rem",
@@ -276,8 +277,14 @@ const downloadPDF = () => {
         name: 'Mentor Idea Review',
         sortable: true,
         selector: (row) =>
-        row.ideaStatus === 
-"SUBMITTED" ?  row.ideaAcceptance:"Not yet Reviewed" ,
+            row.ideaStatus === "SUBMITTED" && row.ideaAcceptance == "ACCEPTED"
+        ? row.ideaAcceptance
+        : row.ideaStatus === "DRAFT" && row.ideaAcceptance === "REJECTED" 
+          ? row.ideaAcceptance : row.ideaStatus === "DRAFT" || row.ideaStatus === null
+          ? "" :"Not yet Reviewed",
+          
+//         row.ideaStatus === 
+// "SUBMITTED" ?  row.ideaAcceptance:"Not yet Reviewed" ,
        
         center: true,
         width: '12rem'
@@ -295,7 +302,9 @@ const downloadPDF = () => {
           return [
             <>
               {params.ideaStatus == "SUBMITTED" &&
-                params.ideaAcceptance === null && params.ideaAcceptance !== "" &&(
+                (params.ideaAcceptance === null || 
+                params.ideaAcceptance == "" )&&
+                (
                   <Button
                     key={params}
                     //   className={

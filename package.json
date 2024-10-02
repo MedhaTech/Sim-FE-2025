@@ -70,6 +70,7 @@
     "react-loading": "^2.0.3",
     "react-modal-video": "^2.0.1",
     "react-otp-input-rc-17": "^2.4.1-minor",
+    "react-quill": "^2.0.0",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.23.0",
     "react-scripts": "^5.0.1",
@@ -105,7 +106,6 @@
     "start:dev": "env-cmd -f ./environments/.env.dev npm run start:naked",
     "start:local": "env-cmd -f ./environments/.env.local npm run start:naked",
     "start:stage": "env-cmd -f ./environments/.env.stage npm run start:naked",
-
     "start-js": "react-scripts start",
     "build": "NODE_OPTIONS='--max-old-space-size=4096' react-scripts build",
     "build:dev": "env-cmd -f ./environments/.env.dev npm run build",

@@ -4,11 +4,9 @@ import React from "react";
 import * as Icon from "react-feather";
 
 const AdminSidebarData = () => {
- 
-
-  return( [
+  return [
     {
-      label:"Super Admin",
+      label: "Super Admin",
       submenuOpen: true,
       showSubRoute: false,
       submenuHdr: "Inventory",
@@ -21,90 +19,94 @@ const AdminSidebarData = () => {
           submenu: false,
         },
         {
-          label:"Overall Schools",
+          label: "Overall Schools",
           link: "/institution",
-          icon: <Icon.Home/>,
+          icon: <Icon.Home />,
           showSubRoute: false,
           submenu: false,
         },
-        
+
         {
-          label:"PopUp",
+          label: "PopUp",
           link: "/popup",
           icon: <Icon.Star />,
           showSubRoute: false,
           submenu: false,
         },
         {
-          label:"Resource",
+          label: "Resource",
           link: "/adminresources",
           icon: <Icon.FilePlus />,
           showSubRoute: false,
           submenu: false,
         },
         {
-          label:"Latest News",
+          label: "Latest News",
           link: "/latest-news",
           icon: <Icon.Bell />,
           showSubRoute: false,
           submenu: false,
         },
         {
-          label:"State Specific",
+          label: "State Specific",
           link: "/state-wise",
           icon: <Icon.Settings />,
           showSubRoute: false,
           submenu: false,
         },
         {
-          label:"Support",
+          label: "Support",
           link: "/admin-support",
           icon: <Icon.Inbox />,
           showSubRoute: false,
           submenu: false,
         },
         {
-          label:"Mentors",
+          label: "Mentors",
           link: "/mentors",
           icon: <Icon.Users />,
           showSubRoute: false,
           submenu: false,
         },
         {
-          label:"Teams",
+          label: "Teams",
           link: "/teams",
           icon: <Icon.UserPlus />,
           showSubRoute: false,
           submenu: false,
         },
         {
-          label:"Students",
+          label: "Students",
           link: "/students",
           icon: <Icon.UserCheck />,
           showSubRoute: false,
           submenu: false,
         },
         {
-          label:"Admins",
+          label: "Admins",
           link: "/admins",
           icon: <Icon.User />,
           showSubRoute: false,
           submenu: false,
         },
         {
-          label:"Reports",
+          label: "Reports",
           link: "/reports",
           icon: <Icon.Database />,
           showSubRoute: false,
           submenu: false,
         },
-        
        
+        {
+          label: "Bulk Email",
+          link: "/emailList",
+          icon: <Icon.Mail />,
+          showSubRoute: false,
+          submenu: false,
+        }
       ],
     },
-   
-  ]
-);
+  ];
 };
 
 export default AdminSidebarData;
