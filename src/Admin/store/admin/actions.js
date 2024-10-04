@@ -63,7 +63,7 @@ export const adminLoginUser = (data, navigate, module) => async (dispatch) => {
       ...data,
       passwordConfirmation: data.password,
     };
-    // console.log(loginData, "aaa");
+    console.log(loginData, "aaa");
     dispatch({ type: ADMIN_LOGIN_USER });
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
     const result = await axios
@@ -84,7 +84,7 @@ export const adminLoginUser = (data, navigate, module) => async (dispatch) => {
 
       navigate("/admin-dashboard");
     } else {
-      openNotificationWithIcon("error", "Your account is inactive"
+      openNotificationWithIcon("error", "Invalid Credentials entered"
 );
       dispatch(adminLoginUserError(result.statusText));
     }

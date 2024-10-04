@@ -87,13 +87,13 @@ const EditLatestNews = (props) => {
     validationSchema: Yup.object({
       role: Yup.string()
         .optional()
-        .oneOf(["mentor", "student"], "Role is Required"),
+        .oneOf(["mentor", "student"]).required("Role is Required"),
       state: Yup.string().required("Please Select State"),
 
       details: Yup.string().optional().required("details is Required"),
       new_status: Yup.string()
         .optional()
-        .oneOf(["0", "1"], "New Status type is Required"),
+        .oneOf(["0", "1"]).required("New Status type is Required"),
       // file_name: Yup.mixed(),
       // url: Yup.string()
     }),
@@ -194,6 +194,7 @@ const EditLatestNews = (props) => {
                       <Col md={4}>
                         <Label className="mb-2" htmlFor="role">
                           Role
+                          <span required>*</span>
                         </Label>
                         <select
                           name="role"
@@ -216,6 +217,7 @@ const EditLatestNews = (props) => {
                       <Col md={4}>
                         <Label className="mb-2" htmlFor="new_status">
                           New Icon Status
+                          <span required>*</span>
                         </Label>
                         <select
                           name="new_status"
@@ -242,7 +244,7 @@ const EditLatestNews = (props) => {
                       <Col md={4}>
                         <Label className="form-label" htmlFor="state">
                           State
-                          {/* <span required>*</span> */}
+                          <span required>*</span>
                         </Label>
                         <Select
                           list={allData}
@@ -260,6 +262,7 @@ const EditLatestNews = (props) => {
                     <Row className="mb-3 modal-body-table search-modal-header">
                       <Label className="mb-2" htmlFor="details">
                         Details
+                        <span required>*</span>
                       </Label>
                       <Input
                         type="text"

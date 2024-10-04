@@ -44,9 +44,10 @@ const ResendEmail = () => {
       
     },
     validationSchema: Yup.object({
-        msg: Yup.string().required("Role is Required"),
-     
-        state: Yup.string().optional(),
+        msg: Yup.string().required("Email content is Required"),
+
+        
+        state: Yup.string().required("Please select state"),
         subject: Yup.string().required("Subject is Required"),
 
      
@@ -54,17 +55,12 @@ const ResendEmail = () => {
     }),
     onSubmit: async (values) => {
       try {
-       
         const body = {
           msg: values.msg,
           state: values.state,
           subject: values.subject,
         };
-       
-        // console.log(body,"body");
-        // const newsId = encryptGlobal(JSON.stringify(resID.email_id
-        // ));
-
+    
         const response = await axios.post(
           `${process.env.REACT_APP_API_BASE_URL}/admins/bulkEmail`,
           body,
@@ -75,19 +71,25 @@ const ResendEmail = () => {
             },
           }
         );
-
+    
         if (response.status === 200) {
-
           navigate("/emailList");
           openNotificationWithIcon("success", "Email Updated Successfully");
-        } 
-      } catch (error) {
-        //console.log(error.response.status);
-        if (error.response.status === 400) {
-          openNotificationWithIcon("error", "Please Select State Name");
         }
+      } catch (error) {
+        // Handle the 400 status error and check the message for the subject validation issue
+        if (error.response?.status === 400) {
+          const errorMessage = error.response?.data?.errors?.[0];
+    
+          if (errorMessage?.includes('fails to match the required pattern')) {
+            openNotificationWithIcon("error", "Special characters in subject not allowed");
+          } else {
+            openNotificationWithIcon("error", "Please Select State Name");
+          }
+        } 
       }
     },
+    
    
   });
 
@@ -111,17 +113,22 @@ const ResendEmail = () => {
                       <Row className="mb-3 modal-body-table search-modal-header">
                       <Col md={12}>
                         <Label className="form-label" htmlFor="msg">
-                        To
+                        Email Content
                           {/* <span required>*</span> */}
                         </Label>
-                        <ReactQuill
-            id="msg"
-            name="msg"
-            value={formik.values.msg}
-            onChange={(value) => formik.setFieldValue("msg", value)} 
-            onBlur={() => formik.setFieldTouched("msg", true)} 
-            placeholder="Please enter Message"
-          />
+                        <ReactQuill 
+                          style={{ 
+                            backgroundColor: "white", 
+                            
+                          }} 
+                          id="msg"
+                          name="msg"
+                          value={formik.values.msg}
+                          onChange={(value) => formik.setFieldValue("msg", value)} 
+                          onBlur={() => formik.setFieldTouched("msg", true)} 
+                          placeholder="Please enter content for email"
+                        />
+
                         {formik.touched.msg && formik.errors.msg ? (
                           <small className="error-cls" style={{ color: "red" }}>
                             {formik.errors.msg}
@@ -140,7 +147,8 @@ const ResendEmail = () => {
                           {...inputDICE1}
                           id="subject"
                           name="subject"
-                          rows={5} 
+                          rows={1}  // Set rows to 1 to limit the height
+                          style={{ height: 'auto', resize: 'none' }} // Ensure it stays only one row tall
                           placeholder="Please enter Subject"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}

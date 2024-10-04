@@ -86,7 +86,7 @@ const EditResource = () => {
         validationSchema: Yup.object({
             role: Yup.string()
                 .optional()
-                .oneOf(['mentor', 'student'], 'Role is Required'),
+                .oneOf(['mentor', 'student']).required('Role is Required'),
       state: Yup.string().required("Please Select State"),
 
             description: Yup.string()
@@ -94,7 +94,7 @@ const EditResource = () => {
                 .required('Details is Required'),
             type: Yup.string()
                 .optional()
-                .oneOf(['file', 'link'], 'Submission type is Required'),
+                .oneOf(['file', 'link']).required('Submission type is Required'),
             attachments: Yup.string().required('Attachments are required'),
         }),
         onSubmit: async (values) => {
@@ -203,6 +203,7 @@ const EditResource = () => {
                                             <Col md={4}>
                                                 <Label className="mb-2" htmlFor="role">
                                                     Role
+                                                    <span required>*</span>
                                                 </Label>
                                                 <select
                                                     name="role"
@@ -229,7 +230,7 @@ const EditResource = () => {
                                             <Col md={4}>
                           <Label className="form-label" htmlFor="state">
                             State
-                            {/* <span required>*</span> */}
+                            <span required>*</span> 
                           </Label>
                           <Select
   list={allData}
@@ -266,6 +267,7 @@ const EditResource = () => {
                                                 htmlFor="description"
                                             >
                                                 Details
+                                                <span required>*</span>
                                             </Label>
                                             <Input
                                                 {...inputDICE}
@@ -289,6 +291,7 @@ const EditResource = () => {
                                             <Col>
                                             <Label className="mb-2" htmlFor="type">
                                                 Type
+                                                <span required>*</span>
                                             </Label>
                                             <select
                                                 name="type"
@@ -320,6 +323,7 @@ const EditResource = () => {
                                                         htmlFor="attachments"
                                                     >
                                                         File
+
                                                     </Label>
                                                     <div className="d-flex align-items-center">
                                                         <input
@@ -424,6 +428,7 @@ const EditResource = () => {
                                                         htmlFor="attachments"
                                                     >
                                                         Link
+                                                        <span required>*</span>
                                                     </Label>
                                                     <Input
                                                         {...inputDICE}
