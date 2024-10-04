@@ -69,14 +69,10 @@ const CreateLatestNews = () => {
             new_status: '',state:""
         },
         validationSchema: Yup.object({
-            role: Yup.string()
-                .optional()
-                .oneOf(['mentor', 'student'], 'Role is Required'),
+            role: Yup.string().optional().oneOf(['mentor', 'student']).required('Role is Required'),
                 state: Yup.string().required("Please Select State"),
-            details: Yup.string().optional().required('details is Required'),
-            new_status: Yup.string()
-                .optional()
-                .oneOf(['0', '1'], 'New Status type is Required'),
+            details: Yup.string().optional().required('Details is Required'),
+            new_status: Yup.string().optional().oneOf(['0', '1']).required('New Icon Status is Required'),
             file_name: Yup.mixed(),
             url: Yup.string()
         }),
@@ -176,6 +172,7 @@ const CreateLatestNews = () => {
                                                     htmlFor="role"
                                                 >
                                                     Role
+                                                    <span required>*</span>
                                                 </Label>
                                                 <select
                                                     name="role"
@@ -199,7 +196,7 @@ const CreateLatestNews = () => {
                                                 </select>
                                                 {formik.touched.role &&
                                                     formik.errors.role && (
-                                                        <small className="error-cls">
+                                                        <small className="error-cls" style={{ color: "red" }}>
                                                             {formik.errors.role}
                                                         </small>
                                                     )}
@@ -210,6 +207,7 @@ const CreateLatestNews = () => {
                                                     htmlFor="new_status"
                                                 >
                                                     New Icon Status
+                                                    <span required>*</span>
                                                 </Label>
                                                 <select
                                                     name="new_status"
@@ -236,10 +234,9 @@ const CreateLatestNews = () => {
                                                 {formik.touched.new_status &&
                                                     formik.errors
                                                         .new_status && (
-                                                        <small className="error-cls">
+                                                        <small className="error-cls" style={{ color: "red" }}>
                                                             {
-                                                                formik.errors
-                                                                    .new_status
+                                                                formik.errors.new_status
                                                             }
                                                         </small>
                                                     )}
@@ -247,6 +244,7 @@ const CreateLatestNews = () => {
                                             <Col md={4}>
                           <Label className="form-label" htmlFor="state">
                             State
+                            <span required>*</span>
                             {/* <span required>*</span> */}
                           </Label>
                           <select
@@ -278,6 +276,7 @@ const CreateLatestNews = () => {
                                             htmlFor="details"
                                         >
                                             Details
+                                            <span required>*</span>
                                         </Label>
                                         <Input
                                             type="text"

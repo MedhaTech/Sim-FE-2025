@@ -189,7 +189,7 @@ const MentorDashboard = () => {
   };
   
   const currentUser = getCurrentUser('current_user');
-
+// console.log(currentUser,'currentUser');
 
   useEffect(() => {
     if (currentUser?.data[0]?.user_id) {
@@ -489,7 +489,7 @@ poptype={poptype}
                 &nbsp;Hi {currentUser?.data[0]?.full_name},
               </h3>
               &nbsp;
-              <h6>here&apos;s what&apos;s happening with your School Innovation Marathon 2024 journey.</h6>
+              <h6>here&apos;s what&apos;s </h6>
             </div>
             <div className="d-flex align-items-center">
               <div className="action-table-data">
