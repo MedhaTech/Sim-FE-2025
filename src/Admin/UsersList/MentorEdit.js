@@ -52,6 +52,8 @@ const TeacherEditProfile = () => {
       .matches(
         /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
         "Email Must be VALID"
+        
+        
       )
       .max(255),
       full_name: Yup.string()
@@ -107,6 +109,8 @@ const TeacherEditProfile = () => {
     });
     return adminValidation;
   };
+  
+  
   const getInitialValues = (mentorData) => {
     const commonInitialValues = {
       full_name: mentorData?.full_name,
@@ -174,11 +178,25 @@ const TeacherEditProfile = () => {
           }
         })
         .catch(function (error) {
-          if (error?.response?.data?.status === 420) {
-  openNotificationWithIcon("error","Email Id to already existing email");
-           
+          // Check if it's a 400 error and contains specific validation error
+          if (error?.response?.data?.status === 400) {
+            const apiErrors = error?.response?.data?.errors || [];
+            
+            // Display message if username validation failed
+            if (apiErrors.includes('"username" must be a valid email')) {
+              openNotificationWithIcon("error", "Please Enter Valid Email Address");
+            } else {
+              openNotificationWithIcon("error", "Bad Request");
+            }
+          } 
+          // Check if it's a 420 error for uniqueness
+          else if (error?.response?.data?.status === 420) {
+            if (error?.response?.data?.message === "mobile must be unique") {
+              openNotificationWithIcon("error", "Mobile number entered is already in use");
+            } else {
+              openNotificationWithIcon("error", "Email ID entered is already in use");
+            }
           }
-          
         });
     },
   });
@@ -350,10 +368,11 @@ const TeacherEditProfile = () => {
                               />
 
                               {formik.touched.username && formik.errors.username ? (
-                                <small className="error-cls">
+                                <small className="error-cls" style={{ color: "red" }}>
                                   {formik.errors.username}
                                 </small>
-                              ) : null}</Col>
+                              ) : null}
+                              </Col>
 
             </Row>
             <div className="form-login" style={formLoginStyle}>
