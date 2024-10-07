@@ -189,7 +189,7 @@ const MentorDashboard = () => {
   };
   
   const currentUser = getCurrentUser('current_user');
-
+// console.log(currentUser,'currentUser');
 
   useEffect(() => {
     if (currentUser?.data[0]?.user_id) {

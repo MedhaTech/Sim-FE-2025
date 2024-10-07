@@ -56,7 +56,7 @@ export const teamloginUser = (data, navigate, module) => async (dispatch) => {
       // history.push('/dashboard');
     } else {
       dispatch(teamloginUserError(result.statusText));
-      openNotificationWithIcon("error", "School is Inactive. Portal access Restricted");
+      openNotificationWithIcon("error", "Your Account is Inactive. Contact administrator");
     }
   } catch (error) {
     dispatch(teamloginUserError({}));
