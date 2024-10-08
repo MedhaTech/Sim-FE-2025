@@ -167,7 +167,14 @@ const MyCertificate = () => {
   const language = useSelector(
     (state) => state?.studentRegistration?.studentLanguage
   );
+  const [resList,setResList]=useState("");
+  const [status,setStatus]=useState("");
+  const [score,setScore]=useState("");
+
+
+
  useEffect(()=>{
+  StateData();
   stuCoursePercent();
   Ideas();
  },[]);
@@ -205,7 +212,38 @@ const MyCertificate = () => {
         console.log(error);
       });
   };
-  const Ideas = () => {
+  const StateData =async () => {
+    const fectchTecParam = encryptGlobal(
+      JSON.stringify({
+        state: currentUser?.data[0]?.state,
+      })
+    );
+    var config = {
+      method: 'get',
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/state_coordinators?Data=${fectchTecParam}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${currentUser.data[0]?.token}`
+      }
+    };
+   await axios(config)
+      .then (function (response) {
+        if (response.status === 200) {
+          // console.log(response,"111");
+          setResList(response.data.data[0].
+            certificate
+            );
+
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  const Ideas = async(resList) => {
     const corseApi1 = encryptGlobal(
       JSON.stringify({
         team_id: currentUser?.data[0]?.team_id
@@ -222,21 +260,27 @@ const MyCertificate = () => {
         Authorization: `Bearer ${currentUser.data[0]?.token}`
       }
     };
-    axios(config)
+   await axios(config)
       .then(function (response) {
         if (response.status === 200) {
           // console.log(response,"111");
-          const { status, score } = response.data.data[0];
-          if (status === "SUBMITTED" && score !== null && score > 6.5) {
-            setIdeaEnabled(true);
-            console.log("certificate Enabled");
-          } else {
-            setIdeaEnabled(false);
-            console.log("Not Enabled");
+          const res = response.data.data[0];
+          setScore(res.score);
+  console.log(status,"22");
 
-          }
-        } else {
-          setIdeaEnabled(false);
+          setStatus(res.status);
+        //   if (status === "SUBMITTED" && score !== null && score > 6.5 && resList === 1) {
+        //     console.log(resList,"res");
+        //     setIdeaEnabled(true);
+        //     console.log("certificate Enabled");
+        //   } else {
+        //     setIdeaEnabled(false);
+        //     console.log("Not Enabled");
+        //     console.log(resList,"res");
+
+        //   }
+        // } else {
+        //   setIdeaEnabled(false);
 
         }
       })
@@ -244,8 +288,22 @@ const MyCertificate = () => {
         console.log(error);
       });
   };
+  useEffect(() => {
+    if (resList !== null) {
+      console.log(resList, "resList updated");
+      
+      if (status !== null && status === "SUBMITTED" && score !== null && score > 6.5 && resList === 1) {
+        setIdeaEnabled(true);
+        console.log("Certificate Enabled");
+      } else {
+        setIdeaEnabled(false);
+        console.log("Not Enabled");
+      }
+      console.log(score,"sc","st",status);
 
-  // const enablePostSurvey = Idea === "SUBMITTED";
+    }
+  }, [resList, status, score]);
+ 
   return (
     <div className="page-wrapper">
       <div className="content">

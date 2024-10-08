@@ -420,6 +420,7 @@ const DiescodeScreen = () => {
       },
     });
   };
+  // console.log(multiOrgData[0]?.status,"oo");
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -427,7 +428,7 @@ const DiescodeScreen = () => {
           <div className="create-ticket register-block">
             <Row className="mb-3 modal-body-table search-modal-header">
               <div className="dashboard p-2">
-                <h4>Teachers List Of Udise Code : {diesCode} </h4>
+                <h4>Teachers List Of Udise Code : {diesCode} {""}{multiOrgData[0]?.status === "INACTIVE" ? <span style={{color:"red"}}>Udise code is inactive</span>:""} </h4>
                 <Row className="mb-3 modal-body-table search-modal-header">
                   {multiOrgData.length !== undefined &&
                     multiOrgData.length !== 0 &&

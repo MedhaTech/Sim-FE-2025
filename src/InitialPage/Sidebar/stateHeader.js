@@ -211,7 +211,7 @@ if(response?.data?.data[0].state ===
               }
              
               else{
-                openNotificationWithIcon("error", "Udise code is inactive");
+                openNotificationWithIcon("error", "Udise code is invalid");
                 setDiesCode('');
               }
              
