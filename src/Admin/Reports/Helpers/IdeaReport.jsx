@@ -575,7 +575,7 @@ const IdeaReport = () => {
     ) {
       notification.warning({
         message:
-          "Select a state and category type, Theme to download report.",
+          "Select state, category type and Theme to download report.",
       });
       return;
     }
