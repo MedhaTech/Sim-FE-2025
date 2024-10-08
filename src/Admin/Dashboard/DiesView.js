@@ -125,12 +125,12 @@ const DiesView = () => {
                                     </span>
                                     <b>{orgDaTa.state}</b>
                                 </CardText>
-                                <CardText>
+                                {/* <CardText>
                                     <span className="mx-3">
                                         <b>Pincode :</b>
                                     </span>
                                     <b>{orgDaTa.pin_code}</b>
-                                </CardText>
+                                </CardText> */}
                             </CardBody>
                         </Card>
                     </Row>

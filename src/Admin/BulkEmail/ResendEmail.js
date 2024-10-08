@@ -74,7 +74,7 @@ const ResendEmail = () => {
     
         if (response.status === 200) {
           navigate("/emailList");
-          openNotificationWithIcon("success", "Email Updated Successfully");
+          openNotificationWithIcon("success", "Email Sent Successfully");
         }
       } catch (error) {
         // Handle the 400 status error and check the message for the subject validation issue
