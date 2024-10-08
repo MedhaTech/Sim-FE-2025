@@ -203,7 +203,8 @@
          "certi":"Certificate will be generated once you complete the post survey.",
 "sub":"Please ensure your team submited the idea to fill the post survey..",
          
-         "precong":" Your Survey responses have been submitted Successfully..!"
+         "precong":" Your Survey responses have been submitted Successfully..!",
+         "my_certificate":"My Certificate"
 
     },
     "get_started": {

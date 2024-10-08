@@ -295,14 +295,16 @@ useEffect(() => {
           showSubRoute: false,
           submenu: false,
         },
-        // { <Icon.Shield />
-        //   label:"My Certificate",
-        //   link: "/certificate",
-        //   icon: <Icon.Tag />,
-        //   role: "STUDENT",
-        //   showSubRoute: false,
-        //   submenu: false,
-        // },
+        { 
+          // <Icon.Shield />
+          label: t("home.my_certificate"),
+          // label:"My Certificate",
+          link: "/certificate",
+          icon: <Icon.Tag />,
+          role: "STUDENT",
+          showSubRoute: false,
+          submenu: false,
+        },
         // {
         //   label:"Badges",
         //   link:"/badges",
