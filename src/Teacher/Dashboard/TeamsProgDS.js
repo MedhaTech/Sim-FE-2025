@@ -319,8 +319,8 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
   const emailTeamCredentials = () => {
     const teamCredMailApi = encryptGlobal(
       JSON.stringify({
-        mentor_id: currentUser?.data[0]?.mentor_id,
-        email: currentUser?.data[0]?.name,
+        mentor_id: user[0].mentor_id,
+        email: user[0].email,
       })
     );
     var config = {

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // import Layout from '../Layout';
 import { Container, Row, Card, CardBody, CardText, Col } from 'reactstrap';
 // import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
@@ -21,15 +21,16 @@ const DiesView = () => {
     const [data, setData] = useState('');
     // where orgDaTa = orgnization details //
     // we can see all orgnization , mentor details //
-  
+
     var teamId = [];
     teamId.push({
         mentor_id: orgDaTa.mentor.mentor_id,
-        user_id: orgDaTa.mentor.user_id
+        user_id: orgDaTa.mentor.user_id,
+        email: orgDaTa.mentor.user.username
     });
 
     const handleBack = () => {
-       
+
         navigate("/coo-search");
         localStorage.setItem(
             'organization_code',
@@ -65,7 +66,7 @@ const DiesView = () => {
                 console.log(error);
             });
     }, []);
-  
+
     const atlData = orgDaTa.organization_code;
     const altRes = atlData.split('-');
     const atlNew = altRes[0];
@@ -75,132 +76,132 @@ const DiesView = () => {
     };
     return (
         <div className="page-wrapper">
-        <div className="content">
-            <Container className="dynamic-form">
-                <div className="d-flex align-items-end">
-                <div className="ms-auto mb-2">
-                    <button
-                       className='btn btn-secondary'
-                        onClick={handleBack}
-                    >
-                        Back
-                </button>
-                </div>
-                </div>
-                <Row>
+            <div className="content">
+                <Container className="dynamic-form">
+                    <div className="d-flex align-items-end">
+                        <div className="ms-auto mb-2">
+                            <button
+                                className='btn btn-secondary'
+                                onClick={handleBack}
+                            >
+                                Back
+                            </button>
+                        </div>
+                    </div>
                     <Row>
-                        <Card className="py-2">
-                            <CardBody>
-                                <h4 className="mb-4 text-primary">Organization Details</h4>
+                        <Row>
+                            <Card className="py-2">
+                                <CardBody>
+                                    <h4 className="mb-4 text-primary">Organization Details</h4>
 
-                                <CardText>
-                                    <span className="mx-3">
-                                        <b>Organization Name :</b>
-                                    </span>
-                                    <b>{orgDaTa.organization_name}</b>
-                                </CardText>
-                                <CardText>
-                                    <span className="mx-3">
-                                        <b>UDISE Code :</b>
-                                    </span>
-                                    <b>{orgDaTa.organization_code}</b>
-                                </CardText>
-                               
-                                <CardText>
-                                    <span className="mx-3">
-                                        <b>Category :</b>
-                                    </span>
-                                    <b>{orgDaTa.category}</b>
-                                </CardText>
+                                    <CardText>
+                                        <span className="mx-3">
+                                            <b>Organization Name :</b>
+                                        </span>
+                                        <b>{orgDaTa.organization_name}</b>
+                                    </CardText>
+                                    <CardText>
+                                        <span className="mx-3">
+                                            <b>UDISE Code :</b>
+                                        </span>
+                                        <b>{orgDaTa.organization_code}</b>
+                                    </CardText>
 
-                                <CardText>
-                                    <span className="mx-3">
-                                        <b>District :</b>
-                                    </span>
-                                    <b>{orgDaTa.district}</b>
-                                </CardText>
-                                <CardText>
-                                    <span className="mx-3">
-                                        <b>state :</b>
-                                    </span>
-                                    <b>{orgDaTa.state}</b>
-                                </CardText>
-                                <CardText>
-                                    <span className="mx-3">
-                                        <b>Pincode :</b>
-                                    </span>
-                                    <b>{orgDaTa.pin_code}</b>
-                                </CardText>
-                            </CardBody>
-                        </Card>
-                    </Row>
-                  
-                    <Row className="py-2">
-                        <Card className="py-2">
-                            <CardBody>
-                                <h4 className="mb-4 text-primary">Teacher Details</h4>
-                                <CardText>
-                                    <span className="mx-3">
-                                        <b>Title :</b>
-                                    </span>
-                                    <b>{orgDaTa.mentor.title}</b>
-                                </CardText>
+                                    <CardText>
+                                        <span className="mx-3">
+                                            <b>Category :</b>
+                                        </span>
+                                        <b>{orgDaTa.category}</b>
+                                    </CardText>
 
-                                <CardText>
-                                    <span className="mx-3">
-                                        <b>Teacher Name :</b>
-                                    </span>
-                                    <b>{orgDaTa.mentor.full_name}</b>
-                                </CardText>
-                                <CardText>
-                                    <span className="mx-3">
-                                        <b>Gender :</b>
-                                    </span>
-                                    <b>{orgDaTa.mentor.gender}</b>
-                                </CardText>
-                                <CardText>
-                                    <span className="mx-3">
-                                        <b>Mentor Id :</b>
-                                    </span>
-                                    <b>{orgDaTa.mentor.mentor_id}</b>
-                                </CardText>
-                                <CardText>
-                                    <span className="mx-3">
-                                        <b>Email Id :</b>
-                                    </span>
-                                    <b>{orgDaTa.mentor.user.username}</b>
-                                </CardText>
-                                <CardText>
-                                    <span className="mx-3">
-                                        <b>Mobile No :</b>
-                                    </span>
-                                    <b>{orgDaTa.mentor.mobile}</b>
-                                </CardText>
-                                <CardText>
-                                    <span className="mx-3">
-                                        <b>WhatsApp No :</b>
-                                    </span>
-                                    <b>{orgDaTa.mentor.whatapp_mobile}</b>
-                                </CardText>
-                            </CardBody>
-                        </Card>
-                    </Row>
-                    <Row className="teacher-statistics bg-white">
-                        <Row className="">
-                            <Col>
-                                <div >
-                                    <DoughnutChart
-                                        user={teamId}
-                                        dashBoard={'Admin'}
-                                    />
-                                </div>
-                            </Col>
+                                    <CardText>
+                                        <span className="mx-3">
+                                            <b>District :</b>
+                                        </span>
+                                        <b>{orgDaTa.district}</b>
+                                    </CardText>
+                                    <CardText>
+                                        <span className="mx-3">
+                                            <b>state :</b>
+                                        </span>
+                                        <b>{orgDaTa.state}</b>
+                                    </CardText>
+                                    <CardText>
+                                        <span className="mx-3">
+                                            <b>Pincode :</b>
+                                        </span>
+                                        <b>{orgDaTa.pin_code}</b>
+                                    </CardText>
+                                </CardBody>
+                            </Card>
                         </Row>
+
+                        <Row className="py-2">
+                            <Card className="py-2">
+                                <CardBody>
+                                    <h4 className="mb-4 text-primary">Teacher Details</h4>
+                                    <CardText>
+                                        <span className="mx-3">
+                                            <b>Title :</b>
+                                        </span>
+                                        <b>{orgDaTa.mentor.title}</b>
+                                    </CardText>
+
+                                    <CardText>
+                                        <span className="mx-3">
+                                            <b>Teacher Name :</b>
+                                        </span>
+                                        <b>{orgDaTa.mentor.full_name}</b>
+                                    </CardText>
+                                    <CardText>
+                                        <span className="mx-3">
+                                            <b>Gender :</b>
+                                        </span>
+                                        <b>{orgDaTa.mentor.gender}</b>
+                                    </CardText>
+                                    <CardText>
+                                        <span className="mx-3">
+                                            <b>Mentor Id :</b>
+                                        </span>
+                                        <b>{orgDaTa.mentor.mentor_id}</b>
+                                    </CardText>
+                                    <CardText>
+                                        <span className="mx-3">
+                                            <b>Email Id :</b>
+                                        </span>
+                                        <b>{orgDaTa.mentor.user.username}</b>
+                                    </CardText>
+                                    <CardText>
+                                        <span className="mx-3">
+                                            <b>Mobile No :</b>
+                                        </span>
+                                        <b>{orgDaTa.mentor.mobile}</b>
+                                    </CardText>
+                                    <CardText>
+                                        <span className="mx-3">
+                                            <b>WhatsApp No :</b>
+                                        </span>
+                                        <b>{orgDaTa.mentor.whatapp_mobile}</b>
+                                    </CardText>
+                                </CardBody>
+                            </Card>
+                        </Row>
+                        <Row className="teacher-statistics bg-white">
+                            <Row className="">
+                                <Col>
+                                    <div >
+                                        <DoughnutChart
+                                            user={teamId}
+                                            dashBoard={'Admin'}
+                                        />
+                                    </div>
+                                </Col>
+                            </Row>
+                        </Row>
+
                     </Row>
-                   
-                </Row>
-            </Container>
-        </div>
+                </Container>
+            </div>
         </div>
 
     );
