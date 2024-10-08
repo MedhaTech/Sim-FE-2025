@@ -23,7 +23,7 @@ const Header = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const { t } = useTranslation();
   const currentUser = getCurrentUser("current_user");
-  const [diesCode, setDiesCode] = useState('');
+  const [diesCode, setDiesCode] = useState("");
   const [multiOrgData, setMultiOrgData] = useState([]);
 
   const handleOnChange = (e) => {
@@ -34,8 +34,7 @@ const Header = () => {
 
     setDiesCode(trimmedValue);
     // setDiesCode(e.target.value);
-   
-};
+  };
   // console.log(currentUser, " currentUser");
   const isElementVisible = (element) => {
     return element.offsetWidth > 0 || element.offsetHeight > 0;
@@ -154,64 +153,72 @@ const Header = () => {
     }
   };
   // const [multiOrgData, setMultiOrgData] = useState(null);
-  useEffect(()=>{
-    if(diesCode.length == 11){
+  useEffect(() => {
+    if (diesCode.length == 11) {
       handleSearch(diesCode);
     }
-
-  },[diesCode]);
+  }, [diesCode]);
   const handleSearch = (diesCode) => {
-   
     const body = JSON.stringify({
-      organization_code: diesCode
+      organization_code: diesCode,
     });
     var config = {
-        method: 'post',
-        url: process.env.REACT_APP_API_BASE_URL + "/organizations/checkOrg",
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
-        },
-        data: body
+      method: "post",
+      url: process.env.REACT_APP_API_BASE_URL + "/organizations/checkOrg",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+      },
+      data: body,
     };
 
     axios(config)
-        .then(async function (response) {
-            if (response.status == 200) {
-              //  console.log(response,"res");
-               if(response?.data?.count > 0){
-                if(response?.data?.data[0].mentor == null){
-                  openNotificationWithIcon("error", 'No Teachers are Registered from the given UDISE Code');
-    setDiesCode(''); 
-                }else if(response?.data?.data[0].mentor !== null){
-                const multiOrgData = response?.data?.data;
-                localStorage.removeItem('diesCode');
-                localStorage.removeItem('multiOrgData');
-        localStorage.setItem('diesCode', JSON.stringify(diesCode));
-        localStorage.setItem("multiOrgData", JSON.stringify(multiOrgData));
-                 setMultiOrgData(multiOrgData);
-                //  console.log(multiOrgData,"dd");
-                navigate('/diescode-search', { state: { multiOrgData,diesCode } });
-               
-                 setDiesCode('');
-                 window.location.reload();
-                }
-               }else{
-                openNotificationWithIcon("error", "Udise code is inactive");
-                setDiesCode('');
+      .then(async function (response) {
+        if (response.status == 200) {
+          //  console.log(response,"res");
+          if (response?.data?.count > 0) {
+            if (response?.data?.data[0].status === "INACTIVE" && response?.data?.data[0].mentor == null) {
+              openNotificationWithIcon("error", "Udise Code is Inactive");
+              setDiesCode("");
+            }
+            if (response?.data?.data[0].status === "ACTIVE" && response?.data?.data[0].mentor == null) {
+              openNotificationWithIcon(
+                "error",
+                "No Teachers are Registered from the given UDISE Code"
+              );
+              setDiesCode("");
+            } else if (response?.data?.data[0].mentor !== null) {
+              const multiOrgData = response?.data?.data;
+              localStorage.removeItem("diesCode");
+              localStorage.removeItem("multiOrgData");
+              localStorage.setItem("diesCode", JSON.stringify(diesCode));
+              localStorage.setItem(
+                "multiOrgData",
+                JSON.stringify(multiOrgData)
+              );
+              setMultiOrgData(multiOrgData);
+              //  console.log(multiOrgData,"dd");
+              navigate("/diescode-search", {
+                state: { multiOrgData, diesCode },
+              });
 
-               }
-             
+              setDiesCode("");
+              window.location.reload();
             }
-        })
-        .catch(function (error) {
-            if (error?.response?.data?.status === 404) {
-                // setError('Entered Invalid Institution Unique Code');
-            }
-        });
+          } else {
+            openNotificationWithIcon("error", "Invalid Udise Code");
+            setDiesCode("");
+          }
+        }
+      })
+      .catch(function (error) {
+        if (error?.response?.data?.status === 404) {
+          // setError('Entered Invalid Institution Unique Code');
+        }
+      });
     // e.preventDefault();
-};
-// console.log(multiOrgData,"mm");
+  };
+  // console.log(multiOrgData,"mm");
   return (
     <>
       <div className="header">
@@ -270,21 +277,25 @@ const Header = () => {
           {/* Search */}
           <li className="nav-item nav-searchinputs">
             <div className="top-nav-search">
-            <Link to="#" className="responsive-search">
+              <Link to="#" className="responsive-search">
                 <Search />
               </Link>
-            <form action="#" className="dropdown">
+              <form action="#" className="dropdown">
                 <div
                   className="searchinputs"
                   // id="dropdownMenuClickable"
                   // data-bs-toggle="dropdown"
                   data-bs-auto-close="false"
                 >
-                  <input type="text" placeholder="Enter UDISE Code"  onChange={(e) => handleOnChange(e)}
-    value={diesCode}
-    maxLength={11}
-    minLength={11}
-    name="organization_code"/>
+                  <input
+                    type="text"
+                    placeholder="Enter UDISE Code"
+                    onChange={(e) => handleOnChange(e)}
+                    value={diesCode}
+                    maxLength={11}
+                    minLength={11}
+                    name="organization_code"
+                  />
                   <div className="search-addon">
                     <span>
                       <XCircle className="feather-14" />
@@ -626,7 +637,6 @@ const Header = () => {
                   /> */}
                   {/* <img src={avtar} alt="Avtar" className="img-fluid" /> */}
                   <img src={Icon} alt="Team" id="blah" />
-
                 </span>
                 <span className="user-detail">
                   {/* {currentUser?.data[0]?.role} */}
