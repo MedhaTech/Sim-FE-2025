@@ -143,7 +143,8 @@
         "idea_submission": "ಐಡಿಯಾ ಸಲ್ಲಿಕೆ",
         "my_profile": "ಸ್ವ ಭೂಮಿಕೆ",
         "change_pass": "ಗುಪ್ತಪದವನ್ನು ಬದಲಿಸಿ",
-        "resources": "ಸಂಪುಟ"
+        "resources": "ಸಂಪುಟ",
+         "my_certificate":"My Certificate"
     },
     "get_started": {
         "heading": "Welcome Students!",
