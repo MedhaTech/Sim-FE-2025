@@ -36,6 +36,7 @@ import moment from "moment/moment";
 const IdeaReport = () => {
   const navigate = useNavigate();
   const [district, setdistrict] = React.useState("");
+  const [isloader, setIsloader] = useState(false);
   const [selectstate, setSelectState] = React.useState("");
   const [category, setCategory] = useState("");
   const [isDownload, setIsDownload] = useState(false);
@@ -575,7 +576,7 @@ const IdeaReport = () => {
     ) {
       notification.warning({
         message:
-          "Please select a state and category type, Theme before Downloading Reports.",
+          "Select state, category type and Theme to download report.",
       });
       return;
     }
@@ -782,6 +783,7 @@ const IdeaReport = () => {
     axios(config)
       .then((response) => {
         if (response.status === 200) {
+          setIsloader(true);
           // console.log(response, "Idea");
           const combinedArray = response?.data?.data || [];
 
@@ -868,6 +870,8 @@ const IdeaReport = () => {
               },
             ],
           };
+         
+          
 
           // const barData = {
           //   labels: combinedArray.map((item) => item.state),
@@ -1020,6 +1024,7 @@ const IdeaReport = () => {
                 </button>
               </Col>
             </Row>
+            {isloader ?
             <div className="chart mt-2 mb-2">
               {combinedArray.length > 0 && (
                 <>
@@ -1375,6 +1380,11 @@ const IdeaReport = () => {
                 </CSVLink>
               )}
             </div>
+            :
+                            <div className="spinner-border text-info" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div>
+                        }
           </div>
         </Container>
       </div>

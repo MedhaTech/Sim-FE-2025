@@ -381,7 +381,7 @@ const InstitutionReport = () => {
     if (!selectstate || !district || !category) {
       notification.warning({
         message:
-          "Please select a district, category type before Downloading Reports.",
+          "Select state, district, category to download report.",
       });
       return;
     }

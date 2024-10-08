@@ -1,13 +1,14 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import { Fragment, useLayoutEffect, useRef } from "react";
+import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap";
 // import { Button } from '../../../stories/Button';
 // import Layout from "../../Layout";
 import jsPDF from "jspdf";
 import { getCurrentUser } from "../../helpers/Utils";
-import courseCompletionCertificate from "../../assets/img/Certificates/student_participation.jpg";
-import ideaSubmissionCertificate from "../../assets/img/Certificates/student_idea.jpg";
+import courseCompletionCertificate from "../../assets/img/Certificates/CompletionCertificate.jpg";
+import ideaSubmissionCertificate from "../../assets/img/Certificates/AppreciationCertificate.jpg";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -19,12 +20,16 @@ import {
 } from "../../redux/studentRegistration/actions";
 import moment from "moment";
 import Congo from "../../assets/img/survey-success.jpg";
-
+import { encryptGlobal } from '../../constants/encryptDecrypt';
+import axios from 'axios';
 const Certificate = ({
   type,
   currentUser,
   postSurveyStatus,
+  enableCourse,
+  isEnabled,
   certDate,
+  course,
   language,
 }) => {
   const { t } = useTranslation();
@@ -39,7 +44,7 @@ const Certificate = ({
     const size = [298, 220];
     const orientation = "l";
     const doc = new jsPDF(orientation, "px", size);
-    const certName = `${currentUser?.data[0]?.full_name}_${
+    const certName = `${currentUser?.data[0].full_name}_${
       type ? "idea_certificate" : "course_certificate"
     }`;
     doc.html(content, {
@@ -47,17 +52,18 @@ const Certificate = ({
         doc.save(certName);
       },
     });
-    // if (!type)
-    //   dispatch(
-    //     updateStudentBadges(
-    //       { badge_slugs: [badge] },
-    //       currentUser?.data[0]?.user_id,
-    //       language,
-    //       t
-    //     )
-    //   );
-    // if (!type)
-    //   dispatch(updateStudentCertificate(currentUser?.data[0]?.student_id));
+    if (!type)
+      dispatch(
+        updateStudentBadges(
+          { badge_slugs: [badge] },
+          currentUser?.data[0]?.user_id,
+          language,
+          t
+        )
+      );
+    if (!type)
+      dispatch(updateStudentCertificate(currentUser?.data[0]?.user_id
+      ));
   };
   const certDateCheck = () => {
     const check =
@@ -70,9 +76,10 @@ const Certificate = ({
   return (
     <Card
       className="course-sec-basic p-5 m-4 w-100"
-      style={{
-        backgroundColor: `${postSurveyStatus ? "" : "lightgrey"}`,
-      }}
+      // style={{
+      //   backgroundColor: `${postSurveyStatus ? "" : "lightgrey"}`,
+      // }}
+      style={{ backgroundColor: `${isEnabled ? "" : "lightgrey"}` }}
     >
       <CardBody>
         <CardTitle className=" text-left pt-4 pb-4" tag="h2">
@@ -90,9 +97,9 @@ const Certificate = ({
               className="text-capitalize"
               style={{
                 position: "absolute",
-                top: `${type ? "8.5rem" : "8.9rem"}`,
-                color: `${type ? "black" : "white"}`,
-                left: `${type ? "11rem" : "11.5rem"}`,
+                top: `${type ? "5.9rem" : "5.9rem"}`,
+                color: `${type ? "black" : "black"}`,
+                left: `${type ? "3rem" : "3rem"}`,
                 fontSize: "0.8rem",
                 fontFamily: "Times New Roman",
               }}
@@ -103,9 +110,9 @@ const Certificate = ({
               className="text-capitalize"
               style={{
                 position: "absolute",
-                color: `${type ? "black" : "white"}`,
-                top: `${type ? "9.8rem" : "10rem"}`,
-                left: `${type ? "5rem" : "6rem"}`,
+                color: `${type ? "black" : "black"}`,
+                top: `${type ? "6.8rem" : "6.8rem"}`,
+                left: `${type ? "4rem" : "4rem"}`,
                 fontSize: "0.8rem",
                 fontFamily: "Times New Roman",
               }}
@@ -129,14 +136,15 @@ const Certificate = ({
         <div className="text-center">
           <button
             type="submit"
-            disabled={!postSurveyStatus}
-            // label={
-            //   type
-            //     ? t("teacher_certificate.download_participate")
-            //     : t("teacher_certificate.download")
-            // }
-            // btnClass={`${postSurveyStatus ? "primary" : "default"} mt-4`}
-            className="btn btn-success"
+            // disabled={!postSurveyStatus}
+            disabled={!isEnabled}
+            label={
+              type
+                ? t("teacher_certificate.download_participate")
+                : t("teacher_certificate.download")
+            }
+          // className={`btn ${postSurveyStatus ? "btn-success" : "btn-secondary"} mt-4`}
+          className={`btn ${isEnabled ? "btn-success" : "btn-secondary"} mt-4`}
             style={{ marginRight: "2rem" }}
             onClick={handleCertificateDownload}
           >
@@ -153,49 +161,149 @@ const Certificate = ({
 const MyCertificate = () => {
   const showDummypage = true;
   const { t } = useTranslation();
+  const currentUser = getCurrentUser("current_user");
+  const [course,setCourse]=useState(false);
+  const [ideaEnabled, setIdeaEnabled] = useState(false);
   const language = useSelector(
     (state) => state?.studentRegistration?.studentLanguage
   );
-  const postSurveyStatusGl = useSelector(
-    (state) => state?.studentRegistration?.postSurveyStatusGl
-  );
-  const dashboardStatus = useSelector(
-    (state) => state?.studentRegistration?.dashboardStatus
-  );
-  const ideaSubmissionStatus = useSelector(
-    (state) => state?.studentRegistration.ideaSubmissionStatus
-  );
-  const ideaSubmissionsSubmittedAt = useSelector(
-    (state) => state?.studentRegistration?.challengesSubmittedResponse[0]
-  );
-  let { all_topics_count, topics_completed_count } = dashboardStatus
-    ? dashboardStatus
-    : { all_topics_count: null, topics_completed_count: null };
-  const currentUser = getCurrentUser("current_user");
-  const dispatch = useDispatch();
-  useLayoutEffect(() => {
-    if (!dashboardStatus)
-      dispatch(
-        getStudentDashboardStatus(currentUser?.data[0]?.user_id, language)
-      );
-    if (!ideaSubmissionStatus)
-      dispatch(
-        getStudentChallengeSubmittedResponse(
-          currentUser?.data[0]?.team_id,
-          language
-        )
-      );
-    if (!ideaSubmissionsSubmittedAt)
-      dispatch(
-        getStudentChallengeSubmittedResponse(
-          currentUser?.data[0]?.team_id,
-          language
-        )
-      );
-    if (!postSurveyStatusGl) dispatch(studentPostSurveyCertificate(language));
-  }, [language]);
-  const enablePostSurvey =
-    ideaSubmissionStatus === "SUBMITTED" && postSurveyStatusGl === "COMPLETED";
+  const [resList,setResList]=useState("");
+  const [status,setStatus]=useState("");
+  const [score,setScore]=useState("");
+
+
+
+ useEffect(()=>{
+  StateData();
+  stuCoursePercent();
+  Ideas();
+ },[]);
+  const stuCoursePercent = () => {
+    const corseApi = encryptGlobal(
+      JSON.stringify({
+        user_id: currentUser?.data[0]?.user_id
+      })
+    );
+    var config = {
+      method: 'get',
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/dashboard/stuCourseStats?Data=${corseApi}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${currentUser.data[0]?.token}`
+      }
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          // console.log(response,"111");
+          const per = 
+            (response.data.data[0].topics_completed_count === response.data.data[0].all_topics_count);
+            setCourse(per);
+            
+        }else{
+          setCourse(false);
+
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  const StateData =async () => {
+    const fectchTecParam = encryptGlobal(
+      JSON.stringify({
+        state: currentUser?.data[0]?.state,
+      })
+    );
+    var config = {
+      method: 'get',
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/state_coordinators?Data=${fectchTecParam}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${currentUser.data[0]?.token}`
+      }
+    };
+   await axios(config)
+      .then (function (response) {
+        if (response.status === 200) {
+          // console.log(response,"111");
+          setResList(response.data.data[0].
+            certificate
+            );
+
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  const Ideas = async(resList) => {
+    const corseApi1 = encryptGlobal(
+      JSON.stringify({
+        team_id: currentUser?.data[0]?.team_id
+      })
+    );
+    var config = {
+      method: 'get',
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/students/IsCertificate?Data=${corseApi1}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${currentUser.data[0]?.token}`
+      }
+    };
+   await axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          // console.log(response,"111");
+          const res = response.data.data[0];
+          setScore(res.score);
+  console.log(status,"22");
+
+          setStatus(res.status);
+        //   if (status === "SUBMITTED" && score !== null && score > 6.5 && resList === 1) {
+        //     console.log(resList,"res");
+        //     setIdeaEnabled(true);
+        //     console.log("certificate Enabled");
+        //   } else {
+        //     setIdeaEnabled(false);
+        //     console.log("Not Enabled");
+        //     console.log(resList,"res");
+
+        //   }
+        // } else {
+        //   setIdeaEnabled(false);
+
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    if (resList !== null) {
+      console.log(resList, "resList updated");
+      
+      if (status !== null && status === "SUBMITTED" && score !== null && score > 6.5 && resList === 1) {
+        setIdeaEnabled(true);
+        console.log("Certificate Enabled");
+      } else {
+        setIdeaEnabled(false);
+        console.log("Not Enabled");
+      }
+      console.log(score,"sc","st",status);
+
+    }
+  }, [resList, status, score]);
+ 
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -212,18 +320,16 @@ const MyCertificate = () => {
                 ></div> */}
               </Row>
               <Col className="d-lg-flex justify-content-center">
-                {/* <Certificate
+                <Certificate
                   type={"participate"}
                   currentUser={currentUser}
-                  postSurveyStatus={enablePostSurvey}
-                  ideaDate={ideaSubmissionsSubmittedAt}
+                  isEnabled={ideaEnabled}
                   language={language}
-                /> */}
+                />
                 <Certificate
                   language={language}
                   currentUser={currentUser}
-                  certDate={dashboardStatus}
-                  postSurveyStatus={all_topics_count === topics_completed_count}
+                  isEnabled={course}
                 />
               </Col>
             </Row>

@@ -515,7 +515,7 @@ const ReportsRegistration = () => {
     ) {
       notification.warning({
         message:
-          "Please select a state,category and filter type before Downloading Reports.",
+          "Select state, district, filters, category to download report.",
       });
       return;
     }

@@ -690,7 +690,7 @@ const TeacherProgressDetailed = () => {
         ) {
             notification.warning({
                 message:
-                    'Please select a state and category type before Downloading Reports.'
+                    'Select state, district, category to download report.'
             });
             return;
         }

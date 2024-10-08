@@ -656,28 +656,29 @@ poptype={poptype}
             </div>
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-count das1">
-                      {teacPostSurvey != "COMPLETED" ? (
+                      {(teacPostSurvey == "COMPLETED" && ideaCount == teamsCount )? (
+                         
+                          <>
+                          <div className="dash-counts">
+                            <h4>Congrats</h4>
+                            <h5>Download Certificate</h5>
+                            {/* <h5>Certificate enables soon</h5> */}
+                          </div>
+                          <div className="dash-imgs" 
+                          onClick={handleCertificateDownload}
+                          >
+                              <GiAchievement size={30} />
+                          </div>
+                        </>
+                        ):(
                           <>
                           <div className="dash-counts">
                             <h4>Get Certificate</h4>
-                            <h5>After taking Post survey</h5>
+                            <h5>After taking Post survey & All Teams are Submitted their Ideas</h5>
                           </div>
                           <div className="dash-imgs" >
                               <GiAchievement size={30} />
                           </div>
-                          </>
-                        ):(
-                          <>
-                            <div className="dash-counts">
-                              <h4>Congrats</h4>
-                              {/* <h5>Download Certificate</h5> */}
-                              <h5>Certificate enables soon</h5>
-                            </div>
-                            <div className="dash-imgs" 
-                            // onClick={handleCertificateDownload}
-                            >
-                                <GiAchievement size={30} />
-                            </div>
                           </>
                         )}
                   {/* </div>
