@@ -168,6 +168,11 @@ const StateRes = (props) => {
         }
         formik.setFieldValue('file_name', file);
     };
+    useEffect(() => {
+        if (supportTicket?.status) {
+          formik.setFieldValue("selectStatusTicket", supportTicket.status);
+        }
+      }, [supportTicket?.status]);
     return (
             <div className="page-wrapper">
     <div className="content">

@@ -24,7 +24,8 @@ const StateSupport = () => {
     const [rows, setRows] = React.useState([]);
     const [fetchData, setFetchData] = useState(false);
     useEffect(() => {
-         listApi();
+        //  listApi();
+         openListApi();
     }, []);
 
     async function listApi() {
@@ -294,16 +295,27 @@ const StateSupport = () => {
         return () => clearTimeout(timeout);
     }, []);
     const changeTab = async (e) => {
+        // if (e === '1') {
+        //     await listApi();
+        // } else if (e === '2') {
+        //     await openListApi();
+        // } else if (e === '3') {
+        //     await inProgressApi();
+        // } else if (e === '4') {
+        //     await resolvedApi();
+        // } else {
+        //     await invalidApi();
+        // }
         if (e === '1') {
-            await listApi();
-        } else if (e === '2') {
             await openListApi();
-        } else if (e === '3') {
+        } else if (e === '2') {
             await inProgressApi();
-        } else if (e === '4') {
+        } else if (e === '3') {
             await resolvedApi();
-        } else {
+        } else if (e === '4') {
             await invalidApi();
+        } else {
+            await listApi();
         }
     };
     const customStyles = {
@@ -346,7 +358,7 @@ const StateSupport = () => {
                                     aria-selected="true"
                                     
                                 >
-                                    All Tickets
+                                    Open
                                 </Link>
                             </li>
                             <li className="nav-item" onClick={(key) => changeTab("2")}>
@@ -359,7 +371,7 @@ const StateSupport = () => {
                                     aria-selected="false"
                                     key = "2"
                                 >
-                                    Open
+                                     InProgress
                                 </Link>
                             </li>
                             <li className="nav-item" onClick={(key) => changeTab("3")}>
@@ -371,7 +383,7 @@ const StateSupport = () => {
                                     to="#services-center"
                                     aria-selected="false"
                                 >
-                                    InProgress
+                                    Resolved
                                 </Link>
                             </li>
                             <li className="nav-item" onClick={(key) => changeTab("4")}>
@@ -383,7 +395,7 @@ const StateSupport = () => {
                                     to="#contacts-center"
                                     aria-selected="false"
                                 >
-                                    Resolved
+                                   Invalid
                                 </Link>
                             </li>
                             <li className="nav-item" onClick={(key) => changeTab("5")}>
@@ -395,7 +407,7 @@ const StateSupport = () => {
                                     to="#invalid-center"
                                     aria-selected="false"
                                 >
-                                    Invalid
+                                    All Tickets
                                 </Link>
                             </li>
                         </ul>
