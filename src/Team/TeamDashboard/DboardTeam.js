@@ -468,7 +468,7 @@ const EmployeesGrid = () => {
                 ) : teamsMembersStatusErr ? (
                   <div className="d-flex justify-content-center align-items-center">
                     <h4 className="text-danger">
-                      There are no students in your Team
+                      {/* There are no students in your Team */}
                     </h4>
                   </div>
                 ) : null}
