@@ -34,6 +34,8 @@ const CommonUserProfile = (props) => {
     const StudentsDaTa = JSON.parse(localStorage.getItem('studentData'));
     // console.log(StudentsDaTa,"111");
     const [course, setCourse] = useState([]);
+    const [courseTable, setCourseTable] = useState([]);
+
     const language = useSelector(
         (state) => state?.studentRegistration?.studentLanguage
     );
@@ -93,6 +95,35 @@ useEffect(()=>{
                 console.log(error);
             });
 
+    }, []);
+     useEffect(() => {
+        const stuParam = encryptGlobal(
+            JSON.stringify({
+                user_id: StudentsDaTa.user_id
+            })
+        );
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/dashboard/quizscores?Data=${stuParam}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    console.log(response,"table");
+
+                    setCourseTable(response.data.data[0]?.scores);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }, []);
     const stuQuizCount = () => {
         const quizApi = encryptGlobal(
@@ -320,7 +351,7 @@ useEffect(()=>{
         });
     };
     const CourseData = {
-        data: course && course.length > 0 ? course : [],
+        data: courseTable && courseTable.length > 0 ? courseTable : [],
         columns: [
             {
                 name: 'No',
@@ -350,6 +381,13 @@ useEffect(()=>{
             }
         ]
     };
+    const customStyles = {
+        head: {
+          style: {
+            fontSize: "1em", // Adjust as needed
+          },
+        },
+      };
     return (
         <div className="page-wrapper">
         <div className="content">
@@ -763,7 +801,7 @@ useEffect(()=>{
                         </div>
                     )}
                 </Row> */}
-                {/* <Row>
+                <Row>
                     <Card className="py-2">
                         <CardBody>
                             <h4 className="mb-2">Quiz Details Table Format</h4>
@@ -775,7 +813,8 @@ useEffect(()=>{
                                 print={false}
                             >
                                 <DataTable
-                                    data={setCourse}
+                                    data={setCourseTable}
+                                    customStyles={customStyles}
                                     defaultSortField="id"
                                     defaultSortAsc={false}
                                     pagination
@@ -786,7 +825,7 @@ useEffect(()=>{
                             </DataTableExtensions>
                         </div>
                     </Card>
-                </Row> */}
+                </Row>
             </Container>
             </div>
             </div>

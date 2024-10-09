@@ -29,6 +29,7 @@ import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
 import Select from './Select.js';
 import { useNavigate } from "react-router-dom";
+import ClipLoader from 'react-spinners/ClipLoader';
 
 
 import { Badge } from 'react-bootstrap';
@@ -127,6 +128,7 @@ const navigate = useNavigate();
     };
   
     async function handleideaList() {
+        setFetchData(true);
         // handleideaList api //
         //where we can see all ideas in districtwise //
         settableData([]);
@@ -149,6 +151,7 @@ const navigate = useNavigate();
             .then(function (response) {
                 if (response.status === 200) {
                     // console.log(response,"11");
+                    setFetchData(false);
                     const updatedWithKey =
                         response.data &&
                         response.data.data[0] &&
@@ -613,6 +616,14 @@ const navigate = useNavigate();
             <Container className="ticket-page mb-50 userlist">
                 <Row className="mt-0">
                     <Container fluid className="px-0">
+                    {fetchData ? (
+                                    <ClipLoader
+
+                                        // fetchData={fetchData}
+                                        color={'blue'}
+                                        size={20}
+                                    />
+                                ) : (  
                                         <div className="bg-white border card pt-3 mt-3">
                                         <DataTableExtensions
                                             print={false}
@@ -634,7 +645,10 @@ const navigate = useNavigate();
                                                 }
                                             />
                                         </DataTableExtensions>
+
                                     </div>
+                                            )}
+
                                     </Container>
                 </Row>
             </Container>
