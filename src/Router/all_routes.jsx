@@ -76,7 +76,14 @@ institutionreport:"/institution-report",
 
   badgeTeacher:"/teacherBadges",
   statedashboard: "/state-dashboard",
-  eadmindashboard: "/eadmin-dashboard",
+  /// Eadmin///////
+  eadmindashboard: "/eadmin/dashboard",
+  eadminevaluation:"/eadmin/evaluationStatus",
+eadminEvaluationProcess:"/eadmin/evaluationProcess",
+eadminevaluator:"/eadmin/evaluator",
+
+
+
   adminpassword: "/admin-password",
   productlist: "/product-list",
   addproduct: "/add-product",

@@ -12,11 +12,13 @@ import teamUser from "../Team/store/reducers";
 import students from "./students/reducer";
 import home from './home/reducer';
 import schoolRegistration from './schoolRegistration/reducers';
+import adminEvalutors from '../Admin/store/adminEvalutors/reducer';
 
 const reducers = combineReducers({
   admin,
   home,
   mentors,
+  adminEvalutors,
   studentRegistration,
   teacher,
   evaluator,
