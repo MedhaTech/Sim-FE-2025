@@ -28,6 +28,7 @@ import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
 import Select from './Select.js';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 
 import { Badge } from 'react-bootstrap';
@@ -124,6 +125,7 @@ const updateStatesList=["All States",...stateList];
     };
   
     async function handleideaList() {
+        setFetchData(true);
         // handleideaList api //
         //where we can see all ideas in districtwise //
         settableData([]);
@@ -145,6 +147,8 @@ const updateStatesList=["All States",...stateList];
         .get(`${URL.getTeamsList}?Data=${resparam}`, axiosConfig)
             .then(function (response) {
                 if (response.status === 200) {
+                    setFetchData(false);
+
                     const updatedWithKey =
                         response.data &&
                         response.data.data.
@@ -631,10 +635,18 @@ const updateStatesList=["All States",...stateList];
                     
                 </div>
             </div>
+            
             <Container className="ticket-page mb-50 userlist">
                 <Row className="mt-0">
                     <Container fluid className="px-0">
-                                        
+                    {fetchData ? (
+                                    <ClipLoader
+
+                                        // fetchData={fetchData}
+                                        color={'blue'}
+                                        size={20}
+                                    />
+                                ) : (    
                                         <div className="bg-white border card pt-3 mt-3">
                                         <DataTableExtensions
                                             print={false}
@@ -657,6 +669,7 @@ const updateStatesList=["All States",...stateList];
                                             />
                                         </DataTableExtensions>
                                     </div>
+                                      )}
                                     </Container>
                 </Row>
             </Container>

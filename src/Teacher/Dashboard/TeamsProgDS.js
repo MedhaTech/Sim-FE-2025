@@ -620,7 +620,7 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
             ) : teamsMembersStatusErr ? (
               <div className="d-flex justify-content-center align-items-center">
                 <h4 className="text-danger">
-                  There are no students in selected Team
+                  {/* There are no students in selected Team */}
                 </h4>
               </div>
             ) : null}

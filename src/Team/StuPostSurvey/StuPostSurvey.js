@@ -118,7 +118,7 @@ const StuPostSurvey = () => {
         if (postSurveyList.length != nonEmptySelectedOptions.length) {
           openNotificationWithIcon(
             "warning",
-            "Please Attempt All Questions..!!",
+            t('student.attempt_all_questions'),
             ""
           );
         } else {
@@ -134,6 +134,7 @@ const StuPostSurvey = () => {
                 // console.log(preSurveyRes, "aa");
                 openNotificationWithIcon(
                   "success",
+                  t('student.postsurver_scc_sub'),
                   "Post Survey has been submitted successfully..!!",
                   ""
                 );

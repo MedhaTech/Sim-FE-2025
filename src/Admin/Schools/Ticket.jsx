@@ -60,12 +60,12 @@ const TicketsPage = (props) => {
         );
         localStorage.setItem('listId', JSON.stringify(item));
     };
-    const handleActiveStatusUpdate = (item, itemA) => {
+    const handleActiveStatusUpdate = (item, itemS) => {
         setDisablebtn(true);
         // where we can update the status InActive or New   //
         // where item = orgnization id details , itemA= status //
         const body = {
-            status: itemA,
+            status: itemS,
             organization_code: item.organization_code,
             organization_name: item.organization_name
         };
@@ -82,6 +82,27 @@ const TicketsPage = (props) => {
             },
             data: body
         };
+        const previousStatus = item.status;
+
+        // Custom message based on the status change
+        let message = '';
+    
+        if (previousStatus === 'ACTIVE' && itemS === 'INACTIVE') {
+            message = `School moved from Active to Inactive Status`;
+        } else if (previousStatus === 'INACTIVE' && itemS === 'ACTIVE') {
+            message = `School moved from Inactive to Active Status`;
+        } else if (previousStatus === 'NEW' && itemS === 'ACTIVE') {
+            message = `School moved from Test to Active Status`;
+        } else if (previousStatus === 'NEW' && itemS === 'INACTIVE') {
+            message = `School moved from Test to Inactive Status`;
+        }else if (previousStatus === 'ACTIVE' && itemS === 'New') {
+            message = `School moved from Active to Test Status`;
+        } else if (previousStatus === 'INACTIVE' && itemS === 'New') {
+         
+            message = `School moved from Inactive to Test Status`;
+        }  else {
+            message = `Status updated successfully to ${itemS}`;
+        }
         axios(config)
             .then(function (response) {
                 setTimeout(() => {
@@ -91,7 +112,7 @@ const TicketsPage = (props) => {
                     setReqList(false);
                     openNotificationWithIcon(
                         'success',
-                        'Status update successfully'
+                        message
                     );
                     props.getSchoolRegistationBulkUploadActions('i');
                 }
@@ -122,6 +143,27 @@ const TicketsPage = (props) => {
             },
             data: body
         };
+        const previousStatus = item.status;
+
+        // Custom message based on the status change
+        let message = '';
+    
+        if (previousStatus === 'ACTIVE' && itemS === 'INACTIVE') {
+            message = `School moved from Active to Inactive Status`;
+        } else if (previousStatus === 'INACTIVE' && itemS === 'ACTIVE') {
+            message = `School moved from Inactive to Active Status`;
+        } else if (previousStatus === 'NEW' && itemS === 'ACTIVE') {
+            message = `School moved from Test to Active Status`;
+        } else if (previousStatus === 'NEW' && itemS === 'INACTIVE') {
+            message = `School moved from Test to Inactive Status`;
+        }else if (previousStatus === 'ACTIVE' && itemS === 'New') {
+            message = `School moved from Active to Test Status`;
+        } else if (previousStatus === 'INACTIVE' && itemS === 'New') {
+         
+            message = `School moved from Inactive to Test Status`;
+        }  else {
+            message = `Status updated successfully to ${itemS}`;
+        }
         axios(config)
             .then(async function (response) {
                 setTimeout(() => {
@@ -132,7 +174,7 @@ const TicketsPage = (props) => {
                     await listApi();
                     openNotificationWithIcon(
                         'success',
-                        'Status update successfully'
+                        message
                     );
                 }
             })
@@ -163,6 +205,27 @@ const TicketsPage = (props) => {
             },
             data: body
         };
+        const previousStatus = item.status;
+
+        // Custom message based on the status change
+        let message = '';
+    
+        if (previousStatus === 'ACTIVE' && itemS === 'INACTIVE') {
+            message = `School moved from Active to Inactive Status`;
+        } else if (previousStatus === 'INACTIVE' && itemS === 'ACTIVE') {
+            message = `School moved from Inactive to Active Status`;
+        } else if (previousStatus === 'NEW' && itemS === 'ACTIVE') {
+            message = `School moved from Test to Active Status`;
+        } else if (previousStatus === 'NEW' && itemS === 'INACTIVE') {
+            message = `School moved from Test to Inactive Status`;
+        }else if (previousStatus === 'ACTIVE' && itemS === 'New') {
+            message = `School moved from Active to Test Status`;
+        } else if (previousStatus === 'INACTIVE' && itemS === 'New') {
+         
+            message = `School moved from Inactive to Test Status`;
+        }  else {
+            message = `Status updated successfully to ${itemS}`;
+        }
         axios(config)
             .then(async function (response) {
                 setTimeout(() => {
@@ -173,7 +236,7 @@ const TicketsPage = (props) => {
                     await newListApi();
                     openNotificationWithIcon(
                         'success',
-                        'Status update successfully'
+                        message
                     );
                 }
             })
@@ -204,6 +267,7 @@ const TicketsPage = (props) => {
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
             }
         };
+        
         await axios(config)
             .then(function (response) {
                 if (response.status === 200) {
@@ -379,7 +443,7 @@ const TicketsPage = (props) => {
             }
         ]
     };
-    console.log(SchoolsData,"Data");
+    // console.log(SchoolsData,"Data");
 
     const reqSchoolsData = {
         data: reqSchoolsResponse,
