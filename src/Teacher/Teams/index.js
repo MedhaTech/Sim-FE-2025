@@ -604,9 +604,9 @@ ideaStatus===  null &&
 
               <Modal.Body>
                 <div className="my-3 text-center ">
-                  <h3 className="mb-sm-4 mb-3">
+                  <h5 className="mb-sm-4 mb-3">
                     Please select Team to switch student
-                  </h3>
+                  </h5>
                   <Select
                     list={teamlist}
                     setValue={setvalue}

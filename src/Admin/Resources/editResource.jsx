@@ -353,45 +353,37 @@ const EditResource = () => {
                                                                     .click();
                                                             }}
                                                         />
-                                                        <button
-                                                            className='btn btn-info mx-2'
+                                                      {formik.values.attachments ?  (<button
+                                                            className='btn btn-info m-2'
                                                             type="button"
-                                                            disabled={!formik.values.attachments}
+                                                            // disabled={!formik.values.attachments}
                                                             onClick={() => {
                                                                 if (formik.values.attachments instanceof File) {
                                                                     const fileURL = URL.createObjectURL(formik.values.attachments);
                                                                     window.open(fileURL, '_blank');
-                                                                } else {
+                                                              } else {
                                                                     window.open(formik.values.attachments, '_blank');
                                                                 }
                                                             }}
-                                                            // onClick={() => {
-                                                            //     window.open(
-                                                            //         formik.values
-                                                            //             .attachments,
-                                                            //         '_blank'
-                                                            //     );
-                                                            // }}
+                                                           
                                                         >
-                                                             {formik.values.attachments
-                    ? formik.values.attachments instanceof File
-                        ? formik.values.attachments.name  
-                        : formik.values.attachments.substring(formik.values.attachments.lastIndexOf('/') + 1)  
-                    : 'Download'}
-                                                             {/* {formik.values.attachments ? formik.values.attachments.substring(formik.values.attachments.lastIndexOf('/') + 1) : 'Download'} */}
-                                                            {/* Download */}
+                                                              {formik.values.attachments instanceof File
+            ? formik.values.attachments.name
+            : formik.values.attachments.substring(formik.values.attachments.lastIndexOf('/') + 1)}
+                                                      
+                                                           
                                                         </button>
-                                                        
+                                                      ):null}
                                                         {formik.values
                                                             .attachments &&
                                                         formik.values.attachments
                                                             .name ? (
                                                             <span className="ml-2">
-                                                                {
+                                                                {/* {
                                                                     formik.values
                                                                         .attachments
                                                                         .name
-                                                                }
+                                                                } */}
                                                             </span>
                                                         ) : (
                                                             <span className="ml-2">
@@ -465,7 +457,10 @@ const EditResource = () => {
                                         <div style={buttonContainerStyle} className='mt-3'>
                                             <button
                                                 type="submit"
-                                                className='btn btn-warning'
+                                                className={`btn btn-warning ${
+      !formik.dirty || !formik.isValid ? "default" : "primary"
+    }`}
+    disabled={!formik.dirty || !formik.isValid}
                                                 style={buttonStyle}
                                             >
                                                 Submit details
