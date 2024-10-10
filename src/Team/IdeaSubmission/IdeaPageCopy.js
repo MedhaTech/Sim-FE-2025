@@ -377,6 +377,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       focus_area: focusarea,
       title: title,
       problem_statement: problemStatement,
+      district:currentUser?.data[0]?.district,
+      state:currentUser?.data[0]?.state,
+
       initiated_by: currentUser?.data[0]?.user_id,
     };
     if (causes !== "") {
