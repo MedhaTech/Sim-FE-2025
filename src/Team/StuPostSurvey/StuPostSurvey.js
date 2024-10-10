@@ -249,11 +249,11 @@ return (
                     // teamsCount !== 0 &&
                     ideastatus == 1 && verification=="ACCEPTED" && postSurveyStatus != "COMPLETED" ? (
                       <>
-                        <UncontrolledAlert color="danger" className="mb-2">
+                        {/* <UncontrolledAlert color="danger" className="mb-2">
                         {t('student.please_com_postsurvey_for_certificate')}
                           {/* Please complete the following post survey to get your
                           certificate. */}
-                        </UncontrolledAlert>
+                        {/* </UncontrolledAlert>  */}
                         <Form
                           className="form-row"
                           // onSubmit={formik.handleSubmit}
