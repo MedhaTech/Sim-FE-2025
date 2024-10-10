@@ -2,7 +2,7 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable react/prop-types */
 import React, { useState, useLayoutEffect } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -83,7 +83,7 @@ const StateLogin = (props) => {
   return (
     <div className="main-wrapper">
       <div className="account-content">
-        <div className="login-wrapper bg-img">
+        <div className="login-wrapper admin-wrap bg-img">
           <div className="login-content">
             <form onSubmit={formik.handleSubmit} action="index">
               <div className="login-userset">
@@ -142,7 +142,7 @@ const StateLogin = (props) => {
                     ></span>
                   </div>
                 </div>
-                <div className="form-login authentication-check">
+                {/* <div className="form-login authentication-check">
                   <div className="row">
                     <div className="col-12 d-flex align-items-center justify-content-between">
                       <div className="custom-control custom-checkbox">
@@ -157,7 +157,7 @@ const StateLogin = (props) => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <div className="form-login">
                   <button
                     // className="btn btn-login"
