@@ -130,14 +130,14 @@ const EditLatestNews = (props) => {
         if (values.file_name !== "" && values.file_name !== null) {
           body["file_name"] = values.file_name;
         }
-        if (values.url !== "" && values.url !== null) {
-          body["url"] = values.url;
-        }
-        // if (values.url) {
+        // if (values.url !== "" && values.url !== null) {
         //   body["url"] = values.url;
-        // } else {
-        //   body["url"] = "";
         // }
+        if (values.url) {
+          body["url"] = values.url;
+        } else {
+          body["url"] = "";
+        }
         const newsId = encryptGlobal(JSON.stringify(newsID.latest_news_id));
         const response = await axios.put(
           `${process.env.REACT_APP_API_BASE_URL}/latest_news/${newsId}`,
