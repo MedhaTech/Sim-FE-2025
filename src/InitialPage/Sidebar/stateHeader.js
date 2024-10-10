@@ -181,9 +181,14 @@ const MentorHeader = () => {
           //  console.log(response,"res");
           if (response?.data?.count > 0) {
             if (
+              response?.data?.data[0].status === "INACTIVE" && 
+              response?.data?.data[0].mentor === null
+            ) {
+              openNotificationWithIcon("error", "Udise Code is Inactive");
+              setDiesCode("");
+            } else if (
               response?.data?.data[0].status === "ACTIVE" &&
-              response?.data?.data[0].state ===
-                currentUser?.data[0]?.state_name &&
+              response?.data?.data[0].state === currentUser?.data[0]?.state_name &&
               response?.data?.data[0].mentor === null
             ) {
               openNotificationWithIcon(
@@ -192,33 +197,20 @@ const MentorHeader = () => {
               );
               setDiesCode("");
             } else if (
-              response?.data?.data[0].state ===
-                currentUser?.data[0]?.state_name &&
-              // response?.data?.data[0].status === "ACTIVE" &&
+              response?.data?.data[0].state === currentUser?.data[0]?.state_name &&
               response?.data?.data[0].mentor !== null
             ) {
               const multiOrgData = response?.data?.data;
               localStorage.removeItem("diesCode");
               localStorage.removeItem("multiOrgData");
               localStorage.setItem("diesCode", JSON.stringify(diesCode));
-              localStorage.setItem(
-                "multiOrgData",
-                JSON.stringify(multiOrgData)
-              );
+              localStorage.setItem("multiOrgData", JSON.stringify(multiOrgData));
               setMultiOrgData(multiOrgData);
               navigate("/coo-search", { state: { multiOrgData, diesCode } });
               setDiesCode("");
               window.location.reload();
-              //  }
-              //  else
-              //  if ( response?.data?.data[0].status === "INACTIVE" && response?.data?.data[0].mentor == null ) {
-              //   openNotificationWithIcon("error", "Udise Code is Inactive");
-              //   setDiesCode("");
             } else {
-              openNotificationWithIcon(
-                "error",
-                "You are not authorised to look at other state data"
-              );
+              openNotificationWithIcon("error", "You are not authorised to look at other state data");
               setDiesCode("");
             }
           } else {
@@ -226,6 +218,49 @@ const MentorHeader = () => {
             setDiesCode("");
           }
         }
+////////////////////////////////////          
+        //   if (response?.data?.count > 0) {
+        //     if (
+        //       response?.data?.data[0].status === "ACTIVE" &&
+        //       response?.data?.data[0].state ===
+        //         currentUser?.data[0]?.state_name &&
+        //       response?.data?.data[0].mentor === null
+        //     ) {
+        //       openNotificationWithIcon(
+        //         "error",
+        //         "No Teachers are Registered from the given UDISE Code"
+        //       );
+        //       setDiesCode("");
+        //     } else if (
+        //       response?.data?.data[0].state ===
+        //         currentUser?.data[0]?.state_name &&
+        //       response?.data?.data[0].mentor !== null
+        //     ) {
+        //       const multiOrgData = response?.data?.data;
+        //       localStorage.removeItem("diesCode");
+        //       localStorage.removeItem("multiOrgData");
+        //       localStorage.setItem("diesCode", JSON.stringify(diesCode));
+        //       localStorage.setItem(
+        //         "multiOrgData",
+        //         JSON.stringify(multiOrgData)
+        //       );
+        //       setMultiOrgData(multiOrgData);
+        //       navigate("/coo-search", { state: { multiOrgData, diesCode } });
+        //       setDiesCode("");
+        //       window.location.reload();
+              
+        //     } else {
+        //       openNotificationWithIcon(
+        //         "error",
+        //         "You are not authorised to look at other state data"
+        //       );
+        //       setDiesCode("");
+        //     }
+        //   } else {
+        //     openNotificationWithIcon("error", "Udise code is invalid");
+        //     setDiesCode("");
+        //   }
+        // }
       })
       .catch(function (error) {
         if (error?.response?.data?.status === 404) {
@@ -234,6 +269,7 @@ const MentorHeader = () => {
       });
     // e.preventDefault();
   };
+ 
   return (
     <>
       <div className="header">
