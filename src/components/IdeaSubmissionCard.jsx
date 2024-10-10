@@ -489,7 +489,7 @@ const IdeaSubmissionCard = ({
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
                 13. Upload documents & video links of your prototype.
               </label>
-              <CardText><a href={submittedResponse.prototype_link}>{submittedResponse.prototype_link}</a></CardText>
+              <CardText><a href={submittedResponse.prototype_link} target="_blank" rel="noreferrer">{submittedResponse.prototype_link}</a></CardText>
             </CardBody>
           </Card>
           <Card className="p-1">
