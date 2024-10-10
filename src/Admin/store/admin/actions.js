@@ -83,12 +83,22 @@ export const adminLoginUser = (data, navigate, module) => async (dispatch) => {
       dispatch(adminLoginUserSuccess(result));
 
       navigate("/admin-dashboard");
-    } else {
-      openNotificationWithIcon("error", "Invalid Credentials entered"
-);
+    } else if (result && result.status === 404) {
+      openNotificationWithIcon("error", "Invalid Credentials entered");
+     
       dispatch(adminLoginUserError(result.statusText));
+    }else{
+      openNotificationWithIcon(
+        'error',
+       "Entered Admin Credentials are in InActive Status"
+      );
     }
+
   } catch (error) {
+    openNotificationWithIcon(
+      'error',
+     "Entered Admin Credentials are in InActive Status"
+  );
     dispatch(adminLoginUserError({}));
   }
 };
