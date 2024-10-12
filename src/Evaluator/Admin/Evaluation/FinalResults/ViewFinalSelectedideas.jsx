@@ -3,23 +3,18 @@
 /* eslint-disable indent */
 import React, { useEffect, useRef, useState } from 'react';
 import './ViewFinalSelectedideas.scss';
-import Layout from '../../Pages/Layout';
+// import Layout from '../../Pages/Layout';
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import ViewDetail from './ViewFinalDetail';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { KEY, URL } from '../../../../constants/defaultValues';
 import { Button } from '../../../../stories/Button';
 import Select from '../Pages/Select';
 import { Col, Container, Row } from 'reactstrap';
-import { cardData } from '../../../../Student/Pages/Ideas/SDGData.js';
 import { useSelector } from 'react-redux';
-import {
-    getDistrictData,
-    getFetchDistData,
-    getStateData
-} from '../../../../redux/studentRegistration/actions';
+
 import { useDispatch } from 'react-redux';
 import { getCurrentUser, getNormalHeaders } from '../../../../helpers/Utils';
 import { Spinner } from 'react-bootstrap';
@@ -30,10 +25,11 @@ import TableDetailPdf from './TableDetailPdf';
 import { useReactToPrint } from 'react-to-print';
 import DetailToDownload from '../../Challenges/DetailToDownload';
 import { encryptGlobal } from '../../../../constants/encryptDecrypt.js';
-
+import { stateList, districtList } from "../../../../RegPage/ORGData.js";
+import { themesList } from "../../../../Team/IdeaSubmission/themesData.js";
 const ViewSelectedIdea = () => {
     const { search } = useLocation();
-    const history = useHistory();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
     const title = new URLSearchParams(search).get('title');
@@ -43,47 +39,43 @@ const ViewSelectedIdea = () => {
     const [tableData, settableData] = React.useState({});
     const [district, setdistrict] = React.useState('');
     const [state, setState] = useState('');
+    const [selectstate, setSelectState] = React.useState("");
 
     const [sdg, setsdg] = React.useState('');
     const [currentRow, setCurrentRow] = React.useState(1);
     const [tablePage, setTablePage] = React.useState(1);
     const [showspin, setshowspin] = React.useState(false);
+    const newThemesList = ["All Themes", ...themesList];
+    const newstateList = ["All States", ...stateList];
+    const fullStatesNames = newstateList;
 
-    const SDGDate = cardData.map((i) => {
-        return i.goal_title;
-    });
-    SDGDate.unshift('All Themes');
-    const fullStatesNames = useSelector(
-        (state) => state?.studentRegistration?.regstate
-    );
-    const fullDistrictsNames = useSelector(
-        (state) => state?.studentRegistration?.dists
-    );
-    const fiterDistData = useSelector(
-        (state) => state?.studentRegistration?.fetchdist
-    );
-    const filterParamsfinal =
-        (state && state !== 'All States' ? '&state=' + state : '') +
-        (sdg && sdg !== 'All Themes' ? '&sdg=' + sdg : '');
+ const allDistricts = {
+      "All Districts": [...Object.values(districtList).flat()],
+      ...districtList,
+    };
+    const fiterDistData = selectstate === "All States" 
+    ? []  
+    : ["All Districts", ...(allDistricts[selectstate] || [])];
     useEffect(() => {
-        // dispatch(getDistrictData());
-        dispatch(getFetchDistData());
-        // dispatch(getStateData());
-    }, []);
+        if (selectstate === "All States") {
+            setdistrict('');  // Reset the district value
+          }
+    }, [selectstate]);
+    
 
     const handlePromotelFinalEvaluated = async (item) => {
-        await promoteapi(item.team_id);
+        await promoteapi(item.challenge_response_id);
     };
 
     async function promoteapi(id) {
-        const body = JSON.stringify({ final_result: '1', team_id: id });
-        // const promPram = encryptGlobal(JSON.stringify(id));
+        const body = JSON.stringify({ final_result: '1' });
+        const promPram = encryptGlobal(JSON.stringify(id));
         var config = {
             method: 'put',
             url: `${
-                process.env.REACT_APP_API_BASE_URL + '/ideas/ideaUpdate'
-                // +
-                // promPram
+                process.env.REACT_APP_API_BASE_URL +
+                '/challenge_response/updateEntry/' +
+                promPram
             }`,
             headers: {
                 'Content-Type': 'application/json',
@@ -112,8 +104,8 @@ const ViewSelectedIdea = () => {
         const apiParam = encryptGlobal(
             JSON.stringify({
                 key: title == '0' ? '0' : '1',
-                district: state !== 'All Districts' ? state : ''
-                // sdg : sdg !== 'All Themes' ? sdg : ''
+                state : state !== 'All States' ? state : '',
+                sdg : sdg !== 'All Themes' ? sdg : ''
             })
         );
         await axios
@@ -145,11 +137,11 @@ const ViewSelectedIdea = () => {
                 selector: (row) => row.key,
                 cellExport: (row) => row.key,
                 sortable: true,
-                width: '10rem'
+                width: '6rem'
             },
             {
-                name: 'District',
-                selector: (row) => row.district,
+                name: 'State',
+                cellExport: (row) => row.state,
                 cell: (row) => (
                     <div
                         style={{
@@ -157,85 +149,57 @@ const ViewSelectedIdea = () => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row.district}
+                        {row.state}
                     </div>
                 ),
-                width: '15rem'
+                width: '10rem'
             },
-            // {
-            //     name: 'Institution Code',
-            //     selector: (row) => row.institution_code,
-            //     width: '18rem'
-            // },
-            // {
-            //     name: 'Team Name',
-            //     selector: (row) => row.team_name,
-            //     cellExport: (row) => row.team_name,
-            //     width: '15rem'
-            // },
+            {
+                name: 'District',
+                selector: (row) => row.district,
+                width: '8rem'
+            },
+            {
+                name: 'Udise Code',
+                selector: (row) => row.organization_code,
+                cellExport: (row) => row.organization_code,
+                width: '8rem'
+            },
+            {
+                name: 'Team Name',
+                selector: (row) => row.team_name,
+                cellExport: (row) => row.team_name,
+                width: '10rem'
+            },
             {
                 name: 'CID',
-                selector: (row) => row.idea_id,
-                cell: (params) => {
-                    return [
-                        <div className="d-flex" key={params}>
-                            <a
-                                href="#"
-                                style={{ color: 'black' }}
-                                // className="btn btn-primary btn-lg mr-5 mx-2"
-                                onClick={(e) => {
-                                    e.preventDefault(); // Prevent the default behavior of anchor tag
-                                    setIdeaDetails(params);
-                                    setIsDetail(true);
-                                    let index = 0;
-                                    // tableData?.forEach((item, i) => {
-                                    //     if (
-                                    //         item?.challenge_response_id ==
-                                    //         params?.challenge_response_id
-                                    //     ) {
-                                    //         index = i;
-                                    //     }
-                                    // });
-                                    setCurrentRow(index + 1);
-                                }}
-                            >
-                                {params.idea_id}
-                            </a>
-                            {/* <FaDownload
-                                size={22}
-                                onClick={() => {
-                                    handleDownpdf(params);
-                                }}
-                            /> */}
-                        </div>
-                    ];
-                },
+                selector: (row) => row.challenge_response_id,
+                cellExport: (row) => row.challenge_response_id,
+                width: '5rem'
+            },
+            {
+                name: 'Category',
+                selector: (row) => row.category,
+                width: '8rem'
+            },
+            {
+                name: 'Theme',
+                cellExport: (row) => row.theme,
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row.theme}
+                    </div>
+                ),
                 width: '10rem'
             },
             // {
-            //     name: 'Category',
-            //     selector: (row) => row.category,
-            //     width: '15rem'
-            // },
-            // {
-            //     name: 'Theme',
-            //     cellExport: (row) => row.sdg,
-            //     cell: (row) => (
-            //         <div
-            //             style={{
-            //                 whiteSpace: 'pre-wrap',
-            //                 wordWrap: 'break-word'
-            //             }}
-            //         >
-            //             {row?.theme_name}
-            //         </div>
-            //     ),
-            //     width: '20rem'
-            // },
-            // {
             //     name: 'Problem Statement',
-            //     cellExport: (row) => row?.themes_problem?.problem_statement,
-
+            //     cellExport: (row) => row.sub_category,
             //     cell: (row) => (
             //         <div
             //             style={{
@@ -243,7 +207,7 @@ const ViewSelectedIdea = () => {
             //                 wordWrap: 'break-word'
             //             }}
             //         >
-            //             {row?.themes_problem?.problem_statement}
+            //             {row.sub_category}
             //         </div>
             //     ),
             //     width: '25rem'
@@ -251,7 +215,7 @@ const ViewSelectedIdea = () => {
             {
                 name: 'Idea Name',
                 // sortable: true,
-                cellExport: (row) => row?.idea_title || '',
+                cellExport: (row) => row?.title,
                 cell: (row) => (
                     <div
                         style={{
@@ -259,10 +223,10 @@ const ViewSelectedIdea = () => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row?.idea_title}
+                        {row?.title}
                     </div>
                 ),
-                width: '20rem'
+                width: '10rem'
             },
             // {
             //     name: 'District',
@@ -378,7 +342,7 @@ const ViewSelectedIdea = () => {
                 },
 
                 sortable: true,
-                width: '16rem'
+                width: '13rem'
             },
             {
                 name: 'Overall',
@@ -415,14 +379,14 @@ const ViewSelectedIdea = () => {
                                     setIdeaDetails(params);
                                     setIsDetail(true);
                                     let index = 0;
-                                    // tableData?.forEach((item, i) => {
-                                    //     if (
-                                    //         item?.challenge_response_id ==
-                                    //         params?.challenge_response_id
-                                    //     ) {
-                                    //         index = i;
-                                    //     }
-                                    // });
+                                    tableData?.forEach((item, i) => {
+                                        if (
+                                            item?.challenge_response_id ==
+                                            params?.challenge_response_id
+                                        ) {
+                                            index = i;
+                                        }
+                                    });
                                     setCurrentRow(index + 1);
                                 }}
                             >
@@ -443,12 +407,12 @@ const ViewSelectedIdea = () => {
                                         className="text-info"
                                     />
                                 )} */}
-                                {/* <FaDownload
+                                <FaDownload
                                     size={22}
                                     onClick={() => {
                                         handleDownpdf(params);
                                     }}
-                                /> */}
+                                />
                             </div>
                             {params.final_result === '0' && (
                                 <div
@@ -457,7 +421,7 @@ const ViewSelectedIdea = () => {
                                     }
                                     style={{ marginRight: '12px' }}
                                 >
-                                    <div className="btn btn-info btn-lg mx-2">
+                                    <div className="btn btn-info mx-2">
                                         Promote
                                     </div>
                                 </div>
@@ -501,7 +465,7 @@ const ViewSelectedIdea = () => {
         setsortid(e.id);
     };
 
-    const showbutton = state;
+    const showbutton = selectstate && sdg;
 
     const handleNext = () => {
         if (tableData && currentRow < tableData?.length) {
@@ -579,20 +543,38 @@ const ViewSelectedIdea = () => {
     }, [pdfIdeaDetails, pdfTeamResponse]);
 
     /////////////////
-
+    const customStyles = {
+        rows: {
+          style: {
+            fontSize: "13px",
+          },
+        },
+        headCells: {
+          style: {
+            fontSize: "14px",
+          },
+        },
+        cells: {
+          style: {
+            fontSize: "13px",
+          },
+        },
+      };
     return (
         <>
+          <div className="page-wrapper">
+          <div className="content">
             <div style={{ display: 'none' }}>
-                <DetailToDownload
+                {/* <DetailToDownload
                     ref={componentRef}
                     ideaDetails={pdfIdeaDetails}
                     teamResponse={pdfTeamResponse}
                     level={'Draft'}
-                />
+                /> */}
             </div>
 
-            <Layout>
-                <div className="container evaluated_idea_wrapper pt-5 mb-50">
+            {/* <Layout> */}
+                <div className="container evaluated_idea_wrapper pt-2">
                     {/* <div id="pdfIdd" style={{ display: 'none' }}>
                     <TableDetailPdf
                         ideaDetails={details}
@@ -604,39 +586,46 @@ const ViewSelectedIdea = () => {
                         <div className="col-12 p-0">
                             {!isDetail && (
                                 <div>
-                                    <h2 className="ps-2 pb-3">
+                                    <h4 className="ps-2 pb-1">
                                         {title == '0'
                                             ? 'Final Evaluated'
                                             : 'Final Winners'}{' '}
                                         Challenges
-                                    </h2>
+                                    </h4>
 
                                     <Container fluid className="px-0">
                                         <Row className="align-items-center">
                                             <Col md={2}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
-                                                    <Select
-                                                        list={fiterDistData}
-                                                        setValue={setState}
-                                                        placeHolder={
-                                                            'Select District'
-                                                        }
-                                                        value={state}
-                                                    />
+                                                <Select
+                    list={fullStatesNames}
+                    setValue={setSelectState}
+                    placeHolder={"Select State"}
+                    value={selectstate}
+                  />
                                                 </div>
                                             </Col>
-                                            {/* <Col md={2}>
+                                            <Col md={2}>
+                <div className="my-2 d-md-block d-flex justify-content-center">
+                  <Select
+                    list={fiterDistData}
+                    
+                    setValue={setdistrict}
+                    placeHolder={"Select District"}
+                    value={district}
+                  />
+                </div>
+              </Col>
+                                            <Col md={2}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
-                                                    <Select
-                                                        list={SDGDate}
-                                                        setValue={setsdg}
-                                                        placeHolder={
-                                                            'Select Themes'
-                                                        }
-                                                        value={sdg}
-                                                    />
+                                                <Select
+                    list={newThemesList}
+                    setValue={setsdg}
+                    placeHolder={"Select Theme"}
+                    value={sdg}
+                  />
                                                 </div>
-                                            </Col> */}
+                                            </Col>
                                             <Col md={2}>
                                                 <div className="text-center">
                                                     <Button
@@ -654,15 +643,13 @@ const ViewSelectedIdea = () => {
                                                     />
                                                 </div>
                                             </Col>
-                                            <Col md={6}>
+                                            <Col md={2}>
                                                 <div className="text-right">
                                                     <Button
                                                         btnClass="primary"
                                                         size="small"
                                                         label="Back"
-                                                        onClick={() =>
-                                                            history.goBack()
-                                                        }
+                                                        onClick={() => navigate(-1)}
                                                     />
                                                 </div>
                                             </Col>
@@ -683,7 +670,7 @@ const ViewSelectedIdea = () => {
                                     <div className="bg-white border card pt-3 mt-5">
                                         <DataTableExtensions
                                             print={false}
-                                            export={false}
+                                            export={true}
                                             {...evaluatedIdeafinal}
                                         >
                                             <DataTable
@@ -693,6 +680,8 @@ const ViewSelectedIdea = () => {
                                                 pagination
                                                 highlightOnHover
                                                 fixedHeader
+                          customStyles={customStyles}
+
                                                 subHeaderAlign={
                                                     Alignment.Center
                                                 }
@@ -725,7 +714,8 @@ const ViewSelectedIdea = () => {
                         </div>
                     </div>
                 </div>
-            </Layout>
+            {/* </Layout> */}
+            </div></div>
         </>
     );
 };

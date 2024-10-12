@@ -131,6 +131,12 @@ import ResendEmail from "../Admin/BulkEmail/ResendEmail";
 
 import EadminEval from "../Evaluator/Admin/Evaluator/EadminEvaluator";
 import ViewSelectedideasNew from "../Evaluator/Admin/Evaluation/ViewSelectedIdea/ViewSelectedideasNew";
+import EadminFinal from "../Evaluator/Admin/Evaluation/FinalResults/ViewFinalSelectedideas";
+import EadminRest from "../Evaluator/Admin/Pages/ChangePSWModal";
+import EadminDist from "../Evaluator/Admin/EvalProcess/SelectingDistricts";
+
+
+
 
 
 
@@ -819,6 +825,30 @@ export const eadminRoutes = [
     path: routes.eadminstats,
     name: "eadminstats",
     element: <ViewSelectedideasNew/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 6,
+    path: routes.eadminfinal,
+    name: "eadminfinal",
+    element: <EadminFinal/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 7,
+    path: routes.eadminRest,
+    name: "eadminRest",
+    element: <EadminRest/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 8,
+    path: routes.eadminDist,
+    name: "eadminDist",
+    element: <EadminDist/>,
     protected: true,
     route: Route,
   },

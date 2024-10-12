@@ -1,33 +1,32 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect } from 'react';
-import Layout from '../Pages/Layout';
-import { Row, Col, Label, Container, Card } from 'reactstrap';
+// import Layout from '../Pages/Layout';
+import { Row, Col, Label, Container, Card, } from 'reactstrap';
 import { Button } from '../../../stories/Button';
 import {
     getNormalHeaders,
     openNotificationWithIcon
 } from '../../../helpers/Utils';
 import axios from 'axios';
+import { useLocation, useNavigate } from "react-router-dom";
+
 import { URL, KEY } from '../../../constants/defaultValues';
 import Check from './Pages/Check';
-import { useDispatch, useSelector } from 'react-redux';
-import { getStateData } from '../../../redux/studentRegistration/actions';
+import { useDispatch, useSelector ,} from 'react-redux';
+// import { getStateData } from '../../../redux/studentRegistration/actions';
 import { encryptGlobal } from '../../../constants/encryptDecrypt';
-
+import { stateList, districtList } from "../../../RegPage/ORGData.js";
 const EditEvalProcess = (props) => {
+    const location = useLocation();
     const evalID = JSON.parse(localStorage.getItem('eavlId'));
     //  where evalID= evaluation_process_id //
     const dispatch = useDispatch();
     const [clickedValue, setclickedValue] = useState({});
     const [selectedStates, setselectedStates] = useState([]);
-
-    useEffect(() => {
-        dispatch(getStateData());
-    }, []);
-
-    const fullStatesNames = useSelector(
-        (state) => state?.studentRegistration?.regstate
-    );
+const navigate = useNavigate();
+    const newstateList = ["All States", ...stateList];
+    const fullStatesNames = newstateList;
 
     useEffect(() => {
         // evalID && evalID.state
@@ -91,7 +90,7 @@ const EditEvalProcess = (props) => {
                         'success',
                         'States Update Successfully'
                     );
-                    props.history.push('/eadmin/evaluationProcess');
+                    navigate('/eadmin/evaluationProcess');
                 }
             })
             .catch((err) => {
@@ -111,9 +110,10 @@ const EditEvalProcess = (props) => {
     };
 
     return (
-        <Layout>
+        <div className="page-wrapper">
+          <div className="content">
             <Container>
-                <Card className="p-5 m-5">
+                <Card className="m-3 p-3">
                     <Row>
                         <Col md={4}>
                             <Label className="mb-2 text-info">
@@ -125,7 +125,7 @@ const EditEvalProcess = (props) => {
                         </Col>
                         <Col md={4}>
                             <Label className="mb-2 text-info">
-                                No Of Evaluation :{' '}
+                                No of Evaluation :{' '}
                                 <span className="text-muted">
                                     {evalID && evalID.no_of_evaluation}
                                 </span>
@@ -152,14 +152,24 @@ const EditEvalProcess = (props) => {
                 </Card>
                 <Row>
                     <Col className="col-xs-12 col-sm-6">
-                        <Button
+                        {/* <Button
                             label="Discard"
                             btnClass="secondary"
                             size="small"
                             onClick={() =>
-                                props.history.push('/eadmin/evaluationProcess')
+                                navigate('/eadmin/evaluationProcess')
                             }
-                        />
+
+                        /> */}
+                          <button
+                          type="button"
+                          onClick={() =>
+                            navigate('/eadmin/evaluationProcess')
+                        }
+                          className="btn btn-secondary"
+                        >
+                          Discard
+                        </button>
                     </Col>
                     <Col className="submit-btn col-xs-12 col-sm-6 text-right">
                         <Button
@@ -171,7 +181,8 @@ const EditEvalProcess = (props) => {
                     </Col>
                 </Row>
             </Container>
-        </Layout>
+        </div>
+        </div>
     );
 };
 export default EditEvalProcess;

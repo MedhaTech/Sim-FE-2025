@@ -81,7 +81,9 @@ eadminstats:"/eadmin/evaluationStatus/viewlist",
   eadminevaluation:"/eadmin/evaluationStatus",
 eadminEvaluationProcess:"/eadmin/evaluationProcess",
 eadminevaluator:"/eadmin/evaluator",
-
+eadminfinal:"/eadmin/evaluationStatus/viewfinallist",
+eadminRest:"/eadmin-changepwd",
+eadminDist:'/eadmin/selectingDistricts-evaluationProcess',
 
 
   adminpassword: "/admin-password",
