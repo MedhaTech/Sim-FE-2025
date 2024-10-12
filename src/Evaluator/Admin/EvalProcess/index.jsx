@@ -118,7 +118,7 @@ const Evalprocess = () => {
                             style={{ marginRight: '12px' }}
                         >
                             <div className="btn btn-success btn-lg mx-2">
-                                DISTRICTS
+                                STATES
                             </div>
                         </div>
                     </>
@@ -213,7 +213,7 @@ const Evalprocess = () => {
                 <Row className="pt-3">
                     <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
                         <Col className="col-auto">
-                            <h2>Evaluation Process</h2>
+                            <h4>Evaluation Process</h4>
                         </Col>
                     </Row>
 

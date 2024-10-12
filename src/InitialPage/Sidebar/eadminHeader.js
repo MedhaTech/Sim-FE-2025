@@ -16,7 +16,8 @@ import logo from "../../assets/img/new-logo.png";
 import axios from "axios";
 import Icon from "../../assets/img/logos.jpg";
 import { openNotificationWithIcon } from "../../helpers/Utils.js";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faKey,faUser } from '@fortawesome/free-solid-svg-icons';
 const EadmiHeader = () => {
   const route = all_routes;
   const [toggle, SetToggle] = useState(false);
@@ -663,7 +664,12 @@ const EadmiHeader = () => {
                   </div>
                 </div>
                 <hr className="m-0" />
-               
+                <Link
+                  className="dropdown-item"
+                  to={"/eadmin-changepwd"}
+                >
+                  <FontAwesomeIcon icon={faKey} /> <h6>Change Password</h6> 
+                </Link>
                 {/* <Link className="dropdown-item" to={route.generalsettings}>
                   <Settings className="me-2" />
                   Settings
@@ -707,6 +713,9 @@ const EadmiHeader = () => {
             {/* <Link className="dropdown-item" to="generalsettings">
               Settings
             </Link> */}
+              <Link className="dropdown-item" to={"/eadmin-changepwd"}>
+                Change Password
+              </Link>
             <Link className="dropdown-item" to="signin">
               Logout
             </Link>
