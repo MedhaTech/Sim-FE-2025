@@ -17,7 +17,9 @@ export const URL = {
   getMentors: process.env.REACT_APP_API_BASE_URL + '/mentors',
   getidealist: process.env.REACT_APP_API_BASE_URL + '/challenge_response?',
   getAdminEvaluator: process.env.REACT_APP_API_BASE_URL + '/evaluators',
-
+  getidealistfinal:
+  process.env.REACT_APP_API_BASE_URL +
+  '/challenge_response/evaluationResult',
   gettotalcount:
   process.env.REACT_APP_API_BASE_URL + '/dashboard/evaluatorStats',
   // getStudentById: process.env.REACT_APP_API_BASE_URL + '/students/',

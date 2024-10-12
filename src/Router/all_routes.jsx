@@ -73,7 +73,7 @@ institutionreport:"/institution-report",
   studentcoo:"/studentcoo-report",
   intitutioncoo:"/institution-report",
   intitutioncoostate:"/state-institution-report",
-
+eadminstats:"/eadmin/evaluationStatus/viewlist",
   badgeTeacher:"/teacherBadges",
   statedashboard: "/state-dashboard",
   /// Eadmin///////

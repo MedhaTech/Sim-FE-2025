@@ -1,10 +1,12 @@
+/* eslint-disable indent */
 const Select = ({ list, setValue, placeHolder, value }) => {
     return (
         <select
+        className="form-select"
             onChange={(e) => setValue(e.target.value)}
             value={value}
-            className="border rounded-3 px-4 pointer w-100"
-            style={{ height: '4rem', outline: 'none' }}
+            // className="border rounded-3 px-4 pointer w-100"
+            // style={{ height: '4rem', outline: 'none' }}
         >
             <option value={''} disabled>
                 {placeHolder}
