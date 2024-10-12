@@ -52,7 +52,7 @@ const ViewSelectedIdea = () => {
     };
     // const fiterDistData = ["All Districts", ...(allDistricts[selectstate] || [])];
     const fiterDistData = selectstate === "All States" 
-  ? []  // Set district list to empty if "All States" is selected
+  ? []  
   : ["All Districts", ...(allDistricts[selectstate] || [])];
     // const filterParams =
     //     (district && district !== 'All Districts'
@@ -113,7 +113,7 @@ const ViewSelectedIdea = () => {
                 setshowspin(false);
             });
     }
-console.log(selectstate,"state",district,"district");
+// console.log(selectstate,"state",district,"district");
     const evaluatedIdeaforsub = {
         data: tableData && tableData.length > 0 ? tableData : [],
         columns: [
@@ -123,14 +123,15 @@ console.log(selectstate,"state",district,"district");
                 cellExport: (row) => row.key,
                 width: '6rem'
             },
-            {
-                name: 'District',
-                selector: (row) => row.district,
-                width: '10rem'
-            },
+           
             {
                 name: 'State',
                 selector: (row) => row.state,
+                width: '10rem'
+            },
+            {
+                name: 'District',
+                selector: (row) => row.district,
                 width: '10rem'
             },
             {
@@ -282,7 +283,7 @@ console.log(selectstate,"state",district,"district");
             }
         ]
     };
-    console.log("SUBMITTED Daaaaaaaa");
+    // console.log("SUBMITTED Daaaaaaaa");
     const showbutton = selectstate && sdg;
 
     const handleNext = () => {

@@ -130,6 +130,8 @@ import CreateEmail from "../Admin/BulkEmail/CreatePopUp";
 import ResendEmail from "../Admin/BulkEmail/ResendEmail";
 
 import EadminEval from "../Evaluator/Admin/Evaluator/EadminEvaluator";
+import ViewSelectedideasNew from "../Evaluator/Admin/Evaluation/ViewSelectedIdea/ViewSelectedideasNew";
+
 
 
 
@@ -809,6 +811,14 @@ export const eadminRoutes = [
     path: routes.eadminevaluator,
     name: "eadminevaluator",
     element: <EadminEval />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 5,
+    path: routes.eadminstats,
+    name: "eadminstats",
+    element: <ViewSelectedideasNew/>,
     protected: true,
     route: Route,
   },
