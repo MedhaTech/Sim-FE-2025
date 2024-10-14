@@ -57,6 +57,10 @@ const IdeaReport = () => {
   const newstateList = ["All States", ...stateList];
   const newThemesList = ["All Themes", ...themesList];
 
+  useEffect(() => {
+    setdistrict('');
+  }, [selectstate]);
+
   // const categoryData =
   //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
   const [studentDetailedReportsData, setstudentDetailedReportsData] = useState(
@@ -931,6 +935,10 @@ const IdeaReport = () => {
 
   return (
     <div className="page-wrapper">
+       <h4 className="m-2" 
+        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"14px" }}
+        >Reports
+        </h4>
       <div className="content">
         <div className="page-header">
           <div className="add-item d-flex">

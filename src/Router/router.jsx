@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
@@ -23,6 +24,7 @@ import {
   mentorRoutes,
   stateRoutes,
   eadminRoutes,
+  evaluatorRoutes,
 } from "./router.link";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -43,16 +45,22 @@ import AdminSidebar from "../InitialPage/Sidebar/Sidebar";
 import StateSidebar from "../InitialPage/Sidebar/stateSidebar";
 import EadminLogin from "../Evaluator/Admin/EadminLogin";
 import EadminHeader from "../InitialPage/Sidebar/eadminHeader";
+
 import EadminSidebar from "../InitialPage/Sidebar/eadminSidebar";
+
+import EvalHeader from "../InitialPage/Sidebar/evalHeader";
+
+import EvalSidebar from "../InitialPage/Sidebar/evalSidebar";
 import LogInTeam from "../Team/LogInTeam";
 import TeacherPSW from "../Teacher/forgotPass";
 import CollapsedSidebar from "../InitialPage/Sidebar/collapsedSidebar";
 import CooSidebar from "../InitialPage/Sidebar/stateBar";
+import LoginEvaluator from "../Evaluator/LoginEvaluator";
 const AllRoutes = () => {
   const data = useSelector((state) => state?.admin?.toggle_header);
   const HeaderLayout = () => (
     <div className={`main-wrapper ${data ? "header-collapse" : ""}`}>
-      <Header />
+      <Header  />
       <AdminSidebar />
       <Outlet />
       <ThemeSettings />
@@ -82,6 +90,15 @@ const AllRoutes = () => {
     <div className={`main-wrapper ${data ? "header-collapse" : ""}`}>
       <EadminHeader />
       <EadminSidebar />
+
+      <Outlet />
+      <ThemeSettings />
+    </div>
+  );
+  const EvaluatorHeaderLayout = () => (
+    <div className={`main-wrapper ${data ? "header-collapse" : ""}`}>
+      <EvalHeader />
+      <EvalSidebar />
 
       <Outlet />
       <ThemeSettings />
@@ -140,6 +157,7 @@ const AllRoutes = () => {
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/state" element={<StateLogin />} />
           <Route path="/eadmin" element={<EadminLogin />} />
+          <Route path="/evaluator" element={<LoginEvaluator />} />
           <Route path="/team" element={<LogInTeam />} />
           <Route path="/teacher" element={<LogInTeacher />} />
         </Route>
@@ -196,6 +214,21 @@ const AllRoutes = () => {
               element={
                 route.protected ? (
                   <ProtectedRoute user="EADMIN">{route.element}</ProtectedRoute>
+                ) : (
+                  route.element
+                )
+              }
+            />
+          ))}
+        </Route>
+        <Route path="/" element={<EvaluatorHeaderLayout />}>
+          {evaluatorRoutes.map((route, id) => (
+            <Route
+              key={id}
+              path={route.path}
+              element={
+                route.protected ? (
+                  <ProtectedRoute user="EVALUATOR">{route.element}</ProtectedRoute>
                 ) : (
                   route.element
                 )

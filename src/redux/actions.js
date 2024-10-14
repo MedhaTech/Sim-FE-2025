@@ -34,6 +34,12 @@ export const UPDATE_STUDENT_STATUS = "UPDATE_STUDENT_STATUS";
 export const GET_STUDENTS_LIST_SUCCESS = "GET_STUDENTS_LIST_SUCCESS";
 export const GET_STUDENTS_LANGUAGE = "GET_STUDENTS_LANGUAGE";
 export const GET_STUDENTS_LIST_ERROR = "GET_STUDENTS_LIST_ERROR";
+ 
+export const ADMIN_NOTIFICATIONS_LIST = 'ADMIN_NOTIFICATIONS_LIST';
+export const ADMIN_NOTIFICATIONS_LIST_SUCCESS =
+    'ADMIN_NOTIFICATIONS_LIST_SUCCESS';
+export const ADMIN_NOTIFICATIONS_LIST_ERROR = 'ADMIN_NOTIFICATIONS_LIST_ERROR';
+export const ADMIN_DELETE_TEMP_MENTOR = 'ADMIN_DELETE_TEMP_MENTOR';
 
 export const GET_STUDENT_DASHBOARD_CHALLENGES_STATUS =
   "GET_STUDENT_DASHBOARD_CHALLENGES_STATUS";
@@ -173,3 +179,4 @@ export * from '../Admin/Courses/store/adminCourses/actions';
 export * from './schoolRegistration/actions';
 export * from '../Admin/store/adminEvalutors/actions';
 
+export * from '../Admin/store/adminNotifications/actions';

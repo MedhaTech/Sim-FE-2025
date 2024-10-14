@@ -1,13 +1,13 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React from 'react';
 import './IdeaList.scss';
 // import Layout from '../Layout';
-import IdeaDetail from './IdeaDetail';
 import { Button } from '../../stories/Button';
 import { getSubmittedIdeaList } from '../store/evaluator/action';
 import { useDispatch, useSelector } from 'react-redux';
 import succesImg from '../../assets/img/success1.jpeg';
-// import { HmacSHA384 } from 'crypto-js';
+import NextLevel from './NextLevel';
 
 const IdeaList = () => {
     // here we can see all the ideasList //
@@ -21,7 +21,7 @@ const IdeaList = () => {
     );
 
     React.useEffect(() => {
-        dispatch(getSubmittedIdeaList('L1'));
+        dispatch(getSubmittedIdeaList('L2'));
     }, []);
     // React.useEffect(() => {
     //     if (allIdeaList) {
@@ -51,9 +51,9 @@ const IdeaList = () => {
     //     }
     // }, [allIdeaList]); 
     const handleNext = () => {
-        dispatch(getSubmittedIdeaList('L1'));
+        dispatch(getSubmittedIdeaList('L2'));
     };
-
+console.log(ideaDetails,"IDEA");
     return (
         <div className="page-wrapper">
         <div className="content">
@@ -65,7 +65,7 @@ const IdeaList = () => {
                     {!isNextDiv ? (
                         <div className="col-12">
                             {Object.keys(ideaDetails).length > 0 ? (
-                                <IdeaDetail
+                                <NextLevel
                                     ideaDetails={ideaDetails}
                                     handleSkip={handleNext}
                                     setIsNextDiv={setIsNextDiv}
@@ -78,10 +78,10 @@ const IdeaList = () => {
                                                 <img src={succesImg} alt=".." />
                                                 <br />
                                             </div>
-                                            <h4 className="my-auto text-center my-4">
+                                            <h2 className="my-auto text-center my-4">
                                                 All idea has been processed, no
                                                 more idea to display.
-                                            </h4>
+                                            </h2>
                                         </div>
                                     </div>
                                 </div>
@@ -111,7 +111,7 @@ const IdeaList = () => {
                     )}
                 </div>
             </div>
-            </div>
+            </div >
             </div >
     );
 };
