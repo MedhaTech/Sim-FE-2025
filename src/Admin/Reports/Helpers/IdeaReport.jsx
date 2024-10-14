@@ -57,6 +57,10 @@ const IdeaReport = () => {
   const newstateList = ["All States", ...stateList];
   const newThemesList = ["All Themes", ...themesList];
 
+  useEffect(() => {
+    setdistrict('');
+  }, [selectstate]);
+
   // const categoryData =
   //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
   const [studentDetailedReportsData, setstudentDetailedReportsData] = useState(

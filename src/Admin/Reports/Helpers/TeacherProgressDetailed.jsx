@@ -47,6 +47,10 @@ const TeacherProgressDetailed = () => {
         "Partially Aided-Higher Secondary School",
         "Non ATL",
     ];
+
+    useEffect(() => {
+        setdistrict('');
+      }, [selectstate]);
     const newstateList = ["All States", ...stateList];
     // const categoryData =
     //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
