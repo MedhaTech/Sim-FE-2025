@@ -70,6 +70,9 @@ const ReportsRegistration = () => {
     "Partially Aided-Higher Secondary School",
     "Non ATL",
   ];
+  useEffect(() => {
+    setRegTeachersdistrict('');
+  }, [RegTeachersState]);
 
   const newstateList = ["All States", ...stateList];
 

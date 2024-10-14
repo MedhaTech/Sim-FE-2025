@@ -56,6 +56,11 @@ const StudentProgress = () => {
   const [studentDetailedReportsData, setstudentDetailedReportsData] = useState(
     []
   );
+
+  useEffect(() => {
+    setdistrict('');
+  }, [selectstate]);
+  
   const [doughnutChartData, setDoughnutChartData] = useState(null);
   const currentUser = getCurrentUser("current_user");
   const csvLinkRef = useRef();
