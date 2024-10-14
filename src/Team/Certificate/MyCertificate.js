@@ -61,9 +61,9 @@ const Certificate = ({
           t
         )
       );
-    if (!type)
-      dispatch(updateStudentCertificate(currentUser?.data[0]?.user_id
-      ));
+    // if (!type)
+    //   dispatch(updateStudentCertificate(currentUser?.data[0]?.user_id
+    //   ));
   };
   const certDateCheck = () => {
     const check =
@@ -100,7 +100,7 @@ const Certificate = ({
                 top: `${type ? "5.9rem" : "5.9rem"}`,
                 color: `${type ? "black" : "black"}`,
                 left: `${type ? "3rem" : "3rem"}`,
-                fontSize: "0.8rem",
+                fontSize: "0.4rem",
                 fontFamily: "Times New Roman",
               }}
             >
@@ -113,7 +113,7 @@ const Certificate = ({
                 color: `${type ? "black" : "black"}`,
                 top: `${type ? "6.8rem" : "6.8rem"}`,
                 left: `${type ? "4rem" : "4rem"}`,
-                fontSize: "0.8rem",
+                fontSize: "0.4rem",
                 fontFamily: "Times New Roman",
               }}
             >
@@ -339,22 +339,22 @@ const MyCertificate = () => {
                 <div className="text-center">
                   <img className={`img-fluid imgWidthSize`} src={Congo}></img>
                 </div>
-                <h6
+                <h2
                   dangerouslySetInnerHTML={{
                     __html: t("dummytext.dear"),
                   }}
-                ></h6>
+                ></h2>
                 <div
                   dangerouslySetInnerHTML={{
                     __html: t("dummytext.student_my_cer"),
                   }}
                 ></div>
-                <h6
+                <h2
                   dangerouslySetInnerHTML={{
                     __html:
                       t("dummytext.name") + currentUser?.data[0].full_name,
                   }}
-                ></h6>
+                ></h2>
                 <div
                   dangerouslySetInnerHTML={{
                     __html: t("dummytext.certificate_msg"),

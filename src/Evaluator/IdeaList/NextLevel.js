@@ -49,9 +49,9 @@ const downloadFile = (item) => {
 const problemSolvingArray = teamResponse?.problem_solving;
     return (
         <>
-            {teamResponse && teamResponse?.length > 0 ? (
+            {teamResponse ? (
                 <>
-                    <div className="row idea_detail_card">
+                    <div >
                         <div className="col-12 p-0">
                             <div className="row">
                                 <div className="col-lg-6">
@@ -604,7 +604,425 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                     : 'col-lg-8'
                             } order-lg-0 order-1 p-0 h-100`}
                         >
-                            {teamResponse?.map((item, index) => {
+                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                    <b
+                                            style={{
+                                                fontSize: '1.2rem'
+                                            }}
+                                        >
+                                            1.Theme
+                                            
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5">
+                                    <p
+                                            style={{
+                                                fontSize: '1rem',color:"black"
+                                            }}
+                                        >
+                                            {
+                                                teamResponse.theme
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                    <b
+                                            style={{
+                                                fontSize: '1.2rem'
+                                            }}
+                                        >
+                                           2.Focus Area
+                                            {/* {item?.question_no || ''}.{' '}
+                                                {item?.question || ''} */}
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5">
+                                    <p
+                                            style={{
+                                                fontSize: '1rem',color:"black"
+                                            }}
+                                        >
+                                            {
+                                                teamResponse.focus_area
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>{' '}
+                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                    <b
+                                            style={{
+                                                fontSize: '1.2rem'
+                                            }}
+                                        >
+                                             3. Title of your idea (Think of a proper name. Don't describe
+                                                the solution or problem statement here.)
+                                           
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5">
+                                    <p
+                                            style={{
+                                                fontSize: '1rem',color:"black"
+                                            }}
+                                        >
+                                            {
+                                                teamResponse.title
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>{' '}
+                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                    <b
+                                            style={{
+                                                fontSize: '1.2rem'
+                                            }}
+                                        >
+                                            4. Write down your Problem statement
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5">
+                                    <p
+                                            style={{
+                                                fontSize: '1rem',color:"black"
+                                            }}
+                                        >
+                                            {teamResponse.problem_statement}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>{' '}
+                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                    <b
+                                            style={{
+                                                fontSize: '1.2rem'
+                                            }}
+                                        >
+                                              5. List the Causes of the problem
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5">
+                                    <p
+                                            style={{
+                                                fontSize: '1rem',color:"black"
+                                            }}
+                                        >
+                                            {teamResponse.causes}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>{' '}
+                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                    <b
+                                            style={{
+                                                fontSize: '1.2rem'
+                                            }}
+                                        >
+                                            6. List the Effects of the problem
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5">
+                                    <p
+                                            style={{
+                                                fontSize: '1rem',color:"black"
+                                            }}
+                                        >
+                                            {teamResponse.effects}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>{' '}
+                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                    <b
+                                            style={{
+                                                fontSize: '1.2rem'
+                                            }}
+                                        >
+                                             7. In which places in your community did you find this problem?
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5">
+                                    <p
+                                            style={{
+                                                fontSize: '1rem',color:"black"
+                                            }}
+                                        >
+                                            {teamResponse.community}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>{' '}
+                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                        <b
+                                            style={{
+                                                fontSize: '1.2rem'
+                                            }}
+                                        >
+                                             8. Who all are facing this problem?
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5">
+                                        <p
+                                            style={{
+                                                fontSize: '1rem',color:"black"
+                                            }}
+                                        >
+                                            {teamResponse.facing}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>{' '}
+                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                    <b
+                                            style={{
+                                                fontSize: '1.2rem'
+                                            }}
+                                        >
+                                              9. Describe the solution to the problem your team found. Explain
+                your solution clearly - how does it work, who is it helping, and
+                how will it solve the problem.
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5">
+                                    <p
+                                            style={{
+                                                fontSize: '1rem',color:"black"
+                                            }}
+                                        >
+                                            {teamResponse.solution}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                        <b
+                                            style={{
+                                                fontSize: '1.2rem'
+                                            }}
+                                        >
+                                             10. Apart from your teacher, how many people/stakeholders did you
+                                             speak to to understand or improve your problem or solution?
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5">
+                                        <p
+                                            style={{
+                                                fontSize: '1rem',color:"black"
+                                            }}
+                                        >
+                                            {teamResponse.stakeholders}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>{' '}
+                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                        <b
+                                            style={{
+                                                fontSize: '1.2rem'
+                                            }}
+                                        >
+                                             11. Pick the actions your team did in your problem solving
+                                             journey (You can choose multiple options)
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5">
+                                        <p
+                                            style={{
+                                                fontSize: '1rem',color:"black"
+                                            }}
+                                        >
+                                           {problemSolvingArray}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>{' '}
+                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                        <b
+                                            style={{
+                                                fontSize: '1.2rem'
+                                            }}
+                                        >
+                                             12. Mention the feedback that your team got and the changes you
+                                             have made, if any, to your problem or solution.
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5">
+                                        <p
+                                            style={{
+                                                fontSize: '1rem',color:"black"
+                                            }}
+                                        >
+                                          {teamResponse.feedback}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>{' '}
+                          
+                                    <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                        <div
+                                            // key={index}
+                                            className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                        >
+                                            <div className="question quiz mb-0">
+                                                <b
+                                                    style={{
+                                                        fontSize: '1.2rem'
+                                                    }}
+                                                >
+                                                    13. Upload image of your prototype. (total size limit : 10mb)
+                                                </b>
+                                            </div>
+                                            <div className="bg-light rounded p-5">
+                                                {files.length > 0 &&
+                                                    files.map((item, i) => (
+                                                        <div key={i}>
+                                                            {/* <CardTitle className="fw-bold">
+                                                    {item.question}
+                                                </CardTitle> */}
+                                                            {/* <CardBody> */}
+                                                            <a
+                                                                key={i}
+                                                                className="badge mb-2 bg-info p-3 ms-3"
+                                                                target="_blank"
+                                                                rel="noreferrer"
+                                                                onClick={() =>
+                                                                    downloadFile(
+                                                                        item
+                                                                    )
+                                                                }
+                                                            >
+                                                                {item
+                                                                    .split('/')
+                                                                    .pop()}
+                                                            </a>
+                                                            {/* </CardBody> */}
+                                                        </div>
+                                                    ))}
+                                                {/* <p
+                                        style={{
+                                            fontSize: '1.4rem'
+                                        }}
+                                    >
+                                        {teamResponse?.Prototype_file}
+                                    </p> */}
+                                            </div>
+                                        </div>
+                                    </div>
+                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                        <b
+                                            style={{
+                                                fontSize: '1.2rem'
+                                            }}
+                                        >
+                                            14. Upload documents & video links of your prototype.
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5">
+                                        <p
+                                            style={{
+                                                fontSize: '1rem',color:"black"
+                                            }}
+                                        >
+                                            {teamResponse.prototype_link}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                        <b
+                                            style={{
+                                                fontSize: '1.2rem'
+                                            }}
+                                        >
+                                            15. Did your team complete and submit the workbook to your
+                                            school Guide teacher?
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5">
+                                        <p
+                                            style={{
+                                                fontSize: '1rem',color:"black"
+                                            }}
+                                        >
+                                            {teamResponse.workbook}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* {teamResponse?.map((item, index) => {
                                 return (
                                     <div
                                         key={index}
@@ -654,19 +1072,9 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                                 )}
                                             </p>
                                         </div>
-                                        {
-                                            item.challenge_question_id === 5 && (
-                                                <>
-                                                    < a href={item.selected_option} target="_blank" rel="noopener noreferrer">
-                                                        {`Watch Here`}
-                                                    </a>
-                                                    <p>(Note : if students submitted multiple links, please copy paste in browser.)</p>
-                                                </>
-                                            )
-                                        }
                                     </div>
                                 );
-                            })}
+                            })} */}
                         </div>
                     </div>
 

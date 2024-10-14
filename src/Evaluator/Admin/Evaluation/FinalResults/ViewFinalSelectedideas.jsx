@@ -104,7 +104,7 @@ const ViewSelectedIdea = () => {
         const apiParam = encryptGlobal(
             JSON.stringify({
                 key: title == '0' ? '0' : '1',
-                state : state !== 'All States' ? state : '',
+                state : selectstate !== 'All States' ? selectstate : '',
                 sdg : sdg !== 'All Themes' ? sdg : ''
             })
         );

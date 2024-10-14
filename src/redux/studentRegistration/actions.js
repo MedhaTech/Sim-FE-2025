@@ -675,9 +675,10 @@ export const getStudentDashboardTutorialVideos =
 export const updateStudentCertificate = async (id) => {
   try {
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+    const idParam = encryptGlobal(JSON.stringify(id));
     await axios
       .get(
-        `${process.env.REACT_APP_API_BASE_URL}/students/${id}/studentCertificate`,
+        `${process.env.REACT_APP_API_BASE_URL}/students/${idParam}/studentCertificate`,
         axiosConfig
       )
       .then((data) => data)

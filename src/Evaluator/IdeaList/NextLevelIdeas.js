@@ -33,7 +33,7 @@ const IdeaList = () => {
     const handleNext = () => {
         dispatch(getSubmittedIdeaList('L2'));
     };
-
+console.log(ideaDetails,"IDEA");
     return (
         <div className="page-wrapper">
         <div className="content">
