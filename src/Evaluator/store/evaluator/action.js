@@ -38,7 +38,7 @@ export const evaluatorLoginUserError = (message) => async (dispatch) => {
 };
 
 export const evaluatorLoginUser =
-  (data, history, module) => async (dispatch) => {
+  (data, navigate, module) => async (dispatch) => {
     try {
       const loginData = {
         ...data,
@@ -60,7 +60,7 @@ export const evaluatorLoginUser =
         localStorage.setItem("module", module);
         dispatch(evaluatorLoginUserSuccess(result));
 
-        history.push("/evaluator/instructions");
+        navigate("/evaluator/instructions");
       } else {
         openNotificationWithIcon("error", "Invalid Username or Password");
         dispatch(evaluatorLoginUserError(result.statusText));
