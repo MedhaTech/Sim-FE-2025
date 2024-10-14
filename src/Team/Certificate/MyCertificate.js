@@ -153,6 +153,36 @@ const Certificate = ({
               : t("teacher_certificate.download")}
           </button>
         </div>
+        <div className="mt-3">
+  {type ? (
+    isEnabled ? (
+      <p>
+        <span style={{ color: 'green', fontWeight: 'bold' }}>🌟 Congratulations, Innovators!</span><br/>
+        Your passion, creativity, and hard work have brought you to the Level 3 Round of Evaluation! This achievement is a testament to your dedication and the incredible ideas you’ve put forward. As you advance to this stage, remember that the journey of innovation is as valuable as the destination itself. <br/>
+        Each challenge is an opportunity to learn, grow, and showcase the power of your imagination. Keep pushing your boundaries, stay curious, and continue to believe in your vision. Your ideas have the potential to make a real impact, and this is just the beginning! Keep up the great work, and let your innovation shine! <br/>
+        <span style={{ color: 'green', fontWeight: 'bold' }}>All the best for final results and keep reaching for the stars! 🌟🚀</span>
+      </p>
+    ) : (
+      <p>
+        <span style={{ color: 'red' }}>Note</span>: Your Appreciation certificate enables if your idea <span style={{ color: 'red' }}>reaches Level 3</span> in the evaluation process.
+      </p>
+    )
+  ) : (
+    isEnabled ? (
+      <p>
+        <span style={{ color: 'green', fontWeight: 'bold' }}>Congratulations, Future Leaders!</span> <br/>
+        You’ve successfully completed the Problem-Solving Journey course, and what an incredible achievement that is! 🎉 Through this journey, you’ve mastered essential <span style={{ color: 'green', fontWeight: 'bold' }}>21st-century skills</span>—from critical thinking and creativity to collaboration and communication.<br/> 
+        These skills are not just tools for solving problems but keys to unlocking your full potential in every field you choose. Keep nurturing your curiosity, embrace challenges, and continue applying what you’ve learned to make a positive impact in the world. <br/>
+        <span style={{ color: 'green', fontWeight: 'bold' }}>We are so proud of you! Keep learning, growing, and reaching for new heights! 🚀✨</span>
+      </p>
+    ) : (
+      <p>
+        <span style={{ color: 'red' }}>Note</span>: Your Problem Solving course certificate enables after you <span style={{ color: 'red' }}>reach 100%</span> course completion.
+      </p>
+    )
+  )}
+</div>
+
       </CardBody>
     </Card>
   );
@@ -292,7 +322,7 @@ const MyCertificate = () => {
     if (resList !== null) {
       console.log(resList, "resList updated");
       
-      if (status !== null && status === "SUBMITTED" && score !== null && score > 6.5 && resList === 1) {
+      if (status !== null && status === "SUBMITTED" && score !== null && score >= 6.5 && resList === 1) {
         setIdeaEnabled(true);
         console.log("Certificate Enabled");
       } else {

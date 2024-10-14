@@ -55,8 +55,16 @@ export const teamloginUser = (data, navigate, module) => async (dispatch) => {
       navigate("/team-dashboard");
       // history.push('/dashboard');
     } else {
+      if (result.status === 401) {
+        openNotificationWithIcon(
+          "error",
+          "Your Account is Inactive. Contact administrator"
+        );
+      } else {
+        openNotificationWithIcon("error", "Entered Invalid Team Id or Password");
+      }
       dispatch(teamloginUserError(result.statusText));
-      openNotificationWithIcon("error", "Your Account is Inactive. Contact administrator");
+      
     }
   } catch (error) {
     dispatch(teamloginUserError({}));
