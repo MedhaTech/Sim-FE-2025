@@ -599,12 +599,12 @@ const EadmiHeader = () => {
                   </div>
                 </div>
                 <hr className="m-0" />
-                {/* <Link
+                <Link
                   className="dropdown-item"
-                  to={"/eadmin-changepwd"}
+                  to={"/evaluator/change-password"}
                 >
                   <FontAwesomeIcon icon={faKey} /> <h6>Change Password</h6> 
-                </Link> */}
+                </Link>
                 {/* <Link className="dropdown-item" to={route.generalsettings}>
                   <Settings className="me-2" />
                   Settings
@@ -648,9 +648,9 @@ const EadmiHeader = () => {
             {/* <Link className="dropdown-item" to="generalsettings">
               Settings
             </Link> */}
-              {/* <Link className="dropdown-item" to={"/eadmin-changepwd"}>
+              <Link className="dropdown-item" to={"/evaluator/change-password"}>
                 Change Password
-              </Link> */}
+              </Link>
             <Link className="dropdown-item" to="signin">
               Logout
             </Link>
