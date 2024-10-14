@@ -275,7 +275,7 @@
         "please_com_all": "Please complete all the fields before submitting",
         "not_allowed": "Not Allowed",
         "post_survey": "Post Survey",
-        "idea_submitted_desc": "<h2>Congratulations for successfully submitting the idea</h2>.</br><p>Please click continue to complete your post survey and get your certificate.</p>",
+        "idea_submitted_desc": "<h2>Congratulations for successfully submitting the idea</h2>",
         "post_survey_desc": "Congratulations! your journey in this program is complete.",
         "click_button_post_survey": "Your certificate will be ready soon and you can download it from ‘My Certificate Page’",
         "max_length_msg1": "Maximum length of words are",
@@ -289,7 +289,7 @@
         "completed_text": "Thank you for completing the Survey. Your responses are important for us to get to know you and your students better."
     },
     "teacher_certificate": {
-        "download": "Download Certificate",
+        "download": "Download Course Certificate",
         "participate_certificate": "Idea Submission Certificate",
         "download_participate": "Download Idea Certificate",
         "certificate": "Course Completion Certificate",
@@ -438,10 +438,11 @@
         "quiz_completed": "Successfully Completed!",
         "go_idea_submission": "Start Idea Submission",
         "submission": "Idea Submission ",
+        "certificate":"Get Course Certificate",
 
         "go_certificate": "Go to My Certificate",
         "course_completed_succ": "Congratulations for successful completion of all the lessons!",
-        "continue_to_idea": "Click to proceed to Idea Submission.",
+        "continue_to_idea": "Click to download your Problem solving course certificate and Proceed to Idea submission",
         "sdg": "Which theme are you targeting with your solution ?",
         "subCategory": "Which problem statement are you targeting with your solution ?",
         "sdg_desc": "",

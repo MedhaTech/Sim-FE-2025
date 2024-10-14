@@ -66,19 +66,23 @@ const CourseSuccessMessage = () => {
 useEffect(() => {
     submittedApi();
 }, []);
-  const handleClick = () => {
+const handleClick = (page) => {
     // alert("hii");
     // dispatch(
     //   getStudentDashboardStatus(currentUser?.data[0]?.user_id, language)
     // );
    
     setTimeout(() => {
-      if (initiate === "" || initiate == null) {
-        navigate("/instruction"); 
+      if (page === "certificate") {
+        navigate("/certificate");  
       } else {
-        navigate("/idea"); 
+        if (initiate === "" || initiate == null) {
+          navigate("/instruction"); 
+        } else {
+          navigate("/idea"); 
+        }
       }
-    }, 300); 
+    }, 300);
   };
   return (
     <div className="container new-result">
@@ -102,24 +106,35 @@ useEffect(() => {
               {t("student_course.continue_to_idea")}
             </h5>
           </div>
-          <div className="d-sm-flex justify-content-center mb-3 text-center">
+          <div className="d-sm-flex justify-content-center mb-3 text-center"style={{ gap: '10px' }}>
           {initiate === "" || initiate == null ?
           ( <Button
               label={t("student_course.go_idea_submission")}
               btnClass="primary mt-4 mx-4"
               className="btn btn-warning"
               size="small"
-            onClick={handleClick}
+              onClick={() => handleClick("idea")}  
             />)
+            
+            
             :
             ( <Button
               label={t("student_course.submission")}
               btnClass="primary mt-4 mx-4"
               className="btn btn-warning"
               size="small"
-            onClick={handleClick}
+              onClick={() => handleClick("idea")} 
             />)
+            
           }
+        
+           <Button
+              label={t("student_course.certificate")}
+              btnClass="primary mt-4 mx-4"
+              className="btn btn-warning"
+              size="small"
+              onClick={() => handleClick("certificate")} 
+            />
             {/* {t("student_course.go_idea_submission")}
             </button> */}
           </div>
