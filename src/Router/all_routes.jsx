@@ -87,7 +87,7 @@ eadminDist:'/eadmin/selectingDistricts-evaluationProcess',
 evalinstructions:"/evaluator/instructions",
 evalsubmit:"/evaluator/submitted-ideas",
 evalsubmitwo:"/evaluator2/submitted-ideas",
-
+evalchange:"/evaluator/change-password",
 
   adminpassword: "/admin-password",
   productlist: "/product-list",

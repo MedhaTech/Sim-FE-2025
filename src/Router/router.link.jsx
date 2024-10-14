@@ -137,6 +137,8 @@ import EadminDist from "../Evaluator/Admin/EvalProcess/SelectingDistricts";
 import Instruction from "../Evaluator/Instructions/Instructions";
 import IdeaList from "../Evaluator/IdeaList/IdeaList";
 import NextLevel from "../Evaluator/IdeaList/NextLevelIdeas";
+import ChangeEval from "../Evaluator/ChangePSWModal";
+
 
 
 
@@ -888,6 +890,14 @@ export const evaluatorRoutes = [
     path: routes.evalsubmitwo,
     name: "evalsubmitwo",
     element: <NextLevel />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 4,
+    path: routes.evalchange,
+    name: "evalchange",
+    element: <ChangeEval/>,
     protected: true,
     route: Route,
   },

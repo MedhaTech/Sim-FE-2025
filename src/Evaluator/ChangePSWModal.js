@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Form, Label } from 'reactstrap';
 import axios from 'axios';
-import { InputBox } from '../stories/InputBox/InputBox';
+// import { InputBox } from '../stories/InputBox/InputBox';
 import CryptoJS from 'crypto-js';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -10,13 +11,14 @@ import { getCurrentUser, openNotificationWithIcon } from '../helpers/Utils';
 import { useTranslation } from 'react-i18next';
 import 'sweetalert2/src/sweetalert2.scss';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
-import Layout from './Layout';
-import { useHistory } from 'react-router-dom';
-
+// import Layout from './Layout';
+import { useNavigate,Link } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faKey } from "@fortawesome/free-solid-svg-icons";
 const ChangePSWModal = () => {
     // here we can change the password //
     const currentUser = getCurrentUser('current_user');
-    const history = useHistory();
+    const navigate = useNavigate();
     const { t } = useTranslation();
     const [error, SetError] = useState('');
     // eslint-disable-next-line no-unused-vars
@@ -42,11 +44,23 @@ const ChangePSWModal = () => {
 
         onSubmit: async (values) => {
             if (values.newPassword.length < 8) {
-                SetError('New Password must be 8-character minimum');
-            } else if (values.oldPassword === values.newPassword) {
-                SetError('Old Password and New Passwordare same');
-            } else if (values.newPassword !== values.confirmPassword) {
-                SetError('New Password and Confirm Password not same');
+                SetError(
+                  <span style={{ color: "red" }}>
+                    New Password must be 8-character minimum
+                  </span>
+                );
+              } else if (values.oldPassword === values.newPassword) {
+                SetError(
+                  <span style={{ color: "red" }}>
+                    Old Password and New Password are same
+                  </span>
+                );
+              } else if (values.newPassword !== values.confirmPassword) {
+                SetError(
+                  <span style={{ color: "red" }}>
+                    New Password and Confirm Password not same
+                  </span>
+                );
             } else {
                 const key = CryptoJS.enc.Hex.parse(
                     '253D3FB468A0E24677C28A624BE0F939'
@@ -89,7 +103,7 @@ const ChangePSWModal = () => {
                                 response?.data?.message
                             );
                             setTimeout(() => {
-                                history.push('/evaluator/submitted-ideas');
+                                navigate('/evaluator/submitted-ideas');
                             }, 1000);
                         }
                     })
@@ -110,6 +124,10 @@ const ChangePSWModal = () => {
     const [oldPassType, setOldPassType] = useState('password');
     const [newPassType, setNewPassType] = useState('password');
     const [confirmPassType, setConfirmPassType] = useState('password');
+
+    const [isOldPasswordVisible, setOldPasswordVisible] = useState(false);
+    const [isNewPasswordVisible, setNewPasswordVisible] = useState(false);
+    const [isPasswordVisible, setPasswordVisible] = useState(false);
     const oldPassword = {
         type: oldPassType,
         placeholder: t('changepswd.Enter_current_password_here'),
@@ -136,188 +154,308 @@ const ChangePSWModal = () => {
         // here name = password //
         switch (name) {
             case oldPassword:
-                name?.type === 'password'
-                    ? setOldPassType('text')
-                    : setOldPassType('password');
+                name?.type === "password"
+                  ? (setOldPassType("text"), setOldPasswordVisible(true))
+                  : (setOldPassType("password"), setOldPasswordVisible(false));
                 break;
-            case newPassword:
-                name?.type === 'password'
-                    ? setNewPassType('text')
-                    : setNewPassType('password');
+              case newPassword:
+                name?.type === "password"
+                  ? (setNewPassType("text"), setNewPasswordVisible(true))
+                  : (setNewPassType("password"), setNewPasswordVisible(false));
                 break;
-            case confirmPassword:
-                name?.type === 'password'
-                    ? setConfirmPassType('text')
-                    : setConfirmPassType('password');
+              case confirmPassword:
+                name?.type === "password"
+                  ? (setConfirmPassType("text"), setPasswordVisible(true))
+                  : (setConfirmPassType("password"), setPasswordVisible(false));
                 break;
         }
     };
     return (
-        <Layout>
-            <div className="container ChangePSWModal mt-5 mb-50 ">
-                <Row className="mt-5 bg-white rounded p-md-5 p-3">
-                    <Col md={12}>
-                        <h5>{t('changepswd.Change your password')}</h5>
-                        <p>
-                            {t(
-                                'changepswd.password_helps_prevent_unauthorized'
-                            )}
-                        </p>
-                    </Col>
-                    <Col md={12}>
-                        <Form onSubmit={formik.handleSubmit}>
-                            <div className="form-row row mb-5 mt-3">
-                                <Col
-                                    className="form-group position-relative"
-                                    md={12}
-                                >
-                                    <Label className="mb-2" htmlFor="Password">
-                                        {t('changepswd.Current_password')}
-                                    </Label>
-                                    <InputBox
-                                        {...oldPassword}
-                                        id="oldPassword"
-                                        name="oldPassword"
-                                        onChange={formik.handleChange}
-                                        onBlur={formik.handleBlur}
-                                        value={formik.values.oldPassword}
-                                    />
-                                    <div
-                                        className="pointer position-absolute top-50 end-0 me-4 mt-1"
-                                        onClick={() => {
-                                            handleShowPassword(oldPassword);
-                                        }}
-                                    >
-                                        {oldPassword?.type === 'password' ? (
-                                            <FaEyeSlash size={18} />
-                                        ) : (
-                                            <FaEye size={18} />
-                                        )}
-                                    </div>
-
-                                    {formik.touched.oldPassword &&
-                                    formik.errors.oldPassword ? (
-                                        <small className="error-cls">
-                                            {formik.errors.oldPassword}
-                                        </small>
-                                    ) : null}
-                                </Col>
-                            </div>
-                            <div className="w-100 clearfix " />
-
-                            <div className="form-row row  mb-5">
-                                <Col
-                                    className="form-group position-relative"
-                                    md={12}
-                                >
-                                    <Label
-                                        className="mb-2"
-                                        htmlFor="newPassword"
-                                    >
-                                        {t('changepswd.New_password')}
-                                    </Label>
-                                    <InputBox
-                                        {...newPassword}
-                                        id="newPassword"
-                                        name="newPassword"
-                                        onChange={formik.handleChange}
-                                        onBlur={formik.handleBlur}
-                                        value={formik.values.newPassword}
-                                    />
-                                    <div
-                                        className="pointer position-absolute end-0 me-4"
-                                        style={{ top: '4rem' }}
-                                        onClick={() => {
-                                            handleShowPassword(newPassword);
-                                        }}
-                                    >
-                                        {newPassword?.type === 'password' ? (
-                                            <FaEyeSlash size={18} />
-                                        ) : (
-                                            <FaEye size={18} />
-                                        )}
-                                    </div>
-                                    <small className="mt-2">
-                                        {t(
-                                            'changepswd.8-charac_minimum_case_sensitive'
-                                        )}
-                                    </small>
-                                    {formik.touched.newPassword &&
-                                    formik.errors.newPassword ? (
-                                        <small className="error-cls">
-                                            {formik.errors.newPassword}
-                                        </small>
-                                    ) : null}
-                                </Col>
-                                <div className="w-100 clearfix" />
-                                <Col
-                                    className="form-group mt-5 position-relative"
-                                    md={12}
-                                >
-                                    <Label
-                                        className="mb-2"
-                                        htmlFor="confirmPassword"
-                                    >
-                                        {t('changepswd.Verify_New_password')}
-                                    </Label>
-                                    <InputBox
-                                        {...confirmPassword}
-                                        id="confirmPassword"
-                                        name="confirmPassword"
-                                        onChange={formik.handleChange}
-                                        onBlur={formik.handleBlur}
-                                        value={formik.values.confirmPassword}
-                                    />
-                                    <div
-                                        className="pointer position-absolute top-50 end-0 me-4 mt-1"
-                                        onClick={() => {
-                                            handleShowPassword(confirmPassword);
-                                        }}
-                                    >
-                                        {confirmPassword?.type ===
-                                        'password' ? (
-                                            <FaEyeSlash size={18} />
-                                        ) : (
-                                            <FaEye size={18} />
-                                        )}
-                                    </div>
-                                    {formik.touched.confirmPassword &&
-                                    formik.errors.confirmPassword ? (
-                                        <small className="error-cls">
-                                            {formik.errors.confirmPassword}
-                                        </small>
-                                    ) : null}
-                                </Col>
-                            </div>
-                            {error}
-
-                            {responce}
-                            <div
-                                className="swal2-actions"
-                                style={{
-                                    display: 'flex',
-                                    justifyContent: 'end',
-                                    fontSize: '0.9em'
-                                }}
-                            >
-                                <button
-                                    onClick={handleOnCancel}
-                                    className="btn btn-outline-secondary rounded-pill sweet-btn-max"
-                                >
-                                    {t('changepswd.Cancel')}
-                                </button>
-                                <button
-                                    type="submit"
-                                    className="storybook-button storybook-button--small storybook-button--primary sweet-btn-max"
-                                >
-                                    {t('changepswd.Change_password')}
-                                </button>
-                            </div>
-                        </Form>
-                    </Col>
-                </Row>
+        <div className="page-wrapper">
+        <div className="content">
+          <div className="login-wrapper reset-pass-wrap bg-img">
+            <div className="login-content">
+              <form action="success-3" onSubmit={formik.handleSubmit}>
+                <div className="login-userset">
+                  <div className="login-userheading">
+                    <h3>Reset password?</h3>
+                    <h4>
+                      A strong password helps prevent unauthorized access to your
+                      account.
+                    </h4>
+                  </div>
+                  <div className="form-login mb-2">
+                    <label>Current Password</label>
+                    <div className="pass-group">
+                      <input
+                        className="pass-input"
+                        {...oldPassword}
+                        id="oldPassword"
+                        name="oldPassword"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.oldPassword}
+                      />
+                      <div
+                        className={`fas toggle-password ${
+                          isOldPasswordVisible ? "fa-eye" : "fa-eye-slash"
+                        }`}
+                        onClick={() => {
+                          handleShowPassword(oldPassword);
+                        }}
+                      ></div>
+                    </div>
+                    {formik.touched.oldPassword && formik.errors.oldPassword ? (
+                      <small className="error-cls">
+                        {formik.errors.oldPassword}
+                      </small>
+                    ) : null}
+                  </div>
+                  <div className="form-login mb-2">
+                    <label>New Password</label>
+                    <div className="pass-group">
+                      <input
+                        className="pass-inputs"
+                        {...newPassword}
+                        id="newPassword"
+                        name="newPassword"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.newPassword}
+                      />
+                      <div
+                        className={`fas toggle-password ${
+                          isNewPasswordVisible ? "fa-eye" : "fa-eye-slash"
+                        }`}
+                        onClick={() => {
+                          handleShowPassword(newPassword);
+                        }}
+                      ></div>
+                    </div>
+                    <small className="mt-2">
+                      8-character minimum; case sensitive
+                    </small>
+                    <br />
+                    {formik.touched.newPassword && formik.errors.newPassword ? (
+                      <small className="error-cls">
+                        {formik.errors.newPassword}
+                      </small>
+                    ) : null}
+                  </div>
+                  <div className="form-login mb-2">
+                    <label> Confirm New Password</label>
+                    <div className="pass-group">
+                      <input
+                        className="pass-inputa"
+                        {...confirmPassword}
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.confirmPassword}
+                      />
+                      <div
+                        className={`fas toggle-password ${
+                          isPasswordVisible ? "fa-eye" : "fa-eye-slash"
+                        }`}
+                        onClick={() => {
+                          handleShowPassword(confirmPassword);
+                        }}
+                      ></div>
+                    </div>
+                    {formik.touched.confirmPassword &&
+                    formik.errors.confirmPassword ? (
+                      <small className="error-cls">
+                        {formik.errors.confirmPassword}
+                      </small>
+                    ) : null}
+                  </div>
+                  <b style={{ color: "red" }}>{error}</b>
+                  <b style={{ color: "#3BB143" }}>{responce}</b>
+                  <div className="form-login">
+                    <button className="btn btn-login" type="submit">
+                      Change Password{"  "} <FontAwesomeIcon icon={faKey} />
+                    </button>
+                  </div>
+                  <div className="signinform text-center">
+                    <h4>
+                      <Link to={"/evaluator/submitted-ideas"} className="hover-a">
+                        {" "}
+                        Cancel{" "}
+                      </Link>
+                    </h4>
+                  </div>
+                </div>
+              </form>
             </div>
-        </Layout>
+          </div>
+        </div>
+      </div>
+        // <Layout>
+        //     <div className="container ChangePSWModal mt-5 mb-50 ">
+        //         <Row className="mt-5 bg-white rounded p-md-5 p-3">
+        //             <Col md={12}>
+        //                 <h5>{t('changepswd.Change your password')}</h5>
+        //                 <p>
+        //                     {t(
+        //                         'changepswd.password_helps_prevent_unauthorized'
+        //                     )}
+        //                 </p>
+        //             </Col>
+        //             <Col md={12}>
+        //                 <Form onSubmit={formik.handleSubmit}>
+        //                     <div className="form-row row mb-5 mt-3">
+        //                         <Col
+        //                             className="form-group position-relative"
+        //                             md={12}
+        //                         >
+        //                             <Label className="mb-2" htmlFor="Password">
+        //                                 {t('changepswd.Current_password')}
+        //                             </Label>
+        //                             <InputBox
+        //                                 {...oldPassword}
+        //                                 id="oldPassword"
+        //                                 name="oldPassword"
+        //                                 onChange={formik.handleChange}
+        //                                 onBlur={formik.handleBlur}
+        //                                 value={formik.values.oldPassword}
+        //                             />
+        //                             <div
+        //                                 className="pointer position-absolute top-50 end-0 me-4 mt-1"
+        //                                 onClick={() => {
+        //                                     handleShowPassword(oldPassword);
+        //                                 }}
+        //                             >
+        //                                 {oldPassword?.type === 'password' ? (
+        //                                     <FaEyeSlash size={18} />
+        //                                 ) : (
+        //                                     <FaEye size={18} />
+        //                                 )}
+        //                             </div>
+
+        //                             {formik.touched.oldPassword &&
+        //                             formik.errors.oldPassword ? (
+        //                                 <small className="error-cls">
+        //                                     {formik.errors.oldPassword}
+        //                                 </small>
+        //                             ) : null}
+        //                         </Col>
+        //                     </div>
+        //                     <div className="w-100 clearfix " />
+
+        //                     <div className="form-row row  mb-5">
+        //                         <Col
+        //                             className="form-group position-relative"
+        //                             md={12}
+        //                         >
+        //                             <Label
+        //                                 className="mb-2"
+        //                                 htmlFor="newPassword"
+        //                             >
+        //                                 {t('changepswd.New_password')}
+        //                             </Label>
+        //                             <InputBox
+        //                                 {...newPassword}
+        //                                 id="newPassword"
+        //                                 name="newPassword"
+        //                                 onChange={formik.handleChange}
+        //                                 onBlur={formik.handleBlur}
+        //                                 value={formik.values.newPassword}
+        //                             />
+        //                             <div
+        //                                 className="pointer position-absolute end-0 me-4"
+        //                                 style={{ top: '4rem' }}
+        //                                 onClick={() => {
+        //                                     handleShowPassword(newPassword);
+        //                                 }}
+        //                             >
+        //                                 {newPassword?.type === 'password' ? (
+        //                                     <FaEyeSlash size={18} />
+        //                                 ) : (
+        //                                     <FaEye size={18} />
+        //                                 )}
+        //                             </div>
+        //                             <small className="mt-2">
+        //                                 {t(
+        //                                     'changepswd.8-charac_minimum_case_sensitive'
+        //                                 )}
+        //                             </small>
+        //                             {formik.touched.newPassword &&
+        //                             formik.errors.newPassword ? (
+        //                                 <small className="error-cls">
+        //                                     {formik.errors.newPassword}
+        //                                 </small>
+        //                             ) : null}
+        //                         </Col>
+        //                         <div className="w-100 clearfix" />
+        //                         <Col
+        //                             className="form-group mt-5 position-relative"
+        //                             md={12}
+        //                         >
+        //                             <Label
+        //                                 className="mb-2"
+        //                                 htmlFor="confirmPassword"
+        //                             >
+        //                                 {t('changepswd.Verify_New_password')}
+        //                             </Label>
+        //                             <InputBox
+        //                                 {...confirmPassword}
+        //                                 id="confirmPassword"
+        //                                 name="confirmPassword"
+        //                                 onChange={formik.handleChange}
+        //                                 onBlur={formik.handleBlur}
+        //                                 value={formik.values.confirmPassword}
+        //                             />
+        //                             <div
+        //                                 className="pointer position-absolute top-50 end-0 me-4 mt-1"
+        //                                 onClick={() => {
+        //                                     handleShowPassword(confirmPassword);
+        //                                 }}
+        //                             >
+        //                                 {confirmPassword?.type ===
+        //                                 'password' ? (
+        //                                     <FaEyeSlash size={18} />
+        //                                 ) : (
+        //                                     <FaEye size={18} />
+        //                                 )}
+        //                             </div>
+        //                             {formik.touched.confirmPassword &&
+        //                             formik.errors.confirmPassword ? (
+        //                                 <small className="error-cls">
+        //                                     {formik.errors.confirmPassword}
+        //                                 </small>
+        //                             ) : null}
+        //                         </Col>
+        //                     </div>
+        //                     {error}
+
+        //                     {responce}
+        //                     <div
+        //                         className="swal2-actions"
+        //                         style={{
+        //                             display: 'flex',
+        //                             justifyContent: 'end',
+        //                             fontSize: '0.9em'
+        //                         }}
+        //                     >
+        //                         <button
+        //                             onClick={handleOnCancel}
+        //                             className="btn btn-outline-secondary rounded-pill sweet-btn-max"
+        //                         >
+        //                             {t('changepswd.Cancel')}
+        //                         </button>
+        //                         <button
+        //                             type="submit"
+        //                             className="storybook-button storybook-button--small storybook-button--primary sweet-btn-max"
+        //                         >
+        //                             {t('changepswd.Change_password')}
+        //                         </button>
+        //                     </div>
+        //                 </Form>
+        //             </Col>
+        //         </Row>
+        //     </div>
+        // </Layout>
     );
 };
 
