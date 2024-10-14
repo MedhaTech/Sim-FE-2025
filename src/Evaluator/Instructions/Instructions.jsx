@@ -1,14 +1,14 @@
+/* eslint-disable indent */
 import React from 'react';
 import { Card } from 'reactstrap';
-import Layout from '../Layout';
 import { Button } from '../../stories/Button';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getInstructions } from '../store/evaluator/action';
 
 const Instructions = () => {
     // here we can start the evaluator  journey //
-    const history = useHistory();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const instructiondata = useSelector(
         (state) => state?.evaluator.instructionsData
@@ -19,27 +19,38 @@ const Instructions = () => {
     }, []);
 
     return (
-        <Layout>
-            <Card className="m-5 p-5">
-                <h1>Instructions</h1>
+        <div className="page-wrapper">
+        <div className="content">
+            <Card className="m-2 p-2">
+                <h3 className='m-2 p-2'>Instructions</h3>
                 <div
                     dangerouslySetInnerHTML={{
                         __html: instructiondata && instructiondata?.instructions
                     }}
                 ></div>
 
-                <div className="text-right">
+                <div className='mt-2 mb-3' >
                     <Button
-                        label={"Let's Start"}
+                        label={'L1 - Round Evaluator'}
                         btnClass="primary mx-3"
                         size="small"
                         onClick={() =>
-                            history.push('/evaluator/submitted-ideas')
+                            navigate('/evaluator/submitted-ideas')
                         }
-                    ></Button>
+                    />
+                    <Button
+                        label={'L2 - Round Evaluator'}
+                        btnClass="primary mx-3"
+                        size="small"
+                        onClick={() =>
+                            navigate('/evaluator2/submitted-ideas')
+                        }
+                    />
                 </div>
             </Card>
-        </Layout>
+        </div>
+        </div>
+
     );
 };
 

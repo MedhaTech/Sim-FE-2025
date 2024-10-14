@@ -1,12 +1,13 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React from 'react';
 import './IdeaList.scss';
 // import Layout from '../Layout';
-import IdeaDetail from './IdeaDetail';
 import { Button } from '../../stories/Button';
 import { getSubmittedIdeaList } from '../store/evaluator/action';
 import { useDispatch, useSelector } from 'react-redux';
 import succesImg from '../../assets/img/success1.jpeg';
+import NextLevel from './NextLevel';
 
 const IdeaList = () => {
     // here we can see all the ideasList //
@@ -20,7 +21,7 @@ const IdeaList = () => {
     );
 
     React.useEffect(() => {
-        dispatch(getSubmittedIdeaList('L1'));
+        dispatch(getSubmittedIdeaList('L2'));
     }, []);
     React.useEffect(() => {
         if (allIdeaList) {
@@ -30,7 +31,7 @@ const IdeaList = () => {
         }
     }, [allIdeaList]);
     const handleNext = () => {
-        dispatch(getSubmittedIdeaList('L1'));
+        dispatch(getSubmittedIdeaList('L2'));
     };
 
     return (
@@ -44,7 +45,7 @@ const IdeaList = () => {
                     {!isNextDiv ? (
                         <div className="col-12">
                             {Object.keys(ideaDetails).length > 0 ? (
-                                <IdeaDetail
+                                <NextLevel
                                     ideaDetails={ideaDetails}
                                     handleSkip={handleNext}
                                     setIsNextDiv={setIsNextDiv}
@@ -90,7 +91,7 @@ const IdeaList = () => {
                     )}
                 </div>
             </div>
-            </div>
+            </div >
             </div >
     );
 };

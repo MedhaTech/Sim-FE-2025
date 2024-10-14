@@ -84,6 +84,9 @@ eadminevaluator:"/eadmin/evaluator",
 eadminfinal:"/eadmin/evaluationStatus/viewfinallist",
 eadminRest:"/eadmin-changepwd",
 eadminDist:'/eadmin/selectingDistricts-evaluationProcess',
+evalinstructions:"/evaluator/instructions",
+evalsubmit:"/evaluator/submitted-ideas",
+evalsubmitwo:"/evaluator2/submitted-ideas",
 
 
   adminpassword: "/admin-password",

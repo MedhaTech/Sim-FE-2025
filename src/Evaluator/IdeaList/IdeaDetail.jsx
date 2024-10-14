@@ -37,9 +37,9 @@ const IdeaDetail = (props) => {
      },[currentUser]);
 
     React.useEffect(() => {
-        if (props?.ideaDetails?.response) {
+        if (props?.ideaDetails) {
             setTeamResponse(
-                Object.entries(props?.ideaDetails?.response).map((e) => e[1])
+                props?.ideaDetails
             );
         }
     }, [props]);

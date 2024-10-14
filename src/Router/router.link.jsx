@@ -134,6 +134,11 @@ import ViewSelectedideasNew from "../Evaluator/Admin/Evaluation/ViewSelectedIdea
 import EadminFinal from "../Evaluator/Admin/Evaluation/FinalResults/ViewFinalSelectedideas";
 import EadminRest from "../Evaluator/Admin/Pages/ChangePSWModal";
 import EadminDist from "../Evaluator/Admin/EvalProcess/SelectingDistricts";
+import Instruction from "../Evaluator/Instructions/Instructions";
+import IdeaList from "../Evaluator/IdeaList/IdeaList";
+import NextLevel from "../Evaluator/IdeaList/NextLevelIdeas";
+
+
 
 
 
@@ -852,13 +857,38 @@ export const eadminRoutes = [
     protected: true,
     route: Route,
   },
+  // {
+  //   id: 9,
+  //   path: routes.evalinstructions,
+  //   name: "evalinstructions",
+  //   element: <Instruction/>,
+  //   protected: true,
+  //   route: Route,
+  // },
 ];
-export const posRoutes = [
+export const evaluatorRoutes = [
   {
     id: 1,
-    path: routes.pos,
-    name: "pos",
-    element: <Pos />,
+    path: routes.evalinstructions,
+    name: "evalinstructions",
+    element: <Instruction />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 2,
+    path: routes.evalsubmit,
+    name: "evalsubmit",
+    element: <IdeaList />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 3,
+    path: routes.evalsubmitwo,
+    name: "evalsubmitwo",
+    element: <NextLevel />,
+    protected: true,
     route: Route,
   },
 ];
