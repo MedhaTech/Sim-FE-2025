@@ -23,13 +23,33 @@ const IdeaList = () => {
     React.useEffect(() => {
         dispatch(getSubmittedIdeaList('L2'));
     }, []);
+    // React.useEffect(() => {
+    //     if (allIdeaList) {
+    //         setIdeaDetails(allIdeaList);
+    //     } else {
+    //         setIdeaDetails({});
+    //     }
+    // }, [allIdeaList]);
     React.useEffect(() => {
-        if (allIdeaList) {
-            setIdeaDetails(allIdeaList);
+        if (allIdeaList?.message === "All challenge has been accepted, no more challenge to display") {
+            setIdeaDetails(null); // Set ideaDetails to null when no more challenges exist
+        } else if (allIdeaList && Object.keys(allIdeaList).length > 0) {
+            setIdeaDetails(allIdeaList); // Update ideaDetails with the fetched data
         } else {
-            setIdeaDetails({});
+            setIdeaDetails({}); // Default empty object when there's no data
         }
     }, [allIdeaList]);
+    // React.useEffect(() => {
+    //     if (allIdeaList && allIdeaList.length > 0) {
+    //         setIdeaDetails(allIdeaList);
+    //     } else if (allIdeaList?.message === "All challenge has been accepted, no more challenge to display") {
+            
+    //         setIdeaDetails(null);
+    //     } else {
+            
+    //         setIdeaDetails({});
+    //     }
+    // }, [allIdeaList]); 
     const handleNext = () => {
         dispatch(getSubmittedIdeaList('L2'));
     };

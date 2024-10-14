@@ -7,6 +7,7 @@ import { Button } from '../../stories/Button';
 import { getSubmittedIdeaList } from '../store/evaluator/action';
 import { useDispatch, useSelector } from 'react-redux';
 import succesImg from '../../assets/img/success1.jpeg';
+// import { HmacSHA384 } from 'crypto-js';
 
 const IdeaList = () => {
     // here we can see all the ideasList //
@@ -22,13 +23,33 @@ const IdeaList = () => {
     React.useEffect(() => {
         dispatch(getSubmittedIdeaList('L1'));
     }, []);
+    // React.useEffect(() => {
+    //     if (allIdeaList) {
+    //         setIdeaDetails(allIdeaList);
+    //     } else {
+    //         setIdeaDetails({});
+    //     }
+    // }, [allIdeaList]);
     React.useEffect(() => {
-        if (allIdeaList) {
-            setIdeaDetails(allIdeaList);
+        if (allIdeaList?.message === "All challenge has been accepted, no more challenge to display") {
+            setIdeaDetails(null); // Set ideaDetails to null when no more challenges exist
+        } else if (allIdeaList && Object.keys(allIdeaList).length > 0) {
+            setIdeaDetails(allIdeaList); // Update ideaDetails with the fetched data
         } else {
-            setIdeaDetails({});
+            setIdeaDetails({}); // Default empty object when there's no data
         }
     }, [allIdeaList]);
+    // React.useEffect(() => {
+    //     if (allIdeaList && allIdeaList.length > 0) {
+    //         setIdeaDetails(allIdeaList);
+    //     } else if (allIdeaList?.message === "All challenge has been accepted, no more challenge to display") {
+            
+    //         setIdeaDetails(null);
+    //     } else {
+            
+    //         setIdeaDetails({});
+    //     }
+    // }, [allIdeaList]); 
     const handleNext = () => {
         dispatch(getSubmittedIdeaList('L1'));
     };
@@ -57,10 +78,10 @@ const IdeaList = () => {
                                                 <img src={succesImg} alt=".." />
                                                 <br />
                                             </div>
-                                            <h2 className="my-auto text-center my-4">
+                                            <h4 className="my-auto text-center my-4">
                                                 All idea has been processed, no
                                                 more idea to display.
-                                            </h2>
+                                            </h4>
                                         </div>
                                     </div>
                                 </div>

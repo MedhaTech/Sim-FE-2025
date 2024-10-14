@@ -111,6 +111,10 @@ const ViewMore = () => {
     };
     return (
         <div className="page-wrapper">
+             <h3 className="m-2" 
+        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"14px" }}
+        >Mentors
+        </h3>
         <div className="content">
             <Container className="dynamic-form">
                 <div className="d-flex align-items-end">

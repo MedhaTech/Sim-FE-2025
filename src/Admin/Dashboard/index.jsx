@@ -292,7 +292,11 @@ const adminStudentCourseCount = () => {
 
   return (
     <div>
-      <div className="page-wrapper">
+      <div className="page-wrapper" >
+        {/* <h3 className="m-2" 
+        style={{ position: 'sticky', top: '0', backgroundColor: 'white', zIndex: 1000, padding: '10px' }}
+        >Dashboard
+        </h3> */}
         <div className="content">
           <div className="row">
             <div className="col-xl-4 col-sm-6 col-12 d-flex">
