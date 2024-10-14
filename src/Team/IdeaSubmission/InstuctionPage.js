@@ -88,6 +88,7 @@ const teamId= currentUser.data[0]?.team_id;
       
         if (teamsMembersStatus.length >= minLength && teamsMembersStatus.length <= maxLength) {
           localStorage.setItem("ideaSubStatus", teamsMembersStatus[0].idea_submission);
+          console.log(teamsMembersStatus[0],"muconsole");
       
           if (Array.isArray(teamsMembersStatus)) {
             let anyCompleted = false;

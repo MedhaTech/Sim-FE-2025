@@ -262,7 +262,7 @@ const AdminLatestNews = () => {
                 name: 'Link',
                 width: '13rem',
                 cell: (record) => {
-                    if (record.url === null) {
+                    if (record.url === null && record.url == "") {
                         return <p>No link</p>;
                     } else {
                         return (

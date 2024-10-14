@@ -73,7 +73,7 @@ institutionreport:"/institution-report",
   studentcoo:"/studentcoo-report",
   intitutioncoo:"/institution-report",
   intitutioncoostate:"/state-institution-report",
-
+eadminstats:"/eadmin/evaluationStatus/viewlist",
   badgeTeacher:"/teacherBadges",
   statedashboard: "/state-dashboard",
   /// Eadmin///////
@@ -81,7 +81,9 @@ institutionreport:"/institution-report",
   eadminevaluation:"/eadmin/evaluationStatus",
 eadminEvaluationProcess:"/eadmin/evaluationProcess",
 eadminevaluator:"/eadmin/evaluator",
-
+eadminfinal:"/eadmin/evaluationStatus/viewfinallist",
+eadminRest:"/eadmin-changepwd",
+eadminDist:'/eadmin/selectingDistricts-evaluationProcess',
 
 
   adminpassword: "/admin-password",

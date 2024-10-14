@@ -311,7 +311,7 @@ const TicketsPage = (props) => {
             <div className="row">
             <Container className="ticket-page ">
                 <Row className="p-2">
-                    <h2>Evaluator List</h2>
+                    <h4>Evaluator List</h4>
                     <div className="text-right">
                         <Button
                             label={'Add New Evaluator'}

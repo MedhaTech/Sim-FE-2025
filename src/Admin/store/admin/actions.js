@@ -83,12 +83,22 @@ export const adminLoginUser = (data, navigate, module) => async (dispatch) => {
       dispatch(adminLoginUserSuccess(result));
 
       navigate("/admin-dashboard");
-    } else {
-      openNotificationWithIcon("error", "Invalid Credentials entered"
-);
+    } else if (result && result.status === 404) {
+      openNotificationWithIcon("error", "Invalid Credentials entered");
+     
       dispatch(adminLoginUserError(result.statusText));
+    }else{
+      openNotificationWithIcon(
+        'error',
+       "Entered Admin Credentials are in InActive Status"
+      );
     }
+
   } catch (error) {
+    openNotificationWithIcon(
+      'error',
+     "Entered Admin Credentials are in InActive Status"
+  );
     dispatch(adminLoginUserError({}));
   }
 };
@@ -165,7 +175,31 @@ export const getAdminListError = (message) => async (dispatch) => {
       payload: { message }
   });
 };
-
+export const getAdminList = () => async (dispatch) => {
+  try {
+      // dispatch({ type: GET_ADMINS });
+      const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+      const result = await axios
+          .get(`${URL.getAdmin}`, axiosConfig)
+          .then((user) => user)
+          .catch((err) => {
+              return err.response;
+          });
+      if (result && result.status === 200) {
+          const data = result.data?.data[0]?.dataValues || [];
+          let datamodify =
+              data.length > 0
+                  ? data.forEach((item, i) => (item.id = i + 1))
+                  : [];
+          console.log(datamodify);
+          dispatch(getAdminListSuccess(data));
+      } else {
+          dispatch(getAdminListError(result.statusText));
+      }
+  } catch (error) {
+      dispatch(getAdminListError({}));
+  }
+};
 export const deleteTempMentorById = async (id) => {
   try {
       const axiosConfig = getNormalHeaders(KEY.User_API_Key);

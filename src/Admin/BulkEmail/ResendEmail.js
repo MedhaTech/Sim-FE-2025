@@ -215,7 +215,7 @@ const ResendEmail = () => {
                         }`}
                         disabled={!formik.dirty}
                       >
-                        Submit details
+                        Trigger Email
                       </button>
                     </Col>
 
