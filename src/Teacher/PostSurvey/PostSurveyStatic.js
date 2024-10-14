@@ -11,8 +11,7 @@ const PostSurveyStatic = () => {
                 </div>
                 <div>
                     <h4 className="common-flex">
-                        Please ensure all the student teams submit the ideas to
-                        fill the post survey.
+                    Please ensure Submitted Ideas by all student teams are Approved for your post survey to enable.
                     </h4>
                     <h4 className="common-flex">
                         Certificate will be generated once you complete the post

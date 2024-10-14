@@ -88,6 +88,8 @@ evalinstructions:"/evaluator/instructions",
 evalsubmit:"/evaluator/submitted-ideas",
 evalsubmitwo:"/evaluator2/submitted-ideas",
 evalchange:"/evaluator/change-password",
+evlL1:"/evaluator/evaluated-ideas",
+evlL2:"/evaluator/evaluated-ideasL2",
 
   adminpassword: "/admin-password",
   productlist: "/product-list",

@@ -130,7 +130,7 @@ const RateIdea = (props) => {
 
     return (
         <div className="rating_card mt-3 card p-md-4 p-5">
-            <h2 className="mb-3">Evaluation Rating Scale:</h2>
+            <h4 className="mb-3">Evaluation Rating Scale:</h4>
             <div className="row mt-1 ps-4">
 
                 {ratingParams?.map((item, index) => {
@@ -193,7 +193,7 @@ const RateIdea = (props) => {
                 })}
                 <div className="row">
                     <div className="col-md-7 mb-md-5 mb-4 p-0">
-                        <h4 className='fs-3 my-2'>
+                        <h4 className=' my-2'>
                             Please add comments/reason for your scoring
                         </h4>
                         <div className="form-floating">

@@ -138,6 +138,8 @@ import Instruction from "../Evaluator/Instructions/Instructions";
 import IdeaList from "../Evaluator/IdeaList/IdeaList";
 import NextLevel from "../Evaluator/IdeaList/NextLevelIdeas";
 import ChangeEval from "../Evaluator/ChangePSWModal";
+import EvaluateL1 from "../Evaluator/EvaluatedIdea/EvaluatedIdea";
+import EvaluateL2 from "../Evaluator/EvaluatedIdea/EvaluatedIdeaL2";
 
 
 
@@ -155,6 +157,56 @@ import ChangeEval from "../Evaluator/ChangePSWModal";
 
 
 
+
+export const evaluatorRoutes = [
+  {
+    id: 1,
+    path: routes.evalinstructions,
+    name: "evalinstructions",
+    element: <Instruction />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 2,
+    path: routes.evalsubmit,
+    name: "evalsubmit",
+    element: <IdeaList />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 3,
+    path: routes.evalsubmitwo,
+    name: "evalsubmitwo",
+    element: <NextLevel />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 4,
+    path: routes.evalchange,
+    name: "evalchange",
+    element: <ChangeEval/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 5,
+    path: routes.evlL1,
+    name: "evlL1",
+    element: <EvaluateL1/>,
+    protected: true,
+    route: Route,
+  }, {
+    id: 6,
+    path: routes.evlL2,
+    name: "evlL2",
+    element: <EvaluateL2/>,
+    protected: true,
+    route: Route,
+  },
+];
 
 
 export const publicRoutes = [
@@ -868,40 +920,7 @@ export const eadminRoutes = [
   //   route: Route,
   // },
 ];
-export const evaluatorRoutes = [
-  {
-    id: 1,
-    path: routes.evalinstructions,
-    name: "evalinstructions",
-    element: <Instruction />,
-    protected: true,
-    route: Route,
-  },
-  {
-    id: 2,
-    path: routes.evalsubmit,
-    name: "evalsubmit",
-    element: <IdeaList />,
-    protected: true,
-    route: Route,
-  },
-  {
-    id: 3,
-    path: routes.evalsubmitwo,
-    name: "evalsubmitwo",
-    element: <NextLevel />,
-    protected: true,
-    route: Route,
-  },
-  {
-    id: 4,
-    path: routes.evalchange,
-    name: "evalchange",
-    element: <ChangeEval/>,
-    protected: true,
-    route: Route,
-  },
-];
+
 
 export const pagesRoute = [
   {

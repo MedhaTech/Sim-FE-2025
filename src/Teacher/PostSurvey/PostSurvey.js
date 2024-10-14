@@ -57,6 +57,8 @@ const PostSurvey = () => {
   };
   const [teamsCount, setTeamsCount] = useState(0);
   const [ideaCount, setIdeaCount] = useState(0);
+  const [approveideaCount, setApproveIdeaCount] = useState(0);
+
   const mentorTeamsCount = () => {
     const mentteamApi = encryptGlobal(
       JSON.stringify({
@@ -77,7 +79,38 @@ const PostSurvey = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
+          console.log(response,"Teams");
+
           setTeamsCount(response.data.data[0].teams_count);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  const mentorapproveCount = () => {
+    const mentteamApi = encryptGlobal(
+      JSON.stringify({
+        mentor_id: currentUser?.data[0]?.mentor_id,
+      })
+    );
+    var config = {
+      method: "get",
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/dashboard/acceptedCount?Data=${mentteamApi}`,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          console.log(response,"approve");
+
+          setApproveIdeaCount(response.data.data[0].acceptedCount);
         }
       })
       .catch(function (error) {
@@ -105,6 +138,7 @@ const PostSurvey = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
+          console.log(response,"idea");
           setIdeaCount(response.data.data[0].idea_count);
         }
       })
@@ -116,6 +150,7 @@ const PostSurvey = () => {
     if (currentUser?.data[0]?.user_id) {
       mentorTeamsCount();
       mentorIdeaCount();
+      mentorapproveCount();
     }
   }, [currentUser?.data[0]?.user_id]);
   const handleChange = (e) => {
@@ -303,7 +338,7 @@ const PostSurvey = () => {
                 <CardBody>
                   {
                     // teamsCount !== 0 &&
-                    (ideaCount === teamsCount) && (postSurveyStatus != "COMPLETED") && (teamsCount!= 0) ? (
+                    (approveideaCount === teamsCount) && (postSurveyStatus != "COMPLETED") && (teamsCount!= 0) ? (
                       <>
                         <UncontrolledAlert color="danger" className="mb-2">
                           Please complete the following post survey to get your

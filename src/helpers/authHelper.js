@@ -17,7 +17,7 @@ const ProtectedRoute = ({ children, user }) => {
   const loginTimestamp = new Date(loginTime).getTime();
   const currentTime = new Date().getTime();
   const difference = currentTime - loginTimestamp;
-
+//1800000 : 30 minutes //
   if (difference > 1800000) {
     localStorage.clear();
     if (user.includes("ADMIN")) {

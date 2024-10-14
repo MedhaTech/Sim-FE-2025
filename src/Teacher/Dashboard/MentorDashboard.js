@@ -674,7 +674,7 @@ poptype={poptype}
                           <>
                           <div className="dash-counts">
                             <h4>Get Certificate</h4>
-                            <h5>After taking Post survey & All Teams are Submitted their Ideas</h5>
+                            <h5>After Taking Post Survey</h5>
                           </div>
                           <div className="dash-imgs" >
                               <GiAchievement size={30} />
