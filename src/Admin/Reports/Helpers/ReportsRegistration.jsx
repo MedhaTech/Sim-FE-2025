@@ -512,7 +512,7 @@ const ReportsRegistration = () => {
   const handleDownload = () => {
     if (
       !RegTeachersState ||
-      // !RegTeachersdistrict ||
+      !RegTeachersdistrict ||
       !filterType ||
       !category
     ) {

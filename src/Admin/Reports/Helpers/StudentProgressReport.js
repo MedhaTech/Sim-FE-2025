@@ -620,7 +620,7 @@ const StudentProgress = () => {
   const handleDownload = () => {
     if (
       !selectstate ||
-      //  || !district
+      !district ||
       !category
     ) {
       notification.warning({
