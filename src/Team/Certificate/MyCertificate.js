@@ -157,31 +157,41 @@ const Certificate = ({
   {type ? (
     isEnabled ? (
       <p>
-        <span style={{ color: 'green', fontWeight: 'bold' }}>🌟 Congratulations, Innovators!</span><br/>
-        Your passion, creativity, and hard work have brought you to the Level 3 Round of Evaluation! This achievement is a testament to your dedication and the incredible ideas you’ve put forward. As you advance to this stage, remember that the journey of innovation is as valuable as the destination itself. <br/>
-        Each challenge is an opportunity to learn, grow, and showcase the power of your imagination. Keep pushing your boundaries, stay curious, and continue to believe in your vision. Your ideas have the potential to make a real impact, and this is just the beginning! Keep up the great work, and let your innovation shine! <br/>
-        <span style={{ color: 'green', fontWeight: 'bold' }}>All the best for final results and keep reaching for the stars! 🌟🚀</span>
+        <span style={{ color: 'green', fontWeight: 'bold' }}>🌟 {t("teacher_certificate.congratulations_innovators")} </span><br />
+        {t("teacher_certificate.level_3_evaluation")} <br />
+        {t("teacher_certificate.innovation_journey_message")} <br />
+        <span style={{ color: 'green', fontWeight: 'bold' }}>{t("teacher_certificate.best_wishes")}</span>
       </p>
     ) : (
       <p>
-        <span style={{ color: 'red' }}>Note</span>: Your Appreciation certificate enables if your idea <span style={{ color: 'red' }}>reaches Level 3</span> in the evaluation process.
+        <span style={{ color: 'red', fontWeight: 'bold'}}>{t("teacher_certificate.note")}</span>: {t("teacher_certificate.certificate_enabled_on_level_3")}
+        <span style={{ color: 'red', fontWeight: 'bold'}}>{t("teacher_certificate.red_msg2")}</span>{t("teacher_certificate.idea_note")}
+
       </p>
     )
   ) : (
     isEnabled ? (
       <p>
-        <span style={{ color: 'green', fontWeight: 'bold' }}>Congratulations, Future Leaders!</span> <br/>
-        You’ve successfully completed the Problem-Solving Journey course, and what an incredible achievement that is! 🎉 Through this journey, you’ve mastered essential <span style={{ color: 'green', fontWeight: 'bold' }}>21st-century skills</span>—from critical thinking and creativity to collaboration and communication.<br/> 
-        These skills are not just tools for solving problems but keys to unlocking your full potential in every field you choose. Keep nurturing your curiosity, embrace challenges, and continue applying what you’ve learned to make a positive impact in the world. <br/>
-        <span style={{ color: 'green', fontWeight: 'bold' }}>We are so proud of you! Keep learning, growing, and reaching for new heights! 🚀✨</span>
+        <span style={{ color: 'green', fontWeight: 'bold' }}>{t("teacher_certificate.congratulations_future_leaders")} </span><br />
+        {t("teacher_certificate.completed_course_message")}
+        <span style={{ color: 'green', fontWeight: 'bold' }}>
+        {t("teacher_certificate.21_century")}</span>
+        
+        {t("teacher_certificate.additional_message")} <br />
+        {t("teacher_certificate.additional_message1")} <br />
+        <span style={{ color: 'green', fontWeight: 'bold' }}>{t("teacher_certificate.proud_of_you")}</span>
       </p>
     ) : (
       <p>
-        <span style={{ color: 'red' }}>Note</span>: Your Problem Solving course certificate enables after you <span style={{ color: 'red' }}>reach 100%</span> course completion.
+        <span style={{ color: 'red', fontWeight: 'bold' }}>{t("teacher_certificate.note")}</span>: {t("teacher_certificate.certificate_enabled_on_100_percent_completion")}
+        <span style={{ color: 'red', fontWeight: 'bold'}}>{t("teacher_certificate.red_msg1")}</span>{t("teacher_certificate.course_note")}
+
       </p>
     )
   )}
 </div>
+
+
 
       </CardBody>
     </Card>
