@@ -18,12 +18,25 @@ import Icon from "../../assets/img/logos.jpg";
 import { openNotificationWithIcon } from "../../helpers/Utils.js";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKey,faUser } from '@fortawesome/free-solid-svg-icons';
+import { useSelector,useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { getAdminNotificationsList } from '../../redux/actions';
+
 const EadmiHeader = () => {
   const route = all_routes;
   const [toggle, SetToggle] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const { t } = useTranslation();
   const currentUser = getCurrentUser("current_user");
+  const allIdeaList = useSelector(
+    (state) => state?.evaluator.submittedIdeaList
+);
+  const dispatch = useDispatch();
+  const location = useLocation();
+  useEffect(() => {
+    dispatch(getAdminNotificationsList());
+  }, []);
+  
   const [diesCode, setDiesCode] = useState("");
   const [multiOrgData, setMultiOrgData] = useState([]);
 
@@ -215,6 +228,43 @@ const EadmiHeader = () => {
               {/* <Link to="#" className="responsive-search">
                 <Search />
               </Link> */}
+              {/* {"ARSHIYA"} */}
+               {location.pathname?.split('/')?.pop() ==
+                                        'submitted-ideas' && (
+                                        <div className="row w-100">
+                                            {/* <div className="col-sm-4 col-6">
+                                                <p className="m-0 fs-3">
+                                                    Level:&nbsp;
+                                                    <span className="fs-4 text-primary">
+                                                        {
+                                                            currentUser?.data[0]
+                                                                ?.level_name
+                                                        }
+                                                    </span>
+                                                </p>
+                                            </div> */}
+                                            <div className="col-sm-4 col-6">
+                                                <p className="m-0 "style={{fontWeight:"bold",fontSize:"1rem"}}>
+                                                    Processed:&nbsp;
+                                                    <span className=" text-success" style={{fontWeight:"bold",fontSize:"1rem"}}>
+                                                        {(allIdeaList &&
+                                                            allIdeaList?.evaluatedIdeas) ||
+                                                            0}
+                                                    </span>
+                                                </p>
+                                            </div>
+                                            {/* <div className="col-sm-4 col-6">
+                                                <p className="m-0 fs-3">
+                                                    Yet to Process:&nbsp;
+                                                    <span className="fs-4 text-danger">
+                                                        {(allIdeaList &&
+                                                            allIdeaList?.openIdeas) ||
+                                                            0}
+                                                    </span>
+                                                </p>
+                                            </div> */}
+                                        </div>
+                                    )}
               <form action="#" className="dropdown">
                 {/* <div
                   className="searchinputs"
