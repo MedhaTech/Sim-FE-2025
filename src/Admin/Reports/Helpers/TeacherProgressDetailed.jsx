@@ -689,7 +689,7 @@ const TeacherProgressDetailed = () => {
     const handleDownload = () => {
         if (
             !selectstate ||
-            //  || !district
+            !district ||
             !category
         ) {
             notification.warning({

@@ -574,7 +574,7 @@ const IdeaReport = () => {
   const handleDownload = () => {
     if (
       !selectstate ||
-      //  || !district
+      !district ||
       !category ||
       !sdg
     ) {
