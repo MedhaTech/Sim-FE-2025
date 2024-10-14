@@ -33,6 +33,7 @@ import {
   getNormalHeaders,
   openNotificationWithIcon,
 } from "../../helpers/Utils";
+import "./Style.css" ;
 import { Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
@@ -430,6 +431,7 @@ const DiescodeScreen = () => {
               <div className="dashboard p-2">
                 <h4>Teachers List Of Udise Code : {diesCode} {""}{multiOrgData[0]?.status === "INACTIVE" ? <span style={{color:"red"}}>Udise code is inactive</span>:""} </h4>
                 <Row className="mb-3 modal-body-table search-modal-header">
+                <div className="container evaluated_idea_wrapper">
                   {multiOrgData.length !== undefined &&
                     multiOrgData.length !== 0 &&
                     multiOrgData[0]?.mentor !== null && (
@@ -446,6 +448,7 @@ const DiescodeScreen = () => {
                         />
                       </DataTableExtensions>
                     )}
+                    </div>
                 </Row>
                 <div className="row " style={{ overflow: "auto" }}>
                   <div className=" row  col-6 col-md-12">
@@ -748,6 +751,7 @@ const DiescodeScreen = () => {
                             </button>
                           </div>
                           {/* </Row> */}
+                          <div className="container evaluated_idea_wrapper">
                           <Row className="mb-2 modal-body-table search-modal-header">
                             <div>
                               <div className="row">
@@ -758,6 +762,7 @@ const DiescodeScreen = () => {
                                  
                                 </div>
                               </div>
+                              
                               <div>
                                 <DataTableExtensions
                                   print={false}
@@ -775,6 +780,7 @@ const DiescodeScreen = () => {
                               </div>
                             </div>
                           </Row>
+                          </div>
                         </>
                       ) : (
                         ""
