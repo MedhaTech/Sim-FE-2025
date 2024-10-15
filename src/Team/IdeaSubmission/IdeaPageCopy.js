@@ -85,7 +85,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const initialSizeData = {
     data: formData,
   };
-
+  const dispatch = useDispatch();
   // dispatch(
   //     initiateIdea(
   //         currentUser?.data[0]?.team_id,
@@ -96,9 +96,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   //     )
   // );
   const showPage = false;
-  //   const language = useSelector(
-  //     (state) => state?.studentRegistration?.studentLanguage
-  // );
+    const language = useSelector(
+      (state) => state?.studentRegistration?.studentLanguage
+  );
   const [isDisabled, setIsDisabled] = useState(false);
   const initialLoadingStatus = { draft: false, submit: false };
   const [loading, setLoading] = useState(initialLoadingStatus);
@@ -677,6 +677,20 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     focusarea?.length > 0 &&
     title?.length > 0 &&
     problemStatement?.length > 0;
+
+    useEffect(()=>{
+if(formData?.verified_status === "ACCEPTED"){
+  console.log("Badge Enable");
+  dispatch(
+    updateStudentBadges(
+        { badge_slugs: ['the_change_maker'] },
+        currentUser?.data[0]?.user_id,
+        language,
+        t
+    )
+);
+}
+    },[formData]);
   // console.log(stakeholders,"staake",community,"community");
   return (
     <>
