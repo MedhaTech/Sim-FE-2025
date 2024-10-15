@@ -528,7 +528,7 @@ poptype={poptype}
                 <h3>
                   <CountUp end={badges} duration={4}>
                     +
-                  </CountUp> / 5
+                  </CountUp> / 8
                 </h3>
 
                 <div className="info">

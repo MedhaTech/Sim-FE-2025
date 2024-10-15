@@ -305,14 +305,15 @@ useEffect(() => {
           showSubRoute: false,
           submenu: false,
         },
-        // {
-        //   label:"Badges",
-        //   link:"/badges",
-        //   icon: <Icon.Shield />,
-        //   role: "STUDENT",
-        //   showSubRoute: false,
-        //   submenu: false,
-        // },
+        {
+          label: t("home.badges"),
+           // label:"My Certificate",
+          link:"/badges",
+          icon: <Icon.Shield />,
+          role: "STUDENT",
+          showSubRoute: false,
+          submenu: false,
+        },
       ],
     },
   ]
