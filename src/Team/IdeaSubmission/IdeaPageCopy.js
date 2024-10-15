@@ -688,8 +688,13 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
           <Col>
             <div className=" justify-content-center">
               <div className="aside p-4">
+              {/* <h4 className="m-2" 
+        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"14px" }}
+        >Idea Submission
+        </h4> */}
                 <CardBody>
                   <Form className="form-row row" isSubmitting>
+                 
                     {formData?.verified_status !== null && (
                       <>
                         {formData?.verified_status === "REJECTED" ? (
@@ -793,6 +798,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                                             </>)}
                                                       
                                                     </div> */}
+                                                   
                     <div className="text-right">
                       {!isDisabled && (
                         <Button
