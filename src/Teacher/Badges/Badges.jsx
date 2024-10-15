@@ -19,12 +19,13 @@ const BadgesComp = () => {
     const currentUser = getCurrentUser('current_user');
     const badgesfetch = async () => {
         const fectchTecParam = encryptGlobal(JSON.stringify(currentUser?.data[0]?.user_id));
-        const jkh = encryptGlobal(JSON.stringify({
-            status: "ACTIVE"
+        const dataquery = encryptGlobal(JSON.stringify({
+            status: "ACTIVE",
+            mentor_id:currentUser?.data[0]?.mentor_id
         }));
         try {
             const response = await axios.get(
-                `${process.env.REACT_APP_API_BASE_URL}/mentors/${fectchTecParam}/badges?Data=${jkh}`,
+                `${process.env.REACT_APP_API_BASE_URL}/mentors/${fectchTecParam}/badges?Data=${dataquery}`,
                 {
                     headers: {
                         "Content-Type": "application/json",
