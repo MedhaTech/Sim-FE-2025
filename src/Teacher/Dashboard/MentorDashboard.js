@@ -656,7 +656,7 @@ poptype={poptype}
             </div>
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-count das1">
-                      {(teacPostSurvey == "COMPLETED" && ideaCount == teamsCount )? (
+                      {!(teacPostSurvey == "COMPLETED" && ideaCount == teamsCount )? (
                          
                           <>
                           <div className="dash-counts">

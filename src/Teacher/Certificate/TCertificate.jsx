@@ -64,7 +64,7 @@
 ///////////////////////////////////
 /* eslint-disable no-unused-vars */ /* eslint-disable indent */ 
 import React from 'react'; 
-import TeacherCertificate from "../../assets/img/Certificates/TeacherCertificate.jpg";  
+import TeacherCertificate from "../../assets/img/Certificates/TeacherApp.jpg";  
 
 class TCertificate extends React.Component { 
     constructor(props) { 
