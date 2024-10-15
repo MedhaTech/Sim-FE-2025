@@ -7,8 +7,8 @@ import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap";
 // import Layout from "../../Layout";
 import jsPDF from "jspdf";
 import { getCurrentUser } from "../../helpers/Utils";
-import courseCompletionCertificate from "../../assets/img/Certificates/CompletionCertificate.jpg";
-import ideaSubmissionCertificate from "../../assets/img/Certificates/AppreciationCertificate.jpg";
+import courseCompletionCertificate from "../../assets/img/Certificates/Studentcom.jpg";
+import ideaSubmissionCertificate from "../../assets/img/Certificates/StudentApp.jpg";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -97,9 +97,9 @@ const Certificate = ({
               className="text-capitalize"
               style={{
                 position: "absolute",
-                top: `${type ? "5.9rem" : "5.9rem"}`,
+                top: `${type ? "6.5rem" : "6.5rem"}`,
                 color: `${type ? "black" : "black"}`,
-                left: `${type ? "3rem" : "3rem"}`,
+                left: `${type ? "4rem" : "4rem"}`,
                 fontSize: "0.4rem",
                 fontFamily: "Times New Roman",
               }}
@@ -111,8 +111,8 @@ const Certificate = ({
               style={{
                 position: "absolute",
                 color: `${type ? "black" : "black"}`,
-                top: `${type ? "6.8rem" : "6.8rem"}`,
-                left: `${type ? "4rem" : "4rem"}`,
+                top: `${type ? "7.4rem" : "7.4rem"}`,
+                left: `${type ? "4.4rem" : "4.4rem"}`,
                 fontSize: "0.4rem",
                 fontFamily: "Times New Roman",
               }}
@@ -127,7 +127,7 @@ const Certificate = ({
               className="img-fluid mx-auto"
               style={{
                 width: "297px",
-                height: "210px",
+                height: "213px",
                 border: "1px solid #cccccc",
               }}
             />
