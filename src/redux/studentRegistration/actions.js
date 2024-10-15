@@ -531,6 +531,7 @@ export const updateStudentBadges =
         });
       if (result && result.status === 202) {
         const data = result.data && result?.data?.data;
+        // console.log(data,"data");
         dispatch(getStudentBadgesSuccess(data));
       } else {
         dispatch(getStudentListError(result.statusText));

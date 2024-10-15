@@ -1,0 +1,17 @@
+.evaluated_idea_wrapper {
+    .rdt_TableRow {
+        /* padding-top: 0.5rem; */
+        /* padding-bottom: 0.5rem; */
+        padding: 0.75rem 0; /* Adjust padding to control height */
+        height: 3rem;
+    }
+    .rdt_TableRow:hover {
+        background-color: rgba(255, 203, 52, 0.2);
+    }
+    .status_info_col {
+        @media (min-width: 992px) {
+            position: sticky;
+            top: 3rem;
+        }
+    }
+}

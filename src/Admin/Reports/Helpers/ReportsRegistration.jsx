@@ -512,7 +512,7 @@ const ReportsRegistration = () => {
   const handleDownload = () => {
     if (
       !RegTeachersState ||
-      // !RegTeachersdistrict ||
+      !RegTeachersdistrict ||
       !filterType ||
       !category
     ) {
@@ -647,7 +647,7 @@ const ReportsRegistration = () => {
   return (
     <div className="page-wrapper">
        <h4 className="m-2" 
-        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"14px" }}
+        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
         >Reports
         </h4>
       <div className="content">

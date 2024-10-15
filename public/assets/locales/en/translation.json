@@ -296,7 +296,25 @@
         "certificate_desc": "Please Download Certificate...",
         "part_certificate_desc": "Please Download Participate Certificate...",
         "complete_postsurvey": "Please complete post survey to get your certificate",
-        "complete_post_survey_default": "Thank you for completing the journey and supporting your students in successful completion of the course and idea submission. Your certificate will be enabled soon."
+        "complete_post_survey_default": "Thank you for completing the journey and supporting your students in successful completion of the course and idea submission. Your certificate will be enabled soon.",
+   "congratulations_innovators": "Congratulations, Innovators!",
+    "level_3_evaluation": "Your passion, creativity, and hard work have brought you to the Level 3 Round of Evaluation! This achievement is a testament to your dedication and the incredible ideas you’ve put forward. As you advance to this stage, remember that the journey of innovation is as valuable as the destination itself.",
+    "innovation_journey_message": "Each challenge is an opportunity to learn, grow, and showcase the power of your imagination. Keep pushing your boundaries, stay curious, and continue to believe in your vision. Your ideas have the potential to make a real impact, and this is just the beginning! Keep up the great work, and let your innovation shine!",
+    "best_wishes": "All the best for final results and keep reaching for the stars! 🌟🚀",
+    "note": "Note",
+    "certificate_enabled_on_level_3": "Your Appreciation certificate enables if your idea",
+    "red_msg2":" reaches Level 3",
+    "idea_note":" in the evaluation process.",
+    "congratulations_future_leaders": "Congratulations, Future Leaders!",
+    "completed_course_message": "You’ve successfully completed the Problem-Solving Journey course, and what an incredible achievement that is! 🎉 Through this journey, you’ve mastered essential",
+    "21_century":" 21st-century skills—",
+    "additional_message": "from critical thinking and creativity to collaboration and communication.",
+    "additional_message1":"These skills are not just tools for solving problems but keys to unlocking your full potential in every field you choose. Keep nurturing your curiosity, embrace challenges, and continue applying what you’ve learned to make a positive impact in the world.",
+    "proud_of_you": "We are so proud of you! Keep learning, growing, and reaching for new heights! 🚀✨",
+    "certificate_enabled_on_100_percent_completion": "Your Problem Solving course certificate enables after you",
+    "red_msg1":" reach 100%",
+    "course_note":"  course completion."
+        
     },
     "teacher_header": {
         "profile": "My Profile",
