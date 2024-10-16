@@ -127,7 +127,7 @@ const Certificate = ({
               className="img-fluid mx-auto"
               style={{
                 width: "297px",
-                height: "213px",
+                height: "210px",
                 border: "1px solid #cccccc",
               }}
             />
