@@ -81,7 +81,7 @@ const Certificate = ({
       // }}
       style={{ backgroundColor: `${isEnabled ? "" : "lightgrey"}` }}
     >
-      <CardBody>
+     {currentUser?.data[0]?.state !== "Tamil Nadu" ? <CardBody>
         <CardTitle className=" text-left pt-4 pb-4" tag="h2">
           {type
             ? t("teacher_certificate.participate_certificate")
@@ -194,6 +194,7 @@ const Certificate = ({
 
 
       </CardBody>
+      : <h4 style={{color:"#fe9f43"}}>Certificates are coming soon ....</h4>}
     </Card>
   );
 };
