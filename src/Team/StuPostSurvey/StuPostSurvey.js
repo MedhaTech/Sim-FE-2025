@@ -153,7 +153,7 @@ const StuPostSurvey = () => {
                   openNotificationWithIcon(
                     "success",
                     t('student.postsurver_scc_sub'),
-                    "Post Survey has been submitted successfully..!!",
+                    // "Post Survey has been submitted successfully..!!",
                     ""
                   );
     
