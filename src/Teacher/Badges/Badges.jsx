@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
 import {
@@ -40,6 +41,10 @@ const BadgesComp = () => {
             console.log(error);
         }
     };
+    const dataOf = ["Enables after creating 5 teams" ,
+        "Enables after creating 10 teams",
+        "Enables after all teams submit IDEAS",
+        "Enables after you win all 3 badges"];
     useEffect(() => {
         badgesfetch();
     }, []);
@@ -73,7 +78,10 @@ const BadgesComp = () => {
                                                 />
                                             </Figure>
                                             <CardBody className="badge-name">
-                                                {badge.name}
+                                            <b>{badge.name}</b>
+                                                <br/>
+                                                <br/>
+                                                {dataOf[i]}
                                             </CardBody>
                                             {/* <CardBody>
                                                 <CardSubtitle className="badge-date">
