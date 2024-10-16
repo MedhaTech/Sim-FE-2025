@@ -112,8 +112,8 @@ class TCertificate extends React.Component {
                             alt="certificate" 
                             style={{ 
                                 width: '1000px',  
-                                height: '800px',  
-                                border: '1px solid #ccc' 
+                                height: '1110px',  
+                                // border: '1px solid #ccc' 
                             }} 
                         /> 
                     </div> 
