@@ -124,11 +124,11 @@ const Certificate = ({
                 type ? ideaSubmissionCertificate : courseCompletionCertificate
               }
               alt="certificate"
-              className="img-fluid mx-auto"
+              // className="img-fluid mx-auto"
               style={{
                 width: "297px",
                 height: "213px",
-                border: "1px solid #cccccc",
+                // border: "1px solid #cccccc",
               }}
             />
           </div>
