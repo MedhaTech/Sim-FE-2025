@@ -56,6 +56,11 @@ const StudentProgress = () => {
   const [studentDetailedReportsData, setstudentDetailedReportsData] = useState(
     []
   );
+
+  useEffect(() => {
+    setdistrict('');
+  }, [selectstate]);
+  
   const [doughnutChartData, setDoughnutChartData] = useState(null);
   const currentUser = getCurrentUser("current_user");
   const csvLinkRef = useRef();
@@ -615,12 +620,12 @@ const StudentProgress = () => {
   const handleDownload = () => {
     if (
       !selectstate ||
-      //  || !district
+      !district ||
       !category
     ) {
       notification.warning({
         message:
-          "Please select a state and category type before Downloading Reports.",
+          "Select state, district, category to download report.",
       });
       return;
     }
@@ -998,6 +1003,10 @@ const StudentProgress = () => {
 
   return (
     <div className="page-wrapper">
+       <h4 className="m-2" 
+        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
+        >Reports
+        </h4>
       <div className="content">
         <div className="page-header">
           <div className="add-item d-flex">

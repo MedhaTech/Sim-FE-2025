@@ -112,6 +112,10 @@ const { t } = useTranslation();
   };
   return (
     <div className='page-wrapper'>
+       {/* <h4 className="m-2" 
+        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
+        >Idea Submission
+        </h4> */}
       <div className='content'>
         <div className="page-header">
           <div className="page-title">

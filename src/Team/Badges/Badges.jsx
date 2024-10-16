@@ -30,11 +30,11 @@ const BadgesComp = () => {
     return (
         <div className="page-wrapper">
       <div className="content">
-            <div className="badges-page mt-5 mb-50">
+            <div className="badges-page mt-1">
                 <Container className=" mt-2 ">
                     <Row>
                         <Col md={12} className="w-100 d-block">
-                            <h2 className="title mb-4">My Badges</h2>
+                            <h4 className="title mb-4">My Badges</h4>
                         </Col>
                     </Row>
                     <Row

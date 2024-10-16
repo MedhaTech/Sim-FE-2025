@@ -41,7 +41,6 @@ const StateRes = (props) => {
   const navigate = useNavigate();
   const id = new URLSearchParams(search).get("id");
   const { supportTicket } = useSelector((state) => state?.mentors);
-  // console.log(supportTicket,"ss");
   const language = useSelector((state) => state?.mentors.mentorLanguage);
 
   useEffect(() => {
@@ -54,7 +53,7 @@ const StateRes = (props) => {
   const formik = useFormik({
     initialValues: {
       ansTicket: "",
-      selectStatusTicket: supportTicket?.status,
+      selectStatusTicket: supportTicket?.status || "",
       file_name: "",
       url: "",
     },
@@ -129,7 +128,12 @@ const StateRes = (props) => {
     //     }, 500);
     // }
   });
-
+  // console.log(supportTicket?.status,"ss",formik.values.selectStatusTicket,"de");
+  useEffect(() => {
+    if (supportTicket?.status) {
+      formik.setFieldValue("selectStatusTicket", supportTicket.status);
+    }
+  }, [supportTicket?.status]);
   const fileHandlerforFormik = (e) => {
     let file = e.target.files[0];
 
@@ -175,6 +179,10 @@ const StateRes = (props) => {
   };
   return (
     <div className="page-wrapper">
+        <h4 className="m-2" 
+        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
+        >Support
+        </h4>
       <div className="content">
         <div className="EditPersonalDetails new-member-page">
           <Row>
@@ -313,8 +321,8 @@ const StateRes = (props) => {
                     );
                   })}
 
-                {supportTicket?.status != "INVALID" &&
-                supportTicket?.status != "RESOLVED" ? (
+                {(supportTicket?.status != "INVALID" &&
+                supportTicket?.status != "RESOLVED" )? (
                   <Row className="p-2">
                     <Col md={12}>
                       <div>
@@ -412,12 +420,15 @@ const StateRes = (props) => {
                               );
                             }}
                             onBlur={formik.handleBlur}
-                            value={formik.values.selectStatusTicket}
+                            // value={formik.values.selectStatusTicket}
+                            value={formik.values.selectStatusTicket  || ""}
                           >
                             <option value="" disabled={true}>
-                              {supportTicket?.status
+                              {/* {supportTicket?.status
                                 ? supportTicket?.status
-                                : "Select Status"}
+                                : "Select Status"} */}
+                                  {supportTicket?.status || "Select Status"}
+                                 {/* {formik.values.selectStatusTicket ? "Select Status" : supportTicket?.status || "Select Status"} */}
                             </option>
                             <option value="OPEN">OPEN</option>
                             <option value="INPROGRESS">INPROGRESS</option>
@@ -443,13 +454,13 @@ const StateRes = (props) => {
 
               <div className="mb-3">
                 <Row>
-                  {supportTicket.status != "INVALID" &&
-                  supportTicket.status != "RESOLVED" ? (
+                  {(supportTicket?.status != "INVALID" &&
+                  supportTicket?.status != "RESOLVED" )? (
                     <div className="col-lg-12">
                       <div className="view-btn d-flex justify-content-between">
                         <button
                           type="button"
-                          onClick={() => navigate("/admin-support")}
+                          onClick={() => {formik.resetForm();navigate("/admin-support");}}
                           className="btn btn-secondary me-2"
                         >
                           Discard

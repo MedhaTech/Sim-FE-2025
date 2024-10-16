@@ -38,6 +38,9 @@ const InstitutionReport = () => {
 
   const [selectstate, setSelectState] = React.useState(""
   );
+  useEffect(() => {
+    setdistrict('');
+  }, [selectstate]);
   const [category, setCategory] = useState("");
   const [isDownload, setIsDownload] = useState(false);
   const categoryData = ["All Categories", "ATL", "Non ATL"];
@@ -166,7 +169,7 @@ const InstitutionReport = () => {
     //     label: 'ATL CODE',
     //     key: 'organization_code'
     // },
-    
+
     {
       label: "School Name",
       key: "organization_name",
@@ -381,7 +384,7 @@ const InstitutionReport = () => {
     if (!selectstate || !district || !category) {
       notification.warning({
         message:
-          "Please select a district, category type before Downloading Reports.",
+          "Select state, district, category to download report.",
       });
       return;
     }
@@ -415,7 +418,7 @@ const InstitutionReport = () => {
             ...item,
             registration_status: item.mentor_reg !== 0 ? "Registered" : "Not Registered",
           }));
-          
+
           // Set the modified data for download
           setDownloadTableData(modifiedChartTableData);
           setChartTableData(modifiedChartTableData);
@@ -448,6 +451,10 @@ const InstitutionReport = () => {
 
   return (
     <div className="page-wrapper">
+       <h4 className="m-2" 
+        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
+        >Reports
+        </h4>
       <div className="content">
         <div className="page-header">
           <div className="add-item d-flex">
@@ -458,14 +465,14 @@ const InstitutionReport = () => {
             </div>
           </div>
           <div className="page-btn">
-                <button
-                    type="button"
-                    className="btn btn-secondary"
-                    onClick={() => navigate("/reports")}
-                >
-                    <i className="fas fa-arrow-left"></i> Back
-                </button>
-            </div>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => navigate("/reports")}
+            >
+              <i className="fas fa-arrow-left"></i> Back
+            </button>
+          </div>
         </div>
 
         <Container className="RegReports userlist">
@@ -475,11 +482,11 @@ const InstitutionReport = () => {
                 <div className="my-2 d-md-block d-flex justify-content-center">
                   {/* <p>{selectstate}</p> */}
                   <Select
-                                list={fullStatesNames}
-                                setValue={setSelectState}
-                                placeHolder={'Select State'}
-                                value={selectstate}
-                            />
+                    list={fullStatesNames}
+                    setValue={setSelectState}
+                    placeHolder={'Select State'}
+                    value={selectstate}
+                  />
                 </div>
               </Col>
               <Col md={3}>
@@ -541,7 +548,7 @@ const InstitutionReport = () => {
                 )}
               </Col>
             </Row>
-          
+
           </div>
         </Container>
       </div>

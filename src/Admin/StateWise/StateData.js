@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import { PlusCircle } from "feather-icons-react/build/IconComponents";
 import { FaWhatsapp } from 'react-icons/fa';
 import { FaCheck, FaTimes } from 'react-icons/fa';  // For success and disable icons
-import ToggleButton from './Toggle'; 
+import ToggleButton from './Toggle';
 import 'sweetalert2/src/sweetalert2.scss';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 const StateData = () => {
@@ -62,8 +62,8 @@ const StateData = () => {
         }
     }, [resList]);
     const handleEdit = (item) => {
-            navigate('/edit-state-wise');
-            
+        navigate('/edit-state-wise');
+
         localStorage.setItem('resID', JSON.stringify(item));
     };
 
@@ -123,32 +123,24 @@ const StateData = () => {
                         .catch(function (error) {
                             console.log(error);
                         });
-                 } 
+                }
             });
     };
-    async function handleStatus(item, value) {
-        // alert("hii");
-        // console.log('Toggled record:', item, 'New status:', value);
+    async function handleStatus(item, value, type) {
         const body = {
             mentor_note: item.mentor_note,
-            // type: item.type,
-            student_note
-: item.student_note
-            ,
-            state:item.state,
-            
-ideaSubmission: value
+            student_note: item.student_note,
+            state: item.state
         };
-        // if (
-        //     item.navigate !== item.navigate
-        //     ) {
-        //         body['navigate'] = item.navigate;
-        //     }
-        const popParam = encryptGlobal(JSON.stringify(item.
-            
-state_coordinators_id
-            ));
-        
+        if (type === 'idea') {
+            body['ideaSubmission'] = value;
+        }
+        if (type === 'certificate') {
+            body['certificate'] = value;
+        }
+
+        const popParam = encryptGlobal(JSON.stringify(item.state_coordinators_id));
+
         let config = {
             method: 'put',
             url: process.env.REACT_APP_API_BASE_URL + `/state_coordinators/${popParam}`,
@@ -156,7 +148,7 @@ state_coordinators_id
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
             },
-            data:JSON.stringify(body)
+            data: JSON.stringify(body)
         };
         await axios(config)
             .then(function (response) {
@@ -164,32 +156,37 @@ state_coordinators_id
                     // console.log(value,"put");
 
                     if (value === 0) {
-                        openNotificationWithIcon(
-                            'success',
-                            'Idea Submission Disabled successfully'
-                        );
+                        if (type === 'idea') {
+                            openNotificationWithIcon(
+                                'success',
+                                'Idea Submission Disabled successfully'
+                            );
+                        } else if (type === 'certificate') {
+                            openNotificationWithIcon(
+                                'success',
+                                'Certificate Disabled successfully'
+                            );
+                        }
                     } else if (value === 1) {
-                        openNotificationWithIcon(
-                            'success',
-                            'Idea Submission Enabled successfully'
-                        );
+                        if (type === 'idea') {
+                            openNotificationWithIcon(
+                                'success',
+                                'Idea Submission Enabled successfully'
+                            );
+
+                        } else if (type === 'certificate') {
+                            openNotificationWithIcon(
+                                'success',
+                                'Certificate Enabled successfully'
+                            );
+                        }
+
                     }
-                    // if (response.data.data[0] === 0) {
-                    //     openNotificationWithIcon(
-                    //         'success',
-                    //         'State Status Disabled successfully'
-                    //     );
-                    // } else if (response.data.data[0] === 1) {
-                    //     openNotificationWithIcon(
-                    //         'success',
-                    //         'State Status Enabled successfully'
-                    //     );
-                    // }
-                  
-                    setTimeout(()=>{
+
+                    setTimeout(() => {
 
                         handleResList();
-                    },500);
+                    }, 500);
                     // setshowspin(false);
                 }
             })
@@ -200,26 +197,26 @@ state_coordinators_id
     }
     const stripHTMLTags = (text) => {
         return text.replace(/<\/?[^>]+(>|$)/g, ""); // Removes all HTML tags
-      };
+    };
     const resData = {
         // data: resList || [],
         data: array,
         columns: [
-           
+
             {
                 name: 'No',
                 selector: (row) => row.index,
                 cellExport: (row) => row.index,
                 width: '4rem'
             },
-           
+
             {
                 name: 'State',
                 selector: (row) => row.
-                state_name,
+                    state_name,
                 width: '10rem'
             },
-           
+
             {
                 name: 'Whatsapp Link',
                 width: '8rem',
@@ -234,7 +231,7 @@ state_coordinators_id
                                 target="_blank"
                                 rel="noreferrer"
                             >
-                                 <FaWhatsapp style={{color:"green" ,fontSize:"1.5rem"}}/>
+                                <FaWhatsapp style={{ color: "green", fontSize: "1.5rem" }} />
                                 {/* Navigate */}
                             </a>
                         );
@@ -243,16 +240,16 @@ state_coordinators_id
             },
             {
                 name: 'Teacher Inst',
-                selector: (row) =>stripHTMLTags(row.mentor_note),
+                selector: (row) => stripHTMLTags(row.mentor_note),
                 width: '13rem'
-            },  {
+            }, {
                 name: 'Student Inst',
                 selector: (row) => stripHTMLTags(row.student_note)
                 ,
                 width: '13rem'
             },
 
-         
+
             {
                 name: 'Actions',
                 center: true,
@@ -260,44 +257,54 @@ state_coordinators_id
                 cell: (record) => [
                     <>
                         <button
-                              className="btn btn-info btn-sm"
-                              onClick={() => handleEdit(record)}
-                            >
-                              <i data-feather="edit" className="feather-edit" /> Edit
+                            className="btn btn-info btn-sm"
+                            onClick={() => handleEdit(record)}
+                        >
+                            <i data-feather="edit" className="feather-edit" /> Edit
                         </button>
-                       
+
                     </>
                 ]
             },
             {
                 name: 'Idea Activation',
+                width: '9rem',
+                cell: (record) => (
+                    <ToggleButton
+                        isEnabled={record.ideaSubmission === 1}
+                        onToggle={(newStatus) => handleStatus(record, newStatus, 'idea')}
+                    />
+                )
+            },
+            {
+                name: 'Certificate Activation',
                 width: '12rem',
                 cell: (record) => (
-                  <ToggleButton
-                    isEnabled={record.ideaSubmission === 1}
-                    onToggle={(newStatus) => handleStatus(record, newStatus)}
-                  />
+                    <ToggleButton
+                        isEnabled={record.certificate === 1}
+                        onToggle={(newStatus) => handleStatus(record, newStatus, 'certificate')}
+                    />
                 )
-              },
+            },
         ]
     };
     const customStyles = {
         rows: {
-          style: {
-            fontSize: "14px",
-          },
+            style: {
+                fontSize: "14px",
+            },
         },
         headCells: {
-          style: {
-            fontSize: "16px",
-          },
+            style: {
+                fontSize: "16px",
+            },
         },
         cells: {
-          style: {
-            fontSize: "14px",
-          },
+            style: {
+                fontSize: "14px",
+            },
         },
-      };
+    };
     return (
         <div className="page-wrapper">
             <div className="content">

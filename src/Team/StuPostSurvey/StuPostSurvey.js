@@ -21,6 +21,10 @@ import {
   getNormalHeaders,
   openNotificationWithIcon,
 } from "../../helpers/Utils";
+import {
+  
+  updateStudentBadges
+} from '../../redux/studentRegistration/actions';
 import axios from "axios";
 import Congo from "../../assets/img/chek.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -38,11 +42,15 @@ const StuPostSurvey = () => {
     const currentUser = getCurrentUser("current_user");
     const [quizSurveyId, setQuizSurveyId] = useState(0);
     const [count, setCount] = useState(0);
+    const [submittedResponse, setIdeaSubmittedData] = useState("");
+    const [verification, setVerification] = useState("");
     const [postSurveyStatus, setPostSurveyStatus] = useState("");
     const [isDisabled, setIsDisabled] = useState(false);
     const [answerResponses, setAnswerResponses] = useState([]);
     const ideastatus = localStorage.getItem("ideaSubStatus");
     const userID = currentUser?.data[0]?.user_id;
+    const teamId = currentUser?.data[0]?.team_id; 
+    // console.log(currentUser,"currentUser");
     const language = useSelector(
       (state) => state?.studentRegistration?.studentLanguage
   );
@@ -118,7 +126,7 @@ const StuPostSurvey = () => {
         if (postSurveyList.length != nonEmptySelectedOptions.length) {
           openNotificationWithIcon(
             "warning",
-            "Please Attempt All Questions..!!",
+            t('student.attempt_all_questions'),
             ""
           );
         } else {
@@ -132,13 +140,25 @@ const StuPostSurvey = () => {
             .then((preSurveyRes) => {
               if (preSurveyRes?.status == 200) {
                 // console.log(preSurveyRes, "aa");
-                openNotificationWithIcon(
-                  "success",
-                  "Post Survey has been submitted successfully..!!",
-                  ""
-                );
+                setTimeout(() => {
+                  const badge = 'survey_master';
+                  dispatch(
+                      updateStudentBadges(
+                          { badge_slugs: [badge] },
+                          currentUser?.data[0]?.user_id,
+                          language,
+                          t
+                      )
+                  );
+                  openNotificationWithIcon(
+                    "success",
+                    t('student.postsurver_scc_sub'),
+                    // "Post Survey has been submitted successfully..!!",
+                    ""
+                  );
     
                 setCount(count + 1);
+              }, 300);
                 // formik.resetForm();
               }
             })
@@ -148,7 +168,8 @@ const StuPostSurvey = () => {
         }
       };
       useEffect(() => {
-        console.log("pre page id");
+        // console.log("pre page id");
+        ideaSubmittedApi(teamId);
       apiData(language);
       }, [count]);
     
@@ -187,8 +208,40 @@ const StuPostSurvey = () => {
         };
       // }, [count]);
 
-
-
+      const ideaSubmittedApi = (teamId) => {
+        const Param = encryptGlobal(
+          JSON.stringify({
+            team_id: teamId,
+          })
+        );
+        var configidea = {
+          method: "get",
+          url:
+            process.env.REACT_APP_API_BASE_URL +
+            `/challenge_response/submittedDetails?Data=${Param}`,
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${currentUser.data[0]?.token}`,
+          },
+        };
+        axios(configidea)
+          .then(function (response) {
+            if (response.status === 200) {
+              if (response.data.data && response.data.data.length > 0) {
+                setIdeaSubmittedData(response.data.data[0]);
+                setVerification(response.data.data[0]?.verified_status);
+                // setId(response.data.data[0].challenge_response_id);
+              }
+            }
+          })
+          .catch(function (error) {
+            if (error.response.status === 404) {
+              //   seterror4( true);
+            }
+          });
+      };
+      // console.log(verification,"verification");
 
 
 return (
@@ -209,13 +262,14 @@ return (
                 <CardBody>
                   {
                     // teamsCount !== 0 &&
-                    ideastatus == 1 && postSurveyStatus != "COMPLETED" ? (
+                ideastatus == 1 && verification=="ACCEPTED" && postSurveyStatus != "COMPLETED" ?
+                     (
                       <>
-                        <UncontrolledAlert color="danger" className="mb-2">
+                        {/* <UncontrolledAlert color="danger" className="mb-2">
                         {t('student.please_com_postsurvey_for_certificate')}
                           {/* Please complete the following post survey to get your
                           certificate. */}
-                        </UncontrolledAlert>
+                        {/* </UncontrolledAlert>  */}
                         <Form
                           className="form-row"
                           // onSubmit={formik.handleSubmit}

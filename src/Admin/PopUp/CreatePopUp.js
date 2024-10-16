@@ -89,7 +89,7 @@ const Createpopup = () => {
       // .required(' is Required'),
       type: Yup.string()
         .optional()
-        .oneOf(["file", "link"], "Submission type is Required"),
+        .oneOf(["file", "link"]).required("Submission type is Required"),
       attachments: Yup.string().required("Attachments are required"),
       // attachments: Yup.mixed().when('type', {
       //     is: (val) => val === 'file',
@@ -217,6 +217,10 @@ const Createpopup = () => {
   //   };
   return (
     <div className="page-wrapper">
+       <h4 className="m-2" 
+        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
+        >PopUp
+        </h4>
       <div className="content">
                 <div className="page-header">
                     <div className="add-item d-flex">
@@ -237,6 +241,7 @@ const Createpopup = () => {
                         <Col md={6}>
                           <Label className="mb-2" htmlFor="role">
                             Role
+                            <span required>*</span>
                           </Label>
                           <select
                             name="role"
@@ -264,7 +269,7 @@ const Createpopup = () => {
                         <Col md={6}>
                           <Label className="form-label" htmlFor="state">
                             State
-                            {/* <span required>*</span> */}
+                            <span required>*</span> 
                           </Label>
                           <select
                             id="inputState"
@@ -293,6 +298,7 @@ const Createpopup = () => {
                         <Col md={6}>
                           <Label className="mb-2" htmlFor="type">
                             Type
+                            <span required>*</span>
                           </Label>
                           <select
                             name="type"

@@ -111,6 +111,10 @@ const ViewMore = () => {
     };
     return (
         <div className="page-wrapper">
+             <h3 className="m-2" 
+        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
+        >Mentors
+        </h3>
         <div className="content">
             <Container className="dynamic-form">
                 <div className="d-flex align-items-end">
@@ -166,12 +170,12 @@ const ViewMore = () => {
                                     </span>
                                     <b>{orgDaTa.organization.state}</b>
                                 </CardText>
-                                <CardText>
+                                {/* <CardText>
                                     <span className="mx-3">
                                         <b>Pincode :</b>
                                     </span>
                                     <b>{orgDaTa.organization.pin_code}</b>
-                                </CardText>
+                                </CardText> */}
                             </CardBody>
                         </Card>
                     </Row>

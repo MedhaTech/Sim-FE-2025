@@ -168,20 +168,24 @@ const EmailList = () => {
                 <Container className="ticket-page mb-50">
                     <Row>
                         <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
-                            <Col className="col-auto">
-                                <h3> Email List </h3>
-                            </Col>
-                            <Col className="ml-auto text-right">
+                            <div className="page-header">
+                                <div className="add-item d-flex">
+                                    <div className="page-title">
+                                        <h4>Bulk Email List</h4>
+                                        <h6>Send emails to registered mentors state wise by composing the mail</h6>
+                                    </div>
+                                </div>
+                                <div className="page-btn">
+                                    <button
+                                        type="button"
+                                        className="btn btn-info"
+                                        onClick={() => navigate('/create-email')}
+                                    >
+                                        <Icon.Mail className="me-2" style={{ color: "white" }} /><b>COMPOSE</b>
+                                    </button>
+                                </div>
+                            </div>
 
-                                <button
-                                    className='btn btn-info'
-                                    onClick={() =>
-                                        navigate(
-                                            '/create-email'
-                                        )
-                                    }
-                                >COMPOSE <Icon.Mail size={20}/></button>
-                            </Col>
 
                             <div className="my-2">
                                 <DataTableExtensions

@@ -86,7 +86,7 @@ const EditResource = () => {
         validationSchema: Yup.object({
             role: Yup.string()
                 .optional()
-                .oneOf(['mentor', 'student'], 'Role is Required'),
+                .oneOf(['mentor', 'student']).required('Role is Required'),
       state: Yup.string().required("Please Select State"),
 
             description: Yup.string()
@@ -94,7 +94,7 @@ const EditResource = () => {
                 .required('Details is Required'),
             type: Yup.string()
                 .optional()
-                .oneOf(['file', 'link'], 'Submission type is Required'),
+                .oneOf(['file', 'link']).required('Submission type is Required'),
             attachments: Yup.string().required('Attachments are required'),
         }),
         onSubmit: async (values) => {
@@ -184,6 +184,10 @@ const EditResource = () => {
       console.log(formik.values.state,"state");
     return (
         <div className="page-wrapper">
+             <h4 className="m-2" 
+        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
+        >Resources
+        </h4>
             <div className="content">
                 <div className="page-header">
                     <div className="add-item d-flex">
@@ -203,6 +207,7 @@ const EditResource = () => {
                                             <Col md={4}>
                                                 <Label className="mb-2" htmlFor="role">
                                                     Role
+                                                    <span required>*</span>
                                                 </Label>
                                                 <select
                                                     name="role"
@@ -229,7 +234,7 @@ const EditResource = () => {
                                             <Col md={4}>
                           <Label className="form-label" htmlFor="state">
                             State
-                            {/* <span required>*</span> */}
+                            <span required>*</span> 
                           </Label>
                           <Select
   list={allData}
@@ -266,6 +271,7 @@ const EditResource = () => {
                                                 htmlFor="description"
                                             >
                                                 Details
+                                                <span required>*</span>
                                             </Label>
                                             <Input
                                                 {...inputDICE}
@@ -289,6 +295,7 @@ const EditResource = () => {
                                             <Col>
                                             <Label className="mb-2" htmlFor="type">
                                                 Type
+                                                <span required>*</span>
                                             </Label>
                                             <select
                                                 name="type"
@@ -320,6 +327,7 @@ const EditResource = () => {
                                                         htmlFor="attachments"
                                                     >
                                                         File
+
                                                     </Label>
                                                     <div className="d-flex align-items-center">
                                                         <input
@@ -349,45 +357,37 @@ const EditResource = () => {
                                                                     .click();
                                                             }}
                                                         />
-                                                        <button
-                                                            className='btn btn-info mx-2'
+                                                      {formik.values.attachments ?  (<button
+                                                            className='btn btn-info m-2'
                                                             type="button"
-                                                            disabled={!formik.values.attachments}
+                                                            // disabled={!formik.values.attachments}
                                                             onClick={() => {
                                                                 if (formik.values.attachments instanceof File) {
                                                                     const fileURL = URL.createObjectURL(formik.values.attachments);
                                                                     window.open(fileURL, '_blank');
-                                                                } else {
+                                                              } else {
                                                                     window.open(formik.values.attachments, '_blank');
                                                                 }
                                                             }}
-                                                            // onClick={() => {
-                                                            //     window.open(
-                                                            //         formik.values
-                                                            //             .attachments,
-                                                            //         '_blank'
-                                                            //     );
-                                                            // }}
+                                                           
                                                         >
-                                                             {formik.values.attachments
-                    ? formik.values.attachments instanceof File
-                        ? formik.values.attachments.name  
-                        : formik.values.attachments.substring(formik.values.attachments.lastIndexOf('/') + 1)  
-                    : 'Download'}
-                                                             {/* {formik.values.attachments ? formik.values.attachments.substring(formik.values.attachments.lastIndexOf('/') + 1) : 'Download'} */}
-                                                            {/* Download */}
+                                                              {formik.values.attachments instanceof File
+            ? formik.values.attachments.name
+            : formik.values.attachments.substring(formik.values.attachments.lastIndexOf('/') + 1)}
+                                                      
+                                                           
                                                         </button>
-                                                        
+                                                      ):null}
                                                         {formik.values
                                                             .attachments &&
                                                         formik.values.attachments
                                                             .name ? (
                                                             <span className="ml-2">
-                                                                {
+                                                                {/* {
                                                                     formik.values
                                                                         .attachments
                                                                         .name
-                                                                }
+                                                                } */}
                                                             </span>
                                                         ) : (
                                                             <span className="ml-2">
@@ -424,6 +424,7 @@ const EditResource = () => {
                                                         htmlFor="attachments"
                                                     >
                                                         Link
+                                                        <span required>*</span>
                                                     </Label>
                                                     <Input
                                                         {...inputDICE}
@@ -460,7 +461,10 @@ const EditResource = () => {
                                         <div style={buttonContainerStyle} className='mt-3'>
                                             <button
                                                 type="submit"
-                                                className='btn btn-warning'
+                                                className={`btn btn-warning ${
+      !formik.dirty || !formik.isValid ? "default" : "primary"
+    }`}
+    disabled={!formik.dirty || !formik.isValid}
                                                 style={buttonStyle}
                                             >
                                                 Submit details

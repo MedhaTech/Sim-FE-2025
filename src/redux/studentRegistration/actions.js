@@ -531,6 +531,7 @@ export const updateStudentBadges =
         });
       if (result && result.status === 202) {
         const data = result.data && result?.data?.data;
+        // console.log(data,"data");
         dispatch(getStudentBadgesSuccess(data));
       } else {
         dispatch(getStudentListError(result.statusText));
@@ -675,9 +676,10 @@ export const getStudentDashboardTutorialVideos =
 export const updateStudentCertificate = async (id) => {
   try {
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+    const idParam = encryptGlobal(JSON.stringify(id));
     await axios
       .get(
-        `${process.env.REACT_APP_API_BASE_URL}/students/${id}/studentCertificate`,
+        `${process.env.REACT_APP_API_BASE_URL}/students/${idParam}/studentCertificate`,
         axiosConfig
       )
       .then((data) => data)

@@ -200,10 +200,11 @@
          "reshead":"List of program related resources",
          "presucess":"Thanks for taking part.",
          "text":"We value your response the most.",
-         "certi":"Certificate will be generated once you complete the post survey.",
-"sub":"Please ensure your team submited the idea to fill the post survey..",
+         "certi":"",
+"sub":"Please ensure your team submits idea and is Approved by your teacher in teacher panel for your Post survey to enable.",
          
-         "precong":" Your Survey responses have been submitted Successfully..!"
+         "precong":" Your Survey responses have been submitted Successfully..!",
+         "my_certificate":"My Certificate"
 
     },
     "get_started": {
@@ -274,7 +275,7 @@
         "please_com_all": "Please complete all the fields before submitting",
         "not_allowed": "Not Allowed",
         "post_survey": "Post Survey",
-        "idea_submitted_desc": "<h2>Congratulations for successfully submitting the idea</h2>.</br><p>Please click continue to complete your post survey and get your certificate.</p>",
+        "idea_submitted_desc": "<h2>Congratulations for successfully submitting the idea</h2>",
         "post_survey_desc": "Congratulations! your journey in this program is complete.",
         "click_button_post_survey": "Your certificate will be ready soon and you can download it from ‘My Certificate Page’",
         "max_length_msg1": "Maximum length of words are",
@@ -288,14 +289,32 @@
         "completed_text": "Thank you for completing the Survey. Your responses are important for us to get to know you and your students better."
     },
     "teacher_certificate": {
-        "download": "Download Certificate",
+        "download": "Download Course Certificate",
         "participate_certificate": "Idea Submission Certificate",
         "download_participate": "Download Idea Certificate",
         "certificate": "Course Completion Certificate",
         "certificate_desc": "Please Download Certificate...",
         "part_certificate_desc": "Please Download Participate Certificate...",
         "complete_postsurvey": "Please complete post survey to get your certificate",
-        "complete_post_survey_default": "Thank you for completing the journey and supporting your students in successful completion of the course and idea submission. Your certificate will be enabled soon."
+        "complete_post_survey_default": "Thank you for completing the journey and supporting your students in successful completion of the course and idea submission. Your certificate will be enabled soon.",
+   "congratulations_innovators": "Congratulations, Innovators!",
+    "level_3_evaluation": "Your passion, creativity, and hard work have brought you to the Level 3 Round of Evaluation! This achievement is a testament to your dedication and the incredible ideas you’ve put forward. As you advance to this stage, remember that the journey of innovation is as valuable as the destination itself.",
+    "innovation_journey_message": "Each challenge is an opportunity to learn, grow, and showcase the power of your imagination. Keep pushing your boundaries, stay curious, and continue to believe in your vision. Your ideas have the potential to make a real impact, and this is just the beginning! Keep up the great work, and let your innovation shine!",
+    "best_wishes": "All the best for final results and keep reaching for the stars! 🌟🚀",
+    "note": "Note",
+    "certificate_enabled_on_level_3": "Your Appreciation certificate enables if your idea",
+    "red_msg2":" reaches Level 3",
+    "idea_note":" in the evaluation process.",
+    "congratulations_future_leaders": "Congratulations, Future Leaders!",
+    "completed_course_message": "You’ve successfully completed the Problem-Solving Journey course, and what an incredible achievement that is! 🎉 Through this journey, you’ve mastered essential",
+    "21_century":" 21st-century skills—",
+    "additional_message": "from critical thinking and creativity to collaboration and communication.",
+    "additional_message1":"These skills are not just tools for solving problems but keys to unlocking your full potential in every field you choose. Keep nurturing your curiosity, embrace challenges, and continue applying what you’ve learned to make a positive impact in the world.",
+    "proud_of_you": "We are so proud of you! Keep learning, growing, and reaching for new heights! 🚀✨",
+    "certificate_enabled_on_100_percent_completion": "Your Problem Solving course certificate enables after you",
+    "red_msg1":" reach 100%",
+    "course_note":"  course completion."
+        
     },
     "teacher_header": {
         "profile": "My Profile",
@@ -437,10 +456,11 @@
         "quiz_completed": "Successfully Completed!",
         "go_idea_submission": "Start Idea Submission",
         "submission": "Idea Submission ",
+        "certificate":"Get Course Certificate",
 
         "go_certificate": "Go to My Certificate",
         "course_completed_succ": "Congratulations for successful completion of all the lessons!",
-        "continue_to_idea": "Click to proceed to Idea Submission.",
+        "continue_to_idea": "Click to download your Problem solving course certificate and Proceed to Idea submission",
         "sdg": "Which theme are you targeting with your solution ?",
         "subCategory": "Which problem statement are you targeting with your solution ?",
         "sdg_desc": "",

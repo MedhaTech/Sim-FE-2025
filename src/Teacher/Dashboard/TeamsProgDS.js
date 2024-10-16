@@ -319,8 +319,8 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
   const emailTeamCredentials = () => {
     const teamCredMailApi = encryptGlobal(
       JSON.stringify({
-        mentor_id: currentUser?.data[0]?.mentor_id,
-        email: currentUser?.data[0]?.name,
+        mentor_id: user[0].mentor_id,
+        email: user[0].email,
       })
     );
     var config = {
@@ -620,7 +620,7 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
             ) : teamsMembersStatusErr ? (
               <div className="d-flex justify-content-center align-items-center">
                 <h4 className="text-danger">
-                  There are no students in selected Team
+                  {/* There are no students in selected Team */}
                 </h4>
               </div>
             ) : null}

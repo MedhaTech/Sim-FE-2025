@@ -25,7 +25,8 @@ const DiesView = () => {
     var teamId = [];
     teamId.push({
         mentor_id: orgDaTa.mentor.mentor_id,
-        user_id: orgDaTa.mentor.user_id
+        user_id: orgDaTa.mentor.user_id,
+        email:orgDaTa.mentor.user.username
     });
 
     const handleBack = () => {
@@ -125,12 +126,12 @@ const DiesView = () => {
                                     </span>
                                     <b>{orgDaTa.state}</b>
                                 </CardText>
-                                <CardText>
+                                {/* <CardText>
                                     <span className="mx-3">
                                         <b>Pincode :</b>
                                     </span>
                                     <b>{orgDaTa.pin_code}</b>
-                                </CardText>
+                                </CardText> */}
                             </CardBody>
                         </Card>
                     </Row>

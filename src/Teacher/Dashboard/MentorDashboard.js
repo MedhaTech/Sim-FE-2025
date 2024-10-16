@@ -189,7 +189,7 @@ const MentorDashboard = () => {
   };
   
   const currentUser = getCurrentUser('current_user');
-
+// console.log(currentUser,'currentUser');
 
   useEffect(() => {
     if (currentUser?.data[0]?.user_id) {
@@ -656,28 +656,36 @@ poptype={poptype}
             </div>
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-count das1">
-                      {teacPostSurvey != "COMPLETED" ? (
+                      {(teacPostSurvey == "COMPLETED" && ideaCount == teamsCount )? (
+                         
+                          <>
+                          <div className="dash-counts">
+                            <h4>Congrats</h4>
+                           {currentUser?.data[0]?.state !== "Tamil Nadu" &&<h5>Download Certificate</h5> }
+                            {/* <h5>Certificate enables soon</h5> */}
+                             {currentUser?.data[0]?.state === "Tamil Nadu" && (
+        <p>Certificate Coming Soon</p>
+      )}
+                          </div>
+                         
+                          <div className="dash-imgs" 
+                          // onClick={handleCertificateDownload}
+                          onClick={currentUser?.data[0]?.state !== "Tamil Nadu" ? handleCertificateDownload : null}
+      style={{ cursor: currentUser?.data[0]?.state !== "Tamil Nadu" ? 'pointer' : 'not-allowed', opacity: currentUser?.data[0]?.state !== "Tamil Nadu" ? 1 : 0.5 }}
+                          >
+                              <GiAchievement size={40} />
+                          </div>
+                         
+                        </>
+                        ):(
                           <>
                           <div className="dash-counts">
                             <h4>Get Certificate</h4>
-                            <h5>After taking Post survey</h5>
+                            <h5>After Taking Post Survey</h5>
                           </div>
                           <div className="dash-imgs" >
                               <GiAchievement size={30} />
                           </div>
-                          </>
-                        ):(
-                          <>
-                            <div className="dash-counts">
-                              <h4>Congrats</h4>
-                              {/* <h5>Download Certificate</h5> */}
-                              <h5>Certificate enables soon</h5>
-                            </div>
-                            <div className="dash-imgs" 
-                            // onClick={handleCertificateDownload}
-                            >
-                                <GiAchievement size={30} />
-                            </div>
                           </>
                         )}
                   {/* </div>

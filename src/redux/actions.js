@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 export const ADMIN_LOGIN_USER = "ADMIN_LOGIN_USER";
 export const ADMIN_LIST_ERROR = 'ADMIN_LIST_ERROR';
 export const ADMIN_LIST_SUCCESS = 'ADMIN_LIST_SUCCESS';
@@ -11,6 +12,9 @@ export const SCHOOL_REGISTRATOION_BULKUPLOAD_LIST_SUCCESS =
 export const SCHOOL_REGISTRATOION_BULKUPLOAD_LIST_ERROR =
     'SCHOOL_REGISTRATOION_BULKUPLOAD_LIST_ERROR';
 
+    export const ADMIN_EVALUTORS_LIST = 'ADMIN_EVALUTORS_LIST';
+    export const ADMIN_EVALUTORS_LIST_SUCCESS = 'ADMIN_EVALUTORS_LIST_SUCCESS';
+    export const ADMIN_EVALUTORS_LIST_ERROR = 'ADMIN_EVALUTORS_LIST_ERROR';
 
 export const GET_DISTRICTS_DATA = 'GET_DISTRICTS_DATA';
 export const GET_GLOBAL_LANGUAGE = 'GET_GLOBAL_LANGUAGE';
@@ -30,6 +34,12 @@ export const UPDATE_STUDENT_STATUS = "UPDATE_STUDENT_STATUS";
 export const GET_STUDENTS_LIST_SUCCESS = "GET_STUDENTS_LIST_SUCCESS";
 export const GET_STUDENTS_LANGUAGE = "GET_STUDENTS_LANGUAGE";
 export const GET_STUDENTS_LIST_ERROR = "GET_STUDENTS_LIST_ERROR";
+ 
+export const ADMIN_NOTIFICATIONS_LIST = 'ADMIN_NOTIFICATIONS_LIST';
+export const ADMIN_NOTIFICATIONS_LIST_SUCCESS =
+    'ADMIN_NOTIFICATIONS_LIST_SUCCESS';
+export const ADMIN_NOTIFICATIONS_LIST_ERROR = 'ADMIN_NOTIFICATIONS_LIST_ERROR';
+export const ADMIN_DELETE_TEMP_MENTOR = 'ADMIN_DELETE_TEMP_MENTOR';
 
 export const GET_STUDENT_DASHBOARD_CHALLENGES_STATUS =
   "GET_STUDENT_DASHBOARD_CHALLENGES_STATUS";
@@ -167,4 +177,6 @@ export * from "../Admin/Courses/store/adminCourses/actions";
 export * from "../Teacher/store/courses/actions";
 export * from '../Admin/Courses/store/adminCourses/actions';
 export * from './schoolRegistration/actions';
+export * from '../Admin/store/adminEvalutors/actions';
 
+export * from '../Admin/store/adminNotifications/actions';

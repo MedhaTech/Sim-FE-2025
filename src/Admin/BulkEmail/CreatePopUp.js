@@ -40,7 +40,7 @@ const CreateEmail = () => {
       
     },
     validationSchema: Yup.object({
-      msg: Yup.string().required("Role is Required"),
+      msg: Yup.string().required("Email content is Required"),
      
       state: Yup.string().optional(),
       subject: Yup.string().required("Subject is Required"),
@@ -74,13 +74,19 @@ const CreateEmail = () => {
 
         if (response.status === 200) {
           navigate("/emailList");
-          openNotificationWithIcon("success", "Email Created Successfully");
+          openNotificationWithIcon("success", "Email Sent Successfully");
         } 
       } catch (error) {
-        //console.log(error.response.status);
-        if (error.response.status === 400) {
-          openNotificationWithIcon("error", "Please Select State Name");
-        }
+        // Handle the 400 status error and check the message for the subject validation issue
+        if (error.response?.status === 400) {
+          const errorMessage = error.response?.data?.errors?.[0];
+    
+          if (errorMessage?.includes('fails to match the required pattern')) {
+            openNotificationWithIcon("error", "Special characters in subject not allowed");
+          } else {
+            openNotificationWithIcon("error", "Please Select State Name");
+          }
+        } 
       }
     },
    
@@ -94,6 +100,10 @@ const CreateEmail = () => {
 //  console.log(formik.values.msg,"msg");
   return (
     <div className="page-wrapper">
+      <h4 className="m-2" 
+        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
+        >Bulk Email
+        </h4>
       <div className="content">
         <div className="EditPersonalDetails new-member-page">
           <Row>
@@ -106,16 +116,20 @@ const CreateEmail = () => {
                       <Row className="mb-3 modal-body-table search-modal-header">
                       <Col md={12}>
                         <Label className="form-label" htmlFor="msg">
-                        To
+                        Email Content
                           {/* <span required>*</span> */}
                         </Label>
                         <ReactQuill
+                        style={{ 
+                          backgroundColor: "white", 
+                          
+                        }} 
             id="msg"
             name="msg"
             value={formik.values.msg}
             onChange={(value) => formik.setFieldValue("msg", value)} 
             onBlur={() => formik.setFieldTouched("msg", true)} 
-            placeholder="Please enter Message"
+            placeholder="Please enter content for email"
           />
                         {formik.touched.msg && formik.errors.msg ? (
                           <small className="error-cls" style={{ color: "red" }}>
@@ -135,7 +149,7 @@ const CreateEmail = () => {
                           {...inputDICE1}
                           id="subject"
                           name="subject"
-                          rows={5} 
+                          rows={1} 
                           placeholder="Please enter Subject"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
@@ -202,7 +216,7 @@ const CreateEmail = () => {
                         }`}
                         disabled={!formik.dirty}
                       >
-                        Submit details
+                        Trigger Email
                       </button>
                     </Col>
 

@@ -219,7 +219,10 @@ class detailToDownload extends React.Component {
                                 >
                                     1. Focus Area
                                 </label><br />
-                                {this.props?.ideaDetails?.focus_area}
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails?.focus_area}
+                                </p>
+
                             </div>
 
                             <div style={{ margin: '2rem 2rem' }}>
@@ -230,7 +233,10 @@ class detailToDownload extends React.Component {
                                 >
                                     {`2. Title of your idea (Think of a proper name. Don't describe the solution or problem statement here.)`}
                                 </label><br />
-                                {this.props?.ideaDetails?.title}
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails?.title}
+                                </p>
+
                             </div>
 
                             <div style={{ margin: '2rem 2rem' }}>
@@ -241,7 +247,10 @@ class detailToDownload extends React.Component {
                                 >
                                     3. Write down your Problem statement
                                 </label><br />
-                                {this.props?.ideaDetails?.problem_statement}
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails?.problem_statement}
+                                </p>
+
                             </div>
 
                             <div style={{ margin: '2rem 2rem' }}>
@@ -252,7 +261,9 @@ class detailToDownload extends React.Component {
                                 >
                                     4. List the Causes of the problem
                                 </label><br />
-                                {this.props?.ideaDetails?.causes}
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails?.causes}
+                                </p>
                             </div>
 
                             <div style={{ margin: '2rem 2rem' }}>
@@ -261,9 +272,13 @@ class detailToDownload extends React.Component {
                                     className=""
                                     style={{ fontSize: '1rem', fontWeight: 'bold' }}
                                 >
+
                                     5. List the Effects of the problem
                                 </label><br />
-                                {this.props?.ideaDetails?.effects}
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails?.effects}
+                                </p>
+
                             </div>
 
                             <div style={{ margin: '2rem 2rem' }}>
@@ -274,7 +289,10 @@ class detailToDownload extends React.Component {
                                 >
                                     6. In which places in your community did you find this problem?
                                 </label><br />
-                                {this.props?.ideaDetails?.community}
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails?.community}
+                                </p>
+
                             </div>
 
                             <div style={{ margin: '2rem 2rem' }}>
@@ -285,7 +303,10 @@ class detailToDownload extends React.Component {
                                 >
                                     7. Who all are facing this problem?
                                 </label><br />
-                                {this.props?.ideaDetails?.facing}
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails?.facing}
+                                </p>
+
                             </div>
 
                             <div style={{ margin: '2rem 2rem' }}>
@@ -296,7 +317,10 @@ class detailToDownload extends React.Component {
                                 >
                                     8. Describe the solution to the problem your team found. Explain your solution clearly - how does it work, who is it helping, and how will it solve the problem.
                                 </label><br />
-                                {this.props?.ideaDetails?.solution}
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails?.solution}
+                                </p>
+
                             </div>
 
                             <div style={{ margin: '2rem 2rem' }}>
@@ -307,7 +331,10 @@ class detailToDownload extends React.Component {
                                 >
                                     9. Apart from your teacher, how many people/stakeholders did you speak to to understand or improve your problem or solution?
                                 </label><br />
-                                {this.props?.ideaDetails?.stakeholders}
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails?.stakeholders}
+                                </p>
+
                             </div>
 
                             <div style={{ margin: '2rem 2rem' }}>
@@ -318,7 +345,10 @@ class detailToDownload extends React.Component {
                                 >
                                     10. Pick the actions your team did in your problem solving journey (You can choose multiple options)
                                 </label><br />
-                                {this.props?.ideaDetails && JSON.parse(this.props?.ideaDetails?.problem_solving)}
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails && JSON.parse(this.props?.ideaDetails?.problem_solving).join(", ")}
+                                </p>
+
                             </div>
 
                             <div style={{ margin: '2rem 2rem' }}>
@@ -329,7 +359,10 @@ class detailToDownload extends React.Component {
                                 >
                                     11. Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.
                                 </label><br />
-                                {this.props?.ideaDetails?.feedback}
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails?.feedback}
+                                </p>
+
                             </div>
 
                             <div style={{ margin: '2rem 2rem' }}>
@@ -356,7 +389,10 @@ class detailToDownload extends React.Component {
                                 >
                                     13. Upload documents & video links of your prototype.
                                 </label><br />
-                                {this.props?.ideaDetails?.prototype_link}
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails?.prototype_link}
+                                </p>
+
                             </div>
 
                             <div style={{ margin: '2rem 2rem' }}>
@@ -367,7 +403,10 @@ class detailToDownload extends React.Component {
                                 >
                                     14.   Did your team complete and submit the workbook to your school Guide teacher?
                                 </label><br />
-                                {this.props?.ideaDetails?.workbook}
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails?.workbook}
+                                </p>
+
                             </div>
 
                             <div style={{ margin: '2rem 2rem' }}>

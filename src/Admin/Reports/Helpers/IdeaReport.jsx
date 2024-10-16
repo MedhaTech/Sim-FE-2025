@@ -36,6 +36,7 @@ import moment from "moment/moment";
 const IdeaReport = () => {
   const navigate = useNavigate();
   const [district, setdistrict] = React.useState("");
+  const [isloader, setIsloader] = useState(false);
   const [selectstate, setSelectState] = React.useState("");
   const [category, setCategory] = useState("");
   const [isDownload, setIsDownload] = useState(false);
@@ -55,6 +56,10 @@ const IdeaReport = () => {
   ];
   const newstateList = ["All States", ...stateList];
   const newThemesList = ["All Themes", ...themesList];
+
+  useEffect(() => {
+    setdistrict('');
+  }, [selectstate]);
 
   // const categoryData =
   //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
@@ -569,13 +574,13 @@ const IdeaReport = () => {
   const handleDownload = () => {
     if (
       !selectstate ||
-      //  || !district
+      !district ||
       !category ||
       !sdg
     ) {
       notification.warning({
         message:
-          "Please select a state and category type, Theme before Downloading Reports.",
+          "Select state, district, category type and Theme to download report.",
       });
       return;
     }
@@ -782,6 +787,7 @@ const IdeaReport = () => {
     axios(config)
       .then((response) => {
         if (response.status === 200) {
+          setIsloader(true);
           // console.log(response, "Idea");
           const combinedArray = response?.data?.data || [];
 
@@ -868,6 +874,8 @@ const IdeaReport = () => {
               },
             ],
           };
+         
+          
 
           // const barData = {
           //   labels: combinedArray.map((item) => item.state),
@@ -927,6 +935,10 @@ const IdeaReport = () => {
 
   return (
     <div className="page-wrapper">
+       <h4 className="m-2" 
+        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
+        >Reports
+        </h4>
       <div className="content">
         <div className="page-header">
           <div className="add-item d-flex">
@@ -1020,6 +1032,7 @@ const IdeaReport = () => {
                 </button>
               </Col>
             </Row>
+            {isloader ?
             <div className="chart mt-2 mb-2">
               {combinedArray.length > 0 && (
                 <>
@@ -1375,6 +1388,11 @@ const IdeaReport = () => {
                 </CSVLink>
               )}
             </div>
+            :
+                            <div className="spinner-border text-info" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div>
+                        }
           </div>
         </Container>
       </div>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
 import {
@@ -19,12 +20,13 @@ const BadgesComp = () => {
     const currentUser = getCurrentUser('current_user');
     const badgesfetch = async () => {
         const fectchTecParam = encryptGlobal(JSON.stringify(currentUser?.data[0]?.user_id));
-        const jkh = encryptGlobal(JSON.stringify({
-            status: "ACTIVE"
+        const dataquery = encryptGlobal(JSON.stringify({
+            status: "ACTIVE",
+            mentor_id:currentUser?.data[0]?.mentor_id
         }));
         try {
             const response = await axios.get(
-                `${process.env.REACT_APP_API_BASE_URL}/mentors/${fectchTecParam}/badges?Data=${jkh}`,
+                `${process.env.REACT_APP_API_BASE_URL}/mentors/${fectchTecParam}/badges?Data=${dataquery}`,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -39,6 +41,10 @@ const BadgesComp = () => {
             console.log(error);
         }
     };
+    const dataOf = ["Enables after creating 5 teams" ,
+        "Enables after creating 10 teams",
+        "Enables after all teams submit IDEAS",
+        "Enables after you win all 3 badges"];
     useEffect(() => {
         badgesfetch();
     }, []);
@@ -72,7 +78,10 @@ const BadgesComp = () => {
                                                 />
                                             </Figure>
                                             <CardBody className="badge-name">
-                                                {badge.name}
+                                            <b>{badge.name}</b>
+                                                <br/>
+                                                <br/>
+                                                {dataOf[i]}
                                             </CardBody>
                                             {/* <CardBody>
                                                 <CardSubtitle className="badge-date">

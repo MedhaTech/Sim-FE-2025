@@ -15,7 +15,6 @@ import { useNavigate } from "react-router-dom";
 import { stateList } from "../../RegPage/ORGData";
 import Select from "../Reports/Helpers/Select";
 
-
 const EditLatestNews = (props) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -72,7 +71,7 @@ const EditLatestNews = (props) => {
 
     formik.setFieldValue("file_name", file);
   };
-  console.log(newsID,"newsID");
+  console.log(newsID, "newsID");
   const formik = useFormik({
     initialValues: {
       role: newsID && newsID.category,
@@ -82,18 +81,19 @@ const EditLatestNews = (props) => {
       state: newsID?.state,
       new_status: newsID && newsID.new_status,
     },
-    
-    
+
     validationSchema: Yup.object({
       role: Yup.string()
         .optional()
-        .oneOf(["mentor", "student"], "Role is Required"),
+        .oneOf(["mentor", "student"])
+        .required("Role is Required"),
       state: Yup.string().required("Please Select State"),
 
       details: Yup.string().optional().required("details is Required"),
       new_status: Yup.string()
         .optional()
-        .oneOf(["0", "1"], "New Status type is Required"),
+        .oneOf(["0", "1"])
+        .required("New Status type is Required"),
       // file_name: Yup.mixed(),
       // url: Yup.string()
     }),
@@ -130,8 +130,13 @@ const EditLatestNews = (props) => {
         if (values.file_name !== "" && values.file_name !== null) {
           body["file_name"] = values.file_name;
         }
-        if (values.url !== "" && values.url !== null) {
+        // if (values.url !== "" && values.url !== null) {
+        //   body["url"] = values.url;
+        // }
+        if (values.url) {
           body["url"] = values.url;
+        } else {
+          body["url"] = "";
         }
         const newsId = encryptGlobal(JSON.stringify(newsID.latest_news_id));
         const response = await axios.put(
@@ -174,15 +179,19 @@ const EditLatestNews = (props) => {
   };
   return (
     <div className="page-wrapper">
+       <h4 className="m-2" 
+        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
+        >Latest News
+        </h4>
       <div className="content">
-                <div className="page-header">
-                    <div className="add-item d-flex">
-                        <div className="page-title">
-                            <h4>Edit Latest News</h4>
-                            <h6>You can modify details in this Latest News</h6>
-                        </div>
-                    </div>
-                </div>
+        <div className="page-header">
+          <div className="add-item d-flex">
+            <div className="page-title">
+              <h4>Edit Latest News</h4>
+              <h6>You can modify details in this Latest News</h6>
+            </div>
+          </div>
+        </div>
         <div className="EditPersonalDetails new-member-page">
           <Row>
             <Col className="col-xl-10 offset-xl-1 offset-md-0">
@@ -194,6 +203,7 @@ const EditLatestNews = (props) => {
                       <Col md={4}>
                         <Label className="mb-2" htmlFor="role">
                           Role
+                          <span required>*</span>
                         </Label>
                         <select
                           name="role"
@@ -216,6 +226,7 @@ const EditLatestNews = (props) => {
                       <Col md={4}>
                         <Label className="mb-2" htmlFor="new_status">
                           New Icon Status
+                          <span required>*</span>
                         </Label>
                         <select
                           name="new_status"
@@ -242,13 +253,15 @@ const EditLatestNews = (props) => {
                       <Col md={4}>
                         <Label className="form-label" htmlFor="state">
                           State
-                          {/* <span required>*</span> */}
+                          <span required>*</span>
                         </Label>
                         <Select
                           list={allData}
-                          setValue={(value) => formik.setFieldValue("state", value)} // Update Formik state
+                          setValue={(value) =>
+                            formik.setFieldValue("state", value)
+                          } // Update Formik state
                           placeHolder={"Select State"}
-                          value={formik.values.state}  // Bind the Formik state value
+                          value={formik.values.state} // Bind the Formik state value
                         />
                         {formik.errors.state ? (
                           <small className="error-cls" style={{ color: "red" }}>
@@ -260,6 +273,7 @@ const EditLatestNews = (props) => {
                     <Row className="mb-3 modal-body-table search-modal-header">
                       <Label className="mb-2" htmlFor="details">
                         Details
+                        <span required>*</span>
                       </Label>
                       <Input
                         type="text"
@@ -302,41 +316,43 @@ const EditLatestNews = (props) => {
                               document.getElementById("file_name").click();
                             }}
                           />
+
+                          {formik.values.file_name ? (
+                            <button
+                              className="btn btn-info m-2"
+                              type="button"
+                              // disabled={!formik.values.attachments}
+                              onClick={() => {
+                                if (formik.values.file_name instanceof File) {
+                                  const fileURL = URL.createObjectURL(
+                                    formik.values.file_name
+                                  );
+                                  window.open(fileURL, "_blank");
+                                } else {
+                                  window.open(
+                                    formik.values.file_name,
+                                    "_blank"
+                                  );
+                                }
+                              }}
+                            >
+                              {formik.values.file_name instanceof File
+                                ? formik.values.file_name.name
+                                : formik.values.file_name.substring(
+                                    formik.values.file_name.lastIndexOf("/") + 1
+                                  )}
+                            </button>
+                          ) : null}
                           {formik.values.file_name &&
                           formik.values.file_name.name ? (
                             <span className="ml-2">
-                              {formik.values.file_name.name}
+                              {/* {formik.values.file_name.name} */}
                             </span>
                           ) : (
                             <span className="ml-2">
                               {formik.initialValues.file_name &&
                                 formik.initialValues.file_name.name}
                             </span>
-                          )}
-
-                          {/* Display Download Button */}
-                          {formik.values.file_name && (
-                            <button
-                              className="btn btn-warning"
-                              // style={{ color: 'black' }}
-                              // size="small"
-                              // label=" "
-                            >
-                              <a
-                                href={formik.values.file_name}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                // style={{
-                                //     color: 'black',
-                                //     fontWeight: 'bold',
-                                //     fontSize: '14px',
-                                //     padding: '.5rem'
-                                // }}
-                                // className="btn btn-warning mx-2"
-                              >
-                                Download
-                              </a>
-                            </button>
                           )}
                         </div>
                         {formik.touched.file_name &&
@@ -376,7 +392,12 @@ const EditLatestNews = (props) => {
                   <Row>
                     <div style={buttonContainerStyle}>
                       <button
-                        className="btn btn-warning"
+                        className={`btn btn-warning ${
+                          !formik.dirty || !formik.isValid
+                            ? "default"
+                            : "primary"
+                        }`}
+                        disabled={!formik.dirty || !formik.isValid}
                         type="submit"
                         style={buttonStyle}
                       >

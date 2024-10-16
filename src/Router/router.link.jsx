@@ -36,7 +36,11 @@ import MentorProfile from "../Teacher/TeacherProfile";
 import MentorEditProfile from "../Teacher/TeacherEdit";
 import AdminPassword from "../Admin/AdminPassword";
 import StateDashboard from "../Coordinators/Dashboard/StateDashboard";
-import EadminDashboard from "../Evaluator/Admin/Dashboard/EadminDashboard";
+import EadminDashboard from "../Evaluator/Admin/Evaluation/index";
+import EadminChallenges from "../Evaluator/Admin/Challenges/ViewSelectedChallenges";
+import EadminProcess from "../Evaluator/Admin/EvalProcess/index";
+
+
 import MentorPresurvey from "../Teacher/PreSurvey/PreSurvey";
 import MentorPostsurvey from "../Teacher/PostSurvey/PostSurvey";
 import MentorTeams from "../Teacher/Teams/index";
@@ -125,6 +129,17 @@ import InstitutionReport from "../Admin/Reports/Helpers/InstitutionReport";
 import CreateEmail from "../Admin/BulkEmail/CreatePopUp";
 import ResendEmail from "../Admin/BulkEmail/ResendEmail";
 
+import EadminEval from "../Evaluator/Admin/Evaluator/EadminEvaluator";
+import ViewSelectedideasNew from "../Evaluator/Admin/Evaluation/ViewSelectedIdea/ViewSelectedideasNew";
+import EadminFinal from "../Evaluator/Admin/Evaluation/FinalResults/ViewFinalSelectedideas";
+import EadminRest from "../Evaluator/Admin/Pages/ChangePSWModal";
+import EadminDist from "../Evaluator/Admin/EvalProcess/SelectingDistricts";
+import Instruction from "../Evaluator/Instructions/Instructions";
+import IdeaList from "../Evaluator/IdeaList/IdeaList";
+import NextLevel from "../Evaluator/IdeaList/NextLevelIdeas";
+import ChangeEval from "../Evaluator/ChangePSWModal";
+import EvaluateL1 from "../Evaluator/EvaluatedIdea/EvaluatedIdea";
+import EvaluateL2 from "../Evaluator/EvaluatedIdea/EvaluatedIdeaL2";
 
 
 
@@ -135,6 +150,63 @@ import ResendEmail from "../Admin/BulkEmail/ResendEmail";
 
 
 
+
+
+
+
+
+
+
+
+export const evaluatorRoutes = [
+  {
+    id: 1,
+    path: routes.evalinstructions,
+    name: "evalinstructions",
+    element: <Instruction />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 2,
+    path: routes.evalsubmit,
+    name: "evalsubmit",
+    element: <IdeaList />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 3,
+    path: routes.evalsubmitwo,
+    name: "evalsubmitwo",
+    element: <NextLevel />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 4,
+    path: routes.evalchange,
+    name: "evalchange",
+    element: <ChangeEval/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 5,
+    path: routes.evlL1,
+    name: "evlL1",
+    element: <EvaluateL1/>,
+    protected: true,
+    route: Route,
+  }, {
+    id: 6,
+    path: routes.evlL2,
+    name: "evlL2",
+    element: <EvaluateL2/>,
+    protected: true,
+    route: Route,
+  },
+];
 
 
 export const publicRoutes = [
@@ -777,22 +849,78 @@ export const stateRoutes = [
 export const eadminRoutes = [
   {
     id: 1,
-    path: routes.eadmindashboard,
-    name: "eadminhome",
+    path: routes.eadminevaluation,
+    name: "eadminevaluation",
     element: <EadminDashboard />,
     protected: true,
     route: Route,
   },
-];
-export const posRoutes = [
   {
-    id: 1,
-    path: routes.pos,
-    name: "pos",
-    element: <Pos />,
+    id: 2,
+    path: routes.eadmindashboard,
+    name: "eadminhome",
+    element: <EadminChallenges />,
+    protected: true,
     route: Route,
   },
+  {
+    id: 3,
+    path: routes.eadminEvaluationProcess,
+    name: "eadminEvaluationProcess",
+    element: <EadminProcess />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 4,
+    path: routes.eadminevaluator,
+    name: "eadminevaluator",
+    element: <EadminEval />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 5,
+    path: routes.eadminstats,
+    name: "eadminstats",
+    element: <ViewSelectedideasNew/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 6,
+    path: routes.eadminfinal,
+    name: "eadminfinal",
+    element: <EadminFinal/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 7,
+    path: routes.eadminRest,
+    name: "eadminRest",
+    element: <EadminRest/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 8,
+    path: routes.eadminDist,
+    name: "eadminDist",
+    element: <EadminDist/>,
+    protected: true,
+    route: Route,
+  },
+  // {
+  //   id: 9,
+  //   path: routes.evalinstructions,
+  //   name: "evalinstructions",
+  //   element: <Instruction/>,
+  //   protected: true,
+  //   route: Route,
+  // },
 ];
+
 
 export const pagesRoute = [
   {

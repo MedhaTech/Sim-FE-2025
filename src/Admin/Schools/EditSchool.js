@@ -86,7 +86,7 @@ const EditSchool = (props) => {
             unique_code: listId?.unique_code || '',
             pin_code: listId?.pin_code || '',
             city: listId?.city || '',
-            district: '',  // Default to empty string
+            district: listId?.district || '',  
             state: listId?.state || '',
             status: listId?.status || '',
             address: listId?.address || '',
@@ -137,7 +137,7 @@ const EditSchool = (props) => {
                  .optional(),
             district: Yup.string()
                 // .matches(/^[aA-zZ\s]+$/, 'Invalid district')
-                .required('District not in required format'),
+                .required('District is required'),
             category: Yup.string()
                 // .matches(/^[aA-zZ\s]+$/, 'Invalid category')
                 .required('category is Required'),
@@ -229,6 +229,10 @@ const EditSchool = (props) => {
       };
     return (
         <div className="page-wrapper">
+              <h3 className="m-2" 
+        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
+        >Overall Schools
+        </h3>
         <div className="content">
             <div className="EditPersonalDetails new-member-page">
                 <Row>
@@ -301,11 +305,11 @@ const EditSchool = (props) => {
                                                                 'state',
                                                                 selectedState
                                                             );
-                                                            // formik.setFieldValue(
-                                                            //     'district',
-                                                            //     ''
-                                                            // ); 
-                                                        // {console.log(selectedState)};
+                                                            formik.setFieldValue(
+                                                                'district',
+                                                                ''
+                                                            ); 
+                                                        {console.log(selectedState,"state");}
 
                                                             setDistricts(
                                                                 districtList[
@@ -363,6 +367,8 @@ const EditSchool = (props) => {
                                                                 'district',
                                                                 selectedDistrict
                                                             );
+                                                        {console.log(selectedDistrict,"district");}
+
                                                         }}
                                                     >
                                                         <option value="">
@@ -386,7 +392,7 @@ const EditSchool = (props) => {
                                                
                                                 {formik.errors.district ? (
                                                     <small className="error-cls" style={{color:"red"}}>
-                                                        Current value : {listId?.district}<br/>
+                                                        {/* Current value : {listId?.district}<br/> */}
                                                         {formik.errors.district}
                                                     </small>
                                                 ) : null}
@@ -649,7 +655,7 @@ const EditSchool = (props) => {
                                 </div>
 
                                 <Row>
-                        <div style={buttonContainerStyle}>
+                        {/* <div style={buttonContainerStyle}>
                           <button type="submit"  className={`btn btn-warning  ${
                         !(formik.dirty && formik.isValid)
                           ? "default"
@@ -667,7 +673,29 @@ const EditSchool = (props) => {
                           >
                             Discard
                           </button>
-                          </div>
+                          </div> */}
+                          <div style={buttonContainerStyle}>
+  <button
+    type="submit"
+    className={`btn btn-warning ${
+      !formik.dirty || !formik.isValid ? "default" : "primary"
+    }`}
+    disabled={!formik.dirty || !formik.isValid}
+    style={buttonStyle}
+  >
+    Submit
+  </button>
+
+  <button
+    onClick={() => navigate("/institution")}
+    type="button"
+    className="btn btn-secondary"
+    style={{ marginLeft: 'auto' }}
+  >
+    Discard
+  </button>
+</div>
+
                       </Row>
                             </Form>
                         </div>

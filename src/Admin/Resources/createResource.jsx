@@ -71,7 +71,7 @@ const CreateResource = () => {
         validationSchema: Yup.object({
             role: Yup.string()
                 .optional()
-                .oneOf(['mentor', 'student'], 'Role is Required'),
+                .oneOf(['mentor', 'student']).required('Role is Required'),
             description: Yup.string()
                 .optional()
                 .required('Details is Required'),
@@ -79,7 +79,7 @@ const CreateResource = () => {
 
             type: Yup.string()
                 .optional()
-                .oneOf(['file', 'link'], 'Type is Required'),
+                .oneOf(['file', 'link']).required('Type is Required'),
             attachments: Yup.string().required('Attachments are required'),
         }),
         onSubmit: async (values) => {
@@ -160,6 +160,10 @@ const CreateResource = () => {
       };
     return (
         <div className="page-wrapper">
+             <h4 className="m-2" 
+        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
+        >Resources
+        </h4>
         <div className="content">
             <div className="page-header">
                     <div className="add-item d-flex">
@@ -179,6 +183,7 @@ const CreateResource = () => {
                                         <Col md={4}>
                                             <Label className="mb-2" htmlFor="role">
                                                 Role
+                                                <span required>*</span>
                                             </Label>
                                             <select
                                                 name="role"
@@ -216,7 +221,7 @@ const CreateResource = () => {
                                         <Col md={4}>
                           <Label className="form-label" htmlFor="state">
                             State
-                            {/* <span required>*</span> */}
+                            <span required>*</span> 
                           </Label>
                           <select
                             id="inputState"
@@ -246,6 +251,7 @@ const CreateResource = () => {
                                                 htmlFor="description"
                                             >
                                                 Details
+                                                <span required>*</span>
                                             </Label>
                                             <Input
                                                 {...inputDICE}
@@ -269,6 +275,7 @@ const CreateResource = () => {
                                         <Col >
                                             <Label className="mb-2" htmlFor="type">
                                                 Type
+                                                <span required>*</span>
                                             </Label>
                                             <select
                                                 name="type"

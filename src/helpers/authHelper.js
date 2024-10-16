@@ -17,7 +17,7 @@ const ProtectedRoute = ({ children, user }) => {
   const loginTimestamp = new Date(loginTime).getTime();
   const currentTime = new Date().getTime();
   const difference = currentTime - loginTimestamp;
-
+//1800000 : 30 minutes //
   if (difference > 1800000) {
     localStorage.clear();
     if (user.includes("ADMIN")) {
@@ -28,8 +28,8 @@ const ProtectedRoute = ({ children, user }) => {
       return <Navigate to="/eadmin" />;
     } else if (user.includes("INSTITUTION")) {
       return <Navigate to="/institution" />;
-    // } else if (user.includes("STUDENT")) {
-    //   return <Navigate to="/login" />;
+    } else if (user.includes("STATE")) {
+      return <Navigate to="/state" />;
     } else if (user.includes("TEAM")) {
       return <Navigate to="/team" />;
     } else if (user.includes("EVALUATOR")) {
