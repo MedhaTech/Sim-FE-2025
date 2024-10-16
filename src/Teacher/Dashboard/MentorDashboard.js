@@ -661,13 +661,19 @@ poptype={poptype}
                           <>
                           <div className="dash-counts">
                             <h4>Congrats</h4>
-                            <h5>Download Certificate</h5>
+                           {currentUser?.data[0]?.state !== "Tamil Nadu" &&<h5>Download Certificate</h5> }
                             {/* <h5>Certificate enables soon</h5> */}
                           </div>
                           <div className="dash-imgs" 
-                          onClick={handleCertificateDownload}
+                          // onClick={handleCertificateDownload}
+                          onClick={currentUser?.data[0]?.state !== "Tamil Nadu" ? handleCertificateDownload : null}
+      style={{ cursor: currentUser?.data[0]?.state !== "Tamil Nadu" ? 'pointer' : 'not-allowed', opacity: currentUser?.data[0]?.state !== "Tamil Nadu" ? 1 : 0.5 }}
                           >
                               <GiAchievement size={30} />
+                              
+                              {currentUser?.data[0]?.state === "Tamil Nadu" && (
+        <p>Certificates are Coming Soon</p>
+      )}
                           </div>
                         </>
                         ):(

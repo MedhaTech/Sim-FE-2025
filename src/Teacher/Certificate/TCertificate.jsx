@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 // /* eslint-disable no-unused-vars */
 // /* eslint-disable indent */
 // import React from 'react';
@@ -65,15 +66,19 @@
 /* eslint-disable no-unused-vars */ /* eslint-disable indent */ 
 import React from 'react'; 
 import TeacherCertificate from "../../assets/img/Certificates/TeacherApp.jpg";  
+import { getCurrentUser } from "../../helpers/Utils";
 
 class TCertificate extends React.Component { 
     constructor(props) { 
         super(props); 
         this.state = {}; 
+        const currentUser = getCurrentUser("current_user");
+        this.stateSpecific = currentUser?.data[0]?.state;
     } 
-    
     render() { 
-        return ( 
+        return (
+            <div>
+               {this.stateSpecific !== "Tamil Nadu" ? ( 
             <div className="container-fluid bg-white"> 
                 <div className="row"> 
                     <div style={{ position: 'relative' }}> 
@@ -113,7 +118,11 @@ class TCertificate extends React.Component {
                         /> 
                     </div> 
                 </div> 
-            </div> 
+            </div>
+    ) : (
+        <h2 className='text-center' style={{color:"blue"}}>Certificates Are Coming Soon ...</h2>
+    )}
+            </div>  
         ); 
     } 
 } 
