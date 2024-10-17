@@ -209,7 +209,7 @@ const ChangePSWModal = () => {
                   ></div>
                 </div>
                 {formik.touched.oldPassword && formik.errors.oldPassword ? (
-                  <small className="error-cls">
+                  <small className="error-cls" style={{ color: "red" }}>
                     {formik.errors.oldPassword}
                   </small>
                 ) : null}
@@ -235,7 +235,7 @@ const ChangePSWModal = () => {
                     }}
                   ></div>
                 </div>
-                <small className="mt-2">
+                <small className="mt-2" style={{ color: "red" }}>
                   8-character minimum; case sensitive
                 </small>
                 <br />
@@ -268,7 +268,7 @@ const ChangePSWModal = () => {
                 </div>
                 {formik.touched.confirmPassword &&
                 formik.errors.confirmPassword ? (
-                  <small className="error-cls">
+                  <small className="error-cls" style={{ color: "red" }}>
                     {formik.errors.confirmPassword}
                   </small>
                 ) : null}
