@@ -143,7 +143,7 @@ const LoginEvaluator = (props) => {
                         value={formik.values.email}
                       />
                       {formik.touched.email && formik.errors.email ? (
-                        <small className="error-cls">Required</small>
+                        <small className="error-cls" style={{ color: "red" }}>Required</small>
                       ) : null}
   
                       <img src={email} alt="Email" />
@@ -162,7 +162,7 @@ const LoginEvaluator = (props) => {
                         value={formik.values.password}
                       />
                       {formik.touched.password && formik.errors.password ? (
-                        <small className="error-cls">Required</small>
+                        <small className="error-cls" style={{ color: "red" }}>Required</small>
                       ) : null}
                       <span
                         className={`fas toggle-password ${
