@@ -200,6 +200,34 @@ const downloadFile = (item) => {
                             } order-lg-0 order-1 p-0 h-100`}
                         >
                              {/* <div className="col-lg-8 order-lg-0 order-1 p-0 h-100"> */}
+                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                        <b
+                                            style={{
+                                                fontSize: '1.2rem'
+                                            }}
+                                        >
+                                            Idea Submission Language
+                                            
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5 ">
+                                        <p
+                                            style={{
+                                                fontSize: '1rem',color:"black"
+                                            }}
+                                        >
+                                            {
+                                                teamResponse.language
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
