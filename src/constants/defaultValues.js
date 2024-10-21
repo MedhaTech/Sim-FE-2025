@@ -29,6 +29,8 @@ export const URL = {
   process.env.REACT_APP_API_BASE_URL + '/dashboard/evaluatorStats',
   updateEvalProcess:
         process.env.REACT_APP_API_BASE_URL + '/evaluationProcess/',
+  updateEvaluatorState:
+        process.env.REACT_APP_API_BASE_URL + '/evaluators/',
   // getStudentById: process.env.REACT_APP_API_BASE_URL + '/students/',
   updateStudentStatus: process.env.REACT_APP_API_BASE_URL + "/students",
   getChallengeQuestions: process.env.REACT_APP_API_BASE_URL + "/challenge",

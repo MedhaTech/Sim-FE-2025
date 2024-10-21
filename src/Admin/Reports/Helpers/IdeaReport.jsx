@@ -229,6 +229,10 @@ const IdeaReport = () => {
       key: 'focus_area'
     },
     {
+      label: 'Select in which language you prefer Submitting Your Idea?',
+      key: 'language'
+    },
+    {
       label: 'Title of your idea (Think of a proper name. Dont describe the solution or problem statement here.',
       key: 'title'
     },

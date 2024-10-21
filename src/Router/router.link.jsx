@@ -140,6 +140,7 @@ import NextLevel from "../Evaluator/IdeaList/NextLevelIdeas";
 import ChangeEval from "../Evaluator/ChangePSWModal";
 import EvaluateL1 from "../Evaluator/EvaluatedIdea/EvaluatedIdea";
 import EvaluateL2 from "../Evaluator/EvaluatedIdea/EvaluatedIdeaL2";
+import State from "../Evaluator/Admin/Evaluator/State";
 
 
 
@@ -911,14 +912,14 @@ export const eadminRoutes = [
     protected: true,
     route: Route,
   },
-  // {
-  //   id: 9,
-  //   path: routes.evalinstructions,
-  //   name: "evalinstructions",
-  //   element: <Instruction/>,
-  //   protected: true,
-  //   route: Route,
-  // },
+  {
+    id: 9,
+    path: routes.evalState,
+    name: "evalState",
+    element: <State/>,
+    protected: true,
+    route: Route,
+  },
 ];
 
 
