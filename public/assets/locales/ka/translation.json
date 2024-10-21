@@ -144,7 +144,9 @@
         "my_profile": "ಸ್ವ ಭೂಮಿಕೆ",
         "change_pass": "ಗುಪ್ತಪದವನ್ನು ಬದಲಿಸಿ",
         "resources": "ಸಂಪುಟ",
-         "my_certificate":"My Certificate"
+         "my_certificate":"My Certificate",
+"addLanguage":"Select in which language you prefer Submitting Your Idea?"
+
     },
     "get_started": {
         "heading": "Welcome Students!",

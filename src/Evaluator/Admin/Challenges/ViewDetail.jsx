@@ -4,6 +4,9 @@
 /* eslint-disable indent */
 import React, { useRef, useEffect } from 'react';
 import './ViewSelectedChallenges.scss';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { encryptGlobal } from '../../../constants/encryptDecrypt';
+import axios from 'axios';
 
 import { Button } from '../../../stories/Button';
 // import LinkComponent from '../Pages/LinkComponent';
@@ -18,12 +21,35 @@ import { useReactToPrint } from 'react-to-print';
 import { Col, Container, Row } from 'reactstrap';
 import { Card } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-
+import { Modal } from 'react-bootstrap';
+import Select from './pages/Select';
+import {
+    getCurrentUser,
+    openNotificationWithIcon
+} from '../../../helpers/Utils';
 const ViewDetail = (props) => {
     const { search } = useLocation();
     const level = new URLSearchParams(search).get('level');
+    const currentUser = getCurrentUser('current_user');
     const [teamResponse, setTeamResponse] = React.useState([]);
     const { t } = useTranslation();
+    const [isReject, setIsreject] = React.useState(false);
+    const [reason, setReason] = React.useState('');
+    const [reasonSec, setReasonSec] = React.useState('');
+
+    const selectData = [
+        'Not novel - Idea and problem common and already in use.',
+        'Not novel - Idea has been 100% plagiarized.',
+        'Not useful - Idea does not solve the problem identified / problem & solution not connected.',
+        'Not understandable - Idea Submission does not have proper details to make a decision.',
+        'Not clear (usefulness)',
+        'Not filled - Inaccurate data (form is not filled properly)'
+    ];
+    const reasondata2 = [
+        'Lot of project effort visible.',
+        'Some project effort visible.',
+        'Zero project effort visible.'
+    ];
 console.log(props,"popr");
     // React.useEffect(() => {
     //     if (props?.ideaDetails?.response) {
@@ -39,6 +65,92 @@ console.log(props,"popr");
         }
     }, [props]);
     console.log(teamResponse,"team");
+    
+    const handleAlert = (handledText) => {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false,
+            allowOutsideClick: false
+        });
+
+        swalWithBootstrapButtons
+            .fire({
+                title:
+                    handledText === 'accept'
+                        ? 'You are attempting to accept this Idea'
+                        : 'You are attempting to reject this Idea',
+                text: 'Are you sure?',
+                // imageUrl: `${logout}`,
+                showCloseButton: true,
+                confirmButtonText: 'Confirm',
+                showCancelButton: true,
+                cancelButtonText: 'Cancel',
+                reverseButtons: false
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    if (result.isConfirmed) {
+                        handleL1Round(handledText);
+                    }
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    swalWithBootstrapButtons.fire('Cancelled', '', 'error');
+                }
+            });
+    };
+
+    const handleL1Round = (handledText) => {
+        const body = JSON.stringify({
+            status:
+                handledText == 'accept' ? 'SELECTEDROUND1' : 'REJECTEDROUND1',
+            rejected_reason: handledText == 'reject' ? reason : '',
+            rejected_reasonSecond: handledText == 'reject' ? reasonSec : ''
+        });
+        const challId = encryptGlobal(
+            JSON.stringify(props?.ideaDetails?.challenge_response_id)
+        );
+        var config = {
+            method: 'put',
+            url: `${
+                process.env.REACT_APP_API_BASE_URL +
+                '/challenge_response/' +
+                challId
+            }`,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            },
+            data: body
+        };
+        axios(config)
+            .then(function (response) {
+                openNotificationWithIcon(
+                    'success',
+                    response?.data?.message == 'OK'
+                        ? 'Idea processed successfully!'
+                        : response?.data?.message
+                );
+                props?.setIsDetail(false);
+                // props?.settableData([]);
+                // props?.setdistrict('');
+                // props?.setsdg('');
+            })
+            .catch(function (error) {
+                openNotificationWithIcon(
+                    'error',
+                    error?.response?.data?.message
+                );
+            });
+    };
+
+    const handleReject = () => {
+        if (reason && reasonSec) {
+            handleAlert('reject');
+            setIsreject(false);
+        }
+    };
     const [pdfLoader, setPdfLoader] = React.useState(false);
     const downloadPDF = async () => {
         setPdfLoader(true);
@@ -278,6 +390,7 @@ console.log(props,"popr");
                                                                 teamResponse.district
                                                             }
                                                         </span>
+                                                        <br/>
                                                         <span>State :</span>
                                                         <span >
                                                             &nbsp;
@@ -383,6 +496,34 @@ console.log(props,"popr");
                         </div>
 
                         <div className="col-lg-8 order-lg-0 order-1 p-0 h-100">
+                        <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                        <b
+                                            style={{
+                                                fontSize: '1.2rem'
+                                            }}
+                                        >
+                                            Idea Submission Language
+                                            
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5 ">
+                                        <p
+                                            style={{
+                                                fontSize: '1rem',color:"black"
+                                            }}
+                                        >
+                                            {
+                                                teamResponse.language
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -855,7 +996,7 @@ console.log(props,"popr");
                                 );
                             })} */}
                         </div>
-                        <div className="col-lg-4 order-lg-1 order-0 p-0 h-100 mt-3 status_info_col">
+                        {/* <div className="col-lg-4 order-lg-1 order-0 p-0 h-100 mt-3 status_info_col">
                             <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
                                 {props?.ideaDetails?.evaluation_status ? (
                                     <p
@@ -907,14 +1048,142 @@ console.log(props,"popr");
                                     ''
                                 )}
                             </div>
-                            {/* {level !== 'L1' &&
-                                props?.ideaDetails?.evaluator_ratings.length >
-                                    0 && (
-                                    <RatedDetailCard
-                                        details={props?.ideaDetails}
-                                    />
-                                )} */}
-                        </div>
+                          
+                        </div> */}
+                          {teamResponse?.status === 'SUBMITTED' && (
+                            <div className="col-lg-4 order-lg-1 order-0 p-0 h-100 mt-3 status_info_col">
+                                <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
+                                    {teamResponse?.evaluation_status ? (
+                                        <p
+                                            className={`${
+                                                teamResponse
+                                                    ?.evaluation_status ==
+                                                'SELECTEDROUND1'
+                                                    ? 'text-success'
+                                                    : 'text-danger'
+                                            } fs-3 fw-bold text-center`}
+                                        >
+                                            <span className="fs-3 text-dark">
+                                                L1:{' '}
+                                            </span>
+                                            {teamResponse
+                                                ?.evaluation_status ==
+                                            'SELECTEDROUND1'
+                                                ? 'Accepted'
+                                                : 'Rejected'}
+                                        </p>
+                                    ) : (
+                                        ''
+                                    )}
+
+                                    {teamResponse?.evaluated_name ? (
+                                        <p className="text-center">
+                                            <span className="text-bold">
+                                                Evaluated By:{' '}
+                                            </span>{' '}
+                                            {teamResponse
+                                                ?.evaluated_name || ''}
+                                        </p>
+                                    ) : (
+                                        ''
+                                    )}
+
+                                    {teamResponse?.evaluated_at ? (
+                                        <p className="text-center">
+                                            <span className="text-bold">
+                                                Evaluated At:{' '}
+                                            </span>{' '}
+                                            {moment(
+                                                teamResponse?.evaluated_at
+                                            ).format('DD-MM-YY h:mm:ss a') ||
+                                                ''}
+                                        </p>
+                                    ) : (
+                                        ''
+                                    )}
+
+                                    {teamResponse?.evaluation_status ==
+                                        'REJECTEDROUND1' && (
+                                        <>
+                                            <p className="text-center">
+                                                <span className="text-bold">
+                                                    Rejected Reason 1:{' '}
+                                                </span>{' '}
+                                                {teamResponse
+                                                    ?.rejected_reason || ''}
+                                            </p>
+                                            <p className="text-center">
+                                                <span className="text-bold">
+                                                    Rejected Reason 2:{' '}
+                                                </span>{' '}
+                                                {teamResponse
+                                                    ?.rejected_reasonSecond ||
+                                                    ''}
+                                            </p>
+                                        </>
+                                    )}
+                                    {teamResponse?.evaluation_status ? (
+                                        teamResponse?.evaluation_status ==
+                                        'SELECTEDROUND1' ? (
+                                            <button
+                                                className="btn btn-lg px-5 py-2 btn-danger me-3 rounded-pill"
+                                                onClick={() => {
+                                                    // handleAlert('reject');
+                                                    setIsreject(true);
+                                                    setReason('');
+                                                    setReasonSec('');
+                                                }}
+                                            >
+                                                <span className="fs-4">
+                                                    Reject
+                                                </span>
+                                            </button>
+                                        ) : (
+                                            <button
+                                                className="btn btn-lg px-5 py-2 btn-success me-3 rounded-pill"
+                                                onClick={() => {
+                                                    handleAlert('accept');
+                                                    setReason('');
+                                                    setReasonSec('');
+                                                }}
+                                            >
+                                                <span className="fs-4">
+                                                    Accept
+                                                </span>
+                                            </button>
+                                        )
+                                    ) : (
+                                        <>
+                                            <button
+                                                className="btn px-5 py-2 btn-danger me-3 rounded-pill m-2"
+                                                onClick={() => {
+                                                    // handleAlert('reject');
+                                                    setIsreject(true);
+                                                    setReason('');
+                                                    setReasonSec('');
+                                                }}
+                                            >
+                                                <span >
+                                                    Reject
+                                                </span>
+                                            </button>
+                                            <button
+                                                className="btn px-5 py-2 btn-success me-3 rounded-pill m-2"
+                                                onClick={() => {
+                                                    handleAlert('accept');
+                                                    setReason('');
+                                                    setReasonSec('');
+                                                }}
+                                            >
+                                                <span >
+                                                    Accept
+                                                </span>
+                                            </button>
+                                        </>
+                                    )}
+                                </div>
+                            </div>
+                        )}
                     </div>
                     <div style={{ display: 'flex' }}>
                         <p
@@ -940,15 +1209,7 @@ console.log(props,"popr");
                     </div>
                     <br />
                     <div style={{ display: 'flex' }}>
-                        {/* <p
-                            style={{ fontSize: '1rem', margin: '1rem' }}
-                            className="fw-bold"
-                        >
-                            Verified By :{' '}
-                            {teamResponse.verified_name
-                                ? teamResponse.verified_name
-                                : '-'}
-                        </p> */}
+                      
                         <p
                             style={{ fontSize: '1rem', margin: '1rem' }}
                             className="fw-bold"
@@ -989,6 +1250,73 @@ console.log(props,"popr");
                     </div>
                 </>
             )}
+             <Modal
+                show={isReject}
+                onHide={() => setIsreject(false)}
+                {...props}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+                className="assign-evaluator ChangePSWModal teacher-register-modal"
+                backdrop="static"
+                scrollable={true}
+            >
+                <Modal.Header closeButton onHide={() => setIsreject(false)}>
+                    <Modal.Title
+                        id="contained-modal-title-vcenter"
+                        className="w-100 d-block text-center"
+                    >
+                        Reject
+                    </Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                    <div className="my-3 text-center">
+                        <h3 className="mb-sm-4 mb-3">
+                            Please Select the reason for rejection.
+                        </h3>
+                        <Col>
+                            <Col className="m-5">
+                                <p className="text-left">
+                                    <b>1. Novelty & Usefulness</b>
+                                </p>
+                                <Select
+                                    list={selectData}
+                                    setValue={setReason}
+                                    placeHolder="Please Select Reject Reason 1"
+                                    value={reason}
+                                />
+                            </Col>
+                            <Col className="m-5">
+                                <p className="text-left">
+                                    <b>
+                                        2. Does the submission show any evidence
+                                        of efforts put in to complete the
+                                        project?
+                                    </b>
+                                </p>
+                                <Select
+                                    list={reasondata2}
+                                    setValue={setReasonSec}
+                                    placeHolder="Please Select Reject Reason 2"
+                                    value={reasonSec}
+                                />
+                            </Col>
+                        </Col>
+                    </div>
+                    <div className="text-center">
+                        <Button
+                            label={'Submit'}
+                            btnClass={
+                                !reason && reasonSec ? 'default' : 'primary'
+                            }
+                            size="small "
+                            onClick={() => handleReject()}
+                            disabled={!reason && reasonSec}
+                        />
+                    </div>
+                </Modal.Body>
+            </Modal>
         </div>
     );
 };

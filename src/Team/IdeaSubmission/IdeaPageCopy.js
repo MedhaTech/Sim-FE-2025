@@ -42,6 +42,7 @@ import moment from "moment";
 
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { themes, themesList, focusareasList } from "./themesData";
+import {languageOptions} from "../../RegPage/ORGData";
 import { use } from "i18next";
 import { initiateIdea } from "../../redux/studentRegistration/actions";
 import { setIn } from "formik";
@@ -96,9 +97,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   //     )
   // );
   const showPage = false;
-    const language = useSelector(
-      (state) => state?.studentRegistration?.studentLanguage
-  );
+  //   const language = useSelector(
+  //     (state) => state?.studentRegistration?.studentLanguage
+  // );
   const [isDisabled, setIsDisabled] = useState(false);
   const initialLoadingStatus = { draft: false, submit: false };
   const [loading, setLoading] = useState(initialLoadingStatus);
@@ -121,6 +122,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const [files, setFiles] = useState([]);
   const [message, setMessage] = useState("");
   const [title, setTitle] = useState(formData?.title);
+  // Add on
+  const [language, setLanuage] = useState(formData?.language);
+
   const [problemStatement, setProblemStatement] = useState(
     formData?.problemStatement
   );
@@ -213,6 +217,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const handleFocusAreaChange = (e) => {
     setFocusArea(e.target.value);
   };
+  const handleLanguageChange = (e) => {
+    setLanuage(e.target.value);
+  };
 
   // useEffect(() => {
   //   setFocus(
@@ -244,6 +251,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     setTitle(formData?.title);
     setProblemStatement(formData?.problem_statement);
     setCauses(formData?.causes);
+    setLanuage(formData?.language);
+
     setEffects(formData?.effects);
     setCommunity(formData?.community);
     setFacing(formData?.facing);
@@ -385,6 +394,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     if (causes !== "") {
       body["causes"] = causes;
     }
+    if (language !== "") {
+      body["language"] = language;
+    }
     if (effects !== "") {
       body["effects"] = effects;
     }
@@ -517,6 +529,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     if (causes !== null) {
       body["causes"] = causes;
     }
+    if (language !== null) {
+      body["language"] = language;
+    }
     if (effects !== null) {
       body["effects"] = effects;
     }
@@ -567,6 +582,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
 
         causes === "" ||
         causes === null ||
+
+        language === "" ||
+        language === null ||
 
         effects === "" ||
         effects === null ||
@@ -949,6 +967,40 @@ if(formData?.verified_status === "ACCEPTED"){
                                 </select>
                               </div>
                             )}
+                          </div>
+                          <div className="card comment-card">
+                            <div className="question quiz mb-0">
+                              <b
+                                style={{
+                                  fontSize: "1rem",
+                                }}
+                              >
+                                {t("home.addLanguage")}
+                              </b>
+                            </div>
+
+                            <div className=" answers row flex-column p-4">
+                              <select
+                                className="form-control"
+                                onChange={handleLanguageChange}
+                                disabled={isDisabled}
+                                name="theme"
+                                id="theme"
+                              >
+                                <option value={""}>
+                                  Please select the Language
+                                </option>
+                                {languageOptions.map((item, i) => (
+                                  <option
+                                    key={i}
+                                    value={item}
+                                    selected={item === language}
+                                  >
+                                    {item}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
                           </div>
                           <div className="card comment-card">
                             <div className="question quiz mb-0">

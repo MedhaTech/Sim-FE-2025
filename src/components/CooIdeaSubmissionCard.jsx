@@ -315,6 +315,14 @@ const CooIdeaSubmissionCard = ({
         </Modal.Header>
 
         <Modal.Body>
+        <Card className="p-1">
+            <CardBody>
+              <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
+              Idea Submission Language 
+              </label>
+              <CardText>{response.language}</CardText>
+            </CardBody>
+          </Card>
           <Card className="p-1">
             <CardBody>
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>

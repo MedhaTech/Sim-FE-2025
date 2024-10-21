@@ -1,5 +1,10 @@
 /* eslint-disable no-irregular-whitespace */
 /* eslint-disable indent */
+export const languageOptions=['English','हिन्दी',
+  'தமிழ்',
+  'മലയാളം',
+  'తెలుగు',
+  'ಕನ್ನಡ'];
 export const stateList = [
   "Andaman and Nicobar Islands",
   "Andhra Pradesh",

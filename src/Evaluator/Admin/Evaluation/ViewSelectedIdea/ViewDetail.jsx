@@ -103,23 +103,23 @@ const ViewDetail = (props) => {
         const currentTime = new Date().toLocaleString();
 
         const body = JSON.stringify({
-            evaluation_status:
+            status:
                 handledText == 'accept' ? 'SELECTEDROUND1' : 'REJECTEDROUND1',
             team_id: teamResponse?.team_id,
             evaluated_by: currentUser?.data[0]?.user_id,
             evaluated_at: currentTime,
-            rejected_reason: handledText == 'reject' ? reason : ''
-            // rejected_reasonSecond: handledText == 'reject' ? reasonSec : ''
+            rejected_reason: handledText == 'reject' ? reason : '',
+            rejected_reasonSecond: handledText == 'reject' ? reasonSec : ''
         });
-        // const challId = encryptGlobal(
-        //     JSON.stringify(props?.ideaDetails?.challenge_response_id)
-        // );
+        const challId = encryptGlobal(
+            JSON.stringify(props?.ideaDetails?.challenge_response_id)
+        );
         var config = {
             method: 'put',
             url: `${
-                process.env.REACT_APP_API_BASE_URL + '/ideas/ideaUpdate'
-                //  +
-                // challId
+                process.env.REACT_APP_API_BASE_URL + '/challenge_response/'
+                 +
+                challId
             }`,
             headers: {
                 'Content-Type': 'application/json',
@@ -513,6 +513,34 @@ const ViewDetail = (props) => {
                         </div>
 
                         <div className="col-lg-8 order-lg-0 order-1 p-0 h-100">
+                        <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                        <b
+                                            style={{
+                                                fontSize: '1.2rem'
+                                            }}
+                                        >
+                                            Idea Submission Language
+                                            
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5 ">
+                                        <p
+                                            style={{
+                                                fontSize: '1rem',color:"black"
+                                            }}
+                                        >
+                                            {
+                                                teamResponse.language
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -1242,7 +1270,7 @@ const ViewDetail = (props) => {
                                     value={reason}
                                 />
                             </Col>
-                            {/* <Col className="m-5">
+                            <Col className="m-5">
                                 <p className="text-left">
                                     <b>
                                         2. Does the submission show any evidence
@@ -1256,13 +1284,15 @@ const ViewDetail = (props) => {
                                     placeHolder="Please Select Reject Reason"
                                     value={reasonSec}
                                 />
-                            </Col> */}
+                            </Col>
                         </Col>
                     </div>
                     <div className="text-center">
                         <Button
                             label={'Submit'}
-                            btnClass={!reason ? 'default' : 'primary'}
+                            btnClass={
+                                !reason && reasonSec ? 'default' : 'primary'
+                            }
                             size="small "
                             onClick={() => handleReject()}
                             disabled={!reason}
