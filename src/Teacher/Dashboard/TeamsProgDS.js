@@ -232,10 +232,10 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
         ),
     },
     {
-      title: "Certificate",
+      title: "Course Certificate",
       dataIndex: "certificate",
       align: "center",
-      width: "10rem",
+      width: "13rem",
       render: (_, record) =>
         record?.certificate ? (
           <CheckCircle size={20} color="#28C76F" />
