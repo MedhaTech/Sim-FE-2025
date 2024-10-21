@@ -122,23 +122,67 @@ const EvaluatedIdea = () => {
                     ];
                 },
                 sortable: true,
-                width: '6%'
+                width: '6rem'
+            },
+            {
+                name: 'State',
+                selector: (row) => row.state,
+                width: '10rem'
+            },
+            {
+                name: 'District',
+                selector: (row) => row.district,
+                width: '10rem'
+            },
+            {
+                name: 'Udise Code',
+                selector: (row) => row.
+                organization_code
+                ,
+                width: '9rem'
             },
             {
                 name: 'Team Name',
-                selector: (row) => row.team_name || '',
-                sortable: true,
-                width: '15%'
+                selector: (row) => row.team_name,
+                width: '10rem'
             },
             {
-                name: 'SDG',
-                selector: (row) => row.theme,
-                width: '20%'
+                name: 'CID',
+                selector: (row) => row.challenge_response_id,
+                width: '5rem'
+            },
+            {
+                name: 'Theme',
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row?.theme}
+                    </div>
+                ),
+                width: '11rem'
+            },
+            {
+                name: 'Idea Name',
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row?.title}
+                    </div>
+                ),
+                width: '10rem'
             },
             {
                 name: 'Submitted By',
                 selector: (row) => row.initiated_name,
-                width: '15%'
+                width: '8rem'
             },
             {
                 name: 'Evaluated At',
@@ -154,7 +198,7 @@ const EvaluatedIdea = () => {
                               'DD-MM-YY h:mm:ss a'
                           )
                         : row?.evaluator_ratings[0]?.created_at,
-                width: '17%'
+                width: '10rem'
             },
             {
                 name:
@@ -190,7 +234,7 @@ const EvaluatedIdea = () => {
                               </div>
                           ];
                 },
-                width: '10%'
+                width: '8rem'
             },
             {
                 name: 'Actions',
@@ -219,7 +263,7 @@ const EvaluatedIdea = () => {
                         </div>
                     ];
                 },
-                width: '17%',
+                width: '13rem',
                 left: true
             }
         ]

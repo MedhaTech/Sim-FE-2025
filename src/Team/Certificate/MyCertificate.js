@@ -61,9 +61,9 @@ const Certificate = ({
           t
         )
       );
-    // if (!type)
-    //   dispatch(updateStudentCertificate(currentUser?.data[0]?.user_id
-    //   ));
+    if (!type)
+      dispatch(updateStudentCertificate(currentUser?.data[0]?.user_id
+      ));
   };
   const certDateCheck = () => {
     const check =

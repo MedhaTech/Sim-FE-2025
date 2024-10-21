@@ -111,7 +111,7 @@ const ViewDetail = (props) => {
                     <div style={{ display: 'none' }}>
                         <DetailToDownload
                             ref={componentRef}
-                            ideaDetails={props?.ideaDetails}
+                            ideaDetails={teamResponse}
                             teamResponse={teamResponse}
                             level={'Draft'}
                         />
@@ -382,6 +382,34 @@ const ViewDetail = (props) => {
                             </div>
                         </div>
                         <div className="col-lg-8 order-lg-0 order-1 p-0 h-100">
+                        <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                        <b
+                                            style={{
+                                                fontSize: '1.2rem'
+                                            }}
+                                        >
+                                            Idea Submission Language
+                                            
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5 ">
+                                        <p
+                                            style={{
+                                                fontSize: '1rem',color:"black"
+                                            }}
+                                        >
+                                            {
+                                                teamResponse.language
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -857,10 +885,10 @@ const ViewDetail = (props) => {
                        
                         <div className="col-lg-4 order-lg-1 order-0 p-0 h-100 mt-3 status_info_col">
                             <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
-                                {props?.ideaDetails?.evaluation_status ? (
+                                {teamResponse?.evaluation_status ? (
                                     <p
                                         className={`${
-                                            props?.ideaDetails
+                                            teamResponse
                                                 ?.evaluation_status ==
                                             'SELECTEDROUND1'
                                                 ? 'text-success'
@@ -870,7 +898,7 @@ const ViewDetail = (props) => {
                                         <span className="fs-3 text-info">
                                             L1:{' '}
                                         </span>
-                                        {props?.ideaDetails
+                                        {teamResponse
                                             ?.evaluation_status ==
                                         'SELECTEDROUND1'
                                             ? 'Accepted'
@@ -880,26 +908,26 @@ const ViewDetail = (props) => {
                                     ''
                                 )}
 
-                                {props?.ideaDetails?.evaluated_name ? (
+                                {teamResponse?.evaluated_name ? (
                                     <p className="text-center">
                                         <span className="text-bold">
                                             Evaluated By:{' '}
                                         </span>{' '}
-                                        {props?.ideaDetails?.evaluated_name ||
+                                        {teamResponse?.evaluated_name ||
                                             ''}
                                     </p>
                                 ) : (
                                     ''
                                 )}
 
-                                {props?.ideaDetails?.evaluated_at ? (
+                                {teamResponse?.evaluated_at ? (
                                     <p className="text-center">
                                         <span className="text-bold">
                                             Evaluated At:{' '}
                                         </span>{' '}
                                         {moment
                                             .utc(
-                                                props?.ideaDetails?.evaluated_at
+                                                teamResponse?.evaluated_at
                                             )
                                             .format('DD-MM-YYYY ') || ''}
                                     </p>
@@ -908,10 +936,10 @@ const ViewDetail = (props) => {
                                 )}
                             </div>
                             {level !== 'L1' &&
-                                props?.ideaDetails?.evaluator_ratings.length >
+                                teamResponse?.evaluator_ratings.length >
                                     0 && (
                                     <RatedDetailCard
-                                        details={props?.ideaDetails}
+                                        details={teamResponse}
                                     />
                                 )}
                         </div>

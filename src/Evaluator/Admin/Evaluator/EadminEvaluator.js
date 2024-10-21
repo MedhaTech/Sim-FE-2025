@@ -179,6 +179,15 @@ const TicketsPage = (props) => {
                 }
             });
     };
+    const handleDic = (item) => {
+        // where we can select district //
+        // where item = district //
+        navigate("/evaluator/selecting-states");
+        // history.push({
+        //     pathname: '/eadmin/selectingDistricts-evaluationProcess'
+        // });
+        localStorage.setItem('eavlId', JSON.stringify(item));
+    };
     const evaluatorsData = {
         data: props.evalutorsList,
         columns: [
@@ -224,7 +233,7 @@ const TicketsPage = (props) => {
             {
                 name: 'Actions',
                 sortable: false,
-                width: '10rem',
+                width: '20rem',
                 cell: (record) => [
                     // <div
                     //     key={record.id}
@@ -260,12 +269,21 @@ const TicketsPage = (props) => {
                     >
                         {record?.status === 'ACTIVE' ? (
                             <div className="btn btn-danger">
-                                InActive
+                                Inactive
                             </div>
                         ) : (
                             <div className="btn btn-warning">Active</div>
                         )}
-                    </div>
+                    </div>,
+                      <div
+                      key={record}
+                      onClick={() => handleDic(record)}
+                      style={{ marginRight: '12px' }}
+                  >
+                      <div className="btn btn-success btn-lg mx-2">
+                          STATES
+                      </div>
+                  </div>
                     // <div
                     //     key={record.id}
                     //     className="mr-5"

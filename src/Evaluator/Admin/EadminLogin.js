@@ -96,7 +96,7 @@ const StateLogin = (props) => {
                 </div>
 
                 <div className="login-userheading">
-                  <h3>Evaluator Eadmin Login</h3>
+                  <h3>Evaluator Admin Login</h3>
                   {/* <h4>
                     Access the Dreamspos panel using your email and passcode.
                   </h4> */}
@@ -113,7 +113,7 @@ const StateLogin = (props) => {
                       value={formik.values.email}
                     />
                     {formik.touched.email && formik.errors.email ? (
-                      <small className="error-cls">Required</small>
+                      <small className="error-cls" style={{ color: "red" }}>Required</small>
                     ) : null}
 
                     <img src={email} alt="Email" />
@@ -132,7 +132,7 @@ const StateLogin = (props) => {
                       value={formik.values.password}
                     />
                     {formik.touched.password && formik.errors.password ? (
-                      <small className="error-cls">Required</small>
+                      <small className="error-cls" style={{ color: "red" }}>Required</small>
                     ) : null}
                     <span
                       className={`fas toggle-password ${
