@@ -42,13 +42,7 @@ const EditSchool = (props) => {
         history.location.item &&
         history.location.item) ||
     listID;
-    // console.log(listId.district,"e");
-    // useEffect(() => {
-    //     if (listID) {
-    //       formik.setFieldValue('state', listID.state);
-    //       formik.setFieldValue('district', listID.district);
-    //     }
-    //   }, [listID]);
+   
     const dispatch = useDispatch();
     const [districts, setDistricts] = useState([]);
 
