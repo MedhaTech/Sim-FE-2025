@@ -91,7 +91,7 @@ evalsubmitwo:"/evaluator2/submitted-ideas",
 evalchange:"/evaluator/change-password",
 evlL1:"/evaluator/evaluated-ideas",
 evlL2:"/evaluator/evaluated-ideasL2",
-
+evlProfile:"/evaluator-profile",
   adminpassword: "/admin-password",
   productlist: "/product-list",
   addproduct: "/add-product",

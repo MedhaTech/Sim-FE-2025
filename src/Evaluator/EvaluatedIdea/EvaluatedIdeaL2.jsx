@@ -59,10 +59,7 @@ const EvaluatedIdea = () => {
 
     const [tabledate, settabledate] = React.useState([]);
 
-    useEffect(() => {
-        // dispatch(getDistrictData());
-        dispatch(getStateData());
-    }, []);
+   
     useEffect(() => {
         if (selectstate === '') {
             settabledate([]);

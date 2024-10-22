@@ -19,8 +19,11 @@ import { encryptGlobal } from '../../../constants/encryptDecrypt';
 import { stateList, districtList } from "../../../RegPage/ORGData.js";
 const State = (props) => {
     const location = useLocation();
+    const { evaluatorId } = location.state || {};
+    // console.log(evaluatorId,"id");
     const evalID = JSON.parse(localStorage.getItem('eavlId'));
-    //  where evalID= evaluation_process_id //
+    const IdIntial =evaluatorId ? evaluatorId : evalID.evaluator_id ;
+    // console.log(evalID,"item");
     const dispatch = useDispatch();
     const [clickedValue, setclickedValue] = useState({});
     const [selectedStates, setselectedStates] = useState([]);
@@ -29,13 +32,7 @@ const navigate = useNavigate();
     const fullStatesNames = newstateList;
 
     useEffect(() => {
-        // evalID && evalID.state
-        //     ? evalID.state.split(',').length ===
-        //           fullStatesNames.length - 1 &&
-        //       !evalID.state.includes('All States')
-        //         ? setselectedStates(fullStatesNames)
-        //         : setselectedStates(evalID.state.split(','))
-        //     : '';
+        
         if (evalID && evalID.state) {
             if (
                 evalID.state.split(',').length ===
@@ -77,7 +74,7 @@ const navigate = useNavigate();
             value.state = '-';
         }
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-        const evalid = encryptGlobal(JSON.stringify(evalID.evaluator_id));
+        const evalid = encryptGlobal(JSON.stringify(IdIntial));
         await axios
             .put(
                 `${URL.updateEvaluatorState + evalid}`,
@@ -86,6 +83,8 @@ const navigate = useNavigate();
             )
             .then((response) => {
                 if (response.status == 200) {
+            localStorage.removeItem('eavlId');
+
                     openNotificationWithIcon(
                         'success',
                         'States Update Successfully'
@@ -114,16 +113,16 @@ const navigate = useNavigate();
           <div className="content">
             <Container>
                 <Card className="m-3 p-3">
-                    {/* <Row>
+                    <Row>
                         <Col md={4}>
                             <Label className="mb-2 text-info">
-                                Level Name :{' '}
+                            
                                 <span className="text-muted">
-                                    {evalID && evalID.level_name}
+                                    {/* {evalID.evaluator_id} */}
                                 </span>{' '}
                             </Label>
                         </Col>
-                        <Col md={4}>
+                        {/* <Col md={4}>
                             <Label className="mb-2 text-info">
                                 No of Evaluation :{' '}
                                 <span className="text-muted">
@@ -138,8 +137,8 @@ const navigate = useNavigate();
                                     {evalID && evalID.eval_schema}
                                 </span>
                             </Label>
-                        </Col>
-                    </Row> */}
+                        </Col> */}
+                    </Row>
                     <Row>
                         <Label className="mb-2">States:</Label>
                         <Check
@@ -152,24 +151,28 @@ const navigate = useNavigate();
                 </Card>
                 <Row>
                     <Col className="col-xs-12 col-sm-6">
-                        {/* <Button
-                            label="Discard"
-                            btnClass="secondary"
-                            size="small"
-                            onClick={() =>
-                                navigate('/eadmin/evaluationProcess')
-                            }
-
-                        /> */}
-                          <button
+                    <button
+          type="button"
+          onClick={() => {
+            // Remove the evalID from localStorage
+            localStorage.removeItem('eavlId');
+            // Navigate to the evaluator page
+            navigate('/eadmin/evaluator');
+          }}
+          className="btn btn-secondary"
+        >
+          Discard
+        </button>
+                          {/* <button
                           type="button"
                           onClick={() =>
-                            navigate('/eadmin/evaluator')
+                            localStorage.removeItem('eavlId');
+                            navigate('/eadmin/evaluator');
                         }
                           className="btn btn-secondary"
                         >
                           Discard
-                        </button>
+                        </button> */}
                     </Col>
                     <Col className="submit-btn col-xs-12 col-sm-6 text-right">
                         <Button
