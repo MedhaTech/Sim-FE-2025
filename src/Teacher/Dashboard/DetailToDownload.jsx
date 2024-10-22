@@ -217,6 +217,19 @@ class detailToDownload extends React.Component {
                                     className=""
                                     style={{ fontSize: '1rem', fontWeight: 'bold' }}
                                 >
+                                    Idea Submission Language
+                                </label><br />
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails?.language}
+                                </p>
+
+                            </div>
+                            <div style={{ margin: '2rem 2rem' }}>
+                                <label
+                                    htmlFor="teams"
+                                    className=""
+                                    style={{ fontSize: '1rem', fontWeight: 'bold' }}
+                                >
                                     1. Focus Area
                                 </label><br />
                                 <p style={{ overflowWrap: 'anywhere' }}>
