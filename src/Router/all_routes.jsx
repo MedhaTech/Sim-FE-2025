@@ -92,6 +92,13 @@ evalchange:"/evaluator/change-password",
 evlL1:"/evaluator/evaluated-ideas",
 evlL2:"/evaluator/evaluated-ideasL2",
 evlProfile:"/evaluator-profile",
+evalReports:"/reports-card",
+evalL1:"/l1-report",
+evalL2:"/l2-report",
+evalL3:"/l3-report",
+
+
+
   adminpassword: "/admin-password",
   productlist: "/product-list",
   addproduct: "/add-product",

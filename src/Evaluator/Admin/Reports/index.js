@@ -1,72 +1,229 @@
-import React from 'react';
-import { Card, Col, Container, Row } from 'reactstrap';
-import Layout from '../Pages/Layout';
+/* eslint-disable no-unused-vars */
+/* eslint-disable indent */
+import React, { useState ,useEffect} from "react";
 import { Link } from 'react-router-dom';
-import '../../../Admin/Reports/reports.scss';
-import PageNotFoundImg from '../../../assets/media/page-not-found.png';
-
+import reg from "../../../assets/img/reportregister1.png";
+import teacher from "../../../assets/img/classroom.png";
+import school from "../../../assets/img/reportschool.png";
+import student from "../../../assets/img/reportsstudent1.png";
+import idea from "../../../assets/img/reportidea.png";
+import user from "../../../assets/img/user.png";
+import user1 from "../../../assets/img/reportuser1.png";
+import user2 from "../../../assets/img/reportuser2.png";
+import user3 from "../../../assets/img/reportuser3.png";
+import {
+    getCurrentUser,
+   
+  } from '../../../helpers/Utils';
+  import axios from 'axios';
 const Reports = () => {
-    const showPage = true;
-    return (
-        <Layout title="Reports">
-            {showPage ? (
-                <Container className="mt-5 report-wrapper mb-5 pb-5">
-                    <h2>Reports</h2>
-                    <div className="reports-data p-5 bg-gray">
-                        <Row className="mb-3">
-                            <Col lg={6} md={6}>
-                                <Link to="/eadmin/l1-reports">
-                                    <Card className="p-4 text-center card-effect mb-4">
-                                        <b className="text-secondary">
-                                            L1 - Reports
-                                        </b>
-                                    </Card>
-                                </Link>
-                            </Col>
-                        </Row>
+    
+  const currentUser = getCurrentUser('current_user');
+  // const route = all_routes;
 
-                        <Row className="mb-3">
-                            <Col lg={6} md={6}>
-                                <Link to="/eadmin/l2-reports">
-                                    <Card className="p-4 text-center card-effect mb-4">
-                                        <b className="text-secondary">
-                                            L2 - Reports
-                                        </b>
-                                    </Card>
-                                </Link>
-                            </Col>
-                        </Row>
-
-                        <Row className="mb-3">
-                            <Col lg={6} md={6}>
-                                <Link to="/eadmin/l3-reports">
-                                    <Card className="p-4 text-center card-effect mb-4">
-                                        <b className="text-secondary">
-                                            L3 - Reports(Final Challenges &
-                                            Winners)
-                                        </b>
-                                    </Card>
-                                </Link>
-                            </Col>
-                        </Row>
-                    </div>
-                </Container>
-            ) : (
-                <Container className="mt-5 report-wrapper mb-5 pb-5">
-                    <Card className="p-5 text-center">
-                        <div>
-                            <img
-                                src={PageNotFoundImg}
-                                alt="under construction"
-                                className="img-fluid w-25"
-                            />
+return (
+<div>
+    <div className="page-wrapper">
+        <div className="content">
+            <div className="page-header">
+                <div className="add-item d-flex">
+                <div className="page-title">
+                    <h4>SIM Reports</h4>
+                    <h6>Find user data and analytical reports here</h6>
+                </div>
+                </div>
+            </div>
+            <div className="employee-grid-widget">
+                <div className="row">
+                   
+                    <div className="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
+                        <div className="employee-grid-profile">
+                        <div className="profile-head">
+                            <div className="dep-name">
+                                <h5 className="active">L1 - Reports</h5>
+                            </div>
                         </div>
+                        <Link  to="/l1-report">
+                            <div className="profile-info department-profile-info" >
+                                
+                                    <div className="profile-pic">
+                                    <img
+                                        src={school}
+                                        alt=""
+                                    />
+                                    </div>
+                                    <h4>L1 - Reports Stats</h4>
+                            </div>
+                        </Link>
+                        <ul className="team-members">
+                            <li>
+                            <ul>
+                                <li>
+                                <Link to="#">
+                                    <img
+                                        src={user1}
+                                        alt=""
+                                    />
+                                </Link>
+                                </li>
+                                <li>
+                                <Link to="#">
+                                    <img
+                                        src={user2}
+                                        alt=""
+                                    />
+                                </Link>
+                                </li>
+                                <li>
+                                <Link to="#">
+                                    <img
+                                        src={user3}
+                                        alt=""
+                                    />
+                                </Link>
+                                </li>
+                                <li>
+                                <Link to="#">
+                                    <img
+                                        src={user}
+                                        alt=""
+                                    />
+                                    <span> +</span>
+                                </Link>
+                                </li>
+                            </ul>
+                            </li>
+                        </ul>
+                        </div>
+                    </div>
+                    <div className="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
+                        <div className="employee-grid-profile">
+                        <div className="profile-head">
+                            <div className="dep-name">
+                                <h5 className="active">L2 - Reports</h5>
+                            </div>
+                        </div>
+                        <Link  to="/l2-report">
+                            <div className="profile-info department-profile-info" >
+                                
+                                    <div className="profile-pic">
+                                    <img
+                                        src={reg}
+                                        alt=""
+                                    />
+                                    </div>
+                                    <h4>L2 - Reports Stats</h4>
+                            </div>
+                        </Link>
+                        <ul className="team-members">
+                            <li>
+                            <ul>
+                                <li>
+                                <Link to="#">
+                                    <img
+                                        src={user1}
+                                        alt=""
+                                    />
+                                </Link>
+                                </li>
+                                <li>
+                                <Link to="#">
+                                    <img
+                                        src={user2}
+                                        alt=""
+                                    />
+                                </Link>
+                                </li>
+                                <li>
+                                <Link to="#">
+                                    <img
+                                        src={user3}
+                                        alt=""
+                                    />
+                                </Link>
+                                </li>
+                                <li>
+                                <Link to="#">
+                                    <img
+                                        src={user}
+                                        alt=""
+                                    />
+                                    <span> +</span>
+                                </Link>
+                                </li>
+                            </ul>
+                            </li>
+                        </ul>
+                        </div>
+                    </div>
+                    <div className="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
+                        <div className="employee-grid-profile">
+                        <div className="profile-head">
+                            <div className="dep-name">
+                                <h5 className="active">L3 - Reports</h5>
+                            </div>
+                        </div>
+                        <Link  to="/l3-report">
+                            <div className="profile-info department-profile-info" >
+                                
+                                    <div className="profile-pic">
+                                    <img
+                                        src={teacher}
+                                        alt=""
+                                    />
+                                    </div>
+                                    <h4>L3 - Reports Stats</h4>
+                            </div>
+                        </Link>
+                        <ul className="team-members">
+                            <li>
+                            <ul>
+                                <li>
+                                <Link to="#">
+                                    <img
+                                        src={user1}
+                                        alt=""
+                                    />
+                                </Link>
+                                </li>
+                                <li>
+                                <Link to="#">
+                                    <img
+                                        src={user2}
+                                        alt=""
+                                    />
+                                </Link>
+                                </li>
+                                <li>
+                                <Link to="#">
+                                    <img
+                                        src={user3}
+                                        alt=""
+                                    />
+                                </Link>
+                                </li>
+                                <li>
+                                <Link to="#">
+                                    <img
+                                        src={user}
+                                        alt=""
+                                    />
+                                    <span> +</span>
+                                </Link>
+                                </li>
+                            </ul>
+                            </li>
+                        </ul>
+                        </div>
+                    </div>
+                    
+                                       
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-                        <p>Page is under construction</p>
-                    </Card>
-                </Container>
-            )}
-        </Layout>
-    );
+);
 };
 export default Reports;

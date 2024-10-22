@@ -141,6 +141,13 @@ import ChangeEval from "../Evaluator/ChangePSWModal";
 import EvaluateL1 from "../Evaluator/EvaluatedIdea/EvaluatedIdea";
 import EvaluateL2 from "../Evaluator/EvaluatedIdea/EvaluatedIdeaL2";
 import EvaluatorProfile from "../Evaluator/EvaluatorProfile";
+import ReportsCard from "../Evaluator/Admin/Reports/index";
+import ReportL1 from "../Evaluator/Admin/Reports/ReportL1";
+import ReportL2 from "../Evaluator/Admin/Reports/ReportL2";
+import ReportL3 from "../Evaluator/Admin/Reports/ReportL3";
+
+
+
 
 import State from "../Evaluator/Admin/Evaluator/State";
 
@@ -928,6 +935,37 @@ export const eadminRoutes = [
     path: routes.evalState,
     name: "evalState",
     element: <State/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 10,
+    path: routes.evalReports,
+    name: "evalReports",
+    element: <ReportsCard/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 11,
+    path: routes.evalL1,
+    name: "evalL1",
+    element: <ReportL1/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 12,
+    path: routes.evalL2,
+    name: "evalL2",
+    element: <ReportL2/>,
+    protected: true,
+    route: Route,
+  }, {
+    id: 13,
+    path: routes.evalL3,
+    name: "evalL3",
+    element: <ReportL3/>,
     protected: true,
     route: Route,
   },
