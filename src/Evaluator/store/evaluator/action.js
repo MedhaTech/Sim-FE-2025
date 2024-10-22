@@ -62,7 +62,7 @@ export const evaluatorLoginUser =
 
         navigate("/evaluator/instructions");
       } else {
-        openNotificationWithIcon("error", "Invalid Username or Password");
+        openNotificationWithIcon("error", "Invalid Email Id or Password");
         dispatch(evaluatorLoginUserError(result.statusText));
       }
     } catch (error) {

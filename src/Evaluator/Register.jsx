@@ -13,13 +13,13 @@ import { KEY } from '../constants/defaultValues';
 import CryptoJS from 'crypto-js';
 import { useDispatch } from 'react-redux';
 import { getAdminEvalutorsList } from '../redux/actions';
-
+import { useNavigate } from 'react-router-dom';
 const Register = (props) => {
     // here we can add admin / eadmin //
     const handleClose = () => {};
     const dispatch = useDispatch();
     const currentUser = getCurrentUser("current_user");
-
+const navigate=useNavigate();
     const phoneRegExp = /^[0-9]+$/;
     const inputEmail = {
         type: 'email',
@@ -57,7 +57,7 @@ const Register = (props) => {
             .max(10, 'Please enter valid number'),
         username: Yup.string()
             .trim()
-            .email('Invalid username format')
+            .email('Invalid Email Id')
             .required('Required'),
         // district: Yup.string().trim().required('Required')
     });
@@ -110,18 +110,26 @@ const Register = (props) => {
 
                 data: body
             };
-            console.log(body);
+            // console.log(body);
             // const actualUrl = URL.evaluatorRegister;
             await axios(config)
                 // .post(actualUrl, JSON.stringify(values, null, 2), axiosConfig)
                 .then((evaluatorRegRes) => {
                     if (evaluatorRegRes?.data?.status == 201) {
+                        console.log(evaluatorRegRes,"11");
+                        const evaluatorId = evaluatorRegRes?.data?.data[0].evaluator_id;
+                        localStorage.setItem('eavlId', JSON.stringify(evaluatorId));
                         dispatch(getAdminEvalutorsList());
-                        openNotificationWithIcon(
-                            'success',
-                            evaluatorRegRes?.data?.message
-                        );
-                        props.setShow(false);
+                        setTimeout(()=>{
+                            openNotificationWithIcon(
+                                'success',
+                                evaluatorRegRes?.data?.message
+                            );
+                        navigate("/evaluator/selecting-states",{state:{evaluatorId}});
+
+                            props.setShow(false);
+                        },[3000]);
+
                     }
                 })
                 .catch((err) => {
@@ -262,7 +270,7 @@ const Register = (props) => {
                         } 
                         disabled={!(formik.dirty && formik.isValid)}
                         type="submit">
-                          Add User
+                          Add Evaluator
                         </button>
                       </div>
                     {/* <div className="mt-3">
