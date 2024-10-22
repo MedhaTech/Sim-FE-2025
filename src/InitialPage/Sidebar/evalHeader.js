@@ -651,6 +651,16 @@ const EadmiHeader = () => {
                 <hr className="m-0" />
                 <Link
                   className="dropdown-item"
+                  // onClick={handleProfile}
+                  to={"/evaluator-profile"}
+                  // onClick={() => navigate("/admin/profile")}
+                >
+                  <User className="me-2" /> My Profile
+                </Link>
+                <hr className="m-0" />
+
+                <Link
+                  className="dropdown-item"
                   to={"/evaluator/change-password"}
                 >
                   <FontAwesomeIcon icon={faKey} /> <h6>Change Password</h6> 
