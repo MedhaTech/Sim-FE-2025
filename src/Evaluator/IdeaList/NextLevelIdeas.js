@@ -52,7 +52,7 @@ const IdeaList = () => {
     const handleNext = () => {
         dispatch(getSubmittedIdeaList('L2'));
     };
-console.log(ideaDetails.length,"IDEA");
+console.log(Object.keys(ideaDetails).length,"IDEA",ideaDetails,"data");
     return (
         <div className="page-wrapper">
         <div className="content">
@@ -63,7 +63,8 @@ console.log(ideaDetails.length,"IDEA");
                 <div className="row">
                     {!isNextDiv ? (
                         <div className="col-12">
-                            {Object.keys(ideaDetails).length > 0 && ideaDetails !== undefined ? (
+                            
+                            {Object.keys(ideaDetails).length > 0  ? (
                                 <NextLevel
 
                                     ideaDetails={ideaDetails}
