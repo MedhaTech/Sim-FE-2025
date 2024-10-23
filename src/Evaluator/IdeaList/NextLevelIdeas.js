@@ -23,22 +23,22 @@ const IdeaList = () => {
     React.useEffect(() => {
         dispatch(getSubmittedIdeaList('L2'));
     }, []);
-    // React.useEffect(() => {
-    //     if (allIdeaList) {
-    //         setIdeaDetails(allIdeaList);
-    //     } else {
-    //         setIdeaDetails({});
-    //     }
-    // }, [allIdeaList]);
     React.useEffect(() => {
-        if (allIdeaList?.message === "All challenge has been accepted, no more challenge to display") {
-            setIdeaDetails(null); // Set ideaDetails to null when no more challenges exist
-        } else if (allIdeaList && Object.keys(allIdeaList).length > 0) {
-            setIdeaDetails(allIdeaList); // Update ideaDetails with the fetched data
+        if (allIdeaList) {
+            setIdeaDetails(allIdeaList);
         } else {
-            setIdeaDetails({}); // Default empty object when there's no data
+            setIdeaDetails({});
         }
     }, [allIdeaList]);
+    // React.useEffect(() => {
+    //     if (allIdeaList?.message === "All challenge has been accepted, no more challenge to display") {
+    //         setIdeaDetails(null); // Set ideaDetails to null when no more challenges exist
+    //     } else if (allIdeaList && Object.keys(allIdeaList).length > 0) {
+    //         setIdeaDetails(allIdeaList); // Update ideaDetails with the fetched data
+    //     } else {
+    //         setIdeaDetails({}); // Default empty object when there's no data
+    //     }
+    // }, [allIdeaList]);
     // React.useEffect(() => {
     //     if (allIdeaList?.message === "All challenge has been accepted, no more challenge to display") {
     //         setIdeaDetails(null); 
@@ -63,7 +63,7 @@ console.log(ideaDetails.length,"IDEA");
                 <div className="row">
                     {!isNextDiv ? (
                         <div className="col-12">
-                            {Object.keys(ideaDetails).length > 0  ? (
+                            {Object.keys(ideaDetails).length > 0 && ideaDetails !== undefined ? (
                                 <NextLevel
 
                                     ideaDetails={ideaDetails}
@@ -82,6 +82,7 @@ console.log(ideaDetails.length,"IDEA");
                                             <h2 className="my-auto text-center my-4">
                                                 All idea has been processed, no
                                                 more idea to display.
+                                               
                                             </h2>
                                         </div>
                                     </div>
