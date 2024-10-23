@@ -5,23 +5,24 @@ import './EvaluatedIdea.scss';
 import { Button } from '../../stories/Button';
 // import LinkComponent from '../IdeaList/LinkComponent';
 import moment from 'moment';
-import { getCurrentUser } from '../../helpers/Utils';
+// import { getCurrentUser } from '../../helpers/Utils';
 import RatedDetailCard from './RatedDetailCard';
 
 const EvaluatedIdeaDetail = (props) => {
+
     const [teamResponse, setTeamResponse] = React.useState([]);
-    const currentUser = getCurrentUser('current_user');
+    // const currentUser = getCurrentUser('current_user');
     useEffect(() => {
         if (props?.ideaDetails) {
             setTeamResponse(props?.ideaDetails);
         }
     }, [props]);
-    const [levelName, setLevelName] = React.useState('');
-    React.useEffect(() => {
-        if (currentUser) {
-            setLevelName(currentUser?.data[0]?.level_name);
-        }
-    }, [currentUser]);
+    // const [levelName, setLevelName] = React.useState('');
+    // React.useEffect(() => {
+    //     if (currentUser) {
+    //         setLevelName(currentUser?.data[0]?.level_name);
+    //     }
+    // }, [currentUser]);
     const files = teamResponse?.prototype_image
     ? teamResponse?.prototype_image.split(',')
     : [];
@@ -53,11 +54,11 @@ const downloadFile = (item) => {
         });
 };
 const problemSolvingArray = teamResponse?.problem_solving;
-console.log("VIEW PAGE OF L2");
+// console.log("VIEW PAGE OF L2",teamResponse.length);
 
     return (
         <div>
-            {teamResponse && teamResponse.length > 0 ? (
+            {teamResponse  ? (
                 <>
                     <div className="row idea_detail_card">
                         <div className="col-12 p-0">
@@ -708,7 +709,7 @@ console.log("VIEW PAGE OF L2");
                                     </p>
                                 )}
                             </div>
-                            {levelName !== 'L1' && (
+                            {props?.levelName !== 'L1' && (
                                 <RatedDetailCard details={props?.ideaDetails} />
                             )}
                         </div>

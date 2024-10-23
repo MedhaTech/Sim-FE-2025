@@ -57,7 +57,7 @@ const EvaluatedIdea = () => {
     }, [status]);
     const [levelName, setLevelName] = React.useState('');
     const [evalSchema, setEvalSchema] = React.useState('');
-    console.log(evalSchema,"111");
+    // console.log(evalSchema,"111");
 
     const [tabledate, settabledate] = React.useState([]);
     useEffect(() => {
@@ -119,7 +119,7 @@ const EvaluatedIdea = () => {
     const [ideaDetails, setIdeaDetails] = React.useState([]);
     const [currentRow, setCurrentRow] = React.useState(1);
     const [tablePage, setTablePage] = React.useState(1);
-console.log(tabledate,"11");
+// console.log(tabledate,"11");
 
     const evaluatedIdea = {
         data: tabledate || [],
