@@ -391,12 +391,12 @@ const ViewSelectedideasNew = () => {
                                     View
                                 </div>
                             </div>
-                            <FaDownload
+                            {/* <FaDownload
                                 size={22}
                                 onClick={() => {
                                     handleDownpdf(params);
                                 }}
-                            />
+                            /> */}
                         </>
                     ];
                 },
@@ -551,12 +551,12 @@ const ViewSelectedideasNew = () => {
                             >
                                 View
                             </div>
-                            <FaDownload
+                            {/* <FaDownload
                                 size={22}
                                 onClick={() => {
                                     handleDownpdf(params);
                                 }}
-                            />
+                            /> */}
                         </div>
                     ];
                 },
@@ -833,12 +833,12 @@ const ViewSelectedideasNew = () => {
                                         className="text-info"
                                     />
                                 )} */}
-                                <FaDownload
+                                {/* <FaDownload
                                     size={22}
                                     onClick={() => {
                                         handleDownpdf(params);
                                     }}
-                                />
+                                /> */}
                             </div>
                             {/* {!params.final_result && (
                                 <div
@@ -1044,12 +1044,12 @@ const ViewSelectedideasNew = () => {
                                         className="text-info"
                                     />
                                 )} */}
-                                <FaDownload
+                                {/* <FaDownload
                                     size={22}
                                     onClick={() => {
                                         handleDownpdf(params);
                                     }}
-                                />
+                                /> */}
                             </div>
                         </>
                     ];

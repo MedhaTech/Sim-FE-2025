@@ -407,12 +407,12 @@ const ViewSelectedIdea = () => {
                                         className="text-info"
                                     />
                                 )} */}
-                                <FaDownload
+                                {/* <FaDownload
                                     size={22}
                                     onClick={() => {
                                         handleDownpdf(params);
                                     }}
-                                />
+                                /> */}
                             </div>
                             {params.final_result === '0' && (
                                 <div

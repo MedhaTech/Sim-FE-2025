@@ -147,7 +147,7 @@ const downloadFile = (item) => {
             .then(function (response) {
                 openNotificationWithIcon('success', response?.data?.message=='OK'?'Idea processed successfully!':response?.data?.message);
                 setTimeout(() => {
-                    dispatch(getSubmittedIdeaList());
+                    dispatch(getSubmittedIdeaList("L1"));
                     props?.setIsNextDiv(true);
                 }, 100);
             })

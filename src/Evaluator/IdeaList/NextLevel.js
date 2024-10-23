@@ -46,6 +46,7 @@ const downloadFile = (item) => {
             console.error('Error downloading file:', error);
         });
 };
+
 const problemSolvingArray = teamResponse?.problem_solving;
     return (
         <>
