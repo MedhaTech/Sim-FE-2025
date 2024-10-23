@@ -676,7 +676,6 @@ export const districtList = {
     "KANNIYAKUMARI",
     "KARUR",
     "KRISHNAGIRI",
-    "KUMBAKONAM",
     "MADURAI",
     "MAYILADUTHURAI",
     "NAGAPATTINAM",
