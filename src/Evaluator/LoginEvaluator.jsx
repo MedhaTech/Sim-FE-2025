@@ -128,7 +128,9 @@ const LoginEvaluator = (props) => {
                   <div className="login-userheading">
                     {/* <h3>Evaluator Login</h3> */}
                     <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Evaluator Login &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
-
+                    <h4>
+                    Access the Evaluator panel using your Email and Password.
+                  </h4>
                     {/* <h4>
                       Access the Dreamspos panel using your email and passcode.
                     </h4> */}

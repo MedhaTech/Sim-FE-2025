@@ -97,6 +97,9 @@ const StateLogin = (props) => {
 
                 <div className="login-userheading">
                   <h3>Evaluator Admin Login</h3>
+                  <h4>
+                    Access the Evaluator Admin panel using your Email and Password.
+                  </h4>
                   {/* <h4>
                     Access the Dreamspos panel using your email and passcode.
                   </h4> */}

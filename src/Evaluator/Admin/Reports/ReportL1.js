@@ -23,6 +23,7 @@ import { notification } from "antd";
 import { stateList, districtList } from "../../../RegPage/ORGData";
 import { useNavigate, Link } from "react-router-dom";
 import { themesList } from "../../../Team/IdeaSubmission/themesData";
+import moment from "moment/moment";
 
 import { encryptGlobal } from "../../../constants/encryptDecrypt.js";
 // import { categoryValue } from '../../Schools/constentText';
@@ -41,7 +42,7 @@ const ReportL1 = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [filteresData, setFilteresData] = useState([]);
   const filterOptions = ["Registered", "Not Registered"];
-  const categoryData = ["All Categorys", "ATL", "Non ATL"];
+  const categoryData = ["All Categories", "ATL", "Non ATL"];
   const categoryDataTn = [
     "All Categories",
     "Fully Aided-High School",
@@ -269,6 +270,10 @@ const ReportL1 = () => {
       label: 'Teacher Verified At',
       key: 'verified_at'
     },
+    {
+      label: 'L1 Status',
+      key: 'l1status'
+  }
   ];
 
   useEffect(() => {
@@ -412,6 +417,11 @@ const ReportL1 = () => {
                     return {
                       ...item,
                       verifiedment: item.verified_status == null ? "Not yet Reviewed" : item.verified_status,
+                      l1status: item.
+                      evaluation_status === 'SELECTEDROUND1'
+                      ? 'Accepted'
+                      : 'Rejected',
+
                       username: mentorUsernameMap[item.mentorUserId],
                       focus_area: item.focus_area ? item.focus_area.replace(/,/g, ';').replace(/\n/g, ' ') : '',
                       prototype_image: item.prototype_image ? item.prototype_image.replace(/,/g, ';').replace(/\n/g, ' ') : '',
