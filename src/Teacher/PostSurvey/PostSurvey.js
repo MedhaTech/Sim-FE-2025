@@ -795,6 +795,10 @@ const PostSurvey = () => {
                         <div>
                             <h4>
                               Thanks for taking part.<br/> Your Survey responses have been submitted Successfully..!
+                              <br/>
+                              <br/>
+
+                              You can download your certificate in dashboard by clicking on the blue box.
                             </h4>
                         </div>
                       </div>

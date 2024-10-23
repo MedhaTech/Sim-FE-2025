@@ -31,7 +31,9 @@ const ReportL2 = () => {
     const [RegTeachersState, setRegTeachersState] = React.useState('');
     const [totalCount, setTotalCount] = useState([]);
     const fruits = ['Overall', 'Quality', 'Feasibility'];
-   
+    const [studentDetailedReportsData, setstudentDetailedReportsData] = useState(
+      []
+    );
     const [sdg, setsdg] = React.useState('');
     const [filterType, setFilterType] = useState('');
     const [category, setCategory] = useState('');
@@ -268,7 +270,29 @@ const ReportL2 = () => {
         fetchChartTableData();
         fetchChartTableData2();
     }, []);
-
+    const handleDownload = () => {
+      // alert('hii');
+      if (
+          !RegTeachersState ||
+          !RegTeachersdistrict ||
+          !category ||
+          !sdg
+      ) {
+          notification.warning({
+              message:
+                  'Please select a state,district,category and Theme type before Downloading Reports.'
+          });
+          return;
+      }
+      setIsDownloading(true);
+      fetchData();
+  };
+  useEffect(() => {
+    if (studentDetailedReportsData.length > 0) {
+      console.log("Performing operation with the updated data.");
+      csvLinkRef.current.link.click();
+    }
+  }, [studentDetailedReportsData]);
   
 
     const fetchData = () => {
@@ -276,11 +300,10 @@ const ReportL2 = () => {
         //     RegTeachersdistrict === '' ? 'All Districts' : RegTeachersdistrict;
         const api = encryptGlobal(
             JSON.stringify({
-                status: 'ACTIVE',
                 state: RegTeachersState,
                 district: RegTeachersdistrict,
                 category: category,
-                sdg: sdg
+                theme: sdg,
             })
         );
         const url = `/reports/L2deatilreport?Data=${api}`;
@@ -296,79 +319,132 @@ const ReportL2 = () => {
 
         axios(config)
             .then((response) => {
-                if (response.status === 200) {
-                    const transformedData = response.data.data.map((entry) => {
-                        const { response, final_result, ...rest } = entry;
-                        const parsedResponse = JSON.parse(response);
-                        entry['final_result'] =
-                            final_result === null ? 'Not Promoted' : 'Promoted';
-                        entry['Overall score'] = parseFloat(
-                            entry['Overall score']
-                        ).toFixed(2);
-                        entry['Quality score'] = parseFloat(
-                            entry['Quality score']
-                        ).toFixed(2);
-                        entry['Feasibility score'] = parseFloat(
-                            entry['Feasibility score']
-                        ).toFixed(2);
-                        Object.keys(parsedResponse).forEach((key) => {
-                            const { challenge_question_id, selected_option } =
-                                parsedResponse[key];
-                            var newSelectedOption;
-                            const tostringCovert = selected_option.toString();
-                            if (
-                                tostringCovert === null ||
-                                tostringCovert === undefined
-                            ) {
-                                newSelectedOption = selected_option;
-                            } else {
-                                newSelectedOption = tostringCovert
-                                    .replace(/\n/g, ' ')
-                                    .replace(/,/g, ';');
-                            }
-                            entry[challenge_question_id] = newSelectedOption;
-                        });
-
-                        return {
-                            ...entry
-                        };
-                    });
-
-                    setDownloadData(transformedData);
-
-                    csvLinkRef.current.link.click();
-                    openNotificationWithIcon(
-                        'success',
-                        `L2 Status Detailed Reports Downloaded Successfully`
+              if (response.status === 200) {
+                const teamDataMap = response.data.data[0].teamData.reduce(
+                    (map, item) => {
+                      map[item.team_id] = item;
+                      return map;
+                    },
+                    {}
+                  );
+                  const teamUsernameMap = response.data.data[0].teamUsername.reduce(
+                    (map, item) => {
+                      map[item.teamuserId] = item.teamUsername;
+                      return map;
+                    },
+                    {}
+                  );
+                  const mentorMap = response.data.data[0].mentorData.reduce(
+                    (map, item) => {
+                      map[item.mentor_id] = item;
+                      return map;
+                    },
+                    {}
+                  );
+                  const mentorUsernameMap = response.data.data[0].mentorUsername.reduce(
+                    (map, item) => {
+                      map[item.user_id] = item.username;
+                      return map;
+                    },
+                    {}
+                  );
+                  const studentNamesMap = response.data.data[0].
+                    student_names
+                    .reduce(
+                      (map, item) => {
+                        map[item.team_id] = item.names;
+                        return map;
+                      },
+                      {}
                     );
-                    setIsDownloading(false);
-                }
-            })
+                    const studentAndteam = response.data.data[0].summary.map((item) => {
+                        return {
+                          ...item,
+                          
+                          names: studentNamesMap[item.team_id],
+            
+                          team_name: teamDataMap[item.team_id].team_name,
+                          team_email: teamDataMap[item.team_id].team_email,
+                          mentor_id: teamDataMap[item.team_id].mentor_id,
+                          teamuserId: teamDataMap[item.team_id].teamuserId,
+            
+                        };
+                      });
+            
+                      const mentorAndOrg = studentAndteam.map((item) => {
+                        return {
+                          ...item,
+            
+                          team_username: teamUsernameMap[item.teamuserId],
+                          category: mentorMap[item.mentor_id].category,
+                          district: mentorMap[item.mentor_id].district,
+                          full_name: mentorMap[item.mentor_id].full_name,
+                          gender: mentorMap[item.mentor_id].gender,
+                          mobile: mentorMap[item.mentor_id].mobile,
+                          organization_code: mentorMap[item.mentor_id].organization_code,
+                          unique_code: mentorMap[item.mentor_id].unique_code,
+                          organization_name: mentorMap[item.mentor_id].organization_name,
+                          state: mentorMap[item.mentor_id].state,
+                          // whatapp_mobile: mentorMap[item.mentor_id].whatapp_mobile,
+                          mentorUserId: mentorMap[item.mentor_id].mentorUserId,
+                          city: mentorMap[item.mentor_id].city,
+                          principal_name: mentorMap[item.mentor_id].principal_name,
+                          principal_mobile: mentorMap[item.mentor_id].principal_mobile,
+                          pin_code: mentorMap[item.mentor_id].pin_code,
+                          address: mentorMap[item.mentor_id].address,
+            
+                        };
+                      });
+                      const newdatalist = mentorAndOrg.map((item) => {
+                        return {
+                          ...item,
+                          verifiedment: item.verified_status == null ? "Not yet Reviewed" : item.verified_status,
+                          username: mentorUsernameMap[item.mentorUserId],
+                          focus_area: item.focus_area ? item.focus_area.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                          prototype_image: item.prototype_image ? item.prototype_image.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                          problem_solving: item.problem_solving ? item.problem_solving.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                          feedback: item.feedback ? item.feedback.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                          stakeholders: item.stakeholders ? item.stakeholders.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                          solution: item.solution ? item.solution.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                          facing: item.facing ? item.facing.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                          community: item.community ? item.community.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                          effects: item.effects ? item.effects.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                          causes: item.causes ? item.causes.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                          problem_statement: item.problem_statement ? item.problem_statement.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                          title: item.title ? item.title.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                          verified_at:item.verified_at ? moment(item.verified_at).format(
+                            "DD-MM-YYYY"
+                          ) : ''
+                        };
+    
+                      });
+                      setDownloadData(newdatalist);
+                      setstudentDetailedReportsData(newdatalist);
+                      if (response.data.data[0].summary.length > 0) {
+                        openNotificationWithIcon(
+                            'success',
+                            `L2 Status Detailed Reports Downloaded Successfully`
+                        );
+                      } else {
+                        openNotificationWithIcon("error", "No Data Found");
+                      }
+                     
+                      setIsDownloading(false);
+                            // csvLinkRef.current.link.click();
+                            // openNotificationWithIcon(
+                            //     'success',
+                            //     `L1 Status Detailed Reports Downloaded Successfully`
+                            // );
+                            // setIsDownloading(false);
+            }
+          })
             .catch((error) => {
                 console.log('API error:', error);
                 setIsDownloading(false);
             });
     };
 
-    const handleDownload = () => {
-        // alert('hii');
-        if (
-            !RegTeachersState ||
-            !RegTeachersdistrict ||
-            // !filterType ||
-            !category ||
-            !sdg
-        ) {
-            notification.warning({
-                message:
-                    'Please select a state,district,category and Theme type before Downloading Reports.'
-            });
-            return;
-        }
-        setIsDownloading(true);
-        fetchData();
-    };
-
+   
     // useEffect(() => {
     //     if (filteredData.length > 0) {
     //         setDownloadData(filteredData);
@@ -961,7 +1037,7 @@ const ReportL2 = () => {
                 <CSVLink
                   data={downloadTableData}
                   headers={summaryHeaders}
-                  filename={`L1StatusTable_${newFormat}.csv`}
+                  filename={`L2StatusTable_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRefTable}
                 >
@@ -972,7 +1048,7 @@ const ReportL2 = () => {
                 <CSVLink
                   data={downloadTableData2}
                   headers={summaryHeaders2}
-                  filename={`L1EvaluatorTable_${newFormat}.csv`}
+                  filename={`L2EvaluatorTable_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRefTable2}
                 >
@@ -983,7 +1059,7 @@ const ReportL2 = () => {
                 <CSVLink
                   data={studentDetailedReportsData}
                   headers={teacherDetailsHeaders}
-                  filename={`L1StatusDetailedSummaryReport_${newFormat}.csv`}
+                  filename={`L2StatusDetailedSummaryReport_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRef}
                 >
