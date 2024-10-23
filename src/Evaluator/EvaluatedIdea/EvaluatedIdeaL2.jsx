@@ -76,7 +76,7 @@ const EvaluatedIdea = () => {
             state: selectstate !== 'All States' ? selectstate : '',
             // district: district !== 'All Districts' ? district : '',
 
-            sdg: sdg !== 'All Themes' ? sdg : '',
+            theme: sdg !== 'All Themes' ? sdg : '',
         };
         setshowspin(true);
         dispatch(getL1EvaluatedIdea(newQuery, setshowspin));

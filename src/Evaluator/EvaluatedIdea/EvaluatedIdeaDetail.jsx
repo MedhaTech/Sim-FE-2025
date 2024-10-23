@@ -57,7 +57,7 @@ console.log("VIEW PAGE OF L2");
 
     return (
         <div>
-            {teamResponse && teamResponse?.length > 0 ? (
+            {teamResponse && teamResponse.length > 0 ? (
                 <>
                     <div className="row idea_detail_card">
                         <div className="col-12 p-0">

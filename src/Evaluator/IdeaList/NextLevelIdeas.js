@@ -23,11 +23,20 @@ const IdeaList = () => {
     React.useEffect(() => {
         dispatch(getSubmittedIdeaList('L2'));
     }, []);
+    // React.useEffect(() => {
+    //     if (allIdeaList) {
+    //         setIdeaDetails(allIdeaList);
+    //     } else {
+    //         setIdeaDetails({});
+    //     }
+    // }, [allIdeaList]);
     React.useEffect(() => {
-        if (allIdeaList) {
-            setIdeaDetails(allIdeaList);
+        if (allIdeaList?.message === "All challenge has been accepted, no more challenge to display") {
+            setIdeaDetails(null); // Set ideaDetails to null when no more challenges exist
+        } else if (allIdeaList && Object.keys(allIdeaList).length > 0) {
+            setIdeaDetails(allIdeaList); // Update ideaDetails with the fetched data
         } else {
-            setIdeaDetails({});
+            setIdeaDetails({}); // Default empty object when there's no data
         }
     }, [allIdeaList]);
     // React.useEffect(() => {
@@ -43,7 +52,7 @@ const IdeaList = () => {
     const handleNext = () => {
         dispatch(getSubmittedIdeaList('L2'));
     };
-console.log(ideaDetails,"IDEA");
+console.log(ideaDetails.length,"IDEA");
     return (
         <div className="page-wrapper">
         <div className="content">
@@ -54,12 +63,14 @@ console.log(ideaDetails,"IDEA");
                 <div className="row">
                     {!isNextDiv ? (
                         <div className="col-12">
-                            {Object.keys(ideaDetails).length > 0 ? (
+                            {Object.keys(ideaDetails).length > 0  ? (
                                 <NextLevel
+
                                     ideaDetails={ideaDetails}
                                     handleSkip={handleNext}
                                     setIsNextDiv={setIsNextDiv}
                                 />
+                            
                             ) : (
                                 <div className="row">
                                     <div className="col-sm-6 m-auto">
