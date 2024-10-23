@@ -105,7 +105,8 @@ const ViewSelectedIdea = () => {
             JSON.stringify({
                 key: title == '0' ? '0' : '1',
                 state : selectstate !== 'All States' ? selectstate : '',
-                sdg : sdg !== 'All Themes' ? sdg : ''
+                district: district !== "All Districts" ? district :"",
+                theme : sdg !== 'All Themes' ? sdg : ''
             })
         );
         await axios
@@ -421,7 +422,7 @@ const ViewSelectedIdea = () => {
                                     }
                                     style={{ marginRight: '12px' }}
                                 >
-                                    <div className="btn btn-info mx-2">
+                                    <div className="btn btn-info">
                                         Promote
                                     </div>
                                 </div>
@@ -670,7 +671,7 @@ const ViewSelectedIdea = () => {
                                     <div className="bg-white border card pt-3 mt-5">
                                         <DataTableExtensions
                                             print={false}
-                                            export={true}
+                                            export={false}
                                             {...evaluatedIdeafinal}
                                         >
                                             <DataTable
