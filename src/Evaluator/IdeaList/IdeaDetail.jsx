@@ -13,6 +13,7 @@ import { Modal } from 'react-bootstrap';
 import Select from '../Helper/Select';
 import RateIdea from './RateIdea';
 import { Row, Col, Form, Label } from 'reactstrap';
+import { encryptGlobal } from '../../constants/encryptDecrypt';
 
 const IdeaDetail = (props) => {
     const dispatch = useDispatch();
@@ -126,12 +127,15 @@ const downloadFile = (item) => {
                 handledText == 'accept' ? 'SELECTEDROUND1' : 'REJECTEDROUND1',
             rejected_reason:handledText == 'reject' ? reason : ''
         });
+        const challId = encryptGlobal(
+            JSON.stringify(props?.ideaDetails?.challenge_response_id)
+        );
         var config = {
             method: 'put',
             url: `${
                 process.env.REACT_APP_API_BASE_URL +
                 '/challenge_response/' +
-                props?.ideaDetails?.challenge_response_id
+                challId
             }`,
             headers: {
                 'Content-Type': 'application/json',

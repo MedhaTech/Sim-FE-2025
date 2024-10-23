@@ -50,24 +50,24 @@ const Dashboard = () => {
               {/* <Row className="mb-5"> */}
               {/* <Row> */}
                 {/* <Col md={4}> */}
-                  <div className="col-xl-4 col-sm-6 col-12 ">
+                  <div className="col-xl-6 col-sm-6 col-12 ">
                 <Link to="/eadmin/dashboard?status=SUBMITTED">
                     <div className="dash-widget w-100">
                       <div className="dash-widgetcontent">
                         <h5>{dateCount.submitted_count}</h5>
-                        <h6>SUBMITTED CHALLENGES</h6>
+                        <h6 className="text-primary">SUBMITTED CHALLENGES</h6>
                       </div>
                     </div>
                 </Link>
                   </div>
                 {/* </Col> */}
                 {/* <Col md={4}> */}
-                  <div className="col-xl-4 col-sm-6 col-12 ">
+                  <div className="col-xl-6 col-sm-6 col-12 ">
                 <Link to="/eadmin/dashboard?status=DRAFT">
                     <div className="dash-widget w-100">
                       <div className="dash-widgetcontent">
                         <h5> {dateCount.draft_count}</h5>
-                        <h6>DRAFT CHALLENGES</h6>
+                        <h6 className="text-secondary">DRAFT CHALLENGES</h6>
                       </div>
                     </div>
                 </Link>
@@ -79,7 +79,7 @@ const Dashboard = () => {
                     <div className="dash-widget w-100">
                       <div className="dash-widgetcontent">
                         <h5>  {dateCount.selected_round_one_count}</h5>
-                        <h6>ACCEPTED CHALLENGES</h6>
+                        <h6 className="text-success">ACCEPTED CHALLENGES</h6>
                       </div>
                     </div>
                 </Link>
@@ -91,7 +91,7 @@ const Dashboard = () => {
                     <div className="dash-widget w-100">
                       <div className="dash-widgetcontent">
                         <h5>   {dateCount.rejected_round_one_count}</h5>
-                        <h6>REJECTED CHALLENGES</h6>
+                        <h6 className="text-danger">REJECTED CHALLENGES</h6>
                       </div>
                     </div>
                 </Link>
@@ -101,47 +101,47 @@ const Dashboard = () => {
                     <div className="dash-widget w-100">
                       <div className="dash-widgetcontent">
                         <h5>   {dateCount.l1_yet_to_process}</h5>
-                        <h6> L1 - YET TO PROCESSED CHALLENGES</h6>
+                        <h6 className="text-warning"> L1 - YET TO PROCESSED CHALLENGES</h6>
                       </div>
                     </div>
                 </Link>
                   </div>
-                  <div className="col-xl-4 col-sm-6 col-12 ">
+                  <div className="col-xl-6 col-sm-6 col-12 ">
                 <Link to="/eadmin/evaluationStatus/viewlist?title=L2 - Processed&level=L2">
                     <div className="dash-widget w-100">
                       <div className="dash-widgetcontent">
                         <h5>{dateCount.l2_processed}</h5>
-                        <h6> L2 - PROCESSED CHALLENGES</h6>
+                        <h6 className="text-success"> L2 - PROCESSED CHALLENGES</h6>
                       </div>
                     </div>
                 </Link>
                   </div>
-                  <div className="col-xl-4 col-sm-6 col-12 ">
+                  <div className="col-xl-6 col-sm-6 col-12 ">
                 <Link to="/eadmin/evaluationStatus/viewlist?title=L2 - Yet to be Processed&level=L2">
                     <div className="dash-widget w-100">
                       <div className="dash-widgetcontent">
                         <h5>{dateCount.l2_yet_to_processed}</h5>
-                        <h6> L2 - YET TO PROCESSED CHALLENGES</h6>
+                        <h6 className="text-warning"> L2 - YET TO PROCESSED CHALLENGES</h6>
                       </div>
                     </div>
                 </Link>
                   </div>
-                  <div className="col-xl-4 col-sm-6 col-12 ">
+                  <div className="col-xl-6 col-sm-6 col-12 ">
                 <Link to="/eadmin/evaluationStatus/viewfinallist?title=0&level=L2">
-                    <div className="dash-widget w-100">
+                    <div className="dash-widget w-100 ">
                       <div className="dash-widgetcontent">
                         <h5> {dateCount.final_evaluation_challenge}</h5>
-                        <h6>FINAL EVALUATION CHALLENGES</h6>
+                        <h6 className="text-warning">FINAL EVALUATION CHALLENGES</h6>
                       </div>
                     </div>
                 </Link>
                   </div>
-                  <div className="col-xl-4 col-sm-6 col-12 ">
+                  <div className="col-xl-6 col-sm-6 col-12 ">
                 <Link to="/eadmin/evaluationStatus/viewfinallist?title=1&level=L2">
                     <div className="dash-widget w-100">
                       <div className="dash-widgetcontent">
                         <h5> {dateCount.final_evaluation_final}</h5>
-                        <h6>FINAL WINNERS CHALLENGES</h6>
+                        <h6 className="text-success">FINAL WINNERS CHALLENGES</h6>
                       </div>
                     </div>
                 </Link>

@@ -72,11 +72,11 @@ const ViewSelectedIdea = () => {
         setshowspin(true);
         await handleideaList();
     };
-    useEffect(() => {
-        if (selectstate === "All States") {
-            setdistrict('');  // Reset the district value
-          }
-    }, [selectstate]);
+    // useEffect(() => {
+    //     if (selectstate === "All States") {
+    //         setdistrict(''); 
+    //       }
+    // }, [selectstate]);
     async function handleideaList() {
         // handleideaList api //
         //where we can see all ideas in districtwise //
