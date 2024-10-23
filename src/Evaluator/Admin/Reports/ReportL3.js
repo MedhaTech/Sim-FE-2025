@@ -12,6 +12,7 @@ import {
     openNotificationWithIcon,
     getCurrentUser
 } from '../../../helpers/Utils';
+import moment from "moment/moment";
 
 import { useDispatch, useSelector } from 'react-redux';
 import Select from '../../../Admin/Reports/Helpers/Select.jsx';
@@ -38,7 +39,7 @@ const ReportL3 = () => {
     const [filterType, setFilterType] = useState('');
     const [category, setCategory] = useState('');
     const [filteredData, setFilteredData] = useState([]);
-    const categoryData = ['All Categorys', 'ATL', 'Non ATL'];
+    const categoryData = ["All Categories", "ATL", "Non ATL"];
    
 
     const [downloadData, setDownloadData] = useState(null);
@@ -150,134 +151,188 @@ const ReportL3 = () => {
         }
     ];
     const teacherDetailsHeaders = [
-        {
-            label: 'ATL CODE',
-            key: 'organization_code'
-        },
-        {
-            label: 'UDISE CODE',
-            key: 'unique_code'
-        },
-        {
-            label: 'State',
-            key: 'state'
-        },
-        {
-            label: 'District',
-            key: 'district'
-        },
-        {
-            label: 'CID',
-            key: 'challenge_response_id'
-        },
-        {
-            label: 'School Name',
-            key: 'organization_name'
-        },
-        {
-            label: 'School Type/Category',
-            key: 'category'
-        },
-        {
-            label: 'Pin code',
-            key: 'pin_code'
-        },
-        {
-            label: 'Address',
-            key: 'address'
-        },
-
-        {
-            label: 'Teacher Name',
-            key: 'full_name'
-        },
-        {
-            label: 'Teacher Email',
-            key: 'email'
-        },
-
-        {
-            label: 'Teacher Contact',
-            key: 'mobile'
-        },
-
-        {
-            label: 'Team Name',
-            key: 'team_name'
-        },
-        {
-            label: 'Student Name',
-            key: 'Students names'
-        },
-        {
-            label: 'Theme',
-            key: 'sdg'
-        },
-        {
-            label: 'Idea Title',
-            key: '1'
-        },
-        {
-            label: 'Problem Statement',
-            key: 'sub_category'
-        },
-        { label: 'Explain your innovation and working in detail', key: '2' },
-        {
-            label: 'What ATL tools / technologies have you used while developing your project ?',
-            key: '3'
-        },
-        {
-            label: 'Upload Research Document of your project and your team group photo',
-            key: '4'
-        },
-        {
-            label: 'Upload Video of your project (Share Youtube link)',
-            key: '5'
-        },
-        // {
-        //     label: 'L3 Status (Promoted/Not Promoted)',
-        //     key: 'final_result'
-        // }
-        {
-            label: 'Novelty',
-            key: 'novelty'
-        },
-        {
-            label: 'Useful',
-            key: 'useful'
-        },
-        {
-            label: 'Feasibility',
-            key: 'feasibility'
-        },
-        {
-            label: 'Scalability',
-            key: 'scalability'
-        },
-        {
-            label: 'Sustainability',
-            key: 'sustainability'
-        },
-        {
-            label: 'Overall Score',
-            key: 'Overall score'
-        },
-        {
-            label: 'Quality Score',
-            key: 'Quality score'
-        },
-        {
-            label: 'Feasibility Score',
-            key: 'Feasibility score'
-        },
-        {
-            label: 'Status',
-            key: 'final_result'
-        }
-        // {
-        //     label: 'Promoted/Not Promoted',
-        //     key: 'final_result'
-        // }
+      {
+        label: "UDISE CODE",
+        key: "organization_code",
+      },
+      {
+        label: "State",
+        key: "state",
+      },
+      {
+        label: "District",
+        key: "district",
+      },
+      {
+        label: "CID",
+        key: "challenge_response_id",
+      },
+      {
+        label: "School Name",
+        key: "organization_name",
+      },
+      {
+        label: "School Type/Category",
+        key: "category",
+      },
+      {
+        label: "Pin code",
+        key: "pin_code",
+      },
+      {
+        label: "Address",
+        key: "address",
+      },
+      {
+        label: "Teacher Name",
+        key: "full_name",
+      },
+      {
+        label: "Teacher Email",
+        key: "username",
+      },
+      {
+        label: "Teacher Gender",
+        key: "gender",
+      },
+      {
+        label: "Teacher Contact",
+        key: "mobile",
+      },
+      {
+        label: "Team Name",
+        key: "team_name",
+      },
+      {
+        label: "Team Username",
+        key: "team_username",
+      },
+      {
+        label: "Student Names",
+        key: "names",
+      },
+      {
+        label: "Theme",
+        key: "theme",
+      },
+      {
+        label: "Focus Area",
+        key: "focus_area",
+      },
+      {
+        label: "Select in which language you prefer Submitting Your Idea?",
+        key: "language",
+      },
+      {
+        label:
+          "Title of your idea (Think of a proper name. Dont describe the solution or problem statement here.",
+        key: "title",
+      },
+      {
+        label: "Write down your Problem statement",
+        key: "problem_statement",
+      },
+      {
+        label: "List the Causes of the problem",
+        key: "causes",
+      },
+      {
+        label: "List the Effects of the problem",
+        key: "effects",
+      },
+      {
+        label: "In which places in your community did you find this problem?",
+        key: "community",
+      },
+      {
+        label: "Who all are facing this problem?",
+        key: "facing",
+      },
+      {
+        label:
+          "Describe the solution to the problem your team found. Explain your solution clearly - how does it work, who is it helping, and how will it solve the problem.",
+        key: "solution",
+      },
+      {
+        label:
+          "Apart from your teacher, how many people/stakeholders did you speak to to understand or improve your problem or solution?",
+        key: "stakeholders",
+      },
+      {
+        label:
+          "Pick the actions your team did in your problem solving journey (You can choose multiple options)",
+        key: "problem_solving",
+      },
+      {
+        label:
+          "Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.",
+        key: "feedback",
+      },
+      {
+        label: "Upload image of your prototype.",
+        key: "prototype_image",
+      },
+      {
+        label: "Upload documents & video links of your prototype.",
+        key: "prototype_link",
+      },
+      {
+        label:
+          "Did your team complete and submit the workbook to your school Guide teacher?",
+        key: "workbook",
+      },
+      {
+        label: "Idea Submission Status",
+        key: "status",
+      },
+      {
+        label: "Teacher Verified Status",
+        key: "verifiedment",
+      },
+      {
+        label: "Teacher Verified At",
+        key: "verified_at",
+      },
+      {
+        label: "Novelty",
+        key: "novelty",
+      },
+      {
+        label: "Useful",
+        key: "useful",
+      },
+      {
+        label: "Feasibility",
+        key: "feasibility",
+      },
+      {
+        label: "Scalability",
+        key: "scalability",
+      },
+      {
+        label: "Sustainability",
+        key: "sustainability",
+      },
+      {
+        label: "Overall Score",
+        key: "overall_score",
+      },
+      {
+        label: "Quality Score",
+        key: "quality_score",
+      },
+      {
+        label: "Feasibility Score",
+        key: "feasibility_score",
+      },
+      {
+        label: "Status",
+        key: "finalstatus",
+      },
+      // {
+      //   label: "Evaluator Count",
+      //   key: "eval_count",
+      // },
     ];
 
   
@@ -427,9 +482,31 @@ const ReportL3 = () => {
             
                         };
                       });
+                      const evaluatorRatingValuesMap =
+                      response.data.data[0].evaluatorRatingValues.reduce((map, item) => {
+                        map[item.challenge_response_id] = item;
+                        return map;
+                      }, {});
                       const newdatalist = mentorAndOrg.map((item) => {
+                        const rating =
+                        evaluatorRatingValuesMap[item.challenge_response_id] || {};
+                      const formatValue = (value) => {
+                        return value ? parseFloat(value).toFixed(1) : null;
+                      };
                         return {
                           ...item,
+                          overall_score: formatValue(rating.overall_score),
+                          novelty: formatValue(rating.novelty),
+                          feasibility: formatValue(rating.feasibility),
+                          feasibility_score: formatValue(rating.feasibility_score),
+                          scalability: formatValue(rating.scalability),
+                          quality_score: formatValue(rating.quality_score),
+                          sustainability: formatValue(rating.sustainability),
+                          useful: formatValue(rating.useful),
+                          finalstatus:
+                item.final_result === '0'
+                ? 'Runner-Not Promoted'
+                : 'Winner-Promoted',
                           verifiedment: item.verified_status == null ? "Not yet Reviewed" : item.verified_status,
                           username: mentorUsernameMap[item.mentorUserId],
                           focus_area: item.focus_area ? item.focus_area.replace(/,/g, ';').replace(/\n/g, ' ') : '',
@@ -1114,7 +1191,7 @@ const ReportL3 = () => {
                   Download Table CSV
                 </CSVLink>
               )}
-              {/* {studentDetailedReportsData && (
+              {studentDetailedReportsData && (
                 <CSVLink
                   data={studentDetailedReportsData}
                   headers={teacherDetailsHeaders}
@@ -1124,7 +1201,7 @@ const ReportL3 = () => {
                 >
                   Download Table CSV
                 </CSVLink>
-              )} */}
+              )}
             </div>
           </Container>
         </div>
