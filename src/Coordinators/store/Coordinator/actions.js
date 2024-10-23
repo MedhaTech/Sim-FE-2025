@@ -50,7 +50,7 @@ export const coordinatorLoginUser =
         dispatch(coordinatorLoginUserSuccess(result));
         navigate("/state-dashboard");
       } else {
-        openNotificationWithIcon("error", "Invalid Username or Password");
+        openNotificationWithIcon("error", "Incorrect Password");
         dispatch(coordinatorLoginUserError(result.statusText));
       }
     } catch (error) {
