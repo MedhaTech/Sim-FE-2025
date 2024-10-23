@@ -134,12 +134,8 @@ const ReportL1 = () => {
   ];
   const teacherDetailsHeaders = [
     {
-      label: "ATL CODE",
-      key: "organization_code",
-    },
-    {
       label: "UDISE CODE",
-      key: "unique_code",
+      key: "organization_code",
     },
     {
       label: "State",
@@ -150,8 +146,8 @@ const ReportL1 = () => {
       key: "district",
     },
     {
-      label: "CID",
-      key: "challenge_response_id",
+      label: 'CID',
+      key: 'challenge_response_id'
     },
     {
       label: "School Name",
@@ -162,66 +158,116 @@ const ReportL1 = () => {
       key: "category",
     },
     {
-      label: "Pin code",
-      key: "pin_code",
+      label: 'Pin code',
+      key: 'pin_code'
     },
     {
-      label: "Address",
-      key: "address",
+      label: 'Address',
+      key: 'address'
     },
-
     {
       label: "Teacher Name",
       key: "full_name",
     },
     {
       label: "Teacher Email",
-      key: "email",
+      key: "username",
     },
-
+    {
+      label: "Teacher Gender",
+      key: "gender",
+    },
     {
       label: "Teacher Contact",
       key: "mobile",
     },
-
     {
       label: "Team Name",
       key: "team_name",
     },
     {
-      label: "Student Name",
-      key: "Students names",
+      label: "Team Username",
+      key: "team_username",
     },
     {
-      label: "Theme",
-      key: "sdg",
+      label: "Student Names",
+      key: "names",
     },
     {
-      label: "Idea Title",
-      key: "1",
+      label: 'Theme',
+      key: 'theme'
     },
     {
-      label: "Problem Statement",
-      key: "sub_category",
-    },
-    { label: "Explain your innovation and working in detail", key: "2" },
-    {
-      label:
-        "What ATL tools / technologies have you used while developing your project ?",
-      key: "3",
+      label: 'Focus Area',
+      key: 'focus_area'
     },
     {
-      label:
-        "Upload Research Document of your project and your team group photo",
-      key: "4",
+      label: 'Select in which language you prefer Submitting Your Idea?',
+      key: 'language'
     },
     {
-      label: "Upload Video of your project (Share Youtube link)",
-      key: "5",
+      label: 'Title of your idea (Think of a proper name. Dont describe the solution or problem statement here.',
+      key: 'title'
     },
     {
-      label: "L1 Status",
-      key: "evaluation_status",
+      label: 'Write down your Problem statement',
+      key: 'problem_statement'
+    },
+    {
+      label: 'List the Causes of the problem',
+      key: 'causes'
+    },
+    {
+      label: 'List the Effects of the problem',
+      key: 'effects'
+    },
+    {
+      label: 'In which places in your community did you find this problem?',
+      key: 'community'
+    },
+    {
+      label: 'Who all are facing this problem?',
+      key: 'facing'
+    },
+    {
+      label: 'Describe the solution to the problem your team found. Explain your solution clearly - how does it work, who is it helping, and how will it solve the problem.',
+      key: 'solution'
+    },
+    {
+      label: 'Apart from your teacher, how many people/stakeholders did you speak to to understand or improve your problem or solution?',
+      key: 'stakeholders'
+    },
+    {
+      label: 'Pick the actions your team did in your problem solving journey (You can choose multiple options)',
+      key: 'problem_solving'
+    },
+    {
+      label: 'Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.',
+      key: 'feedback'
+    },
+    {
+      label: 'Upload image of your prototype.',
+      key: 'prototype_image'
+    },
+    {
+      label: 'Upload documents & video links of your prototype.',
+      key: 'prototype_link'
+    },
+    {
+      label: 'Did your team complete and submit the workbook to your school Guide teacher?',
+      key: 'workbook'
+    },
+    {
+      label: 'Idea Submission Status',
+      key: 'status'
+    },
+    {
+      label: 'Teacher Verified Status',
+      key: 'verifiedment'
+    },
+    {
+      label: 'Teacher Verified At',
+      key: 'verified_at'
     },
   ];
 
@@ -235,16 +281,26 @@ const ReportL1 = () => {
       csvLinkRef.current.link.click();
     }
   }, [studentDetailedReportsData]);
+  const handleDownload = () => {
+    if (!RegTeachersState || !RegTeachersdistrict  || !category || !sdg) {
+      notification.warning({
+        message:
+        "Select state, district, category type and Theme to download report.",
+      });
+      return;
+    }
+    setIsDownloading(true);
+    fetchData();
+  };
   const fetchData = () => {
-    const edist =
-      RegTeachersdistrict === "" ? "All Districts" : RegTeachersdistrict;
+    // const edist =
+    //   RegTeachersdistrict === "" ? "All Districts" : RegTeachersdistrict;
     const param = encryptGlobal(
       JSON.stringify({
-        status: "ACTIVE",
         state: RegTeachersState,
-        district: edist,
+        district: RegTeachersdistrict,
         category: category,
-        sdg: sdg,
+        theme: sdg,
       })
     );
     const url = `/reports/L1deatilreport?Data=${param}`;
@@ -401,17 +457,7 @@ const ReportL1 = () => {
       });
   };
 
-  const handleDownload = () => {
-    if (!RegTeachersState || !RegTeachersdistrict || !filterType || !category || !sdg) {
-      notification.warning({
-        message:
-          "Select state, district, filters, category, theme  to download report.",
-      });
-      return;
-    }
-    setIsDownloading(true);
-    fetchData(filterType);
-  };
+ 
 
   // useEffect(() => {
   //     if (filteredData.length > 0) {
@@ -562,7 +608,7 @@ const ReportL1 = () => {
                   />
                 </div>
               </Col>
-              <Col md={2}>
+              {/* <Col md={2}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
                   <Select
                     list={filterOptions}
@@ -571,7 +617,7 @@ const ReportL1 = () => {
                     value={filterType}
                   />
                 </div>
-              </Col>
+              </Col> */}
               <Col md={2}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
                   {RegTeachersState === "Tamil Nadu" ? (

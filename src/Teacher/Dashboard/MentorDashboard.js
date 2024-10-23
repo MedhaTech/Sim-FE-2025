@@ -35,7 +35,7 @@ import SchoolTeamPDF from './SchoolTeamPDF';
 import { Modal } from 'react-bootstrap';
 import Swal from 'sweetalert2/dist/sweetalert2';
 import logout from '../../assets/img/support.png';
-
+import FeatherIcon from "feather-icons-react";
 const GreetingModal = (props) => {
   
   return (
@@ -187,6 +187,7 @@ const MentorDashboard = () => {
   const redirectToPost = () => {
     navigate(`/mentorpostsurvey`);
   };
+
   
   const currentUser = getCurrentUser('current_user');
 // console.log(currentUser,'currentUser');
@@ -655,13 +656,16 @@ poptype={poptype}
               </div>
             </div>
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-count das1">
+              <div className="dash-count das1" onClick={currentUser?.data[0]?.state !== "Tamil Nadu" ? handleCertificateDownload : null}
+      style={{ cursor: currentUser?.data[0]?.state !== "Tamil Nadu" ? 'pointer' : 'not-allowed', opacity: currentUser?.data[0]?.state !== "Tamil Nadu" ? 1 : 0.5 }}>
                       {(teacPostSurvey == "COMPLETED" && ideaCount == teamsCount )? (
                          
                           <>
                           <div className="dash-counts">
                             <h4>Congrats</h4>
-                           {currentUser?.data[0]?.state !== "Tamil Nadu" &&<h5>Download Certificate</h5> }
+                           {currentUser?.data[0]?.state !== "Tamil Nadu" &&<h5>Click here&nbsp;
+                        <FeatherIcon icon="arrow-down-circle" size={30}/>
+                        &nbsp;Certificate</h5> }
                             {/* <h5>Certificate enables soon</h5> */}
                              {currentUser?.data[0]?.state === "Tamil Nadu" && (
         <p>Certificate Coming Soon</p>
@@ -670,8 +674,8 @@ poptype={poptype}
                          
                           <div className="dash-imgs" 
                           // onClick={handleCertificateDownload}
-                          onClick={currentUser?.data[0]?.state !== "Tamil Nadu" ? handleCertificateDownload : null}
-      style={{ cursor: currentUser?.data[0]?.state !== "Tamil Nadu" ? 'pointer' : 'not-allowed', opacity: currentUser?.data[0]?.state !== "Tamil Nadu" ? 1 : 0.5 }}
+      //                     onClick={currentUser?.data[0]?.state !== "Tamil Nadu" ? handleCertificateDownload : null}
+      // style={{ cursor: currentUser?.data[0]?.state !== "Tamil Nadu" ? 'pointer' : 'not-allowed', opacity: currentUser?.data[0]?.state !== "Tamil Nadu" ? 1 : 0.5 }}
                           >
                               <GiAchievement size={40} />
                           </div>

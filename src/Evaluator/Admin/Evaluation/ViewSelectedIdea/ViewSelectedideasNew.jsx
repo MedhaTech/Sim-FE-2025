@@ -107,6 +107,8 @@ const ViewSelectedideasNew = () => {
     const newQuery = {
         level: level,
         state : selectstate !== 'All States' ? selectstate : '',
+        district : district !== 'All Districts' ? district : '',
+
         sdg : sdg !== 'All Themes' ? sdg : '',
         rejected_reason : reason,
         rejected_reasonSecond : reasonSec,
