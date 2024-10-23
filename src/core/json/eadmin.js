@@ -40,13 +40,13 @@ const EAdminSidebarData = () => {
           showSubRoute: false,
           submenu: false,
         },
-        // {
-        //     label: "Reports",
-        //     link: "/reports",
-        //     icon: <Icon.Database />,
-        //     showSubRoute: false,
-        //     submenu: false,
-        //   },
+        {
+            label: "Reports",
+            link: "/reports-card",
+            icon: <Icon.Database />,
+            showSubRoute: false,
+            submenu: false,
+          },
      
       ],
     },

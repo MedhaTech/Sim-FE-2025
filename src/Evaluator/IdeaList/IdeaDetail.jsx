@@ -13,6 +13,7 @@ import { Modal } from 'react-bootstrap';
 import Select from '../Helper/Select';
 import RateIdea from './RateIdea';
 import { Row, Col, Form, Label } from 'reactstrap';
+import { encryptGlobal } from '../../constants/encryptDecrypt';
 
 const IdeaDetail = (props) => {
     const dispatch = useDispatch();
@@ -126,12 +127,15 @@ const downloadFile = (item) => {
                 handledText == 'accept' ? 'SELECTEDROUND1' : 'REJECTEDROUND1',
             rejected_reason:handledText == 'reject' ? reason : ''
         });
+        const challId = encryptGlobal(
+            JSON.stringify(props?.ideaDetails?.challenge_response_id)
+        );
         var config = {
             method: 'put',
             url: `${
                 process.env.REACT_APP_API_BASE_URL +
                 '/challenge_response/' +
-                props?.ideaDetails?.challenge_response_id
+                challId
             }`,
             headers: {
                 'Content-Type': 'application/json',
@@ -143,7 +147,7 @@ const downloadFile = (item) => {
             .then(function (response) {
                 openNotificationWithIcon('success', response?.data?.message=='OK'?'Idea processed successfully!':response?.data?.message);
                 setTimeout(() => {
-                    dispatch(getSubmittedIdeaList());
+                    dispatch(getSubmittedIdeaList("L1"));
                     props?.setIsNextDiv(true);
                 }, 100);
             })
@@ -200,6 +204,34 @@ const downloadFile = (item) => {
                             } order-lg-0 order-1 p-0 h-100`}
                         >
                              {/* <div className="col-lg-8 order-lg-0 order-1 p-0 h-100"> */}
+                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                        <b
+                                            style={{
+                                                fontSize: '1.2rem'
+                                            }}
+                                        >
+                                            Idea Submission Language
+                                            
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5 ">
+                                        <p
+                                            style={{
+                                                fontSize: '1rem',color:"black"
+                                            }}
+                                        >
+                                            {
+                                                teamResponse.language
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}

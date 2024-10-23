@@ -315,6 +315,14 @@ const CooIdeaSubmissionCard = ({
         </Modal.Header>
 
         <Modal.Body>
+        <Card className="p-1">
+            <CardBody>
+              <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
+              Idea Submission Language 
+              </label>
+              <CardText>{response.language}</CardText>
+            </CardBody>
+          </Card>
           <Card className="p-1">
             <CardBody>
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
@@ -399,7 +407,7 @@ const CooIdeaSubmissionCard = ({
               </label>
               <CardText>
                 {/* {submittedResponse.problem_solving} */}
-                {problemSolvingArray}
+                {problemSolvingArray.join(", ")}
               </CardText>
             </CardBody>
           </Card>{" "}
@@ -453,7 +461,7 @@ const CooIdeaSubmissionCard = ({
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
                 13. Upload documents & video links of your prototype.
               </label>
-              <CardText>{submittedResponse.prototype_link}</CardText>
+              <CardText><a href={submittedResponse.prototype_link} target="_blank" rel="noreferrer">{submittedResponse.prototype_link}</a></CardText>
             </CardBody>
           </Card>
           <Card className="p-1">

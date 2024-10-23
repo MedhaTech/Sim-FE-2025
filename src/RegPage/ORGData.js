@@ -1,5 +1,11 @@
 /* eslint-disable no-irregular-whitespace */
 /* eslint-disable indent */
+export const languageOptions=['English','Hindi-हिन्दी',
+  "Telugu-తెలుగు",
+  'Tamil-தமிழ்',
+  'Kannada-ಕೆನಡಾ',
+  'Malayalam-മലയാളം',
+  'Other Language'];
 export const stateList = [
   "Andaman and Nicobar Islands",
   "Andhra Pradesh",
@@ -670,7 +676,6 @@ export const districtList = {
     "KANNIYAKUMARI",
     "KARUR",
     "KRISHNAGIRI",
-    "KUMBAKONAM",
     "MADURAI",
     "MAYILADUTHURAI",
     "NAGAPATTINAM",

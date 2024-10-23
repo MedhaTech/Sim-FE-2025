@@ -2,24 +2,22 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from 'react';
-import Layout from '../Pages/Layout';
+// import Layout from '../Pages/Layout';
 import { Container, Row, Col, Table } from 'reactstrap';
-import { Button } from '../../../stories/Button';
+// import { Button } from '../../../stories/Button';
 import { CSVLink } from 'react-csv';
+import { useNavigate, Link } from "react-router-dom";
+
 import {
     openNotificationWithIcon,
     getCurrentUser
 } from '../../../helpers/Utils';
-import { useHistory } from 'react-router-dom';
-import {
-    getDistrictData,
-    getStateData,
-    getFetchDistData
-} from '../../../redux/studentRegistration/actions';
+import moment from "moment/moment";
+
 import { useDispatch, useSelector } from 'react-redux';
 import Select from '../../../Admin/Reports/Helpers/Select.jsx';
 import { Bar } from 'react-chartjs-2';
-import { cardData } from '../../../Student/Pages/Ideas/SDGData.js';
+// import { cardData } from '../../../Student/Pages/Ideas/SDGData.js';
 
 import axios from 'axios';
 import '../../../Admin/Reports/reports.scss';
@@ -27,24 +25,22 @@ import { Doughnut } from 'react-chartjs-2';
 import { notification } from 'antd';
 import { encryptGlobal } from '../../../constants/encryptDecrypt.js';
 // import { categoryValue } from '../../Schools/constentText';
-
+import { stateList, districtList } from "../../../RegPage/ORGData";
+import { themesList } from "../../../Team/IdeaSubmission/themesData";
 const ReportL3 = () => {
     const [RegTeachersdistrict, setRegTeachersdistrict] = React.useState('');
     const [RegTeachersState, setRegTeachersState] = React.useState('');
     const [totalCount, setTotalCount] = useState([]);
-
-    const SDGDate = cardData.map((i) => {
-        return i.goal_title;
-    });
-    SDGDate.unshift('All Themes');
+    const [studentDetailedReportsData, setstudentDetailedReportsData] = useState(
+      []
+    );
+  
     const [sdg, setsdg] = React.useState('');
     const [filterType, setFilterType] = useState('');
     const [category, setCategory] = useState('');
     const [filteredData, setFilteredData] = useState([]);
-    const filterOptions = ['Registered', 'Not Registered'];
-    const categoryData = ['All Categorys', 'ATL', 'Non ATL'];
-    // const categoryData =
-    //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
+    const categoryData = ["All Categories", "ATL", "Non ATL"];
+   
 
     const [downloadData, setDownloadData] = useState(null);
     // console.log(downloadData, '1');
@@ -55,11 +51,37 @@ const ReportL3 = () => {
 
     const csvLinkRefTable = useRef();
     const csvLinkRefTable2 = useRef();
+    const categoryDataTn = [
+        "All Categories",
+        "Fully Aided-High School",
+        "Fully Aided-Higher Secondary School",
+        "Government-High School",
+        "Government-Higher Secondary School",
+        "Partially Aided-High School",
+        "Partially Aided-Higher Secondary School",
+        "Non ATL",
+      ];
+      useEffect(() => {
+        setRegTeachersdistrict("");
+       
+      }, [RegTeachersState]);
+      const newThemesList = ["All Themes", ...themesList];
+      const newstateList = ["All States", ...stateList];
+      const fullStatesNames = newstateList;
+
+      const allDistricts = {
+        "All Districts": [...Object.values(districtList).flat()],
+        ...districtList,
+      };
+      const fiterDistData = [
+        "All Districts",
+        ...(allDistricts[RegTeachersState] || []),
+      ];
 
     const csvLinkRef = useRef();
     const csvLinkRefNotRegistered = useRef();
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
     const currentUser = getCurrentUser('current_user');
     const [registeredGenderChartData, setRegisteredGenderChartData] =
         useState(null);
@@ -71,15 +93,7 @@ const ReportL3 = () => {
         labels: [],
         datasets: []
     });
-    const fullStatesNames = useSelector(
-        (state) => state?.studentRegistration?.regstate
-    );
-    const fiterDistData = useSelector(
-        (state) => state?.studentRegistration?.fetchdist
-    );
-    const fullDistrictsNames = useSelector(
-        (state) => state?.studentRegistration?.dists
-    );
+    
     const [downloadTableData, setDownloadTableData] = useState(null);
     const [downloadTableData2, setDownloadTableData2] = useState(null);
 
@@ -119,13 +133,13 @@ const ReportL3 = () => {
     ];
     const summaryHeaders2 = [
         {
-            label: 'District Name',
-            key: 'district_name'
+            label: 'State Name',
+            key: 'state'
         },
-        // {
-        //     label: ' No of Ideas Shortlistedfor L3',
-        //     key: 'shortedlisted'
-        // },
+        {
+            label: ' No of Ideas Shortlistedfor L3',
+            key: 'shortedlisted'
+        },
         {
             label: 'No of Ideas Promoted(Winners)',
             key: 'winners'
@@ -137,156 +151,230 @@ const ReportL3 = () => {
         }
     ];
     const teacherDetailsHeaders = [
-        {
-            label: 'Institution Unique Code',
-            key: 'institution_code'
-        },
-        {
-            label: 'Institution Name',
-            key: 'institution_name'
-        },
-
-        {
-            label: 'Place',
-            key: 'place_name'
-        },
-        {
-            label: 'Block',
-            key: 'block_name'
-        },
-        {
-            label: 'District',
-            key: 'district_name'
-        },
-
-        {
-            label: 'State',
-            key: 'state_name'
-        },
-        {
-            label: 'Principal Name',
-            key: 'principal_name'
-        },
-        {
-            label: 'Principal Mobile Number',
-            key: 'principal_mobile'
-        },
-        {
-            label: 'Principal Email',
-            key: 'principal_email'
-        },
-
-        {
-            label: 'Mentor Name',
-            key: 'mentor_name'
-        },
-        {
-            label: 'Email ID',
-            key: 'mentor_email'
-        },
-
-        {
-            label: 'Mentor Mobile Number',
-            key: 'mentor_mobile'
-        },
-
-        {
-            label: 'Team Name',
-            key: 'team_name'
-        },
-        {
-            label: 'Student Name',
-            key: 'students_names'
-        },
-        {
-            label: 'Which theme are you targeting with your solution ?',
-            key: 'theme_name'
-        },
-        {
-            label: 'Idea Title',
-            key: 'idea_title'
-        },
-        {
-            label: 'Which problem statement are you targeting with your solution ?',
-            key: 'problem_statement'
-        },
-        {
-            label: 'Description of the Problem Statement ?',
-            key: 'problem_statement_description'
-        },
-        { label: 'Solution Statement', key: 'solution_statement' },
-        {
-            label: 'Detailed Solution',
-            key: 'detailed_solution'
-        },
-        {
-            label: 'Do you already have a prototype built?',
-            key: 'prototype_available'
-        },
-        {
-            label: 'If yes, Prototype File Upload (Only JPG/PNG)',
-            key: 'Prototype_file'
-        },
-        {
-            label: 'Is this idea submitted by you or your team members in any other Forum or Programs or Publications as on date?',
-            key: 'idea_available'
-        },
-        {
-            label: ' I confirm that the Idea Submitted now submitted is not copied or plagiarized version.',
-            key: 'self_declaration'
-        },
-        {
-            label: 'Overall Score',
-            key: 'overall_score'
-        },
-        {
-            label: 'Quality Score',
-            key: 'quality_score'
-        },
-        {
-            label: 'Feasibility Score',
-            key: 'feasibility_score'
-        },
-
-        {
-            label: 'L3 Status (Promoted/Not Promoted)',
-            key: 'final_result'
-        }
-        // {
-        //     label: 'Promoted/Not Promoted',
-        //     key: 'final_result'
-        // }
+      {
+        label: "UDISE CODE",
+        key: "organization_code",
+      },
+      {
+        label: "State",
+        key: "state",
+      },
+      {
+        label: "District",
+        key: "district",
+      },
+      {
+        label: "CID",
+        key: "challenge_response_id",
+      },
+      {
+        label: "School Name",
+        key: "organization_name",
+      },
+      {
+        label: "School Type/Category",
+        key: "category",
+      },
+      {
+        label: "Pin code",
+        key: "pin_code",
+      },
+      {
+        label: "Address",
+        key: "address",
+      },
+      {
+        label: "Teacher Name",
+        key: "full_name",
+      },
+      {
+        label: "Teacher Email",
+        key: "username",
+      },
+      {
+        label: "Teacher Gender",
+        key: "gender",
+      },
+      {
+        label: "Teacher Contact",
+        key: "mobile",
+      },
+      {
+        label: "Team Name",
+        key: "team_name",
+      },
+      {
+        label: "Team Username",
+        key: "team_username",
+      },
+      {
+        label: "Student Names",
+        key: "names",
+      },
+      {
+        label: "Theme",
+        key: "theme",
+      },
+      {
+        label: "Focus Area",
+        key: "focus_area",
+      },
+      {
+        label: "Select in which language you prefer Submitting Your Idea?",
+        key: "language",
+      },
+      {
+        label:
+          "Title of your idea (Think of a proper name. Dont describe the solution or problem statement here.",
+        key: "title",
+      },
+      {
+        label: "Write down your Problem statement",
+        key: "problem_statement",
+      },
+      {
+        label: "List the Causes of the problem",
+        key: "causes",
+      },
+      {
+        label: "List the Effects of the problem",
+        key: "effects",
+      },
+      {
+        label: "In which places in your community did you find this problem?",
+        key: "community",
+      },
+      {
+        label: "Who all are facing this problem?",
+        key: "facing",
+      },
+      {
+        label:
+          "Describe the solution to the problem your team found. Explain your solution clearly - how does it work, who is it helping, and how will it solve the problem.",
+        key: "solution",
+      },
+      {
+        label:
+          "Apart from your teacher, how many people/stakeholders did you speak to to understand or improve your problem or solution?",
+        key: "stakeholders",
+      },
+      {
+        label:
+          "Pick the actions your team did in your problem solving journey (You can choose multiple options)",
+        key: "problem_solving",
+      },
+      {
+        label:
+          "Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.",
+        key: "feedback",
+      },
+      {
+        label: "Upload image of your prototype.",
+        key: "prototype_image",
+      },
+      {
+        label: "Upload documents & video links of your prototype.",
+        key: "prototype_link",
+      },
+      {
+        label:
+          "Did your team complete and submit the workbook to your school Guide teacher?",
+        key: "workbook",
+      },
+      {
+        label: "Idea Submission Status",
+        key: "status",
+      },
+      {
+        label: "Teacher Verified Status",
+        key: "verifiedment",
+      },
+      {
+        label: "Teacher Verified At",
+        key: "verified_at",
+      },
+      {
+        label: "Novelty",
+        key: "novelty",
+      },
+      {
+        label: "Useful",
+        key: "useful",
+      },
+      {
+        label: "Feasibility",
+        key: "feasibility",
+      },
+      {
+        label: "Scalability",
+        key: "scalability",
+      },
+      {
+        label: "Sustainability",
+        key: "sustainability",
+      },
+      {
+        label: "Overall Score",
+        key: "overall_score",
+      },
+      {
+        label: "Quality Score",
+        key: "quality_score",
+      },
+      {
+        label: "Feasibility Score",
+        key: "feasibility_score",
+      },
+      {
+        label: "Status",
+        key: "finalstatus",
+      },
+      // {
+      //   label: "Evaluator Count",
+      //   key: "eval_count",
+      // },
     ];
 
+  
     useEffect(() => {
-        dispatch(getFetchDistData());
+       
         fetchChartTableData();
         fetchChartTableData2();
     }, []);
-    // useEffect(() => {
-    //     if (RegTeachersState !== '') {
-    //         dispatch(getFetchDistData(RegTeachersState));
-    //     }
-    //     setRegTeachersdistrict('');
-    //     fetchChartTableData();
-    //     fetchChartTableData2();
-    // }, [RegTeachersState]);
-
-    // useEffect(() => {
-    //     dispatch(getDistrictData());
-    //     fetchChartTableData();
-    // }, []);
+    useEffect(() => {
+      if (studentDetailedReportsData.length > 0) {
+        console.log("Performing operation with the updated data.");
+        csvLinkRef.current.link.click();
+      }
+    }, [studentDetailedReportsData]);
+    const handleDownload = () => {
+      // alert('hii');
+      if (
+          !RegTeachersState ||
+          !RegTeachersdistrict ||
+          !category ||
+          !sdg
+      ) {
+          notification.warning({
+              message:
+                  'Please select a state,category and Theme type before Downloading Reports.'
+          });
+          return;
+      }
+      setIsDownloading(true);
+      fetchData();
+  };
+    
 
     const fetchData = () => {
-        const distApi =
-            RegTeachersdistrict === '' ? 'All Districts' : RegTeachersdistrict;
+        // const distApi =
+        //     RegTeachersdistrict === '' ? 'All Districts' : RegTeachersdistrict;
         const variables = encryptGlobal(
             JSON.stringify({
-                status: 'ACTIVE',
-                // state: RegTeachersState,
-                district_name: distApi
-                // category: category,
-                // sdg: sdg
+                state: RegTeachersState,
+                district: RegTeachersdistrict,
+                category: category,
+                theme: sdg,
             })
         );
         const url = `/reports/L3deatilreport?Data=${variables}`;
@@ -302,147 +390,162 @@ const ReportL3 = () => {
 
         axios(config)
             .then((response) => {
-                if (response.status === 200) {
-                    const responseData = response?.data?.data || [];
-                    if (Array.isArray(responseData)) {
-                        const IdeaFormData = responseData.map((entry) => ({
-                            ...entry,
-                            final_result:
-                                entry.final_result === '0'
-                                    ? 'Runner-Not Promoted'
-                                    : 'Winner-Promoted',
-
-                            overall_score: parseFloat(
-                                entry.overall_score
-                            ).toFixed(2),
-                            quality_score: parseFloat(
-                                entry.quality_score
-                            ).toFixed(2),
-
-                            feasibility_score: parseFloat(
-                                entry.feasibility_score
-                            ).toFixed(2),
-                            evaluation_status:
-                                entry.evaluation_status === 'SELECTEDROUND1'
-                                    ? 'Accepted'
-                                    : 'Rejected',
-                            theme_name: entry.theme_name
-                                ? `${entry.theme_name
-                                      .replace(/"/g, '""')
-                                      .replace(/\n/g, ' ')
-                                      .replace(/,/g, ';')}`
-                                : '',
-                            problem_statement: entry.problem_statement
-                                ? `${entry.problem_statement
-                                      .replace(/"/g, '""')
-                                      .replace(/\n/g, ' ')
-                                      .replace(/,/g, ';')}`
-                                : '',
-
-                            problem_statement_description:
-                                entry.problem_statement_description
-                                    ? `${entry.problem_statement_description
-                                          .replace(/"/g, '""')
-                                          .replace(/\n/g, ' ')
-                                          .replace(/,/g, ';')}`
-                                    : '',
-                            solution_statement: entry.solution_statement
-                                ? `${entry.solution_statement
-                                      .replace(/"/g, '""')
-                                      .replace(/\n/g, ' ')
-                                      .replace(/,/g, ';')}`
-                                : '',
-                            detailed_solution: entry.detailed_solution
-                                ? `${entry.detailed_solution
-
-                                      .replace(/"/g, '""')
-                                      .replace(/\n/g, ' ')
-                                      .replace(/,/g, ';')}`
-                                : '',
-                            idea_title: entry.idea_title
-                                ? `${entry.idea_title
-
-                                      .replace(/"/g, '""')
-                                      .replace(/\n/g, ' ')
-                                      .replace(/,/g, ';')}`
-                                : ''
-                        }));
-                        setDownloadData(IdeaFormData);
-                        csvLinkRef.current.link.click();
+              if (response.status === 200) {
+                const teamDataMap = response.data.data[0].teamData.reduce(
+                    (map, item) => {
+                      map[item.team_id] = item;
+                      return map;
+                    },
+                    {}
+                  );
+                  const teamUsernameMap = response.data.data[0].teamUsername.reduce(
+                    (map, item) => {
+                      map[item.teamuserId] = item.teamUsername;
+                      return map;
+                    },
+                    {}
+                  );
+                  const mentorMap = response.data.data[0].mentorData.reduce(
+                    (map, item) => {
+                      map[item.mentor_id] = item;
+                      return map;
+                    },
+                    {}
+                  );
+                  const mentorUsernameMap = response.data.data[0].mentorUsername.reduce(
+                    (map, item) => {
+                      map[item.user_id] = item.username;
+                      return map;
+                    },
+                    {}
+                  );
+                  const studentNamesMap = response.data.data[0].
+                    student_names
+                    .reduce(
+                      (map, item) => {
+                        map[item.team_id] = item.names;
+                        return map;
+                      },
+                      {}
+                    );
+                    const studentAndteam = response.data.data[0].summary.map((item) => {
+                        return {
+                          ...item,
+                          // pre_survey_status: preSurveyMap[item.user_id] || "Not started",
+                          // post_survey_status: postSurveyMap[item.user_id] || "Not started",
+                          // idea_status: ideaStatusDataMap[item.team_id] || "Not Initiated",
+                          // user_count:
+                          //   userTopicDataMap[item.user_id] === 0 ||
+                          //   userTopicDataMap[item.user_id] === undefined
+                          //     ? "Not Started"
+                          //     : userTopicDataMap[item.user_id] === 31
+                          //     ? "Completed"
+                          //     : "In Progress",
+                          // course_per:
+                          //   userTopicDataMap[item.user_id] &&
+                          //   typeof userTopicDataMap[item.user_id] === "number"
+                          //     ? `${Math.round(
+                          //         (userTopicDataMap[item.user_id] / 31) * 100
+                          //       )}%`
+                          //     : `0%`,
+                          names: studentNamesMap[item.team_id],
+            
+                          team_name: teamDataMap[item.team_id].team_name,
+                          team_email: teamDataMap[item.team_id].team_email,
+                          mentor_id: teamDataMap[item.team_id].mentor_id,
+                          teamuserId: teamDataMap[item.team_id].teamuserId,
+            
+                        };
+                      });
+            
+                      const mentorAndOrg = studentAndteam.map((item) => {
+                        return {
+                          ...item,
+            
+                          team_username: teamUsernameMap[item.teamuserId],
+                          category: mentorMap[item.mentor_id].category,
+                          district: mentorMap[item.mentor_id].district,
+                          full_name: mentorMap[item.mentor_id].full_name,
+                          gender: mentorMap[item.mentor_id].gender,
+                          mobile: mentorMap[item.mentor_id].mobile,
+                          organization_code: mentorMap[item.mentor_id].organization_code,
+                          unique_code: mentorMap[item.mentor_id].unique_code,
+                          organization_name: mentorMap[item.mentor_id].organization_name,
+                          state: mentorMap[item.mentor_id].state,
+                          // whatapp_mobile: mentorMap[item.mentor_id].whatapp_mobile,
+                          mentorUserId: mentorMap[item.mentor_id].mentorUserId,
+                          city: mentorMap[item.mentor_id].city,
+                          principal_name: mentorMap[item.mentor_id].principal_name,
+                          principal_mobile: mentorMap[item.mentor_id].principal_mobile,
+                          pin_code: mentorMap[item.mentor_id].pin_code,
+                          address: mentorMap[item.mentor_id].address,
+            
+                        };
+                      });
+                      const evaluatorRatingValuesMap =
+                      response.data.data[0].evaluatorRatingValues.reduce((map, item) => {
+                        map[item.challenge_response_id] = item;
+                        return map;
+                      }, {});
+                      const newdatalist = mentorAndOrg.map((item) => {
+                        const rating =
+                        evaluatorRatingValuesMap[item.challenge_response_id] || {};
+                      const formatValue = (value) => {
+                        return value ? parseFloat(value).toFixed(1) : null;
+                      };
+                        return {
+                          ...item,
+                          overall_score: formatValue(rating.overall_score),
+                          novelty: formatValue(rating.novelty),
+                          feasibility: formatValue(rating.feasibility),
+                          feasibility_score: formatValue(rating.feasibility_score),
+                          scalability: formatValue(rating.scalability),
+                          quality_score: formatValue(rating.quality_score),
+                          sustainability: formatValue(rating.sustainability),
+                          useful: formatValue(rating.useful),
+                          finalstatus:
+                item.final_result === '0'
+                ? 'Runner-Not Promoted'
+                : 'Winner-Promoted',
+                          verifiedment: item.verified_status == null ? "Not yet Reviewed" : item.verified_status,
+                          username: mentorUsernameMap[item.mentorUserId],
+                          focus_area: item.focus_area ? item.focus_area.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                          prototype_image: item.prototype_image ? item.prototype_image.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                          problem_solving: item.problem_solving ? item.problem_solving.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                          feedback: item.feedback ? item.feedback.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                          stakeholders: item.stakeholders ? item.stakeholders.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                          solution: item.solution ? item.solution.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                          facing: item.facing ? item.facing.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                          community: item.community ? item.community.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                          effects: item.effects ? item.effects.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                          causes: item.causes ? item.causes.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                          problem_statement: item.problem_statement ? item.problem_statement.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                          title: item.title ? item.title.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                          verified_at:item.verified_at ? moment(item.verified_at).format(
+                            "DD-MM-YYYY"
+                          ) : ''
+                        };
+    
+                      });
+                      setDownloadData(newdatalist);
+                      setstudentDetailedReportsData(newdatalist);
+                      if (response.data.data[0].summary.length > 0) {
                         openNotificationWithIcon(
                             'success',
                             `L3 Status Detailed Reports Downloaded Successfully`
                         );
-                        setIsDownloading(false);
-                    }
-                    // const transformedData = (response.data.data || []).map(
-                    //     (item) => ({
-                    //         ...item,
-                    //         final_result:
-                    //             item.final_result === '0'
-                    //                 ? 'Runner-Not Promoted'
-                    //                 : 'Winner-Promoted',
-
-                    //         overall_score: parseFloat(
-                    //             item.overall_score
-                    //         ).toFixed(2),
-                    //         quality_score: parseFloat(
-                    //             item.quality_score
-                    //         ).toFixed(2),
-
-                    //         feasibility_score: parseFloat(
-                    //             item.feasibility_score
-                    //         ).toFixed(2)
-                    //     })
-                    // );
-                    // const transformedData = response.data.data.map((entry) => {
-                    //     const { response, final_result, ...rest } = entry;
-                    //     const parsedResponse = JSON.parse(response);
-                    //     entry['final_result'] =
-                    //         final_result === '0'
-                    //             ? 'Runner-Not Promoted'
-                    //             : 'Winner-Promoted';
-                    //     entry['Overall score'] = parseFloat(
-                    //         entry['Overall score']
-                    //     ).toFixed(2);
-                    //     entry['Quality score'] = parseFloat(
-                    //         entry['Quality score']
-                    //     ).toFixed(2);
-                    //     entry['Feasibility score'] = parseFloat(
-                    //         entry['Feasibility score']
-                    //     ).toFixed(2);
-                    //     Object.keys(parsedResponse).forEach((key) => {
-                    //         const { challenge_question_id, selected_option } =
-                    //             parsedResponse[key];
-                    //         var newSelectedOption;
-                    //         const tostringCovert = selected_option.toString();
-                    //         if (
-                    //             tostringCovert === null ||
-                    //             tostringCovert === undefined
-                    //         ) {
-                    //             newSelectedOption = selected_option;
-                    //         } else {
-                    //             newSelectedOption = tostringCovert
-                    //                 .replace(/\n/g, ' ')
-                    //                 .replace(/,/g, ';');
-                    //         }
-                    //         entry[challenge_question_id] = newSelectedOption;
-                    //     });
-
-                    //     return {
-                    //         ...entry
-                    //     };
-                    // });
-                    // setDownloadData(transformedData);
-                    // // console.log(transformedData, 'Data');
-
-                    // csvLinkRef.current.link.click();
-                    // openNotificationWithIcon(
-                    //     'success',
-                    //     `L3 Status Detailed Reports Downloaded Successfully`
-                    // );
-                    // setIsDownloading(false);
-                }
+                      } else {
+                        openNotificationWithIcon("error", "No Data Found");
+                      }
+                     
+                      setIsDownloading(false);
+                            // csvLinkRef.current.link.click();
+                            // openNotificationWithIcon(
+                            //     'success',
+                            //     `L1 Status Detailed Reports Downloaded Successfully`
+                            // );
+                            // setIsDownloading(false);
+            }
             })
             .catch((error) => {
                 console.log('API error:', error);
@@ -450,22 +553,7 @@ const ReportL3 = () => {
             });
     };
 
-    const handleDownload = () => {
-        if (
-            // !RegTeachersState ||
-            !RegTeachersdistrict
-            // !filterType ||
-            // !category ||
-            // !sdg
-        ) {
-            notification.warning({
-                message: 'Please select district before Downloading Reports.'
-            });
-            return;
-        }
-        setIsDownloading(true);
-        fetchData();
-    };
+ 
 
     // useEffect(() => {
     //     if (filteredData.length > 0) {
@@ -476,12 +564,12 @@ const ReportL3 = () => {
     useEffect(() => {
         if (downloadComplete) {
             setDownloadComplete(false);
-            // setRegTeachersState('');
+            setRegTeachersState('');
 
-            // setRegTeachersdistrict('');
+            setRegTeachersdistrict('');
 
             // setFilterType('');
-            // setsdg('');
+            setsdg('');
         }
         const newDate = new Date();
         const formattedDate = `${newDate.getUTCDate()}/${
@@ -503,6 +591,8 @@ const ReportL3 = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
+                    // console.log(res, '6');
+
                     const countData = {
                         overall: {
                             '1to3': 0,
@@ -611,23 +701,23 @@ const ReportL3 = () => {
                     const chartTableData2 = response?.data?.data || [];
                     const total = chartTableData2.reduce(
                         (acc, item) => {
-                            // (acc.shortedlisted += item.shortedlisted),
-                            // (acc.state += item.state);
-                            (acc.winners += item.winners),
+                            (acc.shortedlisted += item.shortedlisted),
+                                // (acc.state += item.state);
+                                (acc.winners += item.winners),
                                 (acc.runners += item.runners);
 
                             return acc;
                         },
                         {
                             // state: 0,
-                            // shortedlisted: 0,
+                            shortedlisted: 0,
                             winners: 0,
                             runners: 0
                         }
                     );
 
                     var array = chartTableData2;
-                    array.push({ district_name: 'Total Count', ...total });
+                    array.push({ state: 'Total Count', ...total });
                     setChartTableData2(array);
 
                     // setChartTableData2(chartTableData2);
@@ -639,177 +729,248 @@ const ReportL3 = () => {
             });
     };
     return (
-        <>
-            <Layout title="Reports">
-                <Container className="RegReports mt-4 mb-30 userlist">
-                    <Row className="mt-0 pt-2">
-                        <Col>
-                            <h2>L3 Status</h2>
-                        </Col>
-                        <Col className="text-right mb-1">
-                            <Button
-                                label="Back"
-                                btnClass="primary mx-3"
-                                size="small"
-                                shape="btn-square"
-                                onClick={() => history.push('/eadmin/reports')}
-                            />
-                        </Col>
-                        <div className="reports-data p-5 mt-4 mb-5 bg-white">
-                            <Row className="align-items-center">
-                                {/* <Col md={2}>
-                                    <div className="my-3 d-md-block d-flex justify-content-center">
-                                        <Select
-                                            list={fullStatesNames}
-                                            setValue={setRegTeachersState}
-                                            placeHolder={'Select State'}
-                                            value={RegTeachersState}
-                                        />
-                                    </div>
-                                </Col> */}
-                                <Col md={2}>
-                                    <div className="my-3 d-md-block d-flex justify-content-center">
-                                        <Select
-                                            list={fiterDistData}
-                                            setValue={setRegTeachersdistrict}
-                                            placeHolder={'Select District'}
-                                            value={RegTeachersdistrict}
-                                        />
-                                    </div>
-                                </Col>
-
-                                {/* <Col md={2}>
-                                    <div className="my-3 d-md-block d-flex justify-content-center">
-                                        <Select
-                                            list={categoryData}
-                                            setValue={setCategory}
-                                            placeHolder={'Select Category'}
-                                            value={category}
-                                        />
-                                    </div>
-                                </Col> */}
-                                {/* <Col md={2}> */}
-                                {/* <div className="my-3 d-md-block d-flex justify-content-center">
-                                        <Select
-                                            list={SDGDate}
-                                            setValue={setsdg}
-                                            placeHolder={'Select Themes'}
-                                            value={sdg}
-                                        /> */}
-                                {/* <Select
-                                            list={filterOptions}
-                                            setValue={setFilterType}
-                                            placeHolder={'Select Filter'}
-                                            value={filterType}
-                                        /> */}
-                                {/* </div> */}
-                                {/* </Col> */}
-                                <Col
-                                    md={2}
-                                    className="d-flex align-items-center justify-content-center"
-                                >
-                                    {/* <Button
-                                        label="View Details"
-                                        btnClass="primary mx-6"
-                                        size="small"
-                                        shape="btn-square"
-                                        onClick={handleViewDetails}
-                                        style={{
-                                            width: '150px',
-                                            whiteSpace: 'nowrap'
-                                        }}
-                                    /> */}
-                                    <Button
-                                        onClick={handleDownload}
-                                        //label={'Download Report'}
-                                        label={
-                                            isDownloading
-                                                ? 'Downloading'
-                                                : 'Download Report'
-                                        }
-                                        // label={
-                                        //     downloadComplete
-                                        //         ? 'Download Complete'
-                                        //         : isDownloading
-                                        //         ? 'Downloading...'
-                                        //         : 'Download Report'
-                                        // }
-                                        btnClass="primary mx-3"
-                                        size="small"
-                                        shape="btn-square"
-                                        type="submit"
-                                        // style={{
-                                        //     width: '160px',
-                                        //     whiteSpace: 'nowrap',
-                                        //     pointerEvents: isDownloading
-                                        //         ? 'none'
-                                        //         : 'auto'
-                                        // }}
-                                        disabled={isDownloading}
-                                    />
-                                </Col>
-                            </Row>
-
-                            <div className="chart">
-                                {chartTableData.length > 0 && (
-                                    <div className="mt-5">
-                                        <div className="d-flex align-items-center mb-3">
-                                            <h3>OVERVIEW</h3>
-                                            <Button
-                                                label="Download Table"
-                                                btnClass="primary mx-2"
-                                                size="small"
-                                                shape="btn-square"
-                                                onClick={() => {
-                                                    if (downloadTableData) {
-                                                        // setIsDownloading(true);
-                                                        setDownloadTableData(
-                                                            null
-                                                        );
-                                                        csvLinkRefTable.current.link.click();
-                                                    }
-                                                }}
-                                                style={{
-                                                    width: '150px',
-                                                    whiteSpace: 'nowrap'
-                                                }}
-                                            />
-                                        </div>
-
-                                        <div className="row">
-                                            <div className="col-md">
-                                                <div className="bg-white">
-                                                    <Table
-                                                        id="dataTable"
-                                                        className="table table-striped table-bordered responsive"
-                                                    >
-                                                        <thead>
-                                                            <tr>
-                                                                {/* <th>No</th> */}
-                                                                <th>
-                                                                    Score Type
-                                                                </th>
-                                                                <th>1 to 3</th>
-                                                                <th>3 to 5</th>
-                                                                <th>5 to 6</th>
-                                                                <th>6 to 7</th>
-                                                                <th>7 to 8</th>
-                                                                <th>8 to 9</th>
-                                                                <th>9 to 10</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            {chartTableData.map(
-                                                                (
-                                                                    item,
-                                                                    index
-                                                                ) => (
-                                                                    <tr
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                    >
-                                                                        <td>
+        <div className="page-wrapper">
+        <h4
+          className="m-2"
+          style={{
+            position: "sticky",
+            top: "70px",
+            zIndex: 1000,
+            padding: "10px",
+            backgroundColor: "white",
+            display: "inline-block",
+            color: "#fe9f43",
+            fontSize: "16px",
+          }}
+        >
+          Reports
+        </h4>
+        <div className="content">
+          <div className="page-header">
+            <div className="add-item d-flex">
+              <div className="page-title">
+                <h4>L3 - Report</h4>
+                {/* <h6>List of Teachers registered and their details</h6> */}
+              </div>
+            </div>
+            <div className="page-btn">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={() => navigate("/reports-card")}
+              >
+                <i className="fas fa-arrow-left"></i> Back
+              </button>
+            </div>
+          </div>
+          <Container className="RegReports userlist">
+            <div className="reports-data mt-2 mb-2">
+              <Row className="align-items-center mt-3 mb-2">
+                <Col md={2}>
+                  <div className="my-2 d-md-block d-flex justify-content-center">
+                    <Select
+                      list={fullStatesNames}
+                      setValue={setRegTeachersState}
+                      placeHolder={"Select State"}
+                      value={RegTeachersState}
+                    />
+                  </div>
+                </Col>
+                <Col md={2}>
+                  <div className="my-2 d-md-block d-flex justify-content-center">
+                    <Select
+                      list={fiterDistData}
+                      setValue={setRegTeachersdistrict}
+                      placeHolder={"Select District"}
+                      value={RegTeachersdistrict}
+                    />
+                  </div>
+                </Col>
+                {/* <Col md={2}>
+                  <div className="my-2 d-md-block d-flex justify-content-center">
+                    <Select
+                      list={filterOptions}
+                      setValue={setFilterType}
+                      placeHolder={"Select Filter"}
+                      value={filterType}
+                    />
+                  </div>
+                </Col> */}
+                <Col md={2}>
+                  <div className="my-2 d-md-block d-flex justify-content-center">
+                    {RegTeachersState === "Tamil Nadu" ? (
+                      <Select
+                        list={categoryDataTn}
+                        setValue={setCategory}
+                        placeHolder={"Select Category"}
+                        value={category}
+                      />
+                    ) : (
+                      <Select
+                        list={categoryData}
+                        setValue={setCategory}
+                        placeHolder={"Select Category"}
+                        value={category}
+                      />
+                    )}
+                  </div>
+                </Col>
+                <Col md={2}>
+                  <div className="my-2 d-md-block d-flex justify-content-center">
+                    <Select
+                      list={newThemesList}
+                      setValue={setsdg}
+                      placeHolder={"Select Theme"}
+                      value={sdg}
+                    />
+                  </div>
+                </Col>
+  
+                <Col
+                  md={2}
+                  className="d-flex align-items-center justify-content-center"
+                >
+                  <button
+                    onClick={handleDownload}
+                    type="button"
+                    disabled={isDownloading}
+                    className="btn btn-primary"
+                  >
+                    {isDownloading ? "Downloading" : "Download Report"}
+                  </button>
+                </Col>
+              </Row>
+              <div className="chart mt-2 mb-2">
+                {chartTableData.length > 0 && (
+                  <div className="row">
+                    <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
+                      <div className="card flex-fill default-cover w-100 mb-4">
+                        <div className="card-header d-flex justify-content-between align-items-center">
+                          <h4 className="card-title mb-0">
+                            States wise L3 - Reports Stats
+                          </h4>
+                          <div className="dropdown">
+                            <Link
+                              to="#"
+                              className="view-all d-flex align-items-center"
+                            >
+                              <button
+                                className="btn mx-2 btn-primary"
+                                type="button"
+                            
+                              onClick={() => {
+                                  if (downloadTableData) {
+                                      setDownloadTableData(
+                                          null
+                                      );
+                                      csvLinkRefTable.current.link.click();
+                                  }
+                              }}
+                              >
+                                Get Statistics
+                              </button>
+                            </Link>
+                          </div>
+                        </div>
+                        <div className="card-body">
+                          <div className="table-responsive">
+                            <table className="table table-border recent-transactions">
+                              <thead>
+                                <tr>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    #
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                   Score Type
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    1 to 3{" "}
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    3 to 5
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    5 to 6
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    6 to 7
+                                  </th>  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    7 to 8
+                                  </th>  
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    8 to 9
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    9 to 10
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {chartTableData.map((item, index) => (
+                                  <tr key={index}>
+                                    <td>{index + 1}</td>
+                                    <td
+                                     style={{
+                                        maxWidth: "150px",
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
+                                        color: "crimson",
+                                      }}
+                                    >
                                                                             {
                                                                                 item.name
                                                                             }
@@ -865,213 +1026,186 @@ const ReportL3 = () => {
                                                                                 ]
                                                                             }
                                                                         </td>
-                                                                    </tr>
-                                                                )
-                                                            )}
-                                                            {/* <tr>
-                                                                <td>{}</td>
-                                                                <td>
-                                                                    {
-                                                                        'Total Count'
-                                                                    }
-                                                                </td>
-
-                                                                <td>
-                                                                    {
-                                                                        totalCount.shortedlisted
-                                                                    }
-                                                                </td>
-                                                                <td>
-                                                                    {
-                                                                        totalCount.winners
-                                                                    }
-                                                                </td>
-                                                                <td>
-                                                                    {
-                                                                        totalCount.runners
-                                                                    }
-                                                                </td>
-                                                            </tr> */}
-                                                        </tbody>
-                                                    </Table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-                                {chartTableData2.length > 0 && (
-                                    <div className="mt-5">
-                                        <div className="d-flex align-items-center mb-3">
-                                            <h3>L3 Overview</h3>
-                                            <Button
-                                                label="Download Table"
-                                                btnClass="primary mx-2"
-                                                size="small"
-                                                shape="btn-square"
-                                                onClick={() => {
-                                                    if (downloadTableData2) {
-                                                        // setIsDownloading(true);
-                                                        setDownloadTableData2(
-                                                            null
-                                                        );
-                                                        csvLinkRefTable2.current.link.click();
-                                                    }
-                                                }}
-                                                style={{
-                                                    width: '150px',
-                                                    whiteSpace: 'nowrap'
-                                                }}
-                                            />
-                                        </div>
-
-                                        <div className="row">
-                                            <div className="col-md-7">
-                                                <div className=" bg-white">
-                                                    <Table
-                                                        id="dataTable"
-                                                        className="table table-striped table-bordered responsive"
-                                                    >
-                                                        <thead>
-                                                            <tr>
-                                                                <th>No</th>
-                                                                <th>
-                                                                    District
-                                                                    Name
-                                                                </th>
-                                                                {/* <th>
-                                                                    No of Ideas
+                                    {/* <td
+                                      style={{
+                                        maxWidth: "150px",
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
+                                        color: "crimson",
+                                      }}
+                                    >
+                                      {item.state}
+                                    </td>
+                                    <td> {item.totalSubmited}</td>
+                                    <td>{item.accepted}</td>
+                                    <td>{item.rejected}</td> */}
+                                   
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {chartTableData2.length > 0 && (
+                  <div className="row">
+                    <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
+                      <div className="card flex-fill default-cover w-100 mb-4">
+                        <div className="card-header d-flex justify-content-between align-items-center">
+                          <h4 className="card-title mb-0">
+                          L3 Evaluator Overview
+                          </h4>
+                          <div className="dropdown">
+                            <Link
+                              to="#"
+                              className="view-all d-flex align-items-center"
+                            >
+                              <button
+                                className="btn mx-2 btn-primary"
+                                type="button"
+                            
+                                onClick={() => {
+                                  if (downloadTableData2) {
+                                      setDownloadTableData2(
+                                          null
+                                      );
+                                      csvLinkRefTable2.current.link.click();
+                                  }
+                              }}
+                              >
+                                Get Statistics
+                              </button>
+                            </Link>
+                          </div>
+                        </div>
+                        <div className="card-body">
+                          <div className="table-responsive">
+                            <table className="table table-border recent-transactions">
+                              <thead>
+                                <tr>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    #
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                      State Name
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                      No of Ideas
                                                                     Shortlisted
                                                                     for L3
-                                                                </th> */}
-                                                                <th>
-                                                                    No of Ideas
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                     No of Ideas
                                                                     Promoted
                                                                     (Winners)
-                                                                </th>
-                                                                <th>
-                                                                    No of Ideas
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                     No of Ideas
                                                                     Not Promoted
                                                                     (runners)
-                                                                </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            {chartTableData2.map(
-                                                                (
-                                                                    item,
-                                                                    index
-                                                                ) => (
-                                                                    <tr
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                    >
-                                                                        <td>
-                                                                            {index +
-                                                                                1}
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.district_name
-                                                                            }
-                                                                        </td>
-                                                                        {/* <td>
-                                                                            {
-                                                                                item.shortedlisted
-                                                                            }
-                                                                        </td> */}
-                                                                        <td>
-                                                                            {
-                                                                                item.winners
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.runners
-                                                                            }
-                                                                        </td>
-                                                                    </tr>
-                                                                )
-                                                            )}
-                                                        </tbody>
-                                                    </Table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-                                {/* <div className="mt-5">
-                                    <div
-                                        className="col-md-12 chart-container mt-5"
-                                        style={{
-                                            width: '100%',
-                                            height: '370px'
-                                        }}
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {chartTableData2.map((item, index) => (
+                                  <tr key={index}>
+                                    <td>{index + 1}</td>
+                                    <td
+                                      style={{
+                                        maxWidth: "150px",
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
+                                        color: "crimson",
+                                      }}
                                     >
-                                        <div className="chart-box">
-                                            <Bar
-                                                data={barChart1Data}
-                                                options={options}
-                                            />
-                                            <div className="chart-title">
-                                                <p>
-                                                    <b>
-                                                        Registered ATL Schools
-                                                        v/s Registered Non ATL
-                                                        Schools {newFormat}
-                                                    </b>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> */}
-                                {downloadTableData && (
-                                    <CSVLink
-                                        data={downloadTableData}
-                                        headers={summaryHeaders}
-                                        filename={`L3StatuSummaryTable_${newFormat}.csv`}
-                                        className="hidden"
-                                        ref={csvLinkRefTable}
-                                        // onDownloaded={() => {
-                                        //     setIsDownloading(false);
-                                        //     setDownloadComplete(true);
-                                        // }}
-                                    >
-                                        Download Table CSV
-                                    </CSVLink>
-                                )}
-                                {downloadTableData2 && (
-                                    <CSVLink
-                                        data={downloadTableData2}
-                                        headers={summaryHeaders2}
-                                        filename={`L3EvaluatorSummaryTable_${newFormat}.csv`}
-                                        className="hidden"
-                                        ref={csvLinkRefTable2}
-                                        // onDownloaded={() => {
-                                        //     setIsDownloading(false);
-                                        //     setDownloadComplete(true);
-                                        // }}
-                                    >
-                                        Download Table CSV
-                                    </CSVLink>
-                                )}
-                                {downloadData && (
-                                    <CSVLink
-                                        data={downloadData}
-                                        headers={teacherDetailsHeaders}
-                                        filename={`L3StatusDetailedSummaryReport_${newFormat}.csv`}
-                                        className="hidden"
-                                        ref={csvLinkRef}
-                                    >
-                                        Download Table CSV
-                                    </CSVLink>
-                                )}
-                            </div>
+                                      {item.state}
+                                    </td>
+                                    <td> {item.shortedlisted}</td>
+                                    <td>{item.winners}</td>
+                                    <td>{item.runners}</td>
+                                   
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
-                    </Row>
-                </Container>
-            </Layout>
-        </>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            
+              {downloadTableData && (
+                <CSVLink
+                  data={downloadTableData}
+                  headers={summaryHeaders}
+                  filename={`L3StatusTable_${newFormat}.csv`}
+                  className="hidden"
+                  ref={csvLinkRefTable}
+                >
+                  Download Table CSV
+                </CSVLink>
+              )}
+              {downloadTableData2 && (
+                <CSVLink
+                  data={downloadTableData2}
+                  headers={summaryHeaders2}
+                  filename={`L3EvaluatorTable_${newFormat}.csv`}
+                  className="hidden"
+                  ref={csvLinkRefTable2}
+                >
+                  Download Table CSV
+                </CSVLink>
+              )}
+              {studentDetailedReportsData && (
+                <CSVLink
+                  data={studentDetailedReportsData}
+                  headers={teacherDetailsHeaders}
+                  filename={`L3StatusDetailedSummaryReport_${newFormat}.csv`}
+                  className="hidden"
+                  ref={csvLinkRef}
+                >
+                  Download Table CSV
+                </CSVLink>
+              )}
+            </div>
+          </Container>
+        </div>
+      </div>  
     );
 };
 export default ReportL3;

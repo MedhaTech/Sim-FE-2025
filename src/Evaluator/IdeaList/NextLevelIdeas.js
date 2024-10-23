@@ -23,37 +23,36 @@ const IdeaList = () => {
     React.useEffect(() => {
         dispatch(getSubmittedIdeaList('L2'));
     }, []);
-    // React.useEffect(() => {
-    //     if (allIdeaList) {
-    //         setIdeaDetails(allIdeaList);
-    //     } else {
-    //         setIdeaDetails({});
-    //     }
-    // }, [allIdeaList]);
     React.useEffect(() => {
-        if (allIdeaList?.message === "All challenge has been accepted, no more challenge to display") {
-            setIdeaDetails(null); // Set ideaDetails to null when no more challenges exist
-        } else if (allIdeaList && Object.keys(allIdeaList).length > 0) {
-            setIdeaDetails(allIdeaList); // Update ideaDetails with the fetched data
+        if (allIdeaList) {
+            setIdeaDetails(allIdeaList);
         } else {
-            setIdeaDetails({}); // Default empty object when there's no data
+            setIdeaDetails({});
         }
     }, [allIdeaList]);
     // React.useEffect(() => {
-    //     if (allIdeaList && allIdeaList.length > 0) {
-    //         setIdeaDetails(allIdeaList);
-    //     } else if (allIdeaList?.message === "All challenge has been accepted, no more challenge to display") {
-            
-    //         setIdeaDetails(null);
+    //     if (allIdeaList?.message === "All challenge has been accepted, no more challenge to display") {
+    //         setIdeaDetails(null); // Set ideaDetails to null when no more challenges exist
+    //     } else if (allIdeaList && Object.keys(allIdeaList).length > 0) {
+    //         setIdeaDetails(allIdeaList); // Update ideaDetails with the fetched data
     //     } else {
-            
-    //         setIdeaDetails({});
+    //         setIdeaDetails({}); // Default empty object when there's no data
     //     }
-    // }, [allIdeaList]); 
+    // }, [allIdeaList]);
+    // React.useEffect(() => {
+    //     if (allIdeaList?.message === "All challenge has been accepted, no more challenge to display") {
+    //         setIdeaDetails(null); 
+    //     } else if (allIdeaList && Object.keys(allIdeaList).length > 0) {
+    //         setIdeaDetails(allIdeaList); 
+    //     } else {
+    //         setIdeaDetails({}); 
+    //     }
+    // }, [allIdeaList]);
+  
     const handleNext = () => {
         dispatch(getSubmittedIdeaList('L2'));
     };
-console.log(ideaDetails,"IDEA");
+console.log(Object.keys(ideaDetails).length,"IDEA",ideaDetails,"data");
     return (
         <div className="page-wrapper">
         <div className="content">
@@ -64,12 +63,15 @@ console.log(ideaDetails,"IDEA");
                 <div className="row">
                     {!isNextDiv ? (
                         <div className="col-12">
-                            {Object.keys(ideaDetails).length > 0 ? (
+                            
+                            {Object.keys(ideaDetails).length > 0  ? (
                                 <NextLevel
+
                                     ideaDetails={ideaDetails}
                                     handleSkip={handleNext}
                                     setIsNextDiv={setIsNextDiv}
                                 />
+                            
                             ) : (
                                 <div className="row">
                                     <div className="col-sm-6 m-auto">
@@ -81,6 +83,7 @@ console.log(ideaDetails,"IDEA");
                                             <h2 className="my-auto text-center my-4">
                                                 All idea has been processed, no
                                                 more idea to display.
+                                               
                                             </h2>
                                         </div>
                                     </div>

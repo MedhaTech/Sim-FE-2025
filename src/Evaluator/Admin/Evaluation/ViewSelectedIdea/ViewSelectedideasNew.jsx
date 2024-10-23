@@ -107,6 +107,8 @@ const ViewSelectedideasNew = () => {
     const newQuery = {
         level: level,
         state : selectstate !== 'All States' ? selectstate : '',
+        district : district !== 'All Districts' ? district : '',
+
         sdg : sdg !== 'All Themes' ? sdg : '',
         rejected_reason : reason,
         rejected_reasonSecond : reasonSec,
@@ -389,12 +391,12 @@ const ViewSelectedideasNew = () => {
                                     View
                                 </div>
                             </div>
-                            <FaDownload
+                            {/* <FaDownload
                                 size={22}
                                 onClick={() => {
                                     handleDownpdf(params);
                                 }}
-                            />
+                            /> */}
                         </>
                     ];
                 },
@@ -549,12 +551,12 @@ const ViewSelectedideasNew = () => {
                             >
                                 View
                             </div>
-                            <FaDownload
+                            {/* <FaDownload
                                 size={22}
                                 onClick={() => {
                                     handleDownpdf(params);
                                 }}
-                            />
+                            /> */}
                         </div>
                     ];
                 },
@@ -831,12 +833,12 @@ const ViewSelectedideasNew = () => {
                                         className="text-info"
                                     />
                                 )} */}
-                                <FaDownload
+                                {/* <FaDownload
                                     size={22}
                                     onClick={() => {
                                         handleDownpdf(params);
                                     }}
-                                />
+                                /> */}
                             </div>
                             {/* {!params.final_result && (
                                 <div
@@ -1042,12 +1044,12 @@ const ViewSelectedideasNew = () => {
                                         className="text-info"
                                     />
                                 )} */}
-                                <FaDownload
+                                {/* <FaDownload
                                     size={22}
                                     onClick={() => {
                                         handleDownpdf(params);
                                     }}
-                                />
+                                /> */}
                             </div>
                         </>
                     ];

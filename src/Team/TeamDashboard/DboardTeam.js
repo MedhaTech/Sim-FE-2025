@@ -235,6 +235,7 @@ const EmployeesGrid = () => {
   const boys = [boy1, boy2, boy3, boy4, boy5, boy6];
   const girls = [girl1, girl2, girl3, girl4, girl5, girl6];
 
+  console.log(teamsMembersStatus,"sta");
   useEffect(() => {
     if (currentUser?.data[0]?.team_id) {
       mentorTeamsCount(currentUser?.data[0]?.team_id);

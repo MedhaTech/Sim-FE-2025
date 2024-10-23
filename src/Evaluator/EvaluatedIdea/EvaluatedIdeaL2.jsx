@@ -59,10 +59,7 @@ const EvaluatedIdea = () => {
 
     const [tabledate, settabledate] = React.useState([]);
 
-    useEffect(() => {
-        // dispatch(getDistrictData());
-        dispatch(getStateData());
-    }, []);
+   
     useEffect(() => {
         if (selectstate === '') {
             settabledate([]);
@@ -79,7 +76,7 @@ const EvaluatedIdea = () => {
             state: selectstate !== 'All States' ? selectstate : '',
             // district: district !== 'All Districts' ? district : '',
 
-            sdg: sdg !== 'All Themes' ? sdg : '',
+            theme: sdg !== 'All Themes' ? sdg : '',
         };
         setshowspin(true);
         dispatch(getL1EvaluatedIdea(newQuery, setshowspin));
@@ -107,7 +104,7 @@ const EvaluatedIdea = () => {
                     ];
                 },
                 sortable: true,
-                width: '6%'
+                width: '6rem'
             },
             {
                 name: 'State',
@@ -115,24 +112,29 @@ const EvaluatedIdea = () => {
                 width: '10rem'
             },
             {
-                name: 'ATL Code',
-                selector: (row) => row.organization_code,
-                width: '15rem'
+                name: 'District',
+                selector: (row) => row.district,
+                width: '10rem'
+            },
+            {
+                name: 'Udise Code',
+                selector: (row) => row.
+                organization_code
+                ,
+                width: '9rem'
             },
             {
                 name: 'Team Name',
-                selector: (row) => row.team_name || '',
-                sortable: true,
-                width: '15%'
+                selector: (row) => row.team_name,
+                width: '10rem'
             },
             {
                 name: 'CID',
                 selector: (row) => row.challenge_response_id,
-
-                width: '10rem'
+                width: '5rem'
             },
             {
-                name: 'Theme', 
+                name: 'Theme',
                 cell: (row) => (
                     <div
                         style={{
@@ -140,29 +142,28 @@ const EvaluatedIdea = () => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row.sdg}
+                        {row?.theme}
                     </div>
                 ),
-                width: '15rem'
+                width: '11rem'
             },
 
-            {
-                name: 'Problem Statement',
-                cell: (row) => (
-                    <div
-                        style={{
-                            whiteSpace: 'pre-wrap',
-                            wordWrap: 'break-word'
-                        }}
-                    >
-                        {row.sub_category}
-                    </div>
-                ),
-                width: '25rem'
-            },
+            // {
+            //     name: 'Problem Statement',
+            //     cell: (row) => (
+            //         <div
+            //             style={{
+            //                 whiteSpace: 'pre-wrap',
+            //                 wordWrap: 'break-word'
+            //             }}
+            //         >
+            //             {row.sub_category}
+            //         </div>
+            //     ),
+            //     width: '25rem'
+            // },
             {
                 name: 'Idea Name',
-                // sortable: true,
                 cell: (row) => (
                     <div
                         style={{
@@ -170,16 +171,16 @@ const EvaluatedIdea = () => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row?.response[1]?.selected_option || ''}
+                        {row?.title}
                     </div>
                 ),
-                width: '25rem'
+                width: '10rem'
             },
 
             {
                 name: 'Submitted By',
                 selector: (row) => row.initiated_name,
-                width: '15%'
+                width: '8rem'
             },
             {
                 name: 'Evaluated At',
@@ -189,7 +190,7 @@ const EvaluatedIdea = () => {
                               'DD-MM-YY h:mm:ss a'
                           )
                         : row?.evaluator_ratings[0]?.created_at,
-                width: '17%'
+                width: '10rem'
             },
             {
                 name: 'Overall',
@@ -201,7 +202,7 @@ const EvaluatedIdea = () => {
                         </div>
                     ];
                 },
-                width: '10%'
+                width: '8rem'
             },
             {
                 name: 'Actions',
@@ -230,7 +231,7 @@ const EvaluatedIdea = () => {
                         </div>
                     ];
                 },
-                width: '17%',
+                width: '13rem',
                 left: true
             }
         ]

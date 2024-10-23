@@ -85,7 +85,18 @@ function LatestNews() {
                     >
                       <i className="fa fa-bell" style={{ color: "blue" }}></i>
                     </span>
-                    {item?.details}
+                    <span
+                      style={{
+                        display: "block",
+                        overflowX: "hidden",
+                        wordWrap: "break-word",
+                        overflowWrap: "break-word",
+                        whiteSpace: "normal",
+                      }}
+                    >
+                      {item?.details}
+                    </span>
+                    {/* {item?.details} */}
                     {item?.new_status != 0 && item?.new_status != "" ? (
                       <img
                         // className="m-2 p-2"

@@ -61,9 +61,9 @@ const Certificate = ({
           t
         )
       );
-    // if (!type)
-    //   dispatch(updateStudentCertificate(currentUser?.data[0]?.user_id
-    //   ));
+    if (!type)
+      dispatch(updateStudentCertificate(currentUser?.data[0]?.user_id
+      ));
   };
   const certDateCheck = () => {
     const check =
@@ -218,7 +218,10 @@ const MyCertificate = () => {
   StateData();
   stuCoursePercent();
   Ideas();
+
  },[]);
+
+
   const stuCoursePercent = () => {
     const corseApi = encryptGlobal(
       JSON.stringify({
@@ -307,7 +310,7 @@ const MyCertificate = () => {
           // console.log(response,"111");
           const res = response.data.data[0];
           setScore(res.score);
-  console.log(status,"22");
+  // console.log(status,"22");
 
           setStatus(res.status);
         //   if (status === "SUBMITTED" && score !== null && score > 6.5 && resList === 1) {
@@ -331,16 +334,16 @@ const MyCertificate = () => {
   };
   useEffect(() => {
     if (resList !== null) {
-      console.log(resList, "resList updated");
+      // console.log(resList, "resList updated");
       
       if (status !== null && status === "SUBMITTED" && score !== null && score >= 6.5 && resList === 1) {
         setIdeaEnabled(true);
         console.log("Certificate Enabled");
       } else {
         setIdeaEnabled(false);
-        console.log("Not Enabled");
+        console.log("Certificate Not Enabled");
       }
-      console.log(score,"sc","st",status);
+      // console.log(score,"sc","st",status);
 
     }
   }, [resList, status, score]);
@@ -360,18 +363,29 @@ const MyCertificate = () => {
                   }}
                 ></div> */}
               </Row>
-              <Col className="d-lg-flex justify-content-center">
-                <Certificate
+              {/* className="d-lg-flex justify-content-center" previous one */}
+              <Col 
+              className="d-lg-flex justify-content-center"
+              // className={`d-lg-flex ${ideaEnabled ? 'justify-content-center align-items-center' : 'justify-content-around'} text-center`}
+              >
+              {ideaEnabled &&( 
+                <div className="col-6">
+                 <Certificate
                   type={"participate"}
                   currentUser={currentUser}
                   isEnabled={ideaEnabled}
                   language={language}
                 />
+                </div>
+              )}
+                <div className="col-6">
+
                 <Certificate
                   language={language}
                   currentUser={currentUser}
                   isEnabled={course}
                 />
+                </div>
               </Col>
             </Row>
           ) : (

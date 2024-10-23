@@ -5,23 +5,24 @@ import './EvaluatedIdea.scss';
 import { Button } from '../../stories/Button';
 // import LinkComponent from '../IdeaList/LinkComponent';
 import moment from 'moment';
-import { getCurrentUser } from '../../helpers/Utils';
+// import { getCurrentUser } from '../../helpers/Utils';
 import RatedDetailCard from './RatedDetailCard';
 
 const EvaluatedIdeaDetail = (props) => {
+
     const [teamResponse, setTeamResponse] = React.useState([]);
-    const currentUser = getCurrentUser('current_user');
+    // const currentUser = getCurrentUser('current_user');
     useEffect(() => {
         if (props?.ideaDetails) {
             setTeamResponse(props?.ideaDetails);
         }
     }, [props]);
-    const [levelName, setLevelName] = React.useState('');
-    React.useEffect(() => {
-        if (currentUser) {
-            setLevelName(currentUser?.data[0]?.level_name);
-        }
-    }, [currentUser]);
+    // const [levelName, setLevelName] = React.useState('');
+    // React.useEffect(() => {
+    //     if (currentUser) {
+    //         setLevelName(currentUser?.data[0]?.level_name);
+    //     }
+    // }, [currentUser]);
     const files = teamResponse?.prototype_image
     ? teamResponse?.prototype_image.split(',')
     : [];
@@ -53,9 +54,11 @@ const downloadFile = (item) => {
         });
 };
 const problemSolvingArray = teamResponse?.problem_solving;
+// console.log("VIEW PAGE OF L2",teamResponse.length);
+
     return (
         <div>
-            {teamResponse && teamResponse?.length > 0 ? (
+            {teamResponse  ? (
                 <>
                     <div className="row idea_detail_card">
                         <div className="col-12 p-0">
@@ -114,6 +117,34 @@ const problemSolvingArray = teamResponse?.problem_solving;
                             </div>
                         </div>
                         <div className="col-lg-8 order-lg-0 order-1 p-0 h-100">
+                        <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                        <b
+                                            style={{
+                                                fontSize: '1.2rem'
+                                            }}
+                                        >
+                                            Idea Submission Language
+                                            
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5 ">
+                                        <p
+                                            style={{
+                                                fontSize: '1rem',color:"black"
+                                            }}
+                                        >
+                                            {
+                                                teamResponse.language
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -678,7 +709,7 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                     </p>
                                 )}
                             </div>
-                            {levelName !== 'L1' && (
+                            {props?.levelName !== 'L1' && (
                                 <RatedDetailCard details={props?.ideaDetails} />
                             )}
                         </div>
