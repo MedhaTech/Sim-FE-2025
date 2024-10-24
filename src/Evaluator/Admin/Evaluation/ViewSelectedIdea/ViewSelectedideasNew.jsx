@@ -1058,6 +1058,8 @@ const ViewSelectedideasNew = () => {
     setpdfTeamResponse(params);
    
 };
+console.log("titile",title);
+
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     documentTitle: `${
@@ -1159,7 +1161,7 @@ const ViewSelectedideasNew = () => {
                       )}
 
                       {title === "Rejected" ? (
-                        <Col md={2}>
+                        <Col md={1}>
                           <div className="my-3 d-md-block d-flex justify-content-center">
                             <Select
                               list={ReasonsOptions}
@@ -1173,7 +1175,7 @@ const ViewSelectedideasNew = () => {
                         ""
                       )}
                       {title === "Rejected" ? (
-                        <Col md={2}>
+                        <Col md={1}>
                           <div className="my-3 d-md-block d-flex justify-content-center">
                             <Select
                               list={reasondata2}

@@ -87,7 +87,7 @@ const Dashboard = () => {
                 {/* </Col> */}
               {/* </Row> */}
                   <div className="col-xl-4 col-sm-6 col-12 ">
-                <Link to="/eadmin/evaluationStatus/viewlist?evaluation_status=REJECTEDROUND1&title=L1 Rejected&level=L1">
+                <Link to="/eadmin/evaluationStatus/viewlist?evaluation_status=REJECTEDROUND1&title=Rejected&level=L1">
                     <div className="dash-widget w-100">
                       <div className="dash-widgetcontent">
                         <h5>   {dateCount.rejected_round_one_count}</h5>
