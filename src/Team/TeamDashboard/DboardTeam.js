@@ -34,7 +34,7 @@ import Swal from "sweetalert2";
 import { getCurrentUser, setCurrentUser } from "../../helpers/Utils";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { FaRoute } from 'react-icons/fa';
+import { FaRoute } from "react-icons/fa";
 
 const EmployeesGrid = () => {
   const route = all_routes;
@@ -51,7 +51,7 @@ const EmployeesGrid = () => {
   const { teamsMembersStatus, teamsMembersStatusErr } = useSelector(
     (state) => state.teams
   );
-     
+
   const teamId = currentUser?.data[0]?.team_id;
   const mentorid = currentUser?.data[0]?.mentor_id;
 
@@ -60,17 +60,17 @@ const EmployeesGrid = () => {
       <span className="visually-hidden">Loading...</span>
     </div>
   );
-  
+
   // useEffect(() => {
   //     if(teamsMembersStatus.length != 0){
   //       localStorage.setItem("ideaSubStatus", teamsMembersStatus[0].idea_submission);
   //       if (Array.isArray(teamsMembersStatus)) {
   //         let allCompleted = true;
-        
+
   //         // Loop over each record in data
   //         teamsMembersStatus.forEach(record => {
   //           let percent = 100 - percentageBWNumbers(record.all_topics_count, record.topics_completed_count);
-        
+
   //           // If any percentage is not 100, set allCompleted to false
   //           if (percent !== 100) {
   //             allCompleted = false;
@@ -84,14 +84,22 @@ const EmployeesGrid = () => {
   const [ideaEnableStatus, setIdeaEnableStatus] = useState(0);
   useEffect(() => {
     if (teamsMembersStatus.length >= 2 && teamsMembersStatus.length <= 5) {
-      localStorage.setItem("ideaSubStatus", teamsMembersStatus[0].idea_submission);
+      localStorage.setItem(
+        "ideaSubStatus",
+        teamsMembersStatus[0].idea_submission
+      );
       if (Array.isArray(teamsMembersStatus)) {
         let anyCompleted = false;
-        
+
         // Loop over each record in data
-        teamsMembersStatus.forEach(record => {
-          let percent = 100 - percentageBWNumbers(record.all_topics_count, record.topics_completed_count);
-          
+        teamsMembersStatus.forEach((record) => {
+          let percent =
+            100 -
+            percentageBWNumbers(
+              record.all_topics_count,
+              record.topics_completed_count
+            );
+
           // If any student has completed 100%, set anyCompleted to true
           if (percent === 100) {
             anyCompleted = true;
@@ -99,7 +107,7 @@ const EmployeesGrid = () => {
         });
         const ideaStatus = anyCompleted ? 1 : 0;
         localStorage.setItem("ideaenablestatus", ideaStatus);
-        setIdeaEnableStatus(ideaStatus); 
+        setIdeaEnableStatus(ideaStatus);
         // Enable idea submission if at least one student has completed 100%
         // localStorage.setItem("ideaenablestatus", anyCompleted ? 1 : 0);
       }
@@ -130,7 +138,7 @@ const EmployeesGrid = () => {
       align: "center",
       width: "15rem",
       render: (_, record) =>
-        record.pre_survey_status ? ( 
+        record.pre_survey_status ? (
           <CheckCircle size={20} color="#28C76F" />
         ) : (
           <IoHelpOutline size={20} color="#FF0000" />
@@ -150,44 +158,44 @@ const EmployeesGrid = () => {
           );
         return (
           <>
-          <div
-            className="progress progress-sm progress-custom progress-animate"
-            role="progressbar"
-            aria-valuenow={Math.round(percent) ? Math.round(percent) : "0"}
-            aria-valuemin={0}
-            aria-valuemax={100}
-          >
             <div
-           style={{ width: `${percent}%` }}
-              className={
-                percent
-                  ? percent <= 25
-                    ? "progress-bar bg-danger"
-                    : percent > 25 && percent <= 50
-                    ? "progress-bar bg-primary"
-                    : percent > 50 && percent <= 75
-                    ? "progress-bar bg-info"
-                    : "progress-bar bg-success"
-                  : "progress-bar bg-danger"
-              }
+              className="progress progress-sm progress-custom progress-animate"
+              role="progressbar"
+              aria-valuenow={Math.round(percent) ? Math.round(percent) : "0"}
+              aria-valuemin={0}
+              aria-valuemax={100}
             >
               <div
+                style={{ width: `${percent}%` }}
                 className={
                   percent
                     ? percent <= 25
-                      ? "progress-bar-value bg-danger"
+                      ? "progress-bar bg-danger"
                       : percent > 25 && percent <= 50
-                      ? "progress-bar-value bg-primary"
+                      ? "progress-bar bg-primary"
                       : percent > 50 && percent <= 75
-                      ? "progress-bar-value bg-info"
-                      : "progress-bar-value bg-success"
-                    : "progress-bar-value bg-danger"
+                      ? "progress-bar bg-info"
+                      : "progress-bar bg-success"
+                    : "progress-bar bg-danger"
                 }
               >
-                {Math.round(percent) ? Math.round(percent) : "0"}%
+                <div
+                  className={
+                    percent
+                      ? percent <= 25
+                        ? "progress-bar-value bg-danger"
+                        : percent > 25 && percent <= 50
+                        ? "progress-bar-value bg-primary"
+                        : percent > 50 && percent <= 75
+                        ? "progress-bar-value bg-info"
+                        : "progress-bar-value bg-success"
+                      : "progress-bar-value bg-danger"
+                  }
+                >
+                  {Math.round(percent) ? Math.round(percent) : "0"}%
+                </div>
               </div>
             </div>
-          </div>
           </>
         );
       },
@@ -235,7 +243,7 @@ const EmployeesGrid = () => {
   const boys = [boy1, boy2, boy3, boy4, boy5, boy6];
   const girls = [girl1, girl2, girl3, girl4, girl5, girl6];
 
-  console.log(teamsMembersStatus,"sta");
+  console.log(teamsMembersStatus, "sta");
   useEffect(() => {
     if (currentUser?.data[0]?.team_id) {
       mentorTeamsCount(currentUser?.data[0]?.team_id);
@@ -271,42 +279,42 @@ const EmployeesGrid = () => {
   const stuSurveyStatus = (id) => {
     // console.log(id, "stuid");
     const surveyApi = encryptGlobal(
-        JSON.stringify({
-            user_id: id
-        })
+      JSON.stringify({
+        user_id: id,
+      })
     );
     var config = {
-        method: 'get',
-        url:
-            process.env.REACT_APP_API_BASE_URL +
-            `/dashboard/stuPrePostStats?Data=${surveyApi}`,
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${currentUser.data[0]?.token}`
-        }
+      method: "get",
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/dashboard/stuPrePostStats?Data=${surveyApi}`,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+      },
     };
     axios(config)
-        .then(function (response) {
-            if (response.status === 200) {
-                // console.log(response);
-                const pre = (response.data.data[0].pre_survey_completed_date);
-                // console.log(pre , "pre");
-                if (pre === null) {
-                  localStorage.setItem("stupresurveystatus", "INCOMPLETED");
-                  // console.log("to presurvey page");
-                  navigate("/studentpresurvey");
-                } else{
-                  localStorage.setItem("stupresurveystatus", "COMPLETED");
-                  // console.log("to stu dashboard");
-                  navigate("/student-dashboard");
-                }
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    };
+      .then(function (response) {
+        if (response.status === 200) {
+          // console.log(response);
+          const pre = response.data.data[0].pre_survey_completed_date;
+          // console.log(pre , "pre");
+          if (pre === null) {
+            localStorage.setItem("stupresurveystatus", "INCOMPLETED");
+            // console.log("to presurvey page");
+            navigate("/studentpresurvey");
+          } else {
+            localStorage.setItem("stupresurveystatus", "COMPLETED");
+            // console.log("to stu dashboard");
+            navigate("/student-dashboard");
+          }
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   const handleStudent = (student) => {
     //alert("hii");
@@ -382,8 +390,8 @@ const EmployeesGrid = () => {
 
               <h6>
                 {" "}
-                Team, here&apos;s what&apos;s happening with your School Innovation
-                Marathon 2024 today.
+                Team, here&apos;s what&apos;s happening with your School
+                Innovation Marathon 2024 today.
               </h6>
             </div>
           </div>
@@ -409,7 +417,7 @@ const EmployeesGrid = () => {
                         <img
                           src={getProfileImage(student.Gender)}
                           alt="Profile"
-                          style={{width: "64px",height: "64px"}}
+                          style={{ width: "64px", height: "64px" }}
                         />
                       </div>
                       <h4 style={{ color: "orange" }}>{student.full_name}</h4>
@@ -423,13 +431,48 @@ const EmployeesGrid = () => {
                       </li>
                     </ul>
                     <div className="departments">
-                      {stuInstructionsLoad?(<Loader />):(
-                      teamsMembersStatus[i].pre_survey_status?(teamsMembersStatus[i].topics_completed_count?(teamsMembersStatus[i].all_topics_count-teamsMembersStatus[i].topics_completed_count===0?(teamsMembersStatus[i].idea_submission?(teamsMembersStatus[i].post_survey_status?(<p>🥳 Congratulations! on achieving your Certificate. Will be enabled soon to download. ✅</p>)
-                      :(<p>🥳 Congrats! Your idea is submitted💡 It&apos;s time to take Post-Survey</p>))
-                      :(<p>👏 Well Done Problem Solver! You&apos;re ready to submit idea💡</p>))
-                      :(<p>😄 Hope you are learning good techniques to solve problems👍🏻</p>))
-                      :(<p>👋 Start Course & know about 🔍Problem Solving Journey <FaRoute size={16} color="#20c997" /> </p>))
-                      :(<p>👋 Hi! Login & Get started with your Pre-Survey 😊</p>))}
+                      {stuInstructionsLoad ? (
+                        <Loader />
+                      ) : teamsMembersStatus[i].pre_survey_status ? (
+                        teamsMembersStatus[i].topics_completed_count ? (
+                          teamsMembersStatus[i].all_topics_count -
+                            teamsMembersStatus[i].topics_completed_count ===
+                          0 ? (
+                            teamsMembersStatus[i].idea_submission ? (
+                              teamsMembersStatus[i].post_survey_status ? (
+                                <p>
+                                 Congratulations on achieving your certificate. Login and download it ✅
+
+                                </p>
+                              ) : (
+                                <p>
+                                  🥳 Congrats! Your idea is submitted💡
+                                  It&apos;s time to take Post-Survey
+                                </p>
+                              )
+                            ) : (
+                              <p>
+                                👏 Well Done Problem Solver! You&apos;re ready
+                                to submit idea💡
+                              </p>
+                            )
+                          ) : (
+                            <p>
+                              😄 Hope you are learning good techniques to solve
+                              problems👍🏻
+                            </p>
+                          )
+                        ) : (
+                          <p>
+                            👋 Start Course & know about 🔍Problem Solving
+                            Journey <FaRoute size={16} color="#20c997" />{" "}
+                          </p>
+                        )
+                      ) : (
+                        <p>
+                          👋 Hi! Login & Get started with your Pre-Survey 😊
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
