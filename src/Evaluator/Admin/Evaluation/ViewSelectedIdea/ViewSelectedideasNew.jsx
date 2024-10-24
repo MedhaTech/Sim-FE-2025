@@ -34,7 +34,7 @@ import { FaDownload, FaHourglassHalf } from "react-icons/fa";
 import html2canvas from "html2canvas";
 import TableDetailPdf from "./TableDetailPdf.jsx";
 import { useReactToPrint } from "react-to-print";
-import DetailToDownload from "../../Challenges/DetailToDownload.jsx";
+import DetailToDownload from "./DetailToDownload.jsx";
 import { encryptGlobal } from "../../../../constants/encryptDecrypt.js";
 import { stateList, districtList } from "../../../../RegPage/ORGData.js";
 import { themesList } from "../../../../Team/IdeaSubmission/themesData.js";
@@ -397,7 +397,7 @@ const ViewSelectedideasNew = () => {
             </>,
           ];
         },
-        width: "20rem",
+        width: "10rem",
         left: true,
       },
     ],
@@ -567,33 +567,6 @@ const ViewSelectedideasNew = () => {
   const [teamResponse, setTeamResponse] = React.useState([]);
   const [details, setDetails] = React.useState();
   const downloadPDF = async (params) => {
-    await setDetails(params);
-    if (params?.response) {
-      await setTeamResponse(Object.entries(params?.response).map((e) => e[1]));
-    }
-    setPdfLoader(true);
-    const domElement = document.getElementById("pdfIdd");
-    await html2canvas(domElement, {
-      onclone: (document) => {
-        document.getElementById("pdfIdd").style.display = "block";
-      },
-      scale: 1.13,
-    }).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "px", [2580, 3508]);
-      pdf.addImage(
-        imgData,
-        "JPEG",
-        20,
-        20,
-        2540,
-        pdf.internal.pageSize.height,
-        undefined,
-        "FAST"
-      );
-      pdf.save(`${new Date().toISOString()}.pdf`);
-    });
-    setPdfLoader(false);
   };
   // console.log(tableData, 'Data');
   const evaluatedIdeaL2 = {
@@ -833,20 +806,7 @@ const ViewSelectedideasNew = () => {
                 </div>
               </div>
               <div className="mx-2 pointer d-flex align-items-center">
-                {/* {!pdfLoader ? (
-                                    <FaDownload
-                                        size={22}
-                                        onClick={async () => {
-                                            await downloadPDF(params);
-                                        }}
-                                        className="text-danger"
-                                    />
-                                ) : (
-                                    <FaHourglassHalf
-                                        size={22}
-                                        className="text-info"
-                                    />
-                                )} */}
+               
                 {/* <FaDownload
                                     size={22}
                                     onClick={() => {
@@ -1040,20 +1000,7 @@ const ViewSelectedideasNew = () => {
                 </div>
               </div>
               <div className="mx-2 pointer d-flex align-items-center">
-                {/* {!pdfLoader ? (
-                                    <FaDownload
-                                        size={22}
-                                        onClick={async () => {
-                                            await downloadPDF(params);
-                                        }}
-                                        className="text-danger"
-                                    />
-                                ) : (
-                                    <FaHourglassHalf
-                                        size={22}
-                                        className="text-info"
-                                    />
-                                )} */}
+              
                 {/* <FaDownload
                                     size={22}
                                     onClick={() => {
@@ -1106,11 +1053,13 @@ const ViewSelectedideasNew = () => {
   const [pdfIdeaDetails, setPdfIdeaDetails] = useState("");
   const [pdfTeamResponse, setpdfTeamResponse] = useState("");
   const handleDownpdf = (params) => {
+    console.log(params,"222");
     setPdfIdeaDetails(params);
-    if (params?.response) {
-      setpdfTeamResponse(Object.entries(params?.response).map((e) => e[1]));
-    }
-  };
+    setpdfTeamResponse(params);
+   
+};
+console.log("titile",title);
+
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     documentTitle: `${
@@ -1145,12 +1094,12 @@ const ViewSelectedideasNew = () => {
     <div className="page-wrapper">
       <div className="content">
         <div style={{ display: "none" }}>
-          {/* <DetailToDownload
+          <DetailToDownload
                     ref={componentRef}
                     ideaDetails={pdfIdeaDetails}
                     teamResponse={pdfTeamResponse}
                     level={'Draft'}
-                /> */}
+                />
         </div>
         <div className="container evaluated_idea_wrapper pt-2">
           {/* <div id="pdfIdd" style={{ display: 'none' }}>
@@ -1212,7 +1161,7 @@ const ViewSelectedideasNew = () => {
                       )}
 
                       {title === "Rejected" ? (
-                        <Col md={2}>
+                        <Col md={1}>
                           <div className="my-3 d-md-block d-flex justify-content-center">
                             <Select
                               list={ReasonsOptions}
@@ -1226,7 +1175,7 @@ const ViewSelectedideasNew = () => {
                         ""
                       )}
                       {title === "Rejected" ? (
-                        <Col md={2}>
+                        <Col md={1}>
                           <div className="my-3 d-md-block d-flex justify-content-center">
                             <Select
                               list={reasondata2}

@@ -23,7 +23,7 @@ import { FaDownload, FaHourglassHalf } from 'react-icons/fa';
 import html2canvas from 'html2canvas';
 import TableDetailPdf from './TableDetailPdf';
 import { useReactToPrint } from 'react-to-print';
-import DetailToDownload from '../../Challenges/DetailToDownload';
+import DetailToDownload from './DetailToDownload.jsx';
 import { encryptGlobal } from '../../../../constants/encryptDecrypt.js';
 import { stateList, districtList } from "../../../../RegPage/ORGData.js";
 import { themesList } from "../../../../Team/IdeaSubmission/themesData.js";
@@ -394,20 +394,7 @@ const ViewSelectedIdea = () => {
                                 View
                             </div>
                             <div className="mx-2 pointer d-flex align-items-center">
-                                {/* {!pdfLoader ? (
-                                    <FaDownload
-                                        size={22}
-                                        onClick={async() => {
-                                            await downloadPDF(params);
-                                        }}
-                                        className="text-danger"
-                                    />
-                                ) : (
-                                    <FaHourglassHalf
-                                        size={22}
-                                        className="text-info"
-                                    />
-                                )} */}
+                               
                                 {/* <FaDownload
                                     size={22}
                                     onClick={() => {
@@ -486,50 +473,17 @@ const ViewSelectedIdea = () => {
     const [pdfLoader, setPdfLoader] = React.useState(false);
     const [teamResponse, setTeamResponse] = React.useState([]);
     const [details, setDetails] = React.useState();
-    const downloadPDF = async (params) => {
-        await setDetails(params);
-        if (params?.response) {
-            await setTeamResponse(
-                Object.entries(params?.response).map((e) => e[1])
-            );
-
-            setPdfLoader(true);
-            const domElement = document.getElementById('pdfIdd');
-            await html2canvas(domElement, {
-                onclone: (document) => {
-                    document.getElementById('pdfIdd').style.display = 'block';
-                },
-                scale: 1.13
-            }).then((canvas) => {
-                const imgData = canvas.toDataURL('image/png');
-                const pdf = new jsPDF('p', 'px', [2580, 3508]);
-                pdf.addImage(
-                    imgData,
-                    'JPEG',
-                    20,
-                    20,
-                    2540,
-                    pdf.internal.pageSize.height,
-                    undefined,
-                    'FAST'
-                );
-                pdf.save(`${new Date().toISOString()}.pdf`);
-            });
-            setPdfLoader(false);
-        }
-    };
+   
 
     ////////////////pdf////////////////
     const componentRef = useRef();
     const [pdfIdeaDetails, setPdfIdeaDetails] = useState('');
     const [pdfTeamResponse, setpdfTeamResponse] = useState('');
     const handleDownpdf = (params) => {
+        console.log(params,"222");
         setPdfIdeaDetails(params);
-        if (params?.response) {
-            setpdfTeamResponse(
-                Object.entries(params?.response).map((e) => e[1])
-            );
-        }
+        setpdfTeamResponse(params);
+       
     };
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
@@ -566,12 +520,12 @@ const ViewSelectedIdea = () => {
           <div className="page-wrapper">
           <div className="content">
             <div style={{ display: 'none' }}>
-                {/* <DetailToDownload
+                <DetailToDownload
                     ref={componentRef}
                     ideaDetails={pdfIdeaDetails}
                     teamResponse={pdfTeamResponse}
                     level={'Draft'}
-                /> */}
+                />
             </div>
 
             {/* <Layout> */}
