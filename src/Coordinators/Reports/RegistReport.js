@@ -182,30 +182,30 @@ const ReportsRegistration = () => {
       label: "Registered Others Teachers",
       key: "others",
     },
-    {
-      label: "FullyAidedHighSchool",
-      key: "FullyAidedHighSchool_Count",
-    },
-    {
-      label: "Fully Aided Higher Secondary Schools",
-      key: "FullyAidedHigherSecondarySchool_Count",
-    },
-    {
-      label: "Government High Schools",
-      key: "GovernmentHighSchool_Count",
-    },
+    // {
+    //   label: "FullyAidedHighSchool",
+    //   key: "FullyAidedHighSchool_Count",
+    // },
+    // {
+    //   label: "Fully Aided Higher Secondary Schools",
+    //   key: "FullyAidedHigherSecondarySchool_Count",
+    // },
+    // {
+    //   label: "Government High Schools",
+    //   key: "GovernmentHighSchool_Count",
+    // },
 
+    // {
+    //   label: "Government Higher Secondary Schools",
+    //   key: "GovernmentHigherSecondarySchool_Count",
+    // },
     {
-      label: "Government Higher Secondary Schools",
-      key: "GovernmentHigherSecondarySchool_Count",
+      label: "Higher Secondary Schools",
+      key: "HigherSecondarySchool_Count",
     },
     {
-      label: "Partially Aided High Schools",
-      key: "PartiallyAidedHighSchool_Count",
-    },
-    {
-      label: "Partially Aided Higher Secondary Schools",
-      key: "PartiallyAidedHigherSecondarySchool_Count",
+      label: "High Schools",
+      key: "HighSchool_Count",
     },
     {
       label: "Non-ATL Schools",
@@ -1024,7 +1024,7 @@ const ReportsRegistration = () => {
                                 </th>
                                 {RegTeachersState === "Tamil Nadu" && (
                                   <>
-                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
+                                    {/* <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                       #Fully Aided High Schools
                                     </th>
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
@@ -1035,12 +1035,13 @@ const ReportsRegistration = () => {
                                     </th>
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                       #Government-Higher Secondary Schools
+                                    </th> */}
+                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
+                                      #Higher Secondary Schools
                                     </th>
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                      #Partially Aided-High Schools
-                                    </th>
-                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                      #Partially Aided-Higher Secondary Schools
+                                      #High Schools
+
                                     </th>
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                       #Non-ATL Schools
@@ -1082,7 +1083,7 @@ const ReportsRegistration = () => {
                                   <td>{item.others}</td>
                                   {RegTeachersState === "Tamil Nadu" && (
                                     <>
-                                      <td>{item.FullyAidedHighSchool_Count}</td>
+                                      {/* <td>{item.FullyAidedHighSchool_Count}</td>
                                       <td>
                                         {
                                           item.FullyAidedHigherSecondarySchool_Count
@@ -1093,13 +1094,13 @@ const ReportsRegistration = () => {
                                         {
                                           item.GovernmentHigherSecondarySchool_Count
                                         }
-                                      </td>
+                                      </td> */}
                                       <td>
-                                        {item.PartiallyAidedHighSchool_Count}
+                                        {item.HigherSecondarySchool_Count}
                                       </td>
                                       <td>
                                         {
-                                          item.PartiallyAidedHigherSecondarySchool_Count
+                                          item.HighSchool_Count
                                         }
                                       </td>
                                       <td>{item.NonATL_Count ? item.NonATL_Count : 0}</td>
