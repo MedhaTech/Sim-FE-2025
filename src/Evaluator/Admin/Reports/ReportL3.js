@@ -52,14 +52,10 @@ const ReportL3 = () => {
     const csvLinkRefTable = useRef();
     const csvLinkRefTable2 = useRef();
     const categoryDataTn = [
-        "All Categories",
-        "Fully Aided-High School",
-        "Fully Aided-Higher Secondary School",
-        "Government-High School",
-        "Government-Higher Secondary School",
-        "Partially Aided-High School",
-        "Partially Aided-Higher Secondary School",
-        "Non ATL",
+     "All Categories",
+      "Higher Secondary School",
+      "High School",
+      "Non ATL",
       ];
       useEffect(() => {
         setRegTeachersdistrict("");
