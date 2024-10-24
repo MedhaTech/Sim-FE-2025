@@ -88,7 +88,7 @@ const ViewSelectedIdea = () => {
                 status: stat,
                 state: selectstate !== 'All States' ? selectstate : '',
                 district: district !== 'All Districts' ? district : '',
-                sdg: sdg !== 'All Themes' ? sdg : ''
+                theme: sdg !== 'All Themes' ? sdg : ''
             })
         );
         await axios
