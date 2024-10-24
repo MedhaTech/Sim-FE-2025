@@ -230,12 +230,12 @@ const ViewDetail = (props) => {
             {teamResponse ? (
                 <>
                     <div style={{ display: 'none' }}>
-                        {/* <DetailToDownload
+                        <DetailToDownload
                             ref={componentRef}
                             ideaDetails={props?.ideaDetails}
                             teamResponse={teamResponse}
                             level={'Draft'}
-                        /> */}
+                        />
                     </div>
                     {/* <div id="pdfId" style={{ display: 'none' }}>
                         <DetailToDownload
@@ -321,6 +321,7 @@ const ViewDetail = (props) => {
                                         ) : (
                                             <FaHourglassHalf size={22} />
                                         )} */}
+                                         {/* Add */}
                                         {/* <FaDownload
                                             size={22}
                                             onClick={handlePrint}
@@ -331,7 +332,7 @@ const ViewDetail = (props) => {
                                     <Row className="col-lg-12">
                                         <Col className="md-6">
                                             <Card
-                                                bg="light"
+                                                bg="white"
                                                 text="dark"
                                                 className="mb-4"
                                                 // style={{ height: '150px' }}
@@ -434,7 +435,7 @@ const ViewDetail = (props) => {
                                         </Col>
                                         <Col className="md-6">
                                             <Card
-                                                bg="light"
+                                                bg="white"
                                                 text="dark"
                                                 className="mb-4"
                                                 // style={{ height: '227px' }}
