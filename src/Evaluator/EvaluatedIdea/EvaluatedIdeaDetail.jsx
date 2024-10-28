@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable indent */
 import React,{useEffect} from 'react';
@@ -690,14 +691,14 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                         ? 'Accepted'
                                         : 'Rejected'}
                                 </p>
-                                <p className="text-center">
+                                {/* <p className="text-center">
                                     <span className="text-bold">
                                         Evaluated At:{' '}
                                     </span>{' '}
                                     {moment(
                                         props?.ideaDetails?.evaluated_at
                                     ).format('DD-MM-YY h:mm:ss a') || ''}
-                                </p>
+                                </p> */}
                                 {props?.ideaDetails?.evaluation_status ==
                                     'REJECTEDROUND1' && (
                                     <p className="text-center">

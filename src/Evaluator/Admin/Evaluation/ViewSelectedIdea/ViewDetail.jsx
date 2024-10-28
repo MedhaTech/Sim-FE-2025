@@ -1051,7 +1051,7 @@ const ViewDetail = (props) => {
                                     ''
                                 )}
 
-                                {props?.ideaDetails?.evaluated_at ? (
+                                {/* {props?.ideaDetails?.evaluated_at ? (
                                     <p className="text-center">
                                         <span className="text-bold">
                                             Evaluated At:{' '}
@@ -1065,7 +1065,7 @@ const ViewDetail = (props) => {
                                     </p>
                                 ) : (
                                     ''
-                                )}
+                                )} */}
 
                                 {props?.ideaDetails?.evaluation_status ==
                                     'REJECTEDROUND1' && (
@@ -1091,27 +1091,27 @@ const ViewDetail = (props) => {
                                         props?.ideaDetails?.evaluation_status ==
                                         'SELECTEDROUND1' ? (
                                             <button
-                                                className="btn btn-danger rounded-pill"
+                                                className="btn px-2 py-2 btn-danger "
                                                 onClick={() => {
                                                     setIsreject(true);
                                                     setReason('');
                                                     setReasonSec('');
                                                 }}
                                             >
-                                                <span className="fs-4">
+                                                <span >
                                                     Reject
                                                 </span>
                                             </button>
                                         ) : (
                                             <button
-                                                className="btn btn-success rounded-pill"
+                                                className="btn px-2 py-2 btn-success"
                                                 onClick={() => {
                                                     handleAlert('accept');
                                                     setReason('');
                                                     setReasonSec('');
                                                 }}
                                             >
-                                                <span className="fs-4">
+                                                <span >
                                                     Accept
                                                 </span>
                                             </button>
@@ -1122,19 +1122,19 @@ const ViewDetail = (props) => {
                                                 null && (
                                                 <>
                                                     <button
-                                                        className="btn btn-danger rounded-pill"
+                                                        className="btn px-5 py-2 btn-danger"
                                                         onClick={() => {
                                                             setIsreject(true);
                                                             setReason('');
                                                             setReasonSec('');
                                                         }}
                                                     >
-                                                        <span className="fs-4">
+                                                        <span >
                                                             Reject
                                                         </span>
                                                     </button>
                                                     <button
-                                                        className="btn btn-success rounded-pill"
+                                                        className="btn px-5 py-2 btn-success mt-2"
                                                         onClick={() => {
                                                             handleAlert(
                                                                 'accept'
@@ -1143,7 +1143,7 @@ const ViewDetail = (props) => {
                                                             setReasonSec('');
                                                         }}
                                                     >
-                                                        <span className="fs-4">
+                                                        <span >
                                                             Accept
                                                         </span>
                                                     </button>

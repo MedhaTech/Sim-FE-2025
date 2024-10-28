@@ -921,7 +921,7 @@ const ViewDetail = (props) => {
                                     ''
                                 )}
 
-                                {teamResponse?.evaluated_at ? (
+                                {/* {teamResponse?.evaluated_at ? (
                                     <p className="text-center">
                                         <span className="text-bold">
                                             Evaluated At:{' '}
@@ -934,7 +934,7 @@ const ViewDetail = (props) => {
                                     </p>
                                 ) : (
                                     ''
-                                )}
+                                )} */}
                             </div>
                             {level !== 'L1' &&
                                 teamResponse?.evaluator_ratings.length >
