@@ -30,7 +30,6 @@ import { themesList } from "../../../Team/IdeaSubmission/themesData";
 const ReportL2 = () => {
   const [RegTeachersdistrict, setRegTeachersdistrict] = React.useState("");
   const [RegTeachersState, setRegTeachersState] = React.useState("");
-  const [totalCount, setTotalCount] = useState([]);
   const fruits = ["Overall", "Quality", "Feasibility"];
   const [studentDetailedReportsData, setstudentDetailedReportsData] = useState(
     []
@@ -42,7 +41,7 @@ const ReportL2 = () => {
   const filterOptions = ["Registered", "Not Registered"];
   const categoryData = ["All Categories", "ATL", "Non ATL"];
   const categoryDataTn = [
-   "All Categories",
+    "All Categories",
     "Higher Secondary School",
     "High School",
     "Non ATL",
@@ -66,9 +65,11 @@ const ReportL2 = () => {
     useState(null);
   const [chartTableData, setChartTableData] = useState([]);
   const [chartTableData2, setChartTableData2] = useState([]);
+  const [chartTableData3, setChartTableData3] = useState([]);
 
   const csvLinkRefTable = useRef();
   const csvLinkRefTable2 = useRef();
+  const csvLinkRefTable3 = useRef();
 
   const csvLinkRef = useRef();
   const csvLinkRefNotRegistered = useRef();
@@ -88,6 +89,8 @@ const ReportL2 = () => {
 
   const [downloadTableData, setDownloadTableData] = useState(null);
   const [downloadTableData2, setDownloadTableData2] = useState(null);
+  const [downloadTableData3, setDownloadTableData3] = useState(null);
+  const [totalCount, setTotalCount] = useState([]);
 
   const summaryHeaders = [
     {
@@ -131,6 +134,40 @@ const ReportL2 = () => {
     {
       label: "No of Ideas Evaluated",
       key: "totalEvaluated",
+    },
+  ];
+  const summaryHeaders3 = [
+    {
+      label: "State Name",
+      key: "state",
+    },
+    {
+      label: "1to3",
+      key: "count_1to3",
+    },
+    {
+      label: "3to5",
+      key: "count_3to5",
+    },
+    {
+      label: "5to6",
+      key: "count_5to6",
+    },
+    {
+      label: "6to7",
+      key: "count_6to7",
+    },
+    {
+      label: "7to8",
+      key: "count_7to8",
+    },
+    {
+      label: "8to9",
+      key: "count_8to9",
+    },
+    {
+      label: "9to10",
+      key: "count_9to10",
     },
   ];
   const teacherDetailsHeaders = [
@@ -321,6 +358,7 @@ const ReportL2 = () => {
   useEffect(() => {
     fetchChartTableData();
     fetchChartTableData2();
+    fetchChartTableData3();
   }, []);
   const handleDownload = () => {
     // alert('hii');
@@ -567,7 +605,53 @@ const ReportL2 = () => {
     }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
     setNewFormat(formattedDate);
   }, [downloadComplete]);
+  const fetchChartTableData3 = () => {
+    const config = {
+      method: "get",
+      url: process.env.REACT_APP_API_BASE_URL + "/reports/L2ReportTable3",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+      },
+    };
 
+    axios(config)
+      .then((response) => {
+        if (response.status === 200) {
+          // console.log(response, "response");
+          const combinedArray = response?.data?.data || [];
+          const total = combinedArray.reduce(
+            (acc, item) => {
+              acc.state = "Total";
+              (acc.count_1to3 += item.count_1to3),
+                (acc.count_3to5 += item.count_3to5);
+              acc.count_5to6 += item.count_5to6;
+              acc.count_6to7 += item.count_6to7;
+              acc.count_7to8 += item.count_7to8;
+              acc.count_8to9 += item.count_8to9;
+              acc.count_9to10 += item.count_9to10;
+              return acc;
+            },
+            {
+              count_1to3: 0,
+              count_3to5: 0,
+              count_5to6: 0,
+              count_6to7: 0,
+              count_7to8: 0,
+              count_8to9: 0,
+              count_9to10: 0,
+            }
+          );
+          const newcombinedArray = [...combinedArray, total];
+          setChartTableData3(newcombinedArray);
+          setDownloadTableData3(newcombinedArray);
+          setTotalCount(total);
+        }
+      })
+      .catch((error) => {
+        console.log("API error:", error);
+      });
+  };
   const fetchChartTableData = () => {
     const config = {
       method: "get",
@@ -581,6 +665,8 @@ const ReportL2 = () => {
     axios(config)
       .then((response) => {
         if (response.status === 200) {
+          // console.log(response,"responsePre");
+
           const countData = {
             overall: {
               "1to3": 0,
@@ -967,6 +1053,153 @@ const ReportL2 = () => {
                   </div>
                 </div>
               )}
+              {chartTableData3.length > 0 && (
+                <div className="row">
+                  <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
+                    <div className="card flex-fill default-cover w-100 mb-4">
+                      <div className="card-header d-flex justify-content-between align-items-center">
+                        <h4 className="card-title mb-0">
+                          L2 State wise Overview
+                        </h4>
+                        <div className="dropdown">
+                          <Link
+                            to="#"
+                            className="view-all d-flex align-items-center"
+                          >
+                            <button
+                              className="btn mx-2 btn-primary"
+                              type="button"
+                              onClick={() => {
+                                if (downloadTableData3) {
+                                  setDownloadTableData3(null);
+                                  csvLinkRefTable3.current.link.click();
+                                }
+                              }}
+                            >
+                              Get Statistics
+                            </button>
+                          </Link>
+                        </div>
+                      </div>
+                      <div className="card-body">
+                        <div className="table-responsive">
+                          <table className="table table-border recent-transactions">
+                            <thead>
+                              <tr>
+                                <th
+                                  style={{
+                                    whiteSpace: "wrap",
+                                    color: "#36A2EB",
+                                    fontWeight: "bold",
+                                  }}
+                                >
+                                  #
+                                </th>
+                                <th
+                                  style={{
+                                    whiteSpace: "wrap",
+                                    color: "#36A2EB",
+                                    fontWeight: "bold",
+                                  }}
+                                >
+                                  State Name
+                                </th>
+                                <th
+                                  style={{
+                                    whiteSpace: "wrap",
+                                    color: "#36A2EB",
+                                    fontWeight: "bold",
+                                  }}
+                                >
+                                  1 to 3
+                                </th>
+                                <th
+                                  style={{
+                                    whiteSpace: "wrap",
+                                    color: "#36A2EB",
+                                    fontWeight: "bold",
+                                  }}
+                                >
+                                  3 to 5
+                                </th>
+                                <th
+                                  style={{
+                                    whiteSpace: "wrap",
+                                    color: "#36A2EB",
+                                    fontWeight: "bold",
+                                  }}
+                                >
+                                  5 to 6
+                                </th>
+                                <th
+                                  style={{
+                                    whiteSpace: "wrap",
+                                    color: "#36A2EB",
+                                    fontWeight: "bold",
+                                  }}
+                                >
+                                  6 to 7
+                                </th>
+                                <th
+                                  style={{
+                                    whiteSpace: "wrap",
+                                    color: "#36A2EB",
+                                    fontWeight: "bold",
+                                  }}
+                                >
+                                  7 to 8
+                                </th>
+                                <th
+                                  style={{
+                                    whiteSpace: "wrap",
+                                    color: "#36A2EB",
+                                    fontWeight: "bold",
+                                  }}
+                                >
+                                  8 to 9
+                                </th>
+                                <th
+                                  style={{
+                                    whiteSpace: "wrap",
+                                    color: "#36A2EB",
+                                    fontWeight: "bold",
+                                  }}
+                                >
+                                  9 to 10
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {chartTableData3.map((item, index) => (
+                                <tr key={index}>
+                                  <td>{index + 1}</td>
+                                  <td
+                                    style={{
+                                      maxWidth: "150px",
+                                      overflow: "hidden",
+                                      textOverflow: "ellipsis",
+                                      color: "crimson",
+                                    }}
+                                  >
+                                    {item.state}
+                                  </td>
+                                  <td> {item.count_1to3}</td>
+                                  <td>{item.count_3to5}</td>
+                                  <td>{item.count_5to6}</td>
+                                  <td>{item.count_6to7}</td>
+                                  <td>{item.count_7to8}</td>
+                                  <td>{item.count_8to9}</td>
+                                  <td>{item.count_9to10}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
               {chartTableData2.length > 0 && (
                 <div className="row">
                   <div className="col-sm-12 col-md-12 col-xl-4 d-flex">
@@ -1087,6 +1320,7 @@ const ReportL2 = () => {
                 Download Table CSV
               </CSVLink>
             )}
+
             {downloadTableData2 && (
               <CSVLink
                 data={downloadTableData2}
@@ -1094,6 +1328,17 @@ const ReportL2 = () => {
                 filename={`L2EvaluatorTable_${newFormat}.csv`}
                 className="hidden"
                 ref={csvLinkRefTable2}
+              >
+                Download Table CSV
+              </CSVLink>
+            )}
+            {downloadTableData3 && (
+              <CSVLink
+                data={downloadTableData3}
+                headers={summaryHeaders3}
+                filename={`L2StatewiseTable_${newFormat}.csv`}
+                className="hidden"
+                ref={csvLinkRefTable3}
               >
                 Download Table CSV
               </CSVLink>
