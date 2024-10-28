@@ -97,7 +97,7 @@ const Dashboard = () => {
                 </Link>
                   </div>
                   <div className="col-xl-4 col-sm-6 col-12 ">
-                <Link to="/eadmin/evaluationStatus/viewlist?title=L1 - Yet to be Processed&level=L1">
+                <Link to="/eadmin/evaluationStatus/viewlist?title=L1 - Yet to Processed&level=L1">
                     <div className="dash-widget w-100">
                       <div className="dash-widgetcontent">
                         <h5>   {dateCount.l1_yet_to_process}</h5>
@@ -117,7 +117,7 @@ const Dashboard = () => {
                 </Link>
                   </div>
                   <div className="col-xl-6 col-sm-6 col-12 ">
-                <Link to="/eadmin/evaluationStatus/viewlist?title=L2 - Yet to be Processed&level=L2">
+                <Link to="/eadmin/evaluationStatus/viewlist?title=L2 - Yet to Processed&level=L2">
                     <div className="dash-widget w-100">
                       <div className="dash-widgetcontent">
                         <h5>{dateCount.l2_yet_to_processed}</h5>
