@@ -173,8 +173,8 @@ const teamId= currentUser.data[0]?.team_id;
                 });
             };
 
-    // const pdfFileURL =
-    //     'https://s3.ap-south-1.amazonaws.com/aim1.0-bkt-cba6e2a/resources/stage/Final_Themes_AIM.pdf';
+    const pdfFileURL =
+        'https://s3.ap-south-1.amazonaws.com/aim2.0/Themes.pdf';
     return (
         <div className='page-wrapper'>
       <div className='content'>
@@ -208,7 +208,7 @@ const teamId= currentUser.data[0]?.team_id;
                                         ></div>
 
                                         <div className="text-right">
-                                            {/* <a
+                                            <a
                                                 href={pdfFileURL}
                                                 target="_blank"
                                                 rel="noreferrer"
@@ -221,7 +221,7 @@ const teamId= currentUser.data[0]?.team_id;
                                                     btnClass="primary mt-4 mx-4 "
                                                     size="small"
                                                 />
-                                            </a> */}
+                                            </a> 
                                               {ideaEnableStatus !==1 ? 
                                            
                                                 (<button onClick={handleideaenable} className='btn btn-secondary'>{t('idea_page.next')}</button>
