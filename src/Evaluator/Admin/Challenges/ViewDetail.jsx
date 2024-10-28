@@ -1090,7 +1090,7 @@ console.log(props,"popr");
                                         ''
                                     )}
 
-                                    {teamResponse?.evaluated_at ? (
+                                    {/* {teamResponse?.evaluated_at ? (
                                         <p className="text-center">
                                             <span className="text-bold">
                                                 Evaluated At:{' '}
@@ -1102,7 +1102,7 @@ console.log(props,"popr");
                                         </p>
                                     ) : (
                                         ''
-                                    )}
+                                    )} */}
 
                                     {teamResponse?.evaluation_status ==
                                         'REJECTEDROUND1' && (
@@ -1128,7 +1128,7 @@ console.log(props,"popr");
                                         teamResponse?.evaluation_status ==
                                         'SELECTEDROUND1' ? (
                                             <button
-                                                className="btn px-5 py-2 btn-danger me-3 rounded-pill"
+                                                className="btn px-2 py-2 btn-danger"
                                                 onClick={() => {
                                                     // handleAlert('reject');
                                                     setIsreject(true);
@@ -1136,20 +1136,20 @@ console.log(props,"popr");
                                                     setReasonSec('');
                                                 }}
                                             >
-                                                <span className="fs-4">
+                                                <span >
                                                     Reject
                                                 </span>
                                             </button>
                                         ) : (
                                             <button
-                                                className="btn btn-lg px-5 py-2 btn-success me-3 rounded-pill"
+                                                className="btn px-2 py-2 btn-success"
                                                 onClick={() => {
                                                     handleAlert('accept');
                                                     setReason('');
                                                     setReasonSec('');
                                                 }}
                                             >
-                                                <span className="fs-4">
+                                                <span >
                                                     Accept
                                                 </span>
                                             </button>
@@ -1157,7 +1157,7 @@ console.log(props,"popr");
                                     ) : (
                                         <>
                                             <button
-                                                className="btn px-5 py-2 btn-danger me-3 rounded-pill m-2"
+                                                className="btn px-5 py-2 btn-danger"
                                                 onClick={() => {
                                                     // handleAlert('reject');
                                                     setIsreject(true);
@@ -1170,7 +1170,7 @@ console.log(props,"popr");
                                                 </span>
                                             </button>
                                             <button
-                                                className="btn px-5 py-2 btn-success me-3 rounded-pill m-2"
+                                                className="btn px-5 py-2 btn-success mt-2"
                                                 onClick={() => {
                                                     handleAlert('accept');
                                                     setReason('');
