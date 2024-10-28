@@ -222,6 +222,7 @@ const Evalprocess = () => {
                             {...evalData}
                             exportHeaders
                             print={false}
+                            export={false}
                         >
                             <DataTable
                                 data={setEvalList}
