@@ -62,8 +62,8 @@ const ReportsRegistration = () => {
   const categoryData = ["All Categories", "ATL", "Non ATL"];
   const categoryDataTn = [
   "All Categories",
-    "Higher Secondary School",
-    "High School",
+   "HSS",
+    "HS",
     "Non ATL",
   ];
   useEffect(() => {
