@@ -53,8 +53,8 @@ const ReportL3 = () => {
     const csvLinkRefTable2 = useRef();
     const categoryDataTn = [
      "All Categories",
-      "Higher Secondary School",
-      "High School",
+     "HSS",
+    "HS",
       "Non ATL",
       ];
       useEffect(() => {

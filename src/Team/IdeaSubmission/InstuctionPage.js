@@ -222,10 +222,12 @@ const teamId= currentUser.data[0]?.team_id;
                                                     size="small"
                                                 />
                                             </a> 
-                                              {ideaEnableStatus !==1 ? 
+                                              {
+                                            //   ideaEnableStatus !==1 ? 
                                            
-                                                (<button onClick={handleideaenable} className='btn btn-secondary'>{t('idea_page.next')}</button>
-                                            ):resList !==1 ?(
+                                            //     (<button onClick={handleideaenable} className='btn btn-secondary'>{t('idea_page.next')}</button>
+                                            // ):
+                                            resList !==1 ?(
                                                 <button onClick={handlePopup} className='btn btn-secondary'>{t('idea_page.next')}</button>
 
                                             ): <Button
