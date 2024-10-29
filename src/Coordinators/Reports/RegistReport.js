@@ -59,8 +59,8 @@ const ReportsRegistration = () => {
   const categoryData = ["All Categories", "ATL", "Non ATL"];
   const categoryDataTn = [
    "All Categories",
-    "Higher Secondary School",
-    "High School",
+   "HSS",
+    "HS",
     "Non ATL",
   ];
 
@@ -200,12 +200,12 @@ const ReportsRegistration = () => {
     //   key: "GovernmentHigherSecondarySchool_Count",
     // },
     {
-      label: "Higher Secondary Schools",
-      key: "HigherSecondarySchool_Count",
+      label: "HSS",
+      key: "HSS_Count",
     },
     {
-      label: "High Schools",
-      key: "HighSchool_Count",
+      label: "HS",
+      key: "HS_Count",
     },
     {
       label: "Non-ATL Schools",
@@ -1037,10 +1037,10 @@ const ReportsRegistration = () => {
                                       #Government-Higher Secondary Schools
                                     </th> */}
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                      #Higher Secondary Schools
+                                      #HSS
                                     </th>
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                      #High Schools
+                                      #HS
 
                                     </th>
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
@@ -1096,11 +1096,11 @@ const ReportsRegistration = () => {
                                         }
                                       </td> */}
                                       <td>
-                                        {item.HigherSecondarySchool_Count}
+                                        {item.HSS_Count}
                                       </td>
                                       <td>
                                         {
-                                          item.HighSchool_Count
+                                          item.HS_Count
                                         }
                                       </td>
                                       <td>{item.NonATL_Count ? item.NonATL_Count : 0}</td>

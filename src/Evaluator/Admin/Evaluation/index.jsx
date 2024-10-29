@@ -75,7 +75,7 @@ const Dashboard = () => {
                 {/* </Col> */}
                 {/* <Col md={4}> */}
                   <div className="col-xl-4 col-sm-6 col-12">
-                <Link to="/eadmin/evaluationStatus/viewlist?evaluation_status=SELECTEDROUND1&title=L1 Accepted&level=L1">
+                <Link to="/eadmin/evaluationStatus/viewlist?evaluation_status=SELECTEDROUND1&title=Accepted&level=L1">
                     <div className="dash-widget w-100">
                       <div className="dash-widgetcontent">
                         <h5>  {dateCount.selected_round_one_count}</h5>

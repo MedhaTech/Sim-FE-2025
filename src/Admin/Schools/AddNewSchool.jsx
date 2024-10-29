@@ -30,8 +30,8 @@ import { stateList, districtList } from "../../RegPage/ORGData";
 const AddNewSchool = (props) => {
   const filterCategory = ["ATL", "Non ATL"];
   const categoryDataTn = [
-    "Higher Secondary School",
-    "High School",
+    "HSS",
+    "HS",
     "Non ATL",
   ];
   const navigate = useNavigate();

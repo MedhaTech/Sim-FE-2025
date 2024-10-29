@@ -1296,7 +1296,7 @@ const ViewDetail = (props) => {
                             }
                             size="small "
                             onClick={() => handleReject()}
-                            disabled={!reason}
+                            disabled={!reason && reasonSec}
                         />
                     </div>
                 </Modal.Body>

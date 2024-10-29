@@ -42,7 +42,9 @@ const Certificate = ({
     const content = type ? partRef.current : pdfRef.current;
     const badge = "the_finisher";
     const size = [298, 220];
+
     const orientation = "l";
+    
     const doc = new jsPDF(orientation, "px", size);
     const certName = `${currentUser?.data[0].full_name}_${
       type ? "idea_certificate" : "course_certificate"
@@ -91,7 +93,8 @@ const Certificate = ({
           <div
             ref={type ? partRef : pdfRef}
             className="position-relative"
-            style={{ width: "fit-content" }}
+            // style={{ width: "fit-content" }}
+            style={{ width: "100%", maxWidth: "297px" }}
           >
             <span
               className="text-capitalize"
@@ -124,12 +127,14 @@ const Certificate = ({
                 type ? ideaSubmissionCertificate : courseCompletionCertificate
               }
               alt="certificate"
-              // className="img-fluid mx-auto"
+              className="img-fluid mx-auto"
               style={{
                 width: "297px",
-                height: "213px",
+                height: "210px",
                 // border: "1px solid #cccccc",
+               
               }}
+             
             />
           </div>
         </div>
@@ -365,11 +370,13 @@ const MyCertificate = () => {
               </Row>
               {/* className="d-lg-flex justify-content-center" previous one */}
               <Col 
-              className="d-lg-flex justify-content-center"
+               xs={12}
+               lg={ideaEnabled ? 6 : 12}
+              className="d-lg-flex justify-content-center mb-3"
               // className={`d-lg-flex ${ideaEnabled ? 'justify-content-center align-items-center' : 'justify-content-around'} text-center`}
               >
               {ideaEnabled &&( 
-                <div className="col-6">
+                <div className="col-12 col-lg-6" >
                  <Certificate
                   type={"participate"}
                   currentUser={currentUser}
@@ -378,7 +385,7 @@ const MyCertificate = () => {
                 />
                 </div>
               )}
-                <div className="col-6">
+                <div className="col-12 col-lg-6">
 
                 <Certificate
                   language={language}
