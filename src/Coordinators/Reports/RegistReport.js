@@ -859,7 +859,7 @@ const ReportsRegistration = () => {
         console.log("API error:", error);
       });
   };
-
+console.log(barChart1Data,"bar");
   return (
     <div className="page-wrapper">
       <h4 className="m-2" 
