@@ -42,16 +42,33 @@ const Certificate = ({
     const content = type ? partRef.current : pdfRef.current;
     const badge = "the_finisher";
     const size = [298, 220];
+
     const orientation = "l";
+    
     const doc = new jsPDF(orientation, "px", size);
     const certName = `${currentUser?.data[0].full_name}_${
       type ? "idea_certificate" : "course_certificate"
     }`;
+    // doc.html(content, {
+    //   callback: function (doc) {
+    //     doc.save(certName);
+    //   },
+    // });
+    const imgWidth = 298; 
+    const imgHeight = 220; 
+    doc.addImage(courseCompletionCertificate, "JPEG", 0, 0, imgWidth, imgHeight); 
+    doc.addImage(ideaSubmissionCertificate, "JPEG", 0, 0, imgWidth, imgHeight);
+    // Create the content using the HTML reference
     doc.html(content, {
       callback: function (doc) {
-        doc.save(certName);
+        doc.save(certName); 
       },
+      x: 0,
+      y: 0,
+      width: imgWidth,
+      windowWidth: imgWidth, 
     });
+   
     if (!type)
       dispatch(
         updateStudentBadges(
@@ -65,6 +82,8 @@ const Certificate = ({
       dispatch(updateStudentCertificate(currentUser?.data[0]?.user_id
       ));
   };
+ 
+  
   const certDateCheck = () => {
     const check =
       type !== "participate"
@@ -91,13 +110,14 @@ const Certificate = ({
           <div
             ref={type ? partRef : pdfRef}
             className="position-relative"
-            style={{ width: "fit-content" }}
+            // style={{ width: "fit-content" }}
+            style={{ width: "100%", maxWidth: "297px" }}
           >
             <span
               className="text-capitalize"
               style={{
                 position: "absolute",
-                top: `${type ? "6.5rem" : "6.5rem"}`,
+                top: `${type ? "6.4rem" : "6.4rem"}`,
                 color: `${type ? "black" : "black"}`,
                 left: `${type ? "4rem" : "4rem"}`,
                 fontSize: "0.4rem",
@@ -111,7 +131,7 @@ const Certificate = ({
               style={{
                 position: "absolute",
                 color: `${type ? "black" : "black"}`,
-                top: `${type ? "7.4rem" : "7.4rem"}`,
+                top: `${type ? "7.3rem" : "7.3rem"}`,
                 left: `${type ? "4.4rem" : "4.4rem"}`,
                 fontSize: "0.4rem",
                 fontFamily: "Times New Roman",
@@ -124,12 +144,14 @@ const Certificate = ({
                 type ? ideaSubmissionCertificate : courseCompletionCertificate
               }
               alt="certificate"
-              // className="img-fluid mx-auto"
+              className="img-fluid mx-auto"
               style={{
                 width: "297px",
-                height: "213px",
+                height: "210px",
                 // border: "1px solid #cccccc",
+               
               }}
+             
             />
           </div>
         </div>
@@ -365,11 +387,13 @@ const MyCertificate = () => {
               </Row>
               {/* className="d-lg-flex justify-content-center" previous one */}
               <Col 
-              className="d-lg-flex justify-content-center"
+              //  xs={12}
+              //  lg={ideaEnabled ? 6 : 12}
+              className="d-lg-flex justify-content-center mb-3"
               // className={`d-lg-flex ${ideaEnabled ? 'justify-content-center align-items-center' : 'justify-content-around'} text-center`}
               >
               {ideaEnabled &&( 
-                <div className="col-6">
+                <div className="col-12 col-lg-6" >
                  <Certificate
                   type={"participate"}
                   currentUser={currentUser}
@@ -378,7 +402,7 @@ const MyCertificate = () => {
                 />
                 </div>
               )}
-                <div className="col-6">
+                <div className="col-12 col-lg-6">
 
                 <Certificate
                   language={language}

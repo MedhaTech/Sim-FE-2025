@@ -191,6 +191,7 @@ const ViewDetail = (props) => {
                                             <FaDownload size={22} onClick={async()=>{await downloadPDF();}}/>:
                                             <FaHourglassHalf size={22}/>
                                         } */}
+                                         {/* Add */}
                                         {/* <FaDownload
                                             size={22}
                                             onClick={handlePrint}
@@ -201,7 +202,7 @@ const ViewDetail = (props) => {
                                     <Row className="col-lg-12">
                                         <Col className="md-6">
                                             <Card
-                                                bg="light"
+                                                bg="white"
                                                 text="dark"
                                                 className="mb-4"
                                                 // style={{ height: '150px' }}
@@ -304,7 +305,7 @@ const ViewDetail = (props) => {
                                         </Col>
                                         <Col className="md-6">
                                             <Card
-                                                bg="light"
+                                                bg="white"
                                                 text="dark"
                                                 className="mb-4"
                                                 style={{ height: '227px' }}
@@ -920,7 +921,7 @@ const ViewDetail = (props) => {
                                     ''
                                 )}
 
-                                {teamResponse?.evaluated_at ? (
+                                {/* {teamResponse?.evaluated_at ? (
                                     <p className="text-center">
                                         <span className="text-bold">
                                             Evaluated At:{' '}
@@ -933,7 +934,7 @@ const ViewDetail = (props) => {
                                     </p>
                                 ) : (
                                     ''
-                                )}
+                                )} */}
                             </div>
                             {level !== 'L1' &&
                                 teamResponse?.evaluator_ratings.length >

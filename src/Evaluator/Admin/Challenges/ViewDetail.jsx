@@ -15,7 +15,8 @@ import { useLocation } from 'react-router-dom';
 // import RatedDetailCard from '../Pages/RatedDetailCard';
 import jsPDF from 'jspdf';
 import { FaDownload, FaHourglassHalf } from 'react-icons/fa';
-// import DetailToDownload from '../../Challenges/DetailToDownload';
+import DetailToDownload from './DetailToDownload';
+
 import html2canvas from 'html2canvas';
 import { useReactToPrint } from 'react-to-print';
 import { Col, Container, Row } from 'reactstrap';
@@ -222,12 +223,12 @@ console.log(props,"popr");
             {teamResponse ? (
                 <>
                     <div style={{ display: 'none' }}>
-                        {/* <DetailToDownload
+                        <DetailToDownload
                             ref={componentRef}
                             ideaDetails={props?.ideaDetails}
                             teamResponse={teamResponse}
                             level={'Draft'}
-                        /> */}
+                        />
                     </div>
                     {/* <div id='pdfId' style={{display:'none'}}>
                         <DetailToDownload ideaDetails={props?.ideaDetails} teamResponse={teamResponse} level={level}/>
@@ -304,6 +305,7 @@ console.log(props,"popr");
                                             <FaDownload size={22} onClick={async()=>{await downloadPDF();}}/>:
                                             <FaHourglassHalf size={22}/>
                                         } */}
+                                        {/* Add */}
                                         {/* <FaDownload
                                             size={22}
                                             onClick={handlePrint}
@@ -314,7 +316,7 @@ console.log(props,"popr");
                                     <Row className="col-lg-12">
                                         <Col className="md-6">
                                             <Card
-                                                bg="light"
+                                                bg="white"
                                                 text="dark"
                                                 className="mb-4"
                                                 // style={{ height: '150px' }}
@@ -417,7 +419,7 @@ console.log(props,"popr");
                                         </Col>
                                         <Col className="md-6">
                                             <Card
-                                                bg="light"
+                                                bg="white"
                                                 text="dark"
                                                 className="mb-4"
                                                 // style={{ height: '1px' }}
@@ -1088,7 +1090,7 @@ console.log(props,"popr");
                                         ''
                                     )}
 
-                                    {teamResponse?.evaluated_at ? (
+                                    {/* {teamResponse?.evaluated_at ? (
                                         <p className="text-center">
                                             <span className="text-bold">
                                                 Evaluated At:{' '}
@@ -1100,7 +1102,7 @@ console.log(props,"popr");
                                         </p>
                                     ) : (
                                         ''
-                                    )}
+                                    )} */}
 
                                     {teamResponse?.evaluation_status ==
                                         'REJECTEDROUND1' && (
@@ -1126,7 +1128,7 @@ console.log(props,"popr");
                                         teamResponse?.evaluation_status ==
                                         'SELECTEDROUND1' ? (
                                             <button
-                                                className="btn btn-lg px-5 py-2 btn-danger me-3 rounded-pill"
+                                                className="btn px-2 py-2 btn-danger"
                                                 onClick={() => {
                                                     // handleAlert('reject');
                                                     setIsreject(true);
@@ -1134,20 +1136,20 @@ console.log(props,"popr");
                                                     setReasonSec('');
                                                 }}
                                             >
-                                                <span className="fs-4">
+                                                <span >
                                                     Reject
                                                 </span>
                                             </button>
                                         ) : (
                                             <button
-                                                className="btn btn-lg px-5 py-2 btn-success me-3 rounded-pill"
+                                                className="btn px-2 py-2 btn-success"
                                                 onClick={() => {
                                                     handleAlert('accept');
                                                     setReason('');
                                                     setReasonSec('');
                                                 }}
                                             >
-                                                <span className="fs-4">
+                                                <span >
                                                     Accept
                                                 </span>
                                             </button>
@@ -1155,7 +1157,7 @@ console.log(props,"popr");
                                     ) : (
                                         <>
                                             <button
-                                                className="btn px-5 py-2 btn-danger me-3 rounded-pill m-2"
+                                                className="btn px-5 py-2 btn-danger"
                                                 onClick={() => {
                                                     // handleAlert('reject');
                                                     setIsreject(true);
@@ -1168,7 +1170,7 @@ console.log(props,"popr");
                                                 </span>
                                             </button>
                                             <button
-                                                className="btn px-5 py-2 btn-success me-3 rounded-pill m-2"
+                                                className="btn px-5 py-2 btn-success mt-2"
                                                 onClick={() => {
                                                     handleAlert('accept');
                                                     setReason('');

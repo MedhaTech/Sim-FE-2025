@@ -64,12 +64,8 @@ const EditSchool = (props) => {
 
     const filterCategory = ['ATL', 'Non ATL'];
     const categoryDataTn = [
-        "Fully Aided-High School",
-        "Fully Aided-Higher Secondary School",
-        "Government-High School",
-        "Government-Higher Secondary School",
-        "Partially Aided-High School",
-        "Partially Aided-Higher Secondary School",
+       "HSS",
+    "HS",
         "Non ATL",
       ];
 

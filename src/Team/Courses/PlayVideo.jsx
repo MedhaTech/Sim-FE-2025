@@ -921,7 +921,8 @@ const PlayVideoCourses = (props) => {
     );
   };
   const comingSoonText = t("dummytext.student_course");
-  // const pdfFileURL = "https://s3.ap-south-1.amazonaws.com/aim1.0-bkt-cba6e2a/resources/stage/Final_Themes_AIM.pdf";
+  const pdfFileURL =
+        'https://s3.ap-south-1.amazonaws.com/aim2.0/Themes.pdf';
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -1380,16 +1381,16 @@ const PlayVideoCourses = (props) => {
                                       <Col md={8}>
                                         {worksheetResponce.response === null ? (
                                           <>
-                                            {/* <a
+                                            <a
                                               href={pdfFileURL}
                                               target="_blank"
                                               rel="noreferrer"
-                                              className="btn btn-secondary mx-2"
+                                              className="btn btn-warning mx-2"
                                             >
                                               {t(
                                                 "student.download_theme"
                                               )}
-                                            </a> */}
+                                            </a>
 
                                             <a
                                               href={

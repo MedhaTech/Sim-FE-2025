@@ -88,7 +88,7 @@ const ViewSelectedIdea = () => {
                 status: stat,
                 state: selectstate !== 'All States' ? selectstate : '',
                 district: district !== 'All Districts' ? district : '',
-                sdg: sdg !== 'All Themes' ? sdg : ''
+                theme: sdg !== 'All Themes' ? sdg : ''
             })
         );
         await axios
@@ -271,6 +271,7 @@ const ViewSelectedIdea = () => {
                             {/* <FaDownload
                                 size={22}
                                 onClick={() => {
+                                    console.log("parm");
                                     handleDownpdf(params);
                                 }}
                             /> */}
@@ -308,12 +309,15 @@ const ViewSelectedIdea = () => {
     const [pdfIdeaDetails, setPdfIdeaDetails] = useState('');
     const [pdfTeamResponse, setpdfTeamResponse] = useState('');
     const handleDownpdf = (params) => {
+        console.log(params,"222");
         setPdfIdeaDetails(params);
-        if (params?.response) {
-            setpdfTeamResponse(
-                Object.entries(params?.response).map((e) => e[1])
-            );
-        }
+        setpdfTeamResponse(params);
+        // if (params) {
+        //     setpdfTeamResponse(
+        //         params
+        //     );
+        // }
+        // console.log(params?.ideaDetails,"11");
     };
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
@@ -348,12 +352,12 @@ const ViewSelectedIdea = () => {
         <div className="page-wrapper">
         <div className="content">
             <div style={{ display: 'none' }}>
-                {/* <DetailToDownload
+                <DetailToDownload
                     ref={componentRef}
                     ideaDetails={pdfIdeaDetails}
                     teamResponse={pdfTeamResponse}
                     level={'Draft'}
-                /> */}
+                />
             </div>
                 <div className="container evaluated_idea_wrapper pt-2">
                     <div className="row">

@@ -230,12 +230,12 @@ const ViewDetail = (props) => {
             {teamResponse ? (
                 <>
                     <div style={{ display: 'none' }}>
-                        {/* <DetailToDownload
+                        <DetailToDownload
                             ref={componentRef}
                             ideaDetails={props?.ideaDetails}
                             teamResponse={teamResponse}
                             level={'Draft'}
-                        /> */}
+                        />
                     </div>
                     {/* <div id="pdfId" style={{ display: 'none' }}>
                         <DetailToDownload
@@ -321,6 +321,7 @@ const ViewDetail = (props) => {
                                         ) : (
                                             <FaHourglassHalf size={22} />
                                         )} */}
+                                         {/* Add */}
                                         {/* <FaDownload
                                             size={22}
                                             onClick={handlePrint}
@@ -331,7 +332,7 @@ const ViewDetail = (props) => {
                                     <Row className="col-lg-12">
                                         <Col className="md-6">
                                             <Card
-                                                bg="light"
+                                                bg="white"
                                                 text="dark"
                                                 className="mb-4"
                                                 // style={{ height: '150px' }}
@@ -434,7 +435,7 @@ const ViewDetail = (props) => {
                                         </Col>
                                         <Col className="md-6">
                                             <Card
-                                                bg="light"
+                                                bg="white"
                                                 text="dark"
                                                 className="mb-4"
                                                 // style={{ height: '227px' }}
@@ -1050,7 +1051,7 @@ const ViewDetail = (props) => {
                                     ''
                                 )}
 
-                                {props?.ideaDetails?.evaluated_at ? (
+                                {/* {props?.ideaDetails?.evaluated_at ? (
                                     <p className="text-center">
                                         <span className="text-bold">
                                             Evaluated At:{' '}
@@ -1064,7 +1065,7 @@ const ViewDetail = (props) => {
                                     </p>
                                 ) : (
                                     ''
-                                )}
+                                )} */}
 
                                 {props?.ideaDetails?.evaluation_status ==
                                     'REJECTEDROUND1' && (
@@ -1090,27 +1091,27 @@ const ViewDetail = (props) => {
                                         props?.ideaDetails?.evaluation_status ==
                                         'SELECTEDROUND1' ? (
                                             <button
-                                                className="btn btn-danger rounded-pill"
+                                                className="btn px-2 py-2 btn-danger "
                                                 onClick={() => {
                                                     setIsreject(true);
                                                     setReason('');
                                                     setReasonSec('');
                                                 }}
                                             >
-                                                <span className="fs-4">
+                                                <span >
                                                     Reject
                                                 </span>
                                             </button>
                                         ) : (
                                             <button
-                                                className="btn btn-success rounded-pill"
+                                                className="btn px-2 py-2 btn-success"
                                                 onClick={() => {
                                                     handleAlert('accept');
                                                     setReason('');
                                                     setReasonSec('');
                                                 }}
                                             >
-                                                <span className="fs-4">
+                                                <span >
                                                     Accept
                                                 </span>
                                             </button>
@@ -1121,19 +1122,19 @@ const ViewDetail = (props) => {
                                                 null && (
                                                 <>
                                                     <button
-                                                        className="btn btn-danger rounded-pill"
+                                                        className="btn px-5 py-2 btn-danger"
                                                         onClick={() => {
                                                             setIsreject(true);
                                                             setReason('');
                                                             setReasonSec('');
                                                         }}
                                                     >
-                                                        <span className="fs-4">
+                                                        <span >
                                                             Reject
                                                         </span>
                                                     </button>
                                                     <button
-                                                        className="btn btn-success rounded-pill"
+                                                        className="btn px-5 py-2 btn-success mt-2"
                                                         onClick={() => {
                                                             handleAlert(
                                                                 'accept'
@@ -1142,7 +1143,7 @@ const ViewDetail = (props) => {
                                                             setReasonSec('');
                                                         }}
                                                     >
-                                                        <span className="fs-4">
+                                                        <span >
                                                             Accept
                                                         </span>
                                                     </button>
@@ -1295,7 +1296,7 @@ const ViewDetail = (props) => {
                             }
                             size="small "
                             onClick={() => handleReject()}
-                            disabled={!reason}
+                            disabled={!reason && reasonSec}
                         />
                     </div>
                 </Modal.Body>

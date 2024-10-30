@@ -1,495 +1,504 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React from 'react';
-import LinkComponent from '../Pages/LinkComponent';
-
+import LinkComponent from '../../../../Teacher/Dashboard/LinkComponent';
+import IdeaPage1 from '../../../../assets/img/idea report/idea_page1.png';
+import IdeaPage2 from '../../../../assets/img/idea report/idea_page2.jpg';
+import IdeaPage3 from '../../../../assets/img/idea report/idea_page3.jpg';
+import moment from 'moment';
 // const detailToDownload = (props) => {
 class detailToDownload extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
-        // console.log(props);
     }
+
     render() {
-        const average = (arr) => arr.reduce((p, c) => p + c, 0) / arr.length;
         return (
-            <div className="container bg-light">
+            <div className="container-fluid bg-white">
                 <div className="row">
-                    {/* --------personal-------detail---------- */}
-                    <div className="col-md-7 col-12 h-100">
-                        <div className="personal-detail p-5 bg-white shadow rounded border h-100">
-                            {/* <p className="fs-2 fw-bold text-primary"> */}
-                            <p
-                                className=" text-secondary fw-bold"
-                                style={{ fontFamily: 'courier' }}
+                    <div style={{ position: 'relative', padding: '0' }}>
+                        <span
+                            className="text-capitalize"
+                            style={{
+                                position: 'absolute',
+                                top: '27rem',
+                                left: '15rem',
+                                fontSize: '1rem',
+                                fontFamily: 'Poppins'
+                            }}
+                        >
+                            {this.props?.ideaDetails?.organization_code}
+                        </span>
+                        <span
+                            className="text-capitalize"
+                            style={{
+                                position: 'absolute',
+                                top: '29rem',
+                                left: '17rem',
+                                fontSize: '1rem',
+                                fontFamily: 'Poppins'
+                            }}
+                        >
+                            {this.props?.ideaDetails?.organization_name}
+                        </span>
+                        <span
+                            className="text-capitalize"
+                            style={{
+                                position: 'absolute',
+                                top: '31rem',
+                                left: '13rem',
+                                fontSize: '1rem',
+                                fontFamily: 'Poppins'
+                            }}
+                        >
+                            {this.props?.ideaDetails?.state}
+                        </span>
+                        <span
+                            className="text-capitalize"
+                            style={{
+                                position: 'absolute',
+                                top: '33rem',
+                                left: '15rem',
+                                fontSize: '1rem',
+                                fontFamily: 'Poppins'
+                            }}
+                        >
+                            {this.props?.ideaDetails?.category}
+                        </span>
+                        <span
+                            className="text-capitalize"
+                            style={{
+                                position: 'absolute',
+                                top: '41.2rem',
+                                left: '14rem',
+                                fontSize: '1rem',
+                                fontFamily: 'Poppins'
+                            }}
+                        >
+                            {this.props?.ideaDetails?.mentor_name}
+                        </span>
+                        <span
+                            className="text-capitalize"
+                            style={{
+                                position: 'absolute',
+                                top: '43.2rem',
+                                left: '20rem',
+                                fontSize: '1rem',
+                                fontFamily: 'Poppins'
+                            }}
+                        >
+                            {this.props?.ideaDetails?.team_username}
+                        </span>
+                        <span
+                            className="text-capitalize"
+                            style={{
+                                position: 'absolute',
+                                top: '45.3rem',
+                                left: '17rem',
+                                fontSize: '1rem',
+                                fontFamily: 'Poppins'
+                            }}
+                        >
+                            {this.props?.ideaDetails?.team_name}
+                        </span>
+                        <span
+                            className="text-capitalize"
+                            style={{
+                                position: 'absolute',
+                                top: '47.2rem',
+                                left: '19rem',
+                                fontSize: '1rem',
+                                fontFamily: 'Poppins',
+                                overflowWrap: 'anywhere',
+                                width: '60%'
+                            }}
+                        >
+                            {this.props?.ideaDetails?.team_members &&
+                                this.props?.ideaDetails?.team_members.toString()}
+                        </span>
+                        <span
+                            style={{
+                                position: 'absolute',
+                                top: '58.8rem',
+                                left: '14rem',
+                                fontSize: '1rem',
+                                fontFamily: 'Poppins',
+                                fontWeight: 'bold'
+                            }}
+                        >
+                            {this.props?.ideaDetails?.challenge_response_id
+                            }
+                        </span>
+                        <span
+                            style={{
+                                position: 'absolute',
+                                top: '60.8rem',
+                                left: '15rem',
+                                fontSize: '1rem',
+                                fontFamily: 'Poppins',
+                                overflowWrap: 'anywhere',
+                                width: '65%'
+                            }}
+                        >
+                            {this.props?.ideaDetails?.title}
+                        </span>
+
+                        <img
+                            src={IdeaPage1}
+                            alt="IdeaPage1"
+                            style={{
+                                height: '83rem',
+                                width: '100%'
+                            }}
+                        />
+                    </div>
+                    <div style={{ position: 'relative', padding: '0' }}>
+                        <img
+                            src={IdeaPage2}
+                            alt="IdeaPage2"
+                            style={{
+                                width: '100%'
+                            }}
+                        />
+                        <span
+                            className="text-capitalize"
+                            style={{
+                                position: 'absolute',
+                                top: '7rem',
+                                left: '5rem',
+                                fontSize: '1rem',
+                                fontFamily: 'poppins'
+                            }}
+                        >
+                            <span
+                                style={{
+                                    fontWeight: 'bold',
+                                    padding: '0.5rem',
+                                    backgroundColor: '#FFBB3F',
+                                    borderRadius: '5px'
+                                }}
                             >
-                                PERSONAL&nbsp;DETAILS
-                            </p>
-                            <div className="row my-2">
-                                <div
-                                    // className="col-4 fw-bold fs-4 text-success"
-                                    className=" col-4 text-success"
-                                    style={{ fontFamily: 'courier' }}
-                                >
-                                    Mentor Name
-                                </div>
-                                <div
-                                    className="col-8 text-capitalize fs-4"
-                                    // className=" col-8 text-capitalize text-danger"
-                                >
-                                    : {this.props?.ideaDetails?.mentor_name}
-                                </div>
-                            </div>
-                            <div className="row my-2">
-                                <div
-                                    // className="col-4 fw-bold fs-4"
-                                    className="col-4 text-success"
-                                    style={{ fontFamily: 'courier' }}
-                                >
-                                    Team Name
-                                </div>
-                                <div className="col-8 text-capitalize fs-4">
-                                    : {this.props?.ideaDetails?.team_name}
-                                </div>
-                            </div>
-                            <div className="row my-2">
-                                <div
-                                    // className="col-4 fw-bold fs-4"
-                                    className="col-4 text-success"
-                                    style={{ fontFamily: 'courier' }}
-                                >
-                                    Team Members
-                                </div>
-                                <div className="col-8 text-capitalize fs-4">
-                                    :{' '}
-                                    {this.props?.ideaDetails?.team_members &&
-                                        this.props?.ideaDetails?.team_members.toString()}
-                                </div>
-                            </div>
-                            <div className="row my-2">
-                                <div
-                                    // className="col-4 fw-bold fs-4"
-                                    className="col-4 text-success"
-                                    style={{ fontFamily: 'courier' }}
-                                >
-                                    Organisation Code
-                                </div>
-                                <div className="col-8 text-capitalize fs-4">
-                                    :{' '}
-                                    {this.props?.ideaDetails?.organization_code}
-                                </div>
-                            </div>
-                            <div className="row my-2">
-                                <div
-                                    // className="col-4 fw-bold fs-4"
-                                    className="col-4 text-success "
-                                    style={{ fontFamily: 'courier' }}
-                                >
-                                    Oraganisation Name
-                                </div>
-                                <div className="col-8 text-capitalize fs-4">
-                                    :{' '}
-                                    {this.props?.ideaDetails?.organization_name}
-                                </div>
-                            </div>
-                            <div className="row my-2">
-                                <div
-                                    //  className="col-4 fw-bold fs-4"
-                                    className="col-4 text-success"
-                                    style={{ fontFamily: 'courier' }}
-                                >
-                                    CID
-                                </div>
-                                <div className="col-8 text-capitalize fs-4">
-                                    :{' '}
-                                    {
-                                        this.props?.ideaDetails
-                                            ?.challenge_response_id
-                                    }
-                                </div>
-                            </div>
-                        </div>
+                                Last modified by :
+                            </span>{' '}
+                            {this.props?.ideaDetails?.initiated_name}
+                        </span>
+                        <span
+                            className="text-capitalize"
+                            style={{
+                                position: 'absolute',
+                                top: '7rem',
+                                left: '30rem',
+                                fontSize: '1rem',
+                                fontFamily: 'poppins'
+                            }}
+                        >
+                            <span
+                                style={{
+                                    fontWeight: 'bold',
+                                    padding: '0.5rem',
+                                    backgroundColor: '#FFBB3F',
+                                    borderRadius: '5px'
+                                }}
+                            >
+                                Idea status :
+                            </span>{' '}
+                            {this.props?.ideaDetails?.status}
+                        </span>
                     </div>
-                    {/* ---------------------------------- */}
-                    {/* ---------------status------------------ */}
-                    <div className="col-md-5 col-12 h1-100">
-                        {this.props?.ideaDetails?.evaluation_status && (
-                            <div className="status p-5 bg-white shadow rounded border h-100 w-100">
-                                {/* <p className="fs-2 fw-bold text-primary"> */}
-                                <p
-                                    className="text-primary"
-                                    style={{ fontFamily: 'courier' }}
-                                >
-                                    STATUS
-                                </p>
-                                <div className="row my-2">
-                                    <div className="col-2 fw-bold fs-4">L1</div>
-                                    <div
-                                        className={`${
-                                            this.props?.ideaDetails
-                                                ?.evaluation_status ==
-                                            'SELECTEDROUND1'
-                                                ? 'text-success'
-                                                : 'text-danger'
-                                        } col-10 text-capitalize fs-4`}
-                                    >
-                                        :{' '}
-                                        {this.props?.ideaDetails
-                                            ?.evaluation_status ==
-                                        'SELECTEDROUND1'
-                                            ? 'Accepted'
-                                            : 'Rejected'}
-                                    </div>
-                                </div>
-                                {this.props?.level !== 'L1' &&
-                                    this.props?.ideaDetails
-                                        ?.evaluator_ratings &&
-                                    this.props?.ideaDetails?.evaluator_ratings
-                                        .length > 0 && (
-                                        <div className="col-12 mb-2">
-                                            <div className="row my-2">
-                                                <div className="col-2 fw-bold fs-4">
-                                                    L2
-                                                </div>
-                                                <div className="col-10 text-capitalize fs-4">
-                                                    :{' '}
-                                                    {average(
-                                                        this.props?.ideaDetails
-                                                            ?.evaluator_ratings[0]
-                                                            ?.overall
-                                                    )?.toFixed(1)}
-                                                </div>
-                                            </div>
-                                            <div className="row my-2">
-                                                <div className="col-3 fw-bold fs-4">
-                                                    Novelty
-                                                </div>
-                                                <div className="col-9 text-capitalize fs-4">
-                                                    :{' '}
-                                                    {average(
-                                                        this.props?.ideaDetails
-                                                            ?.evaluator_ratings[0]
-                                                            ?.param_1
-                                                    )?.toFixed(1)}
-                                                </div>
-                                            </div>
-                                            <div className="row my-2">
-                                                <div className="col-3 fw-bold fs-4">
-                                                    Usefullness
-                                                </div>
-                                                <div className="col-9 text-capitalize fs-4">
-                                                    :{' '}
-                                                    {average(
-                                                        this.props?.ideaDetails
-                                                            ?.evaluator_ratings[0]
-                                                            ?.param_2
-                                                    )?.toFixed(1)}
-                                                </div>
-                                            </div>
-                                            <div className="row my-2">
-                                                <div className="col-3 fw-bold fs-4">
-                                                    Feasability
-                                                </div>
-                                                <div className="col-9 text-capitalize fs-4">
-                                                    :{' '}
-                                                    {average(
-                                                        this.props?.ideaDetails
-                                                            ?.evaluator_ratings[0]
-                                                            ?.param_3
-                                                    )?.toFixed(1)}
-                                                </div>
-                                            </div>
-                                            <div className="row my-2">
-                                                <div className="col-3 fw-bold fs-4">
-                                                    Scalability
-                                                </div>
-                                                <div className="col-9 text-capitalize fs-4">
-                                                    :{' '}
-                                                    {average(
-                                                        this.props?.ideaDetails
-                                                            ?.evaluator_ratings[0]
-                                                            ?.param_4
-                                                    )?.toFixed(1)}
-                                                </div>
-                                            </div>
-                                            <div className="row my-2">
-                                                <div className="col-3 fw-bold fs-4">
-                                                    Sustainability
-                                                </div>
-                                                <div className="col-9 text-capitalize fs-4">
-                                                    :{' '}
-                                                    {average(
-                                                        this.props?.ideaDetails
-                                                            ?.evaluator_ratings[0]
-                                                            ?.param_5
-                                                    )?.toFixed(1)}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )}
-                            </div>
-                        )}
-                    </div>
+
                     {/* ----------------------------------------- */}
                     {/* -------------questions answers---- */}
-                    <div className="col-12 my-4">
-                        <div className="challange-details p-5 bg-white border rounded">
-                            {/* <p className="fs-2 fw-bold text-primary"> */}
-                            <p
-                                className=" text-warning"
-                                style={{ fontFamily: 'courier' }}
-                            >
-                                CHALLANGE&nbsp;DETAILS
-                            </p>
-                            <div className="row my-2">
-                                <div
-                                    // className="col-12 fw-bold fs-4"
-                                    className="col-12 text-danger"
-                                    style={{ fontFamily: 'courier' }}
+                    <div className="col-12">
+                        <div style={{ borderStyle: 'solid', margin: '0 2rem' }}>
+                            <p className='text-center pt-3'><strong>Theme : </strong>{this.props?.ideaDetails?.theme}</p>
+                            <div style={{ margin: '2rem 2rem' }}>
+                                <label
+                                    htmlFor="teams"
+                                    className=""
+                                    style={{ fontSize: '1rem', fontWeight: 'bold' }}
                                 >
-                                    SDG{' '}
-                                    {/* <span className="col-10 text-capitalize fs-4"> */}
-                                    <span
-                                        className="col-10 text-capitalize"
-                                        style={{ fontFamily: 'courier' }}
-                                    >
-                                        {' '}
-                                        : {this.props?.ideaDetails?.sdg}
-                                    </span>
-                                </div>
+                                    Idea Submission Language
+                                </label><br />
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails?.language}
+                                </p>
+
                             </div>
-                            {this.props?.teamResponse &&
-                                this.props?.teamResponse?.length > 0 &&
-                                this.props?.teamResponse?.map((item, index) => {
-                                    return (
-                                        <div
-                                            key={index}
-                                            className="mb-4 my-3  px-5 py-3 me-md-3"
-                                        >
-                                            <div className="question quiz mb-0">
-                                                <b
-                                                    style={{
-                                                        fontSize: '1.6rem',
-                                                        fontFamily: 'courier'
-                                                    }}
-                                                >
-                                                    {item?.question_no || ''}.{' '}
-                                                    {item?.question || ''}
-                                                </b>
-                                            </div>
-                                            <div className="bg-light rounded p-5">
-                                                <p
-                                                    style={{
-                                                        fontSize: '1.4rem',
-                                                        fontFamily: 'courier'
-                                                    }}
-                                                >
-                                                    {item?.question_type ===
-                                                    'MCQ' ? (
-                                                        item?.selected_option?.map(
-                                                            (data, index) => {
-                                                                return (
-                                                                    <div
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                    >
-                                                                        {data ||
-                                                                            ''}
-                                                                    </div>
-                                                                );
-                                                            }
-                                                        )
-                                                    ) : item?.question_type ===
-                                                          'TEXT' ||
-                                                      item?.question_type ===
-                                                          'MRQ' ? (
-                                                        item?.selected_option
-                                                    ) : item?.question_type ===
-                                                      'DRAW' ? (
-                                                        <LinkComponent
-                                                            item={
-                                                                item.selected_option
-                                                            }
-                                                        />
-                                                    ) : (
-                                                        ''
-                                                    )}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    );
-                                })}
+                            <div style={{ margin: '2rem 2rem' }}>
+                                <label
+                                    htmlFor="teams"
+                                    className=""
+                                    style={{ fontSize: '1rem', fontWeight: 'bold' }}
+                                >
+                                    1. Focus Area
+                                </label><br />
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails?.focus_area}
+                                </p>
+
+                            </div>
+
+                            <div style={{ margin: '2rem 2rem' }}>
+                                <label
+                                    htmlFor="teams"
+                                    className=""
+                                    style={{ fontSize: '1rem', fontWeight: 'bold' }}
+                                >
+                                    {`2. Title of your idea (Think of a proper name. Don't describe the solution or problem statement here.)`}
+                                </label><br />
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails?.title}
+                                </p>
+
+                            </div>
+
+                            <div style={{ margin: '2rem 2rem' }}>
+                                <label
+                                    htmlFor="teams"
+                                    className=""
+                                    style={{ fontSize: '1rem', fontWeight: 'bold' }}
+                                >
+                                    3. Write down your Problem statement
+                                </label><br />
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails?.problem_statement}
+                                </p>
+
+                            </div>
+
+                            <div style={{ margin: '2rem 2rem' }}>
+                                <label
+                                    htmlFor="teams"
+                                    className=""
+                                    style={{ fontSize: '1rem', fontWeight: 'bold' }}
+                                >
+                                    4. List the Causes of the problem
+                                </label><br />
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails?.causes}
+                                </p>
+                            </div>
+
+                            <div style={{ margin: '2rem 2rem' }}>
+                                <label
+                                    htmlFor="teams"
+                                    className=""
+                                    style={{ fontSize: '1rem', fontWeight: 'bold' }}
+                                >
+
+                                    5. List the Effects of the problem
+                                </label><br />
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails?.effects}
+                                </p>
+
+                            </div>
+
+                            <div style={{ margin: '2rem 2rem' }}>
+                                <label
+                                    htmlFor="teams"
+                                    className=""
+                                    style={{ fontSize: '1rem', fontWeight: 'bold' }}
+                                >
+                                    6. In which places in your community did you find this problem?
+                                </label><br />
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails?.community}
+                                </p>
+
+                            </div>
+
+                            <div style={{ margin: '2rem 2rem' }}>
+                                <label
+                                    htmlFor="teams"
+                                    className=""
+                                    style={{ fontSize: '1rem', fontWeight: 'bold' }}
+                                >
+                                    7. Who all are facing this problem?
+                                </label><br />
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails?.facing}
+                                </p>
+
+                            </div>
+
+                            <div style={{ margin: '2rem 2rem' }}>
+                                <label
+                                    htmlFor="teams"
+                                    className=""
+                                    style={{ fontSize: '1rem', fontWeight: 'bold' }}
+                                >
+                                    8. Describe the solution to the problem your team found. Explain your solution clearly - how does it work, who is it helping, and how will it solve the problem.
+                                </label><br />
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails?.solution}
+                                </p>
+
+                            </div>
+
+                            <div style={{ margin: '2rem 2rem' }}>
+                                <label
+                                    htmlFor="teams"
+                                    className=""
+                                    style={{ fontSize: '1rem', fontWeight: 'bold' }}
+                                >
+                                    9. Apart from your teacher, how many people/stakeholders did you speak to to understand or improve your problem or solution?
+                                </label><br />
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails?.stakeholders}
+                                </p>
+
+                            </div>
+
+                            <div style={{ margin: '2rem 2rem' }}>
+                                <label
+                                    htmlFor="teams"
+                                    className=""
+                                    style={{ fontSize: '1rem', fontWeight: 'bold' }}
+                                >
+                                    10. Pick the actions your team did in your problem solving journey (You can choose multiple options)
+                                </label><br />
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                {(() => {
+      const problemSolving = this.props?.ideaDetails?.problem_solving;
+      console.log('problemSolving:', problemSolving);
+      try {
+        const parsedData = JSON.parse(problemSolving);
+
+        return Array.isArray(parsedData) ? parsedData.join(", ") : problemSolving;
+      } catch (e) {
+        return problemSolving;
+      }
+    })()}
+                                    {/* {this.props?.ideaDetails?.problem_solving && JSON.parse(this.props.ideaDetails.problem_solving).join(", ")} */}
+                                </p>
+                              
+                            </div>
+
+                            <div style={{ margin: '2rem 2rem' }}>
+                                <label
+                                    htmlFor="teams"
+                                    className=""
+                                    style={{ fontSize: '1rem', fontWeight: 'bold' }}
+                                >
+                                    11. Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.
+                                </label><br />
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails?.feedback}
+                                </p>
+
+                            </div>
+
+                            <div style={{ margin: '2rem 2rem' }}>
+                                <label
+                                    htmlFor="teams"
+                                    className=""
+                                    style={{ fontSize: '1rem', fontWeight: 'bold' }}
+                                >
+                                    12.  Upload image of your prototype.  (total size limit : 10mb)
+                                </label><br />
+                                <LinkComponent
+                                    item={
+                                        this.props?.ideaDetails &&
+                                        JSON.parse(this.props?.ideaDetails?.prototype_image)
+                                    }
+                                />
+                            </div>
+
+                            <div style={{ margin: '2rem 2rem' }}>
+                                <label
+                                    htmlFor="teams"
+                                    className=""
+                                    style={{ fontSize: '1rem', fontWeight: 'bold' }}
+                                >
+                                    13. Upload documents & video links of your prototype.
+                                </label><br />
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails?.prototype_link}
+                                </p>
+
+                            </div>
+
+                            <div style={{ margin: '2rem 2rem' }}>
+                                <label
+                                    htmlFor="teams"
+                                    className=""
+                                    style={{ fontSize: '1rem', fontWeight: 'bold' }}
+                                >
+                                    14.   Did your team complete and submit the workbook to your school Guide teacher?
+                                </label><br />
+                                <p style={{ overflowWrap: 'anywhere' }}>
+                                    {this.props?.ideaDetails?.workbook}
+                                </p>
+
+                            </div>
+
+                            <div style={{ margin: '2rem 2rem' }}>
+                                {this.props?.ideaDetails?.verified_status == "ACCEPTED" && (
+                                    <div>
+                                        <p style={{ fontSize: "1rem" }} className="fw-bold">
+                                            Accepted At :{" "}
+                                            {this.props?.ideaDetails?.verified_at
+                                                ? moment(this.props?.ideaDetails?.verified_at).format(
+                                                    "DD-MM-YYYY"
+                                                )
+                                                : "-"}
+                                        </p>
+                                    </div>
+                                )}
+
+                                {this.props?.ideaDetails?.verified_status === "REJECTED" && (
+                                    <div>
+                                        <p style={{ fontSize: "1rem" }} className="fw-bold">
+                                            Last Modifiled By :{" "}
+                                            {this.props?.ideaDetails?.initiated_name}
+                                        </p>
+                                        <p style={{ fontSize: "1rem" }} className="fw-bold">
+                                            Rejected At :{" "}
+                                            {this.props?.ideaDetails?.verified_at
+                                                ? moment(this.props?.ideaDetails?.verified_at).format(
+                                                    "DD-MM-YYYY"
+                                                )
+                                                : "-"}
+                                        </p>
+                                        <p style={{ fontSize: "1rem" }} className="fw-bold">
+                                            Reason for Rejection :{" "}
+                                            {this.props?.ideaDetails?.mentor_rejected_reason}
+                                        </p>
+                                    </div>
+                                )}
+
+                                {this.props?.ideaDetails?.status === "SUBMITTED" && (
+                                    <div>
+                                        <p style={{ fontSize: "1rem" }} className="fw-bold">
+                                            Submitted By : {this.props?.ideaDetails?.initiated_name}
+                                        </p>
+                                    </div>
+                                )}
+
+                                {this.props?.ideaDetails?.status === "DRAFT" && this.props?.ideaDetails?.verified_status === null && (
+                                    <div>
+                                        <p style={{ fontSize: "1rem" }} className="fw-bold">
+                                            Last Modified By : {this.props?.ideaDetails?.initiated_name}
+                                        </p>
+                                    </div>
+                                )}
+                            </div>
+
                         </div>
                     </div>
                     {/* ----------------------------------- */}
+                    <img
+                        src={IdeaPage3}
+                        alt="IdeaPage3"
+                        style={{
+                            width: '100%',
+                            padding: '0'
+                        }}
+                    />
                 </div>
             </div>
         );
     }
 }
 export default detailToDownload;
-
-// /* eslint-disable no-unused-vars */
-// /* eslint-disable indent */
-// import React from 'react';
-// import LinkComponent from '../Pages/LinkComponent';
-
-// const detailToDownload = (props) => {
-
-//     const average = arr => arr.reduce((p,c) => p+c,0)/arr.length;
-
-//     return (
-//         <div className="container bg-light">
-//             <div className="row">
-//                 {/* --------personal-------detail---------- */}
-//                 <div className="col-md-7 col-12 h-100">
-//                     <div className="personal-detail p-5 bg-white shadow rounded border h-100">
-//                         <p className='fs-2 fw-bold text-primary'>PERSONAL&nbsp;DETAILS</p>
-//                         <div className="row my-2">
-//                             <div className="col-4 fw-bold fs-4">Teacher Name</div>
-//                             <div className="col-8 text-capitalize fs-4">: {props?.ideaDetails?.mentor_name}</div>
-//                         </div>
-//                         <div className="row my-2">
-//                             <div className="col-4 fw-bold fs-4">Team Name</div>
-//                             <div className="col-8 text-capitalize fs-4">: {props?.ideaDetails?.team_name}</div>
-//                         </div>
-//                         <div className="row my-2">
-//                             <div className="col-4 fw-bold fs-4">Team Members</div>
-//                             <div className="col-8 text-capitalize fs-4">: {props?.ideaDetails?.team_members.toString()}</div>
-//                         </div>
-//                         <div className="row my-2">
-//                             <div className="col-4 fw-bold fs-4">Organisation Code</div>
-//                             <div className="col-8 text-capitalize fs-4">: {props?.ideaDetails?.organization_code}</div>
-//                         </div>
-//                         <div className="row my-2">
-//                             <div className="col-4 fw-bold fs-4">Oraganisation Name</div>
-//                             <div className="col-8 text-capitalize fs-4">: {props?.ideaDetails?.organization_name}</div>
-//                         </div>
-//                         <div className="row my-2">
-//                             <div className="col-4 fw-bold fs-4">CID</div>
-//                             <div className="col-8 text-capitalize fs-4">: {props?.ideaDetails?.challenge_response_id}</div>
-//                         </div>
-//                     </div>
-//                 </div>
-//                 {/* ---------------------------------- */}
-//                 {/* ---------------status------------------ */}
-//                 <div className="col-md-5 col-12 h1-100">
-//                     {
-//                         props?.ideaDetails?.evaluation_status &&
-//                         <div className="status p-5 bg-white shadow rounded border h-100 w-100">
-//                             <p className='fs-2 fw-bold text-primary'>STATUS</p>
-//                             <div className="row my-2">
-//                                 <div className="col-2 fw-bold fs-4">L1</div>
-//                                 <div className={`${props?.ideaDetails?.evaluation_status=='SELECTEDROUND1'?'text-success':'text-danger'} col-10 text-capitalize fs-4`}>
-//                                 : {props?.ideaDetails?.evaluation_status ==
-//                                     'SELECTEDROUND1'
-//                                         ? 'Accepted'
-//                                         : 'Rejected'}
-//                                 </div>
-//                             </div>
-//                             {
-//                                 props?.level!=='L1' && props?.ideaDetails?.evaluator_ratings && props?.ideaDetails?.evaluator_ratings.length>0 &&(
-//                                         <div className='col-12 mb-2'>
-//                                             <div className="row my-2">
-//                                                 <div className="col-2 fw-bold fs-4">L2</div>
-//                                                 <div className="col-10 text-capitalize fs-4">: {average(props?.ideaDetails?.evaluator_ratings[0]?.overall)?.toFixed(1)}</div>
-//                                             </div>
-//                                             <div className="row my-2">
-//                                                 <div className="col-3 fw-bold fs-4">Novelty</div>
-//                                                 <div className="col-9 text-capitalize fs-4">: {average(props?.ideaDetails?.evaluator_ratings[0]?.param_1)?.toFixed(1)}</div>
-//                                             </div>
-//                                             <div className="row my-2">
-//                                                 <div className="col-3 fw-bold fs-4">Usefullness</div>
-//                                                 <div className="col-9 text-capitalize fs-4">: {average(props?.ideaDetails?.evaluator_ratings[0]?.param_2)?.toFixed(1)}</div>
-//                                             </div>
-//                                             <div className="row my-2">
-//                                                 <div className="col-3 fw-bold fs-4">Feasability</div>
-//                                                 <div className="col-9 text-capitalize fs-4">: {average(props?.ideaDetails?.evaluator_ratings[0]?.param_3)?.toFixed(1)}</div>
-//                                             </div>
-//                                             <div className="row my-2">
-//                                                 <div className="col-3 fw-bold fs-4">Scalability</div>
-//                                                 <div className="col-9 text-capitalize fs-4">: {average(props?.ideaDetails?.evaluator_ratings[0]?.param_4)?.toFixed(1)}</div>
-//                                             </div>
-//                                             <div className="row my-2">
-//                                                 <div className="col-3 fw-bold fs-4">Sustainability</div>
-//                                                 <div className="col-9 text-capitalize fs-4">: {average(props?.ideaDetails?.evaluator_ratings[0]?.param_5)?.toFixed(1)}</div>
-//                                             </div>
-//                                         </div>
-
-//                                 )
-//                             }
-
-//                         </div>
-//                     }
-
-//                 </div>
-//                 {/* ----------------------------------------- */}
-//                 {/* -------------questions answers---- */}
-//                 <div className="col-12 my-4">
-//                     <div className="challange-details p-5 bg-white border rounded">
-//                     <p className='fs-2 fw-bold text-primary'>CHALLANGE&nbsp;DETAILS</p>
-//                     <div className="row my-2">
-//                         <div className="col-12 fw-bold fs-4">SDG <span className="col-10 text-capitalize fs-4"> : {props?.ideaDetails?.sdg}</span></div>
-
-//                     </div>
-//                     {props?.teamResponse &&
-//                         props?.teamResponse?.length > 0 &&
-//                         props?.teamResponse?.map((item, index) => {
-//                             return (
-//                                 <div
-//                                     key={index}
-//                                     className="mb-4 my-3  px-5 py-3 me-md-3"
-//                                 >
-//                                     <div className="question quiz mb-0">
-//                                         <b
-//                                             style={{
-//                                                 fontSize: '1.6rem'
-//                                             }}
-//                                         >
-//                                             {item?.question_no || ''}.{' '}
-//                                             {item?.question || ''}
-//                                         </b>
-//                                     </div>
-//                                     <div className="bg-light rounded p-5">
-//                                         <p
-//                                             style={{
-//                                                 fontSize: '1.4rem'
-//                                             }}
-//                                         >
-//                                             {item?.question_type === 'MCQ' ? (
-//                                                 item?.selected_option?.map(
-//                                                     (data, i) => {
-//                                                         return (
-//                                                             <div key={i}>
-//                                                                 {data || ''}
-//                                                             </div>
-//                                                         );
-//                                                     }
-//                                                 )
-//                                             ) : item?.question_type ===
-//                                                   'TEXT' ||
-//                                               item?.question_type === 'MRQ' ? (
-//                                                 item?.selected_option
-//                                             ) : item?.question_type ===
-//                                               'DRAW' ? (
-//                                                 <LinkComponent
-//                                                     item={item.selected_option}
-//                                                 />
-//                                             ) : (
-//                                                 ''
-//                                             )}
-//                                         </p>
-//                                     </div>
-//                                 </div>
-//                             );
-//                         })}
-//                     </div>
-//                 </div>
-//                 {/* ----------------------------------- */}
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default detailToDownload;

@@ -61,13 +61,9 @@ const ReportsRegistration = () => {
   const filterOptions = ["Registered", "Not Registered"];
   const categoryData = ["All Categories", "ATL", "Non ATL"];
   const categoryDataTn = [
-    "All Categories",
-    "Fully Aided-High School",
-    "Fully Aided-Higher Secondary School",
-    "Government-High School",
-    "Government-Higher Secondary School",
-    "Partially Aided-High School",
-    "Partially Aided-Higher Secondary School",
+  "All Categories",
+   "HSS",
+    "HS",
     "Non ATL",
   ];
   useEffect(() => {

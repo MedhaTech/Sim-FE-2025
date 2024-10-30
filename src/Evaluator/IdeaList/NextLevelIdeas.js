@@ -30,24 +30,7 @@ const IdeaList = () => {
             setIdeaDetails({});
         }
     }, [allIdeaList]);
-    // React.useEffect(() => {
-    //     if (allIdeaList?.message === "All challenge has been accepted, no more challenge to display") {
-    //         setIdeaDetails(null); // Set ideaDetails to null when no more challenges exist
-    //     } else if (allIdeaList && Object.keys(allIdeaList).length > 0) {
-    //         setIdeaDetails(allIdeaList); // Update ideaDetails with the fetched data
-    //     } else {
-    //         setIdeaDetails({}); // Default empty object when there's no data
-    //     }
-    // }, [allIdeaList]);
-    // React.useEffect(() => {
-    //     if (allIdeaList?.message === "All challenge has been accepted, no more challenge to display") {
-    //         setIdeaDetails(null); 
-    //     } else if (allIdeaList && Object.keys(allIdeaList).length > 0) {
-    //         setIdeaDetails(allIdeaList); 
-    //     } else {
-    //         setIdeaDetails({}); 
-    //     }
-    // }, [allIdeaList]);
+   
   
     const handleNext = () => {
         dispatch(getSubmittedIdeaList('L2'));
@@ -64,7 +47,7 @@ console.log(Object.keys(ideaDetails).length,"IDEA",ideaDetails,"data");
                     {!isNextDiv ? (
                         <div className="col-12">
                             
-                            {Object.keys(ideaDetails).length > 0  ? (
+                            {Object.keys(ideaDetails).length > 2  ? (
                                 <NextLevel
 
                                     ideaDetails={ideaDetails}
