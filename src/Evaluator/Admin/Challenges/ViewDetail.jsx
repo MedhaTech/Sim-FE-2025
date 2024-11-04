@@ -31,6 +31,8 @@ import {
 const ViewDetail = (props) => {
     const { search } = useLocation();
     const level = new URLSearchParams(search).get('level');
+    const status = new URLSearchParams(search).get('status');
+
     const currentUser = getCurrentUser('current_user');
     const [teamResponse, setTeamResponse] = React.useState([]);
     const { t } = useTranslation();
@@ -51,7 +53,7 @@ const ViewDetail = (props) => {
         'Some project effort visible.',
         'Zero project effort visible.'
     ];
-console.log(props,"popr");
+// console.log(props,"popr");
     // React.useEffect(() => {
     //     if (props?.ideaDetails?.response) {
     //         setTeamResponse(
@@ -59,13 +61,13 @@ console.log(props,"popr");
     //         );
     //     }
     // }, [props]);
-    console.warn('detail', props);
+    // console.warn('detail', props);
     useEffect(() => {
         if (props?.ideaDetails) {
             setTeamResponse(props?.ideaDetails);
         }
     }, [props]);
-    console.log(teamResponse,"team");
+    console.log(status,"status");
     
     const handleAlert = (handledText) => {
         const swalWithBootstrapButtons = Swal.mixin({
@@ -218,6 +220,7 @@ console.log(props,"popr");
             });
     };
     const problemSolvingArray = teamResponse?.problem_solving;
+    console.log(teamResponse?.status,"stats");
     return (
         <div>
             {teamResponse ? (
@@ -1154,7 +1157,7 @@ console.log(props,"popr");
                                                 </span>
                                             </button>
                                         )
-                                    ) : (
+                                    ) : status === 'SUBMITTED' ? (
                                         <>
                                             <button
                                                 className="btn px-5 py-2 btn-danger"
@@ -1182,7 +1185,8 @@ console.log(props,"popr");
                                                 </span>
                                             </button>
                                         </>
-                                    )}
+                                    ): ""
+                                    }
                                 </div>
                             </div>
                         )}

@@ -215,19 +215,20 @@ const ViewSelectedIdea = () => {
             // },
             {
                 name: 'Idea Name',
-                // sortable: true,
-                cellExport: (row) => row?.title,
                 cell: (row) => (
                     <div
                         style={{
-                            whiteSpace: 'pre-wrap',
-                            wordWrap: 'break-word'
+                            // whiteSpace: 'pre-wrap',
+                            // wordWrap: 'break-word'
+                            whiteSpace: 'nowrap',       
+                            overflow: 'hidden',         
+                            textOverflow: 'ellipsis',
                         }}
                     >
                         {row?.title}
                     </div>
                 ),
-                width: '10rem'
+                width: '20rem'
             },
             // {
             //     name: 'District',

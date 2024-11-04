@@ -55,7 +55,7 @@ const Dashboard = () => {
                     <div className="dash-widget w-100">
                       <div className="dash-widgetcontent">
                         <h5>{dateCount.submitted_count}</h5>
-                        <h6 className="text-primary">SUBMITTED CHALLENGES</h6>
+                        <h6 className="text-primary">MENTOR ACCEPTED CHALLENGES</h6>
                       </div>
                     </div>
                 </Link>
