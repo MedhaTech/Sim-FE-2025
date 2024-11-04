@@ -613,7 +613,7 @@ const ViewSelectedideasNew = () => {
         selector: (row) => row.team_name,
         cellExport: (row) => row.team_name,
 
-        width: "15rem",
+        width: "10rem",
       },
       {
         name: "CID",

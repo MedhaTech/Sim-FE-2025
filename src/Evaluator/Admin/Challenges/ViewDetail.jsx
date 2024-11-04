@@ -220,7 +220,6 @@ const ViewDetail = (props) => {
             });
     };
     const problemSolvingArray = teamResponse?.problem_solving;
-    console.log(teamResponse?.status,"stats");
     return (
         <div>
             {teamResponse ? (
@@ -1191,7 +1190,9 @@ const ViewDetail = (props) => {
                             </div>
                         )}
                     </div>
-                    <div style={{ display: 'flex' }}>
+                  {status === 'SUBMITTED' && (
+                    <>  
+                  <div style={{ display: 'flex' }}>
                         <p
                             style={{ fontSize: '1rem', margin: '1rem' }}
                             className="fw-bold"
@@ -1213,6 +1214,7 @@ const ViewDetail = (props) => {
                                 : '-'}
                         </p>
                     </div>
+               
                     <br />
                     <div style={{ display: 'flex' }}>
                       
@@ -1228,6 +1230,8 @@ const ViewDetail = (props) => {
                                 : '-'}
                         </p>
                     </div>
+                    </>
+                )}
                     <div>
                         <Button
                             btnClass="primary"
