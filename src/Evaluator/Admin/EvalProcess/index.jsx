@@ -101,6 +101,7 @@ const Evalprocess = () => {
                         }`}
                     >
                         {row.status}
+                        
                     </Badge>
                 ],
                 width: '7%'
@@ -117,8 +118,8 @@ const Evalprocess = () => {
                             onClick={() => handleDic(record)}
                             style={{ marginRight: '12px' }}
                         >
-                            <div className="btn btn-success btn-lg mx-2">
-                                STATES
+                            <div className="btn btn-info btn-lg mx-2">
+                                States
                             </div>
                         </div>
                     </>

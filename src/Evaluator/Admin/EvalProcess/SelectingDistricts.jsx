@@ -141,7 +141,7 @@ const navigate = useNavigate();
                         </Col>
                     </Row>
                     <Row>
-                        <Label className="mb-2">States:</Label>
+                        <Label className="mb-2  text-info">States:</Label>
                         <Check
                             list={fullStatesNames}
                             value={selectedStates}
@@ -162,24 +162,25 @@ const navigate = useNavigate();
 
                         /> */}
                           <button
-                          type="button"
-                          onClick={() =>
-                            navigate('/eadmin/evaluationProcess')
-                        }
-                          className="btn btn-secondary"
-                        >
-                          Discard
-                        </button>
+                            type="button"
+                            onClick={() => navigate('/eadmin/evaluationProcess')}
+                            className="btn btn-secondary"
+                            style={{ marginLeft: "20px" }}
+                            >
+                            Discard
+                            </button>
+
                     </Col>
                     <Col className="submit-btn col-xs-12 col-sm-6 text-right">
                         <Button
+                        
                             label="Save"
                             onClick={() => handleclick()}
                             btnClass={'primary'}
                             size="small"
                         />
                     </Col>
-                </Row>
+                </Row> 
             </Container>
         </div>
         </div>
