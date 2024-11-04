@@ -182,14 +182,17 @@ const EvaluatedIdea = () => {
                 cell: (row) => (
                     <div
                         style={{
-                            whiteSpace: 'pre-wrap',
-                            wordWrap: 'break-word'
+                            // whiteSpace: 'pre-wrap',
+                            // wordWrap: 'break-word'
+                            whiteSpace: 'nowrap',       
+                            overflow: 'hidden',         
+                            textOverflow: 'ellipsis',
                         }}
                     >
                         {row?.title}
                     </div>
                 ),
-                width: '10rem'
+                width: '20rem'
             },
             {
                 name: 'Submitted By',
@@ -360,29 +363,41 @@ const EvaluatedIdea = () => {
                                         <Col md={1}>
                                             <div className="text-center">
                                                 <Button
+                                                    // btnClass={
+                                                    //     evalSchema &&
+                                                    //     evalSchema?.toLowerCase() ==
+                                                    //         'accept_reject'
+                                                    //         ? status &&
+                                                    //         //   district &&
+                                                    //           sdg
+                                                    //             ? 'primary'
+                                                    //             : 'default'
+                                                    //         : sdg
+                                                    //         ? 'primary'
+                                                    //         : 'default'
+                                                    // }
                                                     btnClass={
-                                                        evalSchema &&
-                                                        evalSchema?.toLowerCase() ==
-                                                            'accept_reject'
-                                                            ? status &&
-                                                            //   district &&
-                                                              sdg
-                                                                ? 'primary'
-                                                                : 'default'
-                                                            : sdg
+                                                        status && selectstate && sdg
                                                             ? 'primary'
                                                             : 'default'
                                                     }
                                                     size="small"
                                                     label="Search"
+                                                    // disabled={
+                                                    //     !(evalSchema &&
+                                                    //     evalSchema?.toLowerCase() ==
+                                                    //         'accept_reject'
+                                                    //         ? status &&
+                                                    //         //   district &&
+                                                    //           sdg
+                                                    //         : sdg)
+                                                    // }
                                                     disabled={
-                                                        !(evalSchema &&
-                                                        evalSchema?.toLowerCase() ==
-                                                            'accept_reject'
-                                                            ? status &&
-                                                            //   district &&
-                                                              sdg
-                                                            : sdg)
+                                                        !(
+                                                            status &&
+                                                            selectstate &&
+                                                            sdg
+                                                        )
                                                     }
                                                     onClick={() =>
                                                         handleclickcall()

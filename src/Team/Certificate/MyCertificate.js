@@ -100,7 +100,8 @@ const Certificate = ({
       // }}
       style={{ backgroundColor: `${isEnabled ? "" : "lightgrey"}` }}
     >
-     {currentUser?.data[0]?.state !== "Tamil Nadu" ? <CardBody>
+     {currentUser?.data[0]?.state !== "Tamil Nadu" ? 
+     <CardBody>
         <CardTitle className=" text-left pt-4 pb-4" tag="h2">
           {type
             ? t("teacher_certificate.participate_certificate")
@@ -234,7 +235,7 @@ const MyCertificate = () => {
   const [status,setStatus]=useState("");
   const [score,setScore]=useState("");
 
-
+const TnSpecific=currentUser?.data[0]?.state;
 
  useEffect(()=>{
   StateData();
@@ -332,9 +333,9 @@ const MyCertificate = () => {
           // console.log(response,"111");
           const res = response.data.data[0];
           setScore(res.score);
-  // console.log(status,"22");
-
+          
           setStatus(res.status);
+          // console.log(status,"22");
         //   if (status === "SUBMITTED" && score !== null && score > 6.5 && resList === 1) {
         //     console.log(resList,"res");
         //     setIdeaEnabled(true);
@@ -369,6 +370,33 @@ const MyCertificate = () => {
 
     }
   }, [resList, status, score]);
+        // console.log(resList, "resList",status,"status",TnSpecific,"state");
+
+//   useEffect(() => {
+//     if (resList !== null) {
+
+//         if (status !== null && status === "SUBMITTED" && resList === 1) {
+//             if (TnSpecific === "Tamil Nadu") {
+//                 setIdeaEnabled(true);
+//                 console.log("Certificate Enabled for Tamil Nadu");
+//             } else if (score !== null && score >= 6.5) {
+//                 setIdeaEnabled(true);
+//                 // console.log("Certificate Enabled");
+//                 console.log("Certificate Enabled for other states");
+//             } else {
+//                 setIdeaEnabled(false);
+//                 // console.log("Certificate Not Enabled");
+//                 console.log("Certificate Not Enabled due to score");
+//             }
+//         } else {
+//             setIdeaEnabled(false);
+//             // console.log("Certificate Not Enabled");
+//             console.log("Certificate Not Enabled due to status or resList");
+//         }
+//         // console.log(score, "sc", "st", status);
+//     }
+// }, [resList, status, score, TnSpecific]);
+
  
   return (
     <div className="page-wrapper">

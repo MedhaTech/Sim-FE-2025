@@ -305,7 +305,7 @@ const ReportL1 = () => {
       })
     );
     const url = `/reports/L1deatilreport?Data=${param}`;
-
+// console.log(param,"param");
     const config = {
       method: "get",
       url: process.env.REACT_APP_API_BASE_URL + url,
@@ -730,7 +730,7 @@ const ReportL1 = () => {
                                     fontWeight: "bold",
                                   }}
                                 >
-                                  No of Ideas Submitted{" "}
+                                  No of Ideas Evaluated{" "}
                                 </th>
                                 <th
                                   style={{
