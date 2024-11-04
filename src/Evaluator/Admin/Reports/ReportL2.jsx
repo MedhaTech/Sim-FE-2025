@@ -897,7 +897,7 @@ const ReportL2 = () => {
                     <div className="card flex-fill default-cover w-100 mb-4">
                       <div className="card-header d-flex justify-content-between align-items-center">
                         <h4 className="card-title mb-0">
-                          States wise L2 - Reports Stats
+                        L2 Score Type Wise Stats
                         </h4>
                         <div className="dropdown">
                           <Link

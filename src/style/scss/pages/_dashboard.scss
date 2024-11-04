@@ -6,6 +6,7 @@
     -webkit-box-align: center;
     -ms-flex-align: center;
     background: $white;
+    height:90px;
     margin-bottom: 25px;
     @include rounded(6px);
     @include margin-padding(null, 20px);
