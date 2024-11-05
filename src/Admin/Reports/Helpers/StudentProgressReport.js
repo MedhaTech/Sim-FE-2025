@@ -567,7 +567,7 @@ const StudentProgress = () => {
     var config = {
       method: "get",
       url:
-        process.env.REACT_APP_API_BASE_URL + `/reports/studentATLnonATLcount`,
+        process.env.REACT_APP_API_BASE_URL_FOR_REPORTS + `/reports/studentATLnonATLcount`,
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -647,7 +647,7 @@ const StudentProgress = () => {
     const config = {
       method: "get",
       url:
-        process.env.REACT_APP_API_BASE_URL +
+        process.env.REACT_APP_API_BASE_URL_FOR_REPORTS +
         `/reports/studentdetailsreport?Data=${apiRes}`,
       headers: {
         "Content-Type": "application/json",
@@ -787,7 +787,7 @@ const StudentProgress = () => {
   const fetchChartTableData = () => {
     const config = {
       method: "get",
-      url: process.env.REACT_APP_API_BASE_URL + "/reports/studentdetailstable",
+      url: process.env.REACT_APP_API_BASE_URL_FOR_REPORTS + "/reports/studentdetailstable",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${currentUser?.data[0]?.token}`,
