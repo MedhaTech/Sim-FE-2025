@@ -87,6 +87,7 @@ const EvaluatedIdea = () => {
             level:'L1',
             evaluation_status: status !== 'Both'? (status === 'Accepted' ? 'SELECTEDROUND1' : 'REJECTEDROUND1'): '',
             state: selectstate !== 'All States' ? selectstate : '',
+            district: district !== 'All Districts' ? district : '',
             theme: sdg !== 'All Themes' ? sdg : '',
             rejected_reason : reason,
             rejected_reasonSecond : reason2

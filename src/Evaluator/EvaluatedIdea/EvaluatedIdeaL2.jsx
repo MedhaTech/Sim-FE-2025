@@ -74,7 +74,7 @@ const EvaluatedIdea = () => {
             evaluation_status : 'SELECTEDROUND1',
             level:'L2',
             state: selectstate !== 'All States' ? selectstate : '',
-            // district: district !== 'All Districts' ? district : '',
+            district: district !== 'All Districts' ? district : '',
 
             theme: sdg !== 'All Themes' ? sdg : '',
         };
