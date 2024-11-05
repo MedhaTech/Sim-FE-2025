@@ -140,7 +140,7 @@ const navigate = useNavigate();
                         </Col> */}
                     </Row>
                     <Row>
-                        <Label className="mb-2">States:</Label>
+                        <Label className="mb-2 text-info form-label">States:</Label>
                         <Check
                             list={fullStatesNames}
                             value={selectedStates}

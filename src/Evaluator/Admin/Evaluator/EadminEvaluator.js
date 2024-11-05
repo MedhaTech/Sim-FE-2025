@@ -222,7 +222,7 @@ const TicketsPage = (props) => {
                     <Badge
                         key={row.mentor_id}
                         bg={`${
-                            row.status === 'ACTIVE' ? 'secondary' : 'danger'
+                            row.status === 'ACTIVE' ? 'success' : 'danger'
                         }`}
                     >
                         {row.status}
@@ -280,7 +280,7 @@ const TicketsPage = (props) => {
                       onClick={() => handleDic(record)}
                       style={{ marginRight: '12px' }}
                   >
-                      <div className="btn btn-info btn-lg mx-2">
+                      <div className="btn btn-info mx-2">
                           States
                       </div>
                   </div>

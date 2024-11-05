@@ -113,43 +113,48 @@ const navigate = useNavigate();
         <div className="page-wrapper">
           <div className="content">
             <Container>
-                <Card className="m-3 p-3">
+            <Card className="m-3 p-3">
                     <Row>
                         <Col md={4}>
-                            <Label className="mb-2 text-info">
-                                Level Name :{' '}
-                                <span className="text-muted">
-                                    {evalID && evalID.level_name}
-                                </span>{' '}
-                            </Label>
+                        <Label className="mb-2 text-info">
+                            Level Name:{' '}
+                            <span className="text-muted">
+                            {evalID && evalID.level_name}
+                            </span>{' '}
+                        </Label>
                         </Col>
                         <Col md={4}>
-                            <Label className="mb-2 text-info">
-                                No of Evaluation :{' '}
-                                <span className="text-muted">
-                                    {evalID && evalID.no_of_evaluation}
-                                </span>
-                            </Label>
+                        <Label className="mb-2 text-info">
+                            No of Evaluation:{' '}
+                            <span className="text-muted">
+                            {evalID && evalID.no_of_evaluation}
+                            </span>
+                        </Label>
                         </Col>
                         <Col md={4}>
-                            <Label className="mb-2 text-info">
-                                Evaluation Schema :{' '}
-                                <span className="text-muted">
-                                    {evalID && evalID.eval_schema}
-                                </span>
-                            </Label>
+                        <Label className="mb-2 text-info">
+                            Evaluation Schema:{' '}
+                            <span className="text-muted">
+                            {evalID && evalID.eval_schema}
+                            </span>
+                        </Label>
                         </Col>
                     </Row>
+
+                    
+                    <hr />
+
                     <Row>
-                        <Label className="mb-2  text-info">States:</Label>
+                        <Label className="mb-2 text-info">States:</Label>
                         <Check
-                            list={fullStatesNames}
-                            value={selectedStates}
-                            setValue={setselectedStates}
-                            selValue={setclickedValue}
+                        list={fullStatesNames}
+                        value={selectedStates}
+                        setValue={setselectedStates}
+                        selValue={setclickedValue}
                         />
                     </Row>
                 </Card>
+
                 <Row>
                     <Col className="col-xs-12 col-sm-6">
                         {/* <Button
@@ -165,7 +170,7 @@ const navigate = useNavigate();
                             type="button"
                             onClick={() => navigate('/eadmin/evaluationProcess')}
                             className="btn btn-secondary"
-                            style={{ marginLeft: "20px" }}
+                            style={{ marginLeft: "30px" }}
                             >
                             Discard
                             </button>
