@@ -10,7 +10,7 @@ import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/img/new-logo.png";
 import email from "../../assets/img/icons/mail.svg";
-// import { openNotificationWithIcon } from "../../helpers/Utils";
+import { openNotificationWithIcon } from "../../helpers/Utils";
 import { evaluatorAdminLoginUser } from "../../redux/actions";
 
 const StateLogin = (props) => {
@@ -52,18 +52,18 @@ const StateLogin = (props) => {
       password: Yup.string().required("required"),
     }),
     onSubmit: (values) => {
-      // if (
-      //   localStorage.getItem("current_user") &&
-      //   localStorage.getItem("module")
-      // ) {
-      //   openNotificationWithIcon(
-      //     "error",
-      //     `Another User(${localStorage.getItem(
-      //       "module"
-      //     )}) has already logged in`
-      //   );
-      //   return;
-      // }
+      localStorage.clear();
+      if (
+        localStorage.getItem('current_user') &&
+        localStorage.getItem('module')
+    ) {
+        openNotificationWithIcon(
+            'error',
+           
+              "Clear your browser cache and try logging in"
+        );
+        return;
+    }
       const key = CryptoJS.enc.Hex.parse("253D3FB468A0E24677C28A624BE0F939");
       const iv = CryptoJS.enc.Hex.parse("00000000000000000000000000000000");
       const encrypted = CryptoJS.AES.encrypt(values.password, key, {

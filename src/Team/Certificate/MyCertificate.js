@@ -235,15 +235,49 @@ const MyCertificate = () => {
   const [status,setStatus]=useState("");
   const [score,setScore]=useState("");
 
-const TnSpecific=currentUser?.data[0]?.state;
+// const TnSpecific=currentUser?.data[0]?.state;
 
  useEffect(()=>{
   StateData();
   stuCoursePercent();
   Ideas();
-
+  // submittedApi();
  },[]);
+ const submittedApi = () => {
+  const Param = encryptGlobal(
+    JSON.stringify({
+      team_id: currentUser?.data[0]?.team_id,
+    })
+  );
+  var configidea = {
+    method: "get",
+    url:
+      process.env.REACT_APP_API_BASE_URL +
+      `/challenge_response/submittedDetails?Data=${Param}`,
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${currentUser.data[0]?.token}`,
+    },
+  };
+  axios(configidea)
+    .then(function (response) {
+      if (response.status === 200) {
+        // console.log(response.data.data);
+        if (response.data.data && response.data.data.length > 0) {
+          const data = response.data.data[0];
+          // setStatus(response.data.data[0].status);
 
+        }
+      }
+    })
+    .catch(function (error) {
+      if (error.response.status === 404) {
+        //   seterror4( true);
+      }
+
+    });
+};
 
   const stuCoursePercent = () => {
     const corseApi = encryptGlobal(
@@ -370,7 +404,7 @@ const TnSpecific=currentUser?.data[0]?.state;
 
     }
   }, [resList, status, score]);
-        // console.log(resList, "resList",status,"status",TnSpecific,"state");
+        console.log(resList, "resList",status,"status",TnSpecific,"state");
 
 //   useEffect(() => {
 //     if (resList !== null) {

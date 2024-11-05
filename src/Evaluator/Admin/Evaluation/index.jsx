@@ -34,6 +34,7 @@ const Dashboard = () => {
           setdateCount(
             response.data && response.data.data[0] && response.data.data[0]
           );
+          console.log(response,"11");
         }
       })
       .catch(function (error) {

@@ -1072,18 +1072,18 @@ const ViewDetail = (props) => {
                                     <>
                                         <p className="text-center">
                                             <span className="text-bold">
-                                                Rejected Reason :{' '}
+                                                Rejected Reason 1:{' '}
                                             </span>{' '}
                                             {props?.ideaDetails
                                                 ?.rejected_reason || ''}
                                         </p>
-                                        {/* <p className="text-center">
+                                        <p className="text-center">
                                             <span className="text-bold">
                                                 Rejected Reason 2:{' '}
                                             </span>{' '}
                                             {props?.ideaDetails
                                                 ?.rejected_reasonSecond || ''}
-                                        </p> */}
+                                        </p>
                                     </>
                                 )}
                                 {level === 'L1' &&
