@@ -288,7 +288,7 @@ const EvaluatedIdea = () => {
                                 <Container fluid className="px-0">
                                     <Row className="align-items-center">
                                        
-                                                <Col md={1}>
+                                                <Col md={status ? 1 : 2}>
                                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                                         <Select
                                                             list={statusdata}

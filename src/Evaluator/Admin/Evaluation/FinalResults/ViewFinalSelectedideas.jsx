@@ -60,7 +60,7 @@ const ViewSelectedIdea = () => {
     : ["All Districts", ...(allDistricts[selectstate] || [])];
     useEffect(() => {
         if (selectstate === "All States") {
-            setdistrict('');  // Reset the district value
+            setdistrict('');  
           }
     }, [selectstate]);
     
