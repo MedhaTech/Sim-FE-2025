@@ -78,6 +78,7 @@ const teamId= currentUser.data[0]?.team_id;
                 console.log(error);
             });
     }
+    const TnSpecific =currentUser?.data[0]?.state;
     useEffect(() => {
         // Assuming you have a variable `currentState` that holds the current state value
         const isTamilNadu = currentUser?.data[0]?.state === 'Tamil Nadu';
@@ -222,7 +223,7 @@ const teamId= currentUser.data[0]?.team_id;
                                                     size="small"
                                                 />
                                             </a> 
-                                              {
+                                              {/* {
                                               ideaEnableStatus !==1 ? 
                                            
                                                 (<button onClick={handleideaenable} className='btn btn-secondary'>{t('idea_page.next')}</button>
@@ -235,7 +236,25 @@ const teamId= currentUser.data[0]?.team_id;
                                             btnClass="primary mt-4 mx-4"
                                             size="small"
                                             onClick={handleNext}
-                                        />}
+                                        />} */}
+                                        {
+    (TnSpecific === "Tamil Nadu" && ideaEnableStatus !== 1) ? (
+        <button onClick={handleideaenable} className='btn btn-secondary'>
+            {t('idea_page.next')}
+        </button>
+    ) : resList !== 1 ? (
+        <button onClick={handlePopup} className='btn btn-secondary'>
+            {t('idea_page.next')}
+        </button>
+    ) : (
+        <Button
+            label={t('idea_page.next')}
+            btnClass="primary mt-4 mx-4"
+            size="small"
+            onClick={handleNext}
+        />
+    )
+}
 
                                             {/* {ideaEnableStatus ==1 ? 
                                             (

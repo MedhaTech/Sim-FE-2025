@@ -55,7 +55,7 @@ return (
                                     <h4>L1 - Reports Stats</h4>
                             </div>
                         </Link>
-                        <ul className="team-members">
+                        {/* <ul className="team-members">
                             <li>
                             <ul>
                                 <li>
@@ -93,7 +93,7 @@ return (
                                 </li>
                             </ul>
                             </li>
-                        </ul>
+                        </ul> */}
                         </div>
                     </div>
                     <div className="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
@@ -115,7 +115,7 @@ return (
                                     <h4>L2 - Reports Stats</h4>
                             </div>
                         </Link>
-                        <ul className="team-members">
+                        {/* <ul className="team-members">
                             <li>
                             <ul>
                                 <li>
@@ -153,7 +153,7 @@ return (
                                 </li>
                             </ul>
                             </li>
-                        </ul>
+                        </ul> */}
                         </div>
                     </div>
                     <div className="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
@@ -175,7 +175,7 @@ return (
                                     <h4>L3 - Reports Stats</h4>
                             </div>
                         </Link>
-                        <ul className="team-members">
+                        {/* <ul className="team-members">
                             <li>
                             <ul>
                                 <li>
@@ -213,7 +213,7 @@ return (
                                 </li>
                             </ul>
                             </li>
-                        </ul>
+                        </ul> */}
                         </div>
                     </div>
                     

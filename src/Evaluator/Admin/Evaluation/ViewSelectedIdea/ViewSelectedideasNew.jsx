@@ -295,21 +295,22 @@ const ViewSelectedideasNew = () => {
       //     width: '25rem'
       // },
       {
-        name: "Idea Name",
-        // sortable: true,
-        cellExport: (row) => row?.title,
+        name: 'Idea Name',
         cell: (row) => (
-          <div
-            style={{
-              whiteSpace: "pre-wrap",
-              wordWrap: "break-word",
-            }}
-          >
-            {row?.title}
-          </div>
+            <div
+                style={{
+                    // whiteSpace: 'pre-wrap',
+                    // wordWrap: 'break-word'
+                    whiteSpace: 'nowrap',       
+                    overflow: 'hidden',         
+                    textOverflow: 'ellipsis',
+                }}
+            >
+                {row?.title}
+            </div>
         ),
-        width: "10rem",
-      },
+        width: '20rem'
+    },
 
       // {
       //     name: 'District',
@@ -487,21 +488,22 @@ const ViewSelectedideasNew = () => {
       //     width: '25rem'
       // },
       {
-        name: "Idea Name",
-        cellExport: (row) => row?.title,
-        // sortable: true,
+        name: 'Idea Name',
         cell: (row) => (
-          <div
-            style={{
-              whiteSpace: "pre-wrap",
-              wordWrap: "break-word",
-            }}
-          >
-            {row?.title}
-          </div>
+            <div
+                style={{
+                    // whiteSpace: 'pre-wrap',
+                    // wordWrap: 'break-word'
+                    whiteSpace: 'nowrap',       
+                    overflow: 'hidden',         
+                    textOverflow: 'ellipsis',
+                }}
+            >
+                {row?.title}
+            </div>
         ),
-        width: "10rem",
-      },
+        width: '20rem'
+    },
 
       // {
       //     name: 'District',
@@ -611,7 +613,7 @@ const ViewSelectedideasNew = () => {
         selector: (row) => row.team_name,
         cellExport: (row) => row.team_name,
 
-        width: "15rem",
+        width: "10rem",
       },
       {
         name: "CID",
@@ -657,21 +659,22 @@ const ViewSelectedideasNew = () => {
       //     width: '25rem'
       // },
       {
-        name: "Idea Name",
-        cellExport: (row) => row?.title,
-        // sortable: true,
+        name: 'Idea Name',
         cell: (row) => (
-          <div
-            style={{
-              whiteSpace: "pre-wrap",
-              wordWrap: "break-word",
-            }}
-          >
-            {row?.title}
-          </div>
+            <div
+                style={{
+                    // whiteSpace: 'pre-wrap',
+                    // wordWrap: 'break-word'
+                    whiteSpace: 'nowrap',       
+                    overflow: 'hidden',         
+                    textOverflow: 'ellipsis',
+                }}
+            >
+                {row?.title}
+            </div>
         ),
-        width: "10rem",
-      },
+        width: '20rem'
+    },
       // {
       //     name: 'District',
       //     selector: (row) => row.district,
@@ -946,21 +949,22 @@ const ViewSelectedideasNew = () => {
       //     width: '25rem'
       // },
       {
-        name: "Idea Name",
-        cellExport: (row) => row?.title,
-        // sortable: true,
+        name: 'Idea Name',
         cell: (row) => (
-          <div
-            style={{
-              whiteSpace: "pre-wrap",
-              wordWrap: "break-word",
-            }}
-          >
-            {row?.title}
-          </div>
+            <div
+                style={{
+                    // whiteSpace: 'pre-wrap',
+                    // wordWrap: 'break-word'
+                    whiteSpace: 'nowrap',       
+                    overflow: 'hidden',         
+                    textOverflow: 'ellipsis',
+                }}
+            >
+                {row?.title}
+            </div>
         ),
-        width: "10rem",
-      },
+        width: '20rem'
+    },
       // {
       //     name: 'District',
       //     selector: (row) => row.district,

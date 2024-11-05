@@ -280,8 +280,8 @@ const TicketsPage = (props) => {
                       onClick={() => handleDic(record)}
                       style={{ marginRight: '12px' }}
                   >
-                      <div className="btn btn-success btn-lg mx-2">
-                          STATES
+                      <div className="btn btn-info btn-lg mx-2">
+                          States
                       </div>
                   </div>
                     // <div
@@ -329,8 +329,10 @@ const TicketsPage = (props) => {
             <div className="row">
             <Container className="ticket-page ">
                 <Row className="p-2">
+                    <div className="page-header">
                     <h4>Evaluator List</h4>
-                    <div className="text-right">
+                    
+                    <div className="page-btn text-right">
                         <Button
                             label={'Add New Evaluator'}
                             btnClass="primary"
@@ -339,6 +341,8 @@ const TicketsPage = (props) => {
                             Icon={BsUpload}
                             onClick={() => setRegisterModalShow(true)}
                         />
+
+                    </div>
                     </div>
                     <div className="ticket-data">
                         <div className="my-5">
