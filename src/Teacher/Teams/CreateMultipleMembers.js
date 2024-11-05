@@ -105,10 +105,15 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
     const trimmedValue = numericValue.trim();
     setTeamemail(trimmedValue);
 
-    if (!emailPattern.test(trimmedValue)) {
+    // if (!emailPattern.test(trimmedValue)) {
+    //   setEmailError("Enter a valid email address");
+    // } else {
+    //   setEmailError("");
+    // }
+    if (trimmedValue && !emailPattern.test(trimmedValue)) {
       setEmailError("Enter a valid email address");
     } else {
-      setEmailError("");
+      setEmailError(""); // Clear error if input is empty or valid
     }
   };
   // const loginState = currentUser?.data[0]?.state;
@@ -328,8 +333,11 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
     const body = {
       mentor_id: JSON.stringify(currentUser?.data[0]?.mentor_id),
       team_name: teamname,
-      team_email: teamemail,
+      team_email: teamemail ? teamemail :"",
     };
+    //  if (teamemail !== "") {
+    //       body["team_email"] = teamemail;
+    //     }
     var config = {
       method: "post",
       url: process.env.REACT_APP_API_BASE_URL + "/teams",
@@ -340,6 +348,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
       },
       data: body,
     };
+    console.log(body,"body");
     axios(config)
       .then(function (response) {
         if (response.status === 201) {
@@ -393,7 +402,13 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
     // dispatch(teacherCreateMultipleStudent(studentData, navigate, setIsClicked));
   };
 
-  const button = teamname && teamemail && studentData;
+  // const button = teamname && teamemail && studentData;
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return email ? emailRegex.test(email) : true;
+  };
+  
+  const button = teamname && studentData && isValidEmail(teamemail);
  
   return (
     <div className="page-wrapper">
@@ -447,9 +462,9 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
             <Col md={6} className="mb-xl-0">
               <Label className="form-label">
                 Team Email Address
-                <span required className="p-1">
+                {/* <span required className="p-1">
                   *
-                </span>
+                </span> */}
               </Label>
               <input
                 className="form-control"

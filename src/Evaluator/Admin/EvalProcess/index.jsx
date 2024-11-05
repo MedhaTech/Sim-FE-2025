@@ -56,49 +56,36 @@ const Evalprocess = () => {
         // });
         localStorage.setItem('eavlId', JSON.stringify(item));
     };
-
     const evalData = {
         data: evalList && evalList.length > 0 ? evalList : [],
         columns: [
             {
-                name: 'No',
+                name: <span style={{ fontWeight: 550 }}>No</span>,
                 selector: (row, key) => key + 1,
-                // sortable: true,
                 width: '6%'
             },
-
             {
-                name: 'Level Name',
-                // selector: 'level_name',
-                // sortable: true,
+                name: <span style={{ fontWeight: 550 }}>Level Name</span>,
                 selector: (row) => row.level_name,
                 sortable: true,
-                width: '10%'
+                width: '12%'
             },
             {
-                name: 'Evaluation Schema',
-                // selector: 'eval_schema',
+                name: <span style={{ fontWeight: 550 }}>Evaluation Schema</span>,
                 selector: (row) => row.eval_schema,
-
                 width: '15%'
             },
             {
-                name: 'No of Evaluations',
-                // selector: 'no_of_evaluation',
+                name: <span style={{ fontWeight: 550 }}>No of Evaluations</span>,
                 selector: (row) => row.no_of_evaluation,
-
                 width: '15%'
             },
             {
-                name: 'Status',
-                // cellExport: (row) => row.status,
-
+                name: <span style={{ fontWeight: 550 }}>Status</span>,
                 cell: (row) => [
                     <Badge
                         key={row.evaluation_process_id}
-                        bg={`${
-                            row.status === 'ACTIVE' ? 'secondary' : 'danger'
-                        }`}
+                        className={`bg ${row.status === 'ACTIVE' ? 'bg-success' : 'bg-danger'}`}
                     >
                         {row.status}
                     </Badge>
@@ -106,7 +93,7 @@ const Evalprocess = () => {
                 width: '7%'
             },
             {
-                name: 'Actions',
+                name: <span style={{ fontWeight: 550 }}>Actions</span>,
                 selector: 'action',
                 center: true,
                 width: '40%',
@@ -117,8 +104,8 @@ const Evalprocess = () => {
                             onClick={() => handleDic(record)}
                             style={{ marginRight: '12px' }}
                         >
-                            <div className="btn btn-success btn-lg mx-2">
-                                STATES
+                            <div className="btn btn-info mx-2">
+                                States
                             </div>
                         </div>
                     </>
@@ -126,6 +113,7 @@ const Evalprocess = () => {
             }
         ]
     };
+    
 
     //evaluation status
 

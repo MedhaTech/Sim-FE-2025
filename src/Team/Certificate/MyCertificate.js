@@ -100,7 +100,8 @@ const Certificate = ({
       // }}
       style={{ backgroundColor: `${isEnabled ? "" : "lightgrey"}` }}
     >
-     {currentUser?.data[0]?.state !== "Tamil Nadu" ? <CardBody>
+     {currentUser?.data[0]?.state !== "Tamil Nadu" ? 
+     <CardBody>
         <CardTitle className=" text-left pt-4 pb-4" tag="h2">
           {type
             ? t("teacher_certificate.participate_certificate")
@@ -234,15 +235,49 @@ const MyCertificate = () => {
   const [status,setStatus]=useState("");
   const [score,setScore]=useState("");
 
-
+// const TnSpecific=currentUser?.data[0]?.state;
 
  useEffect(()=>{
   StateData();
   stuCoursePercent();
   Ideas();
-
+  // submittedApi();
  },[]);
+ const submittedApi = () => {
+  const Param = encryptGlobal(
+    JSON.stringify({
+      team_id: currentUser?.data[0]?.team_id,
+    })
+  );
+  var configidea = {
+    method: "get",
+    url:
+      process.env.REACT_APP_API_BASE_URL +
+      `/challenge_response/submittedDetails?Data=${Param}`,
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${currentUser.data[0]?.token}`,
+    },
+  };
+  axios(configidea)
+    .then(function (response) {
+      if (response.status === 200) {
+        // console.log(response.data.data);
+        if (response.data.data && response.data.data.length > 0) {
+          const data = response.data.data[0];
+          // setStatus(response.data.data[0].status);
 
+        }
+      }
+    })
+    .catch(function (error) {
+      if (error.response.status === 404) {
+        //   seterror4( true);
+      }
+
+    });
+};
 
   const stuCoursePercent = () => {
     const corseApi = encryptGlobal(
@@ -332,9 +367,9 @@ const MyCertificate = () => {
           // console.log(response,"111");
           const res = response.data.data[0];
           setScore(res.score);
-  // console.log(status,"22");
-
+          
           setStatus(res.status);
+          // console.log(status,"22");
         //   if (status === "SUBMITTED" && score !== null && score > 6.5 && resList === 1) {
         //     console.log(resList,"res");
         //     setIdeaEnabled(true);
@@ -369,6 +404,33 @@ const MyCertificate = () => {
 
     }
   }, [resList, status, score]);
+        // console.log(resList, "resList",status,"status",TnSpecific,"state");
+
+//   useEffect(() => {
+//     if (resList !== null) {
+
+//         if (status !== null && status === "SUBMITTED" && resList === 1) {
+//             if (TnSpecific === "Tamil Nadu") {
+//                 setIdeaEnabled(true);
+//                 console.log("Certificate Enabled for Tamil Nadu");
+//             } else if (score !== null && score >= 6.5) {
+//                 setIdeaEnabled(true);
+//                 // console.log("Certificate Enabled");
+//                 console.log("Certificate Enabled for other states");
+//             } else {
+//                 setIdeaEnabled(false);
+//                 // console.log("Certificate Not Enabled");
+//                 console.log("Certificate Not Enabled due to score");
+//             }
+//         } else {
+//             setIdeaEnabled(false);
+//             // console.log("Certificate Not Enabled");
+//             console.log("Certificate Not Enabled due to status or resList");
+//         }
+//         // console.log(score, "sc", "st", status);
+//     }
+// }, [resList, status, score, TnSpecific]);
+
  
   return (
     <div className="page-wrapper">

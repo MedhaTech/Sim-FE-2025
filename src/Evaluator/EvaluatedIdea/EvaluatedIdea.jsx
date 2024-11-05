@@ -87,6 +87,7 @@ const EvaluatedIdea = () => {
             level:'L1',
             evaluation_status: status !== 'Both'? (status === 'Accepted' ? 'SELECTEDROUND1' : 'REJECTEDROUND1'): '',
             state: selectstate !== 'All States' ? selectstate : '',
+            district: district !== 'All Districts' ? district : '',
             theme: sdg !== 'All Themes' ? sdg : '',
             rejected_reason : reason,
             rejected_reasonSecond : reason2
@@ -182,14 +183,17 @@ const EvaluatedIdea = () => {
                 cell: (row) => (
                     <div
                         style={{
-                            whiteSpace: 'pre-wrap',
-                            wordWrap: 'break-word'
+                            // whiteSpace: 'pre-wrap',
+                            // wordWrap: 'break-word'
+                            whiteSpace: 'nowrap',       
+                            overflow: 'hidden',         
+                            textOverflow: 'ellipsis',
                         }}
                     >
                         {row?.title}
                     </div>
                 ),
-                width: '10rem'
+                width: '20rem'
             },
             {
                 name: 'Submitted By',
@@ -285,18 +289,7 @@ const EvaluatedIdea = () => {
                                 <Container fluid className="px-0">
                                     <Row className="align-items-center">
                                        
-                                                <Col md={1}>
-                                                    <div className="my-3 d-md-block d-flex justify-content-center">
-                                                        <Select
-                                                            list={statusdata}
-                                                            setValue={setstatus}
-                                                            placeHolder={
-                                                                'Select Status'
-                                                            }
-                                                            value={status}
-                                                        />
-                                                    </div>
-                                                </Col>
+                                              
 
                                         <Col md={2}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
@@ -328,7 +321,20 @@ const EvaluatedIdea = () => {
                     value={sdg}
                   />
                                             </div>
+
                                         </Col>
+                                        <Col md={status ? 1 : 2}>
+                                                    <div className="my-3 d-md-block d-flex justify-content-center">
+                                                        <Select
+                                                            list={statusdata}
+                                                            setValue={setstatus}
+                                                            placeHolder={
+                                                                'Select Status'
+                                                            }
+                                                            value={status}
+                                                        />
+                                                    </div>
+                                                </Col>
                                         {status && status !== 'Accepted' && (
                                             <Col md={2}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
@@ -360,29 +366,41 @@ const EvaluatedIdea = () => {
                                         <Col md={1}>
                                             <div className="text-center">
                                                 <Button
+                                                    // btnClass={
+                                                    //     evalSchema &&
+                                                    //     evalSchema?.toLowerCase() ==
+                                                    //         'accept_reject'
+                                                    //         ? status &&
+                                                    //         //   district &&
+                                                    //           sdg
+                                                    //             ? 'primary'
+                                                    //             : 'default'
+                                                    //         : sdg
+                                                    //         ? 'primary'
+                                                    //         : 'default'
+                                                    // }
                                                     btnClass={
-                                                        evalSchema &&
-                                                        evalSchema?.toLowerCase() ==
-                                                            'accept_reject'
-                                                            ? status &&
-                                                            //   district &&
-                                                              sdg
-                                                                ? 'primary'
-                                                                : 'default'
-                                                            : sdg
+                                                        status && selectstate && sdg
                                                             ? 'primary'
                                                             : 'default'
                                                     }
                                                     size="small"
                                                     label="Search"
+                                                    // disabled={
+                                                    //     !(evalSchema &&
+                                                    //     evalSchema?.toLowerCase() ==
+                                                    //         'accept_reject'
+                                                    //         ? status &&
+                                                    //         //   district &&
+                                                    //           sdg
+                                                    //         : sdg)
+                                                    // }
                                                     disabled={
-                                                        !(evalSchema &&
-                                                        evalSchema?.toLowerCase() ==
-                                                            'accept_reject'
-                                                            ? status &&
-                                                            //   district &&
-                                                              sdg
-                                                            : sdg)
+                                                        !(
+                                                            status &&
+                                                            selectstate &&
+                                                            sdg
+                                                        )
                                                     }
                                                     onClick={() =>
                                                         handleclickcall()

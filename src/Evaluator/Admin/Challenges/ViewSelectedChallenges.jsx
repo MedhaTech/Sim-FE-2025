@@ -32,6 +32,7 @@ const ViewSelectedIdea = () => {
     const [ideaDetails, setIdeaDetails] = React.useState({});
     const [tableData, settableData] = React.useState([]);
     ///
+
     const [district, setdistrict] = React.useState("");
     const [selectstate, setSelectState] = React.useState("");
     const [sdg, setsdg] = React.useState('');
@@ -72,11 +73,11 @@ const ViewSelectedIdea = () => {
         setshowspin(true);
         await handleideaList();
     };
-    // useEffect(() => {
-    //     if (selectstate === "All States") {
-    //         setdistrict(''); 
-    //       }
-    // }, [selectstate]);
+    useEffect(() => {
+        if (selectstate === "All States") {
+            setdistrict(''); 
+          }
+    }, [selectstate]);
     async function handleideaList() {
         // handleideaList api //
         //where we can see all ideas in districtwise //
@@ -215,14 +216,17 @@ const ViewSelectedIdea = () => {
                 cell: (row) => (
                     <div
                         style={{
-                            whiteSpace: 'pre-wrap',
-                            wordWrap: 'break-word'
+                            // whiteSpace: 'pre-wrap',
+                            // wordWrap: 'break-word'
+                            whiteSpace: 'nowrap',       
+                            overflow: 'hidden',         
+                            textOverflow: 'ellipsis',
                         }}
                     >
                         {row?.title}
                     </div>
                 ),
-                width: '10rem'
+                width: '20rem'
             },
 
             // {

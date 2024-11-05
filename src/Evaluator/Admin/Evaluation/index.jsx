@@ -34,6 +34,7 @@ const Dashboard = () => {
           setdateCount(
             response.data && response.data.data[0] && response.data.data[0]
           );
+          console.log(response,"11");
         }
       })
       .catch(function (error) {
@@ -53,9 +54,15 @@ const Dashboard = () => {
                   <div className="col-xl-6 col-sm-6 col-12 ">
                 <Link to="/eadmin/dashboard?status=SUBMITTED">
                     <div className="dash-widget w-100">
+                      <div className="dash-widgetimg">
+                          <span style={{ fontSize: "1.5rem" }}>
+                              <i className="fas fa-user-check" style={{ color: "orange" }}></i>
+                          </span>
+                      </div>
+
                       <div className="dash-widgetcontent">
                         <h5>{dateCount.submitted_count}</h5>
-                        <h6 className="text-primary">SUBMITTED CHALLENGES</h6>
+                        <h6 className="text">Mentor Accepted Challenges</h6>
                       </div>
                     </div>
                 </Link>
@@ -65,21 +72,48 @@ const Dashboard = () => {
                   <div className="col-xl-6 col-sm-6 col-12 ">
                 <Link to="/eadmin/dashboard?status=DRAFT">
                     <div className="dash-widget w-100">
+                      <div className="dash-widgetimg">
+                        <span style={{ fontSize: "1.5rem" }}>
+                            <i className="fas fa-pencil-alt" style={{ color: "orange" }}></i>
+                        </span>
+                    </div>
+
                       <div className="dash-widgetcontent">
                         <h5> {dateCount.draft_count}</h5>
-                        <h6 className="text-secondary">DRAFT CHALLENGES</h6>
+                        <h6 className="text">Draft Challenges</h6>
                       </div>
                     </div>
                 </Link>
                   </div>
                 {/* </Col> */}
                 {/* <Col md={4}> */}
+                <div className="col-xl-4 col-sm-6 col-12 ">
+                <Link to="/eadmin/evaluationStatus/viewlist?title=L1 - Yet to Processed&level=L1">
+                    <div className="dash-widget dash2">
+                    <div className="dash-widgetimg">
+                        <span style={{ fontSize: "1.5rem" }}>
+                            <i className="fas fa-hourglass-half" style={{ color: "rgb(65 105 217)" }}></i>
+                        </span>
+                    </div>
+
+                      <div className="dash-widgetcontent">
+                        <h5>   {dateCount.l1_yet_to_process}</h5>
+                        <h6 className="text"> L1 - Yet To Processed Challenges</h6>
+                      </div>
+                    </div>
+                </Link>
+                  </div>
                   <div className="col-xl-4 col-sm-6 col-12">
                 <Link to="/eadmin/evaluationStatus/viewlist?evaluation_status=SELECTEDROUND1&title=Accepted&level=L1">
-                    <div className="dash-widget w-100">
+                    <div className="dash-widget dash2">
+                      <div className="dash-widgetimg">
+                          <span style={{ fontSize: "1.5rem" }}>
+                              <i className="fas fa-thumbs-up" style={{ color: "rgb(65 105 217)" }}></i>
+                          </span>
+                      </div>
                       <div className="dash-widgetcontent">
                         <h5>  {dateCount.selected_round_one_count}</h5>
-                        <h6 className="text-success">ACCEPTED CHALLENGES</h6>
+                        <h6 className="text">Accepted Challenges</h6>
                       </div>
                     </div>
                 </Link>
@@ -88,60 +122,84 @@ const Dashboard = () => {
               {/* </Row> */}
                   <div className="col-xl-4 col-sm-6 col-12 ">
                 <Link to="/eadmin/evaluationStatus/viewlist?evaluation_status=REJECTEDROUND1&title=Rejected&level=L1">
-                    <div className="dash-widget w-100">
-                      <div className="dash-widgetcontent">
+                    <div className="dash-widget dash2">
+                    <div className="dash-widgetimg">
+                        <span style={{ fontSize: "1.5rem" }}>
+                            <i className="fas fa-thumbs-down" style={{ color: "rgb(65 105 217)" }}></i>
+                        </span>
+                    </div>
+                    <div className="dash-widgetcontent">
                         <h5>   {dateCount.rejected_round_one_count}</h5>
-                        <h6 className="text-danger">REJECTED CHALLENGES</h6>
+                        <h6 className="text">Rejected Challenges</h6>
                       </div>
                     </div>
                 </Link>
                   </div>
                   <div className="col-xl-4 col-sm-6 col-12 ">
-                <Link to="/eadmin/evaluationStatus/viewlist?title=L1 - Yet to Processed&level=L1">
-                    <div className="dash-widget w-100">
-                      <div className="dash-widgetcontent">
-                        <h5>   {dateCount.l1_yet_to_process}</h5>
-                        <h6 className="text-warning"> L1 - YET TO PROCESSED CHALLENGES</h6>
-                      </div>
-                    </div>
-                </Link>
-                  </div>
-                  <div className="col-xl-6 col-sm-6 col-12 ">
-                <Link to="/eadmin/evaluationStatus/viewlist?title=L2 - Processed&level=L2">
-                    <div className="dash-widget w-100">
-                      <div className="dash-widgetcontent">
-                        <h5>{dateCount.l2_processed}</h5>
-                        <h6 className="text-success"> L2 - PROCESSED CHALLENGES</h6>
-                      </div>
-                    </div>
-                </Link>
-                  </div>
-                  <div className="col-xl-6 col-sm-6 col-12 ">
                 <Link to="/eadmin/evaluationStatus/viewlist?title=L2 - Yet to Processed&level=L2">
-                    <div className="dash-widget w-100">
+                    <div className="dash-widget dash1">
+                    <div className="dash-widgetimg">
+                        <span style={{ fontSize: "1.5rem" }}>
+                            <i className="fas fa-clock" style={{ color: "rgb(32 201 151)" }}></i>
+                        </span>
+                    </div>
+
+
+
+
                       <div className="dash-widgetcontent">
                         <h5>{dateCount.l2_yet_to_processed}</h5>
-                        <h6 className="text-warning"> L2 - YET TO PROCESSED CHALLENGES</h6>
+                        <h6 className="text"> L2 - Yet To Processed Challenges</h6>
                       </div>
                     </div>
                 </Link>
                   </div>
-                  <div className="col-xl-6 col-sm-6 col-12 ">
+                  <div className="col-xl-4 col-sm-6 col-12 ">
+                <Link to="/eadmin/evaluationStatus/viewlist?title=L2 - Processed&level=L2">
+                    <div className="dash-widget dash1">
+                    <div className="dash-widgetimg">
+                      <span style={{ fontSize: "1.5rem" }}>
+                          <i className="fas fa-tasks" style={{ color: "rgb(32 201 151)" }}></i>
+                      </span>
+                  </div>
+
+
+                      <div className="dash-widgetcontent">
+                        <h5>{dateCount.l2_processed}</h5>
+                        <h6 className="text"> L2 - Processed Challenges</h6>
+                      </div>
+                    </div>
+                </Link>
+                  </div>
+                 
+                  <div className="col-xl-4 col-sm-6 col-12 ">
                 <Link to="/eadmin/evaluationStatus/viewfinallist?title=0&level=L2">
-                    <div className="dash-widget w-100 ">
+                    <div className="dash-widget dash1">
+                    <div className="dash-widgetimg">
+                        <span style={{ fontSize: "1.5rem" }}>
+                            <i className="fas fa-clipboard-list" style={{ color: "rgb(32 201 151)" }}></i>
+                        </span>
+                    </div>
+
                       <div className="dash-widgetcontent">
                         <h5> {dateCount.final_evaluation_challenge}</h5>
-                        <h6 className="text-warning">FINAL EVALUATION CHALLENGES</h6>
+                        <h6 className="text">L3 Promoted Challenges</h6>
                       </div>
                     </div>
                 </Link>
                   </div>
-                  <div className="col-xl-6 col-sm-6 col-12 ">
+                  <div className="col-xl-4 col-sm-6 col-12 ">
                 <Link to="/eadmin/evaluationStatus/viewfinallist?title=1&level=L2">
-                    <div className="dash-widget w-100">
+                    <div className="dash-widget dash3">
+                    <div className="dash-widgetimg">
+                        <span style={{ fontSize: "1.5rem" }}>
+                            <i className="fas fa-flag-checkered" style={{ color: "rgb(128 0 128)" }}></i>
+                        </span>
+                    </div>
+
                       <div className="dash-widgetcontent">
                         <h5> {dateCount.final_evaluation_final}</h5>
-                        <h6 className="text-success">FINAL WINNERS CHALLENGES</h6>
+                        <h6 className="text">Final Winners Challenges</h6>
                       </div>
                     </div>
                 </Link>

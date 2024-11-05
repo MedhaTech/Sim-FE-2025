@@ -225,7 +225,7 @@ const EmployeesGrid = () => {
         ),
     },
     {
-      title: "Certificate",
+      title: "Course Certificate",
       dataIndex: "certificate",
       align: "center",
       width: "10rem",

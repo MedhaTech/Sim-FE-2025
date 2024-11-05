@@ -1072,18 +1072,18 @@ const ViewDetail = (props) => {
                                     <>
                                         <p className="text-center">
                                             <span className="text-bold">
-                                                Rejected Reason :{' '}
+                                                Rejected Reason 1:{' '}
                                             </span>{' '}
                                             {props?.ideaDetails
                                                 ?.rejected_reason || ''}
                                         </p>
-                                        {/* <p className="text-center">
+                                        <p className="text-center">
                                             <span className="text-bold">
                                                 Rejected Reason 2:{' '}
                                             </span>{' '}
                                             {props?.ideaDetails
                                                 ?.rejected_reasonSecond || ''}
-                                        </p> */}
+                                        </p>
                                     </>
                                 )}
                                 {level === 'L1' &&
@@ -1261,7 +1261,7 @@ const ViewDetail = (props) => {
                         </h4>
                         <Col>
                             <Col className="m-3">
-                                <p className="text-left">
+                                <p style={{ textAlign: 'left' }}>
                                     <b>1. Novelty & Usefulness</b>
                                 </p>
                                 <Select
@@ -1271,8 +1271,8 @@ const ViewDetail = (props) => {
                                     value={reason}
                                 />
                             </Col>
-                            <Col className="m-5">
-                                <p className="text-left">
+                            <Col className="m-3">
+                                <p style={{ textAlign: 'left' }}>
                                     <b>
                                         2. Does the submission show any evidence
                                         of efforts put in to complete the
@@ -1291,12 +1291,12 @@ const ViewDetail = (props) => {
                     <div className="text-center">
                         <Button
                             label={'Submit'}
-                            btnClass={
-                                !reason && reasonSec ? 'default' : 'primary'
-                            }
+                            btnClass={reason && reasonSec ? 'primary' : 'default'}
+
+                           
                             size="small "
                             onClick={() => handleReject()}
-                            disabled={!reason && reasonSec}
+                            disabled={!(reason && reasonSec)}
                         />
                     </div>
                 </Modal.Body>
