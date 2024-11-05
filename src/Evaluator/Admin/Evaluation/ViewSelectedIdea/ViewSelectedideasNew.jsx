@@ -79,7 +79,7 @@ const ViewSelectedideasNew = () => {
       : ["All Districts", ...(allDistricts[selectstate] || [])];
   useEffect(() => {
     if (selectstate === "All States") {
-      setdistrict(""); // Reset the district value
+      setdistrict(""); 
     }
   }, [selectstate]);
   // const SDGDate = cardData.map((i) => {
