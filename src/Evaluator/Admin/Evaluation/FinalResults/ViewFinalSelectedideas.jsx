@@ -14,7 +14,9 @@ import { Button } from '../../../../stories/Button';
 import Select from '../Pages/Select';
 import { Col, Container, Row } from 'reactstrap';
 import { useSelector } from 'react-redux';
-
+import Swal from "sweetalert2/dist/sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
+import logout from "../../../../assets/img/logout.png";
 import { useDispatch } from 'react-redux';
 import { getCurrentUser, getNormalHeaders } from '../../../../helpers/Utils';
 import { Spinner } from 'react-bootstrap';
@@ -58,13 +60,40 @@ const ViewSelectedIdea = () => {
     : ["All Districts", ...(allDistricts[selectstate] || [])];
     useEffect(() => {
         if (selectstate === "All States") {
-            setdistrict('');  // Reset the district value
+            setdistrict('');  
           }
     }, [selectstate]);
     
 
     const handlePromotelFinalEvaluated = async (item) => {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+              confirmButton: "btn btn-submit",
+              cancelButton: "btn btn-cancel",
+            },
+            buttonsStyling: false,
+            allowOutsideClick: false,
+          });
+      
+          swalWithBootstrapButtons
+            .fire({
+              title: "<h4>Are you sure?</h4>",
+              text: "You are Promoting the Idea",
+              imageUrl: `${logout}`,
+              confirmButtonText: "Confirm",
+              showCancelButton: true,
+              cancelButtonText: "Cancel",
+              reverseButtons: false,
+            })
+            .then(async (result) => {
+              if (result.isConfirmed) {
+                if (result.isConfirmed) {
         await promoteapi(item.challenge_response_id);
+
+      
+                }
+              }
+            });
     };
 
     async function promoteapi(id) {

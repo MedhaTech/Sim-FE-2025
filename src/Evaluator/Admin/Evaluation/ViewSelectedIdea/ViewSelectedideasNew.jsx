@@ -30,6 +30,9 @@ import { getAdminEvalutorsList } from "../../../../Admin/store/adminEvalutors/ac
 import { getAdminList } from "../../../../Admin/store/admin/actions.js";
 import { Spinner } from "react-bootstrap";
 import jsPDF from "jspdf";
+import Swal from "sweetalert2/dist/sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
+import logout from "../../../../assets/img/logout.png";
 import { FaDownload, FaHourglassHalf } from "react-icons/fa";
 import html2canvas from "html2canvas";
 import TableDetailPdf from "./TableDetailPdf.jsx";
@@ -76,7 +79,7 @@ const ViewSelectedideasNew = () => {
       : ["All Districts", ...(allDistricts[selectstate] || [])];
   useEffect(() => {
     if (selectstate === "All States") {
-      setdistrict(""); // Reset the district value
+      setdistrict(""); 
     }
   }, [selectstate]);
   // const SDGDate = cardData.map((i) => {
@@ -120,10 +123,39 @@ const ViewSelectedideasNew = () => {
     dispatch(getAdminList());
   }, []);
 
+  // const handlePromotel2processed = async (item) => {
+  //   await promoteapi(item.challenge_response_id);
+  // };
   const handlePromotel2processed = async (item) => {
-    await promoteapi(item.challenge_response_id);
-  };
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: "btn btn-submit",
+          cancelButton: "btn btn-cancel",
+        },
+        buttonsStyling: false,
+        allowOutsideClick: false,
+      });
+  
+      swalWithBootstrapButtons
+        .fire({
+          title: "<h4>Are you sure?</h4>",
+          text: "You are Promoting the Idea",
+          imageUrl: `${logout}`,
+          confirmButtonText: "Confirm",
+          showCancelButton: true,
+          cancelButtonText: "Cancel",
+          reverseButtons: false,
+        })
+        .then(async (result) => {
+          if (result.isConfirmed) {
+            if (result.isConfirmed) {
+              await promoteapi(item.challenge_response_id);
 
+  
+            }
+          }
+        });
+};
   async function promoteapi(id) {
     const promoteId = encryptGlobal(JSON.stringify(id));
     const body = JSON.stringify({ final_result: "0" });

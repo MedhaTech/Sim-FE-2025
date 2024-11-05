@@ -62,7 +62,7 @@ const AdminLogin = (props) => {
       ) {
         openNotificationWithIcon(
           "error",
-          "Clear your browser cache and try logging in"
+          "Clear your browser cache and try logging in"
         //   `Another User(${localStorage.getItem(
         //     "module"
         //   )}) has already logged in`
