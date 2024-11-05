@@ -333,11 +333,11 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
     const body = {
       mentor_id: JSON.stringify(currentUser?.data[0]?.mentor_id),
       team_name: teamname,
-      // team_email: teamemail ? teamemail :"",
+      team_email: teamemail ? teamemail :"",
     };
-     if (teamemail !== "") {
-          body["team_email"] = teamemail;
-        }
+    //  if (teamemail !== "") {
+    //       body["team_email"] = teamemail;
+    //     }
     var config = {
       method: "post",
       url: process.env.REACT_APP_API_BASE_URL + "/teams",
@@ -462,9 +462,9 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
             <Col md={6} className="mb-xl-0">
               <Label className="form-label">
                 Team Email Address
-                <span required className="p-1">
+                {/* <span required className="p-1">
                   *
-                </span>
+                </span> */}
               </Label>
               <input
                 className="form-control"
