@@ -287,7 +287,7 @@ const TeacherProgressDetailed = () => {
     const config = {
       method: "get",
       url:
-        process.env.REACT_APP_API_BASE_URL +
+        process.env.REACT_APP_API_BASE_URL_FOR_REPORTS +
         `/reports/schoolcategorylistreport?Data=${staParam}`,
       headers: {
         "Content-Type": "application/json",
@@ -403,7 +403,7 @@ const TeacherProgressDetailed = () => {
     const config = {
       method: "get",
       url:
-        process.env.REACT_APP_API_BASE_URL +
+        process.env.REACT_APP_API_BASE_URL_FOR_REPORTS +
         `/reports/schoollistreport?Data=${apiRes}`,
       headers: {
         "Content-Type": "application/json",

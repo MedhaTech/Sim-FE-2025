@@ -653,7 +653,7 @@ const TeacherProgressDetailed = () => {
     var config = {
       method: "get",
       url:
-        process.env.REACT_APP_API_BASE_URL +
+        process.env.REACT_APP_API_BASE_URL_FOR_REPORTS +
         `/reports/studentATLnonATLcount?Data=${tecSt}`,
       headers: {
         "Content-Type": "application/json",
@@ -723,7 +723,7 @@ const TeacherProgressDetailed = () => {
     const config = {
       method: "get",
       url:
-        process.env.REACT_APP_API_BASE_URL +
+        process.env.REACT_APP_API_BASE_URL_FOR_REPORTS +
         `/reports/mentordetailsreport?Data=${apiRes}`,
       headers: {
         "Content-Type": "application/json",
@@ -941,7 +941,7 @@ const TeacherProgressDetailed = () => {
     const config = {
       method: "get",
       url:
-        process.env.REACT_APP_API_BASE_URL +
+        process.env.REACT_APP_API_BASE_URL_FOR_REPORTS +
         `/reports/mentordetailstable?Data=${staParam}`,
       headers: {
         "Content-Type": "application/json",
