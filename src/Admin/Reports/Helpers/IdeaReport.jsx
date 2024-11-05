@@ -606,7 +606,7 @@ const IdeaReport = () => {
     const config = {
       method: "get",
       url:
-        process.env.REACT_APP_API_BASE_URL +
+        process.env.REACT_APP_API_BASE_URL_FOR_REPORTS +
         `/reports/ideadeatilreport?Data=${apiRes}`,
       headers: {
         "Content-Type": "application/json",
@@ -777,7 +777,7 @@ const IdeaReport = () => {
   const fetchChartTableData = () => {
     const config = {
       method: "get",
-      url: process.env.REACT_APP_API_BASE_URL + "/reports/ideaReportTable",
+      url: process.env.REACT_APP_API_BASE_URL_FOR_REPORTS + "/reports/ideaReportTable",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${currentUser?.data[0]?.token}`,

@@ -288,18 +288,7 @@ const EvaluatedIdea = () => {
                                 <Container fluid className="px-0">
                                     <Row className="align-items-center">
                                        
-                                                <Col md={status ? 1 : 2}>
-                                                    <div className="my-3 d-md-block d-flex justify-content-center">
-                                                        <Select
-                                                            list={statusdata}
-                                                            setValue={setstatus}
-                                                            placeHolder={
-                                                                'Select Status'
-                                                            }
-                                                            value={status}
-                                                        />
-                                                    </div>
-                                                </Col>
+                                              
 
                                         <Col md={2}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
@@ -331,7 +320,20 @@ const EvaluatedIdea = () => {
                     value={sdg}
                   />
                                             </div>
+
                                         </Col>
+                                        <Col md={status ? 1 : 2}>
+                                                    <div className="my-3 d-md-block d-flex justify-content-center">
+                                                        <Select
+                                                            list={statusdata}
+                                                            setValue={setstatus}
+                                                            placeHolder={
+                                                                'Select Status'
+                                                            }
+                                                            value={status}
+                                                        />
+                                                    </div>
+                                                </Col>
                                         {status && status !== 'Accepted' && (
                                             <Col md={2}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">

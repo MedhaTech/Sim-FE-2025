@@ -404,7 +404,7 @@ const MyCertificate = () => {
 
     }
   }, [resList, status, score]);
-        console.log(resList, "resList",status,"status",TnSpecific,"state");
+        // console.log(resList, "resList",status,"status",TnSpecific,"state");
 
 //   useEffect(() => {
 //     if (resList !== null) {
