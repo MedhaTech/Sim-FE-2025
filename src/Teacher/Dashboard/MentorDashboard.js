@@ -711,20 +711,22 @@ const MentorDashboard = () => {
                       <div
                         className="dash-counts"
                         onClick={
-                          currentUser?.data[0]?.state !== "Tamil Nadu"
-                            ? handleCertificateDownload
-                            : null
+                          // currentUser?.data[0]?.state !== "Tamil Nadu"
+                          //   ? handleCertificateDownload
+                          //   : null
+                            handleCertificateDownload
                         }
                         style={{
-                          cursor:
-                            currentUser?.data[0]?.state !== "Tamil Nadu"
-                              ? "pointer"
-                              : "not-allowed",
-                          opacity:
-                            currentUser?.data[0]?.state !== "Tamil Nadu"
-                              ? 1
-                              : 0.5,
-                        }}
+                          // cursor:
+                          //   currentUser?.data[0]?.state !== "Tamil Nadu"
+                          //     ? "pointer"
+                          //     : "not-allowed",
+                          // opacity:
+                          //   currentUser?.data[0]?.state !== "Tamil Nadu"
+                          //     ? 1
+                          //     : 0.5,
+                        }
+                      }
                       >
                         <h4>Congrats</h4>
                         {currentUser?.data[0]?.state !== "Tamil Nadu" && (
@@ -734,9 +736,16 @@ const MentorDashboard = () => {
                             &nbsp;Certificate
                           </h5>
                         )}
-                        {currentUser?.data[0]?.state === "Tamil Nadu" && (
-                          <p>Certificate Coming Soon</p>
+                         {currentUser?.data[0]?.state === "Tamil Nadu" && (
+                          <h5>
+                            Click here&nbsp;
+                            <FeatherIcon icon="arrow-down-circle" size={30} />
+                            &nbsp;Certificate
+                          </h5>
                         )}
+                        {/* {currentUser?.data[0]?.state === "Tamil Nadu" && (
+                          <p>Certificate Coming Soon</p>
+                        )} */}
                       </div>
 
                       <div className="dash-imgs">
