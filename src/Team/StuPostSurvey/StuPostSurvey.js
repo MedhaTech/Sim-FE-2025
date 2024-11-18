@@ -139,7 +139,7 @@ const StuPostSurvey = () => {
             )
             .then((preSurveyRes) => {
               if (preSurveyRes?.status == 200) {
-                // console.log(preSurveyRes, "aa");
+                console.log(preSurveyRes, "aa");
                 setTimeout(() => {
                   const badge = 'survey_master';
                   dispatch(
@@ -150,12 +150,14 @@ const StuPostSurvey = () => {
                           t
                       )
                   );
+                  
                   openNotificationWithIcon(
                     "success",
                     t('student.postsurver_scc_sub'),
                     // "Post Survey has been submitted successfully..!!",
                     ""
                   );
+                  localStorage.setItem("studentpostsurveystatus", "COMPLETED");
     
                 setCount(count + 1);
               }, 300);
@@ -198,6 +200,8 @@ const StuPostSurvey = () => {
             if (postSurveyRes?.status == 200) {
               setQuizSurveyId(postSurveyRes.data.data[0].quiz_survey_id);
               setPostSurveyStatus(postSurveyRes.data.data[0].progress);
+              localStorage.setItem("studentposturveystatus", "COMPLETED");
+
               let allQuestions = postSurveyRes.data.data[0];
               setPostSurveyList(allQuestions.quiz_survey_questions);
             }

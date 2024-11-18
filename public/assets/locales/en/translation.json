@@ -291,6 +291,8 @@
     "teacher_certificate": {
         "download": "Download Course Certificate",
         "participate_certificate": "Idea Submission Certificate",
+        "addon_certificate": "Idea Participation Certificate",
+
         "download_participate": "Download Idea Certificate",
         "certificate": "Course Completion Certificate",
         "certificate_desc": "Please Download Certificate...",
@@ -304,6 +306,8 @@
     "note": "Note",
     "certificate_enabled_on_level_3": "Your Appreciation certificate enables if your idea",
     "red_msg2":" reaches Level 3",
+    "addon":" Your idea has been submitted, and the post-survey must also be completed before the participation certificate is enabled.",
+
     "idea_note":" in the evaluation process.",
     "congratulations_future_leaders": "Congratulations, Future Leaders!",
     "completed_course_message": "You’ve successfully completed the Problem-Solving Journey course, and what an incredible achievement that is! 🎉 Through this journey, you’ve mastered essential",
