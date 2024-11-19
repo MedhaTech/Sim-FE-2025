@@ -39,7 +39,7 @@ const Certificate = ({
 }) => {
   const { t } = useTranslation();
   const displayDate = type === "addon" ? surveyDate : courseDate; 
-  console.log(courseDate,"cc");
+  // console.log(courseDate,"cc");
   const pdfRef = useRef(null);
   const partRef = useRef(null);
   const newRef = useRef(null);
@@ -218,7 +218,7 @@ const Certificate = ({
               disabled={!isEnabled}
               label={
                 type === "addon"
-                  ? t("teacher_certificate.addon_certificate")
+                  ? t("teacher_certificate.downloadaddon_certificate")
                   : type === "participate"
                   ? t("teacher_certificate.download_participate")
                   : t("teacher_certificate.download")
@@ -230,7 +230,7 @@ const Certificate = ({
               onClick={handleCertificateDownload}
             >
               {type === "addon"
-                ? t("teacher_certificate.addon_certificate")
+                ? t("teacher_certificate.downloadaddon_certificate")
                 : type === "participate"
                 ? t("teacher_certificate.download_participate")
                 : t("teacher_certificate.download")}
@@ -434,7 +434,7 @@ const Certificate = ({
                 disabled={!isEnabled}
                 label={
                   type === "addon"
-                    ? t("teacher_certificate.addon_certificate")
+                    ? t("teacher_certificate.downloadaddon_certificate")
                     : type === "participate"
                     ? t("teacher_certificate.download_participate")
                     : t("teacher_certificate.download")
@@ -446,7 +446,7 @@ const Certificate = ({
                 onClick={handleCertificateDownload}
               >
                 {type === "addon"
-                  ? t("teacher_certificate.addon_certificate")
+                  ? t("teacher_certificate.downloadaddon_certificate")
                   : type === "participate"
                   ? t("teacher_certificate.download_participate")
                   : t("teacher_certificate.download")}
