@@ -10,9 +10,8 @@ import { getCurrentUser } from "../../helpers/Utils";
 import courseCompletionCertificate from "../../assets/img/Certificates/Studentcom.jpg";
 import ideaSubmissionCertificate from "../../assets/img/Certificates/StudentApp.jpg";
 import participateCertificate from "../../assets/img/Certificates/stuparticipation.jpg";
-import TncourseCompletionCertificate from "../../assets/img/Certificates/tnstudentcoursenew.jpg";
-import TnideaSubmissionCertificate from "../../assets/img/Certificates/tnstudentideasubmissionnew.jpg";
-
+import TncourseCompletionCertificate from "../../assets/img/Certificates/TNstuCourse1.jpg";
+import TnparticipateCertificate from "../../assets/img/Certificates/TNstuParticipate1.jpg";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -34,9 +33,13 @@ const Certificate = ({
   isEnabled,
   certDate,
   course,
+  courseDate,
+  surveyDate,
   language,
 }) => {
   const { t } = useTranslation();
+  const displayDate = type === "addon" ? surveyDate : courseDate; 
+  console.log(courseDate,"cc");
   const pdfRef = useRef(null);
   const partRef = useRef(null);
   const newRef = useRef(null);
@@ -44,9 +47,13 @@ const Certificate = ({
   const dispatch = useDispatch();
   const handleCertificateDownload = () => {
     // const content = type ? partRef.current : pdfRef.current;
-  
-        const content =
-  type === "addon" ? newRef.current : type === "participate" ? partRef.current : pdfRef.current;
+
+    const content =
+      type === "addon"
+        ? newRef.current
+        : type === "participate"
+        ? partRef.current
+        : pdfRef.current;
 
     const badge = "the_finisher";
     const size = [298, 220];
@@ -85,7 +92,7 @@ const Certificate = ({
     doc.addImage(selectedImage, "JPEG", 0, 0, imgWidth, imgHeight);
     // doc.addImage(
     //   type === "addon"
-    //     ? participateCertificate 
+    //     ? participateCertificate
     //     : type === "participate"
     //     ? ideaSubmissionCertificate
     //     : courseCompletionCertificate,
@@ -143,7 +150,9 @@ const Certificate = ({
       {currentUser?.data[0]?.state !== "Tamil Nadu" ? (
         <CardBody>
           <CardTitle className=" text-left pt-4 pb-4" tag="h2">
-            {type === "addon" ? t("teacher_certificate.addon_certificate") : type === "participate"
+            {type === "addon"
+              ? t("teacher_certificate.addon_certificate")
+              : type === "participate"
               ? t("teacher_certificate.participate_certificate")
               : t("teacher_certificate.certificate")}
           </CardTitle>
@@ -236,7 +245,7 @@ const Certificate = ({
                 <p>
                   <span style={{ color: "green", fontWeight: "bold" }}>
                     {/* 🌟 {t("teacher_certificate.congratulations_addon")}{" "} */}
-                    participation Add - on Certificate
+                    {/* participation Add - on Certificate */}
                   </span>
                   <br />
                   {/* {t("teacher_certificate.addon_completion_message")} <br /> */}
@@ -249,8 +258,7 @@ const Certificate = ({
                   <span style={{ color: "red", fontWeight: "bold" }}>
                     {t("teacher_certificate.note")}
                   </span>
-                  : 
-                  Not ready to download
+                  : {t("teacher_certificate.addon")}
                   {/* {t("teacher_certificate.addon_certificate_not_ready")} */}
                 </p>
               )
@@ -311,26 +319,28 @@ const Certificate = ({
               </p>
             )}
           </div>
-
-        
         </CardBody>
       ) : (
         <>
-        {/* <h4 style={{ color: "#fe9f43" }}>Tamil Nadu State</h4> */}
-        <CardBody>
+          {/* <h4 style={{ color: "#fe9f43" }}>Tamil Nadu State</h4> */}
+          <CardBody>
             <CardTitle className=" text-left pt-4 pb-4" tag="h2">
-              {type === "addon" ? t("teacher_certificate.addon_certificate") : type === "participate"
+              {type === "addon"
+                ? t("teacher_certificate.addon_certificate") 
+                : type === "participate"
                 ? t("teacher_certificate.participate_certificate")
                 : t("teacher_certificate.certificate")}
             </CardTitle>
             <div className="common-flex">
               <div
                 // ref={type ? partRef : pdfRef}
-                ref={type === "addon"
-                  ? newRef
-                  : type === "participate"
+                ref={
+                  type === "addon"
+                    ? newRef
+                    : type === "participate"
                     ? partRef
-                    : pdfRef}
+                    : pdfRef
+                }
                 className="position-relative"
                 style={{ width: "100%", maxWidth: "297px" }}
               >
@@ -338,9 +348,21 @@ const Certificate = ({
                   className="text-capitalize"
                   style={{
                     position: "absolute",
-                    top: `${type =="participate" ? "5.5rem" :type === "addon" ? "5.5rem": "5.5rem"}`,
+                    top: `${
+                      type == "participate"
+                        ? "5.5rem"
+                        : type === "addon"
+                        ? "5.5rem"
+                        : "5.5rem"
+                    }`,
                     color: `${type ? "black" : "black"}`,
-                    left: `${type =="participate" ? "10.5rem" : type === "addon" ? "10.5rem": "10.5rem"}`,
+                    left: `${
+                      type == "participate"
+                        ? "10.5rem"
+                        : type === "addon"
+                        ? "10.5rem"
+                        : "10.5rem"
+                    }`,
                     fontSize: "0.4rem",
                     fontFamily: "Times New Roman",
                   }}
@@ -351,47 +373,83 @@ const Certificate = ({
                   className="text-capitalize"
                   style={{
                     position: "absolute",
-                    top: `${type =="participate" ? "6.4rem" :type === "addon" ? "6.4rem": "6.4rem"}`,
+                    top: `${
+                      type == "participate"
+                        ? "6.4rem"
+                        : type === "addon"
+                        ? "6.4rem"
+                        : "6.4rem"
+                    }`,
                     color: `${type ? "black" : "black"}`,
-                    left: `${type =="participate" ? "6rem" : type === "addon" ? "6rem": "6rem"}`,
+                    left: `${
+                      type == "participate"
+                        ? "6rem"
+                        : type === "addon"
+                        ? "6rem"
+                        : "6rem"
+                    }`,
                     fontSize: "0.4rem",
                     fontFamily: "Times New Roman",
                   }}
                 >
                   {currentUser?.data[0]?.organization_name + certDateCheck()}
                 </span>
+                <span
+                  className="text-capitalize"
+                  style={{
+                    position: "absolute",
+                    top: `${type === "addon" ? "11.5rem" : "11.5rem"}`,
+                    color: "black",
+                    left: `${type === "addon" ? "14.5rem" : "14.5rem"}`,
+                    fontSize: "0.4rem",
+                    fontFamily: "Times New Roman",
+                  }}
+                 
+                >
+                  {displayDate && moment(displayDate).isValid()
+    ? moment(displayDate).format("DD-MM-YYYY")
+    : ""}
+                  {/* {moment(displayDate).format("DD-MM-YYYY")} */}
+                </span>
                 <img
-                  src={type === "addon"
-                    ? participateCertificate
-                    : type === "participate"
+                  src={
+                    type === "addon"
+                      ? TnparticipateCertificate
+                      : type === "participate"
                       ? TnideaSubmissionCertificate
-                      : TncourseCompletionCertificate}
+                      : TncourseCompletionCertificate
+                  }
                   alt="certificate"
                   className="img-fluid mx-auto"
                   style={{
                     width: "297px",
                     height: "210px",
-                  }} />
+                  }}
+                />
               </div>
             </div>
             <div className="text-center">
               <button
                 type="submit"
                 disabled={!isEnabled}
-                label={type === "addon"
-                  ? t("teacher_certificate.addon_certificate")
-                  : type === "participate"
+                label={
+                  type === "addon"
+                    ? t("teacher_certificate.addon_certificate")
+                    : type === "participate"
                     ? t("teacher_certificate.download_participate")
-                    : t("teacher_certificate.download")}
-                className={`btn ${isEnabled ? "btn-success" : "btn-secondary"} mt-4`}
+                    : t("teacher_certificate.download")
+                }
+                className={`btn ${
+                  isEnabled ? "btn-success" : "btn-secondary"
+                } mt-4`}
                 style={{ marginRight: "2rem" }}
                 onClick={handleCertificateDownload}
               >
                 {type === "addon"
                   ? t("teacher_certificate.addon_certificate")
                   : type === "participate"
-                    ? t("teacher_certificate.download_participate")
-                    : t("teacher_certificate.download")}
+                  ? t("teacher_certificate.download_participate")
+                  : t("teacher_certificate.download")}
                 {/* {type
       ? t("teacher_certificate.download_participate")
       : t("teacher_certificate.download")} */}
@@ -416,9 +474,7 @@ const Certificate = ({
                     <span style={{ color: "red", fontWeight: "bold" }}>
                       {t("teacher_certificate.note")}
                     </span>
-                    :
-                   
-                    {t("teacher_certificate.addon")}
+                    :{t("teacher_certificate.addon")}<span style={{color:"red"}}>{t("teacher_certificate.addonred")}</span>
                   </p>
                 )
               ) : type ? (
@@ -478,9 +534,8 @@ const Certificate = ({
                 </p>
               )}
             </div>
-
-
-          </CardBody></>
+          </CardBody>
+        </>
       )}
     </Card>
   );
@@ -501,13 +556,54 @@ const MyCertificate = () => {
   const [resList, setResList] = useState("");
   const [status, setStatus] = useState("");
   const [score, setScore] = useState("");
-
+  const [surveyDates, setSurveyDates] = useState(null);
+  const [courseDate, setCourseDate] = useState(null);
+  // console.log(courseDate,"course");
   useEffect(() => {
     StateData();
     stuCoursePercent();
     Ideas();
     submittedApi();
+    certificateApi();
   }, []);
+  const certificateApi = () => {
+    const Param = encryptGlobal(JSON.stringify(currentUser?.data[0]?.user_id));
+    var configidea = {
+      method: "get",
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/students/certificateDates/${Param}`,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+      },
+    };
+    axios(configidea)
+      .then(function (response) {
+        if (response.status === 200) {
+          if (response.data.data.length > 0) {
+            const postSurveyDate = response?.data?.data[0]?.postSurvey[0]?.created_at;
+            const courseDateValue = response?.data?.data[0]?.course[0]?.created_at;
+          
+            setSurveyDates(postSurveyDate || null); 
+            setCourseDate(courseDateValue || null); 
+          } else {
+            console.log("No data available:", response.data.data);
+            setSurveyDates(null);
+            setCourseDate(null);
+          }
+          // console.log(response.data.data);
+          // setSurveyDates(response?.data?.data[0]?.postSurvey[0]?.created_at);
+          // setCourseDate(response?.data?.data[0]?.course[0]?.created_at);
+        }
+      })
+      .catch(function (error) {
+        // if (error.response.status === 404) {
+        //   //   seterror4( true);
+        // }
+      });
+  };
   const submittedApi = () => {
     const Param = encryptGlobal(
       JSON.stringify({
@@ -528,7 +624,7 @@ const MyCertificate = () => {
     axios(configidea)
       .then(function (response) {
         if (response.status === 200) {
-          console.log(response.data.data);
+          // console.log(response.data.data);
           if (response.data.data && response.data.data.length > 0) {
             const data = response.data.data[0];
 
@@ -650,11 +746,11 @@ const MyCertificate = () => {
         console.log("Certificate Not Enabled");
       }
     }
-  }, [resList,score,status]);
+  }, [resList, score, status]);
 
   const enableParticipation =
     ideaStatus === "SUBMITTED" && studentStatus === "COMPLETED";
-// console.log(enableParticipation ,"Participation certificate enabled ..");
+  // console.log(enableParticipation ,"Participation certificate enabled ..");
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -679,6 +775,7 @@ const MyCertificate = () => {
                       language={language}
                       currentUser={currentUser}
                       isEnabled={course}
+                      courseDate={courseDate}
                     />
                   </div>
                   <div className="col-12 col-lg-4">
@@ -687,6 +784,8 @@ const MyCertificate = () => {
                       language={language}
                       currentUser={currentUser}
                       isEnabled={enableParticipation}
+                      surveyDate={surveyDates}
+
                     />
                   </div>
                 </Col>
@@ -729,7 +828,8 @@ const MyCertificate = () => {
 };
 
 export default MyCertificate;
-  {/* <div className="mt-3">
+{
+  /* <div className="mt-3">
             {type ? (
               isEnabled ? (
                 <p>
@@ -786,4 +886,5 @@ export default MyCertificate;
                 {t("teacher_certificate.course_note")}
               </p>
             )}
-          </div> */}
+          </div> */
+}
