@@ -78,35 +78,35 @@ const teamId= currentUser.data[0]?.team_id;
                 console.log(error);
             });
     }
-    const TnSpecific =currentUser?.data[0]?.state;
-    useEffect(() => {
-        // Assuming you have a variable `currentState` that holds the current state value
-        const isTamilNadu = currentUser?.data[0]?.state === 'Tamil Nadu';
+    // const TnSpecific =currentUser?.data[0]?.state;
+    // useEffect(() => {
+    //     // Assuming you have a variable `currentState` that holds the current state value
+    //     const isTamilNadu = currentUser?.data[0]?.state === 'Tamil Nadu';
       
-        // Adjust the length condition based on the state
-        const minLength = 2; // Minimum length based on state
-        const maxLength = isTamilNadu ? 5 : 3; // Maximum length based on state
+    //     // Adjust the length condition based on the state
+    //     const minLength = 2; // Minimum length based on state
+    //     const maxLength = isTamilNadu ? 5 : 3; // Maximum length based on state
       
-        if (teamsMembersStatus.length >= minLength && teamsMembersStatus.length <= maxLength) {
-          localStorage.setItem("ideaSubStatus", teamsMembersStatus[0].idea_submission);
-          console.log(teamsMembersStatus[0],"muconsole");
+    //     if (teamsMembersStatus.length >= minLength && teamsMembersStatus.length <= maxLength) {
+    //       localStorage.setItem("ideaSubStatus", teamsMembersStatus[0].idea_submission);
+    //       console.log(teamsMembersStatus[0],"muconsole");
       
-          if (Array.isArray(teamsMembersStatus)) {
-            let anyCompleted = false;
+    //       if (Array.isArray(teamsMembersStatus)) {
+    //         let anyCompleted = false;
       
-            teamsMembersStatus.forEach(record => {
-              let percent = 100 - percentageBWNumbers(record.all_topics_count, record.topics_completed_count);
+    //         teamsMembersStatus.forEach(record => {
+    //           let percent = 100 - percentageBWNumbers(record.all_topics_count, record.topics_completed_count);
       
-              if (percent === 100) {
-                anyCompleted = true;
-              }
-            });
+    //           if (percent === 100) {
+    //             anyCompleted = true;
+    //           }
+    //         });
             
-            const ideaStatus = anyCompleted ? 1 : 0;
-            setIdeaEnableStatus(ideaStatus); 
-          }
-        }
-      }, [teamsMembersStatus, currentUser?.data[0]?.state]); // Include currentState in the dependency array
+    //         const ideaStatus = anyCompleted ? 1 : 0;
+    //         setIdeaEnableStatus(ideaStatus); 
+    //       }
+    //     }
+    //   }, [teamsMembersStatus, currentUser?.data[0]?.state]); // Include currentState in the dependency array
       
     // useEffect(() => {
     //     if (teamsMembersStatus.length >= 2 && teamsMembersStatus.length <= 3) {
@@ -238,11 +238,13 @@ const teamId= currentUser.data[0]?.team_id;
                                             onClick={handleNext}
                                         />} */}
                                         {
-    (TnSpecific === "Tamil Nadu" && ideaEnableStatus !== 1) ? (
-        <button onClick={handleideaenable} className='btn btn-secondary'>
-            {t('idea_page.next')}
-        </button>
-    ) : resList !== 1 ? (
+    // (
+    //     TnSpecific === "Tamil Nadu" && ideaEnableStatus !== 1) ? (
+    //     <button onClick={handleideaenable} className='btn btn-secondary'>
+    //         {t('idea_page.next')}
+    //     </button>
+    // ) :
+     resList !== 1 ? (
         <button onClick={handlePopup} className='btn btn-secondary'>
             {t('idea_page.next')}
         </button>
