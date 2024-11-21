@@ -66,7 +66,7 @@
 /* eslint-disable no-unused-vars */ /* eslint-disable indent */ 
 import React from 'react'; 
 import TeacherCertificate from "../../assets/img/Certificates/TeacherApp.jpg";
-import TnTeacherCertificate from "../../assets/img/Certificates/TNTeacher1.jpg";  
+import TnTeacherCertificate from "../../assets/img/Certificates/TnTeacherFinal.jpg";  
 
 import { getCurrentUser } from "../../helpers/Utils";
 
