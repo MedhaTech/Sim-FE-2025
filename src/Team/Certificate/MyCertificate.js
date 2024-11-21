@@ -6,14 +6,16 @@ import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap";
 // import { Button } from '../../../stories/Button';
 // import Layout from "../../Layout";
 import jsPDF from "jspdf";
-import { getCurrentUser } from "../../helpers/Utils";
+import { getCurrentUser , getNormalHeaders,} from "../../helpers/Utils";
 import courseCompletionCertificate from "../../assets/img/Certificates/Studentcom.jpg";
 import ideaSubmissionCertificate from "../../assets/img/Certificates/StudentApp.jpg";
 import participateCertificate from "../../assets/img/Certificates/stuparticipation.jpg";
-import TncourseCompletionCertificate from "../../assets/img/Certificates/TNstuCourse1.jpg";
-import TnparticipateCertificate from "../../assets/img/Certificates/TNstuParticipate1.jpg";
+import TncourseCompletionCertificate from "../../assets/img/Certificates/TnStuCourseFinal.jpg";
+import TnparticipateCertificate from "../../assets/img/Certificates/TnStuParticipateFinal.jpg";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
+import { URL, KEY } from "../../constants/defaultValues";
+
 import {
   getStudentChallengeSubmittedResponse,
   getStudentDashboardStatus,
@@ -21,6 +23,8 @@ import {
   updateStudentBadges,
   updateStudentCertificate,
 } from "../../redux/studentRegistration/actions";
+import { getLanguage } from '../../constants/languageOptions';
+
 import moment from "moment";
 import Congo from "../../assets/img/survey-success.jpg";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
@@ -552,6 +556,8 @@ const MyCertificate = () => {
     (state) => state?.studentRegistration?.studentLanguage
   );
   const studentStatus = localStorage.getItem("studentpostsurveystatus");
+  const userID = currentUser?.data[0]?.user_id;
+  const [postSurveyStatus, setPostSurveyStatus] = useState("");
 
   const [resList, setResList] = useState("");
   const [status, setStatus] = useState("");
@@ -565,7 +571,39 @@ const MyCertificate = () => {
     Ideas();
     submittedApi();
     certificateApi();
+    apiData(language);
+
   }, []);
+  const apiData=(language)=>{
+    const locale = getLanguage(language);
+
+    let enDataone = encryptGlobal("4");
+    let axiosConfig = getNormalHeaders(KEY.User_API_Key);
+   
+    let enParamData = encryptGlobal(
+      JSON.stringify({
+        role: "STUDENT",
+        locale,
+        user_id : userID,
+      })
+    );
+    axiosConfig["params"] = {
+      Data: enParamData,
+    };
+
+    axios
+      .get(`${URL.getPostSurveyList}/${enDataone}`, axiosConfig)
+      .then((postSurveyRes) => {
+        if (postSurveyRes?.status == 200) {
+          // console.log(postSurveyRes,"response");
+          setPostSurveyStatus(postSurveyRes.data.data[0].progress);
+
+        }
+      })
+      .catch((err) => {
+        return err.response;
+      });
+    };
   const certificateApi = () => {
     const Param = encryptGlobal(JSON.stringify(currentUser?.data[0]?.user_id));
     var configidea = {
@@ -593,9 +631,7 @@ const MyCertificate = () => {
             setSurveyDates(null);
             setCourseDate(null);
           }
-          // console.log(response.data.data);
-          // setSurveyDates(response?.data?.data[0]?.postSurvey[0]?.created_at);
-          // setCourseDate(response?.data?.data[0]?.course[0]?.created_at);
+          
         }
       })
       .catch(function (error) {
@@ -749,8 +785,8 @@ const MyCertificate = () => {
   }, [resList, score, status]);
 
   const enableParticipation =
-    ideaStatus === "SUBMITTED" && studentStatus === "COMPLETED";
-  // console.log(enableParticipation ,"Participation certificate enabled ..");
+    ideaStatus === "SUBMITTED" && postSurveyStatus === "COMPLETED";
+  // console.log(enableParticipation ,"Participation certificate enabled ..","Idea:",ideaStatus,"Post:",postSurveyStatus);
   return (
     <div className="page-wrapper">
       <div className="content">
