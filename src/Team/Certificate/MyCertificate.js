@@ -403,7 +403,7 @@ const Certificate = ({
                   className="text-capitalize"
                   style={{
                     position: "absolute",
-                    top: `${type === "addon" ? "11.8rem" : "11.7rem"}`,
+                    top: `${type === "addon" ? "11.7rem" : "11.7rem"}`,
                     color: "black",
                     left: `${type === "addon" ? "14.5rem" : "14.5rem"}`,
                     fontSize: "3px",
