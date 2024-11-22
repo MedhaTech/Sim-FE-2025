@@ -1,69 +1,5 @@
-/* eslint-disable react/no-unescaped-entities */
-// /* eslint-disable no-unused-vars */
-// /* eslint-disable indent */
-// import React from 'react';
-// import TeacherCertificate from "../../assets/img/Certificates/teacher.jpg";
+/* eslint-disable indent */
 
-// class TCertificate extends React.Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {};
-//     }
-//     render() {
-
-//         return (
-//             <div className="container-fluid bg-white">
-//                 <div className="row">
-//                     <div
-//                         style={{ position: 'relative' }}
-//                     >
-//                         <span
-//                             className="text-capitalize"
-//                             style={{
-//                                 position: 'absolute',
-//                                 top: '7.7rem',
-//                                 left: '11rem',
-//                                 fontSize: '0.7rem',
-//                                 fontFamily: 'Times New Roman'
-//                             }}
-//                         >
-//                             {this.props.title}{' '}
-//                             {this.props.full_name}
-//                         </span>
-//                         <span
-//                             className="text-capitalize"
-//                             style={{
-//                                 position: 'absolute',
-//                                 top: '9rem',
-//                                 left: '4.5rem',
-//                                 fontSize: '0.7rem',
-//                                 fontFamily: 'Times New Roman'
-//                             }}
-//                         >
-//                             {
-//                                 this.props.organization_name
-//                             }
-//                         </span>
-//                         <img
-//                             src={TeacherCertificate}
-//                             alt="certificate"
-//                             style={{
-//                                 width: '297px',
-//                                 height: '209px',
-//                                 border: '1px solid #ccc'
-//                             }}
-//                         />
-//                     </div>
-
-
-//                 </div>
-//             </div>
-//         );
-//     }
-// }
-// export default TCertificate;
-///////////////////////////////////
-/* eslint-disable no-unused-vars */ /* eslint-disable indent */ 
 import React from 'react'; 
 import TeacherCertificate from "../../assets/img/Certificates/TeacherApp.jpg";
 import TnTeacherCertificate from "../../assets/img/Certificates/TnTeacherFinal.jpg";  
@@ -81,9 +17,9 @@ class TCertificate extends React.Component {
         return (
             <div>
                {this.stateSpecific !== "Tamil Nadu" ? ( 
-            <div className="container-fluid bg-white"> 
+            <div style={{ width: '100%', margin: 0, padding: 0 , overflow: 'hidden',}}> 
                 <div className="row"> 
-                    <div style={{ position: 'relative' }}> 
+                    <div > 
                         <span 
                             className="text-capitalize" 
                             style={{ 
@@ -124,10 +60,9 @@ class TCertificate extends React.Component {
             </div>
     ) : (
         <>
-        {/* <h2 className='text-center' style={{ color: "blue" }}>Tamil Nadu </h2> */}
-        <div className="container-fluid bg-white">
+        <div  style={{ width: '100%', margin: 0, padding: 0 , overflow: 'hidden',}}>
                             <div className="row">
-                                <div style={{ position: 'relative' }}>
+                                <div >
                                     <span
                                         className="text-capitalize"
                                         style={{
@@ -157,9 +92,10 @@ class TCertificate extends React.Component {
                             className="text-capitalize" 
                             style={{ 
                                 position: 'absolute', 
-                                top: '57rem', 
+                                top: '58rem', 
                                 left: '41rem', 
-                                fontSize: '1.2rem', 
+                                fontSize: '10px', 
+                                fontWeight:"bold",
                                 fontFamily: 'Times New Roman' 
                             }} 
                         > 
