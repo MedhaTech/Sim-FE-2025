@@ -1,71 +1,9 @@
-/* eslint-disable react/no-unescaped-entities */
-// /* eslint-disable no-unused-vars */
-// /* eslint-disable indent */
-// import React from 'react';
-// import TeacherCertificate from "../../assets/img/Certificates/teacher.jpg";
+/* eslint-disable indent */
 
-// class TCertificate extends React.Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {};
-//     }
-//     render() {
-
-//         return (
-//             <div className="container-fluid bg-white">
-//                 <div className="row">
-//                     <div
-//                         style={{ position: 'relative' }}
-//                     >
-//                         <span
-//                             className="text-capitalize"
-//                             style={{
-//                                 position: 'absolute',
-//                                 top: '7.7rem',
-//                                 left: '11rem',
-//                                 fontSize: '0.7rem',
-//                                 fontFamily: 'Times New Roman'
-//                             }}
-//                         >
-//                             {this.props.title}{' '}
-//                             {this.props.full_name}
-//                         </span>
-//                         <span
-//                             className="text-capitalize"
-//                             style={{
-//                                 position: 'absolute',
-//                                 top: '9rem',
-//                                 left: '4.5rem',
-//                                 fontSize: '0.7rem',
-//                                 fontFamily: 'Times New Roman'
-//                             }}
-//                         >
-//                             {
-//                                 this.props.organization_name
-//                             }
-//                         </span>
-//                         <img
-//                             src={TeacherCertificate}
-//                             alt="certificate"
-//                             style={{
-//                                 width: '297px',
-//                                 height: '209px',
-//                                 border: '1px solid #ccc'
-//                             }}
-//                         />
-//                     </div>
-
-
-//                 </div>
-//             </div>
-//         );
-//     }
-// }
-// export default TCertificate;
-///////////////////////////////////
-/* eslint-disable no-unused-vars */ /* eslint-disable indent */ 
 import React from 'react'; 
-import TeacherCertificate from "../../assets/img/Certificates/TeacherApp.jpg";  
+import TeacherCertificate from "../../assets/img/Certificates/TeacherApp.jpg";
+import TnTeacherCertificate from "../../assets/img/Certificates/TecTnFinalCertificate.jpg";  
+
 import { getCurrentUser } from "../../helpers/Utils";
 
 class TCertificate extends React.Component { 
@@ -79,9 +17,9 @@ class TCertificate extends React.Component {
         return (
             <div>
                {this.stateSpecific !== "Tamil Nadu" ? ( 
-            <div className="container-fluid bg-white"> 
+            <div style={{ width: '100%', margin: 0, padding: 0 , overflow: 'hidden',}}> 
                 <div className="row"> 
-                    <div style={{ position: 'relative' }}> 
+                    <div > 
                         <span 
                             className="text-capitalize" 
                             style={{ 
@@ -107,6 +45,7 @@ class TCertificate extends React.Component {
                         > 
                             {this.props.organization_name} 
                         </span> 
+                       
                         <img 
                             src={TeacherCertificate} 
                             alt="certificate" 
@@ -120,7 +59,59 @@ class TCertificate extends React.Component {
                 </div> 
             </div>
     ) : (
-        <h2 className='text-center' style={{color:"blue"}}>Certificates Are Coming Soon ...</h2>
+        <>
+        <div  style={{ width: '100%', margin: 0, padding: 0 , overflow: 'hidden',}}>
+                            <div className="row">
+                                <div >
+                                    <span
+                                        className="text-capitalize"
+                                        style={{
+                                            position: 'absolute',
+                                            top: '28rem',
+                                            left: '14rem',
+                                            fontSize: '1.2rem',
+                                            fontFamily: 'Times New Roman'
+                                        }}
+                                    >
+                                        {this.props.title}{' '}
+                                        {this.props.full_name}
+                                    </span>
+                                    <span
+                                        className="text-capitalize"
+                                        style={{
+                                            position: 'absolute',
+                                            top: '30rem',
+                                            left: '17rem',
+                                            fontSize: '1.2rem',
+                                            fontFamily: 'Times New Roman'
+                                        }}
+                                    >
+                                        {this.props.organization_name}
+                                    </span>
+                                    <span 
+                            className="text-capitalize" 
+                            style={{ 
+                                position: 'absolute', 
+                                top: '58rem', 
+                                left: '41rem', 
+                                fontSize: '10px', 
+                                fontWeight:"bold",
+                                fontFamily: 'Times New Roman' 
+                            }} 
+                        > 
+                            {new Date().toLocaleDateString('en-GB')} 
+                        </span>
+                                    <img
+                                        src={TnTeacherCertificate}
+                                        alt="certificate"
+                                        style={{
+                                            width: '1000px',
+                                            height: '1110px',
+                                            // border: '1px solid #ccc' 
+                                        }} />
+                                </div>
+                            </div>
+                        </div></>
     )}
             </div>  
         ); 
