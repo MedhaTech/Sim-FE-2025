@@ -146,10 +146,11 @@ const Certificate = ({
           moment(certDate?.course_completed_date).format("DD-MM-YYYY");
     return check ? " on " + check : "";
   };
+  const isMobile = window.innerWidth <= 768;
   return (
     <Card
       className="course-sec-basic p-5 m-4 w-100"
-      style={{ backgroundColor: `${isEnabled ? "" : "lightgrey"}` }}
+      style={{ backgroundColor: `${isEnabled ? "" : "lightgrey"}`,  height: isMobile ? "1000px" : "600px", }}
     >
       {currentUser?.data[0]?.state !== "Tamil Nadu" ? (
         <CardBody>
@@ -262,7 +263,7 @@ const Certificate = ({
                   <span style={{ color: "red", fontWeight: "bold" }}>
                     {t("teacher_certificate.note")}
                   </span>
-                  :{t("teacher_certificate.addon")}<span style={{color:"red"}}>{t("teacher_certificate.addonred")}</span>
+                  :{t("teacher_certificate.addon")}<span style={{color:"red", fontWeight: "bold"}}>{t("teacher_certificate.addonred")}</span>
                   {/* {t("teacher_certificate.addon_certificate_not_ready")} */}
                 </p>
               )
@@ -478,7 +479,7 @@ const Certificate = ({
                     <span style={{ color: "red", fontWeight: "bold" }}>
                       {t("teacher_certificate.note")}
                     </span>
-                    :{t("teacher_certificate.addon")}<span style={{color:"red"}}>{t("teacher_certificate.addonred")}</span>
+                    :{t("teacher_certificate.addon")}<span style={{color:"red", fontWeight: "bold"}}>{t("teacher_certificate.addonred")}</span>
                   </p>
                 )
               ) : type ? (
