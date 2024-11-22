@@ -80,11 +80,7 @@ const teamId= currentUser.data[0]?.team_id;
     }
     // const TnSpecific =currentUser?.data[0]?.state;
     // useEffect(() => {
-    //     const isTamilNadu = currentUser?.data[0]?.state === 'Tamil Nadu';
-      
-    //     // Adjust the length condition based on the state
-    //     const minLength = 2; // Minimum length based on state
-    //     const maxLength = isTamilNadu ? 5 : 3; // Maximum length based on state
+
       
     //     if (teamsMembersStatus.length >= minLength && teamsMembersStatus.length <= maxLength) {
     //       localStorage.setItem("ideaSubStatus", teamsMembersStatus[0].idea_submission);
@@ -219,12 +215,9 @@ const teamId= currentUser.data[0]?.team_id;
                                             onClick={handleNext}
                                         />} */}
                                         {
-    // (TnSpecific === "Tamil Nadu" && ideaEnableStatus !== 1) ? (
-    //     <button onClick={handleideaenable} className='btn btn-secondary'>
-    //         {t('idea_page.next')}
-    //     </button>
-    // ) : 
-    resList !== 1 ? (
+
+     resList !== 1 ? (
+
         <button onClick={handlePopup} className='btn btn-secondary'>
             {t('idea_page.next')}
         </button>
