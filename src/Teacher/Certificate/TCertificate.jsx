@@ -2,7 +2,7 @@
 
 import React from 'react'; 
 import TeacherCertificate from "../../assets/img/Certificates/TeacherApp.jpg";
-import TnTeacherCertificate from "../../assets/img/Certificates/TnTeacherFinal.jpg";  
+import TnTeacherCertificate from "../../assets/img/Certificates/TecTnFinalCertificate.jpg";  
 
 import { getCurrentUser } from "../../helpers/Utils";
 
@@ -67,8 +67,8 @@ class TCertificate extends React.Component {
                                         className="text-capitalize"
                                         style={{
                                             position: 'absolute',
-                                            top: '26rem',
-                                            left: '35rem',
+                                            top: '28rem',
+                                            left: '14rem',
                                             fontSize: '1.2rem',
                                             fontFamily: 'Times New Roman'
                                         }}
