@@ -262,7 +262,7 @@ const Certificate = ({
                   <span style={{ color: "red", fontWeight: "bold" }}>
                     {t("teacher_certificate.note")}
                   </span>
-                  : {t("teacher_certificate.addon")}
+                  :{t("teacher_certificate.addon")}<span style={{color:"red"}}>{t("teacher_certificate.addonred")}</span>
                   {/* {t("teacher_certificate.addon_certificate_not_ready")} */}
                 </p>
               )
