@@ -64,7 +64,9 @@ const Certificate = ({
 
     const orientation = "l";
 
-    const doc = new jsPDF(orientation, "px", size);
+    // const doc = new jsPDF(orientation, "px", size);
+    const doc = new jsPDF("landscape", "mm", "a4");
+
     const certName = `${currentUser?.data[0].full_name}_${
       // type ? "idea_certificate" : "course_certificate"
       type === "participate"
@@ -75,7 +77,7 @@ const Certificate = ({
     }`;
 
     const imgWidth = 298;
-    const imgHeight = 220;
+    const imgHeight = 210;
     let selectedImage;
 
     if (currentUser?.data[0]?.state === "Tamil Nadu") {
@@ -94,20 +96,17 @@ const Certificate = ({
           : courseCompletionCertificate;
     }
     doc.addImage(selectedImage, "JPEG", 0, 0, imgWidth, imgHeight);
-    // doc.addImage(
-    //   type === "addon"
-    //     ? participateCertificate
-    //     : type === "participate"
-    //     ? ideaSubmissionCertificate
-    //     : courseCompletionCertificate,
-    //   "JPEG",
-    //   0,
-    //   0,
-    //   imgWidth,
-    //   imgHeight
-    // );
+   
+    doc.deletePage(2);
+  
     doc.html(content, {
       callback: function (doc) {
+        const totalPages = doc.getNumberOfPages();
+        if (totalPages > 1) {
+          for (let i = totalPages; i > 1; i--) {
+            doc.deletePage(i);
+          }
+        }
         doc.save(certName);
       },
       x: 0,
@@ -147,10 +146,11 @@ const Certificate = ({
     return check ? " on " + check : "";
   };
   const isMobile = window.innerWidth <= 768;
+  // height: isMobile ? "1000px" : "600px",
   return (
     <Card
       className="course-sec-basic p-5 m-4 w-100"
-      style={{ backgroundColor: `${isEnabled ? "" : "lightgrey"}`,  height: isMobile ? "1000px" : "600px", }}
+      style={{ backgroundColor: `${isEnabled ? "" : "lightgrey"}`,  height: isEnabled ? (isMobile ? "1300px" : "800px") : isMobile ? "1000px" : "600px",  }}
     >
       {currentUser?.data[0]?.state !== "Tamil Nadu" ? (
         <CardBody>
@@ -347,7 +347,7 @@ const Certificate = ({
                     : pdfRef
                 }
                 className="position-relative"
-                style={{ width: "100%", maxWidth: "297px" }}
+                style={{ width: "100%", maxWidth: "297px"}}
               >
                 <span
                   className="text-capitalize"
@@ -403,10 +403,10 @@ const Certificate = ({
                   className="text-capitalize"
                   style={{
                     position: "absolute",
-                    top: `${type === "addon" ? "11.5rem" : "11.5rem"}`,
+                    top: `${type === "addon" ? "11.8rem" : "11.7rem"}`,
                     color: "black",
                     left: `${type === "addon" ? "14.5rem" : "14.5rem"}`,
-                    fontSize: "0.4rem",
+                    fontSize: "3px",
                     fontFamily: "Times New Roman",
                   }}
                  
@@ -429,6 +429,7 @@ const Certificate = ({
                   style={{
                     width: "297px",
                     height: "210px",
+                 
                   }}
                 />
               </div>
