@@ -65,7 +65,9 @@
 ///////////////////////////////////
 /* eslint-disable no-unused-vars */ /* eslint-disable indent */ 
 import React from 'react'; 
-import TeacherCertificate from "../../assets/img/Certificates/TeacherApp.jpg";  
+import TeacherCertificate from "../../assets/img/Certificates/TeacherApp.jpg";
+import TnTeacherCertificate from "../../assets/img/Certificates/TnTeacherFinal.jpg";  
+
 import { getCurrentUser } from "../../helpers/Utils";
 
 class TCertificate extends React.Component { 
@@ -107,6 +109,7 @@ class TCertificate extends React.Component {
                         > 
                             {this.props.organization_name} 
                         </span> 
+                       
                         <img 
                             src={TeacherCertificate} 
                             alt="certificate" 
@@ -120,7 +123,59 @@ class TCertificate extends React.Component {
                 </div> 
             </div>
     ) : (
-        <h2 className='text-center' style={{color:"blue"}}>Certificates Are Coming Soon ...</h2>
+        <>
+        {/* <h2 className='text-center' style={{ color: "blue" }}>Tamil Nadu </h2> */}
+        <div className="container-fluid bg-white">
+                            <div className="row">
+                                <div style={{ position: 'relative' }}>
+                                    <span
+                                        className="text-capitalize"
+                                        style={{
+                                            position: 'absolute',
+                                            top: '26rem',
+                                            left: '35rem',
+                                            fontSize: '1.2rem',
+                                            fontFamily: 'Times New Roman'
+                                        }}
+                                    >
+                                        {this.props.title}{' '}
+                                        {this.props.full_name}
+                                    </span>
+                                    <span
+                                        className="text-capitalize"
+                                        style={{
+                                            position: 'absolute',
+                                            top: '30rem',
+                                            left: '17rem',
+                                            fontSize: '1.2rem',
+                                            fontFamily: 'Times New Roman'
+                                        }}
+                                    >
+                                        {this.props.organization_name}
+                                    </span>
+                                    <span 
+                            className="text-capitalize" 
+                            style={{ 
+                                position: 'absolute', 
+                                top: '57rem', 
+                                left: '41rem', 
+                                fontSize: '1.2rem', 
+                                fontFamily: 'Times New Roman' 
+                            }} 
+                        > 
+                            {new Date().toLocaleDateString('en-GB')} 
+                        </span>
+                                    <img
+                                        src={TnTeacherCertificate}
+                                        alt="certificate"
+                                        style={{
+                                            width: '1000px',
+                                            height: '1110px',
+                                            // border: '1px solid #ccc' 
+                                        }} />
+                                </div>
+                            </div>
+                        </div></>
     )}
             </div>  
         ); 
