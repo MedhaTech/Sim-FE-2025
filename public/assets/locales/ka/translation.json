@@ -541,7 +541,12 @@
         "probsoljourneyop3" : "We got feedback on our idea and modified it" ,
         "probsoljourneyop4" : "We got feedback on our prototype and modified it" ,
         "feedbackq" : " Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.",
-        "uploadq" : "Upload images/documents & video links of your prototype.  (total size limit : 10mb)",
+         "uploadq" : "Upload the following information:",
+        "image":"1.Descriptive Document/Image of your prototype",
+        "link":"2.Clear Video Explaining your Solution",
+"note":"Note: (Both Video & Document/Image have to be uploaded, Max Size of two files together is 10MB)",
+"filetext":"File Upload is mandatory *",
+        
         "workbookq" : "Did your team complete and submit the workbook to your school Guide teacher?",
         "workbookyes" : "YES" ,
         "workbookno" : "NO",
