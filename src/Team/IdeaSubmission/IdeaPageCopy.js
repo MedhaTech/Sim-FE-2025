@@ -709,7 +709,7 @@ if(formData?.verified_status === "ACCEPTED"){
 );
 }
     },[formData]);
-  // console.log(stakeholders,"staake",community,"community");
+  console.log(console.log(prototypeImage.length,"file"));
   return (
     <>
       {/* <div className='content'> */}
@@ -1453,23 +1453,18 @@ if(formData?.verified_status === "ACCEPTED"){
                                 {t("ideaform_questions.uploadq")}
                               </b>
                             </div>
+                            <div>
+                            <b
+                                style={{
+                                  fontSize: "1rem",
+                                }}
+                              >
+                                {t("ideaform_questions.image")}
+                              </b>
                             <div className=" answers row flex-column p-4 pb-0">
                               {/* <FormGroup check className="answers"> */}
-                              <div className="wrapper my-3 common-flex">
-                                {/* {!isDisabled && (
-                                                                                                    <Button
-                                                                                                        type="button"
-                                                                                                        btnClass={`${
-                                                                                                            isDisabled
-                                                                                                                ? 'secondary'
-                                                                                                                : 'primary'
-                                                                                                        } me-3 pointer `}
-                                                                                                        size="small"
-                                                                                                        label={t(
-                                                                                                            'student.upload_file'
-                                                                                                        )}
-                                                                                                    />
-                                                                                                )} */}
+                              <div className="wrapper my-1 common-flex">
+                               
                                 {!isDisabled && (
                                   <Button
                                     label={t("home.ideaFi")}
@@ -1501,6 +1496,11 @@ if(formData?.verified_status === "ACCEPTED"){
                               </div>
                               {/* </FormGroup> */}
                               <div className="mx-4">
+                              {isDisabled && prototypeImage.length < 1 ? (
+      <p className="text-danger">
+         {t("ideaform_questions.filetext")}
+      </p>
+    ):null}
                                 {immediateLink &&
                                   immediateLink.length > 0 &&
                                   immediateLink.map((item, i) => (
@@ -1534,7 +1534,16 @@ if(formData?.verified_status === "ACCEPTED"){
                                   ))}
                               </div>
                             </div>
-                            <div className=" answers row flex-column p-4 pt-0">
+                            </div>
+                            <div className="m-3">
+                            <b
+                                style={{
+                                  fontSize: "1rem",
+                                }}
+                              >
+                                {t("ideaform_questions.link")}
+                              </b>
+                            <div className="answers row flex-column p-3 pt-2">
                               <textarea
                                 className="form-control"
                                 disabled={isDisabled}
@@ -1551,6 +1560,14 @@ if(formData?.verified_status === "ACCEPTED"){
                                   (prototypeLink ? prototypeLink.length : 0)}
                               </div>
                             </div>
+                            </div>
+                            <b
+                                style={{
+                                  fontSize: "1rem",
+                                }}
+                              >
+                                {t("ideaform_questions.note")}
+                              </b>
                           </div>
                           <div className="card comment-card">
                             <div className="question quiz mb-0">
@@ -1563,31 +1580,7 @@ if(formData?.verified_status === "ACCEPTED"){
                               </b>
                             </div>
                             <div className=" answers row flex-column">
-                              {/* <div>
-                                {submit.map((item, i) => (
-                                  <>
-                                    <label
-                                      key={i}
-                                      style={{
-                                        margin: "1rem",
-                                        fontSize: "1rem",
-                                      }}
-                                    >
-                                      <input
-                                        type="radio"
-                                        value={item}
-                                        disabled={isDisabled}
-                                        checked={item === workbook}
-                                        onChange={(e) =>
-                                          setWorkbook(e.target.value)
-                                        }
-                                      />{" "}
-                                      {item}
-                                    </label>
-                                    <br />
-                                  </>
-                                ))}
-                              </div> */}
+                            
                               <div>
                                 {submit.map((item,i) => (
                                   <div key={i}>
