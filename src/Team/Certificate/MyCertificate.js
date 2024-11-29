@@ -145,12 +145,43 @@ const Certificate = ({
           moment(certDate?.course_completed_date).format("DD-MM-YYYY");
     return check ? " on " + check : "";
   };
-  const isMobile = window.innerWidth <= 768;
-  // height: isMobile ? "1000px" : "600px",
+  // const isMobile = window.innerWidth <= 768;
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Update the state when window is resized
+    };
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup the event listener when the component is unmounted
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  // const getTopPosition = () => {
+  //   if (type === "participate") {
+  //     return isMobile ? "4rem" : "5.5rem";  // Example for mobile vs desktop
+  //   } else if (type === "addon") {
+  //     return isMobile ? "4.5rem" : "6.5rem";
+  //   }
+  //   return isMobile ? "5rem" : "6.5rem";
+  // };
+
+  // const getLeftPosition = () => {
+  //   if (type === "participate") {
+  //     return isMobile ? "8rem" : "6rem";  // Adjust for mobile and desktop
+  //   } else if (type === "addon") {
+  //     return isMobile ? "4rem" : "6rem";
+  //   }
+  //   return isMobile ? "4rem" : "6rem";
+  // };
+ 
   return (
     <Card
       className="course-sec-basic p-5 m-4 w-100"
-      style={{ backgroundColor: `${isEnabled ? "" : "lightgrey"}`,  height: isEnabled ? (isMobile ? "1300px" : "800px") : isMobile ? "1000px" : "600px",  }}
+      style={{ backgroundColor: `${isEnabled ? "" : "lightgrey"}`, height: isEnabled
+      ? (isMobile ? "1300px" : "900px")  //(1300px for mobile, 900px for desktop)
+      : (isMobile ? "400px" : "600px")   // (400px for mobile, 600px for desktop)
+     }}
     >
       {currentUser?.data[0]?.state !== "Tamil Nadu" ? (
         <CardBody>
@@ -181,6 +212,7 @@ const Certificate = ({
                   top: `${type ? "6.4rem" : "6.4rem"}`,
                   color: `${type ? "black" : "black"}`,
                   left: `${type ? "4rem" : "4rem"}`,
+                  
                   fontSize: "0.4rem",
                   fontFamily: "Times New Roman",
                 }}
@@ -394,6 +426,9 @@ const Certificate = ({
                         : "6rem"
                     }`,
                     fontSize: "0.4rem",
+                    // top: getTopPosition(),
+                    // left: getLeftPosition(),
+                    // fontSize: isMobile ? "0.1rem" : "0.4rem",
                     fontFamily: "Times New Roman",
                   }}
                 >
