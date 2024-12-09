@@ -749,7 +749,14 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',color:"black"
                                             }}
                                         >
-                                           {problemSolvingArray}
+                                             {teamResponse.problem_solving &&
+            JSON.parse(teamResponse.problem_solving).map((item, index) => (
+                <span key={index}>
+                    {item}
+                    {index !== JSON.parse(teamResponse.problem_solving).length - 1 && ", "}
+                </span>
+            ))}
+                                           {/* {problemSolvingArray} */}
                                         </p>
                                     </div>
                                 </div>
@@ -792,7 +799,7 @@ const ViewDetail = (props) => {
                                                     fontSize: '1rem',marginBottom:"1rem"
                                                 }}
                                                 >
-                                                    13. Upload image of your prototype. (total size limit : 10mb)
+                                                    13. Descriptive Document/Image of your prototype
                                                 </b>
                                             </div>
                                             <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"120px" }}>
@@ -842,7 +849,7 @@ const ViewDetail = (props) => {
                                             fontSize: '1rem',marginBottom:"1rem"
                                         }}
                                         >
-                                            14. Upload documents & video links of your prototype.
+                                            14. Clear Video Explaining your Solution
                                         </b>
                                     </div>
                                     <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"120px" }}>
