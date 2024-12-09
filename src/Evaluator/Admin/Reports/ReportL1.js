@@ -116,7 +116,7 @@ const ReportL1 = () => {
       key: "full_name",
     },
     {
-      label: "No of Ideas Submitted",
+      label: "No of Ideas Evaluated",
       key: "totalEvaluated",
     },
 
@@ -842,7 +842,7 @@ const ReportL1 = () => {
                                     fontWeight: "bold",
                                   }}
                                 >
-                                  No of Ideas Submitted{" "}
+                                  No of Ideas Evaluated{" "}
                                 </th>
                                 <th
                                   style={{

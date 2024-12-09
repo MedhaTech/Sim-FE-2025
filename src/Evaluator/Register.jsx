@@ -77,7 +77,7 @@ const navigate=useNavigate();
         onSubmit: async (values) => {
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
 
-            values.password = values.username.trim();
+            values.password = values.mobile.trim();
 
             const key = CryptoJS.enc.Hex.parse(
                 '253D3FB468A0E24677C28A624BE0F939'
@@ -116,7 +116,7 @@ const navigate=useNavigate();
                 // .post(actualUrl, JSON.stringify(values, null, 2), axiosConfig)
                 .then((evaluatorRegRes) => {
                     if (evaluatorRegRes?.data?.status == 201) {
-                        console.log(evaluatorRegRes,"11");
+                        // console.log(evaluatorRegRes,"11");
                         const evaluatorId = evaluatorRegRes?.data?.data[0].evaluator_id;
                         localStorage.setItem('eavlId', JSON.stringify(evaluatorId));
                         dispatch(getAdminEvalutorsList());
@@ -208,7 +208,7 @@ const navigate=useNavigate();
                                 md={12}
                             >
                                 <Label className="mb-2" htmlFor="username">
-                                    Email Address & Pwd
+                                    Email Address 
                                 </Label>
 
                                 <input
@@ -237,7 +237,7 @@ const navigate=useNavigate();
                                 md={12}
                             >
                                 <Label className="mb-2" htmlFor="mobile">
-                                    Mobile Number
+                                    Mobile Number & Pwd
                                 </Label>
 
                                 <input

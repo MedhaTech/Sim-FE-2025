@@ -657,14 +657,14 @@ const EadmiHeader = () => {
                 >
                   <User className="me-2" /> My Profile
                 </Link>
-                <hr className="m-0" />
+                {/* <hr className="m-0" /> */}
 
-                <Link
+                {/* <Link
                   className="dropdown-item"
                   to={"/evaluator/change-password"}
                 >
                   <FontAwesomeIcon icon={faKey} /> <h6>Change Password</h6> 
-                </Link>
+                </Link> */}
                 {/* <Link className="dropdown-item" to={route.generalsettings}>
                   <Settings className="me-2" />
                   Settings

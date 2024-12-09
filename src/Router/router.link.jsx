@@ -145,10 +145,7 @@ import ReportsCard from "../Evaluator/Admin/Reports/index";
 import ReportL1 from "../Evaluator/Admin/Reports/ReportL1";
 import ReportL2 from "../Evaluator/Admin/Reports/ReportL2";
 import ReportL3 from "../Evaluator/Admin/Reports/ReportL3";
-
-
-
-
+import EditEvaluator from "../Evaluator/Admin/Evaluator/EadminEditProfile";
 import State from "../Evaluator/Admin/Evaluator/State";
 
 
@@ -966,6 +963,14 @@ export const eadminRoutes = [
     path: routes.evalL3,
     name: "evalL3",
     element: <ReportL3/>,
+    protected: true,
+    route: Route,
+  }
+  , {
+    id: 14,
+    path: routes.editeval,
+    name: "editeval",
+    element: <EditEvaluator/>,
     protected: true,
     route: Route,
   },

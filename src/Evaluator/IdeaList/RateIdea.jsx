@@ -194,7 +194,7 @@ const RateIdea = (props) => {
                 <div className="row">
                     <div className="col-md-7 mb-md-5 mb-4 p-0">
                         <h4 className=' my-2'>
-                            Please add comments/reason for your scoring
+                            Please add comments/reason for your scoring <span required style={{color:"red"}}>*</span>
                         </h4>
                         <div className="form-floating">
                             <textarea

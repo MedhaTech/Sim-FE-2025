@@ -15,7 +15,7 @@ export const all_routes = {
   popup:"/popup",
   createemail:"/create-email",
   resendemail:"/resend-email",
-
+editeval:"/edit-evaluator",
   mentordetails:"/mentor-details",
   studentreport:"Student-Report",
   mentorEdit:"/admin-mentor-edit",

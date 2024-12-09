@@ -3,21 +3,24 @@
 /* eslint-disable indent */
 import React, { useEffect } from 'react';
 import { Row, Col, Form, Label } from 'reactstrap';
-import { withRouter } from 'react-router-dom';
+// import { withRouter } from 'react-router-dom';
 // import '../../Admin/Userli';
-import Layout from '../Pages/Layout';
+// import Layout from '../Pages/Layout';
 import { Button } from '../../../stories/Button';
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
+import { Link } from "react-router-dom";
+import male from "../../../assets/img/admin.jpg";
+import { useLocation } from "react-router-dom";
 
-import { InputBox } from '../../../stories/InputBox/InputBox';
+// import { InputBox } from '../../../stories/InputBox/InputBox';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import {
     getCurrentUser,
     openNotificationWithIcon
 } from '../../../helpers/Utils';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getAdminEvalutorsList } from '../../../redux/actions';
 // import { getAdmin } from '../store/admin/actions';
 import { useDispatch } from 'react-redux';
@@ -28,20 +31,15 @@ import { useSelector } from 'react-redux';
 import { encryptGlobal } from '../../../constants/encryptDecrypt';
 const EditProfile = (props) => {
     // here we can edit the users details //
-    const history = useHistory();
+    const location = useLocation();
+    const navigate = useNavigate();
     const currentUser = getCurrentUser('current_user');
     const dispatch = useDispatch();
-    const mentorData =
-        // where  mentorData = mentor details //
-        (history && history.location && history.location.data) || {};
+    const mentorData = location.state || {};
+//   console.log(mentorData,"mentorData");
+  
 
-    // const phoneRegExp = /^[0-9\s]+$/;
-    // const fullDistrictsNames = useSelector(
-    //     (state) => state?.studentRegistration?.dists
-    // );
-    // useEffect(() => {
-    //     dispatch(getDistrictData());
-    // }, []);
+
     const inputPassword = {
         placeholder: 'Enter Password',
         showEyeIcon: true
@@ -62,19 +60,8 @@ const EditProfile = (props) => {
                 .required('required')
                 .trim()
                 .email('Please Enter Valid Email Id'),
-            password: Yup.string()
-                .trim()
-                // .required('Please enter Password')
-                .matches(
-                    passwordRegex,
-                    'Password must contains minimum 8 characters, including one letter, one number, and one special character.'
-                )
-            // .matches(
-            //     /^\d+$/,
-            //     'Mobile number is not valid (Enter only digits)'
-            // )
-            // .max(10, 'Please enter only 10 digit valid number')
-            // .min(10, 'Number is less than 10 digits')
+          
+         
         });
         if (data?.mentor_id)
             if (data?.evaluator_id)
@@ -120,10 +107,10 @@ const EditProfile = (props) => {
             // values.password = encrypted;
             const full_name = values.name;
             const email = values.email;
-            const password = values.password;
+            // const password = values.password;
 
             // const mobile = values.phone;
-            const district = values.district;
+            // const district = values.district;
             const evlId = encryptGlobal(
                 JSON.stringify(mentorData.evaluator_id)
             );
@@ -175,7 +162,7 @@ const EditProfile = (props) => {
                             'Updated Successfully'
                         );
                         setTimeout(() => {
-                            props.history.push('/eadmin/evaluator');
+                            navigate('/eadmin/evaluator');
                         }, 200);
                     }
                 })
@@ -185,178 +172,129 @@ const EditProfile = (props) => {
         }
     });
 
-    const handleDiscard = () => {
-        // where we can discard  the changes //
-        props.history.push('/eadmin/evaluator');
-        localStorage.setItem(
-            'institution_code',
-            JSON.stringify(mentorData.institution_code)
-        );
-    };
+ 
+    const formLoginStyle = {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+      };
+      const buttonStyle = {
+        marginRight: '10px'
+      };
+    
+      const cancelLinkStyle = {
+        marginLeft: 'auto'
+      };
     return (
-        <Layout title="Evaluator">
-            <div className="EditPersonalDetails new-member-page">
-                <Row>
-                    <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        {/* <BreadcrumbTwo {...headingDetails} /> */}
-                        <h3 className="mb-5">User Edit Profile</h3>
-
-                        <div>
-                            <Form onSubmit={formik.handleSubmit} isSubmitting>
-                                <div className="create-ticket register-block">
-                                    <Row className="justify-content-center">
-                                        <Col md={12}>
-                                            <Label
-                                                className="name-req"
-                                                htmlFor="name"
-                                            >
-                                                Name
-                                            </Label>
-
-                                            <InputBox
-                                                className={'defaultInput'}
-                                                id="name"
-                                                name="name"
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
-                                                value={formik.values.name}
-                                            />
-
-                                            {formik.touched.name &&
-                                            formik.errors.name ? (
-                                                <small className="error-cls">
-                                                    {formik.errors.name}
-                                                </small>
-                                            ) : null}
-                                        </Col>
-                                        {/* <div className="w-100" /> */}
-                                        <Col md={12}>
-                                            <Label
-                                                className="name-req "
-                                                htmlFor="email"
-                                            >
-                                                Email Id
-                                            </Label>
-                                            <InputBox
-                                                className={'defaultInput'}
-                                                id="email"
-                                                name="email"
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
-                                                value={formik.values.email}
-                                            />
-                                            {formik.touched.email &&
-                                            formik.errors.email ? (
-                                                <small className="error-cls">
-                                                    {formik.errors.email}
-                                                </small>
-                                            ) : null}
-                                        </Col>
-                                        <Col md={12}>
-                                            <Label
-                                                className="name-req "
-                                                htmlFor="password"
-                                                // style={{
-                                                //     fontSize: '1.5rem'
-                                                // }}
-                                            >
-                                                Password
-                                            </Label>
-                                            <InputBox
-                                                {...inputPassword}
-                                                id="reg-password"
-                                                type="password"
-                                                name="password"
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
-                                                value={formik.values.password}
-                                                // maxLength={8}
-                                                minLength={8}
-                                            />
-
-                                            {formik.touched.password &&
-                                            formik.errors.password ? (
-                                                <small className="error-cls">
-                                                    {formik.errors.password}
-                                                </small>
-                                            ) : null}
-                                        </Col>
-                                        <div className="w-100" />
-                                        {!mentorData?.admin_id && (
-                                            <>
-                                                {/* <Col md={6}>
-                                                    <Label
-                                                        className="name-req mt-5"
-                                                        htmlFor="phone"
-                                                    >
-                                                        Phone
-                                                    </Label>
-                                                    <InputBox
-                                                        className={
-                                                            'defaultInput'
-                                                        }
-                                                        id="phone"
-                                                        name="phone"
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        value={
-                                                            formik.values.phone
-                                                        }
-                                                    />
-
-                                                    {formik.touched.phone &&
-                                                    formik.errors.phone ? (
-                                                        <small className="error-cls">
-                                                            {
-                                                                formik.errors
-                                                                    .phone
-                                                            }
-                                                        </small>
-                                                    ) : null}
-                                                </Col> */}
-                                                <div className="w-100" />
-                                            </>
-                                        )}
-                                    </Row>
-                                </div>
-
-                                <hr className="mt-4 mb-4"></hr>
-                                <Row>
-                                    <Col className="col-xs-12 col-sm-6">
-                                        <Button
-                                            label="Discard"
-                                            btnClass="secondary"
-                                            size="small"
-                                            onClick={handleDiscard}
-                                        />
-                                    </Col>
-                                    <Col className="submit-btn col-xs-12 col-sm-6">
-                                        <Button
-                                            label="Submit details"
-                                            type="submit"
-                                            btnClass={
-                                                !(
-                                                    formik.dirty &&
-                                                    formik.isValid
-                                                )
-                                                    ? 'default'
-                                                    : 'primary'
-                                            }
-                                            size="small"
-                                        />
-                                    </Col>
-                                </Row>
-                            </Form>
-                        </div>
-                    </Col>
-                </Row>
+        <div className="page-wrapper">
+        <div className="content">
+          <div className="page-header">
+            <div className="page-title">
+              <h4>Evaluator Edit Profile</h4>
+              <h6>User Profile</h6>
             </div>
-        </Layout>
+          </div>
+          {/* /product list */}
+          <form onSubmit={formik.handleSubmit}>
+            <div className="card">
+              <div className="card-body">
+                <div className="profile-set">
+                  <div className="profile-head"></div>
+                  <div className="profile-top">
+                    <div className="profile-content">
+                      <div className="profile-contentimg">
+                     
+                       <img src={male} alt="Female" id="blah" />
+                      </div>
+                      <div className="profile-contentname">
+                        <h2>
+                          {
+                            mentorData?.full_name}
+                        </h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                 
+                  <div className="form-login col-lg-6 col-sm-12">
+                    <div className="input-blocks">
+                      <label className="form-label">Evaluator Full Name</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="name"
+                        name="name"
+                        // onChange={formik.handleChange}
+                        onChange={(e) => {
+                          const inputValue = e.target.value;
+                          const lettersOnly = inputValue.replace(
+                            /[^a-zA-Z\s]/g,
+                            ""
+                          );
+                          formik.setFieldValue("name", lettersOnly);
+                        }}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.name}
+                      />
+                      {formik.touched.name && formik.errors.name ? (
+                        <small className="error-cls">
+                          {formik.errors.name}
+                        </small>
+                      ) : null}
+                    </div>
+                  </div>
+                  {/* </div> */}
+
+                {/* <div className="row"> */}
+                  
+                  <div className="form-login col-lg-6 col-sm-12">
+                    <div className="input-blocks">
+                      <label>Email Address</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="email"
+                        name="email"
+                        onChange={formik.handleChange}
+
+                        onBlur={formik.handleBlur}
+                        value={formik.values.email}
+                      />
+  
+                      {formik.touched.whatapp_mobile && formik.errors.whatapp_mobile ? (
+                        <small className="error-cls">
+                          {formik.errors.whatapp_mobile}
+                        </small>
+                      ) : null}
+                    </div>
+                  </div>
+                  {/* New fields  */}
+                  <div className="form-login" style={formLoginStyle}>
+                    <button
+                      style={buttonStyle}
+                      
+                      type="submit"
+                      className={`btn btn-warning  ${
+                        !(formik.dirty && formik.isValid) ? "default" : "primary"
+                      }`}
+                      disabled={!(formik.isValid)}
+                    >
+                      Submit
+                    </button>
+                    <Link className="btn btn-cancel" to={"/eadmin/evaluator"}  style={cancelLinkStyle}>
+                      Cancel
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          {/* /product list */}
+        </div>
+      </div>
+
     );
 };
 
-export default withRouter(EditProfile);
+export default EditProfile;
