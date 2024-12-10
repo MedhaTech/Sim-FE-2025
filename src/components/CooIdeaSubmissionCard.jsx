@@ -423,7 +423,7 @@ const CooIdeaSubmissionCard = ({
           <Card className="p-1">
             <CardBody>
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
-                12. Upload image of your prototype. (total size limit : 10mb)
+                12. Descriptive Document/Image of your prototype
               </label>
               {/* <CardText>
                                 {submittedResponse.prototype_image}
@@ -459,7 +459,7 @@ const CooIdeaSubmissionCard = ({
           <Card className="p-1">
             <CardBody>
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
-                13. Upload documents & video links of your prototype.
+                13. Clear Video Explaining your Solution
               </label>
               <CardText><a href={submittedResponse.prototype_link} target="_blank" rel="noreferrer">{submittedResponse.prototype_link}</a></CardText>
             </CardBody>
