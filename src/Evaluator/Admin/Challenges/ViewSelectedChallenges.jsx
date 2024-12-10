@@ -96,7 +96,7 @@ const ViewSelectedIdea = () => {
             .get(`${URL.getidealist}Data=${newParam}`, axiosConfig)
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log(response,"dist");
+                    // console.log(response,"dist");
                     const updatedWithKey =
                         response.data &&
                         response.data.data[0] &&
