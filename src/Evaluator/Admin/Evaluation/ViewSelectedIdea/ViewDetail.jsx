@@ -377,7 +377,7 @@ const ViewDetail = (props) => {
                                                             }
                                                         </span>
                                                         <br />
-                                                        <span>Place :</span>
+                                                        {/* <span>Place :</span> */}
                                                         {/* <span >
                                                             &nbsp;
                                                             {

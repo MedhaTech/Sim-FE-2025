@@ -147,6 +147,7 @@ import ReportL2 from "../Evaluator/Admin/Reports/ReportL2";
 import ReportL3 from "../Evaluator/Admin/Reports/ReportL3";
 import EditEvaluator from "../Evaluator/Admin/Evaluator/EadminEditProfile";
 import State from "../Evaluator/Admin/Evaluator/State";
+import SearchCID from "../Evaluator/Admin/Dashboard/SearchCID";
 
 
 
@@ -971,6 +972,14 @@ export const eadminRoutes = [
     path: routes.editeval,
     name: "editeval",
     element: <EditEvaluator/>,
+    protected: true,
+    route: Route,
+  }
+  , {
+    id: 15,
+    path: routes.searchCid,
+    name: "searchCid",
+    element: <SearchCID/>,
     protected: true,
     route: Route,
   },
