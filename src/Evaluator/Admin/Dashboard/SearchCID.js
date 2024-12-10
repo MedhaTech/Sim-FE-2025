@@ -941,53 +941,115 @@ const SearchCID = () => {
                 </div>
               </div>
               <div className="col-lg-4 order-lg-1 order-0 p-0 h-100 mt-3 status_info_col">
-                {multiOrgData?.verified_status !== ""  && multiOrgData?.verified_status !== null && (
-                  <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
-                    {multiOrgData?.evaluation_status ? (
-                      <p
-                        className={`${
-                          multiOrgData?.evaluation_status == "SELECTEDROUND1"
-                            ? "text-success"
-                            : "text-danger"
-                        } fs-3 fw-bold text-center`}
-                      >
-                        <span
-                          className="text-info"
-                          style={{ fontSize: "1.5rem" }}
+                {multiOrgData?.verified_status !== "" &&
+                  multiOrgData?.verified_status !== null && (
+                    <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
+                      {multiOrgData?.evaluation_status ? (
+                        <p
+                          className={`${
+                            multiOrgData?.evaluation_status == "SELECTEDROUND1"
+                              ? "text-success"
+                              : "text-danger"
+                          } fs-3 fw-bold text-center`}
                         >
-                          L1:{" "}
-                        </span>
-                        {multiOrgData?.evaluation_status == "SELECTEDROUND1"
-                          ? "Accepted"
-                          : "Rejected"}
-                      </p>
-                    ) : (
-                      ""
-                    )}
-
-                    {multiOrgData?.evaluated_name ? (
-                      <p className="text-center">
-                        <span className="text-bold">Evaluated By: </span>{" "}
-                        {multiOrgData?.evaluated_name || ""}
-                      </p>
-                    ) : (
-                      ""
-                    )}
-
-                    {multiOrgData?.evaluation_status == "REJECTEDROUND1" && (
-                      <>
-                        <p className="text-center">
-                          <span className="text-bold">Rejected Reason 1: </span>{" "}
-                          {multiOrgData?.rejected_reason || ""}
+                          <span
+                            className="text-info"
+                            style={{ fontSize: "1.5rem" }}
+                          >
+                            L1:{" "}
+                          </span>
+                          {multiOrgData?.evaluation_status == "SELECTEDROUND1"
+                            ? "Accepted"
+                            : "Rejected"}
                         </p>
+                      ) : (
+                        ""
+                      )}
+
+                      {multiOrgData?.evaluated_name ? (
                         <p className="text-center">
-                          <span className="text-bold">Rejected Reason 2: </span>{" "}
-                          {multiOrgData?.rejected_reasonSecond || ""}
+                          <span className="text-bold">Evaluated By: </span>{" "}
+                          {multiOrgData?.evaluated_name || ""}
                         </p>
-                      </>
-                    )}
-                    {/* Added */}
-                    {multiOrgData?.verified_status !== "" &&  multiOrgData?.verified_status !== null && (
+                      ) : (
+                        ""
+                      )}
+
+                      {multiOrgData?.evaluation_status == "REJECTEDROUND1" && (
+                        <>
+                          <p className="text-center">
+                            <span className="text-bold">
+                              Rejected Reason 1:{" "}
+                            </span>{" "}
+                            {multiOrgData?.rejected_reason || ""}
+                          </p>
+                          <p className="text-center">
+                            <span className="text-bold">
+                              Rejected Reason 2:{" "}
+                            </span>{" "}
+                            {multiOrgData?.rejected_reasonSecond || ""}
+                          </p>
+                        </>
+                      )}
+                      {/* Added */}
+                      {multiOrgData?.verified_status !== "" &&
+                        multiOrgData?.verified_status !== null && (
+                          <>
+                            {/* Check if evaluation_status is null */}
+                            {multiOrgData?.evaluation_status == null ? (
+                              <>
+                                <button
+                                  className="btn px-5 py-2 btn-danger"
+                                  onClick={() => {
+                                    setIsreject(true);
+                                    setReason("");
+                                    setReasonSec("");
+                                  }}
+                                >
+                                  <span>Reject</span>
+                                </button>
+                                <button
+                                  className="btn px-5 py-2 btn-success mt-2"
+                                  onClick={() => {
+                                    handleAlert("accept");
+                                    setReason("");
+                                    setReasonSec("");
+                                  }}
+                                >
+                                  <span>Accept</span>
+                                </button>
+                              </>
+                            ) : multiOrgData?.evaluation_status ===
+                                "SELECTEDROUND1" &&
+                              multiOrgData?.evaluator_ratings?.length === 0 ? (
+                              <button
+                                className="btn px-2 py-2 btn-danger"
+                                onClick={() => {
+                                  setIsreject(true);
+                                  setReason("");
+                                  setReasonSec("");
+                                }}
+                              >
+                                <span>Reject</span>
+                              </button>
+                            ) : multiOrgData?.evaluation_status ===
+                                "REJECTEDROUND1" &&
+                              multiOrgData?.evaluator_ratings?.length === 0 ? (
+                              <button
+                                className="btn px-2 py-2 btn-success"
+                                onClick={() => {
+                                  handleAlert("accept");
+                                  setReason("");
+                                  setReasonSec("");
+                                }}
+                              >
+                                <span>Accept</span>
+                              </button>
+                            ) : null}
+                          </>
+                        )}
+
+                      {/* {multiOrgData?.verified_status !== "" &&  multiOrgData?.verified_status !== null && (
                       <>
                         {multiOrgData?.evaluation_status == null ? (
                           <>
@@ -1038,10 +1100,10 @@ const SearchCID = () => {
                           </button>
                         ) : null}
                       </>
-                    )}
-                    {/* Previous code */}
+                    )} */}
+                      {/* Previous code */}
 
-                    {/* {multiOrgData?.status !== "DRAFT" && multiOrgData?.evaluation_status == null && 
+                      {/* {multiOrgData?.status !== "DRAFT" && multiOrgData?.evaluation_status == null && 
                                     (multiOrgData?.evaluation_status ? (
                                         multiOrgData?.evaluation_status ==
                                         'SELECTEDROUND1' ? (
@@ -1107,8 +1169,8 @@ const SearchCID = () => {
                                             )}
                                         </>
                                     ))} */}
-                  </div>
-                )}
+                    </div>
+                  )}
                 {multiOrgData?.evaluator_ratings.length > 0 && (
                   <RatedCard details={multiOrgData} />
                 )}
