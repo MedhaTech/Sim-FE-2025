@@ -15,13 +15,15 @@ export const URL = {
   getAdminRefQizList: process.env.REACT_APP_API_BASE_URL + "/reflectiveQuiz/",
   getStudents: process.env.REACT_APP_API_BASE_URL + "/students",
   getMentors: process.env.REACT_APP_API_BASE_URL + '/mentors',
-  getidealist: process.env.REACT_APP_API_BASE_URL + '/challenge_response?',
+  getidealist: process.env.REACT_APP_API_BASE_URL_FOR_REPORTS
+  + '/challenge_response?',
   getAdminEvaluator: process.env.REACT_APP_API_BASE_URL + '/evaluators',
   getidealistfinal:
-  process.env.REACT_APP_API_BASE_URL +
+  process.env.REACT_APP_API_BASE_URL_FOR_REPORTS 
+ +
   '/challenge_response/evaluationResult',
   getFinalEvaluation:
-        process.env.REACT_APP_API_BASE_URL +
+  process.env.REACT_APP_API_BASE_URL_FOR_REPORTS  +
         '/challenge_response/finalEvaluation',
         getNotificationsList:
         process.env.REACT_APP_API_BASE_URL + '/notifications/tome',

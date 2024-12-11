@@ -92,7 +92,10 @@ const ViewSelectedIdea = () => {
                 theme: sdg !== 'All Themes' ? sdg : ''
             })
         );
+//         const baseURL = process.env.REACT_APP_API_BASE_URL_FOR_REPORTS; 
+// const endpoint = `${baseURL}${URL.getidealist}Data=${newParam}`;
         await axios
+        // .get(endpoint, axiosConfig)
             .get(`${URL.getidealist}Data=${newParam}`, axiosConfig)
             .then(function (response) {
                 if (response.status === 200) {
