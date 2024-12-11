@@ -117,7 +117,7 @@ const ViewDetail = (props) => {
         var config = {
             method: 'put',
             url: `${
-                process.env.REACT_APP_API_BASE_URL +
+                process.env.REACT_APP_API_BASE_URL_FOR_REPORTS  +
                 '/challenge_response/' +
                 challId
             }`,

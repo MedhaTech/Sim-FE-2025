@@ -204,7 +204,7 @@ const TicketsPage = (props) => {
                 width: '14rem'
             },
             {
-                name: 'Mobile No / Password',
+                name: 'Mobile No',
                 selector: (row) => row.mobile,
                 width: '14rem'
             },

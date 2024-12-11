@@ -102,7 +102,7 @@ const ViewSelectedIdea = () => {
         var config = {
             method: 'put',
             url: `${
-                process.env.REACT_APP_API_BASE_URL +
+                process.env.REACT_APP_API_BASE_URL_FOR_REPORTS  +
                 '/challenge_response/updateEntry/' +
                 promPram
             }`,
@@ -257,7 +257,7 @@ const ViewSelectedIdea = () => {
                         {row?.title}
                     </div>
                 ),
-                width: '20rem'
+                width: '15rem'
             },
             // {
             //     name: 'District',
@@ -294,7 +294,7 @@ const ViewSelectedIdea = () => {
                 },
 
                 sortable: true,
-                width: '13rem'
+                width: '10rem'
             },
             {
                 name: 'Usefulness',
@@ -310,7 +310,7 @@ const ViewSelectedIdea = () => {
                 },
 
                 sortable: true,
-                width: '13rem'
+                width: '10rem'
             },
             {
                 name: 'Feasability',
@@ -331,7 +331,7 @@ const ViewSelectedIdea = () => {
                 },
 
                 sortable: true,
-                width: '13rem'
+                width: '10rem'
             },
             {
                 name: 'Scalability',
@@ -352,7 +352,7 @@ const ViewSelectedIdea = () => {
                 },
 
                 sortable: true,
-                width: '13rem'
+                width: '10rem'
             },
             {
                 name: 'Sustainability',
@@ -373,7 +373,7 @@ const ViewSelectedIdea = () => {
                 },
 
                 sortable: true,
-                width: '13rem'
+                width: '11rem'
             },
             {
                 name: 'Overall',
@@ -394,7 +394,7 @@ const ViewSelectedIdea = () => {
                 },
 
                 sortable: true,
-                width: '12rem'
+                width: '9rem'
             },
 
             {
@@ -447,7 +447,7 @@ const ViewSelectedIdea = () => {
                         </div>
                     ];
                 },
-                width: '23rem',
+                width: '15rem',
                 left: true
             }
             //       {params.final_result === '0' ?
@@ -573,7 +573,7 @@ const ViewSelectedIdea = () => {
                                 <div>
                                     <h4 className="ps-2 pb-1">
                                         {title == '0'
-                                            ? 'Final Evaluated'
+                                            ? 'L3 Promoted'
                                             : 'Final Winners'}{' '}
                                         Challenges
                                     </h4>

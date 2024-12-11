@@ -111,7 +111,7 @@ const SearchCID = () => {
     var config = {
       method: "put",
       url: `${
-        process.env.REACT_APP_API_BASE_URL + "/challenge_response/" + challId
+        process.env.REACT_APP_API_BASE_URL_FOR_REPORTS  + "/challenge_response/" + challId
       }`,
       headers: {
         "Content-Type": "application/json",
@@ -127,9 +127,9 @@ const SearchCID = () => {
             ? "Idea processed successfully!"
             : response?.data?.message
         );
-        // navigate(
-        //     '/eadmin/evaluationStatus'
-        //     );
+        navigate(
+            '/eadmin/evaluationStatus'
+            );
       })
       .catch(function (error) {
         openNotificationWithIcon("error", error?.response?.data?.message);
