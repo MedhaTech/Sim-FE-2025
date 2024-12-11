@@ -50,7 +50,7 @@ const navigate=useNavigate();
             .matches(/^[aA-zZ\s]+$/, 'Not allowed')
             .required('Required'),
         mobile: Yup.string()
-            .required('required')
+            .required('Required')
             .trim()
             .matches(phoneRegExp, 'Contact number is not valid')
             .min(10, 'Number is less than 10 digits')
