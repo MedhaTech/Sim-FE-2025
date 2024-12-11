@@ -139,6 +139,11 @@ const EditProfile = (props) => {
         })
         .catch(function (error) {
           console.log(error);
+          if(error?.response?.data?.status === 400){
+            openNotificationWithIcon("error", error.response.data?.message !== "Bad Request" ?  error.response.data?.message :"Email Id is Invalid");
+            }else{
+              openNotificationWithIcon("error", "Email Id is Invalid");
+            }
         });
     },
   });
