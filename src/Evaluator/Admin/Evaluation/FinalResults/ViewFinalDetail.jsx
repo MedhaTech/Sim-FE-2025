@@ -72,8 +72,8 @@ const ViewDetail = (props) => {
                 : 'temp'
         }_IdeaSubmission`
     });
-    const files = teamResponse?.Prototype_file
-        ? teamResponse?.Prototype_file.split(',')
+    const files = teamResponse?.prototype_image
+        ? teamResponse?.prototype_image.split(',')
         : [];
     const downloadFile = (item) => {
         // const link = document.createElement('a');
@@ -103,18 +103,18 @@ const ViewDetail = (props) => {
             });
     };
     const problemSolvingArray = teamResponse?.problem_solving;
-
+    // console.log(teamResponse?.evaluator_ratings);
     return (
         <div>
             {teamResponse ? (
                 <>
                     <div style={{ display: 'none' }}>
-                        <DetailToDownload
+                        {/* <DetailToDownload
                             ref={componentRef}
                             ideaDetails={teamResponse}
                             teamResponse={teamResponse}
                             level={'Draft'}
-                        />
+                        /> */}
                     </div>
                     {/* <div id='pdfId' style={{display:'none'}}>
                         <DetailToDownload ideaDetails={props?.ideaDetails} teamResponse={teamResponse} level={level}/>
@@ -952,17 +952,17 @@ const ViewDetail = (props) => {
                                 )} */}
                             </div>
                             {level !== 'L1' &&
-                                teamResponse?.evaluator_ratings.length >
+                                props?.ideaDetails?.evaluator_ratings.length >
                                     0 && (
                                     <RatedDetailCard
-                                        details={teamResponse}
+                                    details={props?.ideaDetails}
                                     />
                                 )}
                         </div>
                     </div>
                     <div style={{ display: 'flex' }}>
                         <p
-                            style={{ fontSize: '1.5rem', margin: '1rem' }}
+                            style={{ fontSize: '1rem', margin: '1rem' }}
                             className="fw-bold"
                         >
                             Submitted By :{' '}
@@ -971,7 +971,7 @@ const ViewDetail = (props) => {
                                 : '-'}
                         </p>
                         <p
-                            style={{ fontSize: '1.5rem', margin: '1rem' }}
+                            style={{ fontSize: '1rem', margin: '1rem' }}
                             className="fw-bold"
                         >
                             Submitted At :{' '}
@@ -984,17 +984,17 @@ const ViewDetail = (props) => {
                     </div>
                     <br />
                     <div style={{ display: 'flex' }}>
-                        <p
-                            style={{ fontSize: '1.5rem', margin: '1rem' }}
+                        {/* <p
+                            style={{ fontSize: '1rem', margin: '1rem' }}
                             className="fw-bold"
                         >
                             Verified By :{' '}
                             {teamResponse.verified_name
                                 ? teamResponse.verified_name
                                 : '-'}
-                        </p>
+                        </p> */}
                         <p
-                            style={{ fontSize: '1.5rem', margin: '1rem' }}
+                            style={{ fontSize: '1rem', margin: '1rem' }}
                             className="fw-bold"
                         >
                             Verified At :{' '}

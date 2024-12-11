@@ -240,7 +240,7 @@ const ChangePSWModal = () => {
                 </small>
                 <br />
                 {formik.touched.newPassword && formik.errors.newPassword ? (
-                  <small className="error-cls">
+                  <small className="error-cls" style={{ color: "red" }}>
                     {formik.errors.newPassword}
                   </small>
                 ) : null}
