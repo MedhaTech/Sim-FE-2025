@@ -518,7 +518,7 @@ const SearchCID = () => {
                       style={{
                         border: "1px solid #ccc",
                         borderRadius: "10px",
-                        height: "120px",
+                        height: "auto",
                       }}
                     >
                       <p
@@ -552,7 +552,7 @@ const SearchCID = () => {
                       style={{
                         border: "1px solid #ccc",
                         borderRadius: "10px",
-                        height: "120px",
+                        height: "auto",
                       }}
                     >
                       <p
@@ -586,7 +586,7 @@ const SearchCID = () => {
                       style={{
                         border: "1px solid #ccc",
                         borderRadius: "10px",
-                        height: "120px",
+                        height: "auto",
                       }}
                     >
                       <p
@@ -691,7 +691,7 @@ const SearchCID = () => {
                       style={{
                         border: "1px solid #ccc",
                         borderRadius: "10px",
-                        height: "120px",
+                        height: "auto",
                       }}
                     >
                       <p
@@ -843,7 +843,7 @@ const SearchCID = () => {
                       style={{
                         border: "1px solid #ccc",
                         borderRadius: "10px",
-                        height: "120px",
+                        height: "auto",
                       }}
                     >
                       {files.length > 0 &&
