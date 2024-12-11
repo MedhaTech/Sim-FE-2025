@@ -479,7 +479,7 @@ const ViewDetail = (props) => {
                                             
                                         </b>
                                     </div>
-                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"120px" }}>
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                         <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -508,7 +508,7 @@ const ViewDetail = (props) => {
                                                 {item?.question || ''} */}
                                         </b>
                                     </div>
-                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"120px" }}>
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                         <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -537,7 +537,7 @@ const ViewDetail = (props) => {
                                            
                                         </b>
                                     </div>
-                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"120px" }}>
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                         <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -639,7 +639,7 @@ const ViewDetail = (props) => {
                                              7. In which places in your community did you find this problem?
                                         </b>
                                     </div>
-                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"120px" }}>
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                         <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -664,7 +664,7 @@ const ViewDetail = (props) => {
                                              8. Who all are facing this problem?
                                         </b>
                                     </div>
-                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"120px" }}>
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                         <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -717,7 +717,7 @@ const ViewDetail = (props) => {
                                              speak to to understand or improve your problem or solution?
                                         </b>
                                     </div>
-                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"120px" }}>
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                         <p
                                             style={{
                                                 fontSize: '1rem',marginBottom:"1rem"
@@ -743,7 +743,7 @@ const ViewDetail = (props) => {
                                              journey (You can choose multiple options)
                                         </b>
                                     </div>
-                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"120px" }}>
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                         <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -776,7 +776,7 @@ const ViewDetail = (props) => {
                                              have made, if any, to your problem or solution.
                                         </b>
                                     </div>
-                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"120px" }}>
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                         <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -852,7 +852,7 @@ const ViewDetail = (props) => {
                                             14. Clear Video Explaining your Solution
                                         </b>
                                     </div>
-                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"120px" }}>
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                         <p
                                             style={{
                                                 fontSize: '1rem',color:"black"

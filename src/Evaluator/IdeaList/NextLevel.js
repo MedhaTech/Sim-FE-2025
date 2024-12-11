@@ -143,7 +143,7 @@ const downloadFile = (item) => {
                                             
                                         </b>
                                     </div>
-                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"120px" }}>
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                     <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -172,7 +172,7 @@ const downloadFile = (item) => {
                                                 {item?.question || ''} */}
                                         </b>
                                     </div>
-                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"120px" }}>
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                     <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -201,7 +201,7 @@ const downloadFile = (item) => {
                                            
                                         </b>
                                     </div>
-                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"120px" }}>
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                     <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -303,7 +303,7 @@ const downloadFile = (item) => {
                                              7. In which places in your community did you find this problem?
                                         </b>
                                     </div>
-                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"120px" }}>
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                     <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -328,7 +328,7 @@ const downloadFile = (item) => {
                                              8. Who all are facing this problem?
                                         </b>
                                     </div>
-                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"120px" }}>
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                         <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -381,7 +381,7 @@ const downloadFile = (item) => {
                                              speak to to understand or improve your problem or solution?
                                         </b>
                                     </div>
-                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"120px" }}>
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                         <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -407,7 +407,7 @@ const downloadFile = (item) => {
                                              journey (You can choose multiple options)
                                         </b>
                                     </div>
-                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"120px" }}>
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                         <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -439,7 +439,7 @@ const downloadFile = (item) => {
                                              have made, if any, to your problem or solution.
                                         </b>
                                     </div>
-                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"120px" }}>
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                         <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -515,7 +515,7 @@ const downloadFile = (item) => {
                                             14. Clear Video Explaining your Solution
                                         </b>
                                     </div>
-                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"120px" }}>
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                         <p
                                             style={{
                                                 fontSize: '1rem',color:"black"

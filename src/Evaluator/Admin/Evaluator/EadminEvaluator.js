@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import { getAdminEvalutorsList } from '../../../redux/actions';
 import axios from 'axios';
 import { URL, KEY } from '../../../constants/defaultValues.js';
+import { AlertOctagon,PlusCircle, Check} from 'feather-icons-react/build/IconComponents';
 
 import { getNormalHeaders } from '../../../helpers/Utils';
 import { useHistory } from 'react-router-dom';
@@ -216,14 +217,17 @@ const TicketsPage = (props) => {
             {
                 name: 'Status',
                 cell: (row) => [
-                    <Badge
-                        key={row.mentor_id}
-                        bg={`${
-                            row.status === 'ACTIVE' ? 'success' : 'danger'
-                        }`}
-                    >
-                        {row.status}
-                    </Badge>
+                    // <Badge
+                    //     key={row.mentor_id}
+                    //     bg={`${
+                    //         row.status === 'ACTIVE' ? 'success' : 'danger'
+                    //     }`}
+                    // >
+                    //     {row.status}
+                    // </Badge>
+                    <span key={row.evaluator_id} className={`${
+                        row.status === 'ACTIVE' ? "badge bg-success" : "badge bg-danger"
+                    }`}>{row.status}</span>
                 ],
                 width: '8rem'
             },
@@ -242,37 +246,38 @@ const TicketsPage = (props) => {
                     //     <div className="btn btn-primary mr-5">View</div>
                     // </div>,
                     <div
+                    // exact="true"
+                    key={record.id}
+                    className="mr-5"
+                    onClick={() => {
+                        let status =
+                            record?.status === 'ACTIVE'
+                                ? 'INACTIVE'
+                                : 'ACTIVE';
+                        handleStatus(
+                            status,
+                            record?.evaluator_id,
+                            'evaluator',
+                            record
+                        );
+                    }}
+                >
+                    {record?.status === 'ACTIVE' ? (
+                        <div  className="btn btn-light">
+                            Inactive<AlertOctagon className="ms-1"  style={{ height: 15, width: 15 }}/>
+                        </div>
+                    ) : (
+                        <div className="btn btn-warning">Active<Check className="ms-1"  style={{ height: 15, width: 15 }}/></div>
+                    )}
+                </div>,
+                    <div
                         key={record.id}
                         onClick={() => handleEdit(record)}
                         style={{ marginRight: '10px' }}
                     >
                         <div className="btn btn-primary">Edit</div>
                     </div>,
-                    <div
-                        // exact="true"
-                        key={record.id}
-                        className="mr-5"
-                        onClick={() => {
-                            let status =
-                                record?.status === 'ACTIVE'
-                                    ? 'INACTIVE'
-                                    : 'ACTIVE';
-                            handleStatus(
-                                status,
-                                record?.evaluator_id,
-                                'evaluator',
-                                record
-                            );
-                        }}
-                    >
-                        {record?.status === 'ACTIVE' ? (
-                            <div className="btn btn-danger">
-                                Inactive
-                            </div>
-                        ) : (
-                            <div className="btn btn-warning">Active</div>
-                        )}
-                    </div>,
+                   
                       <div
                       key={record}
                       onClick={() => handleDic(record)}
