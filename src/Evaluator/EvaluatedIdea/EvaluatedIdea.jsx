@@ -193,7 +193,7 @@ const EvaluatedIdea = () => {
                         {row?.title}
                     </div>
                 ),
-                width: '20rem'
+                width: '15rem'
             },
             {
                 name: 'Submitted By',
@@ -225,7 +225,7 @@ const EvaluatedIdea = () => {
                         </div>
                     ];
                 },
-                width: '10%'
+                width: '8rem'
             },
             {
                 name: 'Actions',
@@ -254,7 +254,7 @@ const EvaluatedIdea = () => {
                         </div>
                     ];
                 },
-                width: '13rem',
+                width: '17rem',
                 left: true
             }
         ]
@@ -285,7 +285,7 @@ const EvaluatedIdea = () => {
                     <div className="col-12 p-0">
                         {!isDetail && (
                             <div>
-                                <h4>Evaluated Idea</h4>
+                                <h4>L1 Evaluated Idea</h4>
                                 <Container fluid className="px-0">
                                     <Row className="align-items-center">
                                        
