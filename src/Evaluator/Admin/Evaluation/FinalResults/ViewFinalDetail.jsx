@@ -511,7 +511,7 @@ const ViewDetail = (props) => {
                                             4. Write down your Problem statement
                                         </b>
                                     </div>
-                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"120px" }}>
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px', height: "auto", }}>
                                     <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -536,7 +536,7 @@ const ViewDetail = (props) => {
                                               5. List the Causes of the problem
                                         </b>
                                     </div>
-                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"120px" }}>
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px', height: "auto", }}>
                                     <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -561,7 +561,7 @@ const ViewDetail = (props) => {
                                             6. List the Effects of the problem
                                         </b>
                                     </div>
-                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"120px" }}>
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px', height: "auto", }}>
                                     <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -638,7 +638,7 @@ const ViewDetail = (props) => {
                 how will it solve the problem.
                                         </b>
                                     </div>
-                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"120px" }}>
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px', height: "auto",}}>
                                     <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -749,7 +749,7 @@ const ViewDetail = (props) => {
                                                     13. Descriptive Document/Image of your prototype
                                                 </b>
                                             </div>
-                                            <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"120px" }}>
+                                            <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px', height: "auto",}}>
                                                 {files.length > 0 &&
                                                     files.map((item, i) => (
                                                         <div key={i}>
