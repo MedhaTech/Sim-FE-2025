@@ -377,7 +377,7 @@ const ReportL3 = () => {
 
         const config = {
             method: 'get',
-            url: process.env.REACT_APP_API_BASE_URL + url,
+            url: process.env.REACT_APP_API_BASE_URL_FOR_REPORTS + url,
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -577,7 +577,7 @@ const ReportL3 = () => {
     const fetchChartTableData = () => {
         const config = {
             method: 'get',
-            url: process.env.REACT_APP_API_BASE_URL + '/reports/L3ReportTable1',
+            url: process.env.REACT_APP_API_BASE_URL_FOR_REPORTS + '/reports/L3ReportTable1',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -684,7 +684,7 @@ const ReportL3 = () => {
     const fetchChartTableData2 = () => {
         const config = {
             method: 'get',
-            url: process.env.REACT_APP_API_BASE_URL + '/reports/L3ReportTable2',
+            url: process.env.REACT_APP_API_BASE_URL_FOR_REPORTS + '/reports/L3ReportTable2',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`

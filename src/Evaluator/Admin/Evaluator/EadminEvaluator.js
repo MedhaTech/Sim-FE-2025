@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import { getAdminEvalutorsList } from '../../../redux/actions';
 import axios from 'axios';
 import { URL, KEY } from '../../../constants/defaultValues.js';
+import { AlertOctagon,PlusCircle, Check} from 'feather-icons-react/build/IconComponents';
 
 import { getNormalHeaders } from '../../../helpers/Utils';
 import { useHistory } from 'react-router-dom';
@@ -64,12 +65,9 @@ const TicketsPage = (props) => {
     const [mentorRows, setMentorRows] = React.useState([]);
 // console.log(props.evalutorsList,"ss");
     const handleEdit = (item) => {
-        // where we can edit user details  //
-        // where item = mentor id //
-        // props.history.push({
-        //     pathname: `/eadmin/edit-user-profile`,
-        //     data: item
-        // });
+    //    alert("hii"); 
+        navigate("/edit-evaluator", {
+            state:item});
         localStorage.setItem('mentor', JSON.stringify(item));
     };
 
@@ -199,17 +197,17 @@ const TicketsPage = (props) => {
             {
                 name: 'Evaluator Name',
                 selector: (row) => row.user.full_name,
-                width: '14rem'
+                width: '12rem'
             },
             {
                 name: 'Email Id',
                 selector: (row) => row.user.username,
-                width: '17rem'
+                width: '14rem'
             },
             {
                 name: 'Mobile No',
                 selector: (row) => row.mobile,
-                width: '10rem'
+                width: '14rem'
             },
             // {
             //     name: 'District',
@@ -219,62 +217,67 @@ const TicketsPage = (props) => {
             {
                 name: 'Status',
                 cell: (row) => [
-                    <Badge
-                        key={row.mentor_id}
-                        bg={`${
-                            row.status === 'ACTIVE' ? 'success' : 'danger'
-                        }`}
-                    >
-                        {row.status}
-                    </Badge>
+                    // <Badge
+                    //     key={row.mentor_id}
+                    //     bg={`${
+                    //         row.status === 'ACTIVE' ? 'success' : 'danger'
+                    //     }`}
+                    // >
+                    //     {row.status}
+                    // </Badge>
+                    <span key={row.evaluator_id} className={`${
+                        row.status === 'ACTIVE' ? "badge bg-success" : "badge bg-danger"
+                    }`}>{row.status}</span>
                 ],
                 width: '8rem'
             },
             {
                 name: 'Actions',
                 sortable: false,
+                center: true,
                 width: '20rem',
                 cell: (record) => [
                     // <div
                     //     key={record.id}
-                    //
+                    
                     //     onClick={() => handleSelect(record)}
                     //     style={{ marginRight: '10px' }}
                     // >
-                    //     <div className="btn btn-primary btn-lg mr-5">View</div>
-                    // </div>,
-                    // <div
-                    //     key={record.id}
-                    //     onClick={() => handleEdit(record)}
-                    //     style={{ marginRight: '10px' }}
-                    // >
-                    //     <div className="btn btn-primary">EDIT</div>
+                    //     <div className="btn btn-primary mr-5">View</div>
                     // </div>,
                     <div
-                        // exact="true"
+                    // exact="true"
+                    key={record.id}
+                    className="mr-5"
+                    onClick={() => {
+                        let status =
+                            record?.status === 'ACTIVE'
+                                ? 'INACTIVE'
+                                : 'ACTIVE';
+                        handleStatus(
+                            status,
+                            record?.evaluator_id,
+                            'evaluator',
+                            record
+                        );
+                    }}
+                >
+                    {record?.status === 'ACTIVE' ? (
+                        <div  className="btn btn-light">
+                            Inactive<AlertOctagon className="ms-1"  style={{ height: 15, width: 15 }}/>
+                        </div>
+                    ) : (
+                        <div className="btn btn-warning">Active<Check className="ms-1"  style={{ height: 15, width: 15 }}/></div>
+                    )}
+                </div>,
+                    <div
                         key={record.id}
-                        className="mr-5"
-                        onClick={() => {
-                            let status =
-                                record?.status === 'ACTIVE'
-                                    ? 'INACTIVE'
-                                    : 'ACTIVE';
-                            handleStatus(
-                                status,
-                                record?.evaluator_id,
-                                'evaluator',
-                                record
-                            );
-                        }}
+                        onClick={() => handleEdit(record)}
+                        style={{ marginRight: '10px' }}
                     >
-                        {record?.status === 'ACTIVE' ? (
-                            <div className="btn btn-danger">
-                                Inactive
-                            </div>
-                        ) : (
-                            <div className="btn btn-warning">Active</div>
-                        )}
+                        <div className="btn btn-primary">Edit</div>
                     </div>,
+                   
                       <div
                       key={record}
                       onClick={() => handleDic(record)}

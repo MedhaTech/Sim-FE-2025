@@ -117,7 +117,7 @@ const ViewDetail = (props) => {
         var config = {
             method: 'put',
             url: `${
-                process.env.REACT_APP_API_BASE_URL + '/challenge_response/'
+                process.env.REACT_APP_API_BASE_URL_FOR_REPORTS  + '/challenge_response/'
                  +
                 challId
             }`,
@@ -334,8 +334,8 @@ const ViewDetail = (props) => {
                                             <Card
                                                 bg="white"
                                                 text="dark"
-                                                className="mb-4"
-                                                // style={{ height: '150px' }}
+                                                className="mb-2"
+                                                style={{ height: '150px' }}
                                             >
                                                 <Card.Body>
                                                     <label
@@ -377,7 +377,7 @@ const ViewDetail = (props) => {
                                                             }
                                                         </span>
                                                         <br />
-                                                        <span>Place :</span>
+                                                        {/* <span>Place :</span> */}
                                                         {/* <span >
                                                             &nbsp;
                                                             {
@@ -437,8 +437,8 @@ const ViewDetail = (props) => {
                                             <Card
                                                 bg="white"
                                                 text="dark"
-                                                className="mb-4"
-                                                // style={{ height: '227px' }}
+                                                className="mb-2"
+                                                style={{ height: '150px' }}
                                             >
                                                 <Card.Body>
                                                     <label
@@ -517,7 +517,7 @@ const ViewDetail = (props) => {
                         <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
-                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                    className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
                                         <b
@@ -529,7 +529,7 @@ const ViewDetail = (props) => {
                                             
                                         </b>
                                     </div>
-                                    <div className="bg-light rounded p-5 ">
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"50px" }}>
                                         <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -545,19 +545,19 @@ const ViewDetail = (props) => {
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
-                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                    className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
                                     <b
-                                            style={{
-                                                fontSize: '1.2rem'
+                                             style={{
+                                                fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
                                             1.Theme
                                             
                                         </b>
                                     </div>
-                                    <div className="bg-light rounded p-5">
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                     <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -573,12 +573,12 @@ const ViewDetail = (props) => {
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
-                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                    className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
                                     <b
-                                            style={{
-                                                fontSize: '1.2rem'
+                                             style={{
+                                                fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
                                            2.Focus Area
@@ -586,7 +586,7 @@ const ViewDetail = (props) => {
                                                 {item?.question || ''} */}
                                         </b>
                                     </div>
-                                    <div className="bg-light rounded p-5">
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                     <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -602,12 +602,12 @@ const ViewDetail = (props) => {
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
-                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                    className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
                                     <b
-                                            style={{
-                                                fontSize: '1.2rem'
+                                             style={{
+                                                fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
                                              3. Title of your idea (Think of a proper name. Don't describe
@@ -615,7 +615,7 @@ const ViewDetail = (props) => {
                                            
                                         </b>
                                     </div>
-                                    <div className="bg-light rounded p-5">
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                     <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -631,18 +631,18 @@ const ViewDetail = (props) => {
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
-                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                    className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
                                     <b
-                                            style={{
-                                                fontSize: '1.2rem'
+                                             style={{
+                                                fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
                                             4. Write down your Problem statement
                                         </b>
                                     </div>
-                                    <div className="bg-light rounded p-5">
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                     <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -656,18 +656,18 @@ const ViewDetail = (props) => {
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
-                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                    className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
                                     <b
-                                            style={{
-                                                fontSize: '1.2rem'
+                                             style={{
+                                                fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
                                               5. List the Causes of the problem
                                         </b>
                                     </div>
-                                    <div className="bg-light rounded p-5">
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                     <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -681,18 +681,18 @@ const ViewDetail = (props) => {
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
-                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                    className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
                                     <b
-                                            style={{
-                                                fontSize: '1.2rem'
+                                             style={{
+                                                fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
                                             6. List the Effects of the problem
                                         </b>
                                     </div>
-                                    <div className="bg-light rounded p-5">
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                     <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -706,20 +706,20 @@ const ViewDetail = (props) => {
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
-                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                    className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
                                     <b
-                                            style={{
-                                                fontSize: '1.2rem'
+                                             style={{
+                                                fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
                                              7. In which places in your community did you find this problem?
                                         </b>
                                     </div>
-                                    <div className="bg-light rounded p-5">
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                     <p
-                                            style={{
+                                              style={{
                                                 fontSize: '1rem',color:"black"
                                             }}
                                         >
@@ -731,18 +731,18 @@ const ViewDetail = (props) => {
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
-                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                    className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
                                         <b
-                                            style={{
-                                                fontSize: '1.2rem'
+                                             style={{
+                                                fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
                                              8. Who all are facing this problem?
                                         </b>
                                     </div>
-                                    <div className="bg-light rounded p-5">
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                         <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -756,12 +756,12 @@ const ViewDetail = (props) => {
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
-                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                    className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
                                     <b
-                                            style={{
-                                                fontSize: '1.2rem'
+                                              style={{
+                                                fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
                                               9. Describe the solution to the problem your team found. Explain
@@ -769,7 +769,7 @@ const ViewDetail = (props) => {
                 how will it solve the problem.
                                         </b>
                                     </div>
-                                    <div className="bg-light rounded p-5">
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                     <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -783,19 +783,19 @@ const ViewDetail = (props) => {
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
-                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                    className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
                                         <b
-                                            style={{
-                                                fontSize: '1.2rem'
+                                              style={{
+                                                fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
                                              10. Apart from your teacher, how many people/stakeholders did you
                                              speak to to understand or improve your problem or solution?
                                         </b>
                                     </div>
-                                    <div className="bg-light rounded p-5">
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                         <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -809,25 +809,32 @@ const ViewDetail = (props) => {
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
-                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                    className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
                                         <b
-                                            style={{
-                                                fontSize: '1.2rem'
+                                              style={{
+                                                fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
                                              11. Pick the actions your team did in your problem solving
                                              journey (You can choose multiple options)
                                         </b>
                                     </div>
-                                    <div className="bg-light rounded p-5">
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                         <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
                                             }}
                                         >
-                                           {problemSolvingArray}
+                                              {teamResponse.problem_solving &&
+            JSON.parse(teamResponse.problem_solving).map((item, index) => (
+                <span key={index}>
+                    {item}
+                    {index !== JSON.parse(teamResponse.problem_solving).length - 1 && ", "}
+                </span>
+            ))}
+                                           {/* {problemSolvingArray} */}
                                         </p>
                                     </div>
                                 </div>
@@ -835,19 +842,19 @@ const ViewDetail = (props) => {
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
-                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                    className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
                                         <b
-                                            style={{
-                                                fontSize: '1.2rem'
+                                             style={{
+                                                fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
                                              12. Mention the feedback that your team got and the changes you
                                              have made, if any, to your problem or solution.
                                         </b>
                                     </div>
-                                    <div className="bg-light rounded p-5">
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                         <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
@@ -862,18 +869,18 @@ const ViewDetail = (props) => {
                                     <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                         <div
                                             // key={index}
-                                            className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                            className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                         >
                                             <div className="question quiz mb-0">
                                                 <b
                                                     style={{
-                                                        fontSize: '1.2rem'
+                                                        fontSize: '1rem',marginBottom:"1rem"
                                                     }}
                                                 >
-                                                    13. Upload image of your prototype. (total size limit : 10mb)
+                                                    13. Descriptive Document/Image of your prototype
                                                 </b>
                                             </div>
-                                            <div className="bg-light rounded p-5">
+                                            <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                                 {files.length > 0 &&
                                                     files.map((item, i) => (
                                                         <div key={i}>
@@ -912,24 +919,32 @@ const ViewDetail = (props) => {
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
-                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                    className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
                                         <b
-                                            style={{
-                                                fontSize: '1.2rem'
+                                              style={{
+                                                fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                            14. Upload documents & video links of your prototype.
+                                            14. Clear Video Explaining your Solution
                                         </b>
                                     </div>
-                                    <div className="bg-light rounded p-5">
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                         <p
                                             style={{
                                                 fontSize: '1rem',color:"black"
                                             }}
                                         >
-                                            {teamResponse.prototype_link}
+                                             <a 
+            href={teamResponse.prototype_link} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            style={{ textDecoration: 'none', color: 'skyblue'}}
+        >
+            {teamResponse.prototype_link}
+        </a>
+                                            {/* {teamResponse.prototype_link} */}
                                         </p>
                                     </div>
                                 </div>
@@ -937,19 +952,19 @@ const ViewDetail = (props) => {
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
-                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                    className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
                                         <b
-                                            style={{
-                                                fontSize: '1.2rem'
+                                             style={{
+                                                fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
                                             15. Did your team complete and submit the workbook to your
                                             school Guide teacher?
                                         </b>
                                     </div>
-                                    <div className="bg-light rounded p-5">
+                                    <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"50px" }}>
                                         <p
                                             style={{
                                                 fontSize: '1rem',color:"black"

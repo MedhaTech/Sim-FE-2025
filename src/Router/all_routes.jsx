@@ -15,7 +15,7 @@ export const all_routes = {
   popup:"/popup",
   createemail:"/create-email",
   resendemail:"/resend-email",
-
+editeval:"/edit-evaluator",
   mentordetails:"/mentor-details",
   studentreport:"Student-Report",
   mentorEdit:"/admin-mentor-edit",
@@ -26,6 +26,7 @@ export const all_routes = {
   coodies:"/coo-search",
   diesview:"/diescode-view",
   cooview:"/coo-view",
+  searchCid:"/search-cid",
 coosupport:"/state-support",
 adminsupport:"/admin-support",
 adminresponse:"/admin/support-journey/ans-ticket",

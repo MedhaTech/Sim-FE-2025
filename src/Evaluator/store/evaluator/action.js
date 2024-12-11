@@ -211,7 +211,7 @@ export const getL1EvaluatedIdea = (params, setshowspin) => async (dispatch) => {
     const result = await axios
       .get(
         `${
-          process.env.REACT_APP_API_BASE_URL +
+          process.env.REACT_APP_API_BASE_URL_FOR_REPORTS  +
           "/challenge_response/evaluated/" +
           evId +
           "?Data=" +

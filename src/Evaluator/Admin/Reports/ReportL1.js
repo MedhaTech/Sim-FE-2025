@@ -97,7 +97,7 @@ const ReportL1 = () => {
       key: "state",
     },
     {
-      label: "No of Ideas Evaluated",
+      label: "No of Ideas Submitted",
       key: "totalSubmited",
     },
 
@@ -116,7 +116,7 @@ const ReportL1 = () => {
       key: "full_name",
     },
     {
-      label: "No of Ideas Submitted",
+      label: "No of Ideas Evaluated",
       key: "totalEvaluated",
     },
 
@@ -308,7 +308,7 @@ const ReportL1 = () => {
 // console.log(param,"param");
     const config = {
       method: "get",
-      url: process.env.REACT_APP_API_BASE_URL + url,
+      url: process.env.REACT_APP_API_BASE_URL_FOR_REPORTS + url,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${currentUser?.data[0]?.token}`,
@@ -491,7 +491,7 @@ const ReportL1 = () => {
   const fetchChartTableData = () => {
     const config = {
       method: "get",
-      url: process.env.REACT_APP_API_BASE_URL + "/reports/L1ReportTable1",
+      url: process.env.REACT_APP_API_BASE_URL_FOR_REPORTS + "/reports/L1ReportTable1",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${currentUser?.data[0]?.token}`,
@@ -534,7 +534,7 @@ const ReportL1 = () => {
   const fetchChartTableData2 = () => {
     const config = {
       method: "get",
-      url: process.env.REACT_APP_API_BASE_URL + "/reports/L1ReportTable2",
+      url: process.env.REACT_APP_API_BASE_URL_FOR_REPORTS + "/reports/L1ReportTable2",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${currentUser?.data[0]?.token}`,
@@ -730,7 +730,7 @@ const ReportL1 = () => {
                                     fontWeight: "bold",
                                   }}
                                 >
-                                  No of Ideas Evaluated{" "}
+                                  No of Ideas Submitted{" "}
                                 </th>
                                 <th
                                   style={{
@@ -842,7 +842,7 @@ const ReportL1 = () => {
                                     fontWeight: "bold",
                                   }}
                                 >
-                                  No of Ideas Submitted{" "}
+                                  No of Ideas Evaluated{" "}
                                 </th>
                                 <th
                                   style={{

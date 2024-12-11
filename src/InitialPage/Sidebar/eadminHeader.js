@@ -18,6 +18,8 @@ import Icon from "../../assets/img/logos.jpg";
 import { openNotificationWithIcon } from "../../helpers/Utils.js";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKey,faUser } from '@fortawesome/free-solid-svg-icons';
+import { encryptGlobal } from '../../constants/encryptDecrypt';
+
 const EadmiHeader = () => {
   const route = all_routes;
   const [toggle, SetToggle] = useState(false);
@@ -28,15 +30,12 @@ const EadmiHeader = () => {
   const [multiOrgData, setMultiOrgData] = useState([]);
 
   const handleOnChange = (e) => {
-    // we can give diescode as input //
-    //where organization_code = diescode //
-    const numericValue = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
+   
+    const numericValue = e.target.value.replace(/\D/g, ""); 
     const trimmedValue = numericValue.trim();
 
     setDiesCode(trimmedValue);
-    // setDiesCode(e.target.value);
   };
-  // console.log(currentUser, " currentUser");
   const isElementVisible = (element) => {
     return element.offsetWidth > 0 || element.offsetHeight > 0;
   };
@@ -153,73 +152,67 @@ const EadmiHeader = () => {
       }
     }
   };
-  // const [multiOrgData, setMultiOrgData] = useState(null);
   // useEffect(() => {
-  //   if (diesCode.length == 11) {
-  //     handleSearch(diesCode);
+  //   if (diesCode.length > 0) {
+      
+  //     setTimeout(()=>{
+  //       handleSearch(diesCode); 
+  //     },1000);
+  
   //   }
   // }, [diesCode]);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (diesCode) { 
+        handleSearch(diesCode);
+      }
+    }, 5000);
+  
+    return () => clearTimeout(timer);
+  }, [diesCode]);
   const handleSearch = (diesCode) => {
-    const body = JSON.stringify({
-      organization_code: diesCode,
-    });
+    const popParam = encryptGlobal(diesCode
+     
+    );
     var config = {
-      method: "post",
-      url: process.env.REACT_APP_API_BASE_URL + "/organizations/checkOrg",
+      method: "get",
+      url: process.env.REACT_APP_API_BASE_URL + `/challenge_response/${popParam}`,
       headers: {
         "Content-Type": "application/json",
-        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+
+        Authorization: `Bearer ${currentUser?.data[0]?.token}`,
       },
-      data: body,
     };
 
     axios(config)
       .then(async function (response) {
         if (response.status == 200) {
           //  console.log(response,"res");
-          if (response?.data?.count > 0) {
-            if (response?.data?.data[0].status === "INACTIVE" && response?.data?.data[0].mentor == null) {
-              openNotificationWithIcon("error", "Udise Code is Inactive");
-              setDiesCode("");
-            }
-            if (response?.data?.data[0].status === "ACTIVE" && response?.data?.data[0].mentor == null) {
-              openNotificationWithIcon(
-                "error",
-                "No Teachers are Registered from the given UDISE Code"
-              );
-              setDiesCode("");
-            } else if (response?.data?.data[0].mentor !== null) {
-              const multiOrgData = response?.data?.data;
-              localStorage.removeItem("diesCode");
-              localStorage.removeItem("multiOrgData");
-              localStorage.setItem("diesCode", JSON.stringify(diesCode));
-              localStorage.setItem(
-                "multiOrgData",
-                JSON.stringify(multiOrgData)
-              );
-              setMultiOrgData(multiOrgData);
-              //  console.log(multiOrgData,"dd");
-              navigate("/diescode-search", {
-                state: { multiOrgData, diesCode },
-              });
+           const multiOrgData = response?.data?.data[0];
+           localStorage.setItem("diesCode", JSON.stringify(diesCode));
+           localStorage.setItem(
+             "multiOrgData",
+             JSON.stringify(multiOrgData)
+           );
+           
+           navigate("/search-cid", {
+            state: { multiOrgData, diesCode },
+          });
 
-              setDiesCode("");
-              window.location.reload();
-            }
-          } else {
-            openNotificationWithIcon("error", "Invalid Udise Code");
-            setDiesCode("");
-          }
+          setDiesCode("");
+          // window.location.reload();
         }
       })
       .catch(function (error) {
         if (error?.response?.data?.status === 404) {
-          // setError('Entered Invalid Institution Unique Code');
+        setDiesCode("");
+          openNotificationWithIcon(
+                  "error",
+                  "No Data Found"
+                );
         }
       });
-    // e.preventDefault();
   };
-  // console.log(multiOrgData,"mm");
   return (
     <>
       <div className="header">
@@ -277,22 +270,22 @@ const EadmiHeader = () => {
         <ul className="nav user-menu">
           <li className="nav-item nav-searchinputs">
             <div className="top-nav-search">
-              {/* <Link to="#" className="responsive-search">
+              <Link to="#" className="responsive-search">
                 <Search />
-              </Link> */}
+              </Link>
               <form action="#" className="dropdown">
-                {/* <div
+                <div
                   className="searchinputs"
                   
                   data-bs-auto-close="false"
                 >
                   <input
                     type="text"
-                    placeholder="Enter UDISE Code"
+                    placeholder="Enter CID"
                     onChange={(e) => handleOnChange(e)}
                     value={diesCode}
-                    maxLength={11}
-                    minLength={11}
+                    // maxLength={11}
+                    // minLength={11}
                     name="organization_code"
                   />
                   <div className="search-addon">
@@ -300,7 +293,7 @@ const EadmiHeader = () => {
                       <XCircle className="feather-14" />
                     </span>
                   </div>
-                </div> */}
+                </div> 
                 {/* <div
                   className="dropdown-menu search-dropdown"
                   aria-labelledby="dropdownMenuClickable"
