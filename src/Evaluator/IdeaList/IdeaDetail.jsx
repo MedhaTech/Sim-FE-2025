@@ -23,11 +23,12 @@ const IdeaDetail = (props) => {
     const [isReject, setIsreject]=React.useState(false);
     const [reason, setReason]=React.useState('');
     const selectData = [
-        'Idea is very common and already in use.',
-        'Idea does not have proper details and information to make a decision.',
-        'Idea does not solve the problem identified/the solution and problem are not connected.',
-        'Not very clear about the idea and solution.',
-        'Inaccurate Data (Form is not filled properly)'
+        "Not novel - Idea and problem common and already in use.",
+        "Not novel - Idea has been 100% plagiarized.",
+        "Not useful - Idea does not solve the problem identified / problem & solution not connected.",
+        "Not understandable - Idea Submission does not have proper details to make a decision.",
+        "Not clear (usefulness)",
+        "Not filled - Inaccurate data (form is not filled properly)",
     ];
     const [reasonSec, setReasonSec] = React.useState('');
     const reasondata2 = [

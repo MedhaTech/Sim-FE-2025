@@ -36,7 +36,7 @@ const EditProfile = (props) => {
     const currentUser = getCurrentUser('current_user');
     const dispatch = useDispatch();
     const mentorData = location.state || {};
-//   console.log(mentorData,"mentorData");
+  console.log(mentorData,"mentorData");
   
 
 
@@ -60,7 +60,13 @@ const EditProfile = (props) => {
                 .required('required')
                 .trim()
                 .email('Please Enter Valid Email Id'),
-          
+                password: Yup.string()
+                .trim()
+                // .required('Please enter Password')
+                .matches(
+                    passwordRegex,
+                    'Password must contains minimum 8 characters, including one letter, one number, and one special character.'
+                )
          
         });
         if (data?.mentor_id)
@@ -80,7 +86,7 @@ const EditProfile = (props) => {
         const commonInitialValues = {
             name: mentorData?.full_name || mentorData?.user?.full_name,
             email: mentorData?.username || mentorData?.user?.username,
-            password: mentorData?.password || mentorData?.user?.password
+            password: mentorData?.mobile || mentorData?.user?.mobile
         };
         if (!data?.admin_id) {
             commonInitialValues['phone'] = mentorData.mobile;
@@ -107,7 +113,7 @@ const EditProfile = (props) => {
             // values.password = encrypted;
             const full_name = values.name;
             const email = values.email;
-            // const password = values.password;
+            const password = values.password;
 
             // const mobile = values.phone;
             // const district = values.district;
@@ -119,8 +125,8 @@ const EditProfile = (props) => {
             const body = mentorData?.evaluator_id
                 ? {
                       full_name: full_name,
-                      username: email
-                      //   password: encrypted
+                      username: email,
+                        // password: encrypted
                       //   district: district
                   }
                 : mentorData?.admin_id
@@ -133,7 +139,7 @@ const EditProfile = (props) => {
                       username: email,
                       mobile: email
                   });
-            if (mentorData && mentorData.password !== password) {
+            if (mentorData && mentorData.mobile !== password) {
                 body['password'] = encrypted;
             }
 
@@ -217,7 +223,7 @@ const EditProfile = (props) => {
                 </div>
                 <div className="row">
                  
-                  <div className="form-login col-lg-6 col-sm-12">
+                  <div className="form-login col-lg-4 col-sm-12">
                     <div className="input-blocks">
                       <label className="form-label">Evaluator Full Name</label>
                       <input
@@ -248,7 +254,7 @@ const EditProfile = (props) => {
 
                 {/* <div className="row"> */}
                   
-                  <div className="form-login col-lg-6 col-sm-12">
+                  <div className="form-login col-lg-4 col-sm-12">
                     <div className="input-blocks">
                       <label>Email Address</label>
                       <input
@@ -269,8 +275,48 @@ const EditProfile = (props) => {
                       ) : null}
                     </div>
                   </div>
+                  <div className="form-login col-lg-4 col-sm-12">
+                    <div className="input-blocks">
+                      <label>Password</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="reg-password"
+                                                // type="password"
+                                                name="password"
+                                                onChange={formik.handleChange}
+                                                onBlur={formik.handleBlur}
+                                                value={formik.values.password}
+                                                // maxLength={8}
+                                                minLength={8}
+                      />
+  
+  {formik.touched.password &&
+                                            formik.errors.password ? (
+                                                <small className="error-cls">
+                                                    {formik.errors.password}
+                                                </small>
+                                            ) : null}
+                    </div>
+                  </div>
                   {/* New fields  */}
                   <div className="form-login" style={formLoginStyle}>
+  <button
+    style={buttonStyle}
+    type="submit"
+    className={`btn btn-warning  ${
+      !(formik.dirty && formik.isValid) ? "default" : "primary"
+    }`}
+    disabled={!(formik.dirty && formik.isValid)}
+  >
+    Submit
+  </button>
+  <Link className="btn btn-cancel" to={"/eadmin/evaluator"} style={cancelLinkStyle}>
+    Cancel
+  </Link>
+</div>
+
+                  {/* <div className="form-login" style={formLoginStyle}>
                     <button
                       style={buttonStyle}
                       
@@ -285,7 +331,7 @@ const EditProfile = (props) => {
                     <Link className="btn btn-cancel" to={"/eadmin/evaluator"}  style={cancelLinkStyle}>
                       Cancel
                     </Link>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
