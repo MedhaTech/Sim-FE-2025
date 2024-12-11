@@ -53,8 +53,8 @@ const IdeaDetail = (props) => {
             );
         }
     }, [props]);
-    const files = teamResponse?.Prototype_file
-    ? teamResponse?.Prototype_file.split(',')
+    const files = teamResponse?.prototype_image
+    ? teamResponse?.prototype_image.split(',')
     : [];
     const problemSolvingArray = teamResponse?.problem_solving;
 

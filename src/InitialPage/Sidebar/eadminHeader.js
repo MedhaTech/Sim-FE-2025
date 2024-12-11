@@ -152,14 +152,23 @@ const EadmiHeader = () => {
       }
     }
   };
-  useEffect(() => {
-    if (diesCode.length > 0) {
-      const timer = setTimeout(() => {
-        handleSearch(diesCode); // Execute search after delay
-      }, 500); 
+  // useEffect(() => {
+  //   if (diesCode.length > 0) {
+      
+  //     setTimeout(()=>{
+  //       handleSearch(diesCode); 
+  //     },1000);
   
-      return () => clearTimeout(timer); 
-    }
+  //   }
+  // }, [diesCode]);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (diesCode) { 
+        handleSearch(diesCode);
+      }
+    }, 5000);
+  
+    return () => clearTimeout(timer);
   }, [diesCode]);
   const handleSearch = (diesCode) => {
     const popParam = encryptGlobal(diesCode
