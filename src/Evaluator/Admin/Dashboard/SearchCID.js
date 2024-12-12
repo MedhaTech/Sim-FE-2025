@@ -361,7 +361,7 @@ const SearchCID = () => {
                 </div>
               </div>
 
-              <div className="col-lg-8 order-lg-0 order-1 p-0 h-100">
+              <div className="col-lg-8 order-lg-0 order-1 p-2 h-100">
                 <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                   <div
                     // key={index}
@@ -940,10 +940,16 @@ const SearchCID = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-lg-4 order-lg-1 order-0 p-0 h-100 mt-3 status_info_col">
+              <div className="col-lg-4 order-lg-1 order-0 p-2 h-100 mt-3 status_info_col"   style={{
+    position: "relative", 
+  }}>
                 {multiOrgData?.verified_status !== "" &&
                   multiOrgData?.verified_status !== null && (
-                    <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
+                    <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3"  style={{
+                      position: "sticky",
+                      top: "10rem", 
+                      zIndex: 10, 
+                  }}>
                       {multiOrgData?.evaluation_status ? (
                         <p
                           className={`${
@@ -1049,129 +1055,13 @@ const SearchCID = () => {
                           </>
                         )}
 
-                      {/* {multiOrgData?.verified_status !== "" &&  multiOrgData?.verified_status !== null && (
-                      <>
-                        {multiOrgData?.evaluation_status == null ? (
-                          <>
-                            <button
-                              className="btn px-5 py-2 btn-danger"
-                              onClick={() => {
-                                setIsreject(true);
-                                setReason("");
-                                setReasonSec("");
-                              }}
-                            >
-                              <span>Reject</span>
-                            </button>
-                            <button
-                              className="btn px-5 py-2 btn-success mt-2"
-                              onClick={() => {
-                                handleAlert("accept");
-                                setReason("");
-                                setReasonSec("");
-                              }}
-                            >
-                              <span>Accept</span>
-                            </button>
-                          </>
-                        ) : multiOrgData?.evaluation_status ===
-                          "SELECTEDROUND1" ? (
-                          <button
-                            className="btn px-2 py-2 btn-danger"
-                            onClick={() => {
-                              setIsreject(true);
-                              setReason("");
-                              setReasonSec("");
-                            }}
-                          >
-                            <span>Reject</span>
-                          </button>
-                        ) : multiOrgData?.evaluation_status ===
-                          "REJECTEDROUND1" ? (
-                          <button
-                            className="btn px-2 py-2 btn-success"
-                            onClick={() => {
-                              handleAlert("accept");
-                              setReason("");
-                              setReasonSec("");
-                            }}
-                          >
-                            <span>Accept</span>
-                          </button>
-                        ) : null}
-                      </>
-                    )} */}
-                      {/* Previous code */}
+                     
 
-                      {/* {multiOrgData?.status !== "DRAFT" && multiOrgData?.evaluation_status == null && 
-                                    (multiOrgData?.evaluation_status ? (
-                                        multiOrgData?.evaluation_status ==
-                                        'SELECTEDROUND1' ? (
-                                            <button
-                                                className="btn px-2 py-2 btn-danger "
-                                                onClick={() => {
-                                                    setIsreject(true);
-                                                    setReason('');
-                                                    setReasonSec('');
-                                                }}
-                                            >
-                                                <span >
-                                                    Reject
-                                                </span>
-                                            </button>
-                                        ) : (
-                                            <button
-                                                className="btn px-2 py-2 btn-success"
-                                                onClick={() => {
-                                                    handleAlert('accept');
-                                                    setReason('');
-                                                    setReasonSec('');
-                                                }}
-                                            >
-                                                <span >
-                                                    Accept
-                                                </span>
-                                            </button>
-                                        )
-                                    ) : (
-                                        
-                                        <>
-                                            {teamResponse.verified_name !==
-                                                null && (
-                                                <>
-                                                    <button
-                                                        className="btn px-5 py-2 btn-danger"
-                                                        onClick={() => {
-                                                            setIsreject(true);
-                                                            setReason('');
-                                                            setReasonSec('');
-                                                        }}
-                                                    >
-                                                        <span >
-                                                            Reject
-                                                        </span>
-                                                    </button>
-                                                    <button
-                                                        className="btn px-5 py-2 btn-success mt-2"
-                                                        onClick={() => {
-                                                            handleAlert(
-                                                                'accept'
-                                                            );
-                                                            setReason('');
-                                                            setReasonSec('');
-                                                        }}
-                                                    >
-                                                        <span >
-                                                            Accept
-                                                        </span>
-                                                    </button>
-                                                </>
-                                            )}
-                                        </>
-                                    ))} */}
                     </div>
                   )}
+                  
                 {multiOrgData?.evaluator_ratings.length > 0 && (
+
                   <RatedCard details={multiOrgData} />
                 )}
               </div>
@@ -1218,14 +1108,7 @@ const SearchCID = () => {
               </p>
             </div>
             <div>
-              {/* <Button
-                            btnClass="primary"
-                            size="small"
-                            label="Back"
-                            onClick={() => {
-                                props?.setIsDetail(false);
-                            }}
-                        /> */}
+             
             </div>
           </>
         ) : (

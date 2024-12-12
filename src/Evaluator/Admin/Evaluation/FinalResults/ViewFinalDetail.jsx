@@ -382,7 +382,7 @@ const ViewDetail = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-lg-8 order-lg-0 order-1 p-0 h-100">
+                        <div className="col-lg-8 order-lg-0 order-1 p-2 h-100">
                         <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -899,7 +899,7 @@ const ViewDetail = (props) => {
                             })} */}
                         </div>
                        
-                        <div className="col-lg-4 order-lg-1 order-0 p-0 h-100 mt-3 status_info_col">
+                        <div className="col-lg-4 order-lg-1 order-0 p-2 h-100 mt-3 status_info_col">
                             <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
                                 {teamResponse?.evaluation_status ? (
                                     <p
