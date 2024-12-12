@@ -77,11 +77,12 @@ const ViewDetail = (props) => {
 
         swalWithBootstrapButtons
             .fire({
+                text: 'Are you sure?',
                 title:
                     handledText === 'accept'
                         ? 'You are attempting to accept this Idea'
                         : 'You are attempting to reject this Idea',
-                text: 'Are you sure?',
+               
                 showCloseButton: true,
                 confirmButtonText: 'Confirm',
                 showCancelButton: true,
@@ -1277,7 +1278,7 @@ const ViewDetail = (props) => {
                         <Col>
                             <Col className="m-3">
                                 <p style={{ textAlign: 'left' }}>
-                                    <b>1. Novelty & Usefulness</b>
+                                    <b>1. Novelty & Usefulness</b> <span required style={{color:"red"}}>*</span>
                                 </p>
                                 <Select
                                     list={selectData}
@@ -1292,7 +1293,7 @@ const ViewDetail = (props) => {
                                         2. Does the submission show any evidence
                                         of efforts put in to complete the
                                         project?
-                                    </b>
+                                    </b> <span required style={{color:"red"}}>*</span>
                                 </p>
                                 <Select
                                     list={reasondata2}
@@ -1305,7 +1306,7 @@ const ViewDetail = (props) => {
                     </div>
                     <div className="text-center">
                         <Button
-                            label={'Submit'}
+                            label={'Reject'}
                             btnClass={reason && reasonSec ? 'primary' : 'default'}
 
                            
