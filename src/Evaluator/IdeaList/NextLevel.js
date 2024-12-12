@@ -55,7 +55,7 @@ const downloadFile = (item) => {
                     <div >
                         <div className="col-12 p-0">
                             <div className="row">
-                                <div className="col-lg-6">
+                                <div className="col-lg-8">
                                     <Row>
                                         <Col>
                                             <h4 className="mb-md-4 mb-3">

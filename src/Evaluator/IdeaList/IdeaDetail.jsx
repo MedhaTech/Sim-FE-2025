@@ -97,11 +97,12 @@ const downloadFile = (item) => {
 
         swalWithBootstrapButtons
             .fire({
+                text: 'Are you sure?',
+
                 title:
                     handledText === 'accept'
                         ? 'You are attempting to accept this Idea'
                         : 'You are attempting to reject this Idea',
-                text: 'Are you sure?',
                 // imageUrl: `${logout}`,
                 showCloseButton: true,
                 confirmButtonText: 'Confirm',
@@ -173,14 +174,28 @@ const downloadFile = (item) => {
                     <div className="row idea_detail_card ">
                         <div className="col-12 p-0">
                             <div className="row">
-                                <div className="col-sm-8">
-                                <h4 className="mb-md-4 mb-3">
-                                                Theme :
+                            <div className="col-lg-8">
+                                {/* L1 Evaluated Ideas */}
+                                    <Row>
+                                        <Col>
+                                            <h4 className="mb-md-4 mb-3">
+                                                Theme : 
                                                 <span className="text-capitalize">
                                                 {props?.ideaDetails?.theme?.toLowerCase() ||
                                                         ''}
                                                 </span>
                                             </h4>
+                                        </Col>
+                                        <Col>
+                                            <h4 className="mb-md-4 mb-3">
+                                                CID :
+                                                <span className="text-capitalize">
+                                                {props?.ideaDetails.challenge_response_id ||
+                                                        ''}
+                                                </span>
+                                                </h4>
+                                        </Col>
+                                    </Row>
                                 </div>
                                 <div className="col-sm-4 d-flex justify-content-end">
                                     <div className="ms-auto me-sm-3 p-0">
@@ -849,7 +864,7 @@ const downloadFile = (item) => {
                         id="contained-modal-title-vcenter"
                         className="w-100 d-block text-center"
                     >
-                        Reject
+                        Reject 
                     </Modal.Title>
                 </Modal.Header>
 
@@ -861,7 +876,7 @@ const downloadFile = (item) => {
                         <Col>
                             <Col className="m-5">
                                 <p className="text-left">
-                                    <b>1. Novelty & Usefulness</b>
+                                    <b>1. Novelty & Usefulness</b> <span required style={{color:"red"}}>*</span>
                                 </p>
                                 <Select
                                     list={selectData}
@@ -876,7 +891,7 @@ const downloadFile = (item) => {
                                         2. Does the submission show any evidence
                                         of efforts put in to complete the
                                         project?
-                                    </b>
+                                    </b> <span required style={{color:"red"}}>*</span>
                                 </p>
                                 <Select
                                     list={reasondata2}
@@ -889,13 +904,13 @@ const downloadFile = (item) => {
                     </div>
                     <div className="text-center">
                         <Button
-                            label={'Submit'}
+                            label={'Reject'}
                             btnClass={
-                                !reason && reasonSec ? 'default' : 'primary'
+                                reason && reasonSec ? 'primary' : 'default'
                             }
                             size="small "
                             onClick={() => handleReject()}
-                            disabled={!reason && reasonSec}
+                            disabled={!(reason && reasonSec)}
                         />
                     </div>
                 </Modal.Body>

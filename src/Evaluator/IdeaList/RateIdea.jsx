@@ -7,6 +7,7 @@ import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { useDispatch } from 'react-redux';
 import { getSubmittedIdeaList } from '../store/evaluator/action';
+// import styled from 'styled-components';
 
 const RateIdea = (props) => {
     const currentUser = getCurrentUser('current_user');
@@ -141,12 +142,14 @@ const RateIdea = (props) => {
                                     htmlFor="novelity"
                                     className="form-label text-capitalize"
                                 >
-                                    {item} score -{' '}
+                                    <b style={{fontSize:"1.2rem"}}>{item} score -{' '}</b>
                                     <span
+                                            style={{fontSize:"1.5rem"}}
+
                                         className={
                                             (item === 'novelity' ? novelityScore : item === 'usefulness' ? usefulnessScore : item === 'feasability' ? feasabilityScore : item === 'scalability' ? scalabilityScore : sustainabilityScore) == 0
-                                                ? 'text-muted fs-2'
-                                                : 'fs-2 text-primary'
+                                                ? 'text-muted '
+                                                : 'text-primary'
                                         }
                                     >
                                         {item === 'novelity' ? novelityScore : item === 'usefulness' ? usefulnessScore : item === 'feasability' ? feasabilityScore : item === 'scalability' ? scalabilityScore : sustainabilityScore}
@@ -192,13 +195,13 @@ const RateIdea = (props) => {
                     );
                 })}
                 <div className="row">
-                    <div className="col-md-7 mb-md-5 mb-4 p-0">
+                    <div className="col-md-12 mb-md-6 mb-4 p-0">
                         <h4 className=' my-2'>
                             Please add comments/reason for your scoring <span required style={{color:"red"}}>*</span>
                         </h4>
                         <div className="form-floating">
                             <textarea
-                                className="form-control fs-4 lh-sm"
+                                className="form-control lh-sm"
                                 maxLength={250}
                                 placeholder="Leave a comment here"
                                 id="ComentTextarea"
