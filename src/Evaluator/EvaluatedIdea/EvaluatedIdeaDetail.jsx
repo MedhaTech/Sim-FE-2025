@@ -117,7 +117,7 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                 </div>
                             </div>
                         </div>
-                        <div className="col-lg-8 order-lg-0 order-1 p-0 h-100">
+                        <div className="col-lg-8 order-lg-0 order-1 p-2 h-100">
                         <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -687,7 +687,7 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                 );
                             })}
                         </div> */}
-                        <div className="col-lg-4 order-lg-1 order-0 p-0 h-100 mt-3 status_info_col">
+                        <div className="col-lg-4 order-lg-1 order-0 p-2 h-100 mt-3 status_info_col">
                             <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
                                 <p
                                     className={`${
@@ -715,13 +715,29 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                 </p> */}
                                 {props?.ideaDetails?.evaluation_status ==
                                     'REJECTEDROUND1' && (
-                                    <p className="text-center">
-                                        <span className="text-bold">
-                                            Rejected Reason:{' '}
-                                        </span>{' '}
-                                        {props?.ideaDetails?.rejected_reason ||
-                                            ''}
-                                    </p>
+                                        <>
+                                        <p className="text-center">
+                                            <span className="text-bold">
+                                                Rejected Reason 1:{' '}
+                                            </span>{' '}
+                                            {props?.ideaDetails
+                                                ?.rejected_reason || ''}
+                                        </p>
+                                        <p className="text-center">
+                                            <span className="text-bold">
+                                                Rejected Reason 2:{' '}
+                                            </span>{' '}
+                                            {props?.ideaDetails
+                                                ?.rejected_reasonSecond || ''}
+                                        </p>
+                                    </>
+                                    // <p className="text-center">
+                                    //     <span className="text-bold">
+                                    //         Rejected Reason:{' '}
+                                    //     </span>{' '}
+                                    //     {props?.ideaDetails?.rejected_reason ||
+                                    //         ''}
+                                    // </p>
                                 )}
                             </div>
                             {props?.levelName !== 'L1' && (
