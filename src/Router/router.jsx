@@ -17,7 +17,7 @@ import Condition from "../InitialPage/Sidebar/Conditon";
 import HorizontalSidebar from "../InitialPage/Sidebar/horizontalSidebar";
 
 import {
-  pagesRoute,
+  // pagesRoute,
   posRoutes,
   teamRoutes,
   publicRoutes,
@@ -251,11 +251,11 @@ const AllRoutes = () => {
             />
           ))}
         </Route>
-        <Route path={"/"} element={<Authpages />}>
+        {/* <Route path={"/"} element={<Authpages />}>
           {pagesRoute.map((route, id) => (
             <Route path={route.path} element={route.element} key={id} />
           ))}
-        </Route>
+        </Route> */}
       </Routes>
     </div>
   );

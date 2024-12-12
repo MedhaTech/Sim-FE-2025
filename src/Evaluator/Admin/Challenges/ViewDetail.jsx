@@ -81,11 +81,12 @@ const ViewDetail = (props) => {
 
         swalWithBootstrapButtons
             .fire({
+                text: 'Are you sure?',
                 title:
                     handledText === 'accept'
                         ? 'You are attempting to accept this Idea'
                         : 'You are attempting to reject this Idea',
-                text: 'Are you sure?',
+              
                 // imageUrl: `${logout}`,
                 showCloseButton: true,
                 confirmButtonText: 'Confirm',
@@ -1005,7 +1006,9 @@ const ViewDetail = (props) => {
                             </div>
                           
                         </div> */}
-                          {teamResponse?.status === 'SUBMITTED' && (
+                          {/* {
+                   teamResponse?.status !== "DRAFT" &&
+                   teamResponse?.status === 'SUBMITTED' ? (
                             <div className="col-lg-4 order-lg-1 order-0 p-0 h-100 mt-3 status_info_col">
                                 <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
                                     {teamResponse?.evaluation_status ? (
@@ -1043,19 +1046,7 @@ const ViewDetail = (props) => {
                                         ''
                                     )}
 
-                                    {/* {teamResponse?.evaluated_at ? (
-                                        <p className="text-center">
-                                            <span className="text-bold">
-                                                Evaluated At:{' '}
-                                            </span>{' '}
-                                            {moment(
-                                                teamResponse?.evaluated_at
-                                            ).format('DD-MM-YY h:mm:ss a') ||
-                                                ''}
-                                        </p>
-                                    ) : (
-                                        ''
-                                    )} */}
+                                 
 
                                     {teamResponse?.evaluation_status ==
                                         'REJECTEDROUND1' && (
@@ -1083,7 +1074,6 @@ const ViewDetail = (props) => {
                                             <button
                                                 className="btn px-2 py-2 btn-danger"
                                                 onClick={() => {
-                                                    // handleAlert('reject');
                                                     setIsreject(true);
                                                     setReason('');
                                                     setReasonSec('');
@@ -1135,54 +1125,147 @@ const ViewDetail = (props) => {
                                                 </span>
                                             </button>
                                         </>
-                                    ): ""
+                                    ): 'Option3'
                                     }
+                                </div>
+                            </div>
+                        ): null} */}
+                          {props?.ideaDetails?.status === 'SUBMITTED' && (
+                            <div className="col-lg-4 order-lg-1 order-0 p-0 h-100 mt-3 status_info_col">
+                                <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
+                                    {props?.ideaDetails?.evaluation_status ? (
+                                        <p
+                                            className={`${
+                                                props?.ideaDetails
+                                                    ?.evaluation_status ==
+                                                'SELECTEDROUND1'
+                                                    ? 'text-success'
+                                                    : 'text-danger'
+                                            }fs-3 fw-bold text-center`}
+                                        >
+                                            <span className="fs-3 text-dark">
+                                                L1:{' '}
+                                            </span>
+                                            {props?.ideaDetails
+                                                ?.evaluation_status ==
+                                            'SELECTEDROUND1'
+                                                ? 'Accepted'
+                                                : 'Rejected'}
+                                        </p>
+                                    ) : (
+                                        ''
+                                    )}
+
+                                    {props?.ideaDetails?.evaluated_name ? (
+                                        <p className="text-center">
+                                            <span className="text-bold">
+                                                Evaluated By:{' '}
+                                            </span>{' '}
+                                            {props?.ideaDetails
+                                                ?.evaluated_name || ''}
+                                        </p>
+                                    ) : (
+                                        ''
+                                    )}
+
+                                    {/* {props?.ideaDetails?.evaluated_at ? (
+                                        <p className="text-center">
+                                            <span className="text-bold">
+                                                Evaluated At:{' '}
+                                            </span>{' '}
+                                            {moment(
+                                                props?.ideaDetails?.evaluated_at
+                                            ).format('DD-MM-YY h:mm:ss a') ||
+                                                ''}
+                                        </p>
+                                    ) : (
+                                        ''
+                                    )} */}
+
+                                    {props?.ideaDetails?.evaluation_status ==
+                                        'REJECTEDROUND1' && (
+                                        <>
+                                            <p className="text-center">
+                                                <span className="text-bold">
+                                                    Rejected Reason 1:{' '}
+                                                </span>{' '}
+                                                {props?.ideaDetails
+                                                    ?.rejected_reason || ''}
+                                            </p>
+                                            <p className="text-center">
+                                                <span className="text-bold">
+                                                    Rejected Reason 2:{' '}
+                                                </span>{' '}
+                                                {props?.ideaDetails
+                                                    ?.rejected_reasonSecond ||
+                                                    ''}
+                                            </p>
+                                        </>
+                                    )}
+                                    {props?.ideaDetails?.evaluation_status ? (
+                                        props?.ideaDetails?.evaluation_status ==
+                                        'SELECTEDROUND1' ? (
+                                            <button
+                                                className="btn px-5 py-2 btn-danger"
+                                                onClick={() => {
+                                                    // handleAlert('reject');
+                                                    setIsreject(true);
+                                                    setReason('');
+                                                    setReasonSec('');
+                                                }}
+                                            >
+                                                <span >
+                                                    Reject
+                                                </span>
+                                            </button>
+                                        ) : (
+                                            <button
+                                                className="btn px-5 py-2 btn-success"
+                                                onClick={() => {
+                                                    handleAlert('accept');
+                                                    setReason('');
+                                                    setReasonSec('');
+                                                }}
+                                            >
+                                                <span >
+                                                    Accept
+                                                </span>
+                                            </button>
+                                        )
+                                    ) : (
+                                        <>
+                                            <button
+                                                className="btn px-5 py-2 btn-danger mb-2"
+                                                onClick={() => {
+                                                    // handleAlert('reject');
+                                                    setIsreject(true);
+                                                    setReason('');
+                                                    setReasonSec('');
+                                                }}
+                                            >
+                                                <span >
+                                                    Reject
+                                                </span>
+                                            </button>
+                                            <button
+                                                className="btn px-5 py-2 btn-success mb-2"
+                                                onClick={() => {
+                                                    handleAlert('accept');
+                                                    setReason('');
+                                                    setReasonSec('');
+                                                }}
+                                            >
+                                                <span >
+                                                    Accept
+                                                </span>
+                                            </button>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         )}
                     </div>
-                  {status === 'SUBMITTED' && (
-                    <>  
-                  <div style={{ display: 'flex' }}>
-                        <p
-                            style={{ fontSize: '1rem', margin: '1rem' }}
-                            className="fw-bold"
-                        >
-                            Submitted By :{' '}
-                            {teamResponse.initiated_name
-                                ? teamResponse.initiated_name
-                                : '-'}
-                        </p>
-                        <p
-                            style={{ fontSize: '1rem', margin: '1rem' }}
-                            className="fw-bold"
-                        >
-                            Submitted At :{' '}
-                            {teamResponse.submitted_at
-                                ? moment(teamResponse.submitted_at).format(
-                                      'DD-MM-YYYY'
-                                  )
-                                : '-'}
-                        </p>
-                    </div>
-               
-                    <br />
-                    <div style={{ display: 'flex' }}>
-                      
-                        <p
-                            style={{ fontSize: '1rem', margin: '1rem' }}
-                            className="fw-bold"
-                        >
-                            Verified At :{' '}
-                            {teamResponse.verified_at
-                                ? moment(teamResponse.verified_at).format(
-                                      'DD-MM-YYYY'
-                                  )
-                                : '-'}
-                        </p>
-                    </div>
-                    </>
-                )}
+                
                     <div>
                         <Button
                             btnClass="primary"
@@ -1239,7 +1322,7 @@ const ViewDetail = (props) => {
                         <Col>
                             <Col className="m-5">
                                 <p className="text-left">
-                                    <b>1. Novelty & Usefulness</b>
+                                    <b>1. Novelty & Usefulness</b> <span required style={{color:"red"}}>*</span>
                                 </p>
                                 <Select
                                     list={selectData}
@@ -1253,8 +1336,8 @@ const ViewDetail = (props) => {
                                     <b>
                                         2. Does the submission show any evidence
                                         of efforts put in to complete the
-                                        project?
-                                    </b>
+                                        project? 
+                                    </b> <span required style={{color:"red"}}>*</span>
                                 </p>
                                 <Select
                                     list={reasondata2}
@@ -1267,13 +1350,13 @@ const ViewDetail = (props) => {
                     </div>
                     <div className="text-center">
                         <Button
-                            label={'Submit'}
+                            label={'Reject'}
                             btnClass={
-                                !reason && reasonSec ? 'default' : 'primary'
+                                reason && reasonSec ? 'primary' : 'default'
                             }
                             size="small "
                             onClick={() => handleReject()}
-                            disabled={!reason && reasonSec}
+                            disabled={!(reason && reasonSec)}
                         />
                     </div>
                 </Modal.Body>
