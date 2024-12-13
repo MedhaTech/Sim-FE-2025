@@ -207,7 +207,7 @@ const TicketsPage = (props) => {
             {
                 name: 'Mobile No',
                 selector: (row) => row.mobile,
-                width: '14rem'
+                width: '10rem'
             },
             // {
             //     name: 'District',
@@ -229,13 +229,13 @@ const TicketsPage = (props) => {
                         row.status === 'ACTIVE' ? "badge bg-success" : "badge bg-danger"
                     }`}>{row.status}</span>
                 ],
-                width: '8rem'
+                width: '7rem'
             },
             {
                 name: 'Actions',
                 sortable: false,
                 center: true,
-                width: '20rem',
+                width: '25rem',
                 cell: (record) => [
                     // <div
                     //     key={record.id}
@@ -263,11 +263,11 @@ const TicketsPage = (props) => {
                     }}
                 >
                     {record?.status === 'ACTIVE' ? (
-                        <div  className="btn btn-light">
+                        <div  className="btn btn-light m-2">
                             Inactive<AlertOctagon className="ms-1"  style={{ height: 15, width: 15 }}/>
                         </div>
                     ) : (
-                        <div className="btn btn-warning">Active<Check className="ms-1"  style={{ height: 15, width: 15 }}/></div>
+                        <div className="btn btn-success m-2">Active<Check className="ms-1"  style={{ height: 15, width: 15 }}/></div>
                     )}
                 </div>,
                     <div
@@ -275,7 +275,7 @@ const TicketsPage = (props) => {
                         onClick={() => handleEdit(record)}
                         style={{ marginRight: '10px' }}
                     >
-                        <div className="btn btn-primary">Edit</div>
+                        <div className="btn btn-primary m-2">Edit</div>
                     </div>,
                    
                       <div
