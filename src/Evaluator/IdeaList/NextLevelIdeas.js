@@ -40,7 +40,7 @@ const IdeaList = () => {
         <div className="page-wrapper">
         <div className="content">
             <div
-                className="container idea_list_wrapper pt-5 mb-50"
+                className="container idea_list_wrapper pt-2 mb-50"
                 ref={topRef}
             >
                 <div className="row">
@@ -63,11 +63,11 @@ const IdeaList = () => {
                                                 <img src={succesImg} alt=".." />
                                                 <br />
                                             </div>
-                                            <h2 className="my-auto text-center my-4">
+                                            <h4 className="my-auto text-center my-4">
                                                 All idea has been processed, no
                                                 more idea to display.
                                                
-                                            </h2>
+                                            </h4>
                                         </div>
                                     </div>
                                 </div>

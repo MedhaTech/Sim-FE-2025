@@ -39,7 +39,7 @@ const IdeaList = () => {
         <div className="page-wrapper">
         <div className="content">
             <div
-                className="container idea_list_wrapper pt-5 mb-50"
+                className="container idea_list_wrapper pt-2 mb-50"
                 ref={topRef}
             >
                 <div className="row">
