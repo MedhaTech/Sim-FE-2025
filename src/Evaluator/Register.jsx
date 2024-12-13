@@ -28,7 +28,7 @@ const navigate=useNavigate();
     };
     const inputPhone = {
         type: 'text',
-        placeholder: 'Enter Phone Number',
+        placeholder: 'Enter Mobile Number',
         className:"form-control"
     };
 
@@ -244,11 +244,19 @@ const navigate=useNavigate();
                                     {...inputPhone}
                                     id="mobile"
                                     name="mobile"
-                                    onChange={formik.handleChange}
+                                    // onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     value={formik.values.mobile}
-                                    maxLength={10}
-                                    // isDisabled={stepTwoData.mobile ? true : false}
+                                    onChange={(e) => {
+                                        const inputValue = e.target.value;
+                                        const numericValue = inputValue.replace(
+                                          /\D/g,
+                                          ""
+                                        );
+                                        formik.setFieldValue("mobile", numericValue);
+                                      }}
+                                      maxLength={10}
+                                      minLength={10}
                                 />
 
                                 {formik.touched.mobile &&
