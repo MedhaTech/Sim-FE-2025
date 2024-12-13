@@ -195,6 +195,20 @@ const RatedDetailCard = (props) => {
             </div>
             <hr />
             <div className="row mb-1 mt-2">
+    <div className="col-5">
+      <p className="my-0 fw-bold">Evaluated By :</p>
+    </div>
+    <div className="col-7">
+      {props?.details?.evaluator_ratings.map((item, i) => (
+        <p className="my-0 text-muted" key={i}>
+          {`${i + 1}: ${item.rated_evaluated_name}`}
+        </p>
+      ))}
+    </div>
+  </div>
+  <hr />
+
+            <div className="row mb-1 mt-2">
                 <div className="col-4">
                     <p className="my-0 fw-bold">Comments:</p>
                 </div>

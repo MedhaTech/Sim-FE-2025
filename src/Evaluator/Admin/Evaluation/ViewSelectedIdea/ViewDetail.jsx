@@ -77,8 +77,8 @@ console.log(level,"level");
 
         swalWithBootstrapButtons
             .fire({
-                text: 'Are you sure?',
-                title:
+                title: 'Are you sure?',
+                text:
                     handledText === 'accept'
                         ? 'You are attempting to accept this Idea'
                         : 'You are attempting to reject this Idea',
@@ -1034,7 +1034,7 @@ console.log(level,"level");
                             <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
                                 {props?.ideaDetails?.evaluation_status ? (
                                     <p
-                                    // style={{fontSize:"1.5rem"}}
+                                    style={{fontSize:"1.2rem"}}
                                         className={`${
                                             props?.ideaDetails
                                                 ?.evaluation_status ==
@@ -1043,7 +1043,8 @@ console.log(level,"level");
                                                 : 'text-danger'
                                         }fs-4 fw-bold text-center`}
                                     >
-                                        <span className="text-info fs-4" >
+                                        <span  className="text-info"
+                                        style={{fontSize:"1.2rem"}}  >
                                             L1:{' '}
                                         </span>
                                         {props?.ideaDetails
@@ -1055,7 +1056,7 @@ console.log(level,"level");
                                 ) : (
                                     ''
                                 )}
-  {/* {props?.ideaDetails?.evaluated_name ? (
+  {props?.ideaDetails?.evaluated_name ? (
                                         <p className="text-center">
                                             <span className="text-bold">
                                                 Evaluated By:{' '}
@@ -1066,8 +1067,8 @@ console.log(level,"level");
                                     ) : (
                                         ''
                                     )}
-                               */}
-                               {props?.ideaDetails?.evaluator_ratings && (
+                              
+                               {/* {props?.ideaDetails?.evaluator_ratings && (
   <div className="row mb-1 mt-2">
     <div className="col-5">
       <p className="my-0 fw-bold">Evaluated By :</p>
@@ -1080,22 +1081,8 @@ console.log(level,"level");
       ))}
     </div>
   </div>
-)}
-{/* 
-                                {props?.ideaDetails?.evaluator_ratings?.rated_evaluated_name && (
-  <div className="row mb-1 mt-2">
-    <div className="col-5">
-      <p className="my-0 fw-bold">Evaluated By :</p>
-    </div>
-    <div className="col-7">
-      {props?.ideaDetails?.evaluator_ratings?.rated_evaluated_name.map((item, i) => (
-        <p className="my-0 text-muted" key={i}>
-          {`${i + 1}: ${item}`}
-        </p>
-      ))}
-    </div>
-  </div>
 )} */}
+
 
 
                                 {props?.ideaDetails?.evaluation_status ==

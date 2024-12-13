@@ -107,7 +107,11 @@ const navigate = useNavigate();
             : (value.state = selectedStates.toString());
         await handleStates(value);
     };
-
+    const handleDiscard = () => {
+        localStorage.removeItem('eavlId');
+        navigate('/eadmin/evaluator');
+      };
+    
     return (
         <div className="page-wrapper">
           <div className="content">
@@ -153,26 +157,16 @@ const navigate = useNavigate();
                     <Col className="col-xs-12 col-sm-6">
                     <button
           type="button"
-          onClick={() => {
-            // Remove the evalID from localStorage
-            localStorage.removeItem('eavlId');
-            // Navigate to the evaluator page
-            navigate('/eadmin/evaluator');
-          }}
+          onClick={handleDiscard}
+        //   onClick={() => {
+        //     localStorage.removeItem('eavlId');
+        //     navigate('/eadmin/evaluator');
+        //   }}
           className="btn btn-secondary"
         >
           Discard
         </button>
-                          {/* <button
-                          type="button"
-                          onClick={() =>
-                            localStorage.removeItem('eavlId');
-                            navigate('/eadmin/evaluator');
-                        }
-                          className="btn btn-secondary"
-                        >
-                          Discard
-                        </button> */}
+                         
                     </Col>
                     <Col className="submit-btn col-xs-12 col-sm-6 text-right">
                         <Button

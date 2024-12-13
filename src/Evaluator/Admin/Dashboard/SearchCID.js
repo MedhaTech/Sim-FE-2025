@@ -72,11 +72,12 @@ const SearchCID = () => {
 
     swalWithBootstrapButtons
       .fire({
-        title:
+        title: "Are you sure?",
+
+        text:
           handledText === "accept"
             ? "You are attempting to accept this Idea"
             : "You are attempting to reject this Idea",
-        text: "Are you sure?",
         showCloseButton: true,
         confirmButtonText: "Confirm",
         showCancelButton: true,
@@ -950,16 +951,16 @@ const SearchCID = () => {
                     <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3" >
                       {multiOrgData?.evaluation_status ? (
                         <p
-                        
+                        style={{fontSize:"1.2rem"}}
                           className={`${
                             multiOrgData?.evaluation_status == "SELECTEDROUND1"
                               ? "text-success"
                               : "text-danger"
-                          } fs-4 fw-bold text-center`}
+                          }fs-4 fw-bold text-center`}
                         >
                           <span
-                            className="text-info fs-4"
-                            // style={{ fontSize: "1.5rem" }}
+                            className="text-info"
+                            style={{ fontSize: "1.2rem" }}
                           >
                             L1:{" "}
                           </span>
@@ -971,15 +972,15 @@ const SearchCID = () => {
                         ""
                       )}
 
-                      {/* {multiOrgData?.evaluated_name ? (
+                      {multiOrgData?.evaluated_name ? (
                         <p className="text-center">
                           <span className="text-bold">Evaluated By: </span>{" "}
                           {multiOrgData?.evaluated_name || ""}
                         </p>
                       ) : (
                         ""
-                      )} */}
-                      {multiOrgData?.evaluator_ratings && (
+                      )}
+                      {/* {multiOrgData?.evaluator_ratings && (
   <div className="row mb-1 mt-2">
     <div className="col-5">
       <p className="my-0 fw-bold">Evaluated By :</p>
@@ -992,7 +993,7 @@ const SearchCID = () => {
       ))}
     </div>
   </div>
-)}
+)} */}
 {/* 
                       {multiOrgData?.evaluator_ratings && (
   <div className="text-center">

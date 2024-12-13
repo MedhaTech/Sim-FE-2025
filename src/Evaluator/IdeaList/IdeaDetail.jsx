@@ -97,9 +97,9 @@ const downloadFile = (item) => {
 
         swalWithBootstrapButtons
             .fire({
-                text: 'Are you sure?',
+                title: 'Are you sure?',
 
-                title:
+            text:
                     handledText === 'accept'
                         ? 'You are attempting to accept this Idea'
                         : 'You are attempting to reject this Idea',
