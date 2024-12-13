@@ -37,7 +37,7 @@ const ViewDetail = (props) => {
     const [isReject, setIsreject] = React.useState(false);
     const [reason, setReason] = React.useState('');
     const [reasonSec, setReasonSec] = React.useState('');
-
+console.log(level,"level");
     const selectData = [
         'Not novel - Idea and problem common and already in use.',
         'Not novel - Idea has been 100% plagiarized.',
@@ -1055,15 +1055,25 @@ const ViewDetail = (props) => {
                                 ) : (
                                     ''
                                 )}
-
-                               
-                                {props?.ideaDetails?.evaluator_ratings[0]?.rated_evaluated_name && (
+  {/* {props?.ideaDetails?.evaluated_name ? (
+                                        <p className="text-center">
+                                            <span className="text-bold">
+                                                Evaluated By:{' '}
+                                            </span>{' '}
+                                            {props?.ideaDetails
+                                                ?.evaluated_name || ''}
+                                        </p>
+                                    ) : (
+                                        ''
+                                    )}
+                               */}
+                               {props?.ideaDetails?.evaluator_ratings && (
   <div className="row mb-1 mt-2">
     <div className="col-5">
       <p className="my-0 fw-bold">Evaluated By :</p>
     </div>
     <div className="col-7">
-      {props?.ideaDetails?.evaluator_ratings[0]?.rated_evaluated_name.map((item, i) => (
+      {props.ideaDetails.evaluator_ratings[0]?.rated_evaluated_name.map((item, i) => (
         <p className="my-0 text-muted" key={i}>
           {`${i + 1}: ${item}`}
         </p>
@@ -1071,23 +1081,22 @@ const ViewDetail = (props) => {
     </div>
   </div>
 )}
-
-
-                                  {/* {props?.ideaDetails?.evaluator_ratings[0]?.rated_evaluated_name && (
-  <div className="text-center">
-    <p className="text-bold">Evaluated By:</p>
-    {props?.ideaDetails?.evaluator_ratings[0]?.rated_evaluated_name.map(
-      (item, i) => (
+{/* 
+                                {props?.ideaDetails?.evaluator_ratings?.rated_evaluated_name && (
+  <div className="row mb-1 mt-2">
+    <div className="col-5">
+      <p className="my-0 fw-bold">Evaluated By :</p>
+    </div>
+    <div className="col-7">
+      {props?.ideaDetails?.evaluator_ratings?.rated_evaluated_name.map((item, i) => (
         <p className="my-0 text-muted" key={i}>
-          {i + 1}: {item}
+          {`${i + 1}: ${item}`}
         </p>
-      )
-    )}
+      ))}
+    </div>
   </div>
 )} */}
 
-
-                               
 
                                 {props?.ideaDetails?.evaluation_status ==
                                     'REJECTEDROUND1' && (
