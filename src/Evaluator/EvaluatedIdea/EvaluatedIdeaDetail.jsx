@@ -8,6 +8,7 @@ import { Button } from '../../stories/Button';
 import moment from 'moment';
 // import { getCurrentUser } from '../../helpers/Utils';
 import RatedDetailCard from './RatedDetailCard';
+import { Row, Col, Form, Label } from 'reactstrap';
 
 const EvaluatedIdeaDetail = (props) => {
 
@@ -65,13 +66,33 @@ const problemSolvingArray = teamResponse?.problem_solving;
                         <div className="col-12 p-0">
                             <div className="row">
                                 <div className="col-lg-6">
-                                <h4 className="mb-md-4 mb-3">
+                                <Row>
+                                        <Col>
+                                            <h4 className="mb-md-4 mb-3">
                                                 Theme : 
                                                 <span className="text-capitalize">
                                                 {props?.ideaDetails?.theme?.toLowerCase() ||
                                                         ''}
                                                 </span>
                                             </h4>
+                                        </Col>
+                                        <Col>
+                                            <h4 className="mb-md-4 mb-3">
+                                                CID :
+                                                <span className="text-capitalize">
+                                                {props?.ideaDetails.challenge_response_id ||
+                                                        ''}
+                                                </span>
+                                                </h4>
+                                        </Col>
+                                    </Row>
+                                {/* <h4 className="mb-md-4 mb-3">
+                                                Theme : 
+                                                <span className="text-capitalize">
+                                                {props?.ideaDetails?.theme?.toLowerCase() ||
+                                                        ''}
+                                                </span>
+                                            </h4> */}
                                 </div>
                                 <div className="col-lg-6 d-flex justify-content-end">
                                     <div className="ms-auto me-sm-3 p-0">
@@ -695,9 +716,9 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                         'SELECTEDROUND1'
                                             ? 'text-success'
                                             : 'text-danger'
-                                    } fs-3 fw-bold text-center`}
+                                    } fs-4 fw-bold text-center`}
                                 >
-                                    <span className="fs-2 text-info">
+                                    <span className="fs-4 text-info">
                                         L1 -{' '}
                                     </span>
                                     {props?.ideaDetails?.evaluation_status ==

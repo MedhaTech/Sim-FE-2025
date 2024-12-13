@@ -35,7 +35,7 @@ const IdeaList = () => {
     const handleNext = () => {
         dispatch(getSubmittedIdeaList('L2'));
     };
-console.log(Object.keys(ideaDetails).length,"IDEA",ideaDetails,"data");
+// console.log(Object.keys(ideaDetails).length,"IDEA",ideaDetails,"data");
     return (
         <div className="page-wrapper">
         <div className="content">
@@ -44,7 +44,7 @@ console.log(Object.keys(ideaDetails).length,"IDEA",ideaDetails,"data");
                 ref={topRef}
             >
                 <div className="row">
-                    {!isNextDiv ? (
+                    {!isNextDiv && (
                         <div className="col-12">
                             
                             {Object.keys(ideaDetails).length > 2  ? (
@@ -73,27 +73,27 @@ console.log(Object.keys(ideaDetails).length,"IDEA",ideaDetails,"data");
                                 </div>
                             )}
                         </div>
-                    ) : (
-                        <div className="col-sm-6 m-auto">
-                            <div className="card p-4 text-center">
-                                <div className="success_img text-center w-100">
-                                    <img src={succesImg} alt=".." />
-                                    <br />
-                                </div>
-                                <h2>Idea successfully processed!</h2>
-                                <p>Do you want to process another Idea?</p>
-                                <div className="text-center my-3">
-                                    <Button
-                                        btnClass="primary"
-                                        size="small"
-                                        label="Click Here"
-                                        onClick={() => {
-                                            setIsNextDiv(false);
-                                        }}
-                                    />
-                                </div>
-                            </div>
-                        </div>
+                    // ) : (
+                    //     <div className="col-sm-6 m-auto">
+                    //         <div className="card p-4 text-center">
+                    //             <div className="success_img text-center w-100">
+                    //                 <img src={succesImg} alt=".." />
+                    //                 <br />
+                    //             </div>
+                    //             <h2>Idea successfully processed!</h2>
+                    //             <p>Do you want to process another Idea?</p>
+                    //             <div className="text-center my-3">
+                    //                 <Button
+                    //                     btnClass="primary"
+                    //                     size="small"
+                    //                     label="Click Here"
+                    //                     onClick={() => {
+                    //                         setIsNextDiv(false);
+                    //                     }}
+                    //                 />
+                    //             </div>
+                    //         </div>
+                    //     </div>
                     )}
                 </div>
             </div>

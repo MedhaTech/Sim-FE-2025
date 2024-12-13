@@ -940,27 +940,26 @@ const SearchCID = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-lg-4 order-lg-1 order-0 p-2 h-100 mt-3 status_info_col"   style={{
-    position: "relative", 
-  }}>
+              <div className="col-lg-4 order-lg-1 order-0 p-2 h-100 mt-3 status_info_col"  
+  //              style={{
+  //   position: "relative", 
+  // }}
+  >
                 {multiOrgData?.verified_status !== "" &&
                   multiOrgData?.verified_status !== null && (
-                    <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3"  style={{
-                      position: "sticky",
-                      top: "10rem", 
-                      zIndex: 10, 
-                  }}>
+                    <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3" >
                       {multiOrgData?.evaluation_status ? (
                         <p
+                        
                           className={`${
                             multiOrgData?.evaluation_status == "SELECTEDROUND1"
                               ? "text-success"
                               : "text-danger"
-                          } fs-3 fw-bold text-center`}
+                          } fs-4 fw-bold text-center`}
                         >
                           <span
-                            className="text-info"
-                            style={{ fontSize: "1.5rem" }}
+                            className="text-info fs-4"
+                            // style={{ fontSize: "1.5rem" }}
                           >
                             L1:{" "}
                           </span>
@@ -972,14 +971,41 @@ const SearchCID = () => {
                         ""
                       )}
 
-                      {multiOrgData?.evaluated_name ? (
+                      {/* {multiOrgData?.evaluated_name ? (
                         <p className="text-center">
                           <span className="text-bold">Evaluated By: </span>{" "}
                           {multiOrgData?.evaluated_name || ""}
                         </p>
                       ) : (
                         ""
-                      )}
+                      )} */}
+                      {multiOrgData?.evaluator_ratings && (
+  <div className="row mb-1 mt-2">
+    <div className="col-5">
+      <p className="my-0 fw-bold">Evaluated By :</p>
+    </div>
+    <div className="col-7">
+      {multiOrgData.evaluator_ratings.map((rating, i) => (
+        <p className="my-0 text-muted" key={i}>
+          {`${i + 1}: ${rating.rated_evaluated_name}`}
+        </p>
+      ))}
+    </div>
+  </div>
+)}
+{/* 
+                      {multiOrgData?.evaluator_ratings && (
+  <div className="text-center">
+    <p className="text-bold">Evaluated By:</p>
+    {multiOrgData.evaluator_ratings.map((rating, i) => (
+      <p className="my-0 text-muted" key={i}>
+        {i + 1}: {rating.rated_evaluated_name}
+      </p>
+    ))}
+  </div>
+)} */}
+
+
 
                       {multiOrgData?.evaluation_status == "REJECTEDROUND1" && (
                         <>
@@ -1054,9 +1080,6 @@ const SearchCID = () => {
                             ) : null}
                           </>
                         )}
-
-                     
-
                     </div>
                   )}
                   

@@ -59,7 +59,7 @@ const downloadFile = (item) => {
                                     <Row>
                                         <Col>
                                             <h4 className="mb-md-4 mb-3">
-                                                Theme : 
+                                                Theme"aaaa" : 
                                                 <span className="text-capitalize">
                                                 {props?.ideaDetails?.theme?.toLowerCase() ||
                                                         ''}
@@ -623,7 +623,7 @@ const downloadFile = (item) => {
                         }
                         evaluator_id={currentUser?.data[0]?.user_id}
                         level={'L2'}
-                        setIsNextDiv={props?.setIsNextDiv}
+                        // setIsNextDiv={props?.setIsNextDiv}
                     />
                 </>
             ) : (

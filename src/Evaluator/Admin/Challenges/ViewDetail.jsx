@@ -1135,16 +1135,15 @@ const ViewDetail = (props) => {
                                 <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
                                     {props?.ideaDetails?.evaluation_status ? (
                                         <p
-                                        style={{fontSize:"1.5rem"}}
                                             className={`${
                                                 props?.ideaDetails
                                                     ?.evaluation_status ==
                                                 'SELECTEDROUND1'
                                                     ? 'text-success'
                                                     : 'text-danger'
-                                            }fs-3 fw-bold text-center`}
+                                            }fs-4 fw-bold text-center`}
                                         >
-                                            <span className="text-info" style={{fontSize:"1.5rem"}}>
+                                            <span className="text-info fs-4" >
                                                 L1:{' '}
                                             </span>
                                             {props?.ideaDetails
@@ -1168,6 +1167,7 @@ const ViewDetail = (props) => {
                                     ) : (
                                         ''
                                     )}
+                                   
 
                                     {/* {props?.ideaDetails?.evaluated_at ? (
                                         <p className="text-center">
