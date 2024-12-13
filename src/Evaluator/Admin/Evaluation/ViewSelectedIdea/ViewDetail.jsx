@@ -1034,16 +1034,16 @@ const ViewDetail = (props) => {
                             <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
                                 {props?.ideaDetails?.evaluation_status ? (
                                     <p
-                                    style={{fontSize:"1.5rem"}}
+                                    // style={{fontSize:"1.5rem"}}
                                         className={`${
                                             props?.ideaDetails
                                                 ?.evaluation_status ==
                                             'SELECTEDROUND1'
                                                 ? 'text-success'
                                                 : 'text-danger'
-                                        }fs-3 fw-bold text-center`}
+                                        }fs-4 fw-bold text-center`}
                                     >
-                                        <span className="text-info" style={{fontSize:"1.5rem"}}>
+                                        <span className="text-info fs-4" >
                                             L1:{' '}
                                         </span>
                                         {props?.ideaDetails
@@ -1056,33 +1056,38 @@ const ViewDetail = (props) => {
                                     ''
                                 )}
 
-                                {props?.ideaDetails?.evaluated_name ? (
-                                    <p className="text-center">
-                                        <span className="text-bold">
-                                            Evaluated By:{' '}
-                                        </span>{' '}
-                                        {props?.ideaDetails?.evaluated_name ||
-                                            ''}
-                                    </p>
-                                ) : (
-                                    ''
-                                )}
+                               
+                                {props?.ideaDetails?.evaluator_ratings[0]?.rated_evaluated_name && (
+  <div className="row mb-1 mt-2">
+    <div className="col-5">
+      <p className="my-0 fw-bold">Evaluated By :</p>
+    </div>
+    <div className="col-7">
+      {props?.ideaDetails?.evaluator_ratings[0]?.rated_evaluated_name.map((item, i) => (
+        <p className="my-0 text-muted" key={i}>
+          {`${i + 1}: ${item}`}
+        </p>
+      ))}
+    </div>
+  </div>
+)}
 
-                                {/* {props?.ideaDetails?.evaluated_at ? (
-                                    <p className="text-center">
-                                        <span className="text-bold">
-                                            Evaluated At:{' '}
-                                        </span>{' '}
-                                        {moment
-                                            .utc(
-                                                props?.ideaDetails?.evaluated_at
-                                            )
-                                            .format('DD-MM-YYYY HH:mm:ss a') ||
-                                            ''}
-                                    </p>
-                                ) : (
-                                    ''
-                                )} */}
+
+                                  {/* {props?.ideaDetails?.evaluator_ratings[0]?.rated_evaluated_name && (
+  <div className="text-center">
+    <p className="text-bold">Evaluated By:</p>
+    {props?.ideaDetails?.evaluator_ratings[0]?.rated_evaluated_name.map(
+      (item, i) => (
+        <p className="my-0 text-muted" key={i}>
+          {i + 1}: {item}
+        </p>
+      )
+    )}
+  </div>
+)} */}
+
+
+                               
 
                                 {props?.ideaDetails?.evaluation_status ==
                                     'REJECTEDROUND1' && (

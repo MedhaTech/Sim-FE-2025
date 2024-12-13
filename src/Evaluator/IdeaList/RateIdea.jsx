@@ -85,7 +85,7 @@ const RateIdea = (props) => {
                 openNotificationWithIcon('success', response?.data?.message == 'OK' ? 'Idea processed successfully!' : response?.data?.message);
                 setTimeout(() => {
                     dispatch(getSubmittedIdeaList("L2"));
-                    props?.setIsNextDiv(true);
+                    // props?.setIsNextDiv(true);
                 }, 100);
             })
             .catch(function (error) {
@@ -108,8 +108,9 @@ const RateIdea = (props) => {
 
         swalWithBootstrapButtons
             .fire({
-                title: 'You are attempting to Rate this Idea',
                 text: 'Are you sure?',
+
+                title: 'You are attempting to Rate this Idea',
                 showCloseButton: true,
                 confirmButtonText: 'Confirm',
                 showCancelButton: true,

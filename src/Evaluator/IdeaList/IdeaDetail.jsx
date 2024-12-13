@@ -150,7 +150,7 @@ const downloadFile = (item) => {
                 openNotificationWithIcon('success', response?.data?.message=='OK'?'Idea processed successfully!':response?.data?.message);
                 setTimeout(() => {
                     dispatch(getSubmittedIdeaList("L1"));
-                    props?.setIsNextDiv(true);
+                    // props?.setIsNextDiv(true);
                 }, 100);
             })
             .catch(function (error) {
@@ -179,7 +179,7 @@ const downloadFile = (item) => {
                                     <Row>
                                         <Col>
                                             <h4 className="mb-md-4 mb-3">
-                                                Theme : 
+                                                Theme: 
                                                 <span className="text-capitalize">
                                                 {props?.ideaDetails?.theme?.toLowerCase() ||
                                                         ''}

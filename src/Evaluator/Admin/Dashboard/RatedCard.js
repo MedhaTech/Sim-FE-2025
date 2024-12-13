@@ -54,7 +54,7 @@ const RatedDetailCard = (props) => {
         <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
             <div className="row">
                 <div className="col-12">
-                    <p className="text-center fs-3 fw-bold m-0 mb-3">
+                    <p className="text-center fw-bold m-0 mb-3" style={{fontSize:"1.2rem"}}>
                         {' '}
                         <span className="text-info">L2</span>- Rating
                         Details
@@ -65,8 +65,8 @@ const RatedDetailCard = (props) => {
             <div className="row">
                 <div className="col-12">
                     <p
-                        className="fs-1 fw-bold text-center"
-                        style={{ marginBottom: '5px' }}
+                        className="fw-bold text-center"
+                        style={{ marginBottom: '5px' ,fontSize:"1.2rem"}}
                     >
                         {overAll}
                     </p>

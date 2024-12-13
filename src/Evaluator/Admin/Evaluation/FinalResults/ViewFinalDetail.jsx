@@ -909,9 +909,9 @@ const ViewDetail = (props) => {
                                             'SELECTEDROUND1'
                                                 ? 'text-success'
                                                 : 'text-danger'
-                                        } fs-3 fw-bold text-center`}
+                                        } fs-4 fw-bold text-center`}
                                     >
-                                        <span className="fs-3 text-info">
+                                        <span className="fs-4 text-info">
                                             L1:{' '}
                                         </span>
                                         {teamResponse
@@ -924,7 +924,7 @@ const ViewDetail = (props) => {
                                     ''
                                 )}
 
-                                {teamResponse?.evaluated_name ? (
+                                {/* {teamResponse?.evaluated_name ? (
                                     <p className="text-center">
                                         <span className="text-bold">
                                             Evaluated By:{' '}
@@ -934,22 +934,22 @@ const ViewDetail = (props) => {
                                     </p>
                                 ) : (
                                     ''
-                                )}
-
-                                {/* {teamResponse?.evaluated_at ? (
-                                    <p className="text-center">
-                                        <span className="text-bold">
-                                            Evaluated At:{' '}
-                                        </span>{' '}
-                                        {moment
-                                            .utc(
-                                                teamResponse?.evaluated_at
-                                            )
-                                            .format('DD-MM-YYYY ') || ''}
-                                    </p>
-                                ) : (
-                                    ''
                                 )} */}
+  
+  {props?.ideaDetails?.evaluator_ratings[0]?.rated_evaluated_name && (
+  <div className="row mb-1 mt-2">
+    <div className="col-5">
+      <p className="my-0 fw-bold">Evaluated By :</p>
+    </div>
+    <div className="col-7">
+      {props?.ideaDetails?.evaluator_ratings[0]?.rated_evaluated_name.map((item, i) => (
+        <p className="my-0 text-muted" key={i}>
+          {`${i + 1}: ${item}`}
+        </p>
+      ))}
+    </div>
+  </div>
+)}
                             </div>
                             {level !== 'L1' &&
                                 props?.ideaDetails?.evaluator_ratings.length >

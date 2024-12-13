@@ -402,7 +402,7 @@ const ViewSelectedideasNew = () => {
             <>
               <div className="d-flex" key={params}>
                 <div
-                  className="btn btn-primary btn-lg mr-5 mx-2"
+                  className="btn btn-primary mr-5 mx-2"
                   onClick={() => {
                     setIdeaDetails(params);
                     setIsDetail(true);
