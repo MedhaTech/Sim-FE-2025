@@ -962,7 +962,7 @@ const SearchCID = () => {
                             className="text-info"
                             style={{ fontSize: "1.2rem" }}
                           >
-                            L1:{" "}
+                            L1 :{" "}
                           </span>
                           {multiOrgData?.evaluation_status == "SELECTEDROUND1"
                             ? "Accepted"
@@ -1012,13 +1012,13 @@ const SearchCID = () => {
                         <>
                           <p className="text-center">
                             <span className="text-bold">
-                              Rejected Reason 1:{" "}
+                              Rejected Reason 1 :{" "}
                             </span>{" "}
                             {multiOrgData?.rejected_reason || ""}
                           </p>
                           <p className="text-center">
                             <span className="text-bold">
-                              Rejected Reason 2:{" "}
+                              Rejected Reason 2 :{" "}
                             </span>{" "}
                             {multiOrgData?.rejected_reasonSecond || ""}
                           </p>

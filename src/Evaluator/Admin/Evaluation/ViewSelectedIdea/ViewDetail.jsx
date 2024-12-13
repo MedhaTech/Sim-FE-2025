@@ -1045,7 +1045,7 @@ console.log(level,"level");
                                     >
                                         <span  className="text-info"
                                         style={{fontSize:"1.2rem"}}  >
-                                            L1:{' '}
+                                            L1 :{' '}
                                         </span>
                                         {props?.ideaDetails
                                             ?.evaluation_status ==
@@ -1090,14 +1090,14 @@ console.log(level,"level");
                                     <>
                                         <p className="text-center">
                                             <span className="text-bold">
-                                                Rejected Reason 1:{' '}
+                                                Rejected Reason 1 :{' '}
                                             </span>{' '}
                                             {props?.ideaDetails
                                                 ?.rejected_reason || ''}
                                         </p>
                                         <p className="text-center">
                                             <span className="text-bold">
-                                                Rejected Reason 2:{' '}
+                                                Rejected Reason 2 :{' '}
                                             </span>{' '}
                                             {props?.ideaDetails
                                                 ?.rejected_reasonSecond || ''}

@@ -248,7 +248,7 @@ const TicketsPage = (props) => {
                     <div
                     // exact="true"
                     key={record.id}
-                    className="mr-5"
+                    // className="mr-5"
                     onClick={() => {
                         let status =
                             record?.status === 'ACTIVE'
@@ -264,10 +264,12 @@ const TicketsPage = (props) => {
                 >
                     {record?.status === 'ACTIVE' ? (
                         <div  className="btn btn-light m-2">
-                            Inactive<AlertOctagon className="ms-1"  style={{ height: 15, width: 15 }}/>
+                            Inactive&nbsp;<AlertOctagon style={{ height: 15, width: 15 }}/>
                         </div>
                     ) : (
-                        <div className="btn btn-success m-2">Active<Check className="ms-1"  style={{ height: 15, width: 15 }}/></div>
+                        <div className="btn btn-success m-2">
+                            Active&nbsp;<Check className="m-1"  style={{ height: 15, width: 15 }}/>
+                        </div>
                     )}
                 </div>,
                     <div
@@ -281,9 +283,9 @@ const TicketsPage = (props) => {
                       <div
                       key={record}
                       onClick={() => handleDic(record)}
-                      style={{ marginRight: '12px' }}
+                      style={{ marginRight: '10px' }}
                   >
-                      <div className="btn btn-info mx-2">
+                      <div className="btn btn-info m-2">
                           States
                       </div>
                   </div>
@@ -331,24 +333,31 @@ const TicketsPage = (props) => {
           <div className="content">
             <div className="row">
             <Container className="ticket-page ">
-                <Row className="p-2">
+                <Row className="">
                     <div className="page-header">
                     <h4>Evaluator List</h4>
                     
                     <div className="page-btn text-right">
                         <Button
-                            label={'Add New Evaluator'}
+                            // label={'Add New Evaluator'}
+                            label={
+                                <>
+                                  <PlusCircle className="me-2" style={{ color: "white" }} />
+                                  <b>Add New Evaluator</b>
+                                </>
+                              }
                             btnClass="primary"
                             size="small"
                             shape="btn-square"
                             Icon={BsUpload}
                             onClick={() => setRegisterModalShow(true)}
                         />
+                        
 
                     </div>
                     </div>
                     <div className="ticket-data">
-                        <div className="my-5">
+                        <div className="my-2">
                             <DataTableExtensions
                                 {...evaluatorsData}
                                 exportHeaders

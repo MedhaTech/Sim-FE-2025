@@ -59,9 +59,11 @@ const ViewSelectedIdea = () => {
     ? []  
     : ["All Districts", ...(allDistricts[selectstate] || [])];
     useEffect(() => {
-        if (selectstate === "All States") {
-            setdistrict('');  
-          }
+        // if (selectstate === "All States") {
+            setdistrict('');
+      console.log(state,"state");
+
+        //   }
     }, [selectstate]);
     
 
