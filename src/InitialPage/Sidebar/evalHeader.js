@@ -242,7 +242,7 @@ const EadmiHeader = () => {
       </span>
     </p>
     <p className="m-2" style={{ fontWeight: "bold", fontSize: "1rem" }}>
-      Yet to Process:&nbsp;
+      Yet to be Process:&nbsp;
       <span
         className="text-danger"
         style={{ fontWeight: "bold", fontSize: "1rem" }}

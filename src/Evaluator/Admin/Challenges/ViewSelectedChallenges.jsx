@@ -46,6 +46,7 @@ const ViewSelectedIdea = () => {
     const newstateList = ["All States", ...stateList];
     const { search } = useLocation();
     const status = new URLSearchParams(search).get('status');
+   const names = status === "SUBMITTED" ? "Mentor Accepted "  : status === "DRAFT" ? "Draft " : "";
     const fullStatesNames = newstateList;
     const allDistricts = {
       "All Districts": [...Object.values(districtList).flat()],
@@ -371,7 +372,7 @@ const ViewSelectedIdea = () => {
                         <div className="col-12 p-0">
                             {!isDetail && (
                                 <div>
-                                    <h4>Challenges</h4>
+                                    <h4>{names ? names :""}Challenges</h4>
 
                                     <Container fluid className="px-0">
                                         <Row className="align-items-center">

@@ -115,7 +115,7 @@ export const evaluatorAdminLoginUser =
 
         navigate("/eadmin/evaluationStatus");
       } else {
-        openNotificationWithIcon("error", "Invalid Email Address or Password");
+        openNotificationWithIcon("error", "User is Inactive");
         dispatch(evaluatorAdminLoginUserError(result.statusText));
       }
     } catch (error) {
