@@ -913,7 +913,7 @@ const ViewDetail = (props) => {
                                         }fs-4 fw-bold text-center`}
                                     >
                                         <span className="text-info"  style={{fontSize:"1.2rem"}}>
-                                            L1:{' '}
+                                            L1 :{' '}
                                         </span>
                                         {teamResponse
                                             ?.evaluation_status ==
