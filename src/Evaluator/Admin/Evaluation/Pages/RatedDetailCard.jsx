@@ -178,9 +178,26 @@ const RatedDetailCard = (props) => {
                 </div>
             </div>
             <hr />
+            
+            {/* {props?.ideaDetails?.evaluator_ratings[0]?.rated_evaluated_name && ( */}
+  <div className="row mb-1 mt-2">
+    <div className="col-5">
+      <p className="my-0 fw-bold">Evaluated By :</p>
+    </div>
+    <div className="col-7">
+      {props?.details?.evaluator_ratings[0]?.rated_evaluated_name.map((item, i) => (
+        <p className="my-0 text-muted" key={i}>
+          {`${i + 1}: ${item}`}
+        </p>
+      ))}
+    </div>
+  </div>
+{/* // )} */}
+            <hr />
+
             <div className="row mb-1 mt-2">
                 <div className="col-4">
-                    <p className="my-0 fw-bold">Comments:</p>
+                    <p className="my-0 fw-bold">Comments :</p>
                 </div>
                 <div className="col-8">
                     {props?.details?.evaluator_ratings[0]?.comments.map(

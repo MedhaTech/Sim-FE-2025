@@ -134,16 +134,17 @@ const StateLogin = (props) => {
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
                     />
-                    {formik.touched.password && formik.errors.password ? (
-                      <small className="error-cls" style={{ color: "red" }}>{formik.errors.password}</small>
-                    ) : null}
-                    <span
+                   
+                    <div
                       className={`fas toggle-password ${
                         isPasswordVisible ? "fa-eye" : "fa-eye-slash"
                       }`}
                       onClick={togglePasswordVisibility}
-                    ></span>
+                    ></div>
                   </div>
+                  {formik.touched.password && formik.errors.password ? (
+                      <small className="error-cls" style={{ color: "red" }}>{formik.errors.password}</small>
+                    ) : null}
                 </div>
                 {/* <div className="form-login authentication-check">
                   <div className="row">

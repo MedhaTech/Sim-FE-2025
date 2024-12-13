@@ -108,9 +108,8 @@ const RateIdea = (props) => {
 
         swalWithBootstrapButtons
             .fire({
-                text: 'Are you sure?',
-
-                title: 'You are attempting to Rate this Idea',
+                title: 'Are you sure?',
+                text: 'You are attempting to Rate this Idea',
                 showCloseButton: true,
                 confirmButtonText: 'Confirm',
                 showCancelButton: true,

@@ -97,9 +97,9 @@ const downloadFile = (item) => {
 
         swalWithBootstrapButtons
             .fire({
-                text: 'Are you sure?',
+                title: 'Are you sure?',
 
-                title:
+            text:
                     handledText === 'accept'
                         ? 'You are attempting to accept this Idea'
                         : 'You are attempting to reject this Idea',
@@ -179,7 +179,7 @@ const downloadFile = (item) => {
                                     <Row>
                                         <Col>
                                             <h4 className="mb-md-4 mb-3">
-                                                Theme: 
+                                                Theme : 
                                                 <span className="text-capitalize">
                                                 {props?.ideaDetails?.theme?.toLowerCase() ||
                                                         ''}

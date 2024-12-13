@@ -54,17 +54,17 @@ const EditProfile = (props) => {
     const adminValidation = Yup.object({
       name: Yup.string()
         .matches(/^[aA-zZ\s]+$/, "Invalid name ")
-        .min(2, "Enter a valid name")
-        .required("Name is Required"),
+        .min(2, "Please Enter a Full Name")
+        .required("Please Enter Full Name"),
       email: Yup.string()
-        .required("required")
+        .required("Please Enter Email Id")
         .trim()
         .email("Please Enter Valid Email Id"),
       mobile: Yup.string()
-        .required("required")
+        .required("Please Enter Mobile Number")
         .trim()
         .min(10, "Number is less than 10 digits")
-        .max(10, "Please enter valid number"),
+        .max(10, "Please Enter Valid Number"),
       // password: Yup.string()
       // .trim()
       // .matches(

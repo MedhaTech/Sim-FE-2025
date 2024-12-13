@@ -48,8 +48,8 @@ const LoginEvaluator = (props) => {
         },
 
         validationSchema: Yup.object({
-            email: Yup.string().required('required'),
-            password: Yup.string().required('required')
+            email: Yup.string().required('Required').email("Must be a valid email"),
+            password: Yup.string().required('Required')
         }),
         // EVALUATOR ROLE
         onSubmit: (values) => {
@@ -90,7 +90,7 @@ const LoginEvaluator = (props) => {
 
     const inputUserId = {
         type: 'text',
-        placeholder: 'Enter Evaluator Email Address'
+        placeholder: 'Please Enter Evaluator Email Address'
     };
 
     const inputPassword = {
@@ -147,7 +147,7 @@ const LoginEvaluator = (props) => {
                         value={formik.values.email}
                       />
                       {formik.touched.email && formik.errors.email ? (
-                        <small className="error-cls" style={{ color: "red" }}>Required</small>
+                        <small className="error-cls" style={{ color: "red" }}>{formik.errors.email}</small>
                       ) : null}
   
                       <img src={email} alt="Email" />
@@ -165,16 +165,17 @@ const LoginEvaluator = (props) => {
                         onBlur={formik.handleBlur}
                         value={formik.values.password}
                       />
-                      {formik.touched.password && formik.errors.password ? (
-                        <small className="error-cls" style={{ color: "red" }}>Required</small>
-                      ) : null}
-                      <span
+                     
+                      <div
                         className={`fas toggle-password ${
                           isPasswordVisible ? "fa-eye" : "fa-eye-slash"
                         }`}
                         onClick={togglePasswordVisibility}
-                      ></span>
+                      ></div>
                     </div>
+                    {formik.touched.password && formik.errors.password ? (
+                        <small className="error-cls" style={{ color: "red" }}>{formik.errors.password}</small>
+                      ) : null}
                   </div>
                   {/* <div className="form-login authentication-check">
                     <div className="row">

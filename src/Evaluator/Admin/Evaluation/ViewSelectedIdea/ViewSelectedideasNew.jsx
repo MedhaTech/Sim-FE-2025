@@ -78,9 +78,10 @@ const ViewSelectedideasNew = () => {
       ? []
       : ["All Districts", ...(allDistricts[selectstate] || [])];
   useEffect(() => {
-    if (selectstate === "All States") {
+    // if (selectstate === "All States") {
       setdistrict(""); 
-    }
+      console.log(selectstate,"state");
+    // }
   }, [selectstate]);
   // const SDGDate = cardData.map((i) => {
   //     return i.goal_title;

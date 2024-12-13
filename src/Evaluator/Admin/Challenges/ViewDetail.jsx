@@ -81,8 +81,8 @@ const ViewDetail = (props) => {
 
         swalWithBootstrapButtons
             .fire({
-                text: 'Are you sure?',
-                title:
+                title: 'Are you sure?',
+                text:
                     handledText === 'accept'
                         ? 'You are attempting to accept this Idea'
                         : 'You are attempting to reject this Idea',
@@ -1143,7 +1143,7 @@ const ViewDetail = (props) => {
                                                     : 'text-danger'
                                             }fs-4 fw-bold text-center`}
                                         >
-                                            <span className="text-info fs-4" >
+                                            <span className="text-info" >
                                                 L1:{' '}
                                             </span>
                                             {props?.ideaDetails
