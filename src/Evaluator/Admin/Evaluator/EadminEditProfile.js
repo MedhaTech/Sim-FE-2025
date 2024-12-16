@@ -295,13 +295,17 @@ const EditProfile = (props) => {
                   >
                     Submit
                   </button>
-                  <Link
-                    className="btn btn-cancel"
-                    to={"/eadmin/evaluator"}
-                    style={cancelLinkStyle}
+                  <button
+                    onClick={() => navigate("/eadmin/evaluator")}
+                    type="button"
+                    className="btn btn-secondary"
+                    style={{ marginLeft: "auto" }}
+                    // className="btn btn-cancel"
+                    // to={"/eadmin/evaluator"}
+                    // style={cancelLinkStyle}
                   >
                     Cancel
-                  </Link>
+                  </button>
                 </div>
               </div>
             </div>

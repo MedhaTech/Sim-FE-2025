@@ -127,7 +127,8 @@ const downloadFile = (item) => {
         const body = JSON.stringify({
             status:
                 handledText == 'accept' ? 'SELECTEDROUND1' : 'REJECTEDROUND1',
-            rejected_reason:handledText == 'reject' ? reason : ''
+            rejected_reason:handledText == 'reject' ? reason : '',
+              rejected_reasonSecond: handledText == 'reject' ? reasonSec : ''
         });
         const challId = encryptGlobal(
             JSON.stringify(props?.ideaDetails?.challenge_response_id)
