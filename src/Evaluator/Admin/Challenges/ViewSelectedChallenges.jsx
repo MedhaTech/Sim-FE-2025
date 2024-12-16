@@ -230,7 +230,7 @@ const ViewSelectedIdea = () => {
                         {row?.title}
                     </div>
                 ),
-                width: '20rem'
+                width: '15rem'
             },
 
             // {

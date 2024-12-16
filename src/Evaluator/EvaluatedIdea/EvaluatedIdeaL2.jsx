@@ -177,7 +177,7 @@ const EvaluatedIdea = () => {
                         {row?.title}
                     </div>
                 ),
-                width: '20rem'
+                width: '15rem'
             },
 
             {
@@ -256,7 +256,23 @@ const EvaluatedIdea = () => {
             setCurrentRow(currentRow - 1);
         }
     };
-
+    const customStyles = {
+        rows: {
+          style: {
+            fontSize: "13px",
+          },
+        },
+        headCells: {
+          style: {
+            fontSize: "14px",
+          },
+        },
+        cells: {
+          style: {
+            fontSize: "13px",
+          },
+        },
+      };
     return (
         <div className="page-wrapper">
          <div className="content">
@@ -341,6 +357,8 @@ const EvaluatedIdea = () => {
                                             data={evaluatedIdeaList || []}
                                             defaultSortField="id"
                                             defaultSortAsc={false}
+                          customStyles={customStyles}
+
                                             pagination
                                             highlightOnHover
                                             fixedHeader

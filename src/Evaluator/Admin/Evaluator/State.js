@@ -108,10 +108,12 @@ const navigate = useNavigate();
         await handleStates(value);
     };
     const handleDiscard = () => {
+        // alert("hii");
+        setselectedStates([]);
         localStorage.removeItem('eavlId');
         navigate('/eadmin/evaluator');
       };
-    
+    console.log(selectedStates,"selected");
     return (
         <div className="page-wrapper">
           <div className="content">
@@ -126,22 +128,7 @@ const navigate = useNavigate();
                                 </span>{' '}
                             </Label>
                         </Col>
-                        {/* <Col md={4}>
-                            <Label className="mb-2 text-info">
-                                No of Evaluation :{' '}
-                                <span className="text-muted">
-                                    {evalID && evalID.no_of_evaluation}
-                                </span>
-                            </Label>
-                        </Col>
-                        <Col md={4}>
-                            <Label className="mb-2 text-info">
-                                Evaluation Schema :{' '}
-                                <span className="text-muted">
-                                    {evalID && evalID.eval_schema}
-                                </span>
-                            </Label>
-                        </Col> */}
+                      
                     </Row>
                     <Row>
                         <Label className="mb-2 text-info form-label">States:</Label>

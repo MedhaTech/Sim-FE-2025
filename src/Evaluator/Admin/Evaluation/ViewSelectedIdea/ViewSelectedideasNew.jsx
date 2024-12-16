@@ -342,7 +342,7 @@ const ViewSelectedideasNew = () => {
                 {row?.title}
             </div>
         ),
-        width: '20rem'
+        width: '15rem'
     },
 
       // {
@@ -535,7 +535,7 @@ const ViewSelectedideasNew = () => {
                 {row?.title}
             </div>
         ),
-        width: '20rem'
+        width: '15rem'
     },
 
       // {
@@ -706,7 +706,7 @@ const ViewSelectedideasNew = () => {
                 {row?.title}
             </div>
         ),
-        width: '20rem'
+        width: '15rem'
     },
       // {
       //     name: 'District',
@@ -996,7 +996,7 @@ const ViewSelectedideasNew = () => {
                 {row?.title}
             </div>
         ),
-        width: '20rem'
+        width: '15rem'
     },
       // {
       //     name: 'District',
