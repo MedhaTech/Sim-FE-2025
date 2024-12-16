@@ -61,9 +61,9 @@ const EvaluatedIdea = () => {
 
     const [tabledate, settabledate] = React.useState([]);
     useEffect(() => {
-        if (selectstate === "All States") {
+        // if (selectstate === "All States") {
             setdistrict('');  // Reset the district value
-          }
+        //   }
     }, [selectstate]);
     React.useEffect(() => {
         if (currentUser) {

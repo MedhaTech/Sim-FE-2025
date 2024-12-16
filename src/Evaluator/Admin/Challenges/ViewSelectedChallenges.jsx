@@ -480,6 +480,7 @@ const ViewSelectedIdea = () => {
                                         handleNext={handleNext}
                                         handlePrev={handlePrev}
                                         currentRow={currentRow}
+                                        names={names}
                                         dataLength={
                                             tableData && tableData?.length
                                         }
