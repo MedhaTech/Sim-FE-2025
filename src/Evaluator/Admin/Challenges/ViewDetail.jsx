@@ -67,7 +67,7 @@ const ViewDetail = (props) => {
             setTeamResponse(props?.ideaDetails);
         }
     }, [props]);
-    console.log(status,"status");
+    console.log(props.names,"status");
     
     const handleAlert = (handledText) => {
         const swalWithBootstrapButtons = Swal.mixin({
@@ -1130,11 +1130,14 @@ const ViewDetail = (props) => {
                                 </div>
                             </div>
                         ): null} */}
-                          {props?.ideaDetails?.status === 'SUBMITTED' && (
+                          {props?.ideaDetails?.status === 'SUBMITTED' && 
+                          props?.ideaDetails?.verified_status !== null && props?.ideaDetails?.verified_status !== "" &&
+                          (
                             <div className="col-lg-4 order-lg-1 order-0 p-2 h-100 mt-3 status_info_col">
                                 <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
                                     {props?.ideaDetails?.evaluation_status ? (
                                         <p
+                                        style={{fontSize:"1.2rem"}}
                                             className={`${
                                                 props?.ideaDetails
                                                     ?.evaluation_status ==
@@ -1143,7 +1146,7 @@ const ViewDetail = (props) => {
                                                     : 'text-danger'
                                             }fs-4 fw-bold text-center`}
                                         >
-                                            <span className="text-info" >
+                                            <span className="text-info"  style={{fontSize:"1.2rem"}}>
                                                 L1:{' '}
                                             </span>
                                             {props?.ideaDetails
@@ -1235,6 +1238,8 @@ const ViewDetail = (props) => {
                                         )
                                     ) : (
                                         <>
+    {props?.names !== "Draft" && (
+                                        <>
                                             <button
                                                 className="btn px-5 py-2 btn-danger mb-2"
                                                 onClick={() => {
@@ -1261,6 +1266,8 @@ const ViewDetail = (props) => {
                                                 </span>
                                             </button>
                                         </>
+    )}
+     </>
                                     )}
                                 </div>
                             </div>

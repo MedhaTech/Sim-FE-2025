@@ -58,15 +58,19 @@ const EvaluatedIdea = () => {
     // );
 
     const [tabledate, settabledate] = React.useState([]);
-
+ useEffect(() => {
+        // if (selectstate === "All States") {
+            setdistrict('');  // Reset the district value
+        //   }
+    }, [selectstate]);
    
-    useEffect(() => {
-        if (selectstate === '') {
-            settabledate([]);
-        } else {
-            settabledate(evaluatedIdeaList);
-        }
-    }, [evaluatedIdeaList]);
+    // useEffect(() => {
+    //     if (selectstate === '') {
+    //         settabledate([]);
+    //     } else {
+    //         settabledate(evaluatedIdeaList);
+    //     }
+    // }, [evaluatedIdeaList]);
 
     const handleclickcall = () => {
         // here we can select status , district , SDG //
