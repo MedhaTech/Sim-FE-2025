@@ -151,6 +151,7 @@ const downloadFile = (item) => {
                 openNotificationWithIcon('success', response?.data?.message=='OK'?'Idea processed successfully!':response?.data?.message);
                 setTimeout(() => {
                     dispatch(getSubmittedIdeaList("L1"));
+                    props?.topRef.current?.scrollIntoView({ behavior: 'smooth' });
                     // props?.setIsNextDiv(true);
                 }, 100);
             })
@@ -797,6 +798,7 @@ const downloadFile = (item) => {
                                                 handleAlert('accept');
                                                 setReason('');
                                                 setReasonSec('');
+
                                             }}
                                         >
                                             <span >Accept</span>
