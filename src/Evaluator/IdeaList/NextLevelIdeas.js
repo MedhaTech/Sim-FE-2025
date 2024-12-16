@@ -53,6 +53,7 @@ const IdeaList = () => {
                                     ideaDetails={ideaDetails}
                                     handleSkip={handleNext}
                                     setIsNextDiv={setIsNextDiv}
+                                    topRef={topRef}
                                 />
                             
                             ) : (

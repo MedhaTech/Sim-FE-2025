@@ -85,6 +85,8 @@ const RateIdea = (props) => {
                 openNotificationWithIcon('success', response?.data?.message == 'OK' ? 'Idea processed successfully!' : response?.data?.message);
                 setTimeout(() => {
                     dispatch(getSubmittedIdeaList("L2"));
+                    props?.topRef.current?.scrollIntoView({ behavior: 'smooth' });
+
                     // props?.setIsNextDiv(true);
                 }, 100);
             })
