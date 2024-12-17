@@ -117,7 +117,7 @@ const navigate = useNavigate();
                     <Row>
                         <Col md={4}>
                         <Label className="mb-2 text-info">
-                            Level Name:{' '}
+                            Level Name :{' '}
                             <span className="text-muted">
                             {evalID && evalID.level_name}
                             </span>{' '}
@@ -125,7 +125,7 @@ const navigate = useNavigate();
                         </Col>
                         <Col md={4}>
                         <Label className="mb-2 text-info">
-                            No of Evaluation:{' '}
+                            No of Evaluators per idea :{' '}
                             <span className="text-muted">
                             {evalID && evalID.no_of_evaluation}
                             </span>
@@ -133,7 +133,7 @@ const navigate = useNavigate();
                         </Col>
                         <Col md={4}>
                         <Label className="mb-2 text-info">
-                            Evaluation Schema:{' '}
+                            Evaluation Schema :{' '}
                             <span className="text-muted">
                             {evalID && evalID.eval_schema}
                             </span>

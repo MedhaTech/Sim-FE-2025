@@ -182,11 +182,11 @@ const RatedDetailCard = (props) => {
             {/* {props?.ideaDetails?.evaluator_ratings[0]?.rated_evaluated_name && ( */}
   <div className="row mb-1 mt-2">
     <div className="col-5">
-      <p className="my-0 fw-bold">Evaluated By :</p>
+      <p className="my-0 ">Evaluated By :</p>
     </div>
     <div className="col-7">
       {props?.details?.evaluator_ratings[0]?.rated_evaluated_name.map((item, i) => (
-        <p className="my-0 text-muted"style={{ fontSize: '1.2rem', fontWeight: 'bold' }} key={i}>
+        <p className="my-0"style={{ fontSize: '14px'}} key={i}>
           {`${i + 1}: ${item}`}
         </p>
       ))}
@@ -196,13 +196,13 @@ const RatedDetailCard = (props) => {
             <hr />
 
             <div className="row mb-1 mt-2">
-                <div className="col-4">
-                    <p className="my-0 fw-bold">Comments :</p>
+                <div className="col-5">
+                    <p className="my-0">Comments :</p>
                 </div>
-                <div className="col-8">
+                <div className="col-7">
                     {props?.details?.evaluator_ratings[0]?.comments.map(
                         (item, i) => (
-                            <p className="my-0 text-muted" key={i}>
+                            <p className="my-0"style={{ fontSize: '14px'}} key={i}>
                                 {i + 1} : {item}
                             </p>
                         )

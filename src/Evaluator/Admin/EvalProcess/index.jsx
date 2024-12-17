@@ -76,7 +76,7 @@ const Evalprocess = () => {
                 width: '15%'
             },
             {
-                name: <span style={{ fontWeight: 550 }}>No of Evaluations</span>,
+                name: <span style={{ fontWeight: 550 }}>No of Evaluators per idea</span>,
                 selector: (row) => row.no_of_evaluation,
                 width: '15%'
             },

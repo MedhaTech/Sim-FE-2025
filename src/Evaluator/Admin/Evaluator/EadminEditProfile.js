@@ -53,7 +53,8 @@ const EditProfile = (props) => {
     // where data = mentorData //
     const adminValidation = Yup.object({
       name: Yup.string()
-        .matches(/^[aA-zZ\s]+$/, "Invalid name ")
+        // .matches(/^[aA-zZ\s]+$/, "Invalid name ")
+        .matches(/^[a-zA-Z\s._-]+$/, 'Not allowed')
         .min(2, "Please Enter a Full Name")
         .required("Please Enter Full Name"),
       email: Yup.string()
