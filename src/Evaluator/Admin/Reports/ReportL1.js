@@ -799,7 +799,7 @@ const ReportL1 = () => {
                                     fontWeight: "bold",
                                   }}
                                 >
-                                  No.of Ideas Rejected in L2
+                                  No.of Ideas Rejected in L1
                                 </th>
                               </tr>
                             </thead>
