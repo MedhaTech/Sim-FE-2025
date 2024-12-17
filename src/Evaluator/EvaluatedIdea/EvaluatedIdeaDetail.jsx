@@ -167,6 +167,8 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                     </div>
                                 </div>
                             </div>
+                <h4>Section-1: Problem Identification</h4>
+
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -378,6 +380,8 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                     </div>
                                 </div>
                             </div>{' '}
+                <h4>Section-2: Solution & User Analysis</h4>
+
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -490,6 +494,8 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                     </div>
                                 </div>
                             </div>{' '}
+                <h4>Section-3: Prototyping</h4>
+
                           
                                     <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                         <div
