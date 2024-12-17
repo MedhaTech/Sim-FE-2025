@@ -88,7 +88,9 @@ const ReportL1 = () => {
     labels: [],
     datasets: [],
   });
-
+      const [status, setstatus] = React.useState('');
+  
+  const statusdata = ['Accepted', 'Rejected', 'Both'];
   const [downloadTableData, setDownloadTableData] = useState(null);
   const [downloadTableData2, setDownloadTableData2] = useState(null);
 
@@ -292,10 +294,10 @@ const ReportL1 = () => {
     }
   }, [studentDetailedReportsData]);
   const handleDownload = () => {
-    if (!RegTeachersState || !RegTeachersdistrict  || !category || !sdg) {
+    if (!RegTeachersState || !RegTeachersdistrict  || !category || !sdg || !status) {
       notification.warning({
         message:
-        "Select state, district, category type and Theme to download report.",
+        "Select state, district, category type, status and Theme to download report.",
       });
       return;
     }
@@ -311,6 +313,8 @@ const ReportL1 = () => {
         district: RegTeachersdistrict,
         category: category,
         theme: sdg,
+        evaluation_status: status !== 'Both'? (status === 'Accepted' ? 'SELECTEDROUND1' : 'REJECTEDROUND1'): 'Both',
+
       })
     );
     const url = `/reports/L1deatilreport?Data=${param}`;
@@ -661,16 +665,7 @@ const ReportL1 = () => {
                   />
                 </div>
               </Col>
-              {/* <Col md={2}>
-                <div className="my-2 d-md-block d-flex justify-content-center">
-                  <Select
-                    list={filterOptions}
-                    setValue={setFilterType}
-                    placeHolder={"Select Filter"}
-                    value={filterType}
-                  />
-                </div>
-              </Col> */}
+            
               <Col md={2}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
                   {RegTeachersState === "Tamil Nadu" ? (
@@ -700,7 +695,16 @@ const ReportL1 = () => {
                   />
                 </div>
               </Col>
-
+              <Col md={2}>
+                <div className="my-2 d-md-block d-flex justify-content-center">
+                  <Select
+                    list={statusdata}
+                    setValue={setstatus}
+                    placeHolder={"Select Status"}
+                    value={status}
+                  />
+                </div>
+              </Col>
               <Col
                 md={2}
                 className="d-flex align-items-center justify-content-center"

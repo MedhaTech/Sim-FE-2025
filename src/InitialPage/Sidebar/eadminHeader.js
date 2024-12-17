@@ -36,6 +36,12 @@ const EadmiHeader = () => {
 
     setDiesCode(trimmedValue);
   };
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && diesCode) {
+      e.preventDefault(); // Prevent form submission
+      handleSearch(diesCode);
+    }
+  };
   const isElementVisible = (element) => {
     return element.offsetWidth > 0 || element.offsetHeight > 0;
   };
@@ -152,24 +158,16 @@ const EadmiHeader = () => {
       }
     }
   };
+ 
   // useEffect(() => {
-  //   if (diesCode.length > 0) {
-      
-  //     setTimeout(()=>{
-  //       handleSearch(diesCode); 
-  //     },1000);
+  //   const timer = setTimeout(() => {
+  //     if (diesCode) { 
+  //       handleSearch(diesCode);
+  //     }
+  //   }, 5000);
   
-  //   }
+  //   return () => clearTimeout(timer);
   // }, [diesCode]);
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (diesCode) { 
-        handleSearch(diesCode);
-      }
-    }, 5000);
-  
-    return () => clearTimeout(timer);
-  }, [diesCode]);
   const handleSearch = (diesCode) => {
     const popParam = encryptGlobal(diesCode
      
@@ -284,6 +282,7 @@ const EadmiHeader = () => {
                     placeholder="Enter CID"
                     onChange={(e) => handleOnChange(e)}
                     value={diesCode}
+                    onKeyDown={handleKeyDown}
                     // maxLength={11}
                     // minLength={11}
                     name="organization_code"
