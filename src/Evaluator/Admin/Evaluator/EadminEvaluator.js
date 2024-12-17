@@ -192,30 +192,41 @@ const TicketsPage = (props) => {
             {
                 name: 'No',
                 selector: (row) => row.id,
+                // selector: (row) => row.index,
+                cellExport: (row) => row.index,
                 width: '6rem'
             },
             {
                 name: 'Evaluator Name',
                 selector: (row) => row.user.full_name,
+                cellExport: (row) => row.user.full_name,
+                // selector: (row) => row.user.full_name,
                 width: '12rem'
             },
             {
                 name: 'Email Id',
                 selector: (row) => row.user.username,
+                cellExport: (row) => row.user.username,
+                // selector: (row) => row.user.username,
                 width: '14rem'
             },
             {
-                name: 'Mobile No',
+                name: 'Mobile No & Pwd',
                 selector: (row) => row.mobile,
+                cellExport: (row) => row.mobile,
+                // selector: (row) => row.mobile,
                 width: '10rem'
             },
-            // {
-            //     name: 'District',
-            //     selector: 'district',
-            //     width: '11rem'
-            // },
+            {
+                name: 'States',
+                selector: (row) => row.state,
+                cellExport: (row) => row.state,
+                omit: true,
+                width: '11rem'
+            },
             {
                 name: 'Status',
+                cellExport: (row) => row.status,
                 cell: (row) => [
                     // <Badge
                     //     key={row.mentor_id}
@@ -236,6 +247,7 @@ const TicketsPage = (props) => {
                 sortable: false,
                 center: true,
                 width: '25rem',
+                cellExport: (row) => {},
                 cell: (record) => [
                     // <div
                     //     key={record.id}
@@ -362,7 +374,7 @@ const TicketsPage = (props) => {
                                 {...evaluatorsData}
                                 exportHeaders
                                 print={false}
-                                export={false}
+                                export={true}
                             >
                                 <DataTable
                                     responsive={true}

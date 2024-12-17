@@ -1059,7 +1059,7 @@ console.log(level,"level");
   {props?.ideaDetails?.evaluated_name ? (
                                         <p className="text-center">
                                             <span className="text-bold">
-                                                Evaluated By:{' '}
+                                                Evaluated By :{' '}
                                             </span>{' '}
                                             {props?.ideaDetails
                                                 ?.evaluated_name || ''}

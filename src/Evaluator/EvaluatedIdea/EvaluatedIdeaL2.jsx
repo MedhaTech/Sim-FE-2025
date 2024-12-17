@@ -64,13 +64,13 @@ const EvaluatedIdea = () => {
         //   }
     }, [selectstate]);
    
-    // useEffect(() => {
-    //     if (selectstate === '') {
-    //         settabledate([]);
-    //     } else {
-    //         settabledate(evaluatedIdeaList);
-    //     }
-    // }, [evaluatedIdeaList]);
+    useEffect(() => {
+        if (selectstate === '') {
+            settabledate([]);
+        } else {
+            settabledate(evaluatedIdeaList);
+        }
+    }, [evaluatedIdeaList]);
 
     const handleclickcall = () => {
         // here we can select status , district , SDG //
