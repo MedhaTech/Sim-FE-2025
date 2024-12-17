@@ -928,7 +928,7 @@ const ViewDetail = (props) => {
                                 {teamResponse?.evaluated_name ? (
                                     <p className="text-center">
                                         <span className="text-bold">
-                                            Evaluated By:{' '}
+                                            Evaluated By :{' '}
                                         </span>{' '}
                                         {teamResponse?.evaluated_name ||
                                             ''}

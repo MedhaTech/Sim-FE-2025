@@ -777,7 +777,7 @@ const ReportL1 = () => {
                                     fontWeight: "bold",
                                   }}
                                 >
-                                  No of Ideas Submitted{" "}
+                                  No.of Ideas Approved by Mentor{" "}
                                 </th>
                                 <th
                                   style={{
@@ -786,7 +786,7 @@ const ReportL1 = () => {
                                     fontWeight: "bold",
                                   }}
                                 >
-                                  No of Ideas Accepted
+                                  No.of Ideas Accepted in L1
                                 </th>
                                 <th
                                   style={{
@@ -795,7 +795,7 @@ const ReportL1 = () => {
                                     fontWeight: "bold",
                                   }}
                                 >
-                                  No of Ideas Rejected
+                                  No.of Ideas Rejected in L2
                                 </th>
                               </tr>
                             </thead>

@@ -974,7 +974,7 @@ const SearchCID = () => {
 
                       {multiOrgData?.evaluated_name ? (
                         <p className="text-center">
-                          <span className="text-bold">Evaluated By: </span>{" "}
+                          <span className="text-bold">Evaluated By : </span>{" "}
                           {multiOrgData?.evaluated_name || ""}
                         </p>
                       ) : (

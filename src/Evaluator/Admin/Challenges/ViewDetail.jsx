@@ -1147,7 +1147,7 @@ const ViewDetail = (props) => {
                                             }fs-4 fw-bold text-center`}
                                         >
                                             <span className="text-info"  style={{fontSize:"1.2rem"}}>
-                                                L1:{' '}
+                                                L1 :{' '}
                                             </span>
                                             {props?.ideaDetails
                                                 ?.evaluation_status ==
@@ -1162,7 +1162,7 @@ const ViewDetail = (props) => {
                                     {props?.ideaDetails?.evaluated_name ? (
                                         <p className="text-center">
                                             <span className="text-bold">
-                                                Evaluated By:{' '}
+                                                Evaluated By :{' '}
                                             </span>{' '}
                                             {props?.ideaDetails
                                                 ?.evaluated_name || ''}
