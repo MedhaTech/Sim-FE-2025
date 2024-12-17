@@ -3,7 +3,7 @@
 /* eslint-disable indent */
 import React from 'react';
 import { Button } from '../../stories/Button';
-// import LinkComponent from './LinkComponent';
+import LinkComponent from './LinkComponent';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
@@ -19,6 +19,7 @@ const IdeaDetail = (props) => {
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
     const [teamResponse, setTeamResponse] = React.useState([]);
+    const [images,setImages] = React.useState([]);
    
     const [isReject, setIsreject]=React.useState(false);
     const [reason, setReason]=React.useState('');
@@ -51,6 +52,8 @@ const IdeaDetail = (props) => {
             setTeamResponse(
                 props?.ideaDetails
             );
+            setImages(JSON.parse(props?.ideaDetails.prototype_image));
+
         }
     }, [props]);
     const files = teamResponse?.prototype_image
@@ -97,11 +100,12 @@ const downloadFile = (item) => {
 
         swalWithBootstrapButtons
             .fire({
-                title:
+                title: 'Are you sure?',
+
+            text:
                     handledText === 'accept'
                         ? 'You are attempting to accept this Idea'
                         : 'You are attempting to reject this Idea',
-                text: 'Are you sure?',
                 // imageUrl: `${logout}`,
                 showCloseButton: true,
                 confirmButtonText: 'Confirm',
@@ -126,7 +130,8 @@ const downloadFile = (item) => {
         const body = JSON.stringify({
             status:
                 handledText == 'accept' ? 'SELECTEDROUND1' : 'REJECTEDROUND1',
-            rejected_reason:handledText == 'reject' ? reason : ''
+            rejected_reason:handledText == 'reject' ? reason : '',
+              rejected_reasonSecond: handledText == 'reject' ? reasonSec : ''
         });
         const challId = encryptGlobal(
             JSON.stringify(props?.ideaDetails?.challenge_response_id)
@@ -149,7 +154,8 @@ const downloadFile = (item) => {
                 openNotificationWithIcon('success', response?.data?.message=='OK'?'Idea processed successfully!':response?.data?.message);
                 setTimeout(() => {
                     dispatch(getSubmittedIdeaList("L1"));
-                    props?.setIsNextDiv(true);
+                    props?.topRef.current?.scrollIntoView({ behavior: 'smooth' });
+                    // props?.setIsNextDiv(true);
                 }, 100);
             })
             .catch(function (error) {
@@ -173,14 +179,28 @@ const downloadFile = (item) => {
                     <div className="row idea_detail_card ">
                         <div className="col-12 p-0">
                             <div className="row">
-                                <div className="col-sm-8">
-                                <h4 className="mb-md-4 mb-3">
-                                                Theme :
+                            <div className="col-lg-8">
+                                {/* L1 Evaluated Ideas */}
+                                    <Row>
+                                        <Col>
+                                            <h4 className="mb-md-4 mb-3">
+                                                Theme : 
                                                 <span className="text-capitalize">
                                                 {props?.ideaDetails?.theme?.toLowerCase() ||
                                                         ''}
                                                 </span>
                                             </h4>
+                                        </Col>
+                                        <Col>
+                                            <h4 className="mb-md-4 mb-3">
+                                                CID :
+                                                <span className="text-capitalize">
+                                                {props?.ideaDetails.challenge_response_id ||
+                                                        ''}
+                                                </span>
+                                                </h4>
+                                        </Col>
+                                    </Row>
                                 </div>
                                 <div className="col-sm-4 d-flex justify-content-end">
                                     <div className="ms-auto me-sm-3 p-0">
@@ -233,6 +253,8 @@ const downloadFile = (item) => {
                                     </div>
                                 </div>
                             </div>
+                <h4>Section-1: Problem Identification</h4>
+
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -444,6 +466,8 @@ const downloadFile = (item) => {
                                     </div>
                                 </div>
                             </div>{' '}
+                <h4>Section-2: Solution & User Analysis</h4>
+
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -555,6 +579,8 @@ const downloadFile = (item) => {
                                     </div>
                                 </div>
                             </div>{' '}
+                <h4>Section-3: Prototyping</h4>
+
                           
                                     <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                         <div
@@ -571,13 +597,13 @@ const downloadFile = (item) => {
                                                 </b>
                                             </div>
                                             <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
-                                                {files.length > 0 &&
+                                            {
+                        <LinkComponent item={images} />
+                      }
+                                                {/* {files.length > 0 &&
                                                     files.map((item, i) => (
                                                         <div key={i}>
-                                                            {/* <CardTitle className="fw-bold">
-                                                    {item.question}
-                                                </CardTitle> */}
-                                                            {/* <CardBody> */}
+                                                       
                                                             <a
                                                                 key={i}
                                                                 className="badge mb-2 bg-info p-3 ms-3"
@@ -593,9 +619,8 @@ const downloadFile = (item) => {
                                                                     .split('/')
                                                                     .pop()}
                                                             </a>
-                                                            {/* </CardBody> */}
                                                         </div>
-                                                    ))}
+                                                    ))} */}
                                                 {/* <p
                                         style={{
                                             fontSize: '1.4rem'
@@ -781,6 +806,7 @@ const downloadFile = (item) => {
                                                 handleAlert('accept');
                                                 setReason('');
                                                 setReasonSec('');
+
                                             }}
                                         >
                                             <span >Accept</span>
@@ -849,7 +875,7 @@ const downloadFile = (item) => {
                         id="contained-modal-title-vcenter"
                         className="w-100 d-block text-center"
                     >
-                        Reject
+                        Reject 
                     </Modal.Title>
                 </Modal.Header>
 
@@ -861,7 +887,7 @@ const downloadFile = (item) => {
                         <Col>
                             <Col className="m-5">
                                 <p className="text-left">
-                                    <b>1. Novelty & Usefulness</b>
+                                    <b>1. Novelty & Usefulness</b> <span required style={{color:"red"}}>*</span>
                                 </p>
                                 <Select
                                     list={selectData}
@@ -876,7 +902,7 @@ const downloadFile = (item) => {
                                         2. Does the submission show any evidence
                                         of efforts put in to complete the
                                         project?
-                                    </b>
+                                    </b> <span required style={{color:"red"}}>*</span>
                                 </p>
                                 <Select
                                     list={reasondata2}
@@ -889,13 +915,13 @@ const downloadFile = (item) => {
                     </div>
                     <div className="text-center">
                         <Button
-                            label={'Submit'}
+                            label={'Reject'}
                             btnClass={
-                                !reason && reasonSec ? 'default' : 'primary'
+                                reason && reasonSec ? 'primary' : 'default'
                             }
                             size="small "
                             onClick={() => handleReject()}
-                            disabled={!reason && reasonSec}
+                            disabled={!(reason && reasonSec)}
                         />
                     </div>
                 </Modal.Body>

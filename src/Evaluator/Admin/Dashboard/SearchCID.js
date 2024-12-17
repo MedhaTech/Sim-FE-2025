@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
@@ -26,6 +27,7 @@ import html2canvas from "html2canvas";
 import { Row, Col, Form, Label } from "reactstrap";
 import { useReactToPrint } from "react-to-print";
 import { encryptGlobal } from "../../../constants/encryptDecrypt";
+import LinkComponent from "../Challenges/pages/LinkComponent";
 const SearchCID = () => {
   const { t } = useTranslation();
   // const multiOrg = localStorage.getItem("multiOrgData");
@@ -35,6 +37,8 @@ const SearchCID = () => {
   // const level = new URLSearchParams(search).get('level');
   const currentUser = getCurrentUser("current_user");
   const [teamResponse, setTeamResponse] = React.useState({});
+  const [images,setImages] = React.useState([]);
+
   const [isReject, setIsreject] = React.useState(false);
   const [reason, setReason] = React.useState("");
   const [reasonSec, setReasonSec] = React.useState("");
@@ -57,6 +61,7 @@ const SearchCID = () => {
   useEffect(() => {
     if (multiOrgData) {
       setTeamResponse(multiOrgData);
+      setImages(JSON.parse(multiOrgData.prototype_image));
     }
   }, [multiOrgData]);
 
@@ -72,11 +77,12 @@ const SearchCID = () => {
 
     swalWithBootstrapButtons
       .fire({
-        title:
+        title: "Are you sure?",
+
+        text:
           handledText === "accept"
             ? "You are attempting to accept this Idea"
             : "You are attempting to reject this Idea",
-        text: "Are you sure?",
         showCloseButton: true,
         confirmButtonText: "Confirm",
         showCancelButton: true,
@@ -111,7 +117,9 @@ const SearchCID = () => {
     var config = {
       method: "put",
       url: `${
-        process.env.REACT_APP_API_BASE_URL_FOR_REPORTS  + "/challenge_response/" + challId
+        process.env.REACT_APP_API_BASE_URL_FOR_REPORTS +
+        "/challenge_response/" +
+        challId
       }`,
       headers: {
         "Content-Type": "application/json",
@@ -127,9 +135,7 @@ const SearchCID = () => {
             ? "Idea processed successfully!"
             : response?.data?.message
         );
-        navigate(
-            '/eadmin/evaluationStatus'
-            );
+        navigate("/eadmin/evaluationStatus");
       })
       .catch(function (error) {
         openNotificationWithIcon("error", error?.response?.data?.message);
@@ -181,7 +187,32 @@ const SearchCID = () => {
   const files = teamResponse?.prototype_image
     ? teamResponse?.prototype_image.split(",")
     : [];
+  // const downloadFile = (item) => {
+  //   fetch(item)
+  //     .then((response) => {
+  //       return response.blob();
+  //     })
+  //     .then((blob) => {
+  //       const url = window.URL.createObjectURL(new Blob([blob]));
+  //       const link = document.createElement("a");
+  //       link.href = url;
+  //       const parts = item.split("/");
+  //       link.setAttribute("download", parts[parts.length - 1]);
+  //       document.body.appendChild(link);
+  //       link.click();
+  //       link.parentNode.removeChild(link);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error downloading file:", error);
+  //     });
+  // };
   const downloadFile = (item) => {
+    // const link = document.createElement('a');
+    // link.href = item;
+    // link.download = 'upload.pdf';
+    // document.body.appendChild(link);
+    // link.click();
+    // document.body.removeChild(link);
     fetch(item)
       .then((response) => {
         // Convert the response to a blob
@@ -192,17 +223,25 @@ const SearchCID = () => {
         const url = window.URL.createObjectURL(new Blob([blob]));
         const link = document.createElement("a");
         link.href = url;
-        const parts = item.split("/");
-        link.setAttribute("download", parts[parts.length - 1]);
+        const fileName = item.split("/");
+        // .pop().replace(/[\[\]"]/g, "");
+        link.setAttribute("download", fileName);
         document.body.appendChild(link);
+
+        // const parts = item.split("/");
+        // link.setAttribute("download", parts[parts.length - 1]);
         link.click();
-        link.parentNode.removeChild(link);
+        window.URL.revokeObjectURL(url); // Clean up the URL object
+        document.body.removeChild(link);
+        console.log("Downloading file from:", item, fileName, "filename");
+        // link.parentNode.removeChild(link);
       })
       .catch((error) => {
         console.error("Error downloading file:", error);
       });
   };
-
+  console.log(typeof(images), "Image");
+ 
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -361,7 +400,7 @@ const SearchCID = () => {
                 </div>
               </div>
 
-              <div className="col-lg-8 order-lg-0 order-1 p-0 h-100">
+              <div className="col-lg-8 order-lg-0 order-1 p-2 h-100">
                 <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                   <div
                     // key={index}
@@ -395,6 +434,7 @@ const SearchCID = () => {
                     </div>
                   </div>
                 </div>
+                <h4>Section-1: Problem Identification</h4>
                 <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                   <div
                     // key={index}
@@ -415,7 +455,7 @@ const SearchCID = () => {
                       style={{
                         border: "1px solid #ccc",
                         borderRadius: "10px",
-                        height: "120px",
+                        height: "auto",
                       }}
                     >
                       <p
@@ -449,7 +489,7 @@ const SearchCID = () => {
                       style={{
                         border: "1px solid #ccc",
                         borderRadius: "10px",
-                        height: "120px",
+                        height: "auto",
                       }}
                     >
                       <p
@@ -484,7 +524,7 @@ const SearchCID = () => {
                       style={{
                         border: "1px solid #ccc",
                         borderRadius: "10px",
-                        height: "120px",
+                        height: "auto",
                       }}
                     >
                       <p
@@ -621,7 +661,7 @@ const SearchCID = () => {
                       style={{
                         border: "1px solid #ccc",
                         borderRadius: "10px",
-                        height: "120px",
+                        height: "auto",
                       }}
                     >
                       <p
@@ -655,7 +695,7 @@ const SearchCID = () => {
                       style={{
                         border: "1px solid #ccc",
                         borderRadius: "10px",
-                        height: "120px",
+                        height: "auto",
                       }}
                     >
                       <p
@@ -669,6 +709,7 @@ const SearchCID = () => {
                     </div>
                   </div>
                 </div>{" "}
+                <h4>Section-2: Solution & User Analysis</h4>
                 <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                   <div
                     // key={index}
@@ -727,7 +768,7 @@ const SearchCID = () => {
                       style={{
                         border: "1px solid #ccc",
                         borderRadius: "10px",
-                        height: "120px",
+                        height: "auto",
                       }}
                     >
                       <p
@@ -762,7 +803,7 @@ const SearchCID = () => {
                       style={{
                         border: "1px solid #ccc",
                         borderRadius: "10px",
-                        height: "120px",
+                        height: "auto",
                       }}
                     >
                       <p
@@ -809,7 +850,7 @@ const SearchCID = () => {
                       style={{
                         border: "1px solid #ccc",
                         borderRadius: "10px",
-                        height: "120px",
+                        height: "auto",
                       }}
                     >
                       <p
@@ -823,6 +864,7 @@ const SearchCID = () => {
                     </div>
                   </div>
                 </div>{" "}
+                <h4>Section-3: Prototyping</h4>
                 <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                   <div
                     // key={index}
@@ -846,7 +888,10 @@ const SearchCID = () => {
                         height: "auto",
                       }}
                     >
-                      {files.length > 0 &&
+                      {
+                        <LinkComponent item={images} />
+                      }
+                      {/* {files.length > 0 &&
                         files.map((item, i) => (
                           <div key={i}>
                             <a
@@ -859,7 +904,23 @@ const SearchCID = () => {
                               {item.split("/").pop()}
                             </a>
                           </div>
-                        ))}
+                        ))} */}
+                      {/* {files.length > 0 &&
+        files.map((item, i) => {
+          const fileName = item.split("/").pop().replace(/[\[\]"]/g, "");
+          return (
+            <div key={i}>
+              <a
+                className="badge mb-2 bg-info p-3 ms-3"
+                onClick={() => downloadFile(item)}
+                style={{ cursor: "pointer" }}
+               
+              >
+                {fileName}
+              </a>
+            </div>
+          );
+        })} */}
                     </div>
                   </div>
                 </div>
@@ -883,7 +944,7 @@ const SearchCID = () => {
                       style={{
                         border: "1px solid #ccc",
                         borderRadius: "10px",
-                        height: "120px",
+                        height: "auto",
                       }}
                     >
                       <p
@@ -940,23 +1001,29 @@ const SearchCID = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-lg-4 order-lg-1 order-0 p-0 h-100 mt-3 status_info_col">
+              <div
+                className="col-lg-4 order-lg-1 order-0 p-2 h-100 mt-3 status_info_col"
+                //              style={{
+                //   position: "relative",
+                // }}
+              >
                 {multiOrgData?.verified_status !== "" &&
                   multiOrgData?.verified_status !== null && (
                     <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
                       {multiOrgData?.evaluation_status ? (
                         <p
+                          style={{ fontSize: "1.2rem" }}
                           className={`${
                             multiOrgData?.evaluation_status == "SELECTEDROUND1"
                               ? "text-success"
                               : "text-danger"
-                          } fs-3 fw-bold text-center`}
+                          }fs-4 fw-bold text-center`}
                         >
                           <span
                             className="text-info"
-                            style={{ fontSize: "1.5rem" }}
+                            style={{ fontSize: "1.2rem" }}
                           >
-                            L1:{" "}
+                            L1 :{" "}
                           </span>
                           {multiOrgData?.evaluation_status == "SELECTEDROUND1"
                             ? "Accepted"
@@ -968,24 +1035,49 @@ const SearchCID = () => {
 
                       {multiOrgData?.evaluated_name ? (
                         <p className="text-center">
-                          <span className="text-bold">Evaluated By: </span>{" "}
+                          <span className="text-bold">Evaluated By : </span>{" "}
                           {multiOrgData?.evaluated_name || ""}
                         </p>
                       ) : (
                         ""
                       )}
+                      {/* {multiOrgData?.evaluator_ratings && (
+  <div className="row mb-1 mt-2">
+    <div className="col-5">
+      <p className="my-0 fw-bold">Evaluated By :</p>
+    </div>
+    <div className="col-7">
+      {multiOrgData.evaluator_ratings.map((rating, i) => (
+        <p className="my-0 text-muted" key={i}>
+          {`${i + 1}: ${rating.rated_evaluated_name}`}
+        </p>
+      ))}
+    </div>
+  </div>
+)} */}
+                      {/* 
+                      {multiOrgData?.evaluator_ratings && (
+  <div className="text-center">
+    <p className="text-bold">Evaluated By:</p>
+    {multiOrgData.evaluator_ratings.map((rating, i) => (
+      <p className="my-0 text-muted" key={i}>
+        {i + 1}: {rating.rated_evaluated_name}
+      </p>
+    ))}
+  </div>
+)} */}
 
                       {multiOrgData?.evaluation_status == "REJECTEDROUND1" && (
                         <>
                           <p className="text-center">
                             <span className="text-bold">
-                              Rejected Reason 1:{" "}
+                              Rejected Reason 1 :{" "}
                             </span>{" "}
                             {multiOrgData?.rejected_reason || ""}
                           </p>
                           <p className="text-center">
                             <span className="text-bold">
-                              Rejected Reason 2:{" "}
+                              Rejected Reason 2 :{" "}
                             </span>{" "}
                             {multiOrgData?.rejected_reasonSecond || ""}
                           </p>
@@ -1048,129 +1140,9 @@ const SearchCID = () => {
                             ) : null}
                           </>
                         )}
-
-                      {/* {multiOrgData?.verified_status !== "" &&  multiOrgData?.verified_status !== null && (
-                      <>
-                        {multiOrgData?.evaluation_status == null ? (
-                          <>
-                            <button
-                              className="btn px-5 py-2 btn-danger"
-                              onClick={() => {
-                                setIsreject(true);
-                                setReason("");
-                                setReasonSec("");
-                              }}
-                            >
-                              <span>Reject</span>
-                            </button>
-                            <button
-                              className="btn px-5 py-2 btn-success mt-2"
-                              onClick={() => {
-                                handleAlert("accept");
-                                setReason("");
-                                setReasonSec("");
-                              }}
-                            >
-                              <span>Accept</span>
-                            </button>
-                          </>
-                        ) : multiOrgData?.evaluation_status ===
-                          "SELECTEDROUND1" ? (
-                          <button
-                            className="btn px-2 py-2 btn-danger"
-                            onClick={() => {
-                              setIsreject(true);
-                              setReason("");
-                              setReasonSec("");
-                            }}
-                          >
-                            <span>Reject</span>
-                          </button>
-                        ) : multiOrgData?.evaluation_status ===
-                          "REJECTEDROUND1" ? (
-                          <button
-                            className="btn px-2 py-2 btn-success"
-                            onClick={() => {
-                              handleAlert("accept");
-                              setReason("");
-                              setReasonSec("");
-                            }}
-                          >
-                            <span>Accept</span>
-                          </button>
-                        ) : null}
-                      </>
-                    )} */}
-                      {/* Previous code */}
-
-                      {/* {multiOrgData?.status !== "DRAFT" && multiOrgData?.evaluation_status == null && 
-                                    (multiOrgData?.evaluation_status ? (
-                                        multiOrgData?.evaluation_status ==
-                                        'SELECTEDROUND1' ? (
-                                            <button
-                                                className="btn px-2 py-2 btn-danger "
-                                                onClick={() => {
-                                                    setIsreject(true);
-                                                    setReason('');
-                                                    setReasonSec('');
-                                                }}
-                                            >
-                                                <span >
-                                                    Reject
-                                                </span>
-                                            </button>
-                                        ) : (
-                                            <button
-                                                className="btn px-2 py-2 btn-success"
-                                                onClick={() => {
-                                                    handleAlert('accept');
-                                                    setReason('');
-                                                    setReasonSec('');
-                                                }}
-                                            >
-                                                <span >
-                                                    Accept
-                                                </span>
-                                            </button>
-                                        )
-                                    ) : (
-                                        
-                                        <>
-                                            {teamResponse.verified_name !==
-                                                null && (
-                                                <>
-                                                    <button
-                                                        className="btn px-5 py-2 btn-danger"
-                                                        onClick={() => {
-                                                            setIsreject(true);
-                                                            setReason('');
-                                                            setReasonSec('');
-                                                        }}
-                                                    >
-                                                        <span >
-                                                            Reject
-                                                        </span>
-                                                    </button>
-                                                    <button
-                                                        className="btn px-5 py-2 btn-success mt-2"
-                                                        onClick={() => {
-                                                            handleAlert(
-                                                                'accept'
-                                                            );
-                                                            setReason('');
-                                                            setReasonSec('');
-                                                        }}
-                                                    >
-                                                        <span >
-                                                            Accept
-                                                        </span>
-                                                    </button>
-                                                </>
-                                            )}
-                                        </>
-                                    ))} */}
                     </div>
                   )}
+
                 {multiOrgData?.evaluator_ratings.length > 0 && (
                   <RatedCard details={multiOrgData} />
                 )}
@@ -1217,16 +1189,7 @@ const SearchCID = () => {
                   : "-"}
               </p>
             </div>
-            <div>
-              {/* <Button
-                            btnClass="primary"
-                            size="small"
-                            label="Back"
-                            onClick={() => {
-                                props?.setIsDetail(false);
-                            }}
-                        /> */}
-            </div>
+            <div></div>
           </>
         ) : (
           <>

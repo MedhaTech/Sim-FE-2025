@@ -53,18 +53,19 @@ const EditProfile = (props) => {
     // where data = mentorData //
     const adminValidation = Yup.object({
       name: Yup.string()
-        .matches(/^[aA-zZ\s]+$/, "Invalid name ")
-        .min(2, "Enter a valid name")
-        .required("Name is Required"),
+        // .matches(/^[aA-zZ\s]+$/, "Invalid name ")
+        .matches(/^[a-zA-Z\s._-]+$/, 'Not allowed')
+        .min(2, "Please Enter a Full Name")
+        .required("Please Enter Full Name"),
       email: Yup.string()
-        .required("required")
+        .required("Please Enter Email Id")
         .trim()
         .email("Please Enter Valid Email Id"),
       mobile: Yup.string()
-        .required("required")
+        .required("Please Enter Mobile Number")
         .trim()
         .min(10, "Number is less than 10 digits")
-        .max(10, "Please enter valid number"),
+        .max(10, "Please Enter Valid Number"),
       // password: Yup.string()
       // .trim()
       // .matches(
@@ -195,15 +196,15 @@ const EditProfile = (props) => {
                       className="form-control"
                       id="name"
                       name="name"
-                      // onChange={formik.handleChange}
-                      onChange={(e) => {
-                        const inputValue = e.target.value;
-                        const lettersOnly = inputValue.replace(
-                          /[^a-zA-Z\s]/g,
-                          ""
-                        );
-                        formik.setFieldValue("name", lettersOnly);
-                      }}
+                      onChange={formik.handleChange}
+                      // onChange={(e) => {
+                      //   const inputValue = e.target.value;
+                      //   const lettersOnly = inputValue.replace(
+                      //     /[^a-zA-Z\s]/g,
+                      //     ""
+                      //   );
+                      //   formik.setFieldValue("name", lettersOnly);
+                      // }}
                       onBlur={formik.handleBlur}
                       value={formik.values.name}
                     />
@@ -295,13 +296,17 @@ const EditProfile = (props) => {
                   >
                     Submit
                   </button>
-                  <Link
-                    className="btn btn-cancel"
-                    to={"/eadmin/evaluator"}
-                    style={cancelLinkStyle}
+                  <button
+                    onClick={() => navigate("/eadmin/evaluator")}
+                    type="button"
+                    className="btn btn-secondary"
+                    style={{ marginLeft: "auto" }}
+                    // className="btn btn-cancel"
+                    // to={"/eadmin/evaluator"}
+                    // style={cancelLinkStyle}
                   >
                     Cancel
-                  </Link>
+                  </button>
                 </div>
               </div>
             </div>

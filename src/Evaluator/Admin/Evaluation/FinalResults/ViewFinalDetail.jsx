@@ -23,6 +23,7 @@ const ViewDetail = (props) => {
     const level = new URLSearchParams(search).get('level');
     const [teamResponse, setTeamResponse] = React.useState({});
     const { t } = useTranslation();
+ const [images,setImages] = React.useState([]);
 
     // React.useEffect(() => {
     //     if (props?.ideaDetails?.response) {
@@ -35,6 +36,8 @@ const ViewDetail = (props) => {
     useEffect(() => {
         if (props?.ideaDetails) {
             setTeamResponse(props?.ideaDetails);
+            setImages(JSON.parse(props?.ideaDetails.prototype_image));
+
         }
     }, [props]);
     const [pdfLoader, setPdfLoader] = React.useState(false);
@@ -382,7 +385,7 @@ const ViewDetail = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-lg-8 order-lg-0 order-1 p-0 h-100">
+                        <div className="col-lg-8 order-lg-0 order-1 p-2 h-100">
                         <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -411,6 +414,8 @@ const ViewDetail = (props) => {
                                     </div>
                                 </div>
                             </div>
+                <h4>Section-1: Problem Identification</h4>
+
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -622,6 +627,8 @@ const ViewDetail = (props) => {
                                     </div>
                                 </div>
                             </div>{' '}
+                <h4>Section-2: Solution & User Analysis</h4>
+
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -734,6 +741,8 @@ const ViewDetail = (props) => {
                                     </div>
                                 </div>
                             </div>{' '}
+                <h4>Section-3: Prototyping</h4>
+
                           
                                     <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                         <div
@@ -750,13 +759,10 @@ const ViewDetail = (props) => {
                                                 </b>
                                             </div>
                                             <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px', height: "auto",}}>
-                                                {files.length > 0 &&
+                                                {/* {files.length > 0 &&
                                                     files.map((item, i) => (
                                                         <div key={i}>
-                                                            {/* <CardTitle className="fw-bold">
-                                                    {item.question}
-                                                </CardTitle> */}
-                                                            {/* <CardBody> */}
+                                                          
                                                             <a
                                                                 key={i}
                                                                 className="badge mb-2 bg-info p-3 ms-3"
@@ -772,9 +778,11 @@ const ViewDetail = (props) => {
                                                                     .split('/')
                                                                     .pop()}
                                                             </a>
-                                                            {/* </CardBody> */}
                                                         </div>
-                                                    ))}
+                                                    ))} */}
+                                                     {
+                        <LinkComponent item={images} />
+                      }
                                                 {/* <p
                                         style={{
                                             fontSize: '1.4rem'
@@ -899,20 +907,21 @@ const ViewDetail = (props) => {
                             })} */}
                         </div>
                        
-                        <div className="col-lg-4 order-lg-1 order-0 p-0 h-100 mt-3 status_info_col">
+                        <div className="col-lg-4 order-lg-1 order-0 p-2 h-100 mt-3 status_info_col">
                             <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
                                 {teamResponse?.evaluation_status ? (
                                     <p
+                                    style={{fontSize:"1.2rem"}}
                                         className={`${
                                             teamResponse
                                                 ?.evaluation_status ==
                                             'SELECTEDROUND1'
                                                 ? 'text-success'
                                                 : 'text-danger'
-                                        } fs-3 fw-bold text-center`}
+                                        }fs-4 fw-bold text-center`}
                                     >
-                                        <span className="fs-3 text-info">
-                                            L1:{' '}
+                                        <span className="text-info"  style={{fontSize:"1.2rem"}}>
+                                            L1 :{' '}
                                         </span>
                                         {teamResponse
                                             ?.evaluation_status ==
@@ -927,7 +936,7 @@ const ViewDetail = (props) => {
                                 {teamResponse?.evaluated_name ? (
                                     <p className="text-center">
                                         <span className="text-bold">
-                                            Evaluated By:{' '}
+                                            Evaluated By :{' '}
                                         </span>{' '}
                                         {teamResponse?.evaluated_name ||
                                             ''}
@@ -935,21 +944,21 @@ const ViewDetail = (props) => {
                                 ) : (
                                     ''
                                 )}
-
-                                {/* {teamResponse?.evaluated_at ? (
-                                    <p className="text-center">
-                                        <span className="text-bold">
-                                            Evaluated At:{' '}
-                                        </span>{' '}
-                                        {moment
-                                            .utc(
-                                                teamResponse?.evaluated_at
-                                            )
-                                            .format('DD-MM-YYYY ') || ''}
-                                    </p>
-                                ) : (
-                                    ''
-                                )} */}
+  
+  {/* {props?.ideaDetails?.evaluator_ratings[0]?.rated_evaluated_name && (
+  <div className="row mb-1 mt-2">
+    <div className="col-5">
+      <p className="my-0 fw-bold">Evaluated By :</p>
+    </div>
+    <div className="col-7">
+      {props?.ideaDetails?.evaluator_ratings[0]?.rated_evaluated_name.map((item, i) => (
+        <p className="my-0 text-muted" key={i}>
+          {`${i + 1}: ${item}`}
+        </p>
+      ))}
+    </div>
+  </div>
+)} */}
                             </div>
                             {level !== 'L1' &&
                                 props?.ideaDetails?.evaluator_ratings.length >

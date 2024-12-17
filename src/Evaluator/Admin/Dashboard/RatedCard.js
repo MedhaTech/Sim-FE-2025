@@ -54,7 +54,7 @@ const RatedDetailCard = (props) => {
         <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
             <div className="row">
                 <div className="col-12">
-                    <p className="text-center fs-3 fw-bold m-0 mb-3">
+                    <p className="text-center fw-bold m-0 mb-3" style={{fontSize:"1.2rem"}}>
                         {' '}
                         <span className="text-info">L2</span>- Rating
                         Details
@@ -65,21 +65,21 @@ const RatedDetailCard = (props) => {
             <div className="row">
                 <div className="col-12">
                     <p
-                        className="fs-1 fw-bold text-center"
-                        style={{ marginBottom: '5px' }}
+                        className="fw-bold text-center"
+                        style={{ marginBottom: '5px' ,fontSize:"1.2rem"}}
                     >
                         {overAll}
                     </p>
                 </div>
-                <div className="col-12">
+                <div className="col-12 mb-2">
                     <p className="text-muted text-center">OverAll Rating</p>
                 </div>
             </div>
             <div className="row mb-1">
                 <div className="col-4">
-                    <p className="my-0">Novelty:</p>
+                    <p className="my-0 align-items-center">Novelty :</p>
                 </div>
-                <div className="col-8 pt-3">
+                <div className="col-8">
                     <div className="progress">
                         <div
                             className={
@@ -97,11 +97,11 @@ const RatedDetailCard = (props) => {
                     </div>
                 </div>
             </div>
-            <div className="row mb-1">
+            <div className="row mb-1 align-items-center">
                 <div className="col-4">
-                    <p className="my-0">Usefulness:</p>
+                    <p className="my-0">Usefulness :</p>
                 </div>
-                <div className="col-8 pt-3">
+                <div className="col-8">
                     <div className="progress">
                         <div
                             className={
@@ -121,11 +121,11 @@ const RatedDetailCard = (props) => {
                     </div>
                 </div>
             </div>
-            <div className="row mb-1">
+            <div className="row mb-1 align-items-center">
                 <div className="col-4">
-                    <p className="my-0">Feasability:</p>
+                    <p className="my-0">Feasability :</p>
                 </div>
-                <div className="col-8 pt-3">
+                <div className="col-8">
                     <div className="progress">
                         <div
                             className={
@@ -145,11 +145,11 @@ const RatedDetailCard = (props) => {
                     </div>
                 </div>
             </div>
-            <div className="row mb-1">
+            <div className="row mb-1 align-items-center">
                 <div className="col-4">
-                    <p className="my-0">Scalability:</p>
+                    <p className="my-0">Scalability :</p>
                 </div>
-                <div className="col-8 pt-3">
+                <div className="col-8">
                     <div className="progress">
                         <div
                             className={
@@ -169,11 +169,11 @@ const RatedDetailCard = (props) => {
                     </div>
                 </div>
             </div>
-            <div className="row mb-1">
-                <div className="col-4">
-                    <p className="my-0">Sustainability:</p>
+            <div className="row mb-1 align-items-center">
+                <div className="col-4 text-nowrap" >
+                    <p className="my-0">Sustainability :</p>
                 </div>
-                <div className="col-8 pt-3">
+                <div className="col-8">
                     <div className="progress">
                         <div
                             className={
@@ -195,12 +195,26 @@ const RatedDetailCard = (props) => {
             </div>
             <hr />
             <div className="row mb-1 mt-2">
-                <div className="col-4">
-                    <p className="my-0 fw-bold">Comments:</p>
+    <div className="col-5">
+      <p className="my-0">Evaluated By :</p>
+    </div>
+    <div className="col-7">
+      {props?.details?.evaluator_ratings.map((item, i) => (
+        <p className="my-0" style={{ fontSize: '14px',  }} key={i}>
+          {`${i + 1}: ${item.rated_evaluated_name}`}
+        </p>
+      ))}
+    </div>
+  </div>
+  <hr />
+
+            <div className="row mb-1 mt-2">
+                <div className="col-5">
+                    <p className="my-0">Comments :</p>
                 </div>
-                <div className="col-8">
+                <div className="col-7">
     {props?.details?.evaluator_ratings?.map((item, i) => (
-        <p className="my-0 text-muted" key={i}>
+        <p className="my-0" key={i}style={{ fontSize: '14px', }}>
             {i + 1}: {item.comments}
         </p>
     ))}

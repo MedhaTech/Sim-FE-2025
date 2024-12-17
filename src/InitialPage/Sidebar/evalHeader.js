@@ -225,87 +225,39 @@ const EadmiHeader = () => {
         <ul className="nav user-menu">
           <li className="nav-item nav-searchinputs">
             <div className="top-nav-search">
-              {/* <Link to="#" className="responsive-search">
-                <Search />
-              </Link> */}
-              {/* {"ARSHIYA"} */}
+             
                {location.pathname?.split('/')?.pop() ==
                                         'submitted-ideas' && (
                                         <div className="row w-100">
-                                            {/* <div className="col-sm-4 col-6">
-                                                <p className="m-0 fs-3">
-                                                    Level:&nbsp;
-                                                    <span className="fs-4 text-primary">
-                                                        {
-                                                            currentUser?.data[0]
-                                                                ?.level_name
-                                                        }
-                                                    </span>
-                                                </p>
-                                            </div> */}
-                                            <div className="col-sm-4 col-6">
-                                                <p className="m-0 "style={{fontWeight:"bold",fontSize:"1rem"}}>
-                                                    Processed:&nbsp;
-                                                    <span className=" text-success" style={{fontWeight:"bold",fontSize:"1rem"}}>
-                                                        {(allIdeaList &&
-                                                            allIdeaList?.evaluatedIdeas) ||
-                                                            0}
-                                                    </span>
-                                                </p>
-                                            </div>
-                                            {/* <div className="col-sm-4 col-6">
-                                                <p className="m-0 fs-3">
-                                                    Yet to Process:&nbsp;
-                                                    <span className="fs-4 text-danger">
-                                                        {(allIdeaList &&
-                                                            allIdeaList?.openIdeas) ||
-                                                            0}
-                                                    </span>
-                                                </p>
-                                            </div> */}
+                                           
+                                            <div className="d-flex justify-content-between align-items-center w-100"
+                                            style={{ whiteSpace: "nowrap" }}>
+    <p className="m-2" style={{ fontWeight: "bold", fontSize: "1rem" }}>
+      Processed:&nbsp;
+      <span
+        className="text-success"
+        style={{ fontWeight: "bold", fontSize: "1rem" }}
+      >
+        {(allIdeaList && allIdeaList?.evaluatedIdeas) || 0}
+      </span>
+    </p>
+    <p className="m-2" style={{ fontWeight: "bold", fontSize: "1rem" }}>
+      Yet to be Process:&nbsp;
+      <span
+        className="text-danger"
+        style={{ fontWeight: "bold", fontSize: "1rem" }}
+      >
+        {(allIdeaList && allIdeaList?.openIdeas) || 0}
+      </span>
+    </p>
+</div>
+
+                                          
                                         </div>
                                     )}
               <form action="#" className="dropdown">
-                {/* <div
-                  className="searchinputs"
-                  
-                  data-bs-auto-close="false"
-                >
-                  <input
-                    type="text"
-                    placeholder="Enter UDISE Code"
-                    onChange={(e) => handleOnChange(e)}
-                    value={diesCode}
-                    maxLength={11}
-                    minLength={11}
-                    name="organization_code"
-                  />
-                  <div className="search-addon">
-                    <span>
-                      <XCircle className="feather-14" />
-                    </span>
-                  </div>
-                </div> */}
-                {/* <div
-                  className="dropdown-menu search-dropdown"
-                  aria-labelledby="dropdownMenuClickable"
-                >
-                  <div className="search-info">
-                    <h6>
-                      <span>
-                        <i data-feather="search" className="feather-16" />
-                      </span>
-                      Recent Searches
-                    </h6>
-                    <ul className="search-tags">
-                      <li>
-                        <Link to="#">Enter School UDISE Code</Link>
-                      </li>
-                     
-                    </ul>
-                  </div>
-                
-                </div> */}
+               
+               
               </form>
             </div>
           </li>

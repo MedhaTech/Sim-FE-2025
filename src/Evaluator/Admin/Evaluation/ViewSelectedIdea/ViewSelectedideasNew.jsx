@@ -78,9 +78,10 @@ const ViewSelectedideasNew = () => {
       ? []
       : ["All Districts", ...(allDistricts[selectstate] || [])];
   useEffect(() => {
-    if (selectstate === "All States") {
+    // if (selectstate === "All States") {
       setdistrict(""); 
-    }
+      console.log(selectstate,"state");
+    // }
   }, [selectstate]);
   // const SDGDate = cardData.map((i) => {
   //     return i.goal_title;
@@ -341,7 +342,7 @@ const ViewSelectedideasNew = () => {
                 {row?.title}
             </div>
         ),
-        width: '20rem'
+        width: '15rem'
     },
 
       // {
@@ -402,7 +403,7 @@ const ViewSelectedideasNew = () => {
             <>
               <div className="d-flex" key={params}>
                 <div
-                  className="btn btn-primary btn-lg mr-5 mx-2"
+                  className="btn btn-primary mr-5 mx-2"
                   onClick={() => {
                     setIdeaDetails(params);
                     setIsDetail(true);
@@ -534,7 +535,7 @@ const ViewSelectedideasNew = () => {
                 {row?.title}
             </div>
         ),
-        width: '20rem'
+        width: '15rem'
     },
 
       // {
@@ -564,7 +565,7 @@ const ViewSelectedideasNew = () => {
           return [
             <div className="d-flex" key={params}>
               <div
-                className="btn btn-primary btn-lg mr-5 mx-2"
+                className="btn btn-primary mr-5 mx-2"
                 onClick={() => {
                   setIdeaDetails(params);
                   setIsDetail(true);
@@ -705,7 +706,7 @@ const ViewSelectedideasNew = () => {
                 {row?.title}
             </div>
         ),
-        width: '20rem'
+        width: '15rem'
     },
       // {
       //     name: 'District',
@@ -995,7 +996,7 @@ const ViewSelectedideasNew = () => {
                 {row?.title}
             </div>
         ),
-        width: '20rem'
+        width: '15rem'
     },
       // {
       //     name: 'District',
@@ -1016,7 +1017,7 @@ const ViewSelectedideasNew = () => {
             <>
               <div className="d-flex" key={params}>
                 <div
-                  className="btn btn-primary "
+                  className="btn btn-primary"
                   onClick={() => {
                     setIdeaDetails(params);
                     setIsDetail(true);

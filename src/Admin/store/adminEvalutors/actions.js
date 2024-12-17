@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from 'axios';
 
 import {
@@ -38,9 +39,10 @@ export const getAdminEvalutorsList = () => async (dispatch) => {
                 return err.response;
             });
         if (result && result.status === 200) {
-            const data = result.data?.data[0]?.dataValues || [];
+
+            const data = result.data?.data|| [];
             let datamodify = data.length > 0 ? data.forEach((item, i) => (item.id = i + 1)) : [];
-            console.log(datamodify);
+            console.log(result,"res",datamodify,"data");
             dispatch(getAdminEvalutorsListSuccess(data));
         } else {
             dispatch(getAdminEvalutorsListError(result.statusText));

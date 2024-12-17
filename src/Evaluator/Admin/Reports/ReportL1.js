@@ -24,6 +24,7 @@ import { stateList, districtList } from "../../../RegPage/ORGData";
 import { useNavigate, Link } from "react-router-dom";
 import { themesList } from "../../../Team/IdeaSubmission/themesData";
 import moment from "moment/moment";
+import * as XLSX from 'xlsx';
 
 import { encryptGlobal } from "../../../constants/encryptDecrypt.js";
 // import { categoryValue } from '../../Schools/constentText';
@@ -87,7 +88,9 @@ const ReportL1 = () => {
     labels: [],
     datasets: [],
   });
-
+      const [status, setstatus] = React.useState('');
+  
+  const statusdata = ['Accepted', 'Rejected', 'Both'];
   const [downloadTableData, setDownloadTableData] = useState(null);
   const [downloadTableData2, setDownloadTableData2] = useState(null);
 
@@ -271,7 +274,13 @@ const ReportL1 = () => {
       key: 'l1status'
   }
   ];
-
+ const handleExport = () => {
+    const ws = XLSX.utils.json_to_sheet(studentDetailedReportsData);  // Converts the JSON data to a sheet
+    const wb = XLSX.utils.book_new();  // Creates a new workbook
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');  // Appends the sheet to the workbook
+    XLSX.writeFile(wb, `L1DetailedReport_${newFormat}.xlsx`);  // Triggers download of the Excel file
+    
+  };
   useEffect(() => {
     fetchChartTableData();
     fetchChartTableData2();
@@ -279,14 +288,16 @@ const ReportL1 = () => {
   useEffect(() => {
     if (studentDetailedReportsData.length > 0) {
       console.log("Performing operation with the updated data.");
-      csvLinkRef.current.link.click();
+      // csvLinkRef.current.link.click();
+      handleExport();
+
     }
   }, [studentDetailedReportsData]);
   const handleDownload = () => {
-    if (!RegTeachersState || !RegTeachersdistrict  || !category || !sdg) {
+    if (!RegTeachersState || !RegTeachersdistrict  || !category || !sdg || !status) {
       notification.warning({
         message:
-        "Select state, district, category type and Theme to download report.",
+        "Select state, district, category type, status and Theme to download report.",
       });
       return;
     }
@@ -302,6 +313,8 @@ const ReportL1 = () => {
         district: RegTeachersdistrict,
         category: category,
         theme: sdg,
+        evaluation_status: status !== 'Both'? (status === 'Accepted' ? 'SELECTEDROUND1' : 'REJECTEDROUND1'): 'Both',
+
       })
     );
     const url = `/reports/L1deatilreport?Data=${param}`;
@@ -411,29 +424,67 @@ const ReportL1 = () => {
                   });
                   const newdatalist = mentorAndOrg.map((item) => {
                     return {
-                      ...item,
-                      verifiedment: item.verified_status == null ? "Not yet Reviewed" : item.verified_status,
-                      l1status: item.
-                      evaluation_status === 'SELECTEDROUND1'
-                      ? 'Accepted'
-                      : 'Rejected',
+                        "UDISE CODE":item.organization_code,
+                                   State:item.state,
+                                   District:item.district,
+                                   CID:item.challenge_response_id,
+                                   "School Name":item.organization_name,
+                                   "School Type/Category":item.category,
+                                   "Pin code":item.pin_code,
+                                   Address:item.address,
+                                    "Teacher Name":item.full_name,
+                                    "Teacher Email":mentorUsernameMap[item.mentorUserId],
+                                    "Teacher Gender":item.gender,
+                                    "Teacher Contact":item.mobile,
+                                    "Team Name":item.team_name,
+                                    "Team Username":item.team_username,
+                                    "Student Names":item.names,
+                                    Theme:item.theme,
+                                    "Focus Area":item.focus_area,
+                                    "Select in which language you prefer Submitting Your Idea?":item.language,
+                                    "Title of your idea (Think of a proper name. Dont describe the solution or problem statement here.":item.title,
+                                    "Write down your Problem statement":item.problem_statement,
+                                    "List the Causes of the problem":item.causes,
+                                    "List the Effects of the problem":item.effects,
+                                    "In which places in your community did you find this problem?":item.community,
+                                    "Who all are facing this problem?":item.facing,
+                                    "Describe the solution to the problem your team found. Explain your solution clearly - how does it work, who is it helping, and how will it solve the problem.":item.solution,
+                                    "Apart from your teacher, how many people/stakeholders did you speak to to understand or improve your problem or solution?":item.stakeholders,
+                                    "Pick the actions your team did in your problem solving journey (You can choose multiple options)":item.problem_solving,
+                                    "Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.":item.feedback,
+                                    "Descriptive Document/Image of your prototype.":item.prototype_image,
+                                    "Clear Video Explaining your Solution":item.prototype_link,
+                                    "Did your team complete and submit the workbook to your school Guide teacher?":item.workbook,
+                                    "Idea Submission Status":item.status,
+                                    "Teacher Verified Status":item.verified_status == null ? "Not yet Reviewed" : item.verified_status,
+                                    "Teacher Verified At":item.verified_at ? moment(item.verified_at).format(
+                                      "DD-MM-YYYY"
+                                    ) : '',
+                                    "L1 Status":item.evaluation_status === 'SELECTEDROUND1'  ? 'Accepted': 'Rejected',
 
-                      username: mentorUsernameMap[item.mentorUserId],
-                      focus_area: item.focus_area ? item.focus_area.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                      prototype_image: item.prototype_image ? item.prototype_image.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                      problem_solving: item.problem_solving ? item.problem_solving.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                      feedback: item.feedback ? item.feedback.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                      stakeholders: item.stakeholders ? item.stakeholders.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                      solution: item.solution ? item.solution.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                      facing: item.facing ? item.facing.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                      community: item.community ? item.community.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                      effects: item.effects ? item.effects.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                      causes: item.causes ? item.causes.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                      problem_statement: item.problem_statement ? item.problem_statement.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                      title: item.title ? item.title.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                      verified_at:item.verified_at ? moment(item.verified_at).format(
-                        "DD-MM-YYYY"
-                      ) : ''
+                      // ...item,
+                      // verifiedment: item.verified_status == null ? "Not yet Reviewed" : item.verified_status,
+                      // l1status: item.
+                      // evaluation_status === 'SELECTEDROUND1'
+                      // ? 'Accepted'
+                      // : 'Rejected',
+
+                      // username: mentorUsernameMap[item.mentorUserId],
+                      // focus_area: item.focus_area ? item.focus_area.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                      // prototype_image: item.prototype_image ? item.prototype_image.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                      // problem_solving: item.problem_solving ? item.problem_solving.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                      // feedback: item.feedback ? item.feedback.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                      // stakeholders: item.stakeholders ? item.stakeholders.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                      // solution: item.solution ? item.solution.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                      // facing: item.facing ? item.facing.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                      // community: item.community ? item.community.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                      // effects: item.effects ? item.effects.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                      // causes: item.causes ? item.causes.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                      // problem_statement: item.problem_statement ? item.problem_statement.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                      // title: item.title ? item.title.replace(/,/g, ';').replace(/\n/g, ' ') : '',
+                      // verified_at:item.verified_at ? moment(item.verified_at).format(
+                      //   "DD-MM-YYYY"
+                      // ) : ''
                     };
 
                   });
@@ -614,16 +665,7 @@ const ReportL1 = () => {
                   />
                 </div>
               </Col>
-              {/* <Col md={2}>
-                <div className="my-2 d-md-block d-flex justify-content-center">
-                  <Select
-                    list={filterOptions}
-                    setValue={setFilterType}
-                    placeHolder={"Select Filter"}
-                    value={filterType}
-                  />
-                </div>
-              </Col> */}
+            
               <Col md={2}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
                   {RegTeachersState === "Tamil Nadu" ? (
@@ -653,7 +695,16 @@ const ReportL1 = () => {
                   />
                 </div>
               </Col>
-
+              <Col md={2}>
+                <div className="my-2 d-md-block d-flex justify-content-center">
+                  <Select
+                    list={statusdata}
+                    setValue={setstatus}
+                    placeHolder={"Select Status"}
+                    value={status}
+                  />
+                </div>
+              </Col>
               <Col
                 md={2}
                 className="d-flex align-items-center justify-content-center"
@@ -730,7 +781,7 @@ const ReportL1 = () => {
                                     fontWeight: "bold",
                                   }}
                                 >
-                                  No of Ideas Submitted{" "}
+                                  No.of Ideas Approved by Mentor{" "}
                                 </th>
                                 <th
                                   style={{
@@ -739,7 +790,7 @@ const ReportL1 = () => {
                                     fontWeight: "bold",
                                   }}
                                 >
-                                  No of Ideas Accepted
+                                  No.of Ideas Accepted in L1
                                 </th>
                                 <th
                                   style={{
@@ -748,7 +799,7 @@ const ReportL1 = () => {
                                     fontWeight: "bold",
                                   }}
                                 >
-                                  No of Ideas Rejected
+                                  No.of Ideas Rejected in L1
                                 </th>
                               </tr>
                             </thead>
@@ -920,7 +971,7 @@ const ReportL1 = () => {
               <CSVLink
                 data={studentDetailedReportsData}
                 headers={teacherDetailsHeaders}
-                filename={`L1StatusDetailedSummaryReport_${newFormat}.csv`}
+                filename={`L1DetailedReport_${newFormat}.csv`}
                 className="hidden"
                 ref={csvLinkRef}
               >

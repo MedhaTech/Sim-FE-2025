@@ -25,6 +25,8 @@ import DetailToDownload from '../../Challenges/DetailToDownload';
 import html2canvas from 'html2canvas';
 import { Row, Col, Form, Label } from 'reactstrap';
 import { useReactToPrint } from 'react-to-print';
+// import LinkComponent from "../../Challenges/pages/LinkComponent";
+
 import { encryptGlobal } from '../../../../constants/encryptDecrypt';
 const ViewDetail = (props) => {
     const { t } = useTranslation();
@@ -37,7 +39,8 @@ const ViewDetail = (props) => {
     const [isReject, setIsreject] = React.useState(false);
     const [reason, setReason] = React.useState('');
     const [reasonSec, setReasonSec] = React.useState('');
-
+     const [images,setImages] = React.useState([]);
+console.log(level,"level");
     const selectData = [
         'Not novel - Idea and problem common and already in use.',
         'Not novel - Idea has been 100% plagiarized.',
@@ -61,6 +64,9 @@ const ViewDetail = (props) => {
     useEffect(() => {
         if (props?.ideaDetails) {
             setTeamResponse(props?.ideaDetails);
+            setImages(JSON.parse(props?.ideaDetails.prototype_image));
+
+
         }
     }, [props]);
     // console.warn(props);
@@ -77,11 +83,12 @@ const ViewDetail = (props) => {
 
         swalWithBootstrapButtons
             .fire({
-                title:
+                title: 'Are you sure?',
+                text:
                     handledText === 'accept'
                         ? 'You are attempting to accept this Idea'
                         : 'You are attempting to reject this Idea',
-                text: 'Are you sure?',
+               
                 showCloseButton: true,
                 confirmButtonText: 'Confirm',
                 showCancelButton: true,
@@ -513,7 +520,7 @@ const ViewDetail = (props) => {
                             </div>
                         </div>
 
-                        <div className="col-lg-8 order-lg-0 order-1 p-0 h-100">
+                        <div className="col-lg-8 order-lg-0 order-1 p-2 h-100">
                         <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -542,6 +549,8 @@ const ViewDetail = (props) => {
                                     </div>
                                 </div>
                             </div>
+                <h4>Section-1: Problem Identification</h4>
+
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -753,6 +762,8 @@ const ViewDetail = (props) => {
                                     </div>
                                 </div>
                             </div>{' '}
+                <h4>Section-2: Solution & User Analysis</h4>
+
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -865,6 +876,8 @@ const ViewDetail = (props) => {
                                     </div>
                                 </div>
                             </div>{' '}
+                <h4>Section-3: Prototyping</h4>
+
                           
                                     <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                         <div
@@ -881,13 +894,10 @@ const ViewDetail = (props) => {
                                                 </b>
                                             </div>
                                             <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
-                                                {files.length > 0 &&
+                                                {/* {files.length > 0 &&
                                                     files.map((item, i) => (
                                                         <div key={i}>
-                                                            {/* <CardTitle className="fw-bold">
-                                                    {item.question}
-                                                </CardTitle> */}
-                                                            {/* <CardBody> */}
+                                                           
                                                             <a
                                                                 key={i}
                                                                 className="badge mb-2 bg-info p-3 ms-3"
@@ -903,16 +913,12 @@ const ViewDetail = (props) => {
                                                                     .split('/')
                                                                     .pop()}
                                                             </a>
-                                                            {/* </CardBody> */}
                                                         </div>
-                                                    ))}
-                                                {/* <p
-                                        style={{
-                                            fontSize: '1.4rem'
-                                        }}
-                                    >
-                                        {teamResponse?.Prototype_file}
-                                    </p> */}
+                                                    ))} */}
+                                                      {
+                        <LinkComponent item={images} />
+                      }
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -1029,20 +1035,22 @@ const ViewDetail = (props) => {
                                 );
                             })} */}
                         </div>
-                        <div className="col-lg-4 order-lg-1 order-0 p-0 h-100 mt-3 status_info_col">
+                        <div className="col-lg-4 order-lg-1 order-0 p-2 h-100 mt-3 status_info_col">
                             <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
                                 {props?.ideaDetails?.evaluation_status ? (
                                     <p
+                                    style={{fontSize:"1.2rem"}}
                                         className={`${
                                             props?.ideaDetails
                                                 ?.evaluation_status ==
                                             'SELECTEDROUND1'
                                                 ? 'text-success'
                                                 : 'text-danger'
-                                        } fs-3 fw-bold text-center`}
+                                        }fs-4 fw-bold text-center`}
                                     >
-                                        <span className="text-info" style={{fontSize:"1.5rem"}}>
-                                            L1:{' '}
+                                        <span  className="text-info"
+                                        style={{fontSize:"1.2rem"}}  >
+                                            L1 :{' '}
                                         </span>
                                         {props?.ideaDetails
                                             ?.evaluation_status ==
@@ -1053,48 +1061,48 @@ const ViewDetail = (props) => {
                                 ) : (
                                     ''
                                 )}
+  {props?.ideaDetails?.evaluated_name ? (
+                                        <p className="text-center">
+                                            <span className="text-bold">
+                                                Evaluated By :{' '}
+                                            </span>{' '}
+                                            {props?.ideaDetails
+                                                ?.evaluated_name || ''}
+                                        </p>
+                                    ) : (
+                                        ''
+                                    )}
+                              
+                               {/* {props?.ideaDetails?.evaluator_ratings && (
+  <div className="row mb-1 mt-2">
+    <div className="col-5">
+      <p className="my-0 fw-bold">Evaluated By :</p>
+    </div>
+    <div className="col-7">
+      {props.ideaDetails.evaluator_ratings[0]?.rated_evaluated_name.map((item, i) => (
+        <p className="my-0 text-muted" key={i}>
+          {`${i + 1}: ${item}`}
+        </p>
+      ))}
+    </div>
+  </div>
+)} */}
 
-                                {props?.ideaDetails?.evaluated_name ? (
-                                    <p className="text-center">
-                                        <span className="text-bold">
-                                            Evaluated By:{' '}
-                                        </span>{' '}
-                                        {props?.ideaDetails?.evaluated_name ||
-                                            ''}
-                                    </p>
-                                ) : (
-                                    ''
-                                )}
 
-                                {/* {props?.ideaDetails?.evaluated_at ? (
-                                    <p className="text-center">
-                                        <span className="text-bold">
-                                            Evaluated At:{' '}
-                                        </span>{' '}
-                                        {moment
-                                            .utc(
-                                                props?.ideaDetails?.evaluated_at
-                                            )
-                                            .format('DD-MM-YYYY HH:mm:ss a') ||
-                                            ''}
-                                    </p>
-                                ) : (
-                                    ''
-                                )} */}
 
                                 {props?.ideaDetails?.evaluation_status ==
                                     'REJECTEDROUND1' && (
                                     <>
                                         <p className="text-center">
                                             <span className="text-bold">
-                                                Rejected Reason 1:{' '}
+                                                Rejected Reason 1 :{' '}
                                             </span>{' '}
                                             {props?.ideaDetails
                                                 ?.rejected_reason || ''}
                                         </p>
                                         <p className="text-center">
                                             <span className="text-bold">
-                                                Rejected Reason 2:{' '}
+                                                Rejected Reason 2 :{' '}
                                             </span>{' '}
                                             {props?.ideaDetails
                                                 ?.rejected_reasonSecond || ''}
@@ -1277,7 +1285,7 @@ const ViewDetail = (props) => {
                         <Col>
                             <Col className="m-3">
                                 <p style={{ textAlign: 'left' }}>
-                                    <b>1. Novelty & Usefulness</b>
+                                    <b>1. Novelty & Usefulness</b> <span required style={{color:"red"}}>*</span>
                                 </p>
                                 <Select
                                     list={selectData}
@@ -1292,7 +1300,7 @@ const ViewDetail = (props) => {
                                         2. Does the submission show any evidence
                                         of efforts put in to complete the
                                         project?
-                                    </b>
+                                    </b> <span required style={{color:"red"}}>*</span>
                                 </p>
                                 <Select
                                     list={reasondata2}
@@ -1305,7 +1313,7 @@ const ViewDetail = (props) => {
                     </div>
                     <div className="text-center">
                         <Button
-                            label={'Submit'}
+                            label={'Reject'}
                             btnClass={reason && reasonSec ? 'primary' : 'default'}
 
                            

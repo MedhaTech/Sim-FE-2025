@@ -58,7 +58,11 @@ const EvaluatedIdea = () => {
     // );
 
     const [tabledate, settabledate] = React.useState([]);
-
+ useEffect(() => {
+        // if (selectstate === "All States") {
+            setdistrict('');  // Reset the district value
+        //   }
+    }, [selectstate]);
    
     useEffect(() => {
         if (selectstate === '') {
@@ -177,7 +181,7 @@ const EvaluatedIdea = () => {
                         {row?.title}
                     </div>
                 ),
-                width: '20rem'
+                width: '15rem'
             },
 
             {
@@ -213,7 +217,7 @@ const EvaluatedIdea = () => {
                     return [
                         <div className="d-flex" key={params}>
                             <div
-                                className="btn btn-primary btn-lg mr-5 mx-2"
+                                className="btn btn-primary mr-5 mx-2"
                                 onClick={() => {
                                     setIdeaDetails(params);
                                     setIsDetail(true);
@@ -256,7 +260,23 @@ const EvaluatedIdea = () => {
             setCurrentRow(currentRow - 1);
         }
     };
-
+    const customStyles = {
+        rows: {
+          style: {
+            fontSize: "13px",
+          },
+        },
+        headCells: {
+          style: {
+            fontSize: "14px",
+          },
+        },
+        cells: {
+          style: {
+            fontSize: "13px",
+          },
+        },
+      };
     return (
         <div className="page-wrapper">
          <div className="content">
@@ -341,6 +361,8 @@ const EvaluatedIdea = () => {
                                             data={evaluatedIdeaList || []}
                                             defaultSortField="id"
                                             defaultSortAsc={false}
+                          customStyles={customStyles}
+
                                             pagination
                                             highlightOnHover
                                             fixedHeader

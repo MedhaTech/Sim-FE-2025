@@ -4,18 +4,23 @@
 import React,{useEffect} from 'react';
 import './EvaluatedIdea.scss';
 import { Button } from '../../stories/Button';
-// import LinkComponent from '../IdeaList/LinkComponent';
+import LinkComponent from '../IdeaList/LinkComponent';
 import moment from 'moment';
 // import { getCurrentUser } from '../../helpers/Utils';
 import RatedDetailCard from './RatedDetailCard';
+import { Row, Col, Form, Label } from 'reactstrap';
 
 const EvaluatedIdeaDetail = (props) => {
 
     const [teamResponse, setTeamResponse] = React.useState([]);
+     const [images,setImages] = React.useState([]);
+    
     // const currentUser = getCurrentUser('current_user');
     useEffect(() => {
         if (props?.ideaDetails) {
             setTeamResponse(props?.ideaDetails);
+            setImages(JSON.parse(props?.ideaDetails.prototype_image));
+
         }
     }, [props]);
     // const [levelName, setLevelName] = React.useState('');
@@ -65,13 +70,33 @@ const problemSolvingArray = teamResponse?.problem_solving;
                         <div className="col-12 p-0">
                             <div className="row">
                                 <div className="col-lg-6">
-                                <h4 className="mb-md-4 mb-3">
+                                <Row>
+                                        <Col>
+                                            <h4 className="mb-md-4 mb-3">
                                                 Theme : 
                                                 <span className="text-capitalize">
                                                 {props?.ideaDetails?.theme?.toLowerCase() ||
                                                         ''}
                                                 </span>
                                             </h4>
+                                        </Col>
+                                        <Col>
+                                            <h4 className="mb-md-4 mb-3">
+                                                CID :
+                                                <span className="text-capitalize">
+                                                {props?.ideaDetails.challenge_response_id ||
+                                                        ''}
+                                                </span>
+                                                </h4>
+                                        </Col>
+                                    </Row>
+                                {/* <h4 className="mb-md-4 mb-3">
+                                                Theme : 
+                                                <span className="text-capitalize">
+                                                {props?.ideaDetails?.theme?.toLowerCase() ||
+                                                        ''}
+                                                </span>
+                                            </h4> */}
                                 </div>
                                 <div className="col-lg-6 d-flex justify-content-end">
                                     <div className="ms-auto me-sm-3 p-0">
@@ -117,7 +142,7 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                 </div>
                             </div>
                         </div>
-                        <div className="col-lg-8 order-lg-0 order-1 p-0 h-100">
+                        <div className="col-lg-8 order-lg-0 order-1 p-2 h-100">
                         <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -146,6 +171,8 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                     </div>
                                 </div>
                             </div>
+                <h4>Section-1: Problem Identification</h4>
+
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -357,6 +384,8 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                     </div>
                                 </div>
                             </div>{' '}
+                <h4>Section-2: Solution & User Analysis</h4>
+
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -469,6 +498,8 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                     </div>
                                 </div>
                             </div>{' '}
+                <h4>Section-3: Prototyping</h4>
+
                           
                                     <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                         <div
@@ -485,13 +516,10 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                                 </b>
                                             </div>
                                             <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
-                                                {files.length > 0 &&
+                                                {/* {files.length > 0 &&
                                                     files.map((item, i) => (
                                                         <div key={i}>
-                                                            {/* <CardTitle className="fw-bold">
-                                                    {item.question}
-                                                </CardTitle> */}
-                                                            {/* <CardBody> */}
+                                                           
                                                             <a
                                                                 key={i}
                                                                 className="badge mb-2 bg-info p-3 ms-3"
@@ -507,9 +535,11 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                                                     .split('/')
                                                                     .pop()}
                                                             </a>
-                                                            {/* </CardBody> */}
                                                         </div>
-                                                    ))}
+                                                    ))} */}
+                                                     {
+                        <LinkComponent item={images} />
+                      }
                                                 {/* <p
                                         style={{
                                             fontSize: '1.4rem'
@@ -687,7 +717,7 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                 );
                             })}
                         </div> */}
-                        <div className="col-lg-4 order-lg-1 order-0 p-0 h-100 mt-3 status_info_col">
+                        <div className="col-lg-4 order-lg-1 order-0 p-2 h-100 mt-3 status_info_col">
                             <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
                                 <p
                                     className={`${
@@ -695,9 +725,9 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                         'SELECTEDROUND1'
                                             ? 'text-success'
                                             : 'text-danger'
-                                    } fs-3 fw-bold text-center`}
+                                    } fs-4 fw-bold text-center`}
                                 >
-                                    <span className="fs-2 text-info">
+                                    <span className="fs-4 text-info">
                                         L1 -{' '}
                                     </span>
                                     {props?.ideaDetails?.evaluation_status ==
@@ -715,13 +745,29 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                 </p> */}
                                 {props?.ideaDetails?.evaluation_status ==
                                     'REJECTEDROUND1' && (
-                                    <p className="text-center">
-                                        <span className="text-bold">
-                                            Rejected Reason:{' '}
-                                        </span>{' '}
-                                        {props?.ideaDetails?.rejected_reason ||
-                                            ''}
-                                    </p>
+                                        <>
+                                        <p className="text-center">
+                                            <span className="text-bold">
+                                                Rejected Reason 1 :{' '}
+                                            </span>{' '}
+                                            {props?.ideaDetails
+                                                ?.rejected_reason || ''}
+                                        </p>
+                                        <p className="text-center">
+                                            <span className="text-bold">
+                                                Rejected Reason 2 :{' '}
+                                            </span>{' '}
+                                            {props?.ideaDetails
+                                                ?.rejected_reasonSecond || ''}
+                                        </p>
+                                    </>
+                                    // <p className="text-center">
+                                    //     <span className="text-bold">
+                                    //         Rejected Reason:{' '}
+                                    //     </span>{' '}
+                                    //     {props?.ideaDetails?.rejected_reason ||
+                                    //         ''}
+                                    // </p>
                                 )}
                             </div>
                             {props?.levelName !== 'L1' && (

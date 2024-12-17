@@ -48,8 +48,8 @@ const StateLogin = (props) => {
     },
 
     validationSchema: Yup.object({
-      email: Yup.string().email("Must be a valid email").required("required"),
-      password: Yup.string().required("required"),
+      email: Yup.string().email("Please Enter a Valid Email Address").required("Required"),
+      password: Yup.string().required("Required"),
     }),
     onSubmit: (values) => {
       localStorage.clear();
@@ -116,7 +116,7 @@ const StateLogin = (props) => {
                       value={formik.values.email}
                     />
                     {formik.touched.email && formik.errors.email ? (
-                      <small className="error-cls" style={{ color: "red" }}>Required</small>
+                      <small className="error-cls" style={{ color: "red" }}>{formik.errors.email}</small>
                     ) : null}
 
                     <img src={email} alt="Email" />
@@ -134,16 +134,17 @@ const StateLogin = (props) => {
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
                     />
-                    {formik.touched.password && formik.errors.password ? (
-                      <small className="error-cls" style={{ color: "red" }}>Required</small>
-                    ) : null}
-                    <span
+                   
+                    <div
                       className={`fas toggle-password ${
                         isPasswordVisible ? "fa-eye" : "fa-eye-slash"
                       }`}
                       onClick={togglePasswordVisibility}
-                    ></span>
+                    ></div>
                   </div>
+                  {formik.touched.password && formik.errors.password ? (
+                      <small className="error-cls" style={{ color: "red" }}>{formik.errors.password}</small>
+                    ) : null}
                 </div>
                 {/* <div className="form-login authentication-check">
                   <div className="row">

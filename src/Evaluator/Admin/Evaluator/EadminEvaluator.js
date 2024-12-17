@@ -192,30 +192,41 @@ const TicketsPage = (props) => {
             {
                 name: 'No',
                 selector: (row) => row.id,
+                // selector: (row) => row.index,
+                cellExport: (row) => row.index,
                 width: '6rem'
             },
             {
                 name: 'Evaluator Name',
                 selector: (row) => row.user.full_name,
+                cellExport: (row) => row.user.full_name,
+                // selector: (row) => row.user.full_name,
                 width: '12rem'
             },
             {
                 name: 'Email Id',
                 selector: (row) => row.user.username,
+                cellExport: (row) => row.user.username,
+                // selector: (row) => row.user.username,
                 width: '14rem'
             },
             {
-                name: 'Mobile No',
+                name: 'Mobile No & Pwd',
                 selector: (row) => row.mobile,
-                width: '14rem'
+                cellExport: (row) => row.mobile,
+                // selector: (row) => row.mobile,
+                width: '10rem'
             },
-            // {
-            //     name: 'District',
-            //     selector: 'district',
-            //     width: '11rem'
-            // },
+            {
+                name: 'States',
+                selector: (row) => row.state,
+                cellExport: (row) => row.state,
+                omit: true,
+                width: '11rem'
+            },
             {
                 name: 'Status',
+                cellExport: (row) => row.status,
                 cell: (row) => [
                     // <Badge
                     //     key={row.mentor_id}
@@ -229,13 +240,14 @@ const TicketsPage = (props) => {
                         row.status === 'ACTIVE' ? "badge bg-success" : "badge bg-danger"
                     }`}>{row.status}</span>
                 ],
-                width: '8rem'
+                width: '7rem'
             },
             {
                 name: 'Actions',
                 sortable: false,
                 center: true,
-                width: '20rem',
+                width: '25rem',
+                cellExport: (row) => {},
                 cell: (record) => [
                     // <div
                     //     key={record.id}
@@ -248,7 +260,7 @@ const TicketsPage = (props) => {
                     <div
                     // exact="true"
                     key={record.id}
-                    className="mr-5"
+                    // className="mr-5"
                     onClick={() => {
                         let status =
                             record?.status === 'ACTIVE'
@@ -263,11 +275,13 @@ const TicketsPage = (props) => {
                     }}
                 >
                     {record?.status === 'ACTIVE' ? (
-                        <div  className="btn btn-light">
-                            Inactive<AlertOctagon className="ms-1"  style={{ height: 15, width: 15 }}/>
+                        <div  className="btn btn-light m-2">
+                            Inactive&nbsp;<AlertOctagon style={{ height: 15, width: 15 }}/>
                         </div>
                     ) : (
-                        <div className="btn btn-warning">Active<Check className="ms-1"  style={{ height: 15, width: 15 }}/></div>
+                        <div className="btn btn-success m-2">
+                            Active&nbsp;<Check className="m-1"  style={{ height: 15, width: 15 }}/>
+                        </div>
                     )}
                 </div>,
                     <div
@@ -275,15 +289,15 @@ const TicketsPage = (props) => {
                         onClick={() => handleEdit(record)}
                         style={{ marginRight: '10px' }}
                     >
-                        <div className="btn btn-primary">Edit</div>
+                        <div className="btn btn-primary m-2">Edit</div>
                     </div>,
                    
                       <div
                       key={record}
                       onClick={() => handleDic(record)}
-                      style={{ marginRight: '12px' }}
+                      style={{ marginRight: '10px' }}
                   >
-                      <div className="btn btn-info mx-2">
+                      <div className="btn btn-info m-2">
                           States
                       </div>
                   </div>
@@ -331,29 +345,36 @@ const TicketsPage = (props) => {
           <div className="content">
             <div className="row">
             <Container className="ticket-page ">
-                <Row className="p-2">
+                <Row className="">
                     <div className="page-header">
                     <h4>Evaluator List</h4>
                     
                     <div className="page-btn text-right">
                         <Button
-                            label={'Add New Evaluator'}
+                            // label={'Add New Evaluator'}
+                            label={
+                                <>
+                                  <PlusCircle className="me-2" style={{ color: "white" }} />
+                                  <b>Add New Evaluator</b>
+                                </>
+                              }
                             btnClass="primary"
                             size="small"
                             shape="btn-square"
                             Icon={BsUpload}
                             onClick={() => setRegisterModalShow(true)}
                         />
+                        
 
                     </div>
                     </div>
                     <div className="ticket-data">
-                        <div className="my-5">
+                        <div className="my-2">
                             <DataTableExtensions
                                 {...evaluatorsData}
                                 exportHeaders
                                 print={false}
-                                export={false}
+                                export={true}
                             >
                                 <DataTable
                                     responsive={true}

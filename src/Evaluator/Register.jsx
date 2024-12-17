@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React from 'react';
+// import React, {useState} from 'react';
 import { Modal, Form, FormGroup } from 'react-bootstrap';
 // import { InputBox } from '../stories/InputBox/InputBox';
 import { Label } from 'reactstrap';
@@ -14,8 +14,10 @@ import CryptoJS from 'crypto-js';
 import { useDispatch } from 'react-redux';
 import { getAdminEvalutorsList } from '../redux/actions';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 const Register = (props) => {
     // here we can add admin / eadmin //
+    const [isProcessing, setIsProcessing] = useState(false);
     const handleClose = () => {};
     const dispatch = useDispatch();
     const currentUser = getCurrentUser("current_user");
@@ -28,7 +30,7 @@ const navigate=useNavigate();
     };
     const inputPhone = {
         type: 'text',
-        placeholder: 'Enter Phone Number',
+        placeholder: 'Enter Mobile Number',
         className:"form-control"
     };
 
@@ -46,8 +48,8 @@ const navigate=useNavigate();
     const validationForEvaluator = Yup.object({
         full_name: Yup.string()
             .trim()
-            .min(2, 'Enter Name')
-            .matches(/^[aA-zZ\s]+$/, 'Not allowed')
+            .min(2, 'Enter Full Name')
+            .matches(/^[a-zA-Z\s._-]+$/, 'Not allowed')
             .required('Required'),
         mobile: Yup.string()
             .required('Required')
@@ -75,6 +77,7 @@ const navigate=useNavigate();
         validationSchema: validationForEvaluator,
 
         onSubmit: async (values) => {
+            setIsProcessing(true);
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
 
             values.password = values.mobile.trim();
@@ -244,11 +247,19 @@ const navigate=useNavigate();
                                     {...inputPhone}
                                     id="mobile"
                                     name="mobile"
-                                    onChange={formik.handleChange}
+                                    // onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     value={formik.values.mobile}
-                                    maxLength={10}
-                                    // isDisabled={stepTwoData.mobile ? true : false}
+                                    onChange={(e) => {
+                                        const inputValue = e.target.value;
+                                        const numericValue = inputValue.replace(
+                                          /\D/g,
+                                          ""
+                                        );
+                                        formik.setFieldValue("mobile", numericValue);
+                                      }}
+                                      maxLength={10}
+                                      minLength={10}
                                 />
 
                                 {formik.touched.mobile &&
@@ -261,7 +272,7 @@ const navigate=useNavigate();
                            
                         </div>
                     </div>
-                    <div className="mb-3 mt-3 text-center">
+                    {/* <div className="mb-3 mt-3 text-center">
                         <button 
                         className={
                             !(formik.dirty && formik.isValid)
@@ -272,20 +283,30 @@ const navigate=useNavigate();
                         type="submit">
                           Add Evaluator
                         </button>
-                      </div>
-                    {/* <div className="mt-3">
-                        <Button
-                            label={'Add Admin'}
-                            btnClass={
-                                !(formik.dirty && formik.isValid)
-                                    ? 'default'
-                                    : 'primary'
-                            }
-                            size="large"
-                            type="submit"
-                            disabled={!(formik.dirty && formik.isValid)}
-                        />
-                    </div> */}
+                      </div> */}
+                      <div className="mb-3 mt-3 text-center">
+        {isProcessing ? (
+          <button 
+            className="btn btn-primary" 
+            type="button" 
+            disabled
+          >
+            Processing...
+          </button>
+        ) : (
+          <button
+            className={
+              !(formik.dirty && formik.isValid)
+                ? 'btn btn-light'
+                : "btn btn-primary"
+            }
+            disabled={!(formik.dirty && formik.isValid)}
+            type="submit"
+          >
+            Add Evaluator
+          </button>
+        )}
+      </div>
                 </Form>
             </div>
         </Modal.Body>

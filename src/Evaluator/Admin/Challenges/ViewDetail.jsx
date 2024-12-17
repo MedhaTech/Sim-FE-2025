@@ -16,6 +16,7 @@ import { useLocation } from 'react-router-dom';
 import jsPDF from 'jspdf';
 import { FaDownload, FaHourglassHalf } from 'react-icons/fa';
 import DetailToDownload from './DetailToDownload';
+import LinkComponent from "./pages/LinkComponent";
 
 import html2canvas from 'html2canvas';
 import { useReactToPrint } from 'react-to-print';
@@ -32,9 +33,10 @@ const ViewDetail = (props) => {
     const { search } = useLocation();
     const level = new URLSearchParams(search).get('level');
     const status = new URLSearchParams(search).get('status');
-
     const currentUser = getCurrentUser('current_user');
     const [teamResponse, setTeamResponse] = React.useState([]);
+ const [images,setImages] = React.useState([]);
+
     const { t } = useTranslation();
     const [isReject, setIsreject] = React.useState(false);
     const [reason, setReason] = React.useState('');
@@ -65,9 +67,10 @@ const ViewDetail = (props) => {
     useEffect(() => {
         if (props?.ideaDetails) {
             setTeamResponse(props?.ideaDetails);
+            setImages(JSON.parse(props?.ideaDetails.prototype_image));
         }
     }, [props]);
-    console.log(status,"status");
+    console.log(props.names,"status");
     
     const handleAlert = (handledText) => {
         const swalWithBootstrapButtons = Swal.mixin({
@@ -81,11 +84,12 @@ const ViewDetail = (props) => {
 
         swalWithBootstrapButtons
             .fire({
-                title:
+                title: 'Are you sure?',
+                text:
                     handledText === 'accept'
                         ? 'You are attempting to accept this Idea'
                         : 'You are attempting to reject this Idea',
-                text: 'Are you sure?',
+              
                 // imageUrl: `${logout}`,
                 showCloseButton: true,
                 confirmButtonText: 'Confirm',
@@ -434,7 +438,7 @@ const ViewDetail = (props) => {
                             </div>
                         </div>
 
-                        <div className="col-lg-8 order-lg-0 order-1 p-0 h-100">
+                        <div className="col-lg-8 order-lg-0 order-1 p-2 h-100">
                         <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -464,6 +468,8 @@ const ViewDetail = (props) => {
                                     </div>
                                 </div>
                             </div>
+                <h4>Section-1: Problem Identification</h4>
+
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -675,6 +681,8 @@ const ViewDetail = (props) => {
                                     </div>
                                 </div>
                             </div>{' '}
+                <h4>Section-2: Solution & User Analysis</h4>
+
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -787,6 +795,7 @@ const ViewDetail = (props) => {
                                     </div>
                                 </div>
                             </div>{' '}
+                <h4>Section-3: Prototyping</h4>
                           
                                     <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                         <div
@@ -803,13 +812,10 @@ const ViewDetail = (props) => {
                                                 </b>
                                             </div>
                                             <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
-                                                {files.length > 0 &&
+                                                {/* {files.length > 0 &&
                                                     files.map((item, i) => (
                                                         <div key={i}>
-                                                            {/* <CardTitle className="fw-bold">
-                                                    {item.question}
-                                                </CardTitle> */}
-                                                            {/* <CardBody> */}
+                                                           
                                                             <a
                                                                 key={i}
                                                                 className="badge mb-2 bg-info p-3 ms-3"
@@ -825,9 +831,8 @@ const ViewDetail = (props) => {
                                                                     .split('/')
                                                                     .pop()}
                                                             </a>
-                                                            {/* </CardBody> */}
                                                         </div>
-                                                    ))}
+                                                    ))} */}
                                                 {/* <p
                                         style={{
                                             fontSize: '1.4rem'
@@ -835,6 +840,9 @@ const ViewDetail = (props) => {
                                     >
                                         {teamResponse?.Prototype_file}
                                     </p> */}
+                                     {
+                        <LinkComponent item={images} />
+                      }
                                             </div>
                                         </div>
                                     </div>
@@ -1005,7 +1013,9 @@ const ViewDetail = (props) => {
                             </div>
                           
                         </div> */}
-                          {teamResponse?.status === 'SUBMITTED' && (
+                          {/* {
+                   teamResponse?.status !== "DRAFT" &&
+                   teamResponse?.status === 'SUBMITTED' ? (
                             <div className="col-lg-4 order-lg-1 order-0 p-0 h-100 mt-3 status_info_col">
                                 <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
                                     {teamResponse?.evaluation_status ? (
@@ -1043,19 +1053,7 @@ const ViewDetail = (props) => {
                                         ''
                                     )}
 
-                                    {/* {teamResponse?.evaluated_at ? (
-                                        <p className="text-center">
-                                            <span className="text-bold">
-                                                Evaluated At:{' '}
-                                            </span>{' '}
-                                            {moment(
-                                                teamResponse?.evaluated_at
-                                            ).format('DD-MM-YY h:mm:ss a') ||
-                                                ''}
-                                        </p>
-                                    ) : (
-                                        ''
-                                    )} */}
+                                 
 
                                     {teamResponse?.evaluation_status ==
                                         'REJECTEDROUND1' && (
@@ -1083,7 +1081,6 @@ const ViewDetail = (props) => {
                                             <button
                                                 className="btn px-2 py-2 btn-danger"
                                                 onClick={() => {
-                                                    // handleAlert('reject');
                                                     setIsreject(true);
                                                     setReason('');
                                                     setReasonSec('');
@@ -1135,54 +1132,155 @@ const ViewDetail = (props) => {
                                                 </span>
                                             </button>
                                         </>
-                                    ): ""
+                                    ): 'Option3'
                                     }
+                                </div>
+                            </div>
+                        ): null} */}
+                          {props?.ideaDetails?.status === 'SUBMITTED' && 
+                          props?.ideaDetails?.verified_status !== null && props?.ideaDetails?.verified_status !== "" &&
+                          (
+                            <div className="col-lg-4 order-lg-1 order-0 p-2 h-100 mt-3 status_info_col">
+                                <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
+                                    {props?.ideaDetails?.evaluation_status ? (
+                                        <p
+                                        style={{fontSize:"1.2rem"}}
+                                            className={`${
+                                                props?.ideaDetails
+                                                    ?.evaluation_status ==
+                                                'SELECTEDROUND1'
+                                                    ? 'text-success'
+                                                    : 'text-danger'
+                                            }fs-4 fw-bold text-center`}
+                                        >
+                                            <span className="text-info"  style={{fontSize:"1.2rem"}}>
+                                                L1 :{' '}
+                                            </span>
+                                            {props?.ideaDetails
+                                                ?.evaluation_status ==
+                                            'SELECTEDROUND1'
+                                                ? 'Accepted'
+                                                : 'Rejected'}
+                                        </p>
+                                    ) : (
+                                        ''
+                                    )}
+
+                                    {props?.ideaDetails?.evaluated_name ? (
+                                        <p className="text-center">
+                                            <span className="text-bold">
+                                                Evaluated By :{' '}
+                                            </span>{' '}
+                                            {props?.ideaDetails
+                                                ?.evaluated_name || ''}
+                                        </p>
+                                    ) : (
+                                        ''
+                                    )}
+                                   
+
+                                    {/* {props?.ideaDetails?.evaluated_at ? (
+                                        <p className="text-center">
+                                            <span className="text-bold">
+                                                Evaluated At:{' '}
+                                            </span>{' '}
+                                            {moment(
+                                                props?.ideaDetails?.evaluated_at
+                                            ).format('DD-MM-YY h:mm:ss a') ||
+                                                ''}
+                                        </p>
+                                    ) : (
+                                        ''
+                                    )} */}
+
+                                    {props?.ideaDetails?.evaluation_status ==
+                                        'REJECTEDROUND1' && (
+                                        <>
+                                            <p className="text-center">
+                                                <span className="text-bold">
+                                                    Rejected Reason 1:{' '}
+                                                </span>{' '}
+                                                {props?.ideaDetails
+                                                    ?.rejected_reason || ''}
+                                            </p>
+                                            <p className="text-center">
+                                                <span className="text-bold">
+                                                    Rejected Reason 2:{' '}
+                                                </span>{' '}
+                                                {props?.ideaDetails
+                                                    ?.rejected_reasonSecond ||
+                                                    ''}
+                                            </p>
+                                        </>
+                                    )}
+                                    {props?.ideaDetails?.evaluation_status ? (
+                                        props?.ideaDetails?.evaluation_status ==
+                                        'SELECTEDROUND1' ? (
+                                            <button
+                                                className="btn px-5 py-2 btn-danger"
+                                                onClick={() => {
+                                                    // handleAlert('reject');
+                                                    setIsreject(true);
+                                                    setReason('');
+                                                    setReasonSec('');
+                                                }}
+                                            >
+                                                <span >
+                                                    Reject
+                                                </span>
+                                            </button>
+                                        ) : (
+                                            <button
+                                                className="btn px-5 py-2 btn-success"
+                                                onClick={() => {
+                                                    handleAlert('accept');
+                                                    setReason('');
+                                                    setReasonSec('');
+                                                }}
+                                            >
+                                                <span >
+                                                    Accept
+                                                </span>
+                                            </button>
+                                        )
+                                    ) : (
+                                        <>
+    {props?.names !== "Draft" && (
+                                        <>
+                                            <button
+                                                className="btn px-5 py-2 btn-danger mb-2"
+                                                onClick={() => {
+                                                    // handleAlert('reject');
+                                                    setIsreject(true);
+                                                    setReason('');
+                                                    setReasonSec('');
+                                                }}
+                                            >
+                                                <span >
+                                                    Reject
+                                                </span>
+                                            </button>
+                                            <button
+                                                className="btn px-5 py-2 btn-success mb-2"
+                                                onClick={() => {
+                                                    handleAlert('accept');
+                                                    setReason('');
+                                                    setReasonSec('');
+                                                }}
+                                            >
+                                                <span >
+                                                    Accept
+                                                </span>
+                                            </button>
+                                        </>
+    )}
+     </>
+                                    )}
                                 </div>
                             </div>
                         )}
                     </div>
-                  {status === 'SUBMITTED' && (
-                    <>  
-                  <div style={{ display: 'flex' }}>
-                        <p
-                            style={{ fontSize: '1rem', margin: '1rem' }}
-                            className="fw-bold"
-                        >
-                            Submitted By :{' '}
-                            {teamResponse.initiated_name
-                                ? teamResponse.initiated_name
-                                : '-'}
-                        </p>
-                        <p
-                            style={{ fontSize: '1rem', margin: '1rem' }}
-                            className="fw-bold"
-                        >
-                            Submitted At :{' '}
-                            {teamResponse.submitted_at
-                                ? moment(teamResponse.submitted_at).format(
-                                      'DD-MM-YYYY'
-                                  )
-                                : '-'}
-                        </p>
-                    </div>
-               
-                    <br />
-                    <div style={{ display: 'flex' }}>
-                      
-                        <p
-                            style={{ fontSize: '1rem', margin: '1rem' }}
-                            className="fw-bold"
-                        >
-                            Verified At :{' '}
-                            {teamResponse.verified_at
-                                ? moment(teamResponse.verified_at).format(
-                                      'DD-MM-YYYY'
-                                  )
-                                : '-'}
-                        </p>
-                    </div>
-                    </>
-                )}
+                
                     <div>
                         <Button
                             btnClass="primary"
@@ -1239,7 +1337,7 @@ const ViewDetail = (props) => {
                         <Col>
                             <Col className="m-5">
                                 <p className="text-left">
-                                    <b>1. Novelty & Usefulness</b>
+                                    <b>1. Novelty & Usefulness</b> <span required style={{color:"red"}}>*</span>
                                 </p>
                                 <Select
                                     list={selectData}
@@ -1253,8 +1351,8 @@ const ViewDetail = (props) => {
                                     <b>
                                         2. Does the submission show any evidence
                                         of efforts put in to complete the
-                                        project?
-                                    </b>
+                                        project? 
+                                    </b> <span required style={{color:"red"}}>*</span>
                                 </p>
                                 <Select
                                     list={reasondata2}
@@ -1267,13 +1365,13 @@ const ViewDetail = (props) => {
                     </div>
                     <div className="text-center">
                         <Button
-                            label={'Submit'}
+                            label={'Reject'}
                             btnClass={
-                                !reason && reasonSec ? 'default' : 'primary'
+                                reason && reasonSec ? 'primary' : 'default'
                             }
                             size="small "
                             onClick={() => handleReject()}
-                            disabled={!reason && reasonSec}
+                            disabled={!(reason && reasonSec)}
                         />
                     </div>
                 </Modal.Body>

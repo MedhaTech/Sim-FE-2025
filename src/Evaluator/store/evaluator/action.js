@@ -61,11 +61,22 @@ export const evaluatorLoginUser =
         dispatch(evaluatorLoginUserSuccess(result));
 
         navigate("/evaluator/instructions");
-      } else {
-        openNotificationWithIcon("error", "Invalid Email Id or Password");
+      } else if (result && result.status === 404) {
+        openNotificationWithIcon("error", "Invalid Credentials entered");
+       
         dispatch(evaluatorLoginUserError(result.statusText));
+      }else{
+        openNotificationWithIcon(
+          'error',
+         "Entered Evaluator Credentials are in InActive Status"
+        );
       }
-    } catch (error) {
+      
+    }catch (error) {
+      openNotificationWithIcon(
+        'error',
+       "Entered Evaluator Credentials are in InActive Status"
+    );
       dispatch(evaluatorLoginUserError({}));
     }
   };
@@ -114,11 +125,21 @@ export const evaluatorAdminLoginUser =
         dispatch(evaluatorAdminLoginUserSuccess(result));
 
         navigate("/eadmin/evaluationStatus");
-      } else {
-        openNotificationWithIcon("error", "Invalid Email Address or Password");
+      } else if (result && result.status === 404) {
+        openNotificationWithIcon("error", "Invalid Credentials entered");
+       
         dispatch(evaluatorAdminLoginUserError(result.statusText));
+      }else{
+        openNotificationWithIcon(
+          'error',
+         "Entered Eadmin Credentials are in InActive Status"
+        );
       }
     } catch (error) {
+      openNotificationWithIcon(
+        'error',
+       "Entered Eadmin Credentials are in InActive Status"
+    );
       dispatch(evaluatorAdminLoginUserError({}));
     }
   };
