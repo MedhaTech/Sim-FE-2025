@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
@@ -26,6 +27,7 @@ import html2canvas from "html2canvas";
 import { Row, Col, Form, Label } from "reactstrap";
 import { useReactToPrint } from "react-to-print";
 import { encryptGlobal } from "../../../constants/encryptDecrypt";
+import LinkComponent from "../Challenges/pages/LinkComponent";
 const SearchCID = () => {
   const { t } = useTranslation();
   // const multiOrg = localStorage.getItem("multiOrgData");
@@ -35,6 +37,8 @@ const SearchCID = () => {
   // const level = new URLSearchParams(search).get('level');
   const currentUser = getCurrentUser("current_user");
   const [teamResponse, setTeamResponse] = React.useState({});
+  const [images,setImages] = React.useState([]);
+
   const [isReject, setIsreject] = React.useState(false);
   const [reason, setReason] = React.useState("");
   const [reasonSec, setReasonSec] = React.useState("");
@@ -57,6 +61,7 @@ const SearchCID = () => {
   useEffect(() => {
     if (multiOrgData) {
       setTeamResponse(multiOrgData);
+      setImages(JSON.parse(multiOrgData.prototype_image));
     }
   }, [multiOrgData]);
 
@@ -112,7 +117,9 @@ const SearchCID = () => {
     var config = {
       method: "put",
       url: `${
-        process.env.REACT_APP_API_BASE_URL_FOR_REPORTS  + "/challenge_response/" + challId
+        process.env.REACT_APP_API_BASE_URL_FOR_REPORTS +
+        "/challenge_response/" +
+        challId
       }`,
       headers: {
         "Content-Type": "application/json",
@@ -128,9 +135,7 @@ const SearchCID = () => {
             ? "Idea processed successfully!"
             : response?.data?.message
         );
-        navigate(
-            '/eadmin/evaluationStatus'
-            );
+        navigate("/eadmin/evaluationStatus");
       })
       .catch(function (error) {
         openNotificationWithIcon("error", error?.response?.data?.message);
@@ -182,7 +187,32 @@ const SearchCID = () => {
   const files = teamResponse?.prototype_image
     ? teamResponse?.prototype_image.split(",")
     : [];
+  // const downloadFile = (item) => {
+  //   fetch(item)
+  //     .then((response) => {
+  //       return response.blob();
+  //     })
+  //     .then((blob) => {
+  //       const url = window.URL.createObjectURL(new Blob([blob]));
+  //       const link = document.createElement("a");
+  //       link.href = url;
+  //       const parts = item.split("/");
+  //       link.setAttribute("download", parts[parts.length - 1]);
+  //       document.body.appendChild(link);
+  //       link.click();
+  //       link.parentNode.removeChild(link);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error downloading file:", error);
+  //     });
+  // };
   const downloadFile = (item) => {
+    // const link = document.createElement('a');
+    // link.href = item;
+    // link.download = 'upload.pdf';
+    // document.body.appendChild(link);
+    // link.click();
+    // document.body.removeChild(link);
     fetch(item)
       .then((response) => {
         // Convert the response to a blob
@@ -193,17 +223,25 @@ const SearchCID = () => {
         const url = window.URL.createObjectURL(new Blob([blob]));
         const link = document.createElement("a");
         link.href = url;
-        const parts = item.split("/");
-        link.setAttribute("download", parts[parts.length - 1]);
+        const fileName = item.split("/");
+        // .pop().replace(/[\[\]"]/g, "");
+        link.setAttribute("download", fileName);
         document.body.appendChild(link);
+
+        // const parts = item.split("/");
+        // link.setAttribute("download", parts[parts.length - 1]);
         link.click();
-        link.parentNode.removeChild(link);
+        window.URL.revokeObjectURL(url); // Clean up the URL object
+        document.body.removeChild(link);
+        console.log("Downloading file from:", item, fileName, "filename");
+        // link.parentNode.removeChild(link);
       })
       .catch((error) => {
         console.error("Error downloading file:", error);
       });
   };
-
+  console.log(typeof(images), "Image");
+ 
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -850,7 +888,10 @@ const SearchCID = () => {
                         height: "auto",
                       }}
                     >
-                      {files.length > 0 &&
+                      {
+                        <LinkComponent item={images} />
+                      }
+                      {/* {files.length > 0 &&
                         files.map((item, i) => (
                           <div key={i}>
                             <a
@@ -863,7 +904,23 @@ const SearchCID = () => {
                               {item.split("/").pop()}
                             </a>
                           </div>
-                        ))}
+                        ))} */}
+                      {/* {files.length > 0 &&
+        files.map((item, i) => {
+          const fileName = item.split("/").pop().replace(/[\[\]"]/g, "");
+          return (
+            <div key={i}>
+              <a
+                className="badge mb-2 bg-info p-3 ms-3"
+                onClick={() => downloadFile(item)}
+                style={{ cursor: "pointer" }}
+               
+              >
+                {fileName}
+              </a>
+            </div>
+          );
+        })} */}
                     </div>
                   </div>
                 </div>
@@ -944,17 +1001,18 @@ const SearchCID = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-lg-4 order-lg-1 order-0 p-2 h-100 mt-3 status_info_col"  
-  //              style={{
-  //   position: "relative", 
-  // }}
-  >
+              <div
+                className="col-lg-4 order-lg-1 order-0 p-2 h-100 mt-3 status_info_col"
+                //              style={{
+                //   position: "relative",
+                // }}
+              >
                 {multiOrgData?.verified_status !== "" &&
                   multiOrgData?.verified_status !== null && (
-                    <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3" >
+                    <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
                       {multiOrgData?.evaluation_status ? (
                         <p
-                        style={{fontSize:"1.2rem"}}
+                          style={{ fontSize: "1.2rem" }}
                           className={`${
                             multiOrgData?.evaluation_status == "SELECTEDROUND1"
                               ? "text-success"
@@ -997,7 +1055,7 @@ const SearchCID = () => {
     </div>
   </div>
 )} */}
-{/* 
+                      {/* 
                       {multiOrgData?.evaluator_ratings && (
   <div className="text-center">
     <p className="text-bold">Evaluated By:</p>
@@ -1008,8 +1066,6 @@ const SearchCID = () => {
     ))}
   </div>
 )} */}
-
-
 
                       {multiOrgData?.evaluation_status == "REJECTEDROUND1" && (
                         <>
@@ -1086,9 +1142,8 @@ const SearchCID = () => {
                         )}
                     </div>
                   )}
-                  
-                {multiOrgData?.evaluator_ratings.length > 0 && (
 
+                {multiOrgData?.evaluator_ratings.length > 0 && (
                   <RatedCard details={multiOrgData} />
                 )}
               </div>
@@ -1134,9 +1189,7 @@ const SearchCID = () => {
                   : "-"}
               </p>
             </div>
-            <div>
-             
-            </div>
+            <div></div>
           </>
         ) : (
           <>
