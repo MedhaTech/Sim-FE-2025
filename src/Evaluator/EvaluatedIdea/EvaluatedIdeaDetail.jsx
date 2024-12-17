@@ -4,7 +4,7 @@
 import React,{useEffect} from 'react';
 import './EvaluatedIdea.scss';
 import { Button } from '../../stories/Button';
-// import LinkComponent from '../IdeaList/LinkComponent';
+import LinkComponent from '../IdeaList/LinkComponent';
 import moment from 'moment';
 // import { getCurrentUser } from '../../helpers/Utils';
 import RatedDetailCard from './RatedDetailCard';
@@ -13,10 +13,14 @@ import { Row, Col, Form, Label } from 'reactstrap';
 const EvaluatedIdeaDetail = (props) => {
 
     const [teamResponse, setTeamResponse] = React.useState([]);
+     const [images,setImages] = React.useState([]);
+    
     // const currentUser = getCurrentUser('current_user');
     useEffect(() => {
         if (props?.ideaDetails) {
             setTeamResponse(props?.ideaDetails);
+            setImages(JSON.parse(props?.ideaDetails.prototype_image));
+
         }
     }, [props]);
     // const [levelName, setLevelName] = React.useState('');
@@ -512,13 +516,10 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                                 </b>
                                             </div>
                                             <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
-                                                {files.length > 0 &&
+                                                {/* {files.length > 0 &&
                                                     files.map((item, i) => (
                                                         <div key={i}>
-                                                            {/* <CardTitle className="fw-bold">
-                                                    {item.question}
-                                                </CardTitle> */}
-                                                            {/* <CardBody> */}
+                                                           
                                                             <a
                                                                 key={i}
                                                                 className="badge mb-2 bg-info p-3 ms-3"
@@ -534,9 +535,11 @@ const problemSolvingArray = teamResponse?.problem_solving;
                                                                     .split('/')
                                                                     .pop()}
                                                             </a>
-                                                            {/* </CardBody> */}
                                                         </div>
-                                                    ))}
+                                                    ))} */}
+                                                     {
+                        <LinkComponent item={images} />
+                      }
                                                 {/* <p
                                         style={{
                                             fontSize: '1.4rem'

@@ -23,6 +23,7 @@ const ViewDetail = (props) => {
     const level = new URLSearchParams(search).get('level');
     const [teamResponse, setTeamResponse] = React.useState({});
     const { t } = useTranslation();
+ const [images,setImages] = React.useState([]);
 
     // React.useEffect(() => {
     //     if (props?.ideaDetails?.response) {
@@ -35,6 +36,8 @@ const ViewDetail = (props) => {
     useEffect(() => {
         if (props?.ideaDetails) {
             setTeamResponse(props?.ideaDetails);
+            setImages(JSON.parse(props?.ideaDetails.prototype_image));
+
         }
     }, [props]);
     const [pdfLoader, setPdfLoader] = React.useState(false);
@@ -756,13 +759,10 @@ const ViewDetail = (props) => {
                                                 </b>
                                             </div>
                                             <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px', height: "auto",}}>
-                                                {files.length > 0 &&
+                                                {/* {files.length > 0 &&
                                                     files.map((item, i) => (
                                                         <div key={i}>
-                                                            {/* <CardTitle className="fw-bold">
-                                                    {item.question}
-                                                </CardTitle> */}
-                                                            {/* <CardBody> */}
+                                                          
                                                             <a
                                                                 key={i}
                                                                 className="badge mb-2 bg-info p-3 ms-3"
@@ -778,9 +778,11 @@ const ViewDetail = (props) => {
                                                                     .split('/')
                                                                     .pop()}
                                                             </a>
-                                                            {/* </CardBody> */}
                                                         </div>
-                                                    ))}
+                                                    ))} */}
+                                                     {
+                        <LinkComponent item={images} />
+                      }
                                                 {/* <p
                                         style={{
                                             fontSize: '1.4rem'
