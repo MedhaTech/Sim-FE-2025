@@ -196,15 +196,15 @@ const EditProfile = (props) => {
                       className="form-control"
                       id="name"
                       name="name"
-                      // onChange={formik.handleChange}
-                      onChange={(e) => {
-                        const inputValue = e.target.value;
-                        const lettersOnly = inputValue.replace(
-                          /[^a-zA-Z\s]/g,
-                          ""
-                        );
-                        formik.setFieldValue("name", lettersOnly);
-                      }}
+                      onChange={formik.handleChange}
+                      // onChange={(e) => {
+                      //   const inputValue = e.target.value;
+                      //   const lettersOnly = inputValue.replace(
+                      //     /[^a-zA-Z\s]/g,
+                      //     ""
+                      //   );
+                      //   formik.setFieldValue("name", lettersOnly);
+                      // }}
                       onBlur={formik.handleBlur}
                       value={formik.values.name}
                     />
