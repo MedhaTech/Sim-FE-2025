@@ -25,6 +25,8 @@ import DetailToDownload from '../../Challenges/DetailToDownload';
 import html2canvas from 'html2canvas';
 import { Row, Col, Form, Label } from 'reactstrap';
 import { useReactToPrint } from 'react-to-print';
+// import LinkComponent from "../../Challenges/pages/LinkComponent";
+
 import { encryptGlobal } from '../../../../constants/encryptDecrypt';
 const ViewDetail = (props) => {
     const { t } = useTranslation();
@@ -37,6 +39,7 @@ const ViewDetail = (props) => {
     const [isReject, setIsreject] = React.useState(false);
     const [reason, setReason] = React.useState('');
     const [reasonSec, setReasonSec] = React.useState('');
+     const [images,setImages] = React.useState([]);
 console.log(level,"level");
     const selectData = [
         'Not novel - Idea and problem common and already in use.',
@@ -61,6 +64,9 @@ console.log(level,"level");
     useEffect(() => {
         if (props?.ideaDetails) {
             setTeamResponse(props?.ideaDetails);
+            setImages(JSON.parse(props?.ideaDetails.prototype_image));
+
+
         }
     }, [props]);
     // console.warn(props);
@@ -888,13 +894,10 @@ console.log(level,"level");
                                                 </b>
                                             </div>
                                             <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
-                                                {files.length > 0 &&
+                                                {/* {files.length > 0 &&
                                                     files.map((item, i) => (
                                                         <div key={i}>
-                                                            {/* <CardTitle className="fw-bold">
-                                                    {item.question}
-                                                </CardTitle> */}
-                                                            {/* <CardBody> */}
+                                                           
                                                             <a
                                                                 key={i}
                                                                 className="badge mb-2 bg-info p-3 ms-3"
@@ -910,16 +913,12 @@ console.log(level,"level");
                                                                     .split('/')
                                                                     .pop()}
                                                             </a>
-                                                            {/* </CardBody> */}
                                                         </div>
-                                                    ))}
-                                                {/* <p
-                                        style={{
-                                            fontSize: '1.4rem'
-                                        }}
-                                    >
-                                        {teamResponse?.Prototype_file}
-                                    </p> */}
+                                                    ))} */}
+                                                      {
+                        <LinkComponent item={images} />
+                      }
+                                               
                                             </div>
                                         </div>
                                     </div>

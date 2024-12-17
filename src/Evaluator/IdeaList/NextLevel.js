@@ -11,9 +11,13 @@ import { Row, Col, Form, Label } from 'reactstrap';
 const NextLevel = (props) => {
     const currentUser = getCurrentUser('current_user');
     const [teamResponse, setTeamResponse] = React.useState([]);
+     const [images,setImages] = React.useState([]);
+    
     useEffect(() => {
         if (props?.ideaDetails) {
             setTeamResponse(props?.ideaDetails);
+            setImages(JSON.parse(props?.ideaDetails.prototype_image));
+            
         }
     }, [props]);
     const files = teamResponse?.prototype_image
@@ -472,13 +476,13 @@ const downloadFile = (item) => {
                                                 </b>
                                             </div>
                                             <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
-                                                {files.length > 0 &&
+                                            {
+                        <LinkComponent item={images} />
+                      }
+                                                {/* {files.length > 0 &&
                                                     files.map((item, i) => (
                                                         <div key={i}>
-                                                            {/* <CardTitle className="fw-bold">
-                                                    {item.question}
-                                                </CardTitle> */}
-                                                            {/* <CardBody> */}
+                                                          
                                                             <a
                                                                 key={i}
                                                                 className="badge mb-2 bg-info p-3 ms-3"
@@ -494,9 +498,8 @@ const downloadFile = (item) => {
                                                                     .split('/')
                                                                     .pop()}
                                                             </a>
-                                                            {/* </CardBody> */}
                                                         </div>
-                                                    ))}
+                                                    ))} */}
                                                 {/* <p
                                         style={{
                                             fontSize: '1.4rem'

@@ -16,6 +16,7 @@ import { useLocation } from 'react-router-dom';
 import jsPDF from 'jspdf';
 import { FaDownload, FaHourglassHalf } from 'react-icons/fa';
 import DetailToDownload from './DetailToDownload';
+import LinkComponent from "./pages/LinkComponent";
 
 import html2canvas from 'html2canvas';
 import { useReactToPrint } from 'react-to-print';
@@ -32,9 +33,10 @@ const ViewDetail = (props) => {
     const { search } = useLocation();
     const level = new URLSearchParams(search).get('level');
     const status = new URLSearchParams(search).get('status');
-
     const currentUser = getCurrentUser('current_user');
     const [teamResponse, setTeamResponse] = React.useState([]);
+ const [images,setImages] = React.useState([]);
+
     const { t } = useTranslation();
     const [isReject, setIsreject] = React.useState(false);
     const [reason, setReason] = React.useState('');
@@ -65,6 +67,7 @@ const ViewDetail = (props) => {
     useEffect(() => {
         if (props?.ideaDetails) {
             setTeamResponse(props?.ideaDetails);
+            setImages(JSON.parse(props?.ideaDetails.prototype_image));
         }
     }, [props]);
     console.log(props.names,"status");
@@ -809,13 +812,10 @@ const ViewDetail = (props) => {
                                                 </b>
                                             </div>
                                             <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
-                                                {files.length > 0 &&
+                                                {/* {files.length > 0 &&
                                                     files.map((item, i) => (
                                                         <div key={i}>
-                                                            {/* <CardTitle className="fw-bold">
-                                                    {item.question}
-                                                </CardTitle> */}
-                                                            {/* <CardBody> */}
+                                                           
                                                             <a
                                                                 key={i}
                                                                 className="badge mb-2 bg-info p-3 ms-3"
@@ -831,9 +831,8 @@ const ViewDetail = (props) => {
                                                                     .split('/')
                                                                     .pop()}
                                                             </a>
-                                                            {/* </CardBody> */}
                                                         </div>
-                                                    ))}
+                                                    ))} */}
                                                 {/* <p
                                         style={{
                                             fontSize: '1.4rem'
@@ -841,6 +840,9 @@ const ViewDetail = (props) => {
                                     >
                                         {teamResponse?.Prototype_file}
                                     </p> */}
+                                     {
+                        <LinkComponent item={images} />
+                      }
                                             </div>
                                         </div>
                                     </div>
