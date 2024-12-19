@@ -219,15 +219,20 @@ const RatedDetailCard = (props) => {
         </p>
     ))}
 </div>
-                {/* <div className="col-8">
-                    {props?.details?.evaluator_ratings?.comments.map(
-                        (item, i) => (
-                            <p className="my-0 text-muted" key={i}>
-                                {i + 1} : {item}
-                            </p>
-                        )
-                    )}
-                </div> */}
+              
+            </div>
+            <hr />
+            <div className="row mb-1 mt-2">
+                <div className="col-5">
+                    <p className="my-0">Status :</p>
+                </div>
+                <div className="col-7">
+                   
+    {props?.details?.final_result !== null  ?  <span style={{color:"green"}}>L3 - Promoted</span> : <span style={{color:"red"}}>Not - Promoted</span>
+
+    }
+</div>
+               
             </div>
         </div>
     );

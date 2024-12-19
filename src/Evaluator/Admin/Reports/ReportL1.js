@@ -33,6 +33,8 @@ const ReportL1 = () => {
   const [RegTeachersdistrict, setRegTeachersdistrict] = React.useState("");
   const [RegTeachersState, setRegTeachersState] = React.useState("");
   const [totalCount, setTotalCount] = useState([]);
+  const [totalCountB, setTotalCountB] = useState([]);
+
   const [sdg, setsdg] = React.useState("");
   const [filterType, setFilterType] = useState("");
   const [category, setCategory] = useState("");
@@ -596,10 +598,31 @@ const ReportL1 = () => {
       .then((res) => {
         if (res.status === 200) {
           const chartTableData2 = res?.data?.data || [];
-        //   console.log(res,"22");
+          const totalB = chartTableData2.reduce(
+            (acc, item) => {
+              (acc.totalEvaluated += item.totalEvaluated),
+                // (acc.full_name += item.full_name),
+                (acc.accepted += item.accepted),
+                (acc.rejected += item.rejected);
 
-          setChartTableData2(chartTableData2);
+              return acc;
+            },
+            {
+             
+              totalEvaluated: 0,
+              accepted: 0,
+              rejected: 0,
+            }
+          );
+
+          // console.log(res,"22");
+          var arrayB = chartTableData2;
+          arrayB.push({ full_name: "Total Count", ...totalB });
+          setChartTableData2(arrayB);
           setDownloadTableData2(chartTableData2);
+          setTotalCountB(totalB);
+          // setChartTableData2(chartTableData2);
+          // setDownloadTableData2(chartTableData2);
         }
       })
       .catch((error) => {
