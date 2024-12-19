@@ -19,7 +19,7 @@ const IdeaList = () => {
     const allIdeaList = useSelector(
         (state) => state?.evaluator.submittedIdeaList
     );
-
+const content = allIdeaList && allIdeaList?.openIdeas ;
     React.useEffect(() => {
         dispatch(getSubmittedIdeaList('L2'));
     }, []);
@@ -35,7 +35,7 @@ const IdeaList = () => {
     const handleNext = () => {
         dispatch(getSubmittedIdeaList('L2'));
     };
-// console.log(Object.keys(ideaDetails).length,"IDEA",ideaDetails,"data");
+console.log(allIdeaList,"IDEA",);
     return (
         <div className="page-wrapper">
         <div className="content">

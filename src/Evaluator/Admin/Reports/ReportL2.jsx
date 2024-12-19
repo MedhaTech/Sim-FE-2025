@@ -61,6 +61,8 @@ const ReportL2 = () => {
     "All Districts",
     ...(allDistricts[RegTeachersState] || []),
   ];
+    const [totalCountB, setTotalCountB] = useState([]);
+  
   const [downloadData, setDownloadData] = useState(null);
   const [downloadNotRegisteredData, setDownloadNotRegisteredData] =
     useState(null);
@@ -815,9 +817,26 @@ const ReportL2 = () => {
       .then((res) => {
         if (res.status === 200) {
           const chartTableData2 = res?.data?.data || [];
+          const totalB = chartTableData2.reduce(
+            (acc, item) => {
+              (acc.totalEvaluated += item.totalEvaluated);
 
-          setChartTableData2(chartTableData2);
+              return acc;
+            },
+            {
+             
+              totalEvaluated: 0,
+            }
+          );
+
+          // console.log(res,"22");
+          var arrayB = chartTableData2;
+          arrayB.push({ full_name: "Total Count", ...totalB });
+          setChartTableData2(arrayB);
           setDownloadTableData2(chartTableData2);
+          setTotalCountB(totalB);
+          // setChartTableData2(chartTableData2);
+          // setDownloadTableData2(chartTableData2);
         }
       })
       .catch((error) => {
