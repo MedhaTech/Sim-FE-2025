@@ -1146,7 +1146,7 @@ const SearchCID = () => {
                 {multiOrgData?.evaluator_ratings.length > 0 && (
                   <RatedCard details={multiOrgData} />
                 )}
-                  {multiOrgData?.final_result === "0" && (
+                  {(multiOrgData?.final_result === "0" ||  multiOrgData?.final_result === "1" )&& (
                    <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
                       {multiOrgData?.final_result ? (
                         <p
