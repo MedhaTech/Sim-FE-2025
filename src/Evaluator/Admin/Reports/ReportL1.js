@@ -749,7 +749,7 @@ const ReportL1 = () => {
                     <div className="card flex-fill default-cover w-100 mb-4">
                       <div className="card-header d-flex justify-content-between align-items-center">
                         <h4 className="card-title mb-0">
-                          States wise L1 - Reports Stats
+                        L1 State wise Overview
                         </h4>
                         <div className="dropdown">
                           <Link

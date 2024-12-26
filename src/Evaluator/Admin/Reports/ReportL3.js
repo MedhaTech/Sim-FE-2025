@@ -903,7 +903,7 @@ const ReportL3 = () => {
                       <div className="card flex-fill default-cover w-100 mb-4">
                         <div className="card-header d-flex justify-content-between align-items-center">
                           <h4 className="card-title mb-0">
-                            States wise L3 - Reports Stats
+                            L3 Score Type Wise Stats
                           </h4>
                           <div className="dropdown">
                             <Link
@@ -1112,7 +1112,7 @@ const ReportL3 = () => {
                       <div className="card flex-fill default-cover w-100 mb-4">
                         <div className="card-header d-flex justify-content-between align-items-center">
                           <h4 className="card-title mb-0">
-                          L3 Evaluator Overview
+                          L3 State wise Overview
                           </h4>
                           <div className="dropdown">
                             <Link

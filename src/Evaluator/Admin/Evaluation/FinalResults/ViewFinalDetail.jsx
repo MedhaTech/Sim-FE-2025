@@ -967,7 +967,7 @@ const ViewDetail = (props) => {
                                     details={props?.ideaDetails}
                                     />
                                 )}
-                                 {teamResponse?.final_result === "0" && (
+                                 {(teamResponse?.final_result === "0" || teamResponse?.final_result === "1") &&(
                    <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
                       {teamResponse?.final_result ? (
                         <p
