@@ -49,11 +49,13 @@ const ViewSelectedIdea = () => {
   const { search } = useLocation();
   const status = new URLSearchParams(search).get("status");
   const names =
-    status === "SUBMITTED"
+    status === "ACCEPTED"
       ? "Mentor Accepted "
       : status === "DRAFT"
       ? "Draft "
-      : "";
+      :  status === "SUBMITTED"
+      ? "Submitted "
+      :"" ;
   const fullStatesNames = newstateList;
   const allDistricts = {
     "All Districts": [...Object.values(districtList).flat()],

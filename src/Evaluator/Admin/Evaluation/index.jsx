@@ -51,8 +51,8 @@ const Dashboard = () => {
               {/* <Row className="mb-5"> */}
               {/* <Row> */}
                 {/* <Col md={4}> */}
-                  <div className="col-xl-6 col-sm-6 col-12 ">
-                <Link to="/eadmin/dashboard?status=SUBMITTED">
+                  <div className="col-xl-4 col-sm-6 col-12 ">
+                <Link to="/eadmin/dashboard?status=ACCEPTED">
                     <div className="dash-widget w-100">
                       <div className="dash-widgetimg">
                           <span style={{ fontSize: "1.5rem" }}>
@@ -67,9 +67,25 @@ const Dashboard = () => {
                     </div>
                 </Link>
                   </div>
+                  <div className="col-xl-4 col-sm-6 col-12 ">
+                <Link to="/eadmin/dashboard?status=SUBMITTED">
+                    <div className="dash-widget w-100">
+                      <div className="dash-widgetimg">
+                          <span style={{ fontSize: "1.5rem" }}>
+                              <i className="fas fa-user-check" style={{ color: "rgb(65 105 217)" }}></i>
+                          </span>
+                      </div>
+
+                      <div className="dash-widgetcontent">
+                        <h5>{dateCount.submitted_count}</h5>
+                        <h6 className="text">Submitted Challenges</h6>
+                      </div>
+                    </div>
+                </Link>
+                  </div>
                 {/* </Col> */}
                 {/* <Col md={4}> */}
-                  <div className="col-xl-6 col-sm-6 col-12 ">
+                  <div className="col-xl-4 col-sm-6 col-12 ">
                 <Link to="/eadmin/dashboard?status=DRAFT">
                     <div className="dash-widget w-100">
                       <div className="dash-widgetimg">
