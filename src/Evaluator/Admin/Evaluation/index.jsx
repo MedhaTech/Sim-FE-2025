@@ -61,7 +61,7 @@ const Dashboard = () => {
                       </div>
 
                       <div className="dash-widgetcontent">
-                        <h5>{dateCount.submitted_count}</h5>
+                        <h5>{dateCount.mentorAcceptedCount}</h5>
                         <h6 className="text">Mentor Accepted Challenges</h6>
                       </div>
                     </div>
