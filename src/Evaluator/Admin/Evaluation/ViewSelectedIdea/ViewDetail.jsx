@@ -143,6 +143,8 @@ console.log(level,"level");
                         : response?.data?.message
                 );
                 props?.setIsDetail(false);
+                props?.handleclickcall();
+
             // navigate(
             //     '/eadmin/evaluationStatus'
             //     );
