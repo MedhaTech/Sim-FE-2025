@@ -483,6 +483,7 @@ const ViewSelectedIdea = () => {
                     currentRow={currentRow}
                     names={names}
                     dataLength={tableData && tableData?.length}
+                    handleclickcall={handleclickcall} 
                   />
                 ))}
             </div>

@@ -140,7 +140,7 @@ const ViewDetail = (props) => {
                         : response?.data?.message
                 );
                 props?.setIsDetail(false);
-                // props?.settableData([]);
+                props?.handleclickcall();
                 // props?.setdistrict('');
                 // props?.setsdg('');
             })

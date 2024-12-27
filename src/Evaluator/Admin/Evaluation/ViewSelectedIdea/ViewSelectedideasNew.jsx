@@ -1297,6 +1297,7 @@ console.log("titile",title);
                     handlePrev={handlePrev}
                     currentRow={currentRow}
                     dataLength={tableData && tableData?.length}
+                    handleclickcall={handleclickcall}
                   />
                 ))}
             </div>
