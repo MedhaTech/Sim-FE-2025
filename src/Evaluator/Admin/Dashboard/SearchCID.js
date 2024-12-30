@@ -1146,7 +1146,34 @@ const SearchCID = () => {
                 {multiOrgData?.evaluator_ratings.length > 0 && (
                   <RatedCard details={multiOrgData} />
                 )}
+                  {(multiOrgData?.final_result === "0" ||  multiOrgData?.final_result === "1" )&& (
+                   <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
+                      {multiOrgData?.final_result ? (
+                        <p
+                          style={{ fontSize: "1.2rem" }}
+                          className={`${
+                            multiOrgData?.final_result == "0"
+                              ? "text-success"
+                              : "text-danger"
+                          }fs-4 fw-bold text-center`}
+                        >
+                          <span
+                            className="text-info"
+                            style={{ fontSize: "1.2rem" }}
+                          >
+                            L3 :{" "}
+                          </span>
+                          {multiOrgData?.final_result == "0"
+                            ? "Runner - Not Promoted"
+                            : "Winner - Promoted"}
+                        </p>
+                      ) : (
+                        ""
+                      )}
+                      </div>
+                       )}
               </div>
+                   
             </div>
             <div style={{ display: "flex" }}>
               <p

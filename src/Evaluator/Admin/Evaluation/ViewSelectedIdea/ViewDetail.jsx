@@ -142,9 +142,12 @@ console.log(level,"level");
                         ? 'Idea processed successfully!'
                         : response?.data?.message
                 );
-            navigate(
-                '/eadmin/evaluationStatus'
-                );
+                props?.setIsDetail(false);
+                props?.handleclickcall();
+
+            // navigate(
+            //     '/eadmin/evaluationStatus'
+            //     );
             })
             .catch(function (error) {
                 openNotificationWithIcon(
