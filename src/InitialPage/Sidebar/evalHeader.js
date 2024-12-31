@@ -568,7 +568,8 @@ const EadmiHeader = () => {
       <Link className="dropdown-item" to="/evaluator/change-password">
         Change Password
       </Link>
-      <Link className="dropdown-item" to="signin">
+      <Link className="dropdown-item"  to=""
+            onClick={handleLogout}>
         Logout
       </Link>
     </div>
