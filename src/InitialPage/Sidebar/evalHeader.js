@@ -21,7 +21,7 @@ import { faKey,faUser } from '@fortawesome/free-solid-svg-icons';
 import { useSelector,useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { getAdminNotificationsList } from '../../redux/actions';
-
+import "./style.css";
 const EadmiHeader = () => {
   const route = all_routes;
   const [toggle, SetToggle] = useState(false);
@@ -169,508 +169,416 @@ const EadmiHeader = () => {
  
 
   return (
-    <>
-      <div className="header">
-        {/* Logo */}
-        <div
-          className={`header-left ${toggle ? "" : "active"}`}
-          onMouseLeave={expandMenu}
-          onMouseOver={expandMenuOpen}
-        >
-          <img
-            src={logo}
-            alt="Logo"
-            style={{ padding: "0.7rem" }}
-            // className="logo-image"
-          />
-          {/* <Link to="/dashboard" className="logo logo-normal">
-            <ImageWithBasePath src="assets/img/logo.png" alt="img" />
-          </Link>
-          <Link to="/dashboard" className="logo logo-white">
-            <ImageWithBasePath src="assets/img/logo-white.png" alt="img" />
-          </Link>
-          <Link to="/dashboard" className="logo-small">
-            <ImageWithBasePath src="assets/img/logo-small.png" alt="img" />
-          </Link> */}
-          {/* <Link
-            id="toggle_btn"
-            to="#"
-            style={{
-              display:
-                pathname.includes("tasks") || pathname.includes("pos")
-                  ? "none"
-                  : pathname.includes("compose")
-                  ? "none"
-                  : "",
-            }}
-            onClick={handlesidebar}
-          >
-            <FeatherIcon icon="chevrons-left" className="feather-16" />
-          </Link> */}
-        </div>
-        {/* /Logo */}
-        <Link
-          id="mobile_btn"
-          className="mobile_btn"
-          to="#"
-          onClick={sidebarOverlay}
-        >
-          <span className="bar-icon">
-            <span />
-            <span />
-            <span />
-          </span>
-        </Link>
-        {/* Header Menu */}
-        <ul className="nav user-menu">
-          <li className="nav-item nav-searchinputs">
-            <div className="top-nav-search">
+//     <>
+//       <div className="header">
+//         <div
+//           className={`header-left ${toggle ? "" : "active"}`}
+//           onMouseLeave={expandMenu}
+//           onMouseOver={expandMenuOpen}
+//         >
+//           <img
+//             src={logo}
+//             alt="Logo"
+//             style={{ padding: "0.7rem" }}
+//           />
+        
+//         </div>
+//         <Link
+//           id="mobile_btn"
+//           className="mobile_btn"
+//           to="#"
+//           onClick={sidebarOverlay}
+//         >
+//           <span className="bar-icon">
+//             <span />
+//             <span />
+//             <span />
+//           </span>
+//         </Link>
+//         <ul className="nav user-menu">
+//           <li className="nav-item nav-searchinputs">
+//             <div className="top-nav-search">
              
-               {location.pathname?.split('/')?.pop() ==
-                                        'submitted-ideas' && (
-                                        <div className="row w-100">
+//                {location.pathname?.split('/')?.pop() ==
+//                                         'submitted-ideas' && (
+//                                         <div className="row w-100">
                                            
-                                            <div className="d-flex justify-content-between align-items-center w-100"
-                                            style={{ whiteSpace: "nowrap" }}>
-    <p className="m-2" style={{ fontWeight: "bold", fontSize: "1rem" }}>
-      Processed:&nbsp;
-      <span
-        className="text-success"
-        style={{ fontWeight: "bold", fontSize: "1rem" }}
-      >
-        {(allIdeaList && allIdeaList?.evaluatedIdeas) || 0}
-      </span>
-    </p>
-    <p className="m-2" style={{ fontWeight: "bold", fontSize: "1rem" }}>
-      Yet to be Process:&nbsp;
-      <span
-        className="text-danger"
-        style={{ fontWeight: "bold", fontSize: "1rem" }}
-      >
-        {(allIdeaList && allIdeaList?.openIdeas) || 0}
-      </span>
-    </p>
-</div>
+//                                             <div className="d-flex justify-content-between align-items-center w-100"
+//                                             style={{ whiteSpace: "nowrap" }}>
+//     <p className="m-2" style={{ fontWeight: "bold", fontSize: "1rem" }}>
+//       Processed:&nbsp;
+//       <span
+//         className="text-success"
+//         style={{ fontWeight: "bold", fontSize: "1rem" }}
+//       >
+//         {(allIdeaList && allIdeaList?.evaluatedIdeas) || 0}
+//       </span>
+//     </p>
+//     <p className="m-2" style={{ fontWeight: "bold", fontSize: "1rem" }}>
+//       Yet to be Process:&nbsp;
+//       <span
+//         className="text-danger"
+//         style={{ fontWeight: "bold", fontSize: "1rem" }}
+//       >
+//         {(allIdeaList && allIdeaList?.openIdeas) || 0}
+//       </span>
+//     </p>
+// </div>
 
                                           
-                                        </div>
-                                    )}
-              <form action="#" className="dropdown">
+//                                         </div>
+//                                     )}
+//               <form action="#" className="dropdown">
                
                
-              </form>
-            </div>
-          </li>
-          {/* /Search */}
-
-          {/* Select Store */}
-          {/* <li className="nav-item dropdown has-arrow main-drop select-store-dropdown">
-            <Link
-              to="#"
-              className="dropdown-toggle nav-link select-store"
-              data-bs-toggle="dropdown"
-            >
-              <span className="user-info">
-                <span className="user-letter">
-                  <ImageWithBasePath
-                    src="assets/img/store/store-01.png"
-                    alt="Store Logo"
-                    className="img-fluid"
-                  />
-                </span>
-                <span className="user-detail">
-                  <span className="user-name">Select Store</span>
-                </span>
-              </span>
-            </Link>
-            <div className="dropdown-menu dropdown-menu-right">
-              <Link to="#" className="dropdown-item">
-                <ImageWithBasePath
-                  src="assets/img/store/store-01.png"
-                  alt="Store Logo"
-                  className="img-fluid"
-                />{" "}
-                Grocery Alpha
-              </Link>
-              <Link to="#" className="dropdown-item">
-                <ImageWithBasePath
-                  src="assets/img/store/store-02.png"
-                  alt="Store Logo"
-                  className="img-fluid"
-                />{" "}
-                Grocery Apex
-              </Link>
-              <Link to="#" className="dropdown-item">
-                <ImageWithBasePath
-                  src="assets/img/store/store-03.png"
-                  alt="Store Logo"
-                  className="img-fluid"
-                />{" "}
-                Grocery Bevy
-              </Link>
-              <Link to="#" className="dropdown-item">
-                <ImageWithBasePath
-                  src="assets/img/store/store-04.png"
-                  alt="Store Logo"
-                  className="img-fluid"
-                />{" "}
-                Grocery Eden
-              </Link>
-            </div>
-          </li> */}
-          {/* /Select Store */}
-
-          {/* Flag */}
-          {/* <li className="nav-item dropdown has-arrow flag-nav nav-item-box">
-            <Link
-              className="nav-link dropdown-toggle"
-              data-bs-toggle="dropdown"
-              to="#"
-              role="button"
-            > */}
-          {/* <i data-feather="globe" /> */}
-          {/* <FeatherIcon icon="globe" /> */}
-          {/* <ImageWithBasePath
-            src="assets/img/flags/us.png"
-            alt="img"
-            height={16}
-          /> */}
-          {/* </Link> */}
-          {/* <div className="dropdown-menu dropdown-menu-right"> */}
-          {/* <Link to="#" className="dropdown-item active">
-                <ImageWithBasePath
-                  src="assets/img/flags/us.png"
-                  alt="img"
-                  height={16}
-                />
-                English
-              </Link>
-              <Link to="#" className="dropdown-item">
-                <ImageWithBasePath
-                  src="assets/img/flags/fr.png"
-                  alt="img"
-                  height={16}
-                />{" "}
-                French
-              </Link>
-              <Link to="#" className="dropdown-item">
-                <ImageWithBasePath
-                  src="assets/img/flags/es.png"
-                  alt="img"
-                  height={16}
-                />{" "}
-                Spanish
-              </Link>
-              <Link to="#" className="dropdown-item">
-                <ImageWithBasePath
-                  src="assets/img/flags/de.png"
-                  alt="img"
-                  height={16}
-                />{" "}
-                German
-              </Link> */}
-          {/* </div> */}
-          {/* </li> */}
-          {/* /Flag */}
-          <li className="nav-item nav-item-box">
-            <Link
-              to="#"
-              id="btnFullscreen"
-              onClick={() => toggleFullscreen()}
-              className={isFullscreen ? "Exit Fullscreen" : "Go Fullscreen"}
-            >
-              {/* <i data-feather="maximize" /> */}
-              <FeatherIcon icon="maximize" />
-            </Link>
-          </li>
-          {/* <li className="nav-item nav-item-box">
-            <Link to="/email"> */}
-          {/* <i data-feather="mail" /> */}
-          {/* <FeatherIcon icon="mail" />
-              <span className="badge rounded-pill">1</span>
-            </Link>
-          </li> */}
-          {/* Notifications */}
-          {/* <li className="nav-item dropdown nav-item-box">
-            <Link
-              to="#"
-              className="dropdown-toggle nav-link"
-              data-bs-toggle="dropdown"
-            > */}
-          {/* <i data-feather="bell" />
-              <FeatherIcon icon="bell" />
-              <span className="badge rounded-pill">2</span>
-            </Link> */}
-          {/* <div className="dropdown-menu notifications">
-              <div className="topnav-dropdown-header">
-                <span className="notification-title">Notifications</span>
-                <Link to="#" className="clear-noti">
-                  {" "}
-                  Clear All{" "}
-                </Link>
-              </div>
-              <div className="noti-content">
-                <ul className="notification-list">
-                  <li className="notification-message active">
-                    <Link to="/activities">
-                      <div className="media d-flex">
-                        <span className="avatar flex-shrink-0">
-                          <ImageWithBasePath
-                            alt="img"
-                            src="assets/img/profiles/avatar-02.jpg"
-                          />
-                        </span>
-                        <div className="media-body flex-grow-1">
-                          <p className="noti-details">
-                            <span className="noti-title">John Doe</span> added
-                            new task{" "}
-                            <span className="noti-title">
-                              Patient appointment booking
-                            </span>
-                          </p>
-                          <p className="noti-time">
-                            <span className="notification-time">
-                              4 mins ago
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-                    </Link>
-                  </li>
-                  <li className="notification-message">
-                    <Link to="/activities">
-                      <div className="media d-flex">
-                        <span className="avatar flex-shrink-0">
-                          <ImageWithBasePath
-                            alt="img"
-                            src="assets/img/profiles/avatar-03.jpg"
-                          />
-                        </span>
-                        <div className="media-body flex-grow-1">
-                          <p className="noti-details">
-                            <span className="noti-title">Tarah Shropshire</span>{" "}
-                            changed the task name{" "}
-                            <span className="noti-title">
-                              Appointment booking with payment gateway
-                            </span>
-                          </p>
-                          <p className="noti-time">
-                            <span className="notification-time">
-                              6 mins ago
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-                    </Link>
-                  </li>
-                  <li className="notification-message">
-                    <Link to="/activities">
-                      <div className="media d-flex">
-                        <span className="avatar flex-shrink-0">
-                          <ImageWithBasePath
-                            alt="img"
-                            src="assets/img/profiles/avatar-06.jpg"
-                          />
-                        </span>
-                        <div className="media-body flex-grow-1">
-                          <p className="noti-details">
-                            <span className="noti-title">Misty Tison</span>{" "}
-                            added{" "}
-                            <span className="noti-title">Domenic Houston</span>{" "}
-                            and <span className="noti-title">Claire Mapes</span>{" "}
-                            to project{" "}
-                            <span className="noti-title">
-                              Doctor available module
-                            </span>
-                          </p>
-                          <p className="noti-time">
-                            <span className="notification-time">
-                              8 mins ago
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-                    </Link>
-                  </li>
-                  <li className="notification-message">
-                    <Link to="/activities">
-                      <div className="media d-flex">
-                        <span className="avatar flex-shrink-0">
-                          <ImageWithBasePath
-                            alt="img"
-                            src="assets/img/profiles/avatar-17.jpg"
-                          />
-                        </span>
-                        <div className="media-body flex-grow-1">
-                          <p className="noti-details">
-                            <span className="noti-title">Rolland Webber</span>{" "}
-                            completed task{" "}
-                            <span className="noti-title">
-                              Patient and Doctor video conferencing
-                            </span>
-                          </p>
-                          <p className="noti-time">
-                            <span className="notification-time">
-                              12 mins ago
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-                    </Link>
-                  </li>
-                  <li className="notification-message">
-                    <Link to="/activities">
-                      <div className="media d-flex">
-                        <span className="avatar flex-shrink-0">
-                          <ImageWithBasePath
-                            alt="img"
-                            src="assets/img/profiles/avatar-13.jpg"
-                          />
-                        </span>
-                        <div className="media-body flex-grow-1">
-                          <p className="noti-details">
-                            <span className="noti-title">Bernardo Galaviz</span>{" "}
-                            added new task{" "}
-                            <span className="noti-title">
-                              Private chat module
-                            </span>
-                          </p>
-                          <p className="noti-time">
-                            <span className="notification-time">
-                              2 days ago
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-              <div className="topnav-dropdown-footer">
-                <Link to="/activities">View all Notifications</Link>
-              </div>
-            </div> */}
-          {/* </li> */}
-          {/* /Notifications */}
-          {/* <li className="nav-item nav-item-box"> */}
-          {/* <Link to="/general-settings"> */}
-          {/* <i data-feather="settings" /> */}
-          {/* <FeatherIcon icon="settings" /> */}
-          {/* </Link> */}
-          {/* </li> */}
-          <li className="nav-item dropdown has-arrow main-drop">
-            <Link
-              to="#"
-              className="dropdown-toggle nav-link userset"
-              data-bs-toggle="dropdown"
-            >
-              <span className="user-info">
-                <span className="user-letter">
-                  {/* <ImageWithBasePath
-                    src="assets/img/profiles/avator1.jpg"
-                    alt="img"
-                    className="img-fluid"
-                  /> */}
-                  {/* <img src={avtar} alt="Avtar" className="img-fluid" /> */}
-                  <img src={Icon} alt="Team" id="blah" />
-                </span>
-                <span className="user-detail">
-                  {/* {currentUser?.data[0]?.role} */}
-                  <span className="user-name">
-                    {" "}
-                    {currentUser?.data[0]?.full_name}
+//               </form>
+//             </div>
+//           </li>
+//          
+//                   <User className="me-2" /> My Profile
+//                 </Link>
+             
+//                 <h <li className="nav-item nav-item-box">
+//             <Link
+//               to="#"
+//               id="btnFullscreen"
+//               onClick={() => toggleFullscreen()}
+//               className={isFullscreen ? "Exit Fullscreen" : "Go Fullscreen"}
+//             >
+//               <FeatherIcon icon="maximize" />
+//             </Link>
+//           </li>
+         
+//           <li className="nav-item dropdown has-arrow main-drop">
+//             <Link
+//               to="#"
+//               className="dropdown-toggle nav-link userset"
+//               data-bs-toggle="dropdown"
+//             >
+//               <span className="user-info">
+//                 <span className="user-letter">
+                 
+//                   <img src={Icon} alt="Team" id="blah" />
+//                 </span>
+//                 <span className="user-detail">
+//                   <span className="user-name">
+//                     {" "}
+//                     {currentUser?.data[0]?.full_name}
+//                   </span>
+//                 </span>
+//               </span>
+//             </Link>
+//             <div className="dropdown-menu menu-drop-user">
+//               <div className="profilename">
+//                 <div className="profileset">
+//                   <span className="user-img">
+                  
+//                     <span className="status online" />
+//                   </span>
+//                   <div className="profilesets">
+//                     <h6> {currentUser?.data[0]?.full_name}</h6>
+//                   </div>
+//                 </div>
+//                 <hr className="m-0" />
+//                 <Link
+//                   className="dropdown-item"
+//                   to={"/evaluator-profile"}
+//                 >r className="m-0" />
+//                 <Link
+//                   className="dropdown-item logout pb-0"
+//                   to=""
+//                   onClick={handleLogout}
+//                 >
+                 
+//                   <img src={logoutIcon} alt="LogoutIcon" />
+//                   Logout
+//                 </Link>
+//               </div>
+//             </div>
+//           </li>
+//         </ul>
+//         <div className="dropdown mobile-user-menu">
+//           <Link
+//             to="#"
+//             className="nav-link dropdown-toggle"
+//             data-bs-toggle="dropdown"
+//             aria-expanded="false"
+//           >
+//             <i className="fa fa-ellipsis-v" />
+//           </Link>
+//           <div className="dropdown-menu dropdown-menu-right">
+           
+//               <Link className="dropdown-item" to={"/evaluator/change-password"}>
+//                 Change Password
+//               </Link>
+//             <Link className="dropdown-item" to="signin">
+//               Logout
+//             </Link>
+//           </div>
+//         </div>
+//         {/* /Mobile Menu */}
+//       </div>
+//     </>
+<>
+  {/* <div className="header">
+    <div
+      className={`header-left ${toggle ? "" : "active"}`}
+      onMouseLeave={expandMenu}
+      onMouseOver={expandMenuOpen}
+    >
+      <img src={logo} alt="Logo" style={{ padding: "0.7rem" }} />
+    </div>
+    <Link
+      id="mobile_btn"
+      className="mobile_btn"
+      to="#"
+      onClick={sidebarOverlay}
+    >
+      <span className="bar-icon">
+        <span />
+        <span />
+        <span />
+      </span>
+    </Link>
+    <ul className="nav user-menu">
+      <li className="nav-item nav-searchinputs">
+        <div className="top-nav-search">
+          {location.pathname?.split('/')?.pop() === 'submitted-ideas' && (
+            <div className="row w-100">
+              <div
+                className="d-flex justify-content-between align-items-center w-100"
+                style={{ whiteSpace: "nowrap" }}
+              >
+                <p
+                  className="m-2"
+                  style={{ fontWeight: "bold", fontSize: "1rem" }}
+                >
+                  Processed :&nbsp;
+                  <span
+                    className="text-success"
+                    style={{ fontWeight: "bold", fontSize: "1rem" }}
+                  >
+                    {(allIdeaList && allIdeaList?.evaluatedIdeas) || 0}
                   </span>
-                  {/* <span className="user-role">Super Admin</span> */}
-                </span>
-              </span>
-            </Link>
-            <div className="dropdown-menu menu-drop-user">
-              <div className="profilename">
-                <div className="profileset">
-                  <span className="user-img">
-                    {/* <ImageWithBasePath
-                      src="assets/img/profiles/avator1.jpg"
-                      alt="img"
-                    /> */}
-                    {/* <img src={avtar} alt="Avtar" /> */}
-                    <span className="status online" />
+                </p>
+                <p
+                  className="m-2"
+                  style={{ fontWeight: "bold", fontSize: "1rem" }}
+                >
+                  Yet to be Processed :&nbsp;
+                  <span
+                    className="text-danger"
+                    style={{ fontWeight: "bold", fontSize: "1rem" }}
+                  >
+                    {(allIdeaList && allIdeaList?.openIdeas) || 0}
                   </span>
-                  <div className="profilesets">
-                    <h6> {currentUser?.data[0]?.full_name}</h6>
-                    {/* <h5>Super Admin</h5> */}
-                  </div>
-                </div>
-                <hr className="m-0" />
-                <Link
-                  className="dropdown-item"
-                  // onClick={handleProfile}
-                  to={"/evaluator-profile"}
-                  // onClick={() => navigate("/admin/profile")}
-                >
-                  <User className="me-2" /> My Profile
-                </Link>
-                {/* <hr className="m-0" /> */}
-
-                {/* <Link
-                  className="dropdown-item"
-                  to={"/evaluator/change-password"}
-                >
-                  <FontAwesomeIcon icon={faKey} /> <h6>Change Password</h6> 
-                </Link> */}
-                {/* <Link className="dropdown-item" to={route.generalsettings}>
-                  <Settings className="me-2" />
-                  Settings
-                </Link> */}
-                <hr className="m-0" />
-                <Link
-                  className="dropdown-item logout pb-0"
-                  to=""
-                  onClick={handleLogout}
-                >
-                  {/* <ImageWithBasePath
-                    src="assets/img/icons/log-out.svg"
-                    alt="img"
-                    className="me-2"
-                  /> */}
-                  <img src={logoutIcon} alt="LogoutIcon" />
-                  Logout
-                </Link>
+                </p>
               </div>
             </div>
-          </li>
-        </ul>
-        {/* /Header Menu */}
-        {/* Mobile Menu */}
-        <div className="dropdown mobile-user-menu">
-          <Link
-            to="#"
-            className="nav-link dropdown-toggle"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <i className="fa fa-ellipsis-v" />
-          </Link>
-          <div className="dropdown-menu dropdown-menu-right">
-            {/* <Link
-              className="dropdown-item"
-              onClick={() => navigate("/profile")}
-            >
-              My Profile
-            </Link> */}
-            {/* <Link className="dropdown-item" to="generalsettings">
-              Settings
-            </Link> */}
-              <Link className="dropdown-item" to={"/evaluator/change-password"}>
-                Change Password
-              </Link>
-            <Link className="dropdown-item" to="signin">
-              Logout
-            </Link>
-          </div>
+          )}
         </div>
-        {/* /Mobile Menu */}
+      </li>
+    </ul>
+    <div className="dropdown mobile-user-menu">
+      <Link
+        to="#"
+        className="nav-link dropdown-toggle"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <i className="fa fa-ellipsis-v" />
+      </Link>
+      <div className="dropdown-menu dropdown-menu-right">
+        {location.pathname?.split('/')?.pop() === 'submitted-ideas' && (
+          <div>
+            <p className="dropdown-item">
+              Processed :&nbsp;
+              <span className="text-success">
+                {(allIdeaList && allIdeaList?.evaluatedIdeas) || 0}
+              </span>
+            </p>
+           
+            <p className="dropdown-item d-flex align-items-center">
+  <span>Yet to be Processed :&nbsp;</span>
+  <span className="text-danger">
+    {(allIdeaList && allIdeaList?.openIdeas) || 0}
+  </span>
+</p>
+          </div>
+        )}
+        <Link className="dropdown-item" to="/evaluator/change-password">
+          Change Password
+        </Link>
+        <Link className="dropdown-item" to="signin">
+          Logout
+        </Link>
       </div>
-    </>
+    </div>
+  </div> */}
+ <div className="header">
+  {/* Logo */}
+  <div
+    className={`header-left ${toggle ? "" : "active"}`}
+    onMouseLeave={expandMenu}
+    onMouseOver={expandMenuOpen}
+  >
+    <img src={logo} alt="Logo" style={{ padding: "0.7rem" }} />
+  </div>
+  {/* /Logo */}
+
+  {/* Mobile Menu Toggle */}
+  <Link
+    id="mobile_btn"
+    className="mobile_btn"
+    to="#"
+    onClick={sidebarOverlay}
+  >
+    <span className="bar-icon">
+      <span />
+      <span />
+      <span />
+    </span>
+  </Link>
+
+  {/* Header Menu */}
+  <ul className="nav user-menu">
+    {/* Processed and Yet to be Processed */}
+    <li className="nav-item nav-searchinputs">
+      <div className="top-nav-search">
+        {location.pathname?.split("/")?.pop() === "submitted-ideas" && (
+          <div className="row w-100">
+            <div
+              className="d-flex justify-content-between align-items-center w-100"
+              style={{ whiteSpace: "nowrap" }}
+            >
+              <p
+                className="m-2"
+                style={{ fontWeight: "bold", fontSize: "1rem" }}
+              >
+                Processed :&nbsp;
+                <span
+                  className="text-success"
+                  style={{ fontWeight: "bold", fontSize: "1rem" }}
+                >
+                  {(allIdeaList && allIdeaList?.evaluatedIdeas) || 0}
+                </span>
+              </p>
+              <p
+                className="m-2"
+                style={{ fontWeight: "bold", fontSize: "1rem" }}
+              >
+                Yet to be Processed :&nbsp;
+                <span
+                  className="text-danger"
+                  style={{ fontWeight: "bold", fontSize: "1rem" }}
+                >
+                  {(allIdeaList && allIdeaList?.openIdeas) || 0}
+                </span>
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
+    </li>
+
+    {/* Fullscreen Toggle */}
+    <li>
+      <Link
+        to="#"
+        id="btnFullscreen"
+        onClick={() => toggleFullscreen()}
+        className={isFullscreen ? "Exit Fullscreen" : "Go Fullscreen"}
+      >
+        <FeatherIcon icon="maximize" />
+      </Link>
+    </li>
+
+    {/* User Profile Dropdown */}
+    <li className="nav-item dropdown has-arrow main-drop">
+      <Link
+        to="#"
+        className="dropdown-toggle nav-link userset"
+        data-bs-toggle="dropdown"
+      >
+        <span className="user-info">
+          <span className="user-letter">
+            <img src={Icon} alt="Team" id="blah" />
+          </span>
+          <span className="user-detail">
+            <span className="user-name">
+              {currentUser?.data[0]?.full_name}
+            </span>
+          </span>
+        </span>
+      </Link>
+      <div className="dropdown-menu menu-drop-user">
+        <div className="profilename">
+          <div className="profileset">
+            <span className="user-img">
+              <span className="status online" />
+            </span>
+            <div className="profilesets">
+              <h6>{currentUser?.data[0]?.full_name}</h6>
+            </div>
+          </div>
+          <hr className="m-0" />
+          <Link className="dropdown-item m-0" to="/evaluator-profile">
+          <User className="me-2" /> My Profile
+          </Link>
+          <Link
+            className="dropdown-item logout pb-0"
+            to=""
+            onClick={handleLogout}
+          >
+            <img src={logoutIcon} alt="LogoutIcon" />
+            Logout
+          </Link>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  {/* Mobile Menu */}
+  <div className="dropdown mobile-user-menu">
+    <Link
+      to="#"
+      className="nav-link dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      <i className="fa fa-ellipsis-v" />
+    </Link>
+    <div className="dropdown-menu dropdown-menu-right">
+      {location.pathname?.split("/")?.pop() === "submitted-ideas" && (
+        <div>
+          <p className="dropdown-item d-flex align-items-center">
+            <span>Processed :&nbsp;</span>
+            <span className="text-success">
+              {(allIdeaList && allIdeaList?.evaluatedIdeas) || 0}
+            </span>
+          </p>
+          <p className="dropdown-item d-flex align-items-center">
+            <span>Yet to be Processed :&nbsp;</span>
+            <span className="text-danger">
+              {(allIdeaList && allIdeaList?.openIdeas) || 0}
+            </span>
+          </p>
+        </div>
+      )}
+      <Link className="dropdown-item" to="/evaluator/change-password">
+        Change Password
+      </Link>
+      <Link className="dropdown-item"  to=""
+            onClick={handleLogout}>
+        Logout
+      </Link>
+    </div>
+  </div>
+</div>
+
+
+</>
+
   );
 };
 
