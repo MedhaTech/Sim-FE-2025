@@ -108,7 +108,7 @@ const PostSurvey = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          console.log(response,"approve");
+          // console.log(response,"approve");
 
           setApproveIdeaCount(response.data.data[0].acceptedCount);
         }
@@ -227,7 +227,7 @@ const PostSurvey = () => {
         )
         .then((preSurveyRes) => {
           if (preSurveyRes?.status == 200) {
-            console.log(preSurveyRes, "aa");
+            // console.log(preSurveyRes, "aa");
             openNotificationWithIcon(
               "success",
               "Post Survey has been submitted successfully..!!",
@@ -338,7 +338,7 @@ const PostSurvey = () => {
                 <CardBody>
                   {
                     // teamsCount !== 0 &&
-                    (approveideaCount === teamsCount) && (postSurveyStatus != "COMPLETED") && (teamsCount!= 0) ? (
+                    (ideaCount >= 1) && (postSurveyStatus != "COMPLETED") && (teamsCount!= 0) ? (
                       <>
                         <UncontrolledAlert color="danger" className="mb-2">
                           Please complete the following post survey to get your
