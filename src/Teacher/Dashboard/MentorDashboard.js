@@ -655,7 +655,7 @@ const MentorDashboard = () => {
                 </div>
               </div>
               <div className="col-xl-3 col-sm-6 col-12 d-flex">
-                {!(teacPostSurvey == "COMPLETED" && ideaCount == teamsCount) ? (
+                {!(teacPostSurvey == "COMPLETED" && ideaCount >= 1) ? (
                     <>
                     <div className="dash-count das1">
                       <div className="dash-counts">
