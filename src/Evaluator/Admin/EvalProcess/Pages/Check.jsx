@@ -12,7 +12,7 @@ const Check = ({ list, setValue, value, selValue }) => {
     return list.map((name, i) => {
         return (
             <Col md={3} key={i}>
-                <div className="d-flex mb-2">
+                <div className="mb-2">
                     <input
                         name={name}
                         type="checkbox"
