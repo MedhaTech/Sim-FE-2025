@@ -63,7 +63,7 @@ const LoginPage = () => {
                     </Row>
                   </div>
                 </div>
-                <div className="signinform text-center">
+                {/* <div className="signinform text-center">
                   <h4>
                     Not Yet Registered ?
                     <Link className="hover-a" to={"/registration"}>
@@ -71,7 +71,7 @@ const LoginPage = () => {
                       Register Here
                     </Link>
                   </h4>
-                </div>
+                </div> */}
               </div>
             </form>
           </div>
