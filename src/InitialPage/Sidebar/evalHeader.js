@@ -463,7 +463,7 @@ const EadmiHeader = () => {
                   {(allIdeaList && allIdeaList?.evaluatedIdeas) || 0}
                 </span>
               </p>
-              <p
+              {/* <p
                 className="m-2"
                 style={{ fontWeight: "bold", fontSize: "1rem" }}
               >
@@ -474,7 +474,7 @@ const EadmiHeader = () => {
                 >
                   {(allIdeaList && allIdeaList?.openIdeas) || 0}
                 </span>
-              </p>
+              </p> */}
             </div>
           </div>
         )}
