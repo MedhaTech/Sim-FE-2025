@@ -184,7 +184,7 @@ const downloadFile = (item) => {
                                     <Row>
                                         <Col>
                                             <h4 className="mb-md-4 mb-3">
-                                                Theme : 
+                                                Theme :Hello 1 
                                                 <span className="text-capitalize">
                                                 {props?.ideaDetails?.theme?.toLowerCase() ||
                                                         ''}
@@ -822,6 +822,22 @@ const downloadFile = (item) => {
                                         >
                                             <span >Reject</span>
                                         </button>
+                                        <button
+                                            className="btn btn-primary me-3 m-2"
+                                            onClick={() =>
+                                                props?.handleSkip()
+                                            }
+                                        >
+                                            <span className="ms-2 me-2"> Skip </span>
+                                        </button>
+                                        {/* <Button
+                                            btnClass="primary"
+                                            size="small"
+                                            label="Skip"
+                                            onClick={() =>
+                                                props?.handleSkip()
+                                            }
+                                        /> */}
                                     </div>
                                 )}
                             </div>

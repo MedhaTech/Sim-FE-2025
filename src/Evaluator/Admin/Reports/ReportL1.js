@@ -463,6 +463,14 @@ const ReportL1 = () => {
                                       "DD-MM-YYYY"
                                     ) : '',
                                     "L1 Status":item.evaluation_status === 'SELECTEDROUND1'  ? 'Accepted': 'Rejected',
+                                    ...(item.evaluation_status === 'REJECTEDROUND1' && item.rejected_reason
+                                      ? { "Rejected Reason 1": item.rejected_reason }
+                                      : {}),
+                                  ...(item.evaluation_status === 'REJECTEDROUND1' && item.rejected_reasonSecond
+                                      ? { "Rejected Reason 2": item.rejected_reasonSecond }
+                                      : {}),
+                                   
+
 
                       // ...item,
                       // verifiedment: item.verified_status == null ? "Not yet Reviewed" : item.verified_status,

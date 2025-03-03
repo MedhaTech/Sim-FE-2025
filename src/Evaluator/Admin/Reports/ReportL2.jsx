@@ -495,9 +495,13 @@ const ReportL2 = () => {
           const newdatalist = mentorAndOrg.map((item) => {
             const rating =
               evaluatorRatingValuesMap[item.challenge_response_id] || {};
+              const comments = rating["JSON_ARRAYAGG(comments)"];
             const formatValue = (value) => {
               return value ? parseFloat(value).toFixed(1) : null;
             };
+           
+            
+
             return {
                "UDISE CODE":item.organization_code,
                                                  State:item.state,
@@ -546,6 +550,9 @@ const ReportL2 = () => {
   "Sustainability Score": formatValue(rating.sustainability),
   "Evaluators Count": rating.eval_count,
                                                   "L3 Status":item.final_result === null ? "Not Promoted" : "Promoted",
+                                                  "Comments": comments && Array.isArray(comments) && comments.length > 0
+                                                  ? comments.join(", ")
+                                                  : "No Comments"
 
               // ...item,
               // overall_score: formatValue(rating.overall_score),
