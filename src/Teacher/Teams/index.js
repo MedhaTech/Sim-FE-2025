@@ -403,6 +403,7 @@ ideaStatus===  null &&
         disability: item.disability,
         team_id: item.team_id,
         username: item?.user?.username,
+        email:item.email,
         user_id: item.user_id,
         student_id: item.student_id,
       },
@@ -677,7 +678,7 @@ ideaStatus===  null &&
                         Team Name : {ViewedTeam.team_name}
                       </p>
                       <p >
-                        Team Email : {ViewedTeam.team_email}
+                        Team Email : {ViewedTeam.team_email ? ViewedTeam.team_email :"-"}
                       </p>
                     </Col>
                     <Col>
@@ -730,10 +731,11 @@ ideaStatus===  null &&
                             <thead>
                               <tr>
                                 <th style={{color:"crimson"}}>Full Name</th>
-                                <th style={{color:"crimson"}}>Age</th>
-                                <th style={{color:"crimson"}}>Gender</th>
-                                <th style={{color:"crimson"}}>Class</th>
+                                <th style={{color:"crimson"}}>Email</th>
                                 <th style={{color:"crimson"}}>Disability</th>
+                                <th style={{color:"crimson"}}>Age</th>
+                                <th style={{color:"crimson"}}>Class</th>
+                                <th style={{color:"crimson"}}>Gender</th>
                                 <th style={{color:"crimson"}}>Actions</th>
                               </tr>
                             </thead>
@@ -741,10 +743,12 @@ ideaStatus===  null &&
                               {teamsListData.map((student, index) => (
                                 <tr key={index}>
                                   <td>{student.full_name}</td>
-                                  <td>{student.Age}</td>
-                                  <td>{student.Gender}</td>
-                                  <td>{student.Grade}</td>
+                                  <td>{student.email}</td>
                                   <td>{student.disability}</td>
+
+                                  <td>{student.Age}</td>
+                                  <td>{student.Grade}</td>
+                                  <td>{student.Gender}</td>
                                   <td className="action-table-data">
                                     <div className="edit-delete-action">
                                       <OverlayTrigger placement="top" overlay={renderEditTooltip}>

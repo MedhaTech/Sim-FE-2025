@@ -19,6 +19,8 @@ import user from "../../assets/img/user.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKey,faUser } from '@fortawesome/free-solid-svg-icons';
 import  "./styles.css";
+import LanguageSelectorComp from '../../components/LanguageSelectorComp/index.js';
+
 const MentorHeader = () => {
   const route = all_routes;
   const [toggle, SetToggle] = useState(false);
@@ -422,8 +424,8 @@ const MentorHeader = () => {
             height={16}
           /> */}
           {/* </Link> */}
-          {/* <div className="dropdown-menu dropdown-menu-right"> */}
-          {/* <Link to="#" className="dropdown-item active">
+          {/* <div className="dropdown-menu dropdown-menu-right">
+          <Link to="#" className="dropdown-item active">
                 <ImageWithBasePath
                   src="assets/img/flags/us.png"
                   alt="img"
@@ -454,10 +456,16 @@ const MentorHeader = () => {
                   height={16}
                 />{" "}
                 German
-              </Link> */}
-          {/* </div> */}
+              </Link>
+          </div> */}
           {/* </li> */}
           {/* /Flag */}
+          
+          <div className="d-flex align-items-center">
+              <div className="dropdown ">
+                  <LanguageSelectorComp module="mentor" />
+              </div>
+            </div>
           <li className="nav-item nav-item-box">
             <Link
               to="#"

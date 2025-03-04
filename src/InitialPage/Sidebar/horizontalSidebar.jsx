@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState } from "react";
@@ -7,6 +8,8 @@ import logo from "../../assets/img/teac.png";
 import support from "../../assets/img/icons/purchase1.svg";
 import FeatherIcon from "feather-icons-react";
 import { ToolFilled } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
+
 const HorizontalSidebar = () => {
   const [isActive, setIsActive] = useState(false);
   const [isActive2, setIsActive2] = useState(false);
@@ -17,7 +20,7 @@ const HorizontalSidebar = () => {
   const [isActive7, setIsActive7] = useState(false);
   const [isActive8, setIsActive8] = useState(false);
   const presurvey = localStorage.getItem("presurveystatus") ;
-
+ const { t, i18n } = useTranslation();
   // const [subActive, setsubActive] = useState(false);
   // const [subActive2, setsubActive2] = useState(false);
   // const [subActive3, setsubActive3] = useState(false);
@@ -229,7 +232,9 @@ const HorizontalSidebar = () => {
               className={isActive ? "subdrop" : ""}
             >
               <Grid />
-              <span>Dashboard</span>
+              {/* <span>Dashboard</span> */}
+              <span>{t("home.dashboard")}</span>
+
               {/* <span className="menu-arrow" /> */}
             </Link>
             {/* <ul style={{ display: isActive ? "block" : "none" }}>
@@ -306,7 +311,7 @@ const HorizontalSidebar = () => {
             >
               {/* <img src="assets/img/teac.png" alt="img" /> */}
               <img src={logo} alt="Logo" />
-              <span>Course</span>
+              <span>{t("home.courses")}</span>
               {/* <span className="menu-arrow" /> */}
             </Link>
             {/* <ul style={{ display: isActive2 ? "block" : "none" }}>
@@ -381,7 +386,7 @@ const HorizontalSidebar = () => {
               {/* <img src="assets/img/icons/addprofile.svg" alt="img" /> */}
               <Users />
               {/* <span>Sales &amp; Purchase</span> <span className="menu-arrow" /> */}
-              <span>Teams</span>
+              <span>{t("home.teams")}</span>
               {/* <span className="menu-arrow" /> */}
             </Link>
             {/* <ul style={{ display: isActive3 ? "block" : "none" }}>
@@ -497,7 +502,7 @@ const HorizontalSidebar = () => {
             >
               {/* <img src="assets/img/icons/users1.svg" alt="img" /> */}
               <ToolFilled />
-              <span>Resources</span>
+              <span>{t("home.resources")}</span>
               {/* <span className="menu-arrow" /> */}
             </Link>
             {/* <ul style={{ display: isActive4 ? "block" : "none" }}>
@@ -879,7 +884,7 @@ const HorizontalSidebar = () => {
               className={isActive5 ? "subdrop" : ""}
             >
               <img src={support} alt="Survey" />
-              <span>Post Survey</span>
+              <span>{t("home.post_survey")}</span>
             </Link>
             </li>
           {/* <li className="submenu">
@@ -1231,7 +1236,7 @@ const HorizontalSidebar = () => {
               className={isActive7 ? "subdrop" : ""}
             >
               <FeatherIcon icon="phone" />
-              <span>Support</span>
+              <span>{t("home.Support")}</span>
             </Link>
             {/* <ul style={{ display: isActive7 ? "block" : "none" }}>
               <li className="submenu">
@@ -1445,7 +1450,7 @@ const HorizontalSidebar = () => {
               className={isActive8 ? "subdrop" : ""}
             >
               <Shield />
-              <span>Badges</span>
+              <span>{t("home.badges")}</span>
             </Link>
             </li>
         </ul>
