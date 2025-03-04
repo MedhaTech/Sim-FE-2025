@@ -184,7 +184,7 @@ const downloadFile = (item) => {
                                     <Row>
                                         <Col>
                                             <h4 className="mb-md-4 mb-3">
-                                                Theme :Hello 1 
+                                                Theme :
                                                 <span className="text-capitalize">
                                                 {props?.ideaDetails?.theme?.toLowerCase() ||
                                                         ''}

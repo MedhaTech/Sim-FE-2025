@@ -39,7 +39,7 @@ const StuEdit = () => {
       grade: studentData && studentData.Grade,
       gender: studentData && studentData.Gender,
       disability: studentData && studentData.disability,
-      //   username: studentData && studentData.username,
+        email: studentData && studentData.email,
     },
 
     validationSchema: Yup.object({
@@ -61,6 +61,8 @@ const StuEdit = () => {
       gender: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Gender</span>
       ),
+       email: Yup.string().email("Please Enter Valid Email Address").max(255)
+            .required(<span style={{ color: "red" }}>Please Enter Email Address</span>),
       //   username: Yup.string().email("Must be a valid email").max(255),
       disability: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Disability Status</span>
@@ -75,6 +77,8 @@ const StuEdit = () => {
         team_id: studentData.team_id,
         role: "STUDENT",
         //full_name: values.fullName,
+        email: values.email,
+
         Age: values.age,
         Grade: values.grade,
         disability: values.disability,
@@ -85,6 +89,7 @@ const StuEdit = () => {
         body["full_name"] = values.fullName;
         console.log(studentData,studentData.full_name,values.fullName,"inside if");
       }
+     
       const teamparamId = encryptGlobal(JSON.stringify(studentData.student_id));
       var config = {
         method: "put",
@@ -147,7 +152,7 @@ const StuEdit = () => {
               <div className="row">
                 <div className="create-ticket register-blockt">
                   <Row>
-                    <Col md={3}>
+                    <Col md={4}>
                       <Label className="form-label">
                         Full Name
                         <span required className="p-1">
@@ -177,61 +182,38 @@ const StuEdit = () => {
                         </small>
                       ) : null}
                     </Col>
-                    <Col md={2}>
-                      <Label htmlFor="inputState" className="form-label">
-                        Age
-                        <span required className="p-1">
-                          *
-                        </span>
-                      </Label>
-                      <select
-                        id="inputState"
-                        className="form-select"
-                        name="age"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.age}
-                      >
-                        <option value={""}>Select Age</option>
-                        {allowedAge.map((item) => (
-                          <option key={item} value={item}>
-                            {item}
-                          </option>
-                        ))}
-                      </select>
-                      {formik.touched.age && formik.errors.age ? (
-                        <small className="error-cls">{formik.errors.age}</small>
-                      ) : null}
-                    </Col>
-
-                    <Col md={2} className="mb-5 mb-xl-0">
-                      <Label htmlFor="inputState" className="form-label">
-                        Gender
-                        <span required className="p-1">
-                          *
-                        </span>
-                      </Label>
-                      <select
-                        name="gender"
-                        id="inputState"
-                        className="form-select"
-                        value={formik.values.gender}
-                        onChange={formik.handleChange}
-                      >
-                        <option value="">Select Gender</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Prefer Not to Mention">Prefer Not to Mention</option>
-                      </select>
-
-                      {formik.touched.gender && formik.errors.gender ? (
-                        <small className="error-cls">
-                          {formik.errors.gender}
-                        </small>
-                      ) : null}
-                    </Col>
-
-                    <Col md={3}>
+                      <Col md={4}>
+                                                <Label className="form-label">
+                                                  Email Address
+                                                  <span required className="p-1">
+                                                    *
+                                                  </span>
+                                                </Label>
+                                                <input
+                                                  className="form-control"
+                                                  placeholder="Enter  Email Address"
+                                                  id="email"
+                                                  name="email"
+                                                  // onChange={(e) => {
+                                                  //   const inputValue = e.target.value;
+                                                  //   const lettersOnly = inputValue.replace(
+                                                  //     /[^a-zA-Z\s]/g,
+                                                  //     ""
+                                                  //   );
+                                                  //   formik.setFieldValue("f", lettersOnly);
+                                                  // }}
+                                                  onChange={formik.handleChange}
+                                                  onBlur={formik.handleBlur}
+                                                  value={formik.values.email}
+                                                />
+                                                {formik.touched.email &&
+                                                formik.errors.email ? (
+                                                  <small className="error-cls"style={{ color: "red" }}>
+                                                    {formik.errors.email}
+                                                  </small>
+                                                ) : null}
+                                              </Col>
+                                              <Col md={4}>
                       <Label htmlFor="inputState" className="form-label">
                         Disability
                         <span required className="p-1">
@@ -276,7 +258,33 @@ const StuEdit = () => {
                         </small>
                       ) : null}
                     </Col>
-                    <Col md={2}>
+                    <Col md={4}>
+                      <Label htmlFor="inputState" className="form-label">
+                        Age
+                        <span required className="p-1">
+                          *
+                        </span>
+                      </Label>
+                      <select
+                        id="inputState"
+                        className="form-select"
+                        name="age"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.age}
+                      >
+                        <option value={""}>Select Age</option>
+                        {allowedAge.map((item) => (
+                          <option key={item} value={item}>
+                            {item}
+                          </option>
+                        ))}
+                      </select>
+                      {formik.touched.age && formik.errors.age ? (
+                        <small className="error-cls">{formik.errors.age}</small>
+                      ) : null}
+                    </Col>
+                    <Col md={4}>
                       <Label htmlFor="inputState" className="form-label">
                         Class
                         <span required className="p-1">
@@ -305,6 +313,35 @@ const StuEdit = () => {
                         </small>
                       ) : null}
                     </Col>
+                    <Col md={4} className="mb-5 mb-xl-0">
+                      <Label htmlFor="inputState" className="form-label">
+                        Gender
+                        <span required className="p-1">
+                          *
+                        </span>
+                      </Label>
+                      <select
+                        name="gender"
+                        id="inputState"
+                        className="form-select"
+                        value={formik.values.gender}
+                        onChange={formik.handleChange}
+                      >
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Prefer Not to Mention">Prefer Not to Mention</option>
+                      </select>
+
+                      {formik.touched.gender && formik.errors.gender ? (
+                        <small className="error-cls">
+                          {formik.errors.gender}
+                        </small>
+                      ) : null}
+                    </Col>
+
+                  
+                  
                   </Row>
                 </div>
                 <Row>
