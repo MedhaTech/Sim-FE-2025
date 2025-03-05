@@ -240,16 +240,25 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
           </span>
         );
       }
-     
+     // Mandatory //
+      // const emailRegex = /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/;
+      // if (!item.email || !item.email.trim()) {
+      //   err["email"] = (
+      //     <span style={{ color: "red" }}>Please Enter Email</span>
+      //   );
+      // } else if (!emailRegex.test(item.email)) {
+      //   err["email"] = (
+      //     <span style={{ color: "red" }}>Enter a Valid Email Address</span>
+      //   );
+      // }
+      // optional //
       const emailRegex = /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/;
-      if (!item.email || !item.email.trim()) {
-        err["email"] = (
-          <span style={{ color: "red" }}>Please Enter Email</span>
-        );
-      } else if (!emailRegex.test(item.email)) {
-        err["email"] = (
-          <span style={{ color: "red" }}>Enter a Valid Email Address</span>
-        );
+      if (item.email && item.email.trim() !== "") {
+        if (!emailRegex.test(item.email)) {
+          err["email"] = (
+            <span style={{ color: "red" }}>Enter a Valid Email Address</span>
+          );
+        }
       }
       if (!item.Age)
         err["Age"] = <span style={{ color: "red" }}>Please Select Age</span>;
@@ -343,12 +352,28 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
           setTeamId(response.data.data[0].profile.team_id);
           openNotificationWithIcon("success", "Team Created Successfully");
           setIsClicked(true);
-          const updatedStudentData = studentData.map((student) => ({
+        //   const updatedStudentData = studentData.map((student) => ({
+        //     ...student,
+        //     team_id: JSON.stringify(newTeamId),
+        // state:currentUser?.data[0]?.state,
+
+        //   }));
+        const updatedStudentData = studentData.map((student) => {
+          let updatedStudent = {
             ...student,
             team_id: JSON.stringify(newTeamId),
-        state:currentUser?.data[0]?.state,
-
-          }));
+            state: currentUser?.data[0]?.state,
+          };
+        
+          // optional 'email'  //
+          if (student.email && student.email.trim() !== "") {
+            updatedStudent.email = student.email;
+          }
+        
+          return updatedStudent;
+        });
+        
+        // console.log(updatedStudentData, "data");
           setTimeout(() => {
             dispatch(
               teacherCreateMultipleStudent(
@@ -521,9 +546,9 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
                   <Col md={4} className="mb-xl-0">
                         <Label className="form-label">
                           Email Address
-                          <span required className="p-1">
+                          {/* <span required className="p-1">
                             *
-                          </span>
+                          </span> */}
                         </Label>
                         <input
                           className="form-control"

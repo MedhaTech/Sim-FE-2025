@@ -743,7 +743,9 @@ ideaStatus===  null &&
                               {teamsListData.map((student, index) => (
                                 <tr key={index}>
                                   <td>{student.full_name}</td>
-                                  <td>{student.email}</td>
+                                  {/* <td>{student.email ? student.email :"-" }</td> */}
+                                  <td>{student.email ? (student.email.length > 16 ? student.email.slice(0, 16) + "..." : student.email) : "-"}</td>
+
                                   <td>{student.disability}</td>
 
                                   <td>{student.Age}</td>

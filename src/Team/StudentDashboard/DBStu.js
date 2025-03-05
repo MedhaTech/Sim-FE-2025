@@ -123,6 +123,8 @@ const DBStu = () => {
         role: currentUser.data[0]?.role
       })
     );
+    let popupCount = parseInt(localStorage.getItem("popupCount")) || 0;
+    if (popupCount < 3) {
     var config = {
       method: 'get',
       url: process.env.REACT_APP_API_BASE_URL + `/popup?Data=${popParam}`,
@@ -142,12 +144,14 @@ const DBStu = () => {
           setPopLink(res?.data?.data[0]?.url);
           setImgUrl(res?.data?.data[0]?.url);
           setState(res?.data?.data[0]?.navigate);
+          localStorage.setItem("popupCount", popupCount + 1);
         }
       })
       .catch(function (error) {
         setShowsPopup(false);
         console.log(error);
       });
+    }
   }, []);
   const Loader = () => (
     <div className="spinner-border text-primary" role="status">
@@ -479,7 +483,7 @@ poptype={poptype}
                 &nbsp;Hi {currentUser?.data[0]?.full_name}&nbsp;
               </h3>
 
-              <h6> here&apos;s what&apos;s happening with your School Innovation Marathon 2024 today.</h6>
+              <h6> here&apos;s what&apos;s happening with your School Innovation Marathon 2025 today.</h6>
             </div>
             <div className="d-flex align-items-center">
               <div className="dropdown">
