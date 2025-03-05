@@ -50,7 +50,8 @@ export const CreateTeamMember = () => {
         <span style={{ color: "red" }}>Please Select Gender</span>
       ),
       email: Yup.string().email("Please Enter Valid Email Address").max(255)
-      .required(<span style={{ color: "red" }}>Please Enter Email Address</span>),
+      // .required(<span style={{ color: "red" }}>Please Enter Email Address</span>),
+      .optional(),
       disability: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Disability Status</span>
       ),
@@ -69,11 +70,12 @@ export const CreateTeamMember = () => {
         Age: values.age,
         Grade: values.grade,
         Gender: values.gender,
-        email: values.email,
-
         disability: values.disability,
         state:currentUser?.data[0]?.state,
       };
+      if (values.email !== "") {
+        body["email"] = values.email;
+      } 
       var config = {
         method: "post",
         url: process.env.REACT_APP_API_BASE_URL + "/students/addStudent",
@@ -164,9 +166,9 @@ export const CreateTeamMember = () => {
                           <Col md={4}>
                             <Label className="form-label">
                               Email Address
-                              <span required className="p-1">
+                              {/* <span required className="p-1">
                                 *
-                              </span>
+                              </span> */}
                             </Label>
                             <input
                               className="form-control"

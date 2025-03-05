@@ -62,7 +62,8 @@ const StuEdit = () => {
         <span style={{ color: "red" }}>Please Select Gender</span>
       ),
        email: Yup.string().email("Please Enter Valid Email Address").max(255)
-            .required(<span style={{ color: "red" }}>Please Enter Email Address</span>),
+       .optional(),
+            // .required(<span style={{ color: "red" }}>Please Enter Email Address</span>),
       //   username: Yup.string().email("Must be a valid email").max(255),
       disability: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Disability Status</span>
@@ -77,7 +78,7 @@ const StuEdit = () => {
         team_id: studentData.team_id,
         role: "STUDENT",
         //full_name: values.fullName,
-        email: values.email,
+        // email: values.email,
 
         Age: values.age,
         Grade: values.grade,
@@ -89,7 +90,9 @@ const StuEdit = () => {
         body["full_name"] = values.fullName;
         console.log(studentData,studentData.full_name,values.fullName,"inside if");
       }
-     
+      if (studentData && studentData.email !== values.email) {
+        body["email"] = values.email;
+      }
       const teamparamId = encryptGlobal(JSON.stringify(studentData.student_id));
       var config = {
         method: "put",
@@ -185,9 +188,9 @@ const StuEdit = () => {
                       <Col md={4}>
                                                 <Label className="form-label">
                                                   Email Address
-                                                  <span required className="p-1">
+                                                  {/* <span required className="p-1">
                                                     *
-                                                  </span>
+                                                  </span> */}
                                                 </Label>
                                                 <input
                                                   className="form-control"

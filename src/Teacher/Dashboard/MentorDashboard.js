@@ -124,6 +124,8 @@ const MentorDashboard = () => {
         role: currentUser.data[0]?.role,
       })
     );
+    let popupCount = parseInt(localStorage.getItem("popupCount")) || 0;
+    if (popupCount < 3) {
     var config = {
       method: "get",
       url: process.env.REACT_APP_API_BASE_URL + `/popup?Data=${newListParam}`,
@@ -143,7 +145,7 @@ const MentorDashboard = () => {
           setPopLink(res?.data?.data[0]?.url);
           setImgUrl(res?.data?.data[0]?.url);
           setState(res?.data?.data[0]?.navigate);
-
+          localStorage.setItem("popupCount", popupCount + 1);
           // if(res?.data?.data[0]?.type == "link"){
 
           // }else{
@@ -156,6 +158,7 @@ const MentorDashboard = () => {
         setShowsPopup(false);
         console.log(error);
       });
+    }
   }, []);
   const Loader = () => (
     <div className="spinner-border text-primary" role="status">
@@ -469,7 +472,7 @@ const MentorDashboard = () => {
                 &nbsp;
                 <h6>
                   here&apos;s what&apos;s happening with your School Innovation
-                  Marathon 2024 journey.
+                  Marathon 2025 journey.
                 </h6>
               </div>
               <div className="d-flex align-items-center">
