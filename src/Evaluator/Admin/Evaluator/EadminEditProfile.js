@@ -26,7 +26,8 @@ import { getAdminEvalutorsList } from "../../../redux/actions";
 import { useDispatch } from "react-redux";
 import Select from "../../Admin/Challenges/pages/Select";
 // import { getDistrictData } from '../../redux/studentRegistration/actions';
-
+import {themesList} from "../../../Team/IdeaSubmission/themesData";
+import {languageOptions} from "../../../RegPage/ORGData";
 import { useSelector } from "react-redux";
 import { encryptGlobal } from "../../../constants/encryptDecrypt";
 const EditProfile = (props) => {
@@ -66,6 +67,12 @@ const EditProfile = (props) => {
         .trim()
         .min(10, "Number is less than 10 digits")
         .max(10, "Please Enter Valid Number"),
+        language: Yup.string()
+                .max(40)
+                .required(<span style={{ color: "red" }}>Please Select Language</span>),
+                theme: Yup.string()
+                .max(40)
+                .required(<span style={{ color: "red" }}>Please Select Theme</span>),
       // password: Yup.string()
       // .trim()
       // .matches(
@@ -91,6 +98,9 @@ const EditProfile = (props) => {
       name: mentorData?.full_name || mentorData?.user?.full_name,
       email: mentorData?.username || mentorData?.user?.username,
       mobile: mentorData?.mobile || mentorData?.user?.mobile,
+      language :mentorData?.language || "",
+      theme :mentorData?.theme || ""
+
     };
     
     return commonInitialValues;
@@ -99,7 +109,6 @@ const EditProfile = (props) => {
     initialValues: getInitialValues(mentorData),
     validationSchema: getValidationSchema(mentorData),
     onSubmit: (values) => {
-      // alert("hii");
     
       const full_name = values.name;
       const email = values.email;
@@ -113,6 +122,12 @@ const EditProfile = (props) => {
 
       if (mentorData?.mobile !== values.mobile) {
         body["mobile"] = values.mobile;
+      }
+      if (mentorData?.language !== values.language) {
+        body["language"] = values.language;
+      }
+      if (mentorData?.theme !== values.theme) {
+        body["theme"] = values.theme;
       }
 
       const url = process.env.REACT_APP_API_BASE_URL + `/evaluators/${evlId}`;
@@ -264,6 +279,56 @@ const EditProfile = (props) => {
                     {formik.touched.mobile && formik.errors.mobile ? (
                       <small className="error-cls">
                         {formik.errors.mobile}
+                      </small>
+                    ) : null}
+                  </div>
+                </div>
+                <div className="form-login col-lg-4 col-sm-12">
+                  <div className="input-blocks">
+                    <label>Language</label>
+                    <select
+                        id="inputState"
+                        className="form-select"
+                        name="language"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.language}
+                      >
+                        <option value={""}>Select Language</option>
+                        {languageOptions.map((item) => (
+                          <option key={item} value={item}>
+                            {item}
+                          </option>
+                        ))}
+                      </select>
+                    {formik.touched.language && formik.errors.language ? (
+                      <small className="error-cls">
+                        {formik.errors.language}
+                      </small>
+                    ) : null}
+                  </div>
+                </div>
+                <div className="form-login col-lg-4 col-sm-12">
+                  <div className="input-blocks">
+                    <label>Theme</label>
+                    <select
+                        id="inputState"
+                        className="form-select"
+                        name="theme"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.theme}
+                      >
+                        <option value={""}>Please Select Theme</option>
+                        {themesList.map((item) => (
+                          <option key={item} value={item}>
+                            {item}
+                          </option>
+                        ))}
+                      </select>
+                    {formik.touched.theme && formik.errors.theme ? (
+                      <small className="error-cls">
+                        {formik.errors.theme}
                       </small>
                     ) : null}
                   </div>

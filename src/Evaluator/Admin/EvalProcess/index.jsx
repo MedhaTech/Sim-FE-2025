@@ -51,10 +51,16 @@ const Evalprocess = () => {
         // where we can select district //
         // where item = district //
         navigate("/eadmin/selectingDistricts-evaluationProcess");
-        // history.push({
-        //     pathname: '/eadmin/selectingDistricts-evaluationProcess'
-        // });
+        
         localStorage.setItem('eavlId', JSON.stringify(item));
+    };
+    const handleUpdate = (item) => {
+        // where we can select district //
+        // where item = district //
+        navigate("/eadmin-update", {
+            state:item});
+      
+        localStorage.setItem('id', JSON.stringify(item));
     };
     const evalData = {
         data: evalList && evalList.length > 0 ? evalList : [],
@@ -108,9 +114,19 @@ const Evalprocess = () => {
                                 States
                             </div>
                         </div>
+                        <div
+                            key={record}
+                            onClick={() => handleUpdate(record)}
+                            style={{ marginRight: '12px' }}
+                        >
+                            <div className="btn btn-warning mx-2">
+                                Update
+                            </div>
+                        </div>
                     </>
                 ]
-            }
+            },
+            
         ]
     };
     
