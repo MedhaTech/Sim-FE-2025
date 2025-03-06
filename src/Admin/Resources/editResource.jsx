@@ -45,7 +45,10 @@ const EditResource = () => {
             'image/png',
             'application/msword',
             'application/pdf',
-            'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            // xsl and xslx //
+    //         'application/vnd.ms-excel', 
+    // 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' 
         ];
         if (!allowedTypes.includes(file.type)) {
             openNotificationWithIcon(
