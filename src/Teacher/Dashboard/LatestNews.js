@@ -10,9 +10,12 @@ import { Link } from "react-router-dom";
 import { FaNewspaper } from "react-icons/fa";
 import { FaLink } from "react-icons/fa";
 import { FaDownload } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 
 function LatestNews() {
+     const { t } = useTranslation();
+  
   const currentUser = getCurrentUser("current_user");
   const [news, setNews] = useState([]);
   const [isPaused, setIsPaused] = useState(false);
@@ -55,7 +58,7 @@ function LatestNews() {
     <div className="card flex-fill default-cover mb-4 latest-news-container">
       <div className="card-header d-flex justify-content-between align-items-center">
         <h4 className="card-title mb-0">
-          Latest News 
+        {t('teacherJourney.LatestNews')}
         </h4>
         <div className="view-all-link">
           <Link to="#" className="view-all d-flex align-items-center">

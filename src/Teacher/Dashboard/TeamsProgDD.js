@@ -31,11 +31,12 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FaPlay } from 'react-icons/fa';
 import VideoModal from '../../HelpVideo/VideoModal';
+import { useTranslation } from "react-i18next";
 
 const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
   const [ideaShow, setIdeaShow] = useState(false);
   const [ChangeShow, setChangeShow] = useState(false);
-  
+   const { t } = useTranslation();
   const [show , setShow] = useState(false);
   const [video , setVideo] = useState("");
   //////////////New Code/////////////////////////
@@ -119,12 +120,13 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
 
   const columns = [
     {
-      title: "Name",
+      // title: "Name",
+      title: t("teacherJourney.Name"), 
       dataIndex: "full_name",
       width: "15rem",
     },
     {
-      title: "Pre Survey",
+      title: t("teacherJourney.PreSurvey"),
       dataIndex: "pre_survey_status",
       align: "center",
       width: "15rem",
@@ -136,7 +138,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
         ),
     },
     {
-      title: "Lesson Progress",
+      title: t("teacherJourney.leasson"),
       dataIndex: "address",
       align: "center",
       width: "30rem",
@@ -214,7 +216,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
       },
     },
     {
-      title: "Idea Submission",
+      title: t("teacherJourney.dashIdea"),
       dataIndex: "idea_submission",
       align: "center",
       width: "20rem",
@@ -226,7 +228,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
         ),
     },
     {
-      title: "Post Survey",
+      title: t("teacherJourney.post"),
       dataIndex: "post_survey_status",
       align: "center",
       width: "10rem",
@@ -238,7 +240,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
         ),
     },
     {
-      title: "Course Certificate",
+      title: t("teacherJourney.coursecertificate"),
       dataIndex: "certificate",
       align: "center",
       width: "15rem",
@@ -345,7 +347,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
         if (response.status === 200) {
           openNotificationWithIcon(
             "success",
-            "All Teams login's sent to your email"
+            t('teacherJourney.alerrt'),
           );
         }
       })
@@ -492,7 +494,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
         openNotificationWithIcon(
           "success",
           response?.data?.message == "OK"
-            ? "Idea rejected and moved to draft"
+            ? t('teacherJourney.textnoti')
             : response?.data?.message
         );
         dispatch(getTeamMemberStatus(teamId, setshowDefault));
@@ -539,7 +541,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
                 verticalAlign: "middle",
               }}
             />
-            Team Progress {" "}
+            {t('teacherJourney.teamprog')} {" "}
             <div className="action-table-data" style={{"display": "inline-block"}}>
                 <div className="edit-delete-action">
                   <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -565,7 +567,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
               size={20}
               style={{ marginRight: "5px" }}
             />{" "}
-            Teams Login&apos;s
+             {t('teacherJourney.logins')}
           </button>
         </div>
         <div className="card-body">
@@ -584,15 +586,15 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
             <>
               <Row>
                 <div className="singlediv">
-                    <span className="fw-bold text-info">IDEA STATUS :</span>
+                    <span className="fw-bold text-info"> {t('teacherJourney.IDEASTATUS')}</span>
                     <span style={{ paddingLeft: "1rem" }}>
                       {noData
-          ? <span className="text-warning">NOT STARTED</span>
+          ? <span className="text-warning"> {t('teacherJourney.NOTSTARTED')}</span>
           : formData?.verified_status === "ACCEPTED"
-          ? <span className="text-success">ACCEPTED</span>
+          ? <span className="text-success">{t('teacherJourney.ACCEPTED')}</span>
           : formData?.verified_status === "REJECTED"
-          ?  <span className="text-danger">REJECTED</span>
-          : formData?.status || <span className="text-warning">NOT STARTED</span>}
+          ?  <span className="text-danger">{t('teacherJourney.REJECTED')}</span>
+          : formData?.status || <span className="text-warning">{t('teacherJourney.NOTSTARTED')}</span>}
                     </span>
                 </div>
               </Row>
@@ -614,7 +616,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
                       //     : "primary"
                       // }`}
                       onClick={() => setIdeaShow(true)}
-                    >View Idea</button>
+                    >{t('teacherJourney.ViewIdea')}</button>
                   )}
                 </div>
                 <div>
@@ -628,7 +630,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
                         setReason("");
                       }}
                     >
-                      Reject Submission
+                      {t('teacherJourney.RejectSubmission')}
                     </button>
                   ) : (
                     ""
@@ -642,7 +644,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
             {showDefault && (
               <div className="d-flex justify-content-center align-items-center">
                 <h4 className="text-primary">
-                  Select a Team to check SIM Progress
+                {t('teacherJourney.default')}
                 </h4>
               </div>
             )}
@@ -687,13 +689,13 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
                   id="contained-modal-title-vcenter"
                   className="w-100 d-block text-center"
                 >
-                  Reject Idea submission
+                   {t('teacherJourney.RejectIdeasubmission')}
                 </Modal.Title>
               </Modal.Header>
 
               <Modal.Body>
                 <div className="my-3 text-center">
-                  <h4>Please select reason for rejection.</h4>
+                  <h4> {t('teacherJourney.drop')}</h4>
                   <Col>
                     <Col className="m-5">
                       <Selects
@@ -708,7 +710,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
                 </div>
                 <div className="text-center">
                   <Button
-                    label={"Submit"}
+                    label={t(teacherJourney.submit)}
                     btnClass={!reason ? "default" : "primary"}
                     size="small "
                     onClick={() => handleReject()}

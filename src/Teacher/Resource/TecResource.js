@@ -15,6 +15,7 @@ import { PiImageFill } from "react-icons/pi";
 import { LiaFileExcelSolid } from "react-icons/lia";
 import { IoLogoYoutube } from "react-icons/io";
 import { IoDocumentText } from "react-icons/io5";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 const TecResource = () => {
   const currentUser = getCurrentUser("current_user");
   const navigate = useNavigate();

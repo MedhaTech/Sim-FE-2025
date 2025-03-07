@@ -8,6 +8,8 @@ import VideoModal from "../../HelpVideo/VideoModal";
 import { getCurrentUser } from "../../helpers/Utils";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
+
 import { useNavigate } from "react-router-dom";
 import { FaUsers } from "react-icons/fa";
 import { FaUserGraduate } from "react-icons/fa";
@@ -83,6 +85,7 @@ const GreetingModal = (props) => {
 };
 
 const MentorDashboard = () => {
+   const { t } = useTranslation();
   const [showsPopup, setShowsPopup] = useState(false);
   const [imgUrl, setImgUrl] = useState("");
   const [popLink, setPopLink] = useState("");
@@ -471,8 +474,9 @@ const MentorDashboard = () => {
                 </h3>
                 &nbsp;
                 <h6>
-                  here&apos;s what&apos;s happening with your School Innovation
-                  Marathon 2025 journey.
+                  {/* here&apos;s what&apos;s happening with your School Innovation
+                  Marathon 2025 journey. */}
+                  {t('teacherJourney.heading')}
                 </h6>
               </div>
               <div className="d-flex align-items-center">
@@ -519,9 +523,9 @@ const MentorDashboard = () => {
                       <Loader />
                     ) : coursepercentage === 0 ? (
                       <>
-                        <h5>To know about SIM</h5>
+                        <h5>{t('teacherJourney.know')}</h5>
                         <a onClick={redirectToCourse} href="#">
-                          Click here & Start Course
+                        {t('teacherJourney.cilkhere')}
                         </a>
                       </>
                     ) : (
@@ -534,7 +538,9 @@ const MentorDashboard = () => {
                           />{" "}
                           %
                         </h5>
-                        <h6>Teacher Course</h6>
+                        <h6>{t('teacherJourney.Dbcourse')}</h6>
+
+                        {/* <h6>Teacher Course</h6> */}
                       </>
                     )}
                   </div>
@@ -552,9 +558,9 @@ const MentorDashboard = () => {
                       <Loader />
                     ) : teamsCount === 0 ? (
                       <>
-                        <h5>Yet to Create Teams?</h5>
+                        <h5>{t('teacherJourney.noteams')}</h5>
                         <a onClick={redirectToTeams} href="#">
-                          Click here to Create Teams
+                        {t('teacherJourney.addteamDB')}
                         </a>
                       </>
                     ) : (
@@ -562,7 +568,7 @@ const MentorDashboard = () => {
                         <h5>
                           <CountUp start={0} end={teamsCount} duration={2} />
                         </h5>
-                        <h6>Teams Created</h6>
+                        <h6>  {t('teacherJourney.teamcreate')}</h6>
                       </>
                     )}
                   </div>
@@ -583,9 +589,9 @@ const MentorDashboard = () => {
                       <Loader />
                     ) : studentCount === 0 ? (
                       <>
-                        <h5>Students not added?</h5>
+                        <h5>{t('teacherJourney.npstudents')}</h5>
                         <a onClick={redirectToTeams} href="#">
-                          Click here & Add students
+                        {t('teacherJourney.clickadd')}
                         </a>
                       </>
                     ) : (
@@ -593,7 +599,7 @@ const MentorDashboard = () => {
                         <h5>
                           <CountUp start={0} end={studentCount} duration={2} />
                         </h5>
-                        <h6>Students Enrolled</h6>
+                        <h6> {t('teacherJourney.Dbstudents')}</h6>
                       </>
                     )}
                   </div>
@@ -611,15 +617,15 @@ const MentorDashboard = () => {
                       <Loader />
                     ) : ideaCount === 0 ? (
                       <>
-                        <h5>No Idea Submissions!</h5>
-                        <h6>Kindly check teams progress</h6>
+                        <h5> {t('teacherJourney.noidea')}</h5>
+                        <h6>{t('teacherJourney.kind')}</h6>
                       </>
                     ) : (
                       <>
                         <h5>
                           <CountUp start={0} end={ideaCount} duration={2} />
                         </h5>
-                        <h6>Idea Submissions</h6>
+                        <h6>{t('teacherJourney.IdeaSubmission')}</h6>
                       </>
                     )}
                   </div>
@@ -634,21 +640,20 @@ const MentorDashboard = () => {
                     ) : ideaCount != teamsCount || teamsCount === 0 ? (
                       <>
                         <h5>
-                          All teams yet to submit ideas for Post-Survey to
-                          enable
+                        {t('teacherJourney.postnote')}
                         </h5>
                       </>
                     ) : teacPostSurvey === "COMPLETED" ? (
                       <>
-                        <h4>Post Survey</h4>
+                        <h4> {t('teacherJourney.post')}</h4>
                         <h5>
-                          Submitted <CheckCircle size={15} color="white" />
+                        {t('teacherJourney.submitted')} <CheckCircle size={15} color="white" />
                         </h5>
                       </>
                     ) : (
                       <>
-                        <h4>Post Survey</h4>
-                        <h5>Click here to complete</h5>
+                        <h4>{t('teacherJourney.post')}</h4>
+                        <h5>{t('teacherJourney.submitnote')}</h5>
                       </>
                     )}
                   </div>
@@ -662,8 +667,8 @@ const MentorDashboard = () => {
                     <>
                     <div className="dash-count das1">
                       <div className="dash-counts">
-                        <h4>Get Certificate</h4>
-                        <h5>After Taking Post Survey</h5>
+                        <h4>{t('teacherJourney.getcertificate')}</h4>
+                        <h5>{t('teacherJourney.aftersurvey')}</h5>
                       </div>
                       <div className="dash-imgs">
                         <GiAchievement size={30} />
@@ -731,19 +736,19 @@ const MentorDashboard = () => {
                         }
                       }
                       >
-                        <h4>Congrats</h4>
+                        <h4>{t('teacherJourney.Cong')}</h4>
                         {currentUser?.data[0]?.state !== "Tamil Nadu" && (
                           <h5>
-                            Click here&nbsp;
+                            {t('teacherJourney.Clickhere')}&nbsp;
                             <FeatherIcon icon="arrow-down-circle" size={30} />
-                            &nbsp;Certificate
+                            &nbsp; {t('teacherJourney.Certificate')}
                           </h5>
                         )}
                          {currentUser?.data[0]?.state === "Tamil Nadu" && (
                           <h5>
-                            Click here&nbsp;
+                            {t('teacherJourney.Clickhere')}&nbsp;
                             <FeatherIcon icon="arrow-down-circle" size={30} />
-                            &nbsp;Certificate
+                            &nbsp; {t('teacherJourney.Certificate')}
                           </h5>
                         )}
                         {/* {currentUser?.data[0]?.state === "Tamil Nadu" && (
@@ -772,8 +777,8 @@ const MentorDashboard = () => {
               <div className="col-xl-3 col-sm-6 col-12 d-flex">
                 <div className="dash-count das2">
                   <div className="dash-counts">
-                    <h4>Teams Progress</h4>
-                    <h5>& login&apos;s - check here</h5>
+                    <h4> {t('teacherJourney.teamprog')}</h4>
+                    <h5> {t('teacherJourney.login')}</h5>
                   </div>
                   <SchoolTeamPDF />
                 </div>
@@ -781,8 +786,8 @@ const MentorDashboard = () => {
               <div className="col-xl-3 col-sm-6 col-12 d-flex">
                 <div className="dash-count das3">
                   <div className="dash-counts">
-                    <h4>Join Whatsapp</h4>
-                    <h5>Support here</h5>
+                    <h4> {t('teacherJourney.joinwhtsapp')}</h4>
+                    <h5>{t('teacherJourney.supporthere')}</h5>
                   </div>
                   <div className="dash-imgs">
                     {whatsappLink === null ? (
@@ -815,7 +820,7 @@ const MentorDashboard = () => {
               <div className="col-xl-6 col-sm-12 col-12 d-flex">
                 <div className="card flex-fill default-cover w-100 mb-4">
                   <div className="card-header d-flex justify-content-between align-items-center">
-                    <h4 className="card-title mb-0">SIM Road Map </h4>
+                    <h4 className="card-title mb-0">{t('teacherJourney.roadmap')} </h4>
                     <div className="dropdown" onClick={handleNavigation}>
                       <Link
                         to="/instructions"
@@ -848,10 +853,10 @@ const MentorDashboard = () => {
                                 </Link>
                                 <div className="info">
                                   <Link to={"/mentorteams"}>
-                                    <h4>Teams</h4>
+                                    <h4>{t('teacherJourney.Teams')} </h4>
                                   </Link>
                                   <p className="dull-text">
-                                    Create , View , Edit , Delete
+                                  {t('teacherJourney.crud')} 
                                   </p>
                                 </div>
                               </div>
@@ -889,7 +894,7 @@ const MentorDashboard = () => {
                                     className={"badge badge-linedangered"}
                                     onClick={redirectToTeams}
                                   >
-                                    Not Created
+                                     {t('teacherJourney.NotCreated')} 
                                   </span>
                                 </>
                               ) : (
@@ -898,7 +903,7 @@ const MentorDashboard = () => {
                                     className={"badge badge-linesuccess"}
                                     onClick={redirectToTeams}
                                   >
-                                    Add More
+                                     {t('teacherJourney.AddMore')} 
                                   </span>
                                 </>
                               )}
@@ -940,10 +945,10 @@ const MentorDashboard = () => {
                                 </Link>
                                 <div className="info">
                                   <Link to={"/mentorcourse/1"}>
-                                    <h4>Teacher Course</h4>
+                                    <h4> {t('teacherJourney.TeacherCourse')} </h4>
                                   </Link>
                                   <p className="dull-text">
-                                    Know more about your role
+                                  {t('teacherJourney.knowrole')}
                                   </p>
                                 </div>
                               </div>
@@ -981,7 +986,7 @@ const MentorDashboard = () => {
                                     className={"badge badge-linedangered"}
                                     onClick={redirectToCourse}
                                   >
-                                    Not Started
+                                     {t('teacherJourney.NotStarted')}
                                   </span>
                                 </>
                               ) : coursepercentage != 100 ? (
@@ -990,13 +995,13 @@ const MentorDashboard = () => {
                                     className={"badge badge-bgdanger"}
                                     onClick={redirectToCourse}
                                   >
-                                    InProgress
+                                     {t('teacherJourney.InProgress')}
                                   </span>
                                 </>
                               ) : (
                                 <>
                                   <span className={"badge badge-linesuccess"}>
-                                    Completed
+                                  {t('teacherJourney.Completed')}
                                   </span>
                                 </>
                               )}
@@ -1038,10 +1043,10 @@ const MentorDashboard = () => {
                                 </Link>
                                 <div className="info">
                                   <Link to={"/mentorpostsurvey"}>
-                                    <h4>Post Survey</h4>
+                                    <h4> {t('teacherJourney.post')}</h4>
                                   </Link>
                                   <p className="dull-text">
-                                    Complete survey & Get Certificate
+                                  {t('teacherJourney.completecert')}
                                   </p>
                                 </div>
                               </div>
@@ -1079,13 +1084,13 @@ const MentorDashboard = () => {
                                     className={"badge badge-linedangered"}
                                     onClick={redirectToPost}
                                   >
-                                    Pending
+                                     {t('teacherJourney.pending')}
                                   </span>
                                 </>
                               ) : (
                                 <>
                                   <span className={"badge badge-linesuccess"}>
-                                    Completed
+                                  {t('teacherJourney.Completed')}
                                   </span>
                                 </>
                               )}
@@ -1128,10 +1133,10 @@ const MentorDashboard = () => {
                                 </Link>
                                 <div className="info">
                                   <Link to={"/tecresource"}>
-                                    <h4>Resources</h4>
+                                    <h4> {t('teacherJourney.Resources')}</h4>
                                   </Link>
                                   <p className="dull-text">
-                                    Find supportive docs here
+                                  {t('teacherJourney.rescourcetext')}
                                   </p>
                                 </div>
                               </div>
@@ -1162,7 +1167,7 @@ const MentorDashboard = () => {
                             </td>
                             <td>
                               <span className={"badge badge-linesuccess"}>
-                                References
+                              {t('teacherJourney.References')}
                               </span>
                             </td>
                             <td>
@@ -1202,10 +1207,10 @@ const MentorDashboard = () => {
                                 </Link>
                                 <div className="info">
                                   <Link to={"/mentorsupport"}>
-                                    <h4>Support</h4>
+                                    <h4> {t('teacherJourney.Support')}</h4>
                                   </Link>
                                   <p className="dull-text">
-                                    Raise your queries here
+                                  {t('teacherJourney.riseQ')}
                                   </p>
                                 </div>
                               </div>
@@ -1236,7 +1241,7 @@ const MentorDashboard = () => {
                             </td>
                             <td>
                               <span className={"badge badge-linesuccess"}>
-                                HelpLine
+                              {t('teacherJourney.HelpLine')}
                               </span>
                             </td>
                             <td>
