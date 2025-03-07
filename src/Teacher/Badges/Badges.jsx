@@ -14,8 +14,11 @@ import './style.scss';
 import { Figure } from 'react-bootstrap';
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
+import { useTranslation } from "react-i18next";
+
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 const BadgesComp = () => {
+     const { t } = useTranslation();
     const [badges, setBadges] = useState();
     const currentUser = getCurrentUser('current_user');
     const badgesfetch = async () => {
@@ -55,7 +58,7 @@ const BadgesComp = () => {
                     <Container className=" mt-2 ">
                         <Row>
                             <Col md={12} className="w-100 d-block">
-                                <h2 className="title mb-4">My Badges</h2>
+                                <h4 className="title mb-4"> {t('teacherJourney.badge')}</h4>
                             </Col>
                         </Row>
                         <Row
