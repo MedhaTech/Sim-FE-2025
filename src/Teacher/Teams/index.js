@@ -27,11 +27,14 @@ import Swal from "sweetalert2";
 import { connect, useDispatch, useSelector } from "react-redux";
 import "./tables.css";
 import Select from "../../RegPage/Select";
+import { useTranslation } from "react-i18next";
+
 import { Modal } from "react-bootstrap";
 import { PlusCircle } from "feather-icons-react/build/IconComponents";
 const Dashboard = (props) => {
   const teamsListData = useSelector((state) => state?.teams?.teamsMembersList);
   const navigate = useNavigate();
+   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [teamsArray, setTeamsArray] = useState([]);
   const currentUser = getCurrentUser("current_user");
@@ -225,7 +228,7 @@ const Dashboard = (props) => {
         width: "14%",
       },
       {
-        name: <b style={{color:"crimson"}}>Team Login&apos;s</b>,
+        name: <b style={{color:"crimson"}}>{t("teacherJourney.teamnames")}</b>,
 
         selector: (row) => <div>{row.username}<br/>{row.team_name.toLowerCase().replace(/\s+/g, '')}</div>,
 
@@ -234,12 +237,12 @@ const Dashboard = (props) => {
       
 
       {
-        name: <b style={{color:"crimson"}}>#Stu</b>,
+        name: <b style={{color:"crimson"}}>{t("teacherJourney.liststu")}</b>,
         selector: (row) => <span style={{width:"15px",height:"15px",alignItems:"center",background:"#FF9F43",borderRadius:"50%",color:"white",display:"flex",justifyContent:"center"}}>{row.StudentCount}</span>,
         width: "18%"
       },
       {
-        name: <b style={{color:"crimson"}}>Actions</b>,
+        name: <b style={{color:"crimson"}}>{t("teacherJourney.actions")}</b>,
         cell: (params) => {
           return [
             <div
@@ -566,8 +569,8 @@ ideaStatus===  null &&
           <div className="page-header">
             <div className="add-item d-flex">
               <div className="page-title">
-                <h4>Enrolled Teams and Students</h4>
-                <h6>You can &quot;Create Teams&quot; & then &quot;View&quot; , &quot;Edit&quot; , &quot;Delete&quot; & &quot;Swap&quot; students in teams</h6>
+                <h4>  {t('teacherJourney.teamsmenu')}</h4>
+                <h6>{t('teacherJourney.text')}</h6>
               </div>
             </div>
             <ul className="table-top-head">
@@ -575,7 +578,7 @@ ideaStatus===  null &&
               <div className="page-btn mb-2">
                 <Link to="/createteam" className="btn btn-added btn-primary">
                   <PlusCircle className="me-2" style={{color:"white"}} />
-                  Add Team & Students
+                  {t('teacherJourney.addteam')}
                 </Link>
               </div>
               </li>
@@ -599,14 +602,14 @@ ideaStatus===  null &&
                   id="contained-modal-title-vcenter"
                   className="w-100 d-block text-center"
                 >
-                  Teams Change
+                   {t('teacherJourney.TeamsChange')}
                 </Modal.Title>
               </Modal.Header>
 
               <Modal.Body>
                 <div className="my-3 text-center ">
                   <h5 className="mb-sm-4 mb-3">
-                    Please select Team to switch student
+                  {t('teacherJourney.switch')}
                   </h5>
                   <Select
                     list={teamlist}
@@ -624,7 +627,7 @@ ideaStatus===  null &&
                     onClick={() => handleChangeStudent(value)}
                     disabled={!value}
                   >
-                    Submit
+                     {t('teacherJourney.submit')}
                   </button>
                 </div>
               </Modal.Body>
@@ -672,21 +675,21 @@ ideaStatus===  null &&
                 <div className="card mt-2 p-2" id="start">
                   <div style={{padding:"10px"}}>
                   <Row className="modal-body-table">
-                    <h5>Team Details</h5><br/><br/>
+                    <h5> {t('teacherJourney.teamdetails')}</h5><br/><br/>
                     <Col >
                       <p >
-                        Team Name : {ViewedTeam.team_name}
+                      {t('teacherJourney.tname')} : {ViewedTeam.team_name}
                       </p>
                       <p >
-                        Team Email : {ViewedTeam.team_email ? ViewedTeam.team_email :"-"}
+                      {t('teacherJourney.temail')} : {ViewedTeam.team_email ? ViewedTeam.team_email :"-"}
                       </p>
                     </Col>
                     <Col>
                       <p >
-                        Login ID : {ViewedTeam.username}
+                      {t('teacherJourney.longinid')}  : {ViewedTeam.username}
                       </p>
                       <p >
-                        Password : {ViewedTeam.team_name.toLowerCase().replace(/\s+/g, '')}
+                      {t('teacherJourney.password')} : {ViewedTeam.team_name.toLowerCase().replace(/\s+/g, '')}
                       </p>
                     </Col>
                   </Row></div>
@@ -708,7 +711,7 @@ ideaStatus===  null &&
                   </Row> */}
                   <div className="card flex-fill default-cover mb-4">
                     <div className="card-header d-flex justify-content-between align-items-center">
-                      <h4 className="card-title mb-0">Team Members</h4>
+                      <h4 className="card-title mb-0">{t('teacherJourney.teammember')}</h4>
                       <div className="view-all-link">
                         <Link to="#" className="view-all d-flex align-items-center">
                         
@@ -718,7 +721,7 @@ ideaStatus===  null &&
                               onClick={() => handleDeleteTeam(selectedTeam)}
                             >
                               <i data-feather="trash-2" className="feather-trash-2" />
-                              {" Delete Team"}
+                              {t('teacherJourney.DeleteTeam')}
                             </button>
                         
                           )}
@@ -730,13 +733,13 @@ ideaStatus===  null &&
                           <table className="table dashboard-expired-products">
                             <thead>
                               <tr>
-                                <th style={{color:"crimson"}}>Full Name</th>
-                                <th style={{color:"crimson"}}>Email</th>
-                                <th style={{color:"crimson"}}>Disability</th>
-                                <th style={{color:"crimson"}}>Age</th>
-                                <th style={{color:"crimson"}}>Class</th>
-                                <th style={{color:"crimson"}}>Gender</th>
-                                <th style={{color:"crimson"}}>Actions</th>
+                                <th style={{color:"crimson"}}>{t('teacherJourney.tfullname')}</th>
+                                <th style={{color:"crimson"}}>{t('teacherJourney.eamil')}</th>
+                                <th style={{color:"crimson"}}>{t('teacherJourney.disability')}</th>
+                                <th style={{color:"crimson"}}>{t('teacherJourney.age')}</th>
+                                <th style={{color:"crimson"}}>{t('teacherJourney.class')}</th>
+                                <th style={{color:"crimson"}}>{t('teacherJourney.gender')}</th>
+                                <th style={{color:"crimson"}}>{t('teacherJourney.actions')}</th>
                               </tr>
                             </thead>
                             <tbody>

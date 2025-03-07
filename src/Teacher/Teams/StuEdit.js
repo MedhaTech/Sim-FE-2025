@@ -16,6 +16,7 @@ import {
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { connect, useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -27,6 +28,8 @@ import user from "../../assets/img/user.png";
 const StuEdit = () => {
   const location = useLocation();
   const studentData = location.state || {};
+   const { t } = useTranslation();
+  
   //   console.log(studentData, "111");
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -157,7 +160,7 @@ const StuEdit = () => {
                   <Row>
                     <Col md={4}>
                       <Label className="form-label">
-                        Full Name
+                      {t('teacherJourney.tfullname')}
                         <span required className="p-1">
                           *
                         </span>
@@ -187,7 +190,7 @@ const StuEdit = () => {
                     </Col>
                       <Col md={4}>
                                                 <Label className="form-label">
-                                                  Email Address
+                                                {t('teacherJourney.eamil1')}
                                                   {/* <span required className="p-1">
                                                     *
                                                   </span> */}
@@ -218,7 +221,7 @@ const StuEdit = () => {
                                               </Col>
                                               <Col md={4}>
                       <Label htmlFor="inputState" className="form-label">
-                        Disability
+                      {t('teacherJourney.disability')}
                         <span required className="p-1">
                           *
                         </span>
@@ -263,7 +266,7 @@ const StuEdit = () => {
                     </Col>
                     <Col md={4}>
                       <Label htmlFor="inputState" className="form-label">
-                        Age
+                      {t('teacherJourney.age')}
                         <span required className="p-1">
                           *
                         </span>
@@ -289,7 +292,7 @@ const StuEdit = () => {
                     </Col>
                     <Col md={4}>
                       <Label htmlFor="inputState" className="form-label">
-                        Class
+                      {t('teacherJourney.class')}
                         <span required className="p-1">
                           *
                         </span>
@@ -318,7 +321,7 @@ const StuEdit = () => {
                     </Col>
                     <Col md={4} className="mb-5 mb-xl-0">
                       <Label htmlFor="inputState" className="form-label">
-                        Gender
+                      {t('teacherJourney.gender')}
                         <span required className="p-1">
                           *
                         </span>
@@ -360,7 +363,7 @@ const StuEdit = () => {
                       }`}
                       disabled={!(formik.dirty && formik.isValid)}
                     >
-                      Submit
+                       {t('teacherJourney.submit')}
                     </button>
                   </Col>
                   <Col className="mt-2 d-flex justify-content-end">
@@ -369,7 +372,7 @@ const StuEdit = () => {
                       type="button"
                       className="btn btn-secondary"
                     >
-                      Discard
+                       {t('teacherJourney.discard')}
                     </button>
                   </Col>
                 </Row>

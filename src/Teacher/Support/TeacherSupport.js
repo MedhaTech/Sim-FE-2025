@@ -53,18 +53,18 @@ const TeacherSupport = () => {
     data: supportTickets,
     columns: [
       {
-        name: <h6>No</h6>,
+        name: <h6>{t("teacherJourney.No")}</h6>,
         selector: (row) => row.id,
         width: "4rem",
       },
       {
-        name: <h6>Query Category</h6>,
+        name: <h6>{t("teacherJourney.Category")}</h6>,
         selector: (row) => row.query_category,
         sortable: true,
         width: "10rem",
       },
       {
-        name: <h6>Query Details</h6>,
+        name: <h6>{t("teacherJourney.QueryDetails")}</h6>,
         selector: (row) => row.query_details,
         sortable: true,
         width: "30rem",
@@ -74,7 +74,7 @@ const TeacherSupport = () => {
         ],
       },
       {
-        name: <h6>Chat</h6>,
+        name: <h6>{t("teacherJourney.Chat")}</h6>,
         width: "8rem",
         cell: (params) => {
           return [
@@ -94,24 +94,24 @@ const TeacherSupport = () => {
         },
       },
       {
-        name: <h6>Status</h6>,
+        name: <h6>{t("teacherJourney.Status")}</h6>,
         width: "8rem",
         cell: (params) => [
           params.status === "OPEN" ? (
             <span className="badge bg-secondary">
-                            Open
+                            {t("teacherJourney.Open")}
                         </span>
                     ) : params?.status === 'INPROGRESS' ? (
                         <span className="badge bg-info">
-                            Inprogress
+                             {t("teacherJourney.Inprogress")}
                         </span>
                     ) : params?.status === 'RESOLVED' ? (
                         <span className="badge bg-success">
-                            Resolved
+                             {t("teacherJourney.Resolved")}
                         </span>
                     ) : params?.status === 'INVALID' ? (
                         <span className="badge bg-light text-dark">
-                            Invalid
+                             {t("teacherJourney.Invalid")}
                         </span>
                     ) : (
                         ''
@@ -337,8 +337,8 @@ const TeacherSupport = () => {
           <div className="page-header">
             <div className="add-item d-flex">
               <div className="page-title">
-                <h4>Support</h4>
-                <h6>Raise your queries here</h6>
+                <h4> {t('home.Support')}</h4>
+                <h6> {t('teacherJourney.support')}</h6>
               </div>
             </div>
             <div className="page-btn">
@@ -350,7 +350,7 @@ const TeacherSupport = () => {
                 aria-controls="offcanvasRight-add"
               >
                 <PlusCircle className="me-2" />
-                Ask Your Query
+                {t('teacherJourney.ask')}
               </button>
             </div>
           </div>
@@ -392,7 +392,7 @@ const TeacherSupport = () => {
             <div className="content">
               <div className="page-header justify-content-between">
                 <div className="page-title">
-                  <h4>Ask Your Query</h4>
+                  <h4> {t('teacherJourney.ask')}</h4>
                 </div>
                 <div className="page-btn">
                   <a
@@ -402,7 +402,7 @@ const TeacherSupport = () => {
                     onClick={() => formik1.resetForm()}
                   >
                     <ArrowLeft className="me-2" />
-                    Back To List
+                    {t('teacherJourney.backlist')}
                   </a>
                 </div>
               </div>
@@ -414,7 +414,7 @@ const TeacherSupport = () => {
                       <div className="col-lg-4 col-sm-6 col-12">
                         <div className="mb-3">
                           <label className="form-label">
-                            Select Query Category <span>*</span>
+                          {t('teacherJourney.category')}<span>*</span>
                           </label>
                           <Select
                             name="ticket"
@@ -439,7 +439,7 @@ const TeacherSupport = () => {
                       </div>
                       <div className="mb-3">
                         <label className="form-label">
-                          Description <span>*</span>
+                        {t('teacherJourney.Description')} <span>*</span>
                         </label>
                         <textarea
                           className="text-form form-control"
@@ -460,7 +460,7 @@ const TeacherSupport = () => {
                       </div>
                       <div className="mb-3">
                         <Label className="mb-2" htmlFor="url">
-                          Link
+                        {t('teacherJourney.link')} 
                         </Label>
                         <Input
                           type="text"
@@ -479,7 +479,7 @@ const TeacherSupport = () => {
                       </div>
                       <div className="mb-3">
                         <Label className="mb-2" htmlFor="file_name">
-                          File
+                        {t('teacherJourney.file')} 
                         </Label>
                         <div className="d-flex align-items-center">
                           <input
@@ -500,7 +500,7 @@ const TeacherSupport = () => {
                               document.getElementById("file_name").click();
                             }}
                           >
-                            Upload File
+                            {t('student.upload_file')} 
                           </button>
                           {formik1.values.file_name ? (
                             <span className="ml-2">
@@ -528,10 +528,10 @@ const TeacherSupport = () => {
                             data-bs-dismiss="offcanvas"
                             onClick={() => formik1.resetForm()}
                           >
-                            Discard
+                             {t('teacherJourney.discard')} 
                           </button>
                           <button type="submit" className="btn btn-save">
-                            Create Ticket
+                          {t('teacherJourney.create')} 
                           </button>
                         </div>
                       </div>
@@ -557,7 +557,7 @@ const TeacherSupport = () => {
             <div className="content">
               <div className="page-header justify-content-between">
                 <div className="page-title">
-                  <h4>Chat Support</h4>
+                  <h4> {t('teacherJourney.chat')} </h4>
                 </div>
                 <div className="page-btn">
                   <a
@@ -567,7 +567,7 @@ const TeacherSupport = () => {
                     onClick={() => formik.resetForm()}
                   >
                     <ArrowLeft className="me-2" />
-                    Back To List
+                    {t('teacherJourney.backlist')} 
                   </a>
                 </div>
               </div>
@@ -726,7 +726,7 @@ const TeacherSupport = () => {
                       <Col md={12}>
                         <div>
                           <label className="form-label">
-                            Description <span>*</span>
+                          {t('teacherJourney.description')}  <span>*</span>
                           </label>
                           <textarea
                             className="text-form form-control"
@@ -747,7 +747,7 @@ const TeacherSupport = () => {
                         </div>
                         <div className="mb-3">
                           <Label className="mb-2" htmlFor="url">
-                            Link
+                          {t('teacherJourney.link')} 
                           </Label>
                           <Input
                             type="text"
@@ -766,7 +766,7 @@ const TeacherSupport = () => {
                         </div>
                         <div className="mb-3">
                           <Label className="mb-2" htmlFor="file_name">
-                            File
+                          {t('teacherJourney.file')} 
                           </Label>
                           <div className="d-flex align-items-center">
                             <input
@@ -787,7 +787,7 @@ const TeacherSupport = () => {
                                 document.getElementById("file_name2").click();
                               }}
                             >
-                              Upload File
+                               {t('student.upload_file')}
                             </button>
                             {formik.values.file_name ? (
                               <span className="ml-2">
@@ -807,7 +807,7 @@ const TeacherSupport = () => {
                             )}
                         </div>
                         <div className="mb-3">
-                          <Label className="mb-2">Select Status</Label>
+                          <Label className="mb-2"> {t('teacherJourney.select')} </Label>
                           <Col className="form-group" md={12}>
                             <select
                               name=" selectStatusTicket"
@@ -827,10 +827,10 @@ const TeacherSupport = () => {
                                   ? supportTicket.status
                                   : "Select Status"}
                               </option>
-                              <option value="OPEN">OPEN</option>
-                              <option value="INPROGRESS">INPROGRESS</option>
-                              <option value="RESOLVED">RESOLVED</option>
-                              <option value="INVALID">INVALID</option>
+                              <option value="OPEN">OPEN </option>
+                              <option value="INPROGRESS">INPROGRESS </option>
+                              <option value="RESOLVED">RESOLVED </option>
+                              <option value="INVALID">INVALID </option>
                             </select>
                             {formik.touched.selectStatusTicket &&
                               formik.errors.selectStatusTicket && (
@@ -844,8 +844,7 @@ const TeacherSupport = () => {
                     </Row>
                   ) : (
                     <UncontrolledAlert color="danger" className="mb-2">
-                      Chat window was closed. If your query is not cleared raise
-                      a new ticket
+                      {t('teacherJourney.close')}
                     </UncontrolledAlert>
                   )}
                 </Card>
@@ -864,10 +863,10 @@ const TeacherSupport = () => {
                             data-bs-dismiss="offcanvas"
                             onClick={() => formik.resetForm()}
                           >
-                            Discard
+                             {t('teacherJourney.Discard')}
                           </button>
                           <button type="submit" className="btn btn-save">
-                            Send Response
+                          {t('teacherJourney.send')}
                           </button>
                         </div>
                       </div>

@@ -15,9 +15,11 @@ import { encryptGlobal } from "../../constants/encryptDecrypt";
 import CreateMultipleMembers from "./CreateMultipleMembers";
 import { useNavigate } from "react-router-dom";
 import {teamLength} from "../../RegPage/ORGData";
+import { useTranslation } from "react-i18next";
+
 export const CreateTeamMember = () => {
   const location = useLocation();
-
+ const { t } = useTranslation();
   const teamData = location.state || {};
   const currentUser = getCurrentUser("current_user");
   const navigate = useNavigate();
@@ -125,7 +127,7 @@ export const CreateTeamMember = () => {
                 {/* <BreadcrumbTwo {...headingDetails} /> */}
 
                 <>
-                  <h3 className="m-4">Add Student Hello
+                  <h3 className="m-4"> {t('teacherJourney.onestudent')}
 
                   </h3>
                   <div>
@@ -134,7 +136,7 @@ export const CreateTeamMember = () => {
                         <Row className="mb-3 modal-body-table search-modal-header" >
                           <Col md={4}>
                             <Label className="form-label">
-                              Full Name
+                            {t('teacherJourney.tfullname')}
                               <span required className="p-1">
                                 *
                               </span>
@@ -165,7 +167,7 @@ export const CreateTeamMember = () => {
                           </Col>
                           <Col md={4}>
                             <Label className="form-label">
-                              Email Address
+                            {t('teacherJourney.eamil1')}
                               {/* <span required className="p-1">
                                 *
                               </span> */}
@@ -197,7 +199,7 @@ export const CreateTeamMember = () => {
                        
                           <Col md={4}>
                             <Label htmlFor="inputState" className="form-label">
-                              Disability
+                            {t('teacherJourney.disability')}
                               <span required className="p-1">
                                 *
                               </span>
@@ -209,7 +211,7 @@ export const CreateTeamMember = () => {
                               value={formik.values.disability}
                               onChange={formik.handleChange}
                             >
-                              <option value="">Select Status</option>
+                              <option value="">  {t('teacherJourney.select')}</option>
                               <option value="No">No</option>
                               <option value="Physically Challenged">
                                 Physically Challenged
@@ -243,7 +245,7 @@ export const CreateTeamMember = () => {
                           </Col>
                           <Col md={4}>
                             <Label htmlFor="inputState" className="form-label">
-                              Age
+                            {t('teacherJourney.age')}
                               <span required className="p-1">
                                 *
                               </span>
@@ -271,7 +273,7 @@ export const CreateTeamMember = () => {
                           </Col>
                           <Col md={4}>
                             <Label htmlFor="inputState" className="form-label">
-                              Class
+                            {t('teacherJourney.class')}
                               <span required className="p-1">
                                 *
                               </span>
@@ -300,7 +302,7 @@ export const CreateTeamMember = () => {
                           </Col>
                           <Col md={4} className="mb-5 mb-xl-0">
                             <Label htmlFor="inputState" className="form-label">
-                              Gender
+                            {t('teacherJourney.gender')}
                               <span required className="p-1">
                                 *
                               </span>
@@ -334,7 +336,7 @@ export const CreateTeamMember = () => {
                       <Row>
                         <div style={buttonContainerStyle}>
                           <button type="submit" className="btn btn-warning" style={buttonStyle}>
-                            Submit
+                          {t('teacherJourney.submit')}
                           </button>
                         
                           <button
@@ -343,7 +345,7 @@ export const CreateTeamMember = () => {
                             className="btn btn-secondary"
                             style={{ marginLeft: 'auto' }} 
                           >
-                            Discard
+                            {t('teacherJourney.discard')}
                           </button>
                           </div>
                       </Row>

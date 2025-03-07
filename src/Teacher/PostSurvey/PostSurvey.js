@@ -326,8 +326,8 @@ const PostSurvey = () => {
       <div className="page-header">
         <div className="add-item d-flex">
           <div className="page-title">
-              <h4>Post Survey</h4>
-              <h6>We value your response the most.</h6>
+              <h4>{t('teacherJourney.post')}</h4>
+              <h6>{t('teacherJourney.postsurvey')}</h6>
           </div>
         </div>
        </div>
@@ -341,8 +341,7 @@ const PostSurvey = () => {
                     (ideaCount >= 1) && (postSurveyStatus != "COMPLETED") && (teamsCount!= 0) ? (
                       <>
                         <UncontrolledAlert color="danger" className="mb-2">
-                          Please complete the following post survey to get your
-                          certificate.
+                        {t('teacherJourney.note')}
                         </UncontrolledAlert>
                         <Form
                           className="form-row"
@@ -779,7 +778,7 @@ const PostSurvey = () => {
                               className="btn btn-warning m-2"
                               onClick={(e) => handleSubmit(e)}
                             >
-                              SUBMIT
+                               {t('teacherJourney.SUBMIT')}
                             </button>
                           </div>
                         </Form>
@@ -794,11 +793,11 @@ const PostSurvey = () => {
                         </div>
                         <div>
                             <h4>
-                              Thanks for taking part.<br/> Your Survey responses have been submitted Successfully..!
+                            {t('teacherJourney.thanks')}<br/>  {t('teacherJourney.t1')}
                               <br/>
                               <br/>
 
-                              You can download your certificate in dashboard by clicking on the blue box.
+                              {t('teacherJourney.t2')}
                             </h4>
                         </div>
                       </div>
