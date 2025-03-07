@@ -678,7 +678,7 @@ const MentorHeader = () => {
                     {capitalizedFullName}
                     {/* {currentUser?.data[0]?.full_name} */}
                   </span>
-                  <span className="user-role">Teacher</span>
+                  <span className="user-role"> {t('teacherJourney.join_Mentor')}</span>
                 </span>
               </span>
             </Link>
@@ -695,7 +695,7 @@ const MentorHeader = () => {
                   <div className="profilesets">
                     {/* <h6> {currentUser?.data[0]?.full_name}</h6> */}
                     <h6>{capitalizedFullName}</h6>
-                    <h5>Teacher</h5>
+                    <h5> {t('teacherJourney.join_Mentor')}</h5>
                   </div>
                 </div>
                 {(presurvey != "INCOMPLETED") ? (
@@ -707,14 +707,14 @@ const MentorHeader = () => {
                   to={"/mentorprofile"}
                   // onClick={() => navigate("/admin/profile")}
                 >
-                  <FontAwesomeIcon icon={faUser} /> <h6>My Profile</h6> 
+                  <FontAwesomeIcon icon={faUser} /> <h6>{t('home.my_profile')}</h6> 
                 </Link>
                 <hr className="m-0" />
                 <Link
                   className="dropdown-item"
                   to={"/mentorchangepwd"}
                 >
-                  <FontAwesomeIcon icon={faKey} /> <h6>Change Password</h6> 
+                  <FontAwesomeIcon icon={faKey} /> <h6> {t('teacherJourney.pas4')}</h6> 
                 </Link>
                 </>
                 ): null}
@@ -730,7 +730,7 @@ const MentorHeader = () => {
                     className="me-2"
                   /> */}
                   <img src={logoutIcon} alt="LogoutIcon" />
-                  Logout
+                  {t('teacher.logout')}
                 </Link>
               </div>
             </div>

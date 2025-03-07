@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getCurrentUser } from "../../helpers/Utils";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
-
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import DataTableExtensions from "react-data-table-component-extensions";
 import DataTable, { Alignment } from "react-data-table-component";
@@ -17,6 +17,7 @@ import { IoLogoYoutube } from "react-icons/io";
 import { IoDocumentText } from "react-icons/io5";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 const TecResource = () => {
+   const { t } = useTranslation();
   const currentUser = getCurrentUser("current_user");
   const navigate = useNavigate();
   const [resList, setResList] = useState([]);
@@ -56,20 +57,20 @@ const [hoveredRow, setHoveredRow] = useState(null);
     data: resList || [],
     columns: [
       {
-        name: "No",
+        name: t("teacherJourney.No"),
         selector: (row, key) => key + 1,
         sortable: true,
         width: "6rem",
       },
       {
-        name: "Details",
+        name: t("teacherJourney.Name"),
         selector: (row) => row.description,
         sortable: true,
 
         width: "40rem",
       },
        {
-            name: 'Attachment',
+        name: t("teacherJourney.attach"),
             width: '8rem',
             cell: (record) => {
                 const fileExtension = record.attachments.split('.').pop().toLowerCase();
@@ -188,8 +189,8 @@ const [hoveredRow, setHoveredRow] = useState(null);
       <div className="content">
         <div className="page-header">
           <div className="page-title">
-            <h4>Resources</h4>
-            <h6>List of SIM program resources</h6>
+            <h4>{t('teacherJourney.Resources')}</h4>
+            <h6>{t('teacherJourney.restag')}</h6>
           </div>
         </div>
         <div className="card table-list-card my-2">
