@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 /* eslint-disable indent */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
@@ -104,7 +105,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const initialLoadingStatus = { draft: false, submit: false };
   const [loading, setLoading] = useState(initialLoadingStatus);
   const currentUser = getCurrentUser("current_user");
-
+const[extractId,setExtractId]=useState("");
   const TeamId = currentUser?.data[0]?.team_id;
 
   const [currentSection, setCurrentSection] = useState(1);
@@ -137,6 +138,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const [problemSolving, setProblemSolving] = useState(
     formData?.problemSolving || []
   );
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [error4, seterror4] = useState(false);
   const [ideaInitiation, setIdeaInitiation] = useState("");
   const [feedback, setFeedback] = useState(formData?.feedback);
@@ -147,6 +149,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const [id, setId] = useState("");
   const [prototypeLink, setPrototypeLink] = useState(formData?.prototype_link);
   const [workbook, setWorkbook] = useState(formData?.workbook);
+  const [tempLink, setTempLink] = useState("");
   // const people = ["None", "2-4 people", "5+ people", "10+ people"];
   // const people = [
   //   t("ideaform_questions.stakeholdersop1"),
@@ -263,6 +266,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     setPrototypeLink(formData?.prototype_link);
 
     setWorkbook(formData?.workbook);
+    if (formData?.prototype_link) {
+      setIsButtonDisabled(true);
+    }
   }, [formData]);
 
   useEffect(() => {
@@ -709,7 +715,62 @@ if(formData?.verified_status === "ACCEPTED"){
 );
 }
     },[formData]);
-  console.log(console.log(prototypeImage.length,"file"));
+   
+      const handleVideoApi=(videoId)=> {
+          const fectchTecParam = encryptGlobal(
+              JSON.stringify({
+                id: videoId,
+              })
+            );
+        
+          let config = {
+              method: 'get',
+              url: process.env.REACT_APP_API_BASE_URL + `/challenge_response/checkyoutubeurl?Data=${fectchTecParam}`,
+              headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${currentUser?.data[0]?.token}`
+              }
+          };
+          axios(config)
+              .then(function (response) {
+                  if (response.status === 200) {
+                      console.log(response,"ress");
+                      if (response.status === "INVALID") {
+                        setPrototypeLink("");
+                        openNotificationWithIcon("error", response.data.message);
+                      }else{
+                        // setPrototypeLink(item); 
+                        openNotificationWithIcon("success", response.data.message);
+                        setIsButtonDisabled(true);
+                      }
+                      
+                  }
+              })
+              .catch(function (error) {
+                  console.log(error);
+              });
+      };
+  const getYouTubeVideoId = (url) => {
+    const regex =
+    /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:shorts\/|watch\?v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+    const match = url.match(regex);
+    return match ? match[1] : null;
+  };
+  
+  const handleInputChange = (e) => {
+    const link = e.target.value;
+    // setTempLink(link);
+    setPrototypeLink(link);
+    setIsButtonDisabled(false);
+    const videoId = getYouTubeVideoId(link);
+    setExtractId(videoId);
+    console.log("Extracted Video ID:", videoId);
+  };
+  const handleVerify=(e)=>{
+    e.preventDefault();
+    handleVideoApi(extractId);
+  };
+  console.log(prototypeLink,"proto",);
   return (
     <>
       {/* <div className='content'> */}
@@ -1544,22 +1605,45 @@ if(formData?.verified_status === "ACCEPTED"){
                                 {t("ideaform_questions.link")}
                               </b>
                             <div className="answers row flex-column p-3 pt-2">
+                            <div className="row g-0 align-items-center">
+                            <div className="col-11 pe-3">
                               <textarea
                                 className="form-control"
                                 disabled={isDisabled}
                                 placeholder={t("home.ideaUp")}
                                 value={prototypeLink}
+                                
                                 maxLength={300}
-                                onChange={(e) =>
-                                  setPrototypeLink(e.target.value)
-                                }
+                                // onChange={(e) =>
+                                //   setPrototypeLink(e.target.value)
+                                // }
+                                onChange={handleInputChange}
+                                style={{ height: "150px" }} 
                               />
                               <div className="text-end">
                                 {t("student_course.chars")} :
                                 {300 -
                                   (prototypeLink ? prototypeLink.length : 0)}
                               </div>
+                              {prototypeLink && !isButtonDisabled && (
+    <div className="text-warning mt-2">
+      Please click <strong>Verify</strong> to validate your URL.
+    </div>
+  )}
                             </div>
+                            <div className="col-1 d-flex align-items-center pe-3">
+                            <button
+                              className="btn btn-info "
+                              onClick={handleVerify}
+                              disabled={isDisabled || isButtonDisabled || !prototypeLink}
+                            >
+                              Verify
+                              {/* BACK */}
+                            </button>
+    </div>
+                            </div>
+                            </div>
+
                             </div>
                             <b
                                 style={{

@@ -266,7 +266,29 @@
         "Selecta":"Select a theme & submit idea",
         "Takesurvey":"Take survey & Get Certificate",
         "TeamUsername":"Team Username",
-        "StudentFullName":"Student Full Name"
+        "StudentFullName":"Student Full Name",
+
+        
+"popup1":"Team Member Created Successfully",
+"popup2":"Team Created Successfully",
+"popup3":"Not allows Duplicate student names in team",
+"popup4":"Duplicate team names are not allowed",
+"popup5":"Student details updated Successfully",
+"popup6":"Teacher Details Updated Successfully",
+"popup7":"School Details Updated Successfully",
+"popup8":"Password updated successfully",
+"popup9":"Successfully shifted student",
+"popup10":"Same Name student already existed in seleted team",
+"popup11":"Student Deleted Successfully",
+"popup12":"Team Deleted Successfully",
+"popup13":"Opps! Student shift was unsuccessful",
+"popup14":"Student not Deleted"
+
+
+
+
+
+
 
 
 
@@ -613,7 +635,10 @@
         "cancelled": "Cancelled",
         "logged_in": "You are Logged in",
         "submit_idea": "Ask your guide teacher to go through the details entered by you to make sure they are correct. You cannot make changes once the idea is submitted. Invalid/Wrong entries will not be selected.",
-        "idea_sub_cancelled": "Idea Submission Cancelled"
+        "idea_sub_cancelled": "Idea Submission Cancelled",
+        "revert":"You won't be able to revert this!",
+        "del":"Yes, delete it!"
+
     },
     "teacehr_red": {
         "heading": "REGISTER",

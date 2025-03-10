@@ -213,10 +213,10 @@ const PostSurvey = () => {
     );
     if (postSurveyList.length != nonEmptySelectedOptions.length) {
       openNotificationWithIcon(
-        "warning",
-        "Please Attempt All Questions..!!",
-        ""
-      );
+                 "warning",
+                 t('student.attempt_all_questions'),
+                 ""
+               );
     } else {
       const quizSurveyIdParam = encryptGlobal(JSON.stringify(quizSurveyId));
       return await axios
@@ -228,11 +228,11 @@ const PostSurvey = () => {
         .then((preSurveyRes) => {
           if (preSurveyRes?.status == 200) {
             // console.log(preSurveyRes, "aa");
-            openNotificationWithIcon(
-              "success",
-              "Post Survey has been submitted successfully..!!",
-              ""
-            );
+             openNotificationWithIcon(
+                               "success",
+                               t('student.postsurver_scc_sub'),
+                               ""
+                             );
 
             setCount(count + 1);
             // formik.resetForm();

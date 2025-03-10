@@ -308,13 +308,13 @@ ideaStatus===  null &&
     // console.log(student);
     const MySwal = withReactContent(Swal);
     MySwal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      title: t('general_req.are_you_sure'),
+      text:  t('general_req.revert'),
       showCancelButton: true,
       confirmButtonColor: "#00ff00",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText:  t('general_req.del'),
       cancelButtonColor: "#ff0000",
-      cancelButtonText: "Cancel",
+      cancelButtonText:t('general_req.btn_cancel'),
     }).then((result) => {
       if (result.isConfirmed) {
         const paramId = encryptGlobal(JSON.stringify(student));
@@ -332,7 +332,11 @@ ideaStatus===  null &&
             if (response.status === 200) {
               teamListbymentorid(currentUser?.data[0]?.mentor_id);
               // dispatch(getAdminTeamMembersList(selectedTeam));
-              openNotificationWithIcon("success", "Team Deleted Successfully");
+              // openNotificationWithIcon("success", "Team Deleted Successfully");
+               openNotificationWithIcon(
+                              "success",
+                              t('teacherJourney.popup12'),
+                            );
               window.location.reload();
               // navigate("/teacher-dashboard");
             } else {
@@ -350,13 +354,13 @@ ideaStatus===  null &&
   const handleDeleteStudent = (item) => {
     const MySwal = withReactContent(Swal);
     MySwal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      title: t('general_req.are_you_sure'),
+      text: t('general_req.revert'),
       showCancelButton: true,
       confirmButtonColor: "#00ff00",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText:  t('general_req.del'),
       cancelButtonColor: "#ff0000",
-      cancelButtonText: "Cancel",
+      cancelButtonText: t('general_req.btn_cancel'),
     }).then((result) => {
       if (result.isConfirmed) {
         const delparamId = encryptGlobal(JSON.stringify(item.student_id));
@@ -376,7 +380,7 @@ ideaStatus===  null &&
               dispatch(getAdminTeamMembersList(selectedTeam));
               openNotificationWithIcon(
                 "success",
-                "Student Deleted Successfully"
+                t('teacherJourney.popup11'),
               );
               window.location.reload();
               // navigate("/teacher-dashboard");
@@ -388,7 +392,7 @@ ideaStatus===  null &&
             console.log(error);
           });
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        MySwal.fire("Cancelled", "Student not Deleted", "error");
+        MySwal.fire("Cancelled",  t('teacherJourney.popup14'), "error");
       }
     });
   };
@@ -540,13 +544,13 @@ ideaStatus===  null &&
           setvalue("");
           teamListbymentorid(currentUser?.data[0]?.mentor_id);
           dispatch(getAdminTeamMembersList(selectedTeam));
-          openNotificationWithIcon("success", "Successfully shifted student");
+          openNotificationWithIcon("success", t('teacherJourney.popup9'),);
           navigate({
             pathname: "/mentorteams",
           });
           setSelectedTeam(null);
         } else {
-          openNotificationWithIcon("error", "Opps! Student shift was unsuccessful");
+          openNotificationWithIcon("error",  t('teacherJourney.popup13'),);
         }
       })
 
@@ -555,7 +559,7 @@ ideaStatus===  null &&
         if (error.message === "Request failed with status code 400") {
           openNotificationWithIcon(
             "error",
-            "Same Name student already existed in seleted team"
+            t('teacherJourney.popup10'),
           );
         }
       });
