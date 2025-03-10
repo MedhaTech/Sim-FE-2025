@@ -92,7 +92,7 @@ export const CreateTeamMember = () => {
           if (response.status === 201) {
             openNotificationWithIcon(
               "success",
-              "Team Member Created Successfully"
+              t('teacherJourney.popup1'),
             );
             navigate("/mentorteams");
           } else {

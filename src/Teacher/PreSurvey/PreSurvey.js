@@ -140,8 +140,8 @@ const PreSurvey = () => {
     if (preSurveyList.length != nonEmptySelectedOptions.length) {
       openNotificationWithIcon(
         "warning",
-        "Please Attempt All Questions..!!",
-        ""
+            t('student.attempt_all_questions'),
+            ""
       );
     } else {
       const quizSurveyIdParam = encryptGlobal(JSON.stringify(quizSurveyId));
@@ -155,10 +155,10 @@ const PreSurvey = () => {
           if (preSurveyRes?.status == 200) {
             console.log(preSurveyRes, "aa");
             openNotificationWithIcon(
-              "success",
-              "Pre Survey has been submitted successfully..!!",
-              ""
-            );
+                             "success",
+                             t('home.precong'),
+                             ""
+                           );
 
             setCount(count + 1);
             localStorage.setItem("presurveystatus", "COMPLETED");

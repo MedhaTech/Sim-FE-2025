@@ -13,6 +13,7 @@ import { useLocation } from "react-router-dom";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { useNavigate } from "react-router-dom";
 import {teamLength} from "../../RegPage/ORGData";
+import { useTranslation } from "react-i18next";
 
 // import { all_routes } from "../../Router/all_routes";
 const studentBody = {
@@ -28,6 +29,7 @@ const grades = [6, 7, 8, 9, 10, 11, 12];
 const allowedAge = [10, 11, 12, 13, 14, 15, 16, 17, 18];
 
 const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
+   const { t } = useTranslation();
   // console.log(teamLengthValue,"teamLengthValue");
   const [teamId, setTeamId] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -321,7 +323,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
     if (checkDuplicateName) {
       openNotificationWithIcon(
         "error",
-        "Not allows Duplicate student names in team"
+        t('teacherJourney.popup3')
       );
       setIsClicked(false);
       return;
@@ -350,7 +352,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
         if (response.status === 201) {
           const newTeamId = response.data.data[0].profile.team_id;
           setTeamId(response.data.data[0].profile.team_id);
-          openNotificationWithIcon("success", "Team Created Successfully");
+          openNotificationWithIcon("success",  t('teacherJourney.popup2'));
           setIsClicked(true);
         //   const updatedStudentData = studentData.map((student) => ({
         //     ...student,
@@ -407,7 +409,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
           // console.log(error, "eee");
           openNotificationWithIcon(
             "error",
-            "Duplicate team names are not allowed"
+            t('teacherJourney.popup4')
           );
         }
       });

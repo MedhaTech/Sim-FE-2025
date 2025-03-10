@@ -111,7 +111,7 @@ const StuEdit = () => {
           if (response.status === 200) {
             openNotificationWithIcon(
               "success",
-              "Student details updated Successfully"
+              t('teacherJourney.popup5'),
             );
             dispatch(getAdminTeamMembersList(studentData.team_id));
             navigate("/mentorteams");

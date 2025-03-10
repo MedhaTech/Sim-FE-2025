@@ -161,7 +161,7 @@ const TeacherSupport = () => {
     if (!isValidFileName) {
       openNotificationWithIcon(
         "error",
-        "Only alphanumeric and '_' are allowed"
+        t('home.condition'),
       );
       return;
     }
@@ -260,7 +260,7 @@ const TeacherSupport = () => {
     if (!isValidFileName) {
       openNotificationWithIcon(
         "error",
-        "Only alphanumeric and '_' are allowed"
+        t('home.condition'),
       );
       return;
     }

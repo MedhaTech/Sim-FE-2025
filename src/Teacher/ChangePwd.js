@@ -8,7 +8,7 @@ import axios from "axios";
 import CryptoJS from "crypto-js";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { getCurrentUser } from "../helpers/Utils";
+import { getCurrentUser,openNotificationWithIcon } from "../helpers/Utils";
 import { useTranslation } from "react-i18next";
 import "sweetalert2/src/sweetalert2.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -83,6 +83,9 @@ const ChangePwd = (props) => {
         axios(config)
           .then(function (response) {
             SetResponce("Password updated successfully");
+                        openNotificationWithIcon("success",   t('teacherJourney.popup8'));
+            
+           
             setTimeout(() => {
               SetResponce("");
               navigate("/teacher-dashboard");
