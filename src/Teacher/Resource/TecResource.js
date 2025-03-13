@@ -65,13 +65,6 @@ const [hoveredRow, setHoveredRow] = useState(null);
         width: "6rem",
       },
       {
-        name: t("teacherJourney.Name"),
-        selector: (row) => row.description,
-        sortable: true,
-
-        width: "40rem",
-      },
-       {
         name: t("teacherJourney.attach"),
             width: '8rem',
             cell: (record) => {
@@ -131,6 +124,14 @@ const [hoveredRow, setHoveredRow] = useState(null);
                 );
             }
         },
+      {
+        name: t("teacherJourney.Name"),
+        selector: (row) => row.description,
+        sortable: true,
+
+        width: "40rem",
+      },
+      
         {
           width: '8rem',
           cell: (record) =>
