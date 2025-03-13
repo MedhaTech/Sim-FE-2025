@@ -42,8 +42,14 @@ institutionreport:"/institution-report",
   reportsregistration : "/reportsregistration",
   reportsteacher : "/reportsteacher",
   adminresources : "/adminresources",
+  stateresources : "/stateresources",
+
   createResource : "/createResource",
+  createStateResource : "/createStateResource",
+
   editResource : "/editResource",
+  editStateResource : "/editStateResource",
+
   editinstitution:"/edit-institution",
   mentordashboard: "/teacher-dashboard",
   teamdashboard: "/team-dashboard",

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState,useMemo } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
@@ -5,12 +6,13 @@ import { Link, useLocation, } from "react-router-dom";
 import  getAdminSidebarData  from "../../core/json/admin";
 import HorizontalSidebar from "./horizontalSidebar";
 import CollapsedSidebar from "./collapsedSidebar";
+import { getCurrentUser } from "../../helpers/Utils";
 
 const Sidebar = () => {
   const Location = useLocation();
   const [subOpen, setSubopen] = useState("");
   const [subsidebar, setSubsidebar] = useState("");
-
+ const currentUser = getCurrentUser("current_user");
   const toggleSidebar = (title) => {
     if (title == subOpen) {
       setSubopen("");
@@ -26,8 +28,21 @@ const Sidebar = () => {
       setSubsidebar(subitem);
     }
   };
-  const SidebarData = useMemo(() => getAdminSidebarData(), []);
-
+  // const SidebarData = useMemo(() => getAdminSidebarData(), []);
+ 
+  const SidebarData = useMemo(() => {
+    const userPermission = currentUser?.data[0]?.permission;
+  
+    return getAdminSidebarData().map((menu) => ({
+      ...menu,
+      submenuItems: menu.submenuItems.filter((item) =>
+        userPermission === "SUPPORT"
+          ? item?.permission === "SUPPORT"
+          : true
+      ),
+    }));
+  }, [currentUser]);
+   
   return (
     <div>
       <div className="sidebar " id="sidebar">

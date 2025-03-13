@@ -46,7 +46,8 @@ const EditProfile = (props) => {
     showEyeIcon: true,
     // className: 'defaultInput'
   };
-
+const allDataLanguages= ["All Languages",...languageOptions];
+const allDataThemes= ["All Themes",...themesList];
   const passwordRegex =
     /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
 
@@ -123,13 +124,28 @@ const EditProfile = (props) => {
       if (mentorData?.mobile !== values.mobile) {
         body["mobile"] = values.mobile;
       }
-      if (mentorData?.language !== values.language) {
-        body["language"] = values.language;
-      }
-      if (mentorData?.theme !== values.theme) {
-        body["theme"] = values.theme;
-      }
-
+      // if (mentorData?.language !== values.language) {
+      //   body["language"] = values.language;
+      // }
+      // if (mentorData?.theme !== values.theme) {
+      //   body["theme"] = values.theme;
+      // }
+      if (
+        values.language === "All Languages" || 
+        (mentorData?.language !== values.language)
+    ) {
+        body["language"] = values.language === "All Languages"
+            ? languageOptions.join(", ")
+            : values.language;
+    }
+    if (
+      values.theme === "All Themes" || 
+      (mentorData?.theme !== values.theme)
+  ) {
+      body["theme"] = values.theme === "All Themes"
+          ? themesList.join(", ")
+          : values.theme;
+  }
       const url = process.env.REACT_APP_API_BASE_URL + `/evaluators/${evlId}`;
 
       var config = {
@@ -163,7 +179,22 @@ const EditProfile = (props) => {
         });
     },
   });
-
+useEffect(() => {
+    if (mentorData.language ) {
+      const allLanguagesSelected = mentorData.language.split(", ").sort().join(", ") === languageOptions.sort().join(", ");
+      formik.setFieldValue("language", allLanguagesSelected ? "All Languages" : mentorData.language);
+      
+    }
+    
+  }, [mentorData.language]);
+  
+  useEffect(() => {
+    if (mentorData.theme) {
+      const allThemes = themesList.join(", "); 
+      const allThemesSelected = mentorData.theme === allThemes;
+      formik.setFieldValue("theme", allThemesSelected ? "All Themes" : mentorData.theme);
+    }
+  }, [mentorData.theme, themesList]);
   const formLoginStyle = {
     display: "flex",
     justifyContent: "space-between",
@@ -295,7 +326,7 @@ const EditProfile = (props) => {
                         value={formik.values.language}
                       >
                         <option value={""}>Select Language</option>
-                        {languageOptions.map((item) => (
+                        {allDataLanguages.map((item) => (
                           <option key={item} value={item}>
                             {item}
                           </option>
@@ -320,7 +351,7 @@ const EditProfile = (props) => {
                         value={formik.values.theme}
                       >
                         <option value={""}>Please Select Theme</option>
-                        {themesList.map((item) => (
+                        {allDataThemes.map((item) => (
                           <option key={item} value={item}>
                             {item}
                           </option>

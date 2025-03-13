@@ -60,6 +60,7 @@ const AdminSidebarData = () => {
           icon: <Icon.Inbox />,
           showSubRoute: false,
           submenu: false,
+          permission: "SUPPORT",
         },
         {
           label: "Mentors",

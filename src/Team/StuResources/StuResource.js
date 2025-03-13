@@ -17,6 +17,7 @@ import { PiImageFill } from "react-icons/pi";
 import { LiaFileExcelSolid } from "react-icons/lia";
 import { IoLogoYoutube } from "react-icons/io";
 import { IoDocumentText } from "react-icons/io5";
+import { MdConnectedTv } from "react-icons/md";
 const StuResource = () => {
   const { t } = useTranslation();
 
@@ -131,42 +132,49 @@ const StuResource = () => {
           );
       }
   },
-  {
-    // name: 'Download',
-    width: '8rem',
-    cell: (record) =>
-      hoveredRow === record.
-    resource_id
-    ? (
-        <a href={record.attachments} target="_blank" rel="noopener noreferrer">
-          <MdOutlineFileDownload size={"25"} style={{ color: "black" }} />
-        </a>
-      ) : null,
-    // cell: (record) => {
-    //     if (record.type === 'file') {
-    //         return (
-    //             <a
-    //                 href={record.attachments}
-    //                 target="_blank"
-    //                 rel="noopener noreferrer"
-    //                 >
-    //                 <MdOutlineFileDownload size={"25"} style={{ color: "black" }}/>
-    //             </a>
-    //         );
-    //     } else if (record.type === 'link') {
-    //         return (
-    //             <a
-    //                 href={record.attachments}
-    //                 target="_blank"
-    //                 rel="noopener noreferrer"
-    //                 >
-    //                 <MdOutlineFileDownload size={"25"} style={{ color: "black" }}/>
-    //             </a>
-    //         );
-    //     }
-    //     return null;
-    // }
-},
+   {
+            width: '8rem',
+            cell: (record) =>
+              hoveredRow === record.resource_id ? (
+                <>
+                  {record.type === "link" ? (
+                    <a 
+                      href={record.attachments} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                    >
+                      {/* <i 
+                        data-feather="eye" 
+                        className="feather-eye" 
+                        style={{ color: "black" }} 
+                      /> */}
+                      <MdConnectedTv size={"25"} style={{ color: "black" }} />
+                    </a>
+                  ) : (
+                    <a 
+                      href={record.attachments} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                    >
+                      <MdOutlineFileDownload size={"25"} style={{ color: "black" }} />
+                    </a>
+                  )}
+                </>
+              ) : null,
+          },
+//   {
+//     // name: 'Download',
+//     width: '8rem',
+//     cell: (record) =>
+//       hoveredRow === record.
+//     resource_id
+//     ? (
+//         <a href={record.attachments} target="_blank" rel="noopener noreferrer">
+//           <MdOutlineFileDownload size={"25"} style={{ color: "black" }} />
+//         </a>
+//       ) : null,
+   
+// },
   
    
     ],

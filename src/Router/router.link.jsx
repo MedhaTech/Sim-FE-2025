@@ -119,6 +119,11 @@ import DiesEdit from "../Admin/Dashboard/DiesEdit";
 import DiesSearch from "../Coordinators/Dashboard/DiesSearch";
 import StateSupport from "../Coordinators/CooTickets/Tickets";
 import StateRes from "../Coordinators/CooTickets/TicketResponse";
+import StateResourcesList from "../Coordinators/Resources/index";
+import StateResourcesCreate from "../Coordinators/Resources/createResource";
+import StateResourcesEdit from "../Coordinators/Resources/editResource";
+
+
 
 import AdminSupport from "../Admin/AdminTickets/Tickets";
 import AdminRes from "../Admin/AdminTickets/TicketResponse";
@@ -861,6 +866,29 @@ export const stateRoutes = [
     path: routes.cooresponse,
     name: "cooresponse",
     element: <StateRes />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 9,
+    path: routes.stateresources,
+    name: "stateresources",
+    element: <StateResourcesList />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 10,
+    path: routes.createStateResource,
+    name: "createStateResource",
+    element: <StateResourcesCreate />,
+    protected: true,
+    route: Route,
+  }, {
+    id: 11,
+    path: routes.editStateResource,
+    name: "editStateResource",
+    element: <StateResourcesEdit />,
     protected: true,
     route: Route,
   },
