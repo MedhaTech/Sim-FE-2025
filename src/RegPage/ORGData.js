@@ -887,6 +887,6 @@ export const navList = {
 };
 export const teamLength = {
   "Tamil Nadu": 5,
-  default: 3,
+  default: 5,
 };
 // export const teamLength=[{"Tamil Nadu" :5},{default:3}];

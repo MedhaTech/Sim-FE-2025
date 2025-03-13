@@ -16,6 +16,8 @@ import { LiaFileExcelSolid } from "react-icons/lia";
 import { IoLogoYoutube } from "react-icons/io";
 import { IoDocumentText } from "react-icons/io5";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import { MdConnectedTv } from "react-icons/md";
+
 const TecResource = () => {
    const { t } = useTranslation();
   const currentUser = getCurrentUser("current_user");
@@ -130,18 +132,51 @@ const [hoveredRow, setHoveredRow] = useState(null);
             }
         },
         {
-          // name: 'Download',
           width: '8rem',
           cell: (record) =>
-            hoveredRow === record.
-          resource_id
-          ? (
-              <a href={record.attachments} target="_blank" rel="noopener noreferrer">
-                <MdOutlineFileDownload size={"25"} style={{ color: "black" }} />
-              </a>
+            hoveredRow === record.resource_id ? (
+              <>
+                {record.type === "link" ? (
+                  <a 
+                    href={record.attachments} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    {/* <i 
+                      data-feather="eye" 
+                      className="feather-eye" 
+                      style={{ color: "black" }} 
+                    /> */}
+                     <MdConnectedTv size={"25"} style={{ color: "black" }} />
+                  </a>
+                ) : (
+                  <a 
+                    href={record.attachments} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    <MdOutlineFileDownload size={"25"} style={{ color: "black" }} />
+                  </a>
+                )}
+              </>
             ) : null,
+        }
+        
+        
+        
+      //   {
+      //     // name: 'Download',
+      //     width: '8rem',
+      //     cell: (record) =>
+      //       hoveredRow === record.
+      //     resource_id
+      //     ? (
+      //         <a href={record.attachments} target="_blank" rel="noopener noreferrer">
+      //           <MdOutlineFileDownload size={"25"} style={{ color: "black" }} />
+      //         </a>
+      //       ) : null,
          
-      },
+      // },
       
       // {
       //   name: "File / Link",

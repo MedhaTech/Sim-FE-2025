@@ -20,6 +20,13 @@ const StateSidebarData = () => {
           showSubRoute: false,
           submenu: false,
         },
+         {
+                  label: "Resource",
+                  link: "/stateresources",
+                  icon: <Icon.FilePlus />,
+                  showSubRoute: false,
+                  submenu: false,
+                },
         {
           label: "School Registration Report",
           link: "/state-institution-report",

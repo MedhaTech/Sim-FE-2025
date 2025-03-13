@@ -118,6 +118,7 @@ const[extractId,setExtractId]=useState("");
   );
   // console.log(props?.theme !== "" && props?.theme !== undefined ? "true" : "false" );
   // console.log(formData?.theme ,"form");
+  const[verfiySubmitt,setVerifySubmitt]=useState(false);
 
   const [focusarea, setFocusArea] = useState(formData?.focus_area);
   const [files, setFiles] = useState([]);
@@ -223,7 +224,6 @@ const[extractId,setExtractId]=useState("");
   const handleLanguageChange = (e) => {
     setLanuage(e.target.value);
   };
-
   // useEffect(() => {
   //   setFocus(
   //     focusareasList[
@@ -515,7 +515,6 @@ const[extractId,setExtractId]=useState("");
   };
  
   const handleSubmitAll = async (item, stats, file) => {
-    // alert("hii");
     setLoading(initialLoadingStatus);
 
     let attachmentsList = "";
@@ -632,7 +631,12 @@ const[extractId,setExtractId]=useState("");
       ) {
         allques = false;
       }
+      if(verfiySubmitt === false){
+        allques= false ;
+        openNotificationWithIcon("error", t("home.ideaVerify"));
+            }
     }
+   
     if (allques || stats === "DRAFT") {
       const editParam = encryptGlobal(JSON.stringify(id));
       var config = {
@@ -734,14 +738,16 @@ if(formData?.verified_status === "ACCEPTED"){
           axios(config)
               .then(function (response) {
                   if (response.status === 200) {
-                      console.log(response,"ress");
-                      if (response.status === "INVALID") {
+                      // console.log(response,"ress");
+                      if (response.data.data === "INVALID") {
+                        // console.log(response.data.data,"response.data.data");
                         setPrototypeLink("");
                         openNotificationWithIcon("error", response.data.message);
                       }else{
                         // setPrototypeLink(item); 
                         openNotificationWithIcon("success", response.data.message);
                         setIsButtonDisabled(true);
+                        setVerifySubmitt(true);
                       }
                       
                   }
@@ -770,7 +776,7 @@ if(formData?.verified_status === "ACCEPTED"){
     e.preventDefault();
     handleVideoApi(extractId);
   };
-  console.log(prototypeLink,"proto",);
+  // console.log(prototypeLink,"proto",);
   return (
     <>
       {/* <div className='content'> */}

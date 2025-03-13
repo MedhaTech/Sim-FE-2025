@@ -74,15 +74,19 @@ export const adminLoginUser = (data, navigate, module) => async (dispatch) => {
       });
     if (result && result.status === 200) {
       const item = result.data;
+      console.log(item,"item");
       setCurrentUser(item);
       localStorage.setItem("module", module);
-      // localStorage.setItem("layoutStyling", "modern");
+     
       localStorage.setItem("layoutStyling", "default");
 
       localStorage.setItem("time", new Date().toString());
       dispatch(adminLoginUserSuccess(result));
-
-      navigate("/admin-dashboard");
+if(result.data.data[0].permission === "ALL"){
+  navigate("/admin-dashboard");
+}else{
+  navigate("/admin-support");
+}
     } else if (result && result.status === 404) {
       openNotificationWithIcon("error", "Invalid Credentials entered");
      
