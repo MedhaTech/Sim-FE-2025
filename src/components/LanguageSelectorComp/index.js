@@ -107,6 +107,7 @@ const LanguageSelectorComp = ({ module }) => {
                     {(localLang && localLang.name) || language}
                 </span>
             }
+             drop="down"
         >
             {languageOptions.map((item, i) => {
                 return (

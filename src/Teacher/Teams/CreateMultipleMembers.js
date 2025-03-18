@@ -130,7 +130,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
     email: "",
     disability: "",
   }));
-  const MIN_STUDENTS = loginState === "Tamil Nadu" ? 2 : 2;
+  const MIN_STUDENTS = loginState === "Tamil Nadu" ? 2 : 1;
   const MAX_STUDENTS = loginState === "Tamil Nadu" ? 5 : 2;
   // Initialize state with the calculated initialStudentData
   const [studentData, setStudentData] = useState(initialStudentData);

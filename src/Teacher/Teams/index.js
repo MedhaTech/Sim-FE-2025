@@ -426,7 +426,7 @@ ideaStatus===  null &&
   const handleSwitchTeam = (item) => {
     // alert("hii");
     console.log(item,"item");
-    if (teamsListData.length > 2) {
+    if (teamsListData.length > 1) {
       teamListby();
       setselectedstudent(item);
     } else {
@@ -459,7 +459,7 @@ ideaStatus===  null &&
           const listofteams = response.data.data
             .map((item) => {
             if(loginState !== "Tamil Nadu"){
-                if (item.StudentCount < 3 && item.ideaStatus === null) {
+                if (item.StudentCount < 5 && item.ideaStatus === null) {
                   teamlistobj[item.team_name] = item.team_id;
                   return item.team_name;
                 }
@@ -719,7 +719,9 @@ ideaStatus===  null &&
                       <div className="view-all-link">
                         <Link to="#" className="view-all d-flex align-items-center">
                         
-                           { stuList == 2 && IdeaStatus === 'No Idea' &&(
+                           { 
+                            ((loginState === "Tamil Nadu" && stuList === 2) || 
+                            (loginState !== "Tamil Nadu" && stuList === 1)) && IdeaStatus === 'No Idea' &&(
                             <button
                               className="btn btn-danger btn-sm"
                               onClick={() => handleDeleteTeam(selectedTeam)}
@@ -772,7 +774,7 @@ ideaStatus===  null &&
                                         </Link>
                                       </OverlayTrigger> 
                                           
-                                          { 
+                                          {/* { 
                                             stuList > 2 &&  IdeaStatus === 'No Idea' &&(
                                             <OverlayTrigger placement="top" overlay={renderSwitchTooltip}>
                                               <Link data-bs-toggle="tooltip" data-bs-placement="top" 
@@ -787,7 +789,25 @@ ideaStatus===  null &&
                                               </Link>
                                             </OverlayTrigger> 
                                       
-                                         )}
+                                         )} */}
+                                         {
+  ((loginState === "Tamil Nadu" && stuList > 2) || 
+   (loginState !== "Tamil Nadu" && stuList > 1)) &&
+  IdeaStatus === 'No Idea' && (
+    <OverlayTrigger placement="top" overlay={renderSwitchTooltip}>
+      <Link
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        className="p-2 me-2"
+        to="#"
+        onClick={() => handleSwitchTeam(student)}
+      >
+        <FontAwesomeIcon icon={faUsers} title="fa fa-users" />
+      </Link>
+    </OverlayTrigger>
+  )
+}
+
                                           {
                                             stuList > 2 && IdeaStatus === 'No Idea' && (
                                             <OverlayTrigger placement="top" overlay={renderDelTooltip}>

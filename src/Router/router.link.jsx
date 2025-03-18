@@ -155,6 +155,7 @@ import Dropdown from "../Evaluator/Admin/EvalProcess/Pages/Dropdown";
 
 import State from "../Evaluator/Admin/Evaluator/State";
 import SearchCID from "../Evaluator/Admin/Dashboard/SearchCID";
+import Permission from "../Admin/UsersList/Permission";
 
 
 
@@ -543,6 +544,14 @@ export const publicRoutes = [
     path: routes.resendemail,
     name: "resendemail",
     element: <ResendEmail />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 37,
+    path: routes.adminpermission,
+    name: "adminpermission",
+    element: <Permission/>,
     protected: true,
     route: Route,
   },

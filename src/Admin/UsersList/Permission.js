@@ -16,22 +16,24 @@ import { useFormik } from "formik";
 import {
   getCurrentUser,
   openNotificationWithIcon,
-} from "../../../../helpers/Utils";
+} from "../../helpers/Utils";
 import { useNavigate } from "react-router-dom";
 // import { getAdminEvalutorsList } from "../../../redux/actions";
 // import { getAdmin } from '../store/admin/actions';
 import { useDispatch } from "react-redux";
 // import Select from "../../Admin/Challenges/pages/Select";
 // import { getDistrictData } from '../../redux/studentRegistration/actions';
-import {themesList} from "../../../../Team/IdeaSubmission/themesData";
-import {languageOptions} from "../../../../RegPage/ORGData";
+// import {themesList} from "../../../../Team/IdeaSubmission/themesData";
+import {menusList} from "../../RegPage/ORGData";
 import { useSelector } from "react-redux";
-import { encryptGlobal } from "../../../../constants/encryptDecrypt";
-const EditProfile = (props) => {
+import { encryptGlobal } from "../../constants/encryptDecrypt";
+const Permission = (props) => {
   // here we can edit the users details //
   const phoneRegExp = /^[0-9]+$/;
-const allDataLanguages= ["All Languages",...languageOptions];
-const allDataThemes= ["All Themes",...themesList];
+// const allDataLanguages= ["All Languages",...languageOptions];
+// const allDataThemes= ["All Themes",...themesList];
+const allDataMenus= ["All Menus",...menusList];
+
 
 
   const location = useLocation();
@@ -47,12 +49,10 @@ const allDataThemes= ["All Themes",...themesList];
     // where data = mentorData //
     const adminValidation = Yup.object({
      
-        language: Yup.string()
+      permission : Yup.string()
                 // .max(40)
-                .required(<span style={{ color: "red" }}>Please Select Language</span>),
-                theme: Yup.string()
-                // .max(40)
-                .required(<span style={{ color: "red" }}>Please Select Theme</span>),
+                .required(<span style={{ color: "red" }}>Please Select Permission</span>),
+               
      
     });
     if (data?.mentor_id)
@@ -67,8 +67,7 @@ const allDataThemes= ["All Themes",...themesList];
   const getInitialValues = (data) => {
     const commonInitialValues = {
      
-      language :mentorData?.language || "",
-      theme :mentorData?.theme || ""
+      permission :mentorData?.permission || "",
 
     };
     
@@ -79,37 +78,19 @@ const allDataThemes= ["All Themes",...themesList];
     validationSchema: getValidationSchema(mentorData),
     onSubmit: (values) => {
     
-        const evalid = encryptGlobal(JSON.stringify(mentorData.evaluation_process_id));
+        const evalid = encryptGlobal(JSON.stringify(currentUser.data[0].admin_id));
       
-        // const body = {
-                   
-        //   language: values.language === "All Languages" ? languageOptions.join(", ") : values.language,
-        //   theme: values.theme === "All Themes"
-        //     ? themesList.join(", ")      
-        //     : values.theme,             
-        // };
         const body = {
-          language: values.language.trim() === "All Languages"
-            ? languageOptions.map(lang => lang.trim()).join(", ")
-            : values.language.trim(),
-        
-          theme: values.theme.trim() === "All Themes"
-            ? themesList.map(theme => theme.trim()).join(", ")
-            : values.theme.trim(),
+                   
+          permission : values.permission  === "All Menus" ? menusList.join(", ") : values.permission,
+          full_name: currentUser.data[0].full_name,
+          username: currentUser.data[0].name,        
+
         };
         console.log(body,"body");
-        // const body = {
-        //   language: selectedLanguage === "All Languages" ? languageOptions : [selectedLanguage],
-        //     theme: selectedTheme === "All Themes" ? themesList : [selectedTheme],
-        //   };
-    //   if (mentorData?.language !== values.language) {
-    //     body["language"] = values.language;
-    //   }
-    //   if (mentorData?.theme !== values.theme) {
-    //     body["theme"] = values.theme;
-    //   }
+      
 
-      const url = process.env.REACT_APP_API_BASE_URL + `/evaluationProcess/${evalid}`;
+      const url = process.env.REACT_APP_API_BASE_URL + `/admins/${evalid}`;
 
       var config = {
         method: "put",
@@ -125,9 +106,9 @@ const allDataThemes= ["All Themes",...themesList];
           if (response.status === 200) {
            openNotificationWithIcon(
                                   'success',
-                                  'Theme and  Update Successfully'
+                                  'Permission Update Successfully'
                               );
-                              navigate('/eadmin/evaluationProcess');
+                              navigate('/admins');
           }
         })
         .catch(function (error) {
@@ -141,21 +122,15 @@ const allDataThemes= ["All Themes",...themesList];
     },
   });
   useEffect(() => {
-    if (mentorData.language ) {
-      const allLanguagesSelected = mentorData.language.split(", ").sort().join(", ") === languageOptions.sort().join(", ");
-      formik.setFieldValue("language", allLanguagesSelected ? "All Languages" : mentorData.language);
+    if (mentorData.permission ) {
+      const allLanguagesSelected = mentorData.permission.split(", ").sort().join(", ") === menusList.sort().join(", ");
+      formik.setFieldValue("permission", allLanguagesSelected ? "All Menus" : mentorData.permission);
       
     }
     
-  }, [mentorData.language]);
+  }, [mentorData.permission]);
   
-  useEffect(() => {
-    if (mentorData.theme) {
-      const allThemes = themesList.join(", "); 
-      const allThemesSelected = mentorData.theme === allThemes;
-      formik.setFieldValue("theme", allThemesSelected ? "All Themes" : mentorData.theme);
-    }
-  }, [mentorData.theme, themesList]);
+ 
   
   const formLoginStyle = {
     display: "flex",
@@ -174,7 +149,7 @@ const allDataThemes= ["All Themes",...themesList];
       <div className="content">
         <div className="page-header">
           <div className="page-title">
-            <h4>Update Theme and Language</h4>
+            <h4>Update Permission</h4>
             {/* <h6>User Profile</h6> */}
           </div>
         </div>
@@ -182,73 +157,37 @@ const allDataThemes= ["All Themes",...themesList];
         <form onSubmit={formik.handleSubmit}>
           <div className="card">
             <div className="card-body">
-              {/* <div className="profile-set">
-                <div className="profile-head"></div>
-                <div className="profile-top">
-                  <div className="profile-content">
-                    <div className="profile-contentimg">
-                      <img src={male} alt="Female" id="blah" />
-                    </div>
-                    <div className="profile-contentname">
-                      <h2>{mentorData?.full_name}</h2>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
+             
               <div className="row">
                
 
                
                 <div className="form-login col-lg-6 col-sm-12">
                   <div className="input-blocks">
-                    <label>Language</label>
+                    <label>Menus</label>
                     <select
                         id="inputState"
                         className="form-select"
-                        name="language"
+                        name="permission"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.language}
+                        value={formik.values.permission}
                       >
-                        <option value={""}>Select Language</option>
-                        {allDataLanguages.map((item) => (
+                        <option value={""}>Select Permission</option>
+                        {allDataMenus.map((item) => (
                           <option key={item} value={item}>
                             {item}
                           </option>
                         ))}
                       </select>
-                    {formik.touched.language && formik.errors.language ? (
+                    {formik.touched.permission && formik.errors.permission ? (
                       <small className="error-cls">
-                        {formik.errors.language}
+                        {formik.errors.permission}
                       </small>
                     ) : null}
                   </div>
                 </div>
-                <div className="form-login col-lg-6 col-sm-12">
-                  <div className="input-blocks">
-                    <label>Theme</label>
-                    <select
-                        id="inputState"
-                        className="form-select"
-                        name="theme"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.theme}
-                      >
-                        <option value={""}>Please Select Theme</option>
-                        {allDataThemes.map((item) => (
-                          <option key={item} value={item}>
-                            {item}
-                          </option>
-                        ))}
-                      </select>
-                    {formik.touched.theme && formik.errors.theme ? (
-                      <small className="error-cls">
-                        {formik.errors.theme}
-                      </small>
-                    ) : null}
-                  </div>
-                </div>
+              
              
 
                 <div className="form-login" style={formLoginStyle}>
@@ -263,13 +202,11 @@ const allDataThemes= ["All Themes",...themesList];
                     Submit
                   </button>
                   <button
-                    onClick={() => navigate("/eadmin/evaluationProcess")}
+                    onClick={() => navigate("/admins")}
                     type="button"
                     className="btn btn-secondary"
                     style={{ marginLeft: "auto" }}
-                    // className="btn btn-cancel"
-                    // to={"/eadmin/evaluator"}
-                    // style={cancelLinkStyle}
+                    
                   >
                     Cancel
                   </button>
@@ -284,4 +221,4 @@ const allDataThemes= ["All Themes",...themesList];
   );
 };
 
-export default EditProfile;
+export default Permission;
