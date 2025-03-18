@@ -130,22 +130,40 @@ const allDataThemes= ["All Themes",...themesList];
       // if (mentorData?.theme !== values.theme) {
       //   body["theme"] = values.theme;
       // }
-      if (
-        values.language === "All Languages" || 
-        (mentorData?.language !== values.language)
-    ) {
-        body["language"] = values.language === "All Languages"
-            ? languageOptions.join(", ")
-            : values.language;
-    }
-    if (
-      values.theme === "All Themes" || 
-      (mentorData?.theme !== values.theme)
-  ) {
-      body["theme"] = values.theme === "All Themes"
-          ? themesList.join(", ")
-          : values.theme;
-  }
+  //     if (
+  //       values.language === "All Languages" || 
+  //       (mentorData?.language !== values.language)
+  //   ) {
+  //       body["language"] = values.language === "All Languages"
+  //           ? languageOptions.join(", ")
+  //           : values.language;
+  //   }
+  //   if (
+  //     values.theme === "All Themes" || 
+  //     (mentorData?.theme !== values.theme)
+  // ) {
+  //     body["theme"] = values.theme === "All Themes"
+  //         ? themesList.join(", ")
+  //         : values.theme;
+  // }
+  if (
+    values.language.trim() === "All Languages" || 
+    (mentorData?.language?.trim() !== values.language.trim())
+) {
+    body["language"] = values.language.trim() === "All Languages"
+        ? languageOptions.map(lang => lang.trim()).join(", ")
+        : values.language.trim();
+}
+
+if (
+    values.theme.trim() === "All Themes" || 
+    (mentorData?.theme?.trim() !== values.theme.trim())
+) {
+    body["theme"] = values.theme.trim() === "All Themes"
+        ? themesList.map(theme => theme.trim()).join(", ")
+        : values.theme.trim();
+}
+
       const url = process.env.REACT_APP_API_BASE_URL + `/evaluators/${evlId}`;
 
       var config = {

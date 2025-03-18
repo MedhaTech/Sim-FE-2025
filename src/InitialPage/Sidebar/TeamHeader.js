@@ -19,6 +19,7 @@ import team from "../../assets/img/icons/team2.png";
 import  "./styles.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import LanguageSelectorComp from '../../components/LanguageSelectorComp/index.js';
 
 const Header = () => {
   const route = all_routes;
@@ -435,6 +436,12 @@ const Header = () => {
             </div>
           </li> */}
           {/* /Flag */}
+        {currentUser?.data[0]?.role == "STUDENT" && (  <div className="d-flex align-items-center">
+              <div className="dropdown ">
+                  <LanguageSelectorComp module="mentor" />
+              </div>
+            </div>
+            )}
           <li className="nav-item nav-item-box">
             <Link
               to="#"

@@ -8,9 +8,16 @@ svg{
   }
 }
 
-#language-selector-btn:focus {
-  border: none;
-  box-shadow: none;
+// #language-selector-btn:focus {
+//   border: none;
+//   box-shadow: none;
+// }
+#language-selector-btn::after {
+  display: inline-block;
+  margin-left: 0.5rem;
+  vertical-align: 0.255em;
+  content: '\25BC'; /* Down arrow symbol */
+  color: var(--color-grey-light-3) !important;
 }
 
 .dropdown-menu {

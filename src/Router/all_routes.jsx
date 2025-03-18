@@ -11,6 +11,8 @@ export const all_routes = {
   mentorslist:"/mentors",
   teamslist:"/teams",
   adminlist:"/admins",
+  adminpermission:"/admin-permission",
+
   eadmindropdown:"/eadmin-update",
   mentortableview:"/mentor-view",
   popup:"/popup",

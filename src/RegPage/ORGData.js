@@ -6,6 +6,7 @@ export const languageOptions=['English','Hindi-हिन्दी',
   'Kannada-ಕೆನಡಾ',
   'Malayalam-മലയാളം',
   'Other Language'];
+ export const menusList= ["Overall Schools","PopUp","Resource","Latest News","State Specific","Support", "Mentors","Teams","Students","Admins","Reports","Bulk Email",];
 export const stateList = [
   "Andaman and Nicobar Islands",
   "Andhra Pradesh",
