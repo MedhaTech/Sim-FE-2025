@@ -42,7 +42,7 @@ const AdminSidebarData = () => {
           icon: <Icon.FilePlus />,
           showSubRoute: false,
           submenu: false,
-          permission: "Resource",
+          permission: "Resources",
         },
         {
           label: "Latest News",
