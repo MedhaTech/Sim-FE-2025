@@ -211,10 +211,11 @@ const Createpopup = () => {
     formik.setFieldValue("navigate", "");
     setPath(navList[role] || []);
   };
-  //   console.log(formik.values.navigate,"nn");
-  //   const handlepathChange = (event) => {
-  // formik.setFieldValue("navigate", event.target.value);
-  //   };
+  const buttonContainerStyle = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  };
   return (
     <div className="page-wrapper">
        <h4 className="m-2" 
@@ -371,7 +372,7 @@ const Createpopup = () => {
                             <Label className="mb-2 mt-4" htmlFor="attachments">
                               File
                             </Label>
-                            <div className="d-flex align-items-center">
+                            <div>
                               <input
                                 type="file"
                                 id="attachments"
@@ -396,11 +397,11 @@ const Createpopup = () => {
                               />
                               {formik.values.attachments &&
                               formik.values.attachments.name ? (
-                                <span className="ml-2">
+                                <span className="ml-2 p-3">
                                   {formik.values.attachments.name}
                                 </span>
                               ) : (
-                                <span className="ml-2">
+                                <span className="ml-2 p-3">
                                   {formik.initialValues.attachments &&
                                     formik.initialValues.attachments.name}
                                 </span>
@@ -486,8 +487,8 @@ const Createpopup = () => {
                                        
                                     </Col>
                                 </Row> */}
-                  <Row className="d-flex justify-content-between">
-                    <Col className="col-xs-12 col-sm-6 d-flex justify-content-start">
+                  <Row >
+                  <div style={buttonContainerStyle} className='mt-3'>
                       <button
                         label="Submit details"
                         type="submit"
@@ -500,9 +501,7 @@ const Createpopup = () => {
                       >
                         Submit details
                       </button>
-                    </Col>
 
-                    <Col className="col-xs-12 col-sm-6 d-flex justify-content-end">
                       <button
                         type="cancel"
                         className="btn btn-secondary"
@@ -510,7 +509,7 @@ const Createpopup = () => {
                       >
                         Discard
                       </button>
-                    </Col>
+                      </div>
                   </Row>
                 </Form>
               </div>

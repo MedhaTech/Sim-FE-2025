@@ -100,12 +100,7 @@ const [hoveredRow, setHoveredRow] = useState(null);
                         case 'docx':
                             return  <IoDocumentText size={"25"} style={{color:"skyblue"}}/>;
       
-                        // case 'xls':
-                        // case 'xlsx':
-                        //     return<LiaFileExcelSolid />;
-                        // case 'ppt':
-                        // case 'pptx':
-                        //     return <i className="fas fa-file-powerpoint" style={{ color: "orange" }}></i>;
+                       
                         default:
                             return <i className="fas fa-file" style={{ color: "black" }}></i>;
                     }
@@ -113,11 +108,10 @@ const [hoveredRow, setHoveredRow] = useState(null);
         
                 return (
                     <a
-                        // href={getFileViewerURL(record.attachments, fileExtension)}
+                        href={getFileViewerURL(record.attachments, fileExtension)}
                         target="_blank"
                         className="badge badge-md bg-light"
                         rel="noopener noreferrer"
-                        style={{ cursor: "default", pointerEvents: "none" }}
                     >
                         {getFileIcon(fileExtension, isLink)}
                     </a>
@@ -132,36 +126,32 @@ const [hoveredRow, setHoveredRow] = useState(null);
         width: "40rem",
       },
       
-        {
-          width: '8rem',
-          cell: (record) =>
-            hoveredRow === record.resource_id ? (
-              <>
-                {record.type === "link" ? (
-                  <a 
-                    href={record.attachments} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                  >
-                    {/* <i 
-                      data-feather="eye" 
-                      className="feather-eye" 
-                      style={{ color: "black" }} 
-                    /> */}
-                     <MdConnectedTv size={"25"} style={{ color: "black" }} />
-                  </a>
-                ) : (
-                  <a 
-                    href={record.attachments} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                  >
-                    <MdOutlineFileDownload size={"25"} style={{ color: "black" }} />
-                  </a>
-                )}
-              </>
-            ) : null,
-        }
+        // {
+        //   width: '8rem',
+        //   cell: (record) =>
+        //     hoveredRow === record.resource_id ? (
+        //       <>
+        //         {record.type === "link" ? (
+        //           <a 
+        //             href={record.attachments} 
+        //             target="_blank" 
+        //             rel="noopener noreferrer"
+        //           >
+                   
+        //              <MdConnectedTv size={"25"} style={{ color: "black" }} />
+        //           </a>
+        //         ) : (
+        //           <a 
+        //             href={record.attachments} 
+        //             target="_blank" 
+        //             rel="noopener noreferrer"
+        //           >
+        //             <MdOutlineFileDownload size={"25"} style={{ color: "black" }} />
+        //           </a>
+        //         )}
+        //       </>
+        //     ) : null,
+        // }
         
         
         
