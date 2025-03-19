@@ -339,11 +339,10 @@ const Createpopup = () => {
                               </small>
                             )}
                         </Col>
-                          <>  <Col md={6}>
+                           <Col md={6}>
                             <Label className="mb-2 mt-4" htmlFor="file_name">
                               File
                             </Label>
-                            </Col>
                             {/* <div> */}
                               <input
                                 type="file"
@@ -388,8 +387,8 @@ const Createpopup = () => {
                                   {formik.errors.file_name}
                                 </small>
                               )}
-                          </>
 
+</Col>
                        
                             <Col md={12}>
                               <Label className="mb-2 mt-4" htmlFor="attachments">
