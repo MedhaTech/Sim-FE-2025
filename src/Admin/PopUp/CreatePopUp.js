@@ -65,19 +65,21 @@ const Createpopup = () => {
       return;
     }
 
-    formik.setFieldValue("attachments", file);
+    formik.setFieldValue("file_name", file);
   };
-  const handleTypeChnage = () => {
-    formik.setFieldValue("attachments", "");
-  };
+  // const handleTypeChnage = () => {
+  //   formik.setFieldValue("attachments", "");
+  // };
 
   const formik = useFormik({
     initialValues: {
       role: "",
       navigate: "",
-      type: "",
+      // type: "",
       state: "",
-      attachments: "",
+      file_name: '',
+      url: '',
+      // attachments: "",
     },
     validationSchema: Yup.object({
       role: Yup.string().required("Role is Required"),
@@ -85,12 +87,13 @@ const Createpopup = () => {
       // .oneOf(['mentor', 'student'], 'Role is Required'),
       navigate: Yup.string().optional(),
       state: Yup.string().required("Please Select State"),
-
+ file_name: Yup.mixed(),
+            url: Yup.string()
       // .required(' is Required'),
-      type: Yup.string()
-        .optional()
-        .oneOf(["file", "link"]).required("Submission type is Required"),
-      attachments: Yup.string().required("Attachments are required"),
+      // type: Yup.string()
+      //   .optional()
+      //   .oneOf(["file", "link"]).required("Submission type is Required"),
+      // attachments: Yup.string().required("Attachments are required"),
       // attachments: Yup.mixed().when('type', {
       //     is: (val) => val === 'file',
       //     then: Yup.mixed().required('File is Required'),
@@ -99,9 +102,9 @@ const Createpopup = () => {
     }),
     onSubmit: async (values) => {
       try {
-        if (values.type === "file") {
+        if (values.file_name !== "") {
           const fileData = new FormData();
-          fileData.append("url", values.attachments);
+          fileData.append("file", values.file_name);
 
           const response = await axios.post(
             `${process.env.REACT_APP_API_BASE_URL}/popup/popupFileUpload`,
@@ -114,7 +117,7 @@ const Createpopup = () => {
             }
           );
           // console.log(response,"reee");
-          values.attachments =
+          values.file_name =
             response?.data?.data[0].attachments[0].toString();
           // if (response.status === 200) {
           //     openNotificationWithIcon(
@@ -128,11 +131,17 @@ const Createpopup = () => {
 
         const body = {
           role: values.role,
-          type: values.type,
+          // type: values.type,
           state: values.state,
-          url: values.attachments,
+          // url: values.attachments,
           on_off: "0",
         };
+        if (values.file_name !== '') {
+          body['file'] = values.file_name;
+      }
+      if (values.url !== '') {
+          body['url'] = values.url;
+      }
         if (values.navigate !== "") {
           body["navigate"] = values.navigate;
         }
@@ -296,44 +305,7 @@ const Createpopup = () => {
                         </Col>
                       </Row>
                       <Row className="mb-3 modal-body-table search-modal-header">
-                        <Col md={6}>
-                          <Label className="mb-2" htmlFor="type">
-                            Type
-                            <span required>*</span>
-                          </Label>
-                          <select
-                            name="type"
-                            id="type"
-                            placeholder="Please select submission type"
-                            className="form-select"
-                            onChange={(e) => {
-                              formik.handleChange(e);
-                              handleTypeChnage();
-                            }}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.type}
-                            style={{
-                              color: formik.values.type ? "black" : "initial",
-                              fontWeight: formik.values.type
-                                ? "bold"
-                                : "normal",
-                            }}
-                          >
-                            <option disabled={true} value="">
-                              Select type
-                            </option>
-                            <option value="file">File</option>
-                            <option value="link">Link</option>
-                          </select>
-                          {formik.touched.type && formik.errors.type && (
-                            <small
-                              className="error-cls"
-                              style={{ color: "red" }}
-                            >
-                              {formik.errors.type}
-                            </small>
-                          )}
-                        </Col>
+                        
                         <Col md={6}>
                           <Label className="mb-2" htmlFor="navigate">
                             Navigate Menu
@@ -367,17 +339,17 @@ const Createpopup = () => {
                               </small>
                             )}
                         </Col>
-                        {formik.values.type === "file" && (
-                          <>
-                            <Label className="mb-2 mt-4" htmlFor="attachments">
+                          <>  <Col md={6}>
+                            <Label className="mb-2 mt-4" htmlFor="file_name">
                               File
                             </Label>
-                            <div>
+                            </Col>
+                            {/* <div> */}
                               <input
                                 type="file"
-                                id="attachments"
+                                id="file_name"
                                 className="form-control"
-                                name="attachments"
+                                name="file_name"
                                 style={{
                                   display: "none",
                                 }}
@@ -391,65 +363,59 @@ const Createpopup = () => {
                                 size="small"
                                 onClick={() => {
                                   document
-                                    .getElementById("attachments")
+                                    .getElementById("file_name")
                                     .click();
                                 }}
                               />
-                              {formik.values.attachments &&
-                              formik.values.attachments.name ? (
+                              {formik.values.file_name &&
+                              formik.values.file_name.name ? (
                                 <span className="ml-2 p-3">
-                                  {formik.values.attachments.name}
+                                  {formik.values.file_name.name}
                                 </span>
                               ) : (
                                 <span className="ml-2 p-3">
-                                  {formik.initialValues.attachments &&
-                                    formik.initialValues.attachments.name}
+                                  {formik.initialValues.file_name &&
+                                    formik.initialValues.file_name.name}
                                 </span>
                               )}
-                            </div>
-                            {formik.touched.attachments &&
-                              formik.errors.attachments && (
+                            {/* </div> */}
+                            {formik.touched.file_name &&
+                              formik.errors.file_name && (
                                 <small
                                   className="error-cls"
                                   style={{ color: "red" }}
                                 >
-                                  {formik.errors.attachments}
+                                  {formik.errors.file_name}
                                 </small>
                               )}
                           </>
-                        )}
 
-                        {formik.values.type === "link" && (
-                          <FormGroup
-                            className="form-group"
-                            // md={6}
-                          >
+                       
                             <Col md={12}>
                               <Label className="mb-2 mt-4" htmlFor="attachments">
                                 Link
                               </Label>
                               <input
                                 type="text"
-                                name="attachments"
-                                id="attachments"
+                                name="url"
+                                id="url"
                                 className="form-control"
                                 placeholder="Please share 'Embedded link' of the video"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                value={formik.values.attachments}
+                                value={formik.values.url}
                               />
-                              {formik.touched.attachments &&
-                                formik.errors.attachments && (
+                              {formik.touched.url &&
+                                formik.errors.url && (
                                   <small
                                     className="error-cls"
                                     style={{ color: "red" }}
                                   >
-                                    {formik.errors.attachments}
+                                    {formik.errors.url}
                                   </small>
                                 )}
                             </Col>
-                          </FormGroup>
-                        )}
+                       
                       </Row>
                     </FormGroup>
                   </div>
