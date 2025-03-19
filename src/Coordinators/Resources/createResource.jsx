@@ -363,7 +363,7 @@ const CreateResource = () => {
                                                 >
                                                     File
                                                 </Label>
-                                                <div className="d-flex align-items-center">
+                                                <div >
                                                     <input
                                                         type="file"
                                                         id="attachments"
@@ -395,7 +395,7 @@ const CreateResource = () => {
                                                         .attachments &&
                                                     formik.values.attachments
                                                         .name ? (
-                                                        <span className="ml-2">
+                                                        <span className="ml-2 p-3">
                                                             {
                                                                 formik.values
                                                                     .attachments
@@ -403,7 +403,7 @@ const CreateResource = () => {
                                                             }
                                                         </span>
                                                     ) : (
-                                                        <span className="ml-2">
+                                                        <span className="ml-2 p-3">
                                                             {formik
                                                                 .initialValues
                                                                 .attachments &&

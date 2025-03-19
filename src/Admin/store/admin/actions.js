@@ -90,7 +90,7 @@ if(result.data.data[0].permission === "ALL"){
   navigate("/admin-dashboard");
 }else if (result.data.data[0].permission === "PopUp"){
     navigate("/popup");
-  }else if (result.data.data[0].permission === "Resource"){
+  }else if (result.data.data[0].permission === "Resources"){
     navigate("/adminresources");
   }else if (result.data.data[0].permission === "Latest News"){
     navigate("/latest-news"); 
