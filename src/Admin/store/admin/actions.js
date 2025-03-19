@@ -84,6 +84,33 @@ export const adminLoginUser = (data, navigate, module) => async (dispatch) => {
       dispatch(adminLoginUserSuccess(result));
 if(result.data.data[0].permission === "ALL"){
   navigate("/admin-dashboard");
+}else if (result.data.data[0].permission === "Overall Schools"){
+  navigate("/institution");
+}else if (result.data.data[0].permission === "Dashboard"){
+  navigate("/admin-dashboard");
+}else if (result.data.data[0].permission === "PopUp"){
+    navigate("/popup");
+  }else if (result.data.data[0].permission === "Resource"){
+    navigate("/adminresources");
+  }else if (result.data.data[0].permission === "Latest News"){
+    navigate("/latest-news"); 
+   }else if (result.data.data[0].permission === "State Specific"){
+      navigate("/state-wise");  
+    }else if (result.data.data[0].permission === "SUPPORT"){
+        navigate("/admin-support"); 
+       }else if (result.data.data[0].permission === "Mentors"){
+          navigate("/mentors");
+        }else if (result.data.data[0].permission === "Teams"){
+          navigate("/teams");
+        }else if (result.data.data[0].permission === "Students"){
+          navigate("/students");
+          
+        }else if (result.data.data[0].permission === "Admins"){
+          navigate("/admins");
+        }else if (result.data.data[0].permission === "Bulk Email"){
+          navigate("/emailList");
+        }else if (result.data.data[0].permission === "Reports"){
+          navigate("/reports");
 }else{
   navigate("/admin-support");
 }

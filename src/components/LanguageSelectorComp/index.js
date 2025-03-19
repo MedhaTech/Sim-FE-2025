@@ -22,6 +22,7 @@ const LanguageSelectorComp = ({ module }) => {
         (state) => state?.studentRegistration?.studentLanguage
     );
     const globalLang = useSelector((state) => state?.home.globalLanguage);
+    console.log(module,"module");
     // const [language, setLanguage] = useState(
     //     module === 'student'
     //         ? studentLanguage.name
@@ -48,15 +49,14 @@ const LanguageSelectorComp = ({ module }) => {
             globalLang?.name
       );
       useEffect(() => {
-        // On component mount, check for persisted language
         let langToSet;
         if (module === 'mentor' && localMentorLang) {
           langToSet = localMentorLang;
-        } else if (localLang) {
-          langToSet = localLang;
+        } else if (module === 'student' && localLang) {
+            langToSet = localLang;
         }
     
-        if (langToSet) {
+        if (langToSet && langToSet.code !== i18next.language) {
           i18next.changeLanguage(langToSet.code);
           if (module === 'mentor') {
             dispatch(getMentorGlobalLanguage(langToSet));
@@ -66,15 +66,9 @@ const LanguageSelectorComp = ({ module }) => {
         }
       }, [module, dispatch]);
     const handleSelector = (item) => {
-        // let forMentor;
-        // if (item && item.code !== 'en') {
-        //     forMentor = { ...item };
-        //     forMentor.code = 'en';
-        //     forMentor.name = 'English';
-        // }
+       
         let forMentor = null;
 
-        // Adjust for mentors if language code isn't English
         if (item && item.code !== 'en') {
           forMentor = { ...item, code: 'en', name: 'English' };
         }
@@ -83,9 +77,13 @@ const LanguageSelectorComp = ({ module }) => {
         i18next.changeLanguage(item.code);
         if (module === 'admin') {
             dispatch(getAdminGlobalLanguage(item));
+
         } else if (module === 'mentor') {
             dispatch(getMentorGlobalLanguage(forMentor));
-            localStorage.setItem('m_language', JSON.stringify(item));
+            if (!localMentorLang || localMentorLang.code !== item.code) {
+                localStorage.setItem('m_language', JSON.stringify(item));
+            }
+            // localStorage.setItem('m_language', JSON.stringify(item));
         } else if (module === 'general') {
             dispatch(getGlobalLanguage(item));
             dispatch(getStudentGlobalLanguage(item));
@@ -93,7 +91,10 @@ const LanguageSelectorComp = ({ module }) => {
         } else {
             dispatch(getStudentGlobalLanguage(item));
             if (module === 'student') {
-                localStorage.setItem('s_language', JSON.stringify(item));
+                if (!localLang || localLang.code !== item.code) {
+                    localStorage.setItem('s_language', JSON.stringify(item));
+                }
+                // localStorage.setItem('s_language', JSON.stringify(item));
             }
         }
     };

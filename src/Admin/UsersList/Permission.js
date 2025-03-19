@@ -14,7 +14,7 @@ import { useLocation } from "react-router-dom";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import {
-  getCurrentUser,
+  getCurrentUser,setCurrentUser,
   openNotificationWithIcon,
 } from "../../helpers/Utils";
 import { useNavigate } from "react-router-dom";
@@ -32,8 +32,7 @@ const Permission = (props) => {
   const phoneRegExp = /^[0-9]+$/;
 // const allDataLanguages= ["All Languages",...languageOptions];
 // const allDataThemes= ["All Themes",...themesList];
-const allDataMenus= ["All Menus",...menusList];
-
+const allDataMenus= ["ALL",...menusList];
 
 
   const location = useLocation();
@@ -77,17 +76,17 @@ const allDataMenus= ["All Menus",...menusList];
     initialValues: getInitialValues(mentorData),
     validationSchema: getValidationSchema(mentorData),
     onSubmit: (values) => {
-    
-        const evalid = encryptGlobal(JSON.stringify(currentUser.data[0].admin_id));
+    console.log(mentorData.admin_id,"adminId");
+        const evalid = encryptGlobal(JSON.stringify(mentorData.admin_id));
       
         const body = {
                    
-          permission : values.permission  === "All Menus" ? menusList.join(", ") : values.permission,
-          full_name: currentUser.data[0].full_name,
-          username: currentUser.data[0].name,        
+          permission : values.permission  === "ALL" ? menusList.join(",") : values.permission,
+          full_name: mentorData.user.full_name,
+          username: mentorData.user.username,        
 
         };
-        console.log(body,"body");
+        // console.log(body,"body");
       
 
       const url = process.env.REACT_APP_API_BASE_URL + `/admins/${evalid}`;
@@ -104,10 +103,50 @@ const allDataMenus= ["All Menus",...menusList];
       axios(config)
         .then(function (response) {
           if (response.status === 200) {
+            // const newPermissions = response.data.data[0].permission;
+            // currentUser.data[0].permission = values.permission;
+            //  setCurrentUser(currentUser);
+            // console.log(values.permission,"permission");
+
            openNotificationWithIcon(
                                   'success',
                                   'Permission Update Successfully'
                               );
+              //                 if(currentUser.data[0].permission === "ALL"){
+              //                   navigate("/admin-dashboard");
+              //                 }else if (currentUser.data[0].permission === "Overall Schools"){
+              //                   navigate("/institution");
+              //                 }else if (currentUser.data[0].permission === "Dashboard"){
+              //                   navigate("/admin-dashboard");
+              //                 }else if (currentUser.data[0].permission === "PopUp"){
+              //                     navigate("/popup");
+                                  
+              //                 }else if (currentUser.data[0].permission === "Resource"){
+              //                   navigate("/adminresources");
+                                
+              //               }else if (currentUser.data[0].permission === "State Specific"){
+              //                 navigate("/state-wise");
+                              
+              //             }else if (currentUser.data[0].permission === "SUPPORT"){
+              //               navigate("/admin-support");
+                            
+              //           }else if (currentUser.data[0].permission === "Mentors"){
+              //             navigate("/mentors");
+                          
+              //         }else if (currentUser.data[0].permission === "Teams"){
+              //           navigate("/teams");
+              //       }else if (currentUser.data[0].permission === "Students"){
+              //         navigate("/students");
+                      
+              //     }else if (currentUser.data[0].permission === "Admins"){
+              //       navigate("/admins");
+                    
+              //   }else if (currentUser.data[0].permission === "Bulk Email"){
+              //     navigate("/emailList");
+                  
+              // }else{
+              //   navigate("/reports");
+              // }
                               navigate('/admins');
           }
         })
@@ -123,8 +162,8 @@ const allDataMenus= ["All Menus",...menusList];
   });
   useEffect(() => {
     if (mentorData.permission ) {
-      const allLanguagesSelected = mentorData.permission.split(", ").sort().join(", ") === menusList.sort().join(", ");
-      formik.setFieldValue("permission", allLanguagesSelected ? "All Menus" : mentorData.permission);
+      const allLanguagesSelected = mentorData.permission.split(",").sort().join(",") === menusList.sort().join(",");
+      formik.setFieldValue("permission", allLanguagesSelected ? "ALL" : mentorData.permission);
       
     }
     

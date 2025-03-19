@@ -151,7 +151,7 @@ const allDataThemes= ["All Themes",...themesList];
     (mentorData?.language?.trim() !== values.language.trim())
 ) {
     body["language"] = values.language.trim() === "All Languages"
-        ? languageOptions.map(lang => lang.trim()).join(", ")
+        ? languageOptions.map(lang => lang.trim()).join(",")
         : values.language.trim();
 }
 
@@ -160,7 +160,7 @@ if (
     (mentorData?.theme?.trim() !== values.theme.trim())
 ) {
     body["theme"] = values.theme.trim() === "All Themes"
-        ? themesList.map(theme => theme.trim()).join(", ")
+        ? themesList.map(theme => theme.trim()).join(",")
         : values.theme.trim();
 }
 
@@ -199,7 +199,7 @@ if (
   });
 useEffect(() => {
     if (mentorData.language ) {
-      const allLanguagesSelected = mentorData.language.split(", ").sort().join(", ") === languageOptions.sort().join(", ");
+      const allLanguagesSelected = mentorData.language.split(",").sort().join(",") === languageOptions.sort().join(",");
       formik.setFieldValue("language", allLanguagesSelected ? "All Languages" : mentorData.language);
       
     }
@@ -208,7 +208,7 @@ useEffect(() => {
   
   useEffect(() => {
     if (mentorData.theme) {
-      const allThemes = themesList.join(", "); 
+      const allThemes = themesList.join(","); 
       const allThemesSelected = mentorData.theme === allThemes;
       formik.setFieldValue("theme", allThemesSelected ? "All Themes" : mentorData.theme);
     }

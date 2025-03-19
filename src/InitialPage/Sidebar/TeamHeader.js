@@ -438,7 +438,7 @@ const Header = () => {
           {/* /Flag */}
         {currentUser?.data[0]?.role == "STUDENT" && (  <div className="d-flex align-items-center">
               <div className="dropdown ">
-                  <LanguageSelectorComp module="mentor" />
+                  <LanguageSelectorComp module="student" />
               </div>
             </div>
             )}

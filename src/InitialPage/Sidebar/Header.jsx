@@ -275,7 +275,7 @@ const Header = () => {
         {/* Header Menu */}
         <ul className="nav user-menu">
           {/* Search */}
-          {currentUser.data[0].permission !== "SUPPORT" && (
+          {currentUser.data[0].permission === "ALL" && (
           <li className="nav-item nav-searchinputs">
             <div className="top-nav-search">
               <Link to="#" className="responsive-search">
