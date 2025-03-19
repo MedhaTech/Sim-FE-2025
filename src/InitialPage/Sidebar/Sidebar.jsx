@@ -50,24 +50,13 @@ const Sidebar = () => {
     return getAdminSidebarData().map((menu) => ({
         ...menu,
         submenuItems: menu.submenuItems.filter((item) => {
-            if (userPermission === "ALL") return true; // Display all menus if permission is 'ALL'
+            if (userPermission === "ALL") return true; 
             return storedPermissions.includes(item.permission) || item.permission === userPermission;
         }),
     }));
 }, [currentUser]);
 
-//   const SidebarData = useMemo(() => {
-//     const userPermission = currentUser?.data[0]?.permission;
-//     const storedPermissions = JSON.parse(localStorage.getItem("permissions")) || [];
 
-//     return getAdminSidebarData().map((menu) => ({
-//         ...menu,
-//         submenuItems: menu.submenuItems.filter((item) => {
-//             if (userPermission === "ALL") return true; // Show all for "ALL"
-//             return storedPermissions.includes(item.label) || item?.permission === userPermission;
-//         }),
-//     }));
-// }, [currentUser]);
 
    
   return (

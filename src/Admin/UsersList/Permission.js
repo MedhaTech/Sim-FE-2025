@@ -103,50 +103,13 @@ const allDataMenus= ["ALL",...menusList];
       axios(config)
         .then(function (response) {
           if (response.status === 200) {
-            // const newPermissions = response.data.data[0].permission;
             // currentUser.data[0].permission = values.permission;
             //  setCurrentUser(currentUser);
-            // console.log(values.permission,"permission");
 
            openNotificationWithIcon(
                                   'success',
                                   'Permission Update Successfully'
                               );
-              //                 if(currentUser.data[0].permission === "ALL"){
-              //                   navigate("/admin-dashboard");
-              //                 }else if (currentUser.data[0].permission === "Overall Schools"){
-              //                   navigate("/institution");
-              //                 }else if (currentUser.data[0].permission === "Dashboard"){
-              //                   navigate("/admin-dashboard");
-              //                 }else if (currentUser.data[0].permission === "PopUp"){
-              //                     navigate("/popup");
-                                  
-              //                 }else if (currentUser.data[0].permission === "Resource"){
-              //                   navigate("/adminresources");
-                                
-              //               }else if (currentUser.data[0].permission === "State Specific"){
-              //                 navigate("/state-wise");
-                              
-              //             }else if (currentUser.data[0].permission === "SUPPORT"){
-              //               navigate("/admin-support");
-                            
-              //           }else if (currentUser.data[0].permission === "Mentors"){
-              //             navigate("/mentors");
-                          
-              //         }else if (currentUser.data[0].permission === "Teams"){
-              //           navigate("/teams");
-              //       }else if (currentUser.data[0].permission === "Students"){
-              //         navigate("/students");
-                      
-              //     }else if (currentUser.data[0].permission === "Admins"){
-              //       navigate("/admins");
-                    
-              //   }else if (currentUser.data[0].permission === "Bulk Email"){
-              //     navigate("/emailList");
-                  
-              // }else{
-              //   navigate("/reports");
-              // }
                               navigate('/admins');
           }
         })
