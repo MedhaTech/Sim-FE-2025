@@ -37,12 +37,12 @@ const AdminSidebarData = () => {
           permission: "PopUp",
         },
         {
-          label: "Resource",
+          label: "Resources",
           link: "/adminresources",
           icon: <Icon.FilePlus />,
           showSubRoute: false,
           submenu: false,
-          permission: "Resource",
+          permission: "Resources",
         },
         {
           label: "Latest News",

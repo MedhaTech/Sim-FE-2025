@@ -319,7 +319,7 @@ const [selectstate, setSelectState] = React.useState(
                                                         File
 
                                                     </Label>
-                                                    <div className="d-flex align-items-center">
+                                                    <div >
                                                         <input
                                                             type="file"
                                                             id="attachments"
@@ -372,7 +372,7 @@ const [selectstate, setSelectState] = React.useState(
                                                             .attachments &&
                                                         formik.values.attachments
                                                             .name ? (
-                                                            <span className="ml-2">
+                                                            <span className="ml-2 p-3">
                                                                 {/* {
                                                                     formik.values
                                                                         .attachments
@@ -380,7 +380,7 @@ const [selectstate, setSelectState] = React.useState(
                                                                 } */}
                                                             </span>
                                                         ) : (
-                                                            <span className="ml-2">
+                                                            <span className="ml-2 p-3">
                                                                 {formik
                                                                     .initialValues
                                                                     .attachments &&
