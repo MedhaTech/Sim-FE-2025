@@ -720,8 +720,7 @@ ideaStatus===  null &&
                         <Link to="#" className="view-all d-flex align-items-center">
                         
                            { 
-                            ((loginState === "Tamil Nadu" && stuList === 2) || 
-                            (loginState !== "Tamil Nadu" && stuList === 1)) && IdeaStatus === 'No Idea' &&(
+                           stuList === 2 && IdeaStatus === 'No Idea' &&(
                             <button
                               className="btn btn-danger btn-sm"
                               onClick={() => handleDeleteTeam(selectedTeam)}
@@ -791,8 +790,7 @@ ideaStatus===  null &&
                                       
                                          )} */}
                                          {
-  ((loginState === "Tamil Nadu" && stuList > 2) || 
-   (loginState !== "Tamil Nadu" && stuList > 1)) &&
+  stuList > 2 &&
   IdeaStatus === 'No Idea' && (
     <OverlayTrigger placement="top" overlay={renderSwitchTooltip}>
       <Link

@@ -6,7 +6,18 @@ export const languageOptions=['English','Hindi-हिन्दी',
   'Kannada-ಕೆನಡಾ',
   'Malayalam-മലയാളം',
   'Other Language'];
- export const menusList= ["Overall Schools","PopUp","Resource","Latest News","State Specific","Support", "Mentors","Teams","Students","Admins","Reports","Bulk Email",];
+   export const menuRoutes = {
+    "All": "/admin-dashboard", 
+     "Dashboard": "/admin-dashboard",
+    "Overall Schools": "/institution",
+    "PopUp": "/popup",
+    "State Specific": "/state-wise",
+    "SUPPORT": "/admin-support",
+    "Mentors":"/mentors",
+    "Reports": "/reports",
+    "Bulk Email": "/emailList",
+};
+ export const menusList= ["Overall Schools","PopUp","Resource","Latest News","State Specific","SUPPORT", "Mentors","Teams","Students","Admins","Reports","Bulk Email",];
 export const stateList = [
   "Andaman and Nicobar Islands",
   "Andhra Pradesh",

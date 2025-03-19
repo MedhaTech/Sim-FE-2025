@@ -738,10 +738,11 @@ if(formData?.verified_status === "ACCEPTED"){
           axios(config)
               .then(function (response) {
                   if (response.status === 200) {
-                      // console.log(response,"ress");
                       if (response.data.data === "INVALID") {
                         // console.log(response.data.data,"response.data.data");
                         setPrototypeLink("");
+                        setVerifySubmitt(false);
+
                         openNotificationWithIcon("error", response.data.message);
                       }else{
                         // setPrototypeLink(item); 
@@ -762,7 +763,7 @@ if(formData?.verified_status === "ACCEPTED"){
     const match = url.match(regex);
     return match ? match[1] : null;
   };
-  
+  console.log(verfiySubmitt,"vvvvv",prototypeLink,"LLLL");
   const handleInputChange = (e) => {
     const link = e.target.value;
     // setTempLink(link);

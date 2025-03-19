@@ -30,18 +30,45 @@ const Sidebar = () => {
   };
   // const SidebarData = useMemo(() => getAdminSidebarData(), []);
  
-  const SidebarData = useMemo(() => {
-    const userPermission = currentUser?.data[0]?.permission;
+  // const SidebarData = useMemo(() => {
+  //   const userPermission = currentUser?.data[0]?.permission;
   
+  //   return getAdminSidebarData().map((menu) => ({
+  //     ...menu,
+  //     submenuItems: menu.submenuItems.filter((item) =>
+  //       userPermission === "SUPPORT"
+  //         ? item?.permission === "SUPPORT"
+  //         : true
+  //     ),
+  //   }));
+  // }, [currentUser]);
+ 
+  const SidebarData = useMemo(() => {
+    const userPermission = currentUser?.data[0]?.permission; 
+    const storedPermissions = JSON.parse(localStorage.getItem("permissions")) || [];
+
     return getAdminSidebarData().map((menu) => ({
-      ...menu,
-      submenuItems: menu.submenuItems.filter((item) =>
-        userPermission === "SUPPORT"
-          ? item?.permission === "SUPPORT"
-          : true
-      ),
+        ...menu,
+        submenuItems: menu.submenuItems.filter((item) => {
+            if (userPermission === "ALL") return true; // Display all menus if permission is 'ALL'
+            return storedPermissions.includes(item.permission) || item.permission === userPermission;
+        }),
     }));
-  }, [currentUser]);
+}, [currentUser]);
+
+//   const SidebarData = useMemo(() => {
+//     const userPermission = currentUser?.data[0]?.permission;
+//     const storedPermissions = JSON.parse(localStorage.getItem("permissions")) || [];
+
+//     return getAdminSidebarData().map((menu) => ({
+//         ...menu,
+//         submenuItems: menu.submenuItems.filter((item) => {
+//             if (userPermission === "ALL") return true; // Show all for "ALL"
+//             return storedPermissions.includes(item.label) || item?.permission === userPermission;
+//         }),
+//     }));
+// }, [currentUser]);
+
    
   return (
     <div>

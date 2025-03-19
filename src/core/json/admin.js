@@ -17,6 +17,7 @@ const AdminSidebarData = () => {
           icon: <Icon.Grid />,
           showSubRoute: false,
           submenu: false,
+          permission: "Dashboard",
         },
         {
           label: "Overall Schools",
@@ -24,6 +25,7 @@ const AdminSidebarData = () => {
           icon: <Icon.Home />,
           showSubRoute: false,
           submenu: false,
+          permission: "Overall Schools",
         },
 
         {
@@ -32,6 +34,7 @@ const AdminSidebarData = () => {
           icon: <Icon.Star />,
           showSubRoute: false,
           submenu: false,
+          permission: "PopUp",
         },
         {
           label: "Resource",
@@ -39,6 +42,7 @@ const AdminSidebarData = () => {
           icon: <Icon.FilePlus />,
           showSubRoute: false,
           submenu: false,
+          permission: "Resource",
         },
         {
           label: "Latest News",
@@ -46,6 +50,8 @@ const AdminSidebarData = () => {
           icon: <Icon.Bell />,
           showSubRoute: false,
           submenu: false,
+          permission: "Latest News",
+          
         },
         {
           label: "State Specific",
@@ -53,6 +59,7 @@ const AdminSidebarData = () => {
           icon: <Icon.Settings />,
           showSubRoute: false,
           submenu: false,
+          permission: "State Specific",
         },
         {
           label: "Support",
@@ -68,6 +75,7 @@ const AdminSidebarData = () => {
           icon: <Icon.Users />,
           showSubRoute: false,
           submenu: false,
+          permission: "Mentors",
         },
         {
           label: "Teams",
@@ -75,6 +83,7 @@ const AdminSidebarData = () => {
           icon: <Icon.UserPlus />,
           showSubRoute: false,
           submenu: false,
+          permission: "Teams",
         },
         {
           label: "Students",
@@ -82,6 +91,7 @@ const AdminSidebarData = () => {
           icon: <Icon.UserCheck />,
           showSubRoute: false,
           submenu: false,
+          permission: "Students",
         },
         {
           label: "Admins",
@@ -89,6 +99,7 @@ const AdminSidebarData = () => {
           icon: <Icon.User />,
           showSubRoute: false,
           submenu: false,
+          permission: "Admins",
         },
         {
           label: "Reports",
@@ -96,6 +107,7 @@ const AdminSidebarData = () => {
           icon: <Icon.Database />,
           showSubRoute: false,
           submenu: false,
+          permission: "Reports",
         },
        
         {
@@ -104,6 +116,7 @@ const AdminSidebarData = () => {
           icon: <Icon.Mail />,
           showSubRoute: false,
           submenu: false,
+          permission: "Bulk Email",
         }
       ],
     },
