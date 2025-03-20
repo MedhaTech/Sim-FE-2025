@@ -48,29 +48,65 @@ const GreetingModal = (props) => {
     >
       {/* <Modal.Header closeButton></Modal.Header> */}
 
-      <Modal.Body>
+      {/* <Modal.Body>
         <figure>
-          {props.poptype === "link" ? (
+          {props.youtube && (
             <div className="modal-body custom-modal-body">
               <div style={{ width: "100%", height: "400px" }}>
                 <iframe
-                  src={props.popLink}
+                  src={props.youtube
+                    .replace("youtu.be/", "www.youtube.com/embed/")
+                    .replace("watch?v=", "embed/")
+                    .split("&")[0]}
                   title="Video popup"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 ></iframe>
               </div>
             </div>
-          ) : (
-            <img src={props.imgUrl} alt="popup image" className="img-fluid" />
+        
           )}
-          {/* <img
-                      src={props.imgUrl}
-                      alt="popup image"
-                      className="img-fluid"
-                  /> */}
+          { props.image && (
+            <img src={props.image} alt="popup image" className="img-fluid" />)}
         </figure>
-      </Modal.Body>
+      </Modal.Body> */}
+      <Modal.Body>
+    <figure>
+        <div className="row">
+            {/* YouTube Video Section */}
+            {props.youtube && (
+                <div className="col-md-6">
+                    <div className="modal-body custom-modal-body">
+                        <div style={{ width: "100%", height: "400px" }}>
+                            <iframe
+                                src={props.youtube
+                                    .replace("youtu.be/", "www.youtube.com/embed/")
+                                    .replace("watch?v=", "embed/")
+                                    .split("&")[0]}
+                                title="Video popup"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            ></iframe>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Image Section */}
+            {props.imagedata && (
+                <div className="col-md-6 d-flex justify-content-center align-items-center"  style={{ height: "400px" }}>
+                    <img
+                        src={props.imagedata}
+                        alt="popup image"
+                        className="img-fluid"
+                        style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "contain" }}
+                    />
+                </div>
+            )}
+        </div>
+    </figure>
+</Modal.Body>
+
       <Modal.Footer>
         {props.state != null && (
           <Link to={props.state} type="button" className="product-img">
@@ -79,6 +115,34 @@ const GreetingModal = (props) => {
             </button>
           </Link>
         )}
+        {props.file && (
+    <a
+        href={props.file}
+        download
+        target="_blank"
+        rel="noopener noreferrer"
+        className="product-img"
+    >
+        <button className="btn btn-warning">
+          File
+        </button>
+    </a>
+)}
+
+{props.urlData && (
+    <a
+        href={props.urlData}
+        download
+        target="_blank"
+        rel="noopener noreferrer"
+        className="product-img"
+    >
+        <button className="btn btn-warning">
+          Link
+        </button>
+    </a>
+)}
+
       </Modal.Footer>
     </Modal>
   );
@@ -87,8 +151,7 @@ const GreetingModal = (props) => {
 const MentorDashboard = () => {
    const { t } = useTranslation();
   const [showsPopup, setShowsPopup] = useState(false);
-  const [imgUrl, setImgUrl] = useState("");
-  const [popLink, setPopLink] = useState("");
+  
   const [poptype, setPopType] = useState("");
 
   const [state, setState] = useState("");
@@ -119,6 +182,11 @@ const MentorDashboard = () => {
   const [whatsappLink, setWhatsappLink] = useState("");
 
   const [message, setMessage] = useState("");
+  
+  const [file, setFile] = useState("");
+  const [imagedata, setImageData] = useState("");
+  const [urlData, setUrlData] = useState("");
+  const [youtube, setYoutube] = useState("");
 
   useEffect(() => {
     const newListParam = encryptGlobal(
@@ -143,10 +211,13 @@ const MentorDashboard = () => {
         if (res.status === 200 && res.data.data[0]?.on_off === "1") {
           // console.log(res,"res");
           setShowsPopup(true);
-          setPopType(res?.data?.data[0]?.type);
+          // setPopType(res?.data?.data[0]?.type);
 
-          setPopLink(res?.data?.data[0]?.url);
-          setImgUrl(res?.data?.data[0]?.url);
+          setFile(res?.data?.data[0]?.file);
+          setImageData(res?.data?.data[0]?.image);
+          setUrlData(res?.data?.data[0]?.url);
+          setYoutube(res?.data?.data[0]?.youtube);
+
           setState(res?.data?.data[0]?.navigate);
           localStorage.setItem("popupCount", popupCount + 1);
           // if(res?.data?.data[0]?.type == "link"){
@@ -449,9 +520,11 @@ const MentorDashboard = () => {
       <GreetingModal
         handleClose={handleClose}
         show={showsPopup}
-        imgUrl={imgUrl}
-        popLink={popLink}
-        poptype={poptype}
+        file={file}
+        imagedata={imagedata}
+        urlData={urlData}
+        youtube={youtube}
+
         state={state}
       ></GreetingModal>
       <div style={{ display: "none" }}>
