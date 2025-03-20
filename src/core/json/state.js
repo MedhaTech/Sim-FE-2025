@@ -21,7 +21,7 @@ const StateSidebarData = () => {
           submenu: false,
         },
          {
-                  label: "Resources",
+                  label: "Resource",
                   link: "/stateresources",
                   icon: <Icon.FilePlus />,
                   showSubRoute: false,

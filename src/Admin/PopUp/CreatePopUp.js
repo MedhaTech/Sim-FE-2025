@@ -13,16 +13,15 @@ import axios from "axios";
 // import { URL, KEY } from '../../constants/defaultValues';
 // import { staticData } from './index';
 import { stateList, userList, navList } from "../../RegPage/ORGData";
+import { encryptGlobal } from '../../constants/encryptDecrypt';
+
 const Createpopup = () => {
   const { t } = useTranslation();
   const currentUser = getCurrentUser("current_user");
   const [path, setPath] = useState([]);
   const allData = ["All States", ...stateList];
   const navigate = useNavigate();
-  // const inputDICE = {
-  //     type: 'text',
-  //    className:"form-control"
-  // };
+ 
 
   const fileHandler = (e) => {
     let file = e.target.files[0];
@@ -65,78 +64,162 @@ const Createpopup = () => {
       return;
     }
 
-    formik.setFieldValue("attachments", file);
+    formik.setFieldValue("file_name", file);
   };
-  const handleTypeChnage = () => {
-    formik.setFieldValue("attachments", "");
+  const fileHandler1 = (e) => {
+    let file = e.target.files[0];
+
+    if (!file) {
+      return;
+    }
+
+    let pattern = /^[a-zA-Z0-9_-\s]{0,}$/;
+    const fileName1 = file.name.split(".").slice(0, -1).join(".");
+    const isValidFileName = pattern.test(fileName1);
+
+    const maxFileSize = 10000000;
+    const isOverMaxSize = file.size > maxFileSize;
+    const allowedTypes = ["image/jpeg", "image/png"];
+    if (!allowedTypes.includes(file.type)) {
+      openNotificationWithIcon("error", t("Accepting only png,jpg,jpeg Only"));
+      return;
+    }
+
+    if (isOverMaxSize) {
+      openNotificationWithIcon("error", t("student.less_10MB"));
+      return;
+    }
+
+    if (!isValidFileName) {
+      openNotificationWithIcon(
+        "error",
+        "Only alphanumeric and '_' are allowed"
+      );
+      return;
+    }
+
+    formik.setFieldValue("image", file);
   };
+ 
 
   const formik = useFormik({
     initialValues: {
       role: "",
       navigate: "",
-      type: "",
+      youtube: "",
       state: "",
-      attachments: "",
+      file_name: "",
+      url: "",
+      image: "",
     },
     validationSchema: Yup.object({
       role: Yup.string().required("Role is Required"),
-      // .optional()
-      // .oneOf(['mentor', 'student'], 'Role is Required'),
+
       navigate: Yup.string().optional(),
       state: Yup.string().required("Please Select State"),
+      file_name: Yup.mixed(),
+      image: Yup.mixed(),
 
-      // .required(' is Required'),
-      type: Yup.string()
-        .optional()
-        .oneOf(["file", "link"]).required("Submission type is Required"),
-      attachments: Yup.string().required("Attachments are required"),
-      // attachments: Yup.mixed().when('type', {
-      //     is: (val) => val === 'file',
-      //     then: Yup.mixed().required('File is Required'),
-      //     otherwise: Yup.string().required('Link is Required')
-      // })
+      url: Yup.string(),
+      youtube: Yup.string(),
     }),
     onSubmit: async (values) => {
       try {
-        if (values.type === "file") {
-          const fileData = new FormData();
-          fileData.append("url", values.attachments);
+        // if (values.file_name !== "") {
+        //   const fileData = new FormData();
+        //   if (values.file_name) {
+        //     fileData.append("file", values.file_name);
+        // }
+    
+        // if (values.image) {
+        //     fileData.append("image", values.image);
+        // }
+    
+        // const fileParam = encryptGlobal(
+        //     JSON.stringify({
+        //         type :"file"
+        //     })
+        // );
+    
+        //   const response = await axios.post(
+        //     `${process.env.REACT_APP_API_BASE_URL}/popup/popupFileUpload?Data=${fileParam}`,
+        //     fileData,
+        //     {
+        //       headers: {
+        //         "Content-Type": "multipart/form-data",
+        //         Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+        //       },
+        //     }
+        //   );
+        //   console.log(response,"reee");
+        //   values.file_name = response?.data?.data[0].attachments[0].toString();
+        //   // values.image = response?.data?.data[0].attachments[0].toString();
 
-          const response = await axios.post(
-            `${process.env.REACT_APP_API_BASE_URL}/popup/popupFileUpload`,
-            fileData,
-            {
-              headers: {
+         
+        // }
+// Function to create fileParam dynamically
+const getFileParam = (type) => encryptGlobal(JSON.stringify({ type }));
+
+if (values.file_name !== "") {
+    const fileData = new FormData();
+    fileData.append("file", values.file_name);
+
+    const fileParam = getFileParam("file");
+
+    const fileResponse = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/popup/popupFileUpload?Data=${fileParam}`,
+        fileData,
+        {
+            headers: {
                 "Content-Type": "multipart/form-data",
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`,
-              },
-            }
-          );
-          // console.log(response,"reee");
-          values.attachments =
-            response?.data?.data[0].attachments[0].toString();
-          // if (response.status === 200) {
-          //     openNotificationWithIcon(
-          //       'success',
-          //       'File Uploaded Successfully'
-          //     );
-          //   } else {
-          //     openNotificationWithIcon('error', 'Opps! Something Wrong');
-          //   }
+            },
         }
+    );
+
+    values.file_name = fileResponse?.data?.data[0]?.attachments[0]?.toString();
+}
+
+if (values.image !== "") {
+    const imageData = new FormData();
+    imageData.append("image", values.image);
+
+    const imageParam = getFileParam("image");
+
+    const imageResponse = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/popup/popupFileUpload?Data=${imageParam}`,
+        imageData,
+        {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+            },
+        }
+    );
+
+    values.image = imageResponse?.data?.data[0]?.attachments[0]?.toString();
+}
 
         const body = {
           role: values.role,
-          type: values.type,
           state: values.state,
-          url: values.attachments,
           on_off: "0",
         };
+        if (values.file_name !== "") {
+          body["file"] = values.file_name;
+        }
+        if (values.image !== "") {
+          body["image"] = values.image;
+        }
+        if (values.url !== "") {
+          body["url"] = values.url;
+        }
+        if (values.youtube !== "") {
+          body["youtube"] = values.youtube;
+        }
         if (values.navigate !== "") {
           body["navigate"] = values.navigate;
         }
-        // console.log(body,"body");
         const response = await axios.post(
           `${process.env.REACT_APP_API_BASE_URL}/popup`,
           body,
@@ -151,11 +234,14 @@ const Createpopup = () => {
         if (response.status === 201) {
           navigate("/popup");
           openNotificationWithIcon("success", "PopUp Created Successfully");
-        } 
+        }
       } catch (error) {
         //console.log(error.response.status);
         if (error.response.status === 420) {
-          openNotificationWithIcon("error", "PopUp for this State & Role already exists");
+          openNotificationWithIcon(
+            "error",
+            "PopUp for this State & Role already exists"
+          );
         }
       }
     },
@@ -212,25 +298,36 @@ const Createpopup = () => {
     setPath(navList[role] || []);
   };
   const buttonContainerStyle = {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
   };
   return (
     <div className="page-wrapper">
-       <h4 className="m-2" 
-        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
-        >PopUp
-        </h4>
+      <h4
+        className="m-2"
+        style={{
+          position: "sticky",
+          top: "70px",
+          zIndex: 1000,
+          padding: "10px",
+          backgroundColor: "white",
+          display: "inline-block",
+          color: "#fe9f43",
+          fontSize: "16px",
+        }}
+      >
+        PopUp
+      </h4>
       <div className="content">
-                <div className="page-header">
-                    <div className="add-item d-flex">
-                        <div className="page-title">
-                            <h4>Add PopUp</h4>
-                            <h6>You can add new PopUp by submitting details here</h6>
-                        </div>
-                    </div>
-                </div>
+        <div className="page-header">
+          <div className="add-item d-flex">
+            <div className="page-title">
+              <h4>Add PopUp</h4>
+              <h6>You can add new PopUp by submitting details here</h6>
+            </div>
+          </div>
+        </div>
         <div className="EditPersonalDetails new-member-page">
           <Row>
             <Col className="col-xl-10 offset-xl-1 offset-md-0">
@@ -239,7 +336,7 @@ const Createpopup = () => {
                   <div className="create-ticket register-block">
                     <FormGroup className="form-group" md={12}>
                       <Row className="mb-3 modal-body-table search-modal-header">
-                        <Col md={6}>
+                        <Col md={4}>
                           <Label className="mb-2" htmlFor="role">
                             Role
                             <span required>*</span>
@@ -267,10 +364,10 @@ const Createpopup = () => {
                             </small>
                           )}
                         </Col>
-                        <Col md={6}>
+                        <Col md={5}>
                           <Label className="form-label" htmlFor="state">
                             State
-                            <span required>*</span> 
+                            <span required>*</span>
                           </Label>
                           <select
                             id="inputState"
@@ -294,47 +391,7 @@ const Createpopup = () => {
                             </small>
                           ) : null}
                         </Col>
-                      </Row>
-                      <Row className="mb-3 modal-body-table search-modal-header">
-                        <Col md={6}>
-                          <Label className="mb-2" htmlFor="type">
-                            Type
-                            <span required>*</span>
-                          </Label>
-                          <select
-                            name="type"
-                            id="type"
-                            placeholder="Please select submission type"
-                            className="form-select"
-                            onChange={(e) => {
-                              formik.handleChange(e);
-                              handleTypeChnage();
-                            }}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.type}
-                            style={{
-                              color: formik.values.type ? "black" : "initial",
-                              fontWeight: formik.values.type
-                                ? "bold"
-                                : "normal",
-                            }}
-                          >
-                            <option disabled={true} value="">
-                              Select type
-                            </option>
-                            <option value="file">File</option>
-                            <option value="link">Link</option>
-                          </select>
-                          {formik.touched.type && formik.errors.type && (
-                            <small
-                              className="error-cls"
-                              style={{ color: "red" }}
-                            >
-                              {formik.errors.type}
-                            </small>
-                          )}
-                        </Col>
-                        <Col md={6}>
+                        <Col md={3}>
                           <Label className="mb-2" htmlFor="navigate">
                             Navigate Menu
                           </Label>
@@ -367,89 +424,147 @@ const Createpopup = () => {
                               </small>
                             )}
                         </Col>
-                        {formik.values.type === "file" && (
-                          <>
-                            <Label className="mb-2 mt-4" htmlFor="attachments">
-                              File
-                            </Label>
-                            <div>
-                              <input
-                                type="file"
-                                id="attachments"
-                                className="form-control"
-                                name="attachments"
-                                style={{
-                                  display: "none",
-                                }}
-                                accept="image/jpeg,image/png,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                                onChange={(e) => fileHandler(e)}
-                                onBlur={formik.handleBlur}
-                              />
-                              <Button
-                                label="Upload File"
-                                btnClass="primary m-2"
-                                size="small"
-                                onClick={() => {
-                                  document
-                                    .getElementById("attachments")
-                                    .click();
-                                }}
-                              />
-                              {formik.values.attachments &&
-                              formik.values.attachments.name ? (
-                                <span className="ml-2 p-3">
-                                  {formik.values.attachments.name}
-                                </span>
-                              ) : (
-                                <span className="ml-2 p-3">
-                                  {formik.initialValues.attachments &&
-                                    formik.initialValues.attachments.name}
-                                </span>
-                              )}
-                            </div>
-                            {formik.touched.attachments &&
-                              formik.errors.attachments && (
-                                <small
-                                  className="error-cls"
-                                  style={{ color: "red" }}
-                                >
-                                  {formik.errors.attachments}
-                                </small>
-                              )}
-                          </>
-                        )}
-
-                        {formik.values.type === "link" && (
-                          <FormGroup
-                            className="form-group"
-                            // md={6}
-                          >
-                            <Col md={12}>
-                              <Label className="mb-2 mt-4" htmlFor="attachments">
-                                Link
-                              </Label>
-                              <input
-                                type="text"
-                                name="attachments"
-                                id="attachments"
-                                className="form-control"
-                                placeholder="Please share 'Embedded link' of the video"
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.attachments}
-                              />
-                              {formik.touched.attachments &&
-                                formik.errors.attachments && (
-                                  <small
-                                    className="error-cls"
-                                    style={{ color: "red" }}
-                                  >
-                                    {formik.errors.attachments}
-                                  </small>
-                                )}
-                            </Col>
-                          </FormGroup>
-                        )}
+                      </Row>
+                      <Row className="mb-3 modal-body-table search-modal-header">
+                        
+                        <Col md={6}>
+                          <Label className="mb-2 mt-4" htmlFor="file_name">
+                            File
+                          </Label>
+                          {/* <div> */}
+                          <input
+                            type="file"
+                            id="file_name"
+                            className="form-control"
+                            name="file_name"
+                            style={{
+                              display: "none",
+                            }}
+                            accept="image/jpeg,image/png,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                            onChange={(e) => fileHandler(e)}
+                            onBlur={formik.handleBlur}
+                          />
+                          <Button
+                            label="Upload File"
+                            btnClass="primary m-2"
+                            size="small"
+                            onClick={() => {
+                              document.getElementById("file_name").click();
+                            }}
+                          />
+                          {formik.values.file_name &&
+                          formik.values.file_name.name ? (
+                            <span className="ml-2 p-3">
+                              {formik.values.file_name.name}
+                            </span>
+                          ) : (
+                            <span className="ml-2 p-3">
+                              {formik.initialValues.file_name &&
+                                formik.initialValues.file_name.name}
+                            </span>
+                          )}
+                          {/* </div> */}
+                          {formik.touched.file_name &&
+                            formik.errors.file_name && (
+                              <small
+                                className="error-cls"
+                                style={{ color: "red" }}
+                              >
+                                {formik.errors.file_name}
+                              </small>
+                            )}
+                        </Col>
+                        <Col md={6}>
+                          <Label className="mb-2 mt-4" htmlFor="file_name">
+                            Image
+                          </Label>
+                          {/* <div> */}
+                          <input
+                            type="file"
+                            id="image"
+                            className="form-control"
+                            name="image"
+                            style={{
+                              display: "none",
+                            }}
+                            accept="image/jpeg,image/png"
+                            onChange={(e) => fileHandler1(e)}
+                            onBlur={formik.handleBlur}
+                          />
+                          <Button
+                            label="Upload Image"
+                            btnClass="primary m-2"
+                            size="small"
+                            onClick={() => {
+                              document.getElementById("image").click();
+                            }}
+                          />
+                          {formik.values.image && formik.values.image.name ? (
+                            <span className="ml-2 p-3">
+                              {formik.values.image.name}
+                            </span>
+                          ) : (
+                            <span className="ml-2 p-3">
+                              {formik.initialValues.image &&
+                                formik.initialValues.image.name}
+                            </span>
+                          )}
+                          {/* </div> */}
+                          {formik.touched.image && formik.errors.image && (
+                            <small
+                              className="error-cls"
+                              style={{ color: "red" }}
+                            >
+                              {formik.errors.image}
+                            </small>
+                          )}
+                        </Col>
+                        <Col md={12}>
+                          <Label className="mb-2 mt-4" htmlFor="youtube">
+                            Video
+                          </Label>
+                          <input
+                            type="text"
+                            name="youtube"
+                            id="youtube"
+                            className="form-control"
+                            placeholder="Please share the video link"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.youtube}
+                          />
+                          {formik.touched.youtube && formik.errors.youtube && (
+                            <small
+                              className="error-cls"
+                              style={{ color: "red" }}
+                            >
+                              {formik.errors.youtube}
+                            </small>
+                          )}
+                        </Col>
+                        <Col md={12}>
+                          <Label className="mb-2 mt-4" htmlFor="attachments">
+                            Link
+                          </Label>
+                          <input
+                            type="text"
+                            name="url"
+                            id="url"
+                            className="form-control"
+                            placeholder="Please share your Link"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.url}
+                          />
+                          {formik.touched.url && formik.errors.url && (
+                            <small
+                              className="error-cls"
+                              style={{ color: "red" }}
+                            >
+                              {formik.errors.url}
+                            </small>
+                          )}
+                        </Col>
                       </Row>
                     </FormGroup>
                   </div>
@@ -487,8 +602,8 @@ const Createpopup = () => {
                                        
                                     </Col>
                                 </Row> */}
-                  <Row >
-                  <div style={buttonContainerStyle} className='mt-3'>
+                  <Row>
+                    <div style={buttonContainerStyle} className="mt-3">
                       <button
                         label="Submit details"
                         type="submit"
@@ -509,7 +624,7 @@ const Createpopup = () => {
                       >
                         Discard
                       </button>
-                      </div>
+                    </div>
                   </Row>
                 </Form>
               </div>
