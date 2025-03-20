@@ -119,6 +119,7 @@ const[extractId,setExtractId]=useState("");
   // console.log(props?.theme !== "" && props?.theme !== undefined ? "true" : "false" );
   // console.log(formData?.theme ,"form");
   const[verfiySubmitt,setVerifySubmitt]=useState(false);
+  
 
   const [focusarea, setFocusArea] = useState(formData?.focus_area);
   const [files, setFiles] = useState([]);
@@ -303,6 +304,10 @@ const[extractId,setExtractId]=useState("");
     setFiles(upload);
     setImmediateLink(null);
   };
+  useEffect(()=>{
+    setVerifySubmitt(false);
+   
+  },[prototypeLink]);
   const removeFileHandler = (i) => {
     const fileAdded = [...files];
     fileAdded.splice(i, 1);
