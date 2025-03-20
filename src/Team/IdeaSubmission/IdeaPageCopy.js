@@ -702,6 +702,9 @@ const[extractId,setExtractId]=useState("");
     setIsDisabled(false);
     scroll();
   };
+  useEffect(()=>{
+setVerifySubmitt(false);
+  },[prototypeLink]);
   const comingSoonText = t("dummytext.student_idea_sub");
   // const acceptedParamfileTypes =>
   //     'Accepting only png,jpg,jpeg,pdf,mp4,doc,docx Only, file size should be below 10MB';
