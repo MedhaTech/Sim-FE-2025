@@ -181,7 +181,7 @@ if (
             mentorData?.evaluator_id
               ? dispatch(getAdminEvalutorsList())
               : mentorData?.admin_id && dispatch(getAdmin());
-            openNotificationWithIcon("success", "Updated Successfully");
+            openNotificationWithIcon("success", "Language and Theme are Updated Successfully");
             setTimeout(() => {
               navigate("/eadmin/evaluator");
             }, 200);

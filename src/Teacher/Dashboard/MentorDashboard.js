@@ -36,6 +36,7 @@ import { Modal } from "react-bootstrap";
 import Swal from "sweetalert2/dist/sweetalert2";
 import logout from "../../assets/img/support.png";
 import FeatherIcon from "feather-icons-react";
+import MultiTeacher from "./MultiTeacher";
 const GreetingModal = (props) => {
   return (
     <Modal
@@ -117,8 +118,12 @@ const MentorDashboard = () => {
   const [teacCourseLoading, setTeacCourseLoading] = useState(true);
   const [teacPostSLoading, setTeacPostSLoading] = useState(true);
   const [whatsappLink, setWhatsappLink] = useState("");
-
+const [courseData, setCourseData] = useState("");
   const [message, setMessage] = useState("");
+const [postdata,setPostData]=useState("");
+const [teamdata,setTeamData]=useState("");
+const [stuData,setStuData]=useState("");
+
 
   useEffect(() => {
     const newListParam = encryptGlobal(
@@ -220,6 +225,8 @@ const MentorDashboard = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
+          // console.log(response,"team");
+          
           setTeamsCount(response.data.data[0].teams_count);
           setTeamCountLoading(false);
         }
@@ -312,6 +319,7 @@ const MentorDashboard = () => {
               100
           );
           setCoursepercentage(per);
+          setCourseData(per === 100 ? "Completed" :"Not Started");
           setTeacCourseLoading(false);
         }
       })
@@ -339,9 +347,11 @@ const MentorDashboard = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response);
+          console.log(response,"post");
           const po = response.data.data[0].postSurvey;
           setTeacPostSurvey(po);
+          setPostData(response.data.data[0].postSurvey !== "INCOMPLETED" ? "Completed":"Not Stated");
+
           setTeacPostSLoading(false);
         }
       })
@@ -479,6 +489,7 @@ const MentorDashboard = () => {
                   {t('teacherJourney.heading')}
                 </h6>
               </div>
+            
               <div className="d-flex align-items-center">
                 <div className="action-table-data">
                   <div className="edit-delete-action">
@@ -505,6 +516,14 @@ const MentorDashboard = () => {
                 </Link>
               </OverlayTrigger> */}
               </div>
+            </div>
+            <div className="col-xl-12 col-sm-12 col-12 d-flex">
+              <MultiTeacher   
+        postdata={postdata} 
+        teamsCount={teamsCount}
+        studentCount={studentCount}
+
+        courseData={courseData}  />
             </div>
             {/* Teacher dashboard stats */}
             <div className="row">

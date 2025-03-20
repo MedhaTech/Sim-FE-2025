@@ -125,7 +125,7 @@ const allDataThemes= ["All Themes",...themesList];
           if (response.status === 200) {
            openNotificationWithIcon(
                                   'success',
-                                  'Theme and  Update Successfully'
+                                  'Language and Theme are Updated Successfully'
                               );
                               navigate('/eadmin/evaluationProcess');
           }
