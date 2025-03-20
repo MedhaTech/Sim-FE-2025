@@ -32,6 +32,7 @@ import axios from 'axios';
 import { Modal } from 'react-bootstrap';
 
 import LanguageSelectorComp from '../../components/LanguageSelectorComp/index.js';
+import MultiProgressBar from "./Multiprogessbar.js";
 const GreetingModal = (props) => {
   return (
     <Modal
@@ -108,6 +109,8 @@ const DBStu = () => {
   const [stuPostSurvey, setStuPostSurvey] = useState("");
   const [stuPreSurvey, setStuPreSurvey] = useState("");
   const [stuIdeaSub, setStuIdeaSub] = useState("");
+  const [courseData, setCourseData] = useState("");
+
   const [coursepercentage, setCoursepercentage] = useState();
   const [video, setVideo] = useState("");
   const [message, setMessage] = useState("");
@@ -217,7 +220,9 @@ const DBStu = () => {
   const [badges, setBadges] = useState(0);
   const [quiz, setQuiz] = useState(0);
   const [videos, setVideos] = useState(0);
-
+const [predata,setPreData]=useState("");
+const [postdata,setPostData]=useState("");
+console.log(predata,"pre");
   const handleNavigation = () => {
     navigate("/instructionstu", { state: { instruction: message } });
   };
@@ -278,9 +283,13 @@ const DBStu = () => {
           const po = (response.data.data[0].post_survey_completed_date);
           const pre = (response.data.data[0].pre_survey_completed_date);
           setStuPostSurvey(po);
+
           setStuPreSurvey(pre);
           setStuPostSLoading(false);
           setStuPreSLoading(false);
+          setPreData(response.data.data[0].pre_survey_completed_date !== null ? "Completed":"Not Stated");
+          setPostData(response.data.data[0].post_survey_completed_date !== null ? "Completed":"Not Stated");
+
         }
       })
       .catch(function (error) {
@@ -367,6 +376,7 @@ const DBStu = () => {
           // }
           // console.log(per);
           setCoursepercentage(per);
+          setCourseData(per === 100 ? "Completed" :"Not Started");
           setStuCourseLoading(false);
         }
       })
@@ -374,7 +384,7 @@ const DBStu = () => {
         console.log(error);
       });
   };
-
+console.log(courseData,"%%");
   const stuBadgesCount = () => {
     const badgeApi = encryptGlobal(
       JSON.stringify({
@@ -464,6 +474,7 @@ const DBStu = () => {
   const handleClose = () => {
     setShowsPopup(false);
   };
+  console.log(stuPostSurvey,"post");
   return (
     <>
       <GreetingModal
@@ -485,12 +496,19 @@ poptype={poptype}
 
               <h6> here&apos;s what&apos;s happening with your School Innovation Marathon 2025 today.</h6>
             </div>
+           
             {/* <div className="d-flex align-items-center">
               <div className="dropdown">
                   <LanguageSelectorComp module="student" />
               </div>
             </div> */}
           </div>
+          <div className="col-xl-12 col-sm-12 col-12 d-flex">
+              <MultiProgressBar  predata={predata} 
+        postdata={postdata} 
+        stuIdeaSub={stuIdeaSub}
+        courseData={courseData}  />
+            </div>
           <div className="row sales-cards">
             <div className="col-xl-3 col-sm-6 col-12">
               <div className="card color-info bg-success mb-4 ">
@@ -937,6 +955,16 @@ poptype={poptype}
             <div className="col-xl-6 col-sm-12 col-12 d-flex">
               <LatestNews />
             </div>
+           
+
+
+            
+            {/* <div className="col-xl-6 col-sm-12 col-12 d-flex">
+              <MultiStepProgressBar predata={predata} 
+        postdata={postdata} 
+        stuIdeaSub={stuIdeaSub}
+        courseData={courseData}  />
+            </div> */}
           </div>
 
         </div>
