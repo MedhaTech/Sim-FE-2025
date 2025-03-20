@@ -19,7 +19,12 @@ import Swal from 'sweetalert2/dist/sweetalert2';
 import logout from '../../assets/img/logout.png';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import 'sweetalert2/src/sweetalert2.scss';
+import { FaFilePdf } from "react-icons/fa6";
+import { PiImageFill } from "react-icons/pi";
+import { IoLogoYoutube } from "react-icons/io";
+import { IoDocumentText } from "react-icons/io5";
 import { AlertOctagon,PlusCircle, Check} from 'feather-icons-react/build/IconComponents';
+import { FaExternalLinkAlt } from "react-icons/fa";
 const AdminResources = () => {
     const navigate = useNavigate();
     const [resList, setResList] = useState([]);
@@ -69,7 +74,7 @@ const AdminResources = () => {
             {
                 name: 'Role',
                 selector: (row) => row.role,
-                width: '7rem',
+                width: '6rem',
                 sortable: true,
                 // center: true,
             },{
@@ -82,8 +87,8 @@ const AdminResources = () => {
             },
             {
                 name: 'Path',
-                selector: (row) => row.navigate,
-                width: '10rem'
+                selector: (row) => row.navigate ? row.navigate : "-",
+                width: '8rem'
             },
          
             // {
@@ -92,37 +97,128 @@ const AdminResources = () => {
             //     width: '25%'
             // },
             {
-                name: 'Attachment',
-                width: '8rem',
+                name: 'File',
+                width: '9rem',
                 cell: (record) => {
-                    if (record.type === 'file') {
+                    if (!record.file) {
+                        return <p>No file</p>;
+                    }
+            
+                    const fileExtension = record.file.split('.').pop().toLowerCase();
+                    const isLink = !record.file.match(/\.(png|jpg|jpeg|gif|pdf|doc|docx|xls|xlsx|ppt|pptx|txt)$/);
+            
+                    const getFileViewerURL = (url, extension) => {
+                        if (isLink) {
+                            return url; 
+                        } else if (['pdf'].includes(extension)) {
+                            return `https://docs.google.com/gview?url=${encodeURIComponent(url)}&embedded=true`;
+                        } else if (['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'].includes(extension)) {
+                            return `https://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(url)}`;
+                        } else if (['png', 'jpg', 'jpeg', 'gif'].includes(extension)) {
+                            return url; 
+                        }
+                        return url; 
+                    };
+            
+                    const getFileIcon = (extension, isLink) => {
+                        if (isLink) {
+                            return <IoLogoYoutube size={"25"} style={{ color: "red" }} />;
+                        }
+                        switch (extension) {
+                            case 'png':
+                            case 'jpg':
+                            case 'jpeg':
+                            case 'gif':
+                                return <PiImageFill size={"25"} style={{ color: "#fe9f43" }} />;
+                            case 'pdf':
+                                return <FaFilePdf size={"25"} style={{ color: "red" }} />;
+                            case 'doc':
+                            case 'docx':
+                                return <IoDocumentText size={"25"} style={{ color: "skyblue" }} />;
+                            default:
+                                return <i className="fas fa-file" style={{ color: "black" }}></i>;
+                        }
+                    };
+            
+                    return (
+                        <a
+                            href={getFileViewerURL(record.file, fileExtension)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="badge badge-md bg-light"
+                        >
+                            {getFileIcon(fileExtension, isLink)}
+                        </a>
+                    );
+                }
+            },
+            
+            {
+                name: 'Image',
+                width: '9rem',
+                cell: (record) => {
+                    if (!record.image) {
+                        return <p>No image</p>;
+                    }
+            
+                    const fileExtension = record.image.split('.').pop().toLowerCase();
+                    const isImage = ['png', 'jpg', 'jpeg', 'gif'].includes(fileExtension);
+            
+                    return (
+                        <a
+                            href={record.image}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="badge badge-md bg-light"
+                        >
+                            {isImage ? (
+                                <PiImageFill size={"25"} style={{ color: "#fe9f43" }} />
+                            ) : (
+                                <i className="fas fa-file" style={{ color: "black" }}></i>
+                            )}
+                        </a>
+                    );
+                }
+            },
+            
+            {
+                name: 'Link',
+                width: '9rem',
+                cell: (record) => {
+                    if (record.url === null || record.url === "") {
+                        return <p>No link</p>;
+                    } else {
                         return (
-                            
-                                <a
-                                    href={record.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="badge badge-md bg-light"
-                                >
-                                   <i className="fas fa-file-lines" style={{color:"blue"}}></i>
-                                </a>
-                            
-                        );
-                    } else if (record.type === 'link') {
-                        return (
-                            
-                                <a
-                                    href={record.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="badge badge-md bg-light"
-                                >
-                                    <i className="fa-brands fa-youtube" style={{color:"red"}}></i>
-                                </a>
-                           
+                            <a
+                            href={record.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="badge badge-md bg-light"
+                        >
+                             <FaExternalLinkAlt  size={"20"} style={{ color: "black" }} />
+                        </a>
                         );
                     }
-                    return null;
+                }
+            },
+            {
+                name: 'Video',
+                width: '9rem',
+                cell: (record) => {
+                    if (record.youtube === null || record.youtube === "") {
+                        return <p>No video</p>;
+                    } else {
+                        return (
+                            <a
+                            href={record.youtube}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="badge badge-md bg-light"
+                        >
+                            <i className="fa-brands fa-youtube" style={{color:"red"}}></i>
+                        </a>
+                        );
+                    }
                 }
             },
             {
