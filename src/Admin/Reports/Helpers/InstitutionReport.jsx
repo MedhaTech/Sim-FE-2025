@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from "react";
@@ -53,12 +54,10 @@ const InstitutionReport = () => {
   const newstateList = ["All States", ...stateList];
   // const categoryData =
   //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
-  const [mentorDetailedReportsData, setmentorDetailedReportsData] = useState(
-    []
-  );
+ 
   const [doughnutChartData, setDoughnutChartData] = useState(null);
   const [doughnutChartDataTN, setDoughnutChartDataTN] = useState(null);
-
+  const [isCustomizationEnabled, setIsCustomizationEnabled] = useState(false);
   const csvLinkRef = useRef();
   const csvLinkRefTable = useRef();
   const dispatch = useDispatch();
@@ -78,7 +77,7 @@ const InstitutionReport = () => {
   const [series7, setseries7] = useState([]);
   const [chartTableData, setChartTableData] = useState([]);
   const [chartTableData1, setChartTableData1] = useState([]);
-
+  const [modifiedChartTableData, setModifiedChartTableData] = useState([]);
   const [downloadComplete, setDownloadComplete] = useState(false);
   const [registeredGenderChartData, setRegisteredGenderChartData] =
     useState(null);
@@ -105,7 +104,8 @@ const InstitutionReport = () => {
   //   const [instTypeTNChartData, setInstTypeTNChartData] = useState(null);
 
   const [totalCount, setTotalCount] = useState([]);
-
+  const [showCustomization, setShowCustomization] = useState(false);
+  const [selectedHeaders, setSelectedHeaders] = useState([]);
   const tableHeaders = [
     {
       label: "District",
@@ -216,56 +216,48 @@ const InstitutionReport = () => {
       key: "mentor_reg",
     },
   ];
-  const chartOptions = {
-    maintainAspectRatio: false,
-    legend: {
-      position: "bottom",
-      labels: {
-        fontColor: "black",
-      },
-    },
-    plugins: {
-      legend: {
-        labels: {
-          generateLabels: function (chart) {
-            return chart.data.labels.map(function (label, i) {
-              const value = chart.data.datasets[0].data[i];
-              const backgroundColor = chart.data.datasets[0].backgroundColor[i];
-              return {
-                text: label + ": " + value,
-                fillStyle: backgroundColor,
-              };
-            });
-          },
-        },
-      },
-    },
+  const allHeaders = [
+    { label: "UDISE Code", key: "organization_code" },
+    { label: "School Name", key: "organization_name" },
+    { label: "School Type/Category", key: "category" },
+    { label: "State", key: "state" },
+    { label: "District", key: "district" },
+    { label: "City", key: "city" },
+    { label: "Address", key: "address" },
+    { label: "Pincode", key: "pin_code" },
+    { label: "Principal Name", key: "principal_name" },
+    { label: "Principal Mobile", key: "principal_mobile" },
+    { label: "Principal Email", key: "principal_email" },
+    { label: "Registration status", key: "registration_status" },
+    { label: "No of teachers registered", key: "mentor_reg" },
+  ];
+  const handleCheckboxChange = (key) => {
+    setSelectedHeaders((prevHeaders) => {
+      let updatedHeaders;
+      if (prevHeaders.includes(key)) {
+        updatedHeaders = prevHeaders.filter((header) => header !== key);
+      } else {
+        updatedHeaders = [...prevHeaders, key];
+      }
+  
+      return updatedHeaders;
+    });
   };
-  const chartOptionState = {
-    maintainAspectRatio: false,
-    legend: {
-      position: "bottom",
-      labels: {
-        fontColor: "black",
-      },
-    },
-    plugins: {
-      legend: {
-        labels: {
-          generateLabels: function (chart) {
-            return chart.data.labels.map(function (label, i) {
-              const value = chart.data.datasets[0].data[i];
-              const backgroundColor = chart.data.datasets[0].backgroundColor[i];
-              return {
-                text: label + ": " + value,
-                fillStyle: backgroundColor,
-              };
-            });
-          },
-        },
-      },
-    },
+  
+  
+  const handleSelectAll = () => {
+    setSelectedHeaders((prevHeaders) => {
+      const updatedHeaders =
+        prevHeaders.length === allHeaders.length ? [] : allHeaders.map((h) => h.key);
+  
+      return updatedHeaders;
+    });
   };
+  
+ 
+  
+ 
+
   useEffect(() => {
     fetchChartTableData();
     const newDate = new Date();
@@ -414,18 +406,30 @@ const InstitutionReport = () => {
             ...item,
             registration_status: item.mentor_reg !== 0 ? "Registered" : "Not Registered",
           }));
+         
+          const filteredData = modifiedChartTableData.map((item) => {
+            let filteredItem = {};
+            selectedHeaders.forEach((key) => {
+              console.log("🔹 Checking key:", key, "in item:", item);
+              if (key in item) {
+                filteredItem[key] = item[key] ?? ""; 
+              }
+            });
+            console.log("🔹 Filtered Item:", filteredItem);
+            return filteredItem;
+          });
+          setDownloadTableData(filteredData);
 
-          // Set the modified data for download
-          setDownloadTableData(modifiedChartTableData);
-          setChartTableData(modifiedChartTableData);
-
-          setDownloadTableData(modifiedChartTableData);
 
           if (response?.data?.count > 0) {
-            openNotificationWithIcon(
-              "success",
-              " Report Downloaded Successfully"
-            );
+           
+            setIsCustomizationEnabled(true);
+            // setTimeout(() => {
+            //   openNotificationWithIcon(
+            //     "success",
+            //     " Report Downloaded Successfully"
+            //   );
+            // }, 2000);
           } else {
             openNotificationWithIcon("error", "No Data Found");
           }
@@ -437,13 +441,17 @@ const InstitutionReport = () => {
         setIsDownload(false);
       });
   };
-  useEffect(() => {
-    if (chartTableData.length > 0) {
-      setDownloadTableData(chartTableData);
-      console.log("Performing operation with the updated data.");
-      csvLinkRef.current.link.click();
-    }
-  }, [chartTableData]);
+  console.log("🔍 modifiedChartTableData:", modifiedChartTableData);
+ 
+
+  
+  // useEffect(() => {
+  //   if (chartTableData.length > 0) {
+  //     setDownloadTableData(chartTableData);
+  //     console.log("Performing operation with the updated data.");
+  //     csvLinkRef.current.link.click();
+  //   }
+  // }, [chartTableData]);
 
   return (
     <div className="page-wrapper">
@@ -474,7 +482,7 @@ const InstitutionReport = () => {
         <Container className="RegReports userlist">
           <div className="reports-data mt-2 mb-2">
             <Row className="align-items-center mt-3 mb-2">
-              <Col md={3}>
+              <Col md={2}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
                   {/* <p>{selectstate}</p> */}
                   <Select
@@ -485,7 +493,7 @@ const InstitutionReport = () => {
                   />
                 </div>
               </Col>
-              <Col md={3}>
+              <Col md={2}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
                   <Select
                     list={fiterDistData}
@@ -495,7 +503,7 @@ const InstitutionReport = () => {
                   />
                 </div>
               </Col>
-              <Col md={3}>
+              <Col md={2}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
                   {selectstate === "Tamil Nadu" ? (
                     <Select
@@ -515,7 +523,7 @@ const InstitutionReport = () => {
                 </div>
               </Col>
               <Col
-                md={3}
+                md={2}
                 className="d-flex align-items-center justify-content-center"
               >
                 <button
@@ -530,19 +538,84 @@ const InstitutionReport = () => {
                 {downloadTableData && (
                   <CSVLink
                     data={downloadTableData}
-                    headers={summaryHeaders}
+                    // headers={summaryHeaders}
                     filename={`School_Registration_Status_Report_${newFormat}.csv`}
                     className="hidden"
                     ref={csvLinkRef}
-                  // onDownloaded={() => {
-                  //     setIsDownload(false);
-                  //     setDownloadComplete(true);
-                  // }}
+                 
                   >
                     Download Table CSV
                   </CSVLink>
                 )}
               </Col>
+              <Col md={2}>
+              <button
+                    onClick={() => setShowCustomization(!showCustomization)}
+                  type="button"
+                  disabled={!isCustomizationEnabled}
+                  className="btn btn-primary"
+                >
+                  Customization
+                </button>
+              </Col>
+              {showCustomization && (
+  <div className="card mt-3" style={{ width: "50%", padding: "20px" }}>
+    <div className="card-body">
+      <h5 className="card-title">Select Columns</h5>
+
+      <div className="form-check mb-2">
+        <input
+          type="checkbox"
+          className="form-check-input"
+          id="selectAll"
+          checked={selectedHeaders.length === allHeaders.length}
+          onChange={handleSelectAll}
+        />
+        <label className="form-check-label ms-2" htmlFor="selectAll">
+          Select All
+        </label>
+      </div>
+
+      <div className="row">
+        {allHeaders.map((header) => (
+          <div className="col-md-6" key={header.key}>
+            <div className="form-check">
+              <input
+                type="checkbox"
+                className="form-check-input"
+                id={header.key}
+                checked={selectedHeaders.includes(header.key)}
+                onChange={() => handleCheckboxChange(header.key)}
+              />
+              <label className="form-check-label ms-2" htmlFor={header.key}>
+                {header.label}
+              </label>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <button
+        className="btn btn-danger mt-3"
+       
+        onClick={() => {
+          setShowCustomization(false);
+          setTimeout(() => {
+            console.log("🔹 Checking Data Before Download:", downloadTableData);
+            if (!downloadTableData || downloadTableData.length > 1) {
+              console.error("❌ No data available for download!");
+              return;
+            }
+      
+            csvLinkRef.current.link.click();
+          }, 500);
+        }}
+      >
+        Close
+      </button>
+    </div>
+  </div>
+)}
             </Row>
 
           </div>

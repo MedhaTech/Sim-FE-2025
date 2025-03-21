@@ -30,7 +30,9 @@ const AdminResources = () => {
     async function handleResList() {
          const listParam = encryptGlobal(
                     JSON.stringify({
-                        state: currentUser?.data[0]?.state_name
+                        state: currentUser?.data[0]?.state_name,
+                        type:'state'
+
                     })
                 );
         //  handleResList Api where we can see list of all resource //
