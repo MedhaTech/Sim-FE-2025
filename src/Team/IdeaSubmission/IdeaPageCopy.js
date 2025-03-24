@@ -1612,7 +1612,7 @@ if(formData?.verified_status === "ACCEPTED"){
                                   fontSize: "1rem",
                                 }}
                               >
-                                {t("ideaform_questions.link")}
+                                {t("ideaform_questions.link")} {t("ideaform_questions.linkadd")}
                               </b>
                             <div className="answers row flex-column p-3 pt-2">
                             <div className="row g-0 align-items-center">

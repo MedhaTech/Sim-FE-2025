@@ -495,7 +495,7 @@ const IdeaSubmissionCard = ({
           <Card className="p-1">
             <CardBody>
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
-                13. Clear Video Explaining your Solution
+                13. Clear YouTube Video Explaining your Solution
               </label>
               <CardText><a href={submittedResponse.prototype_link} target="_blank" rel="noreferrer">{submittedResponse.prototype_link}</a></CardText>
             </CardBody>

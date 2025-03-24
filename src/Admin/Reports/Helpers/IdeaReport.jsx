@@ -770,7 +770,7 @@ const IdeaReport = () => {
               "Pick the actions your team did in your problem solving journey (You can choose multiple options)":item.problem_solving,
               "Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.":item.feedback,
               "Descriptive Document/Image of your prototype":item.prototype_image,
-              "Clear Video Explaining your Solution":item.prototype_link,
+              "Clear YouTube Video Explaining your Solution":item.prototype_link,
               "Did your team complete and submit the workbook to your school Guide teacher?":item.workbook,
               "Idea Submission Status":item.status,
               "Teacher Verified Status":item.verified_status == null ? "Not yet Reviewed" : item.verified_status,

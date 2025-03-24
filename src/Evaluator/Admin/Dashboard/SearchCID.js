@@ -936,7 +936,7 @@ const SearchCID = () => {
                           marginBottom: "1rem",
                         }}
                       >
-                        14. Clear Video Explaining your Solution
+                        14. Clear YouTube Video Explaining your Solution
                       </b>
                     </div>
                     <div
