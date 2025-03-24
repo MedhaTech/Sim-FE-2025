@@ -75,7 +75,11 @@ const StudentProgress = () => {
   const [series6, setseries6] = useState([]);
   const [series7, setseries7] = useState([]);
   const [doughnutChartDataBar, setDoughnutChartDataBar] = useState(null);
-
+  const [isCustomizationEnabled, setIsCustomizationEnabled] = useState(false);
+ const [showCustomization, setShowCustomization] = useState(false);
+  const [selectedHeaders, setSelectedHeaders] = useState([]);
+  const [isReadyToDownload, setIsReadyToDownload] = useState(false);
+  const [formattedDataForDownload, setFormattedDataForDownload] = useState([]);
   const [barChart1Data, setBarChart1Data] = useState({
     labels: [],
     datasets: [],
@@ -154,15 +158,11 @@ const StudentProgress = () => {
       key: 'ideaNotStarted'
     },
   ];
-  const teacherDetailsHeaders = [
+  const allHeaders = [
     {
       label: "UDISE CODE",
       key: "organization_code",
     },
-    // {
-    //   label: 'ATL CODE',
-    //   key: 'unique_code'
-    // },
     {
       label: "School Name",
       key: "organization_name",
@@ -261,29 +261,58 @@ const StudentProgress = () => {
       label: "Post Survey Status",
       key: "post_survey_status",
     },
-    // {
-    //     label: 'No.of Teams Idea Submitted',
-    //     key: 'submittedcout'
-    // },
-    // {
-    //     label: 'No.of Teams Idea in Draft',
-    //     key: 'draftcout'
-    // },
-    // {
-    //     label: 'No.of Teams Idea NOt Initiated',
-    //     key: 'ideanotIN'
-    // }
+   
   ];
-
-  // useEffect(() => {
-  //     dispatch(getDistrictData());
-  //     fetchChartTableData();
-  //     const newDate = new Date();
-  //     const formattedDate = `${newDate.getUTCDate()}/${
-  //         1 + newDate.getMonth()
-  //     }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
-  //     setNewFormat(formattedDate);
-  // }, []);
+  const headerMapping = {
+    organization_code: "UDISE CODE",
+    organization_name: "School Name",
+    category: "School Type/Category",
+    state: "State",
+    district: "District",
+    city: "City",
+    principal_name: "HM Name",
+    principal_mobile: "HM Contact",
+    full_name: "Teacher Name",
+    username: "Teacher Email",
+    gender: "Teacher Gender",
+    mobile: "Teacher Contact",
+    whatapp_mobile: "Teacher WhatsApp Contact",
+    team_name: "Team Name",
+    team_username: "Team Username",
+    studentfullname: "Student Name",
+    Age: "Age",
+    studentgender: "Gender",
+    Grade: "Class",
+    disability: "Disability Type",
+    pre_survey_status: "Pre Survey Status",
+    course_per: "Course Completion%",
+    user_count: "Course Status",
+    idea_status: "Idea Status",
+    post_survey_status: "Post Survey Status",
+  };
+  const handleCheckboxChange = (key) => {
+    setSelectedHeaders((prevHeaders) => {
+      let updatedHeaders;
+      if (prevHeaders.includes(key)) {
+        updatedHeaders = prevHeaders.filter((header) => header !== key);
+      } else {
+        updatedHeaders = [...prevHeaders, key];
+      }
+  
+      return updatedHeaders;
+    });
+  };
+  
+  
+  const handleSelectAll = () => {
+    setSelectedHeaders((prevHeaders) => {
+      const updatedHeaders =
+        prevHeaders.length === allHeaders.length ? [] : allHeaders.map((h) => h.key);
+  
+      return updatedHeaders;
+    });
+  }; 
+ 
 
   var chartOption = {
     chart: {
@@ -628,13 +657,41 @@ const StudentProgress = () => {
     setIsDownload(true);
     fetchData();
   };
-  useEffect(() => {
-    if (studentDetailedReportsData.length > 0) {
-      console.log("Performing operation with the updated data.");
-      csvLinkRef.current.link.click();
+  // useEffect(() => {
+  //   if (studentDetailedReportsData.length > 0) {
+  //     console.log("Performing operation with the updated data.");
+  //     csvLinkRef.current.link.click();
 
-    }
-  }, [studentDetailedReportsData]);
+  //   }
+  // }, [studentDetailedReportsData]);
+    useEffect(() => {
+        console.log("Updated Download Table Data:", studentDetailedReportsData);
+      }, [studentDetailedReportsData]); 
+       useEffect(() => {
+          if (selectedHeaders.length > 0) { 
+            fetchData();
+          }
+        }, [selectedHeaders]); 
+        useEffect(() => {
+            if (isReadyToDownload && studentDetailedReportsData.length > 0) {
+              console.log("Downloading CSV with data:", studentDetailedReportsData);
+              const formattedCSVData = studentDetailedReportsData.map((item) =>
+                Object.fromEntries(
+                  Object.entries(item).map(([key, value]) => [headerMapping[key] || key, value])
+                )
+              );
+              setFormattedDataForDownload(formattedCSVData);
+          // setDownloadTableData(formattedCSVData);
+        
+          setTimeout(() => {
+                csvLinkRef.current.link.click();
+                console.log("Downloading CSV with formatted headers:", formattedCSVData);
+                openNotificationWithIcon("success", "Report Downloaded Successfully");
+                setIsReadyToDownload(false); 
+              }, 1000);
+          
+            }
+          }, [isReadyToDownload, studentDetailedReportsData]);
   const fetchData = () => {
     const apiRes = encryptGlobal(
       JSON.stringify({
@@ -643,7 +700,6 @@ const StudentProgress = () => {
         category: category,
       })
     );
-    // console.log(selectstate,district,category);
     const config = {
       method: "get",
       url:
@@ -763,13 +819,28 @@ const StudentProgress = () => {
               username: mentorUsernameMap[item.mentorUserId]
             };
           });
-
-          setstudentDetailedReportsData(newdatalist);
+          const filteredData = newdatalist.map((item) => {
+            let filteredItem = {};
+            selectedHeaders.forEach((key) => {
+              if (item && Object.prototype.hasOwnProperty.call(item, key)) {  
+                filteredItem[key] = item[key] ?? ""; 
+              } else {
+                console.warn(`Key "${key}" not found in item:`, item); 
+              }
+            });
+          
+            console.log("Filtered Item:", filteredItem); 
+            return Object.keys(filteredItem).length > 0 ? filteredItem : null; 
+          }).filter(Boolean); 
+          console.log("Final Filtered Data for Download:", filteredData);
+          setstudentDetailedReportsData(filteredData);
           if (response.data.data[0].summary.length > 0) {
-            openNotificationWithIcon(
-              'success',
-              "Report Downloaded Successfully"
-            );
+            setIsCustomizationEnabled(true);
+
+            // openNotificationWithIcon(
+            //   'success',
+            //   "Report Downloaded Successfully"
+            // );
           } else {
             openNotificationWithIcon('error', 'No Data Found');
           }
@@ -1028,7 +1099,7 @@ const StudentProgress = () => {
         <Container className="RegReports userlist">
           <div className="reports-data mt-2 mb-2">
             <Row className="align-items-center mt-3 mb-2">
-              <Col md={3}>
+              <Col md={2}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
                   <Select
                     list={fullStatesNames}
@@ -1038,7 +1109,7 @@ const StudentProgress = () => {
                   />
                 </div>
               </Col>
-              <Col md={3}>
+              <Col md={2}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
                   <Select
                     list={fiterDistData}
@@ -1048,7 +1119,7 @@ const StudentProgress = () => {
                   />
                 </div>
               </Col>
-              <Col md={3}>
+              <Col md={2}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
                   {/* <Select
                     list={categoryData}
@@ -1071,7 +1142,7 @@ const StudentProgress = () => {
                 </div>
               </Col>
               <Col
-                md={3}
+                md={2}
                 className="d-flex align-items-center justify-content-center"
               >
                 <button
@@ -1083,6 +1154,73 @@ const StudentProgress = () => {
                   {isDownload ? "Downloading" : "Download Report"}
                 </button>
               </Col>
+               <Col md={2}>
+                                          <button
+                                                onClick={() => setShowCustomization(!showCustomization)}
+                                              type="button"
+                                              disabled={!isCustomizationEnabled}
+                                              className="btn btn-primary"
+                                            >
+                                              Customization
+                                            </button>
+                                          </Col>
+                                          {showCustomization && (
+                <div className="card mt-3" style={{ width: "50%", padding: "20px" }}>
+                  <div className="card-body">
+                    <h5 className="card-title">Select Columns</h5>
+              
+                    <div className="form-check mb-2">
+                      <input
+                        type="checkbox"
+                        className="form-check-input"
+                        id="selectAll"
+                        checked={selectedHeaders.length === allHeaders.length}
+                        onChange={handleSelectAll}
+                      />
+                      <label className="form-check-label ms-2" htmlFor="selectAll">
+                        Select All
+                      </label>
+                    </div>
+              
+                    <div className="row">
+                      {allHeaders.map((header) => (
+                        <div className="col-md-6" key={header.key}>
+                          <div className="form-check">
+                            <input
+                              type="checkbox"
+                              className="form-check-input"
+                              id={header.key}
+                              checked={selectedHeaders.includes(header.key)}
+                              onChange={() => handleCheckboxChange(header.key)}
+                            />
+                            <label className="form-check-label ms-2" htmlFor={header.key}>
+                              {header.label}
+                            </label>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+              
+                    <button
+                      className="btn btn-danger mt-3"
+                     
+                      onClick={() => {
+                        setShowCustomization(false);
+                        if (!studentDetailedReportsData || studentDetailedReportsData.length === 0) {
+                          console.log("Fetching data before download...");
+                          fetchData(); 
+                        }
+                        setTimeout(() => {
+                          console.log("Checking Data Before Download:", studentDetailedReportsData);
+                          setIsReadyToDownload(true);
+                        }, 1000);
+                      }}
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              )}
             </Row>
             {isloader ?
             <div className="chart mt-2 mb-2">
@@ -1420,13 +1558,13 @@ const StudentProgress = () => {
 
               {studentDetailedReportsData && (
                 <CSVLink
-                  headers={teacherDetailsHeaders}
-                  data={studentDetailedReportsData}
+                  // headers={teacherDetailsHeaders}
+                  data={formattedDataForDownload}
                   filename={`StudentProgressDetailedReport_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRef}
                 >
-                  Download Teacherdetailed CSV
+                  Download Student Detailed CSV
                 </CSVLink>
               )}
           </div>
