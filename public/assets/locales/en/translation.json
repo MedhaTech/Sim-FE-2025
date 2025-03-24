@@ -424,9 +424,10 @@
 
 "ideaList":"Enter List of Causes",
 "ideaEff":"Enter List of Effects of the problem",
+"ideafacing":"Enter names of people facing this problem",
 "ideaSol":"Enter the solution to the problem",
 "ideaFee":"Enter your Feedback",
-"ideaUp":"Upload your Link",
+"ideaUp":"Upload Your YouTube your Link",
 "ideaFi":"Upload File",
 "ideaSubPop":"Idea submission successful",
 "ideaInitPop":"Idea Initiated Successfully",
@@ -799,6 +800,8 @@
         "uploadq" : "Upload the following information:",
         "image":"1.Descriptive Document/Image of your prototype",
         "link":"2.Clear Video Explaining your Solution",
+        "linkadd":" [Only YouTube Video Links are Accepted.]",
+
 "note":"Note: (Both Video & Document/Image have to be uploaded, Max Size of two files together is 10MB)",
 "filetext":"File Upload is mandatory *",
         "workbookq" : "Did your team complete and submit the workbook to your school Guide teacher?",
