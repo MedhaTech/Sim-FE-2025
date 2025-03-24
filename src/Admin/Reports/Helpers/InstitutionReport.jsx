@@ -106,6 +106,8 @@ const InstitutionReport = () => {
   const [totalCount, setTotalCount] = useState([]);
   const [showCustomization, setShowCustomization] = useState(false);
   const [selectedHeaders, setSelectedHeaders] = useState([]);
+  const [isReadyToDownload, setIsReadyToDownload] = useState(false);
+  const [formattedDataForDownload, setFormattedDataForDownload] = useState([]);
   const tableHeaders = [
     {
       label: "District",
@@ -224,13 +226,29 @@ const InstitutionReport = () => {
     { label: "District", key: "district" },
     { label: "City", key: "city" },
     { label: "Address", key: "address" },
-    { label: "Pincode", key: "pin_code" },
+    { label: "Pin Code", key: "pin_code" },
     { label: "Principal Name", key: "principal_name" },
     { label: "Principal Mobile", key: "principal_mobile" },
     { label: "Principal Email", key: "principal_email" },
-    { label: "Registration status", key: "registration_status" },
-    { label: "No of teachers registered", key: "mentor_reg" },
+    { label: "Registration Status", key: "registration_status" },
+    { label: "No of Teachers Registered", key: "mentor_reg" },
   ];
+  const headerMapping = {
+    organization_code: "UDISE Code",
+    organization_name: "School Name",
+    category: "School Type/Category",
+    state: "State",
+    district: "District",
+    city: "City",
+    address: "Address",
+    pin_code: "Pin Code",
+    principal_name: "Principal Name",
+    principal_mobile: "Principal Mobile",
+    principal_email: "Principal Email",
+    registration_status: "Registration Status",
+    mentor_reg: "No of Teachers Registered",
+  };
+  
   const handleCheckboxChange = (key) => {
     setSelectedHeaders((prevHeaders) => {
       let updatedHeaders;
@@ -400,36 +418,47 @@ const InstitutionReport = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response,"22");
           const chartTableData = response?.data?.data || [];
+          // console.log("Original API Data:", chartTableData);
+
           const modifiedChartTableData = chartTableData.map((item) => ({
             ...item,
             registration_status: item.mentor_reg !== 0 ? "Registered" : "Not Registered",
           }));
          
+          // const filteredData = modifiedChartTableData.map((item) => {
+          //   let filteredItem = {};
+          //   selectedHeaders.forEach((key) => {
+          //     // console.log("Checking key:", key, "in item:", item);
+          //     if (key in item) {
+          //       filteredItem[key] = item[key] ?? ""; 
+          //     }
+          //   });
+          //   // console.log("Filtered Item:", filteredItem);
+          //   return filteredItem;
+          // });
+
           const filteredData = modifiedChartTableData.map((item) => {
             let filteredItem = {};
             selectedHeaders.forEach((key) => {
-              console.log("🔹 Checking key:", key, "in item:", item);
-              if (key in item) {
+              if (item && Object.prototype.hasOwnProperty.call(item, key)) {  
                 filteredItem[key] = item[key] ?? ""; 
+              } else {
+                console.warn(`Key "${key}" not found in item:`, item); 
               }
             });
-            console.log("🔹 Filtered Item:", filteredItem);
-            return filteredItem;
-          });
+          
+            console.log("Filtered Item:", filteredItem); 
+            return Object.keys(filteredItem).length > 0 ? filteredItem : null; 
+          }).filter(Boolean); 
+          console.log("Final Filtered Data for Download:", filteredData);
           setDownloadTableData(filteredData);
 
 
           if (response?.data?.count > 0) {
            
             setIsCustomizationEnabled(true);
-            // setTimeout(() => {
-            //   openNotificationWithIcon(
-            //     "success",
-            //     " Report Downloaded Successfully"
-            //   );
-            // }, 2000);
+           
           } else {
             openNotificationWithIcon("error", "No Data Found");
           }
@@ -441,17 +470,41 @@ const InstitutionReport = () => {
         setIsDownload(false);
       });
   };
-  console.log("🔍 modifiedChartTableData:", modifiedChartTableData);
+  
+  useEffect(() => {
+    console.log("Updated Download Table Data:", downloadTableData);
+  }, [downloadTableData]); 
+  useEffect(() => {
+    if (selectedHeaders.length > 0) { 
+      fetchData();
+    }
+  }, [selectedHeaders]); 
+
+  
+  useEffect(() => {
+    if (isReadyToDownload && downloadTableData.length > 0) {
+      console.log("Downloading CSV with data:", downloadTableData);
+      const formattedCSVData = downloadTableData.map((item) =>
+        Object.fromEntries(
+          Object.entries(item).map(([key, value]) => [headerMapping[key] || key, value])
+        )
+      );
+      setFormattedDataForDownload(formattedCSVData);
+  // setDownloadTableData(formattedCSVData);
+
+  setTimeout(() => {
+        csvLinkRef.current.link.click();
+        console.log("Downloading CSV with formatted headers:", formattedCSVData);
+        openNotificationWithIcon("success", "Report Downloaded Successfully");
+        setIsReadyToDownload(false); 
+      }, 1000);
+  
+    }
+  }, [isReadyToDownload, downloadTableData]);
  
 
   
-  // useEffect(() => {
-  //   if (chartTableData.length > 0) {
-  //     setDownloadTableData(chartTableData);
-  //     console.log("Performing operation with the updated data.");
-  //     csvLinkRef.current.link.click();
-  //   }
-  // }, [chartTableData]);
+  
 
   return (
     <div className="page-wrapper">
@@ -537,7 +590,8 @@ const InstitutionReport = () => {
 
                 {downloadTableData && (
                   <CSVLink
-                    data={downloadTableData}
+                    // data={downloadTableData}
+                    data={formattedDataForDownload}
                     // headers={summaryHeaders}
                     filename={`School_Registration_Status_Report_${newFormat}.csv`}
                     className="hidden"
@@ -600,15 +654,19 @@ const InstitutionReport = () => {
        
         onClick={() => {
           setShowCustomization(false);
-          setTimeout(() => {
-            console.log("🔹 Checking Data Before Download:", downloadTableData);
-            if (!downloadTableData || downloadTableData.length > 1) {
-              console.error("❌ No data available for download!");
-              return;
-            }
+          if (!downloadTableData || downloadTableData.length === 0) {
+            console.log("Fetching data before download...");
+            fetchData(); 
+          }
       
-            csvLinkRef.current.link.click();
-          }, 500);
+          setTimeout(() => {
+            console.log("Checking Data Before Download:", downloadTableData);
+            // if (!downloadTableData || downloadTableData.length === 0) {
+            //   console.error("No data available for download!");
+            //   return;
+            // }
+            setIsReadyToDownload(true);
+          }, 1000);
         }}
       >
         Close
