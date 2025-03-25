@@ -152,7 +152,7 @@ import ReportL2 from "../Evaluator/Admin/Reports/ReportL2";
 import ReportL3 from "../Evaluator/Admin/Reports/ReportL3";
 import EditEvaluator from "../Evaluator/Admin/Evaluator/EadminEditProfile";
 import Dropdown from "../Evaluator/Admin/EvalProcess/Pages/Dropdown";
-
+import BulkAC from "../Evaluator/Admin/BulkAR/index";
 import State from "../Evaluator/Admin/Evaluator/State";
 import SearchCID from "../Evaluator/Admin/Dashboard/SearchCID";
 import Permission from "../Admin/UsersList/Permission";
@@ -1027,6 +1027,14 @@ export const eadminRoutes = [
     path: routes.eadmindropdown,
     name: "eadmindropdown",
     element: <Dropdown/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 17,
+    path: routes.eadminbukAC,
+    name: "eadminBulkAC",
+    element: <BulkAC />,
     protected: true,
     route: Route,
   },
