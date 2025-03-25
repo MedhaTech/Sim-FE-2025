@@ -41,6 +41,13 @@ const EAdminSidebarData = () => {
           submenu: false,
         },
         {
+          label: "Bulk",
+          link: "/eadmin/eadmin-BulkAC",
+          icon: <Icon.Star />,
+          showSubRoute: false,
+          submenu: false,
+        },
+        {
             label: "Reports",
             link: "/reports-card",
             icon: <Icon.Database />,
