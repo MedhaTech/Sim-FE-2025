@@ -16,8 +16,8 @@ import { LiaCertificateSolid } from "react-icons/lia";
 import { FaFlagCheckered } from "react-icons/fa";
 import { BiLogoMicrosoftTeams } from "react-icons/bi";
 import { PiStudentFill } from "react-icons/pi";
-    const MultiTeacher = ({ teamsCount, postdata, studentCount,courseData }) => {
-        console.log(teamsCount,"tt",studentCount,"ss");
+    const MultiTeacher = ({ teamsCount, postdata, studentCount,courseData ,ideaCount}) => {
+        console.log(postdata,"poset");
         const steps = [
             {
                 name: 'Pre Survey',
@@ -47,8 +47,8 @@ import { PiStudentFill } from "react-icons/pi";
             },
             {
                 name: 'Certificate',
-                status: postdata === "Completed" ? "Completed" : "Disabled",
-                icon: postdata === "Completed" ? <FaFlagCheckered color="green" /> : <LiaCertificateSolid color="green" />
+                status: postdata === "Completed"&& ideaCount >= 1 ? "Completed" : "Disabled",
+                icon: postdata === "Completed" && ideaCount >= 1 ? <FaFlagCheckered color="green" /> : <LiaCertificateSolid color="green" />
             },
         ];
     
