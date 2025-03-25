@@ -120,7 +120,7 @@ const TeacherEditProfile = () => {
           )
           .matches(
             /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            "Email Must be VALID"
+            "Email Must be Valid"
           )
           .max(255),
       
@@ -584,7 +584,7 @@ const TeacherEditProfile = () => {
                       value={formik.values.principal_email}
                     />
                     {formik.errors.principal_email ? (
-                      <small className="error-cls">
+                      <small className="error-cls" style={{color:"red"}}>
                         {formik.errors.principal_email}
                       </small>
                     ) : null}

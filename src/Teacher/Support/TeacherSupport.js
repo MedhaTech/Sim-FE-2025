@@ -863,7 +863,7 @@ const TeacherSupport = () => {
                             data-bs-dismiss="offcanvas"
                             onClick={() => formik.resetForm()}
                           >
-                             {t('teacherJourney.Discard')}
+                             {t('teacherJourney.discard')}
                           </button>
                           <button type="submit" className="btn btn-save">
                           {t('teacherJourney.send')}

@@ -1257,7 +1257,7 @@ if(formData?.verified_status === "ACCEPTED"){
                               <textarea
                                 className="form-control"
                                 disabled={isDisabled}
-                                placeholder={t("home.ideaEff")}
+                                placeholder={t("home.ideafacing")}
                                 value={facing}
                                 rows={4}
                                 maxLength={500}

@@ -710,7 +710,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
                 </div>
                 <div className="text-center">
                   <Button
-                    label={t(teacherJourney.submit)}
+                    label={t("teacherJourney.submit")}
                     btnClass={!reason ? "default" : "primary"}
                     size="small "
                     onClick={() => handleReject()}
