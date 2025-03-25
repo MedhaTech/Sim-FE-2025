@@ -38,8 +38,8 @@ import { FaFlagCheckered } from "react-icons/fa";
             },
             {
                 name: 'Certificate',
-                status: postdata === "Completed" ? "Completed" : "Disabled",
-                icon: postdata === "Completed" ? <FaFlagCheckered color="green" /> : <LiaCertificateSolid color="green" />
+                status: postdata === "Completed" && stuIdeaSub === "SUBMITTED" ? "Completed" : "Disabled",
+                icon: postdata === "Completed"  && stuIdeaSub === "SUBMITTED" ? <FaFlagCheckered color="green" /> : <LiaCertificateSolid color="green" />
             },
         ];
     

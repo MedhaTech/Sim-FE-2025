@@ -596,7 +596,7 @@ const [stuData,setStuData]=useState("");
         postdata={postdata} 
         teamsCount={teamsCount}
         studentCount={studentCount}
-
+ideaCount={ideaCount}
         courseData={courseData}  />
             </div>
             {/* Teacher dashboard stats */}
@@ -618,7 +618,7 @@ const [stuData,setStuData]=useState("");
                       <>
                         <h5>{t('teacherJourney.know')}</h5>
                         <a onClick={redirectToCourse} href="#">
-                        {t('teacherJourney.cilkhere')}
+                        {t('teacherJourney.clikhere')}
                         </a>
                       </>
                     ) : (

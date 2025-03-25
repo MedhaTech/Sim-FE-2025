@@ -260,6 +260,7 @@ const DBStu = () => {
       stuIdeaSubStatus();
       fetchInstructions();
       scroll();
+      // fetchData();
     }
   }, [currentUser?.data[0]?.user_id]);
   const [badges, setBadges] = useState(0);
@@ -267,7 +268,7 @@ const DBStu = () => {
   const [videos, setVideos] = useState(0);
 const [predata,setPreData]=useState("");
 const [postdata,setPostData]=useState("");
-console.log(predata,"pre");
+// console.log(predata,"pre");
   const handleNavigation = () => {
     navigate("/instructionstu", { state: { instruction: message } });
   };
@@ -303,7 +304,32 @@ console.log(predata,"pre");
       }
       );
   };
-
+  const fetchData = () => {
+    // Function to fetch the WhatsApp link from the API
+    const idParam = encryptGlobal(JSON.stringify(currentUser.data[0].user_id));
+    var config = {
+      method: 'get',
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/students/${idParam}/studentCertificate`,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${currentUser.data[0]?.token}`
+      }
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          console.log(response,"Certificte");
+         
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      }
+      );
+  };
   const stuSurveyStatus = () => {
     const surveyApi = encryptGlobal(
       JSON.stringify({
@@ -429,7 +455,7 @@ console.log(predata,"pre");
         console.log(error);
       });
   };
-console.log(courseData,"%%");
+// console.log(courseData,"%%");
   const stuBadgesCount = () => {
     const badgeApi = encryptGlobal(
       JSON.stringify({
@@ -519,7 +545,7 @@ console.log(courseData,"%%");
   const handleClose = () => {
     setShowsPopup(false);
   };
-  console.log(stuPostSurvey,"post");
+  // console.log(stuPostSurvey,"post");
   return (
     <>
       <GreetingModal
@@ -553,7 +579,8 @@ console.log(courseData,"%%");
               <MultiProgressBar  predata={predata} 
         postdata={postdata} 
         stuIdeaSub={stuIdeaSub}
-        courseData={courseData}  />
+        courseData={courseData} 
+         />
             </div>
           <div className="row sales-cards">
             <div className="col-xl-3 col-sm-6 col-12">
