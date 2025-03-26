@@ -82,11 +82,12 @@ const GreetingModal = (props) => {
          </figure>
      </Modal.Body>
       <Modal.Footer>
-        {props.state != null &&
+        <div>
+        {props.state != null && <>
           <Link
             to={props.state}
             type="button"
-            className="product-img"
+            //className="product-img"
           >
             <button
               label={"Navigate"}
@@ -94,40 +95,58 @@ const GreetingModal = (props) => {
             >
               Navigate
             </button>
-          </Link>}
-          {props.file && (
-    <a
+          </Link>
+          <span style={{paddingLeft:'1rem'}}>Click here to redirect to Reference Course</span></>
+          }
+          </div>
+          <div>
+          {props.file && (<div>
+            <a
         href={props.file}
         download
         target="_blank"
         rel="noopener noreferrer"
-        className="product-img"
+        //className="product-img"
     >
         <button className="btn btn-warning">
-          File
+         File
         </button>
+        
     </a>
+    <span style={{paddingLeft:'1rem'}}>{props.fileName}</span>
+    
+          </div>
+    
 )}
-
-{props.urlData && (
-    <a
+        </div>
+        
+<div>
+{props.urlData && (<div>
+  <a
         href={props.urlData}
         download
         target="_blank"
         rel="noopener noreferrer"
-        className="product-img"
+        //className="product-img"
     >
         <button className="btn btn-warning">
           Link
         </button>
     </a>
+    <span style={{paddingLeft:'1rem'}}>{props.urlData}</span>
+    
+</div>
+    
 )}
+</div>
+
       </Modal.Footer>
     </Modal>
   );
 };
 
 const DBStu = () => {
+  
   const [showsPopup, setShowsPopup] = useState(false);
   const [imgUrl, setImgUrl] = useState('');
   const [popLink, setPopLink] = useState('');
@@ -155,6 +174,8 @@ const DBStu = () => {
 
 
    const [file, setFile] = useState("");
+   const fileName = file.substring(file.lastIndexOf('/') + 1);
+   const decodedFileName = decodeURIComponent(fileName);
     const [imagedata, setImageData] = useState("");
     const [urlData, setUrlData] = useState("");
     const [youtube, setYoutube] = useState("");
@@ -556,6 +577,7 @@ const [postdata,setPostData]=useState("");
         urlData={urlData}
         youtube={youtube}
         state={state}
+        fileName={decodedFileName}
       ></GreetingModal>
       <div className="page-wrapper" id="start">
         <div className="content">

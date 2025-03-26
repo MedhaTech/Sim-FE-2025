@@ -28,8 +28,8 @@ import { FaFlagCheckered } from "react-icons/fa";
             },
             {
                 name: 'Idea Submission',
-                status: stuIdeaSub === "Completed" ? "Completed" : "Pending",
-                icon: stuIdeaSub === "Completed" ? <FaCheckCircle color="green" /> : <LuSend color="orange" />
+                status: stuIdeaSub === "SUBMITTED" ? "Completed" : "Pending",
+                icon: stuIdeaSub === "SUBMITTED" ? <FaCheckCircle color="green" /> : <LuSend color="orange" />
             },
             {
                 name: 'Post Survey',
@@ -45,7 +45,7 @@ import { FaFlagCheckered } from "react-icons/fa";
     
     
     
-
+        
     return (
          <div className="card flex-fill default-cover mb-4 latest-news-container" style={{ border: 'none', outline: 'none',boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
              
