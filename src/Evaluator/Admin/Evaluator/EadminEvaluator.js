@@ -371,6 +371,7 @@ const TicketsPage = (props) => {
                             'success',
                             'Evaluator Bulk Uplaoding Done'
                         );
+                        props.getEvaluatorListAction();
                     }
                 })
                 .catch(function (error) {
