@@ -109,42 +109,65 @@ const GreetingModal = (props) => {
 </Modal.Body>
 
       <Modal.Footer>
-        {props.state != null && (
-          <Link to={props.state} type="button" className="product-img">
-            <button label={"Navigate"} className="btn btn-warning">
-              Navigate
-            </button>
-          </Link>
-        )}
-        {props.file && (
-    <a
-        href={props.file}
-        download
-        target="_blank"
-        rel="noopener noreferrer"
-        className="product-img"
-    >
-        <button className="btn btn-warning">
-          File
-        </button>
-    </a>
-)}
-
-{props.urlData && (
-    <a
-        href={props.urlData}
-        download
-        target="_blank"
-        rel="noopener noreferrer"
-        className="product-img"
-    >
-        <button className="btn btn-warning">
-          Link
-        </button>
-    </a>
-)}
-
-      </Modal.Footer>
+              <div>
+              {props.state != null && <>
+                <Link
+                  to={props.state}
+                  type="button"
+                  //className="product-img"
+                >
+                  <button
+                    label={"Navigate"}
+                    className="btn btn-warning"
+                  >
+                    Navigate
+                  </button>
+                </Link>
+                <span style={{paddingLeft:'1rem'}}>Click here to redirect to Reference Course</span></>
+                }
+                </div>
+                <div>
+                {props.file && (<div>
+                  <a
+              href={props.file}
+              download
+              target="_blank"
+              rel="noopener noreferrer"
+              //className="product-img"
+          >
+              <button className="btn btn-warning">
+               File
+              </button>
+              
+          </a>
+          <span style={{paddingLeft:'1rem'}}>{props.fileName}</span>
+          
+                </div>
+          
+      )}
+              </div>
+              
+      <div>
+      {props.urlData && (<div>
+        <a
+              href={props.urlData}
+              download
+              target="_blank"
+              rel="noopener noreferrer"
+              //className="product-img"
+          >
+              <button className="btn btn-warning">
+                Link
+              </button>
+          </a>
+          <span style={{paddingLeft:'1rem'}}>{props.urlData}</span>
+          
+      </div>
+          
+      )}
+      </div>
+      
+            </Modal.Footer>
     </Modal>
   );
 };
@@ -186,6 +209,8 @@ const [courseData, setCourseData] = useState("");
 
   
   const [file, setFile] = useState("");
+  const fileName = file.substring(file.lastIndexOf('/') + 1);
+   const decodedFileName = decodeURIComponent(fileName);
   const [imagedata, setImageData] = useState("");
   const [urlData, setUrlData] = useState("");
   const [youtube, setYoutube] = useState("");
@@ -535,7 +560,7 @@ const [stuData,setStuData]=useState("");
         imagedata={imagedata}
         urlData={urlData}
         youtube={youtube}
-
+        fileName={decodedFileName}
         state={state}
       ></GreetingModal>
       <div style={{ display: "none" }}>
