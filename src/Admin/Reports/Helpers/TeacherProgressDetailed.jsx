@@ -73,6 +73,8 @@ const TeacherProgressDetailed = () => {
  const [showCustomization, setShowCustomization] = useState(false);
   const [selectedHeaders, setSelectedHeaders] = useState([]);
   const [isReadyToDownload, setIsReadyToDownload] = useState(false);
+      const [modifiedChartTableData, setModifiedChartTableData] = useState([]);
+  
   const [formattedDataForDownload, setFormattedDataForDownload] = useState([]);
   const [barChartNew, setBarChartNew] = useState({
     labels: [],
@@ -304,7 +306,7 @@ const TeacherProgressDetailed = () => {
       } else {
         updatedHeaders = [...prevHeaders, key];
       }
-  
+      filterData(updatedHeaders);
       return updatedHeaders;
     });
   };
@@ -314,11 +316,28 @@ const TeacherProgressDetailed = () => {
     setSelectedHeaders((prevHeaders) => {
       const updatedHeaders =
         prevHeaders.length === allHeaders.length ? [] : allHeaders.map((h) => h.key);
-  
+        filterData(updatedHeaders);
       return updatedHeaders;
     });
   };
-   
+  const filterData= (updatedHeaders)=>{
+    const filteredData = modifiedChartTableData.map((item) => {
+
+      let filteredItem = {};
+      updatedHeaders.forEach((key) => {
+        if (item && Object.prototype.hasOwnProperty.call(item, key)) {  
+          filteredItem[key] = item[key] ?? ""; 
+        } else {
+          console.warn(`Key "${key}" not found in item:`, item); 
+        }
+      });
+    
+      console.log("Filtered Item:", filteredItem); 
+      return Object.keys(filteredItem).length > 0 ? filteredItem : null; 
+    }).filter(Boolean); 
+    console.log("Final Filtered Data for Download:", filteredData);
+    setmentorDetailedReportsData(filteredData);
+  };
   var chartOption = {
     chart: {
       height: 330,
@@ -704,16 +723,7 @@ const TeacherProgressDetailed = () => {
         console.log(error);
       });
   };
-  const handleDownload = () => {
-    if (!selectstate || !district || !category) {
-      notification.warning({
-        message: "Select state, district, category to download report.",
-      });
-      return;
-    }
-    setIsDownload(true);
-    fetchData();
-  };
+ 
   const fetchData = () => {
     const apiRes = encryptGlobal(
       JSON.stringify({
@@ -855,29 +865,10 @@ const TeacherProgressDetailed = () => {
             preSur_cmp: StuPreComCountMap[item.mentor_id] || 0,
             not_start_pre: stuPreNotStartedMap[item.mentor_id] || 0,
           }));
-          console.log(newdatalist,"dd");
-          const filteredData = newdatalist.map((item) => {
-            let filteredItem = {};
-            selectedHeaders.forEach((key) => {
-              if (item && Object.prototype.hasOwnProperty.call(item, key)) {  
-                filteredItem[key] = item[key] ?? ""; 
-              } else {
-                console.warn(`Key "${key}" not found in item:`, item); 
-              }
-            });
-          
-            console.log("Filtered Item:", filteredItem); 
-            return Object.keys(filteredItem).length > 0 ? filteredItem : null; 
-          }).filter(Boolean); 
-          console.log("Final Filtered Data for Download:", filteredData);
-        //   setDownloadTableData(filteredData);
-          setmentorDetailedReportsData(filteredData);
+          setModifiedChartTableData(newdatalist);
           if (response.data.data[0].summary.length > 0) {
             setIsCustomizationEnabled(true);
-            // openNotificationWithIcon(
-            //   "success",
-            //   "Report Downloaded Successfully"
-            // );
+           
           } else {
             openNotificationWithIcon("error", "No Data Found");
           }
@@ -893,11 +884,7 @@ const TeacherProgressDetailed = () => {
    useEffect(() => {
       console.log("Updated Download Table Data:", mentorDetailedReportsData);
     }, [mentorDetailedReportsData]); 
-     useEffect(() => {
-        if (selectedHeaders.length > 0) { 
-          fetchData();
-        }
-      }, [selectedHeaders]); 
+   
       useEffect(() => {
           if (isReadyToDownload && mentorDetailedReportsData.length > 0) {
             console.log("Downloading CSV with data:", mentorDetailedReportsData);
@@ -907,7 +894,6 @@ const TeacherProgressDetailed = () => {
               )
             );
             setFormattedDataForDownload(formattedCSVData);
-        // setDownloadTableData(formattedCSVData);
       
         setTimeout(() => {
               csvLinkRef.current.link.click();
@@ -918,12 +904,7 @@ const TeacherProgressDetailed = () => {
         
           }
         }, [isReadyToDownload, mentorDetailedReportsData]);
-//   useEffect(() => {
-//     if (mentorDetailedReportsData.length > 0) {
-//       console.log("Performing operation with the updated data.");
-//       csvLinkRef.current.link.click();
-//     }
-//   }, [mentorDetailedReportsData]);
+
   const fetchChartTableData = () => {
     const config = {
       method: "get",
@@ -1134,6 +1115,7 @@ const TeacherProgressDetailed = () => {
         console.log("API error:", error);
       });
   };
+  const enable = selectstate?.trim() !== "" && district?.trim() !== "" && category?.trim() !== "";
 
   return (
     <div className="page-wrapper">
@@ -1222,24 +1204,14 @@ const TeacherProgressDetailed = () => {
                   )}
                 </div>
               </Col>
-              <Col
-                md={2}
-                className="d-flex align-items-center justify-content-center"
-              >
-                <button
-                  onClick={handleDownload}
-                  type="button"
-                  disabled={isDownload}
-                  className="btn btn-primary"
-                >
-                  {isDownload ? "Downloading" : "Download Report"}
-                </button>
-              </Col>
+             
                <Col md={2}>
                             <button
-                                  onClick={() => setShowCustomization(!showCustomization)}
+                                   onClick={() => {setShowCustomization(!showCustomization);
+                                    fetchData();
+                                  }}
                                 type="button"
-                                disabled={!isCustomizationEnabled}
+                                disabled={!enable}
                                 className="btn btn-primary"
                               >
                                 Customization
@@ -1289,7 +1261,8 @@ const TeacherProgressDetailed = () => {
           setShowCustomization(false);
           if (!mentorDetailedReportsData || mentorDetailedReportsData.length === 0) {
             console.log("Fetching data before download...");
-            fetchData(); 
+            filterData();
+            // fetchData(); 
           }
           setTimeout(() => {
             console.log("Checking Data Before Download:", mentorDetailedReportsData);
@@ -1297,7 +1270,7 @@ const TeacherProgressDetailed = () => {
           }, 1000);
         }}
       >
-        Close
+        Download Report
       </button>
     </div>
   </div>
