@@ -98,6 +98,8 @@ const IdeaReport = () => {
     "All Districts": [...Object.values(districtList).flat()],
     ...districtList,
   };
+      const [modifiedChartTableData, setModifiedChartTableData] = useState([]);
+  
   const fiterDistData = ["All Districts", ...(allDistricts[selectstate] || [])];
   // const fiterDistData = districtList[selectstate];
  const [isCustomizationEnabled, setIsCustomizationEnabled] = useState(false);
@@ -163,139 +165,139 @@ const IdeaReport = () => {
   const allHeaders = [
     {
       label: "UDISE CODE",
-      key: "organization_code",
+      key: "UDISE CODE",
     },
     {
       label: "State",
-      key: "state",
+      key: "State",
     },
     {
       label: "District",
-      key: "district",
+      key: "District",
     },
     {
       label: 'CID',
-      key: 'challenge_response_id'
+      key: 'CID'
     },
     {
       label: "School Name",
-      key: "organization_name",
+      key: "School Name",
     },
     {
       label: "School Type/Category",
-      key: "category",
+      key: "School Type/Category",
     },
     {
       label: 'Pin Code',
-      key: 'pin_code'
+      key: 'Pin Code'
     },
     {
       label: 'Address',
-      key: 'address'
+      key: 'Address'
     },
     {
       label: "Teacher Name",
-      key: "full_name",
+      key: "Teacher Name",
     },
     {
       label: "Teacher Email",
-      key: "username",
+      key: "Teacher Email",
     },
     {
       label: "Teacher Gender",
-      key: "gender",
+      key: "Teacher Gender",
     },
     {
       label: "Teacher Contact",
-      key: "mobile",
+      key: "Teacher Contact",
     },
     {
       label: "Team Name",
-      key: "team_name",
+      key: "Team Name",
     },
     {
       label: "Team Username",
-      key: "team_username",
+      key: "Team Username",
     },
     {
       label: "Student Names",
-      key: "names",
+      key: "Student Names",
     },
     {
       label: 'Theme',
-      key: 'theme'
+      key: 'Theme'
     },
     {
       label: 'Focus Area',
-      key: 'focus_area'
+      key: 'Focus Area'
     },
     {
       label: 'Select in which language you prefer Submitting Your Idea?',
-      key: 'language'
+      key: 'Select in which language you prefer Submitting Your Idea?'
     },
     {
       label: 'Title of your idea (Think of a proper name. Dont describe the solution or problem statement here.',
-      key: 'title'
+      key: 'Title of your idea (Think of a proper name. Dont describe the solution or problem statement here.'
     },
     {
       label: 'Write down your Problem statement',
-      key: 'problem_statement'
+      key: 'Write down your Problem statement'
     },
     {
-      label: 'List the Causes of the problem',
-      key: 'causes'
+      label: 'List the Causes of the Problem',
+      key: 'List the Causes of the Problem'
     },
     {
-      label: 'List the Effects of the problem',
-      key: 'effects'
+      label: 'List the Effects of the Problem',
+      key: 'List the Effects of the Problem'
     },
     {
       label: 'In which places in your community did you find this problem?',
-      key: 'community'
+      key: 'In which places in your community did you find this problem?'
     },
     {
       label: 'Who all are facing this problem?',
-      key: 'facing'
+      key: 'Who all are facing this problem?'
     },
     {
       label: 'Describe the solution to the problem your team found. Explain your solution clearly - how does it work, who is it helping, and how will it solve the problem.',
-      key: 'solution'
+      key: 'Describe the solution to the problem your team found. Explain your solution clearly - how does it work, who is it helping, and how will it solve the problem.'
     },
     {
       label: 'Apart from your teacher, how many people/stakeholders did you speak to to understand or improve your problem or solution?',
-      key: 'stakeholders'
+      key: 'Apart from your teacher, how many people/stakeholders did you speak to to understand or improve your problem or solution?'
     },
     {
       label: 'Pick the actions your team did in your problem solving journey (You can choose multiple options)',
-      key: 'problem_solving'
+      key: 'Pick the actions your team did in your problem solving journey (You can choose multiple options)'
     },
     {
       label: 'Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.',
-      key: 'feedback'
+      key: 'Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.'
     },
     {
-      label: 'Upload image of your prototype.',
-      key: 'prototype_image'
+      label: 'Descriptive Document/Image of your prototype',
+      key: 'Descriptive Document/Image of your prototype'
     },
     {
-      label: 'Upload documents & video links of your prototype.',
-      key: 'prototype_link'
+      label: 'Clear YouTube Video Explaining your Solution',
+      key: 'Clear YouTube Video Explaining your Solution'
     },
     {
       label: 'Did your team complete and submit the workbook to your school Guide teacher?',
-      key: 'workbook'
+      key: 'Did your team complete and submit the workbook to your school Guide teacher?'
     },
     {
       label: 'Idea Submission Status',
-      key: 'status'
+      key: 'Idea Submission Status'
     },
     {
       label: 'Teacher Verified Status',
-      key: 'verifiedment'
+      key: 'Teacher Verified Status'
     },
     {
       label: 'Teacher Verified At',
-      key: 'verified_at'
+      key: 'Teacher Verified At'
     },
   ];
   const headerMapping = {
@@ -311,7 +313,7 @@ const IdeaReport = () => {
     whatapp_mobile: "Teacher WhatsApp Contact",
     team_name: "Team Name",
     team_username: "Team Username",
-    challenge_response_id: "CID",
+    CID: "CID",
     pin_code: "Pin Code",
     address: "Address",
     names: "Student Names",
@@ -351,7 +353,7 @@ const IdeaReport = () => {
       } else {
         updatedHeaders = [...prevHeaders, key];
       }
-  
+      filterData(updatedHeaders);
       return updatedHeaders;
     });
   };
@@ -361,12 +363,31 @@ const IdeaReport = () => {
     setSelectedHeaders((prevHeaders) => {
       const updatedHeaders =
         prevHeaders.length === allHeaders.length ? [] : allHeaders.map((h) => h.key);
-  
+        filterData(updatedHeaders);
       return updatedHeaders;
     });
   }; 
  
+  const filterData= (updatedHeaders)=>{
+    const filteredData = modifiedChartTableData.map((item) => {
 
+      let filteredItem = {};
+      updatedHeaders.forEach((key) => {
+        if (item && Object.prototype.hasOwnProperty.call(item, key)) {  
+          filteredItem[key] = item[key] ?? ""; 
+        } else {
+          console.warn(`Key "${key}" not found in item:`, item); 
+        }
+      });
+    
+      console.log("Filtered Item:", filteredItem); 
+      return Object.keys(filteredItem).length > 0 ? filteredItem : null; 
+    }).filter(Boolean); 
+    console.log("Final Filtered Data for Download:", filteredData);
+    setstudentDetailedReportsData(filteredData);
+  };
+ 
+  const enable = selectstate?.trim() !== "" && district?.trim() !== "" && category?.trim() !== "" && sdg?.trim() !== "";
   var chartOption = {
     chart: {
       height: 330,
@@ -634,32 +655,10 @@ const IdeaReport = () => {
   //     nonAtlCount();
   // }, []);
 
-  const handleDownload = () => {
-    if (
-      !selectstate ||
-      !district ||
-      !category ||
-      !sdg
-    ) {
-      notification.warning({
-        message:
-          "Select state, district, category type and Theme to download report.",
-      });
-      return;
-    }
-    setIsDownload(true);
-    fetchData();
-  };
+
  
 
-   useEffect(() => {
-          console.log("Updated Download Table Data:", studentDetailedReportsData);
-        }, [studentDetailedReportsData]); 
-         useEffect(() => {
-            if (selectedHeaders.length > 0) { 
-              fetchData();
-            }
-          }, [selectedHeaders]); 
+ 
           useEffect(() => {
               if (isReadyToDownload && studentDetailedReportsData.length > 0) {
                 console.log("Downloading CSV with data:", studentDetailedReportsData);
@@ -817,28 +816,7 @@ const IdeaReport = () => {
             };
           });
 
-          const filteredData = newdatalist.map((item) => {
-            let filteredItem = {};
-            const updatedHeaders = selectedHeaders.map(
-              (header) => headerMapping[header] || header
-            );
-            
-            updatedHeaders.forEach((key) => {
-              if (item && Object.prototype.hasOwnProperty.call(item, key)) {  
-                filteredItem[key] = item[key] ?? ""; 
-              } else {
-                console.warn(`Key "${key}" not found in item:`, item); 
-              }
-            });
-          
-            console.log("Filtered Item:", filteredItem); 
-            return Object.keys(filteredItem).length > 0 ? filteredItem : null; 
-          }).filter(Boolean); 
-          console.log("Final Filtered Data for Download:", filteredData);
-          console.log("Selected Headers:", selectedHeaders);
-console.log("New Data List Keys:", newdatalist.length > 0 ? Object.keys(newdatalist[0]) : "No Data");
-
-          setstudentDetailedReportsData(filteredData);
+       setModifiedChartTableData(newdatalist);
           if (response.data.data[0].summary.length > 0) {
             setIsCustomizationEnabled(true);
            
@@ -1066,12 +1044,7 @@ console.log("New Data List Keys:", newdatalist.length > 0 ? Object.keys(newdatal
               </Col>
               <Col md={2}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
-                  {/* <Select
-                    list={categoryData}
-                    setValue={setCategory}
-                    placeHolder={"Select Category"}
-                    value={category}
-                  /> */}
+                 
                   {selectstate === "Tamil Nadu" ? (
                     <Select
                       list={categoryDataTn}
@@ -1099,24 +1072,14 @@ console.log("New Data List Keys:", newdatalist.length > 0 ? Object.keys(newdatal
                   />
                 </div>
               </Col>
-              <Col
-                md={2}
-                className="d-flex align-items-center justify-content-center"
-              >
-                <button
-                  onClick={handleDownload}
-                  type="button"
-                  disabled={isDownload}
-                  className="btn btn-primary"
-                >
-                  {isDownload ? "Downloading" : "Download Report"}
-                </button>
-              </Col>
+             
                 <Col md={2}>
                                                         <button
-                                                              onClick={() => setShowCustomization(!showCustomization)}
+                                                               onClick={() => {setShowCustomization(!showCustomization);
+                                                                fetchData();
+                                                              }}
                                                             type="button"
-                                                            disabled={!isCustomizationEnabled}
+                                                            disabled={!enable}
                                                             className="btn btn-primary"
                                                           >
                                                             Customization
@@ -1166,7 +1129,8 @@ console.log("New Data List Keys:", newdatalist.length > 0 ? Object.keys(newdatal
                                       setShowCustomization(false);
                                       if (!studentDetailedReportsData || studentDetailedReportsData.length === 0) {
                                         console.log("Fetching data before download...");
-                                        fetchData(); 
+                                        // fetchData();
+                                        filterData(); 
                                       }
                                       setTimeout(() => {
                                         console.log("Checking Data Before Download:", studentDetailedReportsData);
@@ -1174,7 +1138,7 @@ console.log("New Data List Keys:", newdatalist.length > 0 ? Object.keys(newdatal
                                       }, 1000);
                                     }}
                                   >
-                                    Close
+                                     Download Report
                                   </button>
                                 </div>
                               </div>
