@@ -108,116 +108,9 @@ const InstitutionReport = () => {
   const [selectedHeaders, setSelectedHeaders] = useState([]);
   const [isReadyToDownload, setIsReadyToDownload] = useState(false);
   const [formattedDataForDownload, setFormattedDataForDownload] = useState([]);
-  const tableHeaders = [
-    {
-      label: "District",
-      key: "district",
-    },
-    {
-      label: "ATL Schools",
-      key: "ATL_Count",
-    },
-    {
-      label: "Non-ATL Schools",
-      key: "NonATL_Count",
-    },
-  ];
-  const tableHeadersState = [
-    {
-      label: "District",
-      key: "district",
-    },
-    {
-      label: "FullyAidedHighSchool",
-      key: "FullyAidedHighSchool_Count",
-    },
-    {
-      label: "Fully Aided Higher Secondary Schools",
-      key: "FullyAidedHigherSecondarySchool_Count",
-    },
-    {
-      label: "Government High Schools",
-      key: "GovernmentHighSchool_Count",
-    },
-
-    {
-      label: "Government Higher Secondary Schools",
-      key: "GovernmentHigherSecondarySchool_Count",
-    },
-    {
-      label: "Partially Aided High Schools",
-      key: "PartiallyAidedHighSchool_Count",
-    },
-    {
-      label: "Partially Aided Higher Secondary Schools",
-      key: "PartiallyAidedHigherSecondarySchool_Count",
-    },
-    {
-      label: "Non-ATL Schools",
-      key: "NonATL_Count",
-    },
-  ];
+ 
   // const registrationStatus = mentor_reg !== 0 ? "Completed" : "Not Started";
-  const summaryHeaders = [
-    {
-      label: "UDISE Code",
-      key: "organization_code",
-    },
-    // {
-    //     label: 'ATL CODE',
-    //     key: 'organization_code'
-    // },
-
-    {
-      label: "School Name",
-      key: "organization_name",
-    },
-    {
-      label: "School Type/Category",
-      key: "category",
-    },
-    {
-      label: "State",
-      key: "state",
-    },
-    {
-      label: "District",
-      key: "district",
-    },
-    {
-      label: "City",
-      key: "city",
-    },
-    {
-      label: "Address",
-      key: "address",
-    },
-    {
-      label: "Pincode",
-      key: "pin_code",
-    },
-    {
-      label: "Principal Name",
-      key: "principal_name",
-    },
-    {
-      label: "Principal Mobile",
-      key: "principal_mobile",
-    },
-    {
-      label: "Principal Email",
-      key: "principal_email",
-    },
-    {
-      label: "Registration status",
-      key: "registration_status",
-      // render: () => <span>{registrationStatus}</span>,
-    },
-    {
-      label: "No of teachers registered",
-      key: "mentor_reg",
-    },
-  ];
+ 
   const allHeaders = [
     { label: "UDISE Code", key: "organization_code" },
     { label: "School Name", key: "organization_name" },
@@ -257,7 +150,7 @@ const InstitutionReport = () => {
       } else {
         updatedHeaders = [...prevHeaders, key];
       }
-  
+      filterData(updatedHeaders);
       return updatedHeaders;
     });
   };
@@ -267,7 +160,7 @@ const InstitutionReport = () => {
     setSelectedHeaders((prevHeaders) => {
       const updatedHeaders =
         prevHeaders.length === allHeaders.length ? [] : allHeaders.map((h) => h.key);
-  
+        filterData(updatedHeaders);
       return updatedHeaders;
     });
   };
@@ -277,7 +170,7 @@ const InstitutionReport = () => {
  
 
   useEffect(() => {
-    fetchChartTableData();
+    // fetchChartTableData();
     const newDate = new Date();
     const formattedDate = `${newDate.getUTCDate()}/${1 + newDate.getMonth()
       }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
@@ -395,7 +288,26 @@ const InstitutionReport = () => {
       return;
     }
     setIsDownload(true);
-    fetchData();
+    // fetchData();
+  };
+  const filterData= (updatedHeaders)=>{
+    const filteredData = modifiedChartTableData.map((item) => {
+  // console.log(modifiedChartTableData,"mmmm");
+
+      let filteredItem = {};
+      updatedHeaders.forEach((key) => {
+        if (item && Object.prototype.hasOwnProperty.call(item, key)) {  
+          filteredItem[key] = item[key] ?? ""; 
+        } else {
+          console.warn(`Key "${key}" not found in item:`, item); 
+        }
+      });
+    
+      console.log("Filtered Item:", filteredItem); 
+      return Object.keys(filteredItem).length > 0 ? filteredItem : null; 
+    }).filter(Boolean); 
+    console.log("Final Filtered Data for Download:", filteredData);
+    setDownloadTableData(filteredData);
   };
   const fetchData = () => {
     const apiRes = encryptGlobal(
@@ -419,13 +331,12 @@ const InstitutionReport = () => {
       .then(function (response) {
         if (response.status === 200) {
           const chartTableData = response?.data?.data || [];
-          // console.log("Original API Data:", chartTableData);
 
-          const modifiedChartTableData = chartTableData.map((item) => ({
+          const modifiedData = chartTableData.map((item) => ({
             ...item,
             registration_status: item.mentor_reg !== 0 ? "Registered" : "Not Registered",
           }));
-         
+          setModifiedChartTableData(modifiedData);
           // const filteredData = modifiedChartTableData.map((item) => {
           //   let filteredItem = {};
           //   selectedHeaders.forEach((key) => {
@@ -438,21 +349,7 @@ const InstitutionReport = () => {
           //   return filteredItem;
           // });
 
-          const filteredData = modifiedChartTableData.map((item) => {
-            let filteredItem = {};
-            selectedHeaders.forEach((key) => {
-              if (item && Object.prototype.hasOwnProperty.call(item, key)) {  
-                filteredItem[key] = item[key] ?? ""; 
-              } else {
-                console.warn(`Key "${key}" not found in item:`, item); 
-              }
-            });
-          
-            console.log("Filtered Item:", filteredItem); 
-            return Object.keys(filteredItem).length > 0 ? filteredItem : null; 
-          }).filter(Boolean); 
-          console.log("Final Filtered Data for Download:", filteredData);
-          setDownloadTableData(filteredData);
+        
 
 
           if (response?.data?.count > 0) {
@@ -474,13 +371,8 @@ const InstitutionReport = () => {
   useEffect(() => {
     console.log("Updated Download Table Data:", downloadTableData);
   }, [downloadTableData]); 
-  useEffect(() => {
-    if (selectedHeaders.length > 0) { 
-      fetchData();
-    }
-  }, [selectedHeaders]); 
-
   
+
   useEffect(() => {
     if (isReadyToDownload && downloadTableData.length > 0) {
       console.log("Downloading CSV with data:", downloadTableData);
@@ -502,8 +394,9 @@ const InstitutionReport = () => {
     }
   }, [isReadyToDownload, downloadTableData]);
  
+ 
+  const enable = selectstate?.trim() !== "" && district?.trim() !== "" && category?.trim() !== "";
 
-  
   
 
   return (
@@ -575,43 +468,21 @@ const InstitutionReport = () => {
                   )}
                 </div>
               </Col>
-              <Col
-                md={2}
-                className="d-flex align-items-center justify-content-center"
-              >
-                <button
-                  onClick={handleDownload}
-                  type="button"
-                  disabled={isDownload}
-                  className="btn btn-primary"
-                >
-                  {isDownload ? "Downloading" : "Download Report"}
-                </button>
-
-                {downloadTableData && (
-                  <CSVLink
-                    // data={downloadTableData}
-                    data={formattedDataForDownload}
-                    // headers={summaryHeaders}
-                    filename={`School_Registration_Status_Report_${newFormat}.csv`}
-                    className="hidden"
-                    ref={csvLinkRef}
-                 
-                  >
-                    Download Table CSV
-                  </CSVLink>
-                )}
-              </Col>
               <Col md={2}>
               <button
-                    onClick={() => setShowCustomization(!showCustomization)}
+                   
+                    onClick={() => {setShowCustomization(!showCustomization);
+                      fetchData();
+                    }}
                   type="button"
-                  disabled={!isCustomizationEnabled}
+                  disabled={!enable}
                   className="btn btn-primary"
                 >
                   Customization
                 </button>
               </Col>
+             
+             
               {showCustomization && (
   <div className="card mt-3" style={{ width: "50%", padding: "20px" }}>
     <div className="card-body">
@@ -656,24 +527,34 @@ const InstitutionReport = () => {
           setShowCustomization(false);
           if (!downloadTableData || downloadTableData.length === 0) {
             console.log("Fetching data before download...");
-            fetchData(); 
+            filterData();
+            // fetchData(); 
+
           }
       
           setTimeout(() => {
             console.log("Checking Data Before Download:", downloadTableData);
-            // if (!downloadTableData || downloadTableData.length === 0) {
-            //   console.error("No data available for download!");
-            //   return;
-            // }
+          
             setIsReadyToDownload(true);
           }, 1000);
         }}
       >
-        Close
+        Download Report
       </button>
     </div>
   </div>
 )}
+ {downloadTableData && (
+                  <CSVLink
+                    data={formattedDataForDownload}
+                    filename={`School_Registration_Status_Report_${newFormat}.csv`}
+                    className="hidden"
+                    ref={csvLinkRef}
+                 
+                  >
+                    Download Table CSV
+                  </CSVLink>
+                )}
             </Row>
 
           </div>

@@ -55,8 +55,8 @@ const ReportsRegistration = () => {
   const navigate = useNavigate();
   const [filterType, setFilterType] = useState("");
   const [category, setCategory] = useState("");
-  const [filterData, setFilterData] = useState([]);
-  const [filteresData, setFilteresData] = useState([]);
+  // const [filterData, setFilterData] = useState([]);
+  const [filterNOtsData, setFilterNotData] = useState([]);
   const [isCustomizationEnabled, setIsCustomizationEnabled] = useState(false);
   const [showCustomization, setShowCustomization] = useState(false);
   // const [selectedHeaders, setSelectedHeaders] = useState([]);
@@ -300,6 +300,7 @@ const ReportsRegistration = () => {
   const [selectedRegisteredHeaders, setSelectedRegisteredHeaders] = useState(
     []
   );
+  
   const [selectedNotRegisteredHeaders, setSelectedNotRegisteredHeaders] =
     useState([]);
   const currentHeaders =
@@ -311,7 +312,38 @@ const ReportsRegistration = () => {
   useEffect(() => {
     fetchChartTableData();
   }, []);
+  const handleCheckboxChange = (key) => {
+    if (filterType === "Registered") {
+      setSelectedRegisteredHeaders((prev) => {
+        const updatedHeaders = prev.includes(key) ? prev.filter((h) => h !== key) : [...prev, key];
+        filterData(updatedHeaders); 
+        return updatedHeaders;
+      });
+    } else {
+      setSelectedNotRegisteredHeaders((prev) => {
+        const updatedHeaders = prev.includes(key) ? prev.filter((h) => h !== key) : [...prev, key];
+        filterData(updatedHeaders); 
+        return updatedHeaders;
+      });
+    }
+  };
+  
 
+  const handleSelectAll = () => {
+    if (filterType === "Registered") {
+      setSelectedRegisteredHeaders((prev) => {
+        const updatedHeaders = prev.length === allHeaders.length ? [] : allHeaders.map((h) => h.key);
+        filterData(updatedHeaders); 
+        return updatedHeaders;
+      });
+    } else {
+      setSelectedNotRegisteredHeaders((prev) => {
+        const updatedHeaders = prev.length === notRegHeaders.length ? [] : notRegHeaders.map((h) => h.key);
+        filterData(updatedHeaders); 
+        return updatedHeaders;
+      });
+    }
+  };
   const chartOption = {
     maintainAspectRatio: false,
     legend: {
@@ -459,7 +491,7 @@ const ReportsRegistration = () => {
       horizontalAlign: "left",
     },
   };
-
+ 
   const fetchData = (item) => {
     const param = encryptGlobal(
       JSON.stringify({
@@ -498,45 +530,39 @@ const ReportsRegistration = () => {
     axios(config)
       .then((response) => {
           if (response.status === 200) {
-           
-
-            let fetchedData = response?.data?.data || [];
-
-            const headersToUse =
-              item === "Registered"
-                ? selectedRegisteredHeaders
-                : selectedNotRegisteredHeaders;
-
-            const filteredData = fetchedData
-              .map((entry) => {
-                let filteredItem = {};
-                headersToUse.forEach((key) => {
-                  if (
-                    entry &&
-                    Object.prototype.hasOwnProperty.call(entry, key)
-                  ) {
-                    filteredItem[key] = entry[key] ?? "";
-                  } else {
-                    console.warn(`Key "${key}" not found in item:`, entry);
-                  }
-                });
-                return Object.keys(filteredItem).length > 0
-                  ? filteredItem
-                  : null;
-              })
-              .filter(Boolean);
-
-            console.log(`Final Filtered Data for ${item}:`, filteredData);
-
+const modifiedData=response?.data?.data || [];
+          //  console.log(modifiedData,"modi");
+           const transformedData = modifiedData.map((item) => ({
+            full_name: item["full_name"],
+            gender: item["gender"],
+            mobile: item["mobile"],
+            whatsapp_mobile: item["whatapp_mobile"],
+            organization_code: item["organization.organization_code"] || "N/A",
+            unique_code: item["organization.unique_code"] || "N/A",
+            organization_name: item["organization.organization_name"] || "N/A",
+            category: item["organization.category"] || "N/A",
+            state: item["organization.state"] || "N/A",
+            district: item["organization.district"] || "N/A",
+            city: item["organization.city"] || "N/A",
+            pin_code: item["organization.pin_code"] || "N/A",
+            address: item["organization.address"] || "N/A",
+            principal_name: item["organization.principal_name"] || "N/A",
+            principal_mobile: item["organization.principal_mobile"] || "N/A",
+            username: item["user.username"] || "N/A",
+            user_id: item["user.user_id"] || "N/A",
+          }));
+          
+          console.log(transformedData, "transformed");
+          
             if (item === "Registered") {
-              setFilterData(fetchedData);
-              setDownloadData(filteredData);
+              // setFilterData(modifiedData);
+              setDownloadData(modifiedData);
             } else if (item === "Not Registered") {
-              setFilteresData(fetchedData);
-              setDownloadNotRegisteredData(filteredData);
+              // setFilterNotData(modifiedData);
+              setDownloadNotRegisteredData(modifiedData);
             }
 
-            if (fetchedData.length > 0) {
+            if (modifiedData.length > 0) {
               setIsCustomizationEnabled(true);
             } else {
               openNotificationWithIcon("error", "No Data Found");
@@ -550,90 +576,129 @@ const ReportsRegistration = () => {
       });
   };
 
-  const handleDownload = () => {
-    if (!RegTeachersState || !RegTeachersdistrict || !filterType || !category) {
-      notification.warning({
-        message:
-          "Select state, district, filters, category to download report.",
+ 
+  const enable = RegTeachersState?.trim() !== "" && RegTeachersdistrict?.trim() !== "" && filterType?.trim() !== "" && category?.trim() !== "";
+  const filterData = (updatedHeaders) => {
+    const dataSource = filterType === "Registered" ? downloadData : downloadNotRegisteredData;
+    
+    const filteredData = dataSource.map((item) => {
+      let filteredItem = {};
+      updatedHeaders.forEach((key) => {
+        if (item && Object.prototype.hasOwnProperty.call(item, key)) {
+          filteredItem[key] = item[key] ?? "";
+        } else {
+          console.warn(`Key "${key}" not found in item:`, item);
+        }
       });
-      return;
+  
+      console.log("Filtered Item:", filteredItem);
+      return Object.keys(filteredItem).length > 0 ? filteredItem : null;
+    }).filter(Boolean);
+  
+    console.log(`Final Filtered Data for Download (${filterType}):`, filteredData);
+  
+    if (filterType === "Registered") {
+      setDownloadData(filteredData);
+    } else {
+      setDownloadNotRegisteredData(filteredData);
     }
-    setIsDownloading(true);
-    fetchData(filterType);
   };
-
+  
   useEffect(() => {
-    if (!isReadyToDownload) return;
+    if (isReadyToDownload) {
+      if (downloadData.length > 0) {
+        console.log("Downloading CSV with data:", downloadData);
   
-    const dataToDownload =
-      filterType === "Registered" ? downloadData : downloadNotRegisteredData;
+        const formattedCSVData = downloadData.map((item) =>
+          Object.fromEntries(
+            Object.entries(item).map(([key, value]) => [headerMapping[key] || key, value])
+          )
+        );
   
-    if (dataToDownload.length > 0) {
-      console.log("Downloading CSV with data:", dataToDownload);
-      const selectedHeaderMapping =
-      filterType === "Registered" ? headerMapping : headerMappingNot;
-      const formattedCSVData = dataToDownload.map((item) =>
-        Object.fromEntries(
-          Object.entries(item).map(([key, value]) => [
-            selectedHeaderMapping[key] || key, 
-            value ?? "",
-          ])
-        )
-      );
+        setFormattedDataForDownload(formattedCSVData);
   
-      setFormattedDataForDownload(formattedCSVData);
-  
-      setTimeout(() => {
-        if (csvLinkRef.current) {
+        setTimeout(() => {
           csvLinkRef.current.link.click();
           console.log("Downloading CSV with formatted headers:", formattedCSVData);
-          openNotificationWithIcon("success", `${filterType} Report Downloaded Successfully`);
-        }
-        setIsReadyToDownload(false);
-      }, 1000);
-    } else {
-      openNotificationWithIcon("error", "No Data Available for Download");
-      setIsReadyToDownload(false);
-    }
-  }, [isReadyToDownload, filterType, downloadData, downloadNotRegisteredData]);
+          openNotificationWithIcon("success", "Registered Report Downloaded Successfully");
+          setIsReadyToDownload(false);
+        }, 1000);
+      } else if (downloadNotRegisteredData.length > 0) {
+        console.log("Downloading CSV for Not Registered Users:", downloadNotRegisteredData);
   
-  useEffect(() => {
-    if (selectedHeaders.length > 0) {
-      if (filterType === "Registered") {
-        fetchData("Registered");
-      } else if (filterType === "Not Registered") {
-        fetchData("Not Registered");
+        const formattedCSVData = downloadNotRegisteredData.map((item) =>
+          Object.fromEntries(
+            Object.entries(item).map(([key, value]) => [headerMappingNot[key] || key, value])
+          )
+        );
+  
+        setFormattedDataForDownload(formattedCSVData);
+  
+        setTimeout(() => {
+          csvLinkRef.current.link.click();
+          console.log("Downloading CSV for Not Registered Users:", formattedCSVData);
+          openNotificationWithIcon("success", "Not Registered Report Downloaded Successfully");
+          setIsReadyToDownload(false);
+        }, 1000);
+      } else {
+        openNotificationWithIcon("warning", "No Data Available for Download");
+        setIsReadyToDownload(false);
       }
     }
-  }, [selectedHeaders, filterType]); 
+  }, [isReadyToDownload, downloadTableData, downloadNotRegisteredData]);
   
-  const handleCheckboxChange = (key) => {
-    if (filterType === "Registered") {
-      setSelectedRegisteredHeaders((prev) =>
-        prev.includes(key) ? prev.filter((h) => h !== key) : [...prev, key]
-      );
-    } else {
-      setSelectedNotRegisteredHeaders((prev) =>
-        prev.includes(key) ? prev.filter((h) => h !== key) : [...prev, key]
-      );
-    }
-  };
+  // useEffect(() => {
+  //   if (!isReadyToDownload) return;
+  
+  //   const dataToDownload =
+  //     filterType === "Registered" ? downloadData : downloadNotRegisteredData;
+  
+  //   if (dataToDownload.length > 0) {
+  //     console.log("Downloading CSV with data:", dataToDownload);
+  //     console.log("Raw DataToDownload:", dataToDownload);
 
-  const handleSelectAll = () => {
-    if (filterType === "Registered") {
-      setSelectedRegisteredHeaders(
-        selectedRegisteredHeaders.length === allHeaders.length
-          ? []
-          : allHeaders.map((h) => h.key)
-      );
-    } else {
-      setSelectedNotRegisteredHeaders(
-        selectedNotRegisteredHeaders.length === notRegHeaders.length
-          ? []
-          : notRegHeaders.map((h) => h.key)
-      );
-    }
-  };
+  //     const selectedHeaderMapping =
+  //     filterType === "Registered" ? headerMapping : headerMappingNot;
+  //     const availableHeaders = Array.from(
+  //       new Set(dataToDownload.flatMap(item => Object.keys(item)))
+  //     );
+  
+      
+      
+  //     console.log("Available Headers:", availableHeaders);
+      
+  //     const formattedCSVData = dataToDownload.map((item) =>
+  //       Object.fromEntries(
+  //         availableHeaders.map((key) => {
+  //           const extractedValue = item[key] ?? "";
+  //           const mappedKey = selectedHeaderMapping[key] || key;
+  //           console.log(`Extracting key: ${key}, Mapped Key: ${mappedKey}, Value:`, extractedValue);
+  //           return [mappedKey, extractedValue];
+  //         })
+  //       )
+  //     );
+      
+      
+     
+  //     setFormattedDataForDownload(formattedCSVData);
+  //     setTimeout(() => {
+  //       if (csvLinkRef.current) {
+  //         csvLinkRef.current.link.click();
+  //         console.log("Downloading CSV with formatted headers:", formattedCSVData);
+  //         openNotificationWithIcon("success", `${filterType} Report Downloaded Successfully`);
+  //       }
+  //       setIsReadyToDownload(false);
+  //     }, 1000);
+  //   } else {
+  //     openNotificationWithIcon("error", "No Data Available for Download");
+  //     setIsReadyToDownload(false);
+  //   }
+  // }, [isReadyToDownload, filterType, downloadData, downloadNotRegisteredData]);
+  
+
+  
+ 
+  
 
   useEffect(() => {
     if (downloadComplete) {
@@ -818,12 +883,7 @@ const ReportsRegistration = () => {
               </Col>
               <Col md={2}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
-                  {/* <Select
-                                            list={categoryData}
-                                            setValue={setCategory}
-                                            placeHolder={'Select Category'}
-                                            value={category}
-                                        /> */}
+                 
                   {RegTeachersState === "Tamil Nadu" ? (
                     <Select
                       list={categoryDataTn}
@@ -842,24 +902,14 @@ const ReportsRegistration = () => {
                 </div>
               </Col>
 
-              <Col
-                md={2}
-                className="d-flex align-items-center justify-content-center"
-              >
-                <button
-                  onClick={handleDownload}
-                  type="button"
-                  disabled={isDownloading}
-                  className="btn btn-primary"
-                >
-                  {isDownloading ? "Downloading" : "Download Report"}
-                </button>
-              </Col>
+             
               <Col md={2}>
                 <button
-                  onClick={() => setShowCustomization(!showCustomization)}
+                  onClick={() => {setShowCustomization(!showCustomization);
+                    fetchData(filterType);
+                  }}
                   type="button"
-                  disabled={!isCustomizationEnabled}
+                  disabled={!enable}
                   className="btn btn-primary"
                 >
                   Customization
@@ -923,7 +973,8 @@ const ReportsRegistration = () => {
                           (filterType === "Not Registered" && (!downloadNotRegisteredData || downloadNotRegisteredData.length === 0))
                         ) {
                           console.log("Fetching data before download...");
-                          await fetchData(filterType);
+                          await filterData();
+                          //  fetchData(filterType);
                         }
                     
                         setTimeout(() => {
@@ -932,7 +983,7 @@ const ReportsRegistration = () => {
                      
                       }}
                     >
-                      Close
+                      Download Report
                     </button>
                   </div>
                 </div>

@@ -101,6 +101,8 @@ const StudentProgress = () => {
     'All Districts',
     ...allDistricts[selectstate] || []
   ];
+    const [modifiedChartTableData, setModifiedChartTableData] = useState([]);
+  
   // const fiterDistData = districtList[selectstate];
 
   useEffect(() => {
@@ -298,7 +300,7 @@ const StudentProgress = () => {
       } else {
         updatedHeaders = [...prevHeaders, key];
       }
-  
+      filterData(updatedHeaders);
       return updatedHeaders;
     });
   };
@@ -308,7 +310,7 @@ const StudentProgress = () => {
     setSelectedHeaders((prevHeaders) => {
       const updatedHeaders =
         prevHeaders.length === allHeaders.length ? [] : allHeaders.map((h) => h.key);
-  
+        filterData(updatedHeaders);
       return updatedHeaders;
     });
   }; 
@@ -642,36 +644,31 @@ const StudentProgress = () => {
         console.log(error);
       });
   };
-  const handleDownload = () => {
-    if (
-      !selectstate ||
-      !district ||
-      !category
-    ) {
-      notification.warning({
-        message:
-          "Select state, district, category to download report.",
-      });
-      return;
-    }
-    setIsDownload(true);
-    fetchData();
-  };
-  // useEffect(() => {
-  //   if (studentDetailedReportsData.length > 0) {
-  //     console.log("Performing operation with the updated data.");
-  //     csvLinkRef.current.link.click();
+  const filterData= (updatedHeaders)=>{
+    const filteredData = modifiedChartTableData.map((item) => {
 
-  //   }
-  // }, [studentDetailedReportsData]);
+      let filteredItem = {};
+      updatedHeaders.forEach((key) => {
+        if (item && Object.prototype.hasOwnProperty.call(item, key)) {  
+          filteredItem[key] = item[key] ?? ""; 
+        } else {
+          console.warn(`Key "${key}" not found in item:`, item); 
+        }
+      });
+    
+      console.log("Filtered Item:", filteredItem); 
+      return Object.keys(filteredItem).length > 0 ? filteredItem : null; 
+    }).filter(Boolean); 
+    console.log("Final Filtered Data for Download:", filteredData);
+    setstudentDetailedReportsData(filteredData);
+  };
+ 
+  const enable = selectstate?.trim() !== "" && district?.trim() !== "" && category?.trim() !== "";
+ 
     useEffect(() => {
         console.log("Updated Download Table Data:", studentDetailedReportsData);
       }, [studentDetailedReportsData]); 
-       useEffect(() => {
-          if (selectedHeaders.length > 0) { 
-            fetchData();
-          }
-        }, [selectedHeaders]); 
+     
         useEffect(() => {
             if (isReadyToDownload && studentDetailedReportsData.length > 0) {
               console.log("Downloading CSV with data:", studentDetailedReportsData);
@@ -681,7 +678,6 @@ const StudentProgress = () => {
                 )
               );
               setFormattedDataForDownload(formattedCSVData);
-          // setDownloadTableData(formattedCSVData);
         
           setTimeout(() => {
                 csvLinkRef.current.link.click();
@@ -819,33 +815,30 @@ const StudentProgress = () => {
               username: mentorUsernameMap[item.mentorUserId]
             };
           });
-          const filteredData = newdatalist.map((item) => {
-            let filteredItem = {};
-            selectedHeaders.forEach((key) => {
-              if (item && Object.prototype.hasOwnProperty.call(item, key)) {  
-                filteredItem[key] = item[key] ?? ""; 
-              } else {
-                console.warn(`Key "${key}" not found in item:`, item); 
-              }
-            });
+          setModifiedChartTableData(newdatalist);
+          // const filteredData = newdatalist.map((item) => {
+          //   let filteredItem = {};
+          //   selectedHeaders.forEach((key) => {
+          //     if (item && Object.prototype.hasOwnProperty.call(item, key)) {  
+          //       filteredItem[key] = item[key] ?? ""; 
+          //     } else {
+          //       console.warn(`Key "${key}" not found in item:`, item); 
+          //     }
+          //   });
           
-            console.log("Filtered Item:", filteredItem); 
-            return Object.keys(filteredItem).length > 0 ? filteredItem : null; 
-          }).filter(Boolean); 
-          console.log("Final Filtered Data for Download:", filteredData);
-          setstudentDetailedReportsData(filteredData);
+          //   console.log("Filtered Item:", filteredItem); 
+          //   return Object.keys(filteredItem).length > 0 ? filteredItem : null; 
+          // }).filter(Boolean); 
+          // console.log("Final Filtered Data for Download:", filteredData);
+          // setstudentDetailedReportsData(filteredData);
           if (response.data.data[0].summary.length > 0) {
             setIsCustomizationEnabled(true);
 
-            // openNotificationWithIcon(
-            //   'success',
-            //   "Report Downloaded Successfully"
-            // );
+          
           } else {
             openNotificationWithIcon('error', 'No Data Found');
           }
-          //   csvLinkRef.current.link.click();
-          //   console.log(studentDetailedReportsData,"ttt");
+         
           setIsDownload(false);
         }
       })
@@ -1080,7 +1073,7 @@ const StudentProgress = () => {
             <div className="page-title">
               <h4>4. Student Progress Detailed Report</h4>
               <h6>
-                Student Progress - Presurvey , Course, Idea submission , Post survey
+                Student Progress - Pre survey , Course, Idea submission , Post survey
                 Status Report
               </h6>
             </div>
@@ -1141,24 +1134,14 @@ const StudentProgress = () => {
                     />)}
                 </div>
               </Col>
-              <Col
-                md={2}
-                className="d-flex align-items-center justify-content-center"
-              >
-                <button
-                  onClick={handleDownload}
-                  type="button"
-                  disabled={isDownload}
-                  className="btn btn-primary"
-                >
-                  {isDownload ? "Downloading" : "Download Report"}
-                </button>
-              </Col>
+             
                <Col md={2}>
                                           <button
-                                                onClick={() => setShowCustomization(!showCustomization)}
+                                               onClick={() => {setShowCustomization(!showCustomization);
+                                                fetchData();
+                                              }}
                                               type="button"
-                                              disabled={!isCustomizationEnabled}
+                                              disabled={!enable}
                                               className="btn btn-primary"
                                             >
                                               Customization
@@ -1208,7 +1191,8 @@ const StudentProgress = () => {
                         setShowCustomization(false);
                         if (!studentDetailedReportsData || studentDetailedReportsData.length === 0) {
                           console.log("Fetching data before download...");
-                          fetchData(); 
+                          filterData();
+                          // fetchData(); 
                         }
                         setTimeout(() => {
                           console.log("Checking Data Before Download:", studentDetailedReportsData);
@@ -1216,7 +1200,7 @@ const StudentProgress = () => {
                         }, 1000);
                       }}
                     >
-                      Close
+                      Download Report
                     </button>
                   </div>
                 </div>
