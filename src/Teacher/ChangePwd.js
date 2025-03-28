@@ -27,7 +27,7 @@ const ChangePwd = (props) => {
   const [isOldPasswordVisible, setOldPasswordVisible] = useState(false);
   const [isNewPasswordVisible, setNewPasswordVisible] = useState(false);
   const [isPasswordVisible, setPasswordVisible] = useState(false);
-
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   const formik = useFormik({
     initialValues: {
       oldPassword: "",
@@ -39,10 +39,17 @@ const ChangePwd = (props) => {
       oldPassword: Yup.string().required(
         <span style={{ color: "red" }}>Required</span>
       ),
-      newPassword: Yup.string().required(
+      newPassword: Yup.string()
+    .matches(
+      passwordRegex,
+      "Password must be at least 8 characters and include one uppercase, one lowercase, one number, and one special character"
+    )
+      .required(
         <span style={{ color: "red" }}>Required</span>
       ),
-      confirmPassword: Yup.string().required(
+      confirmPassword: Yup.string()
+      .oneOf([Yup.ref("newPassword"), null], "Passwords must match")
+      .required(
         <span style={{ color: "red" }}>Required</span>
       ),
     }),
@@ -207,11 +214,11 @@ const ChangePwd = (props) => {
                     ></div>
                   </div>
                   <small className="mt-2">
-                  {t('teacherJourney.8-charac_minimum_case_sensitive')}
+                  {/* {t('teacherJourney.8-charac_minimum_case_sensitive')} */}
                   </small>
                   <br />
                   {formik.touched.newPassword && formik.errors.newPassword ? (
-                    <small className="error-cls">
+                    <small className="error-cls" style={{ color: "red" }}>
                       {formik.errors.newPassword}
                     </small>
                   ) : null}
@@ -239,7 +246,7 @@ const ChangePwd = (props) => {
                   </div>
                   {formik.touched.confirmPassword &&
                   formik.errors.confirmPassword ? (
-                    <small className="error-cls">
+                    <small className="error-cls" style={{ color: "red" }}>
                       {formik.errors.confirmPassword}
                     </small>
                   ) : null}

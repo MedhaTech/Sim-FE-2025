@@ -93,7 +93,15 @@ const ResendEmail = () => {
    
   });
 
+  const buttonContainerStyle = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  };
 
+  const buttonStyle = {
+    marginRight: '10px',
+  };
   const handleStateChange = (event) => {
     const state = event.target.value;
     formik.setFieldValue("state", state);
@@ -203,8 +211,8 @@ const ResendEmail = () => {
                   </div>
 
                  
-                  <Row className="d-flex justify-content-between">
-                    <Col className="col-xs-12 col-sm-6 d-flex justify-content-start">
+                  <Row >
+                  <div style={buttonContainerStyle} className='mt-3'>
                       <button
                         label="Submit details"
                         type="submit"
@@ -214,12 +222,11 @@ const ResendEmail = () => {
                             : "warning"
                         }`}
                         disabled={!formik.dirty}
+                        style={buttonStyle}
                       >
                         Trigger Email
                       </button>
-                    </Col>
 
-                    <Col className="col-xs-12 col-sm-6 d-flex justify-content-end">
                       <button
                         type="cancel"
                         className="btn btn-secondary"
@@ -227,7 +234,7 @@ const ResendEmail = () => {
                       >
                         Discard
                       </button>
-                    </Col>
+                    </div>
                   </Row>
                 </Form>
               </div>

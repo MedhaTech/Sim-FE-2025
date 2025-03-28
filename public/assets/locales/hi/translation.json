@@ -250,7 +250,7 @@
         "pas2":"New Password",
         "pas3":"Confirm New Password",
         "pas4":"Change Password",
-        "8-charac_minimum_case_sensitive": "8-character minimum; case sensitive",
+        "8-charac_minimum_case_sensitive": "8+ अक्षर, अपरकेस, लोअरकेस, संख्यात्मक और विशेष",
         "Cancel": "Cancel",
         "join_Mentor": "Teacher",
         "heading1":"here's what's happening with your School Innovation Marathon 2025 today.",
