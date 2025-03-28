@@ -97,6 +97,15 @@ const CreateEmail = () => {
     const state = event.target.value;
     formik.setFieldValue("state", state);
   };
+  const buttonContainerStyle = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  };
+
+  const buttonStyle = {
+    marginRight: '10px',
+  };
 //  console.log(formik.values.msg,"msg");
   return (
     <div className="page-wrapper">
@@ -204,8 +213,8 @@ const CreateEmail = () => {
                   </div>
 
                  
-                  <Row className="d-flex justify-content-between">
-                    <Col className="col-xs-12 col-sm-6 d-flex justify-content-start">
+                  <Row >
+                    <div style={buttonContainerStyle} className='mt-3'>
                       <button
                         label="Submit details"
                         type="submit"
@@ -215,12 +224,11 @@ const CreateEmail = () => {
                             : "warning"
                         }`}
                         disabled={!formik.dirty}
+                        style={buttonStyle}
                       >
                         Trigger Email
                       </button>
-                    </Col>
-
-                    <Col className="col-xs-12 col-sm-6 d-flex justify-content-end">
+                   
                       <button
                         type="cancel"
                         className="btn btn-secondary"
@@ -228,7 +236,7 @@ const CreateEmail = () => {
                       >
                         Discard
                       </button>
-                    </Col>
+                    </div>
                   </Row>
                 </Form>
               </div>
