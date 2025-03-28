@@ -369,7 +369,7 @@ const TicketsPage = (props) => {
                     if (response.status === 201) {
                         openNotificationWithIcon(
                             'success',
-                            'Evaluator Bulk Uplaoding Done'
+                            'Evaluator Bulk Uploading Done'
                         );
                         props.getEvaluatorListAction();
                     }

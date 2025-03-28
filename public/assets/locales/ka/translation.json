@@ -734,7 +734,9 @@
         "reject":"Reason for rejection",
         "modified":"Last Modified by",
         "date":"Last Submission was rejected by your teacher on",
-"otheruser":"Idea submission was done by your teammate ---- on ----"
+"otheruser":"Idea submission was done by your teammate ---- on ----",
+"verify":"Verify & Upload"
+
 
     },
     "translation": {
