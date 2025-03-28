@@ -1647,7 +1647,8 @@ if(formData?.verified_status === "ACCEPTED"){
                               onClick={handleVerify}
                               disabled={isDisabled || isButtonDisabled || !prototypeLink}
                             >
-                              Verify
+                              {/* Verify */}
+                              {t("idea_page.verify")}
                               {/* BACK */}
                             </button>
     </div>

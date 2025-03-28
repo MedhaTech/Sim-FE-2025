@@ -107,6 +107,8 @@ const ReportsRegistration = () => {
     ...(allDistricts[RegTeachersState] || []),
   ];
   // const fiterDistData = districtList[RegTeachersState];
+  const [data1, setData1] = useState([]);
+  const [data2, setData2] = useState([]);
 
   const [downloadTableData, setDownloadTableData] = useState(null);
 
@@ -148,71 +150,71 @@ const ReportsRegistration = () => {
       key: "Female",
     },
     {
-      label: " Registered Others Teachers",
+      label: "Registered Others Teachers",
       key: "others",
     },
   ];
   const allHeaders = [
     {
       label: "UDISE CODE",
-      key: "organization.organization_code",
+      key: "UDISE CODE",
     },
 
     {
       label: "School Name",
-      key: "organization.organization_name",
+      key: "School Name",
     },
     {
       label: "School Type/Category",
-      key: "organization.category",
+      key: "School Type/Category",
     },
     {
       label: "State",
-      key: "organization.state",
+      key: "State",
     },
     {
       label: "District",
-      key: "organization.district",
+      key: "District",
     },
     {
       label: "City",
-      key: "organization.city",
+      key: "City",
     },
     {
       label: "Pin code",
-      key: "organization.pin_code",
+      key: "Pin code",
     },
     {
       label: "Address",
-      key: "organization.address",
+      key: "Address",
     },
     {
       label: "HM Name",
-      key: "organization.principal_name",
+      key: "HM Name",
     },
     {
       label: "HM Contact",
-      key: "organization.principal_mobile",
+      key: "HM Contact",
     },
     {
       label: "Teacher Name",
-      key: "full_name",
+      key: "Teacher Name",
     },
     {
       label: "Teacher Email ID",
-      key: "user.username",
+      key: "Teacher Email ID",
     },
     {
       label: "Teacher Gender",
-      key: "gender",
+      key: "Teacher Gender",
     },
     {
       label: "Teacher Contact",
-      key: "mobile",
+      key: "Teacher Contact",
     },
     {
       label: "Teacher WhatsApp Contact",
-      key: "whatapp_mobile",
+      key: "Teacher WhatsApp Contact",
     },
   ];
   const notRegHeaders = [
@@ -242,7 +244,7 @@ const ReportsRegistration = () => {
       key: "city",
     },
     {
-      label: "Pin code",
+      label: "Pin Code",
       key: "pin_code",
     },
     {
@@ -266,41 +268,11 @@ const ReportsRegistration = () => {
       key: "principal_email",
     },
   ];
-  const headerMapping = {
-    "organization.organization_code": "UDISE CODE",
-    "organization.organization_name": "School Name",
-    "organization.category": "School Type/Category",
-    "organization.state": "State",
-    "organization.district": "District",
-    "organization.city": "City",
-    "organization.pin_code": "Pin code",
-    "organization.address": "Address",
-    "organization.principal_name": "HM Name",
-    "organization.principal_mobile": "HM Contact",
-    full_name: "Teacher Name",
-    "user.username": "Teacher Email ID",
-    gender: "Teacher Gender",
-    mobile: "Teacher Contact",
-    whatapp_mobile: "Teacher WhatsApp Contact",
-  };
-  const headerMappingNot = {
-    organization_code: "UDISE Code",
-    organization_name: "School Name",
-    category: "School Type/Category",
-    state: "State",
-    district: "District",
-    city: "City",
-    pin_code: "Pin Code",
-    address: "Address",
-    country: "Country",
-    principal_name: "Principal Name",
-    principal_mobile: "Principal Mobile",
-    principal_email: "Principal Email",
-  };
+ 
   const [selectedRegisteredHeaders, setSelectedRegisteredHeaders] = useState(
     []
   );
-  
+
   const [selectedNotRegisteredHeaders, setSelectedNotRegisteredHeaders] =
     useState([]);
   const currentHeaders =
@@ -315,31 +287,38 @@ const ReportsRegistration = () => {
   const handleCheckboxChange = (key) => {
     if (filterType === "Registered") {
       setSelectedRegisteredHeaders((prev) => {
-        const updatedHeaders = prev.includes(key) ? prev.filter((h) => h !== key) : [...prev, key];
-        filterData(updatedHeaders); 
+        const updatedHeaders = prev.includes(key)
+          ? prev.filter((h) => h !== key)
+          : [...prev, key];
+        filterData(updatedHeaders);
         return updatedHeaders;
       });
     } else {
       setSelectedNotRegisteredHeaders((prev) => {
-        const updatedHeaders = prev.includes(key) ? prev.filter((h) => h !== key) : [...prev, key];
-        filterData(updatedHeaders); 
+        const updatedHeaders = prev.includes(key)
+          ? prev.filter((h) => h !== key)
+          : [...prev, key];
+        filterData(updatedHeaders);
         return updatedHeaders;
       });
     }
   };
-  
 
   const handleSelectAll = () => {
     if (filterType === "Registered") {
       setSelectedRegisteredHeaders((prev) => {
-        const updatedHeaders = prev.length === allHeaders.length ? [] : allHeaders.map((h) => h.key);
-        filterData(updatedHeaders); 
+        const updatedHeaders =
+          prev.length === allHeaders.length ? [] : allHeaders.map((h) => h.key);
+        filterData(updatedHeaders);
         return updatedHeaders;
       });
     } else {
       setSelectedNotRegisteredHeaders((prev) => {
-        const updatedHeaders = prev.length === notRegHeaders.length ? [] : notRegHeaders.map((h) => h.key);
-        filterData(updatedHeaders); 
+        const updatedHeaders =
+          prev.length === notRegHeaders.length
+            ? []
+            : notRegHeaders.map((h) => h.key);
+        filterData(updatedHeaders);
         return updatedHeaders;
       });
     }
@@ -491,7 +470,7 @@ const ReportsRegistration = () => {
       horizontalAlign: "left",
     },
   };
- 
+
   const fetchData = (item) => {
     const param = encryptGlobal(
       JSON.stringify({
@@ -529,46 +508,78 @@ const ReportsRegistration = () => {
 
     axios(config)
       .then((response) => {
-          if (response.status === 200) {
-const modifiedData=response?.data?.data || [];
-          //  console.log(modifiedData,"modi");
-           const transformedData = modifiedData.map((item) => ({
-            full_name: item["full_name"],
-            gender: item["gender"],
-            mobile: item["mobile"],
-            whatsapp_mobile: item["whatapp_mobile"],
-            organization_code: item["organization.organization_code"] || "N/A",
-            unique_code: item["organization.unique_code"] || "N/A",
-            organization_name: item["organization.organization_name"] || "N/A",
-            category: item["organization.category"] || "N/A",
-            state: item["organization.state"] || "N/A",
-            district: item["organization.district"] || "N/A",
-            city: item["organization.city"] || "N/A",
-            pin_code: item["organization.pin_code"] || "N/A",
-            address: item["organization.address"] || "N/A",
-            principal_name: item["organization.principal_name"] || "N/A",
-            principal_mobile: item["organization.principal_mobile"] || "N/A",
-            username: item["user.username"] || "N/A",
-            user_id: item["user.user_id"] || "N/A",
+        if (response.status === 200) {
+          // console.log(response,"ressssss");
+          const modifiedData = response?.data?.data || [];
+          const modifiedDataNot = response?.data?.data || [];
+          const transformedData = modifiedData.map((item) => ({
+            "UDISE CODE": item["organization.organization_code"],
+            "School Name": item["organization.organization_name"],
+            "School Type/Category": item["organization.category"],
+            State: item["organization.state"],
+            District: item["organization.district"],
+            City: item["organization.city"],
+            "Pin code": item["organization.pin_code"],
+            Address: item["organization.address"],
+            "HM Name": item["organization.principal_name"],
+            "HM Contact": item["organization.principal_mobile"],
+            "Teacher Name": item["full_name"],
+            "Teacher Email ID": item["user.username"],
+            "Teacher Gender": item["gender"],
+            "Teacher Contact": item["mobile"],
+            "Teacher WhatsApp Contact": item["whatapp_mobile"],
           }));
-          
-          console.log(transformedData, "transformed");
-          
-            if (item === "Registered") {
-              // setFilterData(modifiedData);
-              setDownloadData(modifiedData);
-            } else if (item === "Not Registered") {
-              // setFilterNotData(modifiedData);
-              setDownloadNotRegisteredData(modifiedData);
-            }
+          // const transformedDataNot = modifiedDataNot.map((item) => ({
+          //   "UDISE CODE": item["organization_code"],
+          //   "School Name": item["organization_name"],
+          //   "School Type/Category": item["category"],
+          //   State: item["state"],
+          //   District: item["district"],
+          //   City: item["city"]|| "N/A",
+          //   "Pin Code": item["pin_code"] || "",
+          //   Address: item["address"] || "",
+          //   "HM Name": item["principal_name"] || "N/A",
+          //   "HM Contact": item["principal_mobile"] || "N/A",
+          //   "HM Email": item["principal_email"] || "N/A",
+          // }));
+          const transformedDataNot = (modifiedDataNot && Array.isArray(modifiedDataNot))
+  ? modifiedDataNot.map((item) => ({
+      "UDISE CODE": item?.organization_code || "",
+      "School Name": item?.organization_name || "",
+      "School Type/Category": item?.category || "",
+      State: item?.state || "",
+      District: item?.district || "",
+      City: item?.city || "N/A",
+      "Pin Code": item?.pin_code || "",
+      Address: item?.address || "",
+      "HM Name": item?.principal_name || "N/A",
+      "HM Contact": item?.principal_mobile || "N/A",
+      "HM Email": item?.principal_email || "N/A",
+    }))
+  : [];  
 
-            if (modifiedData.length > 0) {
-              setIsCustomizationEnabled(true);
-            } else {
-              openNotificationWithIcon("error", "No Data Found");
-            }
+          
+          console.log(transformedDataNot, "transformed");
+
+          if (item === "Registered") {
+            setData1(transformedData);
+          } else if (item === "Not Registered") {
+            setData2(transformedDataNot);
+
           }
-          setIsDownloading(false);
+
+          if (modifiedData.length > 0) {
+            setIsCustomizationEnabled(true);
+          } else {
+            openNotificationWithIcon("error", "No Data Found");
+          }
+          if (modifiedDataNot.length > 0) {
+            setIsCustomizationEnabled(true);
+          } else {
+            openNotificationWithIcon("error", "No Data Found");
+          }
+        }
+        setIsDownloading(false);
       })
       .catch((error) => {
         console.log("API error:", error);
@@ -576,129 +587,84 @@ const modifiedData=response?.data?.data || [];
       });
   };
 
- 
-  const enable = RegTeachersState?.trim() !== "" && RegTeachersdistrict?.trim() !== "" && filterType?.trim() !== "" && category?.trim() !== "";
+  const enable =
+    RegTeachersState?.trim() !== "" &&
+    RegTeachersdistrict?.trim() !== "" &&
+    filterType?.trim() !== "" &&
+    category?.trim() !== "";
   const filterData = (updatedHeaders) => {
-    const dataSource = filterType === "Registered" ? downloadData : downloadNotRegisteredData;
-    
-    const filteredData = dataSource.map((item) => {
-      let filteredItem = {};
-      updatedHeaders.forEach((key) => {
-        if (item && Object.prototype.hasOwnProperty.call(item, key)) {
-          filteredItem[key] = item[key] ?? "";
-        } else {
-          console.warn(`Key "${key}" not found in item:`, item);
-        }
-      });
-  
-      console.log("Filtered Item:", filteredItem);
-      return Object.keys(filteredItem).length > 0 ? filteredItem : null;
-    }).filter(Boolean);
-  
-    console.log(`Final Filtered Data for Download (${filterType}):`, filteredData);
-  
+    const dataSource = filterType === "Registered" ? data1 : data2;
+    console.log("Data2:", data2);
+    console.log("Data Source:", dataSource);
+
+    const filteredData = dataSource
+      ?.map((item) => {
+        let filteredItem = {};
+        updatedHeaders.forEach((key) => {
+          if (item && Object.prototype.hasOwnProperty.call(item, key)) {
+            filteredItem[key] = item[key] ?? "";
+          } else {
+            console.warn(`Key "${key}" not found in item:`, item);
+          }
+        });
+
+        console.log("Filtered Item:", filteredItem);
+        return Object.keys(filteredItem).length > 0 ? filteredItem : null;
+      })
+      .filter(Boolean);
+      console.log("Updated Headers:", updatedHeaders);
+
+    console.log(
+      `Final Filtered Data for Download (${filterType}):`,
+      filteredData
+    );
+
     if (filterType === "Registered") {
       setDownloadData(filteredData);
     } else {
       setDownloadNotRegisteredData(filteredData);
     }
   };
-  
+
   useEffect(() => {
-    if (isReadyToDownload) {
-      if (downloadData.length > 0) {
-        console.log("Downloading CSV with data:", downloadData);
-  
-        const formattedCSVData = downloadData.map((item) =>
-          Object.fromEntries(
-            Object.entries(item).map(([key, value]) => [headerMapping[key] || key, value])
-          )
-        );
-  
-        setFormattedDataForDownload(formattedCSVData);
-  
-        setTimeout(() => {
+    if (!isReadyToDownload) return;
+
+    const dataToDownload =
+      filterType === "Registered" ? downloadData : downloadNotRegisteredData;
+
+    if (dataToDownload.length > 0) {
+      const specificHeaders = Object.keys(dataToDownload[0] || {});
+
+      console.log("Raw DataToDownload:", dataToDownload);
+      const formattedCSVData = dataToDownload.map((item) =>
+        Object.fromEntries(
+          specificHeaders.map((key) => [
+            key,
+            item[key] !== undefined ? item[key] : "N/A",
+          ])
+        )
+      );
+
+      setFormattedDataForDownload(formattedCSVData);
+      setTimeout(() => {
+        if (csvLinkRef.current) {
           csvLinkRef.current.link.click();
-          console.log("Downloading CSV with formatted headers:", formattedCSVData);
-          openNotificationWithIcon("success", "Registered Report Downloaded Successfully");
-          setIsReadyToDownload(false);
-        }, 1000);
-      } else if (downloadNotRegisteredData.length > 0) {
-        console.log("Downloading CSV for Not Registered Users:", downloadNotRegisteredData);
-  
-        const formattedCSVData = downloadNotRegisteredData.map((item) =>
-          Object.fromEntries(
-            Object.entries(item).map(([key, value]) => [headerMappingNot[key] || key, value])
-          )
-        );
-  
-        setFormattedDataForDownload(formattedCSVData);
-  
-        setTimeout(() => {
-          csvLinkRef.current.link.click();
-          console.log("Downloading CSV for Not Registered Users:", formattedCSVData);
-          openNotificationWithIcon("success", "Not Registered Report Downloaded Successfully");
-          setIsReadyToDownload(false);
-        }, 1000);
-      } else {
-        openNotificationWithIcon("warning", "No Data Available for Download");
+          console.log(
+            "Downloading CSV with formatted headers:",
+            formattedCSVData
+          );
+          openNotificationWithIcon(
+            "success",
+            `${filterType} Report Downloaded Successfully`
+          );
+        }
         setIsReadyToDownload(false);
-      }
+      }, 1000);
+    } else {
+      openNotificationWithIcon("error", "No Data Available for Download");
+      setIsReadyToDownload(false);
     }
-  }, [isReadyToDownload, downloadTableData, downloadNotRegisteredData]);
-  
-  // useEffect(() => {
-  //   if (!isReadyToDownload) return;
-  
-  //   const dataToDownload =
-  //     filterType === "Registered" ? downloadData : downloadNotRegisteredData;
-  
-  //   if (dataToDownload.length > 0) {
-  //     console.log("Downloading CSV with data:", dataToDownload);
-  //     console.log("Raw DataToDownload:", dataToDownload);
-
-  //     const selectedHeaderMapping =
-  //     filterType === "Registered" ? headerMapping : headerMappingNot;
-  //     const availableHeaders = Array.from(
-  //       new Set(dataToDownload.flatMap(item => Object.keys(item)))
-  //     );
-  
-      
-      
-  //     console.log("Available Headers:", availableHeaders);
-      
-  //     const formattedCSVData = dataToDownload.map((item) =>
-  //       Object.fromEntries(
-  //         availableHeaders.map((key) => {
-  //           const extractedValue = item[key] ?? "";
-  //           const mappedKey = selectedHeaderMapping[key] || key;
-  //           console.log(`Extracting key: ${key}, Mapped Key: ${mappedKey}, Value:`, extractedValue);
-  //           return [mappedKey, extractedValue];
-  //         })
-  //       )
-  //     );
-      
-      
-     
-  //     setFormattedDataForDownload(formattedCSVData);
-  //     setTimeout(() => {
-  //       if (csvLinkRef.current) {
-  //         csvLinkRef.current.link.click();
-  //         console.log("Downloading CSV with formatted headers:", formattedCSVData);
-  //         openNotificationWithIcon("success", `${filterType} Report Downloaded Successfully`);
-  //       }
-  //       setIsReadyToDownload(false);
-  //     }, 1000);
-  //   } else {
-  //     openNotificationWithIcon("error", "No Data Available for Download");
-  //     setIsReadyToDownload(false);
-  //   }
-  // }, [isReadyToDownload, filterType, downloadData, downloadNotRegisteredData]);
-  
-
-  
- 
-  
+  }, [isReadyToDownload, filterType, downloadData, downloadNotRegisteredData]);
 
   useEffect(() => {
     if (downloadComplete) {
@@ -883,7 +849,6 @@ const modifiedData=response?.data?.data || [];
               </Col>
               <Col md={2}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
-                 
                   {RegTeachersState === "Tamil Nadu" ? (
                     <Select
                       list={categoryDataTn}
@@ -902,10 +867,10 @@ const modifiedData=response?.data?.data || [];
                 </div>
               </Col>
 
-             
               <Col md={2}>
                 <button
-                  onClick={() => {setShowCustomization(!showCustomization);
+                  onClick={() => {
+                    setShowCustomization(!showCustomization);
                     fetchData(filterType);
                   }}
                   type="button"
@@ -965,22 +930,24 @@ const modifiedData=response?.data?.data || [];
 
                     <button
                       className="btn btn-danger mt-3"
-                      onClick={async() => {
+                      onClick={async () => {
                         setShowCustomization(false);
-                      
+
                         if (
-                          (filterType === "Registered" && (!downloadData || downloadData.length === 0)) ||
-                          (filterType === "Not Registered" && (!downloadNotRegisteredData || downloadNotRegisteredData.length === 0))
+                          (filterType === "Registered" &&
+                            (!downloadData || downloadData.length === 0)) ||
+                          (filterType === "Not Registered" &&
+                            (!downloadNotRegisteredData ||
+                              downloadNotRegisteredData.length === 0))
                         ) {
                           console.log("Fetching data before download...");
                           await filterData();
                           //  fetchData(filterType);
                         }
-                    
+
                         setTimeout(() => {
                           setIsReadyToDownload(true);
                         }, 1500);
-                     
                       }}
                     >
                       Download Report
@@ -1285,20 +1252,17 @@ const modifiedData=response?.data?.data || [];
                 Download Table CSV
               </CSVLink>
             )}
-           
 
-
-{formattedDataForDownload.length > 0 && (
-  <CSVLink
-    data={formattedDataForDownload}
-    filename={`Teacher_${filterType}Report_${newFormat}.csv`}
-    className="hidden"
-    ref={csvLinkRef}
-  >
-    Download CSV
-  </CSVLink>
-)}
-
+            {formattedDataForDownload.length > 0 && (
+              <CSVLink
+                data={formattedDataForDownload}
+                filename={`Teacher_${filterType}Report_${newFormat}.csv`}
+                className="hidden"
+                ref={csvLinkRef}
+              >
+                Download CSV
+              </CSVLink>
+            )}
           </div>
         </Container>
       </div>
