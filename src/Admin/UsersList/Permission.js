@@ -1,226 +1,152 @@
-/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React, { useEffect } from "react";
-
-// import { Button } from "../../../stories/Button";
-import axios from "axios";
-import CryptoJS from "crypto-js";
-// import { Link } from "react-router-dom";
-// import male from "../../../assets/img/admin.jpg";
-import { useLocation } from "react-router-dom";
-
-// import { InputBox } from '../../../stories/InputBox/InputBox';
-import * as Yup from "yup";
-import { useFormik } from "formik";
+import React, { useState, useEffect } from 'react';
+import { Row, Col, Label, Container, Card, } from 'reactstrap';
+import { Button } from '../../stories/Button';
 import {
-  getCurrentUser,setCurrentUser,
-  openNotificationWithIcon,
-} from "../../helpers/Utils";
+  getNormalHeaders,
+  openNotificationWithIcon
+} from '../../helpers/Utils';
+import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-// import { getAdminEvalutorsList } from "../../../redux/actions";
-// import { getAdmin } from '../store/admin/actions';
-import { useDispatch } from "react-redux";
-// import Select from "../../Admin/Challenges/pages/Select";
-// import { getDistrictData } from '../../redux/studentRegistration/actions';
-// import {themesList} from "../../../../Team/IdeaSubmission/themesData";
-import {menusList} from "../../RegPage/ORGData";
-import { useSelector } from "react-redux";
-import { encryptGlobal } from "../../constants/encryptDecrypt";
-const Permission = (props) => {
-  // here we can edit the users details //
-  const phoneRegExp = /^[0-9]+$/;
-// const allDataLanguages= ["All Languages",...languageOptions];
-// const allDataThemes= ["All Themes",...themesList];
-const allDataMenus= ["ALL",...menusList];
+import { URL, KEY } from '../../constants/defaultValues';
+import Check from '../../Evaluator/Admin/EvalProcess/Pages/Check';
+import { encryptGlobal } from '../../constants/encryptDecrypt';
 
+const EditPermission = (props) => {
 
-  const location = useLocation();
+  const adminData = JSON.parse(localStorage.getItem('id'));
+  //  where adminData= evaluation_process_id //
+  const [clickedValue, setclickedValue] = useState({});
+  const [selectedValue, setselectedValue] = useState([]);
   const navigate = useNavigate();
-  const currentUser = getCurrentUser("current_user");
-  const dispatch = useDispatch();
-  const mentorData = location.state || {};
-  console.log(mentorData, "mentorData");
+  const permissionList = ["All", "Dashboard", "Overall Schools", "PopUp", "Resource", "Latest News", "State Specific", "Support", "Mentors", "Teams", "Students", "Admins", "Reports", "Bulk Email"];
 
- 
-
-  const getValidationSchema = (data) => {
-    // where data = mentorData //
-    const adminValidation = Yup.object({
-     
-      permission : Yup.string()
-                // .max(40)
-                .required(<span style={{ color: "red" }}>Please Select Permission</span>),
-               
-     
-    });
-    if (data?.mentor_id)
-      if (data?.evaluator_id)
-       
-        adminValidation["district"] = Yup.string()
-          .matches(/^[aA-zZ\s]+$/, "Invalid District Name ")
-          .min(2, "Enter a valid district")
-          .required("District is Required");
-    return adminValidation;
-  };
-  const getInitialValues = (data) => {
-    const commonInitialValues = {
-     
-      permission :mentorData?.permission || "",
-
-    };
-    
-    return commonInitialValues;
-  };
-  const formik = useFormik({
-    initialValues: getInitialValues(mentorData),
-    validationSchema: getValidationSchema(mentorData),
-    onSubmit: (values) => {
-    console.log(mentorData.admin_id,"adminId");
-        const evalid = encryptGlobal(JSON.stringify(mentorData.admin_id));
-      
-        const body = {
-                   
-          permission : values.permission  === "ALL" ? menusList.join(",") : values.permission,
-          full_name: mentorData.user.full_name,
-          username: mentorData.user.username,        
-
-        };
-        // console.log(body,"body");
-      
-
-      const url = process.env.REACT_APP_API_BASE_URL + `/admins/${evalid}`;
-
-      var config = {
-        method: "put",
-        url: url,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${currentUser?.data[0]?.token}`,
-        },
-        data: body,
-      };
-      axios(config)
-        .then(function (response) {
-          if (response.status === 200) {
-            // currentUser.data[0].permission = values.permission;
-            //  setCurrentUser(currentUser);
-
-           openNotificationWithIcon(
-                                  'success',
-                                  'Permission Update Successfully'
-                              );
-                              navigate('/admins');
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-          if(error?.response?.data?.status === 400){
-            openNotificationWithIcon("error", error.response.data?.message !== "Bad Request" ?  error.response.data?.message :"Email Id is Invalid");
-            }else{
-              openNotificationWithIcon("error", "Email Id is Invalid");
-            }
-        });
-    },
-  });
   useEffect(() => {
-    if (mentorData.permission ) {
-      const allLanguagesSelected = mentorData.permission.split(",").sort().join(",") === menusList.sort().join(",");
-      formik.setFieldValue("permission", allLanguagesSelected ? "ALL" : mentorData.permission);
-      
+    if (adminData && adminData.permission) {
+      if (
+        adminData.permission.split(',').length ===
+        permissionList.length - 1 &&
+        !adminData.permission.includes('All')
+      ) {
+        setselectedValue(permissionList);
+      } else {
+        setselectedValue(adminData.permission.split(','));
+      }
     }
-    
-  }, [mentorData.permission]);
+  }, []);
+
+  useEffect(() => {
+    if (clickedValue.name === 'All') {
+      if (selectedValue.includes('All')) {
+        setselectedValue(permissionList);
+      } else {
+        setselectedValue([]);
+      }
+    } else if (
+      clickedValue.name &&
+      clickedValue.name !== 'All' &&
+      selectedValue.length === permissionList.length - 1 &&
+      !selectedValue.includes('All')
+    ) {
+      setselectedValue(permissionList);
+    } else if (clickedValue.name && clickedValue.name !== 'All') {
+      setselectedValue(
+        selectedValue?.filter((item) => item !== 'All')
+      );
+    }
+  }, [clickedValue]);
   
- 
-  
-  const formLoginStyle = {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-  };
-  const buttonStyle = {
-    marginRight: "10px",
+  async function handleSubmit(value) {
+    //  handleStates Api where value = permission //
+    // where we can update the permission //
+    if (value.permission === '') {
+      value.permission = '-';
+    }
+    const data = {
+      full_name: adminData.user.full_name,
+      username: adminData.user.username,
+      permission: value.permission
+    };
+    const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+    const adminId = encryptGlobal(JSON.stringify(adminData.admin_id));
+    await axios
+      .put(
+        `${URL.updateAdminStatus + '/' + adminId}`,
+        data,
+        axiosConfig
+      )
+      .then((response) => {
+        if (response.status == 200) {
+          openNotificationWithIcon(
+            'success',
+            'States Update Successfully'
+          );
+          navigate('/admins');
+        }
+      })
+      .catch((err) => {
+        return err.response;
+      });
+  }
+
+  const handleclick = async () => {
+    // where we can select  the permission //
+    const value = { permission: '' };
+    selectedValue.includes('All')
+      ? (value.permission = selectedValue
+        ?.filter((item) => item !== 'All')
+        .toString())
+      : (value.permission = selectedValue.toString());
+    await handleSubmit(value);
   };
 
-  const cancelLinkStyle = {
-    marginLeft: "auto",
-  };
   return (
     <div className="page-wrapper">
       <div className="content">
         <div className="page-header">
           <div className="page-title">
             <h4>Update Permission</h4>
-            {/* <h6>User Profile</h6> */}
           </div>
         </div>
-        {/* /product list */}
-        <form onSubmit={formik.handleSubmit}>
-          <div className="card">
-            <div className="card-body">
-             
-              <div className="row">
-               
+        <Container>
+          <Card className="m-3 p-3">
+            <Row>
+              <Label className="mb-2 text-info">Permission:</Label>
+              <Check
+                list={permissionList}
+                value={selectedValue}
+                setValue={setselectedValue}
+                selValue={setclickedValue}
+              />
+            </Row>
+          </Card>
 
-               
-                <div className="form-login col-lg-6 col-sm-12">
-                  <div className="input-blocks">
-                    <label>Menus</label>
-                    <select
-                        id="inputState"
-                        className="form-select"
-                        name="permission"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.permission}
-                      >
-                        <option value={""}>Select Permission</option>
-                        {allDataMenus.map((item) => (
-                          <option key={item} value={item}>
-                            {item}
-                          </option>
-                        ))}
-                      </select>
-                    {formik.touched.permission && formik.errors.permission ? (
-                      <small className="error-cls">
-                        {formik.errors.permission}
-                      </small>
-                    ) : null}
-                  </div>
-                </div>
-              
-             
+          <Row>
+            <Col className="col-xs-12 col-sm-6">
+              <button
+                type="button"
+                onClick={() => navigate('/admins')}
+                className="btn btn-secondary"
+                style={{ marginLeft: "30px" }}
+              >
+                Discard
+              </button>
 
-                <div className="form-login" style={formLoginStyle}>
-                  <button
-                    style={buttonStyle}
-                    type="submit"
-                    className={`btn btn-warning  ${
-                      !formik.dirty || !formik.isValid ? "default" : "primary"
-                    }`}
-                    disabled={!formik.dirty || !formik.isValid}
-                  >
-                    Submit
-                  </button>
-                  <button
-                    onClick={() => navigate("/admins")}
-                    type="button"
-                    className="btn btn-secondary"
-                    style={{ marginLeft: "auto" }}
-                    
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-        {/* /product list */}
+            </Col>
+            <Col className="submit-btn col-xs-12 col-sm-6 text-right">
+              <Button
+
+                label="Save"
+                onClick={() => handleclick()}
+                btnClass={'primary'}
+                size="small"
+              />
+            </Col>
+          </Row>
+        </Container>
       </div>
     </div>
   );
 };
-
-export default Permission;
+export default EditPermission;

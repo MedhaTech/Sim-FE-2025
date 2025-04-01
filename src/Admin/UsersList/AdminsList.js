@@ -393,11 +393,8 @@ const updateStatesList=["All States",...stateList];
     };
 
     const handleUpdate = (item) => {
-        // where we can select district //
-        // where item = district //
-        navigate("/admin-permission", {
-            state:item});
-      
+        // where we can select permission //
+        navigate("/admin-permission");
         localStorage.setItem('id', JSON.stringify(item));
     };
     const StudentsData = {
