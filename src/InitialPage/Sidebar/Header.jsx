@@ -275,7 +275,7 @@ const Header = () => {
         {/* Header Menu */}
         <ul className="nav user-menu">
           {/* Search */}
-          {currentUser.data[0].permission === "ALL" && (
+          {currentUser.data[0].permission === "Dashboard,Overall Schools,PopUp,Resource,Latest News,State Specific,Support,Mentors,Teams,Students,Admins,Reports,Bulk Email" && (
           <li className="nav-item nav-searchinputs">
             <div className="top-nav-search">
               <Link to="#" className="responsive-search">

@@ -303,7 +303,7 @@ async function fetchResList() {
                 )}
               </div>
 
-              <div className="col-xl-4 col-sm-6 col-12">
+              <div className="col-xl-6 col-sm-6 col-12">
                 <div className="dash-widget dash2 w-100">
                   <div className="dash-widgetimg">
                     <span>
@@ -316,20 +316,7 @@ async function fetchResList() {
                   </div>
                 </div>
               </div>
-              <div className="col-xl-4 col-sm-6 col-12">
-                <div className="dash-widget dash2 w-100">
-                  <div className="dash-widgetimg">
-                    <span>
-                      <AiOutlineSolution size="30" />
-                    </span>
-                  </div>
-                  <div className="dash-widgetcontent">
-                    <h5>{card.ComplaintCount}</h5>
-                    <h6>Complaint Count</h6>
-                  </div>
-                </div>
-              </div>
-              <div className="col-xl-4 col-sm-6 col-12">
+              <div className="col-xl-6 col-sm-6 col-12">
                 <div className="dash-widget dash2 w-100">
                   <div className="dash-widgetimg">
                     <span>

@@ -82,39 +82,37 @@ export const adminLoginUser = (data, navigate, module) => async (dispatch) => {
 
       localStorage.setItem("time", new Date().toString());
       dispatch(adminLoginUserSuccess(result));
-if(result.data.data[0].permission === "ALL"){
+      const arr = result.data.data[0].permission.split(',');
+
+      if(arr.includes("Dashboard")){
   navigate("/admin-dashboard");
-}else if (result.data.data[0].permission === "Overall Schools"){
+        }else if (arr.includes("Overall Schools")){
   navigate("/institution");
-}else if (result.data.data[0].permission === "Dashboard"){
-  navigate("/admin-dashboard");
-}else if (result.data.data[0].permission === "PopUp"){
+        }else if (arr.includes("PopUp")){
     navigate("/popup");
-  }else if (result.data.data[0].permission === "Resource"){
+        }else if (arr.includes("Resource")){
     navigate("/adminresources");
-  }else if (result.data.data[0].permission === "Latest News"){
+        }else if (arr.includes("Latest News")){
     navigate("/latest-news"); 
-   }else if (result.data.data[0].permission === "State Specific"){
+        }else if (arr.includes("State Specific")){
       navigate("/state-wise");  
-    }else if (result.data.data[0].permission === "SUPPORT"){
+        }else if (arr.includes("Support")){
         navigate("/admin-support"); 
-       }else if (result.data.data[0].permission === "Mentors"){
+        }else if (arr.includes("Mentors")){
           navigate("/mentors");
-        }else if (result.data.data[0].permission === "Teams"){
+        }else if (arr.includes("Teams")){
           navigate("/teams");
-        }else if (result.data.data[0].permission === "Students"){
+        }else if (arr.includes("Students")){
           navigate("/students");
           
-        }else if (result.data.data[0].permission === "Admins"){
+        }else if (arr.includes("Admins")){
           navigate("/admins");
-        }else if (result.data.data[0].permission === "Bulk Email"){
-          navigate("/emailList");
-        }else if (result.data.data[0].permission === "Reports"){
+        }else if (arr.includes("Reports")){
           navigate("/reports");
-}else{
-  navigate("/admin-support");
-}
-    } else if (result && result.status === 404) {
+        }else if (arr.includes("Bulk Email")){
+  navigate("/emailList");
+        }
+} else if (result && result.status === 404) {
       openNotificationWithIcon("error", "Invalid Credentials entered");
      
       dispatch(adminLoginUserError(result.statusText));
