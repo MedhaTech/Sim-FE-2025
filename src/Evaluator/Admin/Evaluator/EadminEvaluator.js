@@ -37,6 +37,7 @@ import ClipLoader from 'react-spinners/ClipLoader';
 
 import * as XLSX from 'xlsx';
 import SampleFile from '../../../assets/img/sampleFile.xlsx';
+import DataFile from '../../../assets/img/DataList.xlsx';
 
 const TicketsPage = (props) => {
     const dispatch = useDispatch();
@@ -392,6 +393,16 @@ const TicketsPage = (props) => {
                                 <div className="page-header">
                                     <h4>Evaluator List</h4>
                                     <div className="d-flex page-btn text-right">
+                                        <a href={DataFile} target="_blank" rel="noreferrer">
+                                            <Button
+                                                label={<>
+                                                    <Download className="me-2" style={{ color: "white" }} />
+                                                    <b>Data List</b>
+                                                </>}
+                                                btnClass="primary"
+                                                size="small"
+                                                shape="btn-square" />
+                                        </a>
                                         <a href={SampleFile} target="_blank" rel="noreferrer">
                                             <Button
                                                 label={<>

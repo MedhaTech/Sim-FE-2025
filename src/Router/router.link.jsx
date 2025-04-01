@@ -131,7 +131,7 @@ import StateData from "../Admin/StateWise/StateData";
 import EditStateData from "../Admin/StateWise/EditStateData";
 
 import InstitutionReport from "../Admin/Reports/Helpers/InstitutionReport";
-import CreateEmail from "../Admin/BulkEmail/CreatePopUp";
+import CreateEmail from "../Admin/BulkEmail/CreateEmail";
 import ResendEmail from "../Admin/BulkEmail/ResendEmail";
 
 import EadminEval from "../Evaluator/Admin/Evaluator/EadminEvaluator";
