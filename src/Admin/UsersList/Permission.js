@@ -80,7 +80,7 @@ const EditPermission = (props) => {
         if (response.status == 200) {
           openNotificationWithIcon(
             'success',
-            'States Update Successfully'
+            'Permissions Updated Sucessfully'
           );
           navigate('/admins');
         }
