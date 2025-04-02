@@ -18,9 +18,10 @@ import EmailsFile from '../../assets/img/emailsFile.xlsx';
 const CreateEmail = () => {
   const currentUser = getCurrentUser("current_user");
   const navigate = useNavigate();
-
+  const [fileName, setFileName] = useState('');
   const fileHandler = (e) => {
     const file = e.target.files[0];
+    setFileName(file.name);
     const reader = new FileReader();
 
     reader.onload = async (event) => {
@@ -28,7 +29,7 @@ const CreateEmail = () => {
       const sheetName = workbook.SheetNames[0];
       const sheet = workbook.Sheets[sheetName];
       const sheetData = XLSX.utils.sheet_to_json(sheet);
-      console.log(sheetData, "pp", typeof (sheetData));
+
       formik.setFieldValue("file_name", sheetData);
     };
     reader.readAsBinaryString(file);
@@ -163,7 +164,7 @@ const CreateEmail = () => {
                         </Col>
                       </Row>
                       <Row className="mb-3 modal-body-table search-modal-header">
-                        <Col md={6}>
+                        <Col md={12}>
                           <a href={EmailsFile} target="_blank" rel="noreferrer">
                             <Button
                               label={<>
@@ -197,15 +198,9 @@ const CreateEmail = () => {
                               document.getElementById("file_name").click();
                             }}
                           />
-                          {formik.values.file_name &&
-                            formik.values.file_name.name ? (
+                          {fileName && (
                             <span className="ml-2 p-3">
-                              {formik.values.file_name.name}
-                            </span>
-                          ) : (
-                            <span className="ml-2 p-3">
-                              {formik.initialValues.file_name &&
-                                formik.initialValues.file_name.name}
+                              {fileName}
                             </span>
                           )}
                           {/* </div> */}
