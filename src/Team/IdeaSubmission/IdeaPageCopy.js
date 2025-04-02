@@ -1637,7 +1637,7 @@ if(formData?.verified_status === "ACCEPTED"){
                               </div>
                               {prototypeLink && !isButtonDisabled && (
     <div className="text-warning mt-2">
-      Please click <strong>Verify</strong> to validate your URL.
+      Please click <strong>Verify & Upload</strong> to validate and Upload your URL.
     </div>
   )}
                             </div>
