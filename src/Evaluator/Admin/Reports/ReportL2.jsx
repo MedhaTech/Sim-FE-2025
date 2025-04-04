@@ -550,8 +550,8 @@ const ReportL2 = () => {
   "Sustainability Score": formatValue(rating.sustainability),
   "Evaluators Count": rating.eval_count,
                                                   "L3 Status":item.final_result === null ? "Not Promoted" : "Promoted",
-                                                  "Comments": comments && Array.isArray(comments) && comments.length > 0
-                                                  ? comments.join(", ")
+                                                  "Comments": rating.comments && Array.isArray(rating.comments) && rating.comments.length > 0
+                                                  ? rating.comments.join(", ")
                                                   : "No Comments"
 
               // ...item,
