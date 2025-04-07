@@ -548,7 +548,6 @@ const ReportsRegistration = () => {
             } else {
               openNotificationWithIcon("error", "No Data Found");
             }
-            // csvLinkRef.current.link.click();
           } else if (item === "Not Registered") {
             setFilteresData(response?.data?.data || []);
             setDownloadNotRegisteredData(response?.data?.data || []);
@@ -560,12 +559,8 @@ const ReportsRegistration = () => {
             } else {
               openNotificationWithIcon("error", "No Data Found");
             }
-            // csvLinkRefNotRegistered.current.link.click();
           }
-          // openNotificationWithIcon(
-          //     'success',
-          //     `${filterType} Report Downloaded Successfully`
-          // );
+         
           setIsDownloading(false);
         }
       })
@@ -701,7 +696,7 @@ const ReportsRegistration = () => {
         <div className="page-header">
           <div className="add-item d-flex">
             <div className="page-title">
-              <h4>2. Teacher Regristration Report</h4>
+              <h4>2. Teacher Registration Report</h4>
               <h6>List of Teachers registered and their details</h6>
             </div>
           </div>

@@ -497,7 +497,7 @@ const updateStatesList=["All States",...stateList];
                             <button
                                 className="btn btn-success"
                             >
-                                Activate<Check className="ms-1"  style={{ height: 15, width: 15 }}/>
+                                Activate&nbsp;<Check className="ms-1"  style={{ height: 15, width: 15 }}/>
                             </button>
                         )}
                     </div>
