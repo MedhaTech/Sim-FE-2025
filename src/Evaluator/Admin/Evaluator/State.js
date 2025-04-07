@@ -40,7 +40,72 @@ const State = (props) => {
 const navigate = useNavigate();
     const newstateList = ["All States", ...stateList];
     const fullStatesNames = newstateList;
-
+    useEffect(() => {
+        if (evalID && evalID.theme) {
+            if (
+                evalID.theme.split(',').length === allDataThemes.length - 1 &&
+                !evalID.theme.includes('All Themes')
+            ) {
+                setselectedTheme(allDataThemes);
+            } else {
+                setselectedTheme(evalID.theme.split(','));
+            }
+        }
+    }, []);
+    useEffect(() => {
+        if (clickedValue1.name === 'All Themes') {
+            if (selectedTheme.includes('All Themes')) {
+                setselectedTheme(allDataThemes);
+            } else {
+                setselectedTheme([]);
+            }
+        } else if (
+            clickedValue1.name &&
+            clickedValue1.name !== 'All Themes' &&
+            selectedTheme.length === allDataThemes.length - 1 &&
+            !selectedTheme.includes('All Themes')
+        ) {
+            setselectedTheme(allDataThemes);
+        } else if (clickedValue1.name && clickedValue1.name !== 'All Themes') {
+            setselectedTheme(
+                selectedTheme?.filter((item) => item !== 'All Themes')
+            );
+        }
+    }, [clickedValue1]);
+    
+    useEffect(() => {
+        if (evalID && evalID.language) {
+            if (
+                evalID.language.split(',').length === allDataLanguages.length - 1 &&
+                !evalID.language.includes('All Languages')
+            ) {
+                setselectedLang(allDataLanguages);
+            } else {
+                setselectedLang(evalID.language.split(','));
+            }
+        }
+    }, []);
+    useEffect(() => {
+        if (clickedValue2.name === 'All Languages') {
+            if (selectedLang.includes('All Languages')) {
+                setselectedLang(allDataLanguages);
+            } else {
+                setselectedLang([]);
+            }
+        } else if (
+            clickedValue2.name &&
+            clickedValue2.name !== 'All Languages' &&
+            selectedLang.length === allDataLanguages.length - 1 &&
+            !selectedLang.includes('All Languages')
+        ) {
+            setselectedLang(allDataLanguages);
+        } else if (clickedValue2.name && clickedValue2.name !== 'All Languages') {
+            setselectedLang(
+                selectedLang?.filter((item) => item !== 'All Languages')
+            );
+        }
+    }, [clickedValue2]);
+        
     useEffect(() => {
         
         if (evalID && evalID.state) {
@@ -97,7 +162,7 @@ const navigate = useNavigate();
 
                     openNotificationWithIcon(
                         'success',
-                        'States Update Successfully'
+                        'States,Themes and Languages Update Successfully'
                     );
                     navigate('/eadmin/evaluator');
                 }
@@ -108,13 +173,27 @@ const navigate = useNavigate();
     }
 
     const handleclick = async () => {
-        // where we can select  the States //
-        const value = { state: '' };
-        selectedStates.includes('All States')
-            ? (value.state = selectedStates
-                  ?.filter((item) => item !== 'All States')
-                  .toString())
-            : (value.state = selectedStates.toString());
+        const value = { state: '',
+              language: '',
+               theme: ''
+         };
+        // selectedStates.includes('All States')
+        //     ? (value.state = selectedStates
+        //           ?.filter((item) => item !== 'All States')
+        //           .toString())
+        //     : (value.state = selectedStates.toString());
+        value.state = selectedStates.includes('All States')
+        ? selectedStates.filter((item) => item !== 'All States').toString()
+        : selectedStates.toString();
+
+    value.language = selectedLang.includes('All Languages')
+        ? selectedLang.filter((item) => item !== 'All Languages').toString()
+        : selectedLang.toString();
+        
+        value.theme = selectedTheme.includes('All Themes')
+        ? selectedTheme.filter((item) => item !== 'All Themes').toString()
+        : selectedTheme.toString();
+            
         await handleStates(value);
     };
     const handleDiscard = () => {
@@ -159,12 +238,34 @@ const navigate = useNavigate();
                       
                     </Row>
                     <Row>
-                        <Label className="mb-2 text-info form-label">States Data:</Label>
+                        <Label className="mb-2 text-info form-label">Languages:</Label>
                         <Check
                             list={allDataLanguages}
                             value={selectedLang}
                             setValue={setselectedLang}
                             selValue={setclickedValue2}
+                        />
+                    </Row>
+                </Card>
+                <Card className="m-3 p-3">
+                    <Row>
+                        <Col md={4}>
+                            <Label className="mb-2 text-info">
+                            
+                                <span className="text-muted">
+                                </span>{' '}
+                            </Label>
+                        </Col>
+                      
+                    </Row>
+                    <Row>
+                        <Label className="mb-2 text-info form-label">Themes:</Label>
+                        <Check
+                            list={allDataThemes}
+                            value={selectedTheme}
+                            setValue={setselectedTheme}
+                            selValue={setclickedValue1}
+                            colSize={4}
                         />
                     </Row>
                 </Card>

@@ -999,7 +999,7 @@ if(formData?.verified_status === "ACCEPTED"){
                               </b>
                             </div>
                             {theme === "Others" ? (
-                              <div className=" answers row flex-column">
+                              <div className=" answers row flex-column p-4">
                                 <textarea
                                   disabled={isDisabled}
                                   placeholder={t("home.ideaFoc")}
