@@ -299,7 +299,7 @@ const TicketsPage = (props) => {
                         style={{ marginRight: '10px' }}
                     >
                         <div className="btn btn-info m-2">
-                            States
+                            Update
                         </div>
                     </div>
                     // <div

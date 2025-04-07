@@ -159,7 +159,7 @@ const GreetingModal = (props) => {
      
                {props.file && (
            <tr>
-             <td><strong>Filename &nbsp;</strong></td>
+              <td><strong><span>{props.file.split('/').pop()}</span> &nbsp;</strong></td>
              <td>
                  <a href={props.file} download target="_blank" rel="noopener noreferrer">
                    <button className="btn btn-warning">Download</button>
