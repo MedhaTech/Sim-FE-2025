@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -19,8 +19,11 @@ const NonAtlSuccess = () => {
   const myArray = user.split("@");
   const word = myArray[0];
   const handleLogoClick = () => {
-    navigate('/');
+    navigate("/");
   };
+  const [hovered, setHovered] = useState(false);
+  const [hovered1, setHovered1] = useState(false);
+
   return (
     <div className="main-wrapper">
       <div className="login-wrapper register-wrap bg-img">
@@ -44,6 +47,23 @@ const NonAtlSuccess = () => {
                   <b>Password :</b> <b style={{ color: "blue" }}>{word}</b>
                 </h4>
               </div>
+              To ensure active participation and receive timely updates, joining
+              the{" "}
+              <Link
+                style={{
+                  color: hovered ? "green" : "black",
+                  fontWeight: "bold",
+                  textDecoration: "none",
+                  cursor: "pointer",
+                }}
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
+                // to={"/login"}
+              >
+                {" "}
+                WhatsApp group
+              </Link>{" "}
+              is mandatory.
               <Container
                 style={{
                   display: "flex",
@@ -117,6 +137,23 @@ const NonAtlSuccess = () => {
             </div>
             <div className="text-center">
               <h4 className="mb-3">Take a screenshot for future reference.</h4>
+              Please make sure you’ve joined the{" "}
+              <Link
+                style={{
+                  color: hovered1 ? "green" : "black",
+                  fontWeight: "bold",
+                  textDecoration: "none",
+                  cursor: "pointer",
+                }}
+                onMouseEnter={() => setHovered1(true)}
+                onMouseLeave={() => setHovered1(false)}
+                // to={"/login"}
+              >
+                {" "}
+                WhatsApp group
+              </Link>{" "}
+              at the earliest to stay informed and engaged.
+              <br />
               <div className="signinform">
                 <h4>
                   Click here to ?

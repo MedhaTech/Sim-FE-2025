@@ -1140,7 +1140,7 @@ const TeacherProgressDetailed = () => {
             <div className="page-title">
               <h4>3. Teacher Progress Detailed Report</h4>
               <h6>
-                Teacher Progress - Presurvey , Course, Post survey,
+                Teacher Progress - Pre survey , Course, Post survey,
                 Teams&Progress Status Report
               </h6>
             </div>
