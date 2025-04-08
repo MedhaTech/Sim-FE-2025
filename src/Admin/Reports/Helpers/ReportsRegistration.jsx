@@ -799,10 +799,12 @@ const ReportsRegistration = () => {
                 <button
                   onClick={() => {
                     handleCustom();
+                    setselectedValue([]);
                   }}
                   type="button"
                   disabled={!enable}
                   className="btn btn-primary"
+
                 >
                   Customization
                 </button>
@@ -828,6 +830,7 @@ const ReportsRegistration = () => {
                         setShowCustomization(false);
                         handleDownload();
                       }}
+                      disabled={selectedValue.length === 0}
                     >
                       Download Report
                     </button>
