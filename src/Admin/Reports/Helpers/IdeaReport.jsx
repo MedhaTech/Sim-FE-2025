@@ -43,7 +43,7 @@ const IdeaReport = () => {
   const [isDownload, setIsDownload] = useState(false);
   const [sdg, setSdg] = React.useState("");
   const [chartTableData, setChartTableData] = useState([]);
-
+ const [hasData, setHasData] = useState(false);
   const categoryData = ["All Categories", "ATL", "Non ATL"];
   const categoryDataTn = [
    "All Categories",
@@ -819,9 +819,11 @@ const IdeaReport = () => {
        setModifiedChartTableData(newdatalist);
           if (response.data.data[0].summary.length > 0) {
             setIsCustomizationEnabled(true);
+            setHasData(true); 
            
           } else {
             openNotificationWithIcon("error", "No Data Found");
+            setHasData(false);
           }
          
           setIsDownload(false);
@@ -1077,6 +1079,7 @@ const IdeaReport = () => {
                                                         <button
                                                                onClick={() => {setShowCustomization(!showCustomization);
                                                                 fetchData();
+                                                                setSelectedHeaders([]);
                                                               }}
                                                             type="button"
                                                             disabled={!enable}
@@ -1085,7 +1088,7 @@ const IdeaReport = () => {
                                                             Customization
                                                           </button>
                                                         </Col>
-                                                        {showCustomization && (
+                                                        {showCustomization && hasData && (
                               <div className="card mt-3" style={{ width: "100%", padding: "20px" }}>
                                 <div className="card-body">
                                   <h5 className="card-title">Select Columns</h5>
@@ -1137,6 +1140,7 @@ const IdeaReport = () => {
                                         setIsReadyToDownload(true);
                                       }, 1000);
                                     }}
+                                    disabled={selectedHeaders.length === 0}
                                   >
                                      Download Report
                                   </button>

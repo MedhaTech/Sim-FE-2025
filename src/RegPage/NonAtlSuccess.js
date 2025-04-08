@@ -10,10 +10,12 @@ import { useNavigate } from "react-router-dom";
 import { Bold } from "react-feather";
 import success from "../assets/img/chek.png";
 import logo from "../assets/img/new-logo.png";
-
+import { encryptGlobal } from "../constants/encryptDecrypt";
+import axios from "axios";
 const NonAtlSuccess = () => {
   const navigate = useNavigate();
   const mentorDaTa = JSON.parse(localStorage.getItem("mentorData"));
+   const [whatsappLink, setWhatsappLink] = useState("");
   const orgDaTa = JSON.parse(localStorage.getItem("orgData"));
   const user = mentorDaTa.username;
   const myArray = user.split("@");
@@ -23,7 +25,45 @@ const NonAtlSuccess = () => {
   };
   const [hovered, setHovered] = useState(false);
   const [hovered1, setHovered1] = useState(false);
-
+ const fetchwhatsapplink = () => {
+      // Function to fetch the WhatsApp link from the API
+      const statenameApi = encryptGlobal(
+        JSON.stringify({
+          state_name: orgDaTa?.state,
+        })
+      );
+      var config = {
+        method: "get",
+        url:
+          process.env.REACT_APP_API_BASE_URL +
+          `/dashboard/whatappLink?Data=${statenameApi}`,
+        headers: {
+          "Content-Type": "application/json",
+          // Accept: "application/json",
+          Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+        },
+      };
+      axios(config)
+        .then(function (response) {
+          if (response.status === 200) {
+            const responseData = response?.data?.data?.[0];
+        const link = responseData?.whatapp_link;
+        setWhatsappLink(link);
+        
+        setTimeout(()=>{
+          if (link && typeof link === "string") {
+            window.open(link, '_blank');
+          } else {
+            console.error("Invalid or missing WhatsApp link");
+            alert("WhatsApp link not found. Please try again later.");
+          }
+        },1000);
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    };
   return (
     <div className="main-wrapper">
       <div className="login-wrapper register-wrap bg-img">
@@ -59,6 +99,7 @@ const NonAtlSuccess = () => {
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}
                 // to={"/login"}
+                onClick={fetchwhatsapplink}
               >
                 {" "}
                 WhatsApp group
@@ -148,6 +189,7 @@ const NonAtlSuccess = () => {
                 onMouseEnter={() => setHovered1(true)}
                 onMouseLeave={() => setHovered1(false)}
                 // to={"/login"}
+                onClick={fetchwhatsapplink}
               >
                 {" "}
                 WhatsApp group

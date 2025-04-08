@@ -62,7 +62,7 @@ export const evaluatorLoginUser =
 
         navigate("/evaluator/instructions");
       } else if (result && result.status === 404) {
-        openNotificationWithIcon("error", "Invalid Credentials entered");
+        openNotificationWithIcon("error", "Entered Invalid Username or Password");
        
         dispatch(evaluatorLoginUserError(result.statusText));
       }else{
@@ -126,7 +126,7 @@ export const evaluatorAdminLoginUser =
 
         navigate("/eadmin/evaluationStatus");
       } else if (result && result.status === 404) {
-        openNotificationWithIcon("error", "Invalid Credentials entered");
+        openNotificationWithIcon("error", "Entered Invalid Username or Password");
        
         dispatch(evaluatorAdminLoginUserError(result.statusText));
       }else{

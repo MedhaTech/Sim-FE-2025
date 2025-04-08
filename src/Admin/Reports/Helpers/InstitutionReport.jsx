@@ -108,7 +108,7 @@ const InstitutionReport = () => {
   const [selectedHeaders, setSelectedHeaders] = useState([]);
   const [isReadyToDownload, setIsReadyToDownload] = useState(false);
   const [formattedDataForDownload, setFormattedDataForDownload] = useState([]);
- 
+  const [hasData, setHasData] = useState(false);
   // const registrationStatus = mentor_reg !== 0 ? "Completed" : "Not Started";
  
   const allHeaders = [
@@ -337,27 +337,14 @@ const InstitutionReport = () => {
             registration_status: item.mentor_reg !== 0 ? "Registered" : "Not Registered",
           }));
           setModifiedChartTableData(modifiedData);
-          // const filteredData = modifiedChartTableData.map((item) => {
-          //   let filteredItem = {};
-          //   selectedHeaders.forEach((key) => {
-          //     // console.log("Checking key:", key, "in item:", item);
-          //     if (key in item) {
-          //       filteredItem[key] = item[key] ?? ""; 
-          //     }
-          //   });
-          //   // console.log("Filtered Item:", filteredItem);
-          //   return filteredItem;
-          // });
-
-        
-
-
           if (response?.data?.count > 0) {
            
             setIsCustomizationEnabled(true);
+            setHasData(true); 
            
           } else {
             openNotificationWithIcon("error", "No Data Found");
+            setHasData(false); 
           }
           setIsDownload(false);
         }
@@ -473,6 +460,7 @@ const InstitutionReport = () => {
                    
                     onClick={() => {setShowCustomization(!showCustomization);
                       fetchData();
+                      setSelectedHeaders([]);
                     }}
                   type="button"
                   disabled={!enable}
@@ -483,7 +471,7 @@ const InstitutionReport = () => {
               </Col>
              
              
-              {showCustomization && (
+              {showCustomization &&  hasData && (
   <div className="card mt-3" style={{ width: "50%", padding: "20px" }}>
     <div className="card-body">
       <h5 className="card-title">Select Columns</h5>
@@ -538,6 +526,7 @@ const InstitutionReport = () => {
             setIsReadyToDownload(true);
           }, 1000);
         }}
+        disabled={selectedHeaders.length === 0}
       >
         Download Report
       </button>

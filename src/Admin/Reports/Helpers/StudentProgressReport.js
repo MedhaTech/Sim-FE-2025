@@ -102,7 +102,7 @@ const StudentProgress = () => {
     ...allDistricts[selectstate] || []
   ];
     const [modifiedChartTableData, setModifiedChartTableData] = useState([]);
-  
+   const [hasData, setHasData] = useState(false);
   // const fiterDistData = districtList[selectstate];
 
   useEffect(() => {
@@ -833,10 +833,11 @@ const StudentProgress = () => {
           // setstudentDetailedReportsData(filteredData);
           if (response.data.data[0].summary.length > 0) {
             setIsCustomizationEnabled(true);
-
+            setHasData(true); 
           
           } else {
             openNotificationWithIcon('error', 'No Data Found');
+            setHasData(false); 
           }
          
           setIsDownload(false);
@@ -1139,6 +1140,7 @@ const StudentProgress = () => {
                                           <button
                                                onClick={() => {setShowCustomization(!showCustomization);
                                                 fetchData();
+                                                setSelectedHeaders([]);
                                               }}
                                               type="button"
                                               disabled={!enable}
@@ -1147,7 +1149,7 @@ const StudentProgress = () => {
                                               Customization
                                             </button>
                                           </Col>
-                                          {showCustomization && (
+                                          {showCustomization && hasData && (
                 <div className="card mt-3" style={{ width: "50%", padding: "20px" }}>
                   <div className="card-body">
                     <h5 className="card-title">Select Columns</h5>
@@ -1199,6 +1201,7 @@ const StudentProgress = () => {
                           setIsReadyToDownload(true);
                         }, 1000);
                       }}
+                      disabled={selectedHeaders.length === 0}
                     >
                       Download Report
                     </button>
