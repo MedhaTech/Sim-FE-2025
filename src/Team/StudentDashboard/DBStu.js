@@ -30,7 +30,8 @@ import VideoModal from '../../HelpVideo/VideoModal';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import axios from 'axios';
 import { Modal } from 'react-bootstrap';
-
+import { IoArrowDownCircleOutline } from "react-icons/io5";
+import { PiLinkSimpleBold } from "react-icons/pi";
 import LanguageSelectorComp from '../../components/LanguageSelectorComp/index.js';
 import MultiProgressBar from "./Multiprogessbar.js";
 const GreetingModal = (props) => {
@@ -45,200 +46,109 @@ const GreetingModal = (props) => {
     >
       {/* <Modal.Header closeButton></Modal.Header> */}
 
-        <Modal.Body>
-         {/* <figure>
-             <div className="row">
-                 {props.youtube && (
-                     <div className="col-md-6">
-                         <div className="modal-body custom-modal-body">
-                             <div style={{ width: "100%", height: "400px" }}>
-                                 <iframe
-                                     src={props.youtube
-                                         .replace("youtu.be/", "www.youtube.com/embed/")
-                                         .replace("watch?v=", "embed/")
-                                         .split("&")[0]}
-                                     title="Video popup"
-                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                     allowFullScreen
-                                 ></iframe>
-                             </div>
-                         </div>
-                     </div>
-                 )}
-     
-                 {props.imagedata && (
-                     <div className="col-md-6 d-flex justify-content-center align-items-center"  style={{ height: "400px" }}>
-                         <img
-                             src={props.imagedata}
-                             alt="popup image"
-                             className="img-fluid"
-                             style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "contain" }}
-                         />
-                     </div>
-                 )}
-             </div>
-         </figure> */}
+         <Modal.Body>
          <figure>
-    <div className="row">
-        {props.youtube && !props.imagedata && ( // Full-width if only YouTube video exists
-            <div className="col-md-12">
-                <div className="modal-body custom-modal-body">
-                    <div style={{ width: "100%", height: "100vh" }}>
-                        <iframe
-                            src={props.youtube
-                                .replace("youtu.be/", "www.youtube.com/embed/")
-                                .replace("watch?v=", "embed/")
-                                .split("&")[0]}
-                            title="Video popup"
-                            style={{ width: "100%", height: "100%" }}
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                        ></iframe>
-                    </div>
-                </div>
-            </div>
-        )}
-
-        {props.imagedata && !props.youtube && ( // Full-width if only image exists
-            <div className="col-md-12 d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
-                <img
-                    src={props.imagedata}
-                    alt="popup image"
-                    className="img-fluid"
-                    style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "contain" }}
-                />
-            </div>
-        )}
-
-        {props.youtube && props.imagedata && ( // Split screen when both video & image exist
-            <>
-                <div className="col-md-6">
-                    <div className="modal-body custom-modal-body">
-                        <div style={{ width: "100%", height: "400px" }}>
-                            <iframe
-                                src={props.youtube
-                                    .replace("youtu.be/", "www.youtube.com/embed/")
-                                    .replace("watch?v=", "embed/")
-                                    .split("&")[0]}
-                                title="Video popup"
-                                style={{ width: "100%", height: "100%" }}
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                            ></iframe>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="col-md-6 d-flex justify-content-center align-items-center" style={{ height: "400px" }}>
-                    <img
-                        src={props.imagedata}
-                        alt="popup image"
-                        className="img-fluid"
-                        style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "contain" }}
-                    />
-                </div>
-            </>
-        )}
-    </div>
-</figure>
-     </Modal.Body>
+           <div className="row">
+             {/* Case 1: Only video */}
+             {props.youtube && !props.imagedata && (
+               <div className="col-md-12">
+                 <div className="modal-body custom-modal-body">
+                   <div style={{ width: "100%", height: "30vh" }}>
+                     <iframe
+                       src={props.youtube
+                         .replace("youtu.be/", "www.youtube.com/embed/")
+                         .replace("watch?v=", "embed/")
+                         .split("&")[0]}
+                       title="Video popup"
+                       style={{ width: "100%", height: "100%" }}
+                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                       allowFullScreen
+                     ></iframe>
+                   </div>
+                 </div>
+               </div>
+             )}
+       
+             {/* Case 2: Only image */}
+             {props.imagedata && !props.youtube && (
+               <div className="col-md-12 d-flex justify-content-center align-items-center" style={{ height: "30vh" }}>
+                 <img
+                   src={props.imagedata}
+                   alt="popup image"
+                   className="img-fluid"
+                   style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "contain" }}
+                 />
+               </div>
+             )}
+       
+             {/* Case 3: Both image and video */}
+             {props.youtube && props.imagedata && (
+               <>
+                 {/* Image on top */}
+                 <div className="col-md-12 d-flex justify-content-center align-items-center mb-3" style={{ height: "30vh" }}>
+                   <img
+                     src={props.imagedata}
+                     alt="popup image"
+                     className="img-fluid"
+                     style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "contain" }}
+                   />
+                 </div>
+       
+                 {/* Video below */}
+                 <div className="col-md-12">
+                   <div className="modal-body custom-modal-body">
+                     <div style={{ width: "100%", height: "30vh" }}>
+                       <iframe
+                         src={props.youtube
+                           .replace("youtu.be/", "www.youtube.com/embed/")
+                           .replace("watch?v=", "embed/")
+                           .split("&")[0]}
+                         title="Video popup"
+                         style={{ width: "100%", height: "100%" }}
+                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                         allowFullScreen
+                       ></iframe>
+                     </div>
+                   </div>
+                 </div>
+               </>
+             )}
+           </div>
+         </figure>
+       </Modal.Body>
       <Modal.Footer>
-       <table className="text-center">
-         <tbody>
-               {props.state != null && (
-           <tr>
-             <td><strong>Reference &nbsp;</strong></td>
-             <td>
-                 <Link to={props.state}
-                 type="button">
-                   <button className="btn btn-warning">Navigate</button>
-                 </Link>
-             </td>
-           </tr>
-               )}
+                <div className="d-flex justify-content-between align-items-center w-100">
      
-               {props.file && (
-           <tr>
-              <td><strong><span>{props.file.split('/').pop()}</span> &nbsp;</strong></td>
-             <td>
-                 <a href={props.file} download target="_blank" rel="noopener noreferrer">
-                   <button className="btn btn-warning">Download</button>
-                 </a>
-             </td>
-           </tr>
-               )}
+     <div>
+       {props.file && (
+         <a href={props.file} download target="_blank" rel="noopener noreferrer" className="me-3">
+           <IoArrowDownCircleOutline size={30}  />
+         </a>
+       )}
      
-               {props.urlData && (
-           <tr>
-             <td><strong>Link &nbsp;</strong></td>
-             <td>
-                 <a href={props.urlData} target="_blank" rel="noopener noreferrer">
-                   <button className="btn btn-warning">View</button>
-                 </a>
-             </td>
-           </tr>
-               )}
-               
-         </tbody>
-       </table>
+       {props.urlData && (
+         <a href={props.urlData} target="_blank" rel="noopener noreferrer">
+           <PiLinkSimpleBold size={30} style={{ color: "blue" }} />
+         </a>
+       )}
+     </div>
+     
+     
+     {props.state != null && (
+       <div className="d-flex align-items-center justify-content-end">
+         <strong className="me-2">Reference Course</strong>
+         <Link to={props.state}>
+           <button className="btn btn-warning">Navigate</button>
+         </Link>
+       </div>
+     )}
+     
+     </div>
+     
+              
+      
      </Modal.Footer>
-      {/* <Modal.Footer>
-        <div>
-        {props.state != null && <>
-          <Link
-            to={props.state}
-            type="button"
-          >
-            <button
-              label={"Navigate"}
-              className="btn btn-warning"
-            >
-              Navigate
-            </button>
-          </Link>
-          <span style={{paddingLeft:'1rem'}}>Click here to redirect to Reference Course</span></>
-          }
-          </div>
-          <div>
-          {props.file && (<div>
-            <a
-        href={props.file}
-        download
-        target="_blank"
-        rel="noopener noreferrer"
-    >
-        <button className="btn btn-warning">
-         File
-        </button>
-        
-    </a>
-    <span style={{paddingLeft:'1rem'}}>{props.fileName}</span>
-    
-          </div>
-    
-)}
-        </div>
-        
-<div>
-{props.urlData && (<div>
-  <a
-        href={props.urlData}
-        download
-        target="_blank"
-        rel="noopener noreferrer"
-    >
-        <button className="btn btn-warning">
-          Link
-        </button>
-    </a>
-    <span style={{paddingLeft:'1rem'}}>{props.urlData}</span>
-    
-</div>
-    
-)}
-</div>
-
-      </Modal.Footer> */}
+      
     </Modal>
   );
 };

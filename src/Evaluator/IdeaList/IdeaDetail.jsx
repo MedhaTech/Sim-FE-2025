@@ -193,7 +193,7 @@ const downloadFile = (item) => {
                                         </Col>
                                         <Col>
                                             <h4 className="mb-md-4 mb-3">
-                                                CID :
+                                                CIDSSS :
                                                 <span className="text-capitalize">
                                                 {props?.ideaDetails.challenge_response_id ||
                                                         ''}

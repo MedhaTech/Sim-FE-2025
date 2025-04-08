@@ -41,7 +41,8 @@ const PreSurvey = () => {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   //   const history = useHistory();
-
+   const [whatsappLink, setWhatsappLink] = useState("");
+   const [hovered, setHovered] = useState(false);
   const [preSurveyList, setPreSurveyList] = useState([]);
   const currentUser = getCurrentUser("current_user");
   const [quizSurveyId, setQuizSurveyId] = useState(0);
@@ -264,6 +265,63 @@ const PreSurvey = () => {
         return err.response;
       });
   }, [count]);
+  useEffect(() => {
+    const linkEl = document.getElementById("whatsappLink");
+    if (linkEl) {
+      linkEl.style.cursor = "pointer"; 
+      linkEl.addEventListener("click", fetchwhatsapplink);
+    }
+  
+    return () => {
+      if (linkEl) {
+        linkEl.removeEventListener("click", fetchwhatsapplink); 
+      }
+    };
+  }, []);
+const fetchwhatsapplink = () => {
+  // Function to fetch the WhatsApp link from the API
+  const statenameApi = encryptGlobal(
+    JSON.stringify({
+      state_name: currentUser?.data[0]?.state,
+    })
+  );
+  var config = {
+    method: "get",
+    url:
+      process.env.REACT_APP_API_BASE_URL +
+      `/dashboard/whatappLink?Data=${statenameApi}`,
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${currentUser.data[0]?.token}`,
+    },
+  };
+  axios(config)
+    .then(function (response) {
+      if (response.status === 200) {
+        const responseData = response?.data?.data?.[0];
+        const link = responseData?.whatapp_link;
+        setWhatsappLink(link);
+        
+        setTimeout(()=>{
+          if (link && typeof link === "string") {
+            window.open(link, '_blank');
+          } else {
+            console.error("Invalid or missing WhatsApp link");
+            alert("WhatsApp link not found. Please try again later.");
+          }
+        },1000);
+       
+
+        // setMessage(response.data.data[0].mentor_note);
+        // console.log(response.data.data[0].mentor_note,"message");
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
+
 
   return (
     <div>
@@ -292,12 +350,65 @@ const PreSurvey = () => {
                           Welcome teachers and mentors!
 
                           </h2>
-                          <div
+                          {/* <div
                             dangerouslySetInnerHTML={{
                               __html:
-                                " </br><p>We are delighted that you have signed up for this program and have joined us on this journey of nurturing problem solving and innovation in youth. As you are already aware, you will be playing the role of a guide teacher to the students for the duration of the course.The portal includes various information modules and resources that will help you and your students on their learning journeys.</p><b class='text-success'>Your journey as a guide teacher will include the following key milestones We would like you all to go through the following in order.</b><br/>Please make sure you’ve joined the <span class='text-success'>WhatsApp group</span> at the earliest to stay informed and engaged. <br/><ol><li>Step 1 : Register and take the pre-survey.</li><li>Step 2 : Watch the instructional videos to understand the program</li><li>Step 3 : Conduct awareness & Orientation sessions for the students.</li><li>Step 4 : Form teams and register them on the portal.</li><li>Step 5 : Mentor students throughout the program.</li><li>Step 6 : Ensure teams complete the course & submit their final ideas.</li><li>Step 7 : Complete the post survey</li><li>Step 8 : Download your teacher’s certificate </li><li>Step 9 : Guide students to download their certificates once they finish the course and submit idea. </li></ol></br>We hope you and the students will have a great time doing this program.<br>We wish you all the best!",
+                                " </br><p>We are delighted that you have signed up for this program and have joined us on this journey of nurturing problem solving and innovation in youth. As you are already aware, you will be playing the role of a guide teacher to the students for the duration of the course.The portal includes various information modules and resources that will help you and your students on their learning journeys.</p><b class='text-success'>Your journey as a guide teacher will include the following key milestones We would like you all to go through the following in order.</b><br/>Please make sure you’ve joined the <span class='text-success'id='whatsappLink'>WhatsApp group</span> at the earliest to stay informed and engaged. <br/><ol><li>Step 1 : Register and take the pre-survey.</li><li>Step 2 : Watch the instructional videos to understand the program</li><li>Step 3 : Conduct awareness & Orientation sessions for the students.</li><li>Step 4 : Form teams and register them on the portal.</li><li>Step 5 : Mentor students throughout the program.</li><li>Step 6 : Ensure teams complete the course & submit their final ideas.</li><li>Step 7 : Complete the post survey</li><li>Step 8 : Download your teacher’s certificate </li><li>Step 9 : Guide students to download their certificates once they finish the course and submit idea. </li></ol></br>We hope you and the students will have a great time doing this program.<br>We wish you all the best!",
                             }}
-                          ></div>
+                          ></div> */}
+                           <div>
+      <br />
+      <p>
+        We are delighted that you have signed up for this program and have
+        joined us on this journey of nurturing problem solving and innovation in
+        youth. As you are already aware, you will be playing the role of a guide
+        teacher to the students for the duration of the course. The portal includes
+        various information modules and resources that will help you and your
+        students on their learning journeys.
+      </p>
+
+      <b className="text-success">
+        Your journey as a guide teacher will include the following key milestones.
+        We would like you all to go through the following in order.
+      </b>
+      <br />
+      <p>
+        Please make sure you’ve joined the{" "}
+        <span
+          onClick={fetchwhatsapplink}
+          onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        style={{
+          color: hovered ? "green" : "black",
+          cursor: "pointer",
+          textDecoration: "none",
+          fontWeight: "bold",
+        }}
+        >
+          WhatsApp group
+        </span>{" "}
+        at the earliest to stay informed and engaged.
+      </p>
+
+      <ol>
+        <li>Step 1 : Register and take the pre-survey.</li>
+        <li>Step 2 : Watch the instructional videos to understand the program.</li>
+        <li>Step 3 : Conduct awareness & Orientation sessions for the students.</li>
+        <li>Step 4 : Form teams and register them on the portal.</li>
+        <li>Step 5 : Mentor students throughout the program.</li>
+        <li>Step 6 : Ensure teams complete the course & submit their final ideas.</li>
+        <li>Step 7 : Complete the post survey.</li>
+        <li>Step 8 : Download your teacher’s certificate.</li>
+        <li>Step 9 : Guide students to download their certificates once they finish the course and submit idea.</li>
+      </ol>
+
+      <br />
+      <p>
+        We hope you and the students will have a great time doing this program.
+        <br />
+        We wish you all the best!
+      </p>
+    </div>
                           <button
                             className="btn btn-primary m-3"
                             onClick={handleStart}
