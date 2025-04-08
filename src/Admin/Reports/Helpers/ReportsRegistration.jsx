@@ -333,18 +333,29 @@ const ReportsRegistration = () => {
         .filter(header => selectedValue.includes(header.label))
         .map(header => header));
     }
+    setIsDownloading(true);
+  };
+
+  const handleCustom = () => {
     if (filterType === "Not Registered" && filteresData.length <= 0) {
       fetchData(filterType);
     }
     if (filterType === "Registered" && filteredData.length <= 0) {
       fetchData(filterType);
     }
-    setIsDownloading(true);
+    if (filteresData.length > 0) {
+      setShowCustomization(!showCustomization);
+    }
+    if (filteredData.length > 0) {
+      setShowCustomization(!showCustomization);
+    }
+
   };
 
   useEffect(() => {
     setFilteredData([]);
     setFilteresData([]);
+    setfilterheaders([]);
   }, [RegTeachersState, RegTeachersdistrict, filterType, category]);
 
   useEffect(() => {
@@ -541,10 +552,7 @@ const ReportsRegistration = () => {
             setFilteredData(response?.data?.data || []);
             setDownloadData(response?.data?.data || []);
             if (response?.data.count > 0) {
-              openNotificationWithIcon(
-                "success",
-                `${filterType} Report Downloaded Successfully`
-              );
+              setShowCustomization(!showCustomization);
             } else {
               openNotificationWithIcon("error", "No Data Found");
             }
@@ -552,15 +560,12 @@ const ReportsRegistration = () => {
             setFilteresData(response?.data?.data || []);
             setDownloadNotRegisteredData(response?.data?.data || []);
             if (response?.data.count > 0) {
-              openNotificationWithIcon(
-                "success",
-                `${filterType} Report Downloaded Successfully`
-              );
+              setShowCustomization(!showCustomization);
             } else {
               openNotificationWithIcon("error", "No Data Found");
             }
           }
-         
+
           setIsDownloading(false);
         }
       })
@@ -569,16 +574,24 @@ const ReportsRegistration = () => {
         setIsDownloading(false);
       });
   };
-
+  
   useEffect(() => {
-    if (filteredData.length > 0) {
+    if (filteredData.length > 0 && filterheaders.length > 0) {
       setDownloadData(filteredData);
       csvLinkRef.current.link.click();
+      openNotificationWithIcon(
+        "success",
+        `${filterType} Report Downloaded Successfully`
+      );
     }
-    if (filteresData.length > 0) {
+    if (filteresData.length > 0 && filterheaders.length > 0) {
       setDownloadNotRegisteredData(filteresData);
       csvLinkRefNotRegistered.current.link.click();
       console.log("Performing operation with the updated data.");
+      openNotificationWithIcon(
+        "success",
+        `${filterType} Report Downloaded Successfully`
+      );
     }
   }, [filteredData, filteresData, filterheaders]);
 
@@ -785,7 +798,7 @@ const ReportsRegistration = () => {
               <Col md={2}>
                 <button
                   onClick={() => {
-                    setShowCustomization(!showCustomization);
+                    handleCustom();
                   }}
                   type="button"
                   disabled={!enable}
