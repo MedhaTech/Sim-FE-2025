@@ -156,6 +156,7 @@ import BulkAC from "../Evaluator/Admin/BulkAR/index";
 import State from "../Evaluator/Admin/Evaluator/State";
 import SearchCID from "../Evaluator/Admin/Dashboard/SearchCID";
 import Permission from "../Admin/UsersList/Permission";
+import ShiftDiesCode from "../Admin/UsersList/ShiftDiesCode";
 
 
 
@@ -552,6 +553,14 @@ export const publicRoutes = [
     path: routes.adminpermission,
     name: "adminpermission",
     element: <Permission/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 38,
+    path: routes.diesshift,
+    name: "diesshift",
+    element: <ShiftDiesCode/>,
     protected: true,
     route: Route,
   },
