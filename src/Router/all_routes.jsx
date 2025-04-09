@@ -10,6 +10,7 @@ export const all_routes = {
   studentslist:"/students",
   mentorslist:"/mentors",
   teamslist:"/teams",
+  diesshift:"/admin-mentor-shift",
   adminlist:"/admins",
   adminpermission:"/admin-permission",
   eadminbukAC:"/eadmin/eadmin-BulkAC",

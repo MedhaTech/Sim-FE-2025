@@ -214,6 +214,19 @@ const Dashboard = () => {
             }
         });
     };
+    const handleShiftDiesCocde= () => {
+        //  here  We can edit the Registration details //
+        // Where data = orgData //
+        navigate(
+             '/admin-mentor-shift',
+           { state: {
+                username: orgData.username,
+                mentor_id: orgData.mentor_id,
+                organization_code: orgData.organization.organization_code,
+                full_name: orgData.full_name,
+            }
+        });
+    };
 // console.log(orgData,"org");
     const handleresetpassword = (data) => {
         //  here we can reset the password as disecode //
@@ -950,6 +963,15 @@ const Dashboard = () => {
                                                 Download
                                             </button>
 
+                                            <button
+                                                onClick={() => {
+                                                   handleShiftDiesCocde();
+                                                }}
+                                                className="btn btn-info"
+                                                
+                                            >
+                                                Shift UDISE Code
+                                            </button>
                                             <button
                                                 onClick={() => {
                                                     handleAlert(

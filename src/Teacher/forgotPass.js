@@ -47,7 +47,7 @@ const Forgotpassword = () => {
           if (checkOrgRes.status == 202) {
             openNotificationWithIcon(
               "success",
-              "Password sent to your Registered Email Address"
+              "For registered users password reset link will be sent to registered email"
             );
             seterrorMsg("");
             setTimeout(() => {
