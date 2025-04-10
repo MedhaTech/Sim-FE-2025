@@ -31,7 +31,7 @@ const StateData = () => {
         //  handleResList Api where we can see list of all resource //
         let config = {
             method: 'get',
-            url: process.env.REACT_APP_API_BASE_URL + '/state_coordinators',
+            url: process.env.REACT_APP_API_BASE_URL + '/states/specific',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -139,11 +139,11 @@ const StateData = () => {
             body['certificate'] = value;
         }
 
-        const popParam = encryptGlobal(JSON.stringify(item.state_coordinators_id));
+        const popParam = encryptGlobal(JSON.stringify(item.state_specific_id));
 
         let config = {
             method: 'put',
-            url: process.env.REACT_APP_API_BASE_URL + `/state_coordinators/${popParam}`,
+            url: process.env.REACT_APP_API_BASE_URL + `/states/specific/${popParam}`,
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`

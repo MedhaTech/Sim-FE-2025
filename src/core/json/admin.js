@@ -51,7 +51,7 @@ const AdminSidebarData = () => {
           showSubRoute: false,
           submenu: false,
           permission: "Latest News",
-          
+
         },
         {
           label: "State Specific",
@@ -102,6 +102,14 @@ const AdminSidebarData = () => {
           permission: "Admins",
         },
         {
+          label: "States",
+          link: "/states",
+          icon: <Icon.User />,
+          showSubRoute: false,
+          submenu: false,
+          permission: "States",
+        },
+        {
           label: "Reports",
           link: "/reports",
           icon: <Icon.Database />,
@@ -109,7 +117,7 @@ const AdminSidebarData = () => {
           submenu: false,
           permission: "Reports",
         },
-       
+
         {
           label: "Bulk Email",
           link: "/emailList",

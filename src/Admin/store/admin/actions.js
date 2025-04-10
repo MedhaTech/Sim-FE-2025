@@ -107,6 +107,8 @@ export const adminLoginUser = (data, navigate, module) => async (dispatch) => {
           
         }else if (arr.includes("Admins")){
           navigate("/admins");
+        }else if (arr.includes("States")){
+            navigate("/states");
         }else if (arr.includes("Reports")){
           navigate("/reports");
         }else if (arr.includes("Bulk Email")){
