@@ -146,7 +146,7 @@ const [diesCodeList,setDiesCodeList]=useState([]);
       <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <h3 className="mb-5">Shifting UDISE Code</h3>
+                        <h3 className="mb-5">Shifting Mentor to Udisecode  </h3>
                         <div>
         <Form onSubmit={formik.handleSubmit} isSubmitting >
           <div className="create-ticket register-block">

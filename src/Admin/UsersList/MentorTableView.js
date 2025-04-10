@@ -751,7 +751,7 @@ const Dashboard = () => {
                                                             xl={5}
                                                             className="my-auto profile-detail"
                                                         >
-                                                            <p>Pincode</p>
+                                                            <p>Pin Code</p>
                                                         </Col>
                                                         <Col
                                                             xs={1}
@@ -775,6 +775,101 @@ const Dashboard = () => {
                                                             </p>
                                                         </Col>
                                                     </Row> */}
+                                                     {/* <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>Mandal / Taluka</p>
+                                                        </Col>
+                                                        <Col
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>
+                                                                {
+                                                                    orgData.mandal
+                                                                }
+                                                            </p>
+                                                        </Col>
+                                                    </Row> */} {/* <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>School Type</p>
+                                                        </Col>
+                                                        <Col
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>
+                                                                {
+                                                                    orgData.school_type
+                                                                }
+                                                            </p>
+                                                        </Col>
+                                                    </Row> */} {/* <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>School Board</p>
+                                                        </Col>
+                                                        <Col
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>
+                                                                {
+                                                                    orgData.board
+                                                                }
+                                                            </p>
+                                                        </Col>
+                                                    </Row> */} 
+                                                  
                                                     <Row className="pt-3 pb-3">
                                                         <Col
                                                             xs={5}
@@ -970,7 +1065,7 @@ const Dashboard = () => {
                                                 className="btn btn-info"
                                                 
                                             >
-                                                Shift UDISE Code
+                                                Shift Mentor
                                             </button>
                                             <button
                                                 onClick={() => {
