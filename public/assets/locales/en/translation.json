@@ -217,6 +217,8 @@
         "Category":"Category",
         "District":"District",
         "State":"State",
+        "PinCode":"Pin Code",
+        "Mandal":"Mandal / Taluka", "SchoolType":"School Type", "SchoolBoard":"School Board",
         "PrincipalName":"Principal Name",
         "PrincipalMobileNo":"Principal Mobile No",
         "PrincipalEmailID":"Principal Email ID",

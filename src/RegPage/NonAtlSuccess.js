@@ -134,16 +134,25 @@ const NonAtlSuccess = () => {
                         ? orgDaTa.organization_code
                         : "-"}
                     </p>
-                    <p style={{ color: "#404040" }}>
-                      School : {orgDaTa.organization_name}
-                    </p>
+                    <p style={{ color: "#404040" }}>State : {orgDaTa.state}</p>
                     <p style={{ color: "#404040" }}>
                       District : {orgDaTa.district}
                     </p>
-                    <p style={{ color: "#404040" }}>State : {orgDaTa.state}</p>
+                    <p style={{ color: "#404040" }}>
+                    Mandal / Taluka : {orgDaTa.mandal}
+                    </p>
                     <p style={{ color: "#404040" }}>
                       PinCode : {orgDaTa.pin_code} {mentorDaTa.pin_code}
                     </p>
+                    <p style={{ color: "#404040" }}>
+                      School Name : {orgDaTa.organization_name}
+                    </p>
+                    <p style={{ color: "#404040" }}>
+                      School Type : {orgDaTa.school_type}
+                    </p> <p style={{ color: "#404040" }}>
+                      School Board : {orgDaTa.board}
+                    </p>
+                    
                   </Col>
                   <Col
                     className="hover-a  col-md-6 col-sm-12 "

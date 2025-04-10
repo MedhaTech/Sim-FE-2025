@@ -877,7 +877,90 @@ export const districtList = {
     "UTTAR DINAJPUR (NORTH DINAJPUR)",
   ],
 };
+export const mandalList ={
+  "ANANTAPUR": [
+    "Anantapur Urban",
+    "Anantapur Rural",
+    "Atmakur",
+    "Batlapalem",
+    "Garladinne",
+    "Gudur",
+    "Kalyandurg",
+    "Kambadur",
+    "Kuderu",
+    "Narpala",
+    "Nimmanapalle",
+    "Pamidi",
+    "Peddavadugur",
+    "Puttaparthi",
+    "Raptadu",
+    "Roddam",
+    "Somandepalle",
+    "Tadipatri",
+    "Uravakonda",
+    "Yadiki"
+  ],
+ 
+  "KURNOOL": [
+    "Adoni",
+    "Allagadda",
+    "Aluru",
+    "Aspari",
+    "Bandi Atmakur",
+    "Bethamcherla",
+    "Burgampahad",
+    "Chagalamarri",
+    "Chippagiri",
+    "Cumbum",
+    "Dhone",
+    "Gadivemula",
+    "Gonegandla",
+    "Guntakal",
+    "Jammalamadugu",
+    "Kodumur",
+    "Koilakuntla",
+    "Kurnool",
+    "Midthur",
+    "Nandikotkur",
+    "Nandyal",
+    "Peapully",
+    "Pattikonda",
+    "Pragatur",
+    "Pulivendla",
+    "Rayadurg",
+    "Srisailam",
+    "Urkonda"
+  ],
+  "PRAKASAM": [
+    "Addanki",
+    "Chirala",
+    "Chimakurthi",
+    "Chittoor",
+    "Chunduru",
+    "Darsi",
+    "Donakonda",
+    "Giddalur",
+    "Inkollu",
+    "Kanigiri",
+    "Kandukur",
+    "Kondapi",
+    "Markapuram",
+    "Marthandam",
+    "Naguluppalapadu",
+    "Ongole",
+    "Parchur",
+    "Podili",
+    "Ponnaluru",
+    "Singarayakonda",
+    "Tangutur",
+    "Tripuranthakam"
+  ],
+ 
+
+};
+export const SchoolBoard= ["CBSE (Central Board of Secondary Education)","ICSE (Council for the Indian School Certificate Examinations)","State Board (Select State Specific Board)","Others",];
 export const userList = ["Mentor", "Student"];
+export const SchoolType= ["Government School","PM Shri School","Kendriya Vidyalaya (KV)","Jawahar Navodaya Vidyalaya (JNV)","Private School","Others"];
 export const navList = {
   Mentor: [
     "/mentorcourse/1",
