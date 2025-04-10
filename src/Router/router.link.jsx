@@ -77,6 +77,7 @@ import Ticket from "../Admin/UsersList/Tickets";
 import MentorsList from "../Admin/UsersList/MentorsList";
 import TeamsList from "../Admin/UsersList/TeamsList";
 import AdminsList from "../Admin/UsersList/AdminsList";
+import StateList from "../Admin/UsersList/StateList";
 import MentorTableView from "../Admin/UsersList/MentorTableView";
 import PopUp from "../Admin/PopUp/Popuplist";
 import Createpopup from "../Admin/PopUp/CreatePopUp";
@@ -561,6 +562,14 @@ export const publicRoutes = [
     path: routes.diesshift,
     name: "diesshift",
     element: <ShiftDiesCode/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 39,
+    path: routes.statelist,
+    name: "statelist",
+    element: <StateList/>,
     protected: true,
     route: Route,
   },

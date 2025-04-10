@@ -755,7 +755,7 @@ const MyCertificate = () => {
       method: "get",
       url:
         process.env.REACT_APP_API_BASE_URL +
-        `/state_coordinators?Data=${fectchTecParam}`,
+        `/states/specific?Data=${fectchTecParam}`,
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",

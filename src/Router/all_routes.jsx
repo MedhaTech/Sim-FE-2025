@@ -12,6 +12,7 @@ export const all_routes = {
   teamslist:"/teams",
   diesshift:"/admin-mentor-shift",
   adminlist:"/admins",
+  statelist:"/states",
   adminpermission:"/admin-permission",
   eadminbukAC:"/eadmin/eadmin-BulkAC",
   eadmindropdown:"/eadmin-update",
