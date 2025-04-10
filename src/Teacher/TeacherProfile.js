@@ -265,17 +265,7 @@ const handleShow = () => {
                   />
                 </div>
               </div>
-              {/* <div className="col-lg-4 col-sm-12">
-                <div className="input-blocks">
-                  <label className="form-label">{t('teacherJourney.PinCode')}</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    defaultValue={teacher?.organization?.pin_code ? teacher?.organization?.pin_code :"-"}
-                    readOnly="readonly"
-                  />
-                </div>
-              </div><div className="col-lg-4 col-sm-12">
+              <div className="col-lg-4 col-sm-12">
                 <div className="input-blocks">
                   <label className="form-label">{t('teacherJourney.Mandal')}</label>
                   <input
@@ -286,6 +276,18 @@ const handleShow = () => {
                   />
                 </div>
               </div>
+              <div className="col-lg-4 col-sm-12">
+                <div className="input-blocks">
+                  <label className="form-label">{t('teacherJourney.PinCode')}</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    defaultValue={teacher?.organization?.pin_code ? teacher?.organization?.pin_code :"-"}
+                    readOnly="readonly"
+                  />
+                </div>
+              </div>
+             
               <div className="col-lg-4 col-sm-12">
                 <div className="input-blocks">
                   <label className="form-label">{t('teacherJourney.SchoolType')}</label>
@@ -307,7 +309,7 @@ const handleShow = () => {
                     readOnly="readonly"
                   />
                 </div>
-              </div> */}
+              </div>
              
               <div className="col-lg-3 col-sm-12">
                 <div className="input-blocks">
