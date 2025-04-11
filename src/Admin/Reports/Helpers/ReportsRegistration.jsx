@@ -175,6 +175,9 @@ const ReportsRegistration = () => {
       label: "District",
       key: "organization.district",
     },
+    { label: "Mandal / Taluka", key: "organization.mandal" },
+    { label: "School Type", key: "organization.school_type" },
+    { label: "School Board", key: "organization.board" },
     {
       label: "City",
       key: "organization.city",
@@ -241,6 +244,9 @@ const ReportsRegistration = () => {
       label: "District",
       key: "district",
     },
+    { label: "Mandal / Taluka", key: "mandal" },
+    { label: "School Type", key: "school_type" },
+    { label: "School Board", key: "board" },
     {
       label: "City",
       key: "city",

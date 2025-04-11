@@ -93,19 +93,19 @@ const DiesView = () => {
                         <Card className="py-2">
                             <CardBody>
                                 <h4 className="mb-4 text-primary">Organization Details</h4>
-
-                                <CardText>
-                                    <span className="mx-3">
-                                        <b>Organization Name :</b>
-                                    </span>
-                                    <b>{orgDaTa.organization_name}</b>
-                                </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>UDISE Code :</b>
                                     </span>
                                     <b>{orgDaTa.organization_code}</b>
                                 </CardText>
+                                <CardText>
+                                    <span className="mx-3">
+                                        <b>Organization Name :</b>
+                                    </span>
+                                    <b>{orgDaTa.organization_name}</b>
+                                </CardText>
+                               
                                
                                 <CardText>
                                     <span className="mx-3">
@@ -113,19 +113,40 @@ const DiesView = () => {
                                     </span>
                                     <b>{orgDaTa.category}</b>
                                 </CardText>
-
+                                <CardText>
+                                    <span className="mx-3">
+                                        <b>State :</b>
+                                    </span>
+                                    <b>{orgDaTa.state}</b>
+                                </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>District :</b>
                                     </span>
                                     <b>{orgDaTa.district}</b>
                                 </CardText>
-                                <CardText>
-                                    <span className="mx-3">
-                                        <b>state :</b>
-                                    </span>
-                                    <b>{orgDaTa.state}</b>
-                                </CardText>
+                                 <CardText>
+                                                                   <span className="mx-3">
+                                                                       <b>Pin Code :</b>
+                                                                   </span>
+                                                                   <b>{orgDaTa.pin_code ? orgDaTa.pin_code :"-" }</b>
+                                                               </CardText>
+                                                               <CardText>
+                                                                   <span className="mx-3">
+                                                                       <b>Mandal / Taluka :</b>
+                                                                   </span>
+                                                                   <b>{orgDaTa.mandal}</b>
+                                                               </CardText> <CardText>
+                                                                   <span className="mx-3">
+                                                                       <b>School Type :</b>
+                                                                   </span>
+                                                                   <b>{orgDaTa.school_type}</b>
+                                                               </CardText> <CardText>
+                                                                   <span className="mx-3">
+                                                                       <b>School Board :</b>
+                                                                   </span>
+                                                                   <b>{orgDaTa.board}</b>
+                                                               </CardText>
                                 {/* <CardText>
                                     <span className="mx-3">
                                         <b>Pincode :</b>

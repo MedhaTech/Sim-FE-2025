@@ -22,7 +22,7 @@ import { useNavigate } from "react-router-dom";
 const DiesEdit = () => {
   const location = useLocation();
   const mentorData = location.state || {};
-//   console.log(mentorData,"11");
+  console.log(mentorData,"11");
   const navigate = useNavigate();
 
   const currentUser = getCurrentUser("current_user");

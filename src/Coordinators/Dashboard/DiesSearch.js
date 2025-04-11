@@ -464,6 +464,19 @@ const handleEdit = () => {
         }
     });
 };
+const handleShiftDiesCocde= () => {
+    //  here  We can edit the Registration details //
+    // Where data = orgData //
+    navigate(
+         '/state-mentor-shift',
+       { state: {
+            username: orgData.mentor?.user?.username,
+            mentor_id: orgData.mentor.mentor_id,
+            organization_code: orgData.organization_code,
+            full_name: orgData.mentor?.full_name,
+        }
+    });
+};
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -512,7 +525,29 @@ const handleEdit = () => {
                                             </div>
                                             <div className="row ">
                                                 <div className="col">
-                                                   
+                                                    <Row className="pt-3 pb-3">
+                                                                                     <Col
+                                                                                       xs={5}
+                                                                                       sm={5}
+                                                                                       md={5}
+                                                                                       xl={5}
+                                                                                       className="my-auto profile-detail"
+                                                                                     >
+                                                                                       <p>UDISE Code </p>
+                                                                                     </Col>
+                                                                                     <Col xs={1} sm={1} md={1} xl={1}>
+                                                                                       :
+                                                                                     </Col>
+                                                                                     <Col
+                                                                                       xs={6}
+                                                                                       sm={6}
+                                                                                       md={6}
+                                                                                       xl={6}
+                                                                                       className="my-auto profile-detail"
+                                                                                     >
+                                                                                       <p>{orgData?.organization_code}</p>
+                                                                                     </Col>
+                                                                                   </Row>
                                                     <Row className="pt-3 pb-3">
                                                         <Col
                                                             xs={5}
@@ -607,6 +642,102 @@ const handleEdit = () => {
                                                             </p>
                                                         </Col>
                                                     </Row>
+                                                      <Row className="pt-3 pb-3">
+                                                                                      <Col
+                                                                                        xs={5}
+                                                                                        sm={5}
+                                                                                        md={5}
+                                                                                        xl={5}
+                                                                                        className="my-auto profile-detail"
+                                                                                      >
+                                                                                        <p>Pin Code</p>
+                                                                                      </Col>
+                                                                                      <Col xs={1} sm={1} md={1} xl={1}>
+                                                                                        :
+                                                                                      </Col>
+                                                                                      <Col
+                                                                                        xs={6}
+                                                                                        sm={6}
+                                                                                        md={6}
+                                                                                        xl={6}
+                                                                                        className="my-auto profile-detail"
+                                                                                      >
+                                                                                        <p>
+                                                                                          {orgData.pin_code
+                                                                                            ? orgData.pin_code
+                                                                                            : "-"}
+                                                                                        </p>
+                                                                                      </Col>
+                                                                                    </Row>
+                                                                                    <Row className="pt-3 pb-3">
+                                                                                      <Col
+                                                                                        xs={5}
+                                                                                        sm={5}
+                                                                                        md={5}
+                                                                                        xl={5}
+                                                                                        className="my-auto profile-detail"
+                                                                                      >
+                                                                                        <p>Mandal / Taluka</p>
+                                                                                      </Col>
+                                                                                      <Col xs={1} sm={1} md={1} xl={1}>
+                                                                                        :
+                                                                                      </Col>
+                                                                                      <Col
+                                                                                        xs={6}
+                                                                                        sm={6}
+                                                                                        md={6}
+                                                                                        xl={6}
+                                                                                        className="my-auto profile-detail"
+                                                                                      >
+                                                                                        <p>{orgData.mandal}</p>
+                                                                                      </Col>
+                                                                                    </Row>
+                                                                                    <Row className="pt-3 pb-3">
+                                                                                      <Col
+                                                                                        xs={5}
+                                                                                        sm={5}
+                                                                                        md={5}
+                                                                                        xl={5}
+                                                                                        className="my-auto profile-detail"
+                                                                                      >
+                                                                                        <p>School Type</p>
+                                                                                      </Col>
+                                                                                      <Col xs={1} sm={1} md={1} xl={1}>
+                                                                                        :
+                                                                                      </Col>
+                                                                                      <Col
+                                                                                        xs={6}
+                                                                                        sm={6}
+                                                                                        md={6}
+                                                                                        xl={6}
+                                                                                        className="my-auto profile-detail"
+                                                                                      >
+                                                                                        <p>{orgData.school_type}</p>
+                                                                                      </Col>
+                                                                                    </Row>
+                                                                                    <Row className="pt-3 pb-3">
+                                                                                      <Col
+                                                                                        xs={5}
+                                                                                        sm={5}
+                                                                                        md={5}
+                                                                                        xl={5}
+                                                                                        className="my-auto profile-detail"
+                                                                                      >
+                                                                                        <p>School Board</p>
+                                                                                      </Col>
+                                                                                      <Col xs={1} sm={1} md={1} xl={1}>
+                                                                                        :
+                                                                                      </Col>
+                                                                                      <Col
+                                                                                        xs={6}
+                                                                                        sm={6}
+                                                                                        md={6}
+                                                                                        xl={6}
+                                                                                        className="my-auto profile-detail"
+                                                                                      >
+                                                                                        <p>{orgData.board}</p>
+                                                                                      </Col>
+                                                                                    </Row>
                                                     {/* <Row className="pt-3 pb-3">
                                                         <Col
                                                             xs={5}
@@ -850,6 +981,15 @@ const handleEdit = () => {
                                                 }}>
                                        Download
                                     </button>
+                                    <button
+                                                onClick={() => {
+                                                   handleShiftDiesCocde();
+                                                }}
+                                                className="btn btn-info"
+                                                
+                                            >
+                                                Shift Mentor
+                                            </button>
                                             <button
                                                 onClick={viewDetails}
                                                type="button" className="btn btn-outline-primary"
