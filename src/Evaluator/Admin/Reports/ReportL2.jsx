@@ -495,9 +495,19 @@ const ReportL2 = () => {
           const newdatalist = mentorAndOrg.map((item) => {
             const rating =
               evaluatorRatingValuesMap[item.challenge_response_id] || {};
+              const comments = rating["JSON_ARRAYAGG(comments)"];
+              const evaluatorNames = rating.evaluatorName || [];
+              const evalCounts = rating.eval_count || []; 
+
             const formatValue = (value) => {
               return value ? parseFloat(value).toFixed(1) : null;
             };
+            const evaluatorColumns = evaluatorNames.reduce((acc, name, index) => {
+              acc[`Evaluator Name ${index + 1}`] = name; 
+              return acc;
+            }, {});
+            
+
             return {
                "UDISE CODE":item.organization_code,
                                                  State:item.state,
@@ -528,7 +538,7 @@ const ReportL2 = () => {
                                                   "Pick the actions your team did in your problem solving journey (You can choose multiple options)":item.problem_solving,
                                                   "Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.":item.feedback,
                                                   "Descriptive Document/Image of your prototype.":item.prototype_image,
-                                                  "Clear Video Explaining your Solution":item.prototype_link,
+                                                  "Clear YouTube Video Explaining your Solution":item.prototype_link,
                                                   "Did your team complete and submit the workbook to your school Guide teacher?":item.workbook,
                                                   "Idea Submission Status":item.status,
                                                   "Teacher Verified Status":item.verified_status == null ? "Not yet Reviewed" : item.verified_status,
@@ -540,12 +550,16 @@ const ReportL2 = () => {
   "Usefulness Score": formatValue(rating.useful),
 
   "Feasibility Score": formatValue(rating.feasibility),
-  // "Feasibility": formatValue(rating.feasibility_score),
   "Scalability Score": formatValue(rating.scalability),
-  // "Quality": formatValue(rating.quality_score),
   "Sustainability Score": formatValue(rating.sustainability),
   "Evaluators Count": rating.eval_count,
                                                   "L3 Status":item.final_result === null ? "Not Promoted" : "Promoted",
+                                                  "Comments": rating.comments && Array.isArray(rating.comments) && rating.comments.length > 0
+                                                  ? rating.comments.join(", ")
+                                                  : "No Comments",
+                                                  ...evaluatorColumns,
+                                                  // "Evaluator Name 1": rating.eval_count,
+                                                  // "Evaluator Name 2": rating.eval_count,
 
               // ...item,
               // overall_score: formatValue(rating.overall_score),

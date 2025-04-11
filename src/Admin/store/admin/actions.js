@@ -74,17 +74,48 @@ export const adminLoginUser = (data, navigate, module) => async (dispatch) => {
       });
     if (result && result.status === 200) {
       const item = result.data;
+      console.log(item,"item");
       setCurrentUser(item);
       localStorage.setItem("module", module);
-      // localStorage.setItem("layoutStyling", "modern");
+     
       localStorage.setItem("layoutStyling", "default");
 
       localStorage.setItem("time", new Date().toString());
       dispatch(adminLoginUserSuccess(result));
+      const arr = result.data.data[0].permission.split(',');
 
-      navigate("/admin-dashboard");
-    } else if (result && result.status === 404) {
-      openNotificationWithIcon("error", "Invalid Credentials entered");
+      if(arr.includes("Dashboard")){
+  navigate("/admin-dashboard");
+        }else if (arr.includes("Overall Schools")){
+  navigate("/institution");
+        }else if (arr.includes("PopUp")){
+    navigate("/popup");
+        }else if (arr.includes("Resource")){
+    navigate("/adminresources");
+        }else if (arr.includes("Latest News")){
+    navigate("/latest-news"); 
+        }else if (arr.includes("State Specific")){
+      navigate("/state-wise");  
+        }else if (arr.includes("Support")){
+        navigate("/admin-support"); 
+        }else if (arr.includes("Mentors")){
+          navigate("/mentors");
+        }else if (arr.includes("Teams")){
+          navigate("/teams");
+        }else if (arr.includes("Students")){
+          navigate("/students");
+          
+        }else if (arr.includes("Admins")){
+          navigate("/admins");
+        }else if (arr.includes("States")){
+            navigate("/states");
+        }else if (arr.includes("Reports")){
+          navigate("/reports");
+        }else if (arr.includes("Bulk Email")){
+  navigate("/emailList");
+        }
+} else if (result && result.status === 404) {
+      openNotificationWithIcon("error", "Entered Invalid Username or Password");
      
       dispatch(adminLoginUserError(result.statusText));
     }else{

@@ -35,7 +35,9 @@ const CreateResource = () => {
 
         const maxFileSize = 10000000;
         const isOverMaxSize = file.size > maxFileSize;
-        const allowedTypes = ['image/jpeg', 'image/png','application/msword','application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+        const allowedTypes = ['image/jpeg', 'image/png','application/msword','application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            
+        ];
         if(!allowedTypes.includes(file.type)){
             openNotificationWithIcon('error', t('Accepting only png,jpg,jpeg,pdf,doc,docx Only'));
             return;
@@ -134,7 +136,7 @@ const CreateResource = () => {
                     navigate('/adminresources');
                     openNotificationWithIcon(
                         'success',
-                        'Resource Updated Successfully'
+                        'Resource Created Successfully'
                     );
                 } else {
                     openNotificationWithIcon('error', 'Opps! Something Wrong');
@@ -169,7 +171,7 @@ const CreateResource = () => {
                     <div className="add-item d-flex">
                         <div className="page-title">
                             <h4>Add Resource</h4>
-                            <h6>You can add new resourse by submitting details here</h6>
+                            <h6>You can add new resources by submitting details here</h6>
                         </div>
                     </div>
                 </div>
@@ -319,7 +321,7 @@ const CreateResource = () => {
                                                 >
                                                     File
                                                 </Label>
-                                                <div className="d-flex align-items-center">
+                                                <div className="align-items-center">
                                                     <input
                                                         type="file"
                                                         id="attachments"
@@ -351,7 +353,7 @@ const CreateResource = () => {
                                                         .attachments &&
                                                     formik.values.attachments
                                                         .name ? (
-                                                        <span className="ml-2">
+                                                        <span className="ml-2 p-3">
                                                             {
                                                                 formik.values
                                                                     .attachments
@@ -359,7 +361,7 @@ const CreateResource = () => {
                                                             }
                                                         </span>
                                                     ) : (
-                                                        <span className="ml-2">
+                                                        <span className="ml-2 p-3">
                                                             {formik
                                                                 .initialValues
                                                                 .attachments &&

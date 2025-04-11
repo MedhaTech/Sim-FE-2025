@@ -1,16 +1,18 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React, { useState,useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import { Link, useLocation, } from "react-router-dom";
-import  getAdminSidebarData  from "../../core/json/admin";
+import getAdminSidebarData from "../../core/json/admin";
 import HorizontalSidebar from "./horizontalSidebar";
 import CollapsedSidebar from "./collapsedSidebar";
+import { getCurrentUser } from "../../helpers/Utils";
 
 const Sidebar = () => {
   const Location = useLocation();
   const [subOpen, setSubopen] = useState("");
   const [subsidebar, setSubsidebar] = useState("");
-
+  const currentUser = getCurrentUser("current_user");
   const toggleSidebar = (title) => {
     if (title == subOpen) {
       setSubopen("");
@@ -26,7 +28,16 @@ const Sidebar = () => {
       setSubsidebar(subitem);
     }
   };
-  const SidebarData = useMemo(() => getAdminSidebarData(), []);
+
+  const SidebarData = useMemo(() => {
+    const arr = currentUser?.data[0]?.permission.split(',');
+    return getAdminSidebarData().map((menu) => ({
+      ...menu,
+      submenuItems: menu.submenuItems.filter((item) => {
+        return arr.includes(item.permission);
+      }),
+    }));
+  }, [currentUser]);
 
   return (
     <div>
@@ -55,23 +66,20 @@ const Sidebar = () => {
                           <React.Fragment key={i}>
                             {" "}
                             <li
-                              className={`submenu ${
-                                !title?.submenu &&
+                              className={`submenu ${!title?.submenu &&
                                 Location.pathname === title?.link
-                                  ? "custom-active-hassubroute-false"
-                                  : ""
-                              }`}
+                                ? "custom-active-hassubroute-false"
+                                : ""
+                                }`}
                             >
                               <Link
                                 to={title?.link}
                                 onClick={() => toggleSidebar(title?.label)}
-                                className={`${
-                                  subOpen === title?.label ? "subdrop" : ""
-                                } ${
-                                  title?.links?.includes(Location.pathname)
+                                className={`${subOpen === title?.label ? "subdrop" : ""
+                                  } ${title?.links?.includes(Location.pathname)
                                     ? "active"
                                     : ""
-                                }`}
+                                  }`}
                               >
                                 {title?.icon}
                                 <span className="custom-active-span">
@@ -95,18 +103,16 @@ const Sidebar = () => {
                                     >
                                       <Link
                                         to={item?.link}
-                                        className={`${
-                                          item?.submenuItems
-                                            ?.map((link) => link.link)
-                                            .includes(Location.pathname) ||
+                                        className={`${item?.submenuItems
+                                          ?.map((link) => link.link)
+                                          .includes(Location.pathname) ||
                                           item?.link === Location.pathname
-                                            ? "active"
-                                            : ""
-                                        } ${
-                                          subsidebar === item?.label
+                                          ? "active"
+                                          : ""
+                                          } ${subsidebar === item?.label
                                             ? "subdrop"
                                             : ""
-                                        }`}
+                                          }`}
                                         onClick={() =>
                                           toggleSubsidebar(item?.label)
                                         }
@@ -129,21 +135,19 @@ const Sidebar = () => {
                                             <li key={subIndex}>
                                               <Link
                                                 to={items?.link}
-                                                className={`${
-                                                  subsidebar === items?.label
-                                                    ? "submenu-two subdrop"
-                                                    : "submenu-two"
-                                                } ${
-                                                  items?.submenuItems
+                                                className={`${subsidebar === items?.label
+                                                  ? "submenu-two subdrop"
+                                                  : "submenu-two"
+                                                  } ${items?.submenuItems
                                                     ?.map((link) => link.link)
                                                     .includes(
                                                       Location.pathname
                                                     ) ||
-                                                  items?.link ===
+                                                    items?.link ===
                                                     Location.pathname
                                                     ? "active"
                                                     : ""
-                                                }`}
+                                                  }`}
                                               >
                                                 {items?.label}
                                               </Link>

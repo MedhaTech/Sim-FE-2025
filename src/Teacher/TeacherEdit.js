@@ -21,11 +21,12 @@ import { stateList,districtList } from '../RegPage/ORGData';
 import Select from "../Admin/Reports/Helpers/Select";
 import { getTeacherByID } from '../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from "react-i18next";
 
 const TeacherEditProfile = () => {
   const { teacher } = useSelector((state) => state.teacher);
   const dispatch = useDispatch();
-
+ const { t } = useTranslation();
   const location = useLocation();
   const [districts, setDistricts] = useState([]);
   const mentorData = location.state || {};
@@ -119,7 +120,7 @@ const TeacherEditProfile = () => {
           )
           .matches(
             /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            "Email Must be VALID"
+            "Email Must be Valid"
           )
           .max(255),
       
@@ -215,7 +216,7 @@ const TeacherEditProfile = () => {
       axios(config)
         .then(function (response) {
           if (response.status === 200) {
-            openNotificationWithIcon("success", "Teacher Details Updated Successfully");
+            openNotificationWithIcon("success",   t('teacherJourney.popup6'));
             currentUser.data[0].full_name = values.full_name;
             currentUser.data[0].title = values.title;
             currentUser.data[0].gender = values.gender;
@@ -248,7 +249,7 @@ const TeacherEditProfile = () => {
               if (checkOrgRes.status == 200) {
                   openNotificationWithIcon(
                       'success',
-                      'School Details Updated Successfully'
+                      t('teacherJourney.popup7')
                   );
                   dispatch(getTeacherByID(currentUser?.data[0]?.mentor_id));
                   setTimeout(() => {
@@ -583,7 +584,7 @@ const TeacherEditProfile = () => {
                       value={formik.values.principal_email}
                     />
                     {formik.errors.principal_email ? (
-                      <small className="error-cls">
+                      <small className="error-cls" style={{color:"red"}}>
                         {formik.errors.principal_email}
                       </small>
                     ) : null}

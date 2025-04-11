@@ -6,6 +6,18 @@ export const languageOptions=['English','Hindi-हिन्दी',
   'Kannada-ಕೆನಡಾ',
   'Malayalam-മലയാളം',
   'Other Language'];
+   export const menuRoutes = {
+    "All": "/admin-dashboard", 
+     "Dashboard": "/admin-dashboard",
+    "Overall Schools": "/institution",
+    "PopUp": "/popup",
+    "State Specific": "/state-wise",
+    "SUPPORT": "/admin-support",
+    "Mentors":"/mentors",
+    "Reports": "/reports",
+    "Bulk Email": "/emailList",
+};
+ export const menusList= ["Overall Schools","PopUp","Resource","Latest News","State Specific","SUPPORT", "Mentors","Teams","Students","Admins","Reports","Bulk Email",];
 export const stateList = [
   "Andaman and Nicobar Islands",
   "Andhra Pradesh",
@@ -865,7 +877,90 @@ export const districtList = {
     "UTTAR DINAJPUR (NORTH DINAJPUR)",
   ],
 };
+export const mandalList ={
+  "ANANTAPUR": [
+    "Anantapur Urban",
+    "Anantapur Rural",
+    "Atmakur",
+    "Batlapalem",
+    "Garladinne",
+    "Gudur",
+    "Kalyandurg",
+    "Kambadur",
+    "Kuderu",
+    "Narpala",
+    "Nimmanapalle",
+    "Pamidi",
+    "Peddavadugur",
+    "Puttaparthi",
+    "Raptadu",
+    "Roddam",
+    "Somandepalle",
+    "Tadipatri",
+    "Uravakonda",
+    "Yadiki"
+  ],
+ 
+  "KURNOOL": [
+    "Adoni",
+    "Allagadda",
+    "Aluru",
+    "Aspari",
+    "Bandi Atmakur",
+    "Bethamcherla",
+    "Burgampahad",
+    "Chagalamarri",
+    "Chippagiri",
+    "Cumbum",
+    "Dhone",
+    "Gadivemula",
+    "Gonegandla",
+    "Guntakal",
+    "Jammalamadugu",
+    "Kodumur",
+    "Koilakuntla",
+    "Kurnool",
+    "Midthur",
+    "Nandikotkur",
+    "Nandyal",
+    "Peapully",
+    "Pattikonda",
+    "Pragatur",
+    "Pulivendla",
+    "Rayadurg",
+    "Srisailam",
+    "Urkonda"
+  ],
+  "PRAKASAM": [
+    "Addanki",
+    "Chirala",
+    "Chimakurthi",
+    "Chittoor",
+    "Chunduru",
+    "Darsi",
+    "Donakonda",
+    "Giddalur",
+    "Inkollu",
+    "Kanigiri",
+    "Kandukur",
+    "Kondapi",
+    "Markapuram",
+    "Marthandam",
+    "Naguluppalapadu",
+    "Ongole",
+    "Parchur",
+    "Podili",
+    "Ponnaluru",
+    "Singarayakonda",
+    "Tangutur",
+    "Tripuranthakam"
+  ],
+ 
+
+};
+export const SchoolBoard= ["CBSE (Central Board of Secondary Education)","ICSE (Council for the Indian School Certificate Examinations)","State Board (Select State Specific Board)","Others",];
 export const userList = ["Mentor", "Student"];
+export const SchoolType= ["Government School","PM Shri School","Kendriya Vidyalaya (KV)","Jawahar Navodaya Vidyalaya (JNV)","Private School","Others"];
 export const navList = {
   Mentor: [
     "/mentorcourse/1",
@@ -887,6 +982,6 @@ export const navList = {
 };
 export const teamLength = {
   "Tamil Nadu": 5,
-  default: 3,
+  default: 5,
 };
 // export const teamLength=[{"Tamil Nadu" :5},{default:3}];

@@ -14,7 +14,10 @@ import Swal from 'sweetalert2/dist/sweetalert2';
 import logout from '../../assets/img/logout.png';
 import { useNavigate } from 'react-router-dom';
 import { PlusCircle } from "feather-icons-react/build/IconComponents";
-
+import { FaFilePdf } from "react-icons/fa6";
+import { PiImageFill } from "react-icons/pi";
+import { IoLogoYoutube } from "react-icons/io";
+import { IoDocumentText } from "react-icons/io5";
 import 'sweetalert2/src/sweetalert2.scss';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 const AdminResources = () => {
@@ -141,37 +144,95 @@ const AdminResources = () => {
                 selector: (row) => row.description,
                 width: '20rem'
             },
+  {
+      name: 'Attachment',
+      width: '8rem',
+      cell: (record) => {
+          const fileExtension = record.attachments.split('.').pop().toLowerCase();
+          const isLink = !record.attachments.match(/\.(png|jpg|jpeg|gif|pdf|doc|docx|xls|xlsx|ppt|pptx|txt)$/);
+  
+          const getFileViewerURL = (url, extension) => {
+              if (isLink) {
+                  return url; 
+              } else if (['pdf'].includes(extension)) {
+                  return `https://docs.google.com/gview?url=${encodeURIComponent(url)}&embedded=true`;
+              } else if (['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'].includes(extension)) {
+                  return `https://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(url)}`;
+              } else if (['png', 'jpg', 'jpeg', 'gif'].includes(extension)) {
+                  return url; 
+              }
+              return url; 
+          };
+  
+          const getFileIcon = (extension, isLink) => {
+              if (isLink) {
+                  return <IoLogoYoutube size={"25"} style={{color:"red"}} />;
+              }
+              switch (extension) {
+                  case 'png':
+                  case 'jpg':
+                  case 'jpeg':
+                  case 'gif':
+                      return <PiImageFill size={"25"} style={{color:"#fe9f43"}} />;
+                  case 'pdf':
+                      return <FaFilePdf size={"25"} style={{color:"red"}}/>;
+                  case 'doc':
+                  case 'docx':
+                      return  <IoDocumentText size={"25"} style={{color:"skyblue"}}/>;
 
-            {
-                name: 'Attachment',
-                width: '8rem',
-                cell: (record) => {
-                    if (record.type === 'file') {
-                        return (
-                            <a
-                                href={record.attachments}
-                                target="_blank"
-                                className="badge badge-md bg-light"
-                                rel="noopener noreferrer"
-                                >
-                                <i className="fas fa-file-lines" style={{color:"blue"}}></i>
-                            </a>
-                        );
-                    } else if (record.type === 'link') {
-                        return (
-                            <a
-                                href={record.attachments}
-                                target="_blank"
-                                className="badge badge-md bg-light"
-                                rel="noopener noreferrer"
-                                >
-                                <i className="fa-brands fa-youtube" style={{color:"red"}}></i>
-                            </a>
-                        );
-                    }
-                    return null;
-                }
-            },
+                  // case 'xls':
+                  // case 'xlsx':
+                  //     return<LiaFileExcelSolid />;
+                  // case 'ppt':
+                  // case 'pptx':
+                  //     return <i className="fas fa-file-powerpoint" style={{ color: "orange" }}></i>;
+                  default:
+                      return <i className="fas fa-file" style={{ color: "black" }}></i>;
+              }
+          };
+  
+          return (
+              <a
+                  href={getFileViewerURL(record.attachments, fileExtension)}
+                  target="_blank"
+                  className="badge badge-md bg-light"
+                  rel="noopener noreferrer"
+              >
+                  {getFileIcon(fileExtension, isLink)}
+              </a>
+          );
+      }
+  },
+            // {
+            //     name: 'Attachment',
+            //     width: '8rem',
+            //     cell: (record) => {
+            //         if (record.type === 'file') {
+            //             return (
+            //                 <a
+            //                     href={record.attachments}
+            //                     target="_blank"
+            //                     className="badge badge-md bg-light"
+            //                     rel="noopener noreferrer"
+            //                     >
+            //                     <i className="fas fa-file-lines" style={{color:"blue"}}></i>
+            //                 </a>
+            //             );
+            //         } else if (record.type === 'link') {
+            //             return (
+            //                 <a
+            //                     href={record.attachments}
+            //                     target="_blank"
+            //                     className="badge badge-md bg-light"
+            //                     rel="noopener noreferrer"
+            //                     >
+            //                     <i className="fa-brands fa-youtube" style={{color:"red"}}></i>
+            //                 </a>
+            //             );
+            //         }
+            //         return null;
+            //     }
+            // },
             {
                 name: 'Actions',
                 center: true,
@@ -220,7 +281,7 @@ const AdminResources = () => {
                     <div className="add-item d-flex">
                         <div className="page-title">
                             <h4>Resources</h4>
-                            <h6>Create , Edit , Del State & User specific Resourses here</h6>
+                            <h6>Create , Edit , Del State & User specific Resources here</h6>
                         </div>
                     </div>
                     <div className="page-btn">

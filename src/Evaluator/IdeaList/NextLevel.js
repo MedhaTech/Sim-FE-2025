@@ -521,7 +521,7 @@ const downloadFile = (item) => {
                                                 fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                            14. Clear Video Explaining your Solution
+                                            14. Clear YouTube Video Explaining your Solution
                                         </b>
                                     </div>
                                     <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
@@ -633,8 +633,10 @@ const downloadFile = (item) => {
                         evaluator_id={currentUser?.data[0]?.user_id}
                         level={'L2'}
                         topRef={props?.topRef}
+                        handleSkip={props?.handleSkip}
                         // setIsNextDiv={props?.setIsNextDiv}
                     />
+                    
                 </>
             ) : (
                 <>

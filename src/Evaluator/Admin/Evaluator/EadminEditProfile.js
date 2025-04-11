@@ -26,7 +26,8 @@ import { getAdminEvalutorsList } from "../../../redux/actions";
 import { useDispatch } from "react-redux";
 import Select from "../../Admin/Challenges/pages/Select";
 // import { getDistrictData } from '../../redux/studentRegistration/actions';
-
+import {themesList} from "../../../Team/IdeaSubmission/themesData";
+import {languageOptions} from "../../../RegPage/ORGData";
 import { useSelector } from "react-redux";
 import { encryptGlobal } from "../../../constants/encryptDecrypt";
 const EditProfile = (props) => {
@@ -45,7 +46,8 @@ const EditProfile = (props) => {
     showEyeIcon: true,
     // className: 'defaultInput'
   };
-
+const allDataLanguages= ["All Languages",...languageOptions];
+const allDataThemes= ["All Themes",...themesList];
   const passwordRegex =
     /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
 
@@ -66,6 +68,12 @@ const EditProfile = (props) => {
         .trim()
         .min(10, "Number is less than 10 digits")
         .max(10, "Please Enter Valid Number"),
+        // language: Yup.string()
+        //         .max(40)
+        //         .required(<span style={{ color: "red" }}>Please Select Language</span>),
+        //         theme: Yup.string()
+        //         .max(40)
+        //         .required(<span style={{ color: "red" }}>Please Select Theme</span>),
       // password: Yup.string()
       // .trim()
       // .matches(
@@ -91,6 +99,9 @@ const EditProfile = (props) => {
       name: mentorData?.full_name || mentorData?.user?.full_name,
       email: mentorData?.username || mentorData?.user?.username,
       mobile: mentorData?.mobile || mentorData?.user?.mobile,
+      // language :mentorData?.language || "",
+      // theme :mentorData?.theme || ""
+
     };
     
     return commonInitialValues;
@@ -99,7 +110,6 @@ const EditProfile = (props) => {
     initialValues: getInitialValues(mentorData),
     validationSchema: getValidationSchema(mentorData),
     onSubmit: (values) => {
-      // alert("hii");
     
       const full_name = values.name;
       const email = values.email;
@@ -114,6 +124,24 @@ const EditProfile = (props) => {
       if (mentorData?.mobile !== values.mobile) {
         body["mobile"] = values.mobile;
       }
+     
+//   if (
+//     values.language.trim() === "All Languages" || 
+//     (mentorData?.language?.trim() !== values.language.trim())
+// ) {
+//     body["language"] = values.language.trim() === "All Languages"
+//         ? languageOptions.map(lang => lang.trim()).join(",")
+//         : values.language.trim();
+// }
+
+// if (
+//     values.theme.trim() === "All Themes" || 
+//     (mentorData?.theme?.trim() !== values.theme.trim())
+// ) {
+//     body["theme"] = values.theme.trim() === "All Themes"
+//         ? themesList.map(theme => theme.trim()).join(",")
+//         : values.theme.trim();
+// }
 
       const url = process.env.REACT_APP_API_BASE_URL + `/evaluators/${evlId}`;
 
@@ -132,7 +160,7 @@ const EditProfile = (props) => {
             mentorData?.evaluator_id
               ? dispatch(getAdminEvalutorsList())
               : mentorData?.admin_id && dispatch(getAdmin());
-            openNotificationWithIcon("success", "Updated Successfully");
+            openNotificationWithIcon("success", "Language and Theme are Updated Successfully");
             setTimeout(() => {
               navigate("/eadmin/evaluator");
             }, 200);
@@ -148,7 +176,22 @@ const EditProfile = (props) => {
         });
     },
   });
-
+// useEffect(() => {
+//     if (mentorData.language ) {
+//       const allLanguagesSelected = mentorData.language.split(",").sort().join(",") === languageOptions.sort().join(",");
+//       formik.setFieldValue("language", allLanguagesSelected ? "All Languages" : mentorData.language);
+      
+//     }
+    
+//   }, [mentorData.language]);
+  
+//   useEffect(() => {
+//     if (mentorData.theme) {
+//       const allThemes = themesList.join(","); 
+//       const allThemesSelected = mentorData.theme === allThemes;
+//       formik.setFieldValue("theme", allThemesSelected ? "All Themes" : mentorData.theme);
+//     }
+//   }, [mentorData.theme, themesList]);
   const formLoginStyle = {
     display: "flex",
     justifyContent: "space-between",
@@ -240,7 +283,7 @@ const EditProfile = (props) => {
                 </div>
                 <div className="form-login col-lg-4 col-sm-12">
                   <div className="input-blocks">
-                    <label>mobile</label>
+                    <label>Mobile</label>
                     <input
                       type="text"
                       className="form-control"
@@ -268,6 +311,56 @@ const EditProfile = (props) => {
                     ) : null}
                   </div>
                 </div>
+                {/* <div className="form-login col-lg-4 col-sm-12">
+                  <div className="input-blocks">
+                    <label>Language</label>
+                    <select
+                        id="inputState"
+                        className="form-select"
+                        name="language"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.language}
+                      >
+                        <option value={""}>Select Language</option>
+                        {allDataLanguages.map((item) => (
+                          <option key={item} value={item}>
+                            {item}
+                          </option>
+                        ))}
+                      </select>
+                    {formik.touched.language && formik.errors.language ? (
+                      <small className="error-cls">
+                        {formik.errors.language}
+                      </small>
+                    ) : null}
+                  </div>
+                </div>
+                <div className="form-login col-lg-4 col-sm-12">
+                  <div className="input-blocks">
+                    <label>Theme</label>
+                    <select
+                        id="inputState"
+                        className="form-select"
+                        name="theme"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.theme}
+                      >
+                        <option value={""}>Please Select Theme</option>
+                        {allDataThemes.map((item) => (
+                          <option key={item} value={item}>
+                            {item}
+                          </option>
+                        ))}
+                      </select>
+                    {formik.touched.theme && formik.errors.theme ? (
+                      <small className="error-cls">
+                        {formik.errors.theme}
+                      </small>
+                    ) : null}
+                  </div>
+                </div> */}
                 {/* New fields  */}
                 {/* <div className="form-login" style={formLoginStyle}>
   <button
@@ -301,9 +394,7 @@ const EditProfile = (props) => {
                     type="button"
                     className="btn btn-secondary"
                     style={{ marginLeft: "auto" }}
-                    // className="btn btn-cancel"
-                    // to={"/eadmin/evaluator"}
-                    // style={cancelLinkStyle}
+                   
                   >
                     Cancel
                   </button>

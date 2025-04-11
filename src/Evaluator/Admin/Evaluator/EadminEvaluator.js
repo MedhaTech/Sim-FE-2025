@@ -14,9 +14,9 @@ import { connect } from 'react-redux';
 import { getAdminEvalutorsList } from '../../../redux/actions';
 import axios from 'axios';
 import { URL, KEY } from '../../../constants/defaultValues.js';
-import { AlertOctagon,PlusCircle, Check} from 'feather-icons-react/build/IconComponents';
+import { AlertOctagon, PlusCircle, Check, Upload, Download } from 'feather-icons-react/build/IconComponents';
 
-import { getNormalHeaders } from '../../../helpers/Utils';
+import { getCurrentUser, getNormalHeaders, openNotificationWithIcon } from '../../../helpers/Utils';
 import { useHistory } from 'react-router-dom';
 
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -34,6 +34,10 @@ import Register from '../../../Evaluator/Register';
 import dist from 'react-data-table-component-extensions';
 // import AddADmins from './AddAdmins';
 import ClipLoader from 'react-spinners/ClipLoader';
+
+import * as XLSX from 'xlsx';
+import SampleFile from '../../../assets/img/sampleFile.xlsx';
+import DataFile from '../../../assets/img/DataList.xlsx';
 
 const TicketsPage = (props) => {
     const dispatch = useDispatch();
@@ -63,11 +67,12 @@ const TicketsPage = (props) => {
 
     const [rows, setRows] = React.useState([]);
     const [mentorRows, setMentorRows] = React.useState([]);
-// console.log(props.evalutorsList,"ss");
+    // console.log(props.evalutorsList,"ss");
     const handleEdit = (item) => {
-    //    alert("hii"); 
+        //    alert("hii"); 
         navigate("/edit-evaluator", {
-            state:item});
+            state: item
+        });
         localStorage.setItem('mentor', JSON.stringify(item));
     };
 
@@ -85,19 +90,17 @@ const TicketsPage = (props) => {
 
         swalWithBootstrapButtons
             .fire({
-                title: `You are attempting to ${
-                    status.toLowerCase() === 'active'
-                        ? 'activate'
-                        : 'inactivate'
-                } ${
-                    type && type === 'student'
+                title: `You are attempting to ${status.toLowerCase() === 'active'
+                    ? 'activate'
+                    : 'inactivate'
+                    } ${type && type === 'student'
                         ? 'Student'
                         : type && type === 'evaluator'
-                        ? 'evaluator'
-                        : type && type === 'admin'
-                        ? 'Admin'
-                        : 'Mentor'
-                }.`,
+                            ? 'evaluator'
+                            : type && type === 'admin'
+                                ? 'Admin'
+                                : 'Mentor'
+                    }.`,
                 text: 'Are you sure?',
                 imageUrl: `${logout}`,
                 showCloseButton: true,
@@ -125,14 +128,13 @@ const TicketsPage = (props) => {
                             props.getEvaluatorListAction();
                         }, 500);
                         swalWithBootstrapButtons.fire(
-                            `${
-                                type && type === 'student'
-                                    ? 'Student'
-                                    : type && type === 'evaluator'
+                            `${type && type === 'student'
+                                ? 'Student'
+                                : type && type === 'evaluator'
                                     ? 'evaluator'
                                     : type && type === 'admin'
-                                    ? 'Admin'
-                                    : 'Mentor'
+                                        ? 'Admin'
+                                        : 'Mentor'
                             } Status has been changed!`,
                             'Successfully updated.',
                             'success'
@@ -236,9 +238,8 @@ const TicketsPage = (props) => {
                     // >
                     //     {row.status}
                     // </Badge>
-                    <span key={row.evaluator_id} className={`${
-                        row.status === 'ACTIVE' ? "badge bg-success" : "badge bg-danger"
-                    }`}>{row.status}</span>
+                    <span key={row.evaluator_id} className={`${row.status === 'ACTIVE' ? "badge bg-success" : "badge bg-danger"
+                        }`}>{row.status}</span>
                 ],
                 width: '7rem'
             },
@@ -247,43 +248,43 @@ const TicketsPage = (props) => {
                 sortable: false,
                 center: true,
                 width: '25rem',
-                cellExport: (row) => {},
+                cellExport: (row) => { },
                 cell: (record) => [
                     // <div
                     //     key={record.id}
-                    
+
                     //     onClick={() => handleSelect(record)}
                     //     style={{ marginRight: '10px' }}
                     // >
                     //     <div className="btn btn-primary mr-5">View</div>
                     // </div>,
                     <div
-                    // exact="true"
-                    key={record.id}
-                    // className="mr-5"
-                    onClick={() => {
-                        let status =
-                            record?.status === 'ACTIVE'
-                                ? 'INACTIVE'
-                                : 'ACTIVE';
-                        handleStatus(
-                            status,
-                            record?.evaluator_id,
-                            'evaluator',
-                            record
-                        );
-                    }}
-                >
-                    {record?.status === 'ACTIVE' ? (
-                        <div  className="btn btn-light m-2">
-                            Inactive&nbsp;<AlertOctagon style={{ height: 15, width: 15 }}/>
-                        </div>
-                    ) : (
-                        <div className="btn btn-success m-2">
-                            Active&nbsp;<Check className="m-1"  style={{ height: 15, width: 15 }}/>
-                        </div>
-                    )}
-                </div>,
+                        // exact="true"
+                        key={record.id}
+                        // className="mr-5"
+                        onClick={() => {
+                            let status =
+                                record?.status === 'ACTIVE'
+                                    ? 'INACTIVE'
+                                    : 'ACTIVE';
+                            handleStatus(
+                                status,
+                                record?.evaluator_id,
+                                'evaluator',
+                                record
+                            );
+                        }}
+                    >
+                        {record?.status === 'ACTIVE' ? (
+                            <div className="btn btn-light m-2">
+                                Inactive&nbsp;<AlertOctagon style={{ height: 15, width: 15 }} />
+                            </div>
+                        ) : (
+                            <div className="btn btn-success m-2">
+                                Active&nbsp;<Check className="m-1" style={{ height: 15, width: 15 }} />
+                            </div>
+                        )}
+                    </div>,
                     <div
                         key={record.id}
                         onClick={() => handleEdit(record)}
@@ -291,16 +292,16 @@ const TicketsPage = (props) => {
                     >
                         <div className="btn btn-primary m-2">Edit</div>
                     </div>,
-                   
-                      <div
-                      key={record}
-                      onClick={() => handleDic(record)}
-                      style={{ marginRight: '10px' }}
-                  >
-                      <div className="btn btn-info m-2">
-                          States
-                      </div>
-                  </div>
+
+                    <div
+                        key={record}
+                        onClick={() => handleDic(record)}
+                        style={{ marginRight: '10px' }}
+                    >
+                        <div className="btn btn-info m-2">
+                            Update
+                        </div>
+                    </div>
                     // <div
                     //     key={record.id}
                     //     className="mr-5"
@@ -324,85 +325,175 @@ const TicketsPage = (props) => {
     };
     const customStyles = {
         rows: {
-          style: {
-            fontSize: "13px",
-          },
+            style: {
+                fontSize: "13px",
+            },
         },
         headCells: {
-          style: {
-            fontSize: "14px",
-          },
+            style: {
+                fontSize: "14px",
+            },
         },
         cells: {
-          style: {
-            fontSize: "13px",
-          },
+            style: {
+                fontSize: "13px",
+            },
         },
-      };
+    };
+
+
+    // bulk evaluator upload
+    const currentUser = getCurrentUser('current_user');
+
+    const handleFileUpload = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = async (event) => {
+            const workbook = XLSX.read(event.target.result, { type: 'binary' });
+            const sheetName = workbook.SheetNames[0];
+            const sheet = workbook.Sheets[sheetName];
+            const sheetData = XLSX.utils.sheet_to_json(sheet);
+
+            let config = {
+                method: 'post',
+                url: process.env.REACT_APP_API_BASE_URL + '/evaluators/bulkAdd',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${currentUser?.data[0]?.token}`
+                },
+                data: sheetData
+            };
+            await axios(config)
+                .then(function (response) {
+                    console.log(response.status, "pp");
+                    if (response.status === 201) {
+                        openNotificationWithIcon(
+                            'success',
+                            'Evaluator Bulk Uploading Done'
+                        );
+                        props.getEvaluatorListAction();
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+        };
+        reader.readAsBinaryString(file);
+    };
+
     return (
         <div>
-        <div className="page-wrapper">
-          <div className="content">
-            <div className="row">
-            <Container className="ticket-page ">
-                <Row className="">
-                    <div className="page-header">
-                    <h4>Evaluator List</h4>
-                    
-                    <div className="page-btn text-right">
-                        <Button
-                            // label={'Add New Evaluator'}
-                            label={
-                                <>
-                                  <PlusCircle className="me-2" style={{ color: "white" }} />
-                                  <b>Add New Evaluator</b>
-                                </>
-                              }
-                            btnClass="primary"
-                            size="small"
-                            shape="btn-square"
-                            Icon={BsUpload}
-                            onClick={() => setRegisterModalShow(true)}
-                        />
-                        
+            <div className="page-wrapper">
+                <div className="content">
+                    <div className="row">
+                        <Container className="ticket-page ">
+                            <Row className="">
+                                <div className="page-header">
+                                    <h4>Evaluator List</h4>
+                                    <div className="d-flex page-btn text-right">
+                                        <a href={DataFile} target="_blank" rel="noreferrer">
+                                            <Button
+                                                label={<>
+                                                    <Download className="me-2" style={{ color: "white" }} />
+                                                    <b>Data List</b>
+                                                </>}
+                                                btnClass="primary"
+                                                size="small"
+                                                shape="btn-square" />
+                                        </a>
+                                        <a href={SampleFile} target="_blank" rel="noreferrer">
+                                            <Button
+                                                label={<>
+                                                    <Download className="me-2" style={{ color: "white" }} />
+                                                    <b>Template</b>
+                                                </>}
+                                                btnClass="primary"
+                                                size="small"
+                                                shape="btn-square" />
+                                        </a>
+                                        <div>
+                                            <input
+                                                type="file"
+                                                id="attachments"
+                                                name="attachments"
+                                                style={{
+                                                    display: 'none'
+                                                }}
+                                                accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
+                                                onChange={handleFileUpload}
+                                            />
+                                            <Button
+                                                label={
+                                                    <>
+                                                        <Upload className="me-2" style={{ color: "white" }} />
+                                                        <b>Upload File</b>
+                                                    </>
+                                                }
+                                                btnClass="primary"
+                                                size="small"
+                                                shape="btn-square"
+                                                onClick={() => {
+                                                    document
+                                                        .getElementById(
+                                                            'attachments'
+                                                        )
+                                                        .click();
+                                                }}
+                                            />
+                                        </div>
+                                        <Button
+                                            // label={'Add New Evaluator'}
+                                            label={
+                                                <>
+                                                    <PlusCircle className="me-2" style={{ color: "white" }} />
+                                                    <b>Add New Evaluator</b>
+                                                </>
+                                            }
+                                            btnClass="primary"
+                                            size="small"
+                                            shape="btn-square"
+                                            Icon={BsUpload}
+                                            onClick={() => setRegisterModalShow(true)}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="ticket-data">
+                                    <div className="my-2">
+                                        <DataTableExtensions
+                                            {...evaluatorsData}
+                                            exportHeaders
+                                            print={false}
+                                            export={true}
+                                        >
+                                            <DataTable
+                                                responsive={true}
+                                                data={props.evalutorsList}
+                                                defaultSortField="id"
+                                                defaultSortAsc={false}
+                                                customStyles={customStyles}
 
+                                                pagination
+                                                highlightOnHover
+                                                fixedHeader
+                                                subHeaderAlign={Alignment.Center}
+                                            />
+                                        </DataTableExtensions>
+                                    </div>
+                                </div>
+                            </Row>
+                        </Container>
+                        {registerModalShow && (
+                            <Register
+                                show={registerModalShow}
+                                setShow={setRegisterModalShow}
+                                onHide={() => setRegisterModalShow(false)}
+                            />
+                        )}
                     </div>
-                    </div>
-                    <div className="ticket-data">
-                        <div className="my-2">
-                            <DataTableExtensions
-                                {...evaluatorsData}
-                                exportHeaders
-                                print={false}
-                                export={true}
-                            >
-                                <DataTable
-                                    responsive={true}
-                                    data={props.evalutorsList}
-                                    defaultSortField="id"
-                                    defaultSortAsc={false}
-                          customStyles={customStyles}
-
-                                    pagination
-                                    highlightOnHover
-                                    fixedHeader
-                                    subHeaderAlign={Alignment.Center}
-                                />
-                            </DataTableExtensions>
-                        </div>
-                    </div>
-                </Row>
-            </Container>
-            {registerModalShow && (
-                <Register
-                    show={registerModalShow}
-                    setShow={setRegisterModalShow}
-                    onHide={() => setRegisterModalShow(false)}
-                />
-            )}
-        </div>
-        </div>
-        </div>
+                </div>
+            </div>
         </div>
     );
 };

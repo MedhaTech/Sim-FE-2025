@@ -184,7 +184,7 @@ const downloadFile = (item) => {
                                     <Row>
                                         <Col>
                                             <h4 className="mb-md-4 mb-3">
-                                                Theme : 
+                                                Theme :
                                                 <span className="text-capitalize">
                                                 {props?.ideaDetails?.theme?.toLowerCase() ||
                                                         ''}
@@ -193,7 +193,7 @@ const downloadFile = (item) => {
                                         </Col>
                                         <Col>
                                             <h4 className="mb-md-4 mb-3">
-                                                CID :
+                                                CIDSSS :
                                                 <span className="text-capitalize">
                                                 {props?.ideaDetails.challenge_response_id ||
                                                         ''}
@@ -642,7 +642,7 @@ const downloadFile = (item) => {
                                                fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                            14. Clear Video Explaining your Solution
+                                            14. Clear YouTube Video Explaining your Solution
                                         </b>
                                     </div>
                                     <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
@@ -822,6 +822,22 @@ const downloadFile = (item) => {
                                         >
                                             <span >Reject</span>
                                         </button>
+                                        <button
+                                            className="btn btn-primary me-3 m-2"
+                                            onClick={() =>
+                                                props?.handleSkip()
+                                            }
+                                        >
+                                            <span className="ms-2 me-2"> Skip </span>
+                                        </button>
+                                        {/* <Button
+                                            btnClass="primary"
+                                            size="small"
+                                            label="Skip"
+                                            onClick={() =>
+                                                props?.handleSkip()
+                                            }
+                                        /> */}
                                     </div>
                                 )}
                             </div>

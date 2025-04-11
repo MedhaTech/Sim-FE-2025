@@ -391,7 +391,7 @@ const EmployeesGrid = () => {
               <h6>
                 {" "}
                 Team, here&apos;s what&apos;s happening with your School
-                Innovation Marathon 2024 today.
+                Innovation Marathon 2025 today.
               </h6>
             </div>
           </div>

@@ -45,7 +45,10 @@ const EditResource = () => {
             'image/png',
             'application/msword',
             'application/pdf',
-            'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            // xsl and xslx //
+    //         'application/vnd.ms-excel', 
+    // 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' 
         ];
         if (!allowedTypes.includes(file.type)) {
             openNotificationWithIcon(
@@ -329,7 +332,7 @@ const EditResource = () => {
                                                         File
 
                                                     </Label>
-                                                    <div className="d-flex align-items-center">
+                                                    <div >
                                                         <input
                                                             type="file"
                                                             id="attachments"
@@ -382,7 +385,7 @@ const EditResource = () => {
                                                             .attachments &&
                                                         formik.values.attachments
                                                             .name ? (
-                                                            <span className="ml-2">
+                                                            <span className="ml-2 p-3">
                                                                 {/* {
                                                                     formik.values
                                                                         .attachments
@@ -390,7 +393,7 @@ const EditResource = () => {
                                                                 } */}
                                                             </span>
                                                         ) : (
-                                                            <span className="ml-2">
+                                                            <span className="ml-2 p-3">
                                                                 {formik
                                                                     .initialValues
                                                                     .attachments &&

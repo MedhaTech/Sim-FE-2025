@@ -214,7 +214,7 @@ const RateIdea = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className="col-12">
+                <div className="col-12 d-flex justify-content-between">
                     <Button
                         btnClass="primary"
                         size="small"
@@ -223,6 +223,14 @@ const RateIdea = (props) => {
                             validate();
                         }}
                     />
+                      <Button
+                                                btnClass="primary"
+                                                size="small"
+                                                label="Skip"
+                                                onClick={() => {
+                                                    props?.handleSkip();
+                                                }}
+                                            />
                 </div>
             </div>
 

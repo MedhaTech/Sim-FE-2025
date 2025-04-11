@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 /* eslint-disable indent */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
@@ -104,7 +105,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const initialLoadingStatus = { draft: false, submit: false };
   const [loading, setLoading] = useState(initialLoadingStatus);
   const currentUser = getCurrentUser("current_user");
-
+const[extractId,setExtractId]=useState("");
   const TeamId = currentUser?.data[0]?.team_id;
 
   const [currentSection, setCurrentSection] = useState(1);
@@ -117,6 +118,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   );
   // console.log(props?.theme !== "" && props?.theme !== undefined ? "true" : "false" );
   // console.log(formData?.theme ,"form");
+  const[verfiySubmitt,setVerifySubmitt]=useState(false);
 
   const [focusarea, setFocusArea] = useState(formData?.focus_area);
   const [files, setFiles] = useState([]);
@@ -137,6 +139,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const [problemSolving, setProblemSolving] = useState(
     formData?.problemSolving || []
   );
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [error4, seterror4] = useState(false);
   const [ideaInitiation, setIdeaInitiation] = useState("");
   const [feedback, setFeedback] = useState(formData?.feedback);
@@ -147,6 +150,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const [id, setId] = useState("");
   const [prototypeLink, setPrototypeLink] = useState(formData?.prototype_link);
   const [workbook, setWorkbook] = useState(formData?.workbook);
+  const [tempLink, setTempLink] = useState("");
   // const people = ["None", "2-4 people", "5+ people", "10+ people"];
   // const people = [
   //   t("ideaform_questions.stakeholdersop1"),
@@ -220,7 +224,6 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const handleLanguageChange = (e) => {
     setLanuage(e.target.value);
   };
-
   // useEffect(() => {
   //   setFocus(
   //     focusareasList[
@@ -263,6 +266,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     setPrototypeLink(formData?.prototype_link);
 
     setWorkbook(formData?.workbook);
+    if (formData?.prototype_link) {
+      setIsButtonDisabled(true);
+    }
   }, [formData]);
 
   useEffect(() => {
@@ -509,7 +515,6 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   };
  
   const handleSubmitAll = async (item, stats, file) => {
-    // alert("hii");
     setLoading(initialLoadingStatus);
 
     let attachmentsList = "";
@@ -626,7 +631,12 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       ) {
         allques = false;
       }
+      if(verfiySubmitt === false){
+        allques= false ;
+        openNotificationWithIcon("error", t("home.ideaVerify"));
+            }
     }
+   
     if (allques || stats === "DRAFT") {
       const editParam = encryptGlobal(JSON.stringify(id));
       var config = {
@@ -687,6 +697,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     setIsDisabled(false);
     scroll();
   };
+  useEffect(()=>{
+    setVerifySubmitt(false);
+      },[prototypeLink]);
   const comingSoonText = t("dummytext.student_idea_sub");
   // const acceptedParamfileTypes =>
   //     'Accepting only png,jpg,jpeg,pdf,mp4,doc,docx Only, file size should be below 10MB';
@@ -709,7 +722,65 @@ if(formData?.verified_status === "ACCEPTED"){
 );
 }
     },[formData]);
-  console.log(console.log(prototypeImage.length,"file"));
+   
+      const handleVideoApi=(videoId)=> {
+          const fectchTecParam = encryptGlobal(
+              JSON.stringify({
+                id: videoId,
+              })
+            );
+        
+          let config = {
+              method: 'get',
+              url: process.env.REACT_APP_API_BASE_URL + `/challenge_response/checkyoutubeurl?Data=${fectchTecParam}`,
+              headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${currentUser?.data[0]?.token}`
+              }
+          };
+          axios(config)
+              .then(function (response) {
+                  if (response.status === 200) {
+                      if (response.data.data === "INVALID") {
+                        // console.log(response.data.data,"response.data.data");
+                        setPrototypeLink("");
+                        setVerifySubmitt(false);
+
+                        openNotificationWithIcon("error", response.data.message);
+                      }else{
+                        // setPrototypeLink(item); 
+                        openNotificationWithIcon("success", response.data.message);
+                        setIsButtonDisabled(true);
+                        setVerifySubmitt(true);
+                      }
+                      
+                  }
+              })
+              .catch(function (error) {
+                  console.log(error);
+              });
+      };
+  const getYouTubeVideoId = (url) => {
+    const regex =
+    /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:shorts\/|watch\?v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+    const match = url.match(regex);
+    return match ? match[1] : null;
+  };
+  console.log(verfiySubmitt,"vvvvv",prototypeLink,"LLLL");
+  const handleInputChange = (e) => {
+    const link = e.target.value;
+    // setTempLink(link);
+    setPrototypeLink(link);
+    setIsButtonDisabled(false);
+    const videoId = getYouTubeVideoId(link);
+    setExtractId(videoId);
+    console.log("Extracted Video ID:", videoId);
+  };
+  const handleVerify=(e)=>{
+    e.preventDefault();
+    handleVideoApi(extractId);
+  };
+  // console.log(prototypeLink,"proto",);
   return (
     <>
       {/* <div className='content'> */}
@@ -928,7 +999,7 @@ if(formData?.verified_status === "ACCEPTED"){
                               </b>
                             </div>
                             {theme === "Others" ? (
-                              <div className=" answers row flex-column">
+                              <div className=" answers row flex-column p-4">
                                 <textarea
                                   disabled={isDisabled}
                                   placeholder={t("home.ideaFoc")}
@@ -1186,7 +1257,7 @@ if(formData?.verified_status === "ACCEPTED"){
                               <textarea
                                 className="form-control"
                                 disabled={isDisabled}
-                                placeholder={t("home.ideaEff")}
+                                placeholder={t("home.ideafacing")}
                                 value={facing}
                                 rows={4}
                                 maxLength={500}
@@ -1541,25 +1612,49 @@ if(formData?.verified_status === "ACCEPTED"){
                                   fontSize: "1rem",
                                 }}
                               >
-                                {t("ideaform_questions.link")}
+                                {t("ideaform_questions.link")} {t("ideaform_questions.linkadd")}
                               </b>
                             <div className="answers row flex-column p-3 pt-2">
+                            <div className="row g-0 align-items-center">
+                            <div className="col-11 pe-3">
                               <textarea
                                 className="form-control"
                                 disabled={isDisabled}
                                 placeholder={t("home.ideaUp")}
                                 value={prototypeLink}
+                                
                                 maxLength={300}
-                                onChange={(e) =>
-                                  setPrototypeLink(e.target.value)
-                                }
+                                // onChange={(e) =>
+                                //   setPrototypeLink(e.target.value)
+                                // }
+                                onChange={handleInputChange}
+                                style={{ height: "150px" }} 
                               />
                               <div className="text-end">
                                 {t("student_course.chars")} :
                                 {300 -
                                   (prototypeLink ? prototypeLink.length : 0)}
                               </div>
+                              {prototypeLink && !isButtonDisabled && (
+    <div className="text-warning mt-2">
+      Please click <strong>Verify & Upload</strong> to validate and Upload your URL.
+    </div>
+  )}
                             </div>
+                            <div className="col-1 d-flex align-items-center pe-3">
+                            <button
+                              className="btn btn-info "
+                              onClick={handleVerify}
+                              disabled={isDisabled || isButtonDisabled || !prototypeLink}
+                            >
+                              {/* Verify */}
+                              {t("idea_page.verify")}
+                              {/* BACK */}
+                            </button>
+    </div>
+                            </div>
+                            </div>
+
                             </div>
                             <b
                                 style={{

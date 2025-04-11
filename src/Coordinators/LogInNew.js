@@ -11,18 +11,13 @@ import * as Yup from "yup";
 import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/img/new-logo.png";
-// import email from "../assets/img/icons/mail.svg";
+import email from "../assets/img/icons/mail.svg";
 import { openNotificationWithIcon } from "../helpers/Utils";
 import { coordinatorLoginUser } from "../Coordinators/store/Coordinator/actions";
-import { stateList } from '../RegPage/ORGData';
 
 const StateLogin = (props) => {
   const navigate = useNavigate();
   const [isPasswordVisible, setPasswordVisible] = useState(false);
-  // const inputUserId = {
-  //   type: "text",
-  //   placeholder: "Please Enter State Name",
-  // };
   const togglePasswordVisibility = () => {
     setPasswordVisible((prevState) => !prevState);
   };
@@ -46,16 +41,12 @@ const StateLogin = (props) => {
   }, []);
   const formik = useFormik({
     initialValues: {
-      state: "",
+      email: "",
       password: "",
     },
 
     validationSchema: Yup.object({
-      state: Yup.string()
-        .trim()
-        // .min(2, "Please Enter State Name")
-        // .matches(/^[aA-zZ\s]+$/, "Special Characters are not allowed")
-        .required("Please Select State Name"),
+      email: Yup.string().email("Must be a valid email").required("Please Enter Email"),
       password: Yup.string().required("Please Enter Password"),
     }),
     onSubmit: (values) => {
@@ -79,17 +70,18 @@ const StateLogin = (props) => {
         padding: CryptoJS.pad.NoPadding,
       }).toString();
       const body = {
-        username: values.state.toLowerCase().replace(/\s+/g, ''),
-        password: encrypted,
-        // role: 'STATE',
+        username: values.email,
+        password: encrypted
       };
 
       props.coordinatorLoginUserAction(body, navigate, "STATE");
     },
   });
-  const handleStateChange = (event) => {
-    formik.setFieldValue("state", event.target.value);
+  const inputUserId = {
+    type: "email",
+    placeholder: "Please Enter Email Address",
   };
+ 
   return (
     <div className="main-wrapper">
       <div className="account-content">
@@ -115,34 +107,25 @@ const StateLogin = (props) => {
                   </h4> */}
                 </div>
                 <div className="form-login mb-3">
-                  <label className="form-label">State Name</label>
+                  <label className="form-label">Email Address</label>
                   <div className="form-addons">
-                  <select
-                            id="inputState"
-                            className="form-select"
-                            value={formik.values.state}
-                            onChange={(e)=>handleStateChange(e)}
-                          >
-                            <option value="">Select State</option>
-                            {stateList.map((state) => (
-                              <option key={state} value={state}>
-                                {state}
-                              </option>
-                            ))}
-                          </select>
-
-                                                {formik.touched.state &&
-                                                formik.errors.state ? (
-                                                    <small className="error-cls" style={{color:"red"}}>
-                                                        {formik.errors.state}
-                                                    </small>
-                                                ) : null}
-                    {/* <ImageWithBasePath
-                      src="assets/img/icons/mail.svg"
-                      alt="img"
-                    /> */}
-                    {/* <img src={email} alt="Email" /> */}
-                  </div>
+                                      <input
+                                        {...inputUserId}
+                                        id="email"
+                                        className="form- control"
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
+                                        value={formik.values.email}
+                                      />
+                                      {formik.touched.email && formik.errors.email ? (
+                                        <small className="error-cls" style={{color:"red"}}>{formik.errors.email}</small>
+                                      ) : null}
+                                      {/* <ImageWithBasePath
+                                        src="assets/img/icons/mail.svg"
+                                        alt="img"
+                                      /> */}
+                                      <img src={email} alt="Email" />
+                                    </div>
                 </div>
                 <div className="form-login mb-3">
                   <label className="form-label">Password</label>

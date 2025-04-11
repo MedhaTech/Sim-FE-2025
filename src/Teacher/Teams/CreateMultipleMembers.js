@@ -13,6 +13,7 @@ import { useLocation } from "react-router-dom";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { useNavigate } from "react-router-dom";
 import {teamLength} from "../../RegPage/ORGData";
+import { useTranslation } from "react-i18next";
 
 // import { all_routes } from "../../Router/all_routes";
 const studentBody = {
@@ -21,13 +22,14 @@ const studentBody = {
   Grade: "",
   Gender: "",
   disability: "",
-  // username: "",
+  email: "",
 };
 
 const grades = [6, 7, 8, 9, 10, 11, 12];
 const allowedAge = [10, 11, 12, 13, 14, 15, 16, 17, 18];
 
 const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
+   const { t } = useTranslation();
   // console.log(teamLengthValue,"teamLengthValue");
   const [teamId, setTeamId] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -40,7 +42,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
     Grade: "",
     Gender: "",
     disability: "",
-    // username: "",
+    email: "",
   };
   const dispatch = useDispatch();
   const [itemDataErrors, setItemDataErrors] = useState([studentBody]);
@@ -125,7 +127,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
     Age: "",
     Grade: "",
     Gender: "",
-    // username: "",
+    email: "",
     disability: "",
   }));
   const MIN_STUDENTS = loginState === "Tamil Nadu" ? 2 : 2;
@@ -140,7 +142,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
       Age: "",
       Grade: "",
       Gender: "",
-      // username: "",
+      email: "",
       disability: "",
     }));
     setStudentData(updatedStudentData);
@@ -202,19 +204,19 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
               }
             }
           }
-          // if (item === "username") {
-          //   let check = e.target.value;
-          //   if (check && check.match(emailRegex)) {
-          //     const { index } = check.match(emailRegex);
-          //     if (index) {
-          //       const foo = { ...errCopy[i] };
-          //       foo[e.target.name] = "Enter Valid Mail Id";
-          //       errCopy[i] = { ...foo };
-          //       setItemDataErrors(errCopy);
-          //       return;
-          //     }
-          //   }
-          // }
+          if (item === "email") {
+            let check = e.target.value;
+            if (check && check.match(emailRegex)) {
+              const { index } = check.match(emailRegex);
+              if (index) {
+                const foo = { ...errCopy[i] };
+                foo[e.target.name] = "Enter Valid Email Address";
+                errCopy[i] = { ...foo };
+                setItemDataErrors(errCopy);
+                return;
+              }
+            }
+          }
           const foo = { ...errCopy[i] };
           foo[e.target.name] = "";
           errCopy[i] = { ...foo };
@@ -240,30 +242,26 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
           </span>
         );
       }
-      // if (!item.full_name.trim())
-      //   err["full_name"] = (
-      //     <span style={{ color: "red" }}>Please Enter Full Name</span>
+     // Mandatory //
+      // const emailRegex = /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/;
+      // if (!item.email || !item.email.trim()) {
+      //   err["email"] = (
+      //     <span style={{ color: "red" }}>Please Enter Email</span>
       //   );
-      // if (item.full_name && item.full_name.match(pattern)) {
-      //   const { index } = item.full_name.match(pattern);
-      //   if (index) {
-      //     err["full_name"] = (
-      //       <span style={{ color: "red" }}>Only alphanumeric are allowed</span>
-      //     );
-      //   }
+      // } else if (!emailRegex.test(item.email)) {
+      //   err["email"] = (
+      //     <span style={{ color: "red" }}>Enter a Valid Email Address</span>
+      //   );
       // }
-
-      // if (!item.username.trim()) err["username"] = "Email is Required";
-      // if (item.username) {
-      //     const start = item.username.indexOf('@');
-      //     const main = item.username.substring(start);
-      //     const checkarry = ['@gmail.com', '@outlook.com', '@yahoo.com'];
-      //     const text = checkarry.includes(main);
-      //     if (!text) {
-      //         err['username'] = 'Enter Valid Mail Id';
-      //     }
-      // }
-
+      // optional //
+      const emailRegex = /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/;
+      if (item.email && item.email.trim() !== "") {
+        if (!emailRegex.test(item.email)) {
+          err["email"] = (
+            <span style={{ color: "red" }}>Enter a Valid Email Address</span>
+          );
+        }
+      }
       if (!item.Age)
         err["Age"] = <span style={{ color: "red" }}>Please Select Age</span>;
 
@@ -325,7 +323,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
     if (checkDuplicateName) {
       openNotificationWithIcon(
         "error",
-        "Not allows Duplicate student names in team"
+        t('teacherJourney.popup3')
       );
       setIsClicked(false);
       return;
@@ -348,20 +346,36 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
       },
       data: body,
     };
-    console.log(body,"body");
+    // console.log(body,"body");
     axios(config)
       .then(function (response) {
         if (response.status === 201) {
           const newTeamId = response.data.data[0].profile.team_id;
           setTeamId(response.data.data[0].profile.team_id);
-          openNotificationWithIcon("success", "Team Created Successfully");
+          openNotificationWithIcon("success",  t('teacherJourney.popup2'));
           setIsClicked(true);
-          const updatedStudentData = studentData.map((student) => ({
+        //   const updatedStudentData = studentData.map((student) => ({
+        //     ...student,
+        //     team_id: JSON.stringify(newTeamId),
+        // state:currentUser?.data[0]?.state,
+
+        //   }));
+        const updatedStudentData = studentData.map((student) => {
+          let updatedStudent = {
             ...student,
             team_id: JSON.stringify(newTeamId),
-        state:currentUser?.data[0]?.state,
-
-          }));
+            state: currentUser?.data[0]?.state,
+          };
+        
+          // optional 'email'  //
+          if (student.email && student.email.trim() !== "") {
+            updatedStudent.email = student.email;
+          }
+        
+          return updatedStudent;
+        });
+        
+        // console.log(updatedStudentData, "data");
           setTimeout(() => {
             dispatch(
               teacherCreateMultipleStudent(
@@ -395,7 +409,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
           // console.log(error, "eee");
           openNotificationWithIcon(
             "error",
-            "Duplicate team names are not allowed"
+            t('teacherJourney.popup4')
           );
         }
       });
@@ -507,7 +521,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
                 {/* <hr /> */}
                 <Row className="mb-3 modal-body-table search-modal-header">
                   {/* <Row> */}
-                  <Col md={3}>
+                  <Col md={4}>
                     <Label className="form-label">
                       Full Name
                       <span required className="p-1">
@@ -530,56 +544,32 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
                       </small>
                     ) : null}
                   </Col>
-                  {/* <Col md={6} className="mb-xl-0">
+                  
+                  <Col md={4} className="mb-xl-0">
                         <Label className="form-label">
                           Email Address
-                          <span required className="p-1">
+                          {/* <span required className="p-1">
                             *
-                          </span>
+                          </span> */}
                         </Label>
                         <input
                           className="form-control"
-                          placeholder="Enter Email Id"
-                          id="username"
-                          name="username"
+                          placeholder="Enter Email Address"
+                          id="email"
+                          name="email"
                           onChange={(e) => {
                             handleChange(e, i);
                           }}
-                          value={item.username}
+                          value={item.email}
                         />
-                        {foundErrObject?.username ? (
+                        {foundErrObject?.email ? (
                           <small className="error-cls">
-                            {foundErrObject.username}
+                            {foundErrObject.email}
                           </small>
                         ) : null}
-                      </Col> */}
+                      </Col>
                   {/* </Row> */}
-                  <Col md={2} className="mb-xl-0">
-                    <Label htmlFor="inputState" className="form-label">
-                      Age
-                      <span required className="p-1">
-                        *
-                      </span>
-                    </Label>
-                    <select
-                      id="inputState"
-                      className="form-select"
-                      name="Age"
-                      value={item.Age}
-                      onChange={(e) => handleChange(e, i)}
-                    >
-                      <option value={""}>Select Age</option>
-                      {allowedAge.map((item) => (
-                        <option key={item} value={item}>
-                          {item}
-                        </option>
-                      ))}
-                    </select>
-                    {foundErrObject?.Age ? (
-                      <small className="error-cls">{foundErrObject.Age}</small>
-                    ) : null}
-                  </Col>
-                  <Col md={3} className="mb-xl-0">
+                  <Col md={4} className="mb-xl-0">
                     <Label htmlFor="inputState" className="form-label">
                       Disability
                       <span required className="p-1">
@@ -622,8 +612,34 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
                       </small>
                     ) : null}
                   </Col>
+                  <Col md={4} className="mb-xl-0">
+                    <Label htmlFor="inputState" className="form-label">
+                      Age
+                      <span required className="p-1">
+                        *
+                      </span>
+                    </Label>
+                    <select
+                      id="inputState"
+                      className="form-select"
+                      name="Age"
+                      value={item.Age}
+                      onChange={(e) => handleChange(e, i)}
+                    >
+                      <option value={""}>Select Age</option>
+                      {allowedAge.map((item) => (
+                        <option key={item} value={item}>
+                          {item}
+                        </option>
+                      ))}
+                    </select>
+                    {foundErrObject?.Age ? (
+                      <small className="error-cls">{foundErrObject.Age}</small>
+                    ) : null}
+                  </Col>
+                
 
-                  <Col md={2}>
+                  <Col md={4}>
                     <Label htmlFor="inputState" className="form-label">
                       Class
                       <span required className="p-1">
@@ -650,7 +666,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
                       </small>
                     ) : null}
                   </Col>
-                  <Col md={2} className="mb-5 mb-xl-0">
+                  <Col md={4} className="mb-5 mb-xl-0">
                     <Label htmlFor="inputState" className="form-label">
                       Gender
                       <span required className="p-1">

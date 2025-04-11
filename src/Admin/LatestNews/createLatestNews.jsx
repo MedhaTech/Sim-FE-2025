@@ -124,7 +124,7 @@ const CreateLatestNews = () => {
                     navigate('/latest-news');
                     openNotificationWithIcon(
                         'success',
-                        'LatestNews Updated Successfully'
+                        'Latest News Created Successfully'
                     );
                 } else {
                     openNotificationWithIcon('error', 'Opps! Something Wrong');
@@ -307,7 +307,7 @@ const CreateLatestNews = () => {
                                         >
                                             File
                                         </Label>
-                                        <div className="d-flex align-items-center">
+                                        <div>
                                             <input
                                                 type="file"
                                                 id="file_name"
@@ -333,14 +333,14 @@ const CreateLatestNews = () => {
                                             />
                                             {formik.values.file_name &&
                                             formik.values.file_name.name ? (
-                                                <span className="ml-2">
+                                                <span className="ml-2 p-3">
                                                     {
                                                         formik.values.file_name
                                                             .name
                                                     }
                                                 </span>
                                             ) : (
-                                                <span className="ml-2">
+                                                <span className="ml-2 p-3">
                                                     {formik.initialValues
                                                         .file_name &&
                                                         formik.initialValues

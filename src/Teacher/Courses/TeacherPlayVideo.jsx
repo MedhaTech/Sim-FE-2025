@@ -109,7 +109,7 @@ const TeacherPlayVideo = (props) => {
   const [courseData, setCourseData] = useState(null);
   const [isquizcompleted, setisquizcompleted] = useState(false);
   const [finalPage, setFinalPage] = useState(false);
-  console.log(finalPage,"pp");
+  console.log(finalPage, "pp");
   const scrollRef = React.createRef();
   const [quizStart, setQuizStart] = useState(false);
 
@@ -138,14 +138,14 @@ const TeacherPlayVideo = (props) => {
     setAdminCourse(props.adminCoursesDetails && props.adminCoursesDetails[0]);
     setAdminCourseDetails(
       props.adminCoursesDetails[0] &&
-      props.adminCoursesDetails[0].course_modules
+        props.adminCoursesDetails[0].course_modules
     );
     setTeacherCourse(
       props.teaherCoursesDetails && props.teaherCoursesDetails[0]
     );
     setTeacherCourseDetails(
       props.teaherCoursesDetails[0] &&
-      props.teaherCoursesDetails[0].mentor_course_topics
+        props.teaherCoursesDetails[0].mentor_course_topics
     );
     props.teaherCoursesDetails[0] &&
       props.teaherCoursesDetails[0].mentor_course_topics.map(
@@ -418,8 +418,20 @@ const TeacherPlayVideo = (props) => {
 
     // type = video ,attachment ,quiz, certificates  //
     //  where status = completed /incomplete //
-    const done = <FeatherIcon className="mx-2 done" icon="play-circle" style={{ color: '#4bae4f' }} />;
-    const notDone = <FeatherIcon className="mx-2" icon="play-circle" style={{ color: '#c0c0c0' }} />;
+    const done = (
+      <FeatherIcon
+        className="mx-2 done"
+        icon="play-circle"
+        style={{ color: "#4bae4f" }}
+      />
+    );
+    const notDone = (
+      <FeatherIcon
+        className="mx-2"
+        icon="play-circle"
+        style={{ color: "#c0c0c0" }}
+      />
+    );
 
     // const done = <IoCheckmarkDoneCircleSharp className="done" />;
     // const notDone = <IoCheckmarkDoneCircleSharp />;
@@ -599,44 +611,56 @@ const TeacherPlayVideo = (props) => {
         <div className="page-header">
           <div className="add-item d-flex">
             <div className="page-title">
-              <h4>Course</h4>
-              <h6>A good education can change anyone.</h6>
+              <h4> {t("teacherJourney.Course")}</h4>
+              <h6>{t("teacherJourney.headingcourse")}</h6>
             </div>
           </div>
         </div>
         <div className="courses-page" ref={scrollRef}>
-          <div
-            className="container-fluid"
-            style={{ minHeight: "72vh" }}
-          >
+          <div className="container-fluid" style={{ minHeight: "72vh" }}>
             <Row className="m-0 courser-video-section ">
-              <Col xl={4} className="sidebars-right theiaStickySidebar section-bulk-widget course-assement">
+              <Col
+                xl={4}
+                className="sidebars-right theiaStickySidebar section-bulk-widget course-assement"
+              >
                 <div className="notes-dash assement-info">
                   <div className="notes-top-head">
-                    <h5> <i data-feather="file-text" className="feather-file-text"></i> Lessons</h5>
+                    <h5>
+                      {" "}
+                      <i
+                        data-feather="file-text"
+                        className="feather-file-text"
+                      ></i>{" "}
+                      Lessons
+                    </h5>
                   </div>
-                  <div className="notes-top-head-submenu assement-item" id="scrollbar">
+                  <div
+                    className="notes-top-head-submenu assement-item"
+                    id="scrollbar"
+                  >
                     {teacherCourseDetails &&
                       teacherCourseDetails.length &&
                       teacherCourseDetails.map((course, index) => {
                         return (
                           <div
                             key={index}
-                            className={`course-sec-list ${course.progress === "COMPLETED"
-                              ? "hHover"
-                              : "noHover"
-                              }`}
+                            className={`course-sec-list ${
+                              course.progress === "COMPLETED"
+                                ? "hHover"
+                                : "noHover"
+                            }`}
                           >
                             <Row
                               style={{
                                 background:
                                   currentTopicId ===
-                                  course.mentor_course_topic_id && "#f0f3f8",
+                                    course.mentor_course_topic_id && "#f0f3f8",
                               }}
-                              className={`justify-content-between w-100 px-0 py-3 my-0 ${course.progress === "COMPLETED"
-                                ? "hHover"
-                                : "noCurser"
-                                }`}
+                              className={`justify-content-between w-100 px-0 py-3 my-0 ${
+                                course.progress === "COMPLETED"
+                                  ? "hHover"
+                                  : "noCurser"
+                              }`}
                             >
                               <Col
                                 md={12}
@@ -656,7 +680,7 @@ const TeacherPlayVideo = (props) => {
                                     setInstructions(false);
                                   } else if (
                                     course.title.toLowerCase() ===
-                                    "congratulations" ||
+                                      "congratulations" ||
                                     course.title === "வழிமுறைகள்"
                                   ) {
                                     setInstructions(true);
@@ -675,7 +699,10 @@ const TeacherPlayVideo = (props) => {
                                     course.progress
                                   )}
 
-                                  <span className="course-title" style={{ 'font-weight': '600' }}>
+                                  <span
+                                    className="course-title"
+                                    style={{ "font-weight": "600" }}
+                                  >
                                     {course.title}
                                   </span>
                                 </p>
@@ -684,7 +711,6 @@ const TeacherPlayVideo = (props) => {
                           </div>
                         );
                       })}
-
                   </div>
                 </div>
               </Col>
@@ -889,10 +915,10 @@ const TeacherPlayVideo = (props) => {
                   //   </div>
                   // ) :
                   item === "ATTACHMENT" &&
-                    !instructions &&
-                    handbook &&
-                    props.mentorAttachments.length > 0 &&
-                    props.mentorAttachments[0]?.attachments?.split("{{}}") ? (
+                  !instructions &&
+                  handbook &&
+                  props.mentorAttachments.length > 0 &&
+                  props.mentorAttachments[0]?.attachments?.split("{{}}") ? (
                     // .length === 1
                     <Fragment>
                       <Card className="course-sec-basic p-2">
@@ -901,44 +927,31 @@ const TeacherPlayVideo = (props) => {
                             className="text-left text-primary"
                             tag="h2"
                           >
-                            Teacher Handbook
+                            {t("teacherJourney.teacherhand")}
                           </CardTitle>
                           <CardBody>
                             <p>
-                              <b>Dear Guide Teachers,
-                              </b>
+                              <b> {t("teacherJourney.dear")}</b>
                             </p>
-                            <p>
-                            We hope the instructional videos gave you an insight into the course. Further detailed instructions can be found in the handbook. 
-
-                            </p>
+                            <p>{t("teacherJourney.hand1")}</p>
                             <p className="text-success">
-                              <b>
-                                The handbook is a small booklet that covers :
-                              </b>
+                              <b>{t("teacherJourney.hnad2")}</b>
                             </p>
 
                             <ul>
-                              <li>1. Program Schedule</li>
-                              <li>2. Program Objectives</li>
-                              <li>3. Major milestones in the program</li>
-                              <li>4. Best Practices for teachers</li>
-                              <li>5. Course Elements</li>
-                              <li>6. Learning Concepts</li>
-                              <li>7. Other important instructions</li>
+                              <li> {t("teacherJourney.hand3")}</li>
+                              <li> {t("teacherJourney.hand4")}</li>
+                              <li>{t("teacherJourney.hand5")}</li>
+                              <li>{t("teacherJourney.hand6")}</li>
+                              <li>{t("teacherJourney.hand7")}</li>
+                              <li>{t("teacherJourney.hand8")}</li>
+                              <li>{t("teacherJourney.hand9")}</li>
                             </ul>
-<br></br>
-                            <p>
-                              You can refer to the handbook whenever there are
-                              any doubts about the program. Both the
-                              instructional videos and handbook together will
-                              equip you to be an efficient guide to the students
-                              especially when they are working on Student
-                              Workbook.
-                            </p>
+                            <br></br>
+                            <p>{t("teacherJourney.hand10")}</p>
 
                             <p>
-                            Students can go through the Themes document, select a theme and a focus area, identify a problem around the focus area, and submit an idea for it. Students will also be able to download & access document in the course/resource section in their profile  
+                              {t("teacherJourney.hand11")}
 
                               {/* <b>
                                                         The resource section
@@ -978,7 +991,7 @@ const TeacherPlayVideo = (props) => {
                                   >
                                     {`Download ${item
                                       .split("/")
-                                    [item.split("/").length - 1].split(".")[0]
+                                      [item.split("/").length - 1].split(".")[0]
                                       .replace("_", " ")}`}
                                   </button>
                                 ))}
@@ -1034,75 +1047,48 @@ const TeacherPlayVideo = (props) => {
                         <Card className="course-sec-basic ">
                           <CardBody>
                             {getLastCourseStatus(teacherCourseDetails) &&
-                              //  isquizcompleted
-                              !finalPage ? (
-                                
-                              <div >
-      <Confetti className="w-100" />;
-
+                            //  isquizcompleted
+                            !finalPage ? (
+                              <div>
+                                <Confetti className="w-100" />;
                                 <h3 className="text-success text-center">
-                                  🎉 Congratulations on completing the course!
+                                  🎉 {t("teacherJourney.coursecom")}
                                   🎉
                                 </h3>
                                 <br />
                                 <p>
-                                  <b>
-                                    Now that you have completed the course,
-                                    Below are your next action items in the
-                                    program :
+                                  <b style={{ color: "green" }}>
+                                    {t("teacherJourney.text1")}
                                   </b>
                                 </p>
-
                                 <ol className="text-left">
-                                  <li>
-                                    1. Create a plan for doing the program using
-                                    the handbook.
-                                  </li>
-                                  <li>
-                                    2. Arrange for device access  your students to complete the course and hand book activities.
-
-                                  </li>
-                                  <li>
-                                    3. Schedule weekly sessions to watch/discuss
-                                    videos and workbook.
-                                  </li>
-                                  <li>
-                                    4. Ensure students complete the workbook before
-                                    the next session.
-                                  </li>
-                                  <li>5. Guide students through the program.</li>
-                                  <li>
-                                    6. Evaluate students’ performance using the
-                                    teacher rubric.
-                                  </li>
+                                  <li>{t("teacherJourney.tex2")}</li>
+                                  <li>{t("teacherJourney.text3")}</li>
+                                  <li>{t("teacherJourney.text4")}</li>
+                                  <li>{t("teacherJourney.tex5")}</li>
+                                  <li>{t("teacherJourney.text6")}</li>
+                                  <li>{t("teacherJourney.text7")}</li>
                                 </ol>
-                                <br/>
-
-                                <p>
-                                You are now ready to guide your students on their problem solving journeys!
-
-
-                                </p>
+                                <br />
+                                <p>{t("teacherJourney.text8")}</p>
                               </div>
                             ) : (
                               <div>
-                               
-                                 
-                                  <div
-                            dangerouslySetInnerHTML={{
-                              __html:
-                                "<h3 class='text-success'>Welcome Teachers! </h3></br>We’re excited that you will be part of the program in guiding your student through it.</br><p>Now it’s time to start the program.</p><ol>We would like you all to go through the following in order.</br><li>1. Watch the instructional videos for overview of the program.</li><li>2. Read the teacher's handbook for a summary of the course and other important instructions.</li></ol></br><p>You have one week to do these. Afterwards, you and your students will be ready to start their problem solving journey!</p><p>We hope you enjoy guiding the students as they embark on this new journey!</p>Wishing you all the best!",
-                            }}
-                          ></div
-                          ><br/>
+                                <div
+                                  dangerouslySetInnerHTML={{
+                                    __html:
+                                      "<h3 class='text-success'>Welcome Teachers! </h3></br>We’re excited that you will be part of the program in guiding your student through it.</br><p>Now it’s time to start the program.</p><ol>We would like you all to go through the following in order.</br><li>1. Watch the instructional videos for overview of the program.</li><li>2. Read the teacher's handbook for a summary of the course and other important instructions.</li></ol></br><p>You have one week to do these. Afterwards, you and your students will be ready to start their problem solving journey!</p><p>We hope you enjoy guiding the students as they embark on this new journey!</p>Wishing you all the best!",
+                                  }}
+                                ></div>
+                                <br />
                                 {firstObj[0] &&
-                                  firstObj[0].progress == "INCOMPLETE" ? (
+                                firstObj[0].progress == "INCOMPLETE" ? (
                                   <div className="mt-2">
                                     <button
                                       className="btn btn-warning mt-2"
                                       onClick={(e) => startFirstCourse(e)}
                                     >
-                                      Start Course
+                                      {t("teacherJourney.sCourse")}
                                     </button>
                                   </div>
                                 ) : (
@@ -1114,14 +1100,14 @@ const TeacherPlayVideo = (props) => {
                                         className="btn btn-warning"
                                         onClick={(e) => startContinueCourse(e)}
                                       >
-                                        CONTINUE COURSE
+                                        {t("teacherJourney.CONTINUECOURSE")}
                                       </button>
                                     ) : (
                                       <button
                                         className="btn btn-warning"
                                         onClick={(e) => startContinueCourse(e)}
                                       >
-                                        CONTINUE COURSE
+                                        {t("teacherJourney.CONTINUECOURSE")}
                                       </button>
                                     )}
                                   </div>
@@ -1160,47 +1146,31 @@ const TeacherPlayVideo = (props) => {
                     // .length > 2
                     <Fragment>
                       <Card className="course-sec-basic p-2">
-                        <CardBody >
+                        <CardBody>
                           <CardTitle>
                             <h3 className="text-success">
-                              🎉 Congratulations on completing the course! 🎉
+                              🎉 {t("teacherJourney.coursecom")} 🎉
                             </h3>
                           </CardTitle>
 
                           <CardBody>
                             <p>
-                              <b>
-                              Now that you have completed the course, Below are
-                                your next action items in the program :
+                              <b style={{ color: "green" }}>
+                                {t("teacherJourney.text1")}
                               </b>
                             </p>
 
                             <ol className="text-left">
-                              <li>
-                                1. Create a plan for doing the program using the
-                                handbook.
-                              </li>
-                              <li>2. Arrange for device access and workbook.</li>
-                              <li>
-                                3. Schedule weekly sessions to watch/discuss videos
-                                and workbook.
-                              </li>
-                              <li>
-                                4. Ensure students complete the workbook before the
-                                next session.
-                              </li>
-                              <li>5. Guide students through the program.</li>
-                              <li>
-                                6. Evaluate students’ performance using the teacher
-                                rubric.
-                              </li>
+                              <li>{t("teacherJourney.tex2")}</li>
+                              <li> {t("teacherJourney.text3")}</li>
+                              <li>{t("teacherJourney.text4")}</li>
+                              <li>{t("teacherJourney.tex5")}</li>
+                              <li>{t("teacherJourney.text6")}</li>
+                              <li>{t("teacherJourney.text7")}</li>
                             </ol>
-                            <br/>
+                            <br />
 
-                            <p>
-                              You are now ready to guide your students on their
-                              problem solving journeys!
-                            </p>
+                            <p>{t("teacherJourney.text8")}</p>
                           </CardBody>
                         </CardBody>
                       </Card>
@@ -1248,7 +1218,7 @@ const TeacherPlayVideo = (props) => {
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 

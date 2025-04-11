@@ -17,7 +17,7 @@ import { ArrowRight } from "feather-icons-react";
 import user from "../assets/img/icons/user-icon.svg";
 import play from "../assets/img/playicon.png";
 import copy from "../assets/img/copyrights.png";
-import { stateList, districtList } from "./ORGData.js";
+import { stateList, districtList ,mandalList,SchoolBoard,SchoolType} from "./ORGData.js";
 
 import {
   getStateData,
@@ -62,98 +62,36 @@ const NonAtlPage = () => {
   const [condition, setCondition] = useState(false);
   const [buttonData, setButtonData] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
+
+ 
+
   const diesCodes = JSON.parse(localStorage.getItem("diesCode"));
   const [mentData, setMentData] = useState({});
   const [districtOptions, setDistrictOptions] = useState([]);
   const [secondUser, setSecondUser] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false); 
-  const [person, setPerson] = useState(true);
+  const [person, setPerson] = useState(true); 
+
+  const [selectedMandal, setSelectedMandal] = useState("");
+  const [mandals, setMandals]             = useState([]);
+  const [schoolType, setSchoolType]     = useState("");
+  const [otherSchoolType, setOtherType] = useState("");
+  const [schoolBoard, setSchoolBoard]     = useState("");
+  const [otherSchoolBoard, setOtherBoard] = useState("");
 
   const handleMouseEnter = () => {
     setIsTooltipVisible(true);
   };
-  // useEffect(() => {
-  //   if (orgData.organization_name !== "") {
-  //     handleRegister();
-  //   }
-  // }, [orgData.organization_name]);
+ 
   useEffect(() => {
     handleRegister();
   }, []);
 
-  // const fullStatesNames = useSelector(
-  //   (state) => state?.studentRegistration?.regstate
-  // );
+ 
+ 
 
-  // useEffect(() => {
-  //   dispatch(getStateData());
-  // }, []);
-
-  // useEffect(() => {
-  //   if (stateData !== "") {
-  //     dispatch(getFetchDistData(stateData));
-  //   }
-  //   setdistrict("");
-  // }, [stateData]);
-  // const fiterDistData = useSelector(
-  //   (state) => state?.studentRegistration?.fetchdist
-  // );
-  // useEffect(() => {
-  //   stateApi();
-  // }, []);
-  const stateApi = () => {
-    var config = {
-      method: "get",
-      url: process.env.REACT_APP_API_BASE_URL + `/organizations/states`,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
-      },
-    };
-    axios(config)
-      .then(function (response) {
-        if (response.status === 200) {
-          setFullStatesNames(response.data.data);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
-  // useEffect(() => {
-  //   if (stateData !== "") {
-  //     districtApi(stateData);
-  //   }
-  //   // setdistrict("");
-  // }, [stateData]);
-  // const districtApi = (item) => {
-  //   const distParam = encryptGlobal(
-  //     JSON.stringify({
-  //       state: item,
-  //     })
-  //   );
-
-  //   var config = {
-  //     method: "get",
-  //     url:
-  //       process.env.REACT_APP_API_BASE_URL +
-  //       `/organizations/districts?Data=${distParam}`,
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
-  //     },
-  //   };
-  //   axios(config)
-  //     .then(function (response) {
-  //       if (response.status === 200) {
-  //         setFullDistrictsNames(response.data.data);
-  //       }
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // };
+ 
+ 
   const handleOnChange = (e) => {
     const numericValue = e.target.value.replace(/\D/g, "");
     const trimmedValue = numericValue.trim();
@@ -176,12 +114,10 @@ const NonAtlPage = () => {
       if (diesCode.length === 11) {
         setIsButtonEnabled(true);
       }
-      //formik.setFieldValue("whatapp_mobile", formik.values.mobile);
-      //setWtsNum(formik.values.mobile);
+     
     } else {
       setCheckBox1(false);
       setIsButtonEnabled(false);
-      //formik.setFieldValue("whatapp_mobile", "");
     }
   };
 
@@ -201,28 +137,7 @@ const NonAtlPage = () => {
     };
     axios(config)
       .then(function (response) {
-        // if (response?.status == 200) {
-        //   //console.log(response,"eivnir");
-        //   setError("Another Teacher is already registered in given School");
-        //   setDiceBtn(true);
-        //   setBtn(false);
-        // }
-        // if(response?.status == 200) {
-        //   console.log(response,"eivnir");
-        //   if (Object.keys(response?.data?.data[0]).length && response?.data?.data[0].category === "Non ATL") {
-        //     setOrgData(response?.data?.data[0]);
-        //       formik.setFieldValue(
-        //         "organization_code",
-        //         response?.data?.data[0].organization_code
-        //       );
-        //       setDiceBtn(false);
-        //       setSchoolBtn(true);
-        //     //setBtn(true);
-        //     //setDiceBtn(false);
-        //     setBtn(false);
-        //     //setSchoolBtn(true);
-        //   }
-        // }
+       
         if (response?.status == 200) {
           if (response?.data.count === 0) {
               setBtn(true);
@@ -238,20 +153,12 @@ const NonAtlPage = () => {
                   response?.data?.data[0].mentor !== null
               )
             ) {
-              // setOrgData(response?.data?.data[0]);
               setSecondUser(true);
               formik.setFieldValue(
                 "organization_code",
                 response?.data?.data[0].organization_code
               );
-              // setTextData(response?.data?.data[0].address);
-              // setPinCode(response?.data?.data[0].pin_code);
-              // setSchoolname(response?.data?.data[0].organization_name);
-              // setDiesCode(response?.data?.data[0].organization_code);
-              // setStateData(response?.data?.data[0].state);
-              // setdistrict(response?.data?.data[0].district);
-
-              // setDiceBtn(false);
+             
               setSchoolBtn(true);
             } else {
               setError(
@@ -302,9 +209,33 @@ const NonAtlPage = () => {
     setStateData(state);
     setSelectedDistrict("");
     setDistricts(districtList[state] || []);
+    setMandals([]);
+    setSelectedMandal("");
   };
-  const handleDistrictChange = (event) => {
-    setSelectedDistrict(event.target.value);
+  const handleDistrictChange = (e) => {
+    const dist = e.target.value;
+    setSelectedDistrict(dist);
+    setMandals(mandalList[dist] || []);
+    setSelectedMandal("");
+  };
+  const handleMandalChange = (e) => {
+    setSelectedMandal(e.target.value);
+  };
+const handleSchoolTypeChange = (e) => {
+    const val = e.target.value;
+    setSchoolType(val);
+    if (val !== "Others") {
+     
+      setOtherType("");
+    }
+  };
+  const handleSchoolBoardChange = (e) => {
+    const val = e.target.value;
+    setSchoolBoard(val);
+    if (val !== "Others") {
+     
+      setOtherBoard("");
+    }
   };
 
   const handleOnChangeAddress = (e) => {
@@ -326,30 +257,79 @@ const NonAtlPage = () => {
       category: "Non ATL",
       organization_code: diesCodes,
       organization_name: schoolname,
-      //new_district: newDistrict,
       address: textData,
+      mandal:selectedMandal,
+      school_type:      schoolType === "Others" 
+                      ? otherSchoolType 
+                      : schoolType,
+                    board:     schoolBoard === "Others"
+                      ? otherSchoolBoard
+                      : schoolBoard,
     };
     setOrgData(body);
+  console.log(body,"org");
+
     setBtn(false);
     setSchoolBtn(true);
 
     e.preventDefault();
   };
 
+  // useEffect(() => {
+  //   if (stateData && selectedDistrict && pinCode.length >5 && schoolname && textData) {
+  //     setShowButton(true);
+  //   } else {
+  //     setShowButton(false);
+  //   }
+  // }, [stateData, selectedDistrict, pinCode, schoolname, textData]);
   useEffect(() => {
-    if (stateData && selectedDistrict && pinCode.length >5 && schoolname && textData) {
+    const hasState = Boolean(stateData);
+    const hasDistrict = Boolean(selectedDistrict);
+    const hasPin = pinCode.length > 5;
+    const hasSchoolName = Boolean(schoolname);
+    const hasAddress = Boolean(textData);
+    const hasMandal = Boolean(selectedMandal);
+  
+    const hasSchoolType =
+      schoolType === "Others" ? Boolean(otherSchoolType.trim()) : Boolean(schoolType);
+  
+    const hasSchoolBoard =
+      schoolBoard === "Others" ? Boolean(otherSchoolBoard.trim()) : Boolean(schoolBoard);
+  
+    if (
+      hasState &&
+      hasDistrict &&
+      hasPin &&
+      hasSchoolName &&
+      hasAddress &&
+      hasMandal &&
+      hasSchoolType &&
+      hasSchoolBoard
+    ) {
       setShowButton(true);
     } else {
       setShowButton(false);
     }
-  }, [stateData, selectedDistrict, pinCode, schoolname, textData]);
+  }, [
+    stateData,
+    selectedDistrict,
+    pinCode,
+    schoolname,
+    textData,
+    selectedMandal,
+    schoolType,
+    otherSchoolType,
+    schoolBoard,
+    otherSchoolBoard,
+  ]);
+  
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   const formik = useFormik({
     initialValues: {
       full_name: "",
       organization_code: diesCodes,
-      // username: '',
+      mandal: '',
       mobile: "",
       whatapp_mobile: "",
       role: "MENTOR",
@@ -560,11 +540,19 @@ const NonAtlPage = () => {
     const body = JSON.stringify({
       state: stateData,
       district: selectedDistrict,
+      mandal: selectedMandal,
+
       pin_code: pinCode,
       category: "Non ATL",
       organization_code: diesCodes,
       organization_name: schoolname,
       address: textData,
+      school_type:      schoolType === "Others" 
+      ? otherSchoolType 
+      : schoolType,
+    board:     schoolBoard === "Others"
+      ? otherSchoolBoard
+      : schoolBoard,
     });
 
     if (condition) {
@@ -759,148 +747,9 @@ const NonAtlPage = () => {
               <div className="login-userset">
                 <div className="login-logo logo-normal" onClick={handleLogoClick}>
                   <img src={logo} alt="Logo" />
-                  {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
+                 
                 </div>
-                {/* <Link className="login-logo logo-white">
-                  <ImageWithBasePath src="assets/img/logo-white.png" alt />
-                </Link> */}
-                {/* <div className="login-userheading">
-                  <h3 className="icon-container ">
-                    {" "}
-                    Non-ATL School Teacher Registration{" "}
-                    <a
-                      href="https://www.youtube.com/watch?v=q40BSRm_cJM" 
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={handleIconClick}
-                    >
-                      <img
-                        src={play}
-                        className="icon"
-                        alt="play"
-                        style={{ verticalAlign: "middle", width: "7%" }}
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
-                      />{" "}
-                    </a>
-                    {isTooltipVisible && (
-                      <div className="tooltip">Watch Demo</div>
-                    )}
-                    {isModalVisible && (
-                      <div className="modal-overlay" onClick={handleCloseModal}>
-                        <div
-                          className="modal"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <span
-                            className="close-button"
-                            onClick={handleCloseModal}
-                          >
-                            &times;
-                          </span>
-                          <iframe
-                            width="560"
-                            height="315"
-                            src="https://www.youtube.com/watch?v=q40BSRm_cJM" // Replace with the desired video URL
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                            title="YouTube video"
-                          ></iframe>
-                        </div>
-                      </div>
-                    )}
-                  </h3>
-                  <h4>Register New Teacher account</h4>
-                </div> */}
-                {/* {diceBtn && ( */}
-                {/* <div className="form-login mb-3"> */}
-                {/* <label className="form-label">School UDISE Code</label> */}
-                {/* <div className="form-addons">
-                      <input
-                        type="text"
-                        className="form-control mb-3"
-                        id="organization_code"
-                        onChange={(e) => handleOnChange(e)}
-                        value={diesCode}
-                        maxLength={11}
-                        minLength={11}
-                        name="organization_code"
-                        placeholder="Enter 11 digit UDISE Code"
-                      />
-                      <img src={user} alt="user" />
-                    </div> */}
-
-                {/* {error ? (
-                      <p
-                        style={{
-                          color: "red",
-                        }}
-                      >
-                        {error}
-                      </p>
-                    ) : null} */}
-
-                {/* <div className="form-login authentication-check">
-                      <div className="row">
-                        <div className="col-12 d-flex align-items-center justify-content-between">
-                          <div className="custom-control custom-checkbox">
-                            <label className="checkboxs ps-4 mb-0 pb-0 line-height-1">
-                              <input
-                                className="form-check-input"
-                                type="checkbox"
-                                name="click"
-                                disabled={
-                                  9999999999 <
-                                  formik.values.diesCode <
-                                  99999999999
-                                    ? false
-                                    : true
-                                }
-                                checked={checkBox1}
-                                onClick={(e) => handleCheckbox1(e, !checkBox1)}
-                              />
-                              <span className="checkmarks" />I agree to the
-                              Terms & Privacy
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                    </div> */}
-
-                {/* {diceBtn && (
-                      <div className="form-login">
-                        <button
-                          type="button"
-                          className="btn btn-login mb-3"
-                          onClick={(e) => handleRegister(e)}
-                          disabled={!isButtonEnabled}
-                        >
-                          {" "}
-                          Proceed
-                        </button>
-                        <p className="form-login mb-3">
-                          Already have an account ?
-                          <b>
-                            <Link className="hover-a" to={"/login"}>
-                              {"  "} Login Instead
-                            </Link>
-                          </b>
-                        </p>
-                      </div>
-                    )} */}
-                {/* <br /> */}
-                {/* <p className="text-center">
-                      Copyright{" "}
-                      <img
-                        src={copy}
-                        className="copy"
-                        alt="copy"
-                        style={{ verticalAlign: "middle", width: "5%" }}
-                      />{" "}
-                      SIM 2024. All rights reserved
-                    </p> */}
-                {/* </div> */}
-                {/* )} */}
+              
                 {btn && (
                   <>
                     <div className="col-xl-12">
@@ -942,6 +791,24 @@ const NonAtlPage = () => {
                           </select>
                         </div>
                         <div className="col-md-6">
+                          <label htmlFor="inputmandal" className="form-label">
+                          Mandal / Taluka
+                          </label>
+                          <select
+                            id="inputmandal"
+                            className="form-select"
+                            value={selectedMandal}
+                            onChange={handleMandalChange }
+                          >
+                            <option value="">Select Mandal / Taluka</option>
+                            {mandals.map((mandal) => (
+                              <option key={mandal} value={mandal}>
+                                {mandal}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        <div className="col-md-6">
                           <label className="form-label">Pin Code</label>
                           <input
                             type="text"
@@ -966,7 +833,74 @@ const NonAtlPage = () => {
                             className="form-control"
                           />
                         </div>
-                        <div className="col-md-12">
+                        <div className="col-md-6">
+                          <label htmlFor="schooltype" className="form-label">
+                          School Type
+                          </label>
+                          <select
+                            id="schooltype"
+                            className="form-select"
+                            value={schoolType}
+          onChange={handleSchoolTypeChange}
+                          >
+                            <option value="">Select School Type</option>
+                            {SchoolType.map((item) => (
+                              <option key={item} value={item}>
+                                {item}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        {schoolType === "Others" && (
+        <div className="col-md-6">
+          <label htmlFor="inputOtherSchoolType" className="form-label">
+            Other School Type
+          </label>
+          <input
+            type="text"
+            id="inputOtherSchoolType"
+            className="form-control"
+            placeholder="Please Enter School Type"
+            value={otherSchoolType}
+            onChange={(e) => setOtherType(e.target.value)}
+          />
+        </div>
+      )}
+       <div className="col-md-6">
+                          <label htmlFor="inputboard" className="form-label">
+                          School Board
+                          </label>
+                          <select
+                            id="inputboard"
+                            className="form-select"
+                            value={schoolBoard}
+          onChange={handleSchoolBoardChange}
+                          >
+                            <option value="">Select School Board</option>
+                            {SchoolBoard.map((item) => (
+                              <option key={item} value={item}>
+                                {item}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                       
+                        {schoolBoard === "Others" && (
+        <div className="col-md-6">
+          <label htmlFor="inputOtherSchoolBoard" className="form-label">
+            Other School Board
+          </label>
+          <input
+            type="text"
+            id="inputOtherSchoolBoard"
+            className="form-control"
+            placeholder="Please Enter School Board"
+            value={otherSchoolBoard}
+            onChange={(e) => setOtherBoard(e.target.value)}
+          />
+        </div>
+      )}
+                        <div className="col-md-6">
                           <label className="form-label"> School Address</label>
                           <input
                             id="address"
@@ -978,21 +912,7 @@ const NonAtlPage = () => {
                             className="form-control"
                           />
                         </div>
-                        {/* <div className="col-md-6">
-                          <label className="form-label">
-                            {" "}
-                            New District Name (if applicable)
-                          </label>
-                          <input
-                            id="new_district"
-                            onChange={(e) => handleOnChangeNewDistrict(e)}
-                            value={newDistrict}
-                            name="new_district"
-                            placeholder="Enter New District"
-                            type="text"
-                            className="form-control"
-                          />
-                        </div> */}
+                       
                         <div className="form-login">
                           <button
                             type="button"
@@ -1017,19 +937,24 @@ const NonAtlPage = () => {
                           UDISE Code : {""}
                           {orgData?.organization_code}
                           <br />
-                          School Name : {""}
-                          {orgData?.organization_name}
-                          <br />
-                          {/* City Name : {""}
-                          {orgData?.city ? orgData?.city : " N/A"} <br /> */}
+                         
+                          State Name :{" "}
+                          {orgData?.state ? orgData?.state : " N/A"} <br />
                           District Name :{" "}
                           {orgData?.district ? orgData?.district : " N/A"}
                           <br />
-                          State Name :{" "}
-                          {orgData?.state ? orgData?.state : " N/A"} <br />
-                          {/* PinCode :{" "}
-                          {orgData?.pin_code ? orgData?.pin_code : " N/A"}{" "}
-                          <br /> */}
+                          Mandal / Taluka :{" "}
+                          {orgData?.mandal ? orgData?.mandal : " N/A"} <br />
+                          PinCode : {""}
+                          {orgData?.pin_code}
+                          <br />
+                          School Name : {""}
+                          {orgData?.organization_name}
+                          <br />School Type : {""}
+                          {orgData?.school_type}
+                          <br />School Board : {""}
+                          {orgData?.board}
+                          <br />
                         </div>
                       </div>
                     </div>
@@ -1049,7 +974,6 @@ const NonAtlPage = () => {
                               <select
                                 id="inputState"
                                 className="form-select"
-                                // disabled={holdKey ? true : false}
                                 disabled={areInputsDisabled}
                                 name="title"
                                 value={formik.values.title}

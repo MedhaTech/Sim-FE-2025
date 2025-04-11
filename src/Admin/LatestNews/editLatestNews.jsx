@@ -296,7 +296,7 @@ const EditLatestNews = (props) => {
                         <Label className="mb-2" htmlFor="file_name">
                           File
                         </Label>
-                        <div className="d-flex align-items-center">
+                        <div >
                           <input
                             type="file"
                             id="file_name"
@@ -345,11 +345,11 @@ const EditLatestNews = (props) => {
                           ) : null}
                           {formik.values.file_name &&
                           formik.values.file_name.name ? (
-                            <span className="ml-2">
+                            <span className="ml-2 p-3">
                               {/* {formik.values.file_name.name} */}
                             </span>
                           ) : (
-                            <span className="ml-2">
+                            <span className="ml-2 p-3">
                               {formik.initialValues.file_name &&
                                 formik.initialValues.file_name.name}
                             </span>

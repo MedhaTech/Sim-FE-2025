@@ -8,6 +8,8 @@ import VideoModal from "../../HelpVideo/VideoModal";
 import { getCurrentUser } from "../../helpers/Utils";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
+
 import { useNavigate } from "react-router-dom";
 import { FaUsers } from "react-icons/fa";
 import { FaUserGraduate } from "react-icons/fa";
@@ -34,6 +36,9 @@ import { Modal } from "react-bootstrap";
 import Swal from "sweetalert2/dist/sweetalert2";
 import logout from "../../assets/img/support.png";
 import FeatherIcon from "feather-icons-react";
+import MultiTeacher from "./MultiTeacher";
+import { IoArrowDownCircleOutline } from "react-icons/io5";
+import { PiLinkSimpleBold } from "react-icons/pi";
 const GreetingModal = (props) => {
   return (
     <Modal
@@ -44,48 +49,119 @@ const GreetingModal = (props) => {
       onHide={props.handleClose}
       backdrop={true}
     >
-      {/* <Modal.Header closeButton></Modal.Header> */}
+    <Modal.Body>
+  <figure>
+    <div className="row">
+      {/* Case 1: Only video */}
+      {props.youtube && !props.imagedata && (
+        <div className="col-md-12">
+          <div className="modal-body custom-modal-body">
+            <div style={{ width: "100%", height: "30vh" }}>
+              <iframe
+                src={props.youtube
+                  .replace("youtu.be/", "www.youtube.com/embed/")
+                  .replace("watch?v=", "embed/")
+                  .split("&")[0]}
+                title="Video popup"
+                style={{ width: "100%", height: "100%" }}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      )}
 
-      <Modal.Body>
-        <figure>
-          {props.poptype === "link" ? (
+      {/* Case 2: Only image */}
+      {props.imagedata && !props.youtube && (
+        <div className="col-md-12 d-flex justify-content-center align-items-center" style={{ height: "30vh" }}>
+          <img
+            src={props.imagedata}
+            alt="popup image"
+            className="img-fluid"
+            style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "contain" }}
+          />
+        </div>
+      )}
+
+      {/* Case 3: Both image and video */}
+      {props.youtube && props.imagedata && (
+        <>
+          {/* Image on top */}
+          <div className="col-md-12 d-flex justify-content-center align-items-center mb-3" style={{ height: "30vh" }}>
+            <img
+              src={props.imagedata}
+              alt="popup image"
+              className="img-fluid"
+              style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "contain" }}
+            />
+          </div>
+
+          {/* Video below */}
+          <div className="col-md-12">
             <div className="modal-body custom-modal-body">
-              <div style={{ width: "100%", height: "400px" }}>
+              <div style={{ width: "100%", height: "30vh" }}>
                 <iframe
-                  src={props.popLink}
+                  src={props.youtube
+                    .replace("youtu.be/", "www.youtube.com/embed/")
+                    .replace("watch?v=", "embed/")
+                    .split("&")[0]}
                   title="Video popup"
+                  style={{ width: "100%", height: "100%" }}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 ></iframe>
               </div>
             </div>
-          ) : (
-            <img src={props.imgUrl} alt="popup image" className="img-fluid" />
-          )}
-          {/* <img
-                      src={props.imgUrl}
-                      alt="popup image"
-                      className="img-fluid"
-                  /> */}
-        </figure>
-      </Modal.Body>
-      <Modal.Footer>
-        {props.state != null && (
-          <Link to={props.state} type="button" className="product-img">
-            <button label={"Navigate"} className="btn btn-warning">
-              Navigate
-            </button>
-          </Link>
-        )}
-      </Modal.Footer>
+          </div>
+        </>
+      )}
+    </div>
+  </figure>
+</Modal.Body>
+
+           <Modal.Footer>
+           <div className="d-flex justify-content-between align-items-center w-100">
+
+<div>
+  {props.file && (
+    <a href={props.file} download target="_blank" rel="noopener noreferrer" className="me-3">
+      <IoArrowDownCircleOutline size={30}  />
+    </a>
+  )}
+
+  {props.urlData && (
+    <a href={props.urlData} target="_blank" rel="noopener noreferrer">
+      <PiLinkSimpleBold size={30} style={{ color: "blue" }} />
+    </a>
+  )}
+</div>
+
+
+{props.state != null && (
+  <div className="d-flex align-items-center justify-content-end">
+    <strong className="me-2">Reference Course</strong>
+    <Link to={props.state}>
+      <button className="btn btn-warning">Navigate</button>
+    </Link>
+  </div>
+)}
+
+</div>
+
+         
+ 
+</Modal.Footer>
+
+
     </Modal>
   );
 };
 
 const MentorDashboard = () => {
+   const { t } = useTranslation();
   const [showsPopup, setShowsPopup] = useState(false);
-  const [imgUrl, setImgUrl] = useState("");
-  const [popLink, setPopLink] = useState("");
+  
   const [poptype, setPopType] = useState("");
 
   const [state, setState] = useState("");
@@ -114,8 +190,20 @@ const MentorDashboard = () => {
   const [teacCourseLoading, setTeacCourseLoading] = useState(true);
   const [teacPostSLoading, setTeacPostSLoading] = useState(true);
   const [whatsappLink, setWhatsappLink] = useState("");
-
+const [courseData, setCourseData] = useState("");
   const [message, setMessage] = useState("");
+
+  
+  const [file, setFile] = useState("");
+  const fileName = file.substring(file.lastIndexOf('/') + 1);
+   const decodedFileName = decodeURIComponent(fileName);
+  const [imagedata, setImageData] = useState("");
+  const [urlData, setUrlData] = useState("");
+  const [youtube, setYoutube] = useState("");
+const [postdata,setPostData]=useState("");
+const [teamdata,setTeamData]=useState("");
+const [stuData,setStuData]=useState("");
+
 
   useEffect(() => {
     const newListParam = encryptGlobal(
@@ -124,6 +212,8 @@ const MentorDashboard = () => {
         role: currentUser.data[0]?.role,
       })
     );
+    let popupCount = parseInt(localStorage.getItem("popupCount")) || 0;
+    if (popupCount < 3) {
     var config = {
       method: "get",
       url: process.env.REACT_APP_API_BASE_URL + `/popup?Data=${newListParam}`,
@@ -138,12 +228,15 @@ const MentorDashboard = () => {
         if (res.status === 200 && res.data.data[0]?.on_off === "1") {
           // console.log(res,"res");
           setShowsPopup(true);
-          setPopType(res?.data?.data[0]?.type);
+          // setPopType(res?.data?.data[0]?.type);
 
-          setPopLink(res?.data?.data[0]?.url);
-          setImgUrl(res?.data?.data[0]?.url);
+          setFile(res?.data?.data[0]?.file);
+          setImageData(res?.data?.data[0]?.image);
+          setUrlData(res?.data?.data[0]?.url);
+          setYoutube(res?.data?.data[0]?.youtube);
+
           setState(res?.data?.data[0]?.navigate);
-
+          localStorage.setItem("popupCount", popupCount + 1);
           // if(res?.data?.data[0]?.type == "link"){
 
           // }else{
@@ -156,6 +249,7 @@ const MentorDashboard = () => {
         setShowsPopup(false);
         console.log(error);
       });
+    }
   }, []);
   const Loader = () => (
     <div className="spinner-border text-primary" role="status">
@@ -214,6 +308,8 @@ const MentorDashboard = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
+          // console.log(response,"team");
+          
           setTeamsCount(response.data.data[0].teams_count);
           setTeamCountLoading(false);
         }
@@ -306,6 +402,7 @@ const MentorDashboard = () => {
               100
           );
           setCoursepercentage(per);
+          setCourseData(per === 100 ? "Completed" :"Not Started");
           setTeacCourseLoading(false);
         }
       })
@@ -333,9 +430,11 @@ const MentorDashboard = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response);
+          console.log(response,"post");
           const po = response.data.data[0].postSurvey;
           setTeacPostSurvey(po);
+          setPostData(response.data.data[0].postSurvey !== "INCOMPLETED" ? "Completed":"Not Stated");
+
           setTeacPostSLoading(false);
         }
       })
@@ -443,9 +542,11 @@ const MentorDashboard = () => {
       <GreetingModal
         handleClose={handleClose}
         show={showsPopup}
-        imgUrl={imgUrl}
-        popLink={popLink}
-        poptype={poptype}
+        file={file}
+        imagedata={imagedata}
+        urlData={urlData}
+        youtube={youtube}
+        fileName={decodedFileName}
         state={state}
       ></GreetingModal>
       <div style={{ display: "none" }}>
@@ -468,10 +569,12 @@ const MentorDashboard = () => {
                 </h3>
                 &nbsp;
                 <h6>
-                  here&apos;s what&apos;s happening with your School Innovation
-                  Marathon 2024 journey.
+                  {/* here&apos;s what&apos;s happening with your School Innovation
+                  Marathon 2025 journey. */}
+                  {t('teacherJourney.heading')}
                 </h6>
               </div>
+            
               <div className="d-flex align-items-center">
                 <div className="action-table-data">
                   <div className="edit-delete-action">
@@ -499,6 +602,14 @@ const MentorDashboard = () => {
               </OverlayTrigger> */}
               </div>
             </div>
+            <div className="col-xl-12 col-sm-12 col-12 d-flex">
+              <MultiTeacher   
+        postdata={postdata} 
+        teamsCount={teamsCount}
+        studentCount={studentCount}
+ideaCount={ideaCount}
+        courseData={courseData}  />
+            </div>
             {/* Teacher dashboard stats */}
             <div className="row">
               <div className="col-xl-3 col-sm-6 col-12 d-flex">
@@ -516,9 +627,9 @@ const MentorDashboard = () => {
                       <Loader />
                     ) : coursepercentage === 0 ? (
                       <>
-                        <h5>To know about SIM</h5>
+                        <h5>{t('teacherJourney.know')}</h5>
                         <a onClick={redirectToCourse} href="#">
-                          Click here & Start Course
+                        {t('teacherJourney.clikhere')}
                         </a>
                       </>
                     ) : (
@@ -531,7 +642,9 @@ const MentorDashboard = () => {
                           />{" "}
                           %
                         </h5>
-                        <h6>Teacher Course</h6>
+                        <h6>{t('teacherJourney.Dbcourse')}</h6>
+
+                        {/* <h6>Teacher Course</h6> */}
                       </>
                     )}
                   </div>
@@ -549,9 +662,9 @@ const MentorDashboard = () => {
                       <Loader />
                     ) : teamsCount === 0 ? (
                       <>
-                        <h5>Yet to Create Teams?</h5>
+                        <h5>{t('teacherJourney.noteams')}</h5>
                         <a onClick={redirectToTeams} href="#">
-                          Click here to Create Teams
+                        {t('teacherJourney.addteamDB')}
                         </a>
                       </>
                     ) : (
@@ -559,7 +672,7 @@ const MentorDashboard = () => {
                         <h5>
                           <CountUp start={0} end={teamsCount} duration={2} />
                         </h5>
-                        <h6>Teams Created</h6>
+                        <h6>  {t('teacherJourney.teamcreate')}</h6>
                       </>
                     )}
                   </div>
@@ -580,9 +693,9 @@ const MentorDashboard = () => {
                       <Loader />
                     ) : studentCount === 0 ? (
                       <>
-                        <h5>Students not added?</h5>
+                        <h5>{t('teacherJourney.npstudents')}</h5>
                         <a onClick={redirectToTeams} href="#">
-                          Click here & Add students
+                        {t('teacherJourney.clickadd')}
                         </a>
                       </>
                     ) : (
@@ -590,7 +703,7 @@ const MentorDashboard = () => {
                         <h5>
                           <CountUp start={0} end={studentCount} duration={2} />
                         </h5>
-                        <h6>Students Enrolled</h6>
+                        <h6> {t('teacherJourney.Dbstudents')}</h6>
                       </>
                     )}
                   </div>
@@ -608,15 +721,15 @@ const MentorDashboard = () => {
                       <Loader />
                     ) : ideaCount === 0 ? (
                       <>
-                        <h5>No Idea Submissions!</h5>
-                        <h6>Kindly check teams progress</h6>
+                        <h5> {t('teacherJourney.noidea')}</h5>
+                        <h6>{t('teacherJourney.kind')}</h6>
                       </>
                     ) : (
                       <>
                         <h5>
                           <CountUp start={0} end={ideaCount} duration={2} />
                         </h5>
-                        <h6>Idea Submissions</h6>
+                        <h6>{t('teacherJourney.IdeaSubmission')}</h6>
                       </>
                     )}
                   </div>
@@ -631,21 +744,20 @@ const MentorDashboard = () => {
                     ) : ideaCount != teamsCount || teamsCount === 0 ? (
                       <>
                         <h5>
-                          All teams yet to submit ideas for Post-Survey to
-                          enable
+                        {t('teacherJourney.postnote')}
                         </h5>
                       </>
                     ) : teacPostSurvey === "COMPLETED" ? (
                       <>
-                        <h4>Post Survey</h4>
+                        <h4> {t('teacherJourney.post')}</h4>
                         <h5>
-                          Submitted <CheckCircle size={15} color="white" />
+                        {t('teacherJourney.submitted')} <CheckCircle size={15} color="white" />
                         </h5>
                       </>
                     ) : (
                       <>
-                        <h4>Post Survey</h4>
-                        <h5>Click here to complete</h5>
+                        <h4>{t('teacherJourney.post')}</h4>
+                        <h5>{t('teacherJourney.submitnote')}</h5>
                       </>
                     )}
                   </div>
@@ -655,12 +767,12 @@ const MentorDashboard = () => {
                 </div>
               </div>
               <div className="col-xl-3 col-sm-6 col-12 d-flex">
-                {!(teacPostSurvey == "COMPLETED" && ideaCount == teamsCount) ? (
+                {!(teacPostSurvey == "COMPLETED" && ideaCount >= 1) ? (
                     <>
                     <div className="dash-count das1">
                       <div className="dash-counts">
-                        <h4>Get Certificate</h4>
-                        <h5>After Taking Post Survey</h5>
+                        <h4>{t('teacherJourney.getcertificate')}</h4>
+                        <h5>{t('teacherJourney.aftersurvey')}</h5>
                       </div>
                       <div className="dash-imgs">
                         <GiAchievement size={30} />
@@ -728,19 +840,19 @@ const MentorDashboard = () => {
                         }
                       }
                       >
-                        <h4>Congrats</h4>
+                        <h4>{t('teacherJourney.Cong')}</h4>
                         {currentUser?.data[0]?.state !== "Tamil Nadu" && (
                           <h5>
-                            Click here&nbsp;
+                            {t('teacherJourney.Clickhere')}&nbsp;
                             <FeatherIcon icon="arrow-down-circle" size={30} />
-                            &nbsp;Certificate
+                            &nbsp; {t('teacherJourney.Certificate')}
                           </h5>
                         )}
                          {currentUser?.data[0]?.state === "Tamil Nadu" && (
                           <h5>
-                            Click here&nbsp;
+                            {t('teacherJourney.Clickhere')}&nbsp;
                             <FeatherIcon icon="arrow-down-circle" size={30} />
-                            &nbsp;Certificate
+                            &nbsp; {t('teacherJourney.Certificate')}
                           </h5>
                         )}
                         {/* {currentUser?.data[0]?.state === "Tamil Nadu" && (
@@ -769,8 +881,8 @@ const MentorDashboard = () => {
               <div className="col-xl-3 col-sm-6 col-12 d-flex">
                 <div className="dash-count das2">
                   <div className="dash-counts">
-                    <h4>Teams Progress</h4>
-                    <h5>& login&apos;s - check here</h5>
+                    <h4> {t('teacherJourney.teamprog')}</h4>
+                    <h5> {t('teacherJourney.login')}</h5>
                   </div>
                   <SchoolTeamPDF />
                 </div>
@@ -778,8 +890,8 @@ const MentorDashboard = () => {
               <div className="col-xl-3 col-sm-6 col-12 d-flex">
                 <div className="dash-count das3">
                   <div className="dash-counts">
-                    <h4>Join Whatsapp</h4>
-                    <h5>Support here</h5>
+                    <h4> {t('teacherJourney.joinwhtsapp')}</h4>
+                    <h5>{t('teacherJourney.supporthere')}</h5>
                   </div>
                   <div className="dash-imgs">
                     {whatsappLink === null ? (
@@ -812,7 +924,7 @@ const MentorDashboard = () => {
               <div className="col-xl-6 col-sm-12 col-12 d-flex">
                 <div className="card flex-fill default-cover w-100 mb-4">
                   <div className="card-header d-flex justify-content-between align-items-center">
-                    <h4 className="card-title mb-0">SIM Road Map </h4>
+                    <h4 className="card-title mb-0">{t('teacherJourney.roadmap')} </h4>
                     <div className="dropdown" onClick={handleNavigation}>
                       <Link
                         to="/instructions"
@@ -845,10 +957,10 @@ const MentorDashboard = () => {
                                 </Link>
                                 <div className="info">
                                   <Link to={"/mentorteams"}>
-                                    <h4>Teams</h4>
+                                    <h4>{t('teacherJourney.Teams')} </h4>
                                   </Link>
                                   <p className="dull-text">
-                                    Create , View , Edit , Delete
+                                  {t('teacherJourney.crud')} 
                                   </p>
                                 </div>
                               </div>
@@ -886,7 +998,7 @@ const MentorDashboard = () => {
                                     className={"badge badge-linedangered"}
                                     onClick={redirectToTeams}
                                   >
-                                    Not Created
+                                     {t('teacherJourney.NotCreated')} 
                                   </span>
                                 </>
                               ) : (
@@ -895,7 +1007,7 @@ const MentorDashboard = () => {
                                     className={"badge badge-linesuccess"}
                                     onClick={redirectToTeams}
                                   >
-                                    Add More
+                                     {t('teacherJourney.AddMore')} 
                                   </span>
                                 </>
                               )}
@@ -937,10 +1049,10 @@ const MentorDashboard = () => {
                                 </Link>
                                 <div className="info">
                                   <Link to={"/mentorcourse/1"}>
-                                    <h4>Teacher Course</h4>
+                                    <h4> {t('teacherJourney.TeacherCourse')} </h4>
                                   </Link>
                                   <p className="dull-text">
-                                    Know more about your role
+                                  {t('teacherJourney.knowrole')}
                                   </p>
                                 </div>
                               </div>
@@ -978,7 +1090,7 @@ const MentorDashboard = () => {
                                     className={"badge badge-linedangered"}
                                     onClick={redirectToCourse}
                                   >
-                                    Not Started
+                                     {t('teacherJourney.NotStarted')}
                                   </span>
                                 </>
                               ) : coursepercentage != 100 ? (
@@ -987,13 +1099,13 @@ const MentorDashboard = () => {
                                     className={"badge badge-bgdanger"}
                                     onClick={redirectToCourse}
                                   >
-                                    InProgress
+                                     {t('teacherJourney.InProgress')}
                                   </span>
                                 </>
                               ) : (
                                 <>
                                   <span className={"badge badge-linesuccess"}>
-                                    Completed
+                                  {t('teacherJourney.Completed')}
                                   </span>
                                 </>
                               )}
@@ -1035,10 +1147,10 @@ const MentorDashboard = () => {
                                 </Link>
                                 <div className="info">
                                   <Link to={"/mentorpostsurvey"}>
-                                    <h4>Post Survey</h4>
+                                    <h4> {t('teacherJourney.post')}</h4>
                                   </Link>
                                   <p className="dull-text">
-                                    Complete survey & Get Certificate
+                                  {t('teacherJourney.completecert')}
                                   </p>
                                 </div>
                               </div>
@@ -1076,13 +1188,13 @@ const MentorDashboard = () => {
                                     className={"badge badge-linedangered"}
                                     onClick={redirectToPost}
                                   >
-                                    Pending
+                                     {t('teacherJourney.pending')}
                                   </span>
                                 </>
                               ) : (
                                 <>
                                   <span className={"badge badge-linesuccess"}>
-                                    Completed
+                                  {t('teacherJourney.Completed')}
                                   </span>
                                 </>
                               )}
@@ -1125,10 +1237,10 @@ const MentorDashboard = () => {
                                 </Link>
                                 <div className="info">
                                   <Link to={"/tecresource"}>
-                                    <h4>Resources</h4>
+                                    <h4> {t('teacherJourney.Resources')}</h4>
                                   </Link>
                                   <p className="dull-text">
-                                    Find supportive docs here
+                                  {t('teacherJourney.rescourcetext')}
                                   </p>
                                 </div>
                               </div>
@@ -1159,7 +1271,7 @@ const MentorDashboard = () => {
                             </td>
                             <td>
                               <span className={"badge badge-linesuccess"}>
-                                References
+                              {t('teacherJourney.References')}
                               </span>
                             </td>
                             <td>
@@ -1199,10 +1311,10 @@ const MentorDashboard = () => {
                                 </Link>
                                 <div className="info">
                                   <Link to={"/mentorsupport"}>
-                                    <h4>Support</h4>
+                                    <h4> {t('teacherJourney.Support')}</h4>
                                   </Link>
                                   <p className="dull-text">
-                                    Raise your queries here
+                                  {t('teacherJourney.riseQ')}
                                   </p>
                                 </div>
                               </div>
@@ -1233,7 +1345,7 @@ const MentorDashboard = () => {
                             </td>
                             <td>
                               <span className={"badge badge-linesuccess"}>
-                                HelpLine
+                              {t('teacherJourney.HelpLine')}
                               </span>
                             </td>
                             <td>

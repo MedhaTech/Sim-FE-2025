@@ -16,6 +16,10 @@ const EvaluatorProfile = () => {
   const currentUser = getCurrentUser("current_user");
   const [mobile,setMobile]=useState("-");
   const [states,setStates]=useState([]);
+  const [theme,setTheme]=useState([]);
+  const [language,setLanguage]=useState([]);
+
+
 
   const navigate = useNavigate();
  useEffect(()=>{
@@ -45,7 +49,12 @@ getAPi();
             setMobile(response.data.data[0].mobile);
             const statesString = response.data.data[0].state; 
             setStates(statesString.split(','));
-            // setStates(response.data.data[0].states);
+            const languageString=response.data.data[0].language; 
+            const themeString=response.data.data[0].theme; 
+
+            setLanguage(languageString.split(','));
+            setTheme(themeString.split(','));
+
 
 
           }
@@ -123,37 +132,53 @@ console.log(mobile,"m");
                     <Row>
                         <Label className="mb-2">Evaluator Enable States:</Label>
                         <Row>
-                        {/* {states.length > 0 ? (
-                        states.map((state, index) => (
-                            <Col key={index} xs={12} md={6} lg={3} className="mb-2">
-                                <div>
-                                    {state.trim()} 
-                                </div>
-                            </Col>
-                        ))
-                    ) : (
-                        <div>No states available</div>
-                    )} */}
+                       
                      {states.length > 0 ? (
                         states.map((state, index) => (
                             <Col key={index} xs={12} md={6} lg={3} className="mb-2">
                                 <div className="d-flex align-items-center">
-                                    {/* <input 
-                                        type="checkbox" 
-                                        checked 
-                                        readOnly 
-                                        className="me-2" 
-                                        style={{ 
-                                          pointerEvents: 'none', 
-                                          cursor: 'default' 
-                                      }} 
-                                    /> */}
+                                   
                                     <span>{state.trim()}</span>
                                 </div>
                             </Col>
                         ))
                     ) : (
-                        <div>No states available</div>
+                        <div>No States available</div>
+                    )}
+                </Row>
+                    </Row>
+                    <Row>
+                        <Label className="mb-2">Evaluator Enable Languages :</Label>
+                        <Row>
+                       
+                     {language.length > 0 ? (
+                        language.map((language, index) => (
+                            <Col key={index} xs={12} md={6} lg={3} className="mb-2">
+                                <div className="d-flex align-items-center">
+                                   
+                                    <span>{language}</span>
+                                </div>
+                            </Col>
+                        ))
+                    ) : (
+                        <div>No Language available</div>
+                    )}
+                </Row>
+                    </Row>
+                    <Row>
+                        <Label className="mb-2">Evaluator Enable Themes :</Label>
+                        <Row>
+                     {theme.length > 0 ? (
+                        theme.map((theme, index) => (
+                            <Col key={index} xs={12} md={6} lg={3} className="mb-2">
+                                <div className="d-flex align-items-center">
+                                   
+                                    <span>{theme}</span>
+                                </div>
+                            </Col>
+                        ))
+                    ) : (
+                        <div>No Theme available</div>
                     )}
                 </Row>
                     </Row>

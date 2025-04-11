@@ -8,7 +8,7 @@ import axios from "axios";
 import CryptoJS from "crypto-js";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { getCurrentUser } from "../helpers/Utils";
+import { getCurrentUser,openNotificationWithIcon } from "../helpers/Utils";
 import { useTranslation } from "react-i18next";
 import "sweetalert2/src/sweetalert2.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -27,7 +27,7 @@ const ChangePwd = (props) => {
   const [isOldPasswordVisible, setOldPasswordVisible] = useState(false);
   const [isNewPasswordVisible, setNewPasswordVisible] = useState(false);
   const [isPasswordVisible, setPasswordVisible] = useState(false);
-
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   const formik = useFormik({
     initialValues: {
       oldPassword: "",
@@ -39,10 +39,17 @@ const ChangePwd = (props) => {
       oldPassword: Yup.string().required(
         <span style={{ color: "red" }}>Required</span>
       ),
-      newPassword: Yup.string().required(
+      newPassword: Yup.string()
+    .matches(
+      passwordRegex,
+      "Password must be at least 8 characters and include one uppercase, one lowercase, one number, and one special character"
+    )
+      .required(
         <span style={{ color: "red" }}>Required</span>
       ),
-      confirmPassword: Yup.string().required(
+      confirmPassword: Yup.string()
+      .oneOf([Yup.ref("newPassword"), null], "Passwords must match")
+      .required(
         <span style={{ color: "red" }}>Required</span>
       ),
     }),
@@ -83,6 +90,9 @@ const ChangePwd = (props) => {
         axios(config)
           .then(function (response) {
             SetResponce("Password updated successfully");
+                        openNotificationWithIcon("success",   t('teacherJourney.popup8'));
+            
+           
             setTimeout(() => {
               SetResponce("");
               navigate("/teacher-dashboard");
@@ -150,14 +160,13 @@ const ChangePwd = (props) => {
             <form action="success-3" onSubmit={formik.handleSubmit}>
               <div className="login-userset">
                 <div className="login-userheading">
-                  <h3>Reset password?</h3>
+                  <h3> {t('teacherJourney.Resetpassword')}</h3>
                   <h4>
-                    A strong password helps prevent unauthorized access to your
-                    account.
+                  {t('teacherJourney.curent')}
                   </h4>
                 </div>
                 <div className="form-login mb-2">
-                  <label>Current Password</label>
+                  <label>{t('teacherJourney.pas1')}</label>
                   <div className="pass-group">
                     <input
                       className="pass-input"
@@ -184,7 +193,7 @@ const ChangePwd = (props) => {
                   ) : null}
                 </div>
                 <div className="form-login mb-2">
-                  <label>New Password</label>
+                  <label>{t('teacherJourney.pas2')}</label>
                   <div className="pass-group">
                     <input
                       className="pass-inputs"
@@ -205,17 +214,17 @@ const ChangePwd = (props) => {
                     ></div>
                   </div>
                   <small className="mt-2">
-                    8-character minimum; case sensitive
+                  {/* {t('teacherJourney.8-charac_minimum_case_sensitive')} */}
                   </small>
                   <br />
                   {formik.touched.newPassword && formik.errors.newPassword ? (
-                    <small className="error-cls">
+                    <small className="error-cls" style={{ color: "red" }}>
                       {formik.errors.newPassword}
                     </small>
                   ) : null}
                 </div>
                 <div className="form-login mb-2">
-                  <label> Confirm New Password</label>
+                  <label> {t('teacherJourney.pas3')}</label>
                   <div className="pass-group">
                     <input
                       className="pass-inputa"
@@ -237,7 +246,7 @@ const ChangePwd = (props) => {
                   </div>
                   {formik.touched.confirmPassword &&
                   formik.errors.confirmPassword ? (
-                    <small className="error-cls">
+                    <small className="error-cls" style={{ color: "red" }}>
                       {formik.errors.confirmPassword}
                     </small>
                   ) : null}
@@ -246,14 +255,14 @@ const ChangePwd = (props) => {
                 <b style={{ color: "#3BB143" }}>{responce}</b>
                 <div className="form-login">
                   <button className="btn btn-login" type="submit">
-                    Change Password{"  "} <FontAwesomeIcon icon={faKey} />
+                  {t('teacherJourney.pas4')}{"  "} <FontAwesomeIcon icon={faKey} />
                   </button>
                 </div>
                 <div className="signinform text-center">
                   <h4>
                     <Link to={"/teacher-dashboard"} className="hover-a">
                       {" "}
-                      Cancel{" "}
+                      {t('teacherJourney.Cancel')}{" "}
                     </Link>
                   </h4>
                 </div>

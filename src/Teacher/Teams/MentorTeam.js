@@ -14,6 +14,7 @@ import { encryptGlobal } from "../../constants/encryptDecrypt";
 import CreateMultipleMembers from "./CreateMultipleMembers";
 import { useNavigate } from "react-router-dom";
 import {teamLength} from "../../RegPage/ORGData";
+import { useTranslation } from "react-i18next";
 
 // import { all_routes } from "../../Router/all_routes";
 const studentBody = {
@@ -525,7 +526,7 @@ export const CreateTeamMember = (props) => {
   const loc = useLocation();
   const params = loc.pathname.split("/");
   const pl = params.length;
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
   const id = params[pl - 2];
   const studentCount = params[pl - 1];
   const currentUser = getCurrentUser("current_user");
@@ -662,7 +663,7 @@ export const CreateTeamMember = (props) => {
             if (response.status === 201) {
               openNotificationWithIcon(
                 "success",
-                "Team Member Created Successfully"
+                t('teacherJourney.popup1'),
               );
               navigate("/mentorteams");
             } else {

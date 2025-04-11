@@ -19,6 +19,7 @@ import team from "../../assets/img/icons/team2.png";
 import  "./styles.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import LanguageSelectorComp from '../../components/LanguageSelectorComp/index.js';
 
 const Header = () => {
   const route = all_routes;
@@ -435,6 +436,12 @@ const Header = () => {
             </div>
           </li> */}
           {/* /Flag */}
+        {currentUser?.data[0]?.role == "STUDENT" && (  <div className="d-flex align-items-center">
+              <div className="dropdown ">
+                  <LanguageSelectorComp module="student" />
+              </div>
+            </div>
+            )}
           <li className="nav-item nav-item-box">
             <Link
               to="#"
@@ -663,7 +670,7 @@ const Header = () => {
                   </div>
                   <hr className="m-0" />
                   <Link className="dropdown-item" to="/team-profile">
-                    <User className="me-2" /> <h6>My Profile</h6>
+                    <User className="me-2" /> <h6> {t('home.my_profile')}</h6>
                   </Link>
                   <hr className="m-0" />
                   <Link
@@ -672,7 +679,7 @@ const Header = () => {
                     onClick={handleLogout}
                   >
                     <img src={logoutIcon} alt="LogoutIcon" />
-                    Logout
+                    {t('teacher.logout')}
                   </Link>
                 </div>
               </div>
@@ -725,11 +732,11 @@ const Header = () => {
                   </Link> */}
                   {currentUser?.data[0]?.role === "TEAM" ? (
                     <Link className="dropdown-item" to="/team-profile">
-                      <FontAwesomeIcon icon={faUser} /><h6>My Profile</h6>
+                      <FontAwesomeIcon icon={faUser} /><h6>{t('home.my_profile')}</h6>
                     </Link>
                   ) :  presurvey == "COMPLETED" ?(
                     <Link className="dropdown-item" to="/student-profile">
-                      <FontAwesomeIcon icon={faUser} /><h6>My Profile</h6>
+                      <FontAwesomeIcon icon={faUser} /><h6>{t('home.my_profile')}</h6>
                     </Link>
                   ): null}
                   <hr className="m-0" />
@@ -739,7 +746,7 @@ const Header = () => {
                     onClick={handleLogout}
                   >
                     <img src={logoutIcon} alt="LogoutIcon" />
-                    Logout
+                    {t('teacher.logout')}
                   </Link>
                 </div>
               </div>
@@ -761,11 +768,11 @@ const Header = () => {
             <div className="dropdown-menu dropdown-menu-right">
               {currentUser?.data[0]?.role === "TEAM" ? (
                 <Link className="dropdown-item" to="/team-profile">
-                  My Profile
+                  {t('home.my_profile')}
                 </Link>
               ) :  presurvey == "COMPLETED" ?(
                 <Link className="dropdown-item" to="/student-profile">
-                  My Profile
+                  {t('home.my_profile')}
                 </Link>
               ): null}
               {/* <Link className="dropdown-item" to="generalsettings">
@@ -776,7 +783,7 @@ const Header = () => {
                 to="signin"
                 onClick={handleLogout1}
               >
-                Logout
+                 {t('teacher.logout')}
               </Link>
             </div>
           </div>
@@ -796,11 +803,11 @@ const Header = () => {
               </Link> */}
               {currentUser?.data[0]?.role === "TEAM" ? (
                 <Link className="dropdown-item" to="/team-profile">
-                  My Profile
+                  {t('home.my_profile')}
                 </Link>
               ) : presurvey == "COMPLETED" ?(
                 <Link className="dropdown-item" to="/student-profile">
-                  My Profile
+                  {t('home.my_profile')}
                 </Link>
               ): null}
               {/* <Link className="dropdown-item" to="generalsettings">
@@ -811,7 +818,7 @@ const Header = () => {
                 to="signin"
                 onClick={handleLogout1}
               >
-                Logout
+                {t('teacher.logout')}
               </Link>
             </div>
           </div>

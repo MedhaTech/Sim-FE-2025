@@ -46,6 +46,7 @@ import { stateList, districtList } from "../../../RegPage/ORGData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMale, faFemale, faSchool } from "@fortawesome/free-solid-svg-icons";
 import ReactApexChart from "react-apexcharts";
+import Check from "../../../Evaluator/Admin/EvalProcess/Pages/Check";
 
 // import { categoryValue } from '../../Schools/constentText';
 
@@ -57,15 +58,12 @@ const ReportsRegistration = () => {
   const [category, setCategory] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [filteresData, setFilteresData] = useState([]);
-
   const filterOptions = ["Registered", "Not Registered"];
   const categoryData = ["All Categories", "ATL", "Non ATL"];
-  const categoryDataTn = [
-  "All Categories",
-   "HSS",
-    "HS",
-    "Non ATL",
-  ];
+  const categoryDataTn = ["All Categories", "HSS", "HS", "Non ATL"];
+  const valueSel = [];
+  const [showCustomization, setShowCustomization] = useState(false);
+
   useEffect(() => {
     setRegTeachersdistrict('');
   }, [RegTeachersState]);
@@ -272,12 +270,95 @@ const ReportsRegistration = () => {
       key: "principal_email",
     },
   ];
+  const NotReglabels = notRegHeaders.map(header => header.label);
+  NotReglabels.unshift("Select ALL");
+  const Reglabels = RegHeaders.map(header => header.label);
+  Reglabels.unshift("Select ALL");
+
+  const [clickedValue, setclickedValue] = useState({});
+  const [selectedValue, setselectedValue] = useState([]);
 
   useEffect(() => {
-    // if (RegTeachersState !== '') {
-    //     (RegTeachersState);
-    // }
-    // setRegTeachersdistrict('');
+    if (clickedValue.name === 'Select ALL') {
+      if (selectedValue.includes('Select ALL')) {
+        setselectedValue(filterType === "Not Registered" ? NotReglabels : Reglabels);
+      } else {
+        setselectedValue([]);
+      }
+    } else if (
+      clickedValue.name &&
+      clickedValue.name !== 'Select ALL' &&
+      selectedValue.length === (filterType === "Not Registered" ? NotReglabels.length - 1 : Reglabels.length - 1) &&
+      !selectedValue.includes('Select ALL')
+    ) {
+      setselectedValue(filterType === "Not Registered" ? NotReglabels : Reglabels);
+    } else if (clickedValue.name && clickedValue.name !== 'Select ALL') {
+      setselectedValue(
+        selectedValue?.filter((item) => item !== 'Select ALL')
+      );
+    }
+  }, [clickedValue]);
+
+  useEffect(() => {
+    setselectedValue([]);
+    setclickedValue({});
+  }, [filterType]);
+
+  const enable =
+    RegTeachersState?.trim() !== "" &&
+    RegTeachersdistrict?.trim() !== "" &&
+    filterType?.trim() !== "" &&
+    category?.trim() !== "";
+  const [filterheaders, setfilterheaders] = useState([]);
+  const handleDownload = () => {
+    if (
+      !RegTeachersState ||
+      !RegTeachersdistrict ||
+      !filterType ||
+      !category
+    ) {
+      notification.warning({
+        message:
+          "Select state, district, filters, category to download report.",
+      });
+      return;
+    }
+    if (filterType === "Not Registered") {
+      setfilterheaders(notRegHeaders
+        .filter(header => selectedValue.includes(header.label))
+        .map(header => header));
+    }
+    if (filterType === "Registered") {
+      setfilterheaders(RegHeaders
+        .filter(header => selectedValue.includes(header.label))
+        .map(header => header));
+    }
+    setIsDownloading(true);
+  };
+
+  const handleCustom = () => {
+    if (filterType === "Not Registered" && filteresData.length <= 0) {
+      fetchData(filterType);
+    }
+    if (filterType === "Registered" && filteredData.length <= 0) {
+      fetchData(filterType);
+    }
+    if (filteresData.length > 0) {
+      setShowCustomization(!showCustomization);
+    }
+    if (filteredData.length > 0) {
+      setShowCustomization(!showCustomization);
+    }
+
+  };
+
+  useEffect(() => {
+    setFilteredData([]);
+    setFilteresData([]);
+    setfilterheaders([]);
+  }, [RegTeachersState, RegTeachersdistrict, filterType, category]);
+
+  useEffect(() => {
     fetchChartTableData();
   }, []);
 
@@ -369,7 +450,7 @@ const ReportsRegistration = () => {
 
   var options = {
     chart: {
-      height: 700, 
+      height: 700,
       width: 1000,
       type: "bar",
       toolbar: {
@@ -422,7 +503,7 @@ const ReportsRegistration = () => {
         autoSkip: false,
       },
     },
-    
+
     legend: {
       position: "top",
       horizontalAlign: "left",
@@ -452,8 +533,8 @@ const ReportsRegistration = () => {
       item === "Registered"
         ? `/reports/mentorRegList?Data=${param}`
         : item === "Not Registered"
-        ? `/reports/notRegistered?Data=${params}`
-        : "";
+          ? `/reports/notRegistered?Data=${params}`
+          : "";
 
     const config = {
       method: "get",
@@ -471,31 +552,20 @@ const ReportsRegistration = () => {
             setFilteredData(response?.data?.data || []);
             setDownloadData(response?.data?.data || []);
             if (response?.data.count > 0) {
-              openNotificationWithIcon(
-                "success",
-                `${filterType} Report Downloaded Successfully`
-              );
+              setShowCustomization(!showCustomization);
             } else {
               openNotificationWithIcon("error", "No Data Found");
             }
-            // csvLinkRef.current.link.click();
           } else if (item === "Not Registered") {
             setFilteresData(response?.data?.data || []);
             setDownloadNotRegisteredData(response?.data?.data || []);
             if (response?.data.count > 0) {
-              openNotificationWithIcon(
-                "success",
-                `${filterType} Report Downloaded Successfully`
-              );
+              setShowCustomization(!showCustomization);
             } else {
               openNotificationWithIcon("error", "No Data Found");
             }
-            // csvLinkRefNotRegistered.current.link.click();
           }
-          // openNotificationWithIcon(
-          //     'success',
-          //     `${filterType} Report Downloaded Successfully`
-          // );
+
           setIsDownloading(false);
         }
       })
@@ -504,35 +574,26 @@ const ReportsRegistration = () => {
         setIsDownloading(false);
       });
   };
-
-  const handleDownload = () => {
-    if (
-      !RegTeachersState ||
-      !RegTeachersdistrict ||
-      !filterType ||
-      !category
-    ) {
-      notification.warning({
-        message:
-          "Select state, district, filters, category to download report.",
-      });
-      return;
-    }
-    setIsDownloading(true);
-    fetchData(filterType);
-  };
-
+  
   useEffect(() => {
-    if (filteredData.length > 0) {
+    if (filteredData.length > 0 && filterheaders.length > 0) {
       setDownloadData(filteredData);
       csvLinkRef.current.link.click();
+      openNotificationWithIcon(
+        "success",
+        `${filterType} Report Downloaded Successfully`
+      );
     }
-    if (filteresData.length > 0) {
+    if (filteresData.length > 0 && filterheaders.length > 0) {
       setDownloadNotRegisteredData(filteresData);
       csvLinkRefNotRegistered.current.link.click();
       console.log("Performing operation with the updated data.");
+      openNotificationWithIcon(
+        "success",
+        `${filterType} Report Downloaded Successfully`
+      );
     }
-  }, [filteredData, filteresData]);
+  }, [filteredData, filteresData, filterheaders]);
 
   useEffect(() => {
     if (downloadComplete) {
@@ -544,9 +605,8 @@ const ReportsRegistration = () => {
       setFilterType("");
     }
     const newDate = new Date();
-    const formattedDate = `${newDate.getUTCDate()}/${
-      1 + newDate.getMonth()
-    }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
+    const formattedDate = `${newDate.getUTCDate()}/${1 + newDate.getMonth()
+      }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
     setNewFormat(formattedDate);
   }, [downloadComplete]);
 
@@ -567,8 +627,9 @@ const ReportsRegistration = () => {
 
           const chartTableData = response?.data?.data || [];
           setChartTableData(chartTableData);
-          const formattedData = chartTableData.map(item => ({...item,
-            total: `${item.ATL_Reg_Count+item.NONATL_Reg_Count+item.Others_Reg_Count}`
+          const formattedData = chartTableData.map(item => ({
+            ...item,
+            total: `${item.ATL_Reg_Count + item.NONATL_Reg_Count + item.Others_Reg_Count}`
           }));
           setDownloadTableData(formattedData);
           // console.log(chartTableData, "table data");
@@ -583,25 +644,24 @@ const ReportsRegistration = () => {
           const OthersRegCount = lastRow?.Others_Reg_Count || 0;
 
 
-          console.log("others Teachers:", othersCount);
           setRegisteredGenderChartData({
-            labels: ["Male Teachers", "Female Teachers","Others"],
+            labels: ["Male Teachers", "Female Teachers", "Others"],
             datasets: [
               {
-                data: [maleCount, femaleCount,othersCount],
-                backgroundColor: ["#8bcaf4", "#ff99af","#A0522D"],
-                hoverBackgroundColor: ["#36A2EB", "#FF6384",'#8B4513'],
+                data: [maleCount, femaleCount, othersCount],
+                backgroundColor: ["#8bcaf4", "#ff99af", "#A0522D"],
+                hoverBackgroundColor: ["#36A2EB", "#FF6384", '#8B4513'],
               },
             ],
           });
 
           setRegisteredChartData({
-            labels: ["ATL Teachers Registered", "NON ATL Teachers Registered","Others Teachers Registered"],
+            labels: ["ATL Teachers Registered", "NON ATL Teachers Registered", "Others Teachers Registered"],
             datasets: [
               {
-                data: [ATLregCount, NONATLregNotCount,OthersRegCount],
-                backgroundColor: ["#85e085", "#ffcc80","#A0522D"],
-                hoverBackgroundColor: ["#33cc33", "#ffa31a",'#8B4513'],
+                data: [ATLregCount, NONATLregNotCount, OthersRegCount],
+                backgroundColor: ["#85e085", "#ffcc80", "#A0522D"],
+                hoverBackgroundColor: ["#33cc33", "#ffa31a", '#8B4513'],
               },
             ],
           });
@@ -630,7 +690,6 @@ const ReportsRegistration = () => {
             ],
           };
           setBarChart1Data(barData);
-          console.log(barData,"barData");
           setseries1(barData.datasets[2].data);
           setseries2(barData.datasets[1].data);
         }
@@ -639,18 +698,18 @@ const ReportsRegistration = () => {
         console.log("API error:", error);
       });
   };
-  
+
   return (
     <div className="page-wrapper">
-       <h4 className="m-2" 
-        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
-        >Reports
-        </h4>
+      <h4 className="m-2"
+        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px', backgroundColor: 'white', display: 'inline-block', color: '#fe9f43', fontSize: "16px" }}
+      >Reports
+      </h4>
       <div className="content">
         <div className="page-header">
           <div className="add-item d-flex">
             <div className="page-title">
-              <h4>2. Teacher Regristration Report</h4>
+              <h4>2. Teacher Registration Report</h4>
               <h6>List of Teachers registered and their details</h6>
             </div>
           </div>
@@ -723,7 +782,7 @@ const ReportsRegistration = () => {
                 </div>
               </Col>
 
-              <Col
+              {/* <Col
                 md={2}
                 className="d-flex align-items-center justify-content-center"
               >
@@ -735,268 +794,270 @@ const ReportsRegistration = () => {
                 >
                   {isDownloading ? "Downloading" : "Download Report"}
                 </button>
-              </Col>
-            </Row> 
-            {isloader ?
-            <div className="chart mt-2 mb-2">
-              {chartTableData.length > 0 && (
-                <div className="row">
-                  <div className="col-sm-12 col-md-12 col-xl-4 d-flex">
-                    <div className="card flex-fill default-cover w-100 mb-4">
-                      <div className="card-header d-flex justify-content-between align-items-center">
-                        <h4 className="card-title mb-0">Data Analytics</h4>
-                        <div className="dropdown">
-                          <Link
-                            to="#"
-                            className="view-all d-flex align-items-center"
-                          >
-                            View All
-                            <span className="ps-2 d-flex align-items-center">
-                              <ArrowRight className="feather-16" />
-                            </span>
-                          </Link>
-                        </div>
-                      </div>
-                      <div className="card-body">
-                        <div className="row">
-                          <div className="col-md-12 text-center mt-3">
-                            <p>
-                              <b>
-                                Overall Registered ATL vs Non ATL vs Other Teachers As of{" "}
-                                {newFormat}
-                              </b>
-                            </p>
-                          </div>
-                          <div className="col-md-12 doughnut-chart-container">
-                            {registeredChartData && (
-                              <Doughnut
-                                data={registeredChartData}
-                                options={chartOption}
-                              />
-                            )}
-                          </div>
-                          <div className="col-md-12 text-center mt-3">
-                            <p>
-                              <b>
-                                Overall Registered Female vs Male vs Other Teachers As of{" "}
-                                {newFormat}
-                              </b>
-                            </p>
-                          </div>
-                          <div className="col-md-12 doughnut-chart-container">
-                            {registeredGenderChartData && (
-                              <Doughnut
-                                data={registeredGenderChartData}
-                                options={chartOptions}
-                              />
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-sm-12 col-md-12 col-xl-8 d-flex">
-                    <div className="card flex-fill default-cover w-100 mb-4">
-                      <div className="card-header d-flex justify-content-between align-items-center">
-                        <h4 className="card-title mb-0">
-                          States wise Teacher Registration Stats
-                        </h4>
-                        <div className="dropdown">
-                          <Link
-                            to="#"
-                            className="view-all d-flex align-items-center"
-                          >
-                            <button
-                              className="btn mx-2 btn-primary"
-                              type="button"
-                              onClick={() => {
-                                if (downloadTableData) {
-                                  // setIsDownloading(true);
-                                  setDownloadTableData(null);
-                                  csvLinkRefTable.current.link.click();
-                                }
-                              }}
-                            >
-                              Get Statistics
-                            </button>
-                          </Link>
-                        </div>
-                      </div>
-                      <div className="card-body">
-                        <div className="table-responsive">
-                          <table className="table table-border recent-transactions">
-                            <thead>
-                              <tr>
-                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>#</th>
-                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>State Name</th>
-                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                   Schools in DB{" "}
-                                  <FontAwesomeIcon icon={faSchool} />
-                                </th>
-                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                  Registered Schools
-                                </th>
-                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                  ATL Teachers
-                                </th>
-                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                  Non-ATL Teachers
-                                </th>
-                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                  Others Teachers
-                                </th>
-                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                  Total Teachers
-                                </th>
-                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                  <FontAwesomeIcon icon={faMale} />
-                                  Male
-                                </th>
-                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                  <FontAwesomeIcon icon={faFemale} />
-                                  Female
-                                </th>
-                                <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                  <FontAwesomeIcon icon={faMale} />
-                                  Others
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {chartTableData.map((item, index) => (
-                                <tr key={index}>
-                                  <td>{index + 1}</td>
-                                  <td
-                                    style={{
-                                      maxWidth: "150px",
-                                      overflow: "hidden",
-                                      textOverflow: "ellipsis",
-                                      color: "crimson"
-                                    }}
-                                  >
-                                    {item.state}
-                                  </td>
-                                  <td>{item.Eligible_school
-                                  }</td>
-                                  <td>{item.reg_school
-}</td>
-                                  <td>{item.ATL_Reg_Count}</td>
-                                  <td>{item.NONATL_Reg_Count}</td>
-                                  <td>{item.Others_Reg_Count}</td>
+              </Col> */}
+              <Col md={2}>
+                <button
+                  onClick={() => {
+                    handleCustom();
+                    setselectedValue([]);
+                  }}
+                  type="button"
+                  disabled={!enable}
+                  className="btn btn-primary"
 
-                                  <td>{item.ATL_Reg_Count+item.NONATL_Reg_Count+item.Others_Reg_Count}</td>
-                                  <td>{item.Male}</td>
-                                  <td>{item.Female}</td>
-                                  <td>{item.others}</td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
+                >
+                  Customization
+                </button>
+              </Col>
+              {showCustomization && (
+                <div
+                  className="card mt-3"
+                // style={{ width: "50%", padding: "20px" }}
+                >
+                  <div className="card-body">
+                    <h5 className="card-title">Select Columns</h5>
+                    <div className="row">
+                      <Check
+                        list={filterType === "Not Registered" ? NotReglabels : Reglabels}
+                        value={selectedValue}
+                        setValue={setselectedValue}
+                        selValue={setclickedValue}
+                      />
                     </div>
+                    <button
+                      className="btn btn-danger mt-3"
+                      onClick={async () => {
+                        setShowCustomization(false);
+                        handleDownload();
+                      }}
+                      disabled={selectedValue.length === 0}
+                    >
+                      Download Report
+                    </button>
                   </div>
                 </div>
               )}
-              <div className="col-md-12">
-                <div className="card">
-                  <div className="card-header">
-                    <h5 className="card-title">
-                      Registered Schools As of{" "}
-                      {newFormat}
-                    </h5>
+            </Row>
+            {isloader ?
+              <div className="chart mt-2 mb-2">
+                {chartTableData.length > 0 && (
+                  <div className="row">
+                    <div className="col-sm-12 col-md-12 col-xl-4 d-flex">
+                      <div className="card flex-fill default-cover w-100 mb-4">
+                        <div className="card-header d-flex justify-content-between align-items-center">
+                          <h4 className="card-title mb-0">Data Analytics</h4>
+                          <div className="dropdown">
+                            <Link
+                              to="#"
+                              className="view-all d-flex align-items-center"
+                            >
+                              View All
+                              <span className="ps-2 d-flex align-items-center">
+                                <ArrowRight className="feather-16" />
+                              </span>
+                            </Link>
+                          </div>
+                        </div>
+                        <div className="card-body">
+                          <div className="row">
+                            <div className="col-md-12 text-center mt-3">
+                              <p>
+                                <b>
+                                  Overall Registered ATL vs Non ATL vs Other Teachers As of{" "}
+                                  {newFormat}
+                                </b>
+                              </p>
+                            </div>
+                            <div className="col-md-12 doughnut-chart-container">
+                              {registeredChartData && (
+                                <Doughnut
+                                  data={registeredChartData}
+                                  options={chartOption}
+                                />
+                              )}
+                            </div>
+                            <div className="col-md-12 text-center mt-3">
+                              <p>
+                                <b>
+                                  Overall Registered Female vs Male vs Other Teachers As of{" "}
+                                  {newFormat}
+                                </b>
+                              </p>
+                            </div>
+                            <div className="col-md-12 doughnut-chart-container">
+                              {registeredGenderChartData && (
+                                <Doughnut
+                                  data={registeredGenderChartData}
+                                  options={chartOptions}
+                                />
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-sm-12 col-md-12 col-xl-8 d-flex">
+                      <div className="card flex-fill default-cover w-100 mb-4">
+                        <div className="card-header d-flex justify-content-between align-items-center">
+                          <h4 className="card-title mb-0">
+                            States wise Teacher Registration Stats
+                          </h4>
+                          <div className="dropdown">
+                            <Link
+                              to="#"
+                              className="view-all d-flex align-items-center"
+                            >
+                              <button
+                                className="btn mx-2 btn-primary"
+                                type="button"
+                                onClick={() => {
+                                  if (downloadTableData) {
+                                    // setIsDownloading(true);
+                                    setDownloadTableData(null);
+                                    csvLinkRefTable.current.link.click();
+                                  }
+                                }}
+                              >
+                                Get Statistics
+                              </button>
+                            </Link>
+                          </div>
+                        </div>
+                        <div className="card-body">
+                          <div className="table-responsive">
+                            <table className="table table-border recent-transactions">
+                              <thead>
+                                <tr>
+                                  <th style={{ whiteSpace: "wrap", color: "#36A2EB", fontWeight: "bold" }}>#</th>
+                                  <th style={{ whiteSpace: "wrap", color: "#36A2EB", fontWeight: "bold" }}>State Name</th>
+                                  <th style={{ whiteSpace: "wrap", color: "#36A2EB", fontWeight: "bold" }}>
+                                    Schools in DB{" "}
+                                    <FontAwesomeIcon icon={faSchool} />
+                                  </th>
+                                  <th style={{ whiteSpace: "wrap", color: "#36A2EB", fontWeight: "bold" }}>
+                                    Registered Schools
+                                  </th>
+                                  <th style={{ whiteSpace: "wrap", color: "#36A2EB", fontWeight: "bold" }}>
+                                    ATL Teachers
+                                  </th>
+                                  <th style={{ whiteSpace: "wrap", color: "#36A2EB", fontWeight: "bold" }}>
+                                    Non-ATL Teachers
+                                  </th>
+                                  <th style={{ whiteSpace: "wrap", color: "#36A2EB", fontWeight: "bold" }}>
+                                    Others Teachers
+                                  </th>
+                                  <th style={{ whiteSpace: "wrap", color: "#36A2EB", fontWeight: "bold" }}>
+                                    Total Teachers
+                                  </th>
+                                  <th style={{ whiteSpace: "wrap", color: "#36A2EB", fontWeight: "bold" }}>
+                                    <FontAwesomeIcon icon={faMale} />
+                                    Male
+                                  </th>
+                                  <th style={{ whiteSpace: "wrap", color: "#36A2EB", fontWeight: "bold" }}>
+                                    <FontAwesomeIcon icon={faFemale} />
+                                    Female
+                                  </th>
+                                  <th style={{ whiteSpace: "wrap", color: "#36A2EB", fontWeight: "bold" }}>
+                                    <FontAwesomeIcon icon={faMale} />
+                                    Others
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {chartTableData.map((item, index) => (
+                                  <tr key={index}>
+                                    <td>{index + 1}</td>
+                                    <td
+                                      style={{
+                                        maxWidth: "150px",
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
+                                        color: "crimson"
+                                      }}
+                                    >
+                                      {item.state}
+                                    </td>
+                                    <td>{item.Eligible_school
+                                    }</td>
+                                    <td>{item.reg_school
+                                    }</td>
+                                    <td>{item.ATL_Reg_Count}</td>
+                                    <td>{item.NONATL_Reg_Count}</td>
+                                    <td>{item.Others_Reg_Count}</td>
+
+                                    <td>{item.ATL_Reg_Count + item.NONATL_Reg_Count + item.Others_Reg_Count}</td>
+                                    <td>{item.Male}</td>
+                                    <td>{item.Female}</td>
+                                    <td>{item.others}</td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="card-body">
-                    <div id="s-col-stacked" />
-                    <ReactApexChart
-                      options={options}
-                      series={options.series}
-                      type="bar"
-                      // type="area"
-                      height={400}
-                    />
+                )}
+                <div className="col-md-12">
+                  <div className="card">
+                    <div className="card-header">
+                      <h5 className="card-title">
+                        Registered Schools As of{" "}
+                        {newFormat}
+                      </h5>
+                    </div>
+                    <div className="card-body">
+                      <div id="s-col-stacked" />
+                      <ReactApexChart
+                        options={options}
+                        series={options.series}
+                        type="bar"
+                        // type="area"
+                        height={400}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-              {/* <div className="mt-5">
-                                    <div
-                                        className="col-md-12 chart-container mt-5"
-                                        style={{
-                                            width: '100%',
-                                            height: '370px'
-                                        }}
-                                    >
-                                        <div className="chart-box">
-                                            <Chart
-                                                type="bar"
-                                                data={barChart1Data}
-                                                options={options}
-                                                style={{ height: "300px" }}
-                                            />
-                                            <div className="chart-title">
-                                                <p>
-                                                    <b>
-                                                        Registered ATL Schools
-                                                        v/s Registered Non ATL
-                                                        Schools {newFormat}
-                                                    </b>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> */}
-             
-            </div>
-            :
-             <div className="spinner-border text-info" role="status">
-             <span className="sr-only">Loading...</span>
-           </div>
-         }
-          {downloadTableData && (
-                <CSVLink
-                  data={downloadTableData}
-                  headers={summaryHeaders}
-                  filename={`TeacherRegistrationSummaryTable_${newFormat}.csv`}
-                  className="hidden"
-                  ref={csvLinkRefTable}
-                  // onDownloaded={() => {
-                  //     setIsDownloading(false);
-                  //     setDownloadComplete(true);
-                  // }}
-                >
-                  Download Table CSV
-                </CSVLink>
-              )}
-              {downloadData && (
-                <CSVLink
-                  data={downloadData}
-                  headers={RegHeaders}
-                  filename={`Teacher_${filterType}Report_${newFormat}.csv`}
-                  className="hidden"
-                  ref={csvLinkRef}
-                  // onDownloaded={() => {
-                  //     setIsDownloading(false);
-                  //     setDownloadComplete(true);
-                  // }}
-                >
-                  Download CSV
-                </CSVLink>
-              )}
-              {downloadNotRegisteredData && (
-                <CSVLink
-                  data={downloadNotRegisteredData}
-                  headers={notRegHeaders}
-                  filename={`Teacher_${filterType}Report_${newFormat}.csv`}
-                  className="hidden"
-                  ref={csvLinkRefNotRegistered}
-                  // onDownloaded={() => {
-                  //     setIsDownloading(false);
-                  //     setDownloadComplete(true);
-                  // }}
-                >
-                  Download Not Registered CSV
-                </CSVLink>
-              )}
+              :
+              <div className="spinner-border text-info" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            }
+            {downloadTableData && (
+              <CSVLink
+                data={downloadTableData}
+                headers={summaryHeaders}
+                filename={`TeacherRegistrationSummaryTable_${newFormat}.csv`}
+                className="hidden"
+                ref={csvLinkRefTable}
+              >
+                Download Table CSV
+              </CSVLink>
+            )}
+            {downloadData && (
+              <CSVLink
+                data={downloadData}
+                headers={filterheaders}
+                filename={`Teacher_${filterType}Report_${newFormat}.csv`}
+                className="hidden"
+                ref={csvLinkRef}
+              >
+                Download CSV
+              </CSVLink>
+            )}
+            {downloadNotRegisteredData && (
+              <CSVLink
+                data={downloadNotRegisteredData}
+                headers={filterheaders}
+                filename={`Teacher_${filterType}Report_${newFormat}.csv`}
+                className="hidden"
+                ref={csvLinkRefNotRegistered}
+              >
+                Download Not Registered CSV
+              </CSVLink>
+            )}
           </div>
         </Container>
       </div>

@@ -74,10 +74,10 @@ const EditStateData = (props) => {
           body["whatapp_link"] = values.whatapp_link;
         }
         const newsId = encryptGlobal(
-          JSON.stringify(newsID.state_coordinators_id)
+          JSON.stringify(newsID.state_specific_id)
         );
         const response = await axios.put(
-          `${process.env.REACT_APP_API_BASE_URL}/state_coordinators/${newsId}`,
+          `${process.env.REACT_APP_API_BASE_URL}/states/specific/${newsId}`,
           body,
           {
             headers: {

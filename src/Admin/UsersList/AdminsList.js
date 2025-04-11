@@ -21,6 +21,7 @@ import { AlertOctagon,PlusCircle, Check} from 'feather-icons-react/build/IconCom
 import { getNormalHeaders } from '../../helpers/Utils';
 
 // import { useHistory } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
@@ -104,7 +105,7 @@ const [institution,setInstitution]=useState("");
     const [loading, setLoading] = useState(false);
 const updateStatesList=["All States",...stateList];
 
-
+ const navigate = useNavigate();
     const [evaluater, activeEvaluater] = useState(false);
     const [tab, setTab] = useState('1');
     const [studentDist, setstudentDist] = useState(district ? district : '');
@@ -391,7 +392,11 @@ const updateStatesList=["All States",...stateList];
             });
     };
 
- 
+    const handleUpdate = (item) => {
+        // where we can select permission //
+        navigate("/admin-permission");
+        localStorage.setItem('id', JSON.stringify(item));
+    };
     const StudentsData = {
         data: tableData && tableData.length > 0 ? tableData : [],
         columns: [
@@ -461,7 +466,7 @@ const updateStatesList=["All States",...stateList];
             {
                 name: 'Actions',
                 sortable: false,
-                width: '13rem',
+                width: '18rem',
                 cell: (record) => [
                     <div
                         className="mr-5"
@@ -492,10 +497,19 @@ const updateStatesList=["All States",...stateList];
                             <button
                                 className="btn btn-success"
                             >
-                                Activate<Check className="ms-1"  style={{ height: 15, width: 15 }}/>
+                                Activate&nbsp;<Check className="ms-1"  style={{ height: 15, width: 15 }}/>
                             </button>
                         )}
                     </div>
+                    <div
+                            key={record}
+                            onClick={() => handleUpdate(record)}
+                            style={{ marginRight: '12px' }}
+                        >
+                            <div className="btn btn-warning mx-2">
+                                Permission
+                            </div>
+                        </div>
                         </>
                 ]
             }

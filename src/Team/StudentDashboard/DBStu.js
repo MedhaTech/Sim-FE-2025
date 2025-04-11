@@ -30,8 +30,10 @@ import VideoModal from '../../HelpVideo/VideoModal';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import axios from 'axios';
 import { Modal } from 'react-bootstrap';
-
+import { IoArrowDownCircleOutline } from "react-icons/io5";
+import { PiLinkSimpleBold } from "react-icons/pi";
 import LanguageSelectorComp from '../../components/LanguageSelectorComp/index.js';
+import MultiProgressBar from "./Multiprogessbar.js";
 const GreetingModal = (props) => {
   return (
     <Modal
@@ -44,53 +46,115 @@ const GreetingModal = (props) => {
     >
       {/* <Modal.Header closeButton></Modal.Header> */}
 
-      <Modal.Body>
-        <figure>
-        {props.poptype === "link" ? (
-                  <div className="modal-body custom-modal-body">
-                                    <div style={{ width: '100%', height: '400px' }}>
-                      <iframe
-                         
-                          src={props.popLink}
-                          title="Video popup"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                      ></iframe>
-                      </div></div>
-                  ) : (
-                      <img
-                          src={props.imgUrl}
-                          alt="popup image"
-                          className="img-fluid"
-                      />
-                  )}
-          {/* <img
-            src={props.imgUrl}
-            alt="popup image"
-            className="img-fluid"
-          /> */}
-        </figure>
-      </Modal.Body>
+         <Modal.Body>
+         <figure>
+           <div className="row">
+             {/* Case 1: Only video */}
+             {props.youtube && !props.imagedata && (
+               <div className="col-md-12">
+                 <div className="modal-body custom-modal-body">
+                   <div style={{ width: "100%", height: "30vh" }}>
+                     <iframe
+                       src={props.youtube
+                         .replace("youtu.be/", "www.youtube.com/embed/")
+                         .replace("watch?v=", "embed/")
+                         .split("&")[0]}
+                       title="Video popup"
+                       style={{ width: "100%", height: "100%" }}
+                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                       allowFullScreen
+                     ></iframe>
+                   </div>
+                 </div>
+               </div>
+             )}
+       
+             {/* Case 2: Only image */}
+             {props.imagedata && !props.youtube && (
+               <div className="col-md-12 d-flex justify-content-center align-items-center" style={{ height: "30vh" }}>
+                 <img
+                   src={props.imagedata}
+                   alt="popup image"
+                   className="img-fluid"
+                   style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "contain" }}
+                 />
+               </div>
+             )}
+       
+             {/* Case 3: Both image and video */}
+             {props.youtube && props.imagedata && (
+               <>
+                 {/* Image on top */}
+                 <div className="col-md-12 d-flex justify-content-center align-items-center mb-3" style={{ height: "30vh" }}>
+                   <img
+                     src={props.imagedata}
+                     alt="popup image"
+                     className="img-fluid"
+                     style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "contain" }}
+                   />
+                 </div>
+       
+                 {/* Video below */}
+                 <div className="col-md-12">
+                   <div className="modal-body custom-modal-body">
+                     <div style={{ width: "100%", height: "30vh" }}>
+                       <iframe
+                         src={props.youtube
+                           .replace("youtu.be/", "www.youtube.com/embed/")
+                           .replace("watch?v=", "embed/")
+                           .split("&")[0]}
+                         title="Video popup"
+                         style={{ width: "100%", height: "100%" }}
+                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                         allowFullScreen
+                       ></iframe>
+                     </div>
+                   </div>
+                 </div>
+               </>
+             )}
+           </div>
+         </figure>
+       </Modal.Body>
       <Modal.Footer>
-        {props.state != null &&
-          <Link
-            to={props.state}
-            type="button"
-            className="product-img"
-          >
-            <button
-              label={"Navigate"}
-              className="btn btn-warning"
-            >
-              Navigate
-            </button>
-          </Link>}
-      </Modal.Footer>
+                <div className="d-flex justify-content-between align-items-center w-100">
+     
+     <div>
+       {props.file && (
+         <a href={props.file} download target="_blank" rel="noopener noreferrer" className="me-3">
+           <IoArrowDownCircleOutline size={30}  />
+         </a>
+       )}
+     
+       {props.urlData && (
+         <a href={props.urlData} target="_blank" rel="noopener noreferrer">
+           <PiLinkSimpleBold size={30} style={{ color: "blue" }} />
+         </a>
+       )}
+     </div>
+     
+     
+     {props.state != null && (
+       <div className="d-flex align-items-center justify-content-end">
+         <strong className="me-2">Reference Course</strong>
+         <Link to={props.state}>
+           <button className="btn btn-warning">Navigate</button>
+         </Link>
+       </div>
+     )}
+     
+     </div>
+     
+              
+      
+     </Modal.Footer>
+      
     </Modal>
   );
 };
 
 const DBStu = () => {
+  
   const [showsPopup, setShowsPopup] = useState(false);
   const [imgUrl, setImgUrl] = useState('');
   const [popLink, setPopLink] = useState('');
@@ -108,11 +172,23 @@ const DBStu = () => {
   const [stuPostSurvey, setStuPostSurvey] = useState("");
   const [stuPreSurvey, setStuPreSurvey] = useState("");
   const [stuIdeaSub, setStuIdeaSub] = useState("");
+  const [courseData, setCourseData] = useState("");
+
   const [coursepercentage, setCoursepercentage] = useState();
   const [video, setVideo] = useState("");
   const [message, setMessage] = useState("");
 
   const [show, setShow] = useState(false);
+
+
+   const [file, setFile] = useState("");
+   const fileName = file.substring(file.lastIndexOf('/') + 1);
+   const decodedFileName = decodeURIComponent(fileName);
+    const [imagedata, setImageData] = useState("");
+    const [urlData, setUrlData] = useState("");
+    const [youtube, setYoutube] = useState("");
+
+
   const language = useSelector(
     (state) => state?.studentRegistration?.studentLanguage
   );
@@ -123,6 +199,8 @@ const DBStu = () => {
         role: currentUser.data[0]?.role
       })
     );
+    let popupCount = parseInt(localStorage.getItem("popupCount")) || 0;
+    if (popupCount < 3) {
     var config = {
       method: 'get',
       url: process.env.REACT_APP_API_BASE_URL + `/popup?Data=${popParam}`,
@@ -137,17 +215,20 @@ const DBStu = () => {
         if (res.status === 200 && res.data.data[0]?.on_off === '1') {
           // console.log(res,"res");
           setShowsPopup(true);
-          setPopType(res?.data?.data[0]?.type);
-
-          setPopLink(res?.data?.data[0]?.url);
-          setImgUrl(res?.data?.data[0]?.url);
+          setFile(res?.data?.data[0]?.file);
+          setImageData(res?.data?.data[0]?.image);
+          setUrlData(res?.data?.data[0]?.url);
+          setYoutube(res?.data?.data[0]?.youtube);
+          
           setState(res?.data?.data[0]?.navigate);
+          localStorage.setItem("popupCount", popupCount + 1);
         }
       })
       .catch(function (error) {
         setShowsPopup(false);
         console.log(error);
       });
+    }
   }, []);
   const Loader = () => (
     <div className="spinner-border text-primary" role="status">
@@ -208,12 +289,15 @@ const DBStu = () => {
       stuIdeaSubStatus();
       fetchInstructions();
       scroll();
+      // fetchData();
     }
   }, [currentUser?.data[0]?.user_id]);
   const [badges, setBadges] = useState(0);
   const [quiz, setQuiz] = useState(0);
   const [videos, setVideos] = useState(0);
-
+const [predata,setPreData]=useState("");
+const [postdata,setPostData]=useState("");
+// console.log(predata,"pre");
   const handleNavigation = () => {
     navigate("/instructionstu", { state: { instruction: message } });
   };
@@ -249,7 +333,32 @@ const DBStu = () => {
       }
       );
   };
-
+  const fetchData = () => {
+    // Function to fetch the WhatsApp link from the API
+    const idParam = encryptGlobal(JSON.stringify(currentUser.data[0].user_id));
+    var config = {
+      method: 'get',
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/students/${idParam}/studentCertificate`,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${currentUser.data[0]?.token}`
+      }
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          console.log(response,"Certificte");
+         
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      }
+      );
+  };
   const stuSurveyStatus = () => {
     const surveyApi = encryptGlobal(
       JSON.stringify({
@@ -274,9 +383,13 @@ const DBStu = () => {
           const po = (response.data.data[0].post_survey_completed_date);
           const pre = (response.data.data[0].pre_survey_completed_date);
           setStuPostSurvey(po);
+
           setStuPreSurvey(pre);
           setStuPostSLoading(false);
           setStuPreSLoading(false);
+          setPreData(response.data.data[0].pre_survey_completed_date !== null ? "Completed":"Not Stated");
+          setPostData(response.data.data[0].post_survey_completed_date !== null ? "Completed":"Not Stated");
+
         }
       })
       .catch(function (error) {
@@ -363,6 +476,7 @@ const DBStu = () => {
           // }
           // console.log(per);
           setCoursepercentage(per);
+          setCourseData(per === 100 ? "Completed" :"Not Started");
           setStuCourseLoading(false);
         }
       })
@@ -370,7 +484,7 @@ const DBStu = () => {
         console.log(error);
       });
   };
-
+// console.log(courseData,"%%");
   const stuBadgesCount = () => {
     const badgeApi = encryptGlobal(
       JSON.stringify({
@@ -460,15 +574,18 @@ const DBStu = () => {
   const handleClose = () => {
     setShowsPopup(false);
   };
+  // console.log(stuPostSurvey,"post");
   return (
     <>
       <GreetingModal
         handleClose={handleClose}
         show={showsPopup}
-        imgUrl={imgUrl}
-        popLink={popLink}
-poptype={poptype}
+        file={file}
+        imagedata={imagedata}
+        urlData={urlData}
+        youtube={youtube}
         state={state}
+        fileName={decodedFileName}
       ></GreetingModal>
       <div className="page-wrapper" id="start">
         <div className="content">
@@ -479,14 +596,22 @@ poptype={poptype}
                 &nbsp;Hi {currentUser?.data[0]?.full_name}&nbsp;
               </h3>
 
-              <h6> here&apos;s what&apos;s happening with your School Innovation Marathon 2024 today.</h6>
+              <h6> here&apos;s what&apos;s happening with your School Innovation Marathon 2025 today.</h6>
             </div>
-            <div className="d-flex align-items-center">
+           
+            {/* <div className="d-flex align-items-center">
               <div className="dropdown">
                   <LanguageSelectorComp module="student" />
               </div>
-            </div>
+            </div> */}
           </div>
+          <div className="col-xl-12 col-sm-12 col-12 d-flex">
+              <MultiProgressBar  predata={predata} 
+        postdata={postdata} 
+        stuIdeaSub={stuIdeaSub}
+        courseData={courseData} 
+         />
+            </div>
           <div className="row sales-cards">
             <div className="col-xl-3 col-sm-6 col-12">
               <div className="card color-info bg-success mb-4 ">
@@ -933,6 +1058,16 @@ poptype={poptype}
             <div className="col-xl-6 col-sm-12 col-12 d-flex">
               <LatestNews />
             </div>
+           
+
+
+            
+            {/* <div className="col-xl-6 col-sm-12 col-12 d-flex">
+              <MultiStepProgressBar predata={predata} 
+        postdata={postdata} 
+        stuIdeaSub={stuIdeaSub}
+        courseData={courseData}  />
+            </div> */}
           </div>
 
         </div>

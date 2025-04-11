@@ -32,7 +32,7 @@ jobs:
         
         
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build
           path: build
@@ -46,22 +46,22 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build
           path: build       
       - name: Deploy to Stage
         if: github.ref == 'refs/heads/stage'
         env:
-          PRIVATE_KEY: ${{ secrets.ATL2_stage_PRIVATE_KEY }}
-          HOSTNAME: ${{ secrets.ATL2_stage_HOSTNAME }}
+          PRIVATE_KEY: ${{ secrets.sim_2025_stage_PRIVATE_KEY }}
+          HOSTNAME: ${{ secrets.sim_2025_stage_HOSTNAME }}
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 400 private_key
-          scp -o StrictHostKeyChecking=no -i private_key -r ./build ubuntu@${{ secrets.ATL2_stage_HOSTNAME }}:/tmp/aim2.0-stage_fe_build
-          ssh -o StrictHostKeyChecking=no -i private_key ubuntu@${{ secrets.ATL2_stage_HOSTNAME }} '
-            sudo rm -rf /var/www/html/aim2.0-stage/build &&
-            sudo mv /tmp/aim2.0-stage_fe_build /var/www/html/aim2.0-stage/build &&
-            cd /var/www/html/aim2.0-stage &&
+          scp -o StrictHostKeyChecking=no -i private_key -r ./build ubuntu@${{ secrets.sim_2025_stage_HOSTNAME }}:/tmp/sim-stage_fe_build
+          ssh -o StrictHostKeyChecking=no -i private_key ubuntu@${{ secrets.sim_2025_stage_HOSTNAME }} '
+            sudo rm -rf /var/www/html/sim-2025-fe/build &&
+            sudo mv /tmp/sim-stage_fe_build /var/www/html/sim-2025-fe/build &&
+            cd /var/www/html/sim-2025-fe &&
             sudo git fetch origin &&
             sudo git checkout stage &&
             sudo git pull origin stage '

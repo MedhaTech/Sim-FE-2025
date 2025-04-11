@@ -1,8 +1,11 @@
+/* eslint-disable indent */
 import { Fragment } from 'react';
 import Congo from '../../assets/img/survey1.png';
 import "./tepostyle.scss";
+import { useTranslation } from "react-i18next";
 
 const PostSurveyStatic = () => {
+     const { t } = useTranslation();
     return (
         <Fragment>
             <div className="text-center">
@@ -11,11 +14,10 @@ const PostSurveyStatic = () => {
                 </div>
                 <div>
                     <h4 className="common-flex">
-                    Please ensure Submitted Ideas by all student teams are Approved for your post survey to enable.
+                    {t('teacherJourney.t3')}
                     </h4>
                     <h4 className="common-flex">
-                        Certificate will be generated once you complete the post
-                        survey.
+                    {t('teacherJourney.t4')}
                     </h4>
                 </div>
             </div>

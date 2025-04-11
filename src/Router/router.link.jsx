@@ -77,6 +77,7 @@ import Ticket from "../Admin/UsersList/Tickets";
 import MentorsList from "../Admin/UsersList/MentorsList";
 import TeamsList from "../Admin/UsersList/TeamsList";
 import AdminsList from "../Admin/UsersList/AdminsList";
+import StateList from "../Admin/UsersList/StateList";
 import MentorTableView from "../Admin/UsersList/MentorTableView";
 import PopUp from "../Admin/PopUp/Popuplist";
 import Createpopup from "../Admin/PopUp/CreatePopUp";
@@ -119,6 +120,11 @@ import DiesEdit from "../Admin/Dashboard/DiesEdit";
 import DiesSearch from "../Coordinators/Dashboard/DiesSearch";
 import StateSupport from "../Coordinators/CooTickets/Tickets";
 import StateRes from "../Coordinators/CooTickets/TicketResponse";
+import StateResourcesList from "../Coordinators/Resources/index";
+import StateResourcesCreate from "../Coordinators/Resources/createResource";
+import StateResourcesEdit from "../Coordinators/Resources/editResource";
+
+
 
 import AdminSupport from "../Admin/AdminTickets/Tickets";
 import AdminRes from "../Admin/AdminTickets/TicketResponse";
@@ -126,7 +132,7 @@ import StateData from "../Admin/StateWise/StateData";
 import EditStateData from "../Admin/StateWise/EditStateData";
 
 import InstitutionReport from "../Admin/Reports/Helpers/InstitutionReport";
-import CreateEmail from "../Admin/BulkEmail/CreatePopUp";
+import CreateEmail from "../Admin/BulkEmail/CreateEmail";
 import ResendEmail from "../Admin/BulkEmail/ResendEmail";
 
 import EadminEval from "../Evaluator/Admin/Evaluator/EadminEvaluator";
@@ -146,8 +152,12 @@ import ReportL1 from "../Evaluator/Admin/Reports/ReportL1";
 import ReportL2 from "../Evaluator/Admin/Reports/ReportL2";
 import ReportL3 from "../Evaluator/Admin/Reports/ReportL3";
 import EditEvaluator from "../Evaluator/Admin/Evaluator/EadminEditProfile";
+import Dropdown from "../Evaluator/Admin/EvalProcess/Pages/Dropdown";
+import BulkAC from "../Evaluator/Admin/BulkAR/index";
 import State from "../Evaluator/Admin/Evaluator/State";
 import SearchCID from "../Evaluator/Admin/Dashboard/SearchCID";
+import Permission from "../Admin/UsersList/Permission";
+import ShiftDiesCode from "../Admin/UsersList/ShiftDiesCode";
 
 
 
@@ -539,6 +549,30 @@ export const publicRoutes = [
     protected: true,
     route: Route,
   },
+  {
+    id: 37,
+    path: routes.adminpermission,
+    name: "adminpermission",
+    element: <Permission/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 38,
+    path: routes.diesshift,
+    name: "diesshift",
+    element: <ShiftDiesCode/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 39,
+    path: routes.statelist,
+    name: "statelist",
+    element: <StateList/>,
+    protected: true,
+    route: Route,
+  },
   
  
 ];
@@ -862,6 +896,29 @@ export const stateRoutes = [
     protected: true,
     route: Route,
   },
+  {
+    id: 9,
+    path: routes.stateresources,
+    name: "stateresources",
+    element: <StateResourcesList />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 10,
+    path: routes.createStateResource,
+    name: "createStateResource",
+    element: <StateResourcesCreate />,
+    protected: true,
+    route: Route,
+  }, {
+    id: 11,
+    path: routes.editStateResource,
+    name: "editStateResource",
+    element: <StateResourcesEdit />,
+    protected: true,
+    route: Route,
+  },
 ];
 export const eadminRoutes = [
   {
@@ -980,6 +1037,22 @@ export const eadminRoutes = [
     path: routes.searchCid,
     name: "searchCid",
     element: <SearchCID/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 16,
+    path: routes.eadmindropdown,
+    name: "eadmindropdown",
+    element: <Dropdown/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 17,
+    path: routes.eadminbukAC,
+    name: "eadminBulkAC",
+    element: <BulkAC />,
     protected: true,
     route: Route,
   },

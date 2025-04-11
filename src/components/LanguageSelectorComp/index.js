@@ -22,33 +22,68 @@ const LanguageSelectorComp = ({ module }) => {
         (state) => state?.studentRegistration?.studentLanguage
     );
     const globalLang = useSelector((state) => state?.home.globalLanguage);
-    const [language, setLanguage] = useState(
-        module === 'student'
-            ? studentLanguage.name
-            : selectedLanguage && selectedLanguage?.name
-            ? selectedLanguage?.name
-            : globalLang?.name
-    );
+    console.log(module,"module");
+    // const [language, setLanguage] = useState(
+    //     module === 'student'
+    //         ? studentLanguage.name
+    //         : selectedLanguage && selectedLanguage?.name
+    //         ? selectedLanguage?.name
+    //         : globalLang?.name
+    // );
+    // const localLang = JSON.parse(localStorage.getItem('s_language'));
+    // useEffect(() => {
+    //     if (localLang) {
+    //         i18next.changeLanguage(localLang.code);
+    //         dispatch(getStudentGlobalLanguage(localLang));
+    //     }
+    // }, []);
     const localLang = JSON.parse(localStorage.getItem('s_language'));
-    useEffect(() => {
-        if (localLang) {
-            i18next.changeLanguage(localLang.code);
-            dispatch(getStudentGlobalLanguage(localLang));
+    const localMentorLang = JSON.parse(localStorage.getItem('m_language'));
+    const [language, setLanguage] = 
+   
+    useState(
+        module === 'student'
+          ? (studentLanguage && studentLanguage.name) || (localLang && localLang.name) || globalLang?.name
+          : (selectedLanguage && selectedLanguage.name) ||
+            (localMentorLang && localMentorLang.name) ||
+            globalLang?.name
+      );
+      useEffect(() => {
+        let langToSet;
+        if (module === 'mentor' && localMentorLang) {
+          langToSet = localMentorLang;
+        } else if (module === 'student' && localLang) {
+            langToSet = localLang;
         }
-    }, []);
+    
+        if (langToSet && langToSet.code !== i18next.language) {
+          i18next.changeLanguage(langToSet.code);
+          if (module === 'mentor') {
+            dispatch(getMentorGlobalLanguage(langToSet));
+          } else {
+            dispatch(getStudentGlobalLanguage(langToSet));
+          }
+        }
+      }, [module, dispatch]);
     const handleSelector = (item) => {
-        let forMentor;
+       
+        let forMentor = null;
+
         if (item && item.code !== 'en') {
-            forMentor = { ...item };
-            forMentor.code = 'en';
-            forMentor.name = 'English';
+          forMentor = { ...item, code: 'en', name: 'English' };
         }
+    
         setLanguage(item.name);
         i18next.changeLanguage(item.code);
         if (module === 'admin') {
             dispatch(getAdminGlobalLanguage(item));
+
         } else if (module === 'mentor') {
             dispatch(getMentorGlobalLanguage(forMentor));
+            if (!localMentorLang || localMentorLang.code !== item.code) {
+                localStorage.setItem('m_language', JSON.stringify(item));
+            }
+            // localStorage.setItem('m_language', JSON.stringify(item));
         } else if (module === 'general') {
             dispatch(getGlobalLanguage(item));
             dispatch(getStudentGlobalLanguage(item));
@@ -56,7 +91,10 @@ const LanguageSelectorComp = ({ module }) => {
         } else {
             dispatch(getStudentGlobalLanguage(item));
             if (module === 'student') {
-                localStorage.setItem('s_language', JSON.stringify(item));
+                if (!localLang || localLang.code !== item.code) {
+                    localStorage.setItem('s_language', JSON.stringify(item));
+                }
+                // localStorage.setItem('s_language', JSON.stringify(item));
             }
         }
     };
@@ -70,6 +108,7 @@ const LanguageSelectorComp = ({ module }) => {
                     {(localLang && localLang.name) || language}
                 </span>
             }
+             drop="down"
         >
             {languageOptions.map((item, i) => {
                 return (

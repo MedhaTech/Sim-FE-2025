@@ -13,16 +13,6 @@ import i8 from "../../assets/img/Themes/8.png";
 // const { t } = useTranslation();
 
 export const themesList = [
-    // "themes.sustainabletheme",
-    // "themes.digitaltheme",
-    // "themes.healththeme",
-    // "themes.educationtheme",
-    // "themes.economictheme",
-    // "themes.smarttheme",
-    // "themes.agritheme",
-    // "themes.othertheme",
-
-
 "Sustainable Development and Environment",
  "Digital Transformation",
     "Health and Well-being",
@@ -30,7 +20,6 @@ export const themesList = [
     "Economic Empowerment",
     "Smart and Resilient Communities",
     "Agriculture and Rural Development",
-
     "Others"
 ];
 export const focusareasList = {
