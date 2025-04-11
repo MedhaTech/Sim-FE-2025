@@ -80,6 +80,7 @@ const IdeaReport = () => {
   const [series5, setseries5] = useState([]);
   const [series6, setseries6] = useState([]);
   const [series7, setseries7] = useState([]);
+  const [customizationActive, setCustomizationActive] = useState(false);
 
   const [barChart1Data, setBarChart1Data] = useState({
     labels: [],
@@ -386,7 +387,19 @@ const IdeaReport = () => {
     console.log("Final Filtered Data for Download:", filteredData);
     setstudentDetailedReportsData(filteredData);
   };
- 
+  const handleCustomizationClick = () => {
+     setShowCustomization(!showCustomization);
+     fetchData();
+     setSelectedHeaders([]);
+     setCustomizationActive(true); 
+   };
+   useEffect(() => {
+     if (customizationActive) {
+       setShowCustomization(false);       
+       setCustomizationActive(false);     
+       setSelectedHeaders([]);           
+     }
+   }, [district, category, selectstate,sdg]);
   const enable = selectstate?.trim() !== "" && district?.trim() !== "" && category?.trim() !== "" && sdg?.trim() !== "";
   var chartOption = {
     chart: {
@@ -824,6 +837,7 @@ const IdeaReport = () => {
           } else {
             openNotificationWithIcon("error", "No Data Found");
             setHasData(false);
+            setShowCustomization(false);
           }
          
           setIsDownload(false);
@@ -1077,10 +1091,11 @@ const IdeaReport = () => {
              
                 <Col md={2}>
                                                         <button
-                                                               onClick={() => {setShowCustomization(!showCustomization);
-                                                                fetchData();
-                                                                setSelectedHeaders([]);
-                                                              }}
+                                                              //  onClick={() => {setShowCustomization(!showCustomization);
+                                                              //   fetchData();
+                                                              //   setSelectedHeaders([]);
+                                                              // }}
+                                                              onClick={handleCustomizationClick}
                                                             type="button"
                                                             disabled={!enable}
                                                             className="btn btn-primary"

@@ -75,7 +75,7 @@ const TeacherProgressDetailed = () => {
   const [selectedHeaders, setSelectedHeaders] = useState([]);
   const [isReadyToDownload, setIsReadyToDownload] = useState(false);
       const [modifiedChartTableData, setModifiedChartTableData] = useState([]);
-  
+  const [customizationActive, setCustomizationActive] = useState(false);
   const [formattedDataForDownload, setFormattedDataForDownload] = useState([]);
   const [barChartNew, setBarChartNew] = useState({
     labels: [],
@@ -874,6 +874,7 @@ const TeacherProgressDetailed = () => {
           } else {
             openNotificationWithIcon("error", "No Data Found");
             setHasData(false); 
+            setShowCustomization(false);
           }
 
           setIsDownload(false);
@@ -1119,7 +1120,19 @@ const TeacherProgressDetailed = () => {
       });
   };
   const enable = selectstate?.trim() !== "" && district?.trim() !== "" && category?.trim() !== "";
-
+ const handleCustomizationClick = () => {
+    setShowCustomization(!showCustomization);
+    fetchData();
+    setSelectedHeaders([]);
+    setCustomizationActive(true); 
+  };
+  useEffect(() => {
+    if (customizationActive) {
+      setShowCustomization(false);       
+      setCustomizationActive(false);     
+      setSelectedHeaders([]);           
+    }
+  }, [district, category, selectstate]);
   return (
     <div className="page-wrapper">
       <h4
@@ -1210,10 +1223,11 @@ const TeacherProgressDetailed = () => {
              
                <Col md={2}>
                             <button
-                                   onClick={() => {setShowCustomization(!showCustomization);
-                                    fetchData();
-                                    setSelectedHeaders([]);
-                                  }}
+                                  //  onClick={() => {setShowCustomization(!showCustomization);
+                                  //   fetchData();
+                                  //   setSelectedHeaders([]);
+                                  // }}
+                                  onClick={handleCustomizationClick}
                                 type="button"
                                 disabled={!enable}
                                 className="btn btn-primary"
@@ -1222,7 +1236,7 @@ const TeacherProgressDetailed = () => {
                               </button>
                             </Col>
                             {showCustomization && hasData &&(
-  <div className="card mt-3" style={{ width: "50%", padding: "20px" }}>
+  <div className="card mt-3" style={{ width: "100%", padding: "20px" }}>
     <div className="card-body">
       <h5 className="card-title">Select Columns</h5>
 
