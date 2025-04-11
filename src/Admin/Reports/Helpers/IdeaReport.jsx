@@ -1107,7 +1107,8 @@ const IdeaReport = () => {
                               <div className="card mt-3" style={{ width: "100%", padding: "20px" }}>
                                 <div className="card-body">
                                   <h5 className="card-title">Select Columns</h5>
-                            
+                                  <div className="row">
+                                  <div className="col-md-3">
                                   <div className="form-check mb-2">
                                     <input
                                       type="checkbox"
@@ -1120,11 +1121,13 @@ const IdeaReport = () => {
                                       Select All
                                     </label>
                                   </div>
+                                  </div>
+
                             
-                                  <div className="row">
+                                 
                                     {allHeaders.map((header) => (
-                                      <div className="col-md-12" key={header.key}>
-                                        <div className="form-check">
+                                      <div className="col-md-3 mb-2" key={header.key}style={{ display: 'flex', alignItems: 'flex-start' }}>
+                                        <div className="form-check" style={{ width: '100%' }}>
                                           <input
                                             type="checkbox"
                                             className="form-check-input"

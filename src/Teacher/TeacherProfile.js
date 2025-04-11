@@ -24,7 +24,7 @@ const TeacherProfile = () => {
   const currentUser = getCurrentUser("current_user");
   // console.log(currentUser,"currentuser");
   const { teacher } = useSelector((state) => state.teacher);
-  // console.log(teacher,"11");
+  console.log(teacher,"11");
   const navigate = useNavigate();
   const [show , setShow] = useState(false);
   const [video , setVideo] = useState("");
@@ -271,7 +271,7 @@ const handleShow = () => {
                   <input
                     type="text"
                     className="form-control"
-                    defaultValue={teacher?.organization?.mandal ? teacher?.organization?.mandal :"-"}
+                    value={teacher?.organization?.mandal}
                     readOnly="readonly"
                   />
                 </div>
@@ -282,7 +282,7 @@ const handleShow = () => {
                   <input
                     type="text"
                     className="form-control"
-                    defaultValue={teacher?.organization?.pin_code ? teacher?.organization?.pin_code :"-"}
+                    value={teacher?.organization?.pin_code ? teacher?.organization?.pin_code :"-"}
                     readOnly="readonly"
                   />
                 </div>
@@ -294,7 +294,7 @@ const handleShow = () => {
                   <input
                     type="text"
                     className="form-control"
-                    defaultValue={teacher?.organization?.school_type ? teacher?.organization?.school_type :"-"}
+                    value={teacher?.organization?.school_type ? teacher?.organization?.school_type :"-"}
                     readOnly="readonly"
                   />
                 </div>
@@ -305,7 +305,7 @@ const handleShow = () => {
                   <input
                     type="text"
                     className="form-control"
-                    defaultValue={teacher?.organization?.board ? teacher?.organization?.board :"-" }
+                    value={teacher?.organization?.board ? teacher?.organization?.board :"-" }
                     readOnly="readonly"
                   />
                 </div>
@@ -317,7 +317,7 @@ const handleShow = () => {
                   <input
                     type="text"
                     className="form-control"
-                    defaultValue={teacher?.organization?.principal_name ? teacher?.organization?.principal_name :"-"}
+                    value={teacher?.organization?.principal_name ? teacher?.organization?.principal_name :"-"}
                     readOnly="readonly"
                   />
                 </div>
@@ -328,7 +328,7 @@ const handleShow = () => {
                   <input
                     type="text"
                     className="form-control"
-                    defaultValue={teacher?.organization?.principal_mobile ? teacher?.organization?.principal_mobile :"-"}
+                    value={teacher?.organization?.principal_mobile ? teacher?.organization?.principal_mobile :"-"}
                     readOnly="readonly"
                   />
                 </div>
@@ -339,7 +339,7 @@ const handleShow = () => {
                   <input
                     type="text"
                     className="form-control"
-                    defaultValue={teacher?.organization?.principal_email ? teacher?.organization?.principal_email :"-"}
+                    value={teacher?.organization?.principal_email ? teacher?.organization?.principal_email :"-"}
                     readOnly="readonly"
                   />
                 </div>

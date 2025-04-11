@@ -49,10 +49,17 @@ export const coordinatorLoginUser =
         localStorage.setItem("layoutStyling", "default");
         dispatch(coordinatorLoginUserSuccess(result));
         navigate("/state-dashboard");
-      } else {
-        openNotificationWithIcon("error", "Incorrect Password");
+      } else if (result && result.status === 404) {
+            openNotificationWithIcon("error", "Entered Invalid Username or Password");
         dispatch(coordinatorLoginUserError(result.statusText));
-      }
+           
+          }else{
+            openNotificationWithIcon(
+              'error',
+             "User marked as Inactive"
+            );
+          }
+      
     } catch (error) {
       dispatch(coordinatorLoginUserError({}));
     }

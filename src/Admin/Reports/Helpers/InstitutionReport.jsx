@@ -486,10 +486,11 @@ const InstitutionReport = () => {
              
              
               {showCustomization &&  hasData && (
-  <div className="card mt-3" style={{ width: "50%", padding: "20px" }}>
+  <div className="card mt-3" >
     <div className="card-body">
       <h5 className="card-title">Select Columns</h5>
-
+      <div className="row">
+      <div className="col-md-3">
       <div className="form-check mb-2">
         <input
           type="checkbox"
@@ -502,10 +503,12 @@ const InstitutionReport = () => {
           Select All
         </label>
       </div>
+      </div>
 
-      <div className="row">
+
+      
         {allHeaders.map((header) => (
-          <div className="col-md-6" key={header.key}>
+          <div className="col-md-3" key={header.key}>
             <div className="form-check">
               <input
                 type="checkbox"
