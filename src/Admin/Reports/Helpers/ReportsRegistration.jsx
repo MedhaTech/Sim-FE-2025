@@ -356,6 +356,7 @@ const ReportsRegistration = () => {
     setFilteredData([]);
     setFilteresData([]);
     setfilterheaders([]);
+    setShowCustomization(false);
   }, [RegTeachersState, RegTeachersdistrict, filterType, category]);
 
   useEffect(() => {
