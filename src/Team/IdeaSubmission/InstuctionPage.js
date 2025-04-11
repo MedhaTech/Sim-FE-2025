@@ -59,7 +59,7 @@ const teamId= currentUser.data[0]?.team_id;
         //  handleResList Api where we can see list of all resource //
         let config = {
             method: 'get',
-            url: process.env.REACT_APP_API_BASE_URL + `/state_coordinators?Data=${fectchTecParam}`,
+            url: process.env.REACT_APP_API_BASE_URL + `/states/specific?Data=${fectchTecParam}`,
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`

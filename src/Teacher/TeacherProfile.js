@@ -245,17 +245,6 @@ const handleShow = () => {
               </div>
               <div className="col-lg-4 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label">{t('teacherJourney.District')}</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    defaultValue={teacher?.organization?.district}
-                    readOnly="readonly"
-                  />
-                </div>
-              </div>
-              <div className="col-lg-4 col-sm-12">
-                <div className="input-blocks">
                   <label className="form-label">{t('teacherJourney.State')}</label>
                   <input
                     type="text"
@@ -267,33 +256,90 @@ const handleShow = () => {
               </div>
               <div className="col-lg-4 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label">{t('teacherJourney.PrincipalName')}</label>
+                  <label className="form-label">{t('teacherJourney.District')}</label>
                   <input
                     type="text"
                     className="form-control"
-                    defaultValue={teacher?.organization?.principal_name}
+                    defaultValue={teacher?.organization?.district}
                     readOnly="readonly"
                   />
                 </div>
               </div>
               <div className="col-lg-4 col-sm-12">
+                <div className="input-blocks">
+                  <label className="form-label">{t('teacherJourney.Mandal')}</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    defaultValue={teacher?.organization?.mandal ? teacher?.organization?.mandal :"-"}
+                    readOnly="readonly"
+                  />
+                </div>
+              </div>
+              <div className="col-lg-4 col-sm-12">
+                <div className="input-blocks">
+                  <label className="form-label">{t('teacherJourney.PinCode')}</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    defaultValue={teacher?.organization?.pin_code ? teacher?.organization?.pin_code :"-"}
+                    readOnly="readonly"
+                  />
+                </div>
+              </div>
+             
+              <div className="col-lg-4 col-sm-12">
+                <div className="input-blocks">
+                  <label className="form-label">{t('teacherJourney.SchoolType')}</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    defaultValue={teacher?.organization?.school_type ? teacher?.organization?.school_type :"-"}
+                    readOnly="readonly"
+                  />
+                </div>
+              </div>
+              <div className="col-lg-3 col-sm-12">
+                <div className="input-blocks">
+                  <label className="form-label">{t('teacherJourney.SchoolBoard')}</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    defaultValue={teacher?.organization?.board ? teacher?.organization?.board :"-" }
+                    readOnly="readonly"
+                  />
+                </div>
+              </div>
+             
+              <div className="col-lg-3 col-sm-12">
+                <div className="input-blocks">
+                  <label className="form-label">{t('teacherJourney.PrincipalName')}</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    defaultValue={teacher?.organization?.principal_name ? teacher?.organization?.principal_name :"-"}
+                    readOnly="readonly"
+                  />
+                </div>
+              </div>
+              <div className="col-lg-3 col-sm-12">
                 <div className="input-blocks">
                   <label className="form-label">{t('teacherJourney.PrincipalMobileNo')}</label>
                   <input
                     type="text"
                     className="form-control"
-                    defaultValue={teacher?.organization?.principal_mobile}
+                    defaultValue={teacher?.organization?.principal_mobile ? teacher?.organization?.principal_mobile :"-"}
                     readOnly="readonly"
                   />
                 </div>
               </div>
-              <div className="col-lg-4 col-sm-12">
+              <div className="col-lg-3 col-sm-12">
                 <div className="input-blocks">
                   <label className="form-label">{t('teacherJourney.PrincipalEmailID')}</label>
                   <input
                     type="text"
                     className="form-control"
-                    defaultValue={teacher?.organization?.principal_email}
+                    defaultValue={teacher?.organization?.principal_email ? teacher?.organization?.principal_email :"-"}
                     readOnly="readonly"
                   />
                 </div>

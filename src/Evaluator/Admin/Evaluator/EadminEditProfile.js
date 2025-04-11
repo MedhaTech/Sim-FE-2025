@@ -68,12 +68,12 @@ const allDataThemes= ["All Themes",...themesList];
         .trim()
         .min(10, "Number is less than 10 digits")
         .max(10, "Please Enter Valid Number"),
-        language: Yup.string()
-                .max(40)
-                .required(<span style={{ color: "red" }}>Please Select Language</span>),
-                theme: Yup.string()
-                .max(40)
-                .required(<span style={{ color: "red" }}>Please Select Theme</span>),
+        // language: Yup.string()
+        //         .max(40)
+        //         .required(<span style={{ color: "red" }}>Please Select Language</span>),
+        //         theme: Yup.string()
+        //         .max(40)
+        //         .required(<span style={{ color: "red" }}>Please Select Theme</span>),
       // password: Yup.string()
       // .trim()
       // .matches(
@@ -99,8 +99,8 @@ const allDataThemes= ["All Themes",...themesList];
       name: mentorData?.full_name || mentorData?.user?.full_name,
       email: mentorData?.username || mentorData?.user?.username,
       mobile: mentorData?.mobile || mentorData?.user?.mobile,
-      language :mentorData?.language || "",
-      theme :mentorData?.theme || ""
+      // language :mentorData?.language || "",
+      // theme :mentorData?.theme || ""
 
     };
     
@@ -124,45 +124,24 @@ const allDataThemes= ["All Themes",...themesList];
       if (mentorData?.mobile !== values.mobile) {
         body["mobile"] = values.mobile;
       }
-      // if (mentorData?.language !== values.language) {
-      //   body["language"] = values.language;
-      // }
-      // if (mentorData?.theme !== values.theme) {
-      //   body["theme"] = values.theme;
-      // }
-  //     if (
-  //       values.language === "All Languages" || 
-  //       (mentorData?.language !== values.language)
-  //   ) {
-  //       body["language"] = values.language === "All Languages"
-  //           ? languageOptions.join(", ")
-  //           : values.language;
-  //   }
-  //   if (
-  //     values.theme === "All Themes" || 
-  //     (mentorData?.theme !== values.theme)
-  // ) {
-  //     body["theme"] = values.theme === "All Themes"
-  //         ? themesList.join(", ")
-  //         : values.theme;
-  // }
-  if (
-    values.language.trim() === "All Languages" || 
-    (mentorData?.language?.trim() !== values.language.trim())
-) {
-    body["language"] = values.language.trim() === "All Languages"
-        ? languageOptions.map(lang => lang.trim()).join(",")
-        : values.language.trim();
-}
+     
+//   if (
+//     values.language.trim() === "All Languages" || 
+//     (mentorData?.language?.trim() !== values.language.trim())
+// ) {
+//     body["language"] = values.language.trim() === "All Languages"
+//         ? languageOptions.map(lang => lang.trim()).join(",")
+//         : values.language.trim();
+// }
 
-if (
-    values.theme.trim() === "All Themes" || 
-    (mentorData?.theme?.trim() !== values.theme.trim())
-) {
-    body["theme"] = values.theme.trim() === "All Themes"
-        ? themesList.map(theme => theme.trim()).join(",")
-        : values.theme.trim();
-}
+// if (
+//     values.theme.trim() === "All Themes" || 
+//     (mentorData?.theme?.trim() !== values.theme.trim())
+// ) {
+//     body["theme"] = values.theme.trim() === "All Themes"
+//         ? themesList.map(theme => theme.trim()).join(",")
+//         : values.theme.trim();
+// }
 
       const url = process.env.REACT_APP_API_BASE_URL + `/evaluators/${evlId}`;
 
@@ -197,22 +176,22 @@ if (
         });
     },
   });
-useEffect(() => {
-    if (mentorData.language ) {
-      const allLanguagesSelected = mentorData.language.split(",").sort().join(",") === languageOptions.sort().join(",");
-      formik.setFieldValue("language", allLanguagesSelected ? "All Languages" : mentorData.language);
+// useEffect(() => {
+//     if (mentorData.language ) {
+//       const allLanguagesSelected = mentorData.language.split(",").sort().join(",") === languageOptions.sort().join(",");
+//       formik.setFieldValue("language", allLanguagesSelected ? "All Languages" : mentorData.language);
       
-    }
+//     }
     
-  }, [mentorData.language]);
+//   }, [mentorData.language]);
   
-  useEffect(() => {
-    if (mentorData.theme) {
-      const allThemes = themesList.join(","); 
-      const allThemesSelected = mentorData.theme === allThemes;
-      formik.setFieldValue("theme", allThemesSelected ? "All Themes" : mentorData.theme);
-    }
-  }, [mentorData.theme, themesList]);
+//   useEffect(() => {
+//     if (mentorData.theme) {
+//       const allThemes = themesList.join(","); 
+//       const allThemesSelected = mentorData.theme === allThemes;
+//       formik.setFieldValue("theme", allThemesSelected ? "All Themes" : mentorData.theme);
+//     }
+//   }, [mentorData.theme, themesList]);
   const formLoginStyle = {
     display: "flex",
     justifyContent: "space-between",
@@ -304,7 +283,7 @@ useEffect(() => {
                 </div>
                 <div className="form-login col-lg-4 col-sm-12">
                   <div className="input-blocks">
-                    <label>mobile</label>
+                    <label>Mobile</label>
                     <input
                       type="text"
                       className="form-control"
@@ -332,7 +311,7 @@ useEffect(() => {
                     ) : null}
                   </div>
                 </div>
-                <div className="form-login col-lg-4 col-sm-12">
+                {/* <div className="form-login col-lg-4 col-sm-12">
                   <div className="input-blocks">
                     <label>Language</label>
                     <select
@@ -381,7 +360,7 @@ useEffect(() => {
                       </small>
                     ) : null}
                   </div>
-                </div>
+                </div> */}
                 {/* New fields  */}
                 {/* <div className="form-login" style={formLoginStyle}>
   <button
@@ -415,9 +394,7 @@ useEffect(() => {
                     type="button"
                     className="btn btn-secondary"
                     style={{ marginLeft: "auto" }}
-                    // className="btn btn-cancel"
-                    // to={"/eadmin/evaluator"}
-                    // style={cancelLinkStyle}
+                   
                   >
                     Cancel
                   </button>

@@ -77,6 +77,7 @@ import Ticket from "../Admin/UsersList/Tickets";
 import MentorsList from "../Admin/UsersList/MentorsList";
 import TeamsList from "../Admin/UsersList/TeamsList";
 import AdminsList from "../Admin/UsersList/AdminsList";
+import StateList from "../Admin/UsersList/StateList";
 import MentorTableView from "../Admin/UsersList/MentorTableView";
 import PopUp from "../Admin/PopUp/Popuplist";
 import Createpopup from "../Admin/PopUp/CreatePopUp";
@@ -156,6 +157,7 @@ import BulkAC from "../Evaluator/Admin/BulkAR/index";
 import State from "../Evaluator/Admin/Evaluator/State";
 import SearchCID from "../Evaluator/Admin/Dashboard/SearchCID";
 import Permission from "../Admin/UsersList/Permission";
+import ShiftDiesCode from "../Admin/UsersList/ShiftDiesCode";
 
 
 
@@ -552,6 +554,22 @@ export const publicRoutes = [
     path: routes.adminpermission,
     name: "adminpermission",
     element: <Permission/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 38,
+    path: routes.diesshift,
+    name: "diesshift",
+    element: <ShiftDiesCode/>,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 39,
+    path: routes.statelist,
+    name: "statelist",
+    element: <StateList/>,
     protected: true,
     route: Route,
   },

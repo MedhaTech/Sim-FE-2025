@@ -20,7 +20,7 @@ const EditPermission = (props) => {
   const [clickedValue, setclickedValue] = useState({});
   const [selectedValue, setselectedValue] = useState([]);
   const navigate = useNavigate();
-  const permissionList = ["All", "Dashboard", "Overall Schools", "PopUp", "Resource", "Latest News", "State Specific", "Support", "Mentors", "Teams", "Students", "Admins", "Reports", "Bulk Email"];
+  const permissionList = ["All", "Dashboard", "Overall Schools", "PopUp", "Resource", "Latest News", "State Specific", "Support", "Mentors", "Teams", "Students", "Admins", "States", "Reports", "Bulk Email"];
 
   useEffect(() => {
     if (adminData && adminData.permission) {
@@ -56,7 +56,7 @@ const EditPermission = (props) => {
       );
     }
   }, [clickedValue]);
-  
+
   async function handleSubmit(value) {
     //  handleStates Api where value = permission //
     // where we can update the permission //
@@ -80,7 +80,7 @@ const EditPermission = (props) => {
         if (response.status == 200) {
           openNotificationWithIcon(
             'success',
-            'States Update Successfully'
+            'Permissions Updated Successfully'
           );
           navigate('/admins');
         }

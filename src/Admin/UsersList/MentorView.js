@@ -166,16 +166,32 @@ const ViewMore = () => {
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
-                                        <b>state :</b>
+                                        <b>State :</b>
                                     </span>
                                     <b>{orgDaTa.organization.state}</b>
                                 </CardText>
-                                {/* <CardText>
+                                <CardText>
                                     <span className="mx-3">
-                                        <b>Pincode :</b>
+                                        <b>Pin Code :</b>
                                     </span>
                                     <b>{orgDaTa.organization.pin_code}</b>
-                                </CardText> */}
+                                </CardText>
+                                <CardText>
+                                    <span className="mx-3">
+                                        <b>Mandal / Taluka :</b>
+                                    </span>
+                                    <b>{orgDaTa.organization.mandal}</b>
+                                </CardText> <CardText>
+                                    <span className="mx-3">
+                                        <b>School Type :</b>
+                                    </span>
+                                    <b>{orgDaTa.organization.school_type}</b>
+                                </CardText> <CardText>
+                                    <span className="mx-3">
+                                        <b>School Board :</b>
+                                    </span>
+                                    <b>{orgDaTa.organization.board}</b>
+                                </CardText>
                             </CardBody>
                         </Card>
                     </Row>

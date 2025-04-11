@@ -469,6 +469,7 @@ const ReportL1 = () => {
                                   ...(item.evaluation_status === 'REJECTEDROUND1' && item.rejected_reasonSecond
                                       ? { "Rejected Reason 2": item.rejected_reasonSecond }
                                       : {}),
+                                      "Evaluator Name":item.evaluatorName,
                                    
 
 

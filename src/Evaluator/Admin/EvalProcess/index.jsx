@@ -54,14 +54,13 @@ const Evalprocess = () => {
         
         localStorage.setItem('eavlId', JSON.stringify(item));
     };
-    const handleUpdate = (item) => {
-        // where we can select district //
-        // where item = district //
-        navigate("/eadmin-update", {
-            state:item});
+    // const handleUpdate = (item) => {
+        
+    //     navigate("/eadmin-update", {
+    //         state:item});
       
-        localStorage.setItem('id', JSON.stringify(item));
-    };
+    //     localStorage.setItem('id', JSON.stringify(item));
+    // };
     const evalData = {
         data: evalList && evalList.length > 0 ? evalList : [],
         columns: [
@@ -111,10 +110,10 @@ const Evalprocess = () => {
                             style={{ marginRight: '12px' }}
                         >
                             <div className="btn btn-info mx-2">
-                                States
+                            Update
                             </div>
                         </div>
-                        <div
+                        {/* <div
                             key={record}
                             onClick={() => handleUpdate(record)}
                             style={{ marginRight: '12px' }}
@@ -122,7 +121,7 @@ const Evalprocess = () => {
                             <div className="btn btn-warning mx-2">
                                 Update
                             </div>
-                        </div>
+                        </div> */}
                     </>
                 ]
             },

@@ -496,10 +496,16 @@ const ReportL2 = () => {
             const rating =
               evaluatorRatingValuesMap[item.challenge_response_id] || {};
               const comments = rating["JSON_ARRAYAGG(comments)"];
+              const evaluatorNames = rating.evaluatorName || [];
+              const evalCounts = rating.eval_count || []; 
+
             const formatValue = (value) => {
               return value ? parseFloat(value).toFixed(1) : null;
             };
-           
+            const evaluatorColumns = evaluatorNames.reduce((acc, name, index) => {
+              acc[`Evaluator Name ${index + 1}`] = name; 
+              return acc;
+            }, {});
             
 
             return {
@@ -544,15 +550,16 @@ const ReportL2 = () => {
   "Usefulness Score": formatValue(rating.useful),
 
   "Feasibility Score": formatValue(rating.feasibility),
-  // "Feasibility": formatValue(rating.feasibility_score),
   "Scalability Score": formatValue(rating.scalability),
-  // "Quality": formatValue(rating.quality_score),
   "Sustainability Score": formatValue(rating.sustainability),
   "Evaluators Count": rating.eval_count,
                                                   "L3 Status":item.final_result === null ? "Not Promoted" : "Promoted",
-                                                  "Comments": comments && Array.isArray(comments) && comments.length > 0
-                                                  ? comments.join(", ")
-                                                  : "No Comments"
+                                                  "Comments": rating.comments && Array.isArray(rating.comments) && rating.comments.length > 0
+                                                  ? rating.comments.join(", ")
+                                                  : "No Comments",
+                                                  ...evaluatorColumns,
+                                                  // "Evaluator Name 1": rating.eval_count,
+                                                  // "Evaluator Name 2": rating.eval_count,
 
               // ...item,
               // overall_score: formatValue(rating.overall_score),

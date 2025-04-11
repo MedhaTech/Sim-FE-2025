@@ -40,6 +40,7 @@ const TeacherProgressDetailed = () => {
   const [isDownload, setIsDownload] = useState(false);
   const categoryData = ["All Categories", "ATL", "Non ATL"];
   const categoryDataTn = ["All Categories", "HSS", "HS", "Non ATL"];
+  const [hasData, setHasData] = useState(false);
 
   useEffect(() => {
     setdistrict("");
@@ -868,9 +869,11 @@ const TeacherProgressDetailed = () => {
           setModifiedChartTableData(newdatalist);
           if (response.data.data[0].summary.length > 0) {
             setIsCustomizationEnabled(true);
+            setHasData(true); 
            
           } else {
             openNotificationWithIcon("error", "No Data Found");
+            setHasData(false); 
           }
 
           setIsDownload(false);
@@ -1140,7 +1143,7 @@ const TeacherProgressDetailed = () => {
             <div className="page-title">
               <h4>3. Teacher Progress Detailed Report</h4>
               <h6>
-                Teacher Progress - Presurvey , Course, Post survey,
+                Teacher Progress - Pre survey , Course, Post survey,
                 Teams&Progress Status Report
               </h6>
             </div>
@@ -1209,6 +1212,7 @@ const TeacherProgressDetailed = () => {
                             <button
                                    onClick={() => {setShowCustomization(!showCustomization);
                                     fetchData();
+                                    setSelectedHeaders([]);
                                   }}
                                 type="button"
                                 disabled={!enable}
@@ -1217,7 +1221,7 @@ const TeacherProgressDetailed = () => {
                                 Customization
                               </button>
                             </Col>
-                            {showCustomization && (
+                            {showCustomization && hasData &&(
   <div className="card mt-3" style={{ width: "50%", padding: "20px" }}>
     <div className="card-body">
       <h5 className="card-title">Select Columns</h5>
@@ -1269,6 +1273,7 @@ const TeacherProgressDetailed = () => {
             setIsReadyToDownload(true);
           }, 1000);
         }}
+        disabled={selectedHeaders.length === 0}
       >
         Download Report
       </button>

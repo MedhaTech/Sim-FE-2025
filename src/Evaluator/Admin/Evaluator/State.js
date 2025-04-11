@@ -13,6 +13,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { URL, KEY } from '../../../constants/defaultValues';
 import Check from '../EvalProcess/Pages/Check.jsx';
+import {themesList} from "../../../Team/IdeaSubmission/themesData";
+import {languageOptions} from "../../../RegPage/ORGData";
 import { useDispatch, useSelector ,} from 'react-redux';
 // import { getStateData } from '../../../redux/studentRegistration/actions';
 import { encryptGlobal } from '../../../constants/encryptDecrypt';
@@ -24,13 +26,86 @@ const State = (props) => {
     const evalID = JSON.parse(localStorage.getItem('eavlId'));
     const IdIntial =evaluatorId ? evaluatorId : evalID.evaluator_id ;
     // console.log(evalID,"item");
+    const allDataLanguages= ["All Languages",...languageOptions];
+    const allDataThemes= ["All Themes",...themesList];
     const dispatch = useDispatch();
     const [clickedValue, setclickedValue] = useState({});
+    const [clickedValue1, setclickedValue1] = useState({});
+    const [clickedValue2, setclickedValue2] = useState({});
+
     const [selectedStates, setselectedStates] = useState([]);
+    const [selectedLang, setselectedLang] = useState([]);
+    const [selectedTheme, setselectedTheme] = useState([]);
+
 const navigate = useNavigate();
     const newstateList = ["All States", ...stateList];
     const fullStatesNames = newstateList;
-
+    useEffect(() => {
+        if (evalID && evalID.theme) {
+            if (
+                evalID.theme.split(',').length === allDataThemes.length - 1 &&
+                !evalID.theme.includes('All Themes')
+            ) {
+                setselectedTheme(allDataThemes);
+            } else {
+                setselectedTheme(evalID.theme.split(','));
+            }
+        }
+    }, []);
+    useEffect(() => {
+        if (clickedValue1.name === 'All Themes') {
+            if (selectedTheme.includes('All Themes')) {
+                setselectedTheme(allDataThemes);
+            } else {
+                setselectedTheme([]);
+            }
+        } else if (
+            clickedValue1.name &&
+            clickedValue1.name !== 'All Themes' &&
+            selectedTheme.length === allDataThemes.length - 1 &&
+            !selectedTheme.includes('All Themes')
+        ) {
+            setselectedTheme(allDataThemes);
+        } else if (clickedValue1.name && clickedValue1.name !== 'All Themes') {
+            setselectedTheme(
+                selectedTheme?.filter((item) => item !== 'All Themes')
+            );
+        }
+    }, [clickedValue1]);
+    
+    useEffect(() => {
+        if (evalID && evalID.language) {
+            if (
+                evalID.language.split(',').length === allDataLanguages.length - 1 &&
+                !evalID.language.includes('All Languages')
+            ) {
+                setselectedLang(allDataLanguages);
+            } else {
+                setselectedLang(evalID.language.split(','));
+            }
+        }
+    }, []);
+    useEffect(() => {
+        if (clickedValue2.name === 'All Languages') {
+            if (selectedLang.includes('All Languages')) {
+                setselectedLang(allDataLanguages);
+            } else {
+                setselectedLang([]);
+            }
+        } else if (
+            clickedValue2.name &&
+            clickedValue2.name !== 'All Languages' &&
+            selectedLang.length === allDataLanguages.length - 1 &&
+            !selectedLang.includes('All Languages')
+        ) {
+            setselectedLang(allDataLanguages);
+        } else if (clickedValue2.name && clickedValue2.name !== 'All Languages') {
+            setselectedLang(
+                selectedLang?.filter((item) => item !== 'All Languages')
+            );
+        }
+    }, [clickedValue2]);
+        
     useEffect(() => {
         
         if (evalID && evalID.state) {
@@ -87,7 +162,7 @@ const navigate = useNavigate();
 
                     openNotificationWithIcon(
                         'success',
-                        'States Update Successfully'
+                        'States,Themes and Languages Update Successfully'
                     );
                     navigate('/eadmin/evaluator');
                 }
@@ -98,22 +173,34 @@ const navigate = useNavigate();
     }
 
     const handleclick = async () => {
-        // where we can select  the States //
-        const value = { state: '' };
-        selectedStates.includes('All States')
-            ? (value.state = selectedStates
-                  ?.filter((item) => item !== 'All States')
-                  .toString())
-            : (value.state = selectedStates.toString());
+        const value = { state: '',
+              language: '',
+               theme: ''
+         };
+        // selectedStates.includes('All States')
+        //     ? (value.state = selectedStates
+        //           ?.filter((item) => item !== 'All States')
+        //           .toString())
+        //     : (value.state = selectedStates.toString());
+        value.state = selectedStates.includes('All States')
+        ? selectedStates.filter((item) => item !== 'All States').toString()
+        : selectedStates.toString();
+
+    value.language = selectedLang.includes('All Languages')
+        ? selectedLang.filter((item) => item !== 'All Languages').toString()
+        : selectedLang.toString();
+        
+        value.theme = selectedTheme.includes('All Themes')
+        ? selectedTheme.filter((item) => item !== 'All Themes').toString()
+        : selectedTheme.toString();
+            
         await handleStates(value);
     };
     const handleDiscard = () => {
-        // alert("hii");
         setselectedStates([]);
         localStorage.removeItem('eavlId');
         navigate('/eadmin/evaluator');
       };
-    console.log(selectedStates,"selected");
     return (
         <div className="page-wrapper">
           <div className="content">
@@ -124,7 +211,6 @@ const navigate = useNavigate();
                             <Label className="mb-2 text-info">
                             
                                 <span className="text-muted">
-                                    {/* {evalID.evaluator_id} */}
                                 </span>{' '}
                             </Label>
                         </Col>
@@ -140,15 +226,54 @@ const navigate = useNavigate();
                         />
                     </Row>
                 </Card>
+                <Card className="m-3 p-3">
+                    <Row>
+                        <Col md={4}>
+                            <Label className="mb-2 text-info">
+                            
+                                <span className="text-muted">
+                                </span>{' '}
+                            </Label>
+                        </Col>
+                      
+                    </Row>
+                    <Row>
+                        <Label className="mb-2 text-info form-label">Languages:</Label>
+                        <Check
+                            list={allDataLanguages}
+                            value={selectedLang}
+                            setValue={setselectedLang}
+                            selValue={setclickedValue2}
+                        />
+                    </Row>
+                </Card>
+                <Card className="m-3 p-3">
+                    <Row>
+                        <Col md={4}>
+                            <Label className="mb-2 text-info">
+                            
+                                <span className="text-muted">
+                                </span>{' '}
+                            </Label>
+                        </Col>
+                      
+                    </Row>
+                    <Row>
+                        <Label className="mb-2 text-info form-label">Themes:</Label>
+                        <Check
+                            list={allDataThemes}
+                            value={selectedTheme}
+                            setValue={setselectedTheme}
+                            selValue={setclickedValue1}
+                            colSize={4}
+                        />
+                    </Row>
+                </Card>
                 <Row>
                     <Col className="col-xs-12 col-sm-6">
                     <button
           type="button"
           onClick={handleDiscard}
-        //   onClick={() => {
-        //     localStorage.removeItem('eavlId');
-        //     navigate('/eadmin/evaluator');
-        //   }}
           className="btn btn-secondary"
         >
           Discard

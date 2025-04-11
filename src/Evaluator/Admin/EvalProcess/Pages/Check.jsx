@@ -1,6 +1,6 @@
 import { Col } from 'reactstrap';
 
-const Check = ({ list, setValue, value, selValue }) => {
+const Check = ({ list, setValue, value, selValue,colSize = 3 }) => {
     const handleClick = (e) => {
         const { name, checked } = e.target;
         selValue({ name: name, checked: checked });
@@ -11,7 +11,7 @@ const Check = ({ list, setValue, value, selValue }) => {
     };
     return list.map((name, i) => {
         return (
-            <Col md={3} key={i}>
+            <Col md={colSize} key={i}>
                 <div className="mb-2">
                     <input
                         name={name}

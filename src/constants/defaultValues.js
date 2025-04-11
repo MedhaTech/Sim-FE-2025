@@ -57,7 +57,7 @@ export const URL = {
   getStudentDashboardStatusCommonById:
     process.env.REACT_APP_API_BASE_URL + "/dashboard/studentStats/",
   coordinatorLogin:
-    process.env.REACT_APP_API_BASE_URL + "/state_coordinators/login",
+    process.env.REACT_APP_API_BASE_URL + "/states/login",
   eadminLogin: process.env.REACT_APP_API_BASE_URL + "/admins/login?",
   evaluatorLogin: process.env.REACT_APP_API_BASE_URL + "/evaluators/login",
   getPreSurveyList: `${process.env.REACT_APP_API_BASE_URL}/quizSurveys`,
@@ -70,6 +70,7 @@ export const URL = {
   getAdmin: process.env.REACT_APP_API_BASE_URL + '/admins/',
   updateAdminStatus: process.env.REACT_APP_API_BASE_URL + '/admins',
   adminRegister: process.env.REACT_APP_API_BASE_URL + '/admins',
+  StatePath: process.env.REACT_APP_API_BASE_URL + '/states',
   deleteTempMentor: process.env.REACT_APP_API_BASE_URL + '/mentors/',
   studentResetPwd:
   process.env.REACT_APP_API_BASE_URL + '/students/resetPassword',
@@ -107,7 +108,7 @@ export const URL = {
   teacherLogin: process.env.REACT_APP_API_BASE_URL + "/mentors/login",
   teacherLogOut: process.env.REACT_APP_API_BASE_URL + "/auth/logout",
   coordinatorLogOut:
-    process.env.REACT_APP_API_BASE_URL + "/state_coordinators/logout",
+    process.env.REACT_APP_API_BASE_URL + "/states/logout",
   getTeacherById: process.env.REACT_APP_API_BASE_URL + "/mentors/",
 };
 const API = "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870";

@@ -107,13 +107,15 @@ export const adminLoginUser = (data, navigate, module) => async (dispatch) => {
           
         }else if (arr.includes("Admins")){
           navigate("/admins");
+        }else if (arr.includes("States")){
+            navigate("/states");
         }else if (arr.includes("Reports")){
           navigate("/reports");
         }else if (arr.includes("Bulk Email")){
   navigate("/emailList");
         }
 } else if (result && result.status === 404) {
-      openNotificationWithIcon("error", "Invalid Credentials entered");
+      openNotificationWithIcon("error", "Entered Invalid Username or Password");
      
       dispatch(adminLoginUserError(result.statusText));
     }else{

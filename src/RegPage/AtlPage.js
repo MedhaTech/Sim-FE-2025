@@ -697,20 +697,26 @@ const Register = () => {
                             UDISE Code : {""}
                             {orgData?.organization_code}
                             <br />
+                            State Name :{" "}
+                            {orgData?.state ? orgData?.state : " N/A"} <br />
+                            District Name :{" "}
+                          {orgData?.district ? orgData?.district : " N/A"}
+                          <br />
+                          Mandal / Taluka :{" "}
+                          {orgData?.mandal ? orgData?.mandal : " N/A"} <br />
+                          PinCode : {""}
+                          {orgData?.pin_code}
+                          <br />
                             School Name : {""}
                             {orgData?.organization_name}
                             <br />
-                            {/* City Name : {""}
-                            {orgData?.city ? orgData?.city : " N/A"} <br /> */}
-                            {/* District Name :{" "} */}
-                            {/* {orgData?.district ? orgData?.district : " N/A"} */}
-                            State Name :{" "}
-                            {orgData?.state ? orgData?.state : " N/A"} <br />
-                            {/* PinCode :{" "}
-                            {orgData?.pin_code
-                              ? orgData?.pin_code
-                              : " N/A"}{" "} */}
-                            {/* <br /> */}
+                            School Type : {""}
+                          {orgData?.school_type}
+                          <br />School Board : {""}
+                          {orgData?.board}
+                          <br />
+                           
+                           
                           </div>
                         </div>
                       </div>
