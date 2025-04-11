@@ -53,7 +53,7 @@ const GreetingModal = (props) => {
              {props.youtube && !props.imagedata && (
                <div className="col-md-12">
                  <div className="modal-body custom-modal-body">
-                   <div style={{ width: "100%", height: "30vh" }}>
+                   <div style={{ width: "100%", height: "50vh" }}>
                      <iframe
                        src={props.youtube
                          .replace("youtu.be/", "www.youtube.com/embed/")
@@ -71,7 +71,7 @@ const GreetingModal = (props) => {
        
              {/* Case 2: Only image */}
              {props.imagedata && !props.youtube && (
-               <div className="col-md-12 d-flex justify-content-center align-items-center" style={{ height: "30vh" }}>
+               <div className="col-md-12 d-flex justify-content-center align-items-center" style={{ height: "50vh" }}>
                  <img
                    src={props.imagedata}
                    alt="popup image"
