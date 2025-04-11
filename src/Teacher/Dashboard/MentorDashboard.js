@@ -195,8 +195,8 @@ const [courseData, setCourseData] = useState("");
 
   
   const [file, setFile] = useState("");
-  const fileName = file.substring(file.lastIndexOf('/') + 1);
-   const decodedFileName = decodeURIComponent(fileName);
+  // const fileName = file.substring(file.lastIndexOf('/') + 1);
+  //  const decodedFileName = decodeURIComponent(fileName);
   const [imagedata, setImageData] = useState("");
   const [urlData, setUrlData] = useState("");
   const [youtube, setYoutube] = useState("");
@@ -546,7 +546,7 @@ const [stuData,setStuData]=useState("");
         imagedata={imagedata}
         urlData={urlData}
         youtube={youtube}
-        fileName={decodedFileName}
+        // fileName={decodedFileName}
         state={state}
       ></GreetingModal>
       <div style={{ display: "none" }}>

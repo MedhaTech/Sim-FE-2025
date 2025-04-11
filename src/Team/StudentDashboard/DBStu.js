@@ -182,8 +182,8 @@ const DBStu = () => {
 
 
    const [file, setFile] = useState("");
-   const fileName = file.substring(file.lastIndexOf('/') + 1);
-   const decodedFileName = decodeURIComponent(fileName);
+  //  const fileName = file.substring(file.lastIndexOf('/') + 1);
+  //  const decodedFileName = decodeURIComponent(fileName);
     const [imagedata, setImageData] = useState("");
     const [urlData, setUrlData] = useState("");
     const [youtube, setYoutube] = useState("");
@@ -585,7 +585,7 @@ const [postdata,setPostData]=useState("");
         urlData={urlData}
         youtube={youtube}
         state={state}
-        fileName={decodedFileName}
+        // fileName={decodedFileName}
       ></GreetingModal>
       <div className="page-wrapper" id="start">
         <div className="content">
