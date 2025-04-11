@@ -184,6 +184,7 @@ const IdeaReport = () => {
       label: "School Name",
       key: "School Name",
     },
+   
     {
       label: "School Type/Category",
       key: "School Type/Category",
@@ -192,6 +193,11 @@ const IdeaReport = () => {
       label: 'Pin Code',
       key: 'Pin Code'
     },
+    { label: "Mandal / Taluka", key: "Mandal / Taluka" },
+
+    { label: "School Type", key: "School Type" },
+
+    { label: "School Board", key: "School Board" },
     {
       label: 'Address',
       key: 'Address'
@@ -307,6 +313,7 @@ const IdeaReport = () => {
     category: "School Type/Category",
     state: "State",
     district: "District",
+   
     full_name: "Teacher Name",
     username: "Teacher Email",
     gender: "Teacher Gender",
@@ -316,6 +323,9 @@ const IdeaReport = () => {
     team_username: "Team Username",
     CID: "CID",
     pin_code: "Pin Code",
+    mandal :"Mandal / Taluka",
+    school_type :"School Type",
+    board :"School Board",
     address: "Address",
     names: "Student Names",
     theme: "Theme",
@@ -783,6 +793,9 @@ const IdeaReport = () => {
               principal_name: mentorMap[item.mentor_id].principal_name,
               principal_mobile: mentorMap[item.mentor_id].principal_mobile,
               pin_code: mentorMap[item.mentor_id].pin_code,
+              mandal: mentorMap[item.mentor_id].mandal, 
+              school_type: mentorMap[item.mentor_id].school_type,
+              board: mentorMap[item.mentor_id].board,
               address: mentorMap[item.mentor_id].address,
 
             };
@@ -796,6 +809,7 @@ const IdeaReport = () => {
              "School Name":item.organization_name,
              "School Type/Category":item.category,
              "Pin Code":item.pin_code,
+             "School Type":item.school_type, "Mandal / Taluka":item.mandal, "School Board":item.board,
              Address:item.address,
               "Teacher Name":item.full_name,
               "Teacher Email":mentorUsernameMap[item.mentorUserId],

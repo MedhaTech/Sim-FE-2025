@@ -72,7 +72,7 @@ const EditSchool = (props) => {
         setMandals(mandalList[listId.district] || []);
     }
   }, [listId.state,listId?.district]);
-console.log(listId,"id");
+// console.log(listId,"id");
   const inputDICE = {
     type: "text",
     className: "form-control",
@@ -96,9 +96,10 @@ console.log(listId,"id");
       mandal: listId?.mandal || "",
       // school_type: listId?.school_type || "",
       // board: listId?.board || "",
-      school_type: isPredefined1 ? typeFromApi : "Others",
+      // school_type: isPredefined1 ? typeFromApi : "Others",
+      school_type: isPredefined1 ? typeFromApi : (typeFromApi ? "Others" : ""),
       other_school_type: isPredefined1 ? "" : typeFromApi,
-      board: isPredefined ? boardFromApi : "Others",
+      board: isPredefined ? boardFromApi : (boardFromApi ? "Others" : ""),
       other_board: isPredefined ? "" : boardFromApi,
     };
     if (
