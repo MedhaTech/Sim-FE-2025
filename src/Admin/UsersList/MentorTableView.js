@@ -803,7 +803,7 @@ const Dashboard = () => {
                                                         >
                                                             <p>
                                                                 {
-                                                                    orgData.pin_code ? orgData.pin_code :"-"
+                                                                    orgData?.organization?.pin_code ? orgData?.organization?.pin_code :"-"
                                                                 }
                                                             </p>
                                                         </Col>

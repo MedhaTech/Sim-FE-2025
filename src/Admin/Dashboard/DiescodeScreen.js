@@ -33,7 +33,7 @@ import {
   getNormalHeaders,
   openNotificationWithIcon,
 } from "../../helpers/Utils";
-import "./Style.css" ;
+import "./Style.css";
 import { Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
@@ -41,7 +41,7 @@ import { useLocation } from "react-router-dom";
 const DiescodeScreen = () => {
   // here we can see the registration details //
   const navigate = useNavigate();
-  const currentUser = getCurrentUser('current_user');
+  const currentUser = getCurrentUser("current_user");
 
   const location = useLocation();
   const dispatch = useDispatch();
@@ -53,7 +53,7 @@ const DiescodeScreen = () => {
   const [diesCode, setDiesCode] = useState("");
   const [multiOrgData, setMultiOrgData] = useState({ multiOrg });
 
-    // console.log(JSON.parse(multiOrgData),"mm");
+  // console.log(JSON.parse(multiOrgData),"mm");
   const [mentorId, setMentorId] = useState("");
 
   const pdfRef = React.useRef(null);
@@ -267,23 +267,24 @@ const DiescodeScreen = () => {
       },
       {
         name: "Idea Status",
-        selector: (row) => row.ideaStatus === null ? "Not Initiated" 
-        : row.ideaStatus,
+        selector: (row) =>
+          row.ideaStatus === null ? "Not Initiated" : row.ideaStatus,
         center: true,
         width: "8rem",
       },
       {
-        name: 'Mentor Idea Review',
-          selector: (row) =>
-  
-    row.ideaStatus === "SUBMITTED" && row.ideaAcceptance == "ACCEPTED"
-  ? row.ideaAcceptance
-  : row.ideaStatus === "DRAFT" && row.ideaAcceptance === "REJECTED" 
-    ? row.ideaAcceptance : row.ideaStatus === "DRAFT" || row.ideaStatus === null
-    ? "" :"Not yet Reviewed",
+        name: "Mentor Idea Review",
+        selector: (row) =>
+          row.ideaStatus === "SUBMITTED" && row.ideaAcceptance == "ACCEPTED"
+            ? row.ideaAcceptance
+            : row.ideaStatus === "DRAFT" && row.ideaAcceptance === "REJECTED"
+            ? row.ideaAcceptance
+            : row.ideaStatus === "DRAFT" || row.ideaStatus === null
+            ? ""
+            : "Not yet Reviewed",
         center: true,
-        width: '12rem'
-    },
+        width: "12rem",
+      },
       //   {
       //     name: "Mentor Approval",
       //     selector: (row) =>
@@ -302,8 +303,7 @@ const DiescodeScreen = () => {
             <>
               {params.ideaStatus == "SUBMITTED" &&
                 (params.ideaAcceptance === null ||
-                 params.ideaAcceptance == "" )&&
-                 (
+                  params.ideaAcceptance == "") && (
                   <Button
                     key={params}
                     //   className={
@@ -398,7 +398,6 @@ const DiescodeScreen = () => {
               mentor_id: data.mentor_id,
               otp: false,
             })
-
           );
         }
       })
@@ -421,6 +420,18 @@ const DiescodeScreen = () => {
       },
     });
   };
+  const handleShiftDiesCocde = () => {
+    //  here  We can edit the Registration details //
+    // Where data = orgData //
+    navigate("/search-mentor-shift", {
+      state: {
+        username: orgData.mentor?.user?.username,
+        mentor_id: orgData.mentor.mentor_id,
+        organization_code: orgData.organization_code,
+        full_name: orgData.mentor?.full_name,
+      },
+    });
+  };
   // console.log(multiOrgData[0]?.status,"oo");
   return (
     <div className="page-wrapper">
@@ -429,26 +440,33 @@ const DiescodeScreen = () => {
           <div className="create-ticket register-block">
             <Row className="mb-3 modal-body-table search-modal-header">
               <div className="dashboard p-2">
-                <h4>Teachers List Of Udise Code : {diesCode} {""}{multiOrgData[0]?.status === "INACTIVE" ? <span style={{color:"red"}}>Udise code is inactive</span>:""} </h4>
+                <h4>
+                  Teachers List Of Udise Code : {diesCode} {""}
+                  {multiOrgData[0]?.status === "INACTIVE" ? (
+                    <span style={{ color: "red" }}>Udise code is inactive</span>
+                  ) : (
+                    ""
+                  )}{" "}
+                </h4>
                 <Row className="mb-3 modal-body-table search-modal-header">
-                <div className="container evaluated_idea_wrapper">
-                  {multiOrgData.length !== undefined &&
-                    multiOrgData.length !== 0 &&
-                    multiOrgData[0]?.mentor !== null && (
-                      <DataTableExtensions
-                        print={false}
-                        export={false}
-                        {...MultipleMentorsData}
-                      >
-                        <DataTable
-                          data={multiOrgData}
-                          noHeader
-                          highlightOnHover
-                          customStyles={customStyles}
-                        />
-                      </DataTableExtensions>
-                    )}
-                    </div>
+                  <div className="container evaluated_idea_wrapper">
+                    {multiOrgData.length !== undefined &&
+                      multiOrgData.length !== 0 &&
+                      multiOrgData[0]?.mentor !== null && (
+                        <DataTableExtensions
+                          print={false}
+                          export={false}
+                          {...MultipleMentorsData}
+                        >
+                          <DataTable
+                            data={multiOrgData}
+                            noHeader
+                            highlightOnHover
+                            customStyles={customStyles}
+                          />
+                        </DataTableExtensions>
+                      )}
+                  </div>
                 </Row>
                 <div className="row " style={{ overflow: "auto" }}>
                   <div className=" row  col-6 col-md-12">
@@ -477,6 +495,29 @@ const DiescodeScreen = () => {
                             </div>
                             <div className="row ">
                               <div className="col">
+                                <Row className="pt-3 pb-3">
+                                  <Col
+                                    xs={5}
+                                    sm={5}
+                                    md={5}
+                                    xl={5}
+                                    className="my-auto profile-detail"
+                                  >
+                                    <p>UDISE Code </p>
+                                  </Col>
+                                  <Col xs={1} sm={1} md={1} xl={1}>
+                                    :
+                                  </Col>
+                                  <Col
+                                    xs={6}
+                                    sm={6}
+                                    md={6}
+                                    xl={6}
+                                    className="my-auto profile-detail"
+                                  >
+                                    <p>{orgData?.organization_code}</p>
+                                  </Col>
+                                </Row>
                                 <Row className="pt-3 pb-3">
                                   <Col
                                     xs={5}
@@ -544,6 +585,102 @@ const DiescodeScreen = () => {
                                     className="my-auto profile-detail"
                                   >
                                     <p>{orgData.district}</p>
+                                  </Col>
+                                </Row>
+                                <Row className="pt-3 pb-3">
+                                  <Col
+                                    xs={5}
+                                    sm={5}
+                                    md={5}
+                                    xl={5}
+                                    className="my-auto profile-detail"
+                                  >
+                                    <p>Pin Code</p>
+                                  </Col>
+                                  <Col xs={1} sm={1} md={1} xl={1}>
+                                    :
+                                  </Col>
+                                  <Col
+                                    xs={6}
+                                    sm={6}
+                                    md={6}
+                                    xl={6}
+                                    className="my-auto profile-detail"
+                                  >
+                                    <p>
+                                      {orgData.pin_code
+                                        ? orgData.pin_code
+                                        : "-"}
+                                    </p>
+                                  </Col>
+                                </Row>
+                                <Row className="pt-3 pb-3">
+                                  <Col
+                                    xs={5}
+                                    sm={5}
+                                    md={5}
+                                    xl={5}
+                                    className="my-auto profile-detail"
+                                  >
+                                    <p>Mandal / Taluka</p>
+                                  </Col>
+                                  <Col xs={1} sm={1} md={1} xl={1}>
+                                    :
+                                  </Col>
+                                  <Col
+                                    xs={6}
+                                    sm={6}
+                                    md={6}
+                                    xl={6}
+                                    className="my-auto profile-detail"
+                                  >
+                                    <p>{orgData.mandal}</p>
+                                  </Col>
+                                </Row>
+                                <Row className="pt-3 pb-3">
+                                  <Col
+                                    xs={5}
+                                    sm={5}
+                                    md={5}
+                                    xl={5}
+                                    className="my-auto profile-detail"
+                                  >
+                                    <p>School Type</p>
+                                  </Col>
+                                  <Col xs={1} sm={1} md={1} xl={1}>
+                                    :
+                                  </Col>
+                                  <Col
+                                    xs={6}
+                                    sm={6}
+                                    md={6}
+                                    xl={6}
+                                    className="my-auto profile-detail"
+                                  >
+                                    <p>{orgData.school_type}</p>
+                                  </Col>
+                                </Row>
+                                <Row className="pt-3 pb-3">
+                                  <Col
+                                    xs={5}
+                                    sm={5}
+                                    md={5}
+                                    xl={5}
+                                    className="my-auto profile-detail"
+                                  >
+                                    <p>School Board</p>
+                                  </Col>
+                                  <Col xs={1} sm={1} md={1} xl={1}>
+                                    :
+                                  </Col>
+                                  <Col
+                                    xs={6}
+                                    sm={6}
+                                    md={6}
+                                    xl={6}
+                                    className="my-auto profile-detail"
+                                  >
+                                    <p>{orgData.board}</p>
                                   </Col>
                                 </Row>
                                 {/* <Row className="pt-3 pb-3">
@@ -722,7 +859,6 @@ const DiescodeScreen = () => {
                               Reset Pwd
                             </button>
 
-                            
                             <button
                               onClick={viewDetails}
                               type="button"
@@ -739,7 +875,14 @@ const DiescodeScreen = () => {
                             >
                               Download
                             </button>
-
+                            <button
+                              onClick={() => {
+                                handleShiftDiesCocde();
+                              }}
+                              className="btn btn-info"
+                            >
+                              Shift Mentor
+                            </button>
                             <button
                               type="button"
                               className="btn btn-danger"
@@ -752,34 +895,33 @@ const DiescodeScreen = () => {
                           </div>
                           {/* </Row> */}
                           <div className="container evaluated_idea_wrapper">
-                          <Row className="mb-2 modal-body-table search-modal-header">
-                            <div>
-                              <div className="row">
-                                <div className="col">
-                                  <h4 className="text-center m-3 text-primary">
-                                    Enrolled Teams
-                                  </h4>
-                                 
+                            <Row className="mb-2 modal-body-table search-modal-header">
+                              <div>
+                                <div className="row">
+                                  <div className="col">
+                                    <h4 className="text-center m-3 text-primary">
+                                      Enrolled Teams
+                                    </h4>
+                                  </div>
+                                </div>
+
+                                <div>
+                                  <DataTableExtensions
+                                    print={false}
+                                    export={false}
+                                    {...MentorsData}
+                                  >
+                                    <DataTable
+                                      noHeader
+                                      defaultSortField="id"
+                                      defaultSortAsc={false}
+                                      highlightOnHover
+                                      customStyles={customStyles}
+                                    />
+                                  </DataTableExtensions>
                                 </div>
                               </div>
-                              
-                              <div>
-                                <DataTableExtensions
-                                  print={false}
-                                  export={false}
-                                  {...MentorsData}
-                                >
-                                  <DataTable
-                                    noHeader
-                                    defaultSortField="id"
-                                    defaultSortAsc={false}
-                                    highlightOnHover
-                                    customStyles={customStyles}
-                                  />
-                                </DataTableExtensions>
-                              </div>
-                            </div>
-                          </Row>
+                            </Row>
                           </div>
                         </>
                       ) : (

@@ -158,6 +158,8 @@ import State from "../Evaluator/Admin/Evaluator/State";
 import SearchCID from "../Evaluator/Admin/Dashboard/SearchCID";
 import Permission from "../Admin/UsersList/Permission";
 import ShiftDiesCode from "../Admin/UsersList/ShiftDiesCode";
+import DiesShift from "../Coordinators/Dashboard/DiesShift";
+import DiesMentor from "../Admin/Dashboard/DiesMentor";
 
 
 
@@ -573,6 +575,14 @@ export const publicRoutes = [
     protected: true,
     route: Route,
   },
+  {
+    id: 40,
+    path: routes.searchshift,
+    name: "searchshift",
+    element: <DiesMentor/>,
+    protected: true,
+    route: Route,
+  },
   
  
 ];
@@ -916,6 +926,14 @@ export const stateRoutes = [
     path: routes.editStateResource,
     name: "editStateResource",
     element: <StateResourcesEdit />,
+    protected: true,
+    route: Route,
+  },
+  {
+    id: 12,
+    path: routes.coodiesshift,
+    name: "coodiesshift",
+    element: <DiesShift />,
     protected: true,
     route: Route,
   },
