@@ -110,7 +110,7 @@ const InstitutionReport = () => {
   const [formattedDataForDownload, setFormattedDataForDownload] = useState([]);
   const [hasData, setHasData] = useState(false);
   // const registrationStatus = mentor_reg !== 0 ? "Completed" : "Not Started";
- 
+  const [customizationActive, setCustomizationActive] = useState(false);
   const allHeaders = [
     { label: "UDISE Code", key: "organization_code" },
     { label: "School Name", key: "organization_name" },
@@ -345,6 +345,7 @@ const InstitutionReport = () => {
           } else {
             openNotificationWithIcon("error", "No Data Found");
             setHasData(false); 
+            setShowCustomization(false);
           }
           setIsDownload(false);
         }
@@ -384,8 +385,20 @@ const InstitutionReport = () => {
  
   const enable = selectstate?.trim() !== "" && district?.trim() !== "" && category?.trim() !== "";
 
+  const handleCustomizationClick = () => {
+    setShowCustomization(!showCustomization);
+    fetchData();
+    setSelectedHeaders([]);
+    setCustomizationActive(true); 
+  };
+  useEffect(() => {
+    if (customizationActive) {
+      setShowCustomization(false);       
+      setCustomizationActive(false);     
+      setSelectedHeaders([]);           
+    }
+  }, [district, category, selectstate]);
   
-
   return (
     <div className="page-wrapper">
        <h4 className="m-2" 
@@ -458,10 +471,11 @@ const InstitutionReport = () => {
               <Col md={2}>
               <button
                    
-                    onClick={() => {setShowCustomization(!showCustomization);
-                      fetchData();
-                      setSelectedHeaders([]);
-                    }}
+                    // onClick={() => {setShowCustomization(!showCustomization);
+                    //   fetchData();
+                    //   setSelectedHeaders([]);
+                    // }}
+                    onClick={handleCustomizationClick}
                   type="button"
                   disabled={!enable}
                   className="btn btn-primary"
