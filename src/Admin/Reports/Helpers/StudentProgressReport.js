@@ -185,6 +185,11 @@ const StudentProgress = () => {
       label: "City",
       key: "city",
     },
+    { label: "Mandal / Taluka", key: "mandal" },
+
+    { label: "School Type", key: "school_type" },
+
+    { label: "School Board", key: "board" },
     {
       label: 'HM Name',
       key: 'principal_name'
@@ -272,6 +277,9 @@ const StudentProgress = () => {
     state: "State",
     district: "District",
     city: "City",
+    mandal :"Mandal / Taluka",
+    school_type :"School Type",
+    board :"School Board",
     principal_name: "HM Name",
     principal_mobile: "HM Contact",
     full_name: "Teacher Name",
@@ -805,6 +813,9 @@ const StudentProgress = () => {
               whatapp_mobile: mentorMap[item.mentor_id].whatapp_mobile,
               mentorUserId: mentorMap[item.mentor_id].mentorUserId,
               city: mentorMap[item.mentor_id].city,
+              mandal: mentorMap[item.mentor_id].mandal, 
+              school_type: mentorMap[item.mentor_id].school_type,
+              board: mentorMap[item.mentor_id].board,
               principal_name: mentorMap[item.mentor_id].principal_name,
               principal_mobile: mentorMap[item.mentor_id].principal_mobile,
             };

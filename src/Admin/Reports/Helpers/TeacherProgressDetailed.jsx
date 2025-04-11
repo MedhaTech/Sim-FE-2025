@@ -186,6 +186,11 @@ const TeacherProgressDetailed = () => {
       label: "District",
       key: "district",
     },
+    { label: "Mandal / Taluka", key: "mandal" },
+
+    { label: "School Type", key: "school_type" },
+
+    { label: "School Board", key: "board" },
     {
       label: "City",
       key: "city",
@@ -277,6 +282,9 @@ const TeacherProgressDetailed = () => {
     category: "School Type/Category",
     state: "State",
     district: "District",
+    mandal :"Mandal / Taluka",
+    school_type :"School Type",
+    board :"School Board",
     city: "City",
     principal_name: "HM Name",
     principal_mobile: "HM Contact",
