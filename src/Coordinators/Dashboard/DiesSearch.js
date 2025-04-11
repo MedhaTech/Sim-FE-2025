@@ -981,7 +981,7 @@ const handleShiftDiesCocde= () => {
                                                 }}>
                                        Download
                                     </button>
-                                    <button
+                                    {/* <button
                                                 onClick={() => {
                                                    handleShiftDiesCocde();
                                                 }}
@@ -989,7 +989,7 @@ const handleShiftDiesCocde= () => {
                                                 
                                             >
                                                 Shift Mentor
-                                            </button>
+                                            </button> */}
                                             <button
                                                 onClick={viewDetails}
                                                type="button" className="btn btn-outline-primary"
