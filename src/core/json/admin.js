@@ -102,7 +102,7 @@ const AdminSidebarData = () => {
           permission: "Admins",
         },
         {
-          label: "States",
+          label: "State Users",
           link: "/states",
           icon: <Icon.User />,
           showSubRoute: false,

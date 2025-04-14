@@ -80,6 +80,7 @@ const IdeaReport = () => {
   const [series5, setseries5] = useState([]);
   const [series6, setseries6] = useState([]);
   const [series7, setseries7] = useState([]);
+  const [customizationActive, setCustomizationActive] = useState(false);
 
   const [barChart1Data, setBarChart1Data] = useState({
     labels: [],
@@ -183,6 +184,7 @@ const IdeaReport = () => {
       label: "School Name",
       key: "School Name",
     },
+   
     {
       label: "School Type/Category",
       key: "School Type/Category",
@@ -191,6 +193,11 @@ const IdeaReport = () => {
       label: 'Pin Code',
       key: 'Pin Code'
     },
+    { label: "Mandal / Taluka", key: "Mandal / Taluka" },
+
+    { label: "School Type", key: "School Type" },
+
+    { label: "School Board", key: "School Board" },
     {
       label: 'Address',
       key: 'Address'
@@ -306,6 +313,7 @@ const IdeaReport = () => {
     category: "School Type/Category",
     state: "State",
     district: "District",
+   
     full_name: "Teacher Name",
     username: "Teacher Email",
     gender: "Teacher Gender",
@@ -315,6 +323,9 @@ const IdeaReport = () => {
     team_username: "Team Username",
     CID: "CID",
     pin_code: "Pin Code",
+    mandal :"Mandal / Taluka",
+    school_type :"School Type",
+    board :"School Board",
     address: "Address",
     names: "Student Names",
     theme: "Theme",
@@ -386,7 +397,19 @@ const IdeaReport = () => {
     console.log("Final Filtered Data for Download:", filteredData);
     setstudentDetailedReportsData(filteredData);
   };
- 
+  const handleCustomizationClick = () => {
+     setShowCustomization(!showCustomization);
+     fetchData();
+     setSelectedHeaders([]);
+     setCustomizationActive(true); 
+   };
+   useEffect(() => {
+     if (customizationActive) {
+       setShowCustomization(false);       
+       setCustomizationActive(false);     
+       setSelectedHeaders([]);           
+     }
+   }, [district, category, selectstate,sdg]);
   const enable = selectstate?.trim() !== "" && district?.trim() !== "" && category?.trim() !== "" && sdg?.trim() !== "";
   var chartOption = {
     chart: {
@@ -770,6 +793,9 @@ const IdeaReport = () => {
               principal_name: mentorMap[item.mentor_id].principal_name,
               principal_mobile: mentorMap[item.mentor_id].principal_mobile,
               pin_code: mentorMap[item.mentor_id].pin_code,
+              mandal: mentorMap[item.mentor_id].mandal, 
+              school_type: mentorMap[item.mentor_id].school_type,
+              board: mentorMap[item.mentor_id].board,
               address: mentorMap[item.mentor_id].address,
 
             };
@@ -783,6 +809,7 @@ const IdeaReport = () => {
              "School Name":item.organization_name,
              "School Type/Category":item.category,
              "Pin Code":item.pin_code,
+             "School Type":item.school_type, "Mandal / Taluka":item.mandal, "School Board":item.board,
              Address:item.address,
               "Teacher Name":item.full_name,
               "Teacher Email":mentorUsernameMap[item.mentorUserId],
@@ -824,6 +851,7 @@ const IdeaReport = () => {
           } else {
             openNotificationWithIcon("error", "No Data Found");
             setHasData(false);
+            setShowCustomization(false);
           }
          
           setIsDownload(false);
@@ -1077,10 +1105,11 @@ const IdeaReport = () => {
              
                 <Col md={2}>
                                                         <button
-                                                               onClick={() => {setShowCustomization(!showCustomization);
-                                                                fetchData();
-                                                                setSelectedHeaders([]);
-                                                              }}
+                                                              //  onClick={() => {setShowCustomization(!showCustomization);
+                                                              //   fetchData();
+                                                              //   setSelectedHeaders([]);
+                                                              // }}
+                                                              onClick={handleCustomizationClick}
                                                             type="button"
                                                             disabled={!enable}
                                                             className="btn btn-primary"
@@ -1092,7 +1121,8 @@ const IdeaReport = () => {
                               <div className="card mt-3" style={{ width: "100%", padding: "20px" }}>
                                 <div className="card-body">
                                   <h5 className="card-title">Select Columns</h5>
-                            
+                                  <div className="row">
+                                  <div className="col-md-3">
                                   <div className="form-check mb-2">
                                     <input
                                       type="checkbox"
@@ -1105,11 +1135,13 @@ const IdeaReport = () => {
                                       Select All
                                     </label>
                                   </div>
+                                  </div>
+
                             
-                                  <div className="row">
+                                 
                                     {allHeaders.map((header) => (
-                                      <div className="col-md-12" key={header.key}>
-                                        <div className="form-check">
+                                      <div className="col-md-3 mb-2" key={header.key}style={{ display: 'flex', alignItems: 'flex-start' }}>
+                                        <div className="form-check" style={{ width: '100%' }}>
                                           <input
                                             type="checkbox"
                                             className="form-check-input"

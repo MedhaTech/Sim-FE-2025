@@ -11,6 +11,10 @@ export const all_routes = {
   mentorslist:"/mentors",
   teamslist:"/teams",
   diesshift:"/admin-mentor-shift",
+  searchshift:"/search-mentor-shift",
+
+  coodiesshift:"/state-mentor-shift",
+
   adminlist:"/admins",
   statelist:"/states",
   adminpermission:"/admin-permission",
