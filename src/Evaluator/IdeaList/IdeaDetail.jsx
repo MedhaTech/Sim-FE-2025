@@ -15,6 +15,7 @@ import RateIdea from './RateIdea';
 import { Row, Col, Form, Label } from 'reactstrap';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import FilePreviewModal from "./Modal";
+import VideoPopup from './Videopop';
 const IdeaDetail = (props) => {
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
@@ -626,7 +627,7 @@ const downloadFile = (item) => {
                                                 fontSize: '1rem',color:"black"
                                             }}
                                         >
-                                             <a 
+                                             {/* <a 
             href={teamResponse.prototype_link} 
             target="_blank" 
             rel="noopener noreferrer" 
@@ -634,7 +635,14 @@ const downloadFile = (item) => {
         >
             {teamResponse.prototype_link}
 
-        </a>
+
+        </a> */}
+        {/* <VideoPopup videoUrl={teamResponse.prototype_link} /> */}
+        {teamResponse?.prototype_link && (
+  <VideoPopup videoUrl={teamResponse.prototype_link} />
+)}
+
+
                                         </p>
                                     </div>
                                 </div>
