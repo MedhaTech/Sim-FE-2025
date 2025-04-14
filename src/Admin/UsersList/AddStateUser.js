@@ -35,14 +35,14 @@ const Register = (props) => {
     const validationForState = Yup.object({
         full_name: Yup.string()
             .trim()
-            .min(2, 'Enter Name')
+            .min(2, 'Enter Full Name')
             .matches(/^[aA-zZ\s]+$/, 'Only allow alpha characters')
-            .required('Required'),
+            .required('Please Enter Full Name'),
         username: Yup.string()
             .trim()
             .email('Invalid username format')
-            .required('Required'),
-        state_name: Yup.string().required('Required')
+            .required('Please Enter Email Address'),
+        state_name: Yup.string().required('Please Select State Name')
     });
 
     const formik = useFormik({
@@ -86,10 +86,16 @@ const Register = (props) => {
                     }
                 })
                 .catch((err) => {
-                    openNotificationWithIcon(
-                        'error',
-                        err.response.data?.message
-                    );
+                    if (err?.response?.data?.status === 406) {
+                                      openNotificationWithIcon("error", "Email already Exists");
+                                    
+                    }else{
+                        openNotificationWithIcon(
+                            'error',
+                            err.response.data?.message
+                        );
+                    }
+                   
                     formik.setErrors({
                         check: err.response && err?.response?.data?.message
                     });
@@ -197,6 +203,7 @@ const Register = (props) => {
                                         onBlur={formik.handleBlur}
                                         value={formik.values.state_name}
                                     >
+                                         <option value="">Select State Name</option>
                                         {stateList.map((item, i) => (
                                             <option key={i} value={item}>
                                                 {item}

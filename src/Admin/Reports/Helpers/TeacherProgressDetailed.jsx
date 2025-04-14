@@ -75,7 +75,7 @@ const TeacherProgressDetailed = () => {
   const [selectedHeaders, setSelectedHeaders] = useState([]);
   const [isReadyToDownload, setIsReadyToDownload] = useState(false);
       const [modifiedChartTableData, setModifiedChartTableData] = useState([]);
-  
+  const [customizationActive, setCustomizationActive] = useState(false);
   const [formattedDataForDownload, setFormattedDataForDownload] = useState([]);
   const [barChartNew, setBarChartNew] = useState({
     labels: [],
@@ -186,6 +186,11 @@ const TeacherProgressDetailed = () => {
       label: "District",
       key: "district",
     },
+    { label: "Mandal / Taluka", key: "mandal" },
+
+    { label: "School Type", key: "school_type" },
+
+    { label: "School Board", key: "board" },
     {
       label: "City",
       key: "city",
@@ -277,6 +282,9 @@ const TeacherProgressDetailed = () => {
     category: "School Type/Category",
     state: "State",
     district: "District",
+    mandal :"Mandal / Taluka",
+    school_type :"School Type",
+    board :"School Board",
     city: "City",
     principal_name: "HM Name",
     principal_mobile: "HM Contact",
@@ -874,6 +882,7 @@ const TeacherProgressDetailed = () => {
           } else {
             openNotificationWithIcon("error", "No Data Found");
             setHasData(false); 
+            setShowCustomization(false);
           }
 
           setIsDownload(false);
@@ -1119,7 +1128,19 @@ const TeacherProgressDetailed = () => {
       });
   };
   const enable = selectstate?.trim() !== "" && district?.trim() !== "" && category?.trim() !== "";
-
+ const handleCustomizationClick = () => {
+    setShowCustomization(!showCustomization);
+    fetchData();
+    setSelectedHeaders([]);
+    setCustomizationActive(true); 
+  };
+  useEffect(() => {
+    if (customizationActive) {
+      setShowCustomization(false);       
+      setCustomizationActive(false);     
+      setSelectedHeaders([]);           
+    }
+  }, [district, category, selectstate]);
   return (
     <div className="page-wrapper">
       <h4
@@ -1210,10 +1231,11 @@ const TeacherProgressDetailed = () => {
              
                <Col md={2}>
                             <button
-                                   onClick={() => {setShowCustomization(!showCustomization);
-                                    fetchData();
-                                    setSelectedHeaders([]);
-                                  }}
+                                  //  onClick={() => {setShowCustomization(!showCustomization);
+                                  //   fetchData();
+                                  //   setSelectedHeaders([]);
+                                  // }}
+                                  onClick={handleCustomizationClick}
                                 type="button"
                                 disabled={!enable}
                                 className="btn btn-primary"
@@ -1222,10 +1244,11 @@ const TeacherProgressDetailed = () => {
                               </button>
                             </Col>
                             {showCustomization && hasData &&(
-  <div className="card mt-3" style={{ width: "50%", padding: "20px" }}>
+  <div className="card mt-3" >
     <div className="card-body">
       <h5 className="card-title">Select Columns</h5>
-
+      <div className="row">
+      <div className="col-md-3">
       <div className="form-check mb-2">
         <input
           type="checkbox"
@@ -1238,10 +1261,12 @@ const TeacherProgressDetailed = () => {
           Select All
         </label>
       </div>
+      </div>
 
-      <div className="row">
+
+     
         {allHeaders.map((header) => (
-          <div className="col-md-6" key={header.key}>
+          <div className="col-md-3" key={header.key}>
             <div className="form-check">
               <input
                 type="checkbox"

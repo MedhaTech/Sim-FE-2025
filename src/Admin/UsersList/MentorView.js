@@ -132,19 +132,19 @@ const ViewMore = () => {
                         <Card className="py-2">
                             <CardBody>
                                 <h4 className="mb-4 text-primary">Organization Details</h4>
-
-                                <CardText>
-                                    <span className="mx-3">
-                                        <b>Organization Name :</b>
-                                    </span>
-                                    <b>{orgDaTa.organization.organization_name}</b>
-                                </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>UDISE Code :</b>
                                     </span>
                                     <b>{orgDaTa.organization.organization_code}</b>
                                 </CardText>
+                                <CardText>
+                                    <span className="mx-3">
+                                        <b>Organization Name :</b>
+                                    </span>
+                                    <b>{orgDaTa.organization.organization_name}</b>
+                                </CardText>
+                                
                                 {/* <CardText>
                                     <span className="mx-3">
                                         <b>UDISE Code :</b>
@@ -174,7 +174,7 @@ const ViewMore = () => {
                                     <span className="mx-3">
                                         <b>Pin Code :</b>
                                     </span>
-                                    <b>{orgDaTa.organization.pin_code}</b>
+                                    <b>{orgDaTa.organization.pin_code ? orgDaTa.organization.pin_code :"-" }</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">

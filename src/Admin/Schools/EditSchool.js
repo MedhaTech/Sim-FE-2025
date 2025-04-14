@@ -57,7 +57,12 @@ const EditSchool = (props) => {
   const [mandals, setMandals] = useState([]);
 
   // where  listID = orgnization details //
+  const boardFromApi = listId?.board || ""; 
 
+  const isPredefined = SchoolBoard.includes(boardFromApi);
+  const typeFromApi = listId?.school_type || ""; 
+
+  const isPredefined1 = SchoolType.includes(typeFromApi);
   useEffect(() => {
     // setDistricts(districtList[listId.state] || []);
     if (listId?.state) {
@@ -67,7 +72,7 @@ const EditSchool = (props) => {
         setMandals(mandalList[listId.district] || []);
     }
   }, [listId.state,listId?.district]);
-console.log(listId,"id");
+// console.log(listId,"id");
   const inputDICE = {
     type: "text",
     className: "form-control",
@@ -89,8 +94,13 @@ console.log(listId,"id");
       address: listId?.address || "",
       category: listId?.category || "",
       mandal: listId?.mandal || "",
-      school_type: listId?.school_type || "",
-      board: listId?.board || "",
+      // school_type: listId?.school_type || "",
+      // board: listId?.board || "",
+      // school_type: isPredefined1 ? typeFromApi : "Others",
+      school_type: isPredefined1 ? typeFromApi : (typeFromApi ? "Others" : ""),
+      other_school_type: isPredefined1 ? "" : typeFromApi,
+      board: isPredefined ? boardFromApi : (boardFromApi ? "Others" : ""),
+      other_board: isPredefined ? "" : boardFromApi,
     };
     if (
       listId?.district &&
