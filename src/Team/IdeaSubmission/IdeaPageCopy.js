@@ -1616,7 +1616,7 @@ if(formData?.verified_status === "ACCEPTED"){
                               </b>
                             <div className="answers row flex-column p-3 pt-2">
                             <div className="row g-0 align-items-center">
-                            <div className="col-11 pe-3">
+                            <div className="col-10 pe-3">
                               <textarea
                                 className="form-control"
                                 disabled={isDisabled}
@@ -1628,7 +1628,7 @@ if(formData?.verified_status === "ACCEPTED"){
                                 //   setPrototypeLink(e.target.value)
                                 // }
                                 onChange={handleInputChange}
-                                style={{ height: "150px" }} 
+                                style={{ height: "150px"}} 
                               />
                               <div className="text-end">
                                 {t("student_course.chars")} :
@@ -1641,7 +1641,7 @@ if(formData?.verified_status === "ACCEPTED"){
     </div>
   )}
                             </div>
-                            <div className="col-1 d-flex align-items-center pe-3">
+                            <div className="col-2 d-flex align-items-center pe-3">
                             <button
                               className="btn btn-info "
                               onClick={handleVerify}
