@@ -200,7 +200,7 @@ const StateList = () => {
                 <div className="page-header">
                     <div className="add-item d-flex">
                         <div className="page-title">
-                            <h4>States List</h4>
+                            <h4>State Users List</h4>
                             <h6>Create an State User here</h6>
                         </div>
                     </div>

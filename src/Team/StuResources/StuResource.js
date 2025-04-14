@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { getCurrentUser } from "../../helpers/Utils";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { useTranslation } from 'react-i18next';
+import FileGrid from "./FileGrid";
 
 import { useNavigate } from "react-router-dom";
 import DataTableExtensions from "react-data-table-component-extensions";
@@ -190,7 +191,10 @@ return (
             <h6>{t('home.reshead')}</h6>
           </div>
         </div>
-        <div className="card table-list-card my-2">
+        <div>
+          <FileGrid resList={resList} />
+        </div>
+        {/* <div className="card table-list-card my-2">
           <DataTableExtensions
             data={rows}
             print={false}
@@ -212,7 +216,7 @@ return (
               subHeaderAlign={Alignment.Center}
             />
           </DataTableExtensions>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -15,6 +15,7 @@ import { PiImageFill } from "react-icons/pi";
 import { IoLogoYoutube } from "react-icons/io";
 import { IoDocumentText } from "react-icons/io5";
 import { LiaFileExcelSolid } from "react-icons/lia";
+import FileGrid from "../../Team/StuResources/FileGrid";
 
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { MdConnectedTv } from "react-icons/md";
@@ -220,7 +221,10 @@ const [hoveredRow, setHoveredRow] = useState(null);
             <h6>{t('teacherJourney.restag')}</h6>
           </div>
         </div>
-        <div className="card table-list-card my-2">
+        <div>
+          <FileGrid resList={resList} />
+        </div>
+        {/* <div className="card table-list-card my-2">
           <DataTableExtensions
             data={rows}
             print={false}
@@ -242,7 +246,7 @@ const [hoveredRow, setHoveredRow] = useState(null);
               subHeaderAlign={Alignment.Center}
             />
           </DataTableExtensions>
-        </div>
+        </div> */}
       </div>
     </div>
   );
