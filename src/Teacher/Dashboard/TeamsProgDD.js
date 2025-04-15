@@ -297,6 +297,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
 
   const handleemailapi = () => {
     emailTeamCredentials();
+    // alert("hiii");
   };
   useEffect(() => {
     const popaddParam = encryptGlobal("3");

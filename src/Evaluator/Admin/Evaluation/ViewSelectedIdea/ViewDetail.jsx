@@ -28,6 +28,7 @@ import { useReactToPrint } from 'react-to-print';
 // import LinkComponent from "../../Challenges/pages/LinkComponent";
 
 import { encryptGlobal } from '../../../../constants/encryptDecrypt';
+import VideoPopup from '../../../IdeaList/Videopop';
 const ViewDetail = (props) => {
     const { t } = useTranslation();
 
@@ -945,14 +946,17 @@ console.log(level,"level");
                                                 fontSize: '1rem',color:"black"
                                             }}
                                         >
-                                             <a 
+                                             {/* <a 
             href={teamResponse.prototype_link} 
             target="_blank" 
             rel="noopener noreferrer" 
             style={{ textDecoration: 'none', color: 'skyblue'}}
         >
             {teamResponse.prototype_link}
-        </a>
+        </a> */}
+         {teamResponse?.prototype_link && (
+          <VideoPopup videoUrl={teamResponse.prototype_link} />
+        )}
                                             {/* {teamResponse.prototype_link} */}
                                         </p>
                                     </div>
