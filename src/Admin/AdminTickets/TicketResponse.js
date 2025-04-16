@@ -368,7 +368,7 @@ const StateRes = (props) => {
                         <Label className="mb-2" htmlFor="file_name">
                           File
                         </Label>
-                        <div className="d-flex align-items-center">
+                        <div className="m-2">
                           <input
                             type="file"
                             id="file_name2"
