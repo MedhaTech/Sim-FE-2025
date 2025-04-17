@@ -822,7 +822,7 @@ const MyCertificate = () => {
   }, [resList, score, status]);
 
   const enableParticipation =
-    ideaStatus === "SUBMITTED" && postSurveyStatus === "COMPLETED";
+    ideaStatus === "SUBMITTED" && postSurveyStatus === "COMPLETED" && resList === 1;
   // console.log(enableParticipation ,"Participation certificate enabled ..","Idea:",ideaStatus,"Post:",postSurveyStatus);
   return (
     <div className="page-wrapper">
@@ -833,34 +833,36 @@ const MyCertificate = () => {
               <Row>
                 <Row></Row>
                 <Col className="d-lg-flex justify-content-center mb-3">
-                  {ideaEnabled && (
-                    <div className="col-12 col-lg-4">
-                      <Certificate
-                        type={"participate"}
-                        currentUser={currentUser}
-                        isEnabled={ideaEnabled}
-                        language={language}
-                      />
-                    </div>
-                  )}
                   <div className="col-12 col-lg-4">
                     <Certificate
                       language={language}
+                        //Course certificate //
                       currentUser={currentUser}
-                      isEnabled={course}
+                      isEnabled={course && resList == 1}
                       courseDate={courseDate}
                     />
                   </div>
                   <div className="col-12 col-lg-4">
                     <Certificate
                       type={"addon"}
+                        //Idea certificate //
                       language={language}
                       currentUser={currentUser}
                       isEnabled={enableParticipation}
                       surveyDate={surveyDates}
-
                     />
                   </div>
+                  {ideaEnabled && (
+                    <div className="col-12 col-lg-4">
+                      <Certificate
+                        type={"participate"}
+                          //3rd certificate //
+                        currentUser={currentUser}
+                        isEnabled={ideaEnabled}
+                        language={language}
+                      />
+                    </div>
+                  )}
                 </Col>
               </Row>
             ) : (
