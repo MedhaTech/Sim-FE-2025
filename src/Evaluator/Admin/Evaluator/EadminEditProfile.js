@@ -160,7 +160,7 @@ const allDataThemes= ["All Themes",...themesList];
             mentorData?.evaluator_id
               ? dispatch(getAdminEvalutorsList())
               : mentorData?.admin_id && dispatch(getAdmin());
-            openNotificationWithIcon("success", "Language and Theme are Updated Successfully");
+            openNotificationWithIcon("success", "Profile Edited Successfully");
             setTimeout(() => {
               navigate("/eadmin/evaluator");
             }, 200);
