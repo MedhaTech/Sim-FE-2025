@@ -175,7 +175,7 @@ const TeacherProgressDetailed = () => {
       key: "organization_name",
     },
     {
-      label: "School Type/Category",
+      label: "School Category",
       key: "category",
     },
     {
@@ -279,7 +279,7 @@ const TeacherProgressDetailed = () => {
   const headerMapping = {
     organization_code: "UDISE CODE",
     organization_name: "School Name",
-    category: "School Type/Category",
+    category: "School Category",
     state: "State",
     district: "District",
     mandal :"Mandal / Taluka",

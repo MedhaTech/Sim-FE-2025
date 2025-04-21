@@ -195,7 +195,7 @@ const ReportL2 = () => {
       key: "organization_name",
     },
     {
-      label: "School Type/Category",
+      label: "School Category",
       key: "category",
     },
     {
@@ -514,7 +514,7 @@ const ReportL2 = () => {
                                                  District:item.district,
                                                  CID:item.challenge_response_id,
                                                  "School Name":item.organization_name,
-                                                 "School Type/Category":item.category,
+                                                 "School Category":item.category,
                                                  "Pin code":item.pin_code,
                                                  Address:item.address,
                                                   "Teacher Name":item.full_name,

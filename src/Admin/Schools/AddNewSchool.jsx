@@ -100,7 +100,7 @@ const AddNewSchool = (props) => {
       district: Yup.string()
         .required("District is Required"),
       category: Yup.string()
-        .required("category is Required"),
+        .required("Category is Required"),
       state: Yup.string().required("State is required"),
       mandal: Yup.string().required("Mandal / Taluka is required"),
 
@@ -516,7 +516,7 @@ other_board: Yup.string().test(
                           className="form-label"
                           htmlFor="category"
                         >
-                          category
+                          Category
                           <span required>*</span>
                         </Label>
                         {/* <Col md={3}> */}{" "}
