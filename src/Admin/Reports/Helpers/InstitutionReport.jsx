@@ -114,7 +114,7 @@ const InstitutionReport = () => {
   const allHeaders = [
     { label: "UDISE Code", key: "organization_code" },
     { label: "School Name", key: "organization_name" },
-    { label: "School Type/Category", key: "category" },
+    { label: "School Category", key: "category" },
     { label: "State", key: "state" },
     { label: "District", key: "district" },
     { label: "Mandal / Taluka", key: "mandal" },
@@ -132,7 +132,7 @@ const InstitutionReport = () => {
   const headerMapping = {
     organization_code: "UDISE Code",
     organization_name: "School Name",
-    category: "School Type/Category",
+    category: "School Category",
     state: "State",
     district: "District",
     mandal :"Mandal / Taluka",

@@ -186,8 +186,8 @@ const IdeaReport = () => {
     },
    
     {
-      label: "School Type/Category",
-      key: "School Type/Category",
+      label: "School Category",
+      key: "School Category",
     },
     {
       label: 'Pin Code',
@@ -310,7 +310,7 @@ const IdeaReport = () => {
   const headerMapping = {
     organization_code: "UDISE CODE",
     organization_name: "School Name",
-    category: "School Type/Category",
+    category: "School Category",
     state: "State",
     district: "District",
    
@@ -807,7 +807,7 @@ const IdeaReport = () => {
              District:item.district,
              CID:item.challenge_response_id,
              "School Name":item.organization_name,
-             "School Type/Category":item.category,
+             "School Category":item.category,
              "Pin Code":item.pin_code,
              "School Type":item.school_type, "Mandal / Taluka":item.mandal, "School Board":item.board,
              Address:item.address,

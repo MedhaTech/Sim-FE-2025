@@ -170,7 +170,7 @@ const StudentProgress = () => {
       key: "organization_name",
     },
     {
-      label: "School Type/Category",
+      label: "School Category",
       key: "category",
     },
     {
@@ -273,7 +273,7 @@ const StudentProgress = () => {
   const headerMapping = {
     organization_code: "UDISE CODE",
     organization_name: "School Name",
-    category: "School Type/Category",
+    category: "School Category",
     state: "State",
     district: "District",
     city: "City",

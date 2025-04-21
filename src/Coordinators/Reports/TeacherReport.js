@@ -173,7 +173,7 @@ const TeacherProgressDetailed = () => {
       key: "organization_name",
     },
     {
-      label: "School Type/Category",
+      label: "School Category",
       key: "category",
     },
     {
