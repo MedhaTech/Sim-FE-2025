@@ -142,6 +142,12 @@ const navigate = useNavigate();
         if(value.state===''){
             value.state = '-';
         }
+        if(value.language===''){
+            value.language = '-';
+        }
+        if(value.theme===''){
+            value.theme = '-';
+        }
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const evalid = encryptGlobal(JSON.stringify(evalID.evaluation_process_id));
         await axios

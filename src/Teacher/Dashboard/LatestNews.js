@@ -66,7 +66,7 @@ function LatestNews() {
     <div className="card flex-fill default-cover mb-4 latest-news-container">
       <div className="card-header d-flex justify-content-between align-items-center">
         <h4 className="card-title mb-0">
-        <GrAnnounce size={30} />{t('teacherJourney.LatestNews')}
+        <GrAnnounce size={30} />&nbsp;{t('teacherJourney.LatestNews')}
         </h4>
         
       </div>

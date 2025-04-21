@@ -35,6 +35,7 @@ const ProtectedRoute = ({ children, user }) => {
     } else if (user === "EVALUATOR") {
       return <Navigate to="/evaluator" />;
     }
+
     // if (user.includes("ADMIN")) {
     //   return <Navigate to="/admin" />;
     // } else if (user.includes("MENTOR")) {

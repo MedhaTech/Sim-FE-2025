@@ -14,7 +14,8 @@ import Select from '../Helper/Select';
 import RateIdea from './RateIdea';
 import { Row, Col, Form, Label } from 'reactstrap';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
-
+import FilePreviewModal from "./Modal";
+import VideoPopup from './Videopop';
 const IdeaDetail = (props) => {
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
@@ -193,7 +194,7 @@ const downloadFile = (item) => {
                                         </Col>
                                         <Col>
                                             <h4 className="mb-md-4 mb-3">
-                                                CIDSSS :
+                                                CID :
                                                 <span className="text-capitalize">
                                                 {props?.ideaDetails.challenge_response_id ||
                                                         ''}
@@ -600,35 +601,10 @@ const downloadFile = (item) => {
                                             {
                         <LinkComponent item={images} />
                       }
-                                                {/* {files.length > 0 &&
-                                                    files.map((item, i) => (
-                                                        <div key={i}>
-                                                       
-                                                            <a
-                                                                key={i}
-                                                                className="badge mb-2 bg-info p-3 ms-3"
-                                                                target="_blank"
-                                                                rel="noreferrer"
-                                                                onClick={() =>
-                                                                    downloadFile(
-                                                                        item
-                                                                    )
-                                                                }
-                                                            >
-                                                                {item
-                                                                    .split('/')
-                                                                    .pop()}
-                                                            </a>
-                                                        </div>
-                                                    ))} */}
-                                                {/* <p
-                                        style={{
-                                            fontSize: '1.4rem'
-                                        }}
-                                    >
-                                        {teamResponse?.Prototype_file}
-                                    </p> */}
+                                               
                                             </div>
+        {/* <FilePreviewModal teamResponse={teamResponse} /> */}
+
                                         </div>
                                     </div>
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
@@ -651,14 +627,22 @@ const downloadFile = (item) => {
                                                 fontSize: '1rem',color:"black"
                                             }}
                                         >
-                                             <a 
+                                             {/* <a 
             href={teamResponse.prototype_link} 
             target="_blank" 
             rel="noopener noreferrer" 
             style={{ textDecoration: 'none', color: 'skyblue'}}
         >
             {teamResponse.prototype_link}
-        </a>
+
+
+        </a> */}
+        {/* <VideoPopup videoUrl={teamResponse.prototype_link} /> */}
+        {teamResponse?.prototype_link && (
+  <VideoPopup videoUrl={teamResponse.prototype_link} />
+)}
+
+
                                         </p>
                                     </div>
                                 </div>

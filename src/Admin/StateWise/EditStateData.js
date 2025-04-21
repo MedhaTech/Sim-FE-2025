@@ -92,7 +92,7 @@ const EditStateData = (props) => {
           navigate("/state-wise");
           openNotificationWithIcon(
             "success",
-            "State Status Updated Successfully"
+            "Updated Successfully"
           );
         } else {
           openNotificationWithIcon("error", "Opps! Something Wrong");
