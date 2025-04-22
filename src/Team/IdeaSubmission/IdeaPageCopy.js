@@ -554,7 +554,7 @@ const[extractId,setExtractId]=useState("");
     if (feedback !== null) {
       body["feedback"] = feedback;
     }
-    if (prototypeLink !== null) {
+    if (prototypeLink !== null && verfiySubmitt) {
       body["prototype_link"] = prototypeLink;
     }
 
