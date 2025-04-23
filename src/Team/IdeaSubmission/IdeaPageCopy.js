@@ -19,6 +19,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 // import Layout from '../../Layout';
 import { useSelector } from "react-redux";
+import { Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import {
   getStudentChallengeQuestions,
   getStudentChallengeSubmittedResponse,
@@ -32,6 +33,8 @@ import {
 } from "../../helpers/Utils";
 import axios from "axios";
 import { KEY, URL } from "../../constants/defaultValues";
+import play from "../../assets/img/playicon.png";
+
 import CommonPage from "../../components/CommonPage";
 import { useTranslation } from "react-i18next";
 import Swal from "sweetalert2/dist/sweetalert2.js";
@@ -150,6 +153,13 @@ const[extractId,setExtractId]=useState("");
   const [prototypeLink, setPrototypeLink] = useState(formData?.prototype_link);
   const [workbook, setWorkbook] = useState(formData?.workbook);
   const [tempLink, setTempLink] = useState("");
+
+
+  const [showVideoModal, setShowVideoModal] = useState(false);
+  const handleOpenModal = () => setShowVideoModal(true);
+  const handleCloseModal = () => setShowVideoModal(false);
+  const videoUrl = "https://www.youtube.com/embed/sVCgsJgfNJY?autoplay=1";
+
   // const people = ["None", "2-4 people", "5+ people", "10+ people"];
   // const people = [
   //   t("ideaform_questions.stakeholdersop1"),
@@ -714,7 +724,11 @@ const[extractId,setExtractId]=useState("");
     focusarea?.length > 0 &&
     title?.length > 0 &&
     problemStatement?.length > 0;
-
+ const renderTooltip = (props) => (
+    <Tooltip id="pdf-tooltip" {...props}>
+      Watch Demo
+    </Tooltip>
+  );
     useEffect(()=>{
 if(formData?.verified_status === "ACCEPTED"){
   console.log("Badge Enable");
@@ -1518,8 +1532,49 @@ if(formData?.verified_status === "ACCEPTED"){
                             <h5 className="py-2 text-warning text-uppercase">
                               {t("home.section3")}:{" "}
                               {t("ideaform_questions.section3")}
+                              <OverlayTrigger placement="top" overlay={renderTooltip}>
+                        {/* <a
+                          href="https://www.youtube.com/watch?v=sVCgsJgfNJY"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <img
+                            src={play}
+                            className="icon"
+                            alt="play"
+                            style={{ verticalAlign: "middle", width: "4%"  }}
+                          />
+                        </a> */}
+                         <span
+              onClick={handleOpenModal}
+              style={{ cursor: "pointer", marginLeft: "10px" }}
+            >
+              <img
+                src={play}
+                className="icon"
+                alt="play"
+                style={{ verticalAlign: "middle", width: "4%" }}
+              />
+            </span>
+                      </OverlayTrigger>
                             </h5>
                           </Row>
+                          <Modal show={showVideoModal} onHide={handleCloseModal} size="lg" centered>
+        {/* <Modal.Header closeButton>
+          <Modal.Title>Demo Video</Modal.Title>
+        </Modal.Header> */}
+        <Modal.Body>
+          <div className="ratio ratio-16x9">
+            <iframe
+              src={videoUrl}
+              title="Demo Video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              style={{ width: "100%", height: "100%" }}
+            ></iframe>
+          </div>
+        </Modal.Body>
+      </Modal>
                           <div className="card comment-card">
                             <div className="question quiz mb-0">
                               <b
