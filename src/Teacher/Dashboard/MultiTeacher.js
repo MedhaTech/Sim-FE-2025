@@ -9,6 +9,7 @@ import "./progress.css";
 import { FiEdit } from "react-icons/fi";
 import { FaRoute } from 'react-icons/fa';
 import { FiEdit3 } from "react-icons/fi";
+
 // import { IoMdTv } from "react-icons/io";
 import { LuSend } from "react-icons/lu";
 import { FaTv } from "react-icons/fa";
@@ -41,10 +42,14 @@ import { PiStudentFill } from "react-icons/pi";
             },
            
             {
+                name: 'Idea Submission',
+                status: postdata === "Completed" ? "Completed" : "Pending",
+                icon: postdata === "Completed" ? <FaCheckCircle color="green" /> : <LuSend color="orange" />
+                            },
+            {
                 name: 'Post Survey',
                 status: postdata === "Completed" ? "Completed" : "Pending",
-                icon: postdata === "Completed" ? <FaCheckCircle color="green" /> : <FiEdit3 color="sky blue" />
-            },
+                icon: postdata === "Completed" ? <FaCheckCircle color="green" /> : <FiEdit3 color="sky blue" />},
             {
                 name: 'Certificate',
                 status: postdata === "Completed"&& ideaCount >= 1 ? "Completed" : "Disabled",
