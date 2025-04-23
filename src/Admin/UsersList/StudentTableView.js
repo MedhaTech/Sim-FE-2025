@@ -537,7 +537,7 @@ useEffect(()=>{
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
-                                    <b>Category :</b>
+                                    <b>School Category :</b>
                                 </span>
                                 <b>
                                     {

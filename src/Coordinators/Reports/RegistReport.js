@@ -227,7 +227,7 @@ const ReportsRegistration = () => {
       key: "organization.organization_name",
     },
     {
-      label: "School Type/Category",
+      label: "School Category",
       key: "organization.category",
     },
     {
@@ -293,7 +293,7 @@ const ReportsRegistration = () => {
       key: "organization_name",
     },
     {
-      label: "School Type/Category",
+      label: "School Category",
       key: "category",
     },
     {

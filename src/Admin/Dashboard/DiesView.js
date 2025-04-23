@@ -109,7 +109,7 @@ const DiesView = () => {
                                
                                 <CardText>
                                     <span className="mx-3">
-                                        <b>Category :</b>
+                                        <b>School School Category :</b>
                                     </span>
                                     <b>{orgDaTa.category}</b>
                                 </CardText>
