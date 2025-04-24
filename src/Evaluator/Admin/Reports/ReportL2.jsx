@@ -135,6 +135,10 @@ const ReportL2 = () => {
       key: "full_name",
     },
     {
+      label: "User ID",
+      key: "user_id",
+    },
+    {
       label: "No of Ideas Evaluated",
       key: "totalEvaluated",
     },
@@ -1337,6 +1341,15 @@ const ReportL2 = () => {
                                     fontWeight: "bold",
                                   }}
                                 >
+                                  User ID
+                                </th>
+                                <th
+                                  style={{
+                                    whiteSpace: "wrap",
+                                    color: "#36A2EB",
+                                    fontWeight: "bold",
+                                  }}
+                                >
                                   No of Ideas Evaluated
                                 </th>
                                 {/* <th
@@ -1373,6 +1386,8 @@ const ReportL2 = () => {
                                   >
                                     {item.full_name}
                                   </td>
+                                  <td> {item.user_id}</td>
+
                                   <td> {item.totalEvaluated}</td>
                                   {/* <td>{item.accepted}</td> */}
                                   {/* <td>{item.rejected}</td> */}
