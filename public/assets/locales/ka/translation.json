@@ -518,6 +518,8 @@
     },
     "teacher_certificate": {
         "download": "Download Course Certificate",
+        "downloadn": "Download",
+
         "participate_certificate": "Idea Submission Certificate",
         "download_participate": "Download Idea Certificate",
         "certificate": "Course Completion Certificate",

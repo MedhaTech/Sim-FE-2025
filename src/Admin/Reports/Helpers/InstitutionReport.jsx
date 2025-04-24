@@ -491,28 +491,34 @@ const InstitutionReport = () => {
               </Col>
              
              
-              {showCustomization &&  hasData && (
+              
+      {showCustomization &&  hasData && (
   <div className="card mt-3" >
     <div className="card-body">
-      <h5 className="card-title">Select Columns</h5>
-      <div className="row">
-      <div className="col-md-3">
-      <div className="form-check mb-2">
-        <input
-          type="checkbox"
-          className="form-check-input"
-          id="selectAll"
-          checked={selectedHeaders.length === allHeaders.length}
-          onChange={handleSelectAll}
-        />
-        <label className="form-check-label ms-2" htmlFor="selectAll">
-          Select All
-        </label>
-      </div>
-      </div>
+     
+      <div className="row align-items-center mb-3">
+  <div className="col-md-3">
+    <h5 className="card-title mb-0">Select Columns</h5>
+  </div>
+  <div className="col-md-3">
+    <div className="form-check">
+      <input
+        type="checkbox"
+        className="form-check-input"
+        id="selectAll"
+        checked={selectedHeaders.length === allHeaders.length}
+        onChange={handleSelectAll}
+      />
+      <label className="form-check-label ms-2" htmlFor="selectAll">
+        Select All
+      </label>
+    </div>
+  </div>
+</div>
 
 
-      
+
+<div className="row">
         {allHeaders.map((header) => (
           <div className="col-md-3" key={header.key}>
             <div className="form-check">
@@ -539,7 +545,6 @@ const InstitutionReport = () => {
           if (!downloadTableData || downloadTableData.length === 0) {
             console.log("Fetching data before download...");
             filterData();
-            // fetchData(); 
 
           }
       
@@ -556,6 +561,7 @@ const InstitutionReport = () => {
     </div>
   </div>
 )}
+  
  {downloadTableData && (
                   <CSVLink
                     data={formattedDataForDownload}

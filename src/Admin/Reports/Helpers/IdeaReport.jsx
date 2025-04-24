@@ -1117,7 +1117,7 @@ const IdeaReport = () => {
                                                             Customization
                                                           </button>
                                                         </Col>
-                                                        {showCustomization && hasData && (
+                                                        {/* {showCustomization && hasData && (
                               <div className="card mt-3" style={{ width: "100%", padding: "20px" }}>
                                 <div className="card-body">
                                   <h5 className="card-title">Select Columns</h5>
@@ -1178,7 +1178,76 @@ const IdeaReport = () => {
                                   </button>
                                 </div>
                               </div>
-                            )}
+                            )} */}
+                               {showCustomization &&  hasData && (
+  <div className="card mt-3" >
+    <div className="card-body">
+     
+      <div className="row align-items-center mb-3">
+  <div className="col-md-3">
+    <h5 className="card-title mb-0">Select Columns</h5>
+  </div>
+  <div className="col-md-3">
+    <div className="form-check">
+      <input
+        type="checkbox"
+        className="form-check-input"
+        id="selectAll"
+        checked={selectedHeaders.length === allHeaders.length}
+        onChange={handleSelectAll}
+      />
+      <label className="form-check-label ms-2" htmlFor="selectAll">
+        Select All
+      </label>
+    </div>
+  </div>
+</div>
+
+
+
+<div className="row">
+        {allHeaders.map((header) => (
+          <div className="col-md-3" key={header.key}>
+            <div className="form-check">
+              <input
+                type="checkbox"
+                className="form-check-input"
+                id={header.key}
+                checked={selectedHeaders.includes(header.key)}
+                onChange={() => handleCheckboxChange(header.key)}
+              />
+              <label className="form-check-label ms-2" htmlFor={header.key}>
+                {header.label}
+              </label>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <button
+        className="btn btn-danger mt-3"
+       
+        onClick={() => {
+          setShowCustomization(false);
+          if (!downloadTableData || downloadTableData.length === 0) {
+            console.log("Fetching data before download...");
+            filterData();
+
+          }
+      
+          setTimeout(() => {
+            console.log("Checking Data Before Download:", downloadTableData);
+          
+            setIsReadyToDownload(true);
+          }, 1000);
+        }}
+        disabled={selectedHeaders.length === 0}
+      >
+        Download Report
+      </button>
+    </div>
+  </div>
+)}
             </Row>
             {isloader ?
             <div className="chart mt-2 mb-2">
