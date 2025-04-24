@@ -89,8 +89,8 @@ const Instructions = () => {
     doc.setFontSize(15);
     doc.setTextColor("black");
     const badge = "the_finisher";
-    const formattedCourseDate1 = courseDate ? moment(courseDate).format("DD-MM-YYYY") : null;
-    console.log(formattedCourseDate1,"hello");
+    const formattedCourseDate1 = courseDate ? moment(courseDate).format("DD-MM-YYYY") : "No Date";
+    // console.log(formattedCourseDate1,"hello");
    
     const pageWidth1 = doc.internal.pageSize.getWidth();
     const fullNameWidth =
@@ -141,8 +141,8 @@ doc.text(formattedCourseDate1, xCourseDate1, yCourseDate1);
     doc.setFontSize(15);
     doc.setTextColor("black");
     const badge = "the_finisher";
-    const formattedCourseDate = courseDate ? moment(courseDate).format("DD-MM-YYYY") : null;
-    console.log(formattedCourseDate,"hello");
+    const formattedCourseDate = surveyDates ? moment(surveyDates).format("DD-MM-YYYY") : "No Date";
+    // console.log(formattedCourseDate,"hello");
    
     const pageWidth1 = doc.internal.pageSize.getWidth();
     const fullNameWidth =
@@ -258,13 +258,7 @@ doc.text(formattedCourseDate, xCourseDate, yCourseDate);
     apiData(language);
   }, []);
 
-const formattedPostSurveyDate = surveyDates
-  ? moment(surveyDates).format("DD-MM-YYYY")
-  : "Not available";
 
-const formattedCourseDate = courseDate
-  ? moment(courseDate).format("DD-MM-YYYY")
-  : "Not available";
 
   const mentorViewApi = () => {
     let supId;
