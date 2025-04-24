@@ -149,7 +149,7 @@ doc.text(finalCollegeName, xRightAlign, collegeNameY);
     const collegeNameWidth =
       (doc.getStringUnitWidth(finalCollegeName) * doc.getFontSize()) /
       doc.internal.scaleFactor;
-    const collegeNameY = y + 15;
+    const collegeNameY = y + 13;
     const leftMargin = 85;
     doc.text(finalCollegeName, leftMargin, collegeNameY);
 
@@ -640,15 +640,14 @@ onClick={(e) => {
                       //     : (e) => e.preventDefault()
                       // }
                       onClick={(e) => {
-                       
                         if (ideaStatus === "SUBMITTED") {
-                          handleCertificateDownload1();
-                        } else {
                           if (currentUser?.data[0]?.state !== "Tamil Nadu") {
                             handleCertificateDownload1();
                           } else {
-                            handleCertificateDownloadTN1();
+                            handleCertificateDownloadTN();
                           }
+                        } else {
+                          e.preventDefault();
                         }
                       }}
                       
@@ -708,6 +707,31 @@ onClick={(e) => {
                       <MdOutlineFileDownload size="27" />{t("teacher_certificate.downloadn")} { t("teacher_certificate.participate_certificate")}
                     </Link>
                   </div>
+                  {isEligible ? (
+  <p>
+    <span style={{ color: "green", fontWeight: "bold" }}>
+      🌟 {t("teacher_certificate.congratulations_innovators")}{" "}
+    </span>
+    <br />
+    {t("teacher_certificate.level_3_evaluation")} <br />
+    {t("teacher_certificate.innovation_journey_message")} <br />
+    <span style={{ color: "green", fontWeight: "bold" }}>
+      {t("teacher_certificate.best_wishes")}
+    </span>
+  </p>
+) : (
+  <p>
+    <span style={{ color: "red", fontWeight: "bold" }}>
+      {t("teacher_certificate.note")}
+    </span>
+    : {t("teacher_certificate.certificate_enabled_on_level_3")}{" "}
+    <span style={{ color: "red", fontWeight: "bold" }}>
+      {t("teacher_certificate.red_msg2")}
+    </span>{" "}
+    {t("teacher_certificate.idea_note")}
+  </p>
+)}
+
                 </div>
               </div>
             </div>
