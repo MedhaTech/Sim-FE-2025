@@ -11,8 +11,8 @@ import courseCompletionCertificate from "../../assets/img/Certificates/Studentco
 // import participateCertificate from "../../assets/img/Certificates/stuparticipation.jpg";
 import jsPDF from "jspdf";
 import CourseCertificate from "../../assets/img/Certificates/Studentcom.jpg";
-import IdeaCertificate from "../../assets/img/Certificates/StudentApp.jpg";
-import L2Certificate from "../../assets/img/Certificates/stuparticipation.jpg";
+import IdeaCertificate from "../../assets/img/Certificates/stuparticipation.jpg";
+import L2Certificate from "../../assets/img/Certificates/StudentApp.jpg";
 import { Container, Row, Col, Table } from "reactstrap";
 import TncourseCompletionCertificate from "../../assets/img/Certificates/TnStuCourseFinal.jpg";
 import TnparticipateCertificate from "../../assets/img/Certificates/TnStuParticipateFinal.jpg";
@@ -89,7 +89,59 @@ const Instructions = () => {
     doc.setFontSize(15);
     doc.setTextColor("black");
     const badge = "the_finisher";
-    // const formattedCourseDate = courseDate ? moment(courseDate).format("DD-MM-YYYY") : null;
+    const formattedCourseDate1 = courseDate ? moment(courseDate).format("DD-MM-YYYY") : "No Date";
+    // console.log(formattedCourseDate1,"hello");
+   
+    const pageWidth1 = doc.internal.pageSize.getWidth();
+    const fullNameWidth =
+  (doc.getStringUnitWidth(fullName) * doc.getFontSize()) /
+  doc.internal.scaleFactor;
+const x = pageWidth1 - fullNameWidth - 110;
+const y = 95;
+doc.setFontSize(15);
+doc.text(fullName, x, y);
+
+const collegeNameY = y + 14;
+const pageWidth = doc.internal.pageSize.getWidth();
+
+const finalCollegeNameWidth =
+  (doc.getStringUnitWidth(finalCollegeName) * doc.getFontSize()) / doc.internal.scaleFactor;
+const xRightAlign = pageWidth - finalCollegeNameWidth - 160; 
+doc.text(finalCollegeName, xRightAlign, collegeNameY);
+
+const pageWidth2 = doc.internal.pageSize.getWidth();
+
+const courseDateWidth = (doc.getStringUnitWidth(formattedCourseDate1) * doc.getFontSize()) / doc.internal.scaleFactor;
+const xCourseDate1 = pageWidth2 - courseDateWidth - 40; 
+const yCourseDate1 = 190; 
+doc.setFontSize(12);
+doc.text(formattedCourseDate1, xCourseDate1, yCourseDate1);
+
+    const certName = `${fullName.replace(/\s+/g, "_")}.pdf`;
+    doc.save(certName);
+    cerificateData();
+      dispatch(
+        updateStudentBadges(
+          { badge_slugs: [badge] },
+          currentUser?.data[0]?.user_id,
+          language,
+          t
+        )
+      );
+  };
+  const handleCertificateDownloadTN1 = () => {
+    const fullName = currentUser?.data[0]?.full_name;
+    const collegeName = currentUser?.data[0]?.organization_name;
+
+    const finalCollegeName = currentUser?.data[0]?.organization_name;
+    const userState = currentUser?.data[0]?.state;
+    const doc = new jsPDF("l", "mm", [298, 211]);
+    doc.addImage(TnparticipateCertificate, "JPEG", 0, 0, 298, 211);
+    doc.setFont("Times New Roman");
+    doc.setFontSize(15);
+    doc.setTextColor("black");
+    const badge = "the_finisher";
+    const formattedCourseDate = surveyDates ? moment(surveyDates).format("DD-MM-YYYY") : "No Date";
     // console.log(formattedCourseDate,"hello");
    
     const pageWidth1 = doc.internal.pageSize.getWidth();
@@ -107,24 +159,16 @@ const finalCollegeNameWidth =
 const xRightAlign = pageWidth - finalCollegeNameWidth - 160; 
 doc.text(finalCollegeName, xRightAlign, collegeNameY);
 
-// const pageWidth2 = doc.internal.pageSize.getWidth();
-// const courseDateWidth = (doc.getStringUnitWidth(formattedCourseDate) * doc.getFontSize()) / doc.internal.scaleFactor;
-// const xCourseDate = pageWidth2 - courseDateWidth - 30; // Right aligned with padding
-// const yCourseDate = 60; // Vertical position (you can change this)
-
-// doc.text(formattedCourseDate, xCourseDate, yCourseDate);
+const pageWidth2 = doc.internal.pageSize.getWidth();
+const courseDateWidth = (doc.getStringUnitWidth(formattedCourseDate) * doc.getFontSize()) / doc.internal.scaleFactor;
+const xCourseDate = pageWidth2 - courseDateWidth - 40; 
+const yCourseDate = 190; 
+doc.setFontSize(12);
+doc.text(formattedCourseDate, xCourseDate, yCourseDate);
 
     const certName = `${fullName.replace(/\s+/g, "_")}.pdf`;
     doc.save(certName);
-    cerificateData();
-      dispatch(
-        updateStudentBadges(
-          { badge_slugs: [badge] },
-          currentUser?.data[0]?.user_id,
-          language,
-          t
-        )
-      );
+     
   };
   const handleCertificateDownload1 = () => {
     const content = pdfRef.current;
@@ -149,62 +193,14 @@ doc.text(finalCollegeName, xRightAlign, collegeNameY);
     const collegeNameWidth =
       (doc.getStringUnitWidth(finalCollegeName) * doc.getFontSize()) /
       doc.internal.scaleFactor;
-    const collegeNameY = y + 15;
+    const collegeNameY = y + 13;
     const leftMargin = 85;
     doc.text(finalCollegeName, leftMargin, collegeNameY);
 
     const certName = `${fullName.replace(/\s+/g, "_")}.pdf`;
     doc.save(certName);
   };
-  const handleCertificateDownloadTN1 = () => {
-    const fullName = currentUser?.data[0]?.full_name;
-    const collegeName = currentUser?.data[0]?.organization_name;
-
-    const finalCollegeName = currentUser?.data[0]?.organization_name;
-    const userState = currentUser?.data[0]?.state;
-    const doc = new jsPDF("l", "mm", [298, 211]);
-    doc.addImage(TnparticipateCertificate, "JPEG", 0, 0, 298, 211);
-    doc.setFont("Times New Roman");
-    doc.setFontSize(15);
-    doc.setTextColor("black");
-    const badge = "the_finisher";
-    // const formattedCourseDate = courseDate ? moment(courseDate).format("DD-MM-YYYY") : null;
-    // console.log(formattedCourseDate,"hello");
-   
-    const pageWidth1 = doc.internal.pageSize.getWidth();
-    const fullNameWidth =
-  (doc.getStringUnitWidth(fullName) * doc.getFontSize()) /
-  doc.internal.scaleFactor;
-const x = pageWidth1 - fullNameWidth - 110;
-const y = 95;
-doc.text(fullName, x, y);
-
-const collegeNameY = y + 14;
-const pageWidth = doc.internal.pageSize.getWidth();
-const finalCollegeNameWidth =
-  (doc.getStringUnitWidth(finalCollegeName) * doc.getFontSize()) / doc.internal.scaleFactor;
-const xRightAlign = pageWidth - finalCollegeNameWidth - 160; 
-doc.text(finalCollegeName, xRightAlign, collegeNameY);
-
-// const pageWidth2 = doc.internal.pageSize.getWidth();
-// const courseDateWidth = (doc.getStringUnitWidth(formattedCourseDate) * doc.getFontSize()) / doc.internal.scaleFactor;
-// const xCourseDate = pageWidth2 - courseDateWidth - 30; // Right aligned with padding
-// const yCourseDate = 60; // Vertical position (you can change this)
-
-// doc.text(formattedCourseDate, xCourseDate, yCourseDate);
-
-    const certName = `${fullName.replace(/\s+/g, "_")}.pdf`;
-    doc.save(certName);
-    cerificateData();
-      // dispatch(
-      //   updateStudentBadges(
-      //     { badge_slugs: [badge] },
-      //     currentUser?.data[0]?.user_id,
-      //     language,
-      //     t
-      //   )
-      // );
-  };
+ 
   const handleCertificateDownload2 = () => {
     const fullName = currentUser?.data[0]?.full_name;
     const collegeName = currentUser?.data[0]?.organization_name;
@@ -262,13 +258,7 @@ doc.text(finalCollegeName, xRightAlign, collegeNameY);
     apiData(language);
   }, []);
 
-const formattedPostSurveyDate = surveyDates
-  ? moment(surveyDates).format("DD-MM-YYYY")
-  : "Not available";
 
-const formattedCourseDate = courseDate
-  ? moment(courseDate).format("DD-MM-YYYY")
-  : "Not available";
 
   const mentorViewApi = () => {
     let supId;
@@ -640,15 +630,14 @@ onClick={(e) => {
                       //     : (e) => e.preventDefault()
                       // }
                       onClick={(e) => {
-                       
                         if (ideaStatus === "SUBMITTED") {
-                          handleCertificateDownload1();
-                        } else {
                           if (currentUser?.data[0]?.state !== "Tamil Nadu") {
                             handleCertificateDownload1();
                           } else {
                             handleCertificateDownloadTN1();
                           }
+                        } else {
+                          e.preventDefault();
                         }
                       }}
                       
@@ -708,6 +697,31 @@ onClick={(e) => {
                       <MdOutlineFileDownload size="27" />{t("teacher_certificate.downloadn")} { t("teacher_certificate.participate_certificate")}
                     </Link>
                   </div>
+                  {isEligible ? (
+  <p>
+    <span style={{ color: "green", fontWeight: "bold" }}>
+      🌟 {t("teacher_certificate.congratulations_innovators")}{" "}
+    </span>
+    <br />
+    {t("teacher_certificate.level_3_evaluation")} <br />
+    {t("teacher_certificate.innovation_journey_message")} <br />
+    <span style={{ color: "green", fontWeight: "bold" }}>
+      {t("teacher_certificate.best_wishes")}
+    </span>
+  </p>
+) : (
+  <p>
+    <span style={{ color: "red", fontWeight: "bold" }}>
+      {t("teacher_certificate.note")}
+    </span>
+    : {t("teacher_certificate.certificate_enabled_on_level_3")}{" "}
+    <span style={{ color: "red", fontWeight: "bold" }}>
+      {t("teacher_certificate.red_msg2")}
+    </span>{" "}
+    {t("teacher_certificate.idea_note")}
+  </p>
+)}
+
                 </div>
               </div>
             </div>

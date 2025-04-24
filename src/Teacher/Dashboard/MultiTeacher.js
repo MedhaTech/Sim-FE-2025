@@ -43,8 +43,8 @@ import { PiStudentFill } from "react-icons/pi";
            
             {
                 name: 'Idea Submission',
-                status: postdata === "Completed" ? "Completed" : "Pending",
-                icon: postdata === "Completed" ? <FaCheckCircle color="green" /> : <LuSend color="orange" />
+                status: ideaCount >= 1 ? "Completed" : "Pending",
+                icon: ideaCount >= 1 ? <FaCheckCircle color="green" /> : <LuSend color="orange" />
                             },
             {
                 name: 'Post Survey',

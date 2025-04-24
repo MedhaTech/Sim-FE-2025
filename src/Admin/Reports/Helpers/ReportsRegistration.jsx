@@ -46,7 +46,7 @@ import { stateList, districtList } from "../../../RegPage/ORGData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMale, faFemale, faSchool } from "@fortawesome/free-solid-svg-icons";
 import ReactApexChart from "react-apexcharts";
-import Check from "../../../Evaluator/Admin/EvalProcess/Pages/Check";
+import Check from "./Check";
 
 // import { categoryValue } from '../../Schools/constentText';
 
@@ -276,34 +276,48 @@ const ReportsRegistration = () => {
       key: "principal_email",
     },
   ];
+  // const NotReglabels = notRegHeaders.map(header => header.label);
+  // NotReglabels.unshift("Select ALL");
+  // const Reglabels = RegHeaders.map(header => header.label);
+  // Reglabels.unshift("Select ALL");
   const NotReglabels = notRegHeaders.map(header => header.label);
-  NotReglabels.unshift("Select ALL");
-  const Reglabels = RegHeaders.map(header => header.label);
-  Reglabels.unshift("Select ALL");
+const Reglabels = RegHeaders.map(header => header.label);
+
 
   const [clickedValue, setclickedValue] = useState({});
   const [selectedValue, setselectedValue] = useState([]);
 
+  // useEffect(() => {
+  //   if (clickedValue.name === 'Select ALL') {
+  //     if (selectedValue.includes('Select ALL')) {
+  //       setselectedValue(filterType === "Not Registered" ? NotReglabels : Reglabels);
+  //     } else {
+  //       setselectedValue([]);
+  //     }
+  //   } else if (
+  //     clickedValue.name &&
+  //     clickedValue.name !== 'Select ALL' &&
+  //     selectedValue.length === (filterType === "Not Registered" ? NotReglabels.length - 1 : Reglabels.length - 1) &&
+  //     !selectedValue.includes('Select ALL')
+  //   ) {
+  //     setselectedValue(filterType === "Not Registered" ? NotReglabels : Reglabels);
+  //   } else if (clickedValue.name && clickedValue.name !== 'Select ALL') {
+  //     setselectedValue(
+  //       selectedValue?.filter((item) => item !== 'Select ALL')
+  //     );
+  //   }
+  // }, [clickedValue]);
   useEffect(() => {
+    const allLabels = filterType === "Not Registered" ? NotReglabels : Reglabels;
+  
     if (clickedValue.name === 'Select ALL') {
-      if (selectedValue.includes('Select ALL')) {
-        setselectedValue(filterType === "Not Registered" ? NotReglabels : Reglabels);
-      } else {
-        setselectedValue([]);
-      }
-    } else if (
-      clickedValue.name &&
-      clickedValue.name !== 'Select ALL' &&
-      selectedValue.length === (filterType === "Not Registered" ? NotReglabels.length - 1 : Reglabels.length - 1) &&
-      !selectedValue.includes('Select ALL')
-    ) {
-      setselectedValue(filterType === "Not Registered" ? NotReglabels : Reglabels);
+      setselectedValue(selectedValue.length === allLabels.length ? [] : allLabels);
     } else if (clickedValue.name && clickedValue.name !== 'Select ALL') {
-      setselectedValue(
-        selectedValue?.filter((item) => item !== 'Select ALL')
-      );
+      setselectedValue(prev => prev.filter(item => item !== 'Select ALL'));
     }
-  }, [clickedValue]);
+  }, [clickedValue, filterType]);
+  
+  
 
   useEffect(() => {
     setselectedValue([]);
@@ -816,7 +830,7 @@ const ReportsRegistration = () => {
                   Customization
                 </button>
               </Col>
-              {showCustomization && (
+              {/* {showCustomization && (
                 <div
                   className="card mt-3"
                 // style={{ width: "50%", padding: "20px" }}
@@ -843,7 +857,61 @@ const ReportsRegistration = () => {
                     </button>
                   </div>
                 </div>
-              )}
+              )} */}
+            {showCustomization && (
+  <div className="card mt-3">
+    <div className="card-body">
+    <div className="row align-items-center mb-3">
+    <div className="col-md-3">
+    <h5 className="card-title mb-0">Select Columns</h5>
+  </div>
+    <div className="col-md-3">
+    <div className="form-check">
+      <input
+        type="checkbox"
+        className="form-check-input"
+        id="selectAll"
+        style={{ transform: 'scale(0.9)' }}
+        checked={
+          selectedValue.length > 0 &&
+          (filterType === "Not Registered"
+            ? NotReglabels.every(val => selectedValue.includes(val))
+            : Reglabels.every(val => selectedValue.includes(val)))
+        }
+        onChange={() => setclickedValue({ name: "Select ALL" })}
+      />
+      <label className="form-check-label ms-2" htmlFor="selectAll">
+        Select ALL
+      </label>
+    </div>
+    </div>
+
+  </div>
+
+      <div className="row mt-3">
+        <Check
+          list={filterType === "Not Registered" ? NotReglabels : Reglabels}
+          value={selectedValue}
+          setValue={setselectedValue}
+          selValue={setclickedValue}
+        />
+      </div>
+
+      <button
+        className="btn btn-danger mt-3"
+        onClick={async () => {
+          setShowCustomization(false);
+          handleDownload();
+        }}
+        disabled={selectedValue.length === 0}
+      >
+        Download Report
+      </button>
+    </div>
+  </div>
+)}
+
+
             </Row>
             {isloader ?
               <div className="chart mt-2 mb-2">
