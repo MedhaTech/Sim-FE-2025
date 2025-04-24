@@ -519,6 +519,8 @@
     },
     "teacher_certificate": {
         "download": "पाठ्यक्रम प्रमाणपत्र डाउनलोड करें",
+        "downloadn": "Download",
+
         "addon_certificate": "विचार प्रस्तुति/भागीदारी प्रमाणपत्र",
         "participate_certificate": "प्रशंसा प्रमाण पत्र",
         "download_participate": "आइडिया सर्टिफिकेट डाउनलोड करें",
