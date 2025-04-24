@@ -1532,49 +1532,10 @@ if(formData?.verified_status === "ACCEPTED"){
                             <h5 className="py-2 text-warning text-uppercase">
                               {t("home.section3")}:{" "}
                               {t("ideaform_questions.section3")}
-                              <OverlayTrigger placement="top" overlay={renderTooltip}>
-                        {/* <a
-                          href="https://www.youtube.com/watch?v=sVCgsJgfNJY"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <img
-                            src={play}
-                            className="icon"
-                            alt="play"
-                            style={{ verticalAlign: "middle", width: "4%"  }}
-                          />
-                        </a> */}
-                         <span
-              onClick={handleOpenModal}
-              style={{ cursor: "pointer", marginLeft: "10px" }}
-            >
-              <img
-                src={play}
-                className="icon"
-                alt="play"
-                style={{ verticalAlign: "middle", width: "4%" }}
-              />
-            </span>
-                      </OverlayTrigger>
+                              
                             </h5>
                           </Row>
-                          <Modal show={showVideoModal} onHide={handleCloseModal} size="lg" centered>
-        {/* <Modal.Header closeButton>
-          <Modal.Title>Demo Video</Modal.Title>
-        </Modal.Header> */}
-        <Modal.Body>
-          <div className="ratio ratio-16x9">
-            <iframe
-              src={videoUrl}
-              title="Demo Video"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              style={{ width: "100%", height: "100%" }}
-            ></iframe>
-          </div>
-        </Modal.Body>
-      </Modal>
+                         
                           <div className="card comment-card">
                             <div className="question quiz mb-0">
                               <b
@@ -1675,6 +1636,34 @@ if(formData?.verified_status === "ACCEPTED"){
                               >
                                 {t("ideaform_questions.link")} {t("ideaform_questions.linkadd")}
                               </b>
+                              <OverlayTrigger placement="top" overlay={renderTooltip}>
+                       
+                         <span
+              onClick={handleOpenModal}
+              style={{ cursor: "pointer", marginLeft: "10px" }}
+            >
+              <img
+                src={play}
+                className="icon"
+                alt="play"
+                style={{ verticalAlign: "middle", width: "4%" }}
+              />
+            </span>
+                      </OverlayTrigger>
+                      <Modal show={showVideoModal} onHide={handleCloseModal} size="lg" centered>
+        
+        <Modal.Body>
+          <div className="ratio ratio-16x9">
+            <iframe
+              src={videoUrl}
+              title="Demo Video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              style={{ width: "100%", height: "100%" }}
+            ></iframe>
+          </div>
+        </Modal.Body>
+      </Modal>
                             <div className="answers row flex-column p-3 pt-2">
                             <div className="row g-0 align-items-center">
                             <div className="col-10 pe-3">

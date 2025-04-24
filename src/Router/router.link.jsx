@@ -63,7 +63,7 @@ import StuPreSurvey from "../Team/StuPreSurvey/StuPreSurvey";
 import StuResource from "../Team/StuResources/StuResource";
 import TeamProfile from "../Team/TeamProfile";
 import StudentProfile from "../Team/StuProfile";
-import StudentCertificate from "../Team/Certificate/MyCertificate";
+import StudentCertificate from "../Team/Certificate/NewFormatCer";
 import StudentCourse from "../Team/Courses/PlayVideo";
 import Institution from "../Admin/Schools/Ticket";
 import AddInstitution from "../Admin/Schools/AddNewSchool";

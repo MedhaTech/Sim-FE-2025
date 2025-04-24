@@ -483,6 +483,8 @@
     },
     "teacher_certificate": {
         "download": "பாட சான்றிதழைப் பதிவிறக்கவும்",
+        "downloadn": "Download",
+
         "addon_certificate": "யோசனை சமர்ப்பிப்பு/பங்கேற்புச் சான்றிதழ்",
         "participate_certificate": "பாராட்டுச் சான்றிதழ்",
         "downloadaddon_certificate": "பங்கேற்புச் சான்றிதழைப் பதிவிறக்கவும்",
