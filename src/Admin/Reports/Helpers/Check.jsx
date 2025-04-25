@@ -17,15 +17,10 @@ const Check = ({ list, setValue, value, selValue,colSize = 3 }) => {
                     <input
                         name={name}
                         type="checkbox"
-                        className="mx-2 w-auto"
+                        className="form-check-input"
                         onChange={(e) => handleClick(e)}
                         checked={isChecked}
-                        id={name}
-                        style={{
-                            backgroundColor: isChecked ? '#FF9F43' : 'transparent',
-                            borderColor: isChecked ? '#FF9F43' : '#ced4da'
-                        }}
-                        
+                        id={name}        
                     />
                     <label htmlFor={name} className="my-auto mx-3">
                         {name}
