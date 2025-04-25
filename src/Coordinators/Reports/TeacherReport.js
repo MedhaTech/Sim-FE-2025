@@ -185,6 +185,16 @@ const TeacherProgressDetailed = () => {
       key: "district",
     },
     {
+      label: 'Mandal / Taluka',
+      key: "mandal",
+    }, {
+      label: 'School Type',
+      key: "school_type",
+    }, {
+      label: 'School Board',
+      key: "board",
+    },
+    {
       label: "City",
       key: "city",
     },
@@ -1147,7 +1157,7 @@ const TeacherProgressDetailed = () => {
           <div className="add-item d-flex">
             <div className="page-title">
               <h4>Teacher Progress Detailed Report</h4>
-                <h6>Teacher Progress - Presurvey , Course, Post survey, Teams&Progress Status Report</h6>
+                <h6>Teacher Progress - Pre survey , Course, Post survey, Teams&Progress Status Report</h6>
             </div>
           </div>
           {/* <div className="page-btn">

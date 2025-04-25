@@ -170,10 +170,10 @@ const Evalprocess = () => {
   const handleOkClick = () => {
     const trimmedInput = inputValue.trim();
     if (trimmedInput !== "CONFIRM") {
-      openNotificationWithIcon(
-        "error",
-        "Please enter CONFIRM exactly as shown."
-      );
+    //   openNotificationWithIcon(
+    //     "error",
+    //     "Please enter CONFIRM exactly as shown."
+    //   );
       setError("Please enter CONFIRM exactly as shown.");
     } else {
       setShowPopup(false);
@@ -185,10 +185,10 @@ const Evalprocess = () => {
   const handleOkClick1 = () => {
     const trimmedInput = inputValue1.trim();
     if (trimmedInput !== "CONFIRM") {
-      openNotificationWithIcon(
-        "error",
-        "Please enter CONFIRM exactly as shown."
-      );
+    //   openNotificationWithIcon(
+    //     "error",
+    //     "Please enter CONFIRM exactly as shown."
+    //   );
       setError1("Please enter CONFIRM exactly as shown.");
     } else {
       setShowPopup1(false);
@@ -210,7 +210,10 @@ const Evalprocess = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-        //   console.log(response, "ress");
+            openNotificationWithIcon(
+                "success",
+                "Ideas Moved Successfully "
+              );
         }
       })
       .catch(function (error) {
@@ -231,6 +234,10 @@ const Evalprocess = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
+               openNotificationWithIcon(
+        "success",
+        "Ideas Moved Successfully "
+      );
         //   console.log(response, "ress");
         }
       })
@@ -339,11 +346,7 @@ const Evalprocess = () => {
           <div className="row">
             <Container className="ticket-page">
               <Row className="pt-3">
-                <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
-                  <Col className="col-auto mb-3">
-                    <h4>Bulk Accept / Reject</h4>
-                  </Col>
-                </Row>
+               
                 <div className="row mb-3">
                   <div
                     className="employee-grid-profile col-4 m-3"
@@ -351,8 +354,8 @@ const Evalprocess = () => {
                   >
                     <div className="profile-head">
                       <div className="dep-name">
-                        <h5 className="text-center mb-5">
-                          Draft Ideas moved to Submitted Ideas
+                        <h5 className="text-center mb-3 mt-2">
+                        Moved Draft Ideas to Submitted Ideas
                         </h5>
                       </div>
                     </div>
@@ -361,7 +364,7 @@ const Evalprocess = () => {
                       className="btn px-5 py-2 btn-danger mt-3 mb-3"
                       onClick={handleUpdateClick}
                     >
-                      <span>Update</span>
+                      <span>Move</span>
                     </button>
 
                     {showPopup && (
@@ -447,8 +450,8 @@ const Evalprocess = () => {
                   >
                     <div className="profile-head">
                       <div className="dep-name">
-                        <h5 className="text-center mb-5">
-                          Mentor Not Verified Ideas to Verified Ideas
+                        <h5 className="text-center mb-3 mt-2">
+                        Move Mentor Not Verified Ideas to <br/>Mentor Approved Ideas
                         </h5>
                       </div>
                     </div>
@@ -457,7 +460,7 @@ const Evalprocess = () => {
                       className="btn px-5 py-2 btn-danger mt-3 mb-3"
                       onClick={handleUpdateClick1}
                     >
-                      <span>Update</span>
+                      <span>Move</span>
                     </button>
 
                     {showPopup1 && (
@@ -538,6 +541,11 @@ const Evalprocess = () => {
                     )}
                   </div>
                 </div>
+                <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
+                  <Col className="col-auto mb-3">
+                    <h4>Bulk Accept / Reject</h4>
+                  </Col>
+                </Row>
                 <Form onSubmit={formik.handleSubmit} isSubmitting>
                   <div className="create-ticket register-block">
                     <Row className="modal-body-table search-modal-header">

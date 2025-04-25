@@ -247,6 +247,16 @@ const ReportsRegistration = () => {
       key: "organization.pin_code",
     },
     {
+      label: 'Mandal / Taluka',
+      key: "organization.mandal",
+    }, {
+      label: 'School Type',
+      key: "organization.school_type",
+    }, {
+      label: 'School Board',
+      key: "organization.board",
+    },
+    {
       label: "Address",
       key: "organization.address",
     },
@@ -311,6 +321,16 @@ const ReportsRegistration = () => {
     {
       label: "Pin code",
       key: "pin_code",
+    },
+    {
+      label: 'Mandal / Taluka',
+      key: "mandal",
+    }, {
+      label: 'School Type',
+      key: "school_type",
+    }, {
+      label: 'School Board',
+      key: "board",
     },
     {
       label: "Address",

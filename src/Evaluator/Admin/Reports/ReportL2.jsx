@@ -207,6 +207,17 @@ const ReportL2 = () => {
       key: "pin_code",
     },
     {
+      label: 'Mandal / Taluka',
+      key: 'mandal'
+    }, {
+      label: 'School Type',
+      key: 'school_type'
+    },
+    {
+      label: 'School Board',
+      key: 'board'
+    },
+    {
       label: "Address",
       key: "address",
     },
@@ -488,6 +499,9 @@ const ReportL2 = () => {
               principal_name: mentorMap[item.mentor_id].principal_name,
               principal_mobile: mentorMap[item.mentor_id].principal_mobile,
               pin_code: mentorMap[item.mentor_id].pin_code,
+              mandal: mentorMap[item.mentor_id].mandal, 
+              school_type: mentorMap[item.mentor_id].school_type,
+              board: mentorMap[item.mentor_id].board,
               address: mentorMap[item.mentor_id].address,
             };
           });
@@ -520,6 +534,7 @@ const ReportL2 = () => {
                                                  "School Name":item.organization_name,
                                                  "School Category":item.category,
                                                  "Pin code":item.pin_code,
+                                                 "School Type":item.school_type, "Mandal / Taluka":item.mandal, "School Board":item.board,
                                                  Address:item.address,
                                                   "Teacher Name":item.full_name,
                                                   "Teacher Email":mentorUsernameMap[item.mentorUserId],

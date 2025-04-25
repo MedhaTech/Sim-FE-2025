@@ -169,8 +169,15 @@ const ReportL1 = () => {
       key: 'pin_code'
     },
     {
-      label: 'Address',
-      key: 'address'
+      label: 'Mandal / Taluka',
+      key: 'mandal'
+    }, {
+      label: 'School Type',
+      key: 'school_type'
+    },
+    {
+      label: 'School Board',
+      key: 'board'
     },
     {
       label: "Teacher Name",
@@ -426,7 +433,9 @@ const ReportL1 = () => {
                       principal_mobile: mentorMap[item.mentor_id].principal_mobile,
                       pin_code: mentorMap[item.mentor_id].pin_code,
                       address: mentorMap[item.mentor_id].address,
-        
+                      mandal: mentorMap[item.mentor_id].mandal, 
+                      school_type: mentorMap[item.mentor_id].school_type,
+                      board: mentorMap[item.mentor_id].board,
                     };
                   });
                   const newdatalist = mentorAndOrg.map((item) => {
@@ -438,6 +447,7 @@ const ReportL1 = () => {
                                    "School Name":item.organization_name,
                                    "School Category":item.category,
                                    "Pin code":item.pin_code,
+                                   "School Type":item.school_type, "Mandal / Taluka":item.mandal, "School Board":item.board,
                                    Address:item.address,
                                     "Teacher Name":item.full_name,
                                     "Teacher Email":mentorUsernameMap[item.mentorUserId],
