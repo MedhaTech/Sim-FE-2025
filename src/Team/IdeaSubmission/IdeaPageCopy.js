@@ -432,7 +432,7 @@ const[extractId,setExtractId]=useState("");
     if (feedback !== "") {
       body["feedback"] = feedback;
     }
-    if (prototypeLink !== "") {
+    if (prototypeLink !== "" && verfiySubmitt) {
       body["prototype_link"] = prototypeLink;
     }
     if (workbook !== "") {
