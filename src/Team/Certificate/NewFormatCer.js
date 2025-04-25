@@ -623,14 +623,14 @@ onClick={(e) => {
                         padding: "1rem",
                         borderRadius: "20px",
                       }}
-                      disabled={ideaStatus !== "SUBMITTED" && resList ===1 }
+                      disabled={ideaStatus !== "SUBMITTED" && resList !==1 }
                       // onClick={
                       //   ideaStatus === "SUBMITTED"
                       //     ? handleCertificateDownload1
                       //     : (e) => e.preventDefault()
                       // }
                       onClick={(e) => {
-                        if (ideaStatus === "SUBMITTED" && resList ===1 ) {
+                        if (ideaStatus === "SUBMITTED" && resList === 1 ) {
                           if (currentUser?.data[0]?.state !== "Tamil Nadu") {
                             handleCertificateDownload1();
                           } else {

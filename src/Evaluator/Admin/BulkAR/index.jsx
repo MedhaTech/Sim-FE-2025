@@ -346,7 +346,11 @@ const Evalprocess = () => {
           <div className="row">
             <Container className="ticket-page">
               <Row className="pt-3">
-               
+              <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
+                  <Col className="col-auto mb-3">
+                    <h4>Ideas Moving</h4>
+                  </Col>
+                </Row>
                 <div className="row mb-3">
                   <div
                     className="employee-grid-profile col-4 m-3"
@@ -355,7 +359,7 @@ const Evalprocess = () => {
                     <div className="profile-head">
                       <div className="dep-name">
                         <h5 className="text-center mb-3 mt-2">
-                        Moved Draft Ideas to Submitted Ideas
+                        Move Draft Ideas to Submitted Ideas
                         </h5>
                       </div>
                     </div>
