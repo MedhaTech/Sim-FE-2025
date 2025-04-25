@@ -189,6 +189,17 @@ const TeacherProgressDetailed = () => {
       key: "district",
     },
     {
+      label: 'Mandal / Taluka',
+      key: 'mandal'
+    }, {
+      label: 'School Type',
+      key: 'school_type'
+    },
+    {
+      label: 'School Board',
+      key: 'board'
+    },
+    {
       label: "City",
       key: "city",
     },
@@ -200,6 +211,7 @@ const TeacherProgressDetailed = () => {
       label: "Pincode",
       key: "pin_code",
     },
+
     {
       label: "Principal Name",
       key: "principal_name",
