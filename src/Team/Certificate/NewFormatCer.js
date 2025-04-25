@@ -630,7 +630,7 @@ onClick={(e) => {
                       //     : (e) => e.preventDefault()
                       // }
                       onClick={(e) => {
-                        if (ideaStatus === "SUBMITTED") {
+                        if (ideaStatus === "SUBMITTED" && resList ===1 ) {
                           if (currentUser?.data[0]?.state !== "Tamil Nadu") {
                             handleCertificateDownload1();
                           } else {
