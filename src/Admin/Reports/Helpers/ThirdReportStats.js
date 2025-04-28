@@ -20,57 +20,33 @@ import {
 import ReactApexChart from "react-apexcharts";
 import { openNotificationWithIcon } from "../../../helpers/Utils";
 
-const ThirdReportStats = () => {
+const ThirdReportStats = ({
+  combinedArray,
+  barChart1Data,
+  barChartNew,
+  barChart2Data,
+  totalCount,
+  doughnutChartData,
+  barDought,
+  downloadTableData,
+  isloader,
+  seriesa,
+  seriesb,
+  series1,
+  series2,
+  series3,
+  series4,
+  series5,
+}) => {
   const navigate = useNavigate();
-  const [isloader, setIsloader] = useState(false);
 
-  const [mentorDetailedReportsData, setmentorDetailedReportsData] = useState(
-    []
-  );
-  const [doughnutChartData, setDoughnutChartData] = useState(null);
-  const currentUser = getCurrentUser("current_user");
   const csvLinkRef = useRef();
   const csvLinkRefTable = useRef();
   const dispatch = useDispatch();
-  const [combinedArray, setCombinedArray] = useState([]);
-  const [downloadTableData, setDownloadTableData] = useState([]);
+
   const [newFormat, setNewFormat] = useState("");
-  const [atl, setAtl] = useState("");
-  const [nonAtl, setNonAtl] = useState("");
-  const [series1, setseries1] = useState([]);
-  const [series2, setseries2] = useState([]);
-  const [series3, setseries3] = useState([]);
-  const [series4, setseries4] = useState([]);
-  const [series5, setseries5] = useState([]);
-  const [series6, setseries6] = useState([]);
-  const [series7, setseries7] = useState([]);
-  const [seriesa, setseriesa] = useState([]);
-  const [seriesb, setseriesb] = useState([]);
 
   const [formattedDataForDownload, setFormattedDataForDownload] = useState([]);
-  const [barChartNew, setBarChartNew] = useState({
-    labels: [],
-    datasets: [],
-  });
-  const [barDought, setBarDought] = useState({
-    labels: [],
-    datasets: [],
-  });
-
-  const [barChart1Data, setBarChart1Data] = useState({
-    labels: [],
-    datasets: [],
-  });
-  const [barChart3Data, setBarChart3Data] = useState({
-    labels: [],
-    datasets: [],
-  });
-  const [barChart2Data, setBarChart2Data] = useState({
-    labels: [],
-    datasets: [],
-  });
-
-  const [totalCount, setTotalCount] = useState([]);
 
   const tableHeaders = [
     {
@@ -198,7 +174,6 @@ const ThirdReportStats = () => {
           fontSize: "10px",
         },
         formatter: (val) => {
-          // Shorten long labels or wrap them by breaking lines
           if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
           return val;
         },
@@ -390,275 +365,12 @@ const ThirdReportStats = () => {
   };
 
   useEffect(() => {
-    nonAtlCount();
-  }, []);
-  const nonAtlCount = () => {
-    var config = {
-      method: "get",
-      url:
-        process.env.REACT_APP_API_BASE_URL_FOR_REPORTS +
-        `/reports/studentATLnonATLcount`,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${currentUser.data[0]?.token}`,
-      },
-    };
-    axios(config)
-      .then(function (res) {
-        if (res.status === 200) {
-          var mentorStuArray = [];
-          res &&
-            res.data &&
-            res.data.data &&
-            res.data.data.map((students, index) => {
-              var key = index + 1;
-              return mentorStuArray.push({ ...students, key });
-            });
-          setAtl(mentorStuArray);
-
-          const barStudentData = {
-            labels: mentorStuArray.map((item) => item.state),
-            datasets: [
-              {
-                label: "No.of  ATL Students",
-                data: mentorStuArray.map((item) => item.ATL_Student_Count),
-                backgroundColor: "rgba(255, 0, 0, 0.6)",
-              },
-              {
-                label: "No.of Non ATL Students",
-                data: mentorStuArray.map((item) => item.NONATL_Student_Count),
-                backgroundColor: "rgba(75, 162, 192, 0.6)",
-              },
-            ],
-          };
-          setBarChart3Data(barStudentData);
-          setseries7(barStudentData.datasets[0].data);
-          setseries6(barStudentData.datasets[1].data);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
-  useEffect(() => {
-    fetchChartTableData();
     const newDate = new Date();
     const formattedDate = `${newDate.getUTCDate()}/${
       1 + newDate.getMonth()
     }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
     setNewFormat(formattedDate);
   }, []);
-
-  const fetchChartTableData = () => {
-    const config = {
-      method: "get",
-      url:
-        process.env.REACT_APP_API_BASE_URL_FOR_REPORTS +
-        "/reports/mentordetailstable",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${currentUser?.data[0]?.token}`,
-      },
-    };
-
-    axios(config)
-      .then((response) => {
-        if (response.status === 200) {
-          setIsloader(true);
-          const summary = response.data.data[0].summary;
-          const teamCount = response.data.data[0].teamCount;
-          const studentCountDetails =
-            response.data.data[0].studentCountDetails.map((item) => {
-              const otherCount =
-                item.totalstudent -
-                (parseInt(item.male) + parseInt(item.female));
-              return {
-                ...item,
-                other: otherCount,
-              };
-            });
-          const courseCompleted = response.data.data[0].courseCompleted;
-          const courseINcompleted = response.data.data[0].courseINcompleted;
-
-          const combinedArray = summary.map((summaryItem) => {
-            const state = summaryItem.state;
-            const teamCountItem = teamCount.find(
-              (item) => item.state === state
-            );
-            const studentCountItem = studentCountDetails.find(
-              (item) => item.state === state
-            );
-            const courseCompletedItem = courseCompleted.find(
-              (item) => item.state === state
-            );
-            const courseINcompletedItem = courseINcompleted.find(
-              (item) => item.state === state
-            );
-            const courseNotStarted =
-              summaryItem.totalReg -
-              ((courseCompletedItem ? courseCompletedItem.courseCMP : 0) +
-                (courseINcompletedItem ? courseINcompletedItem.courseIN : 0));
-            return {
-              state,
-              totalReg: summaryItem.totalReg,
-              totalTeams: teamCountItem ? teamCountItem.totalTeams : 0,
-              totalStudents: studentCountItem
-                ? studentCountItem.totalstudent
-                : 0,
-              maleStudents: studentCountItem
-                ? parseInt(studentCountItem.male)
-                : 0,
-              femaleStudents: studentCountItem
-                ? parseInt(studentCountItem.female)
-                : 0,
-              otherStudents: studentCountItem ? studentCountItem.other : 0,
-              courseCompleted: courseCompletedItem
-                ? courseCompletedItem.courseCMP
-                : 0,
-              courseINcompleted: courseINcompletedItem
-                ? courseINcompletedItem.courseIN
-                : 0,
-              courseNotStarted,
-            };
-          });
-          const total = combinedArray.reduce(
-            (acc, item) => {
-              acc.state = "Total";
-              acc.totalReg += item.totalReg;
-              acc.totalTeams += item.totalTeams;
-              acc.totalStudents += item.totalStudents;
-              acc.maleStudents += item.maleStudents;
-              acc.femaleStudents += item.femaleStudents;
-              acc.otherStudents += item.otherStudents;
-              acc.courseCompleted += item.courseCompleted;
-              acc.courseINcompleted += item.courseINcompleted;
-              acc.courseNotStarted += item.courseNotStarted;
-              return acc;
-            },
-            {
-              state: "None",
-              totalReg: 0,
-              totalTeams: 0,
-              totalStudents: 0,
-              maleStudents: 0,
-              femaleStudents: 0,
-              otherStudents: 0,
-              courseCompleted: 0,
-              courseINcompleted: 0,
-              courseNotStarted: 0,
-            }
-          );
-          const doughnutData = {
-            labels: ["Male", "Female", "Others"],
-            datasets: [
-              {
-                data: [
-                  total.maleStudents,
-                  total.femaleStudents,
-                  total.otherStudents,
-                ],
-                backgroundColor: ["#8bcaf4", "#ff99af", "rgb(254, 176, 25)"],
-                hoverBackgroundColor: ["#36A2EB", "#FF6384"],
-              },
-            ],
-          };
-          const doughnutDataCourse = {
-            labels: ["Not started", "In progress", "Completed"],
-            datasets: [
-              {
-                data: [
-                  total.courseNotStarted,
-                  total.courseINcompleted,
-                  total.courseCompleted,
-                ],
-                backgroundColor: [
-                  "rgba(255, 0, 0, 0.6)",
-                  "rgba(255, 255, 0, 0.6)",
-                  "rgba(0, 128, 0, 0.6)",
-                ],
-                hoverBackgroundColor: ["#e60026", "#ffae42", "#087830"],
-              },
-            ],
-          };
-
-          const barData = {
-            labels: combinedArray.map((item) => item.state),
-            datasets: [
-              {
-                label: "No.of Students Enrolled",
-                data: combinedArray.map((item) => item.totalStudents),
-                backgroundColor: "rgba(255, 0, 0, 0.6)",
-              },
-              {
-                label: "No. of Teams created",
-                data: combinedArray.map((item) => item.totalTeams),
-                backgroundColor: "rgba(75, 162, 192, 0.6)",
-              },
-            ],
-          };
-          setseries2(barData.datasets[0].data);
-          setseries1(barData.datasets[1].data);
-
-          const barDataA = {
-            labels: combinedArray.map((item) => item.state),
-            datasets: [
-              {
-                label: "No.of Registered Students Enrolled",
-                data: combinedArray.map((item) => item.totalStudents),
-                backgroundColor: "rgba(255, 0, 0, 0.6)",
-              },
-              {
-                label: "No. of Registered Teachers Enrolled",
-                data: combinedArray.map((item) => item.totalReg),
-                backgroundColor: "rgba(75, 162, 192, 0.6)",
-              },
-            ],
-          };
-          setseriesa(barDataA.datasets[0].data);
-          setseriesb(barDataA.datasets[1].data);
-
-          const stackedBarChartData = {
-            labels: combinedArray.map((item) => item.state),
-            datasets: [
-              {
-                label: "No. of Teachers not started course",
-                data: combinedArray.map((item) => item.courseNotStarted),
-                backgroundColor: "rgba(255, 0, 0, 0.6)",
-              },
-              {
-                label: "No. of Teachers course IN progress",
-                data: combinedArray.map((item) => item.courseINcompleted),
-                backgroundColor: "rgba(255, 255, 0, 0.6)",
-              },
-              {
-                label: "No. of teachers Completed Course",
-                data: combinedArray.map((item) => item.courseCompleted),
-                backgroundColor: "rgba(0, 128, 0, 0.6)",
-              },
-            ],
-          };
-          setseries3(stackedBarChartData.datasets[0].data);
-          setseries4(stackedBarChartData.datasets[1].data);
-          setseries5(stackedBarChartData.datasets[2].data);
-          const newcombinedArray = [...combinedArray, total];
-          setCombinedArray(combinedArray);
-          setDownloadTableData(newcombinedArray);
-          setDoughnutChartData(doughnutData);
-          setBarDought(doughnutDataCourse);
-
-          setBarChart1Data(barData);
-          setBarChartNew(barDataA);
-
-          setBarChart2Data(stackedBarChartData);
-          setTotalCount(total);
-        }
-      })
-      .catch((error) => {
-        console.log("API error:", error);
-      });
-  };
 
   return (
     <Container className="RegReports userlist">
@@ -671,7 +383,7 @@ const ThirdReportStats = () => {
                   <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
                     <div className="card flex-fill default-cover w-100 mb-4">
                       <div className="card-header d-flex justify-content-between align-items-center">
-                        <h4 className="card-title mb-0">Data Analytics OF Arshiya</h4>
+                        <h4 className="card-title mb-0">Data Analytics</h4>
                         <div className="dropdown">
                           <Link
                             to="#"
@@ -738,7 +450,7 @@ const ThirdReportStats = () => {
                               type="button"
                               onClick={() => {
                                 if (downloadTableData) {
-                                  setDownloadTableData(null);
+                                  // setDownloadTableData(null);
                                   csvLinkRefTable.current.link.click();
                                 }
                               }}
