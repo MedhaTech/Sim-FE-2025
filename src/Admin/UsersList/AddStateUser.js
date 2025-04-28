@@ -40,7 +40,7 @@ const Register = (props) => {
             .required('Please Enter Full Name'),
         username: Yup.string()
             .trim()
-            .email('Invalid username format')
+            .email('Invalid Email Address')
             .required('Please Enter Email Address'),
         state_name: Yup.string().required('Please Select State Name')
     });
@@ -74,14 +74,15 @@ const Register = (props) => {
                 .post(URL.StatePath, JSON.stringify(values, null, 2), axiosConfig)
                 .then((stateReg) => {
                     if (stateReg?.data?.status == 201) {
-                        setTimeout(() => {
-                            dispatch(getAdmin());
-                        }, 500);
-                        window.location.reload();
                         openNotificationWithIcon(
                             'success',
-                            stateReg?.data?.message
+                            "State User Added Successfully"
                         );
+                        setTimeout(() => {
+                            dispatch(getAdmin());
+                            window.location.reload();
+                        }, 500);
+                      
                         props.setShow(false);
                     }
                 })
@@ -92,7 +93,7 @@ const Register = (props) => {
                     }else{
                         openNotificationWithIcon(
                             'error',
-                            err.response.data?.message
+                            "Please Enter Valid Email Id"
                         );
                     }
                    

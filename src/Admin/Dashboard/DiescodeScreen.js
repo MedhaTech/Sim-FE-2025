@@ -452,7 +452,7 @@ const DiescodeScreen = () => {
                   <div className="container evaluated_idea_wrapper">
                     {multiOrgData.length !== undefined &&
                       multiOrgData.length !== 0 &&
-                      multiOrgData[0]?.mentor !== null && (
+                      multiOrgData[0]?.mentor !== null ? (
                         <DataTableExtensions
                           print={false}
                           export={false}
@@ -465,7 +465,7 @@ const DiescodeScreen = () => {
                             customStyles={customStyles}
                           />
                         </DataTableExtensions>
-                      )}
+                      ) :"No Teachers are registered from this Udise Code"}
                   </div>
                 </Row>
                 <div className="row " style={{ overflow: "auto" }}>
