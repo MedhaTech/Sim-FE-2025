@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from "react";
@@ -22,6 +23,8 @@ import { categoryValue } from "../../Schools/constentText";
 import { notification } from "antd";
 import { encryptGlobal } from "../../../constants/encryptDecrypt";
 import { stateList, districtList } from "../../../RegPage/ORGData";
+import ThirdReportStats from "./ThirdReportStats";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMale,
@@ -46,8 +49,7 @@ const TeacherProgressDetailed = () => {
     setdistrict("");
   }, [selectstate]);
   const newstateList = ["All States", ...stateList];
-  // const categoryData =
-  //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
+  
   const [mentorDetailedReportsData, setmentorDetailedReportsData] = useState(
     []
   );
@@ -59,8 +61,7 @@ const TeacherProgressDetailed = () => {
   const [combinedArray, setCombinedArray] = useState([]);
   const [downloadTableData, setDownloadTableData] = useState([]);
   const [newFormat, setNewFormat] = useState("");
-  const [atl, setAtl] = useState("");
-  const [nonAtl, setNonAtl] = useState("");
+ 
   const [series1, setseries1] = useState([]);
   const [series2, setseries2] = useState([]);
   const [series3, setseries3] = useState([]);
@@ -71,10 +72,10 @@ const TeacherProgressDetailed = () => {
   const [seriesa, setseriesa] = useState([]);
   const [seriesb, setseriesb] = useState([]);
   const [isCustomizationEnabled, setIsCustomizationEnabled] = useState(false);
- const [showCustomization, setShowCustomization] = useState(false);
+  const [showCustomization, setShowCustomization] = useState(false);
   const [selectedHeaders, setSelectedHeaders] = useState([]);
   const [isReadyToDownload, setIsReadyToDownload] = useState(false);
-      const [modifiedChartTableData, setModifiedChartTableData] = useState([]);
+  const [modifiedChartTableData, setModifiedChartTableData] = useState([]);
   const [customizationActive, setCustomizationActive] = useState(false);
   const [formattedDataForDownload, setFormattedDataForDownload] = useState([]);
   const [barChartNew, setBarChartNew] = useState({
@@ -104,66 +105,17 @@ const TeacherProgressDetailed = () => {
     ...districtList,
   };
   const fiterDistData = ["All Districts", ...(allDistricts[selectstate] || [])];
-  // const fiterDistData = districtList[selectstate];
-  // useEffect(() => {
-  //     dispatch(getStateData());
-  // }, []);
+
   useEffect(() => {
-    // if (selectstate !== '') {
-    //     dispatch(getFetchDistData(selectstate));
-    // }
-    // setdistrict('');
     fetchChartTableData();
     const newDate = new Date();
     const formattedDate = `${newDate.getUTCDate()}/${
       1 + newDate.getMonth()
     }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
     setNewFormat(formattedDate);
-  }, [selectstate]);
+  }, []);
   const [totalCount, setTotalCount] = useState([]);
 
-  const tableHeaders = [
-    {
-      label: "State Name",
-      key: "state",
-    },
-    {
-      label: "Total Registered Teachers",
-      key: "totalReg",
-    },
-    {
-      label: "Total No.of Teams created",
-      key: "totalTeams",
-    },
-    {
-      label: "Total No.of Students enrolled",
-      key: "totalStudents",
-    },
-    {
-      label: "No.of Female Students",
-      key: "femaleStudents",
-    },
-    {
-      label: "No.of Male Students",
-      key: "maleStudents",
-    },
-    {
-      label: "No.of Male Students",
-      key: "otherStudents",
-    },
-    {
-      label: "No.of Teachers completed the course",
-      key: "courseCompleted",
-    },
-    {
-      label: "No.of Teachers course IN Progress",
-      key: "courseINcompleted",
-    },
-    {
-      label: "No.of Teachers NOT Started Course",
-      key: "courseNotStarted",
-    },
-  ];
   const allHeaders = [
     {
       label: "UDISE CODE",
@@ -282,9 +234,9 @@ const TeacherProgressDetailed = () => {
     category: "School Category",
     state: "State",
     district: "District",
-    mandal :"Mandal / Taluka",
-    school_type :"School Type",
-    board :"School Board",
+    mandal: "Mandal / Taluka",
+    school_type: "School Type",
+    board: "School Board",
     city: "City",
     principal_name: "HM Name",
     principal_mobile: "HM Contact",
@@ -319,420 +271,37 @@ const TeacherProgressDetailed = () => {
       return updatedHeaders;
     });
   };
-  
-  
+
   const handleSelectAll = () => {
     setSelectedHeaders((prevHeaders) => {
       const updatedHeaders =
-        prevHeaders.length === allHeaders.length ? [] : allHeaders.map((h) => h.key);
-        filterData(updatedHeaders);
+        prevHeaders.length === allHeaders.length
+          ? []
+          : allHeaders.map((h) => h.key);
+      filterData(updatedHeaders);
       return updatedHeaders;
     });
   };
-  const filterData= (updatedHeaders)=>{
-    const filteredData = modifiedChartTableData.map((item) => {
+  const filterData = (updatedHeaders) => {
+    const filteredData = modifiedChartTableData
+      .map((item) => {
+        let filteredItem = {};
+        updatedHeaders.forEach((key) => {
+          if (item && Object.prototype.hasOwnProperty.call(item, key)) {
+            filteredItem[key] = item[key] ?? "";
+          } else {
+            console.warn(`Key "${key}" not found in item:`, item);
+          }
+        });
 
-      let filteredItem = {};
-      updatedHeaders.forEach((key) => {
-        if (item && Object.prototype.hasOwnProperty.call(item, key)) {  
-          filteredItem[key] = item[key] ?? ""; 
-        } else {
-          console.warn(`Key "${key}" not found in item:`, item); 
-        }
-      });
-    
-      console.log("Filtered Item:", filteredItem); 
-      return Object.keys(filteredItem).length > 0 ? filteredItem : null; 
-    }).filter(Boolean); 
+        console.log("Filtered Item:", filteredItem);
+        return Object.keys(filteredItem).length > 0 ? filteredItem : null;
+      })
+      .filter(Boolean);
     console.log("Final Filtered Data for Download:", filteredData);
     setmentorDetailedReportsData(filteredData);
   };
-  var chartOption = {
-    chart: {
-      height: 330,
-      type: "donut",
-      toolbar: {
-        show: false,
-      },
-    },
-    colors: ["#36A2EB", "#FF6384", "rgb(254, 176, 25)"],
-    labels: ["Male", "Female", "Others"],
-    series: [
-      totalCount.maleStudents,
-      totalCount.femaleStudents,
-      totalCount.otherStudents,
-    ],
-    legend: {
-      position: "top",
-      horizontalAlign: "center",
-    },
-    responsive: [
-      {
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: 200,
-          },
-          legend: {
-            position: "bottom",
-          },
-        },
-      },
-    ],
-  };
 
-  var options = {
-    chart: {
-      height: 700,
-      width: 1000,
-      type: "bar",
-      toolbar: {
-        show: false,
-      },
-      zoom: {
-        enabled: false,
-      },
-    },
-    colors: ["rgb(0, 143, 251)", "rgb(0, 227, 150)"],
-    dataLabels: {
-      enabled: false,
-    },
-    stroke: {
-      curve: "straight",
-    },
-    series: [
-      {
-        name: "# Teams",
-        data: series1,
-      },
-      {
-        name: "# Students",
-        data: series2,
-      },
-    ],
-
-    yaxis: {
-      beginAtZero: true,
-      ticks: {
-        stepSize: 20,
-      },
-      labels: {
-        formatter: (val) => {
-          return val / 1;
-        },
-      },
-    },
-
-    xaxis: {
-      categories: barChart1Data.labels,
-      labels: {
-        style: {
-          fontSize: "10px",
-        },
-        formatter: (val) => {
-          // Shorten long labels or wrap them by breaking lines
-          if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
-          return val;
-        },
-      },
-      ticks: {
-        maxRotation: 80,
-        minRotation: 45,
-        autoSkip: false,
-      },
-    },
-    legend: {
-      position: "top",
-      horizontalAlign: "center",
-    },
-  };
-
-  var sColStacked = {
-    chart: {
-      height: 700,
-      width: 1000,
-      type: "bar",
-      stacked: true,
-      toolbar: {
-        show: false,
-      },
-    },
-    colors: ["rgb(255, 69, 96)", "rgb(254, 176, 25)", "rgb(0, 227, 150)"],
-
-    plotOptions: {
-      bar: {
-        horizontal: false,
-      },
-    },
-    series: [
-      {
-        name: "#Not started",
-        data: series3,
-      },
-      {
-        name: "#InProgress",
-        data: series4,
-      },
-      {
-        name: "#Completed",
-        data: series5,
-      },
-    ],
-    xaxis: {
-      categories: barChart2Data.labels,
-      labels: {
-        style: {
-          fontSize: "10px",
-        },
-        formatter: (val) => {
-          // Shorten long labels or wrap them by breaking lines
-          if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
-          return val;
-        },
-      },
-      ticks: {
-        maxRotation: 80,
-        minRotation: 45,
-        autoSkip: false,
-      },
-    },
-    yaxis: {
-      beginAtZero: true,
-      ticks: {
-        stepSize: 20,
-      },
-      labels: {
-        formatter: (val) => {
-          return val / 1;
-        },
-      },
-    },
-
-    legend: {
-      position: "top",
-      horizontalAlign: "center",
-    },
-    fill: {
-      opacity: 1,
-    },
-  };
-
-  var optionsStudent = {
-    chart: {
-      height: 700,
-      width: 1000,
-      type: "bar",
-      toolbar: {
-        show: false,
-      },
-      zoom: {
-        enabled: false,
-      },
-    },
-    colors: ["rgb(0, 143, 251)", "rgb(0, 227, 150)"],
-    dataLabels: {
-      enabled: false,
-    },
-    stroke: {
-      curve: "straight",
-    },
-    series: [
-      {
-        name: "# Registered Students",
-        data: seriesa,
-      },
-      {
-        name: "# Registered Teachers",
-        data: seriesb,
-      },
-    ],
-
-    yaxis: {
-      beginAtZero: true,
-      ticks: {
-        stepSize: 20,
-      },
-      labels: {
-        formatter: (val) => {
-          return val / 1;
-        },
-      },
-    },
-
-    xaxis: {
-      categories: barChartNew.labels,
-      labels: {
-        style: {
-          fontSize: "10px",
-        },
-        formatter: (val) => {
-          // Shorten long labels or wrap them by breaking lines
-          if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
-          return val;
-        },
-      },
-      ticks: {
-        maxRotation: 80,
-        minRotation: 45,
-        autoSkip: false,
-      },
-    },
-    legend: {
-      position: "top",
-      horizontalAlign: "center",
-    },
-  };
-
-  // var optionsStudent = {
-  //     chart: {
-  //       height: 500,
-  //       type: "bar",
-  //       toolbar: {
-  //         show: false,
-  //       },
-  //       zoom: {
-  //         enabled: false,
-  //       },
-  //     },
-  //     colors: ['rgb(0, 143, 251)', 'rgb(0, 227, 150)'],
-  //     legend: {
-  //         position: "top",
-  //         horizontalAlign: "center",
-  //       },
-  //       dataLabels: {
-  //         enabled: false,
-  //       },
-  //       series: [
-  //         {
-  //           name: "# Registered Students",
-  //           data: seriesa,
-  //         },
-  //         {
-  //           name: "# Registered Teachers",
-  //           data: seriesb,
-  //         },
-  //       ],
-  //       stroke: {
-  //         curve: "straight",
-  //       },
-  //     // stroke: {
-  //     //   width: [0, 4],
-  //     // },
-
-  //     xaxis: {
-  //         categories: barChartNew.labels,
-  //         ticks: {
-  //                 maxRotation: 80,
-  //                 autoSkip: false
-  //             },
-  //     },
-  //     yaxis: {
-  //         beginAtZero: true,
-  //         ticks: {
-  //           stepSize: 20,
-  //         },
-  //         labels: {
-  //           formatter: (val) => {
-  //             return val / 1;
-  //           },
-  //         },
-  //       },
-
-  //   };
-
-  var radialChart = {
-    chart: {
-      height: 350,
-      type: "donut",
-      toolbar: {
-        show: false,
-      },
-    },
-    labels: ["Not started", "In progress", "Completed"],
-    colors: [
-      "rgba(255, 0, 0, 0.6)",
-      "rgba(255, 255, 0, 0.6)",
-      "rgba(0, 128, 0, 0.6)",
-    ],
-    series: [
-      totalCount.courseNotStarted,
-      totalCount.courseINcompleted,
-      totalCount.courseCompleted,
-    ],
-    legend: {
-      position: "top",
-      horizontalAlign: "center",
-    },
-    responsive: [
-      {
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: 200,
-          },
-          legend: {
-            position: "bottom",
-          },
-        },
-      },
-    ],
-  };
-
-  useEffect(() => {
-    nonAtlCount();
-  }, []);
-  const nonAtlCount = () => {
-    var config = {
-      method: "get",
-      url:
-        process.env.REACT_APP_API_BASE_URL_FOR_REPORTS +
-        `/reports/studentATLnonATLcount`,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${currentUser.data[0]?.token}`,
-      },
-    };
-    axios(config)
-      .then(function (res) {
-        if (res.status === 200) {
-          var mentorStuArray = [];
-          res &&
-            res.data &&
-            res.data.data &&
-            res.data.data.map((students, index) => {
-              var key = index + 1;
-              return mentorStuArray.push({ ...students, key });
-            });
-          setAtl(mentorStuArray);
-
-          // setAtl(response.data.data);
-          const barStudentData = {
-            labels: mentorStuArray.map((item) => item.state),
-            datasets: [
-              {
-                label: "No.of  ATL Students",
-                data: mentorStuArray.map((item) => item.ATL_Student_Count),
-                backgroundColor: "rgba(255, 0, 0, 0.6)",
-              },
-              {
-                label: "No.of Non ATL Students",
-                data: mentorStuArray.map((item) => item.NONATL_Student_Count),
-                backgroundColor: "rgba(75, 162, 192, 0.6)",
-              },
-            ],
-          };
-          setBarChart3Data(barStudentData);
-          // console.log(barStudentData,"barStudentData");
-          setseries7(barStudentData.datasets[0].data);
-          setseries6(barStudentData.datasets[1].data);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
- 
   const fetchData = () => {
     const apiRes = encryptGlobal(
       JSON.stringify({
@@ -754,8 +323,6 @@ const TeacherProgressDetailed = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response,"22");
-
           const preSurveyMap = response.data.data[0].preSurvey.reduce(
             (map, item) => {
               map[item.user_id] = item.pre_survey_status;
@@ -877,11 +444,10 @@ const TeacherProgressDetailed = () => {
           setModifiedChartTableData(newdatalist);
           if (response.data.data[0].summary.length > 0) {
             setIsCustomizationEnabled(true);
-            setHasData(true); 
-           
+            setHasData(true);
           } else {
             openNotificationWithIcon("error", "No Data Found");
-            setHasData(false); 
+            setHasData(false);
             setShowCustomization(false);
           }
 
@@ -893,29 +459,34 @@ const TeacherProgressDetailed = () => {
         setIsDownload(false);
       });
   };
-   useEffect(() => {
-      console.log("Updated Download Table Data:", mentorDetailedReportsData);
-    }, [mentorDetailedReportsData]); 
-   
-      useEffect(() => {
-          if (isReadyToDownload && mentorDetailedReportsData.length > 0) {
-            console.log("Downloading CSV with data:", mentorDetailedReportsData);
-            const formattedCSVData = mentorDetailedReportsData.map((item) =>
-              Object.fromEntries(
-                Object.entries(item).map(([key, value]) => [headerMapping[key] || key, value])
-              )
-            );
-            setFormattedDataForDownload(formattedCSVData);
-      
-        setTimeout(() => {
-              csvLinkRef.current.link.click();
-              console.log("Downloading CSV with formatted headers:", formattedCSVData);
-              openNotificationWithIcon("success", "Report Downloaded Successfully");
-              setIsReadyToDownload(false); 
-            }, 1000);
-        
-          }
-        }, [isReadyToDownload, mentorDetailedReportsData]);
+  useEffect(() => {
+    console.log("Updated Download Table Data:", mentorDetailedReportsData);
+  }, [mentorDetailedReportsData]);
+
+  useEffect(() => {
+    if (isReadyToDownload && mentorDetailedReportsData.length > 0) {
+      console.log("Downloading CSV with data:", mentorDetailedReportsData);
+      const formattedCSVData = mentorDetailedReportsData.map((item) =>
+        Object.fromEntries(
+          Object.entries(item).map(([key, value]) => [
+            headerMapping[key] || key,
+            value,
+          ])
+        )
+      );
+      setFormattedDataForDownload(formattedCSVData);
+
+      setTimeout(() => {
+        csvLinkRef.current.link.click();
+        console.log(
+          "Downloading CSV with formatted headers:",
+          formattedCSVData
+        );
+        openNotificationWithIcon("success", "Report Downloaded Successfully");
+        setIsReadyToDownload(false);
+      }, 1000);
+    }
+  }, [isReadyToDownload, mentorDetailedReportsData]);
 
   const fetchChartTableData = () => {
     const config = {
@@ -933,7 +504,6 @@ const TeacherProgressDetailed = () => {
       .then((response) => {
         if (response.status === 200) {
           setIsloader(true);
-          // console.log(response.data.data[0].studentCountDetails[0].totalstudent,"whole");
           const summary = response.data.data[0].summary;
           const teamCount = response.data.data[0].teamCount;
           const studentCountDetails =
@@ -946,7 +516,6 @@ const TeacherProgressDetailed = () => {
                 other: otherCount,
               };
             });
-          // console.log(studentCountDetails,"student");
           const courseCompleted = response.data.data[0].courseCompleted;
           const courseINcompleted = response.data.data[0].courseINcompleted;
 
@@ -1127,18 +696,22 @@ const TeacherProgressDetailed = () => {
         console.log("API error:", error);
       });
   };
-  const enable = selectstate?.trim() !== "" && district?.trim() !== "" && category?.trim() !== "";
- const handleCustomizationClick = () => {
+
+  const enable =
+    selectstate?.trim() !== "" &&
+    district?.trim() !== "" &&
+    category?.trim() !== "";
+  const handleCustomizationClick = () => {
     setShowCustomization(!showCustomization);
     fetchData();
     setSelectedHeaders([]);
-    setCustomizationActive(true); 
+    setCustomizationActive(true);
   };
   useEffect(() => {
     if (customizationActive) {
-      setShowCustomization(false);       
-      setCustomizationActive(false);     
-      setSelectedHeaders([]);           
+      setShowCustomization(false);
+      setCustomizationActive(false);
+      setSelectedHeaders([]);
     }
   }, [district, category, selectstate]);
   return (
@@ -1205,12 +778,6 @@ const TeacherProgressDetailed = () => {
               </Col>
               <Col md={2}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
-                  {/* <Select
-                                list={categoryData}
-                                setValue={setCategory}
-                                placeHolder={'Select Category'}
-                                value={category}
-                            /> */}
                   {selectstate === "Tamil Nadu" ? (
                     <Select
                       list={categoryDataTn}
@@ -1228,496 +795,120 @@ const TeacherProgressDetailed = () => {
                   )}
                 </div>
               </Col>
-             
-               <Col md={2}>
-                            <button
-                                  //  onClick={() => {setShowCustomization(!showCustomization);
-                                  //   fetchData();
-                                  //   setSelectedHeaders([]);
-                                  // }}
-                                  onClick={handleCustomizationClick}
-                                type="button"
-                                disabled={!enable}
-                                className="btn btn-primary"
-                              >
-                                Customization
-                              </button>
-                            </Col>
-                            {/* {showCustomization && hasData &&(
-  <div className="card mt-3" >
-    <div className="card-body">
-      <h5 className="card-title">Select Columns</h5>
-      <div className="row">
-      <div className="col-md-3">
-      <div className="form-check mb-2">
-        <input
-          type="checkbox"
-          className="form-check-input"
-          id="selectAll"
-          checked={selectedHeaders.length === allHeaders.length}
-          onChange={handleSelectAll}
-        />
-        <label className="form-check-label ms-2" htmlFor="selectAll">
-          Select All
-        </label>
-      </div>
-      </div>
 
+              <Col md={2}>
+                <button
+                  onClick={handleCustomizationClick}
+                  type="button"
+                  disabled={!enable}
+                  className="btn btn-primary"
+                >
+                  Customization
+                </button>
+              </Col>
 
-     
-        {allHeaders.map((header) => (
-          <div className="col-md-3" key={header.key}>
-            <div className="form-check">
-              <input
-                type="checkbox"
-                className="form-check-input"
-                id={header.key}
-                checked={selectedHeaders.includes(header.key)}
-                onChange={() => handleCheckboxChange(header.key)}
-              />
-              <label className="form-check-label ms-2" htmlFor={header.key}>
-                {header.label}
-              </label>
-            </div>
-          </div>
-        ))}
-      </div>
+              {showCustomization && hasData && (
+                <div className="card mt-3">
+                  <div className="card-body">
+                    <div className="row align-items-center mb-3">
+                      <div className="col-md-3">
+                        <h5 className="card-title mb-0">Select Columns</h5>
+                      </div>
+                      <div className="col-md-3">
+                        <div className="form-check">
+                          <input
+                            type="checkbox"
+                            className="form-check-input"
+                            id="selectAll"
+                            checked={
+                              selectedHeaders.length === allHeaders.length
+                            }
+                            onChange={handleSelectAll}
+                          />
+                          <label
+                            className="form-check-label ms-2"
+                            htmlFor="selectAll"
+                          >
+                            Select All
+                          </label>
+                        </div>
+                      </div>
+                    </div>
 
-      <button
-        className="btn btn-danger mt-3"
-       
-        onClick={() => {
-          setShowCustomization(false);
-          if (!mentorDetailedReportsData || mentorDetailedReportsData.length === 0) {
-            console.log("Fetching data before download...");
-            filterData();
-            // fetchData(); 
-          }
-          setTimeout(() => {
-            console.log("Checking Data Before Download:", mentorDetailedReportsData);
-            setIsReadyToDownload(true);
-          }, 1000);
-        }}
-        disabled={selectedHeaders.length === 0}
-      >
-        Download Report
-      </button>
-    </div>
-  </div>
-)} */}
- {showCustomization &&  hasData && (
-  <div className="card mt-3" >
-    <div className="card-body">
-     
-      <div className="row align-items-center mb-3">
-  <div className="col-md-3">
-    <h5 className="card-title mb-0">Select Columns</h5>
-  </div>
-  <div className="col-md-3">
-    <div className="form-check">
-      <input
-        type="checkbox"
-        className="form-check-input"
-        id="selectAll"
-        checked={selectedHeaders.length === allHeaders.length}
-        onChange={handleSelectAll}
-      />
-      <label className="form-check-label ms-2" htmlFor="selectAll">
-        Select All
-      </label>
-    </div>
-  </div>
-</div>
+                    <div className="row">
+                      {allHeaders.map((header) => (
+                        <div className="col-md-3" key={header.key}>
+                          <div className="form-check">
+                            <input
+                              type="checkbox"
+                              className="form-check-input"
+                              id={header.key}
+                              checked={selectedHeaders.includes(header.key)}
+                              onChange={() => handleCheckboxChange(header.key)}
+                            />
+                            <label
+                              className="form-check-label ms-2"
+                              htmlFor={header.key}
+                            >
+                              {header.label}
+                            </label>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
 
+                    <button
+                      className="btn btn-danger mt-3"
+                      onClick={() => {
+                        setShowCustomization(false);
+                        if (
+                          !downloadTableData ||
+                          downloadTableData.length === 0
+                        ) {
+                          console.log("Fetching data before download...");
+                          filterData();
+                        }
 
-
-<div className="row">
-        {allHeaders.map((header) => (
-          <div className="col-md-3" key={header.key}>
-            <div className="form-check">
-              <input
-                type="checkbox"
-                className="form-check-input"
-                id={header.key}
-                checked={selectedHeaders.includes(header.key)}
-                onChange={() => handleCheckboxChange(header.key)}
-              />
-              <label className="form-check-label ms-2" htmlFor={header.key}>
-                {header.label}
-              </label>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <button
-        className="btn btn-danger mt-3"
-       
-        onClick={() => {
-          setShowCustomization(false);
-          if (!downloadTableData || downloadTableData.length === 0) {
-            console.log("Fetching data before download...");
-            filterData();
-
-          }
-      
-          setTimeout(() => {
-            console.log("Checking Data Before Download:", downloadTableData);
-          
-            setIsReadyToDownload(true);
-          }, 1000);
-        }}
-        disabled={selectedHeaders.length === 0}
-      >
-        Download Report
-      </button>
-    </div>
-  </div>
-)}
+                        setTimeout(() => {
+                          setIsReadyToDownload(true);
+                        }, 1000);
+                      }}
+                      disabled={selectedHeaders.length === 0}
+                    >
+                      Download Report
+                    </button>
+                  </div>
+                </div>
+              )}
             </Row>
-            {isloader ? (
-              <div className="chart mt-2 mb-2">
-                {combinedArray.length > 0 && (
-                  <>
-                    <div className="row">
-                      <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
-                        <div className="card flex-fill default-cover w-100 mb-4">
-                          <div className="card-header d-flex justify-content-between align-items-center">
-                            <h4 className="card-title mb-0">Data Analytics</h4>
-                            <div className="dropdown">
-                              <Link
-                                to="#"
-                                className="view-all d-flex align-items-center"
-                              >
-                                View All
-                                <span className="ps-2 d-flex align-items-center">
-                                  <ArrowRight className="feather-16" />
-                                </span>
-                              </Link>
-                            </div>
-                          </div>
-                          <div className="card-body">
-                            <div className="row">
-                              <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
-                                <p>
-                                  <b>Students as per Gender {newFormat}</b>
-                                </p>
-                                {doughnutChartData && (
-                                  <div id="donut-chart">
-                                    <ReactApexChart
-                                      options={chartOption}
-                                      series={chartOption.series}
-                                      type="donut"
-                                      height={330}
-                                    />
-                                  </div>
-                                )}
-                              </div>
-                              <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
-                                <p>
-                                  <b>
-                                    Teachers Course Status As of {newFormat}
-                                  </b>
-                                </p>
-                                {barDought && (
-                                  <div id="radial-chart">
-                                    <ReactApexChart
-                                      options={radialChart}
-                                      series={radialChart.series}
-                                      type="donut"
-                                      height={350}
-                                    />
-                                  </div>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
-                        <div className="card flex-fill default-cover w-100 mb-4">
-                          <div className="card-header d-flex justify-content-between align-items-center">
-                            <h4 className="card-title mb-0">
-                              States wise Teacher Progress Stats
-                            </h4>
-                            <div className="dropdown">
-                              <Link
-                                to="#"
-                                className="view-all d-flex align-items-center"
-                              >
-                                <button
-                                  className="btn mx-2 btn-primary"
-                                  type="button"
-                                  onClick={() => {
-                                    if (downloadTableData) {
-                                      // setIsDownloading(true);
-                                      setDownloadTableData(null);
-                                      csvLinkRefTable.current.link.click();
-                                    }
-                                  }}
-                                >
-                                  Get Statistics
-                                </button>
-                              </Link>
-                            </div>
-                          </div>
-                          <div className="card-body">
-                            <div className="table-responsive">
-                              <table className="table table-border recent-transactions">
-                                <thead>
-                                  <tr>
-                                    <th style={{ color: "#36A2EB" }}>#</th>
-                                    <th style={{ color: "#36A2EB" }}>
-                                      State Name
-                                    </th>
-                                    <th
-                                      style={{
-                                        whiteSpace: "wrap",
-                                        color: "#36A2EB",
-                                      }}
-                                    >
-                                      #Registered Teachers
-                                    </th>
-                                    <th
-                                      style={{
-                                        whiteSpace: "wrap",
-                                        color: "#36A2EB",
-                                      }}
-                                    >
-                                      #Teams Created
-                                    </th>
-                                    <th
-                                      style={{
-                                        whiteSpace: "wrap",
-                                        color: "#36A2EB",
-                                      }}
-                                    >
-                                      #Students Enrolled
-                                    </th>
-                                    <th
-                                      style={{
-                                        whiteSpace: "wrap",
-                                        color: "#36A2EB",
-                                      }}
-                                    >
-                                      <FontAwesomeIcon icon={faFemale} />
-                                      Female Students
-                                    </th>
-                                    <th
-                                      style={{
-                                        whiteSpace: "wrap",
-                                        color: "#36A2EB",
-                                      }}
-                                    >
-                                      <FontAwesomeIcon icon={faMale} /> Male
-                                      Students
-                                    </th>
-                                    <th
-                                      style={{
-                                        whiteSpace: "wrap",
-                                        color: "#36A2EB",
-                                      }}
-                                    >
-                                      Other Students
-                                    </th>
-                                    <th
-                                      style={{
-                                        whiteSpace: "wrap",
-                                        color: "#36A2EB",
-                                      }}
-                                    >
-                                      <FontAwesomeIcon
-                                        icon={faChalkboardTeacher}
-                                      />{" "}
-                                      Teacher Course Completed
-                                    </th>
-                                    <th
-                                      style={{
-                                        whiteSpace: "wrap",
-                                        color: "#36A2EB",
-                                      }}
-                                    >
-                                      <FontAwesomeIcon
-                                        icon={faChalkboardTeacher}
-                                      />{" "}
-                                      Teacher Course InProgress
-                                    </th>
-                                    <th
-                                      style={{
-                                        whiteSpace: "wrap",
-                                        color: "#36A2EB",
-                                      }}
-                                    >
-                                      <FontAwesomeIcon
-                                        icon={faChalkboardTeacher}
-                                      />{" "}
-                                      Teacher Course NotStarted{" "}
-                                    </th>
-                                  </tr>
-                                </thead>
-                                <tbody className="text-center">
-                                  {combinedArray.map((item, index) => (
-                                    <tr key={index}>
-                                      <td>{index + 1}</td>
-                                      <td
-                                        style={{
-                                          textAlign: "left",
-                                          maxWidth: "150px",
-                                          overflow: "hidden",
-                                          textOverflow: "ellipsis",
-                                          color: "crimson",
-                                        }}
-                                      >
-                                        {item.state}
-                                      </td>
-                                      <td>{item.totalReg}</td>
-                                      <td>{item.totalTeams}</td>
-                                      <td>{item.totalStudents}</td>
-                                      <td>{item.femaleStudents}</td>
-                                      <td>{item.maleStudents}</td>
-                                      <td>{item.otherStudents}</td>
-                                      <td>{item.courseCompleted}</td>
-                                      <td>{item.courseINcompleted}</td>
-                                      <td>{item.courseNotStarted}</td>
-                                    </tr>
-                                  ))}
-                                  <tr>
-                                    <td>{}</td>
-                                    <td
-                                      style={{
-                                        color: "crimson",
-                                        textAlign: "left",
-                                        maxWidth: "150px",
-                                        overflow: "hidden",
-                                        textOverflow: "ellipsis",
-                                      }}
-                                    >
-                                      {"Total Count"}
-                                    </td>
-                                    <td style={{ color: "crimson" }}>
-                                      {totalCount.totalReg}
-                                    </td>
-                                    <td style={{ color: "crimson" }}>
-                                      {totalCount.totalTeams}
-                                    </td>
-                                    <td style={{ color: "crimson" }}>
-                                      {totalCount.totalStudents}
-                                    </td>
-                                    <td style={{ color: "crimson" }}>
-                                      {totalCount.femaleStudents}
-                                    </td>
-                                    <td style={{ color: "crimson" }}>
-                                      {totalCount.maleStudents}
-                                    </td>
-                                    <td style={{ color: "crimson" }}>
-                                      {totalCount.otherStudents}
-                                    </td>
-                                    <td style={{ color: "crimson" }}>
-                                      {totalCount.courseCompleted}
-                                    </td>
-                                    <td style={{ color: "crimson" }}>
-                                      {totalCount.courseINcompleted}
-                                    </td>
-                                    <td style={{ color: "crimson" }}>
-                                      {totalCount.totalReg -
-                                        (totalCount.courseCompleted +
-                                          totalCount.courseINcompleted)}
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </>
-                )}
-                <div className="col-md-12">
-                  <div className="card">
-                    <div className="card-header">
-                      <h5 className="card-title">
-                        Teams & Students Enrolled As of {newFormat}
-                      </h5>
-                    </div>
-                    <div className="card-body">
-                      <div id="s-line-area" />
-                      <ReactApexChart
-                        options={options}
-                        series={options.series}
-                        type="bar"
-                        height={400}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-12">
-                  <div className="card">
-                    <div className="card-header">
-                      <h5 className="card-title">
-                        Teachers Course Status As of {newFormat}
-                      </h5>
-                    </div>
-                    <div className="card-body">
-                      <div id="s-col-stacked" />
-                      <ReactApexChart
-                        options={sColStacked}
-                        series={sColStacked.series}
-                        type="bar"
-                        height={400}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-12">
-                  <div className="card">
-                    <div className="card-header">
-                      <h5 className="card-title">
-                        Registered Teachers & Students As of {newFormat}
-                      </h5>
-                    </div>
-                    <div className="card-body">
-                      <div id="s-line-area" />
-                      <ReactApexChart
-                        options={optionsStudent}
-                        series={optionsStudent.series}
-                        type="bar"
-                        height={400}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="spinner-border text-info" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-            )}
 
-            {downloadTableData && (
-              <CSVLink
-                data={downloadTableData}
-                headers={tableHeaders}
-                filename={`TeacherProgressSummaryReport_${newFormat}.csv`}
-                className="hidden"
-                ref={csvLinkRefTable}
-              >
-                Download Table CSV
-              </CSVLink>
-            )}
+            <ThirdReportStats
+              combinedArray={combinedArray}
+              barChart1Data={barChart1Data}
+              barChartNew={barChartNew}
+              barChart2Data={barChart2Data}
+              totalCount={totalCount}
+              doughnutChartData={doughnutChartData}
+              barDought={barDought}
+              downloadTableData={downloadTableData}
+              isloader={isloader}
+              series1={series1}
+              series2={series2}
+              series3={series3}
+              series4={series4}
+              series5={series5}
+              seriesa={seriesa}
+              seriesb={seriesb}
+            />
 
             {mentorDetailedReportsData && (
               <CSVLink
-                // headers={teacherDetailsHeaders}
-                // data={mentorDetailedReportsData}
                 data={formattedDataForDownload}
                 filename={`TeacherProgressDetailedReport_${newFormat}.csv`}
                 className="hidden"
                 ref={csvLinkRef}
               >
-                Download Teacherdetailed CSV
+                Download Teacher Detailed CSV
               </CSVLink>
             )}
           </div>
