@@ -2,23 +2,37 @@
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Table } from "reactstrap";
+import { Button } from "../../../stories/Button";
 import { CSVLink } from "react-csv";
 import { getCurrentUser } from "../../../helpers/Utils";
 import { useNavigate, Link } from "react-router-dom";
-
+import {
+  getDistrictData,
+  getStateData,
+  getFetchDistData,
+} from "../../../redux/studentRegistration/actions";
 import { ArrowRight } from "feather-icons-react/build/IconComponents";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "../Helpers/Select";
 import axios from "axios";
+// import '../reports.scss';
+import { Doughnut } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
+import { categoryValue } from "../../Schools/constentText";
+import { notification } from "antd";
 import { encryptGlobal } from "../../../constants/encryptDecrypt";
 import { stateList, districtList } from "../../../RegPage/ORGData";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faMale,
+  faFemale,
+  faChalkboardTeacher,
+} from "@fortawesome/free-solid-svg-icons";
 import ReactApexChart from "react-apexcharts";
 import { openNotificationWithIcon } from "../../../helpers/Utils";
 import { themesList } from "../../../Team/IdeaSubmission/themesData";
 import moment from "moment/moment";
 import * as XLSX from 'xlsx';
-import IdeaReportStats from "./IdeaReportStats";
 
 const IdeaReport = () => {
   const navigate = useNavigate();
@@ -28,6 +42,7 @@ const IdeaReport = () => {
   const [category, setCategory] = useState("");
   const [isDownload, setIsDownload] = useState(false);
   const [sdg, setSdg] = React.useState("");
+  const [chartTableData, setChartTableData] = useState([]);
  const [hasData, setHasData] = useState(false);
   const categoryData = ["All Categories", "ATL", "Non ATL"];
   const categoryDataTn = [
@@ -43,7 +58,8 @@ const IdeaReport = () => {
     setdistrict('');
   }, [selectstate]);
 
-
+  // const categoryData =
+  //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
   const [studentDetailedReportsData, setstudentDetailedReportsData] = useState(
     []
   );
@@ -55,10 +71,29 @@ const IdeaReport = () => {
   const [combinedArray, setCombinedArray] = useState([]);
   const [downloadTableData, setDownloadTableData] = useState([]);
   const [newFormat, setNewFormat] = useState("");
-
+  const [atl, setAtl] = useState("");
+  const [nonAtl, setNonAtl] = useState("");
+  const [series1, setseries1] = useState([]);
+  const [series2, setseries2] = useState([]);
+  const [series3, setseries3] = useState([]);
+  const [series4, setseries4] = useState([]);
+  const [series5, setseries5] = useState([]);
+  const [series6, setseries6] = useState([]);
+  const [series7, setseries7] = useState([]);
   const [customizationActive, setCustomizationActive] = useState(false);
 
-
+  const [barChart1Data, setBarChart1Data] = useState({
+    labels: [],
+    datasets: [],
+  });
+  const [barChart3Data, setBarChart3Data] = useState({
+    labels: [],
+    datasets: [],
+  });
+  const [barChart2Data, setBarChart2Data] = useState({
+    labels: [],
+    datasets: [],
+  });
   const fullStatesNames = newstateList;
   const allDistricts = {
     "All Districts": [...Object.values(districtList).flat()],
@@ -67,13 +102,17 @@ const IdeaReport = () => {
       const [modifiedChartTableData, setModifiedChartTableData] = useState([]);
   
   const fiterDistData = ["All Districts", ...(allDistricts[selectstate] || [])];
+  // const fiterDistData = districtList[selectstate];
  const [isCustomizationEnabled, setIsCustomizationEnabled] = useState(false);
  const [showCustomization, setShowCustomization] = useState(false);
   const [selectedHeaders, setSelectedHeaders] = useState([]);
   const [isReadyToDownload, setIsReadyToDownload] = useState(false);
   const [formattedDataForDownload, setFormattedDataForDownload] = useState([]);
   useEffect(() => {
-   
+    // if (selectstate !== '') {
+    //     dispatch(getFetchDistData(selectstate));
+    // }
+    // setdistrict('');
     fetchChartTableData();
     const newDate = new Date();
     const formattedDate = `${newDate.getUTCDate()}/${1 + newDate.getMonth()
@@ -82,7 +121,48 @@ const IdeaReport = () => {
   }, []);
   const [totalCount, setTotalCount] = useState([]);
 
-
+  const tableHeaders = [
+    {
+      label: "State Name",
+      key: "state",
+    },
+    {
+      label: "Total Submitted Ideas",
+      key: "totalSubmited",
+    },
+    {
+      label: "Agriculture and Rural Development",
+      key: "AgricultureandRuralDevelopment",
+    },
+    {
+      label: "Digital Transformation",
+      key: "DigitalTransformation",
+    },
+    {
+      label: "Economic Empowerment",
+      key: "EconomicEmpowerment",
+    },
+    {
+      label: "Health and Well-being",
+      key: "HealthandWellbeing",
+    },
+    {
+      label: "Quality Education",
+      key: "QualityEducation",
+    },
+    {
+      label: "Smart and Resilient Communities",
+      key: "SmartandResilientCommunities",
+    },
+    {
+      label: "Sustainable Development and Environment",
+      key: "SustainableDevelopmentandEnvironment",
+    },
+    {
+      label: "Others",
+      key: "OTHERS",
+    },
+  ];
   const allHeaders = [
     {
       label: "UDISE CODE",
@@ -388,7 +468,217 @@ const IdeaReport = () => {
     ],
   };
 
-  
+  // var options = {
+  //   chart: {
+  //     height: 500,
+  //     type: "line",
+  //     toolbar: {
+  //       show: false,
+  //     },
+  //     zoom: {
+  //       enabled: false,
+  //     },
+  //   },
+  //   colors: ["rgb(0, 143, 251)", "rgb(0, 227, 150)"],
+  //   dataLabels: {
+  //     enabled: false,
+  //   },
+  //   stroke: {
+  //     curve: "straight",
+  //   },
+  //   series: [
+  //     {
+  //       name: "# Teams",
+  //       data: series1,
+  //     },
+  //     {
+  //       name: "# Students",
+  //       data: series2,
+  //     },
+  //   ],
+
+  //   yaxis: {
+  //     beginAtZero: true,
+  //     ticks: {
+  //       stepSize: 20,
+  //     },
+  //     labels: {
+  //       formatter: (val) => {
+  //         return val / 1;
+  //       },
+  //     },
+  //   },
+
+  //   xaxis: {
+  //     categories: barChart1Data.labels,
+  //     ticks: {
+  //       maxRotation: 80,
+  //       autoSkip: false,
+  //     },
+  //   },
+  //   legend: {
+  //     position: "top",
+  //     horizontalAlign: "center",
+  //   },
+  // };
+
+  // var sColStacked = {
+  //   chart: {
+  //     height: 500,
+  //     type: "bar",
+  //     stacked: true,
+  //     toolbar: {
+  //       show: false,
+  //     },
+  //   },
+  //   colors: ["rgb(255, 69, 96)", "rgb(254, 176, 25)", "rgb(0, 227, 150)"],
+
+  //   plotOptions: {
+  //     bar: {
+  //       horizontal: false,
+  //     },
+  //   },
+  //   series: [
+  //     {
+  //       name: "#Not started",
+  //       data: series3,
+  //     },
+  //     {
+  //       name: "#InProgress",
+  //       data: series4,
+  //     },
+  //     {
+  //       name: "#Completed",
+  //       data: series5,
+  //     },
+  //   ],
+  //   xaxis: {
+  //     categories: barChart2Data.labels,
+  //     ticks: {
+  //       maxRotation: 80,
+  //       autoSkip: false,
+  //     },
+  //   },
+  //   yaxis: {
+  //     beginAtZero: true,
+  //     ticks: {
+  //       stepSize: 20,
+  //     },
+  //     labels: {
+  //       formatter: (val) => {
+  //         return val / 1;
+  //       },
+  //     },
+  //   },
+
+  //   legend: {
+  //     position: "top",
+  //     horizontalAlign: "center",
+  //   },
+  //   fill: {
+  //     opacity: 1,
+  //   },
+  // };
+
+  // var optionsStudent = {
+  //   chart: {
+  //     height: 500,
+  //     type: "line",
+  //     toolbar: {
+  //       show: false,
+  //     },
+  //   },
+  //   colors: ["rgb(0, 143, 251)", "rgb(0, 227, 150)"],
+  //   legend: {
+  //     position: "top",
+  //     horizontalAlign: "center",
+  //   },
+  //   series: [
+  //     {
+  //       name: "#NonATL Students",
+  //       type: "column",
+  //       data: series6,
+  //     },
+  //     {
+  //       name: "#ATL Students",
+  //       type: "line",
+  //       data: series7,
+  //     },
+  //   ],
+  //   stroke: {
+  //     width: [0, 4],
+  //   },
+
+  //   xaxis: {
+  //     categories: barChart3Data.labels,
+  //     ticks: {
+  //       maxRotation: 80,
+  //       autoSkip: false,
+  //     },
+  //   },
+  //   yaxis: [
+  //     {
+  //       title: {
+  //         text: "NonATL Student",
+  //       },
+  //     },
+  //     {
+  //       opposite: true,
+  //       title: {
+  //         text: "ATL Student",
+  //       },
+  //     },
+  //   ],
+  // };
+
+  // var radialChart = {
+  //   chart: {
+  //     height: 350,
+  //     type: "radialBar",
+  //     toolbar: {
+  //       show: false,
+  //     },
+  //   },
+  //   colors: ["rgb(0, 227, 150)", "rgb(254, 176, 25)", "rgb(255, 69, 96)"],
+  //   plotOptions: {
+  //     radialBar: {
+  //       dataLabels: {
+  //         name: {
+  //           fontSize: "22px",
+  //         },
+  //         value: {
+  //           fontSize: "16px",
+  //         },
+  //         total: {
+  //           show: true,
+  //           label: "Total",
+  //           formatter: function () {
+  //             return totalCount.totalStudents;
+  //           },
+  //         },
+  //       },
+  //     },
+  //   },
+  //   series: [
+  //     Math.round((totalCount.courseCompleted * 100) / totalCount.totalStudents),
+  //     Math.round(
+  //       (totalCount.courseINprogesss * 100) / totalCount.totalStudents
+  //     ),
+  //     Math.round(
+  //       ((totalCount.totalStudents -
+  //         (totalCount.courseCompleted + totalCount.courseINprogesss)) *
+  //         100) /
+  //         totalCount.totalStudents
+  //     ),
+  //   ],
+  //   labels: ["Completed", "InProgress", "NotStarted"],
+  // };
+
+  // useEffect(() => {
+  //     nonAtlCount();
+  // }, []);
+
+
  
 
  
@@ -404,6 +694,7 @@ const IdeaReport = () => {
           
             setTimeout(() => {
       handleExport();
+                  // csvLinkRef.current.link.click();
                   console.log("Downloading CSV with formatted headers:", formattedCSVData);
                   openNotificationWithIcon("success", "Report Downloaded Successfully");
                   setIsReadyToDownload(false); 
@@ -586,13 +877,15 @@ const IdeaReport = () => {
       .then((response) => {
         if (response.status === 200) {
           setIsloader(true);
+          // console.log(response, "Idea");
           const combinedArray = response?.data?.data || [];
 
           const total = combinedArray.reduce(
             (acc, item) => {
               acc.state = "Total";
               (acc.totalSubmited += item.totalSubmited),
-               
+                // (acc.ATL_Count += item.ATL_Count);
+                // acc.NonATL_Count += item.NonATL_Count;
                 acc.AgricultureandRuralDevelopment +=
                 item.AgricultureandRuralDevelopment;
               acc.DigitalTransformation += item.DigitalTransformation;
@@ -610,7 +903,8 @@ const IdeaReport = () => {
             },
             {
               totalSubmited: 0,
-             
+              // ATL_Count: 0,
+              // NonATL_Count: 0,
               AgricultureandRuralDevelopment: 0,
               DigitalTransformation: 0,
               EconomicEmpowerment: 0,
@@ -619,6 +913,7 @@ const IdeaReport = () => {
               SmartandResilientCommunities: 0,
               SustainableDevelopmentandEnvironment: 0,
               OTHERS: 0,
+              //
             }
           );
 
@@ -671,13 +966,55 @@ const IdeaReport = () => {
          
           
 
-        
+          // const barData = {
+          //   labels: combinedArray.map((item) => item.state),
+          //   datasets: [
+          //     {
+          //       label: "No.of Students Enrolled",
+          //       data: combinedArray.map((item) => item.totalStudents),
+          //       backgroundColor: "rgba(255, 0, 0, 0.6)",
+          //     },
+          //     {
+          //       label: "No. of Teams created",
+          //       data: combinedArray.map((item) => item.totalTeams),
+          //       backgroundColor: "rgba(75, 162, 192, 0.6)",
+          //     },
+          //   ],
+          // };
+          // setseries2(barData.datasets[0].data);
+          // setseries1(barData.datasets[1].data);
+
+          // const stackedBarChartData = {
+          //   labels: combinedArray.map((item) => item.state),
+          //   datasets: [
+          //     {
+          //       label: "No. of Students not started course",
+          //       data: combinedArray.map((item) => item.courseNotStarted),
+          //       backgroundColor: "rgba(255, 0, 0, 0.6)",
+          //     },
+          //     {
+          //       label: "No. of Students course IN progress",
+          //       data: combinedArray.map((item) => item.courseINprogesss),
+          //       backgroundColor: "rgba(255, 255, 0, 0.6)",
+          //     },
+          //     {
+          //       label: "No. of Students Completed Course",
+          //       data: combinedArray.map((item) => item.courseCompleted),
+          //       backgroundColor: "rgba(0, 128, 0, 0.6)",
+          //     },
+          //   ],
+          // };
+          // setseries3(stackedBarChartData.datasets[0].data);
+          // setseries4(stackedBarChartData.datasets[1].data);
+          // setseries5(stackedBarChartData.datasets[2].data);
           const newcombinedArray = [...combinedArray, total];
           setCombinedArray(combinedArray);
           setDownloadTableData(newcombinedArray);
           setDoughnutChartData(doughnutData);
-         
+          // setBarChart1Data(barData);
+          // setBarChart2Data(stackedBarChartData);
           setTotalCount(total);
+          // console.log(total,"tt");
         }
       })
       .catch((error) => {
@@ -768,7 +1105,10 @@ const IdeaReport = () => {
              
                 <Col md={2}>
                                                         <button
-                                                             
+                                                              //  onClick={() => {setShowCustomization(!showCustomization);
+                                                              //   fetchData();
+                                                              //   setSelectedHeaders([]);
+                                                              // }}
                                                               onClick={handleCustomizationClick}
                                                             type="button"
                                                             disabled={!enable}
@@ -777,7 +1117,68 @@ const IdeaReport = () => {
                                                             Customization
                                                           </button>
                                                         </Col>
+                                                        {/* {showCustomization && hasData && (
+                              <div className="card mt-3" style={{ width: "100%", padding: "20px" }}>
+                                <div className="card-body">
+                                  <h5 className="card-title">Select Columns</h5>
+                                  <div className="row">
+                                  <div className="col-md-3">
+                                  <div className="form-check mb-2">
+                                    <input
+                                      type="checkbox"
+                                      className="form-check-input"
+                                      id="selectAll"
+                                      checked={selectedHeaders.length === allHeaders.length}
+                                      onChange={handleSelectAll}
+                                    />
+                                    <label className="form-check-label ms-2" htmlFor="selectAll">
+                                      Select All
+                                    </label>
+                                  </div>
+                                  </div>
 
+                            
+                                 
+                                    {allHeaders.map((header) => (
+                                      <div className="col-md-3 mb-2" key={header.key}style={{ display: 'flex', alignItems: 'flex-start' }}>
+                                        <div className="form-check" style={{ width: '100%' }}>
+                                          <input
+                                            type="checkbox"
+                                            className="form-check-input"
+                                            id={header.key}
+                                            checked={selectedHeaders.includes(header.key)}
+                                            onChange={() => handleCheckboxChange(header.key)}
+                                          />
+                                          <label className="form-check-label ms-2" htmlFor={header.key}>
+                                            {header.label}
+                                          </label>
+                                        </div>
+                                      </div>
+                                    ))}
+                                  </div>
+                            
+                                  <button
+                                    className="btn btn-danger mt-3"
+                                   
+                                    onClick={() => {
+                                      setShowCustomization(false);
+                                      if (!studentDetailedReportsData || studentDetailedReportsData.length === 0) {
+                                        console.log("Fetching data before download...");
+                                        // fetchData();
+                                        filterData(); 
+                                      }
+                                      setTimeout(() => {
+                                        console.log("Checking Data Before Download:", studentDetailedReportsData);
+                                        setIsReadyToDownload(true);
+                                      }, 1000);
+                                    }}
+                                    disabled={selectedHeaders.length === 0}
+                                  >
+                                     Download Report
+                                  </button>
+                                </div>
+                              </div>
+                            )} */}
                                {showCustomization &&  hasData && (
   <div className="card mt-3" >
     <div className="card-body">
@@ -848,15 +1249,353 @@ const IdeaReport = () => {
   </div>
 )}
             </Row>
-           <IdeaReportStats
-            combinedArray={combinedArray}
-            totalCount={totalCount}
-            doughnutChartData={doughnutChartData}
-            downloadTableData={downloadTableData}
-            isloader={isloader}
-           />
-                         {studentDetailedReportsData && (
+            {isloader ?
+            <div className="chart mt-2 mb-2">
+              {combinedArray.length > 0 && (
+                <>
+                  <div className="row">
+                    <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
+                      <div className="card flex-fill default-cover w-100 mb-4">
+                        <div className="card-header d-flex justify-content-between align-items-center">
+                          <h4 className="card-title mb-0">Data Analytics</h4>
+                          <div className="dropdown">
+                            <Link
+                              to="#"
+                              className="view-all d-flex align-items-center"
+                            >
+                              View All
+                              <span className="ps-2 d-flex align-items-center">
+                                <ArrowRight className="feather-16" />
+                              </span>
+                            </Link>
+                          </div>
+                        </div>
+                        <div className="card-body">
+                          <div className="row">
+                            <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
+                              <p>
+                                <b>
+                                  Theme-Wise Ideas Submissions as of {newFormat}
+                                </b>
+                              </p>
+                              {doughnutChartData && (
+                                <div id="donut-chart">
+                                  <ReactApexChart
+                                    options={chartOption}
+                                    series={chartOption.series}
+                                    type="donut"
+                                    height={330}
+                                  />
+                                </div>
+                              )}
+                            </div>
+                            {/* <div className="col-sm-12 col-md-12 col-xl-6 text-center mt-3">
+                              <p>
+                                <b>Students Course Status As of {newFormat}</b>
+                              </p>
+                              {totalCount && (
+                                <div id="radial-chart">
+                                  <ReactApexChart
+                                    options={radialChart}
+                                    series={radialChart.series}
+                                    type="radialBar"
+                                    height={350}
+                                  />
+                                </div>
+                              )}
+                            </div> */}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
+                      <div className="card flex-fill default-cover w-100 mb-4">
+                        <div className="card-header d-flex justify-content-between align-items-center">
+                          <h4 className="card-title mb-0">
+                            State wise Submitted Ideas Stats
+                          </h4>
+                          <div className="dropdown">
+                            <Link
+                              to="#"
+                              className="view-all d-flex align-items-center"
+                            >
+                              <button
+                                className="btn mx-2 btn-primary"
+                                type="button"
+                                onClick={() => {
+                                  if (downloadTableData) {
+                                    // setIsDownloading(true);
+                                    setDownloadTableData(null);
+                                    csvLinkRefTable.current.link.click();
+                                  }
+                                }}
+                              >
+                                Get Statistics
+                              </button>
+                            </Link>
+                          </div>
+                        </div>
+                        <div className="card-body">
+                          <div className="table-responsive">
+                            <table className="table table-border recent-transactions">
+                              <thead>
+                                <tr>
+                                  <th style={{ color: "#36A2EB" }}>#No</th>
+                                  <th style={{ color: "#36A2EB" }}>
+                                    #State Name
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    #Total Submitted Ideas
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    #Agriculture and Rural Development
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    {/* <FontAwesomeIcon
+                                      icon={faChalkboardTeacher}
+                                    />{" "} */}
+                                    #Digital Transformation
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    {/* <FontAwesomeIcon
+                                      icon={faChalkboardTeacher}
+                                    />{" "} */}
+                                    #Economic Empowerment
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    {/* <FontAwesomeIcon
+                                      icon={faChalkboardTeacher}
+                                    /> */}
+                                    #Health and Well-being
+                                  </th>
+
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    {/* <FontAwesomeIcon
+                                      icon={faChalkboardTeacher}
+                                    />{" "} */}
+                                    #Quality Education{" "}
+                                  </th>
+
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    #Smart and Resilient Communities
+                                  </th>
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                    }}
+                                  >
+                                    #Sustainable Development and Environment
+                                  </th>
+
+
+
+                                  <th
+                                    style={{
+                                      whiteSpace: "wrap",
+                                      color: "#36A2EB",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    #Others
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody className="text-center">
+                                {combinedArray.map((item, index) => (
+                                  <tr key={index}>
+                                    <td>{index + 1}</td>
+                                    <td
+                                      style={{
+                                        textAlign: "left",
+                                        maxWidth: "150px",
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
+                                        color: "crimson",
+                                      }}
+                                    >
+                                      {item.state}
+                                    </td>
+                                    <td>{item.totalSubmited}</td>
+                                    <td>
+                                      {item.AgricultureandRuralDevelopment}
+                                    </td>{" "}
+                                    <td>{item.DigitalTransformation}</td>
+                                    <td>{item.EconomicEmpowerment}</td>
+                                    <td>{item.HealthandWellbeing}</td>
+                                    <td>{item.QualityEducation}</td>
+
+                                    <td>
+                                      {item.SmartandResilientCommunities}
+                                    </td>{" "}
+                                    <td>
+                                      {
+                                        item.SustainableDevelopmentandEnvironment
+                                      }
+                                    </td>
+                                    <td>{item.OTHERS}</td>
+                                  </tr>
+                                ))}
+                                <tr>
+                                  <td>{ }</td>
+                                  <td
+                                    style={{
+                                      color: "crimson",
+                                      textAlign: "left",
+                                      maxWidth: "150px",
+                                      overflow: "hidden",
+                                      textOverflow: "ellipsis",
+                                    }}
+                                  >
+                                    {"Total Count"}
+                                  </td>
+                                  <td style={{ color: "crimson" }}>
+                                    {totalCount.totalSubmited}
+                                  </td>
+                                  <td style={{ color: "crimson" }}>
+                                    {totalCount.AgricultureandRuralDevelopment}
+                                  </td>
+                                  <td style={{ color: "crimson" }}>
+                                    {totalCount.DigitalTransformation}
+                                  </td>
+                                  <td style={{ color: "crimson" }}>
+                                    {totalCount.EconomicEmpowerment}
+                                  </td>{" "}
+                                  <td style={{ color: "crimson" }}>
+                                    {totalCount.HealthandWellbeing}
+                                  </td>
+                                  <td style={{ color: "crimson" }}>
+                                    {totalCount.QualityEducation}
+                                  </td>
+
+                                  <td style={{ color: "crimson" }}>
+                                    {totalCount.SmartandResilientCommunities}
+                                  </td>{" "}
+                                  <td style={{ color: "crimson" }}>
+                                    {
+                                      totalCount.SustainableDevelopmentandEnvironment
+                                    }
+                                  </td>
+                                  <td style={{ color: "crimson" }}>
+                                    {totalCount.OTHERS}
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+              {/* <div className="col-md-12">
+                <div className="card">
+                  <div className="card-header">
+                    <h5 className="card-title">
+                      Teams, Students Enrolled As of {newFormat}
+                    </h5>
+                  </div>
+                  <div className="card-body">
+                    <div id="s-line-area" />
+                    <ReactApexChart
+                      options={options}
+                      series={options.series}
+                      type="line"
+                      height={400}
+                    />
+                  </div>
+                </div>
+              </div> */}
+              {/* <div className="col-md-12">
+                <div className="card">
+                  <div className="card-header">
+                    <h5 className="card-title">
+                      Student Course Status As of {newFormat}
+                    </h5>
+                  </div>
+                  <div className="card-body">
+                    <div id="s-col-stacked" />
+                    <ReactApexChart
+                      options={sColStacked}
+                      series={sColStacked.series}
+                      type="bar"
+                      height={400}
+                    />
+                  </div>
+                </div>
+              </div> */}
+              {/* <div className="col-md-12">
+                        <div className="card">
+                        <div className="card-header">
+                            <h5 className="card-title">No.of Students Enrolled from ATL v/s Non ATL Schools{' '}{newFormat}</h5>
+                        </div>
+                        <div className="card-body">
+                            <div id="mixed-chart" />
+                            <ReactApexChart
+                            options={optionsStudent}
+                            series={optionsStudent.series}
+                            type="line"
+                            height={400}
+                            />
+                        </div>
+                        </div>
+                    </div> */}
+
+              {downloadTableData && (
                 <CSVLink
+                  data={downloadTableData}
+                  headers={tableHeaders}
+                  filename={`SubmittedIdeasSummaryReport_${newFormat}.csv`}
+                  className="hidden"
+                  ref={csvLinkRefTable}
+                >
+                  Download Table CSV
+                </CSVLink>
+              )}
+
+              {studentDetailedReportsData && (
+                <CSVLink
+                  // headers={teacherDetailsHeaders}
                   data={formattedDataForDownload}
                   filename={`SubmittedIdeasDetailedReport_${newFormat}.csv`}
                   className="hidden"
@@ -865,6 +1604,12 @@ const IdeaReport = () => {
                   Download Idea Detailed CSV
                   </CSVLink>  
               )}
+            </div>
+            :
+                            <div className="spinner-border text-info" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div>
+                        }
           </div>
         </Container>
       </div>
