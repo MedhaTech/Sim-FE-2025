@@ -46,6 +46,7 @@ const InstitutionReport = () => {
   
   const [isCustomizationEnabled, setIsCustomizationEnabled] = useState(false);
   const csvLinkRef = useRef();
+  const csvSavedRef = useRef();
   const dispatch = useDispatch();
   const [combinedArray, setCombinedArray] = useState([]);
   const [downloadTableData, setDownloadTableData] = useState([]);
@@ -54,6 +55,7 @@ const InstitutionReport = () => {
 
  
   const [modifiedChartTableData, setModifiedChartTableData] = useState([]);
+  const [savedReports, setSavedReports] = useState([]);
 
   const fullStatesNames = newstateList;
   const allDistricts = {
@@ -150,14 +152,19 @@ const InstitutionReport = () => {
     console.log("Final Filtered Data for Download:", filteredData);
     setDownloadTableData(filteredData);
   };
-  const fetchData = () => {
-    const apiRes = encryptGlobal(
-      JSON.stringify({
-        state: selectstate,
-        district: district,
-        category: category,
-      })
-    );
+  const fetchData = (type,param) => {
+    let apiRes;
+    if(type === 'save'){
+      apiRes = encryptGlobal(param);
+    }else{
+      apiRes = encryptGlobal(
+        JSON.stringify({
+          state: selectstate,
+          district: district,
+          category: category,
+        })
+      );
+    }
     const config = {
       method: "get",
       url:
@@ -179,6 +186,7 @@ const InstitutionReport = () => {
               item.mentor_reg !== 0 ? "Registered" : "Not Registered",
           }));
           setModifiedChartTableData(modifiedData);
+          setSavedReports(modifiedData);
           if (response?.data?.count > 0) {
             setIsCustomizationEnabled(true);
             setHasData(true);
@@ -284,6 +292,7 @@ const InstitutionReport = () => {
         );
         setShowPopup(false);
         setInputValue('');
+        fetchSavedReportsData();
        } else {
        openNotificationWithIcon('error', 'Opps! Something Wrong');
         setShowPopup(false);
@@ -320,7 +329,43 @@ const InstitutionReport = () => {
       .then(function (response) {
         if (response.status === 200) {
           setReportFileslist(response?.data?.data);
-          console.log(response.data.data,"llll");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  const [istabledownloadclicked,setistabledownloadclicked] = useState(false);
+  const [savedHeader,setSavedHeader] = useState();
+  const handleReportfileDownload = (data) =>{
+    setSavedHeader(allHeaders.filter((header) =>JSON.parse(data.columns).includes(header.key)).map((header) => header));
+    fetchData('save',data.filters);
+    setistabledownloadclicked(true);
+  };
+  useEffect(()=>{
+    if(savedReports.length>0 && istabledownloadclicked){
+      csvSavedRef.current.link.click();
+      setistabledownloadclicked(false);
+    }
+  },[savedReports]);
+
+  const handleReportfileDelete = (data) =>{
+    const idparm = encryptGlobal(JSON.stringify(data.report_file_id));
+    const config = {
+      method: "delete",
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/report_files/${idparm}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          openNotificationWithIcon("success", "Deleting Successfully");
+          fetchSavedReportsData();
         }
       })
       .catch(function (error) {
@@ -383,7 +428,7 @@ const InstitutionReport = () => {
                 <>
                     <div
                         key={record}
-                        onClick={() => handleEdit(record)}
+                        onClick={() => handleReportfileDownload(record)}
                         style={{ marginRight: '12px' }}
                     >
                         <div className="btn btn-primary btn-lg mx-2">
@@ -393,10 +438,10 @@ const InstitutionReport = () => {
 
                     <div
                         key={record}
-                        onClick={() => handleDelete(record)}
+                        onClick={() => handleReportfileDelete(record)}
                         style={{ marginRight: '12px' }}
                     >
-                        <div className="btn btn-primary btn-lg mx-2">
+                        <div className="btn btn-danger btn-lg mx-2">
                             DELETE
                         </div>
                     </div>
@@ -674,6 +719,18 @@ const InstitutionReport = () => {
                                 subHeaderAlign={Alignment.Center}
                             />
                         </DataTableExtensions>
+                        
+                        {savedReports && (
+                  <CSVLink
+                    data={savedReports}
+                    headers={savedHeader}
+                    filename={`School_Registration_Status_Report_${newFormat}.csv`}
+                    className="hidden"
+                    ref={csvSavedRef}
+                  >
+                    Download Table CSV
+                  </CSVLink>
+                )}
   
  {downloadTableData && (
                   <CSVLink
