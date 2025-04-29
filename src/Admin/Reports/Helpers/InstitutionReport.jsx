@@ -25,6 +25,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import ReactApexChart from "react-apexcharts";
 import { openNotificationWithIcon } from "../../../helpers/Utils";
+import DataTableExtensions from 'react-data-table-component-extensions';
+import DataTable, { Alignment } from 'react-data-table-component';
 
 const InstitutionReport = () => {
   const navigate = useNavigate();
@@ -242,6 +244,169 @@ const InstitutionReport = () => {
     }
   }, [district, category, selectstate]);
 
+  // Reports saving code 
+    const [showPopup, setShowPopup] = useState(false);
+    const [inputValue, setInputValue] = useState("");
+    const [error, setError] = useState("");
+    const handleInputChange = (e) => {
+      const value = e.target.value;
+      setInputValue(value);
+    };
+  
+  const handleSaveReport = async() =>{
+    const pattern = /^[a-zA-Z0-9 \-()&.,_]*$/;
+  if(pattern.test(inputValue) && inputValue!==''){
+    const body = JSON.stringify({
+      report_type: 'institution-report',
+      filters:JSON.stringify({
+        state: selectstate,
+        district: district,
+        category: category,
+      }),
+      columns:JSON.stringify(selectedHeaders),
+      report_name:inputValue,
+      status:"ACTIVE"
+    });
+    const response = await axios.post(
+      `${process.env.REACT_APP_API_BASE_URL}/report_files`,
+      body,
+      {
+          headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${currentUser?.data[0]?.token}`
+          }
+      }
+  );
+  if (response.status === 201) {
+      openNotificationWithIcon(
+       'success',
+        'Report saving Successfully'
+        );
+        setShowPopup(false);
+        setInputValue('');
+       } else {
+       openNotificationWithIcon('error', 'Opps! Something Wrong');
+        setShowPopup(false);
+        setInputValue('');
+    }
+  }else{
+    setError("Please Enter Vaild Name");
+  }
+};
+  //
+
+  // get saved reports
+  const [reportFileslist,setReportFileslist] = useState([]);
+  useEffect(()=>{
+    fetchSavedReportsData();
+  },[]);
+  const fetchSavedReportsData = () => {
+    const apiRes = encryptGlobal(
+      JSON.stringify({
+        report_type: 'institution-report',
+      })
+    );
+    const config = {
+      method: "get",
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/report_files?Data=${apiRes}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          setReportFileslist(response?.data?.data);
+          console.log(response.data.data,"llll");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const resData = {
+    data: reportFileslist && reportFileslist.length > 0 ? reportFileslist : [],
+    columns: [
+        {
+            name: 'No',
+            selector: (row, key) => key + 1,
+            sortable: true,
+            width: '6rem'
+        },
+        {
+            name: 'Report name',
+            selector: (row) => row.report_name,
+            sortable: true,
+            width: '8rem'
+        },
+        {
+            name: 'State',
+            selector: (row) => {
+              const fileter = JSON.parse(row.filters);
+              return fileter.state;
+            },
+            sortable: true,
+            width: '15rem'
+        },
+        {
+          name: 'District',
+          selector: (row) => {
+            const fileter = JSON.parse(row.filters);
+            return fileter.district;
+          },
+          sortable: true,
+          width: '12rem'
+      },
+      {
+        name: 'Category',
+        selector: (row) => {
+          const fileter = JSON.parse(row.filters);
+          return fileter.category;
+        },
+        sortable: true,
+        width: '10rem'
+    },
+        {
+            name: 'Columns',
+            selector: (row) => row.columns,
+            width: '15rem'
+        },
+        {
+            name: 'Actions',
+            width: '18rem',
+            center: true,
+            cell: (record) => [
+                <>
+                    <div
+                        key={record}
+                        onClick={() => handleEdit(record)}
+                        style={{ marginRight: '12px' }}
+                    >
+                        <div className="btn btn-primary btn-lg mx-2">
+                            Download
+                        </div>
+                    </div>
+
+                    <div
+                        key={record}
+                        onClick={() => handleDelete(record)}
+                        style={{ marginRight: '12px' }}
+                    >
+                        <div className="btn btn-primary btn-lg mx-2">
+                            DELETE
+                        </div>
+                    </div>
+                </>
+            ]
+        }
+    ]
+};
+//
+
   return (
     <div className="page-wrapper">
       <h4
@@ -392,34 +557,135 @@ const InstitutionReport = () => {
                           console.log("Fetching data before download...");
                           filterData();
                         }
+          setTimeout(() => {
+            console.log("Checking Data Before Download:", downloadTableData);
+          
+            setIsReadyToDownload(true);
+          }, 1000);
+        }}
+        disabled={selectedHeaders.length === 0}
+      >
+        Download Report
+      </button>
+      <button
+        className="btn btn-info mt-3"
+        style={{marginLeft:'1rem'}}
+        onClick={() => {
+          setShowPopup(true);
+        }}
+        disabled={selectedHeaders.length === 0}
+      >
+        Save Format
+      </button>
 
-                        setTimeout(() => {
-                          console.log(
-                            "Checking Data Before Download:",
-                            downloadTableData
-                          );
+    </div>
+  </div>
+)}
 
-                          setIsReadyToDownload(true);
-                        }, 1000);
-                      }}
-                      disabled={selectedHeaders.length === 0}
-                    >
-                      Download Report
-                    </button>
-                  </div>
-                </div>
-              )}
+{showPopup && (
+                      <div
+                        onClick={() => setShowPopup(false)}
+                        style={{
+                          position: "fixed",
+                          top: 0,
+                          left: 0,
+                          width: "100vw",
+                          height: "100vh",
+                          backgroundColor: "rgba(0,0,0,0.5)",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          zIndex: 9999,
+                        }}
+                      >
+                        <div
+                          onClick={(e) => e.stopPropagation()}
+                          style={{
+                            position: "relative",
+                            background: "white",
+                            padding: "20px",
+                            borderRadius: "8px",
+                            minWidth: "400px",
+                            textAlign:"center"
+                          }}
+                        >
+                          <button
+                            onClick={() => setShowPopup(false)}
+                            style={{
+                              position: "absolute",
+                              top: "10px",
+                              right: "10px",
+                              background: "transparent",
+                              border: "none",
+                              fontSize: "20px",
+                              fontWeight: "bold",
+                              cursor: "pointer",
+                            }}
+                          >
+                            ×
+                          </button>
 
-              {downloadTableData && (
-                <CSVLink
-                  data={formattedDataForDownload}
-                  filename={`School_Registration_Status_Report_${newFormat}.csv`}
-                  className="hidden"
-                  ref={csvLinkRef}
-                >
-                  Download Table CSV
-                </CSVLink>
-              )}
+                          <h5 style={{ margin: "1rem" }}>Enter Report Name to Save</h5>
+                          <input
+                            type="text"
+                            value={inputValue}
+                            placeholder="Enter Report Name"
+                            onChange={handleInputChange}
+                            style={{
+                              width: "100%",
+                              padding: "8px",
+                              marginBottom: "12px",
+                              borderRadius: "4px",
+                              border: "1px solid #ccc",
+                            }}
+                          />
+                          {error && (
+                            <div
+                              style={{
+                                color: "red",
+                                marginBottom: "10px",
+                                fontSize: "14px",
+                              }}
+                            >
+                              {error}
+                            </div>
+                          )}
+                          <button
+                            className="btn btn-primary m-2"
+                            onClick={handleSaveReport}
+                          >
+                            OK
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                     <DataTableExtensions
+                            print={false}
+                            export={false}
+                            {...resData}
+                            exportHeaders
+                        >
+                            <DataTable
+                                defaultSortField="id"
+                                defaultSortAsc={false}
+                                pagination
+                                highlightOnHover
+                                fixedHeader
+                                subHeaderAlign={Alignment.Center}
+                            />
+                        </DataTableExtensions>
+  
+ {downloadTableData && (
+                  <CSVLink
+                    data={formattedDataForDownload}
+                    filename={`School_Registration_Status_Report_${newFormat}.csv`}
+                    className="hidden"
+                    ref={csvLinkRef}
+                 
+                  >
+                    Download Table CSV
+                  </CSVLink>
+                )}
             </Row>
           </div>
         </Container>
