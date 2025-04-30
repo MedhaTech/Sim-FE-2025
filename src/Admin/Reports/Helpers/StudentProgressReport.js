@@ -772,11 +772,8 @@ const StudentProgress = () => {
   const [istabledownloadclicked,setistabledownloadclicked] = useState(false);
   const [savedHeader,setSavedHeader] = useState();
   const handleReportfileDownload = (data) =>{
-    alert("hii");
-    console.log(data,"data");
     setSavedHeader(allHeaders.filter((header) =>JSON.parse(data.columns).includes(header.key)).map((header) => header));
     fetchData('save',data.filters);
-    console.log(data.filters,"filter");
     setistabledownloadclicked(true);
   };
   useEffect(()=>{
@@ -1165,7 +1162,7 @@ const StudentProgress = () => {
                   <CSVLink
                     data={savedReports}
                     headers={savedHeader}
-                    filename={`StudentProgress_Detailed_Report_${newFormat}.csv`}
+                    filename={`Student_Progress_Detailed_Report_${newFormat}.csv`}
                     className="hidden"
                     ref={csvSavedRef}
                   >
