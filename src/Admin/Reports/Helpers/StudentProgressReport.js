@@ -263,11 +263,11 @@ const StudentProgress = () => {
           }
         });
 
-        console.log("Filtered Item:", filteredItem);
+        // console.log("Filtered Item:", filteredItem);
         return Object.keys(filteredItem).length > 0 ? filteredItem : null;
       })
       .filter(Boolean);
-    console.log("Final Filtered Data for Download:", filteredData);
+    // console.log("Final Filtered Data for Download:", filteredData);
     setstudentDetailedReportsData(filteredData);
   };
 
@@ -277,12 +277,12 @@ const StudentProgress = () => {
     category?.trim() !== "";
 
   useEffect(() => {
-    console.log("Updated Download Table Data:", studentDetailedReportsData);
+    // console.log("Updated Download Table Data:", studentDetailedReportsData);
   }, [studentDetailedReportsData]);
 
   useEffect(() => {
     if (isReadyToDownload && studentDetailedReportsData.length > 0) {
-      console.log("Downloading CSV with data:", studentDetailedReportsData);
+      // console.log("Downloading CSV with data:", studentDetailedReportsData);
       const formattedCSVData = studentDetailedReportsData.map((item) =>
         Object.fromEntries(
           Object.entries(item).map(([key, value]) => [
@@ -295,10 +295,10 @@ const StudentProgress = () => {
 
       setTimeout(() => {
         csvLinkRef.current.link.click();
-        console.log(
-          "Downloading CSV with formatted headers:",
-          formattedCSVData
-        );
+        // console.log(
+        //   "Downloading CSV with formatted headers:",
+        //   formattedCSVData
+        // );
         openNotificationWithIcon("success", "Report Downloaded Successfully");
         setIsReadyToDownload(false);
       }, 1000);
@@ -820,7 +820,7 @@ const StudentProgress = () => {
             name: 'Report name',
             selector: (row) => row.report_name,
             sortable: true,
-            width: '8rem'
+            width: '13rem'
         },
         {
             name: 'State',
@@ -849,11 +849,28 @@ const StudentProgress = () => {
         sortable: true,
         width: '10rem'
     },
-        {
-            name: 'Columns',
-            selector: (row) => row.columns,
-            width: '15rem'
-        },
+    {
+      name: 'Columns',
+      cell: (row) => {
+        const columnKeys = JSON.parse(row.columns); 
+        const displayLabels = columnKeys.map((key) => {
+          const match = allHeaders.find(header => header.key === key);
+          return match ? match.label : key;
+        });
+    
+        return (
+          <div
+            style={{
+              whiteSpace: 'pre-wrap',
+              wordWrap: 'break-word',
+            }}
+          >
+            {displayLabels.join(', ')}
+          </div>
+        );
+      },
+      width: '30rem',
+    },
         {
             name: 'Actions',
             width: '18rem',
@@ -865,7 +882,7 @@ const StudentProgress = () => {
                         onClick={() => handleReportfileDownload(record)}
                         style={{ marginRight: '12px' }}
                     >
-                        <div className="btn btn-primary btn-lg mx-2">
+                        <div className="btn btn-primary btn-sm mx-2">
                             Download
                         </div>
                     </div>
@@ -875,7 +892,7 @@ const StudentProgress = () => {
                         onClick={() => handleReportfileDelete(record)}
                         style={{ marginRight: '12px' }}
                     >
-                        <div className="btn btn-danger btn-lg mx-2">
+                        <div className="btn btn-danger btn-sm mx-2">
                             DELETE
                         </div>
                     </div>
@@ -883,6 +900,13 @@ const StudentProgress = () => {
             ]
         }
     ]
+};
+const customStyles = {
+  head: {
+    style: {
+      fontSize: "1em", // Adjust as needed
+    },
+  },
 };
   return (
     <div className="page-wrapper">
@@ -1035,15 +1059,15 @@ const StudentProgress = () => {
                           !downloadTableData ||
                           downloadTableData.length === 0
                         ) {
-                          console.log("Fetching data before download...");
+                          // console.log("Fetching data before download...");
                           filterData();
                         }
 
                         setTimeout(() => {
-                          console.log(
-                            "Checking Data Before Download:",
-                            downloadTableData
-                          );
+                          // console.log(
+                          //   "Checking Data Before Download:",
+                          //   downloadTableData
+                          // );
 
                           setIsReadyToDownload(true);
                         }, 1000);
@@ -1151,6 +1175,7 @@ const StudentProgress = () => {
                             <DataTable
                                 defaultSortField="id"
                                 defaultSortAsc={false}
+                                customStyles={customStyles}
                                 pagination
                                 highlightOnHover
                                 fixedHeader
