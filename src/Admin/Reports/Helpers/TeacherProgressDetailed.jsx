@@ -281,11 +281,11 @@ const TeacherProgressDetailed = () => {
           }
         });
 
-        console.log("Filtered Item:", filteredItem);
+        // console.log("Filtered Item:", filteredItem);
         return Object.keys(filteredItem).length > 0 ? filteredItem : null;
       })
       .filter(Boolean);
-    console.log("Final Filtered Data for Download:", filteredData);
+    // console.log("Final Filtered Data for Download:", filteredData);
     setmentorDetailedReportsData(filteredData);
   };
 
@@ -453,12 +453,12 @@ const TeacherProgressDetailed = () => {
       });
   };
   useEffect(() => {
-    console.log("Updated Download Table Data:", mentorDetailedReportsData);
+    // console.log("Updated Download Table Data:", mentorDetailedReportsData);
   }, [mentorDetailedReportsData]);
 
   useEffect(() => {
     if (isReadyToDownload && mentorDetailedReportsData.length > 0) {
-      console.log("Downloading CSV with data:", mentorDetailedReportsData);
+      // console.log("Downloading CSV with data:", mentorDetailedReportsData);
       const formattedCSVData = mentorDetailedReportsData.map((item) =>
         Object.fromEntries(
           Object.entries(item).map(([key, value]) => [
@@ -471,10 +471,10 @@ const TeacherProgressDetailed = () => {
 
       setTimeout(() => {
         csvLinkRef.current.link.click();
-        console.log(
-          "Downloading CSV with formatted headers:",
-          formattedCSVData
-        );
+        // console.log(
+        //   "Downloading CSV with formatted headers:",
+        //   formattedCSVData
+        // );
         openNotificationWithIcon("success", "Report Downloaded Successfully");
         setIsReadyToDownload(false);
       }, 1000);
@@ -796,7 +796,7 @@ const handleReportfileDownload = (data) =>{
 // console.log(data,"data");
 setSavedHeader(allHeaders.filter((header) =>JSON.parse(data.columns).includes(header.key)).map((header) => header));
 fetchData('save',data.filters);
-console.log(data.filters,"filter");
+// console.log(data.filters,"filter");
 setistabledownloadclicked(true);
 };
 useEffect(()=>{
@@ -872,11 +872,28 @@ columns: [
     sortable: true,
     width: '10rem'
 },
-    {
-        name: 'Columns',
-        selector: (row) => row.columns,
-        width: '15rem'
-    },
+{
+  name: 'Columns',
+  cell: (row) => {
+    const columnKeys = JSON.parse(row.columns); 
+    const displayLabels = columnKeys.map((key) => {
+      const match = allHeaders.find(header => header.key === key);
+      return match ? match.label : key;
+    });
+
+    return (
+      <div
+        style={{
+          whiteSpace: 'pre-wrap',
+          wordWrap: 'break-word',
+        }}
+      >
+        {displayLabels.join(', ')}
+      </div>
+    );
+  },
+  width: '30rem',
+},
     {
         name: 'Actions',
         width: '18rem',
@@ -888,7 +905,7 @@ columns: [
                     onClick={() => handleReportfileDownload(record)}
                     style={{ marginRight: '12px' }}
                 >
-                    <div className="btn btn-primary btn-lg mx-2">
+                    <div className="btn btn-primary btn-sm mx-2">
                         Download
                     </div>
                 </div>
@@ -898,7 +915,7 @@ columns: [
                     onClick={() => handleReportfileDelete(record)}
                     style={{ marginRight: '12px' }}
                 >
-                    <div className="btn btn-danger btn-lg mx-2">
+                    <div className="btn btn-danger btn-sm mx-2">
                         DELETE
                     </div>
                 </div>
@@ -906,6 +923,13 @@ columns: [
         ]
     }
 ]
+};
+const customStyles = {
+  head: {
+    style: {
+      fontSize: "1em", // Adjust as needed
+    },
+  },
 };
   return (
     <div className="page-wrapper">
@@ -1058,7 +1082,7 @@ columns: [
                           !downloadTableData ||
                           downloadTableData.length === 0
                         ) {
-                          console.log("Fetching data before download...");
+                          // console.log("Fetching data before download...");
                           filterData();
                         }
 
@@ -1169,6 +1193,7 @@ columns: [
                             <DataTable
                                 defaultSortField="id"
                                 defaultSortAsc={false}
+                                customStyles={customStyles}
                                 pagination
                                 highlightOnHover
                                 fixedHeader
