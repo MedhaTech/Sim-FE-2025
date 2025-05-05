@@ -150,6 +150,12 @@ const [savedReports1, setSavedReports1] = useState([]);
       key: "whatapp_mobile",
     },
   ];
+  const labelToKeyMap = RegHeaders.reduce((acc, header) => {
+    acc[header.label] = header.key;
+    return acc;
+  }, {});
+  
+  // console.log("Dynamic labelToKeyMap:", labelToKeyMap);
   const notRegHeaders = [
     {
       label: "UDISE CODE",
@@ -204,7 +210,24 @@ const [savedReports1, setSavedReports1] = useState([]);
       key: "principal_email",
     },
   ];
-
+  const labelToKeyMap1 = {
+    "UDISE CODE": "organization_code",
+    "School Name": "organization_name",
+    "School Category": "category",
+    "State": "state",
+    "District": "district",
+    "Mandal / Taluka": "mandal",
+    "School Type": "school_type",
+    "School Board": "board",
+    "City": "city",
+    "Pin code": "pin_code",
+    "Address": "address",
+    "Country": "country",
+    "HM Name": "principal_name",
+    "HM Contact": "principal_mobile",
+    "HM Email": "principal_email"
+  };
+  
   const NotReglabels = notRegHeaders.map((header) => header.label);
   const Reglabels = RegHeaders.map((header) => header.label);
 
@@ -236,6 +259,7 @@ const [savedReports1, setSavedReports1] = useState([]);
     category?.trim() !== "";
   const [filterheaders, setfilterheaders] = useState([]);
   const handleDownload = () => {
+    alert("iam Download Function");
     if (!RegTeachersState || !RegTeachersdistrict || !filterType || !category) {
       notification.warning({
         message:
@@ -282,45 +306,32 @@ const [savedReports1, setSavedReports1] = useState([]);
     setShowCustomization(false);
   }, [RegTeachersState, RegTeachersdistrict, filterType, category]);
 
-  const fetchData = (item,type,param) => {
-    // const param = encryptGlobal(
-    //   JSON.stringify({
-    //     state: RegTeachersState,
-    //     status: "ACTIVE",
-    //     district:
-    //       RegTeachersdistrict === "" ? "All Districts" : RegTeachersdistrict,
-    //     category: category,
-    //   })
-    // );
-
-    // const params = encryptGlobal(
-    //   JSON.stringify({
-    //     state: RegTeachersState,
-    //     district: RegTeachersdistrict,
-    //     status: "ACTIVE",
-    //     category: category,
-    //   })
-    // );
-    let encryptedParam;
-
-    if (type === 'save') {
-      encryptedParam = encryptGlobal(JSON.stringify(param));
-    } else {
-      const payload = {
+  const fetchData = (item) => {
+    const param = encryptGlobal(
+      JSON.stringify({
         state: RegTeachersState,
         status: "ACTIVE",
-        district: RegTeachersdistrict === "" ? "All Districts" : RegTeachersdistrict,
+        district:
+          RegTeachersdistrict === "" ? "All Districts" : RegTeachersdistrict,
         category: category,
-      };
-      encryptedParam = encryptGlobal(JSON.stringify(payload));
-    }
+      })
+    );
+
+    const params = encryptGlobal(
+      JSON.stringify({
+        state: RegTeachersState,
+        district: RegTeachersdistrict,
+        status: "ACTIVE",
+        category: category,
+      })
+    );
+   
     const url =
       item === "Registered"
-        ? `/reports/mentorRegList?Data=${encryptedParam}`
+        ? `/reports/mentorRegList?Data=${param}`
         : item === "Not Registered"
-        ? `/reports/notRegistered?Data=${encryptedParam}`
+        ? `/reports/notRegistered?Data=${params}`
         : "";
-        console.log("Final URL:", process.env.REACT_APP_API_BASE_URL + url);
 
     const config = {
       method: "get",
@@ -337,7 +348,7 @@ const [savedReports1, setSavedReports1] = useState([]);
           if (item === "Registered") {
             setFilteredData(response?.data?.data || []);
             setDownloadData(response?.data?.data || []);
-            setSavedReports(response?.data?.data || []);
+            // setSavedReports(response?.data?.data || []);
             if (response?.data.count > 0) {
               setShowCustomization(!showCustomization);
             } else {
@@ -346,7 +357,7 @@ const [savedReports1, setSavedReports1] = useState([]);
           } else if (item === "Not Registered") {
             setFilteresData(response?.data?.data || []);
             setDownloadNotRegisteredData(response?.data?.data || []);
-            setSavedReports1(response?.data?.data || []);
+            // setSavedReports1(response?.data?.data || []);
 
             if (response?.data.count > 0) {
               setShowCustomization(!showCustomization);
@@ -414,11 +425,9 @@ const handleSaveReport = async(filterType) =>{
 if(pattern.test(inputValue) && inputValue!==''){
   const body = JSON.stringify({
     report_type: filterType === "Not Registered" 
-    ? 'teacher-not-registration-report' 
+    ? 'teacher-not-registered-registration-report' 
     : 'teacher-registration-report',
-    // report_type: filterType === "Not Registered" 
-    // ? '/reports/notRegistered' 
-    // : '/reports/mentorRegList',
+  
     filters:JSON.stringify({
       state: RegTeachersState,
       district: RegTeachersdistrict,
@@ -445,7 +454,12 @@ if (response.status === 201) {
       );
       setShowPopup(false);
       setInputValue('');
-      fetchSavedReportsData();
+      if (filterType === "Registered"){
+        fetchSavedReportsData();
+      }else {
+        fetchSavedReportsData1();
+
+      }
      } else {
      openNotificationWithIcon('error', 'Opps! Something Wrong');
       setShowPopup(false);
@@ -456,16 +470,18 @@ if (response.status === 201) {
 }
 };
 const [reportFileslist,setReportFileslist] = useState([]);
+const [reportFileslist1,setReportFileslist1] = useState([]);
+
 useEffect(()=>{
 fetchSavedReportsData();
+fetchSavedReportsData1();
+
 },[]);
-const fetchSavedReportsData = () => {
+const fetchSavedReportsData1 = () => {
 const apiRes = encryptGlobal(
   JSON.stringify({
-    report_type: 'teacher-registration-report',
-    // report_type: filterType === "Not Registered" 
-    // ? '/reports/notRegistered' 
-    // : '/reports/mentorRegList',
+    report_type: 
+     'teacher-not-registered-registration-report' 
   })
 );
 const config = {
@@ -481,41 +497,171 @@ const config = {
 axios(config)
   .then(function (response) {
     if (response.status === 200) {
-      setReportFileslist(response?.data?.data);
+      setReportFileslist1(response?.data?.data);
     }
   })
   .catch(function (error) {
     console.log(error);
   });
 };
+const fetchSavedReportsData = () => {
+
+  const apiRes = encryptGlobal(
+    JSON.stringify({
+      report_type: 
+       'teacher-registration-report',
+    })
+  );
+  const config = {
+    method: "get",
+    url:
+      process.env.REACT_APP_API_BASE_URL +
+      `/report_files?Data=${apiRes}`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+    },
+  };
+  axios(config)
+    .then(function (response) {
+      if (response.status === 200) {
+        setReportFileslist(response?.data?.data);
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  };
 // new code //
 const [istabledownloadclicked,setistabledownloadclicked] = useState(false);
 const [savedHeader,setSavedHeader] = useState();
-/// issue is here //
-const handleReportfileDownload = (data) =>{
-  // const selectedHeaderList = filterType === "Not Registered" ? notRegHeaders : RegHeaders;
+const [savedHeader1,setSavedHeader1] = useState();
 
-// const savedHeaders = selectedHeaderList.filter((header) =>
-//   JSON.parse(data.columns || "[]").includes(header.key)
-// );
-// setSavedHeader(savedHeaders);
+const handleReportfileDownload = (data) => {
+  let columnKeys = [];
+  try {
+    columnKeys = data.columns ? JSON.parse(data.columns) : [];
+    console.log("Parsed column keys:", columnKeys);
+  } catch (err) {
+    console.error("Error parsing columns:", err);
+  }
+  const mappedColumnKeys = columnKeys.map(label => labelToKeyMap[label]);
 
-setSavedHeader(allHeaders.filter((header) =>JSON.parse(data.columns).includes(header.key)).map((header) => header));
-fetchData('save',data.filters);
-setistabledownloadclicked(true);
+  console.log("Mapped Column Keys:", mappedColumnKeys);
+
+  const headerList = data.report_type === "teacher-registration-report" ? RegHeaders : notRegHeaders;
+
+  const filteredHeaders = headerList.filter(header =>
+    mappedColumnKeys.includes(header.key)
+  );
+  console.log("Filtered Headers:", filteredHeaders);
+
+  setSavedHeader(filteredHeaders);
+  fetchDataDownloadApi(data.report_type, data.filters);
+  setistabledownloadclicked(true);
 };
+
+
+const handleReportfileDownload1 = (data) =>{
+
+  let columnKeys = [];
+  try {
+    columnKeys = data.columns ? JSON.parse(data.columns) : [];
+    console.log("Parsed column keys:", columnKeys);
+  } catch (err) {
+    console.error("Error parsing columns:", err);
+  }
+  const mappedColumnKeys1 = columnKeys.map(label => labelToKeyMap1[label]);
+
+  console.log("Mapped Column Keys:", mappedColumnKeys1);
+
+  const headerList = data.report_type === 'teacher-not-registered-registration-report'  ? notRegHeaders : RegHeaders;
+
+  const filteredHeaders = headerList.filter(header =>
+    mappedColumnKeys1.includes(header.key)
+  );
+  console.log("Filtered Headers:", filteredHeaders);
+  setSavedHeader1(filteredHeaders);
+  fetchDataDownloadApi1(data.report_type, data.filters);
+
+  setistabledownloadclicked(true);
+  };
+  const fetchDataDownloadApi1 = (item,param) => {
+    const apiRes = encryptGlobal(param);
+
+    const config = {
+      method: "get",
+      url:
+        process.env.REACT_APP_API_BASE_URL_FOR_REPORTS +
+        `/reports/notRegistered?Data=${apiRes}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+      },
+    };
+    axios(config)
+    .then((response) => {
+      if (response.status === 200) {
+        if (item === 'teacher-not-registered-registration-report' ) {
+          setFilteresData(response?.data?.data || []);
+            setDownloadNotRegisteredData(response?.data?.data || []);
+            setSavedReports1(response?.data?.data || []);
+        
+        }
+
+        setIsDownloading(false);
+      }
+    })
+    .catch((error) => {
+      console.log("API error:", error);
+      setIsDownloading(false);
+    });
+  
+  };
+  const fetchDataDownloadApi = (item,param) => {
+     const apiRes = encryptGlobal(param);
+
+     const config = {
+       method: "get",
+       url:
+         process.env.REACT_APP_API_BASE_URL_FOR_REPORTS +
+         `/reports/mentorRegList?Data=${apiRes}`,
+       headers: {
+         "Content-Type": "application/json",
+         Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+       },
+     };
+     axios(config)
+     .then((response) => {
+       if (response.status === 200) {
+         if (item === 'teacher-registration-report') {
+           setFilteredData(response?.data?.data || []);
+           setDownloadData(response?.data?.data || []);
+           setSavedReports(response?.data?.data || []);
+         
+         }
+
+         setIsDownloading(false);
+       }
+     })
+     .catch((error) => {
+       console.log("API error:", error);
+       setIsDownloading(false);
+     });
+   
+   };
 useEffect(()=>{
-if(savedReports.length>0 && istabledownloadclicked){
+if(savedReports.length>0 && istabledownloadclicked ){
   csvSavedRef.current.link.click();
   setistabledownloadclicked(false);
 }
-},[savedReports]);
+},[savedReports,savedHeader]);
 useEffect(()=>{
   if(setSavedReports1.length>0 && istabledownloadclicked){
     csvSavedRef1.current.link.click();
     setistabledownloadclicked(false);
   }
-  },[savedReports1]);
+  },[savedReports1,istabledownloadclicked]);
 
 const handleReportfileDelete = (data) =>{
 const idparm = encryptGlobal(JSON.stringify(data.report_file_id));
@@ -540,6 +686,29 @@ axios(config)
     console.log(error);
   });
 };
+const handleReportfileDelete1 = (data) =>{
+  const idparm = encryptGlobal(JSON.stringify(data.report_file_id));
+  const config = {
+    method: "delete",
+    url:
+      process.env.REACT_APP_API_BASE_URL +
+      `/report_files/${idparm}`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+    },
+  };
+  axios(config)
+    .then(function (response) {
+      if (response.status === 200) {
+        openNotificationWithIcon("success", "Deleting Successfully");
+        fetchSavedReportsData();
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  };
 const allHeaders = filterType === 'Registered' ? RegHeaders : notRegHeaders;
 
 const resData = {
@@ -609,36 +778,133 @@ columns: [
   width: '30rem',
 },
 
-    // {
-    //     name: 'Actions',
-    //     width: '18rem',
-    //     center: true,
-    //     cell: (record) => [
-    //         <>
-    //             <div
-    //                 key={record}
-    //                 onClick={() => handleReportfileDownload(record)}
-    //                 style={{ marginRight: '12px' }}
-    //             >
-    //                 <div className="btn btn-primary btn-sm mx-2">
-    //                     Download
-    //                 </div>
-    //             </div>
+    {
+        name: 'Actions',
+        width: '18rem',
+        center: true,
+        cell: (record) => [
+            <>
+                <div
+                    key={record}
+                    onClick={() => handleReportfileDownload(record)}
+                    style={{ marginRight: '12px' }}
+                >
+                    <div className="btn btn-primary btn-sm mx-2">
+                        Download
+                    </div>
+                </div>
 
-    //             <div
-    //                 key={record}
-    //                 onClick={() => handleReportfileDelete(record)}
-    //                 style={{ marginRight: '12px' }}
-    //             >
-    //                 <div className="btn btn-danger btn-sm mx-2">
-    //                     DELETE
-    //                 </div>
-    //             </div>
-    //         </>
-    //     ]
-    // }
+                <div
+                    key={record}
+                    onClick={() => handleReportfileDelete(record)}
+                    style={{ marginRight: '12px' }}
+                >
+                    <div className="btn btn-danger btn-sm mx-2">
+                        DELETE
+                    </div>
+                </div>
+            </>
+        ]
+    }
 ]
 };
+const resData1 = {
+  data: reportFileslist1 && reportFileslist1.length > 0 ? reportFileslist1 : [],
+  columns: [
+      {
+          name: 'No',
+          selector: (row, key) => key + 1,
+          sortable: true,
+          width: '6rem'
+      },
+      {
+          name: 'Report name',
+          selector: (row) => row.report_name,
+          sortable: true,
+          width: '13rem'
+      },
+      {
+          name: 'State',
+          selector: (row) => {
+            const fileter = JSON.parse(row.filters);
+            return fileter.state;
+          },
+          sortable: true,
+          width: '15rem'
+      },
+      {
+        name: 'District',
+        selector: (row) => {
+          const fileter = JSON.parse(row.filters);
+          return fileter.district;
+        },
+        sortable: true,
+        width: '12rem'
+    },
+    {
+      name: 'Category',
+      selector: (row) => {
+        const fileter = JSON.parse(row.filters);
+        return fileter.category;
+      },
+      sortable: true,
+      width: '10rem'
+  }
+  
+  ,
+  {
+    name: 'Columns',
+    cell: (row) => {
+      const columnKeys = JSON.parse(row.columns); 
+      const displayLabels = columnKeys.map((key) => {
+        const match = allHeaders.find(header => header.key === key);
+        return match ? match.label : key;
+      });
+  
+      return (
+        <div
+          style={{
+            whiteSpace: 'pre-wrap',
+            wordWrap: 'break-word',
+          }}
+        >
+          {displayLabels.join(', ')}
+        </div>
+      );
+    },
+    width: '30rem',
+  },
+  
+      {
+          name: 'Actions',
+          width: '18rem',
+          center: true,
+          cell: (record) => [
+              <>
+                  <div
+                      key={record}
+                      onClick={() => handleReportfileDownload1(record)}
+                      style={{ marginRight: '12px' }}
+                  >
+                      <div className="btn btn-primary btn-sm mx-2">
+                          Download
+                      </div>
+                  </div>
+  
+                  <div
+                      key={record}
+                      onClick={() => handleReportfileDelete1(record)}
+                      style={{ marginRight: '12px' }}
+                  >
+                      <div className="btn btn-danger btn-sm mx-2">
+                          DELETE
+                      </div>
+                  </div>
+              </>
+          ]
+      }
+  ]
+  };
 const customStyles = {
   head: {
     style: {
@@ -921,19 +1187,35 @@ const customStyles = {
                   <CSVLink
                     data={savedReports}
                     headers={savedHeader}
-                    filename={`Teacher_${filterType}Report_${newFormat}.csv`}
+                    filename={`Teacher_Register_Report_${newFormat}.csv`}
                     className="hidden"
                     ref={csvSavedRef}
                   >
                     Download Table CSV
                   </CSVLink>
                 )}
+                <DataTableExtensions
+                            print={false}
+                            export={false}
+                            {...resData1}
+                            exportHeaders
+                        >
+                            <DataTable
+                                defaultSortField="id"
+                                defaultSortAsc={false}
+                                customStyles={customStyles}
+                                pagination
+                                highlightOnHover
+                                fixedHeader
+                                subHeaderAlign={Alignment.Center}
+                            />
+                        </DataTableExtensions>
                   {savedReports1 && (
                   <CSVLink
                     data={savedReports1}
-                    headers={savedHeader}
-                    filename={`Teacher_${filterType}Report_${newFormat}.csv`}
-                    className="hidden"
+                    headers={savedHeader1}
+                     className="hidden"
+                    filename={`Teacher_Not_Registere_Report_${newFormat}.csv`}
                     ref={csvSavedRef1}
                   >
                     Download Table CSV
