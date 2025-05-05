@@ -784,7 +784,7 @@ const IdeaReport = () => {
         name: "Report name",
         selector: (row) => row.report_name,
         sortable: true,
-        width: "8rem",
+        width: "13rem",
       },
       {
         name: "State",
@@ -813,10 +813,32 @@ const IdeaReport = () => {
         sortable: true,
         width: "10rem",
       },
+      // {
+      //   name: "Columns",
+      //   selector: (row) => row.columns,
+      //   width: "15rem",
+      // },
       {
-        name: "Columns",
-        selector: (row) => row.columns,
-        width: "15rem",
+        name: 'Columns',
+        cell: (row) => {
+          const columnKeys = JSON.parse(row.columns); 
+          const displayLabels = columnKeys.map((key) => {
+            const match = allHeaders.find(header => header.key === key);
+            return match ? match.label : key;
+          });
+      
+          return (
+            <div
+              style={{
+                whiteSpace: 'pre-wrap',
+                wordWrap: 'break-word',
+              }}
+            >
+              {displayLabels.join(', ')}
+            </div>
+          );
+        },
+        width: '30rem',
       },
       {
         name: "Actions",
@@ -843,6 +865,13 @@ const IdeaReport = () => {
         ],
       },
     ],
+  };
+  const customStyles = {
+    head: {
+      style: {
+        fontSize: "1em", // Adjust as needed
+      },
+    },
   };
   return (
     <div className="page-wrapper">
@@ -1121,6 +1150,7 @@ const IdeaReport = () => {
                             <DataTable
                                 defaultSortField="id"
                                 defaultSortAsc={false}
+                                customStyles={customStyles}
                                 pagination
                                 highlightOnHover
                                 fixedHeader

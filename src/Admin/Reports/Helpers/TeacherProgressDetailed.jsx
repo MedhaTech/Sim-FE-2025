@@ -843,7 +843,7 @@ columns: [
         name: 'Report name',
         selector: (row) => row.report_name,
         sortable: true,
-        width: '8rem'
+        width: '13rem'
     },
     {
         name: 'State',
