@@ -1,3 +1,4 @@
+/* eslint-disable no-irregular-whitespace */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable indent */
 /* eslint-disable no-unused-vars */
@@ -465,7 +466,7 @@ const DiescodeScreen = () => {
                             customStyles={customStyles}
                           />
                         </DataTableExtensions>
-                      ) :"No Teachers are registered from this Udise Code"}
+                      ) :<span style={{color:"red"}}>No Teachers are registered from this Udise Code</span>}
                   </div>
                 </Row>
                 <div className="row " style={{ overflow: "auto" }}>
