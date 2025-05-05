@@ -3,35 +3,20 @@
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Table } from "reactstrap";
-import { Button } from "../../../stories/Button";
 import { CSVLink } from "react-csv";
 import { getCurrentUser } from "../../../helpers/Utils";
 import { useNavigate, Link } from "react-router-dom";
-import {
-  getDistrictData,
-  getStateData,
-  getFetchDistData,
-} from "../../../redux/studentRegistration/actions";
-import { ArrowRight } from "feather-icons-react/build/IconComponents";
+
 import { useDispatch, useSelector } from "react-redux";
 import Select from "../Helpers/Select";
 import axios from "axios";
-// import '../reports.scss';
-import { Doughnut } from "react-chartjs-2";
-import { Bar } from "react-chartjs-2";
-import { categoryValue } from "../../Schools/constentText";
-import { notification } from "antd";
+
 import { encryptGlobal } from "../../../constants/encryptDecrypt";
 import { stateList, districtList } from "../../../RegPage/ORGData";
 import ThirdReportStats from "./ThirdReportStats";
+import DataTableExtensions from 'react-data-table-component-extensions';
+import DataTable, { Alignment } from 'react-data-table-component';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faMale,
-  faFemale,
-  faChalkboardTeacher,
-} from "@fortawesome/free-solid-svg-icons";
-import ReactApexChart from "react-apexcharts";
 import { openNotificationWithIcon } from "../../../helpers/Utils";
 
 const TeacherProgressDetailed = () => {
@@ -44,6 +29,8 @@ const TeacherProgressDetailed = () => {
   const categoryData = ["All Categories", "ATL", "Non ATL"];
   const categoryDataTn = ["All Categories", "HSS", "HS", "Non ATL"];
   const [hasData, setHasData] = useState(false);
+ const [savedReports, setSavedReports] = useState([]);
+  const csvSavedRef = useRef();
 
   useEffect(() => {
     setdistrict("");
@@ -294,22 +281,27 @@ const TeacherProgressDetailed = () => {
           }
         });
 
-        console.log("Filtered Item:", filteredItem);
+        // console.log("Filtered Item:", filteredItem);
         return Object.keys(filteredItem).length > 0 ? filteredItem : null;
       })
       .filter(Boolean);
-    console.log("Final Filtered Data for Download:", filteredData);
+    // console.log("Final Filtered Data for Download:", filteredData);
     setmentorDetailedReportsData(filteredData);
   };
 
-  const fetchData = () => {
-    const apiRes = encryptGlobal(
-      JSON.stringify({
-        state: selectstate,
-        district: district,
-        category: category,
-      })
-    );
+  const fetchData = (type,param) => {
+   let apiRes;
+         if(type === 'save'){
+           apiRes = encryptGlobal(param);
+         }else{
+           apiRes = encryptGlobal(
+             JSON.stringify({
+               state: selectstate,
+               district: district,
+               category: category,
+             })
+           );
+         }
     const config = {
       method: "get",
       url:
@@ -442,6 +434,7 @@ const TeacherProgressDetailed = () => {
             not_start_pre: stuPreNotStartedMap[item.mentor_id] || 0,
           }));
           setModifiedChartTableData(newdatalist);
+          setSavedReports(newdatalist);
           if (response.data.data[0].summary.length > 0) {
             setIsCustomizationEnabled(true);
             setHasData(true);
@@ -460,12 +453,12 @@ const TeacherProgressDetailed = () => {
       });
   };
   useEffect(() => {
-    console.log("Updated Download Table Data:", mentorDetailedReportsData);
+    // console.log("Updated Download Table Data:", mentorDetailedReportsData);
   }, [mentorDetailedReportsData]);
 
   useEffect(() => {
     if (isReadyToDownload && mentorDetailedReportsData.length > 0) {
-      console.log("Downloading CSV with data:", mentorDetailedReportsData);
+      // console.log("Downloading CSV with data:", mentorDetailedReportsData);
       const formattedCSVData = mentorDetailedReportsData.map((item) =>
         Object.fromEntries(
           Object.entries(item).map(([key, value]) => [
@@ -478,10 +471,10 @@ const TeacherProgressDetailed = () => {
 
       setTimeout(() => {
         csvLinkRef.current.link.click();
-        console.log(
-          "Downloading CSV with formatted headers:",
-          formattedCSVData
-        );
+        // console.log(
+        //   "Downloading CSV with formatted headers:",
+        //   formattedCSVData
+        // );
         openNotificationWithIcon("success", "Report Downloaded Successfully");
         setIsReadyToDownload(false);
       }, 1000);
@@ -714,6 +707,230 @@ const TeacherProgressDetailed = () => {
       setSelectedHeaders([]);
     }
   }, [district, category, selectstate]);
+
+  // new code //
+  const [showPopup, setShowPopup] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const [error, setError] = useState("");
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+  };
+
+const handleSaveReport = async() =>{
+  const pattern = /^[a-zA-Z0-9 \-()&.,_]*$/;
+if(pattern.test(inputValue) && inputValue!==''){
+  const body = JSON.stringify({
+    report_type: 'teacherprogress-report',
+    filters:JSON.stringify({
+      state: selectstate,
+      district: district,
+      category: category,
+    }),
+    columns:JSON.stringify(selectedHeaders),
+    report_name:inputValue,
+    status:"ACTIVE"
+  });
+  const response = await axios.post(
+    `${process.env.REACT_APP_API_BASE_URL}/report_files`,
+    body,
+    {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${currentUser?.data[0]?.token}`
+        }
+    }
+);
+if (response.status === 201) {
+    openNotificationWithIcon(
+     'success',
+      'Report saving Successfully'
+      );
+      setShowPopup(false);
+      setInputValue('');
+      fetchSavedReportsData();
+     } else {
+     openNotificationWithIcon('error', 'Opps! Something Wrong');
+      setShowPopup(false);
+      setInputValue('');
+  }
+}else{
+  setError("Please Enter Valid Name");
+}
+};
+const [reportFileslist,setReportFileslist] = useState([]);
+useEffect(()=>{
+fetchSavedReportsData();
+},[]);
+const fetchSavedReportsData = () => {
+const apiRes = encryptGlobal(
+  JSON.stringify({
+    report_type: 'teacherprogress-report',
+  })
+);
+const config = {
+  method: "get",
+  url:
+    process.env.REACT_APP_API_BASE_URL +
+    `/report_files?Data=${apiRes}`,
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+  },
+};
+axios(config)
+  .then(function (response) {
+    if (response.status === 200) {
+      setReportFileslist(response?.data?.data);
+    }
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+};
+
+const [istabledownloadclicked,setistabledownloadclicked] = useState(false);
+const [savedHeader,setSavedHeader] = useState();
+const handleReportfileDownload = (data) =>{
+// alert("hii");
+// console.log(data,"data");
+setSavedHeader(allHeaders.filter((header) =>JSON.parse(data.columns).includes(header.key)).map((header) => header));
+fetchData('save',data.filters);
+// console.log(data.filters,"filter");
+setistabledownloadclicked(true);
+};
+useEffect(()=>{
+if(savedReports.length>0 && istabledownloadclicked){
+  csvSavedRef.current.link.click();
+  setistabledownloadclicked(false);
+}
+},[savedReports]);
+
+const handleReportfileDelete = (data) =>{
+const idparm = encryptGlobal(JSON.stringify(data.report_file_id));
+const config = {
+  method: "delete",
+  url:
+    process.env.REACT_APP_API_BASE_URL +
+    `/report_files/${idparm}`,
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+  },
+};
+axios(config)
+  .then(function (response) {
+    if (response.status === 200) {
+      openNotificationWithIcon("success", "Deleting Successfully");
+      fetchSavedReportsData();
+    }
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+};
+
+const resData = {
+data: reportFileslist && reportFileslist.length > 0 ? reportFileslist : [],
+columns: [
+    {
+        name: 'No',
+        selector: (row, key) => key + 1,
+        sortable: true,
+        width: '6rem'
+    },
+    {
+        name: 'Report name',
+        selector: (row) => row.report_name,
+        sortable: true,
+        width: '13rem'
+    },
+    {
+        name: 'State',
+        selector: (row) => {
+          const fileter = JSON.parse(row.filters);
+          return fileter.state;
+        },
+        sortable: true,
+        width: '15rem'
+    },
+    {
+      name: 'District',
+      selector: (row) => {
+        const fileter = JSON.parse(row.filters);
+        return fileter.district;
+      },
+      sortable: true,
+      width: '12rem'
+  },
+  {
+    name: 'Category',
+    selector: (row) => {
+      const fileter = JSON.parse(row.filters);
+      return fileter.category;
+    },
+    sortable: true,
+    width: '10rem'
+},
+{
+  name: 'Columns',
+  cell: (row) => {
+    const columnKeys = JSON.parse(row.columns); 
+    const displayLabels = columnKeys.map((key) => {
+      const match = allHeaders.find(header => header.key === key);
+      return match ? match.label : key;
+    });
+
+    return (
+      <div
+        style={{
+          whiteSpace: 'pre-wrap',
+          wordWrap: 'break-word',
+        }}
+      >
+        {displayLabels.join(', ')}
+      </div>
+    );
+  },
+  width: '30rem',
+},
+    {
+        name: 'Actions',
+        width: '18rem',
+        center: true,
+        cell: (record) => [
+            <>
+                <div
+                    key={record}
+                    onClick={() => handleReportfileDownload(record)}
+                    style={{ marginRight: '12px' }}
+                >
+                    <div className="btn btn-primary btn-sm mx-2">
+                        Download
+                    </div>
+                </div>
+
+                <div
+                    key={record}
+                    onClick={() => handleReportfileDelete(record)}
+                    style={{ marginRight: '12px' }}
+                >
+                    <div className="btn btn-danger btn-sm mx-2">
+                        DELETE
+                    </div>
+                </div>
+            </>
+        ]
+    }
+]
+};
+const customStyles = {
+  head: {
+    style: {
+      fontSize: "1em", // Adjust as needed
+    },
+  },
+};
   return (
     <div className="page-wrapper">
       <h4
@@ -865,7 +1082,7 @@ const TeacherProgressDetailed = () => {
                           !downloadTableData ||
                           downloadTableData.length === 0
                         ) {
-                          console.log("Fetching data before download...");
+                          // console.log("Fetching data before download...");
                           filterData();
                         }
 
@@ -877,9 +1094,124 @@ const TeacherProgressDetailed = () => {
                     >
                       Download Report
                     </button>
+                    <button
+        className="btn btn-info mt-3"
+        style={{marginLeft:'1rem'}}
+        onClick={() => {
+          setShowPopup(true);
+        }}
+        disabled={selectedHeaders.length === 0}
+      >
+        Save Format
+      </button>
                   </div>
                 </div>
               )}
+                {showPopup && (
+                      <div
+                        onClick={() => setShowPopup(false)}
+                        style={{
+                          position: "fixed",
+                          top: 0,
+                          left: 0,
+                          width: "100vw",
+                          height: "100vh",
+                          backgroundColor: "rgba(0,0,0,0.5)",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          zIndex: 9999,
+                        }}
+                      >
+                        <div
+                          onClick={(e) => e.stopPropagation()}
+                          style={{
+                            position: "relative",
+                            background: "white",
+                            padding: "20px",
+                            borderRadius: "8px",
+                            minWidth: "400px",
+                            textAlign:"center"
+                          }}
+                        >
+                          <button
+                            onClick={() => setShowPopup(false)}
+                            style={{
+                              position: "absolute",
+                              top: "10px",
+                              right: "10px",
+                              background: "transparent",
+                              border: "none",
+                              fontSize: "20px",
+                              fontWeight: "bold",
+                              cursor: "pointer",
+                            }}
+                          >
+                            ×
+                          </button>
+
+                          <h5 style={{ margin: "1rem" }}>Enter Report Name to Save</h5>
+                          <input
+                            type="text"
+                            value={inputValue}
+                            placeholder="Enter Report Name"
+                            onChange={handleInputChange}
+                            style={{
+                              width: "100%",
+                              padding: "8px",
+                              marginBottom: "12px",
+                              borderRadius: "4px",
+                              border: "1px solid #ccc",
+                            }}
+                          />
+                          {error && (
+                            <div
+                              style={{
+                                color: "red",
+                                marginBottom: "10px",
+                                fontSize: "14px",
+                              }}
+                            >
+                              {error}
+                            </div>
+                          )}
+                          <button
+                            className="btn btn-primary m-2"
+                            onClick={handleSaveReport}
+                          >
+                            OK
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                     <DataTableExtensions
+                            print={false}
+                            export={false}
+                            {...resData}
+                            exportHeaders
+                        >
+                            <DataTable
+                                defaultSortField="id"
+                                defaultSortAsc={false}
+                                customStyles={customStyles}
+                                pagination
+                                highlightOnHover
+                                fixedHeader
+                                subHeaderAlign={Alignment.Center}
+                            />
+                        </DataTableExtensions>
+                        
+                        {savedReports && (
+                  <CSVLink
+                    data={savedReports}
+                    headers={savedHeader}
+                    filename={`Teacher_Progress_Detailed_Report_${newFormat}.csv`}
+                    className="hidden"
+                    ref={csvSavedRef}
+                  >
+                    Download Table CSV
+                  </CSVLink>
+                )}
             </Row>
 
             <ThirdReportStats
