@@ -193,8 +193,7 @@ const MentorHeader = () => {
             ) {
               openNotificationWithIcon(
                 "error",
-                <span style={{color:"red"}}>No Teachers are registered from the given Udise Code</span>
-                // "No Teachers are Registered from the given UDISE Code"
+                "No Teachers are Registered from the given UDISE Code"
               );
               setDiesCode("");
             } else if (

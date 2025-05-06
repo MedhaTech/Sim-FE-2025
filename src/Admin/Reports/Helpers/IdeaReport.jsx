@@ -5,13 +5,19 @@ import { Container, Row, Col, Table } from "reactstrap";
 import { CSVLink } from "react-csv";
 import { getCurrentUser } from "../../../helpers/Utils";
 import { useNavigate, Link } from "react-router-dom";
-
+import {
+  OverlayTrigger,
+  Tooltip,
+  Popover,
+  Button,
+  Overlay,
+} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "../Helpers/Select";
 import axios from "axios";
 import { encryptGlobal } from "../../../constants/encryptDecrypt";
 import { stateList, districtList } from "../../../RegPage/ORGData";
-
+import { RiInformation2Line } from "react-icons/ri";
 import { openNotificationWithIcon } from "../../../helpers/Utils";
 import { themesList } from "../../../Team/IdeaSubmission/themesData";
 import moment from "moment/moment";
@@ -19,6 +25,7 @@ import * as XLSX from "xlsx";
 import IdeaReportStats from "./IdeaReportStats";
 import DataTableExtensions from "react-data-table-component-extensions";
 import DataTable, { Alignment } from "react-data-table-component";
+import { IoClose } from "react-icons/io5";
 const IdeaReport = () => {
   const navigate = useNavigate();
   const [district, setdistrict] = React.useState("");
@@ -366,21 +373,20 @@ const IdeaReport = () => {
       }, 1000);
     }
   }, [isReadyToDownload, studentDetailedReportsData]);
-  const fetchData = (type,param) => {
-   
-      let apiRes;
-           if(type === 'save'){
-             apiRes = encryptGlobal(param);
-           }else{
-             apiRes = encryptGlobal(
-               JSON.stringify({
-                 state: selectstate,
-                 district: district,
-                 category: category,
-                 theme: sdg,
-               })
-             );
-           }
+  const fetchData = (type, param) => {
+    let apiRes;
+    if (type === "save") {
+      apiRes = encryptGlobal(param);
+    } else {
+      apiRes = encryptGlobal(
+        JSON.stringify({
+          state: selectstate,
+          district: district,
+          category: category,
+          theme: sdg,
+        })
+      );
+    }
     const config = {
       method: "get",
       url:
@@ -672,6 +678,7 @@ const IdeaReport = () => {
           state: selectstate,
           district: district,
           category: category,
+          theme: sdg,
         }),
         columns: JSON.stringify(selectedHeaders),
         report_name: inputValue,
@@ -688,7 +695,7 @@ const IdeaReport = () => {
         }
       );
       if (response.status === 201) {
-        openNotificationWithIcon("success", "Report saving Successfully");
+        openNotificationWithIcon("success", "Report Format Saved Successfully");
         setShowPopup(false);
         setInputValue("");
         fetchSavedReportsData();
@@ -739,7 +746,7 @@ const IdeaReport = () => {
         .map((header) => header)
     );
     fetchData("save", data.filters);
-    console.log(data.filters,"filters");
+    console.log(data.filters, "filters");
     setistabledownloadclicked(true);
   };
   useEffect(() => {
@@ -762,7 +769,7 @@ const IdeaReport = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          openNotificationWithIcon("success", "Deleting Successfully");
+          openNotificationWithIcon("success", "Deleted Successfully");
           fetchSavedReportsData();
         }
       })
@@ -770,7 +777,8 @@ const IdeaReport = () => {
         console.log(error);
       });
   };
-
+  const [openPopoverRowId, setOpenPopoverRowId] = useState(null);
+  const popoverTargetRefs = useRef({}); // store refs per row
   const resData = {
     data: reportFileslist && reportFileslist.length > 0 ? reportFileslist : [],
     columns: [
@@ -781,10 +789,10 @@ const IdeaReport = () => {
         width: "6rem",
       },
       {
-        name: "Report name",
+        name: "Report Name",
         selector: (row) => row.report_name,
         sortable: true,
-        width: "13rem",
+        width: "10rem",
       },
       {
         name: "State",
@@ -793,7 +801,7 @@ const IdeaReport = () => {
           return fileter.state;
         },
         sortable: true,
-        width: "15rem",
+        width: "9rem",
       },
       {
         name: "District",
@@ -802,7 +810,7 @@ const IdeaReport = () => {
           return fileter.district;
         },
         sortable: true,
-        width: "12rem",
+        width: "9rem",
       },
       {
         name: "Category",
@@ -811,38 +819,103 @@ const IdeaReport = () => {
           return fileter.category;
         },
         sortable: true,
+        width: "8rem",
+      },
+      {
+        name: "Theme",
+        selector: (row) => {
+          const fileter = JSON.parse(row.filters);
+          return fileter.theme;
+        },
+        sortable: true,
         width: "10rem",
       },
-      // {
-      //   name: "Columns",
-      //   selector: (row) => row.columns,
-      //   width: "15rem",
-      // },
+
       {
-        name: 'Columns',
+        name: "Columns",
         cell: (row) => {
-          const columnKeys = JSON.parse(row.columns); 
+          const columnKeys = JSON.parse(row.columns);
           const displayLabels = columnKeys.map((key) => {
-            const match = allHeaders.find(header => header.key === key);
+            const match = allHeaders.find((header) => header.key === key);
             return match ? match.label : key;
           });
-      
+
+          const fullLabels = displayLabels.join(", ");
+          const shortPreview =
+            fullLabels.slice(0, 20) + (fullLabels.length > 20 ? "..." : "");
+
+          const rowId = row.report_file_id;
+          const isPopoverOpen = openPopoverRowId === rowId;
+
+          if (!popoverTargetRefs.current[rowId]) {
+            popoverTargetRefs.current[rowId] = React.createRef();
+          }
+
+          const handleToggle = () => {
+            setOpenPopoverRowId(isPopoverOpen ? null : rowId);
+          };
+
+          const handleClose = () => setOpenPopoverRowId(null);
+
           return (
             <div
               style={{
-                whiteSpace: 'pre-wrap',
-                wordWrap: 'break-word',
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                position: "relative",
               }}
             >
-              {displayLabels.join(', ')}
+              <span style={{ flex: 1 }}>{shortPreview}</span>
+
+              <div
+                ref={popoverTargetRefs.current[rowId]}
+                style={{ cursor: "pointer" }}
+                onClick={handleToggle}
+              >
+                <RiInformation2Line size={25} />
+              </div>
+
+              <Overlay
+                target={popoverTargetRefs.current[rowId]?.current}
+                show={isPopoverOpen}
+                placement="top"
+                containerPadding={10}
+                rootClose
+                onHide={handleClose}
+              >
+                <Popover id={`popover-${rowId}`}>
+                  <Popover.Header as="div">
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                    >
+                      <strong>Full Details</strong>
+                      <IoClose
+                        style={{ cursor: "pointer" }}
+                        onClick={handleClose}
+                      />
+                    </div>
+                  </Popover.Header>
+                  <Popover.Body
+                    style={{ maxHeight: "150px", overflowY: "auto" }}
+                  >
+                    {fullLabels}
+                  </Popover.Body>
+                </Popover>
+              </Overlay>
             </div>
           );
         },
-        width: '30rem',
+        width: "15rem",
       },
+
       {
         name: "Actions",
-        width: "18rem",
+        width: '15rem',
         center: true,
         cell: (record) => [
           <>
@@ -851,7 +924,7 @@ const IdeaReport = () => {
               onClick={() => handleReportfileDownload(record)}
               style={{ marginRight: "12px" }}
             >
-              <div className="btn btn-primary btn-lg mx-2">Download</div>
+              <div className="btn btn-primary btn-sm mx-2">Download</div>
             </div>
 
             <div
@@ -859,7 +932,7 @@ const IdeaReport = () => {
               onClick={() => handleReportfileDelete(record)}
               style={{ marginRight: "12px" }}
             >
-              <div className="btn btn-danger btn-lg mx-2">DELETE</div>
+              <div className="btn btn-danger btn-sm mx-2">DELETE</div>
             </div>
           </>,
         ],
@@ -1052,126 +1125,129 @@ const IdeaReport = () => {
                       Download Report
                     </button>
                     <button
-        className="btn btn-info mt-3"
-        style={{marginLeft:'1rem'}}
-        onClick={() => {
-          setShowPopup(true);
-        }}
-        disabled={selectedHeaders.length === 0}
-      >
-        Save Format
-      </button>
+                      className="btn btn-info mt-3"
+                      style={{ marginLeft: "1rem" }}
+                      onClick={() => {
+                        setShowPopup(true);
+                      }}
+                      disabled={selectedHeaders.length === 0}
+                    >
+                      Save Format
+                    </button>
                   </div>
                 </div>
               )}
-                {showPopup && (
+              {showPopup && (
+                <div
+                  onClick={() => setShowPopup(false)}
+                  style={{
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    width: "100vw",
+                    height: "100vh",
+                    backgroundColor: "rgba(0,0,0,0.5)",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    zIndex: 9999,
+                  }}
+                >
+                  <div
+                    onClick={(e) => e.stopPropagation()}
+                    style={{
+                      position: "relative",
+                      background: "white",
+                      padding: "20px",
+                      borderRadius: "8px",
+                      minWidth: "400px",
+                      textAlign: "center",
+                    }}
+                  >
+                    <button
+                      onClick={() => setShowPopup(false)}
+                      style={{
+                        position: "absolute",
+                        top: "10px",
+                        right: "10px",
+                        background: "transparent",
+                        border: "none",
+                        fontSize: "20px",
+                        fontWeight: "bold",
+                        cursor: "pointer",
+                      }}
+                    >
+                      ×
+                    </button>
+
+                    <h5 style={{ margin: "1rem" }}>
+                      Enter Report Name to Save
+                    </h5>
+                    <p style={{ color: "black", fontWeight: "bold" }}>
+                      Allowed Characters : A-Z, a-z, 0-9, -, _, (, ), &, ., and
+                      ,
+                    </p>
+                    <input
+                      type="text"
+                      value={inputValue}
+                      placeholder="Enter Report Name"
+                      onChange={handleInputChange}
+                      style={{
+                        width: "100%",
+                        padding: "8px",
+                        marginBottom: "12px",
+                        borderRadius: "4px",
+                        border: "1px solid #ccc",
+                      }}
+                    />
+                    {error && (
                       <div
-                        onClick={() => setShowPopup(false)}
                         style={{
-                          position: "fixed",
-                          top: 0,
-                          left: 0,
-                          width: "100vw",
-                          height: "100vh",
-                          backgroundColor: "rgba(0,0,0,0.5)",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          zIndex: 9999,
+                          color: "red",
+                          marginBottom: "10px",
+                          fontSize: "14px",
                         }}
                       >
-                        <div
-                          onClick={(e) => e.stopPropagation()}
-                          style={{
-                            position: "relative",
-                            background: "white",
-                            padding: "20px",
-                            borderRadius: "8px",
-                            minWidth: "400px",
-                            textAlign:"center"
-                          }}
-                        >
-                          <button
-                            onClick={() => setShowPopup(false)}
-                            style={{
-                              position: "absolute",
-                              top: "10px",
-                              right: "10px",
-                              background: "transparent",
-                              border: "none",
-                              fontSize: "20px",
-                              fontWeight: "bold",
-                              cursor: "pointer",
-                            }}
-                          >
-                            ×
-                          </button>
-
-                          <h5 style={{ margin: "1rem" }}>Enter Report Name to Save</h5>
-                          <p style={{ color: "black", fontWeight: "bold" }}>
-                      Allowed Characters : A-Z, a-z, 0-9, -, _, (, ), &, ., and ,
-                    </p>
-                          <input
-                            type="text"
-                            value={inputValue}
-                            placeholder="Enter Report Name"
-                            onChange={handleInputChange}
-                            style={{
-                              width: "100%",
-                              padding: "8px",
-                              marginBottom: "12px",
-                              borderRadius: "4px",
-                              border: "1px solid #ccc",
-                            }}
-                          />
-                          {error && (
-                            <div
-                              style={{
-                                color: "red",
-                                marginBottom: "10px",
-                                fontSize: "14px",
-                              }}
-                            >
-                              {error}
-                            </div>
-                          )}
-                          <button
-                            className="btn btn-primary m-2"
-                            onClick={handleSaveReport}
-                          >
-                            OK
-                          </button>
-                        </div>
+                        {error}
                       </div>
                     )}
-                     <DataTableExtensions
-                            print={false}
-                            export={false}
-                            {...resData}
-                            exportHeaders
-                        >
-                            <DataTable
-                                defaultSortField="id"
-                                defaultSortAsc={false}
-                                customStyles={customStyles}
-                                pagination
-                                highlightOnHover
-                                fixedHeader
-                                subHeaderAlign={Alignment.Center}
-                            />
-                        </DataTableExtensions>
-                        
-                        {savedReports && (
-                  <CSVLink
-                    data={savedReports}
-                    headers={savedHeader}
-                    filename={`Ideas_Detailed_Report_${newFormat}.csv`}
-                    className="hidden"
-                    ref={csvSavedRef}
-                  >
-                    Download Table CSV
-                  </CSVLink>
-                )}
+                    <button
+                      className="btn btn-primary m-2"
+                      onClick={handleSaveReport}
+                    >
+                      OK
+                    </button>
+                  </div>
+                </div>
+              )}
+              <DataTableExtensions
+                print={false}
+                export={false}
+                {...resData}
+                exportHeaders
+              >
+                <DataTable
+                  defaultSortField="id"
+                  defaultSortAsc={false}
+                  customStyles={customStyles}
+                  pagination
+                  highlightOnHover
+                  fixedHeader
+                  subHeaderAlign={Alignment.Center}
+                />
+              </DataTableExtensions>
+
+              {savedReports && (
+                <CSVLink
+                  data={savedReports}
+                  headers={savedHeader}
+                  filename={`Ideas_Detailed_Report_${newFormat}.csv`}
+                  className="hidden"
+                  ref={csvSavedRef}
+                >
+                  Download Table CSV
+                </CSVLink>
+              )}
             </Row>
             <IdeaReportStats
               combinedArray={combinedArray}

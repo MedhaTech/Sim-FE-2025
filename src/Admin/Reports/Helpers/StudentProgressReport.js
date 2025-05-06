@@ -724,7 +724,7 @@ const StudentProgress = () => {
     if (response.status === 201) {
         openNotificationWithIcon(
          'success',
-          'Report saving Successfully'
+          'Report Format Saved Successfully'
           );
           setShowPopup(false);
           setInputValue('');
@@ -798,7 +798,7 @@ const StudentProgress = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          openNotificationWithIcon("success", "Deleting Successfully");
+          openNotificationWithIcon("success", "Deleted Successfully");
           fetchSavedReportsData();
         }
       })
@@ -817,10 +817,10 @@ const StudentProgress = () => {
             width: '6rem'
         },
         {
-            name: 'Report name',
+            name: 'Report Name',
             selector: (row) => row.report_name,
             sortable: true,
-            width: '13rem'
+            width: '10rem'
         },
         {
             name: 'State',
@@ -829,7 +829,7 @@ const StudentProgress = () => {
               return fileter.state;
             },
             sortable: true,
-            width: '15rem'
+            width: '9rem'
         },
         {
           name: 'District',
@@ -838,7 +838,7 @@ const StudentProgress = () => {
             return fileter.district;
           },
           sortable: true,
-          width: '12rem'
+          width: '9rem'
       },
       {
         name: 'Category',
@@ -847,7 +847,7 @@ const StudentProgress = () => {
           return fileter.category;
         },
         sortable: true,
-        width: '10rem'
+        width: '8rem'
     },
     {
       name: 'Columns',
@@ -869,11 +869,11 @@ const StudentProgress = () => {
           </div>
         );
       },
-      width: '30rem',
+      width: '15rem',
     },
         {
             name: 'Actions',
-            width: '18rem',
+            width: '15rem',
             center: true,
             cell: (record) => [
                 <>
