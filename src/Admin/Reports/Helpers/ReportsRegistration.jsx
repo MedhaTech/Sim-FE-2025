@@ -449,7 +449,7 @@ const ReportsRegistration = () => {
         }
       );
       if (response.status === 201) {
-        openNotificationWithIcon("success", "Report saving Successfully");
+        openNotificationWithIcon("success", "Report Format Saved Successfully");
         setShowPopup(false);
         setInputValue("");
         if (filterType === "Registered") {
@@ -665,7 +665,7 @@ const ReportsRegistration = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          openNotificationWithIcon("success", "Deleting Successfully");
+          openNotificationWithIcon("success", "Deleted Successfully");
           fetchSavedReportsData();
         }
       })
@@ -686,7 +686,7 @@ const ReportsRegistration = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          openNotificationWithIcon("success", "Deleting Successfully");
+          openNotificationWithIcon("success", "Deleted Successfully");
           fetchSavedReportsData();
         }
       })
@@ -706,10 +706,10 @@ const ReportsRegistration = () => {
         width: "6rem",
       },
       {
-        name: "Report name",
+        name: "Report Name",
         selector: (row) => row.report_name,
         sortable: true,
-        width: "13rem",
+        width: "10rem",
       },
       {
         name: "State",
@@ -718,7 +718,7 @@ const ReportsRegistration = () => {
           return fileter.state;
         },
         sortable: true,
-        width: "15rem",
+        width: "9rem",
       },
       {
         name: "District",
@@ -727,7 +727,7 @@ const ReportsRegistration = () => {
           return fileter.district;
         },
         sortable: true,
-        width: "12rem",
+        width: "9rem",
       },
       {
         name: "Category",
@@ -736,7 +736,7 @@ const ReportsRegistration = () => {
           return fileter.category;
         },
         sortable: true,
-        width: "10rem",
+        width: "8rem",
       },
 
       {
@@ -759,12 +759,12 @@ const ReportsRegistration = () => {
             </div>
           );
         },
-        width: "30rem",
+        width: "15rem",
       },
 
       {
         name: "Actions",
-        width: "18rem",
+        width: '15rem',
         center: true,
         cell: (record) => [
           <>
@@ -799,10 +799,10 @@ const ReportsRegistration = () => {
         width: "6rem",
       },
       {
-        name: "Report name",
+        name: "Report Name",
         selector: (row) => row.report_name,
         sortable: true,
-        width: "13rem",
+        width: "10rem",
       },
       {
         name: "State",
@@ -811,7 +811,7 @@ const ReportsRegistration = () => {
           return fileter.state;
         },
         sortable: true,
-        width: "15rem",
+        width: "9rem",
       },
       {
         name: "District",
@@ -820,7 +820,7 @@ const ReportsRegistration = () => {
           return fileter.district;
         },
         sortable: true,
-        width: "12rem",
+        width: "9rem",
       },
       {
         name: "Category",
@@ -829,7 +829,7 @@ const ReportsRegistration = () => {
           return fileter.category;
         },
         sortable: true,
-        width: "10rem",
+        width: "8rem",
       },
 
       {
@@ -852,12 +852,12 @@ const ReportsRegistration = () => {
             </div>
           );
         },
-        width: "30rem",
+        width: "15rem",
       },
 
       {
         name: "Actions",
-        width: "18rem",
+        width: '15rem',
         center: true,
         cell: (record) => [
           <>
