@@ -1108,6 +1108,9 @@ const IdeaReport = () => {
                           </button>
 
                           <h5 style={{ margin: "1rem" }}>Enter Report Name to Save</h5>
+                          <p style={{ color: "black", fontWeight: "bold" }}>
+                      Allowed Characters : A-Z, a-z, 0-9, -, _, (, ), &, ., and ,
+                    </p>
                           <input
                             type="text"
                             value={inputValue}
