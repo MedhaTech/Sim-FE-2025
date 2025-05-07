@@ -259,7 +259,7 @@ const ReportsRegistration = () => {
     category?.trim() !== "";
   const [filterheaders, setfilterheaders] = useState([]);
   const handleDownload = () => {
-    alert("iam Download Function");
+    //alert("iam Download Function");
     if (!RegTeachersState || !RegTeachersdistrict || !filterType || !category) {
       notification.warning({
         message:
@@ -759,7 +759,7 @@ const ReportsRegistration = () => {
             </div>
           );
         },
-        width: "15rem",
+        width: "30rem",
       },
 
       {
@@ -1211,7 +1211,7 @@ const ReportsRegistration = () => {
             </Row>
             <SecondReportStats />
 
-            {/* {downloadData && (
+            {downloadData && (
               <CSVLink
                 data={downloadData}
                 headers={filterheaders}
@@ -1221,8 +1221,8 @@ const ReportsRegistration = () => {
               >
                 Download CSV
               </CSVLink>
-            )} */}
-            {/* {downloadNotRegisteredData && (
+            )} 
+            {downloadNotRegisteredData && (
               <CSVLink
                 data={downloadNotRegisteredData}
                 headers={filterheaders}
@@ -1232,7 +1232,7 @@ const ReportsRegistration = () => {
               >
                 Download Not Registered CSV
               </CSVLink>
-            )} */}
+            )} 
           </div>
         </Container>
       </div>
