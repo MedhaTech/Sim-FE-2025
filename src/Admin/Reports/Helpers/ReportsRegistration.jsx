@@ -1211,7 +1211,7 @@ const ReportsRegistration = () => {
             </Row>
             <SecondReportStats />
 
-            {/* {downloadData && (
+            {downloadData && (
               <CSVLink
                 data={downloadData}
                 headers={filterheaders}
@@ -1221,8 +1221,8 @@ const ReportsRegistration = () => {
               >
                 Download CSV
               </CSVLink>
-            )} */}
-            {/* {downloadNotRegisteredData && (
+            )} 
+            {downloadNotRegisteredData && (
               <CSVLink
                 data={downloadNotRegisteredData}
                 headers={filterheaders}
@@ -1232,7 +1232,7 @@ const ReportsRegistration = () => {
               >
                 Download Not Registered CSV
               </CSVLink>
-            )} */}
+            )} 
           </div>
         </Container>
       </div>
