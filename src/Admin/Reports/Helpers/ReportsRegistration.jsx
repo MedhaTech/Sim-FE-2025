@@ -759,7 +759,7 @@ const ReportsRegistration = () => {
             </div>
           );
         },
-        width: "15rem",
+        width: "30rem",
       },
 
       {

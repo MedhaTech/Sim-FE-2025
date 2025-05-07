@@ -892,7 +892,7 @@ columns: [
       </div>
     );
   },
-  width: '15rem',
+  width: '30rem',
 },
     {
         name: 'Actions',
