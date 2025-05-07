@@ -259,7 +259,7 @@ const ReportsRegistration = () => {
     category?.trim() !== "";
   const [filterheaders, setfilterheaders] = useState([]);
   const handleDownload = () => {
-    alert("iam Download Function");
+    //alert("iam Download Function");
     if (!RegTeachersState || !RegTeachersdistrict || !filterType || !category) {
       notification.warning({
         message:
