@@ -420,7 +420,7 @@ const ReportsRegistration = () => {
   };
 
   const handleSaveReport = async (filterType) => {
-    console.log(filterType);
+    console.log(filterType,"filterType");
     const pattern = /^[a-zA-Z0-9 \-()&.,_]*$/;
     if (pattern.test(inputValue) && inputValue !== "") {
       const body = JSON.stringify({
@@ -452,10 +452,11 @@ const ReportsRegistration = () => {
         openNotificationWithIcon("success", "Report Format Saved Successfully");
         setShowPopup(false);
         setInputValue("");
-        if (filterType === "Registered") {
-          fetchSavedReportsData();
-        } else {
+        if (filterType === "Not Registered") {
           fetchSavedReportsData1();
+          console.log("res if", "filterType");
+        } else {
+          fetchSavedReportsData();
         }
       } else {
         openNotificationWithIcon("error", "Opps! Something Wrong");
@@ -530,13 +531,13 @@ const ReportsRegistration = () => {
     let columnKeys = [];
     try {
       columnKeys = data.columns ? JSON.parse(data.columns) : [];
-      console.log("Parsed column keys:", columnKeys);
+      // console.log("Parsed column keys:", columnKeys);
     } catch (err) {
       console.error("Error parsing columns:", err);
     }
     const mappedColumnKeys = columnKeys.map((label) => labelToKeyMap[label]);
 
-    console.log("Mapped Column Keys:", mappedColumnKeys);
+    // console.log("Mapped Column Keys:", mappedColumnKeys);
 
     const headerList =
       data.report_type === "teacher-registration-report"
@@ -546,7 +547,7 @@ const ReportsRegistration = () => {
     const filteredHeaders = headerList.filter((header) =>
       mappedColumnKeys.includes(header.key)
     );
-    console.log("Filtered Headers:", filteredHeaders);
+    // console.log("Filtered Headers:", filteredHeaders);
 
     setSavedHeader(filteredHeaders);
     fetchDataDownloadApi(data.report_type, data.filters);
@@ -557,13 +558,13 @@ const ReportsRegistration = () => {
     let columnKeys = [];
     try {
       columnKeys = data.columns ? JSON.parse(data.columns) : [];
-      console.log("Parsed column keys:", columnKeys);
+      // console.log("Parsed column keys:", columnKeys);
     } catch (err) {
       console.error("Error parsing columns:", err);
     }
     const mappedColumnKeys1 = columnKeys.map((label) => labelToKeyMap1[label]);
 
-    console.log("Mapped Column Keys:", mappedColumnKeys1);
+    // console.log("Mapped Column Keys:", mappedColumnKeys1);
 
     const headerList =
       data.report_type === "teacher-not-registered-registration-report"
@@ -610,6 +611,7 @@ const ReportsRegistration = () => {
       });
   };
   const fetchDataDownloadApi = (item, param) => {
+    // alert("i am Reg Report");
     const apiRes = encryptGlobal(param);
 
     const config = {
@@ -646,11 +648,11 @@ const ReportsRegistration = () => {
     }
   }, [savedReports, savedHeader]);
   useEffect(() => {
-    if (setSavedReports1.length > 0 && istabledownloadclicked) {
+    if (savedReports1.length > 0 && istabledownloadclicked) {
       csvSavedRef1.current.link.click();
       setistabledownloadclicked(false);
     }
-  }, [savedReports1, istabledownloadclicked]);
+  }, [savedReports1, savedHeader]);
 
   const handleReportfileDelete = (data) => {
     const idparm = encryptGlobal(JSON.stringify(data.report_file_id));
@@ -687,7 +689,7 @@ const ReportsRegistration = () => {
       .then(function (response) {
         if (response.status === 200) {
           openNotificationWithIcon("success", "Deleted Successfully");
-          fetchSavedReportsData();
+          fetchSavedReportsData1();
         }
       })
       .catch(function (error) {
