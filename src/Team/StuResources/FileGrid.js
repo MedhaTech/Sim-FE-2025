@@ -29,7 +29,7 @@ const FileGrid = ({ resList }) => {
       return pdfIcon; 
     } else if (url.endsWith(".docx") || url.endsWith(".doc")) {
       return wordIcon; 
-    } else if (url.match(/\.(jpeg|jpg|png|gif)$/)) {
+    } else if (url.match(/\.(jpeg|jpg|png|gif|JPEG|JPG|PNG|GIF)$/)) {
       return url; 
     } else {
       return "https://upload.wikimedia.org/wikipedia/commons/8/89/File_icon.svg"; 
@@ -45,12 +45,12 @@ const FileGrid = ({ resList }) => {
       return <FaFilePdf size={20} color="red" />;
     } else if (url.endsWith(".docx") || url.endsWith(".doc")) {
       return <FaFileWord size={20} color="blue" />;
-    } else if (url.match(/\.(jpeg|jpg|png|gif)$/)) {
+    } else if (url.match(/\.(jpeg|jpg|png|gif|JPEG|JPG|PNG|GIF)$/)) {
       return <FaImage size={20} color="orange" />;
     } else if (url.includes("youtube.com") || url.includes("youtu.be")) {
       return <FaYoutube size={20} color="red" />;
     } else {
-      return <FaLink size={20} color="sky blue" />; // Default file icon for unknown file types
+      return <FaLink size={20} color="sky blue" />; 
     }
   };
   
@@ -72,6 +72,7 @@ const FileGrid = ({ resList }) => {
 
   return (
     <div className="myComponent">
+        {resList.length > 0 ? (
     <div className="row g-3" style={{ rowGap: "20px" }}>
   {resList.map((record, index) => (
     <div key={index} className="col-xl-2 col-lg-2 col-md-6 mb-3">
@@ -191,6 +192,11 @@ const FileGrid = ({ resList }) => {
     </div>
   ))}
 </div>
+ ) : (
+  <div className="text-center p-4">
+    <h6 className="text-muted">There are no records to display</h6>
+  </div>
+)}
 </div>
 
 

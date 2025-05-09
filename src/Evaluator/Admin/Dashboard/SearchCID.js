@@ -28,6 +28,7 @@ import { Row, Col, Form, Label } from "reactstrap";
 import { useReactToPrint } from "react-to-print";
 import { encryptGlobal } from "../../../constants/encryptDecrypt";
 import LinkComponent from "../Challenges/pages/LinkComponent";
+import VideoPopup from "../../IdeaList/Videopop";
 const SearchCID = () => {
   const { t } = useTranslation();
   // const multiOrg = localStorage.getItem("multiOrgData");
@@ -891,6 +892,7 @@ const SearchCID = () => {
                       {
                         <LinkComponent item={images} />
                       }
+                     
                       {/* {files.length > 0 &&
                         files.map((item, i) => (
                           <div key={i}>
@@ -953,14 +955,17 @@ const SearchCID = () => {
                           color: "black",
                         }}
                       >
-                        <a
+                        {/* <a
                           href={teamResponse.prototype_link}
                           target="_blank"
                           rel="noopener noreferrer"
                           style={{ textDecoration: "none", color: "skyblue" }}
                         >
                           {teamResponse.prototype_link}
-                        </a>
+                        </a> */}
+                          {teamResponse?.prototype_link && (
+  <VideoPopup videoUrl={teamResponse.prototype_link} />
+)}
                       </p>
                     </div>
                   </div>

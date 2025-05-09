@@ -19,6 +19,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 // import Layout from '../../Layout';
 import { useSelector } from "react-redux";
+import { Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import {
   getStudentChallengeQuestions,
   getStudentChallengeSubmittedResponse,
@@ -32,6 +33,8 @@ import {
 } from "../../helpers/Utils";
 import axios from "axios";
 import { KEY, URL } from "../../constants/defaultValues";
+import play from "../../assets/img/playicon.png";
+
 import CommonPage from "../../components/CommonPage";
 import { useTranslation } from "react-i18next";
 import Swal from "sweetalert2/dist/sweetalert2.js";
@@ -116,8 +119,7 @@ const[extractId,setExtractId]=useState("");
       ? props?.theme
       : formData?.theme
   );
-  // console.log(props?.theme !== "" && props?.theme !== undefined ? "true" : "false" );
-  // console.log(formData?.theme ,"form");
+
   const[verfiySubmitt,setVerifySubmitt]=useState(false);
 
   const [focusarea, setFocusArea] = useState(formData?.focus_area);
@@ -151,6 +153,13 @@ const[extractId,setExtractId]=useState("");
   const [prototypeLink, setPrototypeLink] = useState(formData?.prototype_link);
   const [workbook, setWorkbook] = useState(formData?.workbook);
   const [tempLink, setTempLink] = useState("");
+
+
+  const [showVideoModal, setShowVideoModal] = useState(false);
+  const handleOpenModal = () => setShowVideoModal(true);
+  const handleCloseModal = () => setShowVideoModal(false);
+  const videoUrl = "https://www.youtube.com/embed/sVCgsJgfNJY?autoplay=1";
+
   // const people = ["None", "2-4 people", "5+ people", "10+ people"];
   // const people = [
   //   t("ideaform_questions.stakeholdersop1"),
@@ -163,7 +172,6 @@ const[extractId,setExtractId]=useState("");
   //   t("ideaform_questions.workbookyes"),
   //   t("ideaform_questions.workbookno"),
   // ];
-  // console.log(error4,"111");
   // const journey = [
   //   t("ideaform_questions.probsoljourneyop1"),
   //   t("ideaform_questions.probsoljourneyop2"),
@@ -206,7 +214,7 @@ const[extractId,setExtractId]=useState("");
       label: t("ideaform_questions.communityop4"),
     },
   ];
-// console.log(theme,"theme",props?.theme,"props?.theme");
+
   const initiatedBy = formData?.initiated_by;
   const handleThemeChange = (e) => {
     const selectedTheme = e.target.value;
@@ -424,7 +432,7 @@ const[extractId,setExtractId]=useState("");
     if (feedback !== "") {
       body["feedback"] = feedback;
     }
-    if (prototypeLink !== "") {
+    if (prototypeLink !== "" && verfiySubmitt) {
       body["prototype_link"] = prototypeLink;
     }
     if (workbook !== "") {
@@ -448,13 +456,11 @@ const[extractId,setExtractId]=useState("");
           setIdeaInitiation(response?.data?.data[0]?.initiated_by);
           openNotificationWithIcon("success", t("home.ideaInitPop"));
           submittedApi();
-          seterror4(false);
-          // console.log("200");
+          seterror4(false); 
         }
       })
       .catch(function (error) {
         openNotificationWithIcon("error", t("home.firstfour"));
-        // console.log("errors");
         console.log(error);
       });
   };
@@ -558,7 +564,7 @@ const[extractId,setExtractId]=useState("");
     if (feedback !== null) {
       body["feedback"] = feedback;
     }
-    if (prototypeLink !== null) {
+    if (prototypeLink !== null && verfiySubmitt) {
       body["prototype_link"] = prototypeLink;
     }
 
@@ -697,9 +703,19 @@ const[extractId,setExtractId]=useState("");
     setIsDisabled(false);
     scroll();
   };
+
   useEffect(()=>{
-    setVerifySubmitt(false);
+    if(prototypeLink !== formData?.prototype_link){
+      setVerifySubmitt(false);
+    }
       },[prototypeLink]);
+
+  useEffect(()=>{
+    if(formData?.prototype_link !== null && formData?.prototype_link !== undefined ){
+      setVerifySubmitt(true);
+    }
+  },[formData?.prototype_link]);   
+
   const comingSoonText = t("dummytext.student_idea_sub");
   // const acceptedParamfileTypes =>
   //     'Accepting only png,jpg,jpeg,pdf,mp4,doc,docx Only, file size should be below 10MB';
@@ -708,7 +724,11 @@ const[extractId,setExtractId]=useState("");
     focusarea?.length > 0 &&
     title?.length > 0 &&
     problemStatement?.length > 0;
-
+ const renderTooltip = (props) => (
+    <Tooltip id="pdf-tooltip" {...props}>
+      Watch Demo
+    </Tooltip>
+  );
     useEffect(()=>{
 if(formData?.verified_status === "ACCEPTED"){
   console.log("Badge Enable");
@@ -766,7 +786,7 @@ if(formData?.verified_status === "ACCEPTED"){
     const match = url.match(regex);
     return match ? match[1] : null;
   };
-  console.log(verfiySubmitt,"vvvvv",prototypeLink,"LLLL");
+
   const handleInputChange = (e) => {
     const link = e.target.value;
     // setTempLink(link);
@@ -780,7 +800,7 @@ if(formData?.verified_status === "ACCEPTED"){
     e.preventDefault();
     handleVideoApi(extractId);
   };
-  // console.log(prototypeLink,"proto",);
+  
   return (
     <>
       {/* <div className='content'> */}
@@ -1512,8 +1532,10 @@ if(formData?.verified_status === "ACCEPTED"){
                             <h5 className="py-2 text-warning text-uppercase">
                               {t("home.section3")}:{" "}
                               {t("ideaform_questions.section3")}
+                              
                             </h5>
                           </Row>
+                         
                           <div className="card comment-card">
                             <div className="question quiz mb-0">
                               <b
@@ -1614,9 +1636,37 @@ if(formData?.verified_status === "ACCEPTED"){
                               >
                                 {t("ideaform_questions.link")} {t("ideaform_questions.linkadd")}
                               </b>
+                              <OverlayTrigger placement="top" overlay={renderTooltip}>
+                       
+                         <span
+              onClick={handleOpenModal}
+              style={{ cursor: "pointer", marginLeft: "10px" }}
+            >
+              <img
+                src={play}
+                className="icon"
+                alt="play"
+                style={{ verticalAlign: "middle", width: "4%" }}
+              />
+            </span>
+                      </OverlayTrigger>
+                      <Modal show={showVideoModal} onHide={handleCloseModal} size="lg" centered>
+        
+        <Modal.Body>
+          <div className="ratio ratio-16x9">
+            <iframe
+              src={videoUrl}
+              title="Demo Video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              style={{ width: "100%", height: "100%" }}
+            ></iframe>
+          </div>
+        </Modal.Body>
+      </Modal>
                             <div className="answers row flex-column p-3 pt-2">
                             <div className="row g-0 align-items-center">
-                            <div className="col-11 pe-3">
+                            <div className="col-10 pe-3">
                               <textarea
                                 className="form-control"
                                 disabled={isDisabled}
@@ -1628,7 +1678,7 @@ if(formData?.verified_status === "ACCEPTED"){
                                 //   setPrototypeLink(e.target.value)
                                 // }
                                 onChange={handleInputChange}
-                                style={{ height: "150px" }} 
+                                style={{ height: "150px"}} 
                               />
                               <div className="text-end">
                                 {t("student_course.chars")} :
@@ -1641,7 +1691,7 @@ if(formData?.verified_status === "ACCEPTED"){
     </div>
   )}
                             </div>
-                            <div className="col-1 d-flex align-items-center pe-3">
+                            <div className="col-2 d-flex align-items-center pe-3">
                             <button
                               className="btn btn-info "
                               onClick={handleVerify}

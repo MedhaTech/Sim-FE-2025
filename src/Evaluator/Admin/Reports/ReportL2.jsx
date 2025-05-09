@@ -135,6 +135,10 @@ const ReportL2 = () => {
       key: "full_name",
     },
     {
+      label: "User ID",
+      key: "user_id",
+    },
+    {
       label: "No of Ideas Evaluated",
       key: "totalEvaluated",
     },
@@ -195,12 +199,23 @@ const ReportL2 = () => {
       key: "organization_name",
     },
     {
-      label: "School Type/Category",
+      label: "School Category",
       key: "category",
     },
     {
       label: "Pin code",
       key: "pin_code",
+    },
+    {
+      label: 'Mandal / Taluka',
+      key: 'mandal'
+    }, {
+      label: 'School Type',
+      key: 'school_type'
+    },
+    {
+      label: 'School Board',
+      key: 'board'
     },
     {
       label: "Address",
@@ -484,6 +499,9 @@ const ReportL2 = () => {
               principal_name: mentorMap[item.mentor_id].principal_name,
               principal_mobile: mentorMap[item.mentor_id].principal_mobile,
               pin_code: mentorMap[item.mentor_id].pin_code,
+              mandal: mentorMap[item.mentor_id].mandal, 
+              school_type: mentorMap[item.mentor_id].school_type,
+              board: mentorMap[item.mentor_id].board,
               address: mentorMap[item.mentor_id].address,
             };
           });
@@ -514,8 +532,9 @@ const ReportL2 = () => {
                                                  District:item.district,
                                                  CID:item.challenge_response_id,
                                                  "School Name":item.organization_name,
-                                                 "School Type/Category":item.category,
+                                                 "School Category":item.category,
                                                  "Pin code":item.pin_code,
+                                                 "School Type":item.school_type, "Mandal / Taluka":item.mandal, "School Board":item.board,
                                                  Address:item.address,
                                                   "Teacher Name":item.full_name,
                                                   "Teacher Email":mentorUsernameMap[item.mentorUserId],
@@ -1337,6 +1356,15 @@ const ReportL2 = () => {
                                     fontWeight: "bold",
                                   }}
                                 >
+                                  User ID
+                                </th>
+                                <th
+                                  style={{
+                                    whiteSpace: "wrap",
+                                    color: "#36A2EB",
+                                    fontWeight: "bold",
+                                  }}
+                                >
                                   No of Ideas Evaluated
                                 </th>
                                 {/* <th
@@ -1373,6 +1401,8 @@ const ReportL2 = () => {
                                   >
                                     {item.full_name}
                                   </td>
+                                  <td> {item.user_id}</td>
+
                                   <td> {item.totalEvaluated}</td>
                                   {/* <td>{item.accepted}</td> */}
                                   {/* <td>{item.rejected}</td> */}

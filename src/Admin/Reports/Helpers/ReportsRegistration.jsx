@@ -2,21 +2,14 @@
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Table } from "reactstrap";
-import { Button } from "../../../stories/Button";
 import { CSVLink } from "react-csv";
 import {
   openNotificationWithIcon,
   getCurrentUser,
 } from "../../../helpers/Utils";
-import {
-  getDistrictData,
-  getStateData,
-  getFetchDistData,
-} from "../../../redux/studentRegistration/actions";
-import { ArrowRight } from "feather-icons-react/build/IconComponents";
-import { useDispatch, useSelector } from "react-redux";
+import DataTableExtensions from "react-data-table-component-extensions";
+import DataTable, { Alignment } from "react-data-table-component";
 import Select from "../Helpers/Select";
-import { Chart } from "primereact/chart";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "../reports.scss";
@@ -39,16 +32,12 @@ ChartJS.register(
   Legend,
   ArcElement // Register ArcElement
 );
-import { Doughnut } from "react-chartjs-2";
 import { notification } from "antd";
 import { encryptGlobal } from "../../../constants/encryptDecrypt";
 import { stateList, districtList } from "../../../RegPage/ORGData";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMale, faFemale, faSchool } from "@fortawesome/free-solid-svg-icons";
-import ReactApexChart from "react-apexcharts";
-import Check from "../../../Evaluator/Admin/EvalProcess/Pages/Check";
 
-// import { categoryValue } from '../../Schools/constentText';
+import Check from "./Check";
+import SecondReportStats from "./SecondReportStats";
 
 const ReportsRegistration = () => {
   const [RegTeachersdistrict, setRegTeachersdistrict] = React.useState("");
@@ -61,40 +50,29 @@ const ReportsRegistration = () => {
   const filterOptions = ["Registered", "Not Registered"];
   const categoryData = ["All Categories", "ATL", "Non ATL"];
   const categoryDataTn = ["All Categories", "HSS", "HS", "Non ATL"];
-  const valueSel = [];
   const [showCustomization, setShowCustomization] = useState(false);
+  const [savedReports, setSavedReports] = useState([]);
+  const [savedReports1, setSavedReports1] = useState([]);
+
+  const csvSavedRef = useRef();
+  const csvSavedRef1 = useRef();
 
   useEffect(() => {
-    setRegTeachersdistrict('');
+    setRegTeachersdistrict("");
   }, [RegTeachersState]);
 
   const newstateList = ["All States", ...stateList];
 
-  // const categoryData =
-  //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
-
   const [downloadData, setDownloadData] = useState(null);
   const [downloadNotRegisteredData, setDownloadNotRegisteredData] =
     useState(null);
-  const [chartTableData, setChartTableData] = useState([]);
-  const csvLinkRefTable = useRef();
   const csvLinkRef = useRef();
   const csvLinkRefNotRegistered = useRef();
-  const dispatch = useDispatch();
   const currentUser = getCurrentUser("current_user");
-  const [registeredGenderChartData, setRegisteredGenderChartData] =
-    useState(null);
-  const [registeredChartData, setRegisteredChartData] = useState(null);
+
   const [isDownloading, setIsDownloading] = useState(false);
   const [downloadComplete, setDownloadComplete] = useState(false);
   const [newFormat, setNewFormat] = useState("");
-  const [series1, setseries1] = useState([]);
-  const [series2, setseries2] = useState([]);
-  const [barChart1Data, setBarChart1Data] = useState({
-    labels: [],
-    datasets: [],
-  });
-  const [isloader, setIsloader] = useState(false);
 
   const fullStatesNames = newstateList;
   const allDistricts = {
@@ -105,66 +83,19 @@ const ReportsRegistration = () => {
     "All Districts",
     ...(allDistricts[RegTeachersState] || []),
   ];
-  // const fiterDistData = districtList[RegTeachersState];
 
-  const [downloadTableData, setDownloadTableData] = useState(null);
-  const summaryHeaders = [
-    {
-      label: "State Name",
-      key: "state",
-    },
-    {
-      label: "Total Schools in DB",
-      key: "Eligible_school",
-    },
-    {
-      label: "Registered Schools",
-      key: "reg_school",
-    },
-    {
-      label: "Total Registered ATL Teachers",
-      key: "ATL_Reg_Count",
-    },
-    {
-      label: "Total Registered NON-ATL Teachers",
-      key: "NONATL_Reg_Count",
-    },
-    {
-      label: "Total Registered Others Teachers ",
-      key: "Others_Reg_Count",
-    },
-    {
-      label: "Total Registered Teachers",
-      key: "total",
-    },
-    {
-      label: "Registered Male Teachers",
-      key: "Male",
-    },
-    {
-      label: " Registered Female Teachers",
-      key: "Female",
-    },
-    {
-      label: " Registered Others Teachers",
-      key: "others",
-    }
-  ];
   const RegHeaders = [
     {
       label: "UDISE CODE",
       key: "organization.organization_code",
     },
-    // {
-    //   label: "ATL CODE",
-    //   key: "organization.unique_code",
-    // },
+
     {
       label: "School Name",
       key: "organization.organization_name",
     },
     {
-      label: "School Type/Category",
+      label: "School Category",
       key: "organization.category",
     },
     {
@@ -219,21 +150,24 @@ const ReportsRegistration = () => {
       key: "whatapp_mobile",
     },
   ];
+  const labelToKeyMap = RegHeaders.reduce((acc, header) => {
+    acc[header.label] = header.key;
+    return acc;
+  }, {});
+
+  // console.log("Dynamic labelToKeyMap:", labelToKeyMap);
   const notRegHeaders = [
     {
       label: "UDISE CODE",
       key: "organization_code",
     },
-    // {
-    //   label: "ATL CODE",
-    //   key: "unique_code",
-    // },
+
     {
       label: "School Name",
       key: "organization_name",
     },
     {
-      label: "School Type/Category",
+      label: "School Category",
       key: "category",
     },
     {
@@ -276,34 +210,42 @@ const ReportsRegistration = () => {
       key: "principal_email",
     },
   ];
-  const NotReglabels = notRegHeaders.map(header => header.label);
-  NotReglabels.unshift("Select ALL");
-  const Reglabels = RegHeaders.map(header => header.label);
-  Reglabels.unshift("Select ALL");
+  const labelToKeyMap1 = {
+    "UDISE CODE": "organization_code",
+    "School Name": "organization_name",
+    "School Category": "category",
+    State: "state",
+    District: "district",
+    "Mandal / Taluka": "mandal",
+    "School Type": "school_type",
+    "School Board": "board",
+    City: "city",
+    "Pin code": "pin_code",
+    Address: "address",
+    Country: "country",
+    "HM Name": "principal_name",
+    "HM Contact": "principal_mobile",
+    "HM Email": "principal_email",
+  };
+
+  const NotReglabels = notRegHeaders.map((header) => header.label);
+  const Reglabels = RegHeaders.map((header) => header.label);
 
   const [clickedValue, setclickedValue] = useState({});
   const [selectedValue, setselectedValue] = useState([]);
 
   useEffect(() => {
-    if (clickedValue.name === 'Select ALL') {
-      if (selectedValue.includes('Select ALL')) {
-        setselectedValue(filterType === "Not Registered" ? NotReglabels : Reglabels);
-      } else {
-        setselectedValue([]);
-      }
-    } else if (
-      clickedValue.name &&
-      clickedValue.name !== 'Select ALL' &&
-      selectedValue.length === (filterType === "Not Registered" ? NotReglabels.length - 1 : Reglabels.length - 1) &&
-      !selectedValue.includes('Select ALL')
-    ) {
-      setselectedValue(filterType === "Not Registered" ? NotReglabels : Reglabels);
-    } else if (clickedValue.name && clickedValue.name !== 'Select ALL') {
+    const allLabels =
+      filterType === "Not Registered" ? NotReglabels : Reglabels;
+
+    if (clickedValue.name === "Select ALL") {
       setselectedValue(
-        selectedValue?.filter((item) => item !== 'Select ALL')
+        selectedValue.length === allLabels.length ? [] : allLabels
       );
+    } else if (clickedValue.name && clickedValue.name !== "Select ALL") {
+      setselectedValue((prev) => prev.filter((item) => item !== "Select ALL"));
     }
-  }, [clickedValue]);
+  }, [clickedValue, filterType]);
 
   useEffect(() => {
     setselectedValue([]);
@@ -317,12 +259,8 @@ const ReportsRegistration = () => {
     category?.trim() !== "";
   const [filterheaders, setfilterheaders] = useState([]);
   const handleDownload = () => {
-    if (
-      !RegTeachersState ||
-      !RegTeachersdistrict ||
-      !filterType ||
-      !category
-    ) {
+    //alert("iam Download Function");
+    if (!RegTeachersState || !RegTeachersdistrict || !filterType || !category) {
       notification.warning({
         message:
           "Select state, district, filters, category to download report.",
@@ -330,14 +268,18 @@ const ReportsRegistration = () => {
       return;
     }
     if (filterType === "Not Registered") {
-      setfilterheaders(notRegHeaders
-        .filter(header => selectedValue.includes(header.label))
-        .map(header => header));
+      setfilterheaders(
+        notRegHeaders
+          .filter((header) => selectedValue.includes(header.label))
+          .map((header) => header)
+      );
     }
     if (filterType === "Registered") {
-      setfilterheaders(RegHeaders
-        .filter(header => selectedValue.includes(header.label))
-        .map(header => header));
+      setfilterheaders(
+        RegHeaders.filter((header) => selectedValue.includes(header.label)).map(
+          (header) => header
+        )
+      );
     }
     setIsDownloading(true);
   };
@@ -355,7 +297,6 @@ const ReportsRegistration = () => {
     if (filteredData.length > 0) {
       setShowCustomization(!showCustomization);
     }
-
   };
 
   useEffect(() => {
@@ -364,158 +305,6 @@ const ReportsRegistration = () => {
     setfilterheaders([]);
     setShowCustomization(false);
   }, [RegTeachersState, RegTeachersdistrict, filterType, category]);
-
-  useEffect(() => {
-    fetchChartTableData();
-  }, []);
-
-  const chartOption = {
-    maintainAspectRatio: false,
-    legend: {
-      position: "bottom",
-      labels: {
-        fontColor: "black",
-      },
-    },
-    plugins: {
-      legend: {
-        labels: {
-          generateLabels: function (chart) {
-            return chart.data.labels.map(function (label, i) {
-              const value = chart.data.datasets[0].data[i];
-              const backgroundColor = chart.data.datasets[0].backgroundColor[i];
-              return {
-                text: label + ": " + value,
-                fillStyle: backgroundColor,
-              };
-            });
-          },
-        },
-      },
-    },
-  };
-  const chartOptions = {
-    maintainAspectRatio: false,
-    legend: {
-      position: "bottom",
-      labels: {
-        fontColor: "black",
-      },
-    },
-    plugins: {
-      legend: {
-        labels: {
-          generateLabels: function (chart) {
-            return chart.data.labels.map(function (label, i) {
-              const value = chart.data.datasets[0].data[i];
-              const backgroundColor = chart.data.datasets[0].backgroundColor[i];
-              return {
-                text: label + ": " + value,
-                fillStyle: backgroundColor,
-              };
-            });
-          },
-        },
-      },
-    },
-  };
-  // const options = {
-  //     maintainAspectRatio: false,
-  //     responsive: true,
-  //     scales: {
-  //         y: {
-  //             beginAtZero: true,
-  //             ticks: {
-  //                 stepSize: 10
-  //             },
-  //             title: {
-  //                 display: true,
-  //                 text: 'Number of Registered ATL and Non ATL Schools',
-  //                 color: 'blue'
-  //             }
-  //         },
-  //         x: {
-  //             grid: {
-  //                 display: true,
-  //                 drawBorder: true,
-  //                 color: 'rgba(0, 0, 0, 0.2)',
-  //                 lineWidth: 0.5
-  //             },
-  //             title: {
-  //                 display: true,
-  //                 text: 'States',
-  //                 color: 'blue'
-  //             },
-  //             ticks: {
-  //                 maxRotation: 80,
-  //                 autoSkip: false
-  //                 //maxTicksLimit: 10,
-  //             }
-  //         }
-  //     }
-  // };
-
-  var options = {
-    chart: {
-      height: 700,
-      width: 1000,
-      type: "bar",
-      toolbar: {
-        show: false,
-      },
-      zoom: {
-        enabled: false,
-      },
-    },
-    colors: ["#4361ee", "#888ea8"],
-    dataLabels: {
-      enabled: false,
-    },
-    stroke: {
-      curve: "straight",
-    },
-    series: [
-      {
-        name: "Registered Schools",
-        data: series1,
-      },
-    ],
-    yaxis: {
-      beginAtZero: true,
-      ticks: {
-        stepSize: 10,
-      },
-      labels: {
-        formatter: (val) => {
-          return val / 1;
-        },
-      },
-    },
-
-    xaxis: {
-      categories: barChart1Data.labels,
-      labels: {
-        style: {
-          fontSize: "10px",
-        },
-        formatter: (val) => {
-          // Shorten long labels or wrap them by breaking lines
-          if (val.length > 15) return val.substring(0, 15) + "..."; // Adjust as necessary
-          return val;
-        },
-      },
-      ticks: {
-        maxRotation: 80,
-        minRotation: 45,
-        autoSkip: false,
-      },
-    },
-
-    legend: {
-      position: "top",
-      horizontalAlign: "left",
-    },
-  };
 
   const fetchData = (item) => {
     const param = encryptGlobal(
@@ -536,12 +325,13 @@ const ReportsRegistration = () => {
         category: category,
       })
     );
+
     const url =
       item === "Registered"
         ? `/reports/mentorRegList?Data=${param}`
         : item === "Not Registered"
-          ? `/reports/notRegistered?Data=${params}`
-          : "";
+        ? `/reports/notRegistered?Data=${params}`
+        : "";
 
     const config = {
       method: "get",
@@ -558,6 +348,7 @@ const ReportsRegistration = () => {
           if (item === "Registered") {
             setFilteredData(response?.data?.data || []);
             setDownloadData(response?.data?.data || []);
+            // setSavedReports(response?.data?.data || []);
             if (response?.data.count > 0) {
               setShowCustomization(!showCustomization);
             } else {
@@ -566,6 +357,8 @@ const ReportsRegistration = () => {
           } else if (item === "Not Registered") {
             setFilteresData(response?.data?.data || []);
             setDownloadNotRegisteredData(response?.data?.data || []);
+            // setSavedReports1(response?.data?.data || []);
+
             if (response?.data.count > 0) {
               setShowCustomization(!showCustomization);
             } else {
@@ -581,7 +374,7 @@ const ReportsRegistration = () => {
         setIsDownloading(false);
       });
   };
-  
+
   useEffect(() => {
     if (filteredData.length > 0 && filterheaders.length > 0) {
       setDownloadData(filteredData);
@@ -612,105 +405,507 @@ const ReportsRegistration = () => {
       setFilterType("");
     }
     const newDate = new Date();
-    const formattedDate = `${newDate.getUTCDate()}/${1 + newDate.getMonth()
-      }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
+    const formattedDate = `${newDate.getUTCDate()}/${
+      1 + newDate.getMonth()
+    }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
     setNewFormat(formattedDate);
   }, [downloadComplete]);
 
-  const fetchChartTableData = () => {
+  const [showPopup, setShowPopup] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const [error, setError] = useState("");
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+  };
+
+  const handleSaveReport = async (filterType) => {
+    console.log(filterType,"filterType");
+    const pattern = /^[a-zA-Z0-9 \-()&.,_]*$/;
+    if (pattern.test(inputValue) && inputValue !== "") {
+      const body = JSON.stringify({
+        report_type:
+          filterType === "Not Registered"
+            ? "teacher-not-registered-registration-report"
+            : "teacher-registration-report",
+
+        filters: JSON.stringify({
+          state: RegTeachersState,
+          district: RegTeachersdistrict,
+          category: category,
+        }),
+        columns: JSON.stringify(selectedValue),
+        report_name: inputValue,
+        status: "ACTIVE",
+      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/report_files`,
+        body,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+          },
+        }
+      );
+      if (response.status === 201) {
+        openNotificationWithIcon("success", "Report Format Saved Successfully");
+        setShowPopup(false);
+        setInputValue("");
+        if (filterType === "Not Registered") {
+          fetchSavedReportsData1();
+          console.log("res if", "filterType");
+        } else {
+          fetchSavedReportsData();
+        }
+      } else {
+        openNotificationWithIcon("error", "Opps! Something Wrong");
+        setShowPopup(false);
+        setInputValue("");
+      }
+    } else {
+      setError("Please Enter Valid Name");
+    }
+  };
+  const [reportFileslist, setReportFileslist] = useState([]);
+  const [reportFileslist1, setReportFileslist1] = useState([]);
+
+  useEffect(() => {
+    fetchSavedReportsData();
+    fetchSavedReportsData1();
+  }, []);
+  const fetchSavedReportsData1 = () => {
+    const apiRes = encryptGlobal(
+      JSON.stringify({
+        report_type: "teacher-not-registered-registration-report",
+      })
+    );
     const config = {
       method: "get",
-      url: process.env.REACT_APP_API_BASE_URL_FOR_REPORTS + "/reports/mentorsummary",
+      url: process.env.REACT_APP_API_BASE_URL + `/report_files?Data=${apiRes}`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${currentUser?.data[0]?.token}`,
       },
     };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          setReportFileslist1(response?.data?.data);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  const fetchSavedReportsData = () => {
+    const apiRes = encryptGlobal(
+      JSON.stringify({
+        report_type: "teacher-registration-report",
+      })
+    );
+    const config = {
+      method: "get",
+      url: process.env.REACT_APP_API_BASE_URL + `/report_files?Data=${apiRes}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          setReportFileslist(response?.data?.data);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  // new code //
+  const [istabledownloadclicked, setistabledownloadclicked] = useState(false);
+  const [savedHeader, setSavedHeader] = useState();
+  const [savedHeader1, setSavedHeader1] = useState();
 
+  const handleReportfileDownload = (data) => {
+    let columnKeys = [];
+    try {
+      columnKeys = data.columns ? JSON.parse(data.columns) : [];
+      // console.log("Parsed column keys:", columnKeys);
+    } catch (err) {
+      console.error("Error parsing columns:", err);
+    }
+    const mappedColumnKeys = columnKeys.map((label) => labelToKeyMap[label]);
+
+    // console.log("Mapped Column Keys:", mappedColumnKeys);
+
+    const headerList =
+      data.report_type === "teacher-registration-report"
+        ? RegHeaders
+        : notRegHeaders;
+
+    const filteredHeaders = headerList.filter((header) =>
+      mappedColumnKeys.includes(header.key)
+    );
+    // console.log("Filtered Headers:", filteredHeaders);
+
+    setSavedHeader(filteredHeaders);
+    fetchDataDownloadApi(data.report_type, data.filters);
+    setistabledownloadclicked(true);
+  };
+
+  const handleReportfileDownload1 = (data) => {
+    let columnKeys = [];
+    try {
+      columnKeys = data.columns ? JSON.parse(data.columns) : [];
+      // console.log("Parsed column keys:", columnKeys);
+    } catch (err) {
+      console.error("Error parsing columns:", err);
+    }
+    const mappedColumnKeys1 = columnKeys.map((label) => labelToKeyMap1[label]);
+
+    // console.log("Mapped Column Keys:", mappedColumnKeys1);
+
+    const headerList =
+      data.report_type === "teacher-not-registered-registration-report"
+        ? notRegHeaders
+        : RegHeaders;
+
+    const filteredHeaders = headerList.filter((header) =>
+      mappedColumnKeys1.includes(header.key)
+    );
+    console.log("Filtered Headers:", filteredHeaders);
+    setSavedHeader1(filteredHeaders);
+    fetchDataDownloadApi1(data.report_type, data.filters);
+
+    setistabledownloadclicked(true);
+  };
+  const fetchDataDownloadApi1 = (item, param) => {
+    const apiRes = encryptGlobal(param);
+
+    const config = {
+      method: "get",
+      url:
+        process.env.REACT_APP_API_BASE_URL_FOR_REPORTS +
+        `/reports/notRegistered?Data=${apiRes}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+      },
+    };
     axios(config)
       .then((response) => {
         if (response.status === 200) {
-          setIsloader(true);
+          if (item === "teacher-not-registered-registration-report") {
+            setFilteresData(response?.data?.data || []);
+            setDownloadNotRegisteredData(response?.data?.data || []);
+            setSavedReports1(response?.data?.data || []);
+          }
 
-          const chartTableData = response?.data?.data || [];
-          setChartTableData(chartTableData);
-          const formattedData = chartTableData.map(item => ({
-            ...item,
-            total: `${item.ATL_Reg_Count + item.NONATL_Reg_Count + item.Others_Reg_Count}`
-          }));
-          setDownloadTableData(formattedData);
-          // console.log(chartTableData, "table data");
-
-          const lastRow = chartTableData[chartTableData.length - 1];
-          const maleCount = lastRow?.Male || 0;
-          const othersCount = lastRow?.others || 0;
-
-          const femaleCount = lastRow?.Female || 0;
-          const ATLregCount = lastRow?.ATL_Reg_Count || 0;
-          const NONATLregNotCount = lastRow?.NONATL_Reg_Count || 0;
-          const OthersRegCount = lastRow?.Others_Reg_Count || 0;
-
-
-          setRegisteredGenderChartData({
-            labels: ["Male Teachers", "Female Teachers", "Others"],
-            datasets: [
-              {
-                data: [maleCount, femaleCount, othersCount],
-                backgroundColor: ["#8bcaf4", "#ff99af", "#A0522D"],
-                hoverBackgroundColor: ["#36A2EB", "#FF6384", '#8B4513'],
-              },
-            ],
-          });
-
-          setRegisteredChartData({
-            labels: ["ATL Teachers Registered", "NON ATL Teachers Registered", "Others Teachers Registered"],
-            datasets: [
-              {
-                data: [ATLregCount, NONATLregNotCount, OthersRegCount],
-                backgroundColor: ["#85e085", "#ffcc80", "#A0522D"],
-                hoverBackgroundColor: ["#33cc33", "#ffa31a", '#8B4513'],
-              },
-            ],
-          });
-          const GraphfilteredData = chartTableData.filter(
-            (item) => item.state !== "Total"
-          );
-          const barData = {
-            labels: GraphfilteredData.map((item) => item.state),
-            datasets: [
-              {
-                label: "Registered ATL Schools",
-                data: GraphfilteredData.map((item) => item.ATL_Reg_Count),
-                backgroundColor: "#47d147",
-              },
-              {
-                label: "Registered Non ATL Schools",
-                data: GraphfilteredData.map((item) => item.NONATL_Reg_Count),
-                backgroundColor: "#ffa31a",
-              },
-              {
-                label: "Registered Schools",
-                data: GraphfilteredData.map((item) => item.reg_school),
-                backgroundColor: "#ffa31a",
-              }
-
-            ],
-          };
-          setBarChart1Data(barData);
-          setseries1(barData.datasets[2].data);
-          setseries2(barData.datasets[1].data);
+          setIsDownloading(false);
         }
       })
       .catch((error) => {
         console.log("API error:", error);
+        setIsDownloading(false);
       });
   };
+  const fetchDataDownloadApi = (item, param) => {
+    // alert("i am Reg Report");
+    const apiRes = encryptGlobal(param);
 
+    const config = {
+      method: "get",
+      url:
+        process.env.REACT_APP_API_BASE_URL_FOR_REPORTS +
+        `/reports/mentorRegList?Data=${apiRes}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+      },
+    };
+    axios(config)
+      .then((response) => {
+        if (response.status === 200) {
+          if (item === "teacher-registration-report") {
+            setFilteredData(response?.data?.data || []);
+            setDownloadData(response?.data?.data || []);
+            setSavedReports(response?.data?.data || []);
+          }
+
+          setIsDownloading(false);
+        }
+      })
+      .catch((error) => {
+        console.log("API error:", error);
+        setIsDownloading(false);
+      });
+  };
+  useEffect(() => {
+    if (savedReports.length > 0 && istabledownloadclicked) {
+      csvSavedRef.current.link.click();
+      setistabledownloadclicked(false);
+    }
+  }, [savedReports, savedHeader]);
+  useEffect(() => {
+    if (savedReports1.length > 0 && istabledownloadclicked) {
+      csvSavedRef1.current.link.click();
+      setistabledownloadclicked(false);
+    }
+  }, [savedReports1, savedHeader]);
+
+  const handleReportfileDelete = (data) => {
+    const idparm = encryptGlobal(JSON.stringify(data.report_file_id));
+    const config = {
+      method: "delete",
+      url: process.env.REACT_APP_API_BASE_URL + `/report_files/${idparm}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          openNotificationWithIcon("success", "Deleted Successfully");
+          fetchSavedReportsData();
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  const handleReportfileDelete1 = (data) => {
+    const idparm = encryptGlobal(JSON.stringify(data.report_file_id));
+    const config = {
+      method: "delete",
+      url: process.env.REACT_APP_API_BASE_URL + `/report_files/${idparm}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          openNotificationWithIcon("success", "Deleted Successfully");
+          fetchSavedReportsData1();
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  const allHeaders = filterType === "Registered" ? RegHeaders : notRegHeaders;
+
+  const resData = {
+    data: reportFileslist && reportFileslist.length > 0 ? reportFileslist : [],
+    columns: [
+      {
+        name: "No",
+        selector: (row, key) => key + 1,
+        sortable: true,
+        width: "6rem",
+      },
+      {
+        name: "Report Name",
+        selector: (row) => row.report_name,
+        sortable: true,
+        width: "10rem",
+      },
+      {
+        name: "State",
+        selector: (row) => {
+          const fileter = JSON.parse(row.filters);
+          return fileter.state;
+        },
+        sortable: true,
+        width: "9rem",
+      },
+      {
+        name: "District",
+        selector: (row) => {
+          const fileter = JSON.parse(row.filters);
+          return fileter.district;
+        },
+        sortable: true,
+        width: "9rem",
+      },
+      {
+        name: "Category",
+        selector: (row) => {
+          const fileter = JSON.parse(row.filters);
+          return fileter.category;
+        },
+        sortable: true,
+        width: "8rem",
+      },
+
+      {
+        name: "Columns",
+        cell: (row) => {
+          const columnKeys = JSON.parse(row.columns);
+          const displayLabels = columnKeys.map((key) => {
+            const match = allHeaders.find((header) => header.key === key);
+            return match ? match.label : key;
+          });
+
+          return (
+            <div
+              style={{
+                whiteSpace: "pre-wrap",
+                wordWrap: "break-word",
+              }}
+            >
+              {displayLabels.join(", ")}
+            </div>
+          );
+        },
+        width: "30rem",
+      },
+
+      {
+        name: "Actions",
+        width: '15rem',
+        center: true,
+        cell: (record) => [
+          <>
+            <div
+              key={record}
+              onClick={() => handleReportfileDownload(record)}
+              style={{ marginRight: "12px" }}
+            >
+              <div className="btn btn-primary btn-sm mx-2">Download</div>
+            </div>
+
+            <div
+              key={record}
+              onClick={() => handleReportfileDelete(record)}
+              style={{ marginRight: "12px" }}
+            >
+              <div className="btn btn-danger btn-sm mx-2">DELETE</div>
+            </div>
+          </>,
+        ],
+      },
+    ],
+  };
+  const resData1 = {
+    data:
+      reportFileslist1 && reportFileslist1.length > 0 ? reportFileslist1 : [],
+    columns: [
+      {
+        name: "No",
+        selector: (row, key) => key + 1,
+        sortable: true,
+        width: "6rem",
+      },
+      {
+        name: "Report Name",
+        selector: (row) => row.report_name,
+        sortable: true,
+        width: "10rem",
+      },
+      {
+        name: "State",
+        selector: (row) => {
+          const fileter = JSON.parse(row.filters);
+          return fileter.state;
+        },
+        sortable: true,
+        width: "9rem",
+      },
+      {
+        name: "District",
+        selector: (row) => {
+          const fileter = JSON.parse(row.filters);
+          return fileter.district;
+        },
+        sortable: true,
+        width: "9rem",
+      },
+      {
+        name: "Category",
+        selector: (row) => {
+          const fileter = JSON.parse(row.filters);
+          return fileter.category;
+        },
+        sortable: true,
+        width: "8rem",
+      },
+
+      {
+        name: "Columns",
+        cell: (row) => {
+          const columnKeys = JSON.parse(row.columns);
+          const displayLabels = columnKeys.map((key) => {
+            const match = allHeaders.find((header) => header.key === key);
+            return match ? match.label : key;
+          });
+
+          return (
+            <div
+              style={{
+                whiteSpace: "pre-wrap",
+                wordWrap: "break-word",
+              }}
+            >
+              {displayLabels.join(", ")}
+            </div>
+          );
+        },
+        width: "15rem",
+      },
+
+      {
+        name: "Actions",
+        width: '15rem',
+        center: true,
+        cell: (record) => [
+          <>
+            <div
+              key={record}
+              onClick={() => handleReportfileDownload1(record)}
+              style={{ marginRight: "12px" }}
+            >
+              <div className="btn btn-primary btn-sm mx-2">Download</div>
+            </div>
+
+            <div
+              key={record}
+              onClick={() => handleReportfileDelete1(record)}
+              style={{ marginRight: "12px" }}
+            >
+              <div className="btn btn-danger btn-sm mx-2">DELETE</div>
+            </div>
+          </>,
+        ],
+      },
+    ],
+  };
+  const customStyles = {
+    head: {
+      style: {
+        fontSize: "1em", // Adjust as needed
+      },
+    },
+  };
   return (
     <div className="page-wrapper">
-      <h4 className="m-2"
-        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px', backgroundColor: 'white', display: 'inline-block', color: '#fe9f43', fontSize: "16px" }}
-      >Reports
+      <h4
+        className="m-2"
+        style={{
+          position: "sticky",
+          top: "70px",
+          zIndex: 1000,
+          padding: "10px",
+          backgroundColor: "white",
+          display: "inline-block",
+          color: "#fe9f43",
+          fontSize: "16px",
+        }}
+      >
+        Reports
       </h4>
       <div className="content">
         <div className="page-header">
@@ -765,12 +960,6 @@ const ReportsRegistration = () => {
               </Col>
               <Col md={2}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
-                  {/* <Select
-                                            list={categoryData}
-                                            setValue={setCategory}
-                                            placeHolder={'Select Category'}
-                                            value={category}
-                                        /> */}
                   {RegTeachersState === "Tamil Nadu" ? (
                     <Select
                       list={categoryDataTn}
@@ -789,19 +978,6 @@ const ReportsRegistration = () => {
                 </div>
               </Col>
 
-              {/* <Col
-                md={2}
-                className="d-flex align-items-center justify-content-center"
-              >
-                <button
-                  onClick={handleDownload}
-                  type="button"
-                  disabled={isDownloading}
-                  className="btn btn-primary"
-                >
-                  {isDownloading ? "Downloading" : "Download Report"}
-                </button>
-              </Col> */}
               <Col md={2}>
                 <button
                   onClick={() => {
@@ -811,26 +987,62 @@ const ReportsRegistration = () => {
                   type="button"
                   disabled={!enable}
                   className="btn btn-primary"
-
                 >
                   Customization
                 </button>
               </Col>
+
               {showCustomization && (
-                <div
-                  className="card mt-3"
-                // style={{ width: "50%", padding: "20px" }}
-                >
+                <div className="card mt-3">
                   <div className="card-body">
-                    <h5 className="card-title">Select Columns</h5>
-                    <div className="row">
+                    <div className="row align-items-center mb-3">
+                      <div className="col-md-3">
+                        <h5 className="card-title mb-0">Select Columns</h5>
+                      </div>
+                      <div className="col-md-3">
+                        <div className="form-check">
+                          <input
+                            type="checkbox"
+                            className="form-check-input"
+                            id="selectAll"
+                            style={{ transform: "scale(0.9)" }}
+                            checked={
+                              selectedValue.length > 0 &&
+                              (filterType === "Not Registered"
+                                ? NotReglabels.every((val) =>
+                                    selectedValue.includes(val)
+                                  )
+                                : Reglabels.every((val) =>
+                                    selectedValue.includes(val)
+                                  ))
+                            }
+                            onChange={() =>
+                              setclickedValue({ name: "Select ALL" })
+                            }
+                          />
+                          <label
+                            className="form-check-label ms-2"
+                            htmlFor="selectAll"
+                          >
+                            Select ALL
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="row mt-3">
                       <Check
-                        list={filterType === "Not Registered" ? NotReglabels : Reglabels}
+                        list={
+                          filterType === "Not Registered"
+                            ? NotReglabels
+                            : Reglabels
+                        }
                         value={selectedValue}
                         setValue={setselectedValue}
                         selValue={setclickedValue}
                       />
                     </div>
+
                     <button
                       className="btn btn-danger mt-3"
                       onClick={async () => {
@@ -841,208 +1053,166 @@ const ReportsRegistration = () => {
                     >
                       Download Report
                     </button>
+                    <button
+                      className="btn btn-info mt-3"
+                      style={{ marginLeft: "1rem" }}
+                      onClick={() => {
+                        setShowPopup(true);
+                      }}
+                      disabled={selectedValue.length === 0}
+                    >
+                      Save Format
+                    </button>
                   </div>
                 </div>
               )}
-            </Row>
-            {isloader ?
-              <div className="chart mt-2 mb-2">
-                {chartTableData.length > 0 && (
-                  <div className="row">
-                    <div className="col-sm-12 col-md-12 col-xl-4 d-flex">
-                      <div className="card flex-fill default-cover w-100 mb-4">
-                        <div className="card-header d-flex justify-content-between align-items-center">
-                          <h4 className="card-title mb-0">Data Analytics</h4>
-                          <div className="dropdown">
-                            <Link
-                              to="#"
-                              className="view-all d-flex align-items-center"
-                            >
-                              View All
-                              <span className="ps-2 d-flex align-items-center">
-                                <ArrowRight className="feather-16" />
-                              </span>
-                            </Link>
-                          </div>
-                        </div>
-                        <div className="card-body">
-                          <div className="row">
-                            <div className="col-md-12 text-center mt-3">
-                              <p>
-                                <b>
-                                  Overall Registered ATL vs Non ATL vs Other Teachers As of{" "}
-                                  {newFormat}
-                                </b>
-                              </p>
-                            </div>
-                            <div className="col-md-12 doughnut-chart-container">
-                              {registeredChartData && (
-                                <Doughnut
-                                  data={registeredChartData}
-                                  options={chartOption}
-                                />
-                              )}
-                            </div>
-                            <div className="col-md-12 text-center mt-3">
-                              <p>
-                                <b>
-                                  Overall Registered Female vs Male vs Other Teachers As of{" "}
-                                  {newFormat}
-                                </b>
-                              </p>
-                            </div>
-                            <div className="col-md-12 doughnut-chart-container">
-                              {registeredGenderChartData && (
-                                <Doughnut
-                                  data={registeredGenderChartData}
-                                  options={chartOptions}
-                                />
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-sm-12 col-md-12 col-xl-8 d-flex">
-                      <div className="card flex-fill default-cover w-100 mb-4">
-                        <div className="card-header d-flex justify-content-between align-items-center">
-                          <h4 className="card-title mb-0">
-                            States wise Teacher Registration Stats
-                          </h4>
-                          <div className="dropdown">
-                            <Link
-                              to="#"
-                              className="view-all d-flex align-items-center"
-                            >
-                              <button
-                                className="btn mx-2 btn-primary"
-                                type="button"
-                                onClick={() => {
-                                  if (downloadTableData) {
-                                    // setIsDownloading(true);
-                                    setDownloadTableData(null);
-                                    csvLinkRefTable.current.link.click();
-                                  }
-                                }}
-                              >
-                                Get Statistics
-                              </button>
-                            </Link>
-                          </div>
-                        </div>
-                        <div className="card-body">
-                          <div className="table-responsive">
-                            <table className="table table-border recent-transactions">
-                              <thead>
-                                <tr>
-                                  <th style={{ whiteSpace: "wrap", color: "#36A2EB", fontWeight: "bold" }}>#</th>
-                                  <th style={{ whiteSpace: "wrap", color: "#36A2EB", fontWeight: "bold" }}>State Name</th>
-                                  <th style={{ whiteSpace: "wrap", color: "#36A2EB", fontWeight: "bold" }}>
-                                    Schools in DB{" "}
-                                    <FontAwesomeIcon icon={faSchool} />
-                                  </th>
-                                  <th style={{ whiteSpace: "wrap", color: "#36A2EB", fontWeight: "bold" }}>
-                                    Registered Schools
-                                  </th>
-                                  <th style={{ whiteSpace: "wrap", color: "#36A2EB", fontWeight: "bold" }}>
-                                    ATL Teachers
-                                  </th>
-                                  <th style={{ whiteSpace: "wrap", color: "#36A2EB", fontWeight: "bold" }}>
-                                    Non-ATL Teachers
-                                  </th>
-                                  <th style={{ whiteSpace: "wrap", color: "#36A2EB", fontWeight: "bold" }}>
-                                    Others Teachers
-                                  </th>
-                                  <th style={{ whiteSpace: "wrap", color: "#36A2EB", fontWeight: "bold" }}>
-                                    Total Teachers
-                                  </th>
-                                  <th style={{ whiteSpace: "wrap", color: "#36A2EB", fontWeight: "bold" }}>
-                                    <FontAwesomeIcon icon={faMale} />
-                                    Male
-                                  </th>
-                                  <th style={{ whiteSpace: "wrap", color: "#36A2EB", fontWeight: "bold" }}>
-                                    <FontAwesomeIcon icon={faFemale} />
-                                    Female
-                                  </th>
-                                  <th style={{ whiteSpace: "wrap", color: "#36A2EB", fontWeight: "bold" }}>
-                                    <FontAwesomeIcon icon={faMale} />
-                                    Others
-                                  </th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {chartTableData.map((item, index) => (
-                                  <tr key={index}>
-                                    <td>{index + 1}</td>
-                                    <td
-                                      style={{
-                                        maxWidth: "150px",
-                                        overflow: "hidden",
-                                        textOverflow: "ellipsis",
-                                        color: "crimson"
-                                      }}
-                                    >
-                                      {item.state}
-                                    </td>
-                                    <td>{item.Eligible_school
-                                    }</td>
-                                    <td>{item.reg_school
-                                    }</td>
-                                    <td>{item.ATL_Reg_Count}</td>
-                                    <td>{item.NONATL_Reg_Count}</td>
-                                    <td>{item.Others_Reg_Count}</td>
+              {showPopup && (
+                <div
+                  onClick={() => setShowPopup(false)}
+                  style={{
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    width: "100vw",
+                    height: "100vh",
+                    backgroundColor: "rgba(0,0,0,0.5)",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    zIndex: 9999,
+                  }}
+                >
+                  <div
+                    onClick={(e) => e.stopPropagation()}
+                    style={{
+                      position: "relative",
+                      background: "white",
+                      padding: "20px",
+                      borderRadius: "8px",
+                      minWidth: "400px",
+                      textAlign: "center",
+                    }}
+                  >
+                    <button
+                      onClick={() => setShowPopup(false)}
+                      style={{
+                        position: "absolute",
+                        top: "10px",
+                        right: "10px",
+                        background: "transparent",
+                        border: "none",
+                        fontSize: "20px",
+                        fontWeight: "bold",
+                        cursor: "pointer",
+                      }}
+                    >
+                      ×
+                    </button>
 
-                                    <td>{item.ATL_Reg_Count + item.NONATL_Reg_Count + item.Others_Reg_Count}</td>
-                                    <td>{item.Male}</td>
-                                    <td>{item.Female}</td>
-                                    <td>{item.others}</td>
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
+                    <h5 style={{ margin: "1rem" }}>
+                      Enter Report Name to Save
+                    </h5>
+                    <p style={{ color: "black", fontWeight: "bold" }}>
+                      Allowed Characters : A-Z, a-z, 0-9, -, _, (, ), &, ., and ,
+                    </p>
+
+                    <input
+                      type="text"
+                      value={inputValue}
+                      placeholder="Enter Report Name"
+                      onChange={handleInputChange}
+                      style={{
+                        width: "100%",
+                        padding: "8px",
+                        marginBottom: "12px",
+                        borderRadius: "4px",
+                        border: "1px solid #ccc",
+                      }}
+                    />
+                    {error && (
+                      <div
+                        style={{
+                          color: "red",
+                          marginBottom: "10px",
+                          fontSize: "14px",
+                        }}
+                      >
+                        {error}
                       </div>
-                    </div>
-                  </div>
-                )}
-                <div className="col-md-12">
-                  <div className="card">
-                    <div className="card-header">
-                      <h5 className="card-title">
-                        Registered Schools As of{" "}
-                        {newFormat}
-                      </h5>
-                    </div>
-                    <div className="card-body">
-                      <div id="s-col-stacked" />
-                      <ReactApexChart
-                        options={options}
-                        series={options.series}
-                        type="bar"
-                        // type="area"
-                        height={400}
-                      />
-                    </div>
+                    )}
+                    <button
+                      className="btn btn-primary m-2"
+                      // onClick={handleSaveReport}
+                      onClick={() => handleSaveReport(filterType)}
+                    >
+                      OK
+                    </button>
                   </div>
                 </div>
+              )}
+              <div>
+                <h5 className="mt-2">Teacher Registered List</h5>
+                <DataTableExtensions
+                  print={false}
+                  export={false}
+                  {...resData}
+                  exportHeaders
+                >
+                  <DataTable
+                    defaultSortField="id"
+                    defaultSortAsc={false}
+                    customStyles={customStyles}
+                    pagination
+                    highlightOnHover
+                    fixedHeader
+                    subHeaderAlign={Alignment.Center}
+                  />
+                </DataTableExtensions>
               </div>
-              :
-              <div className="spinner-border text-info" role="status">
-                <span className="sr-only">Loading...</span>
+              {savedReports && (
+                <CSVLink
+                  data={savedReports}
+                  headers={savedHeader}
+                  filename={`Teacher_Register_Report_${newFormat}.csv`}
+                  className="hidden"
+                  ref={csvSavedRef}
+                >
+                  Download Table CSV
+                </CSVLink>
+              )}
+              <div>
+                <h5 className="mt-2">Teacher Not Registered List</h5>
+                <DataTableExtensions
+                  print={false}
+                  export={false}
+                  {...resData1}
+                  exportHeaders
+                >
+                  <DataTable
+                    defaultSortField="id"
+                    defaultSortAsc={false}
+                    customStyles={customStyles}
+                    pagination
+                    highlightOnHover
+                    fixedHeader
+                    subHeaderAlign={Alignment.Center}
+                  />
+                </DataTableExtensions>
               </div>
-            }
-            {downloadTableData && (
-              <CSVLink
-                data={downloadTableData}
-                headers={summaryHeaders}
-                filename={`TeacherRegistrationSummaryTable_${newFormat}.csv`}
-                className="hidden"
-                ref={csvLinkRefTable}
-              >
-                Download Table CSV
-              </CSVLink>
-            )}
+              {savedReports1 && (
+                <CSVLink
+                  data={savedReports1}
+                  headers={savedHeader1}
+                  className="hidden"
+                  filename={`Teacher_Not_Registere_Report_${newFormat}.csv`}
+                  ref={csvSavedRef1}
+                >
+                  Download Table CSV
+                </CSVLink>
+              )}
+            </Row>
+            <SecondReportStats />
+
             {downloadData && (
               <CSVLink
                 data={downloadData}
@@ -1053,7 +1223,7 @@ const ReportsRegistration = () => {
               >
                 Download CSV
               </CSVLink>
-            )}
+            )} 
             {downloadNotRegisteredData && (
               <CSVLink
                 data={downloadNotRegisteredData}
@@ -1064,7 +1234,7 @@ const ReportsRegistration = () => {
               >
                 Download Not Registered CSV
               </CSVLink>
-            )}
+            )} 
           </div>
         </Container>
       </div>

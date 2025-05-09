@@ -479,20 +479,7 @@ const updateStatesList=["All States",...stateList];
             },
 
           
-            // {
-            //     name: 'Status',
-            //     cell: (row) => [
-            //         <Badge
-            //             key={row.mentor_id}
-            //             bg={`${
-            //                 row.status === 'ACTIVE' ? 'secondary' : 'danger'
-            //             }`}
-            //         >
-            //             {row.status}
-            //         </Badge>
-            //     ],
-            //     width: '8rem'
-            // },
+          
             {
                 name: 'Actions',
                 sortable: false,
@@ -505,23 +492,7 @@ const updateStatesList=["All States",...stateList];
                     >
                         <div className="btn btn-primary  mr-5">View</div>
                     </div>
-                    // <div
-                    //     key={record.id}
-                    //     style={{ marginRight: '10px' }}
-                    //     onClick={() => {
-                    //         let status =
-                    //             record?.status === 'ACTIVE'
-                    //                 ? 'INACTIVE'
-                    //                 : 'ACTIVE';
-                    //         handleStatus(status, record?.student_id, 'student');
-                    //     }}
-                    // >
-                    //     {record?.status === 'ACTIVE' ? (
-                    //         <div className="btn btn-danger ">INACTIVE</div>
-                    //     ) : (
-                    //         <div className="btn btn-warning ">ACTIVE</div>
-                    //     )}
-                    // </div>
+                  
                 ]
             }
         ]

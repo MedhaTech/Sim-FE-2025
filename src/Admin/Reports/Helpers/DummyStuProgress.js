@@ -2,26 +2,26 @@
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Table } from "reactstrap";
-import { Button } from "../../stories/Button";
+import { Button } from "../../../stories/Button";
 import { CSVLink } from "react-csv";
-import { getCurrentUser } from "../../helpers/Utils";
+import { getCurrentUser } from "../../../helpers/Utils";
 import { useNavigate, Link } from "react-router-dom";
-// import {
-//   getDistrictData,
-//   getStateData,
-//   getFetchDistData,
-// } from "../../../redux/studentRegistration/actions";
+import {
+  getDistrictData,
+  getStateData,
+  getFetchDistData,
+} from "../../../redux/studentRegistration/actions";
 import { ArrowRight } from "feather-icons-react/build/IconComponents";
 import { useDispatch, useSelector } from "react-redux";
-import Select from "./Select";
+import Select from "../Helpers/Select";
 import axios from "axios";
 // import '../reports.scss';
 import { Doughnut } from "react-chartjs-2";
 import { Bar } from "react-chartjs-2";
-// import { categoryValue } from "../../Schools/constentText";
+import { categoryValue } from "../../Schools/constentText";
 import { notification } from "antd";
-import { encryptGlobal } from "../../constants/encryptDecrypt";
-import { stateList, districtList } from "../../RegPage/ORGData";
+import { encryptGlobal } from "../../../constants/encryptDecrypt";
+import { stateList, districtList } from "../../../RegPage/ORGData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMale,
@@ -29,19 +29,16 @@ import {
   faChalkboardTeacher,
 } from "@fortawesome/free-solid-svg-icons";
 import ReactApexChart from "react-apexcharts";
-import { openNotificationWithIcon } from "../../helpers/Utils";
+import { openNotificationWithIcon } from "../../../helpers/Utils";
 
 const StudentProgress = () => {
   const navigate = useNavigate();
   const [district, setdistrict] = React.useState("");
-  const currentUser = getCurrentUser("current_user");
-  
-  const [isloader, setIsloader] = useState(false);
-  const [selectstate, setSelectState] = React.useState(
-    currentUser?.data[0]?.state_name
-  );
+  const [selectstate, setSelectState] = React.useState("");
   const [category, setCategory] = useState("");
   const [isDownload, setIsDownload] = useState(false);
+  
+  const [isloader, setIsloader] = useState(false);
   const categoryData = ["All Categories", "ATL", "Non ATL"];
   const categoryDataTn = [
   "All Categories",
@@ -49,16 +46,19 @@ const StudentProgress = () => {
     "HS",
     "Non ATL",
   ];
-
   const newstateList = ["All States", ...stateList];
   // const categoryData =
   //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
   const [studentDetailedReportsData, setstudentDetailedReportsData] = useState(
     []
   );
-  const [doughnutChartData, setDoughnutChartData] = useState(null);
-  const [doughnutChartDataBar, setDoughnutChartDataBar] = useState(null);
 
+  useEffect(() => {
+    setdistrict('');
+  }, [selectstate]);
+  const [customizationActive, setCustomizationActive] = useState(false);
+  const [doughnutChartData, setDoughnutChartData] = useState(null);
+  const currentUser = getCurrentUser("current_user");
   const csvLinkRef = useRef();
   const csvLinkRefTable = useRef();
   const dispatch = useDispatch();
@@ -74,7 +74,12 @@ const StudentProgress = () => {
   const [series5, setseries5] = useState([]);
   const [series6, setseries6] = useState([]);
   const [series7, setseries7] = useState([]);
-
+  const [doughnutChartDataBar, setDoughnutChartDataBar] = useState(null);
+  const [isCustomizationEnabled, setIsCustomizationEnabled] = useState(false);
+ const [showCustomization, setShowCustomization] = useState(false);
+  const [selectedHeaders, setSelectedHeaders] = useState([]);
+  const [isReadyToDownload, setIsReadyToDownload] = useState(false);
+  const [formattedDataForDownload, setFormattedDataForDownload] = useState([]);
   const [barChart1Data, setBarChart1Data] = useState({
     labels: [],
     datasets: [],
@@ -87,17 +92,19 @@ const StudentProgress = () => {
     labels: [],
     datasets: [],
   });
-  
   const fullStatesNames = newstateList;
   const allDistricts = {
     "All Districts": [...Object.values(districtList).flat()],
-    ...districtList,
+    ...districtList
   };
-  const fiterDistData = ["All Districts", ...(allDistricts[selectstate] || [])];
+  const fiterDistData = [
+    'All Districts',
+    ...allDistricts[selectstate] || []
+  ];
+    const [modifiedChartTableData, setModifiedChartTableData] = useState([]);
+   const [hasData, setHasData] = useState(false);
   // const fiterDistData = districtList[selectstate];
-  // useEffect(() => {
-  //     dispatch(getStateData());
-  // }, []);
+
   useEffect(() => {
     // if (selectstate !== '') {
     //     dispatch(getFetchDistData(selectstate));
@@ -113,27 +120,27 @@ const StudentProgress = () => {
 
   const tableHeaders = [
     {
-      label: "District Name",
-      key: "district",
+      label: "State Name",
+      key: "state",
     },
     {
-      label: "Total No.of Teams created",
+      label: "Total No.Of TEAMS created",
       key: "totalTeams",
     },
     {
-      label: "Total No.of Students enrolled",
+      label: "Total No.Of STUDENTS enrolled",
       key: "totalStudents",
     },
     {
-      label: "No.of Students Completed the Course",
+      label: "No.Of Students completed the Course",
       key: "courseCompleted",
     },
     {
-      label: "No.of Students Course In Progress",
+      label: "No.Of Students course In Progress",
       key: "courseINprogesss",
     },
     {
-      label: "No.of Students Not Started Course",
+      label: "No.Of students NOT STARTED Course",
       key: "courseNotStarted",
     },
     {
@@ -143,25 +150,21 @@ const StudentProgress = () => {
     {
       label: 'No.of Teams Submitted Ideas',
       key: 'submittedCount'
-  },
-  {
+    },
+    {
       label: 'No.of Teams Ideas in Draft',
       key: 'draftCount'
-  },
-  {
+    },
+    {
       label: 'No.of Teams Not Stated Idea Submission',
       key: 'ideaNotStarted'
-  },
- ];
-  const teacherDetailsHeaders = [
+    },
+  ];
+  const allHeaders = [
     {
       label: "UDISE CODE",
       key: "organization_code",
     },
-    // {
-    //   label: "ATL CODE",
-    //   key: "organization_code",
-    // },
     {
       label: "School Name",
       key: "organization_name",
@@ -179,26 +182,21 @@ const StudentProgress = () => {
       key: "district",
     },
     {
-      label: 'Mandal / Taluka',
-      key: "mandal",
-    }, {
-      label: 'School Type',
-      key: "school_type",
-    }, {
-      label: 'School Board',
-      key: "board",
-    },
-    {
       label: "City",
       key: "city",
     },
+    { label: "Mandal / Taluka", key: "mandal" },
+
+    { label: "School Type", key: "school_type" },
+
+    { label: "School Board", key: "board" },
     {
-      label: "HM Name",
-      key: "principal_name",
+      label: 'HM Name',
+      key: 'principal_name'
     },
     {
-      label: "HM Contact",
-      key: "principal_mobile",
+      label: 'HM Contact',
+      key: 'principal_mobile'
     },
     {
       label: "Teacher Name",
@@ -222,80 +220,109 @@ const StudentProgress = () => {
     },
 
     {
-      label: "Team Name",
-      key: "team_name",
+      label: 'Team Name',
+      key: 'team_name'
     },
     {
-      label: "Team Username/Login",
-      key: "team_username",
+      label: 'Team Username',
+      key: 'team_username'
     },
     {
-      label: "Student Name",
-      key: "studentfullname",
+      label: 'Student Name',
+      key: 'studentfullname'
     },
 
     {
-      label: "Age",
-      key: "Age",
+      label: 'Age',
+      key: 'Age'
     },
     {
-      label: "Gender",
-      key: "studentgender",
+      label: 'Gender',
+      key: 'studentgender'
     },
     {
-      label: "Class",
-      key: "Grade",
+      label: 'Class',
+      key: 'Grade'
     },
     {
-      label: "Disability status",
-      key: "disability",
+      label: 'Disability Type',
+      key: 'disability'
     },
     {
       label: "Pre Survey Status",
       key: "pre_survey_status",
     },
-
-
     {
-      label: "Course Completion%",
-      key: "course_per",
+      label: 'Course Completion%',
+      key: 'course_per'
     },
     {
-      label: "Course Status",
-      key: "user_count",
+      label: 'Course Status',
+      key: 'user_count'
     },
     {
-      label: "Idea Status",
-      key: "idea_status",
+      label: 'Idea Status',
+      key: 'idea_status'
     },
     {
       label: "Post Survey Status",
       key: "post_survey_status",
     },
-
-    // {
-    //     label: 'No.of Teams Idea Submitted',
-    //     key: 'submittedcout'
-    // },
-    // {
-    //     label: 'No.of Teams Idea in Draft',
-    //     key: 'draftcout'
-    // },
-    // {
-    //     label: 'No.of Teams Idea NOt Initiated',
-    //     key: 'ideanotIN'
-    // }
+   
   ];
-
-  // useEffect(() => {
-  //     dispatch(getDistrictData());
-  //     fetchChartTableData();
-  //     const newDate = new Date();
-  //     const formattedDate = `${newDate.getUTCDate()}/${
-  //         1 + newDate.getMonth()
-  //     }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
-  //     setNewFormat(formattedDate);
-  // }, []);
+  const headerMapping = {
+    organization_code: "UDISE CODE",
+    organization_name: "School Name",
+    category: "School Category",
+    state: "State",
+    district: "District",
+    city: "City",
+    mandal :"Mandal / Taluka",
+    school_type :"School Type",
+    board :"School Board",
+    principal_name: "HM Name",
+    principal_mobile: "HM Contact",
+    full_name: "Teacher Name",
+    username: "Teacher Email",
+    gender: "Teacher Gender",
+    mobile: "Teacher Contact",
+    whatapp_mobile: "Teacher WhatsApp Contact",
+    team_name: "Team Name",
+    team_username: "Team Username",
+    studentfullname: "Student Name",
+    Age: "Age",
+    studentgender: "Gender",
+    Grade: "Class",
+    disability: "Disability Type",
+    pre_survey_status: "Pre Survey Status",
+    course_per: "Course Completion%",
+    user_count: "Course Status",
+    idea_status: "Idea Status",
+    post_survey_status: "Post Survey Status",
+  };
+  const handleCheckboxChange = (key) => {
+    setSelectedHeaders((prevHeaders) => {
+      let updatedHeaders;
+      if (prevHeaders.includes(key)) {
+        updatedHeaders = prevHeaders.filter((header) => header !== key);
+      } else {
+        updatedHeaders = [...prevHeaders, key];
+      }
+      filterData(updatedHeaders);
+      return updatedHeaders;
+    });
+  };
+  
+  
+  const handleSelectAll = () => {
+    setSelectedHeaders((prevHeaders) => {
+      const updatedHeaders =
+        prevHeaders.length === allHeaders.length ? [] : allHeaders.map((h) => h.key);
+        filterData(updatedHeaders);
+      return updatedHeaders;
+    });
+  }; 
+ 
 
   var chartOption = {
     chart: {
@@ -305,7 +332,7 @@ const StudentProgress = () => {
         show: false,
       },
     },
-    colors: ["#36A2EB", "rgb(254, 176, 25)", "#FF6384",],
+    colors: ["#36A2EB", "#FF6384", "rgb(254, 176, 25)"],
     labels: [
       "Submitted Ideas",
       "In Draft Ideas",
@@ -411,7 +438,7 @@ const StudentProgress = () => {
         show: false,
       },
     },
-    colors: ["rgba(255, 0, 0, 0.6)", "rgba(255, 255, 0, 0.6)","rgba(0, 128, 0, 0.6)"],
+    colors: ["rgb(255, 69, 96)", "rgb(254, 176, 25)", "rgb(0, 227, 150)"],
 
     plotOptions: {
       bar: {
@@ -534,57 +561,15 @@ const StudentProgress = () => {
     ],
   };
 
-  // var radialChart = {
-  //   chart: {
-  //     height: 350,
-  //     type: "donut",
-  //     toolbar: {
-  //       show: false,
-  //     },
-  //   },
-  //   colors: ["rgb(0, 227, 150)", "rgb(254, 176, 25)", "rgb(255, 69, 96)"],
-  //   plotOptions: {
-  //     radialBar: {
-  //       dataLabels: {
-  //         name: {
-  //           fontSize: "22px",
-  //         },
-  //         value: {
-  //           fontSize: "16px",
-  //         },
-  //         total: {
-  //           show: true,
-  //           label: "Total",
-  //           formatter: function () {
-  //             return totalCount.totalStudents;
-  //           },
-  //         },
-  //       },
-  //     },
-  //   },
-  //   series: [
-  //     Math.round((totalCount.courseCompleted * 100) / totalCount.totalStudents),
-  //     Math.round(
-  //       (totalCount.courseINprogesss * 100) / totalCount.totalStudents
-  //     ),
-  //     Math.round(
-  //       ((totalCount.totalStudents -
-  //         (totalCount.courseCompleted + totalCount.courseINprogesss)) *
-  //         100) /
-  //       totalCount.totalStudents
-  //     ),
-  //   ],
-  //   labels: ["Completed", "InProgress", "NotStarted"],
-  // };
   var radialChart = {
     chart: {
-      height: 330,
+      height: 350,
       type: "donut",
       toolbar: {
         show: false,
       },
     },
-    colors: ["rgba(255, 0, 0, 0.6)", "rgba(255, 255, 0, 0.6)","rgba(0, 128, 0, 0.6)"],
+    colors: ["rgba(255, 0, 0, 0.6)", "rgba(255, 255, 0, 0.6)", "rgba(0, 128, 0, 0.6)"],
     labels: [
       "Not Started ",
       "In Progress",
@@ -593,7 +578,7 @@ const StudentProgress = () => {
     series: [
       totalCount.courseNotStarted,
       totalCount.courseINprogesss,
-                  totalCount.courseCompleted,
+      totalCount.courseCompleted,
     ],
     legend: {
       position: "top",
@@ -667,23 +652,50 @@ const StudentProgress = () => {
         console.log(error);
       });
   };
-  const handleDownload = () => {
-    if (!selectstate || !district || !category) {
-      notification.warning({
-        message:
-          "Please select a district, category type before Downloading Reports.",
+  const filterData= (updatedHeaders)=>{
+    const filteredData = modifiedChartTableData.map((item) => {
+
+      let filteredItem = {};
+      updatedHeaders.forEach((key) => {
+        if (item && Object.prototype.hasOwnProperty.call(item, key)) {  
+          filteredItem[key] = item[key] ?? ""; 
+        } else {
+          console.warn(`Key "${key}" not found in item:`, item); 
+        }
       });
-      return;
-    }
-    setIsDownload(true);
-    fetchData();
+    
+      console.log("Filtered Item:", filteredItem); 
+      return Object.keys(filteredItem).length > 0 ? filteredItem : null; 
+    }).filter(Boolean); 
+    console.log("Final Filtered Data for Download:", filteredData);
+    setstudentDetailedReportsData(filteredData);
   };
-  useEffect(() => {
-    if (studentDetailedReportsData.length > 0) {
-      console.log("Performing operation with the updated data.");
-      csvLinkRef.current.link.click();
-    }
-  }, [studentDetailedReportsData]);
+ 
+  const enable = selectstate?.trim() !== "" && district?.trim() !== "" && category?.trim() !== "";
+ 
+    useEffect(() => {
+        console.log("Updated Download Table Data:", studentDetailedReportsData);
+      }, [studentDetailedReportsData]); 
+     
+        useEffect(() => {
+            if (isReadyToDownload && studentDetailedReportsData.length > 0) {
+              console.log("Downloading CSV with data:", studentDetailedReportsData);
+              const formattedCSVData = studentDetailedReportsData.map((item) =>
+                Object.fromEntries(
+                  Object.entries(item).map(([key, value]) => [headerMapping[key] || key, value])
+                )
+              );
+              setFormattedDataForDownload(formattedCSVData);
+        
+          setTimeout(() => {
+                csvLinkRef.current.link.click();
+                console.log("Downloading CSV with formatted headers:", formattedCSVData);
+                openNotificationWithIcon("success", "Report Downloaded Successfully");
+                setIsReadyToDownload(false); 
+              }, 1000);
+          
+            }
+          }, [isReadyToDownload, studentDetailedReportsData]);
   const fetchData = () => {
     const apiRes = encryptGlobal(
       JSON.stringify({
@@ -692,7 +704,6 @@ const StudentProgress = () => {
         category: category,
       })
     );
-    // console.log(selectstate,district,category);
     const config = {
       method: "get",
       url:
@@ -706,7 +717,7 @@ const StudentProgress = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          
+
           const teamDataMap = response.data.data[0].teamData.reduce(
             (map, item) => {
               map[item.team_id] = item;
@@ -796,15 +807,16 @@ const StudentProgress = () => {
               gender: mentorMap[item.mentor_id].gender,
               mobile: mentorMap[item.mentor_id].mobile,
               organization_code: mentorMap[item.mentor_id].organization_code,
+              unique_code: mentorMap[item.mentor_id].unique_code,
               organization_name: mentorMap[item.mentor_id].organization_name,
               state: mentorMap[item.mentor_id].state,
               whatapp_mobile: mentorMap[item.mentor_id].whatapp_mobile,
               mentorUserId: mentorMap[item.mentor_id].mentorUserId,
               city: mentorMap[item.mentor_id].city,
-              principal_name: mentorMap[item.mentor_id].principal_name,
               mandal: mentorMap[item.mentor_id].mandal, 
               school_type: mentorMap[item.mentor_id].school_type,
               board: mentorMap[item.mentor_id].board,
+              principal_name: mentorMap[item.mentor_id].principal_name,
               principal_mobile: mentorMap[item.mentor_id].principal_mobile,
             };
           });
@@ -814,19 +826,32 @@ const StudentProgress = () => {
               username: mentorUsernameMap[item.mentorUserId]
             };
           });
-
-          setstudentDetailedReportsData(newdatalist);
+          setModifiedChartTableData(newdatalist);
+          // const filteredData = newdatalist.map((item) => {
+          //   let filteredItem = {};
+          //   selectedHeaders.forEach((key) => {
+          //     if (item && Object.prototype.hasOwnProperty.call(item, key)) {  
+          //       filteredItem[key] = item[key] ?? ""; 
+          //     } else {
+          //       console.warn(`Key "${key}" not found in item:`, item); 
+          //     }
+          //   });
+          
+          //   console.log("Filtered Item:", filteredItem); 
+          //   return Object.keys(filteredItem).length > 0 ? filteredItem : null; 
+          // }).filter(Boolean); 
+          // console.log("Final Filtered Data for Download:", filteredData);
+          // setstudentDetailedReportsData(filteredData);
           if (response.data.data[0].summary.length > 0) {
-            openNotificationWithIcon(
-              "success",
-              "Report Downloaded Successfully"
-            );
+            setIsCustomizationEnabled(true);
+            setHasData(true); 
+          
           } else {
-            openNotificationWithIcon("error", "No Data Found");
+            openNotificationWithIcon('error', 'No Data Found');
+            setHasData(false); 
+            setShowCustomization(false);
           }
-          //   csvLinkRef.current.link.click();
-          //   console.log(studentDetailedReportsData,"ttt");
-          // openNotificationWithIcon("success", "Report Downloaded Successfully");
+         
           setIsDownload(false);
         }
       })
@@ -837,16 +862,9 @@ const StudentProgress = () => {
   };
 
   const fetchChartTableData = () => {
-    const staParam = encryptGlobal(
-      JSON.stringify({
-        state: currentUser?.data[0]?.state_name,
-      })
-    );
     const config = {
       method: "get",
-      url:
-        process.env.REACT_APP_API_BASE_URL_FOR_REPORTS +
-        `/reports/studentdetailstable?Data=${staParam}`,
+      url: process.env.REACT_APP_API_BASE_URL_FOR_REPORTS + "/reports/studentdetailstable",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${currentUser?.data[0]?.token}`,
@@ -865,75 +883,56 @@ const StudentProgress = () => {
           const courseINprogesss = response.data.data[0].courseINprogesss;
           const draftCount = response.data.data[0].draftCount;
           const submittedCount = response.data.data[0].submittedCount;
+
+
           const combinedArray = summary.map((summaryItem) => {
-            const district = summaryItem.district;
+            const state = summaryItem.state;
             const totalTeams = summaryItem.totalTeams;
-            // const teamCountItem = teamCount.find(
-            //     (item) => item.state === state
-            // );
             const draftCountItem = draftCount.find(
-              (item) => item.district === district
+              (item) => item.state === state
             );
             const submittedCountItem = submittedCount.find(
-              (item) => item.district === district
+              (item) => item.state === state
             );
             const studentCountItem = studentCountDetails.find(
-              (item) => item.district === district
+              (item) => item.state === state
             );
             const courseCompletedItem = courseCompleted.find(
-              (item) => item.district === district
+              (item) => item.state === state
             );
             const courseINprogesssItem = courseINprogesss.find(
-              (item) => item.district === district
+              (item) => item.state === state
             );
+            const courseNotStarted = (studentCountItem) ? (Math.abs(
+              studentCountItem?.totalstudent -
+              ((courseCompletedItem
+                ? courseCompletedItem.studentCourseCMP
+                : 0) +
+                (courseINprogesssItem
+                  ? courseINprogesssItem.studentCourseIN
+                  : 0))
+            )) : 0;
+            // console.log(courseNotStarted,"11");
             const ideaNotStarted =
               summaryItem.totalTeams -
-              ((submittedCountItem ? submittedCountItem?.submittedCount : 0) +
-                (draftCountItem ? draftCountItem?.draftCount : 0));
-            // const courseNotStarted =
-            //   summaryItem.totalTeams -
-            //   ((courseCompletedItem
-            //     ? courseCompletedItem?.studentCourseCMP
-            //     : 0) +
-            //     (courseINprogesssItem
-            //       ? courseINprogesssItem?.studentCourseIN
-            //       : 0));
-            
-              const courseNotStarted = (studentCountItem) ? (Math.abs(
-    studentCountItem?.totalstudent  -
-    (
-      (courseCompletedItem ? courseCompletedItem?.studentCourseCMP : 0) +
-      (courseINprogesssItem ? courseINprogesssItem?.studentCourseIN : 0)
-    )
-  )
-  ): 0;
-  
-
-                  
-
-
-            // const coursePercentage =
-            //   studentCountItem && studentCountItem.totalstudent > 0
-            //     ? Math.round(
-            //       ((courseCompletedItem
-            //         ? courseCompletedItem.studentCourseCMP
-            //         : 0) /
-            //         studentCountItem.totalstudent) *
-            //       100
-            //     )
-            //     : 0;
-                const coursePercentage = 
-  studentCountItem && studentCountItem.totalstudent > 0
-    ? Math.round(
-        ((courseCompletedItem && courseCompletedItem.studentCourseCMP
-          ? courseCompletedItem.studentCourseCMP
-          : 0) / studentCountItem.totalstudent) * 100
-      )
-    : 0;
-              console.log(coursePercentage,"11");
-
+              ((submittedCountItem
+                ? submittedCountItem.submittedCount
+                : 0) +
+                (draftCountItem
+                  ? draftCountItem.draftCount
+                  : 0));
+            const coursePercentage =
+              studentCountItem && studentCountItem.totalstudent > 0
+                ? Math.round(
+                  ((courseCompletedItem
+                    ? courseCompletedItem.studentCourseCMP
+                    : 0) /
+                    studentCountItem.totalstudent) *
+                  100
+                )
+                : 0;
             return {
-              district,
+              state,
               coursePercentage,
               totalTeams,
               totalStudents: studentCountItem
@@ -945,62 +944,51 @@ const StudentProgress = () => {
               courseINprogesss: courseINprogesssItem
                 ? courseINprogesssItem.studentCourseIN
                 : 0,
-              courseNotStarted,
               draftCount: draftCountItem ? draftCountItem.draftCount : 0,
-              submittedCount: submittedCountItem
-                ? submittedCountItem.submittedCount
-                : 0,
+              submittedCount: submittedCountItem ? submittedCountItem.submittedCount : 0,
               ideaNotStarted,
+              courseNotStarted,
             };
           });
           const total = combinedArray.reduce(
             (acc, item) => {
-              acc.district = "Total";
+              acc.state = "Total";
               // acc.totalReg += item.totalReg;
               acc.totalTeams += item.totalTeams;
               acc.totalStudents += item.totalStudents;
               acc.draftCount += item.draftCount;
               acc.submittedCount += item.submittedCount;
+              // acc.otherStudents += item.otherStudents;
               acc.courseCompleted += item.courseCompleted;
               acc.courseINprogesss += item.courseINprogesss;
               acc.ideaNotStarted =
-                acc.totalTeams - (acc.submittedCount + acc.draftCount);
+                acc.totalTeams -
+                (acc.submittedCount + acc.draftCount);
               acc.courseNotStarted =
                 acc.totalStudents -
                 (acc.courseCompleted + acc.courseINprogesss);
               return acc;
             },
             {
-              district: "None",
+              state: "None",
               // totalReg: 0,
               totalTeams: 0,
               totalStudents: 0,
+
               draftCount: 0,
               submittedCount: 0,
               ideaNotStarted: 0,
-              // maleStudents: 0,
-              // femaleStudents: 0,
               // otherStudents : 0,
-              coursePercentage:0,
               courseCompleted: 0,
               courseINprogesss: 0,
               courseNotStarted: 0,
             }
           );
-
           const doughnutData = {
-            labels: [
-              "Draft Ideas",
-              "Submitted Ideas",
-              "Not Started Idea Submission",
-            ],
+            labels: ["Draft Ideas", "Submitted Ideas", "Not Started Idea Submission"],
             datasets: [
               {
-                data: [
-                  total.draftCount,
-                  total.submittedCount,
-                  total.ideaNotStarted,
-                ],
+                data: [total.draftCount, total.submittedCount, total.ideaNotStarted],
                 backgroundColor: ["#8bcaf4", "#ff99af"],
                 hoverBackgroundColor: ["#36A2EB", "#FF6384"],
               },
@@ -1019,14 +1007,13 @@ const StudentProgress = () => {
                   total.courseCompleted,
                   total.courseNotStarted,
                 ],
-                backgroundColor: ["rgba(255, 0, 0, 0.6)", "rgba(255, 255, 0, 0.6)","rgba(0, 128, 0, 0.6)"],
-                hoverBackgroundColor: ["#e60026", "#ffae42","#087830"],
+                backgroundColor: ["rgba(255, 0, 0, 0.6)", "rgba(255, 255, 0, 0.6)", "rgba(0, 128, 0, 0.6)"],
+                hoverBackgroundColor: ["#e60026", "#ffae42", "#087830"],
               },
             ],
           };
-
           const barData = {
-            labels: combinedArray.map((item) => item.district),
+            labels: combinedArray.map((item) => item.state),
             datasets: [
               {
                 label: "No.of Teams Enrolled",
@@ -1044,7 +1031,7 @@ const StudentProgress = () => {
           setseries1(barData.datasets[1].data);
 
           const stackedBarChartData = {
-            labels: combinedArray.map((item) => item.district),
+            labels: combinedArray.map((item) => item.state),
             datasets: [
               {
                 label: "No. of Students not started course",
@@ -1080,17 +1067,28 @@ const StudentProgress = () => {
           setBarChart1Data(barData);
           setBarChart2Data(stackedBarChartData);
           setTotalCount(total);
-          // console.log(total,"11");
         }
       })
       .catch((error) => {
         console.log("API error:", error);
       });
   };
-
+  const handleCustomizationClick = () => {
+    setShowCustomization(!showCustomization);
+    fetchData();
+    setSelectedHeaders([]);
+    setCustomizationActive(true); 
+  };
+  useEffect(() => {
+    if (customizationActive) {
+      setShowCustomization(false);       
+      setCustomizationActive(false);     
+      setSelectedHeaders([]);           
+    }
+  }, [district, category, selectstate]);
   return (
     <div className="page-wrapper">
-      <h4 className="m-2" 
+       <h4 className="m-2" 
         style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
         >Reports
         </h4>
@@ -1098,14 +1096,14 @@ const StudentProgress = () => {
         <div className="page-header">
           <div className="add-item d-flex">
             <div className="page-title">
-              <h4>Student Progress Detailed Report</h4>
+              <h4>4. Student Progress Detailed Report</h4>
               <h6>
-                Student Progress - Presurvey , Course, Idea submission , Post survey
+                Student Progress - Pre survey , Course, Idea submission , Post survey
                 Status Report
               </h6>
             </div>
           </div>
-          {/* <div className="page-btn">
+          <div className="page-btn">
             <button
               type="button"
               className="btn btn-secondary"
@@ -1113,24 +1111,23 @@ const StudentProgress = () => {
             >
               <i className="fas fa-arrow-left"></i> Back
             </button>
-          </div> */}
+          </div>
         </div>
 
         <Container className="RegReports userlist">
           <div className="reports-data mt-2 mb-2">
             <Row className="align-items-center mt-3 mb-2">
-              <Col md={3}>
+              <Col md={2}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
-                  <p>{selectstate}</p>
-                  {/* <Select
+                  <Select
                     list={fullStatesNames}
                     setValue={setSelectState}
                     placeHolder={"Select State"}
                     value={selectstate}
-                  /> */}
+                  />
                 </div>
               </Col>
-              <Col md={3}>
+              <Col md={2}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
                   <Select
                     list={fiterDistData}
@@ -1140,7 +1137,7 @@ const StudentProgress = () => {
                   />
                 </div>
               </Col>
-              <Col md={3}>
+              <Col md={2}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
                   {/* <Select
                     list={categoryData}
@@ -1152,32 +1149,162 @@ const StudentProgress = () => {
                     <Select
                       list={categoryDataTn}
                       setValue={setCategory}
-                      placeHolder={"Select Category"}
+                      placeHolder={'Select Category'}
                       value={category}
-                    />
-                  ) : (
-                    <Select
+                    />) : (<Select
                       list={categoryData}
                       setValue={setCategory}
-                      placeHolder={"Select Category"}
+                      placeHolder={'Select Category'}
                       value={category}
-                    />
-                  )}
+                    />)}
                 </div>
               </Col>
-              <Col
-                md={3}
-                className="d-flex align-items-center justify-content-center"
-              >
-                <button
-                  onClick={handleDownload}
-                  type="button"
-                  disabled={isDownload}
-                  className="btn btn-primary"
-                >
-                  {isDownload ? "Downloading" : "Download Report"}
-                </button>
-              </Col>
+             
+               <Col md={2}>
+                                          <button
+                                              //  onClick={() => {setShowCustomization(!showCustomization);
+                                              //   fetchData();
+                                              //   setSelectedHeaders([]);
+                                              // }}
+                                              onClick={handleCustomizationClick}
+                                              type="button"
+                                              disabled={!enable}
+                                              className="btn btn-primary"
+                                            >
+                                              Customization
+                                            </button>
+                                          </Col>
+                                          {/* {showCustomization && hasData && (
+                <div className="card mt-3" >
+                  <div className="card-body">
+                    <h5 className="card-title">Select Columns</h5>
+                    <div className="row">
+                    <div className="col-md-3">
+                    <div className="form-check mb-2">
+                      <input
+                        type="checkbox"
+                        className="form-check-input"
+                        id="selectAll"
+                        checked={selectedHeaders.length === allHeaders.length}
+                        onChange={handleSelectAll}
+                      />
+                      <label className="form-check-label ms-2" htmlFor="selectAll">
+                        Select All
+                      </label>
+                    </div>
+                    </div>
+
+              
+                  
+                      {allHeaders.map((header) => (
+                        <div className="col-md-3" key={header.key}>
+                          <div className="form-check">
+                            <input
+                              type="checkbox"
+                              className="form-check-input"
+                              id={header.key}
+                              checked={selectedHeaders.includes(header.key)}
+                              onChange={() => handleCheckboxChange(header.key)}
+                            />
+                            <label className="form-check-label ms-2" htmlFor={header.key}>
+                              {header.label}
+                            </label>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+              
+                    <button
+                      className="btn btn-danger mt-3"
+                     
+                      onClick={() => {
+                        setShowCustomization(false);
+                        if (!studentDetailedReportsData || studentDetailedReportsData.length === 0) {
+                          console.log("Fetching data before download...");
+                          filterData();
+                          // fetchData(); 
+                        }
+                        setTimeout(() => {
+                          console.log("Checking Data Before Download:", studentDetailedReportsData);
+                          setIsReadyToDownload(true);
+                        }, 1000);
+                      }}
+                      disabled={selectedHeaders.length === 0}
+                    >
+                      Download Report
+                    </button>
+                  </div>
+                </div>
+              )} */}
+                {showCustomization &&  hasData && (
+  <div className="card mt-3" >
+    <div className="card-body">
+     
+      <div className="row align-items-center mb-3">
+  <div className="col-md-3">
+    <h5 className="card-title mb-0">Select Columns</h5>
+  </div>
+  <div className="col-md-3">
+    <div className="form-check">
+      <input
+        type="checkbox"
+        className="form-check-input"
+        id="selectAll"
+        checked={selectedHeaders.length === allHeaders.length}
+        onChange={handleSelectAll}
+      />
+      <label className="form-check-label ms-2" htmlFor="selectAll">
+        Select All
+      </label>
+    </div>
+  </div>
+</div>
+
+
+
+<div className="row">
+        {allHeaders.map((header) => (
+          <div className="col-md-3" key={header.key}>
+            <div className="form-check">
+              <input
+                type="checkbox"
+                className="form-check-input"
+                id={header.key}
+                checked={selectedHeaders.includes(header.key)}
+                onChange={() => handleCheckboxChange(header.key)}
+              />
+              <label className="form-check-label ms-2" htmlFor={header.key}>
+                {header.label}
+              </label>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <button
+        className="btn btn-danger mt-3"
+       
+        onClick={() => {
+          setShowCustomization(false);
+          if (!downloadTableData || downloadTableData.length === 0) {
+            console.log("Fetching data before download...");
+            filterData();
+
+          }
+      
+          setTimeout(() => {
+            console.log("Checking Data Before Download:", downloadTableData);
+          
+            setIsReadyToDownload(true);
+          }, 1000);
+        }}
+        disabled={selectedHeaders.length === 0}
+      >
+        Download Report
+      </button>
+    </div>
+  </div>
+)}
             </Row>
             {isloader ?
             <div className="chart mt-2 mb-2">
@@ -1209,7 +1336,7 @@ const StudentProgress = () => {
                                 </b>
                               </p>
                               {doughnutChartData && (
-                                <div id="donut-chart">
+                                <div id="donut-chart" >
                                   <ReactApexChart
                                     options={chartOption}
                                     series={chartOption.series}
@@ -1224,11 +1351,11 @@ const StudentProgress = () => {
                                 <b>Students Course Status As of {newFormat}</b>
                               </p>
                               {doughnutChartDataBar && (
-                                <div id="donut-chart">
+                                <div id="radial-chart">
                                   <ReactApexChart
                                     options={radialChart}
                                     series={radialChart.series}
-                                      type="donut"
+                                    type="donut"
                                     height={350}
                                   />
                                 </div>
@@ -1244,7 +1371,7 @@ const StudentProgress = () => {
                       <div className="card flex-fill default-cover w-100 mb-4">
                         <div className="card-header d-flex justify-content-between align-items-center">
                           <h4 className="card-title mb-0">
-                            District wise Students Progress Stats
+                            State wise Students Progress Stats
                           </h4>
                           <div className="dropdown">
                             <Link
@@ -1252,7 +1379,7 @@ const StudentProgress = () => {
                               className="view-all d-flex align-items-center"
                             >
                               <button
-                                className="btn mx-2 btn-primary btn-sm"
+                                className="btn mx-2 btn-primary"
                                 type="button"
                                 onClick={() => {
                                   if (downloadTableData) {
@@ -1272,14 +1399,14 @@ const StudentProgress = () => {
                             <table className="table table-border recent-transactions">
                               <thead>
                                 <tr>
-                                  <th style={{ color: "#36A2EB",fontWeight: "bold" }}>#No</th>
-                                  <th style={{ color: "#36A2EB",fontWeight: "bold" }}>
-                                    District Name
+                                  <th style={{ color: "#36A2EB" }}>#</th>
+                                  <th style={{ color: "#36A2EB" }}>
+                                    State Name
                                   </th>
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
-                                      color: "#36A2EB",fontWeight: "bold"
+                                      color: "#36A2EB",
                                     }}
                                   >
                                     #Teams Created
@@ -1287,7 +1414,7 @@ const StudentProgress = () => {
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
-                                      color: "#36A2EB",fontWeight: "bold"
+                                      color: "#36A2EB",
                                     }}
                                   >
                                     #Students Enrolled
@@ -1295,31 +1422,39 @@ const StudentProgress = () => {
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
-                                      color: "#36A2EB",fontWeight: "bold"
+                                      color: "#36A2EB",
                                     }}
                                   >
-                                    #Student Course Completed
+                                    <FontAwesomeIcon
+                                      icon={faChalkboardTeacher}
+                                    />{" "}
+                                    Student Course Completed
                                   </th>
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
-                                      color: "#36A2EB",fontWeight: "bold"
+                                      color: "#36A2EB",
                                     }}
                                   >
-                                    #Student Course InProgress
+                                    <FontAwesomeIcon
+                                      icon={faChalkboardTeacher}
+                                    />Student Course InProgress
                                   </th>
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
-                                      color: "#36A2EB",fontWeight: "bold"
+                                      color: "#36A2EB",
                                     }}
                                   >
-                                    #Student Course NotStarted
+                                    <FontAwesomeIcon
+                                      icon={faChalkboardTeacher}
+                                    />{" "}
+                                    Student Course NotStarted{" "}
                                   </th>
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
-                                      color: "#36A2EB",fontWeight: "bold"
+                                      color: "#36A2EB",
                                     }}
                                   >
                                     <FontAwesomeIcon
@@ -1330,7 +1465,7 @@ const StudentProgress = () => {
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
-                                      color: "#36A2EB",fontWeight: "bold"
+                                      color: "#36A2EB", fontWeight: "bold"
                                     }}
                                   >
                                     #Teams Submitted Ideas
@@ -1338,7 +1473,7 @@ const StudentProgress = () => {
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
-                                      color: "#36A2EB",fontWeight: "bold"
+                                      color: "#36A2EB", fontWeight: "bold"
                                     }}
                                   >
                                     #Teams Ideas in Draft
@@ -1346,7 +1481,7 @@ const StudentProgress = () => {
                                   <th
                                     style={{
                                       whiteSpace: "wrap",
-                                      color: "#36A2EB",fontWeight: "bold"
+                                      color: "#36A2EB", fontWeight: "bold"
                                     }}
                                   >
                                     #Teams Idea Not Started
@@ -1366,19 +1501,19 @@ const StudentProgress = () => {
                                         color: "crimson",
                                       }}
                                     >
-                                      {item.district}
+                                      {item.state}
                                     </td>
+
                                     <td>{item.totalTeams}</td>
                                     <td>{item.totalStudents}</td>
+
                                     <td>{item.courseCompleted}</td>
                                     <td>{item.courseINprogesss}</td>
                                     <td>{item.courseNotStarted}</td>
                                     <td>{item.coursePercentage}%</td>
-                                 
                                     <td>{item.submittedCount}</td>{" "}
                                     <td>{item.draftCount}</td>{" "}
                                     <td>{item.ideaNotStarted}</td>
-           {/* { console.log(item.courseNotStarted,"course not")} */}
                                   </tr>
                                 ))}
                                 <tr>
@@ -1419,16 +1554,6 @@ const StudentProgress = () => {
                                     )}
                                     %
                                   </td>
-
-                                 
-                                  {/* <td style={{ color: "crimson" }}>
-                                    {Math.round(
-                                      (totalCount.courseCompleted /
-                                        totalCount.totalStudents) *
-                                      100
-                                    )}
-                                    %
-                                  </td> */}
                                   <td style={{ color: "crimson" }}>{totalCount.submittedCount}</td>{" "}
                                   <td style={{ color: "crimson" }}>{totalCount.draftCount}</td>{" "}
                                   <td style={{ color: "crimson" }}>{totalCount.ideaNotStarted}</td>
@@ -1447,7 +1572,7 @@ const StudentProgress = () => {
                 <div className="card">
                   <div className="card-header">
                     <h5 className="card-title">
-                    Teams, Submitted Ideas As of {newFormat}
+                      Teams, Submitted Ideas As of {newFormat}
                     </h5>
                   </div>
                   <div className="card-body">
@@ -1455,7 +1580,7 @@ const StudentProgress = () => {
                     <ReactApexChart
                       options={options}
                       series={options.series}
-                       type="bar"
+                      type="bar"
                       height={400}
                     />
                   </div>
@@ -1496,14 +1621,14 @@ const StudentProgress = () => {
                         </div>
                     </div> */}
 
-           
+             
             </div>
             :
             <div className="spinner-border text-info" role="status">
               <span className="sr-only">Loading...</span>
             </div>
           }
-             {downloadTableData && (
+           {downloadTableData && (
                 <CSVLink
                   data={downloadTableData}
                   headers={tableHeaders}
@@ -1517,13 +1642,13 @@ const StudentProgress = () => {
 
               {studentDetailedReportsData && (
                 <CSVLink
-                  headers={teacherDetailsHeaders}
-                  data={studentDetailedReportsData}
+                  // headers={teacherDetailsHeaders}
+                  data={formattedDataForDownload}
                   filename={`StudentProgressDetailedReport_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRef}
                 >
-                  Download Teacherdetailed CSV
+                  Download Student Detailed CSV
                 </CSVLink>
               )}
           </div>

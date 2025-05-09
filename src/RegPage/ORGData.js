@@ -958,7 +958,7 @@ export const mandalList ={
  
 
 };
-export const SchoolBoard= ["CBSE (Central Board of Secondary Education)","ICSE (Council for the Indian School Certificate Examinations)","State Board (Select State Specific Board)","Others",];
+export const SchoolBoard= ["CBSE (Central Board of Secondary Education)","ICSE (Council for the Indian School Certificate Examinations)","State Board","Others",];
 export const userList = ["Mentor", "Student"];
 export const SchoolType= ["Government School","PM Shri School","Kendriya Vidyalaya (KV)","Jawahar Navodaya Vidyalaya (JNV)","Private School","Others"];
 export const navList = {

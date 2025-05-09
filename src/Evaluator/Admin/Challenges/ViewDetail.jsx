@@ -29,6 +29,7 @@ import {
     getCurrentUser,
     openNotificationWithIcon
 } from '../../../helpers/Utils';
+import VideoPopup from '../../IdeaList/Videopop';
 const ViewDetail = (props) => {
     const { search } = useLocation();
     const level = new URLSearchParams(search).get('level');
@@ -866,15 +867,18 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',color:"black"
                                             }}
                                         >
-                                              <a 
+                                              {/* <a 
             href={teamResponse.prototype_link} 
             target="_blank" 
             rel="noopener noreferrer" 
             style={{ textDecoration: 'none', color: 'skyblue'}}
         >
             {teamResponse.prototype_link}
-        </a>
-                                            {/* {teamResponse.prototype_link} */}
+        </a> */}
+   {teamResponse?.prototype_link && (
+  <VideoPopup videoUrl={teamResponse.prototype_link} />
+)}
+
                                         </p>
                                     </div>
                                 </div>

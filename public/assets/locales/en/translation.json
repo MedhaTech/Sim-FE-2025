@@ -227,7 +227,7 @@
         "thanks":"Thanks for taking part.",
         "t1":"Your Survey responses have been submitted Successfully..!",
         "t2":"You can download your certificate in dashboard by clicking on the blue box.",
-        "t3":"Please ensure Submitted Ideas by all student teams are Approved for your post survey to enable.",
+        "t3":"Please ensure Submitted Idea by any one of your team will enable your Post Survey.",
         "t4":"Certificate will be generated once you complete the post survey.",
         "query":"Query Category",
         "QueryDetails":"Query Details",
@@ -538,6 +538,8 @@
     },
     "teacher_certificate": {
         "download": "Download Course Certificate",
+        "downloadn": "Download",
+
         "participate_certificate": "Appreciation Certificate",
         "addon_certificate": "Idea Submission/Participation Certificate",
         "downloadaddon_certificate": "Download Participation Certificate",
@@ -568,7 +570,7 @@
     "proud_of_you": "We are so proud of you! Keep learning, growing, and reaching for new heights! 🚀✨",
     "certificate_enabled_on_100_percent_completion": "Your Problem Solving course certificate enables after you",
     "red_msg1":" reach 100%",
-    "course_note":"  course completion."
+    "course_note":" course completion."
         
     },
     "teacher_header": {

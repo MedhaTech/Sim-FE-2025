@@ -227,7 +227,7 @@ const ReportsRegistration = () => {
       key: "organization.organization_name",
     },
     {
-      label: "School Type/Category",
+      label: "School Category",
       key: "organization.category",
     },
     {
@@ -245,6 +245,16 @@ const ReportsRegistration = () => {
     {
       label: "Pin code",
       key: "organization.pin_code",
+    },
+    {
+      label: 'Mandal / Taluka',
+      key: "organization.mandal",
+    }, {
+      label: 'School Type',
+      key: "organization.school_type",
+    }, {
+      label: 'School Board',
+      key: "organization.board",
     },
     {
       label: "Address",
@@ -293,7 +303,7 @@ const ReportsRegistration = () => {
       key: "organization_name",
     },
     {
-      label: "School Type/Category",
+      label: "School Category",
       key: "category",
     },
     {
@@ -311,6 +321,16 @@ const ReportsRegistration = () => {
     {
       label: "Pin code",
       key: "pin_code",
+    },
+    {
+      label: 'Mandal / Taluka',
+      key: "mandal",
+    }, {
+      label: 'School Type',
+      key: "school_type",
+    }, {
+      label: 'School Board',
+      key: "board",
     },
     {
       label: "Address",

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -13,7 +14,7 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import play from "../assets/img/playicon.png";
 
 const Forgotpassword = () => {
-  const [errorMsg, seterrorMsg] = useState("");
+  // const [errorMsg, seterrorMsg] = useState("");
   const navigate = useNavigate();
   
   const formik = useFormik({
@@ -49,7 +50,7 @@ const Forgotpassword = () => {
               "success",
               "For registered users password reset link will be sent to registered email"
             );
-            seterrorMsg("");
+            // seterrorMsg("");
             setTimeout(() => {
               navigate("/teacher");
             }, 2000);
@@ -57,14 +58,18 @@ const Forgotpassword = () => {
           }
         })
         .catch((err) => {
-          seterrorMsg(err.response.data.message);
+          openNotificationWithIcon(
+            "error",
+            "For registered users password reset link will be sent to registered email"
+          );
+          // seterrorMsg(err.response.data.message);
           return err.response;
         });
     },
   });
-  useEffect(()=>{
-    seterrorMsg("");
-  },[formik.values.email]);
+  // useEffect(()=>{
+  //   seterrorMsg("");
+  // },[formik.values.email]);
   
   const handleLogoClick = () => {
     navigate('/');
@@ -136,11 +141,11 @@ const Forgotpassword = () => {
                     <img src={email} alt="Email" />
                   </div>
                 </div>
-                {errorMsg === "User not found" && (
+                {/* {errorMsg === "User not found" && (
                   <b className="text-danger m-3">
                     Please Enter Registered Email Address
                   </b>
-                )}
+                )} */}
                 <div className="form-login">
                   <button
                     className={`btn btn-login ${

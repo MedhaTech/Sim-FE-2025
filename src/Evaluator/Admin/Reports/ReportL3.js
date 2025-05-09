@@ -170,12 +170,23 @@ const ReportL3 = () => {
         key: "organization_name",
       },
       {
-        label: "School Type/Category",
+        label: "School Category",
         key: "category",
       },
       {
         label: "Pin code",
         key: "pin_code",
+      },
+      {
+        label: 'Mandal / Taluka',
+        key: 'mandal'
+      }, {
+        label: 'School Type',
+        key: 'school_type'
+      },
+      {
+        label: 'School Board',
+        key: 'board'
       },
       {
         label: "Address",
@@ -483,6 +494,9 @@ const ReportL3 = () => {
                           principal_name: mentorMap[item.mentor_id].principal_name,
                           principal_mobile: mentorMap[item.mentor_id].principal_mobile,
                           pin_code: mentorMap[item.mentor_id].pin_code,
+                          mandal: mentorMap[item.mentor_id].mandal, 
+              school_type: mentorMap[item.mentor_id].school_type,
+              board: mentorMap[item.mentor_id].board,
                           address: mentorMap[item.mentor_id].address,
             
                         };
@@ -504,8 +518,10 @@ const ReportL3 = () => {
                                                                            District:item.district,
                                                                            CID:item.challenge_response_id,
                                                                            "School Name":item.organization_name,
-                                                                           "School Type/Category":item.category,
+                                                                           "School Category":item.category,
                                                                            "Pin code":item.pin_code,
+             "School Type":item.school_type, "Mandal / Taluka":item.mandal, "School Board":item.board,
+
                                                                            Address:item.address,
                                                                             "Teacher Name":item.full_name,
                                                                             "Teacher Email":mentorUsernameMap[item.mentorUserId],

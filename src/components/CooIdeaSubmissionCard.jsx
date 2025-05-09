@@ -18,8 +18,16 @@ import axios from "axios";
 import { encryptGlobal } from "../constants/encryptDecrypt";
 import { useDispatch } from "react-redux";
 import Ideapdf from "../Teacher/Dashboard/DetailToDownload";
+import FilePreviewModal from '../Evaluator/IdeaList/Modal';
+import VideoPopup from "../Evaluator/IdeaList/Videopop";
 
 const LinkComponent = ({ item }) => {
+   const [selectedFile, setSelectedFile] = useState(null);
+        const [showModal, setShowModal] = useState(false);
+        const handlePreview = (url) => {
+          setSelectedFile({ prototype_image: url });
+          setShowModal(true);
+        };
   return (
     <>
       {item &&
@@ -27,18 +35,31 @@ const LinkComponent = ({ item }) => {
         item.map((ans, i) => {
           let a_link = ans.split("/");
           let count = a_link.length - 1;
+          let fileName = a_link[count];
           return (
             <a
               key={i}
-              className="badge mb-2 bg-info p-3 ms-3"
-              href={ans}
+              className="badge mb-2 bg-info p-3 ms-3 col-3"
+              // href={ans}
               target="_blank"
+              style={{ cursor: 'pointer' }}
+
+               onClick={() => handlePreview(ans)}
               rel="noreferrer"
             >
-              {a_link[count]}
+             <span className="file-name">
+                            {fileName}
+                        </span>
             </a>
           );
         })}
+         {selectedFile && (
+                            <FilePreviewModal
+                              show={showModal}
+                              onHide={() => setShowModal(false)}
+                              teamResponse={selectedFile}
+                            />
+                          )}
     </>
   );
 };
@@ -66,6 +87,7 @@ const CooIdeaSubmissionCard = ({
   const files = submittedResponse?.prototype_image
     ? JSON.parse(submittedResponse.prototype_image)
     : [];
+ const [images,setImages] = React.useState([]);
 
   // const fileName = prototypeImageArray[0].split('/').pop();
   // const [id,setId]=useState();
@@ -73,6 +95,12 @@ const CooIdeaSubmissionCard = ({
   // console.log(Id,"id");
   const teamId = submittedResponse.team_id;
 
+   useEffect(() => {
+            if (submittedResponse) {
+                // setTeamResponse(props?.ideaDetails);
+                setImages(JSON.parse(submittedResponse.prototype_image));
+            }
+        }, [submittedResponse]);
   // useEffect(() => {
   //     if (submittedResponse && submittedResponse !== {}) {
   //         const data = Object.entries(submittedResponse);
@@ -430,13 +458,10 @@ const CooIdeaSubmissionCard = ({
                                 {fileName}
                             </CardText> */}
               <CardText>
-                {files.length > 0 &&
+                {/* {files.length > 0 &&
                   files.map((item, i) => (
                     <Card key={i}>
-                      {/* <CardTitle className="fw-bold">
-                                                    {item.question}
-                                                </CardTitle> */}
-                      {/* <CardBody> */}
+                     
                       <a
                         key={i}
                         className="badge bg-info col-3"
@@ -446,13 +471,12 @@ const CooIdeaSubmissionCard = ({
                       >
                         {item.split("/").pop()}
                       </a>
-                      {/* </CardBody> */}
                     </Card>
-                  ))}
-                {/* {}{' '}
-                                    <button onClick={downloadFile}>
-                                        Download PDF
-                                    </button> */}
+                  ))} */}
+                   <Card >  {
+                                          <LinkComponent item={images} />
+                                        }</Card>
+               
               </CardText>
             </CardBody>
           </Card>
@@ -461,7 +485,12 @@ const CooIdeaSubmissionCard = ({
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
                 13. Clear YouTube Video Explaining your Solution
               </label>
-              <CardText><a href={submittedResponse.prototype_link} target="_blank" rel="noreferrer">{submittedResponse.prototype_link}</a></CardText>
+              <CardText>
+              {submittedResponse?.prototype_link && (
+  <VideoPopup videoUrl={submittedResponse.prototype_link} />
+)}
+                {/* <a href={submittedResponse.prototype_link} target="_blank" rel="noreferrer">{submittedResponse.prototype_link}</a> */}
+                </CardText>
             </CardBody>
           </Card>
           <Card className="p-1">

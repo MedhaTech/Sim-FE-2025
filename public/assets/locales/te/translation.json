@@ -514,6 +514,8 @@
     },
     "teacher_certificate": {
         "download": "కోర్సు సర్టిఫికేట్‌ను డౌన్‌లోడ్ చేయండి",
+        "downloadn": "Download",
+
         "addon_certificate": "ఐడియా సమర్పణ/పార్టిసిపేషన్ సర్టిఫికేట్",
         "participate_certificate": "ప్రశంసా పత్రం",
         "download_participate": "ఐడియా సర్టిఫికెట్‌ని డౌన్‌లోడ్ చేయండి",

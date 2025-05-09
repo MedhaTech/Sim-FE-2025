@@ -154,7 +154,7 @@ const AdminLatestNews = () => {
                             if (response.status === 200) {
                                 openNotificationWithIcon(
                                     'success',
-                                    'News succesfully deleted'
+                                    'Latest News Successfully deleted'
                                 );
                                 teacherList();
                             } else {
@@ -691,7 +691,7 @@ const AdminLatestNews = () => {
                             <div>
                                 <DataTableExtensions
                                     print={false}
-                                    export={true}
+                                    export={false}
                                     {...stuNewsData}
                                     exportHeaders
                                 >

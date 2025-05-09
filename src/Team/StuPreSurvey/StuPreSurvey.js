@@ -263,7 +263,7 @@ return (
                   !show ? (
                     <CardBody>
                        <div className="dropdown" style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                  <LanguageSelectorComp module="student" />
+                  {/* <LanguageSelectorComp module="student" /> */}
               </div>
                        {/* <ul className="table-top-head"  style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <li >

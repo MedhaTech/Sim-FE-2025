@@ -121,6 +121,11 @@ const ReportL1 = () => {
       key: "full_name",
     },
     {
+      label: "User ID",
+      key: "user_id",
+    },
+    
+    {
       label: "No of Ideas Evaluated",
       key: "totalEvaluated",
     },
@@ -156,7 +161,7 @@ const ReportL1 = () => {
       key: "organization_name",
     },
     {
-      label: "School Type/Category",
+      label: "School Category",
       key: "category",
     },
     {
@@ -164,8 +169,15 @@ const ReportL1 = () => {
       key: 'pin_code'
     },
     {
-      label: 'Address',
-      key: 'address'
+      label: 'Mandal / Taluka',
+      key: 'mandal'
+    }, {
+      label: 'School Type',
+      key: 'school_type'
+    },
+    {
+      label: 'School Board',
+      key: 'board'
     },
     {
       label: "Teacher Name",
@@ -421,7 +433,9 @@ const ReportL1 = () => {
                       principal_mobile: mentorMap[item.mentor_id].principal_mobile,
                       pin_code: mentorMap[item.mentor_id].pin_code,
                       address: mentorMap[item.mentor_id].address,
-        
+                      mandal: mentorMap[item.mentor_id].mandal, 
+                      school_type: mentorMap[item.mentor_id].school_type,
+                      board: mentorMap[item.mentor_id].board,
                     };
                   });
                   const newdatalist = mentorAndOrg.map((item) => {
@@ -431,8 +445,9 @@ const ReportL1 = () => {
                                    District:item.district,
                                    CID:item.challenge_response_id,
                                    "School Name":item.organization_name,
-                                   "School Type/Category":item.category,
+                                   "School Category":item.category,
                                    "Pin code":item.pin_code,
+                                   "School Type":item.school_type, "Mandal / Taluka":item.mandal, "School Board":item.board,
                                    Address:item.address,
                                     "Teacher Name":item.full_name,
                                     "Teacher Email":mentorUsernameMap[item.mentorUserId],
@@ -925,6 +940,15 @@ const ReportL1 = () => {
                                     fontWeight: "bold",
                                   }}
                                 >
+                                  User ID{" "}
+                                </th>
+                                <th
+                                  style={{
+                                    whiteSpace: "wrap",
+                                    color: "#36A2EB",
+                                    fontWeight: "bold",
+                                  }}
+                                >
                                   No of Ideas Evaluated{" "}
                                 </th>
                                 <th
@@ -961,6 +985,7 @@ const ReportL1 = () => {
                                   >
                                     {item.full_name}
                                   </td>
+                                  <td> {item.user_id}</td>
                                   <td> {item.totalEvaluated}</td>
                                   <td>{item.accepted}</td>
                                   <td>{item.rejected}</td>

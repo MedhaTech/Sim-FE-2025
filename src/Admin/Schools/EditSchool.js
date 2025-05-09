@@ -160,7 +160,7 @@ const EditSchool = (props) => {
         .required("District is required"),
       category: Yup.string()
         // .matches(/^[aA-zZ\s]+$/, 'Invalid category')
-        .required("category is Required"),
+        .required("Category is Required"),
       state: Yup.string().required("State is required"),
       mandal: Yup.string().required("Mandal / Taluka is required"),
 
@@ -516,7 +516,7 @@ const EditSchool = (props) => {
                             className="form-label"
                             htmlFor="category"
                           >
-                            category
+                            Category
                             <span required>*</span>
                           </Label>
                           {/* <Col md={3}> */}{" "}
@@ -551,7 +551,7 @@ const EditSchool = (props) => {
                             className="form-label"
                             htmlFor="category"
                           >
-                            category
+                            Category
                             <span required>*</span>
                           </Label>
                           {/* <Col md={3}> */}{" "}
