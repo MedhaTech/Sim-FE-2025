@@ -183,7 +183,6 @@ const FileGrid = ({ resList }) => {
       </a>
     </div>
   </>
-    // <p>Invalid URL</p>
   )}
 </div>
 

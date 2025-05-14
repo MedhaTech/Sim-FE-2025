@@ -61,26 +61,7 @@ const EmployeesGrid = () => {
     </div>
   );
 
-  // useEffect(() => {
-  //     if(teamsMembersStatus.length != 0){
-  //       localStorage.setItem("ideaSubStatus", teamsMembersStatus[0].idea_submission);
-  //       if (Array.isArray(teamsMembersStatus)) {
-  //         let allCompleted = true;
-
-  //         // Loop over each record in data
-  //         teamsMembersStatus.forEach(record => {
-  //           let percent = 100 - percentageBWNumbers(record.all_topics_count, record.topics_completed_count);
-
-  //           // If any percentage is not 100, set allCompleted to false
-  //           if (percent !== 100) {
-  //             allCompleted = false;
-  //           }
-  //         });
-  //       localStorage.setItem("ideaenablestatus", allCompleted ? 1 : 0);
-  //     }
-  //       setStuInstructionsLoading(false);
-  //     }
-  // }, [teamsMembersStatus]);
+ 
   const [ideaEnableStatus, setIdeaEnableStatus] = useState(0);
   useEffect(() => {
     if (teamsMembersStatus.length >= 2 && teamsMembersStatus.length <= 5) {
@@ -114,11 +95,9 @@ const EmployeesGrid = () => {
       setStuInstructionsLoading(false);
     }
   }, [teamsMembersStatus]);
-  console.log("Idea enable status:", ideaEnableStatus);
   useEffect(() => {
     if (teamId) {
       dispatch(getTeamMemberStatus(teamId, setshowDefault));
-      //dispatch(getStudentChallengeSubmittedResponse(teamId));
     }
   }, [teamId, dispatch]);
 
@@ -243,13 +222,14 @@ const EmployeesGrid = () => {
   const boys = [boy1, boy2, boy3, boy4, boy5, boy6];
   const girls = [girl1, girl2, girl3, girl4, girl5, girl6];
 
-  console.log(teamsMembersStatus, "sta");
   useEffect(() => {
     if (currentUser?.data[0]?.team_id) {
       mentorTeamsCount(currentUser?.data[0]?.team_id);
     }
   }, [currentUser?.data[0]?.team_id]);
   const mentorTeamsCount = (id) => {
+    // this function fetches students count from the API
+    
     const popParam = encryptGlobal(JSON.stringify(id));
     var config = {
       method: "get",
@@ -266,7 +246,6 @@ const EmployeesGrid = () => {
       .then(function (response) {
         if (response.status === 200) {
           setStudentCount(response.data.data);
-          // console.log(studentCount , "count");
         }
       })
       .catch(function (error) {
@@ -274,10 +253,10 @@ const EmployeesGrid = () => {
       });
   };
 
-  //console.log(teamsMembersStatus,"data for instructions");
 
   const stuSurveyStatus = (id) => {
-    // console.log(id, "stuid");
+               // This function fetches student survey status from the API //
+
     const surveyApi = encryptGlobal(
       JSON.stringify({
         user_id: id,
@@ -297,16 +276,12 @@ const EmployeesGrid = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response);
           const pre = response.data.data[0].pre_survey_completed_date;
-          // console.log(pre , "pre");
           if (pre === null) {
             localStorage.setItem("stupresurveystatus", "INCOMPLETED");
-            // console.log("to presurvey page");
             navigate("/studentpresurvey");
           } else {
             localStorage.setItem("stupresurveystatus", "COMPLETED");
-            // console.log("to stu dashboard");
             navigate("/student-dashboard");
           }
         }
@@ -317,7 +292,6 @@ const EmployeesGrid = () => {
   };
 
   const handleStudent = (student) => {
-    //alert("hii");
     const data = { ...student };
     currentUser.data[0].full_name = data?.full_name;
     currentUser.data[0].user_id = data?.user_id;
@@ -347,34 +321,8 @@ const EmployeesGrid = () => {
         return user;
     }
   };
-  // const renderTooltip = (props) => (
-  //   <Tooltip id="pdf-tooltip" {...props}>
-  //     Pdf
-  //   </Tooltip>
-  // );
-  // const renderExcelTooltip = (props) => (
-  //   <Tooltip id="excel-tooltip" {...props}>
-  //     Excel
-  //   </Tooltip>
-  // );
-  // const renderPrinterTooltip = (props) => (
-  //   <Tooltip id="printer-tooltip" {...props}>
-  //     Printer
-  //   </Tooltip>
-  // );
-  // const renderRefreshTooltip = (props) => (
-  //   <Tooltip id="refresh-tooltip" {...props}>
-  //     Refresh
-  //   </Tooltip>
-  // );
-  // const renderCollapseTooltip = (props) => (
-  //   <Tooltip id="refresh-tooltip" {...props}>
-  //     Collapse
-  //   </Tooltip>
-  // );
-  const handleLanguageChange = (language) => {
-    setSelectedLanguage(language);
-  };
+ 
+ 
 
   return (
     <div>
@@ -512,7 +460,6 @@ const EmployeesGrid = () => {
                 ) : teamsMembersStatusErr ? (
                   <div className="d-flex justify-content-center align-items-center">
                     <h4 className="text-danger">
-                      {/* There are no students in your Team */}
                     </h4>
                   </div>
                 ) : null}

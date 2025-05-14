@@ -3,18 +3,13 @@
 import { useState } from 'react';
 import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
-// import Layout from '../Layout';
 import { Container, Row, Col } from 'reactstrap';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import DataTable, { Alignment } from 'react-data-table-component';
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
-// import { Link } from 'react-router-dom';
 import { openNotificationWithIcon } from '../../helpers/Utils';
-// import { Button } from '../../stories/Button';
 import { useNavigate } from 'react-router-dom';
-// import { ReactDOM } from 'react-dom';
-// import * as ReactDOM from 'react-dom';
 import Swal from 'sweetalert2/dist/sweetalert2';
 import logout from '../../assets/img/logout.png';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
@@ -27,9 +22,7 @@ import { AlertOctagon,PlusCircle, Check} from 'feather-icons-react/build/IconCom
 import { FaExternalLinkAlt } from "react-icons/fa";
 const AdminResources = () => {
     const navigate = useNavigate();
-    const [resList, setResList] = useState([]);
     const [tecList, setTecList] = useState([]);
-    // const [reqList, setReqList] = useState(false);
 
     const currentUser = getCurrentUser('current_user');
 
@@ -37,11 +30,8 @@ const AdminResources = () => {
         fetchTecResourceList();
     }, []);
     async function fetchTecResourceList() {
-        // const fectchTecParam = encryptGlobal(
-        //     JSON.stringify({
-        //         role: 'mentor'
-        //     })
-        // );
+        // This function fetches all popup list from the API // 
+       
         try {
             const response = await axios.get(
                 `${process.env.REACT_APP_API_BASE_URL}/popup`,
@@ -53,7 +43,6 @@ const AdminResources = () => {
                 }
             );
             if (response.status === 200) {
-                console.log(response,"11");
                 
                 setTecList(response.data?.data);
             }
@@ -76,14 +65,12 @@ const AdminResources = () => {
                 selector: (row) => row.role,
                 width: '6rem',
                 sortable: true,
-                // center: true,
             },{
                 name: 'State',
                 selector: (row) => row.
                 state,
                 sortable: true,
                 width: '9rem'
-                // center: true,
             },
             {
                 name: 'Path',
@@ -91,11 +78,7 @@ const AdminResources = () => {
                 width: '8rem'
             },
          
-            // {
-            //     name: 'Type',
-            //     selector: 'type',
-            //     width: '25%'
-            // },
+          
             {
                 name: 'File',
                 width: '9rem',
@@ -310,7 +293,6 @@ const AdminResources = () => {
                             resId,
                         headers: {
                             'Content-Type': 'application/json',
-                            // Accept: "application/json",
                             Authorization: `Bearer ${currentUser?.data[0]?.token}`
                         }
                     };
@@ -340,12 +322,10 @@ const AdminResources = () => {
     };
    
     async function handleStatus(item, value) {
-        // alert("hii");
+        // This function updates status with the value // 
+
         const body = {
-            // role: item.role,
-            // type: item.type,
-            // url: item.url,
-            // state:item.state,
+           
             on_off: value
         };
        
@@ -381,243 +361,24 @@ const AdminResources = () => {
                             'PopUp Enabled successfully'
                         );
                     }
-                    // openNotificationWithIcon(
-                    //     'success',
-                    //     item.on_off === '1' && id === 1
-                    //         ? 'PopUp successfully Enabled'
-                    //         : item.on_off === '0' && id === 1
-                    //         ? 'PopUp successfully Disabled'
-                    //         : item.on_off === '1' && id === 2
-                    //         ? 'Idea Submission successfully Enabled'
-                    //         : item.on_off === '0' && id === 2
-                    //         ? 'Idea Submission successfully Disabled'
-                    //         : 'Popup Image upload successfull'
-                    // );
+                   
                     setTimeout(()=>{
 
                         fetchTecResourceList();
                     },500);
-                    // setshowspin(false);
                 }
             })
             .catch(function (error) {
                 console.log(error);
-                // setshowspin(false);
             });
     }
-    // useEffect(() => {
-    //     fetchResourceList();
-    // }, []);
-    const handleBack = (e) => {
-        // here we can go back to main page //
-        // setReqList(false);
-    };
-    const handleStudentList = async (e) => {
-        // alert('hii');
-        // here we can see  list of inActive institutions //
-        // await fetchResourceList();
-    };
-    // const fetchResourceList = () => {
-    //     try {
-    //         const response = axios.get(
-    //             `${process.env.REACT_APP_API_BASE_URL}/resource/list?role=student`,
-    //             {
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                     Authorization: `Bearer ${currentUser?.data[0]?.token}`
-    //                 }
-    //             }
-    //         );
-    //         if (response.status === 200) {
-    //             setResList(response.data?.data);
-    //         }
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
-    // const fetchResourceList = () => {
-    //     const fectchParam = encryptGlobal(
-    //         JSON.stringify({
-    //             role: 'student'
-    //         })
-    //     );
-    //     var config = {
-    //         method: 'get',
-    //         url:
-    //             process.env.REACT_APP_API_BASE_URL +
-    //             `/resource/list?Data=${fectchParam}`,
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             Accept: 'application/json',
-    //             Authorization: `Bearer ${currentUser.data[0]?.token}`
-    //         }
-    //     };
-    //     axios(config)
-    //         .then(function (response) {
-    //             if (response.status === 200) {
-    //                 setResList(response.data?.data);
-    //                 setReqList(true);
-    //             }
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         });
-    // };
-    // const resData = {
-    //     data: resList || [],
-    //     columns: [
-    //         {
-    //             name: 'No',
-    //             selector: (row, key) => key + 1,
-    //             sortable: true,
-    //             width: '10rem'
-    //         },
-    //         {
-    //             name: 'Role',
-    //             selector: (row) => row.role,
-    //             width: '15rem'
-    //             // center: true,
-    //         },
-    //         {
-    //             name: 'Details',
-    //             selector: (row) => row.description,
-    //             width: '40rem'
-    //         },
-    //         // {
-    //         //     name: 'Type',
-    //         //     selector: 'type',
-    //         //     width: '25%'
-    //         // },
-    //         {
-    //             name: 'File/Link',
-    //             width: '10rem',
-    //             cell: (record) => {
-    //                 if (record.type === 'file') {
-    //                     return (
-    //                         <button className="btn btn-warning  mx-2">
-    //                             <a
-    //                                 href={record.attachments}
-    //                                 target="_blank"
-    //                                 rel="noopener noreferrer"
-    //                                 style={{ color: 'black' }}
-    //                             >
-    //                                 Navigate
-    //                             </a>
-    //                         </button>
-    //                     );
-    //                 } else if (record.type === 'link') {
-    //                     return (
-    //                         <button className="btn btn-warning  mx-2">
-    //                             <a
-    //                                 href={record.attachments}
-    //                                 target="_blank"
-    //                                 rel="noopener noreferrer"
-    //                                 style={{ color: 'black' }}
-    //                             >
-    //                                 Navigate
-    //                             </a>
-    //                         </button>
-    //                     );
-    //                 }
-    //                 return null;
-    //             }
-    //         },
-    //         {
-    //             name: 'Actions',
-    //             center: true,
-    //             width: '25rem',
-    //             cell: (record) => [
-    //                 <>
-    //                     <div
-    //                         key={record}
-    //                         onClick={() => handleEdit(record)}
-    //                         style={{ marginRight: '12px' }}
-    //                     >
-    //                         <div className="btn btn-primary btn-lg mx-2">
-    //                             EDIT
-    //                         </div>
-    //                     </div>
+   
+   
+   
 
-    //                     <div
-    //                         key={record}
-    //                         onClick={() => handleDelete(record)}
-    //                         style={{ marginRight: '12px' }}
-    //                     >
-    //                         <div className="btn btn-primary btn-lg mx-2">
-    //                             DELETE
-    //                         </div>
-    //                     </div>
-    //                 </>
-    //             ]
-    //         }
-    //     ]
-    // };
-    const handleEdit = (item) => {
-        // where we can edit level name, no of evaluation //
-        history.push({
-            pathname: '/admin/Resources/editResource'
-        });
-        localStorage.setItem('resID', JSON.stringify(item));
-    };
+  
 
-    const handleDelete = (item) => {
-        // here we can delete the team //
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: 'btn btn-submit',
-                cancelButton: 'btn btn-cancel'
-            },
-            buttonsStyling: false
-        });
-
-        swalWithBootstrapButtons
-            .fire({
-                title: "<h4>Are you sure?</h4>",
-                text: "Do you really want to delete this item, This process cannot be undone.",
-                imageUrl: `${logout}`,
-                confirmButtonText: 'Delete',
-                showCancelButton: true,
-                cancelButtonText: 'Cancel',
-                reverseButtons: false
-            })
-            .then((result) => {
-                if (result.isConfirmed) {
-                    const delParam = encryptGlobal(
-                        JSON.stringify(item.resource_id)
-                    );
-                    var config = {
-                        method: 'delete',
-                        url:
-                            process.env.REACT_APP_API_BASE_URL +
-                            '/resource/' +
-                            delParam,
-                        headers: {
-                            'Content-Type': 'application/json',
-                            // Accept: "application/json",
-                            Authorization: `Bearer ${currentUser?.data[0]?.token}`
-                        }
-                    };
-                    axios(config)
-                        .then(function (response) {
-                            if (response.status === 200) {
-                                openNotificationWithIcon(
-                                    'success',
-                                    'Resource Deleted Successfully'
-                                );
-                                // fetchResourceList();
-                            } else {
-                                openNotificationWithIcon(
-                                    'error',
-                                    'Opps! Something Wrong'
-                                );
-                            }
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                }
-            });
-    };
+  
    
       const customStyles = {
         rows: {
@@ -671,8 +432,6 @@ const AdminResources = () => {
                                     exportHeaders
                                 >
                                     <DataTable
-                                        // data={setResList}
-                                        // noHeader
                                         defaultSortField="id"
                                     customStyles={customStyles}
 

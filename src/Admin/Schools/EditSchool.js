@@ -5,19 +5,13 @@ import React, { useEffect, useState } from "react";
 import { Row, Col, Form, Label, FormGroup } from "reactstrap";
 import "./style.scss";
 
-// import Layout from '../../Admin/Layout';
 
-// import { Button } from '../../stories/Button';
 
 import axios from "axios";
-import Select from "./Select";
 import { getCurrentUser } from "../../helpers/Utils";
 
-// import { InputBox } from '../../stories/InputBox/InputBox';
 import * as Yup from "yup";
 import { useFormik } from "formik";
-// import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
   stateList,
@@ -26,17 +20,11 @@ import {
   SchoolBoard,
   SchoolType,
 } from "../../RegPage/ORGData";
-import { URL, KEY } from "../../constants/defaultValues";
 import {
-  getNormalHeaders,
   openNotificationWithIcon,
 } from "../../helpers/Utils";
 import { useDispatch } from "react-redux";
-import {
-  // getDistrictData,
-  getStateData,
-  getFetchDistData,
-} from "../../redux/studentRegistration/actions";
+
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 const EditSchool = (props) => {
   const currentUser = getCurrentUser("current_user");
@@ -56,7 +44,6 @@ const EditSchool = (props) => {
   const [districts, setDistricts] = useState([]);
   const [mandals, setMandals] = useState([]);
 
-  // where  listID = orgnization details //
   const boardFromApi = listId?.board || ""; 
 
   const isPredefined = SchoolBoard.includes(boardFromApi);
@@ -64,7 +51,6 @@ const EditSchool = (props) => {
 
   const isPredefined1 = SchoolType.includes(typeFromApi);
   useEffect(() => {
-    // setDistricts(districtList[listId.state] || []);
     if (listId?.state) {
         setDistricts(districtList[listId.state] || []);
     }
@@ -72,7 +58,6 @@ const EditSchool = (props) => {
         setMandals(mandalList[listId.district] || []);
     }
   }, [listId.state,listId?.district]);
-// console.log(listId,"id");
   const inputDICE = {
     type: "text",
     className: "form-control",
@@ -94,9 +79,7 @@ const EditSchool = (props) => {
       address: listId?.address || "",
       category: listId?.category || "",
       mandal: listId?.mandal || "",
-      // school_type: listId?.school_type || "",
-      // board: listId?.board || "",
-      // school_type: isPredefined1 ? typeFromApi : "Others",
+    
       school_type: isPredefined1 ? typeFromApi : (typeFromApi ? "Others" : ""),
       other_school_type: isPredefined1 ? "" : typeFromApi,
       board: isPredefined ? boardFromApi : (boardFromApi ? "Others" : ""),
@@ -156,10 +139,8 @@ const EditSchool = (props) => {
         .min(6, "please enter valid pin code")
         .optional(),
       district: Yup.string()
-        // .matches(/^[aA-zZ\s]+$/, 'Invalid district')
         .required("District is required"),
       category: Yup.string()
-        // .matches(/^[aA-zZ\s]+$/, 'Invalid category')
         .required("Category is Required"),
       state: Yup.string().required("State is required"),
       mandal: Yup.string().required("Mandal / Taluka is required"),
@@ -188,8 +169,7 @@ const EditSchool = (props) => {
           return true;
         }
       ),
-      // .optional()
-      // .matches(/^[aA-zZ\s]+$/, 'Invalid State'),
+      
 
       city: Yup.string()
         .matches(/^[aA-zZ\s/^.*$/]+$/, "please enter valid city")
@@ -278,7 +258,6 @@ const EditSchool = (props) => {
         <div className="EditPersonalDetails new-member-page">
           <Row>
             <Col className="col-xl-10 offset-xl-1 offset-md-0">
-              {/* <BreadcrumbTwo {...headingDetails} /> */}
               <h3 className="mb-5">Edit Institutions Details</h3>
 
               <div>
@@ -369,7 +348,6 @@ const EditSchool = (props) => {
 
                         {formik.errors.district ? (
                           <small className="error-cls" style={{ color: "red" }}>
-                            {/* Current value : {listId?.district}<br/> */}
                             {formik.errors.district}
                           </small>
                         ) : null}
@@ -512,14 +490,12 @@ const EditSchool = (props) => {
                       {formik.values.state == "Tamil Nadu" ? (
                         <Col md={4}>
                           <Label
-                            // className="mb-2"
                             className="form-label"
                             htmlFor="category"
                           >
                             Category
                             <span required>*</span>
                           </Label>
-                          {/* <Col md={3}> */}{" "}
                           <select
                             id="inputState"
                             name="category"
@@ -614,7 +590,6 @@ const EditSchool = (props) => {
                       <Col md={4}>
                         <Label className="form-label" htmlFor="address">
                           Address
-                          {/* <span required>*</span> */}
                         </Label>
                         <input
                           {...inputDICE}
@@ -638,10 +613,8 @@ const EditSchool = (props) => {
                         <Label
                           className="form-label"
                           htmlFor="pin_code"
-                          // style={{ fontSize: 15 }}
                         >
                           PinCode
-                          {/* <span required>*</span> */}
                         </Label>
                         <input
                           {...inputDICE}
@@ -662,10 +635,8 @@ const EditSchool = (props) => {
                         <Label
                           className="form-label"
                           htmlFor="unique_code"
-                          // style={{ fontSize: 15 }}
                         >
                           ATL Code
-                          {/* <span required>*</span> */}
                         </Label>
                         <input
                           {...inputDICE}
@@ -676,7 +647,6 @@ const EditSchool = (props) => {
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.values.unique_code}
-                          // isDisabled={holdKey ? true : false}
                         />
                         {formik.errors.unique_code ? (
                           <small className="error-cls" style={{ color: "red" }}>
@@ -708,25 +678,7 @@ const EditSchool = (props) => {
                   </div>
 
                   <Row>
-                    {/* <div style={buttonContainerStyle}>
-                          <button type="submit"  className={`btn btn-warning  ${
-                        !(formik.dirty && formik.isValid)
-                          ? "default"
-                          : "primary"
-                      }`}
-                      disabled={!(formik.isValid)} style={buttonStyle}>
-                            Submit
-                          </button>
-                        
-                          <button
-                            onClick={() => navigate("/institution")}
-                            type="button"
-                            className="btn btn-secondary"
-                            style={{ marginLeft: 'auto' }} 
-                          >
-                            Discard
-                          </button>
-                          </div> */}
+                  
                     <div style={buttonContainerStyle}>
                       <button
                         type="submit"

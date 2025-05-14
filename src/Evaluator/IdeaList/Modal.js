@@ -20,7 +20,6 @@ const FilePreviewModal = ({teamResponse, show, onHide } ) => {
   const fileName = teamResponse?.prototype_image
     ? teamResponse.prototype_image.split('/').pop()
     : 'No file available';
-    // console.log("PDF URL:", teamResponse?.prototype_image);
 
   return (
     <Modal show={show} onHide={onHide} size="md" centered>
@@ -62,14 +61,3 @@ const FilePreviewModal = ({teamResponse, show, onHide } ) => {
 };
 
 export default FilePreviewModal;
-//   <div style={{ textAlign: 'center' }}>
-        //     <p>This is a PDF file. Click below to download:</p>
-        //     <a
-        //       href={teamResponse.prototype_image}
-        //       target="_blank"
-        //       rel="noopener noreferrer"
-        //       download
-        //     >
-        //       <Button variant="success">{fileName}</Button>
-        //     </a>
-        //   </div>

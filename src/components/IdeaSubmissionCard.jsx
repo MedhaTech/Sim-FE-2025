@@ -6,10 +6,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { Modal } from "react-bootstrap";
 import { Card, CardBody, CardTitle } from "reactstrap";
 import { Button } from "../stories/Button";
-import { FaDownload } from "react-icons/fa";
 import { useReactToPrint } from "react-to-print";
-// import DetailToDownload from '../Admin/Challenges/DetailToDownload';
-// import ViewDetail from '../Admin/Challenges/ViewDetail';
 import { CardText } from "reactstrap";
 import { openNotificationWithIcon } from "../helpers/Utils";
 import { getCurrentUser } from "../helpers/Utils";
@@ -42,7 +39,6 @@ const LinkComponent = ({ item }) => {
             <a
               key={i}
               className="badge mb-2 bg-info p-3 ms-3 col-3"
-              // href={ans}
               style={{ cursor: 'pointer' }}
               onClick={() => handlePreview(ans)}
               target="_blank"
@@ -68,70 +64,31 @@ const IdeaSubmissionCard = ({
   handleClose,
   show,
   response,
-  props,
   setIdeaCount,
-  setApproval,
 }) => {
   const submitted = response;
-  // console.log(response,"formData");
   const [showDefault, setshowDefault] = useState(true);
   const currentUser = getCurrentUser("current_user");
   const dispatch = useDispatch();
-  const [teamResponse, setTeamResponse] = React.useState([]);
   const mentorId = currentUser?.data[0]?.user_id;
-  const [answers, setAnswers] = useState([]);
   const [hide, setHide] = useState(true);
   const [submittedResponse, setIdeaSubmittedData] = React.useState(submitted);
   const Id = submittedResponse.challenge_response_id;
   const problemSolvingArray = JSON.parse(submittedResponse.problem_solving);
-  // const prototypeImageArray = JSON.parse(response.prototype_image);
   const files = submittedResponse?.prototype_image
     ? JSON.parse(submittedResponse.prototype_image)
     : [];
  const [images,setImages] = React.useState([]);
 
-  // const fileName = prototypeImageArray[0].split('/').pop();
-  // const [id,setId]=useState();
-  // console.log(submittedResponse,"11");
-  // console.log(Id,"id");
+ 
   const teamId = submittedResponse.team_id;
    useEffect(() => {
           if (submittedResponse) {
-              // setTeamResponse(props?.ideaDetails);
               setImages(JSON.parse(submittedResponse.prototype_image));
           }
       }, [submittedResponse]);
 
-  // useEffect(() => {
-  //     if (submittedResponse && submittedResponse !== {}) {
-  //         const data = Object.entries(submittedResponse);
-  //         const answerFormat = data.map((item) => {
-  //             return {
-  //                 question_no: item[1].question_no,
-  //                 question: item[1].question,
-  //                 answer: item[1]?.selected_option,
-  //                 type: item[1]?.question_type
-  //             };
-  //         });
-  //         setAnswers(answerFormat);
-  //     }
-  // }, [submittedResponse]);
-  // const answersSort = [...answers].sort(
-  //     (a, b) => a.question_no - b.question_no
-  // );
 
-  // React.useEffect(() => {
-  //     if (submittedResponse) {
-  //         setTeamResponse(Object.entries(submittedResponse).map((e) => e[1]));
-  //     }
-  // }, [submittedResponse]);
-  // React.useEffect(() => {
-  //     if (props?.ideaDetails?.response) {
-  //         setTeamResponse(
-  //             Object.entries(props?.ideaDetails?.response).map((e) => e[1])
-  //         );
-  //     }
-  // }, [props]);
   const handleAlert = (handledText) => {
     // here we can delete the team //
     const swalWithBootstrapButtons = Swal.mixin({
@@ -166,12 +123,12 @@ const IdeaSubmissionCard = ({
       });
   };
   const handleAccept = () => {
-    // alert("helll");
+        // this function update the status
+
     const currentTime = new Date().toLocaleString();
 
     const body = JSON.stringify({
       verified_status: "ACCEPTED",
-      // verified_at: currentTime,
     });
     const ideaID = encryptGlobal(JSON.stringify(Id));
     var config = {
@@ -188,8 +145,6 @@ const IdeaSubmissionCard = ({
     axios(config)
       .then(async function (response) {
         if (response.status === 200) {
-          // setAcceptBtn(response.data.data);
-          // console.log(response, 'response');
           openNotificationWithIcon("success", "Idea Approved Successfully");
           setHide(false);
           handleClose();
@@ -206,6 +161,8 @@ const IdeaSubmissionCard = ({
       });
   };
   const ideaSubmittedApi = (teamId) => {
+               // This function fetches idea submission details from the API //
+
     const Param = encryptGlobal(
       JSON.stringify({
         team_id: teamId,
@@ -227,7 +184,6 @@ const IdeaSubmissionCard = ({
         if (response.status === 200) {
           if (response.data.data && response.data.data.length > 0) {
             setIdeaSubmittedData(response.data.data[0]);
-            // setId(response.data.data[0].challenge_response_id);
           }
         }
       })
@@ -258,9 +214,7 @@ const IdeaSubmissionCard = ({
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response, 'ideasubmission page');
           setIdeaCount(response.data.data[0].idea_count);
-          // setApproval(response.data.data[0].PendingForApproval);
         }
       })
       .catch(function (error) {
@@ -268,35 +222,6 @@ const IdeaSubmissionCard = ({
       });
   };
 
-  const downloadFile = (item) => {
-    // const link = document.createElement('a');
-    // link.href = item;
-    // link.download = 'upload.pdf';
-    // document.body.appendChild(link);
-    // link.click();
-    // document.body.removeChild(link);
-    fetch(item)
-      .then((response) => {
-        // Convert the response to a blob
-        return response.blob();
-      })
-      .then((blob) => {
-        // Create a download link
-        const url = window.URL.createObjectURL(new Blob([blob]));
-        const link = document.createElement("a");
-        link.href = url;
-        const fileName = item.split("/").pop();
-        link.setAttribute("download", fileName);
-        // const parts = item.split('/');
-        // link.setAttribute('download', parts[parts.length - 1]);
-        document.body.appendChild(link);
-        link.click();
-        link.parentNode.removeChild(link);
-      })
-      .catch((error) => {
-        console.error("Error downloading file:", error);
-      });
-  };
 
   ///idea pdf 
   const [ideaPdfValues, setIdeaPdfValues] = useState();
@@ -330,9 +255,8 @@ const IdeaSubmissionCard = ({
   useEffect(() => {
     if (ideaPdfValues !== undefined) {
       handlePrint();
-      console.log('printcontinue');
     } else {
-      console.log("Some PDF printing related api's are failing");
+      // console.log("Some PDF printing related api's are failing");
     }
   }, [ideaPdfValues]);
 
@@ -373,7 +297,6 @@ const IdeaSubmissionCard = ({
             className="w-100 d-block text-center"
           >
             Theme : {response.theme}
-            {/* Focus Area : <p>{response.focus_area}</p> */}
           </Modal.Title>
         </Modal.Header>
 
@@ -490,21 +413,7 @@ const IdeaSubmissionCard = ({
               </label>
             
               <CardText>
-                {/* {files.length > 0 &&
-                  files.map((item, i) => (
-                    <Card key={i}>
-                     
-                      <a
-                        key={i}
-                        className="badge bg-info col-3"
-                        target="_blank"
-                        rel="noreferrer"
-                        onClick={() => downloadFile(item)}
-                      >
-                        {item.split("/").pop()}
-                      </a>
-                    </Card>
-                  ))} */}
+               
                   <Card>  {
                         <LinkComponent item={images} />
                       }</Card>
@@ -521,7 +430,6 @@ const IdeaSubmissionCard = ({
               {submittedResponse?.prototype_link && (
   <VideoPopup videoUrl={submittedResponse.prototype_link} />
 )}
-                {/* <a href={submittedResponse.prototype_link} target="_blank" rel="noreferrer">{submittedResponse.prototype_link}</a> */}
                 </CardText>
             </CardBody>
           </Card>
@@ -536,7 +444,6 @@ const IdeaSubmissionCard = ({
           </Card>
         </Modal.Body>
         <Modal.Footer>
-          {/* <FaDownload size={22} onClick={handlePrint} /> */}
 
           {hide &&
             submittedResponse?.status === "SUBMITTED" &&

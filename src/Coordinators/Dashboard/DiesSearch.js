@@ -1,24 +1,15 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable indent */
 /* eslint-disable no-unused-vars */
-import { Descriptions, Input } from "antd";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-// import { Col, Row } from 'reactstrap';
 import { Button } from "../../stories/Button";
-// import Layout from '../Layout';
-// import {
-//     deleteTempMentorById,
-//     teacherResetPassword
-// } from '../store/admin/actions';
+
 import { Col, Container, Row, CardBody, CardText } from "reactstrap";
-// import './dashboard.scss';
-// import { useHistory } from 'react-router-dom';
 import jsPDF from "jspdf";
 import DataTable, { Alignment } from "react-data-table-component";
 import DataTableExtensions from "react-data-table-component-extensions";
 import { URL, KEY } from "../../constants/defaultValues";
-import { Link } from "react-router-dom";
 import Swal from "sweetalert2/dist/sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 import logout from "../../assets/img/logout.png";
@@ -33,7 +24,6 @@ import {
   getNormalHeaders,
   openNotificationWithIcon,
 } from "../../helpers/Utils";
-import { Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
@@ -51,7 +41,6 @@ const DiescodeScreen = () => {
   const [diesCode,setDiesCode]=useState("");
   const [multiOrgData, setMultiOrgData] = useState({multiOrg});
 
-//   console.log(multiOrgData,"mm");
   const [mentorId, setMentorId] = useState("");
 
   const pdfRef = React.useRef(null);
@@ -63,7 +52,6 @@ const DiescodeScreen = () => {
     // where list = diescode //
     //where organization_code = diescode //
     const list = JSON.parse(localStorage.getItem('diesCode'));
-    // console.log(list,"ll");
     setDiesCode(list);
      handleSearch(list);
 }, []);
@@ -283,19 +271,11 @@ const downloadPDF = () => {
           ? row.ideaAcceptance : row.ideaStatus === "DRAFT" || row.ideaStatus === null
           ? "" :"Not yet Reviewed",
           
-//         row.ideaStatus === 
-// "SUBMITTED" ?  row.ideaAcceptance:"Not yet Reviewed" ,
-       
+
         center: true,
         width: '12rem'
     },
-    //   {
-    //     name: 'Mentor Approval',
-    //     selector: (row) =>
-    //         row.ideaAcceptance,
-    //     center: true,
-    //     width: '15rem'
-    // },
+   
       {
         name: "Actions",
         cell: (params) => {
@@ -307,11 +287,7 @@ const downloadPDF = () => {
                 (
                   <Button
                     key={params}
-                    //   className={
-                    //       isideadisable
-                    //           ? `btn btn-success btn-lg mr-5 mx-2`
-                    //           : `btn btn-lg mr-5 mx-2`
-                    //   }
+                   
                     className="btn btn-secondary"
                     label={"REVOKE"}
                     size="small"
@@ -322,7 +298,6 @@ const downloadPDF = () => {
                         params.ideaStatus
                       )
                     }
-                    //   disabled={!isideadisable}
                   />
                 )}
             </>,
@@ -331,85 +306,11 @@ const downloadPDF = () => {
         width: "8rem",
         center: true,
       },
-    //   {
-    //     name: "Mentor Approval",
-    //     selector: (row) =>
-    //       row.PFAStatus === null
-    //         ? ""
-    //         : row.PFAStatus === "Pending"
-    //         ? "PENDING"
-    //         : "APPROVED",
-    //     center: true,
-    //     width: "20%",
-    //   },
-      //     name: 'Actions',
-      //     cell: (params) => {
-      //         return [
-      //             <>
-      //                 {params.ideaStatus == 'SUBMITTED' && params.evaluation_status === null && (
-      //                     <Button
-      //                         key={params}
-      //                         className={
-      //                             isideadisable
-      //                                 ? `btn btn-success btn-lg mr-5 mx-2`
-      //                                 : `btn btn-lg mr-5 mx-2`
-      //                         }
-      //                         label={'REVOKE'}
-      //                         size="small"
-      //                         shape="btn-square"
-      //                         onClick={() =>
-      //                             handleRevoke(
-      //                                 params.challenge_response_id,
-      //                                 params.ideaStatus
-      //                             )
-      //                         }
-      //                         disabled={!isideadisable}
-      //                     />
-      //                 )}
-      //             </>
-      //         ];
-      //     },
-      //     width: '20%',
-      //     center: true
-      // }
+   
     ],
   };
-  const handleAlert = (id) => {
-    // where id = mentor.userid //
-    // we can delete the userid //
-    const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-            confirmButton: 'btn btn-submit',
-            cancelButton: 'btn btn-cancel'
-        },
-        buttonsStyling: false,
-        allowOutsideClick: false
-    });
-
-    swalWithBootstrapButtons
-        .fire({
-            title: "<h4>Are you sure?</h4>",
-            text:'You are Deleting this Registration' ,
-            imageUrl: `${logout}`,
-            confirmButtonText: 'Confirm',
-            showCancelButton: true,
-            cancelButtonText: 'Cancel',
-            reverseButtons: false
-        })
-        .then(async (result) => {
-            if (result.isConfirmed) {
-                if (result.isConfirmed) {
-                    await deleteTempMentorById(id);
-                    setOrgData({});
-                    
-                    
-
-                }
-            } 
-        });
-};
+ 
 const viewDetails = () => {
-    // alert("hii"),
     navigate("/coo-view");
     localStorage.setItem('orgData', JSON.stringify(orgData));
 };
@@ -446,37 +347,8 @@ const handleresetpassword = (data) => {
         })
         .catch((err) => console.log(err.response));
 };
-const handleEdit = () => {
-    //  here  We can edit the Registration details //
-    // Where data = orgData //
-    navigate(
-         '/diescode-mentor-edit',
-       { state: {
-            full_name: orgData.mentor?.full_name,
-            mobile: orgData.mentor?.mobile,
-            username: orgData.mentor?.user?.username,
-            mentor_id: orgData.mentor?.mentor_id,
-            where: 'Dashbord',
-            organization_code: orgData.organization_code,
-            title: orgData.mentor?.title,
-            gender: orgData.mentor?.gender,
-            whatapp_mobile: orgData.mentor?.whatapp_mobile
-        }
-    });
-};
-const handleShiftDiesCocde= () => {
-    //  here  We can edit the Registration details //
-    // Where data = orgData //
-    navigate(
-         '/state-mentor-shift',
-       { state: {
-            username: orgData.mentor?.user?.username,
-            mentor_id: orgData.mentor.mentor_id,
-            organization_code: orgData.organization_code,
-            full_name: orgData.mentor?.full_name,
-        }
-    });
-};
+
+
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -484,7 +356,6 @@ const handleShiftDiesCocde= () => {
         <div className="create-ticket register-block">
         <Row  className="mb-3 modal-body-table search-modal-header">
           <div className="dashboard p-2">
-            {/* <h4>Teachers List </h4> */}
             <h4>Teachers List  Of Udise Code : {diesCode}{""} {multiOrgData[0]?.status === "INACTIVE" ? <span style={{color:"red"}}>Udise code is inactive</span>:""}</h4>
 
             <Row  className="mb-3 modal-body-table search-modal-header">
@@ -738,38 +609,7 @@ const handleShiftDiesCocde= () => {
                                                                                         <p>{orgData.board}</p>
                                                                                       </Col>
                                                                                     </Row>
-                                                    {/* <Row className="pt-3 pb-3">
-                                                        <Col
-                                                            xs={5}
-                                                            sm={5}
-                                                            md={5}
-                                                            xl={5}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>Pincode</p>
-                                                        </Col>
-                                                        <Col
-                                                            xs={1}
-                                                            sm={1}
-                                                            md={1}
-                                                            xl={1}
-                                                        >
-                                                            :
-                                                        </Col>
-                                                        <Col
-                                                            xs={6}
-                                                            sm={6}
-                                                            md={6}
-                                                            xl={6}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>
-                                                                {
-                                                                    orgData.pin_code
-                                                                }
-                                                            </p>
-                                                        </Col>
-                                                    </Row> */}
+                                                  
                                                     <Row className="pt-3 pb-3">
                                                         <Col
                                                             xs={5}
@@ -951,14 +791,9 @@ const handleShiftDiesCocde= () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        {/* <Row  className="mb-3 modal-body-table search-modal-header"> */}
                                         <div className="d-flex justify-content-between flex-column flex-md-row mb-3 ">
                                            
-                                            {/* <button type="button" className="btn btn-outline-info" 
-                                              onClick={handleEdit}
-                                            >
-                                       Edit
-                                    </button> */}
+                                           
                                           
 
                                             <button type="button" className="btn btn-outline-success" 
@@ -981,15 +816,7 @@ const handleShiftDiesCocde= () => {
                                                 }}>
                                        Download
                                     </button>
-                                    {/* <button
-                                                onClick={() => {
-                                                   handleShiftDiesCocde();
-                                                }}
-                                                className="btn btn-info"
-                                                
-                                            >
-                                                Shift Mentor
-                                            </button> */}
+                                   
                                             <button
                                                 onClick={viewDetails}
                                                type="button" className="btn btn-outline-primary"
@@ -998,17 +825,8 @@ const handleShiftDiesCocde= () => {
                                             </button>
 
                                           
-                                            {/* <button type="button" className="btn btn-outline-danger"
-                                             onClick={() => {
-                                                    handleAlert(
-                                                        orgData.mentor?.user_id
-                                                    );
-                                                }}
-                                            >
-                                            Delete
-                                    </button> */}
+                                           
                                         </div>
-{/* </Row> */}
                                         <Row  className="mb-2 modal-body-table search-modal-header">
                                         <div>
                                             <div className="row">

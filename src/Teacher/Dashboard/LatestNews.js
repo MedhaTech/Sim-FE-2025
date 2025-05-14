@@ -6,10 +6,7 @@ import "./LatestNewsScroll.css";
 import axios from "axios";
 import newIcon from "../../assets/img/blinking_new.gif";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
-// import { Link } from "react-router-dom";
-// import { FaNewspaper } from "react-icons/fa";
-// import { FaLink } from "react-icons/fa";
-// import { FaDownload } from "react-icons/fa";
+
 import { useTranslation } from "react-i18next";
 import { MdOutlineAttachFile } from "react-icons/md";
 import { MdOutlineFileDownload } from "react-icons/md";

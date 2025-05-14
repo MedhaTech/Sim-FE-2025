@@ -179,7 +179,6 @@ const RatedDetailCard = (props) => {
             </div>
             <hr />
             
-            {/* {props?.ideaDetails?.evaluator_ratings[0]?.rated_evaluated_name && ( */}
   <div className="row mb-1 mt-2">
     <div className="col-5">
       <p className="my-0 ">Evaluated By :</p>
@@ -192,7 +191,6 @@ const RatedDetailCard = (props) => {
       ))}
     </div>
   </div>
-{/* // )} */}
             <hr />
 
             <div className="row mb-1 mt-2">

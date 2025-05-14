@@ -9,7 +9,6 @@ import { Row, Col } from "react-bootstrap";
 import "./style.scss";
 import { BsChevronRight, BsFilter } from "react-icons/bs";
 import { RiAwardFill } from "react-icons/ri";
-// import { CommonDropDownComp } from '../../stories/CommonDropdown/CommonDropdownComp';
 import { Card, CardBody, CardTitle } from "reactstrap";
 import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
 import {
@@ -17,30 +16,18 @@ import {
   getAdminCourseDetails,
   getMentorCourseAttachments,
 } from "../../redux/actions";
-// import { BsLayoutTextSidebarReverse } from 'react-icons/bs';
-// import { VscCircleFilled } from 'react-icons/vsc';
-// import { VscCheck } from 'react-icons/vsc';
+
 import Confetti from "react-confetti";
 
 import Vimeo from "@u-wave/react-vimeo";
-// import Layout from '../Layout';
 
-// import { BsQuestionCircle } from 'react-icons/bs';
-import { Accordion, Modal } from "react-bootstrap";
 
-// import { Button } from '../../stories/Button';
-import { GrDocument } from "react-icons/gr";
-import { AiFillPlayCircle } from "react-icons/ai";
+
 import { getCurrentUser } from "../../helpers/Utils";
 import axios from "axios";
-// import ModuleAssesmentImg from '../../assets/media/moduleAssesmentPopup.svg';
 import { connect, useSelector } from "react-redux";
 
-// import DetaledQuiz from "../../Admin/DetailedQuiz/DetaledQuiz";
 
-// import Csv from '../../assets/media/csv1.png';
-
-// import Pdf from '../../assets/media/csv1.png';
 import jsPDF from "jspdf";
 import { useLayoutEffect } from "react";
 import { FaBullseye } from "react-icons/fa";
@@ -60,11 +47,9 @@ const TeacherPlayVideo = (props) => {
   const { id: paramId } = useParams();
   const course_id = paramId ? paramId : 1;
 
-  // const course_id = props.match.params.id ? props.match.params.id : 1;
   const currentUser = getCurrentUser("current_user");
   const [condition, setCondition] = useState("");
   const [modalShow, setModalShow] = useState(false);
-  // const [showQuiz, setHideQuiz] = useState(false);
   const [quizId, setQizId] = useState("");
   const [worksheetId, setWorksheetId] = useState("");
   const [backToQuiz, setBackToQuiz] = useState(false);
@@ -109,7 +94,6 @@ const TeacherPlayVideo = (props) => {
   const [courseData, setCourseData] = useState(null);
   const [isquizcompleted, setisquizcompleted] = useState(false);
   const [finalPage, setFinalPage] = useState(false);
-  console.log(finalPage, "pp");
   const scrollRef = React.createRef();
   const [quizStart, setQuizStart] = useState(false);
 
@@ -219,50 +203,48 @@ const TeacherPlayVideo = (props) => {
         console.log(error);
       });
   }
-  // useEffect(() => {
-  //   getisquizcompleted();
-  // }, []);
-  async function getisquizcompleted() {
-    let quizParamData = encryptGlobal(
-      JSON.stringify({
-        attempts: 1,
-        locale: "en",
-      })
-    );
-    const quiZEnId = encryptGlobal("8");
-    var config = {
-      method: "get",
+ 
+  // async function getisquizcompleted() {
+  //   let quizParamData = encryptGlobal(
+  //     JSON.stringify({
+  //       attempts: 1,
+  //       locale: "en",
+  //     })
+  //   );
+  //   const quiZEnId = encryptGlobal("8");
+  //   var config = {
+  //     method: "get",
 
-      url:
-        process.env.REACT_APP_API_BASE_URL +
-        `/quiz/${quiZEnId}/nextQuestion?Data=${quizParamData}`,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${currentUser?.data[0]?.token}`,
-      },
-    };
-    axios(config)
-      .then(function (response) {
-        if (response.status === 200) {
-          if (
-            response.data.data ===
-            "Quiz has been completed no more questions to display"
-          ) {
-            setisquizcompleted(true);
-            setQuizStart(false);
-          } else if (response?.data?.data[0]?.question_no === 1) {
-            setQuizStart(true);
-            setisquizcompleted(false);
-          } else {
-            setQuizStart(false);
-            setisquizcompleted(false);
-          }
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
+  //     url:
+  //       process.env.REACT_APP_API_BASE_URL +
+  //       `/quiz/${quiZEnId}/nextQuestion?Data=${quizParamData}`,
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+  //     },
+  //   };
+  //   axios(config)
+  //     .then(function (response) {
+  //       if (response.status === 200) {
+  //         if (
+  //           response.data.data ===
+  //           "Quiz has been completed no more questions to display"
+  //         ) {
+  //           setisquizcompleted(true);
+  //           setQuizStart(false);
+  //         } else if (response?.data?.data[0]?.question_no === 1) {
+  //           setQuizStart(true);
+  //           setisquizcompleted(false);
+  //         } else {
+  //           setQuizStart(false);
+  //           setisquizcompleted(false);
+  //         }
+  //       }
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // }
 
   const handleNxtVideo = (id) => {
     // here id = course_id //
@@ -292,7 +274,6 @@ const TeacherPlayVideo = (props) => {
         if (response.status === 201) {
           setUpdateModuleResponce(response.data && response.data.data[0]);
           props.getTeacherCourseDetailsActions(course_id);
-          // console.log(response,"AAAAAA");
         }
       })
       .catch(function (error) {
@@ -351,12 +332,7 @@ const TeacherPlayVideo = (props) => {
     // console.log("428 event fired: ", event);
   };
 
-  // const handleTimeUpdate = (event) => {
-  //   // console.log("432event fired: ", event);
-  //   if (event.seconds > "11.62") {
-  //     // setModalShow(true);
-  //   }
-  // };
+ 
 
   const handleTimeUpdate = (event) => {
     const videoLength = event.duration; //500
@@ -604,7 +580,6 @@ const TeacherPlayVideo = (props) => {
       },
     });
   };
-  // console.log(teacherCourseDetails,"qq");
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -714,212 +689,16 @@ const TeacherPlayVideo = (props) => {
                   </div>
                 </div>
               </Col>
-              {/* <Col xl={4} className="course-assement order-2 order-xl-1 ">
-                <div className="assement-info">
-                  <h3>Lessons</h3>
-                  <div className="view-head"></div>
-                  <div className="assement-item" id="scrollbar">
-                    {teacherCourseDetails &&
-                      teacherCourseDetails.length &&
-                      teacherCourseDetails.map((course, index) => {
-                        return (
-                          <div
-                            key={index}
-                            className={`course-sec-list ${course.progress === "COMPLETED"
-                              ? "hHover"
-                              : "hHover"
-                              }  `}
-                          >
-                            <Row
-                              style={{
-                                background:
-                                  currentTopicId ===
-                                  course.mentor_course_topic_id && "#f0f3f8",
-                              }}
-                              className={`justify-content-between w-100 px-4 py-3 ${course.progress === "COMPLETED"
-                                ? "hHover"
-                                : "noCurser"
-                                }`}
-                            >
-                              <Col
-                                md={12}
-                                className="my-auto"
-                                onClick={() => {
-                                  setCourseData(course);
-                                  handleSelect(
-                                    course.topic_type_id,
-                                    course.mentor_course_topic_id,
-                                    course.topic_type
-                                  );
-                                  if (
-                                    course.title.toLowerCase() === "handbook" ||
-                                    course.title === "கையேடு"
-                                  ) {
-                                    setHandbook(true);
-                                    setInstructions(false);
-                                  } else if (
-                                    course.title.toLowerCase() ===
-                                    "congratulations" ||
-                                    course.title === "வழிமுறைகள்"
-                                  ) {
-                                    setInstructions(true);
-                                    setHandbook(false);
-                                  } else if (
-                                    course.title.toLowerCase() === "certificate"
-                                  ) {
-                                    setCertificate(true);
-                                    setItem("CERTIFICATE");
-                                  }
-                                }}
-                              >
-                                <p className="course-icon mb-0">
-                                  {videoStatus(
-                                    course.topic_type,
-                                    course.progress
-                                  )}
 
-                                  <span className="course-title">
-                                    {course.title}
-                                  </span>
-                                </p>
-                                {/* <p className="course-time mb-0 px-5 my-auto">
-                                                            {course.video_duration && (
-                                                                <span className="px-2">
-                                                                    {Math.floor(
-                                                                        course.video_duration / 60
-                                                                    )}
-                                                                    {""} min
-                                                                </span>
-                                                            )}
-                                                        </p> */}
-              {/*</Col>
-                            </Row>
-                          </div>
-                        );
-                      })}
-                  </div>
-                </div>
-              </Col> */}
 
               <Col xl={8} className="course-video mb-5 order-1 order-xl-2">
                 {
-                  // item === "QUIZ" && !showQuiz ? (
-                  //   <div
-                  //     size="lg"
-                  //     className="modal-popup text-screen text-center  modal-popup"
-                  //   >
-                  //     <div className="modal-content">
-                  //       {quizStart ? (
-                  //         <Modal.Header>
-                  //           <Modal.Title className="w-100 d-block mb-2">
-                  //             Ready for a quick test?
-                  //           </Modal.Title>
-                  //           <div className="w-100 d-block text-left">
-                  //             <p
-                  //               className="text-center"
-                  //               style={{
-                  //                 fontSize: "1.5rem",
-                  //               }}
-                  //             >
-                  //               Here is a short quiz (15 Questions) to check for
-                  //               understanding about the program and teachers role.
-                  //             </p>
-                  //             <b>Instructions:</b>
-                  //             <ol>
-                  //               <li>
-                  //                 Read the Teacher Handbook completely before
-                  //                 taking the quiz.
-                  //               </li>
-                  //               <li>
-                  //                 Quiz will consist of 15 questions and will take
-                  //                 5-10 minutes to complete.
-                  //               </li>
-                  //               <li>
-                  //                 Score will be displayed at the end of the quiz
-                  //                 for your reference.
-                  //               </li>
-                  //               <li>You can attempt the quiz only once.</li>
-                  //             </ol>
-                  //           </div>
-                  //         </Modal.Header>
-                  //       ) : isquizcompleted ? (
-                  //         <Modal.Header>
-                  //           <Modal.Title className="w-100 d-block mb-2">
-                  //             Quick test Completed successfully
-                  //           </Modal.Title>
-                  //           <p className="w-100 d-block">Check your score.</p>
-                  //         </Modal.Header>
-                  //       ) : (
-                  //         <Modal.Header>
-                  //           <Modal.Title className="w-100 d-block mb-2">
-                  //             Continue your quick test
-                  //           </Modal.Title>
-                  //           <div className="w-100 d-block text-left">
-                  //             <p
-                  //               className="text-center"
-                  //               style={{
-                  //                 fontSize: "1.5rem",
-                  //               }}
-                  //             >
-                  //               Here is a short quiz (15 Questions) to check for
-                  //               understanding about the program and teachers role.
-                  //             </p>
-                  //             <b>Instructions:</b>
-                  //             <ol>
-                  //               <li>
-                  //                 Read the Teacher Handbook completely before
-                  //                 taking the quiz.
-                  //               </li>
-                  //               <li>
-                  //                 Quiz will consist of 15 questions and will take
-                  //                 5-10 minutes to complete.
-                  //               </li>
-                  //               <li>
-                  //                 Score will be displayed at the end of the quiz
-                  //                 for your reference.
-                  //               </li>
-                  //               <li>You can attempt the quiz only once.</li>
-                  //             </ol>
-                  //           </div>
-                  //         </Modal.Header>
-                  //       )}
-
-                  //       <Modal.Body>
-                  //         <figure>
-                  //           <img
-                  //             // src={ModuleAssesmentImg}
-                  //             alt="test"
-                  //             className="img-fluid w-50"
-                  //           />
-                  //         </figure>
-                  //         {/* <Button
-                  //               label={
-                  //                 quizStart
-                  //                   ? "Let's Start"
-                  //                   : isquizcompleted
-                  //                   ? "See Score"
-                  //                   : "Resume Quiz"
-                  //               }
-                  //               btnclassName="primary mt-4"
-                  //               size="small"
-                  //               onClick={() => setHideQuiz(true)}
-                  //             /> */}
-                  //         <button
-                  //           className="btn btn-warning"
-                  //           onClick={() => setHideQuiz(true)}
-                  //         >
-                  //           Let's Start
-                  //         </button>
-                  //       </Modal.Body>
-                  //     </div>
-                  //   </div>
-                  // ) :
+                 
                   item === "ATTACHMENT" &&
                   !instructions &&
                   handbook &&
                   props.mentorAttachments.length > 0 &&
                   props.mentorAttachments[0]?.attachments?.split("{{}}") ? (
-                    // .length === 1
                     <Fragment>
                       <Card className="course-sec-basic p-2">
                         <CardBody>
@@ -953,22 +732,10 @@ const TeacherPlayVideo = (props) => {
                             <p>
                               {t("teacherJourney.hand11")}
 
-                              {/* <b>
-                                                        The resource section
-                                                        will have the Teacher
-                                                        Handbook and the Student
-                                                        workbook.
-                                                    </b>
-                                                    The students will also be
-                                                    able to access the Student
-                                                    workbook in their own
-                                                    profiles. */}
+                          
                             </p>
 
-                            {/* <p>
-                            To know that you are ready to support the students in this program, you will be required to take a quiz.  Don’t worry, the quiz is not a test, it is designed to help you recall the things you have to keep in mind while doing the program. All the best! 
-
-                            </p> */}
+                           
                           </CardBody>
                           <div className="text-left mb-2">
                             <div>
@@ -981,12 +748,7 @@ const TeacherPlayVideo = (props) => {
                                     }}
                                     key={i}
                                     className="btn btn-secondary"
-                                    // label={`Download ${item
-                                    //   .split("/")
-                                    //   [item.split("/").length - 1].split(".")[0]
-                                    //   .replace("_", " ")}`}
-                                    // btnclassName="secondary mx-2"
-                                    // size="small"
+                                    
                                     onClick={() => handleDownload(item)}
                                   >
                                     {`Download ${item
@@ -1013,19 +775,7 @@ const TeacherPlayVideo = (props) => {
                     <Card className="embed-container">
                       <CardTitle className="text-left p-1 d-flex justify-content-between align-items-center">
                         <h3>{courseData.title}</h3>
-                        {/* {backToQuiz && (
-                        <Button
-                          label="Back to Quiz"
-                          btnclassName="primary"
-                          size="small"
-                          onClick={() => {
-                            setBackToQuiz(false);
-                            setItem("");
-                            setHideQuiz(true);
-                            // setQuizTopic("");
-                          }}
-                        />
-                      )} */}
+                       
                       </CardTitle>
                       <Vimeo
                         video={id.video_stream_id}
@@ -1039,15 +789,13 @@ const TeacherPlayVideo = (props) => {
                       />
                     </Card>
                   ) : (
-                    // showQuiz === false &&
-                    // !certificate &&
+                    
                     !instructions &&
                     !handbook && (
                       <Fragment>
                         <Card className="course-sec-basic ">
                           <CardBody>
                             {getLastCourseStatus(teacherCourseDetails) &&
-                            //  isquizcompleted
                             !finalPage ? (
                               <div>
                                 <Confetti className="w-100" />;
@@ -1120,24 +868,7 @@ const TeacherPlayVideo = (props) => {
                     )
                   )
                 }
-                {/* {showQuiz ? (
-                  <DetaledQuiz
-                    course_id={course_id}
-                    quizId={quizId}
-                    handleQuiz={handleQuiz}
-                    handleClose={handleClose}
-                    handleNxtVideo={handleNxtVideo}
-                    setBackToQuiz={setBackToQuiz}
-                    setHideQuiz={setHideQuiz}
-                    quiz="true"
-                    setInstructions={setInstructions}
-                    setHandbook={setHandbook}
-                    instructions={instructions ? "no" : "yes"}
-                    // setQuizTopic={setQuizTopic}
-                  />
-                ) : (
-                  ""
-                )} */}
+               
                 {item === "ATTACHMENT" &&
                   instructions &&
                   !handbook &&
@@ -1176,43 +907,7 @@ const TeacherPlayVideo = (props) => {
                       </Card>
                     </Fragment>
                   )}
-                {/* {item === "CERTIFICATE" && certificate && (
-                  <Fragment>
-                    <Card className="course-sec-basic p-5">
-                      <CardBody>
-                        <CardTitle className=" text-left pt-4 pb-4" tag="h2">
-                          Certificate
-                        </CardTitle>
-                        {worksheetResponce.response === null && (
-                          <p>Please Download Certificate...</p>
-                        )}
-                        <div ref={pdfRef} style={{ position: "relative" }}>
-                          <span
-                            className="text-capitalize"
-                            style={{
-                              position: "absolute",
-                              top: "19%",
-                              left: "16%",
-                              fontSize: "inherit",
-                            }}
-                          >
-                            {currentUser?.data[0]?.full_name}
-                          </span>
-                          <img
-                            alt="certificate"
-                            style={{
-                              width: "297px",
-                              height: "209px",
-                            }}
-                          />
-                        </div>
-                        <div className="text-right">
-                         
-                        </div>
-                      </CardBody>
-                    </Card>
-                  </Fragment>
-                )} */}
+
               </Col>
             </Row>
           </div>

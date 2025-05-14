@@ -2,7 +2,6 @@
 /* eslint-disable indent */
 import { notification } from "antd";
 import { userLogout } from "../Admin/store/admin/actions";
-// import Swal from "sweetalert2/dist/sweetalert2.js";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 

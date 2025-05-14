@@ -3,7 +3,6 @@
 /* eslint-disable indent */
 import React, { useEffect, useRef, useState } from 'react';
 import './ViewFinalSelectedideas.scss';
-// import Layout from '../../Pages/Layout';
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import ViewDetail from './ViewFinalDetail';
@@ -20,10 +19,7 @@ import logout from "../../../../assets/img/logout.png";
 import { useDispatch } from 'react-redux';
 import { getCurrentUser, getNormalHeaders } from '../../../../helpers/Utils';
 import { Spinner } from 'react-bootstrap';
-import jsPDF from 'jspdf';
-import { FaDownload, FaHourglassHalf } from 'react-icons/fa';
-import html2canvas from 'html2canvas';
-import TableDetailPdf from './TableDetailPdf';
+
 import { useReactToPrint } from 'react-to-print';
 import DetailToDownload from './DetailToDownload.jsx';
 import { encryptGlobal } from '../../../../constants/encryptDecrypt.js';
@@ -59,11 +55,8 @@ const ViewSelectedIdea = () => {
     ? []  
     : ["All Districts", ...(allDistricts[selectstate] || [])];
     useEffect(() => {
-        // if (selectstate === "All States") {
             setdistrict('');
-      console.log(state,"state");
 
-        //   }
     }, [selectstate]);
     
 
@@ -99,6 +92,7 @@ const ViewSelectedIdea = () => {
     };
 
     async function promoteapi(id) {
+        // this function update the status
         const body = JSON.stringify({ final_result: '1' });
         const promPram = encryptGlobal(JSON.stringify(id));
         var config = {
@@ -130,6 +124,8 @@ const ViewSelectedIdea = () => {
     };
 
     async function handleideaList() {
+        // this function fetches all ideas list from the API
+
         settableData({});
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const apiParam = encryptGlobal(
@@ -160,7 +156,6 @@ const ViewSelectedIdea = () => {
                 setshowspin(false);
             });
     }
-    // console.log(tableData, 'data');
     const evaluatedIdeafinal = {
         data: tableData && tableData.length > 0 ? tableData : [],
         columns: [
@@ -229,28 +224,13 @@ const ViewSelectedIdea = () => {
                 ),
                 width: '10rem'
             },
-            // {
-            //     name: 'Problem Statement',
-            //     cellExport: (row) => row.sub_category,
-            //     cell: (row) => (
-            //         <div
-            //             style={{
-            //                 whiteSpace: 'pre-wrap',
-            //                 wordWrap: 'break-word'
-            //             }}
-            //         >
-            //             {row.sub_category}
-            //         </div>
-            //     ),
-            //     width: '25rem'
-            // },
+           
             {
                 name: 'Idea Name',
                 cell: (row) => (
                     <div
                         style={{
-                            // whiteSpace: 'pre-wrap',
-                            // wordWrap: 'break-word'
+                           
                             whiteSpace: 'nowrap',       
                             overflow: 'hidden',         
                             textOverflow: 'ellipsis',
@@ -261,21 +241,7 @@ const ViewSelectedIdea = () => {
                 ),
                 width: '15rem'
             },
-            // {
-            //     name: 'District',
-            //     selector: (row) => row.district,
-            //     width: '15rem'
-            // },
-            // {
-            //     name: 'Team Name',
-            //     selector: (row) => row?.team_name || '',
-            //     sortable: true
-            // },
-            // {
-            //     name: 'SDG',
-            //     selector: (row) => row?.sdg,
-            //     width: '10%'
-            // },
+           
 
             {
                 name: 'Novelty',
@@ -427,12 +393,7 @@ const ViewSelectedIdea = () => {
                             </div>
                             <div className="mx-2 pointer d-flex align-items-center">
                                
-                                {/* <FaDownload
-                                    size={22}
-                                    onClick={() => {
-                                        handleDownpdf(params);
-                                    }}
-                                /> */}
+                               
                             </div>
                             {params.final_result === '0' && (
                                 <div
@@ -452,32 +413,7 @@ const ViewSelectedIdea = () => {
                 width: '15rem',
                 left: true
             }
-            //       {params.final_result === '0' ?
-            //       (
-            //     {
-            //         name: 'Final Evaluation',
-            //         cell: (params) => {
-            //             return [
-            //                 <div className="d-flex" key={params}>
-            //                     {params.final_result === '0' && (
-            //                         <div
-            //                             onClick={() =>
-            //                                 handlePromotelFinalEvaluated(params)
-            //                             }
-            //                             style={{ marginRight: '12px' }}
-            //                         >
-            //                             <div className="btn btn-info btn-lg mx-2">
-            //                                 Promote
-            //                             </div>
-            //                         </div>
-            //                     )}
-            //                 </div>
-            //             ];
-            //         },
-            //         width: '15%',
-            //         left: true
-            //     } )
-            // : ""}
+           
         ]
     };
     const [sortid, setsortid] = useState();
@@ -512,7 +448,6 @@ const ViewSelectedIdea = () => {
     const [pdfIdeaDetails, setPdfIdeaDetails] = useState('');
     const [pdfTeamResponse, setpdfTeamResponse] = useState('');
     const handleDownpdf = (params) => {
-        console.log(params,"222");
         setPdfIdeaDetails(params);
         setpdfTeamResponse(params);
        
@@ -562,13 +497,7 @@ const ViewSelectedIdea = () => {
 
             {/* <Layout> */}
                 <div className="container evaluated_idea_wrapper pt-2">
-                    {/* <div id="pdfIdd" style={{ display: 'none' }}>
-                    <TableDetailPdf
-                        ideaDetails={details}
-                        teamResponse={teamResponse}
-                        level={level}
-                    />
-                </div> */}
+                   
                     <div className="row">
                         <div className="col-12 p-0">
                             {!isDetail && (

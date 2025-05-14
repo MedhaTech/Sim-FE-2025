@@ -17,7 +17,6 @@ import { faKey } from "@fortawesome/free-solid-svg-icons";
 const ChangePwd = (props) => {
   // here we can change the  teacher password //
   const currentUser = getCurrentUser("current_user");
-  //const history = useHistory();
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [error, SetError] = useState("");

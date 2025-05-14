@@ -2,7 +2,6 @@
 /* eslint-disable indent */
 import React, { useEffect, useRef, useState } from "react";
 import "./ViewSelectedChallenges.scss";
-// import Layout from '../Pages/Layout';
 import DataTable, { Alignment } from "react-data-table-component";
 import DataTableExtensions from "react-data-table-component-extensions";
 import ViewDetail from "./ViewDetail";
@@ -11,16 +10,13 @@ import { KEY, URL } from "../../../constants/defaultValues";
 import { Button } from "../../../stories/Button";
 import Select from "./pages/Select";
 import { Col, Container, Row } from "reactstrap";
-// import { Themes } from '../../../Student/Pages/Ideas/SDGData.js';
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { getNormalHeaders } from "../../../helpers/Utils";
 import Spinner from "react-bootstrap/Spinner";
-// import { useLocation } from 'react-router-dom';
 import { useReactToPrint } from "react-to-print";
-import { FaDownload } from "react-icons/fa";
 import DetailToDownload from "./DetailToDownload";
 import { encryptGlobal } from "../../../constants/encryptDecrypt.js";
 import { stateList, districtList } from "../../../RegPage/ORGData";
@@ -61,15 +57,11 @@ const ViewSelectedIdea = () => {
     "All Districts": [...Object.values(districtList).flat()],
     ...districtList,
   };
-  // const fiterDistData = ["All Districts", ...(allDistricts[selectstate] || [])];
   const fiterDistData =
     selectstate === "All States"
       ? []
       : ["All Districts", ...(allDistricts[selectstate] || [])];
-  // const filterParams =
-  //     (district && district !== 'All Districts'
-  //         ? '&district=' + district
-  //         : '') + (sdg && sdg !== 'ALL SDGs' ? '&sdg=' + sdg : '');
+ 
   const filterParams =
     (selectstate && selectstate !== "All States"
       ? "&selectstate=" + selectstate
@@ -102,14 +94,11 @@ const ViewSelectedIdea = () => {
         theme: sdg !== "All Themes" ? sdg : "",
       })
     );
-    //         const baseURL = process.env.REACT_APP_API_BASE_URL_FOR_REPORTS;
-    // const endpoint = `${baseURL}${URL.getidealist}Data=${newParam}`;
+    
     await axios
-      // .get(endpoint, axiosConfig)
       .get(`${URL.getidealist}Data=${newParam}`, axiosConfig)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response,"dist");
           const updatedWithKey =
             response.data &&
             response.data.data[0] &&
@@ -127,7 +116,6 @@ const ViewSelectedIdea = () => {
         setshowspin(false);
       });
   }
-  // console.log(selectstate,"state",district,"district");
   const evaluatedIdeaforsub = {
     data: tableData && tableData.length > 0 ? tableData : [],
     columns: [
@@ -163,37 +151,7 @@ const ViewSelectedIdea = () => {
         selector: (row) => row.challenge_response_id,
         width: "5rem",
       },
-      // {
-      //     name: 'CID',
-      //     selector: (row) => row.idea_id,
-      //     cell: (params) => {
-      //         return [
-      //             <div className="d-flex" key={params}>
-      //                 <a
-      //                     href="#"
-      //                     style={{ color: 'black' }}
-      //                     onClick={(e) => {
-      //                         e.preventDefault();
-      //                         setIdeaDetails(params);
-      //                         setIsDetail(true);
-      //                         let index = 0;
-
-      //                         setCurrentRow(index + 1);
-      //                     }}
-      //                 >
-      //                     {params.idea_id}
-      //                 </a>
-      //                 {/* <FaDownload
-      //                     size={22}
-      //                     onClick={() => {
-      //                         handleDownpdf(params);
-      //                     }}
-      //                 /> */}
-      //             </div>
-      //         ];
-      //     },
-      //     width: '10rem'
-      // },
+    
       {
         name: "Theme",
         cell: (row) => (
@@ -208,27 +166,13 @@ const ViewSelectedIdea = () => {
         ),
         width: "11rem",
       },
-      // {
-      //     name: 'Problem Statement',
-      //     cell: (row) => (
-      //         <div
-      //             style={{
-      //                 whiteSpace: 'pre-wrap',
-      //                 wordWrap: 'break-word'
-      //             }}
-      //         >
-      //             {row?.themes_problem?.problem_statement}
-      //         </div>
-      //     ),
-      //     width: '25rem'
-      // },
+    
       {
         name: "Idea Name",
         cell: (row) => (
           <div
             style={{
-              // whiteSpace: 'pre-wrap',
-              // wordWrap: 'break-word'
+             
               whiteSpace: "nowrap",
               overflow: "hidden",
               textOverflow: "ellipsis",
@@ -240,24 +184,7 @@ const ViewSelectedIdea = () => {
         width: "15rem",
       },
 
-      // {
-      //     name: 'SDG',
-      //     selector: (row) => row.sdg,
-      //     width: '15%'
-      // },
-      // {
-      //     name: 'District',
-      //     selector: (row) => row.district,
-      //     width: '10rem'
-      // },
-      // {
-      //     name: 'Status',
-      //     selector: (row) => row.status,
-      //     cellExport: (row) => row.status,
-
-      //     // cell: (row) => row.status,
-      //     width: '18rem'
-      // },
+     
       {
         name: "Actions",
         cellExport: (row) => "",
@@ -283,23 +210,15 @@ const ViewSelectedIdea = () => {
               >
                 View
               </div>
-              {/* <FaDownload
-                                size={22}
-                                onClick={() => {
-                                    console.log("parm");
-                                    handleDownpdf(params);
-                                }}
-                            /> */}
+             
             </div>,
           ];
         },
         width: "9rem",
         center: true,
-        // left: true
       },
     ],
   };
-  // console.log("SUBMITTED Daaaaaaaa");
   const showbutton = selectstate && sdg;
 
   const handleNext = () => {
@@ -323,17 +242,7 @@ const ViewSelectedIdea = () => {
   const componentRef = useRef();
   const [pdfIdeaDetails, setPdfIdeaDetails] = useState("");
   const [pdfTeamResponse, setpdfTeamResponse] = useState("");
-  const handleDownpdf = (params) => {
-    console.log(params, "222");
-    setPdfIdeaDetails(params);
-    setpdfTeamResponse(params);
-    // if (params) {
-    //     setpdfTeamResponse(
-    //         params
-    //     );
-    // }
-    // console.log(params?.ideaDetails,"11");
-  };
+ 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     documentTitle: `${
@@ -430,9 +339,7 @@ const ViewSelectedIdea = () => {
                             btnClass="primary"
                             size="small"
                             label="Back"
-                            // onClick={() =>
-                            //     navigate.goBack()
-                            // }
+                           
                             onClick={() => navigate(-1)}
                           />
                         </div>

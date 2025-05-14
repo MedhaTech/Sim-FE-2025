@@ -5,22 +5,16 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CommonPage from '../../components/CommonPage';
 import { getCurrentUser } from '../../helpers/Utils';
-import { getStudentChallengeSubmittedResponse } from '../../redux/studentRegistration/actions';
-// import Layout from '../../Layout';
 import IdeasPageNew from './IdeaPageCopy';
-// import SDG from './SDG';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import Idea from './Idea';
-// import { getLanguage } from "../../constants/languageOptions";
 
 const IdeaSubmission = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  // const language = useSelector(
-  //   (state) => state?.studentRegistration?.studentLanguage
-  // );
+ 
   const challengesSubmittedResponse = useSelector(
     (state) => state?.studentRegistration.challengesSubmittedResponse
   );
@@ -32,37 +26,10 @@ const IdeaSubmission = () => {
   const TeamId = currentUser?.data[0]?.team_id;
   const [ideaSubmittedRes, setIdeaSubmittedRes] = useState({});
   const [initiate, setInitiate] = useState("");
-  useEffect(() => {
-    // const popParam = encryptGlobal(
-    //   JSON.stringify({
-    //     state: currentUser.data[0]?.state,
-    //     role: currentUser.data[0]?.role
-    //   })
-    // );
-    // var config = {
-    //   method: 'get',
-    //   url: process.env.REACT_APP_API_BASE_URL + `/popup?Data=${popParam}`,
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     Accept: 'application/json',
-    //     Authorization: `Bearer ${currentUser.data[0]?.token}`
-    //   }
-    // };
-    // axios(config)
-    //   .then(function (response) {
-    //     if (response.status === 200) {
-    //       if (response.data.data[0]?.on_off === '1') {
-    //         setIsideadisable(true);
-    //       } else {
-    //         setIsideadisable(false);
-    //       }
-    //     }
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-  }, []);
+   
   const submittedApi = () => {
+               // This function fetches idea submission details from the API //
+
     const Param = encryptGlobal(
       JSON.stringify({
         team_id: TeamId,
@@ -84,7 +51,6 @@ const IdeaSubmission = () => {
         if (response.status === 200) {
           if (response.data.data && response.data.data.length > 0) {
             const data = response.data.data[0];
-            // console.log(data, "data");
             setInitiate(response.data.data[0].initiate_by);
 
             setIdeaSubmittedRes(data);
@@ -106,8 +72,7 @@ const IdeaSubmission = () => {
     if (ideaSubmittedRes && ideaSubmittedRes.length > 0) {
       ideaSubmittedRes.status === 'DRAFT'
         ? setShowChallenges(true)
-        // : view
-        // ? setShowChallenges(true)
+       
         : setShowCompleted(true);
     } else {
       setShowChallenges(false);
@@ -115,14 +80,12 @@ const IdeaSubmission = () => {
   }, [ideaSubmittedRes]);
   const commonPageText = t('student.idea_submitted_desc');
   const handleView = () => {
-    // console.log("1");
     // here we can see the idea submission //
     setShowCompleted(false);
     setShowChallenges(true);
     setView(true);
   };
   const handleShow = () => {
-    // console.log("2");
 
     // here we can see the idea submission //
     // setShowChallenges(true);
@@ -131,7 +94,8 @@ const IdeaSubmission = () => {
   };
 
   const submitted = () => {
-    // console.log("3", ideaSubmittedRes);
+               // This function fetches idea submission details from the API //
+
     const Param = encryptGlobal(
       JSON.stringify({
         team_id: TeamId,
@@ -167,16 +131,7 @@ const IdeaSubmission = () => {
 
   };
 
-  // const submitted = useCallback(a () => {
-  //     console.log("3", ideaSubmittedRes); 
-  //     if (ideaSubmittedRes.status === 'DRAFT') {
-  //       setShowChallenges(true);
-  //     } else {
-  //       setShowCompleted(true);
-  //     }
-  //   }, [ideaSubmittedRes]);
-
-  // console.log(showChallenges,"showChallenges",showCompleted,"showCompleted",);
+ 
   return showCompleted ? (
     <div className='page-wrapper'>
       <CommonPage

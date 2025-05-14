@@ -22,8 +22,9 @@ const SidebarData = () => {
   }, [i18n]);
   const TeamId = currentUser?.data[0]?.team_id;
   const [link, setLink] = useState('/instruction');
-  // const { t } = useTranslation();
   const submittedApi = () => {
+               // This function fetches idea submission details from the API //
+
     const Param = encryptGlobal(
       JSON.stringify({
         team_id: TeamId,
@@ -43,7 +44,6 @@ const SidebarData = () => {
     axios(configidea)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response.data.data);
           if (response.data.data && response.data.data.length > 0) {
             const data = response.data.data[0];
             if (response.data.data[0].status === 'SUBMITTED') {
@@ -68,7 +68,6 @@ useEffect(() => {
  
   return( [
     {
-      // label: t("team"),
       label:"Team",
       submenuOpen: true,
       showSubRoute: false,
@@ -95,7 +94,6 @@ useEffect(() => {
     },
     {
       label: t("home.student"),
-      // label: "Student",
 
       submenuOpen: true,
       showSubRoute: false,
@@ -103,7 +101,6 @@ useEffect(() => {
       role: "STUDENT",
       submenuItems: [
         {
-          // label:"PreSurvey",
           label: t("home.pre_survey"),
 
           link: "/studentpresurvey",
@@ -112,7 +109,6 @@ useEffect(() => {
           submenu: false,
         },
         {
-          // label:"Student Dashboard",
           label: t("home.dashboard"),
 
           link: "/student-dashboard",
@@ -122,7 +118,6 @@ useEffect(() => {
           submenu: false,
         },
         {
-          // label:"Course",
           label: t("home.courses"),
 
           link: `/studentcourse/${1}`,
@@ -132,7 +127,6 @@ useEffect(() => {
         },
         
         {
-          // label: "Idea Submission",
           label: t("home.idea_submission"),
 
           link: link,
@@ -142,7 +136,6 @@ useEffect(() => {
           submenu: false,
         },
         {
-          // label:"Post Survey",
           label: t("home.post_survey"),
 
           link: "/studentpostsurvey",
@@ -152,7 +145,6 @@ useEffect(() => {
           submenu: false,
         },
         {
-          // label: "Resources",
           label: t("home.resources"),
 
           link: "/studentresource",
@@ -162,9 +154,7 @@ useEffect(() => {
           submenu: false,
         },
         { 
-          // <Icon.Shield />
           label: t("home.my_certificate"),
-          // label:"My Certificate",
           link: "/certificate",
           icon: <Icon.Tag />,
           role: "STUDENT",
@@ -173,7 +163,6 @@ useEffect(() => {
         },
         {
           label: t("home.badges"),
-           // label:"My Certificate",
           link:"/badges",
           icon: <Icon.Shield />,
           role: "STUDENT",

@@ -285,11 +285,12 @@ const TeacherProgressDetailed = () => {
         return Object.keys(filteredItem).length > 0 ? filteredItem : null;
       })
       .filter(Boolean);
-    // console.log("Final Filtered Data for Download:", filteredData);
     setmentorDetailedReportsData(filteredData);
   };
 
   const fetchData = (type,param) => {
+   // This function filters  data based on selected state, district, category
+
    let apiRes;
          if(type === 'save'){
            apiRes = encryptGlobal(param);
@@ -458,7 +459,6 @@ const TeacherProgressDetailed = () => {
 
   useEffect(() => {
     if (isReadyToDownload && mentorDetailedReportsData.length > 0) {
-      // console.log("Downloading CSV with data:", mentorDetailedReportsData);
       const formattedCSVData = mentorDetailedReportsData.map((item) =>
         Object.fromEntries(
           Object.entries(item).map(([key, value]) => [
@@ -471,10 +471,7 @@ const TeacherProgressDetailed = () => {
 
       setTimeout(() => {
         csvLinkRef.current.link.click();
-        // console.log(
-        //   "Downloading CSV with formatted headers:",
-        //   formattedCSVData
-        // );
+        
         openNotificationWithIcon("success", "Report Downloaded Successfully");
         setIsReadyToDownload(false);
       }, 1000);
@@ -792,11 +789,8 @@ axios(config)
 const [istabledownloadclicked,setistabledownloadclicked] = useState(false);
 const [savedHeader,setSavedHeader] = useState();
 const handleReportfileDownload = (data) =>{
-// alert("hii");
-// console.log(data,"data");
 setSavedHeader(allHeaders.filter((header) =>JSON.parse(data.columns).includes(header.key)).map((header) => header));
 fetchData('save',data.filters);
-// console.log(data.filters,"filter");
 setistabledownloadclicked(true);
 };
 useEffect(()=>{
@@ -1082,7 +1076,6 @@ const customStyles = {
                           !downloadTableData ||
                           downloadTableData.length === 0
                         ) {
-                          // console.log("Fetching data before download...");
                           filterData();
                         }
 

@@ -3,7 +3,6 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable react/prop-types */
 import React, { useState, useLayoutEffect } from "react";
-// import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { useFormik } from "formik";
@@ -63,9 +62,7 @@ const AdminLogin = (props) => {
         openNotificationWithIcon(
           "error",
           "Clear your browser cache and try logging in"
-        //   `Another User(${localStorage.getItem(
-        //     "module"
-        //   )}) has already logged in`
+       
         );
         return;
       }
@@ -95,13 +92,9 @@ const AdminLogin = (props) => {
                   <img
                     src={logo}
                     alt="Logo"
-                    // className="logo-image"
                   />
-                  {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
                 </div>
-                {/* <Link className="login-logo logo-white">
-                  <ImageWithBasePath src="assets/img/logo-white.png" alt />
-                </Link> */}
+               
                 <div className="login-userheading">
                   <h3> Super Admin Login</h3>
                   <h4>
@@ -122,10 +115,7 @@ const AdminLogin = (props) => {
                     {formik.touched.email && formik.errors.email ? (
                       <small className="error-cls" style={{color:"red"}}>{formik.errors.email}</small>
                     ) : null}
-                    {/* <ImageWithBasePath
-                      src="assets/img/icons/mail.svg"
-                      alt="img"
-                    /> */}
+                   
                     <img src={email} alt="Email" />
                   </div>
                 </div>
@@ -136,7 +126,6 @@ const AdminLogin = (props) => {
                       type={isPasswordVisible ? "text" : "password"}
                       id="password"
                       placeholder="Please Enter password"
-                      // className="pass-input form-control"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
@@ -163,32 +152,18 @@ const AdminLogin = (props) => {
                           Remember me
                         </label>
                       </div>
-                      {/* <div className="text-end">
-                        <Link className="forgot-link">Forgot Password?</Link>
-                      </div> */}
+                     
                     </div>
                   </div>
                 </div>
                 <div className="form-login">
-                  {/* <Link
-                    className="btn btn-login"
-                    type="submit"
-                    btnClass={
-                      !(formik.dirty && formik.isValid) ? "default" : "primary"
-                    }
-                    disabled={!(formik.dirty && formik.isValid)}
-                  >
-                    Sign In
-                  </Link> */}
+                 
                   <button
-                    // className="btn btn-login"
                     type="submit"
                     className={`btn btn-login ${
                       !(formik.dirty && formik.isValid) ? "default" : "primary"
                     }`}
-                    // btnClass={
-                    //   !(formik.dirty && formik.isValid) ? "default" : "primary"
-                    // }
+                    
                     disabled={!(formik.dirty && formik.isValid)}
                   >
                     Sign In

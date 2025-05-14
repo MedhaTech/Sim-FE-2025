@@ -8,9 +8,7 @@ import i5 from "../../assets/img/Themes/5.png";
 import i6 from "../../assets/img/Themes/6.png";
 import i7 from "../../assets/img/Themes/7.png";
 import i8 from "../../assets/img/Themes/8.png";
-// import { useTranslation } from 'react-i18next';
 
-// const { t } = useTranslation();
 
 export const themesList = [
 "Sustainable Development and Environment",

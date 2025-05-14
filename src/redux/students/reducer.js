@@ -6,7 +6,6 @@ const INIT_STATE = {
   currentUser: {},
   loading: false,
   error: "",
-  // stepTwoData:{},
   editData: {},
 };
 

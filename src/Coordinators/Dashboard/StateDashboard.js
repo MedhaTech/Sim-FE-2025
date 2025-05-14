@@ -1,14 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect } from "react";
-import CountUp from "react-countup";
-import {
-  File,
-  User,
-  UserCheck,
-} from "feather-icons-react/build/IconComponents";
-import ImageWithBasePath from "../../core/img/imagewithbasebath";
-// import { all_routes } from "../../Router/all_routes";
+
 import {
   getCurrentUser,
 
@@ -17,12 +10,7 @@ import { encryptGlobal } from '../../constants/encryptDecrypt';
 
 import axios from 'axios';
 import { FaChalkboardTeacher } from 'react-icons/fa';
-import { FaPaperPlane } from 'react-icons/fa';
 import { FaUsers , FaUserAltSlash} from 'react-icons/fa';
-import { FaUserGraduate } from 'react-icons/fa';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMale, faFemale, faSchool } from '@fortawesome/free-solid-svg-icons';
-import { FcLibrary } from "react-icons/fc";
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import teacherreg from "../../assets/img/teacherreg.png";
 import ideasub from "../../assets/img/submission.png";
@@ -43,7 +31,6 @@ import stuoth from "../../assets/img/student-other.png";
 
 const Dashboard = () => {
   const currentUser = getCurrentUser('current_user');
-  // const route = all_routes;
   useEffect(() => {
     adminTeamsCount();
     adminSudentCount();
@@ -78,6 +65,8 @@ const Dashboard = () => {
     useState('-');
   const statename = localStorage.getItem("stateName");
   const nonAtlCount = () => {
+        // This function fetches atl and nonatl count from the API //
+
     const newParam = encryptGlobal(
       JSON.stringify({
         state: currentUser?.data[0]?.state_name
@@ -108,6 +97,8 @@ const Dashboard = () => {
       });
   };
   const adminTeamsCount = () => {
+        // This function fetches teamcounts count from the API //
+
     const newParam1 = encryptGlobal(
       JSON.stringify({
         state: currentUser?.data[0]?.state_name
@@ -133,6 +124,8 @@ const Dashboard = () => {
       });
   };
   const adminSudentCount = () => {
+        // This function fetches students count count from the API //
+
     const newParam2 = encryptGlobal(
       JSON.stringify({
         state: currentUser?.data[0]?.state_name
@@ -159,6 +152,8 @@ const Dashboard = () => {
       });
   };
   const adminideasCount = () => {
+        // This function fetches ideas count count from the API //
+
     const newParam3 = encryptGlobal(
       JSON.stringify({
         state: currentUser?.data[0]?.state_name
@@ -188,6 +183,8 @@ const Dashboard = () => {
       });
   };
   const adminMentorCount = () => {
+        // This function fetches mentors count count from the API //
+
     const newParam4 = encryptGlobal(
       JSON.stringify({
         state: currentUser?.data[0]?.state_name
@@ -218,6 +215,8 @@ const Dashboard = () => {
       });
   };
   const adminSudentbygenderCount = () => {
+        // This function fetches students gender count  from the API //
+
     const newParam5 = encryptGlobal(
       JSON.stringify({
         state: currentUser?.data[0]?.state_name
@@ -249,6 +248,8 @@ const Dashboard = () => {
       });
   };
   const adminSchoolCount = () => {
+        // This function fetches schools count  from the API //
+
     const newParam6 = encryptGlobal(
       JSON.stringify({
         state: currentUser?.data[0]?.state_name
@@ -275,6 +276,8 @@ const Dashboard = () => {
       });
   };
   const adminmentorCourseCount = () => {
+        // This function fetches mentors course completed count  from the API //
+
     const newParam7 = encryptGlobal(
       JSON.stringify({
         state: currentUser?.data[0]?.state_name
@@ -305,6 +308,8 @@ const Dashboard = () => {
       });
   };
   const adminStudentCourseCount = () => {
+        // This function fetches students course completed count  from the API //
+
     const newParam8 = encryptGlobal(
       JSON.stringify({
         state: currentUser?.data[0]?.state_name
@@ -324,7 +329,6 @@ const Dashboard = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response,"11");
 
           setStudentCoursesCompletedCount(
             response.data.data[0].StudentCoursesCompletedCount
@@ -336,7 +340,6 @@ const Dashboard = () => {
         console.log(error);
       });
   };
-  // console.log(atl+nonAtl,"11");
   return (
     <div>
       <div className="page-wrapper">
@@ -347,7 +350,7 @@ const Dashboard = () => {
               <div className="dash-widget w-100">
                 <div className="dash-widgetimg">
                   <span>
-                  {/* <FcLibrary size={30} style={{ color: 'crimson' }}  /> */}
+                
                     <FaMapMarkerAlt size={30} style={{ color: 'crimson' }} />
                   </span>
 
@@ -355,11 +358,9 @@ const Dashboard = () => {
                 <div className="dash-widgetcontent">
                   <h5>
                   
-                    {/* {totalSchoolCount} */}
                     {statename}
 
                   </h5>
-                  {/* <h6>Total Schools in DB</h6> */}
                   <h6>State Statistics</h6>
                 </div>
               </div>
@@ -373,7 +374,6 @@ const Dashboard = () => {
                 </div>
                 <div className="dash-widgetcontent">
                   <h5>
-                    {/* <CountUp start={0} end={307144} duration={3} prefix="$" /> */}
                     {totalMentorCount}
                   </h5>
                   <h6>Total Registered Teachers</h6>
@@ -383,12 +383,7 @@ const Dashboard = () => {
             <div className="col-xl-4 col-sm-6 col-12 d-flex">
               <div className="dash-widget dash1 w-100">
                 <div className="dash-widgetimg">
-                  {/* <span>
-                    <ImageWithBasePath
-                      src="assets/img/icons/dash2.svg"
-                      alt="img"
-                    />
-                  </span> */}
+                 
                   <span>
                     <FaUsers size={30} style={{ color: '#20c997' }} />
                   </span>
@@ -396,11 +391,7 @@ const Dashboard = () => {
                 <div className="dash-widgetcontent">
                   <h5>
 
-                    {/* <CountUp
-                      start={0}
-                      end={4385}
-                      duration={3} // Duration in seconds
-                    /> */}
+                   
                     {totalteamsCount}
                   </h5>
                   <h6>Total Teams Created</h6>
@@ -426,20 +417,13 @@ const Dashboard = () => {
             <div className="col-xl-4 col-sm-6 col-12 d-flex">
               <div className="dash-widget dash2 w-100">
                 <div className="dash-widgetimg">
-                  {/* <span>
-                    <ImageWithBasePath
-                      src="assets/img/icons/dash1.svg"
-                      alt="img"
-                    />
-                  </span> */}
+                 
                   <span>
                   <FaChalkboardTeacher size={30} style={{ color: "#0d6efd" }} />
-                  {/* <img src={teacherreg} style={{ width:"70%"}} /> */}
                   </span>
                 </div>
                 <div className="dash-widgetcontent">
                   <h5>
-                    {/* <CountUp start={0} end={307144} duration={3} prefix="$" /> */}
                     {mentorCoursesCompletedCount}
 
                   </h5>
@@ -450,12 +434,7 @@ const Dashboard = () => {
             <div className="col-xl-4 col-sm-6 col-12 d-flex">
               <div className="dash-widget dash1 w-100">
                 <div className="dash-widgetimg">
-                  {/* <span>
-                    <ImageWithBasePath
-                      src="assets/img/icons/dash3.svg"
-                      alt="img"
-                    />
-                  </span> */}
+                 
                   <span>
                     <img src={stu} style={{width:"70%"}} />
                   </span>
@@ -464,13 +443,7 @@ const Dashboard = () => {
                   <h5>
                     {totalStudentCount}
 
-                    {/* $
-                    <CountUp
-                      start={0}
-                      end={385656.5}
-                      duration={3} // Duration in seconds
-                      decimals={1}
-                    /> */}
+                  
                   </h5>
                   <h6>Total Students Enrolled</h6>
                 </div>
@@ -486,12 +459,7 @@ const Dashboard = () => {
                 </div>
                 <div className="dash-widgetcontent">
                   <h5>
-                    {/* $
-                    <CountUp
-                      start={0}
-                      end={40000}
-                      duration={3} // Duration in seconds
-                    /> */}
+                   
                     {totalMentorMaleCount}
 
                   </h5>
@@ -502,24 +470,14 @@ const Dashboard = () => {
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-widget dash1 w-100">
                 <div className="dash-widgetimg">
-                  {/* <span>
-                    <ImageWithBasePath
-                      src="assets/img/icons/dash4.svg"
-                      alt="img"
-                    />
-                  </span> */}
+                
                   <span>
                     <img src={stumale} style={{width:"65%"}} />
                   </span>
                 </div>
                 <div className="dash-widgetcontent">
                   <h5>
-                    {/* $ */}
-                    {/* <CountUp
-                      start={0}
-                      end={40000}
-                      duration={3} // Duration in seconds
-                    /> */}
+                   
                     {totalStudentMaleCount}
 
                   </h5>
@@ -536,13 +494,7 @@ const Dashboard = () => {
                 </div>
                 <div className="dash-widgetcontent">
                   <h5>
-                    {/* $
-                    <CountUp
-                      start={0}
-                      end={385656.5}
-                      duration={3} // Duration in seconds
-                      decimals={1}
-                    /> */}
+                   
                     {totalStudentCount -
                       totalstudentCoursesCount}
                   </h5>
@@ -559,12 +511,7 @@ const Dashboard = () => {
                 </div>
                 <div className="dash-widgetcontent">
                   <h5>
-                    {/* $
-                    <CountUp
-                      start={0}
-                      end={4385}
-                      duration={3} // Duration in seconds
-                    /> */}
+                   
                     {totalteamsCount -
                       totalideasCount}
                   </h5>
@@ -582,12 +529,7 @@ const Dashboard = () => {
                 </div>
                 <div className="dash-widgetcontent">
                   <h5>
-                    {/* $
-                    <CountUp
-                      start={0}
-                      end={40000}
-                      duration={3} // Duration in seconds
-                    /> */}
+                   
                     {totalMentorFeMaleCount
                     }
                   </h5>
@@ -598,24 +540,14 @@ const Dashboard = () => {
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-widget dash1 w-100">
                 <div className="dash-widgetimg">
-                  {/* <span>
-                    <ImageWithBasePath
-                      src="assets/img/icons/dash4.svg"
-                      alt="img"
-                    />
-                  </span> */}
+                 
                   <span>
                   <img src={stufem} style={{width:"70%"}} />
                   </span>
                 </div>
                 <div className="dash-widgetcontent">
                   <h5>
-                    {/* $
-                    <CountUp
-                      start={0}
-                      end={40000}
-                      duration={3} // Duration in seconds
-                    /> */}
+                   
                     {totalStudentFemaleCount}
 
                   </h5>
@@ -632,13 +564,7 @@ const Dashboard = () => {
                 </div>
                 <div className="dash-widgetcontent">
                   <h5>
-                    {/* $
-                    <CountUp
-                      start={0}
-                      end={385656.5}
-                      duration={3} // Duration in seconds
-                      decimals={1}
-                    /> */}
+                  
                     {totalstudentCoursesCount -
                       studentCoursesCompletedCount}
                   </h5>
@@ -655,12 +581,7 @@ const Dashboard = () => {
                 </div>
                 <div className="dash-widgetcontent">
                   <h5>
-                    {/* $ */}
-                    {/* <CountUp
-                      start={0}
-                      end={4385}
-                      duration={3} // Duration in seconds
-                    /> */}
+                   
                     {totalideasCount -
                       totalSubmittedideasCount}
                   </h5>
@@ -678,14 +599,7 @@ const Dashboard = () => {
                 </div>
                 <div className="dash-widgetcontent">
                   <h5>
-                    {/* $
-                    <CountUp
-                      start={0}
-                      end={40000}
-                      duration={3} // Duration in seconds
-                    /> */}
-                    {/* {totalMentorCount -
-                                                    totalMentorMaleCount} */}
+                   
                     {(Number(totalMentorCount) - (Number(totalMentorMaleCount) + Number(totalMentorFeMaleCount)))}
 
                   </h5>
@@ -696,24 +610,14 @@ const Dashboard = () => {
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-widget dash1 w-100">
                 <div className="dash-widgetimg">
-                  {/* <span>
-                    <ImageWithBasePath
-                      src="assets/img/icons/dash4.svg"
-                      alt="img"
-                    />
-                  </span> */}
+                 
                   <span>
                   <img src={stuoth} style={{width:"70%"}} />
                   </span>
                 </div>
                 <div className="dash-widgetcontent">
                   <h5>
-                    {/* $
-                    <CountUp
-                      start={0}
-                      end={40000}
-                      duration={3} // Duration in seconds
-                    /> */}
+                   
                     {(Number(totalStudentCount) - (Number(totalStudentMaleCount) + Number(totalStudentFemaleCount)))}
 
                   </h5>
@@ -730,13 +634,7 @@ const Dashboard = () => {
                 </div>
                 <div className="dash-widgetcontent">
                   <h5>
-                    {/* $ */}
-                    {/* <CountUp
-                      start={0}
-                      end={385656.5}
-                      duration={3} // Duration in seconds
-                      decimals={1}
-                    /> */}
+                   
                     {studentCoursesCompletedCount}
 
                   </h5>
@@ -747,24 +645,14 @@ const Dashboard = () => {
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-widget dash3 w-100">
                 <div className="dash-widgetimg">
-                  {/* <span>
-                    <ImageWithBasePath
-                      src="assets/img/icons/dash2.svg"
-                      alt="img"
-                    />
-                  </span> */}
+                 
                   <span>
                   <img src={ideasub} style={{ width:"70%"}} />
                   </span>
                 </div>
                 <div className="dash-widgetcontent">
                   <h5>
-                    {/* $
-                    <CountUp
-                      start={0}
-                      end={4385}
-                      duration={3} // Duration in seconds
-                    /> */}
+                   
                     {totalSubmittedideasCount}
                   </h5>
                   <h6>Total Teams Submitted Ideas</h6>
@@ -774,50 +662,13 @@ const Dashboard = () => {
             
            
             
-            {/* {currentUser?.data[0]?.state_name !== "Tamil Nadu" && (  <div className="col-xl-3 col-sm-6 col-12 d-flex">
-                  <div className="dash-widget dash1 w-100">
-                    <div className="dash-widgetimg">
-                      <span>
-                      <FcLibrary size={30} style={{ color: "mediumseagreen" }} />
-                       
-                      </span>
-                    </div>
-                    <div className="dash-widgetcontent">
-                      <h5>
-
-                        {atl}
-
-                      </h5>
-                      <h6>Total Atl Schools</h6>
-                    </div>
-                  </div>
-                </div>)} */}
+           
             
-            {/* {currentUser?.data[0]?.state_name !== "Tamil Nadu" && (
-              <><div className="col-xl-3 col-sm-6 col-12 d-flex">
-                <div className="dash-widget w-100">
-                  <div className="dash-widgetimg">
-                    <span>
-                     
-                         <FcLibrary size={30} style={{ color: "mediumseagreen" }} />
-                    </span>
-                  </div>
-                  <div className="dash-widgetcontent">
-                    <h5>
-                      {nonAtl}
-
-                    </h5>
-                    <h6>Total Non ATL Schools</h6>
-                  </div>
-                </div>
-              </div>
-             </>
-            )} */}
+           
              
             
 
           </div>
-          {/* Button trigger modal */}
 
 
 

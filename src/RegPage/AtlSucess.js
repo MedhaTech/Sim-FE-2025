@@ -37,7 +37,6 @@ const AtlSucess = () => {
           `/dashboard/whatappLink?Data=${statenameApi}`,
         headers: {
           "Content-Type": "application/json",
-          // Accept: "application/json",
           Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
         },
       };
@@ -56,7 +55,6 @@ const AtlSucess = () => {
                 alert("WhatsApp link not found. Please try again later.");
               }
             },1000);
-            // setWhatsappLink(response.data.data[0].whatapp_link);
           }
         })
         .catch(function (error) {
@@ -71,12 +69,8 @@ const AtlSucess = () => {
       <div className="login-wrapper register-wrap bg-img">
         <div className="login-content">
           <div className="login-userset">
-            {/* <div className="login-logo logo-normal"> */}
-            {/* <img src={logo} alt="Logo" /> */}
-            {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
-            {/* </div> */}
+           
             <div className="login-logo logo-normal" onClick={handleLogoClick}>
-              {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
               <img src={success} alt="Success" />
             </div>
 
@@ -108,7 +102,6 @@ const AtlSucess = () => {
                               onClick={fetchwhatsapplink}
                               onMouseEnter={() => setHovered(true)}
                               onMouseLeave={() => setHovered(false)}
-                              // to={"/login"}
                             >
                               {" "}
                               WhatsApp group
@@ -123,16 +116,13 @@ const AtlSucess = () => {
               >
                 <Row className="justify-content-center">
                   <Col
-                    // sm
                     className="hover-a col-md-6 col-sm-12"
                     style={{
-                      // width: "50%",
                       border: "1px solid #ccc",
                       padding: "20px",
                       boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
                       borderRadius: "8px",
                       backgroundColor: "#f9f9f9",
-                      // margin: "0 10px",
                     }}
                   >
                     <h4 className="mb-3 text-center ">
@@ -164,16 +154,13 @@ const AtlSucess = () => {
                     </p>
                   </Col>
                   <Col
-                    // sm
                     className="hover-a col-md-6 col-sm-12"
                     style={{
-                      // width: "50%",
                       border: "1px solid #ccc",
                       padding: "20px",
                       boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
                       borderRadius: "8px",
                       backgroundColor: "#f9f9f9",
-                      // margin: "0 10px",
                     }}
                   >
                     <h4 className="mb-3 text-center ">
@@ -208,7 +195,6 @@ const AtlSucess = () => {
                               onMouseEnter={() => setHovered1(true)}
                 onMouseLeave={() => setHovered1(false)}
                 onClick={fetchwhatsapplink}
-                              // to={"/login"}
                             >
                               {" "}
                               WhatsApp group

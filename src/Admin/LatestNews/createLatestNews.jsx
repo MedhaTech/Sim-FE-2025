@@ -1,14 +1,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React from 'react';
-// import Layout from '../Layout';
 import { Row, Col, FormGroup, Label, Form, Input } from 'reactstrap';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button } from '../../stories/Button';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import { useTranslation } from 'react-i18next';
-// import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { stateList  } from "../../RegPage/ORGData";
@@ -17,7 +15,6 @@ const CreateLatestNews = () => {
     const { t } = useTranslation();
     const currentUser = getCurrentUser('current_user');
     const navigate = useNavigate();
-    // const history = useHistory();
     const inputDICE = {
         type: 'text',
         className: 'defaultInput'
@@ -25,6 +22,8 @@ const CreateLatestNews = () => {
     const allData = ["All States", ...stateList];
 
     const fileHandler = (e) => {
+    // Handles file selection and reads the selected file //
+
         let file = e.target.files[0];
 
         if (!file) {
@@ -168,7 +167,6 @@ const CreateLatestNews = () => {
                         <div>
                             <Form onSubmit={formik.handleSubmit} isSubmitting>
                                 <div className="create-ticket register-block">
-                                    {/* <FormGroup className="form-group" md={12}> */}
                                         <Row className="mb-3 modal-body-table search-modal-header">
                                             <Col md={4}>
                                                 <Label
@@ -249,7 +247,6 @@ const CreateLatestNews = () => {
                           <Label className="form-label" htmlFor="state">
                             State
                             <span required>*</span>
-                            {/* <span required>*</span> */}
                           </Label>
                           <select
                             id="inputState"
@@ -376,10 +373,8 @@ const CreateLatestNews = () => {
                                             )}
                                     </Col>
                                 </Row>
-                                    {/* </FormGroup> */}
                                 </div>
 
-                                {/* <hr className="mt-4 mb-4" /> */}
                                 <Row>
                                     <div style={buttonContainerStyle} className='mt-3'>
                                         <button

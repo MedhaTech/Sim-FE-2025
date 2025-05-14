@@ -15,7 +15,6 @@ import { useNavigate } from "react-router-dom";
 import {teamLength} from "../../RegPage/ORGData";
 import { useTranslation } from "react-i18next";
 
-// import { all_routes } from "../../Router/all_routes";
 const studentBody = {
   full_name: "",
   Age: "",
@@ -30,10 +29,8 @@ const allowedAge = [10, 11, 12, 13, 14, 15, 16, 17, 18];
 
 const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
    const { t } = useTranslation();
-  // console.log(teamLengthValue,"teamLengthValue");
   const [teamId, setTeamId] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  // const [itemDataErrors, setItemDataErrors] = useState([]);
   const tempStudentData = {
     team_id: teamId,
     role: "STUDENT",
@@ -55,10 +52,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
       return teamLength.default;
     }
   };
-  // const teamLengthValue = getTeamLength(loginState);
-  // console.log(teamLengthValue,"11");
-
-  //   const history = useHistory();
+  
   const navigate = useNavigate();
 
   const [isClicked, setIsClicked] = useState(false);
@@ -67,20 +61,9 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
 
   const [teamNameError, setTeamNameError] = useState("");
 
-  // const handleteamname = (e) => {
-  //   const numericValue = e.target.value;
-  //   const trimmedValue = numericValue.trim();
-  //   setTeamname(trimmedValue);
-
-  //   if (trimmedValue.length < 1) {
-  //     setTeamNameError("Please Enter Team Name");
-  //   } else {
-  //     setTeamNameError("");
-  //   }
-  // };
+ 
   const handleteamname = (e) => {
     const inputValue = e.target.value;
-    //const lettersOnly = inputValue.replace(/[^a-zA-Z\s]/g, "");
     const patternOnlyalfa = /^[a-zA-Z0-9\s]*$/;
     setTeamname(inputValue);
 
@@ -92,12 +75,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
       setTeamNameError("");
     }
   };
-  // const handleteamemail = (e) => {
-  //   const numericValue = e.target.value;
-  //   const trimmedValue = numericValue.trim();
-
-  //   setTeamemail(trimmedValue);
-  // };
+ 
   const [emailError, setEmailError] = useState("");
 
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -107,18 +85,13 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
     const trimmedValue = numericValue.trim();
     setTeamemail(trimmedValue);
 
-    // if (!emailPattern.test(trimmedValue)) {
-    //   setEmailError("Enter a valid email address");
-    // } else {
-    //   setEmailError("");
-    // }
+   
     if (trimmedValue && !emailPattern.test(trimmedValue)) {
       setEmailError("Enter a valid email address");
     } else {
-      setEmailError(""); // Clear error if input is empty or valid
+      setEmailError(""); 
     }
   };
-  // const loginState = currentUser?.data[0]?.state;
   const numberOfFields = getTeamLength(loginState);
   const initialStudentData = Array.from({ length: numberOfFields }, () => ({
     team_id: teamId,
@@ -147,41 +120,8 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
     }));
     setStudentData(updatedStudentData);
   }, [loginState, numberOfFields, teamId]);
-  // const [studentData, setStudentData] = useState([
-  //   {
-  //     team_id: teamId,
-  //     role: "STUDENT",
-  //     full_name: "",
-  //     Age: "",
-  //     Grade: "",
-  //     Gender: "",
-  //     // username: "",
-  //     disability: "",
-  //   },
-  //   {
-  //     team_id: teamId,
-  //     role: "STUDENT",
-  //     full_name: "",
-  //     Age: "",
-  //     Grade: "",
-  //     Gender: "",
-  //     // username: "",
-  //     disability: "",
-  //   },
-  //   {
-  //     team_id: teamId,
-  //     role: "STUDENT",
-  //     full_name: "",
-  //     Age: "",
-  //     Grade: "",
-  //     Gender: "",
-  //     // username: "",
-  //     disability: "",
-  //   },
-
-  // ]);
+ 
   let pattern = /^[A-Za-z\s]+$/;
-  // const emailRegex = /[A-Za-z-@+.-]*$/;
   const emailRegex = /^[\w.]+@([\w-]+\.)+[\w-]{2,4}$/;
   const handleChange = (e, i) => {
     let newItem = [...studentData];
@@ -242,18 +182,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
           </span>
         );
       }
-     // Mandatory //
-      // const emailRegex = /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/;
-      // if (!item.email || !item.email.trim()) {
-      //   err["email"] = (
-      //     <span style={{ color: "red" }}>Please Enter Email</span>
-      //   );
-      // } else if (!emailRegex.test(item.email)) {
-      //   err["email"] = (
-      //     <span style={{ color: "red" }}>Enter a Valid Email Address</span>
-      //   );
-      // }
-      // optional //
+    
       const emailRegex = /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/;
       if (item.email && item.email.trim() !== "") {
         if (!emailRegex.test(item.email)) {
@@ -282,7 +211,6 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
       }
       return { ...err, i };
     });
-    // const combinedErrors = [...errors, teamErrors];
     setItemDataErrors(errors.filter((item) => Object.values(item).length > 0));
     const filterEmpty = errors.filter((item) => {
       const ce = { ...item };
@@ -314,7 +242,6 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
     setStudentData(newItems);
   };
   const handleSumbit = () => {
-    // alert("hii");
     if (!validateItemData()) return;
     //setIsClicked(true);
     const checkDuplicateName = containsDuplicates(
@@ -333,9 +260,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
       team_name: teamname,
       team_email: teamemail ? teamemail :"",
     };
-    //  if (teamemail !== "") {
-    //       body["team_email"] = teamemail;
-    //     }
+  
     var config = {
       method: "post",
       url: process.env.REACT_APP_API_BASE_URL + "/teams",
@@ -346,7 +271,6 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
       },
       data: body,
     };
-    // console.log(body,"body");
     axios(config)
       .then(function (response) {
         if (response.status === 201) {
@@ -354,12 +278,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
           setTeamId(response.data.data[0].profile.team_id);
           openNotificationWithIcon("success",  t('teacherJourney.popup2'));
           setIsClicked(true);
-        //   const updatedStudentData = studentData.map((student) => ({
-        //     ...student,
-        //     team_id: JSON.stringify(newTeamId),
-        // state:currentUser?.data[0]?.state,
-
-        //   }));
+       
         const updatedStudentData = studentData.map((student) => {
           let updatedStudent = {
             ...student,
@@ -367,7 +286,6 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
             state: currentUser?.data[0]?.state,
           };
         
-          // optional 'email'  //
           if (student.email && student.email.trim() !== "") {
             updatedStudent.email = student.email;
           }
@@ -375,7 +293,6 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
           return updatedStudent;
         });
         
-        // console.log(updatedStudentData, "data");
           setTimeout(() => {
             dispatch(
               teacherCreateMultipleStudent(
@@ -385,38 +302,21 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
               )
             );
           }, 2000);
-          // if (teamId) {
-          //   setTimeout(() => {
-          //     dispatch(
-          //       teacherCreateMultipleStudent(
-          //         updatedStudentData,
-          //         navigate,
-          //         setIsClicked
-          //       )
-          //     );
-          //   }, 5000);
-          // }
-
-          // dispatch(
-          //   teacherCreateMultipleStudent(studentData, navigate, setIsClicked)
-          // );
+          
         } else {
           openNotificationWithIcon("error", "Opps! Something Wrong");
         }
       })
       .catch(function (error) {
         if (error.response.data.status === 400) {
-          // console.log(error, "eee");
           openNotificationWithIcon(
             "error",
             t('teacherJourney.popup4')
           );
         }
       });
-    // dispatch(teacherCreateMultipleStudent(studentData, navigate, setIsClicked));
   };
 
-  // const button = teamname && teamemail && studentData;
   const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return email ? emailRegex.test(email) : true;
@@ -476,9 +376,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
             <Col md={6} className="mb-xl-0">
               <Label className="form-label">
                 Team Email Address
-                {/* <span required className="p-1">
-                  *
-                </span> */}
+               
               </Label>
               <input
                 className="form-control"
@@ -497,10 +395,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
           </div>
           {studentData.map((item, i) => {
             const foundErrObject = { ...itemDataErrors[i] };
-            // const showRemoveButton = (
-            //   (loginState === "Tamil Nadu" && studentData.length > MIN_STUDENTS) ||
-            //   (loginState !== "Tamil Nadu" && studentData.length > MIN_STUDENTS)
-            // );
+            
             const showRemoveButton = (
               (loginState === "Tamil Nadu" && studentData.length > MIN_STUDENTS && i >= MIN_STUDENTS) ||
               (loginState !== "Tamil Nadu" && studentData.length > MIN_STUDENTS && i >= MIN_STUDENTS)
@@ -548,9 +443,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
                   <Col md={4} className="mb-xl-0">
                         <Label className="form-label">
                           Email Address
-                          {/* <span required className="p-1">
-                            *
-                          </span> */}
+                         
                         </Label>
                         <input
                           className="form-control"
@@ -715,31 +608,9 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
               CREATE TEAM
             </button>
           )}
-          {/* {studentData.length < 4 && (
-                  <div className="">
-                    <button
-                      // label={"Add More"}
-                      onClick={addItem}
-                      // btnClass={
-                      //   studentData.length != 3 ? "primary" : "default"
-                      // }
-                      // size="small"
-                      disabled={studentData.length === 3}
-                    >
-                      Add More
-                    </button>
-                  </div>
-                )} */}
+         
         </Col>
-        {/* <Col className="mt-2 text-right">
-            <button
-              type="button"
-              className="btn btn-secondary m-2 ml-auto"
-              onClick={() => navigate("/mentorteams")}
-            >
-              Discard
-            </button>
-          </Col> */}
+       
         <Col className="mt-2 d-flex justify-content-end">
           <button
             type="button"

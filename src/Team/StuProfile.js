@@ -1,11 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState } from "react";
-// import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
 import { getCurrentUser } from "../helpers/Utils";
 import edit from "../assets/img/icons/edit-set.svg";
-// import customer from "../assets/img/customer/customer5.jpg";
 import { useNavigate } from "react-router-dom";
 import female from "../assets/img/Female_Profile.png";
 import male from "../assets/img/Male_Profile.png";
@@ -24,10 +22,8 @@ const TeacherProfile = () => {
         <div className="page-header">
           <div className="page-title">
             <h4>My Profile</h4>
-            {/* <h6>User Profile</h6> */}
           </div>
         </div>
-        {/* /product list */}
         <div className="card">
           <div className="card-body">
             <div className="profile-set">
@@ -130,16 +126,7 @@ const TeacherProfile = () => {
                   />
                 </div>
               </div>
-              {/* <div className="col-lg-6 col-sm-12">
-                <div className="input-blocks">
-                  <label className="form-label"></label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    defaultValue={currentUser?.data[0]?.full_name}
-                  />
-                </div>
-              </div> */}
+             
               
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
@@ -152,31 +139,8 @@ const TeacherProfile = () => {
                   />
                 </div>
               </div>
-              {/* <div className="col-lg-6 col-sm-12">
-                <div className="input-blocks">
-                  <label className="form-label">Password</label>
-                  <div className="pass-group">
-                    <input
-                      type={isPasswordVisible ? "text" : "password"}
-                      className="pass-input form-control"
-                    />
-                    <span
-                      className={`fas toggle-password ${
-                        isPasswordVisible ? "fa-eye" : "fa-eye-slash"
-                      }`}
-                      onClick={togglePasswordVisibility}
-                    ></span>
-                  </div>
-                </div>
-              </div> */}
-              {/* <div className="col-12">
-                <Link to={"/teacher-dashboard"} className="btn btn-submit me-2">
-                  Submit
-                </Link>
-                <Link className="btn btn-cancel" to={"/teacher-dashboard"}>
-                  Cancel
-                </Link>
-              </div> */}
+              
+             
             </div>
           </div>
         </div>

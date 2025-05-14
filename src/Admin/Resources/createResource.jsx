@@ -23,6 +23,8 @@ const CreateResource = () => {
     };
 
     const fileHandler = (e) => {
+    // Handles file selection and reads the selected file //
+
         let file = e.target.files[0];
         
         if (!file) {
@@ -102,14 +104,7 @@ const CreateResource = () => {
                     );
                     values.attachments =
                         response?.data?.data[0].attachments[0].toString();
-                    // if (response.status === 200) {
-                    //     openNotificationWithIcon(
-                    //       'success',
-                    //       'File Uploaded Successfully'
-                    //     );
-                    //   } else {
-                    //     openNotificationWithIcon('error', 'Opps! Something Wrong');
-                    //   }
+                 
                 }
 
                 const body = {

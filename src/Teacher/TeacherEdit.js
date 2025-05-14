@@ -7,7 +7,6 @@ import {
   setCurrentUser,
   openNotificationWithIcon,
 } from "../helpers/Utils";
-// import customer from "../assets/img/customer/customer5.jpg";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import * as Yup from "yup";
@@ -30,7 +29,6 @@ const TeacherEditProfile = () => {
   const location = useLocation();
   const [districts, setDistricts] = useState([]);
   const mentorData = location.state || {};
-  console.log(mentorData,"mentorData");
   const navigate = useNavigate();
 
 
@@ -108,7 +106,6 @@ const TeacherEditProfile = () => {
             10,
             <span style={{ color: "red" }}>Number is less than 10 digits</span>
           ),
-      // state: Yup.string().required('State is required'),
       district: Yup.string()
       .required('District not in required format'),
       principal_email: Yup.string()
@@ -158,7 +155,6 @@ const TeacherEditProfile = () => {
       whatapp_mobile: mentorData.whatapp_mobile,
       gender: mentorData.gender,
       district: "",
-      // state: mentorData?.state || '',
       organization_name : mentorData.organization_name
     };
     if (mentorData?.district && districtList[mentorData?.state]?.includes(mentorData?.district)) {
@@ -181,7 +177,6 @@ const TeacherEditProfile = () => {
       const whatapp_mobile = values.whatapp_mobile;
       const gender = values.gender;
       const organization_name = values.organization_name;
-      // const state = values.state;
       const district = values.district;
 
       const bodyt = JSON.stringify({
@@ -194,7 +189,6 @@ const TeacherEditProfile = () => {
       const bodys = JSON.stringify({
         organization_code : mentorData?.organization_code,
         status : mentorData?.status,
-        // state: state,
         district: district,
 
         principal_email : principal_email,
@@ -275,7 +269,6 @@ const TeacherEditProfile = () => {
   const cancelLinkStyle = {
     marginLeft: 'auto'
   };
-  console.log(formik.values.state,"ss");
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -294,7 +287,6 @@ const TeacherEditProfile = () => {
                 <div className="profile-top">
                   <div className="profile-content">
                     <div className="profile-contentimg">
-                    {/* currentUser?.data[0]?.gender === "Male" */}
                     {currentUser?.data[0]?.gender === "Male" || currentUser?.data[0]?.gender === "MALE" ? (
                       <img src={male} alt="Male" id="blah" />
                     ) : ((currentUser?.data[0]?.gender === "Female" || currentUser?.data[0]?.gender === "FEMALE")?(
@@ -342,7 +334,6 @@ const TeacherEditProfile = () => {
                       className="form-control"
                       id="full_name"
                       name="full_name"
-                      // onChange={formik.handleChange}
                       onChange={(e) => {
                         const inputValue = e.target.value;
                         const lettersOnly = inputValue.replace(
@@ -420,7 +411,6 @@ const TeacherEditProfile = () => {
                       className="form-control"
                       id="organization_name"
                       name="organization_name"
-                      // onChange={formik.handleChange}
                       onChange={(e) => {
                         const inputValue = e.target.value;
                         const lettersOnly = inputValue.replace(/[^a-zA-Z0-9\s]/g, ""); 
@@ -437,73 +427,7 @@ const TeacherEditProfile = () => {
                     ) : null}
                   </div>
                 </div>
-                {/* <div className="form-login col-lg-6 col-sm-12">
-                  <div className="input-blocks">
-                    <label className="form-label">State </label>
-                    <select
-                                                      
-                    name="state"
-                    className="form-select"
-                    onBlur={
-                        formik.handleBlur
-                    }
-                    value={
-                        formik.values.state
-                    }
 
-                    onChange={(e) => {
-                        const selectedState =
-                            e.target.value;
-
-                        formik.setFieldValue(
-                            'state',
-                            selectedState
-                        );
-                        // formik.setFieldValue(
-                        //     'district',
-                        //     ''
-                        // ); 
-                    // {console.log(selectedState)};
-
-                        setDistricts(
-                            districtList[
-                            selectedState
-                            ] || []
-                        );
-                    }}
-                >
-                    <option value="">
-                        Select State
-                    </option>
-                    {stateList.map(
-                        (state) => (
-                            <option
-                                key={state}
-                                value={
-                                    state
-                                }
-                            >
-                                {state}
-                            </option>
-                        )
-                    )}
-                </select>
-                  {/* <Select
-  list={stateList}
-  setValue={(value) => {
-    formik.setFieldValue("state", value); 
-    setDistricts(districtList[value] || []); 
-}}
-  placeHolder={"Select State"}
-  value={formik.values.state}  
-/> 
-            {formik.errors.state ? (
-                <small className="error-cls" style={{color:"red"}}>
-                    {formik.errors.state}
-                </small>
-            ) : null}
-                  </div>
-                </div> */}
                 
                 <div className="form-login col-lg-6 col-sm-12">
                   <div className="input-blocks">
@@ -544,7 +468,6 @@ const TeacherEditProfile = () => {
                       className="form-control"
                       id="principal_name"
                       name="principal_name"
-                      // onChange={formik.handleChange}
                       onChange={(e) => {
                         const inputValue = e.target.value;
                         const lettersOnly = inputValue.replace(
@@ -571,13 +494,8 @@ const TeacherEditProfile = () => {
                       className="form-control"
                       id="principal_email"
                       name="principal_email"
-                      // onChange={formik.handleChange}
                       onChange={(e) => {
-                        // const inputValue = e.target.value;
-                        // const lettersOnly = inputValue.replace(
-                        //   /[^a-zA-Z\s]/g,
-                        //   ""
-                        // );
+                        
                         formik.setFieldValue("principal_email", e.target.value);
                       }}
                       onBlur={formik.handleBlur}

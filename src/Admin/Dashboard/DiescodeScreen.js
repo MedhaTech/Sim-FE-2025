@@ -5,21 +5,13 @@
 import { Descriptions, Input } from "antd";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-// import { Col, Row } from 'reactstrap';
 import { Button } from "../../stories/Button";
-// import Layout from '../Layout';
-// import {
-//     deleteTempMentorById,
-//     teacherResetPassword
-// } from '../store/admin/actions';
+
 import { Col, Container, Row, CardBody, CardText } from "reactstrap";
-// import './dashboard.scss';
-// import { useHistory } from 'react-router-dom';
 import jsPDF from "jspdf";
 import DataTable, { Alignment } from "react-data-table-component";
 import DataTableExtensions from "react-data-table-component-extensions";
 import { URL, KEY } from "../../constants/defaultValues";
-import { Link } from "react-router-dom";
 import Swal from "sweetalert2/dist/sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 import logout from "../../assets/img/logout.png";
@@ -35,7 +27,6 @@ import {
   openNotificationWithIcon,
 } from "../../helpers/Utils";
 import "./Style.css";
-import { Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
@@ -46,7 +37,6 @@ const DiescodeScreen = () => {
 
   const location = useLocation();
   const dispatch = useDispatch();
-  //   const multiOrgData = location.state?.multiOrgData;
   const multiOrg = localStorage.getItem("multiOrgData");
 
   const [mentorTeam, setMentorTeam] = useState([]);
@@ -54,19 +44,14 @@ const DiescodeScreen = () => {
   const [diesCode, setDiesCode] = useState("");
   const [multiOrgData, setMultiOrgData] = useState({ multiOrg });
 
-  // console.log(JSON.parse(multiOrgData),"mm");
   const [mentorId, setMentorId] = useState("");
 
   const pdfRef = React.useRef(null);
-  const inputField = {
-    type: "text",
-    className: "defaultInput",
-  };
+  
   useEffect(() => {
     // where list = diescode //
     //where organization_code = diescode //
     const list = JSON.parse(localStorage.getItem("diesCode"));
-    // console.log(list,"ll");
     setDiesCode(list);
     handleSearch(list);
   }, []);
@@ -98,7 +83,6 @@ const DiescodeScreen = () => {
           // setError('Entered Invalid Institution Unique Code');
         }
       });
-    // e.preventDefault();
   };
   const downloadPDF = () => {
     // where we can download the Registration Details //
@@ -112,6 +96,7 @@ const DiescodeScreen = () => {
     console.warn(content);
   };
   const handelSelectentor = (data) => {
+
     setOrgData(data);
     setMentorId(data.mentor.mentor_id);
     if (data.mentor.mentor_id) {
@@ -286,17 +271,7 @@ const DiescodeScreen = () => {
         center: true,
         width: "12rem",
       },
-      //   {
-      //     name: "Mentor Approval",
-      //     selector: (row) =>
-      //       row.PFAStatus === null
-      //         ? ""
-      //         : row.PFAStatus === "Pending"
-      //         ? "PENDING"
-      //         : "APPROVED",
-      //     center: true,
-      //     width: "20%",
-      //   },
+     
       {
         name: "Actions",
         cell: (params) => {
@@ -306,12 +281,7 @@ const DiescodeScreen = () => {
                 (params.ideaAcceptance === null ||
                   params.ideaAcceptance == "") && (
                   <Button
-                    key={params}
-                    //   className={
-                    //       isideadisable
-                    //           ? `btn btn-success btn-lg mr-5 mx-2`
-                    //           : `btn btn-lg mr-5 mx-2`
-                    //   }
+                   
                     className="btn btn-secondary"
                     label={"Revoke"}
                     size="small"
@@ -322,7 +292,6 @@ const DiescodeScreen = () => {
                         params.ideaStatus
                       )
                     }
-                    //   disabled={!isideadisable}
                   />
                 )}
             </>,
@@ -367,7 +336,6 @@ const DiescodeScreen = () => {
       });
   };
   const viewDetails = () => {
-    // alert("hii"),
     navigate("/diescode-view");
     localStorage.setItem("orgData", JSON.stringify(orgData));
   };
@@ -422,8 +390,7 @@ const DiescodeScreen = () => {
     });
   };
   const handleShiftDiesCocde = () => {
-    //  here  We can edit the Registration details //
-    // Where data = orgData //
+    // Navigates to the mentor shift search page with required mentor and organization data
     navigate("/search-mentor-shift", {
       state: {
         username: orgData.mentor?.user?.username,
@@ -433,7 +400,6 @@ const DiescodeScreen = () => {
       },
     });
   };
-  // console.log(multiOrgData[0]?.status,"oo");
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -684,38 +650,7 @@ const DiescodeScreen = () => {
                                     <p>{orgData.board}</p>
                                   </Col>
                                 </Row>
-                                {/* <Row className="pt-3 pb-3">
-                                                        <Col
-                                                            xs={5}
-                                                            sm={5}
-                                                            md={5}
-                                                            xl={5}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>Pincode</p>
-                                                        </Col>
-                                                        <Col
-                                                            xs={1}
-                                                            sm={1}
-                                                            md={1}
-                                                            xl={1}
-                                                        >
-                                                            :
-                                                        </Col>
-                                                        <Col
-                                                            xs={6}
-                                                            sm={6}
-                                                            md={6}
-                                                            xl={6}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>
-                                                                {
-                                                                    orgData.pin_code
-                                                                }
-                                                            </p>
-                                                        </Col>
-                                                    </Row> */}
+                               
                                 <Row className="pt-3 pb-3">
                                   <Col
                                     xs={5}
@@ -837,7 +772,6 @@ const DiescodeScreen = () => {
                               </div>
                             </div>
                           </div>
-                          {/* <Row  className="mb-3 modal-body-table search-modal-header"> */}
                           <div className="d-flex justify-content-between flex-column flex-md-row mb-3 ">
                             <button
                               type="button"

@@ -9,33 +9,23 @@ import {
 } from "../../helpers/Utils";
 import { Row, Col, Form, Label, FormGroup } from 'reactstrap';
 
-// import customer from "../assets/img/customer/customer5.jpg";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { useNavigate } from "react-router-dom";
-// import female from "../assets/img/Female_Profile.png";
-// import male from "../assets/img/Male_Profile.png";
-// import user from "../assets/img/user.png";
+
 const TeacherEditProfile = () => {
   const location = useLocation();
   const mentorData = location.state || {};
-  console.log(mentorData,"11");
   const navigate = useNavigate();
 
   const currentUser = getCurrentUser("current_user");
   const getValidationSchema = () => {
     // where data = mentorData //
     const adminValidation = Yup.object({
-      //   whatapp_mobile: Yup.string()
-      //     .required("required")
-      //     .trim()
-      //     .matches(/^\d+$/, "Mobile number is not valid (Enter only digits)")
-      //     .min(10, "Please enter valid number")
-      //     .max(10, "Please enter valid number"),
-      //   gender: Yup.string().required("Please select valid gender"),
+    
       title: Yup.string().required(
         <span style={{ color: "red" }}>Please select Title</span>
       ),
@@ -57,9 +47,7 @@ const TeacherEditProfile = () => {
       )
       .max(255),
       full_name: Yup.string()
-        // .matches(/^[A-Za-z]*$/, 'Invalid name ')
-        // .min(2, 'Enter a valid name')
-        // .required('Name is Required'),
+       
         .trim()
         .min(2, <span style={{ color: "red" }}>Please Enter Full Name</span>)
         .matches(/^[aA-zZ\s]+$/, "Special Characters are not allowed")
@@ -134,7 +122,6 @@ const TeacherEditProfile = () => {
         const username = values.username;
       const body = {
         full_name: full_name,
-        // mobile: mobile,
         title: title,
         whatapp_mobile: whatapp_mobile,
         gender: gender,
@@ -166,30 +153,21 @@ const TeacherEditProfile = () => {
         .then(function (response) {
           if (response.status === 200) {
             openNotificationWithIcon("success", "Updated Successfully");
-            // currentUser.data[0].full_name = values.full_name;
-            // currentUser.data[0].title = values.title;
-            // currentUser.data[0].gender = values.gender;
-
-            // setCurrentUser(currentUser);
+           
             navigate("/mentors");
-            // window.location.reload();
-            // setTimeout(() => {
-            // }, 2000);
+           
           }
         })
         .catch(function (error) {
-          // Check if it's a 400 error and contains specific validation error
           if (error?.response?.data?.status === 400) {
             const apiErrors = error?.response?.data?.errors || [];
             
-            // Display message if username validation failed
             if (apiErrors.includes('"username" must be a valid email')) {
               openNotificationWithIcon("error", "Please Enter Valid Email Address");
             } else {
               openNotificationWithIcon("error", "Bad Request");
             }
           } 
-          // Check if it's a 420 error for uniqueness
           else if (error?.response?.data?.status === 420) {
             if (error?.response?.data?.message === "mobile must be unique") {
               openNotificationWithIcon("error", "Mobile number entered is already in use");
@@ -255,7 +233,6 @@ const TeacherEditProfile = () => {
                       className="form-control"
                       id="full_name"
                       name="full_name"
-                      // onChange={formik.handleChange}
                       onChange={(e) => {
                         const inputValue = e.target.value;
                         const lettersOnly = inputValue.replace(

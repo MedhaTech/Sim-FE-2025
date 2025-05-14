@@ -2,10 +2,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Badge } from "reactstrap";
-// import Layout from '../../Admin/Layout';
 import { BsPlusLg } from "react-icons/bs";
 import { Button } from "../../stories/Button";
-// import { useHistory } from 'react-router-dom';
 import { getSchoolRegistationBulkUploadList } from "../../redux/actions";
 import { connect } from "react-redux";
 import DataTable, { Alignment } from "react-data-table-component";
@@ -14,9 +12,6 @@ import "react-data-table-component-extensions/dist/index.css";
 import { getCurrentUser, openNotificationWithIcon } from "../../helpers/Utils";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-// import XLSX from "xlsx";
-import * as XLSX from "xlsx";
-import ExcelJS from 'exceljs';
 
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 const TicketsPage = (props) => {
@@ -48,7 +43,6 @@ const TicketsPage = (props) => {
     }, 2000);
     return () => clearTimeout(timeout);
   }, []);
-  // const history = useHistory();
   useEffect(() => {
     props.getSchoolRegistationBulkUploadActions("i");
   }, []);
@@ -561,7 +555,6 @@ const ExcelJS = require('exceljs');
 
  
 
-console.log(SchoolsData,"ss");
 const handleCustomExport = async () => {
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet('Schools Data');
@@ -572,7 +565,6 @@ const handleCustomExport = async () => {
       key: col.name,
       width: 20
     }));
-    console.log('Columns:', worksheet.columns);
     // Add rows to worksheet
     // rows.forEach((row, index) => {
     //   const rowValues = SchoolsData.columns.map(col => col.cellExport ? col.cellExport(row) : '');
@@ -593,7 +585,7 @@ const handleCustomExport = async () => {
           const value = col.cellExport ? col.cellExport(row) : row[col.selector(row)];
           return value;
         });
-        console.log(`Row ${index}:`, rowValues); // Log each row for debugging
+        // console.log(`Row ${index}:`, rowValues); // Log each row for debugging
         worksheet.addRow(rowValues);
       });
     // Apply styles

@@ -3,26 +3,23 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import axios from "axios";
-import Select from "./Select";
 import * as Yup from "yup";
 import CryptoJS from "crypto-js";
 import { openNotificationWithIcon } from "../helpers/Utils.js";
 import { useDispatch, useSelector } from "react-redux";
-import { ArrowRight } from "feather-icons-react";
-import user from "../assets/img/icons/user-icon.svg";
-import play from "../assets/img/playicon.png";
-import copy from "../assets/img/copyrights.png";
-import { stateList, districtList ,mandalList,SchoolBoard,SchoolType} from "./ORGData.js";
 
 import {
-  getStateData,
-  getFetchDistData,
-} from "../redux/studentRegistration/actions";
+  stateList,
+  districtList,
+  mandalList,
+  SchoolBoard,
+  SchoolType,
+} from "./ORGData.js";
+
 import { decryptGlobal, encryptGlobal } from "../constants/encryptDecrypt";
 import OtpInput from "react-otp-input-rc-17";
 import logo from "../assets/img/new-logo.png";
@@ -31,7 +28,6 @@ const NonAtlPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [diceBtn, setDiceBtn] = useState(true);
-  // const [diesCode, setDiesCode] = useState("");
   const [orgData, setOrgData] = useState({});
   const [error, setError] = useState("");
   const [errors, setErrors] = useState("");
@@ -41,7 +37,6 @@ const NonAtlPage = () => {
   const [districts, setDistricts] = React.useState([]);
   const [pinCode, setPinCode] = useState("");
   const [schoolname, setSchoolname] = useState("");
-  //const [newDistrict, setnewDistrict] = useState("");
   const [textData, setTextData] = useState("");
   const [fullStatesNames, setFullStatesNames] = useState([]);
   const [fullDistrictsNames, setFullDistrictsNames] = useState([]);
@@ -63,65 +58,31 @@ const NonAtlPage = () => {
   const [buttonData, setButtonData] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
 
- 
-
   const diesCodes = JSON.parse(localStorage.getItem("diesCode"));
   const [mentData, setMentData] = useState({});
   const [districtOptions, setDistrictOptions] = useState([]);
   const [secondUser, setSecondUser] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false); 
-  const [person, setPerson] = useState(true); 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [person, setPerson] = useState(true);
 
   const [selectedMandal, setSelectedMandal] = useState("");
-  const [mandals, setMandals]             = useState([]);
-  const [schoolType, setSchoolType]     = useState("");
+  const [mandals, setMandals] = useState([]);
+  const [schoolType, setSchoolType] = useState("");
   const [otherSchoolType, setOtherType] = useState("");
-  const [schoolBoard, setSchoolBoard]     = useState("");
+  const [schoolBoard, setSchoolBoard] = useState("");
   const [otherSchoolBoard, setOtherBoard] = useState("");
 
   const handleMouseEnter = () => {
     setIsTooltipVisible(true);
   };
- 
+
   useEffect(() => {
     handleRegister();
   }, []);
 
- 
- 
-
- 
- 
-  const handleOnChange = (e) => {
-    const numericValue = e.target.value.replace(/\D/g, "");
-    const trimmedValue = numericValue.trim();
-
-    setDiesCode(trimmedValue);
-
-    if (trimmedValue.length === 11 && checkBox1) {
-      setIsButtonEnabled(true);
-    } else {
-      setIsButtonEnabled(false);
-    }
-
-    setOrgData();
-    setError("");
-  };
-
-  const handleCheckbox1 = (e, click) => {
-    if (click) {
-      setCheckBox1(true);
-      if (diesCode.length === 11) {
-        setIsButtonEnabled(true);
-      }
-     
-    } else {
-      setCheckBox1(false);
-      setIsButtonEnabled(false);
-    }
-  };
-
   const handleRegister = (e) => {
+    // This function fetches organization data based on the DIES code
+
     const body = JSON.stringify({
       organization_code: diesCodes,
     });
@@ -137,11 +98,10 @@ const NonAtlPage = () => {
     };
     axios(config)
       .then(function (response) {
-       
         if (response?.status == 200) {
           if (response?.data.count === 0) {
-              setBtn(true);
-              setCondition(true);
+            setBtn(true);
+            setCondition(true);
           }
           if (
             response?.data?.data[0] &&
@@ -158,7 +118,7 @@ const NonAtlPage = () => {
                 "organization_code",
                 response?.data?.data[0].organization_code
               );
-             
+
               setSchoolBtn(true);
             } else {
               setError(
@@ -171,12 +131,9 @@ const NonAtlPage = () => {
       .catch(function (error) {
         if (error?.response?.data?.status === 404) {
           setBtn(true);
-          // setDiceBtn(false);
           setCondition(true);
         }
       });
-
-    // e.preventDefault();
   };
   useEffect(() => {
     if (diesCodes.length > 0) {
@@ -221,11 +178,10 @@ const NonAtlPage = () => {
   const handleMandalChange = (e) => {
     setSelectedMandal(e.target.value);
   };
-const handleSchoolTypeChange = (e) => {
+  const handleSchoolTypeChange = (e) => {
     const val = e.target.value;
     setSchoolType(val);
     if (val !== "Others") {
-     
       setOtherType("");
     }
   };
@@ -233,7 +189,6 @@ const handleSchoolTypeChange = (e) => {
     const val = e.target.value;
     setSchoolBoard(val);
     if (val !== "Others") {
-     
       setOtherBoard("");
     }
   };
@@ -258,16 +213,11 @@ const handleSchoolTypeChange = (e) => {
       organization_code: diesCodes,
       organization_name: schoolname,
       address: textData,
-      mandal:selectedMandal,
-      school_type:      schoolType === "Others" 
-                      ? otherSchoolType 
-                      : schoolType,
-                    board:     schoolBoard === "Others"
-                      ? otherSchoolBoard
-                      : schoolBoard,
+      mandal: selectedMandal,
+      school_type: schoolType === "Others" ? otherSchoolType : schoolType,
+      board: schoolBoard === "Others" ? otherSchoolBoard : schoolBoard,
     };
     setOrgData(body);
-  console.log(body,"org");
 
     setBtn(false);
     setSchoolBtn(true);
@@ -275,13 +225,6 @@ const handleSchoolTypeChange = (e) => {
     e.preventDefault();
   };
 
-  // useEffect(() => {
-  //   if (stateData && selectedDistrict && pinCode.length >5 && schoolname && textData) {
-  //     setShowButton(true);
-  //   } else {
-  //     setShowButton(false);
-  //   }
-  // }, [stateData, selectedDistrict, pinCode, schoolname, textData]);
   useEffect(() => {
     const hasState = Boolean(stateData);
     const hasDistrict = Boolean(selectedDistrict);
@@ -289,13 +232,17 @@ const handleSchoolTypeChange = (e) => {
     const hasSchoolName = Boolean(schoolname);
     const hasAddress = Boolean(textData);
     const hasMandal = Boolean(selectedMandal);
-  
+
     const hasSchoolType =
-      schoolType === "Others" ? Boolean(otherSchoolType.trim()) : Boolean(schoolType);
-  
+      schoolType === "Others"
+        ? Boolean(otherSchoolType.trim())
+        : Boolean(schoolType);
+
     const hasSchoolBoard =
-      schoolBoard === "Others" ? Boolean(otherSchoolBoard.trim()) : Boolean(schoolBoard);
-  
+      schoolBoard === "Others"
+        ? Boolean(otherSchoolBoard.trim())
+        : Boolean(schoolBoard);
+
     if (
       hasState &&
       hasDistrict &&
@@ -322,14 +269,14 @@ const handleSchoolTypeChange = (e) => {
     schoolBoard,
     otherSchoolBoard,
   ]);
-  
+
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   const formik = useFormik({
     initialValues: {
       full_name: "",
       organization_code: diesCodes,
-      mandal: '',
+      mandal: "",
       mobile: "",
       whatapp_mobile: "",
       role: "MENTOR",
@@ -357,13 +304,7 @@ const handleSchoolTypeChange = (e) => {
           <span style={{ color: "red" }}>Please Enter Mobile Number</span>
         )
         .trim()
-        .matches(
-          /^\d+$/,
-          "Please enter a valid email address"
-          // <span style={{ color: "red" }}>
-          //   Mobile number is not valid (Enter only digits)
-          // </span>
-        )
+        .matches(/^\d+$/, "Please enter a valid email address")
         .max(
           10,
           <span style={{ color: "red" }}>
@@ -384,7 +325,6 @@ const handleSchoolTypeChange = (e) => {
         .matches(
           /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
           "Email Must be VALID"
-          //<span style={{ color: "red" }}>Please Enter Valid Email Address</span>
         )
         .max(255),
       whatapp_mobile: Yup.string()
@@ -476,6 +416,8 @@ const handleSchoolTypeChange = (e) => {
     }
   };
   const handleSendOtp = async (e) => {
+    // This function  Sends a request to generate and send OTP to the user's mobile and email
+
     formik.setFieldValue("mobile", formik.values.mobile);
     setTimer(60);
 
@@ -501,7 +443,6 @@ const handleSchoolTypeChange = (e) => {
       .then(function (response) {
         if (response.status === 202) {
           const UNhashedPassword = decryptGlobal(response?.data?.data);
-          // console.log(UNhashedPassword, "111111111111111111111111111");
           setOtpRes(JSON.parse(UNhashedPassword));
           openNotificationWithIcon("success", "OTP sent to Email Id");
           setBtnOtp(true);
@@ -509,7 +450,6 @@ const handleSchoolTypeChange = (e) => {
           setTimeout(() => {
             setOtpSent("Resend OTP");
             setDisable(true);
-            // setHoldKey(false);
             setTimer(0);
           }, 60000);
         }
@@ -521,11 +461,6 @@ const handleSchoolTypeChange = (e) => {
           setDisable(true);
           setAreInputsDisabled(false);
           setTimer(0);
-          // setTimeout(() => {
-          //   setDisable(true);
-          //   setHoldKey(false);
-          //   setTimer(0);
-          // }, 1000);
         }
       });
     e.preventDefault();
@@ -536,6 +471,8 @@ const handleSchoolTypeChange = (e) => {
   };
 
   const handleRegist = (mentorregdata) => {
+    // This function  Sends a request to create organization data //
+
     setMentorData(mentorregdata);
     const body = JSON.stringify({
       state: stateData,
@@ -547,12 +484,8 @@ const handleSchoolTypeChange = (e) => {
       organization_code: diesCodes,
       organization_name: schoolname,
       address: textData,
-      school_type:      schoolType === "Others" 
-      ? otherSchoolType 
-      : schoolType,
-    board:     schoolBoard === "Others"
-      ? otherSchoolBoard
-      : schoolBoard,
+      school_type: schoolType === "Others" ? otherSchoolType : schoolType,
+      board: schoolBoard === "Others" ? otherSchoolBoard : schoolBoard,
     });
 
     if (condition) {
@@ -581,27 +514,6 @@ const handleSchoolTypeChange = (e) => {
       mentorregdata["organization_code"] = diesCodes;
       handelMentorReg(mentorregdata);
     }
-    // var config = {
-    //   method: "post",
-    //   url: process.env.REACT_APP_API_BASE_URL + `/organizations/createOrg`,
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
-    //   },
-    //   data: body,
-    // };
-    // axios(config)
-    //   .then(function (response) {
-    //     if (response?.status == 201) {
-    //       mentorregdata["organization_code"] =
-    //         response.data.data[0].organization_code;
-    //       handelMentorReg(mentorregdata);
-    //     }
-    //   })
-
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
   };
   const handelMentorReg = async (body) => {
     var config = {
@@ -622,38 +534,31 @@ const handleSchoolTypeChange = (e) => {
           setTimeout(() => {
             apiCall(mentorRegRes.data && mentorRegRes.data.data[0]);
           }, 3000);
-
-          // setMentorData(mentorRegRes?.data);
         }
       })
       .catch((err) => {
         openNotificationWithIcon("error", err.response.data?.message);
-        // setBtn(false);
         formik.setErrors({
           check: err.response && err?.response?.data?.message,
         });
         return err.response;
       });
   };
-  useEffect(()=>{
+  useEffect(() => {
     setOtpRes(0);
     setBtnOtp(false);
     formik.setFieldValue("otp", "");
-  
-  },[formik.values.mobile]);
-  useEffect(()=>{
+  }, [formik.values.mobile]);
+  useEffect(() => {
     setOtpRes(0);
     setBtnOtp(false);
     formik.setFieldValue("otp", "");
-  
-  },[formik.values.email]);
+  }, [formik.values.email]);
   async function apiCall(mentData) {
-    // Dice code list API //
-    // where list = diescode  //
+   // this function Sends a request to trigger the mentor welcome email
     const body = JSON.stringify({
       school_name: orgData.organization_name,
       udise_code: orgData.organization_code,
-      // atl_code: mentorDaTa.organization_code,
       district: orgData.district,
       state: orgData.state,
       pin_code: orgData.pin_code,
@@ -683,17 +588,7 @@ const handleSchoolTypeChange = (e) => {
         console.log(error);
       });
   }
-  // useEffect(() => {
-  //   if (timer > 0) {
-  //     const intervalId = setInterval(() => {
-  //       setTimer((prevTimer) => prevTimer - 1);
-  //     }, 1000);
-  //     return () => clearInterval(intervalId);
-  //   } else if (timer === 0 && otpSent) {
-  //     setAreInputsDisabled(false);
-  //     setOtpSent(false);
-  //   }
-  // }, [timer, otpSent]);
+
   useEffect(() => {
     if (timer > 0) {
       const intervalId = setInterval(() => {
@@ -735,7 +630,7 @@ const handleSchoolTypeChange = (e) => {
     formik.values.whatapp_mobile,
   ]);
   const handleLogoClick = () => {
-    navigate('/');
+    navigate("/");
   };
 
   return (
@@ -745,11 +640,13 @@ const handleSchoolTypeChange = (e) => {
           <div className="login-content">
             <form action="signin" onSubmit={formik.handleSubmit}>
               <div className="login-userset">
-                <div className="login-logo logo-normal" onClick={handleLogoClick}>
+                <div
+                  className="login-logo logo-normal"
+                  onClick={handleLogoClick}
+                >
                   <img src={logo} alt="Logo" />
-                 
                 </div>
-              
+
                 {btn && (
                   <>
                     <div className="col-xl-12">
@@ -792,13 +689,13 @@ const handleSchoolTypeChange = (e) => {
                         </div>
                         <div className="col-md-6">
                           <label htmlFor="inputmandal" className="form-label">
-                          Mandal / Taluka
+                            Mandal / Taluka
                           </label>
                           <select
                             id="inputmandal"
                             className="form-select"
                             value={selectedMandal}
-                            onChange={handleMandalChange }
+                            onChange={handleMandalChange}
                           >
                             <option value="">Select Mandal / Taluka</option>
                             {mandals.map((mandal) => (
@@ -835,13 +732,13 @@ const handleSchoolTypeChange = (e) => {
                         </div>
                         <div className="col-md-6">
                           <label htmlFor="schooltype" className="form-label">
-                          School Type
+                            School Type
                           </label>
                           <select
                             id="schooltype"
                             className="form-select"
                             value={schoolType}
-          onChange={handleSchoolTypeChange}
+                            onChange={handleSchoolTypeChange}
                           >
                             <option value="">Select School Type</option>
                             {SchoolType.map((item) => (
@@ -852,29 +749,32 @@ const handleSchoolTypeChange = (e) => {
                           </select>
                         </div>
                         {schoolType === "Others" && (
-        <div className="col-md-6">
-          <label htmlFor="inputOtherSchoolType" className="form-label">
-            Other School Type
-          </label>
-          <input
-            type="text"
-            id="inputOtherSchoolType"
-            className="form-control"
-            placeholder="Please Enter School Type"
-            value={otherSchoolType}
-            onChange={(e) => setOtherType(e.target.value)}
-          />
-        </div>
-      )}
-       <div className="col-md-6">
+                          <div className="col-md-6">
+                            <label
+                              htmlFor="inputOtherSchoolType"
+                              className="form-label"
+                            >
+                              Other School Type
+                            </label>
+                            <input
+                              type="text"
+                              id="inputOtherSchoolType"
+                              className="form-control"
+                              placeholder="Please Enter School Type"
+                              value={otherSchoolType}
+                              onChange={(e) => setOtherType(e.target.value)}
+                            />
+                          </div>
+                        )}
+                        <div className="col-md-6">
                           <label htmlFor="inputboard" className="form-label">
-                          School Board
+                            School Board
                           </label>
                           <select
                             id="inputboard"
                             className="form-select"
                             value={schoolBoard}
-          onChange={handleSchoolBoardChange}
+                            onChange={handleSchoolBoardChange}
                           >
                             <option value="">Select School Board</option>
                             {SchoolBoard.map((item) => (
@@ -884,22 +784,25 @@ const handleSchoolTypeChange = (e) => {
                             ))}
                           </select>
                         </div>
-                       
+
                         {schoolBoard === "Others" && (
-        <div className="col-md-6">
-          <label htmlFor="inputOtherSchoolBoard" className="form-label">
-            Other School Board
-          </label>
-          <input
-            type="text"
-            id="inputOtherSchoolBoard"
-            className="form-control"
-            placeholder="Please Enter School Board"
-            value={otherSchoolBoard}
-            onChange={(e) => setOtherBoard(e.target.value)}
-          />
-        </div>
-      )}
+                          <div className="col-md-6">
+                            <label
+                              htmlFor="inputOtherSchoolBoard"
+                              className="form-label"
+                            >
+                              Other School Board
+                            </label>
+                            <input
+                              type="text"
+                              id="inputOtherSchoolBoard"
+                              className="form-control"
+                              placeholder="Please Enter School Board"
+                              value={otherSchoolBoard}
+                              onChange={(e) => setOtherBoard(e.target.value)}
+                            />
+                          </div>
+                        )}
                         <div className="col-md-6">
                           <label className="form-label"> School Address</label>
                           <input
@@ -912,7 +815,7 @@ const handleSchoolTypeChange = (e) => {
                             className="form-control"
                           />
                         </div>
-                       
+
                         <div className="form-login">
                           <button
                             type="button"
@@ -931,34 +834,35 @@ const handleSchoolTypeChange = (e) => {
                 {schoolBtn && (
                   <div className="col-xl-12">
                     {person && (
-                    <div className="card">
-                      <div className="card-body">
-                        <div className="card-subtitle fw-semibold">
-                          UDISE Code : {""}
-                          {orgData?.organization_code}
-                          <br />
-                         
-                          State Name :{" "}
-                          {orgData?.state ? orgData?.state : " N/A"} <br />
-                          District Name :{" "}
-                          {orgData?.district ? orgData?.district : " N/A"}
-                          <br />
-                          Mandal / Taluka :{" "}
-                          {orgData?.mandal ? orgData?.mandal : " N/A"} <br />
-                          PinCode : {""}
-                          {orgData?.pin_code}
-                          <br />
-                          School Name : {""}
-                          {orgData?.organization_name}
-                          <br />School Type : {""}
-                          {orgData?.school_type}
-                          <br />School Board : {""}
-                          {orgData?.board}
-                          <br />
+                      <div className="card">
+                        <div className="card-body">
+                          <div className="card-subtitle fw-semibold">
+                            UDISE Code : {""}
+                            {orgData?.organization_code}
+                            <br />
+                            State Name :{" "}
+                            {orgData?.state ? orgData?.state : " N/A"} <br />
+                            District Name :{" "}
+                            {orgData?.district ? orgData?.district : " N/A"}
+                            <br />
+                            Mandal / Taluka :{" "}
+                            {orgData?.mandal ? orgData?.mandal : " N/A"} <br />
+                            PinCode : {""}
+                            {orgData?.pin_code}
+                            <br />
+                            School Name : {""}
+                            {orgData?.organization_name}
+                            <br />
+                            School Type : {""}
+                            {orgData?.school_type}
+                            <br />
+                            School Board : {""}
+                            {orgData?.board}
+                            <br />
+                          </div>
                         </div>
                       </div>
-                    </div>
-                     )} 
+                    )}
                     <div className="card">
                       <div className="card-body">
                         <div className="row g-3 mt-0">
@@ -1225,7 +1129,9 @@ const handleSchoolTypeChange = (e) => {
                                       } seconds`
                                     : "Otp expired"} */}
                                   {timer > 0
-                                    ? `Access Resend OTP in ${timer < 10 ? `0${timer}` : timer} sec`
+                                    ? `Access Resend OTP in ${
+                                        timer < 10 ? `0${timer}` : timer
+                                      } sec`
                                     : "Resend OTP enabled"}
                                 </p>
                               </div>
@@ -1243,12 +1149,14 @@ const handleSchoolTypeChange = (e) => {
 
                                   <div className="wallet-add">
                                     <div className="otp-box">
-                                      <div className="forms-block text-center" >
-                                        <div style={{
-                                          display: 'flex',
-                                          justifyContent: 'center',
-                                          alignItems: 'center',
-                                        }}>
+                                      <div className="forms-block text-center">
+                                        <div
+                                          style={{
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                          }}
+                                        >
                                           <OtpInput
                                             numInputs={6}
                                             // isDisabled={false}
@@ -1283,21 +1191,21 @@ const handleSchoolTypeChange = (e) => {
                                 </div>
                               </div>
                               {formik.values.otp.length > 5 &&
-                            otpRes != formik.values.otp && (
-                              <div className="form-row row text-center">
-                                <span
-                                  className=" w-100 d-flex justify-content-center"
-                                  style={{
-                                    color: "red",
-                                  }}
-                                >
-                                  Invalid OTP
-                                </span>
-                              </div>
-                            )}
+                                otpRes != formik.values.otp && (
+                                  <div className="form-row row text-center">
+                                    <span
+                                      className=" w-100 d-flex justify-content-center"
+                                      style={{
+                                        color: "red",
+                                      }}
+                                    >
+                                      Invalid OTP
+                                    </span>
+                                  </div>
+                                )}
                             </>
                           )}
-                         
+
                           {btnOtp && (
                             <div className="form-login">
                               <button
@@ -1311,14 +1219,15 @@ const handleSchoolTypeChange = (e) => {
                                   )
                                 }
                               >
-                                 {isSubmitting ? (
-              <>
-                <i className="fas fa-spinner fa-spin me-2" />
-                Processing your Registration. 🚫 Donot Refresh
-              </>
-            ) : (
-              "Verify My Account"
-            )}
+                                {isSubmitting ? (
+                                  <>
+                                    <i className="fas fa-spinner fa-spin me-2" />
+                                    Processing your Registration. 🚫 Donot
+                                    Refresh
+                                  </>
+                                ) : (
+                                  "Verify My Account"
+                                )}
                                 {/* Verify My Account */}
                               </button>
                             </div>
