@@ -19,7 +19,6 @@ import {
 const Reports = () => {
     
   const currentUser = getCurrentUser('current_user');
-  // const route = all_routes;
   useEffect(() => {
     adminTeamsCount();
     adminSudentCount();

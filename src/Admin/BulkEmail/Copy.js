@@ -1,25 +1,18 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState } from "react";
-// import Layout from '../../Admin/Layout';
 import { Row, Col, FormGroup, Label, Form } from "reactstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Button } from "../../stories/Button";
-// import { InputBox } from '../../stories/InputBox/InputBox';
 import { getCurrentUser, openNotificationWithIcon } from "../../helpers/Utils";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-// import { URL, KEY } from '../../constants/defaultValues';
 import { stateList, } from "../../RegPage/ORGData";
 const CreateEmail = () => {
   const currentUser = getCurrentUser("current_user");
   const allData = ["All States", ...stateList];
   const navigate = useNavigate();
-  // const inputDICE = {
-  //     type: 'text',
-  //    className:"form-control"
-  // };
+ 
   const inputDICE = {
     type: "text",
     className: "form-control",
@@ -54,10 +47,7 @@ const CreateEmail = () => {
           subject: values.subject,
           state: values.state,
         };
-        // if (values.navigate !== "") {
-        //   body["navigate"] = values.navigate;
-        // }
-        // console.log(body,"body");
+       
         const response = await axios.post(
           `${process.env.REACT_APP_API_BASE_URL}/admins/bulkEmail`,
           body,
@@ -74,7 +64,6 @@ const CreateEmail = () => {
           openNotificationWithIcon("success", "PopUp Created Successfully");
         } 
       } catch (error) {
-        //console.log(error.response.status);
         if (error.response.status === 420) {
           openNotificationWithIcon("error", "PopUp for this State & Role already exists");
         }
@@ -104,13 +93,11 @@ const CreateEmail = () => {
                       <Col md={12}>
                         <Label className="form-label" htmlFor="msg">
                         To
-                          {/* <span required>*</span> */}
                         </Label>
                         <textarea
                           {...inputDICE}
                           id="msg"
                           name="msg"
-                          // rows={5} 
                           placeholder="Please enter Message"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
@@ -128,7 +115,6 @@ const CreateEmail = () => {
                       <Col md={12}>
                         <Label className="form-label" htmlFor="subject">
                           Subject
-                          {/* <span required>*</span> */}
                         </Label>
                         <textarea
                           {...inputDICE1}
@@ -151,7 +137,6 @@ const CreateEmail = () => {
                         <Col md={6}>
                           <Label className="form-label" htmlFor="state">
                             State
-                            {/* <span required>*</span> */}
                           </Label>
                           <select
                             id="inputState"

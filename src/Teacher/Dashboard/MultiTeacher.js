@@ -10,7 +10,6 @@ import { FiEdit } from "react-icons/fi";
 import { FaRoute } from 'react-icons/fa';
 import { FiEdit3 } from "react-icons/fi";
 
-// import { IoMdTv } from "react-icons/io";
 import { LuSend } from "react-icons/lu";
 import { FaTv } from "react-icons/fa";
 import { LiaCertificateSolid } from "react-icons/lia";
@@ -18,7 +17,6 @@ import { FaFlagCheckered } from "react-icons/fa";
 import { BiLogoMicrosoftTeams } from "react-icons/bi";
 import { PiStudentFill } from "react-icons/pi";
     const MultiTeacher = ({ teamsCount, postdata, studentCount,courseData ,ideaCount}) => {
-        console.log(postdata,"poset");
         const steps = [
             {
                 name: 'Pre Survey',

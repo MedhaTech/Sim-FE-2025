@@ -8,22 +8,13 @@ import { CSVLink } from "react-csv";
 import { getCurrentUser } from "../../../helpers/Utils";
 import { useNavigate, Link } from "react-router-dom";
 
-import { ArrowRight } from "feather-icons-react/build/IconComponents";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "./Select";
 import axios from "axios";
-import { Doughnut } from "react-chartjs-2";
-import { Bar } from "react-chartjs-2";
-import { notification } from "antd";
+
 import { encryptGlobal } from "../../../constants/encryptDecrypt";
 import { stateList, districtList } from "../../../RegPage/ORGData";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faMale,
-  faFemale,
-  faChalkboardTeacher,
-} from "@fortawesome/free-solid-svg-icons";
-import ReactApexChart from "react-apexcharts";
+
 import { openNotificationWithIcon } from "../../../helpers/Utils";
 import DataTableExtensions from 'react-data-table-component-extensions';
 import DataTable, { Alignment } from 'react-data-table-component';
@@ -149,10 +140,11 @@ const InstitutionReport = () => {
         return Object.keys(filteredItem).length > 0 ? filteredItem : null;
       })
       .filter(Boolean);
-    // console.log("Final Filtered Data for Download:", filteredData);
     setDownloadTableData(filteredData);
   };
   const fetchData = (type,param) => {
+   // This function filters  data based on selected state, district, category
+
     let apiRes;
     if(type === 'save'){
       apiRes = encryptGlobal(param);
@@ -210,7 +202,6 @@ const InstitutionReport = () => {
 
   useEffect(() => {
     if (isReadyToDownload && downloadTableData.length > 0) {
-      // console.log("Downloading CSV with data:", downloadTableData);
       const formattedCSVData = downloadTableData.map((item) =>
         Object.fromEntries(
           Object.entries(item).map(([key, value]) => [
@@ -223,10 +214,7 @@ const InstitutionReport = () => {
 
       setTimeout(() => {
         csvLinkRef.current.link.click();
-        // console.log(
-        //   "Downloading CSV with formatted headers:",
-        //   formattedCSVData
-        // );
+       
         openNotificationWithIcon("success", "Report Downloaded Successfully");
         setIsReadyToDownload(false);
       }, 1000);
@@ -300,7 +288,7 @@ const InstitutionReport = () => {
         setInputValue('');
     }
   }else{
-    setError("Please Enter Vaild Name");
+    setError("Please Enter Valid Name");
   }
 };
   //
@@ -626,11 +614,9 @@ const customStyles = {
                           !downloadTableData ||
                           downloadTableData.length === 0
                         ) {
-                          // console.log("Fetching data before download...");
                           filterData();
                         }
           setTimeout(() => {
-            // console.log("Checking Data Before Download:", downloadTableData);
           
             setIsReadyToDownload(true);
           }, 1000);

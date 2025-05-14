@@ -165,7 +165,6 @@ const MentorDashboard = () => {
   const [poptype, setPopType] = useState("");
 
   const [state, setState] = useState("");
-  // console.log(state,"sss");
 
   /////////////////NEW CODE//////////////////////////////////
 
@@ -195,8 +194,7 @@ const [courseData, setCourseData] = useState("");
 
   
   const [file, setFile] = useState("");
-  // const fileName = file.substring(file.lastIndexOf('/') + 1);
-  //  const decodedFileName = decodeURIComponent(fileName);
+  
   const [imagedata, setImageData] = useState("");
   const [urlData, setUrlData] = useState("");
   const [youtube, setYoutube] = useState("");
@@ -226,9 +224,7 @@ const [stuData,setStuData]=useState("");
     axios(config)
       .then(function (res) {
         if (res.status === 200 && res.data.data[0]?.on_off === "1") {
-          // console.log(res,"res");
           setShowsPopup(true);
-          // setPopType(res?.data?.data[0]?.type);
 
           setFile(res?.data?.data[0]?.file);
           setImageData(res?.data?.data[0]?.image);
@@ -237,12 +233,7 @@ const [stuData,setStuData]=useState("");
 
           setState(res?.data?.data[0]?.navigate);
           localStorage.setItem("popupCount", popupCount + 1);
-          // if(res?.data?.data[0]?.type == "link"){
-
-          // }else{
-          //   setImgUrl(res?.data?.data[0]?.url);
-          //   setState(res?.data?.data[0]?.navigate);
-          // }
+       
         }
       })
       .catch(function (error) {
@@ -268,7 +259,6 @@ const [stuData,setStuData]=useState("");
   };
 
   const currentUser = getCurrentUser("current_user");
-  // console.log(currentUser,'currentUser');
 
   useEffect(() => {
     if (currentUser?.data[0]?.user_id) {
@@ -308,7 +298,6 @@ const [stuData,setStuData]=useState("");
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response,"team");
           
           setTeamsCount(response.data.data[0].teams_count);
           setTeamCountLoading(false);
@@ -338,7 +327,6 @@ const [stuData,setStuData]=useState("");
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response, 'idea count');
 
           setIdeaCount(response.data.data[0].idea_count);
           setIdeaCountLoading(false);
@@ -430,7 +418,6 @@ const [stuData,setStuData]=useState("");
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          console.log(response,"post");
           const po = response.data.data[0].postSurvey;
           setTeacPostSurvey(po);
           setPostData(response.data.data[0].postSurvey !== "INCOMPLETED" ? "Completed":"Not Stated");
@@ -464,10 +451,8 @@ const [stuData,setStuData]=useState("");
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response);
           setWhatsappLink(response.data.data[0].whatapp_link);
           setMessage(response.data.data[0].mentor_note);
-          // console.log(response.data.data[0].mentor_note,"message");
         }
       })
       .catch(function (error) {
@@ -477,7 +462,6 @@ const [stuData,setStuData]=useState("");
 
   /////////videoModal////////////////////
   const [video, setVideo] = useState("");
-  //const [videoName , setVideoName] = useState("");
   const [show, setShow] = useState(false);
 
   const renderTooltip = (props) => (
@@ -511,7 +495,6 @@ const [stuData,setStuData]=useState("");
     section.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  // console.log(message,"m");
 
   const componentRef = useRef();
   const handlePrintCertificate = useReactToPrint({
@@ -546,7 +529,6 @@ const [stuData,setStuData]=useState("");
         imagedata={imagedata}
         urlData={urlData}
         youtube={youtube}
-        // fileName={decodedFileName}
         state={state}
       ></GreetingModal>
       <div style={{ display: "none" }}>
@@ -569,8 +551,7 @@ const [stuData,setStuData]=useState("");
                 </h3>
                 &nbsp;
                 <h6>
-                  {/* here&apos;s what&apos;s happening with your School Innovation
-                  Marathon 2025 journey. */}
+                 
                   {t('teacherJourney.heading')}
                 </h6>
               </div>
@@ -595,11 +576,7 @@ const [stuData,setStuData]=useState("");
                     </OverlayTrigger>
                   </div>
                 </div>
-                {/* <OverlayTrigger placement="top" overlay={renderRefreshTooltip}>
-                <Link data-bs-toggle="tooltip" data-bs-placement="top" onClick={handleRefresh} >
-                  <RotateCcw className="feather feather-rotate-ccw feather-16" />
-                </Link>
-              </OverlayTrigger> */}
+                
               </div>
             </div>
             <div className="col-xl-12 col-sm-12 col-12 d-flex">
@@ -779,53 +756,14 @@ ideaCount={ideaCount}
                       </div>
                     </div>
                   </>
-                  // <div className="dash-count das1">
-                  //   <>
-                  //     <div
-                  //       className="dash-counts"
-                  //       onClick={
-                  //         currentUser?.data[0]?.state !== "Tamil Nadu"
-                  //           ? handleCertificateDownload
-                  //           : null
-                  //       }
-                  //       style={{
-                  //         cursor:
-                  //           currentUser?.data[0]?.state !== "Tamil Nadu"
-                  //             ? "pointer"
-                  //             : "not-allowed",
-                  //         opacity:
-                  //           currentUser?.data[0]?.state !== "Tamil Nadu"
-                  //             ? 1
-                  //             : 0.5,
-                  //       }}
-                  //     >
-                  //       <h4>Congrats</h4>
-                  //       {currentUser?.data[0]?.state !== "Tamil Nadu" && (
-                  //         <h5>
-                  //           Click here&nbsp;
-                  //           <FeatherIcon icon="arrow-down-circle" size={30} />
-                  //           &nbsp;Certificate
-                  //         </h5>
-                  //       )}
-                  //       {currentUser?.data[0]?.state === "Tamil Nadu" && (
-                  //         <p>Certificate Coming Soon</p>
-                  //       )}
-                  //     </div>
-
-                  //     <div className="dash-imgs">
-                  //       <GiAchievement size={40} />
-                  //     </div>
-                  //   </>
-                  // </div>
+                
                 ) : (
                    <div className="dash-count das1">
                     <>
                       <div
                         className="dash-counts"
                         onClick={
-                          // currentUser?.data[0]?.state !== "Tamil Nadu"
-                          //   ? handleCertificateDownload
-                          //   : null
+                        
                             handleCertificateDownload
                         }
                         style={{
@@ -855,9 +793,7 @@ ideaCount={ideaCount}
                             &nbsp; {t('teacherJourney.Certificate')}
                           </h5>
                         )}
-                        {/* {currentUser?.data[0]?.state === "Tamil Nadu" && (
-                          <p>Certificate Coming Soon</p>
-                        )} */}
+                       
                       </div>
 
                       <div className="dash-imgs">
@@ -865,17 +801,7 @@ ideaCount={ideaCount}
                       </div>
                     </>
                   </div>
-                  // <>
-                  //   <div className="dash-count das1">
-                  //     <div className="dash-counts">
-                  //       <h4>Get Certificate</h4>
-                  //       <h5>After Taking Post Survey</h5>
-                  //     </div>
-                  //     <div className="dash-imgs">
-                  //       <GiAchievement size={30} />
-                  //     </div>
-                  //   </div>
-                  // </>
+                
                 )}
               </div>
               <div className="col-xl-3 col-sm-6 col-12 d-flex">

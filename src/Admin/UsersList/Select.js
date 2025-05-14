@@ -3,7 +3,6 @@ const Select = ({ list, setValue, placeHolder, value }) => {
         <select
             onChange={(e) => setValue(e.target.value)}
             value={value}
-            // className="border rounded-3 px-4 pointer w-75"
             className="form-select"
             style={{ height: '2rem', outline: 'none' }}
         >

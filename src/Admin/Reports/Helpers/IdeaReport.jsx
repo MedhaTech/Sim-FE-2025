@@ -6,10 +6,7 @@ import { CSVLink } from "react-csv";
 import { getCurrentUser } from "../../../helpers/Utils";
 import { useNavigate, Link } from "react-router-dom";
 import {
-  OverlayTrigger,
-  Tooltip,
   Popover,
-  Button,
   Overlay,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -319,15 +316,13 @@ const IdeaReport = () => {
           if (item && Object.prototype.hasOwnProperty.call(item, key)) {
             filteredItem[key] = item[key] ?? "";
           } else {
-            console.warn(`Key "${key}" not found in item:`, item);
+            // console.warn(`Key "${key}" not found in item:`, item);
           }
         });
 
-        console.log("Filtered Item:", filteredItem);
         return Object.keys(filteredItem).length > 0 ? filteredItem : null;
       })
       .filter(Boolean);
-    console.log("Final Filtered Data for Download:", filteredData);
     setstudentDetailedReportsData(filteredData);
   };
   const handleCustomizationClick = () => {
@@ -351,7 +346,6 @@ const IdeaReport = () => {
 
   useEffect(() => {
     if (isReadyToDownload && studentDetailedReportsData.length > 0) {
-      console.log("Downloading CSV with data:", studentDetailedReportsData);
       const formattedCSVData = studentDetailedReportsData.map((item) =>
         Object.fromEntries(
           Object.entries(item).map(([key, value]) => [
@@ -364,16 +358,15 @@ const IdeaReport = () => {
 
       setTimeout(() => {
         handleExport();
-        console.log(
-          "Downloading CSV with formatted headers:",
-          formattedCSVData
-        );
+       
         openNotificationWithIcon("success", "Report Downloaded Successfully");
         setIsReadyToDownload(false);
       }, 1000);
     }
   }, [isReadyToDownload, studentDetailedReportsData]);
   const fetchData = (type, param) => {
+   // This function filters  data based on selected state, district, category, theme
+
     let apiRes;
     if (type === "save") {
       apiRes = encryptGlobal(param);
@@ -746,7 +739,6 @@ const IdeaReport = () => {
         .map((header) => header)
     );
     fetchData("save", data.filters);
-    console.log(data.filters, "filters");
     setistabledownloadclicked(true);
   };
   useEffect(() => {
@@ -1107,15 +1099,11 @@ const IdeaReport = () => {
                           !downloadTableData ||
                           downloadTableData.length === 0
                         ) {
-                          console.log("Fetching data before download...");
                           filterData();
                         }
 
                         setTimeout(() => {
-                          console.log(
-                            "Checking Data Before Download:",
-                            downloadTableData
-                          );
+                         
 
                           setIsReadyToDownload(true);
                         }, 1000);

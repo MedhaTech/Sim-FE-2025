@@ -1,15 +1,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect, useState } from "react";
-import { CheckCircle, XCircle, Clock, Award } from 'react-feather'; // Feather Icons
 import { FaRegCircle, FaCheckCircle, FaTimesCircle } from 'react-icons/fa'; // React Icons
-import { Link } from "react-router-dom";
-import {FaHourglassHalf } from 'react-icons/fa';
 import "./bar.css";
 import { FiEdit } from "react-icons/fi";
-import { FaRoute } from 'react-icons/fa';
 import { FiEdit3 } from "react-icons/fi";
-// import { IoMdTv } from "react-icons/io";
 import { LuSend } from "react-icons/lu";
 import { FaTv } from "react-icons/fa";
 import { LiaCertificateSolid } from "react-icons/lia";

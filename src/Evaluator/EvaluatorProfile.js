@@ -1,11 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState,useEffect } from "react";
-// import ImageWithBasePath from "../core/img/imagewithbasebath";
-import { Link } from "react-router-dom";
 import { getCurrentUser } from "../helpers/Utils";
-import edit from "../assets/img/icons/edit-set.svg";
-// import customer from "../assets/img/customer/customer5.jpg";
 import { useNavigate } from "react-router-dom";
 import male from "../assets/img/admin.jpg";
 import { Row, Col, Label, Container, Card, } from 'reactstrap';
@@ -45,7 +41,6 @@ getAPi();
   axios(config)
       .then(function (response) {
           if (response.status === 200) {
-            console.log(response,"response");
             setMobile(response.data.data[0].mobile);
             const statesString = response.data.data[0].state; 
             setStates(statesString.split(','));
@@ -63,7 +58,6 @@ getAPi();
           console.log(error);
       });
 };
-console.log(mobile,"m");
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -81,7 +75,6 @@ console.log(mobile,"m");
                 <div className="profile-content">
                   <div className="profile-contentimg">
                   <img src={male} alt="Male" id="blah" />
-                  {/* <img src={customer} alt="Customer" id="blah" /> */}
                   <div className="profileupload"></div>
                   </div>
                   <div className="profile-contentname">
@@ -191,7 +184,6 @@ console.log(mobile,"m");
             </div>
           </div>
         </div>
-        {/* /product list */}
       </div>
     </div>
   );

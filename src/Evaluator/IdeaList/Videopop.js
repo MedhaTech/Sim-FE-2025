@@ -7,7 +7,6 @@ const VideoPopup = ({ videoUrl }) => {
   const [show, setShow] = useState(false);
 
   const getEmbedUrl = (url) => {
-    // Convert YouTube URL to embeddable format
     if (url.includes('youtube.com/watch?v=')) {
       const videoId = url.split('v=')[1];
       return `https://www.youtube.com/embed/${videoId}`;
@@ -33,14 +32,7 @@ const VideoPopup = ({ videoUrl }) => {
           <Modal.Title>Video Preview</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* <div className="ratio ratio-16x9">
-            <iframe
-              src={getEmbedUrl(videoUrl)}
-              title="Video"
-              frameBorder="0"
-              allowFullScreen
-            ></iframe>
-          </div> */}
+         
           {videoUrl && (videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be')) ? (
         <div className="ratio ratio-16x9">
           <iframe

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState } from "react";
 import ReactStarsRating from "react-awesome-stars-rating";
@@ -21,7 +22,7 @@ const Rating = () => {
       setIsLoading(false);
 
       // You can perform other actions here after the rating is submitted
-      console.log('Rating submitted:', newRating);
+      // console.log('Rating submitted:', newRating);
     }, 2000); // Simulated delay of 2000 milliseconds (2 seconds)
   };
   const handleStarHover = () => {

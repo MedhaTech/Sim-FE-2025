@@ -66,6 +66,8 @@ const { t } = useTranslation();
   const [initiate, setInitiate] = useState("");
 
   const submittedApi = () => {
+               // This function fetches idea submission details from the API //
+
     const Param = encryptGlobal(
       JSON.stringify({
         team_id: TeamId,
@@ -85,7 +87,6 @@ const { t } = useTranslation();
     axios(configidea)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response.data.data);
           if (response.data.data && response.data.data.length > 0) {
             const data = response.data.data[0];
             setInitiate(response.data.data[0].initiate_by);
@@ -112,10 +113,7 @@ const { t } = useTranslation();
   };
   return (
     <div className='page-wrapper'>
-       {/* <h4 className="m-2" 
-        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
-        >Idea Submission
-        </h4> */}
+      
       <div className='content'>
         <div className="page-header">
           <div className="page-title">
@@ -145,9 +143,7 @@ const { t } = useTranslation();
                                   <Check className="feather-16" />
                                 </span>
                               </Link>
-                              {/* <h6 className="cat-name">
-                                            <Link to="#">Mobiles</Link>
-                                        </h6> */}
+                             
                               <h6 className="product-name">
                                 <Link to="#">{t(theme.title)}</Link>
                               </h6>
@@ -169,7 +165,6 @@ const { t } = useTranslation();
                 <aside className="product-order-list">
                   <div className="head d-flex align-items-center justify-content-between w-100">
                     <div className="">
-                    {/* <h5>{t('home.select')}</h5> */}
                       <h5>{t('home.select')}</h5> 
                       <span>{t('home.selectv')}</span>
                     </div>
@@ -200,12 +195,7 @@ const { t } = useTranslation();
                                 <span>{t(focusarea)}</span>
                               </h6>
                             ))}
-                            {/* {themes[data - 1].focusareas.length} to display others also
-                              {themes[data - 1].focusareas.map((focusarea, index) => (
-                                <h6 key={index}>
-                                  <span>{focusarea}</span>
-                                </h6>
-                              ))} */}
+                           
                           </div>
                         </div>
                       </div>
@@ -213,14 +203,9 @@ const { t } = useTranslation();
                   </div>
                   <div className="btn-row d-sm-flex align-items-center justify-content-between"
                     onClick={() => setTheme(themes[data - 1].title)}
-                  //   onClick={() =>
-                  //     handleSelect(
-                  //       (themes[data - 1].title)
-                  //     )
-                  // }
+                 
                   >
                     <Link
-                      // to="#"
                       className="btn btn-info btn-icon flex-fill"
                     >
                       <span className="me-1 d-flex align-items-center">

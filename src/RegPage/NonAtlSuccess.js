@@ -4,10 +4,8 @@ import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { Bold } from "react-feather";
 import success from "../assets/img/chek.png";
 import logo from "../assets/img/new-logo.png";
 import { encryptGlobal } from "../constants/encryptDecrypt";
@@ -39,7 +37,6 @@ const NonAtlSuccess = () => {
           `/dashboard/whatappLink?Data=${statenameApi}`,
         headers: {
           "Content-Type": "application/json",
-          // Accept: "application/json",
           Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
         },
       };
@@ -98,7 +95,6 @@ const NonAtlSuccess = () => {
                 }}
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}
-                // to={"/login"}
                 onClick={fetchwhatsapplink}
               >
                 {" "}
@@ -116,13 +112,11 @@ const NonAtlSuccess = () => {
                   <Col
                     className="hover-a  col-md-6 col-sm-12"
                     style={{
-                      // width: "50%",
                       border: "1px solid #ccc",
                       padding: "20px",
                       boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
                       borderRadius: "8px",
                       backgroundColor: "#f9f9f9",
-                      // margin: "0 10px",
                     }}
                   >
                     <h4 className="mb-3 text-center">
@@ -157,13 +151,11 @@ const NonAtlSuccess = () => {
                   <Col
                     className="hover-a  col-md-6 col-sm-12 "
                     style={{
-                      // width: "50%",
                       border: "1px solid #ccc",
                       padding: "20px",
                       boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
                       borderRadius: "8px",
                       backgroundColor: "#f9f9f9",
-                      // margin: "0 10px",
                     }}
                   >
                     <h4 className="mb-3 text-center ">
@@ -197,7 +189,6 @@ const NonAtlSuccess = () => {
                 }}
                 onMouseEnter={() => setHovered1(true)}
                 onMouseLeave={() => setHovered1(false)}
-                // to={"/login"}
                 onClick={fetchwhatsapplink}
               >
                 {" "}

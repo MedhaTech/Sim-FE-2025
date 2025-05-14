@@ -44,7 +44,6 @@ const GreetingModal = (props) => {
       onHide={props.handleClose}
       backdrop={true}
     >
-      {/* <Modal.Header closeButton></Modal.Header> */}
 
          <Modal.Body>
          <figure>
@@ -193,6 +192,8 @@ const DBStu = () => {
     (state) => state?.studentRegistration?.studentLanguage
   );
   useEffect(() => {
+               // This function fetches students popup from the API //
+
     const popParam = encryptGlobal(
       JSON.stringify({
         state: currentUser.data[0]?.state,
@@ -213,7 +214,6 @@ const DBStu = () => {
     axios(config)
       .then(function (res) {
         if (res.status === 200 && res.data.data[0]?.on_off === '1') {
-          // console.log(res,"res");
           setShowsPopup(true);
           setFile(res?.data?.data[0]?.file);
           setImageData(res?.data?.data[0]?.image);
@@ -270,9 +270,6 @@ const DBStu = () => {
 
   ];
 
-  // const handleLanguageChange = (language) => {
-  //   setSelectedLanguage(language);
-  // };
 
   const scroll = () => {
     const section = document.querySelector('#start');
@@ -289,7 +286,6 @@ const DBStu = () => {
       stuIdeaSubStatus();
       fetchInstructions();
       scroll();
-      // fetchData();
     }
   }, [currentUser?.data[0]?.user_id]);
   const [badges, setBadges] = useState(0);
@@ -297,7 +293,6 @@ const DBStu = () => {
   const [videos, setVideos] = useState(0);
 const [predata,setPreData]=useState("");
 const [postdata,setPostData]=useState("");
-// console.log(predata,"pre");
   const handleNavigation = () => {
     navigate("/instructionstu", { state: { instruction: message } });
   };
@@ -323,9 +318,7 @@ const [postdata,setPostData]=useState("");
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          //console.log(response);
           setMessage(response.data.data[0].student_note);
-          // console.log(response.data.data[0].student_note,"message");
         }
       })
       .catch(function (error) {
@@ -350,7 +343,7 @@ const [postdata,setPostData]=useState("");
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          console.log(response,"Certificte");
+          // console.log(response,"Certificte");
          
         }
       })
@@ -360,6 +353,8 @@ const [postdata,setPostData]=useState("");
       );
   };
   const stuSurveyStatus = () => {
+               // This function fetches student survey status from the API //
+
     const surveyApi = encryptGlobal(
       JSON.stringify({
         user_id: currentUser?.data[0]?.user_id
@@ -379,7 +374,6 @@ const [postdata,setPostData]=useState("");
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response);
           const po = (response.data.data[0].post_survey_completed_date);
           const pre = (response.data.data[0].pre_survey_completed_date);
           setStuPostSurvey(po);
@@ -398,6 +392,8 @@ const [postdata,setPostData]=useState("");
   };
 
   const stuIdeaSubStatus = () => {
+               // This function fetches students Submitted ideas details from the API //
+
     const ideaSubApi = encryptGlobal(
       JSON.stringify({
         team_id: currentUser?.data[0]?.team_id
@@ -416,15 +412,12 @@ const [postdata,setPostData]=useState("");
     };
     axios(config)
       .then(function (response) {
-        // console.log(response, "res");
         if (response.status === 200) {
-          // console.log(response, "ideaSubApi");
           setStuIdeaSub(response.data.data[0].status);
           setStuIdeaLoading(false);
         }
       })
       .catch(function (error) {
-        // console.log(error,"error");
         if (error.response.data.status === 404) {
           setStuIdeaSub("Not Started");
           setStuIdeaLoading(false);
@@ -435,6 +428,8 @@ const [postdata,setPostData]=useState("");
   const [ideaEnableStatus, setIdeaEnableStatus] = useState(0);
 
   const stuCoursePercent = () => {
+               // This function fetches students Course percentage from the API //
+
     const corseApi = encryptGlobal(
       JSON.stringify({
         user_id: currentUser?.data[0]?.user_id
@@ -454,13 +449,11 @@ const [postdata,setPostData]=useState("");
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response,"111");
           const per = Math.round(
             (response.data.data[0].topics_completed_count /
               response.data.data[0].all_topics_count) *
             100
           );
-          // console.log(per,"per");
         let anyCompleted = false;
         if (per === 100) {
           anyCompleted = true;
@@ -468,13 +461,7 @@ const [postdata,setPostData]=useState("");
         const ideaStatus = anyCompleted ? 1 : 0;
         localStorage.setItem("ideaenablestatus", ideaStatus);
         setIdeaEnableStatus(ideaStatus); 
-        // console.log(ideaEnableStatus,"11");
-
-          // if (per === 100) {
-          //   const ideaStatus = "enabled"; // You can set any value based on your logic
-          //   localStorage.setItem("ideaenablestatus", ideaStatus);
-          // }
-          // console.log(per);
+       
           setCoursepercentage(per);
           setCourseData(per === 100 ? "Completed" :"Not Started");
           setStuCourseLoading(false);
@@ -484,8 +471,9 @@ const [postdata,setPostData]=useState("");
         console.log(error);
       });
   };
-// console.log(courseData,"%%");
   const stuBadgesCount = () => {
+               // This function fetches students badges count from the API //
+
     const badgeApi = encryptGlobal(
       JSON.stringify({
         user_id: currentUser?.data[0]?.user_id
@@ -505,7 +493,6 @@ const [postdata,setPostData]=useState("");
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response);
           setBadges(response.data.data[0].badges_earned_count);
         }
       })
@@ -515,6 +502,8 @@ const [postdata,setPostData]=useState("");
   };
 
   const stuQuizCount = () => {
+               // This function fetches students quiz count from the API //
+
     const quizApi = encryptGlobal(
       JSON.stringify({
         user_id: currentUser?.data[0]?.user_id
@@ -534,7 +523,6 @@ const [postdata,setPostData]=useState("");
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response);
           setQuiz(response.data.data[0].quiz_completed_count);
         }
       })
@@ -544,6 +532,8 @@ const [postdata,setPostData]=useState("");
   };
 
   const stuVideosCount = () => {
+               // This function fetches students videos count from the API //
+
     const videoApi = encryptGlobal(
       JSON.stringify({
         user_id: currentUser?.data[0]?.user_id
@@ -563,7 +553,6 @@ const [postdata,setPostData]=useState("");
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response);
           setVideos(response.data.data[0].videos_completed_count);
         }
       })
@@ -574,7 +563,6 @@ const [postdata,setPostData]=useState("");
   const handleClose = () => {
     setShowsPopup(false);
   };
-  // console.log(stuPostSurvey,"post");
   return (
     <>
       <GreetingModal
@@ -585,7 +573,6 @@ const [postdata,setPostData]=useState("");
         urlData={urlData}
         youtube={youtube}
         state={state}
-        // fileName={decodedFileName}
       ></GreetingModal>
       <div className="page-wrapper" id="start">
         <div className="content">
@@ -599,11 +586,7 @@ const [postdata,setPostData]=useState("");
               <h6> here&apos;s what&apos;s happening with your School Innovation Marathon 2025 today.</h6>
             </div>
            
-            {/* <div className="d-flex align-items-center">
-              <div className="dropdown">
-                  <LanguageSelectorComp module="student" />
-              </div>
-            </div> */}
+           
           </div>
           <div className="col-xl-12 col-sm-12 col-12 d-flex">
               <MultiProgressBar  predata={predata} 
@@ -1062,12 +1045,7 @@ const [postdata,setPostData]=useState("");
 
 
             
-            {/* <div className="col-xl-6 col-sm-12 col-12 d-flex">
-              <MultiStepProgressBar predata={predata} 
-        postdata={postdata} 
-        stuIdeaSub={stuIdeaSub}
-        courseData={courseData}  />
-            </div> */}
+          
           </div>
 
         </div>

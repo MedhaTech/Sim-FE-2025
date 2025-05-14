@@ -14,21 +14,16 @@ import {
   Label,
 } from "reactstrap";
 import { Button } from "../../stories/Button";
-// import { TextArea } from '../../../stories/TextArea/TextArea';
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-// import Layout from '../../Layout';
 import { useSelector } from "react-redux";
 import { Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import {
-  getStudentChallengeQuestions,
-  getStudentChallengeSubmittedResponse,
   updateStudentBadges,
 } from "../../redux/studentRegistration/actions";
 import { useDispatch } from "react-redux";
 import { getCurrentUser } from "../../helpers/Utils";
 import {
-  getNormalHeaders,
   openNotificationWithIcon,
 } from "../../helpers/Utils";
 import axios from "axios";
@@ -37,20 +32,12 @@ import play from "../../assets/img/playicon.png";
 
 import CommonPage from "../../components/CommonPage";
 import { useTranslation } from "react-i18next";
-import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
-import logout from "../../assets/img/logout.svg";
-// import { cardData, subCategoryData } from './SDGData';
 import moment from "moment";
-// import { getLanguage } from "../../constants/languageOptions";
 
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { themes, themesList, focusareasList } from "./themesData";
 import {languageOptions} from "../../RegPage/ORGData";
-import { use } from "i18next";
-import { initiateIdea } from "../../redux/studentRegistration/actions";
-import { setIn } from "formik";
-import { getLanguage } from "../../constants/languageOptions";
 
 const LinkComponent = ({ original, item, url, removeFileHandler, i }) => {
   let a_link;
@@ -91,19 +78,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     data: formData,
   };
   const dispatch = useDispatch();
-  // dispatch(
-  //     initiateIdea(
-  //         currentUser?.data[0]?.team_id,
-  //         language,
-  //         initialSizeData,
-  //         // setShowChallenges,
-  //         t
-  //     )
-  // );
+ 
   const showPage = false;
-  //   const language = useSelector(
-  //     (state) => state?.studentRegistration?.studentLanguage
-  // );
+ 
   const [isDisabled, setIsDisabled] = useState(false);
   const initialLoadingStatus = { draft: false, submit: false };
   const [loading, setLoading] = useState(initialLoadingStatus);
@@ -160,32 +137,7 @@ const[extractId,setExtractId]=useState("");
   const handleCloseModal = () => setShowVideoModal(false);
   const videoUrl = "https://www.youtube.com/embed/sVCgsJgfNJY?autoplay=1";
 
-  // const people = ["None", "2-4 people", "5+ people", "10+ people"];
-  // const people = [
-  //   t("ideaform_questions.stakeholdersop1"),
-  //   t("ideaform_questions.stakeholdersop2"),
-  //   t("ideaform_questions.stakeholdersop3"),
-  //   t("ideaform_questions.stakeholdersop4"),
-  // ];
-
-  // const submit = [
-  //   t("ideaform_questions.workbookyes"),
-  //   t("ideaform_questions.workbookno"),
-  // ];
-  // const journey = [
-  //   t("ideaform_questions.probsoljourneyop1"),
-  //   t("ideaform_questions.probsoljourneyop2"),
-
-  //   t("ideaform_questions.probsoljourneyop3"),
-
-  //   t("ideaform_questions.probsoljourneyop4"),
-  // ];
-  // const place = [
-  //   t("ideaform_questions.communityop1"),
-  //   t("ideaform_questions.communityop2"),
-  //   t("ideaform_questions.communityop3"),
-  //   t("ideaform_questions.communityop4"),
-  // ];
+ 
     const submit = [
     { value:"YES", label:  t("ideaform_questions.workbookyes") },
     { value: "NO", label : t("ideaform_questions.workbookno") },
@@ -232,15 +184,7 @@ const[extractId,setExtractId]=useState("");
   const handleLanguageChange = (e) => {
     setLanuage(e.target.value);
   };
-  // useEffect(() => {
-  //   setFocus(
-  //     focusareasList[
-  //       props?.theme !== "" && props?.theme !== undefined
-  //         ? props?.theme
-  //         : formData?.theme
-  //     ] || []
-  //   );
-  // }, [formData.theme]);
+ 
   useEffect(() => {
     const activeTheme =
       props?.theme !== "" && props?.theme !== undefined
@@ -354,6 +298,8 @@ const[extractId,setExtractId]=useState("");
     submittedApi();
   }, []);
   const submittedApi = () => {
+               // This function fetches idea submission details from the API //
+
     const Param = encryptGlobal(
       JSON.stringify({
         team_id: TeamId,
@@ -389,6 +335,8 @@ const[extractId,setExtractId]=useState("");
       });
   };
   const apiCall = () => {
+               // This function initiate the Idea the API //
+
     const challengeParamID = encryptGlobal("1");
     const queryObj = JSON.stringify({
       team_id: TeamId,
@@ -483,7 +431,7 @@ const[extractId,setExtractId]=useState("");
         }
 
         for (let [key, value] of formsData.entries()) {
-          console.log(`${key}:`, value);
+          // console.log(`${key}:`, value);
         }
 
         const axiosConfig = {
@@ -506,7 +454,6 @@ const[extractId,setExtractId]=useState("");
         if (result && result.status === 200) {
           setImmediateLink(result.data?.data[0]?.attachments);
           setPrototypeImage(result.data?.data[0]?.attachments);
-          // setLoading(initialLoadingStatus);
           handleSubmitAll(item, stats, result.data?.data[0]?.attachments);
         } else {
           openNotificationWithIcon("error", `${result?.data?.message}`);
@@ -521,6 +468,8 @@ const[extractId,setExtractId]=useState("");
   };
  
   const handleSubmitAll = async (item, stats, file) => {
+               // This function submit the idea submission from from the API //
+
     setLoading(initialLoadingStatus);
 
     let attachmentsList = "";
@@ -666,7 +615,6 @@ const[extractId,setExtractId]=useState("");
               setTimeout(function () {
                 window.location.reload();
               }, 500);
-              // window.location.reload();
 
               localStorage.setItem("ideaSubStatus", 1);
               onclick();
@@ -678,10 +626,7 @@ const[extractId,setExtractId]=useState("");
           }
         })
         .catch(function (error) {
-          // openNotificationWithIcon(
-          //     'error',
-          //     error?.response?.data?.message
-          // );
+         
           console.log(error);
         });
     } else {
@@ -717,8 +662,7 @@ const[extractId,setExtractId]=useState("");
   },[formData?.prototype_link]);   
 
   const comingSoonText = t("dummytext.student_idea_sub");
-  // const acceptedParamfileTypes =>
-  //     'Accepting only png,jpg,jpeg,pdf,mp4,doc,docx Only, file size should be below 10MB';
+ 
   const enableSaveBtn =
     theme?.length > 0 &&
     focusarea?.length > 0 &&
@@ -731,7 +675,6 @@ const[extractId,setExtractId]=useState("");
   );
     useEffect(()=>{
 if(formData?.verified_status === "ACCEPTED"){
-  console.log("Badge Enable");
   dispatch(
     updateStudentBadges(
         { badge_slugs: ['the_change_maker'] },
@@ -744,6 +687,8 @@ if(formData?.verified_status === "ACCEPTED"){
     },[formData]);
    
       const handleVideoApi=(videoId)=> {
+               // This function verify the url from the API //
+
           const fectchTecParam = encryptGlobal(
               JSON.stringify({
                 id: videoId,
@@ -762,13 +707,11 @@ if(formData?.verified_status === "ACCEPTED"){
               .then(function (response) {
                   if (response.status === 200) {
                       if (response.data.data === "INVALID") {
-                        // console.log(response.data.data,"response.data.data");
                         setPrototypeLink("");
                         setVerifySubmitt(false);
 
                         openNotificationWithIcon("error", response.data.message);
                       }else{
-                        // setPrototypeLink(item); 
                         openNotificationWithIcon("success", response.data.message);
                         setIsButtonDisabled(true);
                         setVerifySubmitt(true);
@@ -789,12 +732,10 @@ if(formData?.verified_status === "ACCEPTED"){
 
   const handleInputChange = (e) => {
     const link = e.target.value;
-    // setTempLink(link);
     setPrototypeLink(link);
     setIsButtonDisabled(false);
     const videoId = getYouTubeVideoId(link);
     setExtractId(videoId);
-    console.log("Extracted Video ID:", videoId);
   };
   const handleVerify=(e)=>{
     e.preventDefault();
@@ -803,7 +744,6 @@ if(formData?.verified_status === "ACCEPTED"){
   
   return (
     <>
-      {/* <div className='content'> */}
       {showPage ? (
         <CommonPage text={comingSoonText} showButton={true} />
       ) : (
@@ -811,10 +751,7 @@ if(formData?.verified_status === "ACCEPTED"){
           <Col>
             <div className=" justify-content-center">
               <div className="aside p-4">
-              {/* <h4 className="m-2" 
-        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"14px" }}
-        >Idea Submission
-        </h4> */}
+             
                 <CardBody>
                   <Form className="form-row row" isSubmitting>
                  
@@ -889,45 +826,13 @@ if(formData?.verified_status === "ACCEPTED"){
                         </Card>
                       </div>
                     )}
-                    {/* <div className="text-right">
-                                                        { (
-                                                            <>
-                                                                <Button
-                                                                    type="button"
-                                                                    btnClass="me-3 btn btn-info"
-                                                                    onClick={
-                                                                        handleEdit
-                                                                    }
-                                                                    size="small"
-                                                                    label={t(
-                                                                        'teacher_teams.edit_idea'
-                                                                    )}
-                                                                    style={{ marginRight: '1rem' }}
-                                                                />
-                                                                <Button
-                                                    type="button"
-                                                    btnClass="primary"
-                                                    onClick={(e) =>
-                                                        handleSubmit(
-                                                            e,
-                                                            'SUBMITTED'
-                                                        )
-                                                    }
-                                                    size="small"
-                                                    label={t(
-                                                        'teacher_teams.submit'
-                                                    )}
-                                                />
-                                                            </>)}
-                                                      
-                                                    </div> */}
+
                                                    
                     <div className="text-right">
                       {!isDisabled && (
                         <Button
                           type="button"
                           btnClass="me-3 btn btn-warning"
-                          // backgroundColor="#067DE1"
                           onClick={(e) => handleSubmit(e, "DRAFT")}
                           size="small"
                           label={`${
@@ -939,10 +844,7 @@ if(formData?.verified_status === "ACCEPTED"){
                         />
                       )}
                       {
-                        //         initiatedBy &&
-                        // initiatedBy ===
-                        //     currentUser?.data[0]
-                        //         ?.user_id &&
+                        
                         formData.status !== "SUBMITTED" && isDisabled && (
                           <>
                             <Button
@@ -1036,7 +938,6 @@ if(formData?.verified_status === "ACCEPTED"){
                             ) : (
                               <div className=" answers row flex-column p-4">
                                 <select
-                                  // onChange={(e) => setFocusArea(e.target.value)}
                                   className="form-control"
                                   onChange={handleFocusAreaChange}
                                   disabled={isDisabled}
@@ -1237,29 +1138,7 @@ if(formData?.verified_status === "ACCEPTED"){
                                     </label>
                                   </div>
                                 ))}
-                                {/* {place.map((item, i) => (
-                                  <>
-                                    <label
-                                      key={i}
-                                      style={{
-                                        margin: "1rem",
-                                        fontSize: "1rem",
-                                      }}
-                                    >
-                                      <input
-                                        type="radio"
-                                        value={item}
-                                        disabled={isDisabled}
-                                        checked={item === community}
-                                        onChange={(e) =>
-                                          setCommunity(e.target.value)
-                                        }
-                                      />{" "}
-                                      {item}
-                                    </label>
-                                    <br />
-                                  </>
-                                ))} */}
+                               
                               </div>
                             </div>
                           </div>
@@ -1351,31 +1230,7 @@ if(formData?.verified_status === "ACCEPTED"){
                               </b>
                             </div>
                             <div className=" answers row flex-column">
-                              {/* <div>
-                                {people.map((item, i) => (
-                                  <>
-                                    <label
-                                      key={i}
-                                      style={{
-                                        margin: "1rem",
-                                        fontSize: "1rem",
-                                      }}
-                                    >
-                                      <input
-                                        type="radio"
-                                        value={item}
-                                        disabled={isDisabled}
-                                        checked={item === stakeholders}
-                                        onChange={(e) =>
-                                          setStakeholders(e.target.value)
-                                        }
-                                      />{" "}
-                                      {item}
-                                    </label>
-                                    <br />
-                                  </>
-                                ))}
-                              </div> */}
+                            
                               <div>
                                 {people.map((item,i) => (
                                   <div key={i}>
@@ -1413,39 +1268,7 @@ if(formData?.verified_status === "ACCEPTED"){
                               </b>
                             </div>
                             <div className=" answers row flex-column">
-                              {/* <div>
-                                {journey.map((item, i) => (
-                                  <>
-                                    <label
-                                      key={i}
-                                      style={{
-                                        margin: "1rem",
-                                        fontSize: "1rem",
-                                      }}
-                                    >
-                                      <input
-                                        type="checkbox"
-                                        value={item}
-                                        checked={
-                                          Array.isArray(problemSolving) &&
-                                          problemSolving.includes(item)
-                                        }
-                                        // checked={problemSolving.includes(item)}
-                                        disabled={isDisabled}
-                                        // checked={
-                                        //     item ===
-                                        //     problemSolving
-                                        // }
-                                        onChange={() =>
-                                          handleCheckboxChange(item)
-                                        }
-                                      />{" "}
-                                      {item}
-                                    </label>
-                                    <br />
-                                  </>
-                                ))}
-                              </div> */}
+                             
                               <div>
                                 {journey.map((item, i) => (
                                   <div key={i}>
@@ -1507,8 +1330,7 @@ if(formData?.verified_status === "ACCEPTED"){
                                 className="btn btn-info"
                                 onClick={goToBack}
                               >
-                                {/* {t("student_course.chars")} */}
-                                {/* BACK */}
+                               
                                 {t("idea_page.back")}
                               </button>
                             </Col>
@@ -1555,13 +1377,11 @@ if(formData?.verified_status === "ACCEPTED"){
                                 {t("ideaform_questions.image")}
                               </b>
                             <div className=" answers row flex-column p-4 pb-0">
-                              {/* <FormGroup check className="answers"> */}
                               <div className="wrapper my-1 common-flex">
                                
                                 {!isDisabled && (
                                   <Button
                                     label={t("home.ideaFi")}
-                                    // btnClass="primary"
                                     btnClass={`${
                                       isDisabled ? "secondary" : "primary"
                                     } me-3 pointer `}
@@ -1582,8 +1402,7 @@ if(formData?.verified_status === "ACCEPTED"){
                                   disabled={isDisabled}
                                   accept="image/jpeg,image/jpg,image/png,application/pdf"
                                   multiple
-                                  // className="hidden"
-                                  // style='display: none'
+                                
                                   onChange={(e) => fileHandler(e)}
                                 />
                               </div>
@@ -1674,9 +1493,7 @@ if(formData?.verified_status === "ACCEPTED"){
                                 value={prototypeLink}
                                 
                                 maxLength={300}
-                                // onChange={(e) =>
-                                //   setPrototypeLink(e.target.value)
-                                // }
+                               
                                 onChange={handleInputChange}
                                 style={{ height: "150px"}} 
                               />
@@ -1764,22 +1581,7 @@ if(formData?.verified_status === "ACCEPTED"){
                       </div>
                     )}
                   </Form>
-                  {/* <div className="d-flex justify-content-start">
-                    {!isDisabled && (
-                      <Button
-                        type="button"
-                        btnClass="me-3 btn btn-warning"
-                        // backgroundColor="#067DE1"
-                        onClick={(e) => handleSubmit(e, "DRAFT")}
-                        size="small"
-                        label={`${loading.draft
-                          ? t("teacher_teams.loading")
-                          : t("teacher_teams.draft")
-                          }`}
-                        disabled={!enableSaveBtn}
-                      />
-                    )}
-                  </div> */}
+                
                 </CardBody>
               </div>
             </div>

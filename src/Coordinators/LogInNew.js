@@ -3,7 +3,6 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable react/prop-types */
 import React, { useState, useLayoutEffect } from "react";
-// import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { useFormik } from "formik";
@@ -93,18 +92,12 @@ const StateLogin = (props) => {
                   <img
                     src={logo}
                     alt="Logo"
-                    // className="logo-image"
                   />
-                  {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
                 </div>
-                {/* <Link className="login-logo logo-white">
-                  <ImageWithBasePath src="assets/img/logo-white.png" alt />
-                </Link> */}
+               
                 <div className="login-userheading">
                   <h3>State Coordinator Login</h3>
-                  {/* <h4>
-                    Access the Dreamspos panel using your email and passcode.
-                  </h4> */}
+                  
                 </div>
                 <div className="form-login mb-3">
                   <label className="form-label">Email Address</label>
@@ -120,10 +113,7 @@ const StateLogin = (props) => {
                                       {formik.touched.email && formik.errors.email ? (
                                         <small className="error-cls" style={{color:"red"}}>{formik.errors.email}</small>
                                       ) : null}
-                                      {/* <ImageWithBasePath
-                                        src="assets/img/icons/mail.svg"
-                                        alt="img"
-                                      /> */}
+                                     
                                       <img src={email} alt="Email" />
                                     </div>
                 </div>
@@ -134,7 +124,6 @@ const StateLogin = (props) => {
                       type={isPasswordVisible ? "text" : "password"}
                       id="password"
                       placeholder="Please Enter password"
-                      // className="pass-input form-control"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
@@ -150,12 +139,7 @@ const StateLogin = (props) => {
                     {formik.touched.password && formik.errors.password ? (
                       <small className="error-cls" style={{color:"red"}}>{formik.errors.password}</small>
                     ) : null}
-                    {/* <span
-                      className={`fas toggle-password ${
-                        isPasswordVisible ? "fa-eye" : "fa-eye-slash"
-                      }`}
-                      onClick={togglePasswordVisibility}
-                    ></span> */}
+                    
                 </div>
                 <div className="form-login authentication-check">
                   <div className="row">
@@ -167,32 +151,18 @@ const StateLogin = (props) => {
                           Remember me
                         </label>
                       </div>
-                      {/* <div className="text-end">
-                        <Link className="forgot-link">Forgot Password?</Link>
-                      </div> */}
+                     
                     </div>
                   </div>
                 </div>
                 <div className="form-login">
-                  {/* <Link
-                    className="btn btn-login"
-                    type="submit"
-                    btnClass={
-                      !(formik.dirty && formik.isValid) ? "default" : "primary"
-                    }
-                    disabled={!(formik.dirty && formik.isValid)}
-                  >
-                    Sign In
-                  </Link> */}
+                 
                   <button
-                    // className="btn btn-login"
                     type="submit"
                     className={`btn btn-login ${
                       !(formik.dirty && formik.isValid) ? "default" : "primary"
                     }`}
-                    // btnClass={
-                    //   !(formik.dirty && formik.isValid) ? "default" : "primary"
-                    // }
+                   
                     disabled={!(formik.dirty && formik.isValid)}
                   >
                     Sign In

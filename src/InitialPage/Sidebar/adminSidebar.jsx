@@ -207,72 +207,8 @@ const HorizontalSidebar = () => {
             >
               <Grid />
               <span>Admin Dashboard</span>
-              {/* <span className="menu-arrow" /> */}
             </Link>
-            {/* <ul style={{ display: isActive ? "block" : "none" }}>
-              <li className="submenu">
-                <Link
-                  to="#"
-                  onClick={handleSubClick}
-                  className={subActive ? "subdrop" : ""}
-                >
-                  <span>Dashboard</span> <span className="menu-arrow" />
-                </Link>
-                <ul style={{ display: subActive ? "block" : "none" }}>
-                  <li>
-                    <Link to="/admin-dashboard">Admin Dashboard</Link>
-                  </li>
-                  <li>
-                    <Link to="sales-dashboard" className="active">
-                      Sales Dashboard
-                    </Link>
-                  </li>
-                </ul>
-              </li>
-              <li className="submenu">
-                <Link to="#">
-                  <span>Challenges</span>
-                  <span className="menu-arrow" />
-                </Link>
-                <ul>
-                  <li>
-                    <Link to="chat">Chat</Link>
-                  </li>
-                  <li className="submenu submenu-two">
-                    <Link to="#">
-                      <span>Call</span>
-                      <span className="menu-arrow inside-submenu" />
-                    </Link>
-                    <ul>
-                      <li>
-                        <Link to="video-call">Video Call</Link>
-                      </li>
-                      <li>
-                        <Link to="audio-call">Audio Call</Link>
-                      </li>
-                      <li>
-                        <Link to="call-history">Call History</Link>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <Link to="calendar">Calendar</Link>
-                  </li>
-                  <li>
-                    <Link to="email">Email</Link>
-                  </li>
-                  <li>
-                    <Link to="todo">To Do</Link>
-                  </li>
-                  <li>
-                    <Link to="notes">Notes</Link>
-                  </li>
-                  <li>
-                    <Link to="file-manager">File Manager</Link>
-                  </li>
-                </ul>
-              </li>
-            </ul> */}
+           
           </li>
           <li className="submenu">
             <Link
@@ -359,7 +295,6 @@ const HorizontalSidebar = () => {
               className={isActive3 ? "subdrop" : ""}
             >
               <img src="assets/img/icons/purchase1.svg" alt="img" />
-              {/* <span>Sales &amp; Purchase</span> <span className="menu-arrow" /> */}
               <span>Resources</span> <span className="menu-arrow" />
             </Link>
             <ul style={{ display: isActive3 ? "block" : "none" }}>

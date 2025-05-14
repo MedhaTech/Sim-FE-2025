@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect } from 'react';
-// import Layout from '../Pages/Layout';
 import { Row, Col, Label, Container, Card, } from 'reactstrap';
 import { Button } from '../../../stories/Button';
 import {
@@ -16,13 +15,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { URL, KEY } from '../../../constants/defaultValues';
 import Check from './Pages/Check';
 import { useDispatch, useSelector ,} from 'react-redux';
-// import { getStateData } from '../../../redux/studentRegistration/actions';
 import { encryptGlobal } from '../../../constants/encryptDecrypt';
 import { stateList, districtList } from "../../../RegPage/ORGData.js";
 const EditEvalProcess = (props) => {
     const location = useLocation();
     const evalID = JSON.parse(localStorage.getItem('eavlId'));
-    //  where evalID= evaluation_process_id //
     const dispatch = useDispatch();
     const [clickedValue, setclickedValue] = useState({});
      const [clickedValue1, setclickedValue1] = useState({});

@@ -14,7 +14,6 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import play from "../assets/img/playicon.png";
 
 const Forgotpassword = () => {
-  // const [errorMsg, seterrorMsg] = useState("");
   const navigate = useNavigate();
   
   const formik = useFormik({
@@ -50,7 +49,6 @@ const Forgotpassword = () => {
               "success",
               "For registered users password reset link will be sent to registered email"
             );
-            // seterrorMsg("");
             setTimeout(() => {
               navigate("/teacher");
             }, 2000);
@@ -62,14 +60,11 @@ const Forgotpassword = () => {
             "error",
             "For registered users password reset link will be sent to registered email"
           );
-          // seterrorMsg(err.response.data.message);
           return err.response;
         });
     },
   });
-  // useEffect(()=>{
-  //   seterrorMsg("");
-  // },[formik.values.email]);
+  
   
   const handleLogoClick = () => {
     navigate('/');
@@ -95,9 +90,7 @@ const Forgotpassword = () => {
                     // className="logo-image"
                   />
                 </div>
-                {/* <Link to={route.dashboard} className="login-logo logo-white">
-                  <ImageWithBasePath src="assets/img/logo-white.png" alt />
-                </Link> */}
+              
                 <div className="login-userheading">
                   <h3>Forgot your SIM password?{" "}
                   <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -115,10 +108,7 @@ const Forgotpassword = () => {
                         </a>
                       </OverlayTrigger>
                   </h3>
-                  {/* <h4>
-                    If you forgot your password, well, then we’ll email you
-                    instructions to reset your password.
-                  </h4> */}
+                 
                 </div>
                 <div className="form-login">
                   <label>Email</label>
@@ -141,11 +131,7 @@ const Forgotpassword = () => {
                     <img src={email} alt="Email" />
                   </div>
                 </div>
-                {/* {errorMsg === "User not found" && (
-                  <b className="text-danger m-3">
-                    Please Enter Registered Email Address
-                  </b>
-                )} */}
+               
                 <div className="form-login">
                   <button
                     className={`btn btn-login ${

@@ -2,21 +2,13 @@
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Table } from "reactstrap";
-import { Button } from "../../../stories/Button";
 import { CSVLink } from "react-csv";
 import {
-  openNotificationWithIcon,
   getCurrentUser,
 } from "../../../helpers/Utils";
-import {
-  getDistrictData,
-  getStateData,
-  getFetchDistData,
-} from "../../../redux/studentRegistration/actions";
+
 import { ArrowRight } from "feather-icons-react/build/IconComponents";
 import { useDispatch, useSelector } from "react-redux";
-import Select from "../Helpers/Select";
-import { Chart } from "primereact/chart";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "../reports.scss";
@@ -325,9 +317,7 @@ const SecondReportStats = () => {
   };
 
   return (
-    // <div className="page-wrapper">
 
-    //   <div className="content">
 
     <Container className="RegReports userlist">
       <div className="reports-data mt-2 mb-2">
@@ -577,7 +567,6 @@ const SecondReportStats = () => {
                     options={options}
                     series={options.series}
                     type="bar"
-                    // type="area"
                     height={400}
                   />
                 </div>
@@ -603,8 +592,6 @@ const SecondReportStats = () => {
         )}
       </div>
     </Container>
-    //   </div>
-    // </div>
   );
 };
 export default SecondReportStats;

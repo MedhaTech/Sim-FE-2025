@@ -1,17 +1,14 @@
 /* eslint-disable indent */
 import React, { useState } from "react";
-// import Layout from '../../Admin/Layout';
 import { Row, Col, FormGroup, Label, Form } from "reactstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Button } from "../../stories/Button";
-// import { InputBox } from '../../stories/InputBox/InputBox';
 import { getCurrentUser, openNotificationWithIcon } from "../../helpers/Utils";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-// import { URL, KEY } from '../../constants/defaultValues';
-// import { staticData } from './index';
+
 import { stateList, userList, navList } from "../../RegPage/ORGData";
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 
@@ -24,6 +21,8 @@ const Createpopup = () => {
  
 
   const fileHandler = (e) => {
+    // Handles file selection and reads the selected file //
+
     let file = e.target.files[0];
 
     if (!file) {
@@ -67,6 +66,8 @@ const Createpopup = () => {
     formik.setFieldValue("file_name", file);
   };
   const fileHandler1 = (e) => {
+    // Handles file selection and reads the selected file //
+
     let file = e.target.files[0];
 
     if (!file) {
@@ -125,39 +126,7 @@ const Createpopup = () => {
     }),
     onSubmit: async (values) => {
       try {
-        // if (values.file_name !== "") {
-        //   const fileData = new FormData();
-        //   if (values.file_name) {
-        //     fileData.append("file", values.file_name);
-        // }
-    
-        // if (values.image) {
-        //     fileData.append("image", values.image);
-        // }
-    
-        // const fileParam = encryptGlobal(
-        //     JSON.stringify({
-        //         type :"file"
-        //     })
-        // );
-    
-        //   const response = await axios.post(
-        //     `${process.env.REACT_APP_API_BASE_URL}/popup/popupFileUpload?Data=${fileParam}`,
-        //     fileData,
-        //     {
-        //       headers: {
-        //         "Content-Type": "multipart/form-data",
-        //         Authorization: `Bearer ${currentUser?.data[0]?.token}`,
-        //       },
-        //     }
-        //   );
-        //   console.log(response,"reee");
-        //   values.file_name = response?.data?.data[0].attachments[0].toString();
-        //   // values.image = response?.data?.data[0].attachments[0].toString();
-
-         
-        // }
-// Function to create fileParam dynamically
+       
 const getFileParam = (type) => encryptGlobal(JSON.stringify({ type }));
 
 if (values.file_name !== "") {
@@ -236,7 +205,6 @@ if (values.image !== "") {
           openNotificationWithIcon("success", "PopUp Created Successfully");
         }
       } catch (error) {
-        //console.log(error.response.status);
         if (error.response.status === 420) {
           openNotificationWithIcon(
             "error",
@@ -245,48 +213,10 @@ if (values.image !== "") {
         }
       }
     },
-    //   onSubmit: (values) => {
-
-    //     const body = JSON.stringify({
-    //         role: values.role,
-    //         navigate: values.navigate,
-    //         type: values.type,
-    //         attachments: values.attachments
-    //     });
-
-    //     var config = {
-    //         method: 'post',
-    //         url: process.env.REACT_APP_API_BASE_URL + '/resource',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             Authorization: `Bearer ${currentUser?.data[0]?.token}`
-    //         },
-    //         data: body
-    //     };
-    //     axios(config)
-    //         .then(function (response) {
-    //             if (response.status === 201) {
-    //                 props.history.push('/admin/Resources/index');
-    //                 openNotificationWithIcon(
-    //                     'success',
-    //                     'Resource Created Successfully'
-    //                 );
-    //             } else {
-    //                 openNotificationWithIcon(
-    //                     'error',
-    //                     'Opps! Something Wrong'
-    //                 );
-    //             }
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         });
-    // }
+   
   });
 
-  // const handleFileChange = (e) => {
-  //   formik.setFieldValue('file', e.target.files[0]);
-  // };
+ 
   const handleStateChange = (event) => {
     const state = event.target.value;
     formik.setFieldValue("state", state);
@@ -569,39 +499,7 @@ if (values.image !== "") {
                     </FormGroup>
                   </div>
 
-                  {/* <Row>
-                                    <Col className="col-xs-12 col-sm-6">
-                                        <div className="col-6">
-                                        <button
-                                            label="Submit details"
-                                            type="submit"
-                                           
-                                            className={`btn btn-warning ${
-                                                !(formik.dirty && formik.isValid) ? "default" : "warning"
-                                              }`}
-                                            
-                                            disabled={!formik.dirty}
-                                        >
-                                            Submit details
-                                        </button>
-                                        </div>
-                                    </Col>
-                                    <Col className="submit-btn col-xs-12 col-sm-6">
-                                    <button
-                                               
-                                                type="cancel"
-                                               className='btn btn-secondary'
-                                                onClick={() =>
-                                                   navigate(
-                                                        '/popup'
-                                                    )
-                                                }
-                                            >
-                                                Discard
-                                        </button>
-                                       
-                                    </Col>
-                                </Row> */}
+                  
                   <Row>
                     <div style={buttonContainerStyle} className="mt-3">
                       <button

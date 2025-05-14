@@ -2,9 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from "react";
-// import Layout from '../Pages/Layout';
 import { Container, Row, Col, Table } from "reactstrap";
-// import { Button } from '../../../stories/Button';
 import { CSVLink } from "react-csv";
 import {
   openNotificationWithIcon,
@@ -13,12 +11,9 @@ import {
 
 import { useDispatch, useSelector } from "react-redux";
 import Select from "../../../Admin/Reports/Helpers/Select.jsx";
-import { Bar } from "react-chartjs-2";
-// import { cardData } from '../../../Student/Pages/Ideas/SDGData.js';
 
 import axios from "axios";
 import "../../../Admin/Reports/reports.scss";
-import { Doughnut } from "react-chartjs-2";
 import { notification } from "antd";
 import { stateList, districtList } from "../../../RegPage/ORGData";
 import { useNavigate, Link } from "react-router-dom";
@@ -27,7 +22,6 @@ import moment from "moment/moment";
 import * as XLSX from 'xlsx';
 
 import { encryptGlobal } from "../../../constants/encryptDecrypt.js";
-// import { categoryValue } from '../../Schools/constentText';
 
 const ReportL1 = () => {
   const [RegTeachersdistrict, setRegTeachersdistrict] = React.useState("");
@@ -301,8 +295,6 @@ const ReportL1 = () => {
   }, []);
   useEffect(() => {
     if (studentDetailedReportsData.length > 0) {
-      console.log("Performing operation with the updated data.");
-      // csvLinkRef.current.link.click();
       handleExport();
 
     }
@@ -319,8 +311,7 @@ const ReportL1 = () => {
     fetchData();
   };
   const fetchData = () => {
-    // const edist =
-    //   RegTeachersdistrict === "" ? "All Districts" : RegTeachersdistrict;
+   // This function filters  data based on selected state, district, category, theme, and evaluation status
     const param = encryptGlobal(
       JSON.stringify({
         state: RegTeachersState,
@@ -332,7 +323,6 @@ const ReportL1 = () => {
       })
     );
     const url = `/reports/L1deatilreport?Data=${param}`;
-// console.log(param,"param");
     const config = {
       method: "get",
       url: process.env.REACT_APP_API_BASE_URL_FOR_REPORTS + url,
@@ -385,23 +375,7 @@ const ReportL1 = () => {
                 const studentAndteam = response.data.data[0].summary.map((item) => {
                     return {
                       ...item,
-                      // pre_survey_status: preSurveyMap[item.user_id] || "Not started",
-                      // post_survey_status: postSurveyMap[item.user_id] || "Not started",
-                      // idea_status: ideaStatusDataMap[item.team_id] || "Not Initiated",
-                      // user_count:
-                      //   userTopicDataMap[item.user_id] === 0 ||
-                      //   userTopicDataMap[item.user_id] === undefined
-                      //     ? "Not Started"
-                      //     : userTopicDataMap[item.user_id] === 31
-                      //     ? "Completed"
-                      //     : "In Progress",
-                      // course_per:
-                      //   userTopicDataMap[item.user_id] &&
-                      //   typeof userTopicDataMap[item.user_id] === "number"
-                      //     ? `${Math.round(
-                      //         (userTopicDataMap[item.user_id] / 31) * 100
-                      //       )}%`
-                      //     : `0%`,
+                     
                       names: studentNamesMap[item.team_id],
         
                       team_name: teamDataMap[item.team_id].team_name,
@@ -426,7 +400,6 @@ const ReportL1 = () => {
                       unique_code: mentorMap[item.mentor_id].unique_code,
                       organization_name: mentorMap[item.mentor_id].organization_name,
                       state: mentorMap[item.mentor_id].state,
-                      // whatapp_mobile: mentorMap[item.mentor_id].whatapp_mobile,
                       mentorUserId: mentorMap[item.mentor_id].mentorUserId,
                       city: mentorMap[item.mentor_id].city,
                       principal_name: mentorMap[item.mentor_id].principal_name,
@@ -488,29 +461,7 @@ const ReportL1 = () => {
                                    
 
 
-                      // ...item,
-                      // verifiedment: item.verified_status == null ? "Not yet Reviewed" : item.verified_status,
-                      // l1status: item.
-                      // evaluation_status === 'SELECTEDROUND1'
-                      // ? 'Accepted'
-                      // : 'Rejected',
-
-                      // username: mentorUsernameMap[item.mentorUserId],
-                      // focus_area: item.focus_area ? item.focus_area.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                      // prototype_image: item.prototype_image ? item.prototype_image.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                      // problem_solving: item.problem_solving ? item.problem_solving.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                      // feedback: item.feedback ? item.feedback.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                      // stakeholders: item.stakeholders ? item.stakeholders.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                      // solution: item.solution ? item.solution.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                      // facing: item.facing ? item.facing.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                      // community: item.community ? item.community.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                      // effects: item.effects ? item.effects.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                      // causes: item.causes ? item.causes.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                      // problem_statement: item.problem_statement ? item.problem_statement.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                      // title: item.title ? item.title.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                      // verified_at:item.verified_at ? moment(item.verified_at).format(
-                      //   "DD-MM-YYYY"
-                      // ) : ''
+                     
                     };
 
                   });
@@ -526,12 +477,7 @@ const ReportL1 = () => {
                   }
                  
                   setIsDownloading(false);
-                        // csvLinkRef.current.link.click();
-                        // openNotificationWithIcon(
-                        //     'success',
-                        //     `L1 Status Detailed Reports Downloaded Successfully`
-                        // );
-                        // setIsDownloading(false);
+                      
         }
       })
       .catch((error) => {
@@ -542,12 +488,7 @@ const ReportL1 = () => {
 
  
 
-  // useEffect(() => {
-  //     if (filteredData.length > 0) {
-  //         setDownloadData(filteredData);
-  //     }
-  // }, [filteredData, downloadNotRegisteredData]);
-
+  
   useEffect(() => {
     if (downloadComplete) {
       setDownloadComplete(false);
@@ -555,7 +496,6 @@ const ReportL1 = () => {
 
       setRegTeachersdistrict("");
 
-      // setFilterType('');
       setsdg("");
     }
     const newDate = new Date();
@@ -578,19 +518,16 @@ const ReportL1 = () => {
     axios(config)
       .then((res) => {
         if (res.status === 200) {
-        //   console.log(res, "6");
           const chartTableData = res?.data?.data || [];
           const total = chartTableData.reduce(
             (acc, item) => {
               (acc.totalSubmited += item.totalSubmited),
-                // (acc.state += item.state);
                 (acc.accepted += item.accepted),
                 (acc.rejected += item.rejected);
 
               return acc;
             },
             {
-              // state: 0,
               totalSubmited: 0,
               accepted: 0,
               rejected: 0,
@@ -625,7 +562,6 @@ const ReportL1 = () => {
           const totalB = chartTableData2.reduce(
             (acc, item) => {
               (acc.totalEvaluated += item.totalEvaluated),
-                // (acc.full_name += item.full_name),
                 (acc.accepted += item.accepted),
                 (acc.rejected += item.rejected);
 
@@ -639,14 +575,12 @@ const ReportL1 = () => {
             }
           );
 
-          // console.log(res,"22");
           var arrayB = chartTableData2;
           arrayB.push({ full_name: "Total Count", ...totalB });
           setChartTableData2(arrayB);
           setDownloadTableData2(chartTableData2);
           setTotalCountB(totalB);
-          // setChartTableData2(chartTableData2);
-          // setDownloadTableData2(chartTableData2);
+         
         }
       })
       .catch((error) => {
@@ -676,7 +610,6 @@ const ReportL1 = () => {
           <div className="add-item d-flex">
             <div className="page-title">
               <h4>L1 - Report</h4>
-              {/* <h6>List of Teachers registered and their details</h6> */}
             </div>
           </div>
           <div className="page-btn">

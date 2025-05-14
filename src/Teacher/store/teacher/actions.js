@@ -100,7 +100,6 @@ export const teacherLoginUser =
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log(response);
                     const pre = (response.data.data[0].preSurvey);
                     if (pre != 'COMPLETED') {
                       localStorage.setItem("presurveystatus", "INCOMPLETED");
@@ -114,13 +113,7 @@ export const teacherLoginUser =
             .catch(function (error) {
                 console.log(error);
             });
-        //const PreSurvey = mentorpresurvey(); 
-        
-        //return true;
-        //navigate("/teacher-dashboard");
-        // setTimeout(() => {
-        //     localStorage.clear();
-        // }, 60000);
+      
       } else {
         if (result.status === 401) {
           openNotificationWithIcon(
@@ -134,11 +127,7 @@ export const teacherLoginUser =
       }
     } catch (error) {
       dispatch(teacherLoginUserError({}));
-      // NotificationManager.error(
-      //   "Server down! Please try again later.",
-      //   "Error",
-      //   3000
-      // );
+      
     }
   };
 
@@ -146,7 +135,6 @@ export const teacherLoginUser =
 
 export const teacherCreateMultipleStudent =
   (data, navigate, setIsClicked) => async () => {
-    // console.log(data, "multi");
     try {
       const axiosConfig = getNormalHeaders(KEY.User_API_Key);
       const result = await axios
@@ -180,7 +168,6 @@ export const teacherLoginUserLogOut = (navigate) => async () => {
       });
     if (result && result.status === 200) {
       setCurrentUser();
-      // localStorage.removeItem('headerOption');
       navigate("/teacher");
     }
   } catch (error) {

@@ -20,6 +20,7 @@ const CreateEmail = () => {
   const navigate = useNavigate();
   const [fileName, setFileName] = useState('');
   const fileHandler = (e) => {
+    // Handles file selection and reads the selected file //
     const file = e.target.files[0];
     setFileName(file.name);
     const reader = new FileReader();
@@ -72,7 +73,6 @@ const CreateEmail = () => {
           openNotificationWithIcon("success", "Email Sent Successfully");
         }
       } catch (error) {
-        // Handle the 400 status error and check the message for the subject validation issue
         if (error.response?.status === 400) {
           const errorMessage = error.response?.data?.errors?.[0];
 

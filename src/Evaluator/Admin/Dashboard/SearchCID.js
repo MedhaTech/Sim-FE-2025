@@ -5,7 +5,6 @@
 import React, { useRef, useEffect } from "react";
 import "../Evaluation/ViewSelectedIdea/ViewSelectedideas.scss";
 import { Button } from "../../../stories/Button";
-// import LinkComponent from '../Pages/LinkComponent';
 import {
   getCurrentUser,
   openNotificationWithIcon,
@@ -21,8 +20,6 @@ import Select from "../Evaluation/Pages/Select";
 import { useNavigate, useLocation } from "react-router-dom";
 import RatedCard from "./RatedCard";
 import jsPDF from "jspdf";
-import { FaDownload, FaHourglassHalf } from "react-icons/fa";
-// import DetailToDownload from '../../Challenges/DetailToDownload';
 import html2canvas from "html2canvas";
 import { Row, Col, Form, Label } from "reactstrap";
 import { useReactToPrint } from "react-to-print";
@@ -31,11 +28,9 @@ import LinkComponent from "../Challenges/pages/LinkComponent";
 import VideoPopup from "../../IdeaList/Videopop";
 const SearchCID = () => {
   const { t } = useTranslation();
-  // const multiOrg = localStorage.getItem("multiOrgData");
   const navigate = useNavigate();
   const location = useLocation();
   const { multiOrgData, diesCode } = location.state || {};
-  // const level = new URLSearchParams(search).get('level');
   const currentUser = getCurrentUser("current_user");
   const [teamResponse, setTeamResponse] = React.useState({});
   const [images,setImages] = React.useState([]);
@@ -43,8 +38,6 @@ const SearchCID = () => {
   const [isReject, setIsreject] = React.useState(false);
   const [reason, setReason] = React.useState("");
   const [reasonSec, setReasonSec] = React.useState("");
-  // console.log(teamResponse,"data");
-  // console.log(multiOrgData, "11", diesCode, "22");
   const selectData = [
     "Not novel - Idea and problem common and already in use.",
     "Not novel - Idea has been 100% plagiarized.",
@@ -102,6 +95,8 @@ const SearchCID = () => {
   };
 
   const handleL1Round = (handledText) => {
+    // this function accept / reject the Idea //
+
     const currentTime = new Date().toLocaleString();
 
     const body = JSON.stringify({
@@ -188,60 +183,7 @@ const SearchCID = () => {
   const files = teamResponse?.prototype_image
     ? teamResponse?.prototype_image.split(",")
     : [];
-  // const downloadFile = (item) => {
-  //   fetch(item)
-  //     .then((response) => {
-  //       return response.blob();
-  //     })
-  //     .then((blob) => {
-  //       const url = window.URL.createObjectURL(new Blob([blob]));
-  //       const link = document.createElement("a");
-  //       link.href = url;
-  //       const parts = item.split("/");
-  //       link.setAttribute("download", parts[parts.length - 1]);
-  //       document.body.appendChild(link);
-  //       link.click();
-  //       link.parentNode.removeChild(link);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error downloading file:", error);
-  //     });
-  // };
-  const downloadFile = (item) => {
-    // const link = document.createElement('a');
-    // link.href = item;
-    // link.download = 'upload.pdf';
-    // document.body.appendChild(link);
-    // link.click();
-    // document.body.removeChild(link);
-    fetch(item)
-      .then((response) => {
-        // Convert the response to a blob
-        return response.blob();
-      })
-      .then((blob) => {
-        // Create a download link
-        const url = window.URL.createObjectURL(new Blob([blob]));
-        const link = document.createElement("a");
-        link.href = url;
-        const fileName = item.split("/");
-        // .pop().replace(/[\[\]"]/g, "");
-        link.setAttribute("download", fileName);
-        document.body.appendChild(link);
-
-        // const parts = item.split("/");
-        // link.setAttribute("download", parts[parts.length - 1]);
-        link.click();
-        window.URL.revokeObjectURL(url); // Clean up the URL object
-        document.body.removeChild(link);
-        console.log("Downloading file from:", item, fileName, "filename");
-        // link.parentNode.removeChild(link);
-      })
-      .catch((error) => {
-        console.error("Error downloading file:", error);
-      });
-  };
-  console.log(typeof(images), "Image");
+ 
  
   return (
     <div className="page-wrapper">
@@ -249,20 +191,9 @@ const SearchCID = () => {
         {teamResponse ? (
           <>
             <div style={{ display: "none" }}>
-              {/* <DetailToDownload
-                            ref={componentRef}
-                            ideaDetails={props?.ideaDetails}
-                            teamResponse={teamResponse}
-                            level={'Draft'}
-                        /> */}
+             
             </div>
-            {/* <div id="pdfId" style={{ display: 'none' }}>
-                        <DetailToDownload
-                            ideaDetails={props?.ideaDetails}
-                            teamResponse={teamResponse}
-                            level={level}
-                        />
-                    </div> */}
+           
             <div className="row idea_detail_card">
               <div className="col-12 p-0">
                 <div className="row">
@@ -288,21 +219,7 @@ const SearchCID = () => {
                   </div>
                   <div className="col-lg-6 d-flex justify-content-end">
                     <div className="mx-2 pointer d-flex align-items-center">
-                      {/* {!pdfLoader ? (
-                                            <FaDownload
-                                                size={22}
-                                                onClick={async () => {
-                                                    await downloadPDF();
-                                                }}
-                                            />
-                                        ) : (
-                                            <FaHourglassHalf size={22} />
-                                        )} */}
-                      {/* Add */}
-                      {/* <FaDownload
-                                            size={22}
-                                            onClick={handlePrint}
-                                        /> */}
+                     
                     </div>
                   </div>
                   <div className="col-lg-12 mt-3">
@@ -893,36 +810,8 @@ const SearchCID = () => {
                         <LinkComponent item={images} />
                       }
                      
-                      {/* {files.length > 0 &&
-                        files.map((item, i) => (
-                          <div key={i}>
-                            <a
-                              key={i}
-                              className="badge mb-2 bg-info p-3 ms-3"
-                              target="_blank"
-                              rel="noreferrer"
-                              onClick={() => downloadFile(item)}
-                            >
-                              {item.split("/").pop()}
-                            </a>
-                          </div>
-                        ))} */}
-                      {/* {files.length > 0 &&
-        files.map((item, i) => {
-          const fileName = item.split("/").pop().replace(/[\[\]"]/g, "");
-          return (
-            <div key={i}>
-              <a
-                className="badge mb-2 bg-info p-3 ms-3"
-                onClick={() => downloadFile(item)}
-                style={{ cursor: "pointer" }}
-               
-              >
-                {fileName}
-              </a>
-            </div>
-          );
-        })} */}
+                    
+                     
                     </div>
                   </div>
                 </div>
@@ -955,14 +844,7 @@ const SearchCID = () => {
                           color: "black",
                         }}
                       >
-                        {/* <a
-                          href={teamResponse.prototype_link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{ textDecoration: "none", color: "skyblue" }}
-                        >
-                          {teamResponse.prototype_link}
-                        </a> */}
+                       
                           {teamResponse?.prototype_link && (
   <VideoPopup videoUrl={teamResponse.prototype_link} />
 )}
@@ -1008,9 +890,7 @@ const SearchCID = () => {
               </div>
               <div
                 className="col-lg-4 order-lg-1 order-0 p-2 h-100 mt-3 status_info_col"
-                //              style={{
-                //   position: "relative",
-                // }}
+                
               >
                 {multiOrgData?.verified_status !== "" &&
                   multiOrgData?.verified_status !== null && (
@@ -1046,31 +926,7 @@ const SearchCID = () => {
                       ) : (
                         ""
                       )}
-                      {/* {multiOrgData?.evaluator_ratings && (
-  <div className="row mb-1 mt-2">
-    <div className="col-5">
-      <p className="my-0 fw-bold">Evaluated By :</p>
-    </div>
-    <div className="col-7">
-      {multiOrgData.evaluator_ratings.map((rating, i) => (
-        <p className="my-0 text-muted" key={i}>
-          {`${i + 1}: ${rating.rated_evaluated_name}`}
-        </p>
-      ))}
-    </div>
-  </div>
-)} */}
-                      {/* 
-                      {multiOrgData?.evaluator_ratings && (
-  <div className="text-center">
-    <p className="text-bold">Evaluated By:</p>
-    {multiOrgData.evaluator_ratings.map((rating, i) => (
-      <p className="my-0 text-muted" key={i}>
-        {i + 1}: {rating.rated_evaluated_name}
-      </p>
-    ))}
-  </div>
-)} */}
+                     
 
                       {multiOrgData?.evaluation_status == "REJECTEDROUND1" && (
                         <>
@@ -1202,15 +1058,7 @@ const SearchCID = () => {
             </div>
             <br />
             <div style={{ display: "flex" }}>
-              {/* <p
-                            style={{ fontSize: '1.5rem', margin: '1rem' }}
-                            className="fw-bold"
-                        >
-                            Verified By :{' '}
-                            {teamResponse.verified_name
-                                ? teamResponse.verified_name
-                                : '-'}
-                        </p> */}
+             
               <p
                 style={{ fontSize: "1rem", margin: "1rem" }}
                 className="fw-bold"
@@ -1227,14 +1075,7 @@ const SearchCID = () => {
           <>
             <h2 className="my-auto text-center mt-5">Details Not Available.</h2>
             <div className="text-center mt-5">
-              {/* <Button
-                            btnClass="primary"
-                            size="small"
-                            label="Back"
-                            onClick={() => {
-                                props?.setIsDetail(false);
-                            }}
-                        /> */}
+             
             </div>
           </>
         )}

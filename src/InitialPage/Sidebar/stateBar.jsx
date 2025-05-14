@@ -4,13 +4,11 @@ import React, { useState,useMemo ,useEffect} from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import { Link, useLocation, } from "react-router-dom";
 import  getStateSidebarData  from "../../core/json/state";
-// import  getCooSidebarData  from "../../core/json/state";
 import {
   getCurrentUser,
 } from "../../helpers/Utils";
 import HorizontalSidebar from "./horizontalSidebar";
 import CollapsedSidebar from "./collapsedSidebar";
-// import * as Icon from "react-feather";
 import * as Icon from "react-icons/fi"; 
 const Sidebar = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -22,7 +20,6 @@ const Sidebar = () => {
     if (user) {
       setCurrentUser(user);
     }
-    // console.log(user,"user");
   }, []);
   const toggleSidebar = (title) => {
     if (title == subOpen) {
@@ -39,7 +36,6 @@ const Sidebar = () => {
       setSubsidebar(subitem);
     }
   };
-  // const SidebarData = useMemo(() => getStateSidebarData(), []);
 
   const SidebarData = useMemo(() => {
     const sidebarData = getStateSidebarData();
@@ -66,23 +62,7 @@ const Sidebar = () => {
 
     return sidebarData;
   }, [currentUser]);
-  // const SidebarData = useMemo(() => {
-  //   const sidebarData = getStateSidebarData();
-
-   
-  //   if (currentUser && currentUser.data[0]?.state_name === "Tamil Nadu") {
-  //     sidebarData[0].submenuItems.push({
-  //       label: "Institutions Report",
-  //       link: "/state-institution-report",
-  //       icon: <Icon.FiCodesandbox />,
-  //       showSubRoute: false,
-  //       submenu: false,
-  //     });
-  //   }
-
-  //   return sidebarData;
-  // }, [currentUser]);
-  // console.log(SidebarData,"data");
+ 
   return (
     <div>
       <div className="sidebar " id="sidebar">

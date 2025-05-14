@@ -8,12 +8,9 @@ import DataTableExtensions from 'react-data-table-component-extensions';
 import DataTable, { Alignment } from 'react-data-table-component';
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
-// import { Link } from 'react-router-dom';
 import { openNotificationWithIcon } from '../../helpers/Utils';
 import { Button } from '../../stories/Button';
 import { useHistory } from 'react-router-dom';
-// import { ReactDOM } from 'react-dom';
-// import * as ReactDOM from 'react-dom';
 import Swal from 'sweetalert2/dist/sweetalert2';
 import logout from '../../assets/img/logout.png';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
@@ -179,7 +176,6 @@ const AdminResources = () => {
                             resId,
                         headers: {
                             'Content-Type': 'application/json',
-                            // Accept: "application/json",
                             Authorization: `Bearer ${currentUser?.data[0]?.token}`
                         }
                     };
@@ -212,28 +208,10 @@ const AdminResources = () => {
         setReqList(false);
     };
     const handleStudentList = async (e) => {
-        // alert('hii');
         // here we can see  list of inActive institutions //
         await fetchResourceList();
     };
-    // const fetchResourceList = () => {
-    //     try {
-    //         const response = axios.get(
-    //             `${process.env.REACT_APP_API_BASE_URL}/resource/list?role=student`,
-    //             {
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                     Authorization: `Bearer ${currentUser?.data[0]?.token}`
-    //                 }
-    //             }
-    //         );
-    //         if (response.status === 200) {
-    //             setResList(response.data?.data);
-    //         }
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
+  
     const fetchResourceList = () => {
         const fectchParam = encryptGlobal(
             JSON.stringify({
@@ -275,18 +253,13 @@ const AdminResources = () => {
                 name: 'Role',
                 selector: (row) => row.role,
                 width: '15rem'
-                // center: true,
             },
             {
                 name: 'Details',
                 selector: (row) => row.description,
                 width: '40rem'
             },
-            // {
-            //     name: 'Type',
-            //     selector: 'type',
-            //     width: '25%'
-            // },
+           
             {
                 name: 'File/Link',
                 width: '10rem',
@@ -392,7 +365,6 @@ const AdminResources = () => {
                             delParam,
                         headers: {
                             'Content-Type': 'application/json',
-                            // Accept: "application/json",
                             Authorization: `Bearer ${currentUser?.data[0]?.token}`
                         }
                     };
@@ -448,7 +420,6 @@ const AdminResources = () => {
                                         btnClass=" btn btn-success"
                                         size="small"
                                         shape="btn-square"
-                                        // Icon={BsPlusLg}
                                         onClick={(e) => handleStudentList(e)}
                                     />
                                     <Button
@@ -474,7 +445,6 @@ const AdminResources = () => {
                                     exportHeaders
                                 >
                                     <DataTable
-                                        // data={SRows}
                                         defaultSortField="id"
                                         defaultSortAsc={false}
                                         pagination
@@ -493,8 +463,7 @@ const AdminResources = () => {
                                     exportHeaders
                                 >
                                     <DataTable
-                                        // data={setResList}
-                                        // noHeader
+                                        
                                         defaultSortField="id"
                                         defaultSortAsc={false}
                                         pagination

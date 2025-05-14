@@ -11,7 +11,6 @@ const ProtectedRoute = ({ children, user }) => {
   if (!isAuthGuardActive) {
     return children;
   }
-// console.log(user,"user");
   const currentUser = getCurrentUser();
   const loginTime = localStorage.getItem("time");
   const loginTimestamp = new Date(loginTime).getTime();
@@ -36,21 +35,7 @@ const ProtectedRoute = ({ children, user }) => {
       return <Navigate to="/evaluator" />;
     }
 
-    // if (user.includes("ADMIN")) {
-    //   return <Navigate to="/admin" />;
-    // } else if (user.includes("MENTOR")) {
-    //   return <Navigate to="/teacher" />;
-    // } else if (user.includes("EADMIN")) {
-    //   return <Navigate to="/eadmin"/>;
-    // } else if (user.includes("INSTITUTION")) {
-    //   return <Navigate to="/institution" />;
-    // } else if (user.includes("STATE")) {
-    //   return <Navigate to="/state" />;
-    // } else if (user.includes("TEAM")) {
-    //   return <Navigate to="/team" />;
-    // } else if (user.includes("EVALUATOR")) {
-    //   return <Navigate to="/evaluator"/>;
-    // }
+  
   } else {
     localStorage.setItem("time", new Date().toString());
   }

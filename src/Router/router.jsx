@@ -17,7 +17,6 @@ import Condition from "../InitialPage/Sidebar/Conditon";
 import HorizontalSidebar from "../InitialPage/Sidebar/horizontalSidebar";
 
 import {
-  // pagesRoute,
   posRoutes,
   teamRoutes,
   publicRoutes,
@@ -78,8 +77,6 @@ const AllRoutes = () => {
   const TeamHeaderLayout = () => (
     <div className={`main-wrapper ${data ? "header-collapse" : ""}`}>
       <TeamHeader />
-      {/* <TeamSidebar /> */}
-      {/* <OneSidebar /> */}
       <Condition/>
 
       <Outlet />
@@ -107,7 +104,6 @@ const AllRoutes = () => {
   const StateHeaderLayout = () => (
     <div className={`main-wrapper ${data ? "header-collapse" : ""}`}>
       <StateHeader />
-      {/* <StateSidebar /> */}
       <CooSidebar/>
 
 
@@ -123,14 +119,7 @@ const AllRoutes = () => {
     </div>
   );
 
-  // const Pospages = () => (
-  //   <div>
-  //     <Header />
-  //     <Outlet />
-  //     {/* <Loader /> */}
-  //     <ThemeSettings />
-  //   </div>
-  // );
+ 
   function MyComponent() {
     window.location.href = `${process.env.REACT_APP_LANDING_PAGE_URL}`;
     return null;
@@ -138,17 +127,12 @@ const AllRoutes = () => {
   return (
     <div>
       <Routes>
-        {/* <Route path="/pos" element={<Pospages />}>
-          {posRoutes.map((route, id) => (
-            <Route path={route.path} element={route.element} key={id} />
-          ))} */}
-        {/* </Route> */}
+       
 
         <Route path="/" exact={true} element={<MyComponent />} />
         <Route path="/">
           <Route path="/registration" element={<AtlPage />} />
           <Route path="/login" element={<LoginPage />} />
-          {/* <Route path="/atl-register" element={<AtlPage />} /> */}
           <Route path="/atl-success" element={<AtlSucess />} />
           <Route path="/non-atl-success" element={<NonAtlSuccess />} />
 
@@ -251,11 +235,7 @@ const AllRoutes = () => {
             />
           ))}
         </Route>
-        {/* <Route path={"/"} element={<Authpages />}>
-          {pagesRoute.map((route, id) => (
-            <Route path={route.path} element={route.element} key={id} />
-          ))}
-        </Route> */}
+        
       </Routes>
     </div>
   );

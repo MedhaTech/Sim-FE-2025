@@ -51,9 +51,7 @@ const LogInTeacher = (props) => {
         openNotificationWithIcon(
           "error",
            "Clear your browser cache and try logging in"
-          // `Another User(${localStorage.getItem(
-          //   "module"
-          // )}) has already logged in`
+         
         );
         return;
       }
@@ -94,11 +92,9 @@ const LogInTeacher = (props) => {
                     alt="Logo"
                     // className="logo-image"
                   />
-                  {/* <ImageWithBasePath src="assets/img/logo.png" alt="img" /> */}
+                 
                 </div>
-                {/* <Link className="login-logo logo-white">
-                  <ImageWithBasePath src="assets/img/logo-white.png" alt />
-                </Link> */}
+              
                 <div className="login-userheading">
                   <h3> Teacher Login{" "}
                   <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -138,10 +134,7 @@ const LogInTeacher = (props) => {
                         {formik.errors.email}
                       </small>
                     ) : null}
-                    {/* <ImageWithBasePath
-                      src="assets/img/icons/mail.svg"
-                      alt="img"
-                    /> */}
+                   
                     <img src={email} alt="Email" />
                   </div>
                 </div>
@@ -152,7 +145,6 @@ const LogInTeacher = (props) => {
                       type={isPasswordVisible ? "text" : "password"}
                       id="password"
                       placeholder="Please Enter Password"
-                      // className="pass-input form-control"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
@@ -189,7 +181,6 @@ const LogInTeacher = (props) => {
                   </div>
                 </div>
                 <div className="form-login">
-                  {/* <Link className="btn btn-login">Sign In</Link> */}
                   <button
                     type="submit"
                     className={`btn btn-login ${
@@ -209,40 +200,7 @@ const LogInTeacher = (props) => {
                     </Link>
                   </h4>
                 </div>
-                {/* <div className="form-setlogin or-text">
-                  <h4>OR</h4>
-                </div>
-                <div className="form-sociallink">
-                  <ul className="d-flex">
-                    <li>
-                      <Link to="#" className="facebook-logo">
-                        <ImageWithBasePath
-                          src="assets/img/icons/facebook-logo.svg"
-                          alt="Facebook"
-                        />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="#">
-                        <ImageWithBasePath
-                          src="assets/img/icons/google.png"
-                          alt="Google"
-                        />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="#" className="apple-logo">
-                        <ImageWithBasePath
-                          src="assets/img/icons/apple-logo.svg"
-                          alt="Apple"
-                        />
-                      </Link>
-                    </li>
-                  </ul>
-                  <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
-                    <p>Copyright © 2023 DreamsPOS. All rights reserved</p>
-                  </div>
-                </div> */}
+
               </div>
             </form>
           </div>

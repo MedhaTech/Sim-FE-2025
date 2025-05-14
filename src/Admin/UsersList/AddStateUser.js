@@ -16,7 +16,7 @@ import { getAdmin } from '../store/admin/actions';
 import { stateList } from '../../RegPage/ORGData.js';
 
 const Register = (props) => {
-    // here we can add admin / eadmin //
+    // here we can add state user //
     const handleClose = () => { };
     const dispatch = useDispatch();
 
@@ -179,7 +179,6 @@ const Register = (props) => {
                                         onBlur={formik.handleBlur}
                                         value={formik.values.username}
                                         maxLength={100}
-                                    // isDisabled={stepTwoData.mobile ? true : false}
                                     />
 
                                     {formik.touched.username &&

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import axios from "axios";
 
@@ -97,7 +98,7 @@ export const getStudentRegistationData = (studentType) => async (dispatch) => {
       const data = result.data?.data[0]?.dataValues || [];
       let datamodify =
         data.length > 0 ? data.forEach((item, i) => (item.id = i + 1)) : [];
-      console.log(datamodify);
+      // console.log(datamodify);
       dispatch(getStudentListSuccess(data));
     } else {
       dispatch(getStudentListError(result.statusText));
@@ -164,7 +165,6 @@ export const getAtlCodeData = (item) => async (dispatch) => {
         ATLlistObj[code.organization_code] = code.organization_name;
         return code.organization_code;
       });
-      console.log(ATLCodeslist, "1");
       dispatch(getAtlCodesSuccess(data));
     } else {
       dispatch(getAtlCodesSuccess([]));
@@ -231,7 +231,6 @@ export const getFetchDistData = (item) => async (dispatch) => {
         return err.response;
       });
     if (result && result.status === 200) {
-      // console.log(result, '1');
       const data = result.data.data.length > 0 ? result.data.data : [];
       dispatch(getFetchDistsSuccess(data));
     } else {
@@ -269,28 +268,7 @@ export const getStateData = () => async (dispatch) => {
     dispatch(getStatesSuccess([]));
   }
 };
-// export const getStudentByIdData = (id) => async (dispatch) => {
-//     try {
-//         dispatch({ type: GET_STUDENTS });
-//         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-//         const getId = encryptGlobal(JSON.stringify(id));
-//         const result = await axios
-//             .get(`${URL.getStudentById}${getId}`, axiosConfig)
-//             .then((user) => user)
-//             .catch((err) => {
-//                 return err.response;
-//             });
-//         if (result && result.status === 200) {
-//             const data =
-//                 result.data && result.data.data[0] && result.data.data[0];
-//             dispatch(getStudentSuccess(data));
-//         } else {
-//             dispatch(getStudentListError(result.statusText));
-//         }
-//     } catch (error) {
-//         dispatch(getStudentListError({}));
-//     }
-// };
+
 
 export const updateStudentStatus = (data, id) => async (dispatch) => {
   // here we can update the student status  //
@@ -340,10 +318,7 @@ export const getStudentChallengeQuestions = (language) => async (dispatch) => {
         return err.response;
       });
     if (result && result.status === 200) {
-      // const data =
-      //     result.data &&
-      //     result?.data?.data[0]?.dataValues[0]?.challenge_questions.length > 0 &&
-      //     result?.data?.data[0]?.dataValues[0]?.challenge_questions;
+      
       const data =
         result.data &&
         result?.data?.data[0]?.challenge_questions.length > 0 &&
@@ -431,7 +406,6 @@ export const initiateIdea = async (
         "error",
         `${result?.data?.data[0]?.initiated_by} Already Initiated the Idea`
       );
-      // openNotificationWithIcon('error','Idea has already been initiated');
     }
   } catch (error) {
     openNotificationWithIcon(
@@ -518,7 +492,6 @@ export const updateStudentBadges =
           swalWithBootstrapButtons.fire({
             title: t("badges.congratulations"),
             text: t("badges.earn"),
-            // text:`You have Earned a New Badge ${data.badge_slugs[0].replace("_"," ").toUpperCase()}`,
             imageUrl: `${logout}`,
             showCloseButton: true,
             confirmButtonText: t("badges.ok"),
@@ -531,7 +504,6 @@ export const updateStudentBadges =
         });
       if (result && result.status === 202) {
         const data = result.data && result?.data?.data;
-        // console.log(data,"data");
         dispatch(getStudentBadgesSuccess(data));
       } else {
         dispatch(getStudentListError(result.statusText));
@@ -763,11 +735,7 @@ export const getPresurveyData = (language) => async (dispatch) => {
     dispatch(setPresurveyStatus(null));
   }
 };
-// export const userLogout = () => async (dispatch) => {
-//     dispatch({
-//         type: 'USER_LOGOUT'
-//     });
-// };
+
 
 export const getlogout = () => async () => {
   try {

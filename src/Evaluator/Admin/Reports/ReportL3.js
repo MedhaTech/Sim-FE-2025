@@ -2,9 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from 'react';
-// import Layout from '../Pages/Layout';
 import { Container, Row, Col, Table } from 'reactstrap';
-// import { Button } from '../../../stories/Button';
 import { CSVLink } from 'react-csv';
 import { useNavigate, Link } from "react-router-dom";
 
@@ -16,17 +14,13 @@ import moment from "moment/moment";
 
 import { useDispatch, useSelector } from 'react-redux';
 import Select from '../../../Admin/Reports/Helpers/Select.jsx';
-import { Bar } from 'react-chartjs-2';
-// import { cardData } from '../../../Student/Pages/Ideas/SDGData.js';
 
 import axios from 'axios';
 import '../../../Admin/Reports/reports.scss';
-import { Doughnut } from 'react-chartjs-2';
 import { notification } from 'antd';
 import * as XLSX from 'xlsx';
 
 import { encryptGlobal } from '../../../constants/encryptDecrypt.js';
-// import { categoryValue } from '../../Schools/constentText';
 import { stateList, districtList } from "../../../RegPage/ORGData";
 import { themesList } from "../../../Team/IdeaSubmission/themesData";
 const ReportL3 = () => {
@@ -45,7 +39,6 @@ const ReportL3 = () => {
    
 
     const [downloadData, setDownloadData] = useState(null);
-    // console.log(downloadData, '1');
     const [downloadNotRegisteredData, setDownloadNotRegisteredData] =
         useState(null);
     const [chartTableData, setChartTableData] = useState([]);
@@ -338,10 +331,7 @@ const ReportL3 = () => {
         label: "Status",
         key: "finalstatus",
       },
-      // {
-      //   label: "Evaluator Count",
-      //   key: "eval_count",
-      // },
+     
     ];
  const handleExport = () => {
       const ws = XLSX.utils.json_to_sheet(studentDetailedReportsData);  // Converts the JSON data to a sheet
@@ -358,13 +348,10 @@ const ReportL3 = () => {
     }, []);
     useEffect(() => {
       if (studentDetailedReportsData.length > 0) {
-        console.log("Performing operation with the updated data.");
         handleExport();
-        // csvLinkRef.current.link.click();
       }
     }, [studentDetailedReportsData]);
     const handleDownload = () => {
-      // alert('hii');
       if (
           !RegTeachersState ||
           !RegTeachersdistrict ||
@@ -383,8 +370,8 @@ const ReportL3 = () => {
     
 
     const fetchData = () => {
-        // const distApi =
-        //     RegTeachersdistrict === '' ? 'All Districts' : RegTeachersdistrict;
+   // This function filters  data based on selected state, district, category, theme, and evaluation status
+       
         const variables = encryptGlobal(
             JSON.stringify({
                 state: RegTeachersState,
@@ -447,23 +434,7 @@ const ReportL3 = () => {
                     const studentAndteam = response.data.data[0].summary.map((item) => {
                         return {
                           ...item,
-                          // pre_survey_status: preSurveyMap[item.user_id] || "Not started",
-                          // post_survey_status: postSurveyMap[item.user_id] || "Not started",
-                          // idea_status: ideaStatusDataMap[item.team_id] || "Not Initiated",
-                          // user_count:
-                          //   userTopicDataMap[item.user_id] === 0 ||
-                          //   userTopicDataMap[item.user_id] === undefined
-                          //     ? "Not Started"
-                          //     : userTopicDataMap[item.user_id] === 31
-                          //     ? "Completed"
-                          //     : "In Progress",
-                          // course_per:
-                          //   userTopicDataMap[item.user_id] &&
-                          //   typeof userTopicDataMap[item.user_id] === "number"
-                          //     ? `${Math.round(
-                          //         (userTopicDataMap[item.user_id] / 31) * 100
-                          //       )}%`
-                          //     : `0%`,
+                         
                           names: studentNamesMap[item.team_id],
             
                           team_name: teamDataMap[item.team_id].team_name,
@@ -488,7 +459,6 @@ const ReportL3 = () => {
                           unique_code: mentorMap[item.mentor_id].unique_code,
                           organization_name: mentorMap[item.mentor_id].organization_name,
                           state: mentorMap[item.mentor_id].state,
-                          // whatapp_mobile: mentorMap[item.mentor_id].whatapp_mobile,
                           mentorUserId: mentorMap[item.mentor_id].mentorUserId,
                           city: mentorMap[item.mentor_id].city,
                           principal_name: mentorMap[item.mentor_id].principal_name,
@@ -556,46 +526,11 @@ const ReportL3 = () => {
                             "Usefulness Score": formatValue(rating.useful),
                           
                             "Feasibility Score": formatValue(rating.feasibility),
-                            // "Feasibility": formatValue(rating.feasibility_score),
                             "Scalability Score": formatValue(rating.scalability),
-                            // "Quality": formatValue(rating.quality_score),
                             "Sustainability Score": formatValue(rating.sustainability),
-                            // "Evaluators Count": rating.eval_count,
                                                                             "Status":item.final_result === "0" ?  'Runner-Not Promoted'
                                                                             : 'Winner-Promoted',
-                //           ...item,
-                //           overall_score: formatValue(rating.overall_score),
-                //           novelty: formatValue(rating.novelty),
-                //           feasibility: formatValue(rating.feasibility),
-                //           feasibility_score: formatValue(rating.feasibility_score),
-                //           scalability: formatValue(rating.scalability),
-                //           quality_score: formatValue(rating.quality_score),
-                //           sustainability: formatValue(rating.sustainability),
-                //           useful: formatValue(rating.useful),
-                //           finalstatus:
-                // item.final_result === '0'
-                // ? 'Runner-Not Promoted'
-                // : 'Winner-Promoted',
-                //           verifiedment: item.verified_status == null ? "Not yet Reviewed" : item.verified_status,
-                //           username: mentorUsernameMap[item.mentorUserId],
-                //           focus_area: item.focus_area ? item.focus_area.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                //           prototype_image: item.prototype_image ? item.prototype_image.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                //           problem_solving: item.problem_solving ? item.problem_solving.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                //           feedback: item.feedback ? item.feedback.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                //           stakeholders: item.stakeholders ? item.stakeholders.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                //           solution: item.solution ? item.solution.replace(/,/g, ';').replace(/\n/g, ' ') : '',
 
-                //           facing: item.facing ? item.facing.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                //           community: item.community ? item.community.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                //           effects: item.effects ? item.effects.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                //           causes: item.causes ? item.causes.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                //           workbook: item.workbook ? item.workbook.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-
-                //           problem_statement: item.problem_statement ? item.problem_statement.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                //           title: item.title ? item.title.replace(/,/g, ';').replace(/\n/g, ' ') : '',
-                //           verified_at:item.verified_at ? moment(item.verified_at).format(
-                //             "DD-MM-YYYY"
-                //           ) : ''
                         };
     
                       });
@@ -611,12 +546,7 @@ const ReportL3 = () => {
                       }
                      
                       setIsDownloading(false);
-                            // csvLinkRef.current.link.click();
-                            // openNotificationWithIcon(
-                            //     'success',
-                            //     `L1 Status Detailed Reports Downloaded Successfully`
-                            // );
-                            // setIsDownloading(false);
+                           
             }
             })
             .catch((error) => {
@@ -627,11 +557,7 @@ const ReportL3 = () => {
 
  
 
-    // useEffect(() => {
-    //     if (filteredData.length > 0) {
-    //         setDownloadData(filteredData);
-    //     }
-    // }, [filteredData, downloadNotRegisteredData]);
+   
 
     useEffect(() => {
         if (downloadComplete) {
@@ -640,7 +566,6 @@ const ReportL3 = () => {
 
             setRegTeachersdistrict('');
 
-            // setFilterType('');
             setsdg('');
         }
         const newDate = new Date();
@@ -663,7 +588,6 @@ const ReportL3 = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    // console.log(res, '6');
 
                     const countData = {
                         overall: {
@@ -774,14 +698,12 @@ const ReportL3 = () => {
                     const total = chartTableData2.reduce(
                         (acc, item) => {
                             (acc.shortedlisted += item.shortedlisted),
-                                // (acc.state += item.state);
                                 (acc.winners += item.winners),
                                 (acc.runners += item.runners);
 
                             return acc;
                         },
                         {
-                            // state: 0,
                             shortedlisted: 0,
                             winners: 0,
                             runners: 0
@@ -792,7 +714,6 @@ const ReportL3 = () => {
                     array.push({ state: 'Total Count', ...total });
                     setChartTableData2(array);
 
-                    // setChartTableData2(chartTableData2);
                     setDownloadTableData2(chartTableData2);
                 }
             })
@@ -822,7 +743,6 @@ const ReportL3 = () => {
             <div className="add-item d-flex">
               <div className="page-title">
                 <h4>L3 - Report</h4>
-                {/* <h6>List of Teachers registered and their details</h6> */}
               </div>
             </div>
             <div className="page-btn">
@@ -858,16 +778,7 @@ const ReportL3 = () => {
                     />
                   </div>
                 </Col>
-                {/* <Col md={2}>
-                  <div className="my-2 d-md-block d-flex justify-content-center">
-                    <Select
-                      list={filterOptions}
-                      setValue={setFilterType}
-                      placeHolder={"Select Filter"}
-                      value={filterType}
-                    />
-                  </div>
-                </Col> */}
+              
                 <Col md={2}>
                   <div className="my-2 d-md-block d-flex justify-content-center">
                     {RegTeachersState === "Tamil Nadu" ? (
@@ -1098,19 +1009,7 @@ const ReportL3 = () => {
                                                                                 ]
                                                                             }
                                                                         </td>
-                                    {/* <td
-                                      style={{
-                                        maxWidth: "150px",
-                                        overflow: "hidden",
-                                        textOverflow: "ellipsis",
-                                        color: "crimson",
-                                      }}
-                                    >
-                                      {item.state}
-                                    </td>
-                                    <td> {item.totalSubmited}</td>
-                                    <td>{item.accepted}</td>
-                                    <td>{item.rejected}</td> */}
+                                   
                                    
                                   </tr>
                                 ))}

@@ -7,25 +7,20 @@ import { useTranslation } from "react-i18next";
 import axios from "axios";
 import newIcon from "../../assets/img/blinking_new.gif";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
-// import { Link } from "react-router-dom";
-// import { FaNewspaper } from "react-icons/fa";
-// import { FaLink } from "react-icons/fa";
-// import { FaDownload } from "react-icons/fa";
+
 import { GrAnnounce } from "react-icons/gr";
-// import ImageWithBasePath from "../../core/img/imagewithbasebath";
 import { MdOutlineAttachFile } from "react-icons/md";
 import { MdOutlineFileDownload } from "react-icons/md";
 function LatestNews() {
   const currentUser = getCurrentUser("current_user");
     const { t } = useTranslation();
-  //const [newsRes, setNewRes] = useState({});
   const [news, setNews] = useState([]);
-  // const containerRef = useRef(null);
   const [isPaused, setIsPaused] = useState(false);
   const togglePause = () => {
     setIsPaused(!isPaused);
   };
   useEffect(() => {
+    // this function fetches latest news list from the API
     const fetchNews = async () => {
       let teacherParam = encryptGlobal(
         JSON.stringify({

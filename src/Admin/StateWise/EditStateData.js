@@ -5,22 +5,17 @@ import React from "react";
 import { Row, Col, FormGroup, Label, Form, Input } from "reactstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Button } from "../../stories/Button";
 import { getCurrentUser, openNotificationWithIcon } from "../../helpers/Utils";
 import { useTranslation } from "react-i18next";
-// import { useHistory } from 'react-router-dom';
 import axios from "axios";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { useNavigate } from "react-router-dom";
-import { stateList } from "../../RegPage/ORGData";
 
 const EditStateData = (props) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const newsID = JSON.parse(localStorage.getItem("resID"));
-//   console.log(newsID);
   const currentUser = getCurrentUser("current_user");
-  // const history = useHistory();
   const inputDICE = {
     type: "text",
     className: "defaultInput",
@@ -36,28 +31,19 @@ const EditStateData = (props) => {
       whatapp_link: newsID && newsID.whatapp_link,
       state: newsID && newsID.state,
 
-      //   new_status: newsID && newsID.new_status,
     },
     validationSchema: Yup.object({
-      //   role: Yup.string()
-      //     .optional()
-      //     .oneOf(["mentor", "student"], "Role is Required"),
-      //   state: Yup.string().required("Please Select State"),
+      
 
       mentor_note: Yup.string()
-        // .optional()
         .required("Mentor details is Required"),
       whatapp_link: Yup.string()
-        // .optional()
         .required("Whatsapp Link is Required"),
 
       student_note: Yup.string()
-        // .optional()
         .required("Student details is Required"),
 
-      //   new_status: Yup.string()
-      //     .optional()
-      //     .oneOf(["0", "1"], "New Status type is Required"),
+     
     }),
     onSubmit: async (values) => {
       try {
@@ -67,7 +53,6 @@ const EditStateData = (props) => {
           student_note: values.student_note,
           mentor_note: values.mentor_note,
 
-          //   new_status: values.new_status,
         };
 
         if (values.whatapp_link !== "" && values.whatapp_link !== null) {
@@ -88,7 +73,6 @@ const EditStateData = (props) => {
         );
 
         if (response.status === 200) {
-          console.log(response, "edit");
           navigate("/state-wise");
           openNotificationWithIcon(
             "success",
@@ -127,7 +111,6 @@ const EditStateData = (props) => {
               <div>
                 <Form onSubmit={formik.handleSubmit} isSubmitting>
                   <div className="create-ticket register-block">
-                    {/* <FormGroup className="form-group" md={12}> */}
 
                     <Row className="mb-3 modal-body-table search-modal-header">
                       <Label className="mb-2" htmlFor="details">
@@ -192,10 +175,8 @@ const EditStateData = (props) => {
                         )}
                       </Col>
                     </Row>
-                    {/* </FormGroup> */}
                   </div>
 
-                  {/* <hr className="mt-4 mb-4" /> */}
                   <Row>
                     <div style={buttonContainerStyle}>
                       <button

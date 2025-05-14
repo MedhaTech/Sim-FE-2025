@@ -26,6 +26,8 @@ const CreateResource = () => {
     };
 
     const fileHandler = (e) => {
+    // Handles file selection and reads the selected file //
+
         let file = e.target.files[0];
         
         if (!file) {
@@ -80,7 +82,6 @@ const CreateResource = () => {
             description: Yup.string()
                 .optional()
                 .required('Details is Required'),
-    //   state: Yup.string().required("Please Select State"),
 
             type: Yup.string()
                 .optional()
@@ -105,14 +106,7 @@ const CreateResource = () => {
                     );
                     values.attachments =
                         response?.data?.data[0].attachments[0].toString();
-                    // if (response.status === 200) {
-                    //     openNotificationWithIcon(
-                    //       'success',
-                    //       'File Uploaded Successfully'
-                    //     );
-                    //   } else {
-                    //     openNotificationWithIcon('error', 'Opps! Something Wrong');
-                    //   }
+                   
                 }
 
                 const body = {
@@ -159,10 +153,7 @@ const CreateResource = () => {
       const buttonStyle = {
         marginRight: '10px',
       };
-      const handleStateChange = (event) => {
-        const state = event.target.value;
-        formik.setFieldValue("state", state);
-      };
+    
     return (
         <div className="page-wrapper">
              <h4 className="m-2" 
@@ -191,25 +182,13 @@ const CreateResource = () => {
                             State
                             <span required>*</span> 
                           </Label>
-                          {/* <select
-                            id="inputState"
-                            className="form-select"
-                            onChange={(e) => handleStateChange(e)}
-                          >
-                            <option value="">Select State</option>
-                            {allData.map((state) => (
-                              <option key={state} value={state}>
-                                {state}
-                              </option>
-                            ))}
-                          </select> */}
+
                               <input
         type="text"
         id="inputState"
         className="form-control"
         value={selectstate || ""}
         readOnly
-        // style={{ backgroundColor: "#e9ecef", cursor: "not-allowed" }}
     />
 
 
@@ -261,34 +240,7 @@ const CreateResource = () => {
                                                     </small>
                                                 )}
                                         </Col>
-                                        {/* <Col md={4}> */}
-                                        {/* <p className='mt-4'>{selectstate}</p> */}
-                          {/* <Label className="form-label" htmlFor="state">
-                            State
-                            <span required>*</span> 
-                          </Label>
-                          <select
-                            id="inputState"
-                            className="form-select"
-                            onChange={(e) => handleStateChange(e)}
-                          >
-                            <option value="">Select State</option>
-                            {allData.map((state) => (
-                              <option key={state} value={state}>
-                                {state}
-                              </option>
-                            ))}
-                          </select>
-
-                          {formik.touched.state && formik.errors.state ? (
-                            <small
-                              className="error-cls"
-                              style={{ color: "red" }}
-                            >
-                              {formik.errors.state}
-                            </small>
-                          ) : null} */}
-                        {/* </Col> */}
+                                       
                                         <Col  md={4}>
                                             <Label
                                                 className="mb-2"
