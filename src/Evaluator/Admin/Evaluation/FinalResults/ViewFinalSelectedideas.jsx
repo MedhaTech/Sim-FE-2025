@@ -92,7 +92,7 @@ const ViewSelectedIdea = () => {
     };
 
     async function promoteapi(id) {
-        // this function update the status
+        // this function update the status 
         const body = JSON.stringify({ final_result: '1' });
         const promPram = encryptGlobal(JSON.stringify(id));
         var config = {

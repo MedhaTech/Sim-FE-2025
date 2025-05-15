@@ -695,6 +695,8 @@ const StudentProgress = () => {
       };
     
     const handleSaveReport = async() =>{
+    // This function filters the data and saves the Student Progress  report
+
       const pattern = /^[a-zA-Z0-9 \-()&.,_]*$/;
     if(pattern.test(inputValue) && inputValue!==''){
       const body = JSON.stringify({
@@ -740,6 +742,8 @@ const StudentProgress = () => {
     fetchSavedReportsData();
   },[]);
   const fetchSavedReportsData = () => {
+    // this function fetches all saved reports list from the API
+
     const apiRes = encryptGlobal(
       JSON.stringify({
         report_type: 'studentprogress-report',
@@ -781,6 +785,8 @@ const StudentProgress = () => {
   },[savedReports]);
 
   const handleReportfileDelete = (data) =>{
+    // this function fetches delete reports  from the API
+
     const idparm = encryptGlobal(JSON.stringify(data.report_file_id));
     const config = {
       method: "delete",

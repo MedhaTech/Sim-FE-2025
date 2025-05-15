@@ -417,6 +417,8 @@ const ReportsRegistration = () => {
   };
 
   const handleSaveReport = async (filterType) => {
+    // This function filters the data and saves the FilterType report
+    
     const pattern = /^[a-zA-Z0-9 \-()&.,_]*$/;
     if (pattern.test(inputValue) && inputValue !== "") {
       const body = JSON.stringify({
@@ -470,6 +472,8 @@ const ReportsRegistration = () => {
     fetchSavedReportsData1();
   }, []);
   const fetchSavedReportsData1 = () => {
+    // this function fetches all saved reports list from the API
+
     const apiRes = encryptGlobal(
       JSON.stringify({
         report_type: "teacher-not-registered-registration-report",
@@ -494,6 +498,8 @@ const ReportsRegistration = () => {
       });
   };
   const fetchSavedReportsData = () => {
+    // this function fetches all saved reports list from the API
+
     const apiRes = encryptGlobal(
       JSON.stringify({
         report_type: "teacher-registration-report",
@@ -643,6 +649,8 @@ const ReportsRegistration = () => {
   }, [savedReports1, savedHeader]);
 
   const handleReportfileDelete = (data) => {
+    // this function fetches delete reports  from the API
+
     const idparm = encryptGlobal(JSON.stringify(data.report_file_id));
     const config = {
       method: "delete",
@@ -664,6 +672,8 @@ const ReportsRegistration = () => {
       });
   };
   const handleReportfileDelete1 = (data) => {
+    // this function fetches delete reports  from the API
+
     const idparm = encryptGlobal(JSON.stringify(data.report_file_id));
     const config = {
       method: "delete",

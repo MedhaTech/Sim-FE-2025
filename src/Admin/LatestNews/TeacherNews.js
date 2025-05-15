@@ -210,7 +210,7 @@ const AdminLatestNews = () => {
                             if (response.status === 200) {
                                 openNotificationWithIcon(
                                     'success',
-                                    'News succesfully deleted'
+                                    'News successfully deleted'
                                 );
                                 stuList();
                             } else {

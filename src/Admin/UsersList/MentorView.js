@@ -34,6 +34,8 @@ const ViewMore = () => {
     };
 
     useEffect(() => {
+    // This function fetches quiz score from the API
+
         const userIdParam = encryptGlobal(
             JSON.stringify({
                 user_id: orgDaTa?.user_id,
