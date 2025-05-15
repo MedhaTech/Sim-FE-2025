@@ -249,7 +249,6 @@ const fetchwhatsapplink = () => {
             window.open(link, '_blank');
           } else {
             console.error("Invalid or missing WhatsApp link");
-            alert("WhatsApp link not found. Please try again later.");
           }
         },1000);
        
