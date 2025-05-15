@@ -11,7 +11,6 @@ import {
 } from "../../helpers/Utils";
 import {
   getAdminTeamMembersList,
-  // studentResetPassword
 } from "../../redux/actions";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
@@ -30,7 +29,6 @@ const StuEdit = () => {
   const studentData = location.state || {};
    const { t } = useTranslation();
   
-  //   console.log(studentData, "111");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentUser = getCurrentUser("current_user");
@@ -66,8 +64,7 @@ const StuEdit = () => {
       ),
        email: Yup.string().email("Please Enter Valid Email Address").max(255)
        .optional(),
-            // .required(<span style={{ color: "red" }}>Please Enter Email Address</span>),
-      //   username: Yup.string().email("Must be a valid email").max(255),
+           
       disability: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Disability Status</span>
       ),
@@ -80,18 +77,15 @@ const StuEdit = () => {
       const body = {
         team_id: studentData.team_id,
         role: "STUDENT",
-        //full_name: values.fullName,
-        // email: values.email,
+       
 
         Age: values.age,
         Grade: values.grade,
         disability: values.disability,
         Gender: values.gender,
       };
-      console.log(values.fullName,"values");
       if (studentData && studentData.full_name !== values.fullName) {
         body["full_name"] = values.fullName;
-        console.log(studentData,studentData.full_name,values.fullName,"inside if");
       }
       if (studentData && studentData.email !== values.email) {
         body["email"] = values.email;
@@ -115,7 +109,6 @@ const StuEdit = () => {
             );
             dispatch(getAdminTeamMembersList(studentData.team_id));
             navigate("/mentorteams");
-            // handleView(studentData);
           } else {
             openNotificationWithIcon("error", "Opps! Something Wrong");
           }
@@ -130,7 +123,6 @@ const StuEdit = () => {
       <div className="content">
         <div>
           <Form onSubmit={formik.handleSubmit} isSubmitting>
-            {/* <div className="card"> */}
             <div className="card-body">
               <div className="profile-set">
                 <div className="profile-head"></div>
@@ -142,11 +134,7 @@ const StuEdit = () => {
                       ) : ((studentData.Gender === "Female" || studentData.Gender === "FEMALE")?(
                         <img src={female} alt="Female" id="blah" />):(<img src={user} alt="user" id="blah" />)
                       )}
-                      {/* {studentData.Gender === "MALE" || studentData.Gender === "Male" ? (
-                        <img src={male} alt="Male" id="blah" />
-                      ) : (
-                        <img src={female} alt="Female" id="blah" />
-                      )} */}
+                      
                       <div className="profileupload"></div>
                     </div>
                     <div className="profile-contentname">
@@ -170,7 +158,6 @@ const StuEdit = () => {
                         placeholder="Please Enter Your Full Name"
                         id="fullName"
                         name="fullName"
-                        // onChange={formik.handleChange}
                         onChange={(e) => {
                           const inputValue = e.target.value;
                           const lettersOnly = inputValue.replace(
@@ -191,23 +178,14 @@ const StuEdit = () => {
                       <Col md={4}>
                                                 <Label className="form-label">
                                                 {t('teacherJourney.eamil1')}
-                                                  {/* <span required className="p-1">
-                                                    *
-                                                  </span> */}
+                                                 
                                                 </Label>
                                                 <input
                                                   className="form-control"
                                                   placeholder="Enter  Email Address"
                                                   id="email"
                                                   name="email"
-                                                  // onChange={(e) => {
-                                                  //   const inputValue = e.target.value;
-                                                  //   const lettersOnly = inputValue.replace(
-                                                  //     /[^a-zA-Z\s]/g,
-                                                  //     ""
-                                                  //   );
-                                                  //   formik.setFieldValue("f", lettersOnly);
-                                                  // }}
+                                                 
                                                   onChange={formik.handleChange}
                                                   onBlur={formik.handleBlur}
                                                   value={formik.values.email}
@@ -353,8 +331,7 @@ const StuEdit = () => {
                 <Row>
                   <Col className="mt-2" >
                     <button
-                      // type="submit" className="btn btn-warning"
-                      // style={{ marginRight: "10px" }}
+                     
                       type="submit"
                       className={`btn btn-warning  ${
                         !(formik.dirty && formik.isValid)

@@ -2,7 +2,6 @@
 /* eslint-disable indent */
 import React from 'react';
 import { Row, Col, FormGroup, Label, Form,Input } from 'reactstrap';
-// import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { Button } from '../../stories/Button';
 import { useFormik } from 'formik';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
@@ -49,9 +48,7 @@ const [selectstate, setSelectState] = React.useState(
             'application/msword',
             'application/pdf',
             'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            // xsl and xslx //
-    //         'application/vnd.ms-excel', 
-    // 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' 
+           
         ];
         if (!allowedTypes.includes(file.type)) {
             openNotificationWithIcon(
@@ -84,7 +81,6 @@ const [selectstate, setSelectState] = React.useState(
             role: resID && resID.role,
             description: resID && resID.description,
             type: resID && resID.type,
-            // state: resID?.state,
 
             attachments: (resID && resID.attachments) || ''
         },
@@ -93,7 +89,6 @@ const [selectstate, setSelectState] = React.useState(
             role: Yup.string()
                 .optional()
                 .oneOf(['mentor', 'student']).required('Role is Required'),
-    //   state: Yup.string().required("Please Select State"),
 
             description: Yup.string()
                 .optional()
@@ -125,14 +120,7 @@ const [selectstate, setSelectState] = React.useState(
                     );
                     values.attachments =
                         response?.data?.data[0].attachments[0].toString();
-                    // if (response.status === 200) {
-                    //     openNotificationWithIcon(
-                    //       'success',
-                    //       'File Updated Successfully'
-                    //     );
-                    //   } else {
-                    //     openNotificationWithIcon('error', 'Opps! Something Wrong');
-                    //   }
+                   
                 }
 
                 const body = {
@@ -160,7 +148,6 @@ const [selectstate, setSelectState] = React.useState(
 
                 if (response.status === 200) {
                     navigate('/stateresources');
-                    //props.history.push('/admin/Resources');
                     openNotificationWithIcon(
                         'success',
                         'Resource Updated Successfully'
@@ -183,11 +170,7 @@ const [selectstate, setSelectState] = React.useState(
         marginRight: '10px',
       };
 
-    //   const handleStateChange = (event) => {
-    //     const state = event.target.value;
-    //     formik.setFieldValue("state", state);
-    //   };
-      console.log(formik.values.state,"state");
+   
     return (
         <div className="page-wrapper">
              <h4 className="m-2" 
@@ -350,7 +333,6 @@ const [selectstate, setSelectState] = React.useState(
                                                       {formik.values.attachments ?  (<button
                                                             className='btn btn-info m-2'
                                                             type="button"
-                                                            // disabled={!formik.values.attachments}
                                                             onClick={() => {
                                                                 if (formik.values.attachments instanceof File) {
                                                                     const fileURL = URL.createObjectURL(formik.values.attachments);
@@ -472,30 +454,7 @@ const [selectstate, setSelectState] = React.useState(
                                             </button>
                                         </div>
                                     </Row>
-                                    {/* <Row>
-                                        <Col className="col-xs-12 col-sm-6">
-                                            <Button
-                                                label="Discard"
-                                                btnClass="secondary"
-                                                size="small"
-                                                onClick={() => navigate('/adminresources')}
-                                                
-                                            />
-                                        </Col>
-                                        <Col className="submit-btn col-xs-12 col-sm-6">
-                                            <Button
-                                                label="Submit details"
-                                                type="submit"
-                                                btnClass={
-                                                    !formik.dirty || !formik.isValid
-                                                        ? 'default'
-                                                        : 'primary'
-                                                }
-                                                size="small"
-                                                disabled={!formik.dirty}
-                                            />
-                                        </Col>
-                                    </Row> */}
+                                   
                                 </Form>
                             </div>
                         </Col>

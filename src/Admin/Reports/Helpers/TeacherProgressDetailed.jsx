@@ -285,11 +285,12 @@ const TeacherProgressDetailed = () => {
         return Object.keys(filteredItem).length > 0 ? filteredItem : null;
       })
       .filter(Boolean);
-    // console.log("Final Filtered Data for Download:", filteredData);
     setmentorDetailedReportsData(filteredData);
   };
 
   const fetchData = (type,param) => {
+   // This function filters  data based on selected state, district, category
+
    let apiRes;
          if(type === 'save'){
            apiRes = encryptGlobal(param);
@@ -458,7 +459,6 @@ const TeacherProgressDetailed = () => {
 
   useEffect(() => {
     if (isReadyToDownload && mentorDetailedReportsData.length > 0) {
-      // console.log("Downloading CSV with data:", mentorDetailedReportsData);
       const formattedCSVData = mentorDetailedReportsData.map((item) =>
         Object.fromEntries(
           Object.entries(item).map(([key, value]) => [
@@ -471,10 +471,7 @@ const TeacherProgressDetailed = () => {
 
       setTimeout(() => {
         csvLinkRef.current.link.click();
-        // console.log(
-        //   "Downloading CSV with formatted headers:",
-        //   formattedCSVData
-        // );
+        
         openNotificationWithIcon("success", "Report Downloaded Successfully");
         setIsReadyToDownload(false);
       }, 1000);
@@ -718,6 +715,8 @@ const TeacherProgressDetailed = () => {
   };
 
 const handleSaveReport = async() =>{
+    // This function filters the data and saves the Mentor Progress  report
+
   const pattern = /^[a-zA-Z0-9 \-()&.,_]*$/;
 if(pattern.test(inputValue) && inputValue!==''){
   const body = JSON.stringify({
@@ -763,6 +762,8 @@ useEffect(()=>{
 fetchSavedReportsData();
 },[]);
 const fetchSavedReportsData = () => {
+    // this function fetches all saved reports list from the API
+
 const apiRes = encryptGlobal(
   JSON.stringify({
     report_type: 'teacherprogress-report',
@@ -792,11 +793,8 @@ axios(config)
 const [istabledownloadclicked,setistabledownloadclicked] = useState(false);
 const [savedHeader,setSavedHeader] = useState();
 const handleReportfileDownload = (data) =>{
-// alert("hii");
-// console.log(data,"data");
 setSavedHeader(allHeaders.filter((header) =>JSON.parse(data.columns).includes(header.key)).map((header) => header));
 fetchData('save',data.filters);
-// console.log(data.filters,"filter");
 setistabledownloadclicked(true);
 };
 useEffect(()=>{
@@ -807,6 +805,8 @@ if(savedReports.length>0 && istabledownloadclicked){
 },[savedReports]);
 
 const handleReportfileDelete = (data) =>{
+    // this function fetches delete reports  from the API
+
 const idparm = encryptGlobal(JSON.stringify(data.report_file_id));
 const config = {
   method: "delete",
@@ -1082,7 +1082,6 @@ const customStyles = {
                           !downloadTableData ||
                           downloadTableData.length === 0
                         ) {
-                          // console.log("Fetching data before download...");
                           filterData();
                         }
 

@@ -4,21 +4,13 @@
 import { Descriptions, Input } from 'antd';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-// import { Col, Row } from 'reactstrap';
 import { Button } from '../../stories/Button';
-// import Layout from '../Layout';
-// import {
-//     deleteTempMentorById,
-//     teacherResetPassword
-// } from '../store/admin/actions';
+
 import { Col, Container, Row, CardBody, CardText } from 'reactstrap';
-// import './dashboard.scss';
-// import { useHistory } from 'react-router-dom';
 import jsPDF from 'jspdf';
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import { URL, KEY } from '../../constants/defaultValues';
-import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2/dist/sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 import logout from '../../assets/img/logout.png';
@@ -33,7 +25,6 @@ import {
     getNormalHeaders,
     openNotificationWithIcon
 } from '../../helpers/Utils';
-import { Card } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
@@ -44,25 +35,14 @@ const Dashboard = () => {
     // const history = useHistory();
     const dispatch = useDispatch();
     const pdfRef = React.useRef(null);
-    const inputField = {
-        type: 'text',
-        className: 'defaultInput'
-    };
+   
     const navigate = useNavigate();
     const orgData = JSON.parse(localStorage.getItem('mentor'));
-    console.log(orgData,"mm");
 
-    const MentorId = JSON.parse(localStorage.getItem('teacherId'));
-    // const orgData = location?.state?.data|| {};
-    // const orgData =
-    //     (history && history.location && history.location.data) || {};
-    // console.log(orgData,"mm");
-
-    // const diesdata=Mentor.organization.organization_code;
+   
 
     const currentUser = getCurrentUser('current_user');
-    // const [diesCode, setDiesCode] = useState(diesdata);
-    // const [orgData, setOrgData] = useState({});
+   
     const [mentorId, setMentorId] = useState('');
     const [SRows, setSRows] = React.useState([]);
     const [mentorTeam, setMentorTeam] = useState([]);
@@ -71,94 +51,14 @@ const Dashboard = () => {
     const [isideadisable, setIsideadisable] = useState(false);
     
 
-    const handleOnChange = (e) => {
-        // we can give diescode as input //
-        //where organization_code = diescode //
-        localStorage.removeItem('organization_code');
-        setCount(0);
-        // setDiesCode(e.target.value);
-        // setOrgData({});
-        setError('');
-    };
+ 
     useEffect(() => {
-        // apiCall();
         getMentorIdApi(orgData.mentor_id);
     }, []);
-    // useEffect( () => {
-        // where list = diescode //
-        //where organization_code = diescode //
-        // const list = JSON.parse(localStorage.getItem('organization_code'));
-        // setDiesCode(list);
-        // apiCall();
-    // }, []);
-    async function apiCall() {
-       
-        const body = JSON.stringify({
-            // organization_code: diesCode
-        });
-        var config = {
-            method: 'post',
-            url: process.env.REACT_APP_API_BASE_URL + '/organizations/checkOrg',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization : 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
-            },
-            data: body
-        };
+   
+  
 
-        await axios(config)
-            .then(async function (response) {
-                if (response.status == 200) {
-                    // setOrgData(response?.data?.data[0]);
-                    // setCount(count + 1);
-                    setMentorId(response?.data?.data[0]?.mentor.mentor_id);
-                    setError('');
 
-                  
-                }
-            })
-            .catch(function (error) {
-                if (error?.response?.data?.status === 404) {
-                    setError('Entered Invalid UDISE Code');
-                }
-                // setOrgData({});
-            });
-    }
-
-    // const handleSearch = (e) => {
-     
-
-    //     const body = JSON.stringify({
-    //         organization_code: diesCode
-    //     });
-    //     var config = {
-    //         method: 'post',
-    //         url: process.env.REACT_APP_API_BASE_URL + '/organizations/checkOrg',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             Authorization : 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
-    //         },
-    //         data: body
-    //     };
-
-    //     axios(config)
-    //         .then(async function (response) {
-    //             if (response.status == 200) {
-    //                 setOrgData(response?.data?.data[0]);
-    //                 setCount(count + 1);
-    //                 setMentorId(response?.data?.data[0]?.mentor.mentor_id);
-    //                 setError('');
-                   
-    //             }
-    //         })
-    //         .catch(function (error) {
-    //             if (error?.response?.data?.status === 404) {
-    //                 setError('Entered Invalid Unique Code');
-    //             }
-    //             setOrgData({});
-    //         });
-    //     e.preventDefault();
-    // };
 
     async function getMentorIdApi(id) {
         // Mentor Id  Api//
@@ -227,9 +127,9 @@ const Dashboard = () => {
             }
         });
     };
-// console.log(orgData,"org");
     const handleresetpassword = (data) => {
-        //  here we can reset the password as disecode //
+          // Navigates to the mentor shift search page with required mentor and organization data
+ 
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-submit',
@@ -316,13 +216,7 @@ const Dashboard = () => {
                 sortable: true,
                 width: '8rem'
             },
-            // {
-            //     name: 'Mentor Approval',
-            //     selector: (row) =>
-            //         row.ideaAcceptance,
-            //     center: true,
-            //     width: '13rem'
-            // },
+          
             {
                 name: 'Mentor Idea Review',
                 sortable: true,
@@ -348,11 +242,7 @@ const Dashboard = () => {
                         (
                           <Button
                             key={params}
-                            //   className={
-                            //       isideadisable
-                            //           ? `btn btn-success btn-lg mr-5 mx-2`
-                            //           : `btn btn-lg mr-5 mx-2`
-                            //   }
+                            
                             className="btn btn-secondary"
                             label={"Revoke"}
                             size="small"
@@ -363,7 +253,6 @@ const Dashboard = () => {
                                 params.ideaStatus
                               )
                             }
-                            //   disabled={!isideadisable}
                           />
                         )}
                     </>,
@@ -372,37 +261,7 @@ const Dashboard = () => {
                 width: "8rem",
                 center: true,
               },
-            // {
-            //     name: 'Actions',
-            //     cell: (params) => {
-            //         return [
-            //             <>
-            //                 {params.ideaStatus == 'SUBMITTED' && params.evaluation_status === null && (
-            //                     <Button
-            //                         key={params}
-            //                         className={
-            //                             isideadisable
-            //                                 ? `btn btn-success btn-lg mr-5 mx-2`
-            //                                 : `btn btn-lg mr-5 mx-2`
-            //                         }
-            //                         label={'REVOKE'}
-            //                         size="small"
-            //                         shape="btn-square"
-            //                         onClick={() =>
-            //                             handleRevoke(
-            //                                 params.challenge_response_id,
-            //                                 params.ideaStatus
-            //                             )
-            //                         }
-            //                         disabled={!isideadisable}
-            //                     />
-            //                 )}
-            //             </>
-            //         ];
-            //     },
-            //     width: '20%',
-            //     center: true
-            // }
+
         ]
     };
     const handleRevoke = async (id, type) => {
@@ -486,8 +345,6 @@ const Dashboard = () => {
                 if (result.isConfirmed) {
                     if (result.isConfirmed) {
                         await deleteTempMentorById(id);
-                        // setOrgData({});
-                        // setDiesCode('');
                         navigate("/mentors");
 
                     }
@@ -520,75 +377,19 @@ const Dashboard = () => {
                 </div>
             <div className="dashboard-wrappermy-5 px-5">
                 <div className="dashboard p-2">
-                    {/* <div className="text-right">
-                        <Button
-                            label="Back"
-                            size="small"
-                            btnClass="primary mb-3"
-                            type="cancel"
-                            onClick={() => navigate('/mentors')}
-                        />
-                    </div> */}
+                   
                     <div className="row " style={{ overflow: 'auto' }}>
                         <div className=" row  col-12 col-md-12">
                             <div
                                 style={{ flex: 1, overflow: 'auto' }}
                                 className="bg-white rounded col-lg-12 disc-card-search col-12"
                             >
-                                {/* <h2 className="mt-3">
-                                    Search Registration Details
-                                </h2> */}
-                                {/* <Row className="text-center justify-content-md-center my-4">
-                                    <Col md={9} lg={12}>
-                                        <Row>
-                                            <Col md={9} className="my-auto">
-                                                <Input
-                                                    {...inputField}
-                                                    id="organization_code"
-                                                    onChange={(e) =>
-                                                        handleOnChange(e)
-                                                    }
-                                                    value={diesCode}
-                                                    name="organization_code"
-                                                    placeholder="Enter Unique Code"
-                                                    className="w-100 mb-3 mb-md-0"
-                                                    style={{
-                                                        borderRadius: '60px',
-                                                        padding: '9px 11px'
-                                                    }}
-                                                />
-                                            </Col>
-                                            <Col md={3} className="partner-btn">
-                                                <Button
-                                                    label={'Search'}
-                                                    btnClass="primary tex-center my-0 py-0 mx-3 px-3"
-                                                    style={{
-                                                        fontSize: '15px',
-                                                        height: '35px'
-                                                    }}
-                                                    size="small"
-                                                    onClick={(e) =>
-                                                        handleSearch(e)
-                                                    }
-                                                />
-                                            </Col>
-                                        </Row>
-                                    </Col>
-                                </Row> */}
+                               
+                              
 
-                                {/* {orgData &&
-                                orgData.organization_name &&
-                                // orgData?.mentor !== null && 
-                                ( */}
+                               
                                     <>
-                                        {/* <div className="mb-5 p-3" >  */}
-                                        {/* <div
-                                                className="container-fluid card shadow border" ref={pdfRef}
-                                                // style={{
-                                                //     width: '300px',
-                                                //     height: '300px'
-                                                // }}
-                                            > */}
+                                       
                                         <div ref={pdfRef}>
                                             <div className="row">
                                                 <div className="col">
@@ -600,54 +401,7 @@ const Dashboard = () => {
                                             </div>
                                             <div className="row ">
                                                 <div className="col">
-                                                    {/* <ul className="p-0">
-                                                            <li className="d-flex justify-content-between">
-                                                                School:
-                                                                <p>
-                                                                    {
-                                                                        orgData.organization_name
-                                                                    }
-                                                                </p>
-                                                            </li>
-                                                            <li className="d-flex justify-content-between">
-                                                                City:{' '}
-                                                                <p>
-                                                                    {
-                                                                        orgData.city
-                                                                    }
-                                                                </p>
-                                                            </li>
-                                                            <li className="d-flex justify-content-between">
-                                                                District:{' '}
-                                                                <p>
-                                                                    {
-                                                                        orgData.district
-                                                                    }
-                                                                </p>
-                                                            </li>
-                                                            <li className="d-flex justify-content-between">
-                                                                Mentor Name:{' '}
-                                                                <p>
-                                                                    {
-                                                                        orgData
-                                                                            .mentor
-                                                                            ?.full_name
-                                                                    }
-                                                                </p>
-                                                            </li>
-                                                            <li className="d-flex justify-content-between">
-                                                                Mentor Mobile No
-                                                                :{' '}
-                                                                <p>
-                                                                    {
-                                                                        orgData
-                                                                            .mentor
-                                                                            ?.user
-                                                                            ?.username
-                                                                    }
-                                                                </p>
-                                                            </li>
-                                                        </ul> */}
+
                                                         <Row className="pt-3 pb-3">
                                                         <Col
                                                             xs={5}
@@ -1051,13 +805,11 @@ const Dashboard = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        {/* </div> */}
-                                        {/* <div className="d-flex justify-content-between"> */}
+                                      
                                         <div className="d-flex justify-content-between flex-column flex-md-row">
                                             <button
                                                 className="btn btn-outline-primary"
                                                 onClick={handleEdit}
-                                                //className="btn btn-warning btn-lg  px-4"
                                             >
                                                 Edit
                                             </button>
@@ -1116,8 +868,7 @@ const Dashboard = () => {
                                         </div>
                                         <hr/>
 
-                                        {/* <div className="mb-5 p-3"> */}
-                                        {/* <div className="container-fluid card shadow border"> */}
+                                       
                                         <div>
                                             <div className="row">
                                                 <div className="col">
@@ -1142,7 +893,6 @@ const Dashboard = () => {
                                                 </DataTableExtensions>
                                             </div>
                                         </div>
-                                        {/* </div> */}
                                     </>
                               
                             </div>

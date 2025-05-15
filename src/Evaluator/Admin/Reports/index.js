@@ -19,7 +19,6 @@ import {
 const Reports = () => {
     
   const currentUser = getCurrentUser('current_user');
-  // const route = all_routes;
 
 return (
 <div>
@@ -55,45 +54,7 @@ return (
                                     <h4>L1 - Reports Stats</h4>
                             </div>
                         </Link>
-                        {/* <ul className="team-members">
-                            <li>
-                            <ul>
-                                <li>
-                                <Link to="#">
-                                    <img
-                                        src={user1}
-                                        alt=""
-                                    />
-                                </Link>
-                                </li>
-                                <li>
-                                <Link to="#">
-                                    <img
-                                        src={user2}
-                                        alt=""
-                                    />
-                                </Link>
-                                </li>
-                                <li>
-                                <Link to="#">
-                                    <img
-                                        src={user3}
-                                        alt=""
-                                    />
-                                </Link>
-                                </li>
-                                <li>
-                                <Link to="#">
-                                    <img
-                                        src={user}
-                                        alt=""
-                                    />
-                                    <span> +</span>
-                                </Link>
-                                </li>
-                            </ul>
-                            </li>
-                        </ul> */}
+
                         </div>
                     </div>
                     <div className="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
@@ -115,45 +76,7 @@ return (
                                     <h4>L2 - Reports Stats</h4>
                             </div>
                         </Link>
-                        {/* <ul className="team-members">
-                            <li>
-                            <ul>
-                                <li>
-                                <Link to="#">
-                                    <img
-                                        src={user1}
-                                        alt=""
-                                    />
-                                </Link>
-                                </li>
-                                <li>
-                                <Link to="#">
-                                    <img
-                                        src={user2}
-                                        alt=""
-                                    />
-                                </Link>
-                                </li>
-                                <li>
-                                <Link to="#">
-                                    <img
-                                        src={user3}
-                                        alt=""
-                                    />
-                                </Link>
-                                </li>
-                                <li>
-                                <Link to="#">
-                                    <img
-                                        src={user}
-                                        alt=""
-                                    />
-                                    <span> +</span>
-                                </Link>
-                                </li>
-                            </ul>
-                            </li>
-                        </ul> */}
+
                         </div>
                     </div>
                     <div className="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
@@ -175,45 +98,7 @@ return (
                                     <h4>L3 - Reports Stats</h4>
                             </div>
                         </Link>
-                        {/* <ul className="team-members">
-                            <li>
-                            <ul>
-                                <li>
-                                <Link to="#">
-                                    <img
-                                        src={user1}
-                                        alt=""
-                                    />
-                                </Link>
-                                </li>
-                                <li>
-                                <Link to="#">
-                                    <img
-                                        src={user2}
-                                        alt=""
-                                    />
-                                </Link>
-                                </li>
-                                <li>
-                                <Link to="#">
-                                    <img
-                                        src={user3}
-                                        alt=""
-                                    />
-                                </Link>
-                                </li>
-                                <li>
-                                <Link to="#">
-                                    <img
-                                        src={user}
-                                        alt=""
-                                    />
-                                    <span> +</span>
-                                </Link>
-                                </li>
-                            </ul>
-                            </li>
-                        </ul> */}
+
                         </div>
                     </div>
                     

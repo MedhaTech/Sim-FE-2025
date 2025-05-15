@@ -26,14 +26,7 @@ const ViewDetail = (props) => {
     const { t } = useTranslation();
  const [images,setImages] = React.useState([]);
 
-    // React.useEffect(() => {
-    //     if (props?.ideaDetails?.response) {
-    //         setTeamResponse(
-    //             Object.entries(props?.ideaDetails?.response).map((e) => e[1])
-    //         );
-    //     }
-    // }, [props]);
-    console.warn('detail', props);
+   
     useEffect(() => {
         if (props?.ideaDetails) {
             setTeamResponse(props?.ideaDetails);
@@ -68,61 +61,15 @@ const ViewDetail = (props) => {
         setPdfLoader(false);
     };
     const componentRef = useRef();
-    const handlePrint = useReactToPrint({
-        content: () => componentRef.current,
-        documentTitle: `${
-            props?.ideaDetails?.team_name
-                ? props?.ideaDetails?.team_name
-                : 'temp'
-        }_IdeaSubmission`
-    });
-    const files = teamResponse?.prototype_image
-        ? teamResponse?.prototype_image.split(',')
-        : [];
-    const downloadFile = (item) => {
-        // const link = document.createElement('a');
-        // link.href = item;
-        // link.download = 'upload.pdf';
-        // document.body.appendChild(link);
-        // link.click();
-        // document.body.removeChild(link);
-        fetch(item)
-            .then((response) => {
-                // Convert the response to a blob
-                return response.blob();
-            })
-            .then((blob) => {
-                // Create a download link
-                const url = window.URL.createObjectURL(new Blob([blob]));
-                const link = document.createElement('a');
-                link.href = url;
-                const parts = item.split('/');
-                link.setAttribute('download', parts[parts.length - 1]);
-                document.body.appendChild(link);
-                link.click();
-                link.parentNode.removeChild(link);
-            })
-            .catch((error) => {
-                console.error('Error downloading file:', error);
-            });
-    };
-    const problemSolvingArray = teamResponse?.problem_solving;
-    // console.log(teamResponse?.evaluator_ratings);
+  
     return (
         <div>
             {teamResponse ? (
                 <>
                     <div style={{ display: 'none' }}>
-                        {/* <DetailToDownload
-                            ref={componentRef}
-                            ideaDetails={teamResponse}
-                            teamResponse={teamResponse}
-                            level={'Draft'}
-                        /> */}
+                       
                     </div>
-                    {/* <div id='pdfId' style={{display:'none'}}>
-                        <DetailToDownload ideaDetails={props?.ideaDetails} teamResponse={teamResponse} level={level}/>
-                    </div> */}
+                   
                     <div className="row idea_detail_card">
                         <div className="col-12 p-0">
                             <div className="row">
@@ -190,16 +137,7 @@ const ViewDetail = (props) => {
                                         />
                                     </div>
                                     <div className="mx-2 pointer d-flex align-items-center">
-                                        {/* {
-                                            !pdfLoader?
-                                            <FaDownload size={22} onClick={async()=>{await downloadPDF();}}/>:
-                                            <FaHourglassHalf size={22}/>
-                                        } */}
-                                         {/* Add */}
-                                        {/* <FaDownload
-                                            size={22}
-                                            onClick={handlePrint}
-                                        /> */}
+                                       
                                     </div>
                                 </div>
                                 <div className="col-lg-12 mt-1">
@@ -221,13 +159,11 @@ const ViewDetail = (props) => {
                                                     </label>
                                                     <Card.Text
                                                         style={{
-                                                            // fontSize: '30px',
-                                                            // fontWeight: 'bold',
+                                                           
                                                             marginTop: '10px',
                                                             marginBottom: '20px'
                                                         }}
                                                     >
-                                                        {/* {regInst} */}
                                                         <span>
                                                         Organization Code :
                                                         </span>
@@ -251,30 +187,7 @@ const ViewDetail = (props) => {
                                                             }
                                                         </span>
                                                         <br />
-                                                        {/* <span>Place :</span> */}
-                                                        {/* <span >
-                                                            &nbsp;
-                                                            {
-                                                                teamResponse?.place_name
-                                                            }
-                                                        </span>
-                                                        <br />
-                                                        <span>Block :</span>
-                                                        <span >
-                                                            &nbsp;
-                                                            {
-                                                                teamResponse?.block_name
-                                                            }
-                                                        </span>{' '}
-                                                        <br />
-                                                        <span>Taluk :</span>
-                                                        <span className="fs-3">
-                                                            &nbsp;
-                                                            {teamResponse?.taluk_name
-                                                                ? teamResponse?.taluk_name
-                                                                : '-'}
-                                                        </span>{' '}
-                                                        <br /> */}
+                                                       
                                                         <span>District :</span>
                                                         <span >
                                                             &nbsp;
@@ -293,19 +206,7 @@ const ViewDetail = (props) => {
                                                     </Card.Text>
                                                 </Card.Body>
                                             </Card>
-                                            {/* <h2>
-                                                <span
-                                                    style={{
-                                                        color: 'blue'
-                                                    }}
-                                                >
-                                                    Institutions Details:{' '}
-                                                </span>
-                                                {/* <span className="text-capitalize fs-3">
-                                                {props?.ideaDetails?.themes_problem?.problem_statement?.toLowerCase() ||
-                                                    ''}
-                                            </span> */}
-                                            {/* </h2>  */}
+                                           
                                         </Col>
                                         <Col className="md-6">
                                             <Card
@@ -324,13 +225,11 @@ const ViewDetail = (props) => {
                                                     </label>
                                                     <Card.Text
                                                         style={{
-                                                            // fontSize: '30px',
-                                                            // fontWeight: 'bold',
+                                                           
                                                             marginTop: '10px',
                                                             marginBottom: '20px'
                                                         }}
                                                     >
-                                                        {/* {regInst} */}
                                                         <span>Team Name :</span>
                                                         <span >
                                                             &nbsp;
@@ -353,36 +252,10 @@ const ViewDetail = (props) => {
                                                     </Card.Text>
                                                 </Card.Body>
                                             </Card>
-                                            {/* <h2>
-                                                <span
-                                                    style={{
-                                                        color: 'blue'
-                                                    }}
-                                                >
-                                                    Institutions Details:{' '}
-                                                </span>
-                                                {/* <span className="text-capitalize fs-3">
-                                                {props?.ideaDetails?.themes_problem?.problem_statement?.toLowerCase() ||
-                                                    ''}
-                                            </span> */}
-                                            {/* </h2>  */}
+                                           
                                         </Col>
                                     </Row>
-                                    {/* <Row className="col-lg-12">
-                                        <h2>
-                                            <span
-                                                style={{
-                                                    color: 'blue'
-                                                }}
-                                            >
-                                                Problem Statement :{' '}
-                                            </span>
-                                            <span className="text-capitalize fs-3">
-                                                {props?.ideaDetails?.sub_category?.toLowerCase() ||
-                                                    ''}
-                                            </span>
-                                        </h2>
-                                    </Row> */}
+                                  
                                 </div>
                             </div>
                         </div>
@@ -457,8 +330,7 @@ const ViewDetail = (props) => {
                                             }}
                                         >
                                            2.Focus Area
-                                            {/* {item?.question_no || ''}.{' '}
-                                                {item?.question || ''} */}
+                                           
                                         </b>
                                     </div>
                                     <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
@@ -711,7 +583,6 @@ const ViewDetail = (props) => {
                     {index !== JSON.parse(teamResponse.problem_solving).length - 1 && ", "}
                 </span>
             ))}
-                                           {/* {problemSolvingArray} */}
                                         </p>
                                     </div>
                                 </div>
@@ -760,37 +631,11 @@ const ViewDetail = (props) => {
                                                 </b>
                                             </div>
                                             <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px', height: "auto",}}>
-                                                {/* {files.length > 0 &&
-                                                    files.map((item, i) => (
-                                                        <div key={i}>
-                                                          
-                                                            <a
-                                                                key={i}
-                                                                className="badge mb-2 bg-info p-3 ms-3"
-                                                                target="_blank"
-                                                                rel="noreferrer"
-                                                                onClick={() =>
-                                                                    downloadFile(
-                                                                        item
-                                                                    )
-                                                                }
-                                                            >
-                                                                {item
-                                                                    .split('/')
-                                                                    .pop()}
-                                                            </a>
-                                                        </div>
-                                                    ))} */}
+                                               
                                                      {
                         <LinkComponent item={images} />
                       }
-                                                {/* <p
-                                        style={{
-                                            fontSize: '1.4rem'
-                                        }}
-                                    >
-                                        {teamResponse?.Prototype_file}
-                                    </p> */}
+                                              
                                             </div>
                                         </div>
                                     </div>
@@ -814,19 +659,11 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',color:"black"
                                             }}
                                         >
-                                             {/* <a 
-            href={teamResponse.prototype_link} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            style={{ textDecoration: 'none', color: 'skyblue'}}
-        >
-            {teamResponse.prototype_link}
-        </a> */}
+                                            
          {teamResponse?.prototype_link && (
           <VideoPopup videoUrl={teamResponse.prototype_link} />
         )}
         
-                                            {/* {teamResponse.prototype_link} */}
                                         </p>
                                     </div>
                                 </div>
@@ -857,59 +694,7 @@ const ViewDetail = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            {/* {teamResponse?.map((item, index) => {
-                                return (
-                                    <div
-                                        key={index}
-                                        className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
-                                    >
-                                        <div className="question quiz mb-0">
-                                            <b
-                                                style={{
-                                                    fontSize: '1.6rem'
-                                                }}
-                                            >
-                                                {item?.question_no || ''}.{' '}
-                                                {item?.question || ''}
-                                            </b>
-                                        </div>
-                                        <div className="bg-light rounded p-5">
-                                            <p
-                                                style={{
-                                                    fontSize: '1.4rem'
-                                                }}
-                                            >
-                                                {item?.question_type ===
-                                                'MCQ' ? (
-                                                    item?.selected_option?.map(
-                                                        (data, i) => {
-                                                            return (
-                                                                <div key={i}>
-                                                                    {data || ''}
-                                                                </div>
-                                                            );
-                                                        }
-                                                    )
-                                                ) : item?.question_type ===
-                                                      'TEXT' ||
-                                                  item?.question_type ===
-                                                      'MRQ' ? (
-                                                    item?.selected_option
-                                                ) : item?.question_type ===
-                                                  'DRAW' ? (
-                                                    <LinkComponent
-                                                        item={
-                                                            item.selected_option
-                                                        }
-                                                    />
-                                                ) : (
-                                                    ''
-                                                )}
-                                            </p>
-                                        </div>
-                                    </div>
-                                );
-                            })} */}
+                          
                         </div>
                        
                         <div className="col-lg-4 order-lg-1 order-0 p-2 h-100 mt-3 status_info_col">
@@ -950,20 +735,7 @@ const ViewDetail = (props) => {
                                     ''
                                 )}
   
-  {/* {props?.ideaDetails?.evaluator_ratings[0]?.rated_evaluated_name && (
-  <div className="row mb-1 mt-2">
-    <div className="col-5">
-      <p className="my-0 fw-bold">Evaluated By :</p>
-    </div>
-    <div className="col-7">
-      {props?.ideaDetails?.evaluator_ratings[0]?.rated_evaluated_name.map((item, i) => (
-        <p className="my-0 text-muted" key={i}>
-          {`${i + 1}: ${item}`}
-        </p>
-      ))}
-    </div>
-  </div>
-)} */}
+
                             </div>
                             {level !== 'L1' &&
                                 props?.ideaDetails?.evaluator_ratings.length >
@@ -1024,15 +796,7 @@ const ViewDetail = (props) => {
                     </div>
                     <br />
                     <div style={{ display: 'flex' }}>
-                        {/* <p
-                            style={{ fontSize: '1rem', margin: '1rem' }}
-                            className="fw-bold"
-                        >
-                            Verified By :{' '}
-                            {teamResponse.verified_name
-                                ? teamResponse.verified_name
-                                : '-'}
-                        </p> */}
+                      
                         <p
                             style={{ fontSize: '1rem', margin: '1rem' }}
                             className="fw-bold"

@@ -21,7 +21,6 @@ import {
   MENTORS_GET_SUPPORT_TICKETS_RESPONSES_BY_ID,
   MENTORS_SUPPORT_TICKETS_STATUS,
   GET_TEACHERS_PRESURVEY_STATUS,
-  // MENTORS_CREATE_SUPPORT_TICKETS
 } from "../../../redux/actions.js";
 import { URL, KEY } from "../../../constants/defaultValues.js";
 import {
@@ -60,7 +59,6 @@ export const mentorCreate = (data, history) => async (dispatch) => {
         return err.response;
       });
     if (result && result.status === 200) {
-      // dispatch(mentorCreateSuccess(item));
       history.push("/teams");
     } else {
       dispatch(mentorCreateError(result.statusText));
@@ -191,8 +189,7 @@ export const mentorsEdit = (courseId, data, history) => async (dispatch) => {
         return err.response;
       });
     if (result && result.status === 200) {
-      // const data = result.data.text;
-      // dispatch(mentorsEditSuccess(data));
+      
       history.push("/teams");
     } else {
       dispatch(mentorsEditError(result.statusText));
@@ -273,10 +270,7 @@ export const getSupportTicketByIdSuccess = (tickets) => async (dispatch) => {
 export const getSupportTicketById = (id) => async (dispatch) => {
   try {
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-    // const supId = encryptGlobal(
-    //   JSON.stringify(id)
-    // );
-    // const supId = encryptGlobal(id);
+    
     let supId;
     if(typeof(id) !== "string"){
   supId = encryptGlobal(
@@ -286,7 +280,6 @@ export const getSupportTicketById = (id) => async (dispatch) => {
      supId = encryptGlobal(id);
 
     }
-    // console.log(typeof(id),"id");
     const lang = "locale=en";
     const final = lang.split("=");
     let enParamData = encryptGlobal(
@@ -305,7 +298,6 @@ export const getSupportTicketById = (id) => async (dispatch) => {
       });
 
     if (result && result.status === 200) {
-      // console.log(result, "rr");
       const data = result.data.data[0];
       dispatch(getSupportTicketByIdSuccess(data));
     } else {
@@ -348,7 +340,6 @@ export const getTeacherPresurveyStatusSuccess = (data) => async (dispatch) => {
     type: GET_TEACHERS_PRESURVEY_STATUS,
     payload: data,
   });
-  // console.log(data, "pree");
 };
 
 export const getTeacherPresurveyStatus = () => async (dispatch) => {
@@ -361,7 +352,6 @@ export const getTeacherPresurveyStatus = () => async (dispatch) => {
         return err.response;
       });
     if (result && result.status === 200) {
-      // console.log(result, "1111");
       dispatch(getTeacherPresurveyStatusSuccess(result));
     } else {
       dispatch(getTeacherPresurveyStatusSuccess(null));
@@ -372,7 +362,6 @@ export const getTeacherPresurveyStatus = () => async (dispatch) => {
 };
 
 export const createSupportTicketResponse = (data) => async () => {
-  console.log(data,"statte");
 
   try {
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
@@ -384,7 +373,6 @@ export const createSupportTicketResponse = (data) => async () => {
       });
 
     if (result && result.status === 201) {
-      // history.push('/teacher/support-journey');
       openNotificationWithIcon("success", "Reply submitted successfully!", "");
     } else {
       openNotificationWithIcon("error", "Something went wrong!else", "");
@@ -417,13 +405,7 @@ export const SupportTicketStatusChange = (id, data) => async (dispatch) => {
       .catch((err) => {
         return err.response;
       });
-    // if (result && result.status === 200) {
-    //     // const data = result.data.text;
-    //     // dispatch(mentorsEditSuccess(data));
-
-    // } else {
-    //     dispatch(SupportTicketStatus(result.statusText));
-    // }
+   
   } catch (error) {
     dispatch(mentorsEditError({}));
   }

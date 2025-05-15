@@ -1,11 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState ,useLayoutEffect,} from "react";
-// import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
 import { getCurrentUser } from "../helpers/Utils";
 import edit from "../assets/img/icons/edit-set.svg";
-// import customer from "../assets/img/customer/customer5.jpg";
 import { useNavigate } from "react-router-dom";
 import female from "../assets/img/Female_Profile.png";
 import male from "../assets/img/Male_Profile.png";
@@ -22,9 +20,7 @@ const TeacherProfile = () => {
    const { t } = useTranslation();
   const dispatch = useDispatch();
   const currentUser = getCurrentUser("current_user");
-  // console.log(currentUser,"currentuser");
   const { teacher } = useSelector((state) => state.teacher);
-  console.log(teacher,"11");
   const navigate = useNavigate();
   const [show , setShow] = useState(false);
   const [video , setVideo] = useState("");
@@ -34,7 +30,6 @@ const [data,setData]=useState({});
       state: {
         full_name:currentUser?.data[0]?.full_name,
         mentor_id: currentUser?.data[0]?.mentor_id,
-        // mobile: teacher?.mobile,
         username: currentUser?.data[0]?.name,
         title:currentUser?.data[0]?.title,
         gender: currentUser?.data[0]?.gender,
@@ -93,13 +88,11 @@ const handleShow = () => {
                 </div>
               </div>
             </h4>
-            {/* <h6>User Profile</h6> */}
           </div>
           <div>
           <button onClick={() => handleEdit() }className={"btn btn-primary"}>
                         <img src={edit} alt="Edit" />
                       </button>
-                        {/* <h4>Update Personal Details.</h4> */}
                       </div>
         </div>
         {/* /product list */}
@@ -110,19 +103,13 @@ const handleShow = () => {
               <div className="profile-top">
                 <div className="profile-content">
                   <div className="profile-contentimg">
-                    {/* <ImageWithBasePath
-                      src="assets/img/customer/customer5.jpg"
-                      alt="img"
-                      id="blah"
-                    /> */}
-                    {/* <img src={customer} alt="Customer" id="blah" /> */}
+                   
                     {teacher?.gender === "Male" || teacher?.gender === "MALE" ? (
                       <img src={male} alt="Male" id="blah" />
                     ) : ((teacher?.gender === "Female" || teacher?.gender === "FEMALE")?(
                       <img src={female} alt="Female" id="blah" />):(<img src={user} alt="user" id="blah" />)
                     )}
                     <div className="profileupload">
-                      {/* <input type="file" id="imgInp" /> */}
                       
                     </div>
                     
@@ -133,7 +120,6 @@ const handleShow = () => {
                         "." +
                         teacher?.full_name}
                     </h2>
-                    {/* <h4>Update Personal Details.</h4> */}
                   </div>
                 </div>
               </div>

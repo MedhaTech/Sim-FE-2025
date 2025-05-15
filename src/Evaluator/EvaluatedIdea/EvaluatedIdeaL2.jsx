@@ -3,7 +3,6 @@
 
 import React, { useEffect, useState } from 'react';
 import './EvaluatedIdea.scss';
-// import Layout from '../Layout';
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import moment from 'moment';
@@ -12,11 +11,7 @@ import { getL1EvaluatedIdea } from '../store/evaluator/action';
 import EvaluatedIdeaDetail from './EvaluatedIdeaDetail';
 import { Container, Row, Col } from 'reactstrap';
 import Select from '../Helper/Select';
-import {
-    getDistrictData,
-    getStateData
-} from '../../redux/studentRegistration/actions';
-// import { cardData } from '../../Student/Pages/Ideas/SDGData';
+
 import { Button } from '../../stories/Button';
 import Spinner from 'react-bootstrap/Spinner';
 import { stateList, districtList } from "../../RegPage/ORGData";
@@ -40,28 +35,17 @@ const EvaluatedIdea = () => {
         "All Districts": [...Object.values(districtList).flat()],
         ...districtList,
       };
-      // const fiterDistData = ["All Districts", ...(allDistricts[selectstate] || [])];
       const fiterDistData = selectstate === "All States" 
     ? []  
     : ["All Districts", ...(allDistricts[selectstate] || [])];
     const fullStatesNames = newstateList;
 
-    // const SDGDate = cardData.map((i) => {
-    //     return i.goal_title;
-    // });
-    // SDGDate.unshift('All Themes');
-    // const fullStatesNames = useSelector(
-    //     (state) => state?.studentRegistration?.regstate
-    // );
-    // const fullDistrictsNames = useSelector(
-    //     (state) => state?.studentRegistration?.dists
-    // );
+    
 
     const [tabledate, settabledate] = React.useState([]);
  useEffect(() => {
-        // if (selectstate === "All States") {
+       
             setdistrict('');  // Reset the district value
-        //   }
     }, [selectstate]);
    
     useEffect(() => {
@@ -85,11 +69,7 @@ const EvaluatedIdea = () => {
         setshowspin(true);
         dispatch(getL1EvaluatedIdea(newQuery, setshowspin));
     };
-    // const levelparam = '?evaluation_status=SELECTEDROUND1&level=L2';
-    // const districtparam =
-    //     state && state !== 'All States' ? '&state=' + state : '';
-    // const sdgparam = sdg && sdg !== 'All Themes' ? '&sdg=' + sdg : '';
-    // const filterParams = levelparam + districtparam + sdgparam;
+   
     const [isDetail, setIsDetail] = React.useState(false);
     const [ideaDetails, setIdeaDetails] = React.useState([]);
     const [currentRow, setCurrentRow] = React.useState(1);
@@ -152,27 +132,13 @@ const EvaluatedIdea = () => {
                 width: '11rem'
             },
 
-            // {
-            //     name: 'Problem Statement',
-            //     cell: (row) => (
-            //         <div
-            //             style={{
-            //                 whiteSpace: 'pre-wrap',
-            //                 wordWrap: 'break-word'
-            //             }}
-            //         >
-            //             {row.sub_category}
-            //         </div>
-            //     ),
-            //     width: '25rem'
-            // },
+           
             {
                 name: 'Idea Name',
                 cell: (row) => (
                     <div
                         style={{
-                            // whiteSpace: 'pre-wrap',
-                            // wordWrap: 'break-word'
+                            
                             whiteSpace: 'nowrap',       
                             overflow: 'hidden',         
                             textOverflow: 'ellipsis',

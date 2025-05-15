@@ -2,18 +2,11 @@
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Table } from "reactstrap";
-import { Button } from "../../stories/Button";
 import { CSVLink } from "react-csv";
 import { openNotificationWithIcon, getCurrentUser } from "../../helpers/Utils";
-// import {
-//     getDistrictData,
-//     getStateData,
-//     getFetchDistData
-// } from '../../../redux/studentRegistration/actions';
-import { ArrowRight } from "feather-icons-react/build/IconComponents";
+
 import { useDispatch, useSelector } from "react-redux";
 import Select from "./Select";
-import { Chart } from "primereact/chart";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "./reports.scss";
@@ -44,11 +37,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMale, faFemale, faSchool } from "@fortawesome/free-solid-svg-icons";
 import ReactApexChart from "react-apexcharts";
 
-// import { categoryValue } from '../../Schools/constentText';
 
 const ReportsRegistration = () => {
   const [RegTeachersdistrict, setRegTeachersdistrict] = React.useState("");
-  // const [RegTeachersState, setRegTeachersState] = React.useState('');
   const navigate = useNavigate();
   const [filterType, setFilterType] = useState("");
   const [category, setCategory] = useState("");
@@ -94,15 +85,12 @@ const ReportsRegistration = () => {
   const [RegTeachersState, setRegTeachersState] = React.useState(
     currentUser?.data[0]?.state_name
   );
-  // const fullStatesNames = useSelector(
-  //     (state) => newstateList
-  // );
+ 
   const fullStatesNames = newstateList;
   const allDistricts = {
     "All Districts": [...Object.values(districtList).flat()],
     ...districtList,
   };
-  // const fiterDistData = allDistricts[RegTeachersState];
   const fiterDistData = [
     "All Districts",
     ...(allDistricts[RegTeachersState] || []),
@@ -115,10 +103,7 @@ const ReportsRegistration = () => {
       label: "District Name",
       key: "district",
     },
-    // {
-    //   label: "Registered Schools",
-    //   key: "Eligible_school",
-    // },
+   
     {
       label: "Registered Schools",
       key: "reg_school",
@@ -136,10 +121,7 @@ const ReportsRegistration = () => {
       label: 'Total Teachers',
       key: "allTeachers",
     },
-    // {
-    //     label: 'Total Teachers',
-    //     key: 'allTeachers'
-    // },
+   
     {
       label: "Registered Male Teachers",
       key: "Male",
@@ -162,10 +144,7 @@ const ReportsRegistration = () => {
       label: "Registered Schools",
       key: "reg_school",
     },
-    // {
-    //   label: "Registered Schools",
-    //   key: "reg_school",
-    // },
+   
     {
       label: 'Total Teachers',
       key: "allTeachers",
@@ -182,23 +161,7 @@ const ReportsRegistration = () => {
       label: "Registered Others Teachers",
       key: "others",
     },
-    // {
-    //   label: "FullyAidedHighSchool",
-    //   key: "FullyAidedHighSchool_Count",
-    // },
-    // {
-    //   label: "Fully Aided Higher Secondary Schools",
-    //   key: "FullyAidedHigherSecondarySchool_Count",
-    // },
-    // {
-    //   label: "Government High Schools",
-    //   key: "GovernmentHighSchool_Count",
-    // },
-
-    // {
-    //   label: "Government Higher Secondary Schools",
-    //   key: "GovernmentHigherSecondarySchool_Count",
-    // },
+   
     {
       label: "HSS",
       key: "HSS_Count",
@@ -218,10 +181,7 @@ const ReportsRegistration = () => {
       label: "UDISE Code",
       key: "organization.organization_code",
     },
-    // {
-    //   label: "ATL Code",
-    //   key: "organization.unique_code",
-    // },
+  
     {
       label: "School Name",
       key: "organization.organization_name",
@@ -294,10 +254,7 @@ const ReportsRegistration = () => {
       label: "UDISE Code",
       key: "organization_code",
     },
-    // {
-    //   label: "ATL Code",
-    //   key: "unique_code",
-    // },
+   
     {
       label: "School Name",
       key: "organization_name",
@@ -353,128 +310,14 @@ const ReportsRegistration = () => {
       key: "principal_email",
     },
   ];
-  // useEffect(() => {
-  //     dispatch(getStateData());
-  // }, []);
+  
   useEffect(() => {
-    // if (RegTeachersState !== '') {
-    //     (RegTeachersState);
-    // }
-    // setRegTeachersdistrict('');
+    
     fetchChartTableData();
   }, []);
 
-  // useEffect(() => {
-  //     // dispatch(getDistrictData());
-  //     fetchChartTableData();
-  // }, []);
-  // var sColStacked = {
-  //   chart: {
-  //     height: 500,
-  //     type: "bar",
-  //     stacked: true,
-  //     toolbar: {
-  //       show: false,
-  //     },
-  //   },
-  //   colors: ["rgb(255, 69, 96)", "rgb(254, 176, 25)", "rgb(0, 227, 150)"],
+ 
 
-  //   plotOptions: {
-  //     bar: {
-  //       horizontal: false,
-  //     },
-  //   },
-  //   series: [
-  //     {
-  //       name: "#Not started",
-  //       data: series3,
-  //     },
-  //     {
-  //       name: "#InProgress",
-  //       data: series4,
-  //     },
-  //     {
-  //       name: "#Completed",
-  //       data: series5,
-  //     },
-  //   ],
-  //   xaxis: {
-  //     categories: barChart2Data.labels,
-  //     ticks: {
-  //       maxRotation: 80,
-  //       autoSkip: false,
-  //     },
-  //   },
-  //   yaxis: {
-  //     beginAtZero: true,
-  //     ticks: {
-  //       stepSize: 20,
-  //     },
-  //     labels: {
-  //       formatter: (val) => {
-  //         return val / 1;
-  //       },
-  //     },
-  //   },
-
-  //   legend: {
-  //     position: "top",
-  //     horizontalAlign: "center",
-  //   },
-  //   fill: {
-  //     opacity: 1,
-  //   },
-  // };
-  const chartOption = {
-    maintainAspectRatio: false,
-    legend: {
-      position: "bottom",
-      labels: {
-        fontColor: "black",
-      },
-    },
-    plugins: {
-      legend: {
-        labels: {
-          generateLabels: function (chart) {
-            return chart.data.labels.map(function (label, i) {
-              const value = chart.data.datasets[0].data[i];
-              const backgroundColor = chart.data.datasets[0].backgroundColor[i];
-              return {
-                text: label + ": " + value,
-                fillStyle: backgroundColor,
-              };
-            });
-          },
-        },
-      },
-    },
-  };
-  const chartOptionState = {
-    maintainAspectRatio: false,
-    legend: {
-      position: "bottom",
-      labels: {
-        fontColor: "black",
-      },
-    },
-    plugins: {
-      legend: {
-        labels: {
-          generateLabels: function (chart) {
-            return chart.data.labels.map(function (label, i) {
-              const value = chart.data.datasets[0].data[i];
-              const backgroundColor = chart.data.datasets[0].backgroundColor[i];
-              return {
-                text: label + ": " + value,
-                fillStyle: backgroundColor,
-              };
-            });
-          },
-        },
-      },
-    },
-  };
   const chartOptions = {
     maintainAspectRatio: false,
     legend: {
@@ -500,41 +343,6 @@ const ReportsRegistration = () => {
       },
     },
   };
-  // const options = {
-  //     maintainAspectRatio: false,
-  //     responsive: true,
-  //     scales: {
-  //         y: {
-  //             beginAtZero: true,
-  //             ticks: {
-  //                 stepSize: 10
-  //             },
-  //             title: {
-  //                 display: true,
-  //                 text: 'Number of Registered ATL and Non ATL Schools',
-  //                 color: 'blue'
-  //             }
-  //         },
-  //         x: {
-  //             grid: {
-  //                 display: true,
-  //                 drawBorder: true,
-  //                 color: 'rgba(0, 0, 0, 0.2)',
-  //                 lineWidth: 0.5
-  //             },
-  //             title: {
-  //                 display: true,
-  //                 text: 'States',
-  //                 color: 'blue'
-  //             },
-  //             ticks: {
-  //                 maxRotation: 80,
-  //                 autoSkip: false
-  //                 //maxTicksLimit: 10,
-  //             }
-  //         }
-  //     }
-  // };
 
   var options = {
     chart: {
@@ -555,19 +363,13 @@ const ReportsRegistration = () => {
     stroke: {
       curve: "straight",
     },
-    // title: {
-    //   text: "",
-    //   align: "left",
-    // },
+  
     series: [
       {
         name: "Registered Schools",
         data: series1,
       },
-      // {
-      //   name: "Registered Non-ATL",
-      //   data: series2,
-      // },
+     
     ],
     yaxis: {
       beginAtZero: true,
@@ -603,11 +405,7 @@ const ReportsRegistration = () => {
       position: "top",
       horizontalAlign: "left",
     },
-    // tooltip: {
-    //   x: {
-    //     format: "dd/MM/yy HH:mm",
-    //   },
-    // },
+    
   };
 
   const fetchData = (item) => {
@@ -647,7 +445,6 @@ const ReportsRegistration = () => {
     axios(config)
       .then((response) => {
         if (response.status === 200) {
-          // let data = response?.data?.data || [];
           if (item === "Registered") {
             setFilteredData(response?.data?.data || []);
             setDownloadData(response?.data?.data || []);
@@ -680,13 +477,7 @@ const ReportsRegistration = () => {
         setIsDownloading(false);
       });
   };
-  // useEffect(() => {
-  //     if (studentDetailedReportsData.length > 0) {
-  //       console.log("Performing operation with the updated data.");
-  //       csvLinkRef.current.link.click();
-
-  //     }
-  //   }, [studentDetailedReportsData]);
+ 
   const handleDownload = () => {
     if (!RegTeachersState || !RegTeachersdistrict || !filterType || !category) {
       notification.warning({
@@ -704,12 +495,10 @@ const ReportsRegistration = () => {
       setDownloadData(filteredData);
       csvLinkRef.current.link.click();
 
-      console.log("Performing operation with the updated data.");
     }
     if (filteresData.length > 0) {
       setDownloadNotRegisteredData(filteresData);
       csvLinkRefNotRegistered.current.link.click();
-      console.log("Performing operation with the updated data.");
     }
   }, [filteredData, filteresData]);
   useEffect(() => {
@@ -753,10 +542,9 @@ const ReportsRegistration = () => {
           setChartTableData(chartTableData);
           const updatedData = chartTableData.map((item) => ({
             ...item,
-            allTeachers: item.Male + item.Female + item.others, // Calculate total teachers
+            allTeachers: item.Male + item.Female + item.others, 
           }));
           setDownloadTableData(updatedData);
-          // console.log(downloadTableData,"all");
 
           const lastRow = chartTableData[chartTableData.length - 1];
 
@@ -770,7 +558,6 @@ const ReportsRegistration = () => {
 
           const ATLregCount = lastRow.ATL_Count || 0;
           const NONATLregNotCount = lastRow.NonATL_Count || 0;
-          // console.log(NONATLregNotCount,"11");
           const FullyAidedHighSchoolCount =
             lastRow.FullyAidedHighSchool_Count || 0;
           const FullyAidedHigherSecondarySchoolCount =
@@ -783,7 +570,6 @@ const ReportsRegistration = () => {
             lastRow.PartiallyAidedHighSchool_Count || 0;
           const PartiallyAidedHigherSecondarySchoolCount =
             lastRow.PartiallyAidedHigherSecondarySchool_Count || 0;
-          // const allTeachers=( lastRow.Female +lastRow.others+lastRow.Male);
           setRegisteredGenderChartData({
             labels: ["Male Teachers", "Female Teachers", "Others"],
             datasets: [
@@ -862,24 +648,18 @@ const ReportsRegistration = () => {
                 data: GraphfilteredData.map((item) => item.reg_school),
                 backgroundColor: "#47d147",
               },
-              // {
-              //   label: "Registered Non ATL Schools",
-              //   data: GraphfilteredData.map((item) => item.NonATL_Count),
-              //   backgroundColor: "#ffa31a",
-              // },
+             
             ],
           };
           setBarChart1Data(barData);
 
           setseries1(barData.datasets[0].data);
-          // setseries2(barData.datasets[1].data);
         }
       })
       .catch((error) => {
         console.log("API error:", error);
       });
   };
-console.log(barChart1Data,"bar");
   return (
     <div className="page-wrapper">
       <h4 className="m-2" 
@@ -894,15 +674,7 @@ console.log(barChart1Data,"bar");
             <h6>List of Teachers registered and their details</h6>
             </div>
           </div>
-          {/* <div className="page-btn">
-                        <button
-                            type="button"
-                            className="btn btn-secondary"
-                            onClick={() => navigate("/reports")}
-                        >
-                            <i className="fas fa-arrow-left"></i> Back
-                        </button>
-                    </div> */}
+         
         </div>
         <Container className="RegReports userlist">
           <div className="reports-data mt-2 mb-2">
@@ -910,12 +682,7 @@ console.log(barChart1Data,"bar");
               <Col md={2}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
                   <p>{RegTeachersState}</p>
-                  {/* <Select
-                                            list={fullStatesNames}
-                                            setValue={setRegTeachersState}
-                                            placeHolder={'Select State'}
-                                            value={RegTeachersState}
-                                        /> */}
+                 
                 </div>
               </Col>
               <Col md={2}>
@@ -1014,9 +781,7 @@ console.log(barChart1Data,"bar");
                                   Registered Schools{" "}
                                   <FontAwesomeIcon icon={faSchool} />
                                 </th>
-                                {/* <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                  Registered ATL Schools
-                                </th> */}
+                               
                                 {RegTeachersState !== "Tamil Nadu" && (
                                   <>
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
@@ -1044,18 +809,7 @@ console.log(barChart1Data,"bar");
                                 </th>
                                 {RegTeachersState === "Tamil Nadu" && (
                                   <>
-                                    {/* <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                      #Fully Aided High Schools
-                                    </th>
-                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                      #Fully Aided-Higher Secondary Schools
-                                    </th>
-                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                      #Government High Schools
-                                    </th>
-                                    <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
-                                      #Government-Higher Secondary Schools
-                                    </th> */}
+                                   
                                     <th style={{ whiteSpace: "wrap", color: "#36A2EB",fontWeight: "bold" }}>
                                       #HSS
                                     </th>
@@ -1085,9 +839,7 @@ console.log(barChart1Data,"bar");
                                     {item.district}
                                   </td>
                                   <td>{item.reg_school}</td>
-                                  {/* <td>{item.reg_school}</td> */}
-                                  {/* <td>{item.ATL_Count}</td> */}
-                                  {/* <td>{item.NonATL_Count}</td> */}
+                                
                                   {RegTeachersState !== "Tamil Nadu" && (
                                     <>
                                       {" "}
@@ -1103,18 +855,7 @@ console.log(barChart1Data,"bar");
                                   <td>{item.others}</td>
                                   {RegTeachersState === "Tamil Nadu" && (
                                     <>
-                                      {/* <td>{item.FullyAidedHighSchool_Count}</td>
-                                      <td>
-                                        {
-                                          item.FullyAidedHigherSecondarySchool_Count
-                                        }
-                                      </td>
-                                      <td>{item.GovernmentHighSchool_Count}</td>
-                                      <td>
-                                        {
-                                          item.GovernmentHigherSecondarySchool_Count
-                                        }
-                                      </td> */}
+                                     
                                       <td>
                                         {item.HSS_Count}
                                       </td>
@@ -1183,33 +924,7 @@ console.log(barChart1Data,"bar");
                   </div>
                 </div>
                 </div>
-              {/* <div className="mt-5">
-                                    <div
-                                        className="col-md-12 chart-container mt-5"
-                                        style={{
-                                            width: '100%',
-                                            height: '370px'
-                                        }}
-                                    >
-                                        <div className="chart-box">
-                                            <Chart
-                                                type="bar"
-                                                data={barChart1Data}
-                                                options={options}
-                                                style={{ height: "300px" }}
-                                            />
-                                            <div className="chart-title">
-                                                <p>
-                                                    <b>
-                                                        Registered ATL Schools
-                                                        v/s Registered Non ATL
-                                                        Schools {newFormat}
-                                                    </b>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> */}
+             
              
             </div>
               :
@@ -1248,10 +963,7 @@ console.log(barChart1Data,"bar");
                   filename={`Teacher_${filterType}Report_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRef}
-                // onDownloaded={() => {
-                //     setIsDownloading(false);
-                //     setDownloadComplete(true);
-                // }}
+               
                 >
                   Download CSV
                 </CSVLink>
@@ -1263,10 +975,7 @@ console.log(barChart1Data,"bar");
                   filename={`Teacher_${filterType}Report_${newFormat}.csv`}
                   className="hidden"
                   ref={csvLinkRefNotRegistered}
-                // onDownloaded={() => {
-                //     setIsDownloading(false);
-                //     setDownloadComplete(true);
-                // }}
+              
                 >
                   Download Not Registered CSV
                 </CSVLink>

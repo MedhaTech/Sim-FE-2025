@@ -4,7 +4,6 @@ import React, { useState ,useEffect} from "react";
 import { Link } from "react-router-dom";
 import {
   getCurrentUser,
-  setCurrentUser,
   openNotificationWithIcon,
 } from "../../helpers/Utils";
 import { Row, Col, Form, Label, FormGroup } from 'reactstrap';
@@ -20,7 +19,6 @@ import { useNavigate } from "react-router-dom";
 const DiesShift = () => {
   const location = useLocation();
   const mentorData = location.state || {};
-//   console.log(mentorData,"11");
   const navigate = useNavigate();
 const [diesCodeList,setDiesCodeList]=useState([]);
   const currentUser = getCurrentUser("current_user");
@@ -96,6 +94,8 @@ const [diesCodeList,setDiesCodeList]=useState([]);
     },
   });
    useEffect(() => {
+        // This function fetches list of Registered DiesCodes from the API //
+
     let enParamDatas = encryptGlobal(
       JSON.stringify({
        
@@ -116,7 +116,6 @@ const [diesCodeList,setDiesCodeList]=useState([]);
           axios(config)
               .then(function (response) {
                   if (response.status === 200) {
-                    // console.log(response,"res");
                     const raw = response.data.data; 
       const options = raw.map(item => ({
         value: item.organization_code,
@@ -169,16 +168,7 @@ const [diesCodeList,setDiesCodeList]=useState([]);
                       name="full_name"
                        defaultValue={mentorData?.organization_code}
                     readOnly="readonly"
-                    //   onChange={(e) => {
-                    //     const inputValue = e.target.value;
-                    //     const lettersOnly = inputValue.replace(
-                    //       /[^a-zA-Z\s]/g,
-                    //       ""
-                    //     );
-                    //     formik.setFieldValue("full_name", lettersOnly);
-                    //   }}
-                    //   onBlur={formik.handleBlur}
-                    //   value={formik.values.full_name}
+                   
                     />
                           </div>
           <div className={`col-md-6`}>

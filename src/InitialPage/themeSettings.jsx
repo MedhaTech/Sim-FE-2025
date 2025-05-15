@@ -108,24 +108,9 @@ const ThemeSettings = () => {
     document.documentElement.setAttribute("data-layout-style", layoutView);
     document.documentElement.setAttribute("data-nav-color", layoutTheme);
   }, [layoutColor, layoutTheme, layoutView]);
-  // console.log(layoutView, "layoutView");
   return (
     <>
-      {/* <div className="customizer-links" id="setdata"> */}
-      {/* <ul className="sticky-sidebar">
-          <li className="sidebar-icons" onClick={showSettings}>
-            <Link
-              to="#"
-              className="navigation-add"
-              data-bs-toggle="tooltip"
-              data-bs-placement="left"
-              data-bs-original-title="Theme"
-            >
-              <Settings className="feather-five" />
-            </Link>
-          </li>
-        </ul> */}
-      {/* </div> */}
+     
 
       <div
         className={
@@ -134,7 +119,6 @@ const ThemeSettings = () => {
             : "sidebar-settings nav-toggle"
         }
         id="layoutDiv"
-        // onclick="toggleClassDetail()"
       >
         <div className="sidebar-content sticky-sidebar-one">
           <div className="sidebar-header">
@@ -143,7 +127,6 @@ const ThemeSettings = () => {
               <p>Customize &amp; Preview in Real Time</p>
             </div>
             <div className="close-sidebar-icon d-flex">
-              {/* <Link className="sidebar-refresh me-2" onclick="resetData()"> */}
               <Link className="sidebar-refresh me-2" onClick={ResetData}>
                 ⟳
               </Link>

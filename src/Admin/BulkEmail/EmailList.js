@@ -32,6 +32,8 @@ const EmailList = () => {
     fetchCard();
   }, []);
   async function fetchEmailList() {
+        // This function fetches All Emails from the API //
+
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/emails`,
@@ -43,7 +45,6 @@ const EmailList = () => {
         }
       );
       if (response.status === 200) {
-        // console.log(response,"op");
 
         setEmailList(response?.data?.data[0]?.dataValues);
         setReqList(true);
@@ -53,6 +54,8 @@ const EmailList = () => {
     }
   }
   async function fetchCard() {
+        // This function fetches Bounced and Delivered Emails Count from the API //
+
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/emails/emailStats`,
@@ -64,7 +67,6 @@ const EmailList = () => {
         }
       );
       if (response.status === 200) {
-        // console.log(response, "op");
 
         setCard(response?.data?.data[0]);
       }
@@ -104,10 +106,7 @@ const EmailList = () => {
               style={{ marginRight: "8px" }}
             >
               <a className="badge badge-md bg-info">
-                {/* <i
-                                    data-feather="trash-2"
-                                    className="feather-trash-2"
-                                /> */}
+                
                 <Icon.Send size={15} /> RESEND
               </a>
             </div>
@@ -116,55 +115,7 @@ const EmailList = () => {
       },
     ],
   };
-  const handleTecherDelete = (items) => {
-    // here we can delete the team //
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "btn btn-submit",
-        cancelButton: "btn btn-cancel",
-      },
-      buttonsStyling: false,
-    });
-
-    swalWithBootstrapButtons
-      .fire({
-        title: "<h4>Are you sure?</h4>",
-        text: "Do you really want to delete this item, This process cannot be undone.",
-        imageUrl: `${logout}`,
-        confirmButtonText: "Delete",
-        showCancelButton: true,
-        cancelButtonText: "Cancel",
-        reverseButtons: false,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          const resId = encryptGlobal(JSON.stringify(items.popup_id));
-          var config = {
-            method: "delete",
-            url: process.env.REACT_APP_API_BASE_URL + "/popup/" + resId,
-            headers: {
-              "Content-Type": "application/json",
-              // Accept: "application/json",
-              Authorization: `Bearer ${currentUser?.data[0]?.token}`,
-            },
-          };
-          axios(config)
-            .then(function (response) {
-              if (response.status === 200) {
-                openNotificationWithIcon(
-                  "success",
-                  "PopUp Deleted Successfully"
-                );
-              } else {
-                openNotificationWithIcon("error", "Opps! Something Wrong");
-              }
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
-        }
-      });
-  };
+ 
   const customStyles = {
     rows: {
       style: {
@@ -186,11 +137,12 @@ const EmailList = () => {
     setReqList(true);
   };
   const handleResponseList = async () => {
-    // here we can see  list of  new institutions //
-    // setReqList(false);
+   
     await fetchResList();
 };
 async function fetchResList() {
+        // This function fetches responses Emails list from the API //
+
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/emails/listEmailStats`,
@@ -202,12 +154,10 @@ async function fetchResList() {
         }
       );
       if (response.status === 200) {
-        console.log(response,"op");
 
         setResList(response?.data?.data);
         setReqList(false);
     } else {
-        console.log("No response data found");
         setReqList(true); 
       }
     } catch (error) {

@@ -593,20 +593,10 @@ const TeacherSupport = () => {
                             >
                               {supportTicket.query_details}
                             </div>
-                        {/* <strong style={{ whiteSpace: "pre-line" }}>
-                          {supportTicket.query_details}
-                        </strong> */}
+                        
                         <hr />
 
-                        {/* <strong style={{ whiteSpace: "pre-line" }}>
-        <span 
-            dangerouslySetInnerHTML={{
-                __html: supportTicket.query_details 
-                    ? supportTicket.query_details.replace(/\n/g, '<br />')
-                    : ''
-            }}
-        />
-    </strong> */}
+                        
                       </Col>
 
                       <Col md={3}>
@@ -676,9 +666,7 @@ const TeacherSupport = () => {
                             <Col md={3}>
                               <span>
                                 <FaUserCircle />{" "}
-                                {/* {
-                                                                        data.created_by
-                                                                    } */}
+                              
                                 {data.created_by == null
                                   ? data.replied_by
                                   : data.created_by}

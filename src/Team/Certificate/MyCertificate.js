@@ -17,9 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { URL, KEY } from "../../constants/defaultValues";
 
 import {
-  getStudentChallengeSubmittedResponse,
-  getStudentDashboardStatus,
-  studentPostSurveyCertificate,
+  
   updateStudentBadges,
   updateStudentCertificate,
 } from "../../redux/studentRegistration/actions";
@@ -43,14 +41,12 @@ const Certificate = ({
 }) => {
   const { t } = useTranslation();
   const displayDate = type === "addon" ? surveyDate : courseDate; 
-  // console.log(courseDate,"cc");
   const pdfRef = useRef(null);
   const partRef = useRef(null);
   const newRef = useRef(null);
 
   const dispatch = useDispatch();
   const handleCertificateDownload = () => {
-    // const content = type ? partRef.current : pdfRef.current;
 
     const content =
       type === "addon"
@@ -64,11 +60,9 @@ const Certificate = ({
 
     const orientation = "l";
 
-    // const doc = new jsPDF(orientation, "px", size);
     const doc = new jsPDF("landscape", "mm", "a4");
 
     const certName = `${currentUser?.data[0].full_name}_${
-      // type ? "idea_certificate" : "course_certificate"
       type === "participate"
         ? "idea_certificate"
         : type === "addon"
@@ -664,7 +658,6 @@ const MyCertificate = () => {
             setSurveyDates(postSurveyDate || null); 
             setCourseDate(courseDateValue || null); 
           } else {
-            console.log("No data available:", response.data.data);
             setSurveyDates(null);
             setCourseDate(null);
           }
@@ -678,6 +671,8 @@ const MyCertificate = () => {
       });
   };
   const submittedApi = () => {
+               // This function fetches idea submission details from the API //
+
     const Param = encryptGlobal(
       JSON.stringify({
         team_id: currentUser?.data[0]?.team_id,
@@ -813,17 +808,16 @@ const MyCertificate = () => {
         resList === 1
       ) {
         setIdeaEnabled(true);
-        console.log("Certificate Enabled");
+        // console.log("Certificate Enabled");
       } else {
         setIdeaEnabled(false);
-        console.log("Certificate Not Enabled");
+        // console.log("Certificate Not Enabled");
       }
     }
   }, [resList, score, status]);
 
   const enableParticipation =
     ideaStatus === "SUBMITTED" && postSurveyStatus === "COMPLETED" && resList === 1;
-  // console.log(enableParticipation ,"Participation certificate enabled ..","Idea:",ideaStatus,"Post:",postSurveyStatus);
   return (
     <div className="page-wrapper">
       <div className="content">

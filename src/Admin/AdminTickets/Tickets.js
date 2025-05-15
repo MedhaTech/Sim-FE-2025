@@ -3,7 +3,6 @@
 import React, { useEffect } from 'react';
 import { Container, Row } from 'reactstrap';
 import { Tabs } from 'antd';
-// import Layout from '../Layout';
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
 import { FaComments } from 'react-icons/fa';
@@ -24,19 +23,13 @@ const AdminSupport = () => {
     const [rows, setRows] = React.useState([]);
     const [fetchData, setFetchData] = useState(false);
     useEffect(() => {
-        //  listApi();
          openListApi();
     }, []);
 
     async function listApi() {
-        // where we can see all tickets //
+       // This function fetches all support tickets from the API //
         setFetchData(true);
-        // alert('hii');
-        // const listParam = encryptGlobal(
-        //     JSON.stringify({
-        //         state: currentUser?.data[0]?.state_name
-        //     })
-        // );
+      
         var config = {
             method: 'get',
             url:
@@ -56,7 +49,6 @@ const AdminSupport = () => {
                             response.data.data[0].dataValues
                     );
                     setFetchData(false);
-                    // setFetchData(false);
                 }
             })
             .catch(function (error) {
@@ -64,14 +56,14 @@ const AdminSupport = () => {
             });
     }
     async function openListApi() {
+       // This function fetches open  tickets from the API //
+
         setFetchData(true);
         const openParam = encryptGlobal(
             JSON.stringify({
                 status: 'OPEN',
-                // state: currentUser?.data[0]?.state_name
             })
         );
-        // where we can see all open tickets //
         var config = {
             method: 'get',
             url:
@@ -101,10 +93,10 @@ const AdminSupport = () => {
         const inProgressParam = encryptGlobal(
             JSON.stringify({
                 status: 'INPROGRESS',
-                // state: currentUser?.data[0]?.state_name
             })
         );
-        // where  we can see  all inprogress tickets //
+             // This function fetches inprogress  tickets from the API //
+
         var config = {
             method: 'get',
             url:
@@ -130,12 +122,12 @@ const AdminSupport = () => {
             });
     }
     async function resolvedApi() {
+        // This function fetches resolved  tickets from the API //
         setFetchData(true);
-        // where we ca see all resolved tickets //
+
         const resolvedParam = encryptGlobal(
             JSON.stringify({
                 status: 'RESOLVED',
-                // state: currentUser?.data[0]?.state_name
             })
         );
         var config = {
@@ -163,11 +155,11 @@ const AdminSupport = () => {
             });
     }
     async function invalidApi() {
-        // where we can see all invalid tickets //
+        // This function fetches invalid  tickets from the API //
+
         const invalidParam = encryptGlobal(
             JSON.stringify({
                 status: 'INVALID',
-                // state: currentUser?.data[0]?.state_name
             })
         );
         var config = {
@@ -295,17 +287,7 @@ const AdminSupport = () => {
         return () => clearTimeout(timeout);
     }, []);
     const changeTab = async (e) => {
-        // if (e === '1') {
-        //     await listApi();
-        // } else if (e === '2') {
-        //     await openListApi();
-        // } else if (e === '3') {
-        //     await inProgressApi();
-        // } else if (e === '4') {
-        //     await resolvedApi();
-        // } else {
-        //     await invalidApi();
-        // }
+       
         if (e === '1') {
             await openListApi();
         } else if (e === '2') {
@@ -336,7 +318,6 @@ const AdminSupport = () => {
         },
       };
     return (
-        // <Layout>
         <div className="page-wrapper">
     <div className="content">            
             <div className="card">
@@ -423,7 +404,6 @@ const AdminSupport = () => {
                             {fetchData ? (
                                     <ClipLoader
 
-                                        // fetchData={fetchData}
                                         color={'blue'}
                                         size={20}
                                     />
@@ -458,7 +438,6 @@ const AdminSupport = () => {
                         >
                             {fetchData ? (
                                     <ClipLoader
-                                        // fetchData={fetchData}
                                         color={'blue'}
                                         size={20}
                                     />
@@ -493,7 +472,6 @@ const AdminSupport = () => {
                         >
                             {fetchData ? (
                                     <ClipLoader
-                                        // fetchData={fetchData}
                                         color={'blue'}
                                         size={20}
                                     />
@@ -528,7 +506,6 @@ const AdminSupport = () => {
                         >
                            {fetchData ? (
                                     <ClipLoader
-                                        // fetchData={fetchData}
                                         color={'blue'}
                                         size={20}
                                     />
@@ -562,7 +539,6 @@ const AdminSupport = () => {
                         >
                            {fetchData ? (
                                     <ClipLoader
-                                        // fetchData={fetchData}
                                         color={'blue'}
                                         size={20}
                                     />
@@ -570,7 +546,6 @@ const AdminSupport = () => {
                                     <div className="my-2">
                                         <DataTableExtensions
                                             print={false}
-                                            // export={false}
                                             {...allData}
                                             exportHeaders
                                         >
@@ -594,177 +569,9 @@ const AdminSupport = () => {
             </div>
 
 
-            {/* <Container className="ticket-page mb-50">
-                <Row >
-               
-                    <div className="ticket-data">
-                        <Tabs
-                            defaultActiveKey="1"
-                            onChange={(key) => changeTab(key)}
-                        >
-                            <TabPane  key="1"
-                              tab={<span style={{ fontSize: '1rem' }}>All Tickets</span>}
-                            >
-                                {fetchData ? (
-                                    <ClipLoader
-
-                                        // fetchData={fetchData}
-                                        color={'blue'}
-                                        size={20}
-                                    />
-                                ) : (
-                                    <div className="my-2">
-                                        <DataTableExtensions
-                                            print={false}
-                                            export={true}
-                                            {...allData}
-                                            exportHeaders
-                                        >
-                                            <DataTable
-                                                data={rows}
-                                                customStyles={customStyles}
-                                                defaultSortField="id"
-                                                defaultSortAsc={false}
-                                                pagination
-                                                highlightOnHover
-                                                fixedHeader
-                                                subHeaderAlign={
-                                                    Alignment.Center
-                                                }
-                                            />
-                                        </DataTableExtensions>
-                                    </div>
-                                )}
-                            </TabPane>
-                            <TabPane  tab={<span style={{ fontSize: '1rem' }}>Open</span>} key="2">
-                                {fetchData ? (
-                                    <ClipLoader
-                                        // fetchData={fetchData}
-                                        color={'blue'}
-                                        size={20}
-                                    />
-                                ) : (
-                                    <div className="my-2">
-                                        <DataTableExtensions
-                                            print={false}
-                                            export={true}
-                                            {...allData}
-                                            exportHeaders
-                                        >
-                                            <DataTable
-                                                data={rows}
-                                                customStyles={customStyles}
-                                                defaultSortField="id"
-                                                defaultSortAsc={false}
-                                                pagination
-                                                highlightOnHover
-                                                fixedHeader
-                                                subHeaderAlign={
-                                                    Alignment.Center
-                                                }
-                                            />
-                                        </DataTableExtensions>
-                                    </div>
-                                )}
-                            </TabPane>
-                            <TabPane  tab={<span style={{ fontSize: '1rem' }}>Inprogress</span>} key="3">
-                                {fetchData ? (
-                                    <ClipLoader
-                                        // fetchData={fetchData}
-                                        color={'blue'}
-                                        size={20}
-                                    />
-                                ) : (
-                                    <div className="my-2">
-                                        <DataTableExtensions
-                                            print={false}
-                                            export={true}
-                                            {...allData}
-                                            exportHeaders
-                                        >
-                                            <DataTable
-                                                data={rows}
-                                                customStyles={customStyles}
-                                                defaultSortField="id"
-                                                defaultSortAsc={false}
-                                                pagination
-                                                highlightOnHover
-                                                fixedHeader
-                                                subHeaderAlign={
-                                                    Alignment.Center
-                                                }
-                                            />
-                                        </DataTableExtensions>
-                                    </div>
-                                )}
-                            </TabPane>
-                            <TabPane  tab={<span style={{ fontSize: '1rem' }}>Resolved</span>} key="4">
-                                {fetchData ? (
-                                    <ClipLoader
-                                        // fetchData={fetchData}
-                                        color={'blue'}
-                                        size={20}
-                                    />
-                                ) : (
-                                    <div className="my-2">
-                                        <DataTableExtensions
-                                            print={false}
-                                            export={true}
-                                            {...allData}
-                                            exportHeaders
-                                        >
-                                            <DataTable
-                                                data={rows}
-                                                defaultSortField="id"
-                                                defaultSortAsc={false}
-                                                pagination
-                                                highlightOnHover
-                                                fixedHeader
-                                                subHeaderAlign={
-                                                    Alignment.Center
-                                                }
-                                            />
-                                        </DataTableExtensions>
-                                    </div>
-                                )}
-                            </TabPane>
-                            <TabPane  tab={<span style={{ fontSize: '1rem' }}>Invalid</span>} key="5">
-                                {fetchData ? (
-                                    <ClipLoader
-                                        // fetchData={fetchData}
-                                        color={'blue'}
-                                        size={20}
-                                    />
-                                ) : (
-                                    <div className="my-2">
-                                        <DataTableExtensions
-                                            print={false}
-                                            // export={false}
-                                            {...allData}
-                                            exportHeaders
-                                        >
-                                            <DataTable
-                                                data={rows}
-                                                defaultSortField="id"
-                                                defaultSortAsc={false}
-                                                pagination
-                                                highlightOnHover
-                                                fixedHeader
-                                                subHeaderAlign={
-                                                    Alignment.Center
-                                                }
-                                            />
-                                        </DataTableExtensions>
-                                    </div>
-                                )}
-                            </TabPane>
-                        </Tabs>
-                    </div>
-                </Row>
-            </Container> */}
+           
             </div>
             </div>
-        // </Layout>
     );
 };
 

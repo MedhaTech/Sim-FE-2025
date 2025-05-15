@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 import './style.scss';
 import i18next from 'i18next';
-// import { FaGlobeAsia } from 'react-icons/fa';
 import { languageOptions } from '../../constants/languageOptions';
 import { getStudentGlobalLanguage } from '../../redux/studentRegistration/actions';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,21 +21,7 @@ const LanguageSelectorComp = ({ module }) => {
         (state) => state?.studentRegistration?.studentLanguage
     );
     const globalLang = useSelector((state) => state?.home.globalLanguage);
-    console.log(module,"module");
-    // const [language, setLanguage] = useState(
-    //     module === 'student'
-    //         ? studentLanguage.name
-    //         : selectedLanguage && selectedLanguage?.name
-    //         ? selectedLanguage?.name
-    //         : globalLang?.name
-    // );
-    // const localLang = JSON.parse(localStorage.getItem('s_language'));
-    // useEffect(() => {
-    //     if (localLang) {
-    //         i18next.changeLanguage(localLang.code);
-    //         dispatch(getStudentGlobalLanguage(localLang));
-    //     }
-    // }, []);
+    
     const localLang = JSON.parse(localStorage.getItem('s_language'));
     const localMentorLang = JSON.parse(localStorage.getItem('m_language'));
     const [language, setLanguage] = 
@@ -83,7 +68,6 @@ const LanguageSelectorComp = ({ module }) => {
             if (!localMentorLang || localMentorLang.code !== item.code) {
                 localStorage.setItem('m_language', JSON.stringify(item));
             }
-            // localStorage.setItem('m_language', JSON.stringify(item));
         } else if (module === 'general') {
             dispatch(getGlobalLanguage(item));
             dispatch(getStudentGlobalLanguage(item));
@@ -94,7 +78,6 @@ const LanguageSelectorComp = ({ module }) => {
                 if (!localLang || localLang.code !== item.code) {
                     localStorage.setItem('s_language', JSON.stringify(item));
                 }
-                // localStorage.setItem('s_language', JSON.stringify(item));
             }
         }
     };
@@ -103,8 +86,7 @@ const LanguageSelectorComp = ({ module }) => {
             id="language-selector-btn"
             title={
                 <span className='m-3'>
-                    {/* Select Language */}
-                    {/* <FaGlobeAsia />  */}
+                  
                     {(localLang && localLang.name) || language}
                 </span>
             }

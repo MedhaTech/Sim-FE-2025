@@ -267,7 +267,6 @@ const StudentProgress = () => {
         return Object.keys(filteredItem).length > 0 ? filteredItem : null;
       })
       .filter(Boolean);
-    // console.log("Final Filtered Data for Download:", filteredData);
     setstudentDetailedReportsData(filteredData);
   };
 
@@ -282,7 +281,6 @@ const StudentProgress = () => {
 
   useEffect(() => {
     if (isReadyToDownload && studentDetailedReportsData.length > 0) {
-      // console.log("Downloading CSV with data:", studentDetailedReportsData);
       const formattedCSVData = studentDetailedReportsData.map((item) =>
         Object.fromEntries(
           Object.entries(item).map(([key, value]) => [
@@ -295,16 +293,15 @@ const StudentProgress = () => {
 
       setTimeout(() => {
         csvLinkRef.current.link.click();
-        // console.log(
-        //   "Downloading CSV with formatted headers:",
-        //   formattedCSVData
-        // );
+      
         openNotificationWithIcon("success", "Report Downloaded Successfully");
         setIsReadyToDownload(false);
       }, 1000);
     }
   }, [isReadyToDownload, studentDetailedReportsData]);
   const fetchData = (type,param) => {
+   // This function filters  data based on selected state, district, category
+
        let apiRes;
        if(type === 'save'){
          apiRes = encryptGlobal(param);
@@ -698,6 +695,8 @@ const StudentProgress = () => {
       };
     
     const handleSaveReport = async() =>{
+    // This function filters the data and saves the Student Progress  report
+
       const pattern = /^[a-zA-Z0-9 \-()&.,_]*$/;
     if(pattern.test(inputValue) && inputValue!==''){
       const body = JSON.stringify({
@@ -743,6 +742,8 @@ const StudentProgress = () => {
     fetchSavedReportsData();
   },[]);
   const fetchSavedReportsData = () => {
+    // this function fetches all saved reports list from the API
+
     const apiRes = encryptGlobal(
       JSON.stringify({
         report_type: 'studentprogress-report',
@@ -784,6 +785,8 @@ const StudentProgress = () => {
   },[savedReports]);
 
   const handleReportfileDelete = (data) =>{
+    // this function fetches delete reports  from the API
+
     const idparm = encryptGlobal(JSON.stringify(data.report_file_id));
     const config = {
       method: "delete",
@@ -1059,15 +1062,11 @@ const customStyles = {
                           !downloadTableData ||
                           downloadTableData.length === 0
                         ) {
-                          // console.log("Fetching data before download...");
                           filterData();
                         }
 
                         setTimeout(() => {
-                          // console.log(
-                          //   "Checking Data Before Download:",
-                          //   downloadTableData
-                          // );
+                         
 
                           setIsReadyToDownload(true);
                         }, 1000);

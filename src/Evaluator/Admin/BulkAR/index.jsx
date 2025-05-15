@@ -106,6 +106,7 @@ const Evalprocess = () => {
     },
   };
   const handleSerach = async () => {
+    // it fetches cids list from the API//
     try {
       const paramQuery = encryptGlobal(
         JSON.stringify({
@@ -170,10 +171,7 @@ const Evalprocess = () => {
   const handleOkClick = () => {
     const trimmedInput = inputValue.trim();
     if (trimmedInput !== "CONFIRM") {
-    //   openNotificationWithIcon(
-    //     "error",
-    //     "Please enter CONFIRM exactly as shown."
-    //   );
+   
       setError("Please enter CONFIRM exactly as shown.");
     } else {
       setShowPopup(false);
@@ -185,10 +183,7 @@ const Evalprocess = () => {
   const handleOkClick1 = () => {
     const trimmedInput = inputValue1.trim();
     if (trimmedInput !== "CONFIRM") {
-    //   openNotificationWithIcon(
-    //     "error",
-    //     "Please enter CONFIRM exactly as shown."
-    //   );
+   
       setError1("Please enter CONFIRM exactly as shown.");
     } else {
       setShowPopup1(false);
@@ -198,6 +193,8 @@ const Evalprocess = () => {
     }
   };
   const fetchDraftToSubmit = () => {
+    // this function update the status  drat to submit
+
     var config = {
       method: "put",
       url:
@@ -221,6 +218,8 @@ const Evalprocess = () => {
       });
   };
   const fetchNotVerifyToVerify = () => {
+    // this function update the status  not verify to verify
+
     var config = {
       method: "put",
       url:
@@ -238,7 +237,6 @@ const Evalprocess = () => {
         "success",
         "Ideas Moved Successfully "
       );
-        //   console.log(response, "ress");
         }
       })
       .catch(function (error) {
@@ -305,6 +303,7 @@ const Evalprocess = () => {
       });
   };
   const handleL1Round = (handledText) => {
+    // this function accept / reject the Idea //
     const body = JSON.stringify({
       evaluation_status:
         handledText == "accept" ? "SELECTEDROUND1" : "REJECTEDROUND1",

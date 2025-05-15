@@ -34,7 +34,6 @@ const StateList = () => {
             .get(`${URL.StatePath}`, axiosConfig)
             .then(function (response) {
                 if (response.status === 200) {
-                    // console.log(response,"11");
                     const updatedWithKey =
                         response.data &&
                         response.data.data.
@@ -66,7 +65,6 @@ const StateList = () => {
     };
 
     const handleStatus = (status, id) => {
-        // console.log(all,"all");
         // where we can update the status Active to InActive //
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
@@ -108,7 +106,6 @@ const StateList = () => {
         columns: [
             {
                 name: 'No',
-                // selector: (row) => row.id,
                 selector: (row, key) => key + 1,
                 sortable: true,
                 cellExport: (row) => row.index,

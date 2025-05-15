@@ -16,7 +16,6 @@ import { encryptGlobal } from '../../constants/encryptDecrypt';
 const EditPermission = (props) => {
 
   const adminData = JSON.parse(localStorage.getItem('id'));
-  //  where adminData= evaluation_process_id //
   const [clickedValue, setclickedValue] = useState({});
   const [selectedValue, setselectedValue] = useState([]);
   const navigate = useNavigate();

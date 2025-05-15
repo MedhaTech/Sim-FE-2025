@@ -52,13 +52,11 @@ export const CreateTeamMember = () => {
         <span style={{ color: "red" }}>Please Select Gender</span>
       ),
       email: Yup.string().email("Please Enter Valid Email Address").max(255)
-      // .required(<span style={{ color: "red" }}>Please Enter Email Address</span>),
       .optional(),
       disability: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Disability Status</span>
       ),
       grade: Yup.string()
-        // .matches("", "Please Select Class")
         .max(40)
         .required(<span style={{ color: "red" }}>Please Select Class</span>),
     }),
@@ -124,7 +122,6 @@ export const CreateTeamMember = () => {
           <div className="EditPersonalDetails new-member-page">
             <Row>
               <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                {/* <BreadcrumbTwo {...headingDetails} /> */}
 
                 <>
                   <h3 className="m-4"> {t('teacherJourney.onestudent')}
@@ -154,7 +151,6 @@ export const CreateTeamMember = () => {
                                 );
                                 formik.setFieldValue("fullName", lettersOnly);
                               }}
-                              // onChange={formik.handleChange}
                               onBlur={formik.handleBlur}
                               value={formik.values.fullName}
                             />
@@ -168,23 +164,14 @@ export const CreateTeamMember = () => {
                           <Col md={4}>
                             <Label className="form-label">
                             {t('teacherJourney.eamil1')}
-                              {/* <span required className="p-1">
-                                *
-                              </span> */}
+                             
                             </Label>
                             <input
                               className="form-control"
                               placeholder="Enter  Email Address"
                               id="email"
                               name="email"
-                              // onChange={(e) => {
-                              //   const inputValue = e.target.value;
-                              //   const lettersOnly = inputValue.replace(
-                              //     /[^a-zA-Z\s]/g,
-                              //     ""
-                              //   );
-                              //   formik.setFieldValue("f", lettersOnly);
-                              // }}
+                             
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur}
                               value={formik.values.email}
@@ -332,7 +319,6 @@ export const CreateTeamMember = () => {
                         </Row>
                       </div>
 
-                      {/* <hr className="mt-2"></hr> */}
                       <Row>
                         <div style={buttonContainerStyle}>
                           <button type="submit" className="btn btn-warning" style={buttonStyle}>

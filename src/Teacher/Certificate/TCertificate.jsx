@@ -52,7 +52,6 @@ class TCertificate extends React.Component {
                             style={{ 
                                 width: '1000px',  
                                 height: '1110px',  
-                                // border: '1px solid #ccc' 
                             }} 
                         /> 
                     </div> 
@@ -107,7 +106,6 @@ class TCertificate extends React.Component {
                                         style={{
                                             width: '1000px',
                                             height: '1110px',
-                                            // border: '1px solid #ccc' 
                                         }} />
                                 </div>
                             </div>

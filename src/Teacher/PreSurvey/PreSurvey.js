@@ -1,7 +1,6 @@
 /* eslint-disable indent */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-//import "./style.scss";
 import {
   Container,
   Row,
@@ -13,7 +12,6 @@ import {
   Input,
   Label,
 } from "reactstrap";
-// import { Button } from "../../stories/Button";
 import { useFormik } from "formik";
 import { URL, KEY } from "../../constants/defaultValues";
 import { logout } from "../../helpers/Utils";
@@ -28,10 +26,7 @@ import getStart from "../../assets/img/survey1.png";
 import { useNavigate } from "react-router-dom";
 import Congo from "../../assets/img/survey-success.jpg";
 import { useDispatch, useSelector } from "react-redux";
-import { UncontrolledAlert } from "reactstrap";
 import { useTranslation } from "react-i18next";
-//import PostSurveyStatic from "./PostSurveyStatic";
-// import { useHistory } from "react-router-dom";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 
 const PreSurvey = () => {
@@ -40,7 +35,6 @@ const PreSurvey = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
-  //   const history = useHistory();
    const [whatsappLink, setWhatsappLink] = useState("");
    const [hovered, setHovered] = useState(false);
   const [preSurveyList, setPreSurveyList] = useState([]);
@@ -74,12 +68,7 @@ const PreSurvey = () => {
     logout(navigate, t, "MENTOR");
     e.preventDefault();
   };
-  //   useEffect(() => {
-  //     if (currentUser?.data[0]?.user_id) {
-  //       mentorTeamsCount();
-  //       mentorIdeaCount();
-  //     }
-  //   }, [currentUser?.data[0]?.user_id]);
+ 
   const handleOnChange = (e) => {
     let newItems = [...answerResponses];
     let obj = {
@@ -122,7 +111,6 @@ const PreSurvey = () => {
   };
 
   const handleOnSubmit = async (e) => {
-    //alert("hii");
     e.preventDefault();
 
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
@@ -154,7 +142,6 @@ const PreSurvey = () => {
         )
         .then((preSurveyRes) => {
           if (preSurveyRes?.status == 200) {
-            console.log(preSurveyRes, "aa");
             openNotificationWithIcon(
                              "success",
                              t('home.precong'),
@@ -165,7 +152,6 @@ const PreSurvey = () => {
             localStorage.setItem("presurveystatus", "COMPLETED");
             navigate("/teacher-dashboard");
             window.location.reload();
-            // formik.resetForm();
           }
         })
         .catch((err) => {
@@ -173,52 +159,7 @@ const PreSurvey = () => {
         });
     }
   };
-  // const formik = useFormik({
-  //     initialValues: {},
-  //     onSubmit: async (values) => {
-  //         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-  //         let responsesData = Object.keys(values).map((eachValues) => {
-  //             let selected = values[eachValues].split(' -- ');
-  //             return {
-  //                 quiz_survey_question_id: selected[0],
-  //                 selected_option: selected[1]
-  //             };
-  //         });
-
-  //         let submitData = {
-  //             responses: responsesData
-  //         };
-  //         if (postSurveyList.length != submitData.responses.length) {
-  //             openNotificationWithIcon(
-  //                 'warning',
-  //                 'Please Attempt All Questions..!!',
-  //                 ''
-  //             );
-  //         } else {
-  //             return await axios
-  //                 .post(
-  //                     `${URL.getPostSurveyList}/${quizSurveyId}/responses?locale=en`,
-  //                     JSON.stringify(submitData, null, 2),
-  //                     axiosConfig
-  //                 )
-  //                 .then((preSurveyRes) => {
-  //                     if (preSurveyRes?.status == 200) {
-  //                         openNotificationWithIcon(
-  //                             'success',
-  //                             'PostSurvey is been submitted successfully..!!',
-  //                             ''
-  //                         );
-  //                         setCount(count + 1);
-
-  //                         formik.resetForm();
-  //                     }
-  //                 })
-  //                 .catch((err) => {
-  //                     return err.response;
-  //                 });
-  //         }
-  //     }
-  // });
+ 
 
   useEffect(() => {
     const handlePopState = (event) => {
@@ -308,13 +249,11 @@ const fetchwhatsapplink = () => {
             window.open(link, '_blank');
           } else {
             console.error("Invalid or missing WhatsApp link");
-            alert("WhatsApp link not found. Please try again later.");
           }
         },1000);
        
 
-        // setMessage(response.data.data[0].mentor_note);
-        // console.log(response.data.data[0].mentor_note,"message");
+       
       }
     })
     .catch(function (error) {
@@ -350,12 +289,7 @@ const fetchwhatsapplink = () => {
                           Welcome teachers and mentors!
 
                           </h2>
-                          {/* <div
-                            dangerouslySetInnerHTML={{
-                              __html:
-                                " </br><p>We are delighted that you have signed up for this program and have joined us on this journey of nurturing problem solving and innovation in youth. As you are already aware, you will be playing the role of a guide teacher to the students for the duration of the course.The portal includes various information modules and resources that will help you and your students on their learning journeys.</p><b class='text-success'>Your journey as a guide teacher will include the following key milestones We would like you all to go through the following in order.</b><br/>Please make sure you’ve joined the <span class='text-success'id='whatsappLink'>WhatsApp group</span> at the earliest to stay informed and engaged. <br/><ol><li>Step 1 : Register and take the pre-survey.</li><li>Step 2 : Watch the instructional videos to understand the program</li><li>Step 3 : Conduct awareness & Orientation sessions for the students.</li><li>Step 4 : Form teams and register them on the portal.</li><li>Step 5 : Mentor students throughout the program.</li><li>Step 6 : Ensure teams complete the course & submit their final ideas.</li><li>Step 7 : Complete the post survey</li><li>Step 8 : Download your teacher’s certificate </li><li>Step 9 : Guide students to download their certificates once they finish the course and submit idea. </li></ol></br>We hope you and the students will have a great time doing this program.<br>We wish you all the best!",
-                            }}
-                          ></div> */}
+                         
                            <div>
       <br />
       <p>
@@ -431,8 +365,7 @@ const fetchwhatsapplink = () => {
                       {preSurveyStatus != "COMPLETED" && (
                         <Form
                           className="form-row"
-                          // onSubmit={formik.handleSubmit}
-                          // isSubmitting
+                          
                         >
                           {preSurveyList.map((eachQuestion, i) => {
                             return (
@@ -443,105 +376,7 @@ const fetchwhatsapplink = () => {
                                       {i + 1}. {eachQuestion.question}
                                     </h6>
                                   </div>
-                                  {/* <div className="answers">
-                                                        <FormGroup
-                                                            tag="fieldset"
-                                                            className="w-100"
-                                                            id="radioGroup1"
-                                                            label="One of these please"
-                                                            value={
-                                                                formik
-                                                                    .values
-                                                                    .radioGroup1
-                                                            }
-                                                            error={
-                                                                formik
-                                                                    .errors
-                                                                    .radioGroup1
-                                                            }
-                                                            touched={
-                                                                formik
-                                                                    .touched
-                                                                    .radioGroup1
-                                                            }
-                                                            onChange={
-                                                                formik.handleChange
-                                                            }
-                                                            onBlur={
-                                                                formik.handleBlur
-                                                            }
-                                                        >
-                                                            <FormGroup
-                                                                check
-                                                            >
-                                                                <Label
-                                                                    check
-                                                                >
-                                                                    <Input
-                                                                        type="radio"
-                                                                        name={`radioGroup${i}`}
-                                                                        id="radioOption1"
-                                                                        value={`${eachQuestion.quiz_survey_question_id} -- ${eachQuestion.option_a}`}
-                                                                    />{' '}
-                                                                    {
-                                                                        eachQuestion.option_a
-                                                                    }
-                                                                </Label>
-                                                            </FormGroup>
-                                                            <FormGroup
-                                                                check
-                                                            >
-                                                                <Label
-                                                                    check
-                                                                >
-                                                                    <Input
-                                                                        type="radio"
-                                                                        name={`radioGroup${i}`}
-                                                                        id="radioOption2"
-                                                                        value={`${eachQuestion.quiz_survey_question_id} -- ${eachQuestion.option_b}`}
-                                                                    />{' '}
-                                                                    {
-                                                                        eachQuestion.option_b
-                                                                    }
-                                                                </Label>
-                                                            </FormGroup>
-                                                            <FormGroup
-                                                                check
-                                                            >
-                                                                <Label
-                                                                    check
-                                                                >
-                                                                    <Input
-                                                                        type="radio"
-                                                                        name={`radioGroup${i}`}
-                                                                        id="radioOption3"
-                                                                        value={`${eachQuestion.quiz_survey_question_id} -- ${eachQuestion.option_c}`}
-                                                                    />{' '}
-                                                                    {
-                                                                        eachQuestion.option_c
-                                                                    }
-                                                                </Label>
-                                                            </FormGroup>
-
-                                                            <FormGroup
-                                                                check
-                                                            >
-                                                                <Label
-                                                                    check
-                                                                >
-                                                                    <Input
-                                                                        type="radio"
-                                                                        name={`radioGroup${i}`}
-                                                                        id="radioOption4"
-                                                                        value={`${eachQuestion.quiz_survey_question_id} -- ${eachQuestion.option_d}`}
-                                                                    />{' '}
-                                                                    {
-                                                                        eachQuestion.option_d
-                                                                    }
-                                                                </Label>
-                                                            </FormGroup>
-                                                        </FormGroup>
-                                                    </div> */}
+                                 
                                   <div className="answers">
                                     <FormGroup
                                       tag="fieldset"
@@ -844,22 +679,7 @@ const fetchwhatsapplink = () => {
                           <div>
                             <button
                               type="submit"
-                              // btnClass={
-                              //     !(
-                              //         formik.dirty &&
-                              //         formik.isValid
-                              //     )
-                              //         ? 'default'
-                              //         : 'primary'
-                              // }
-                              // disabled={
-                              //     !(
-                              //         formik.dirty &&
-                              //         formik.isValid
-                              //     )
-                              // }
-                              //   size="small"
-                              //   label="Submit"
+                             
                               className="btn btn-warning m-2"
                               onClick={(e) => handleOnSubmit(e)}
                             >

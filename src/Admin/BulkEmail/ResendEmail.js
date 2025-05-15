@@ -5,16 +5,12 @@ import React, { useState } from "react";
 import { Row, Col, FormGroup, Label, Form } from "reactstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Button } from "../../stories/Button";
-// import { InputBox } from '../../stories/InputBox/InputBox';
 import { getCurrentUser, openNotificationWithIcon } from "../../helpers/Utils";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-// import { URL, KEY } from '../../constants/defaultValues';
 import { stateList, } from "../../RegPage/ORGData";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { encryptGlobal } from "../../constants/encryptDecrypt";
 
 const ResendEmail = () => {
     const resID = JSON.parse(localStorage.getItem('resID'));
@@ -22,14 +18,8 @@ const ResendEmail = () => {
   const currentUser = getCurrentUser("current_user");
   const allData = ["All States", ...stateList];
   const navigate = useNavigate();
-  // const inputDICE = {
-  //     type: 'text',
-  //    className:"form-control"
-  // };
-  const inputDICE = {
-    type: "text",
-    className: "form-control",
-  };
+ 
+  
   const inputDICE1 = {
     type: "text",
     className: "form-control",
@@ -77,7 +67,6 @@ const ResendEmail = () => {
           openNotificationWithIcon("success", "Email Sent Successfully");
         }
       } catch (error) {
-        // Handle the 400 status error and check the message for the subject validation issue
         if (error.response?.status === 400) {
           const errorMessage = error.response?.data?.errors?.[0];
     
@@ -122,7 +111,6 @@ const ResendEmail = () => {
                       <Col md={12}>
                         <Label className="form-label" htmlFor="msg">
                         Email Content
-                          {/* <span required>*</span> */}
                         </Label>
                         <ReactQuill 
                           style={{ 
@@ -149,27 +137,19 @@ const ResendEmail = () => {
                       <Col md={12}>
                         <Label className="form-label" htmlFor="subject">
                           Subject
-                          {/* <span required>*</span> */}
                         </Label>
                         <textarea
                           {...inputDICE1}
                           id="subject"
                           name="subject"
-                          rows={1}  // Set rows to 1 to limit the height
-                          style={{ height: 'auto', resize: 'none' }} // Ensure it stays only one row tall
+                          rows={1}  
+                          style={{ height: 'auto', resize: 'none' }} 
                           placeholder="Please enter Subject"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.values.subject}
                         />
-                        {/* <ReactQuill
-            id="subject"
-            name="subject"
-            value={formik.values.subject}
-            onChange={(value) => formik.setFieldValue("subject", value)}
-            onBlur={() => formik.setFieldTouched("subject", true)} 
-            placeholder="Please enter Subject"
-          /> */}
+                       
                         {formik.touched.subject && formik.errors.subject ? (
                           <small className="error-cls" style={{ color: "red" }}>
                             {formik.errors.subject}
@@ -181,7 +161,6 @@ const ResendEmail = () => {
                         <Col md={6}>
                           <Label className="form-label" htmlFor="state">
                             State
-                            {/* <span required>*</span> */}
                           </Label>
                           <select
                             id="inputState"

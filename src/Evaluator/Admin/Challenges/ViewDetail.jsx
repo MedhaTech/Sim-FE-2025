@@ -9,10 +9,8 @@ import { encryptGlobal } from '../../../constants/encryptDecrypt';
 import axios from 'axios';
 
 import { Button } from '../../../stories/Button';
-// import LinkComponent from '../Pages/LinkComponent';
 import moment from 'moment';
 import { useLocation } from 'react-router-dom';
-// import RatedDetailCard from '../Pages/RatedDetailCard';
 import jsPDF from 'jspdf';
 import { FaDownload, FaHourglassHalf } from 'react-icons/fa';
 import DetailToDownload from './DetailToDownload';
@@ -56,22 +54,13 @@ const ViewDetail = (props) => {
         'Some project effort visible.',
         'Zero project effort visible.'
     ];
-// console.log(props,"popr");
-    // React.useEffect(() => {
-    //     if (props?.ideaDetails?.response) {
-    //         setTeamResponse(
-    //             Object.entries(props?.ideaDetails?.response).map((e) => e[1])
-    //         );
-    //     }
-    // }, [props]);
-    // console.warn('detail', props);
+
     useEffect(() => {
         if (props?.ideaDetails) {
             setTeamResponse(props?.ideaDetails);
             setImages(JSON.parse(props?.ideaDetails.prototype_image));
         }
     }, [props]);
-    console.log(props.names,"status");
     
     const handleAlert = (handledText) => {
         const swalWithBootstrapButtons = Swal.mixin({
@@ -91,7 +80,6 @@ const ViewDetail = (props) => {
                         ? 'You are attempting to accept this Idea'
                         : 'You are attempting to reject this Idea',
               
-                // imageUrl: `${logout}`,
                 showCloseButton: true,
                 confirmButtonText: 'Confirm',
                 showCancelButton: true,
@@ -110,6 +98,8 @@ const ViewDetail = (props) => {
     };
 
     const handleL1Round = (handledText) => {
+    // this function accept / reject the Idea //
+
         const body = JSON.stringify({
             status:
                 handledText == 'accept' ? 'SELECTEDROUND1' : 'REJECTEDROUND1',
@@ -142,8 +132,6 @@ const ViewDetail = (props) => {
                 );
                 props?.setIsDetail(false);
                 props?.handleclickcall();
-                // props?.setdistrict('');
-                // props?.setsdg('');
             })
             .catch(function (error) {
                 openNotificationWithIcon(
@@ -160,70 +148,13 @@ const ViewDetail = (props) => {
         }
     };
     const [pdfLoader, setPdfLoader] = React.useState(false);
-    const downloadPDF = async () => {
-        setPdfLoader(true);
-        const domElement = document.getElementById('pdfId');
-        await html2canvas(domElement, {
-            onclone: (document) => {
-                document.getElementById('pdfId').style.display = 'block';
-            },
-            scale: 1.13
-        }).then((canvas) => {
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF('p', 'px', [2580, 3508]);
-            pdf.addImage(
-                imgData,
-                'JPEG',
-                20,
-                20,
-                2540,
-                pdf.internal.pageSize.height,
-                undefined,
-                'FAST'
-            );
-            pdf.save(`${new Date().toISOString()}.pdf`);
-        });
-        setPdfLoader(false);
-    };
+   
     const componentRef = useRef();
-    const handlePrint = useReactToPrint({
-        content: () => componentRef.current,
-        documentTitle: `${
-            props?.ideaDetails?.team_name
-                ? props?.ideaDetails?.team_name
-                : 'temp'
-        }_IdeaSubmission`
-    });
+   
     const files = teamResponse?.prototype_image
         ? teamResponse?.prototype_image.split(',')
         : [];
-    const downloadFile = (item) => {
-        // const link = document.createElement('a');
-        // link.href = item;
-        // link.download = 'upload.pdf';
-        // document.body.appendChild(link);
-        // link.click();
-        // document.body.removeChild(link);
-        fetch(item)
-            .then((response) => {
-                // Convert the response to a blob
-                return response.blob();
-            })
-            .then((blob) => {
-                // Create a download link
-                const url = window.URL.createObjectURL(new Blob([blob]));
-                const link = document.createElement('a');
-                link.href = url;
-                const parts = item.split('/');
-                link.setAttribute('download', parts[parts.length - 1]);
-                document.body.appendChild(link);
-                link.click();
-                link.parentNode.removeChild(link);
-            })
-            .catch((error) => {
-                console.error('Error downloading file:', error);
-            });
-    };
+  
     const problemSolvingArray = teamResponse?.problem_solving;
     return (
         <div>
@@ -237,9 +168,7 @@ const ViewDetail = (props) => {
                             level={'Draft'}
                         />
                     </div>
-                    {/* <div id='pdfId' style={{display:'none'}}>
-                        <DetailToDownload ideaDetails={props?.ideaDetails} teamResponse={teamResponse} level={level}/>
-                    </div> */}
+                   
                     <div className="row idea_detail_card">
                         <div className="col-12 p-0">
                             <div className="row">
@@ -307,16 +236,7 @@ const ViewDetail = (props) => {
                                         />
                                     </div>
                                     <div className="mx-2 pointer d-flex align-items-center">
-                                        {/* {
-                                            !pdfLoader?
-                                            <FaDownload size={22} onClick={async()=>{await downloadPDF();}}/>:
-                                            <FaHourglassHalf size={22}/>
-                                        } */}
-                                        {/* Add */}
-                                        {/* <FaDownload
-                                            size={22}
-                                            onClick={handlePrint}
-                                        /> */}
+                                       
                                     </div>
                                 </div>
                                 <div className="col-lg-12 mt-1">
@@ -511,8 +431,7 @@ const ViewDetail = (props) => {
                                             }}
                                         >
                                            2.Focus Area
-                                            {/* {item?.question_no || ''}.{' '}
-                                                {item?.question || ''} */}
+                                           
                                         </b>
                                     </div>
                                     <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
@@ -530,7 +449,6 @@ const ViewDetail = (props) => {
                             </div>{' '}
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
-                                    // key={index}
                                     className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
@@ -559,7 +477,6 @@ const ViewDetail = (props) => {
                             </div>{' '}
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
-                                    // key={index}
                                     className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
@@ -584,7 +501,6 @@ const ViewDetail = (props) => {
                             </div>{' '}
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
-                                    // key={index}
                                     className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
@@ -609,7 +525,6 @@ const ViewDetail = (props) => {
                             </div>{' '}
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
-                                    // key={index}
                                     className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
@@ -634,7 +549,6 @@ const ViewDetail = (props) => {
                             </div>{' '}
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
-                                    // key={index}
                                     className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
@@ -659,7 +573,6 @@ const ViewDetail = (props) => {
                             </div>{' '}
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
-                                    // key={index}
                                     className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
@@ -686,7 +599,6 @@ const ViewDetail = (props) => {
 
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
-                                    // key={index}
                                     className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
@@ -713,7 +625,6 @@ const ViewDetail = (props) => {
                             </div>{' '}
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
-                                    // key={index}
                                     className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
@@ -739,7 +650,6 @@ const ViewDetail = (props) => {
                             </div>{' '}
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
-                                    // key={index}
                                     className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
@@ -765,14 +675,12 @@ const ViewDetail = (props) => {
                     {index !== JSON.parse(teamResponse.problem_solving).length - 1 && ", "}
                 </span>
             ))}
-                                           {/* {problemSolvingArray} */}
                                         </p>
                                     </div>
                                 </div>
                             </div>{' '}
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
-                                    // key={index}
                                     className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
@@ -800,7 +708,6 @@ const ViewDetail = (props) => {
                           
                                     <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                         <div
-                                            // key={index}
                                             className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                         >
                                             <div className="question quiz mb-0">
@@ -813,34 +720,8 @@ const ViewDetail = (props) => {
                                                 </b>
                                             </div>
                                             <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
-                                                {/* {files.length > 0 &&
-                                                    files.map((item, i) => (
-                                                        <div key={i}>
-                                                           
-                                                            <a
-                                                                key={i}
-                                                                className="badge mb-2 bg-info p-3 ms-3"
-                                                                target="_blank"
-                                                                rel="noreferrer"
-                                                                onClick={() =>
-                                                                    downloadFile(
-                                                                        item
-                                                                    )
-                                                                }
-                                                            >
-                                                                {item
-                                                                    .split('/')
-                                                                    .pop()}
-                                                            </a>
-                                                        </div>
-                                                    ))} */}
-                                                {/* <p
-                                        style={{
-                                            fontSize: '1.4rem'
-                                        }}
-                                    >
-                                        {teamResponse?.Prototype_file}
-                                    </p> */}
+                                               
+                                               
                                      {
                         <LinkComponent item={images} />
                       }
@@ -849,7 +730,6 @@ const ViewDetail = (props) => {
                                     </div>
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
-                                    // key={index}
                                     className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
@@ -867,14 +747,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1rem',color:"black"
                                             }}
                                         >
-                                              {/* <a 
-            href={teamResponse.prototype_link} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            style={{ textDecoration: 'none', color: 'skyblue'}}
-        >
-            {teamResponse.prototype_link}
-        </a> */}
+                                             
    {teamResponse?.prototype_link && (
   <VideoPopup videoUrl={teamResponse.prototype_link} />
 )}
@@ -885,7 +758,6 @@ const ViewDetail = (props) => {
                             </div>
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
-                                    // key={index}
                                     className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
@@ -909,238 +781,10 @@ const ViewDetail = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            {/* {teamResponse?.map((item, index) => {
-                                return (
-                                    <div
-                                        key={index}
-                                        className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
-                                    >
-                                        <div className="question quiz mb-0">
-                                            <b
-                                                style={{
-                                                    fontSize: '1.6rem'
-                                                }}
-                                            >
-                                                {item?.question_no || ''}.{' '}
-                                                {item?.question || ''}
-                                            </b>
-                                        </div>
-                                        <div className="bg-light rounded p-5">
-                                            <p
-                                                style={{
-                                                    fontSize: '1.4rem'
-                                                }}
-                                            >
-                                                {item?.question_type ===
-                                                'MCQ' ? (
-                                                    item?.selected_option?.map(
-                                                        (data, i) => {
-                                                            return (
-                                                                <div key={i}>
-                                                                    {data || ''}
-                                                                </div>
-                                                            );
-                                                        }
-                                                    )
-                                                ) : item?.question_type ===
-                                                      'TEXT' ||
-                                                  item?.question_type ===
-                                                      'MRQ' ? (
-                                                    item?.selected_option
-                                                ) : item?.question_type ===
-                                                  'DRAW' ? (
-                                                    <LinkComponent
-                                                        item={
-                                                            item.selected_option
-                                                        }
-                                                    />
-                                                ) : (
-                                                    ''
-                                                )}
-                                            </p>
-                                        </div>
-                                    </div>
-                                );
-                            })} */}
+
                         </div>
-                        {/* <div className="col-lg-4 order-lg-1 order-0 p-0 h-100 mt-3 status_info_col">
-                            <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
-                                {props?.ideaDetails?.evaluation_status ? (
-                                    <p
-                                        className={`${
-                                            props?.ideaDetails
-                                                ?.evaluation_status ==
-                                            'SELECTEDROUND1'
-                                                ? 'text-success'
-                                                : 'text-danger'
-                                        } fs-3 fw-bold text-center`}
-                                    >
-                                        <span className="fs-3 text-info">
-                                            L1:{' '}
-                                        </span>
-                                        {props?.ideaDetails
-                                            ?.evaluation_status ==
-                                        'SELECTEDROUND1'
-                                            ? 'Accepted'
-                                            : 'Rejected'}
-                                    </p>
-                                ) : (
-                                    ''
-                                )}
 
-                                {props?.ideaDetails?.evaluated_name ? (
-                                    <p className="text-center">
-                                        <span className="text-bold">
-                                            Evaluated By:{' '}
-                                        </span>{' '}
-                                        {props?.ideaDetails?.evaluated_name ||
-                                            ''}
-                                    </p>
-                                ) : (
-                                    ''
-                                )}
 
-                                {props?.ideaDetails?.evaluated_at ? (
-                                    <p className="text-center">
-                                        <span className="text-bold">
-                                            Evaluated At:{' '}
-                                        </span>{' '}
-                                        {moment
-                                            .utc(
-                                                props?.ideaDetails?.evaluated_at
-                                            )
-                                            .format('DD-MM-YYYY ') || ''}
-                                    </p>
-                                ) : (
-                                    ''
-                                )}
-                            </div>
-                          
-                        </div> */}
-                          {/* {
-                   teamResponse?.status !== "DRAFT" &&
-                   teamResponse?.status === 'SUBMITTED' ? (
-                            <div className="col-lg-4 order-lg-1 order-0 p-0 h-100 mt-3 status_info_col">
-                                <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
-                                    {teamResponse?.evaluation_status ? (
-                                        <p
-                                            className={`${
-                                                teamResponse
-                                                    ?.evaluation_status ==
-                                                'SELECTEDROUND1'
-                                                    ? 'text-success'
-                                                    : 'text-danger'
-                                            } fs-3 fw-bold text-center`}
-                                        >
-                                            <span className="fs-3 text-dark">
-                                                L1:{' '}
-                                            </span>
-                                            {teamResponse
-                                                ?.evaluation_status ==
-                                            'SELECTEDROUND1'
-                                                ? 'Accepted'
-                                                : 'Rejected'}
-                                        </p>
-                                    ) : (
-                                        ''
-                                    )}
-
-                                    {teamResponse?.evaluated_name ? (
-                                        <p className="text-center">
-                                            <span className="text-bold">
-                                                Evaluated By:{' '}
-                                            </span>{' '}
-                                            {teamResponse
-                                                ?.evaluated_name || ''}
-                                        </p>
-                                    ) : (
-                                        ''
-                                    )}
-
-                                 
-
-                                    {teamResponse?.evaluation_status ==
-                                        'REJECTEDROUND1' && (
-                                        <>
-                                            <p className="text-center">
-                                                <span className="text-bold">
-                                                    Rejected Reason 1:{' '}
-                                                </span>{' '}
-                                                {teamResponse
-                                                    ?.rejected_reason || ''}
-                                            </p>
-                                            <p className="text-center">
-                                                <span className="text-bold">
-                                                    Rejected Reason 2:{' '}
-                                                </span>{' '}
-                                                {teamResponse
-                                                    ?.rejected_reasonSecond ||
-                                                    ''}
-                                            </p>
-                                        </>
-                                    )}
-                                    {teamResponse?.evaluation_status ? (
-                                        teamResponse?.evaluation_status ==
-                                        'SELECTEDROUND1' ? (
-                                            <button
-                                                className="btn px-2 py-2 btn-danger"
-                                                onClick={() => {
-                                                    setIsreject(true);
-                                                    setReason('');
-                                                    setReasonSec('');
-                                                }}
-                                            >
-                                                <span >
-                                                    Reject
-                                                </span>
-                                            </button>
-                                        ) : (
-                                            <button
-                                                className="btn px-2 py-2 btn-success"
-                                                onClick={() => {
-                                                    handleAlert('accept');
-                                                    setReason('');
-                                                    setReasonSec('');
-                                                }}
-                                            >
-                                                <span >
-                                                    Accept
-                                                </span>
-                                            </button>
-                                        )
-                                    ) : status === 'SUBMITTED' ? (
-                                        <>
-                                            <button
-                                                className="btn px-5 py-2 btn-danger"
-                                                onClick={() => {
-                                                    // handleAlert('reject');
-                                                    setIsreject(true);
-                                                    setReason('');
-                                                    setReasonSec('');
-                                                }}
-                                            >
-                                                <span >
-                                                    Reject
-                                                </span>
-                                            </button>
-                                            <button
-                                                className="btn px-5 py-2 btn-success mt-2"
-                                                onClick={() => {
-                                                    handleAlert('accept');
-                                                    setReason('');
-                                                    setReasonSec('');
-                                                }}
-                                            >
-                                                <span >
-                                                    Accept
-                                                </span>
-                                            </button>
-                                        </>
-                                    ): 'Option3'
-                                    }
-                                </div>
-                            </div>
-                        ): null} */}
                           {props?.ideaDetails?.status === 'SUBMITTED' && 
                           props?.ideaDetails?.verified_status !== null && props?.ideaDetails?.verified_status !== "" &&
                           (
@@ -1183,19 +827,7 @@ const ViewDetail = (props) => {
                                     )}
                                    
 
-                                    {/* {props?.ideaDetails?.evaluated_at ? (
-                                        <p className="text-center">
-                                            <span className="text-bold">
-                                                Evaluated At:{' '}
-                                            </span>{' '}
-                                            {moment(
-                                                props?.ideaDetails?.evaluated_at
-                                            ).format('DD-MM-YY h:mm:ss a') ||
-                                                ''}
-                                        </p>
-                                    ) : (
-                                        ''
-                                    )} */}
+                                  
 
                                     {props?.ideaDetails?.evaluation_status ==
                                         'REJECTEDROUND1' && (
@@ -1223,7 +855,6 @@ const ViewDetail = (props) => {
                                             <button
                                                 className="btn px-5 py-2 btn-danger"
                                                 onClick={() => {
-                                                    // handleAlert('reject');
                                                     setIsreject(true);
                                                     setReason('');
                                                     setReasonSec('');
@@ -1254,7 +885,6 @@ const ViewDetail = (props) => {
                                             <button
                                                 className="btn px-5 py-2 btn-danger mb-2"
                                                 onClick={() => {
-                                                    // handleAlert('reject');
                                                     setIsreject(true);
                                                     setReason('');
                                                     setReasonSec('');

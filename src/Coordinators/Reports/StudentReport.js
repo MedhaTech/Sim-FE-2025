@@ -6,26 +6,16 @@ import { Button } from "../../stories/Button";
 import { CSVLink } from "react-csv";
 import { getCurrentUser } from "../../helpers/Utils";
 import { useNavigate, Link } from "react-router-dom";
-// import {
-//   getDistrictData,
-//   getStateData,
-//   getFetchDistData,
-// } from "../../../redux/studentRegistration/actions";
+
 import { ArrowRight } from "feather-icons-react/build/IconComponents";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "./Select";
 import axios from "axios";
-// import '../reports.scss';
-import { Doughnut } from "react-chartjs-2";
-import { Bar } from "react-chartjs-2";
-// import { categoryValue } from "../../Schools/constentText";
 import { notification } from "antd";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { stateList, districtList } from "../../RegPage/ORGData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faMale,
-  faFemale,
   faChalkboardTeacher,
 } from "@fortawesome/free-solid-svg-icons";
 import ReactApexChart from "react-apexcharts";
@@ -51,8 +41,7 @@ const StudentProgress = () => {
   ];
 
   const newstateList = ["All States", ...stateList];
-  // const categoryData =
-  //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
+  
   const [studentDetailedReportsData, setstudentDetailedReportsData] = useState(
     []
   );
@@ -94,15 +83,9 @@ const StudentProgress = () => {
     ...districtList,
   };
   const fiterDistData = ["All Districts", ...(allDistricts[selectstate] || [])];
-  // const fiterDistData = districtList[selectstate];
-  // useEffect(() => {
-  //     dispatch(getStateData());
-  // }, []);
+ 
   useEffect(() => {
-    // if (selectstate !== '') {
-    //     dispatch(getFetchDistData(selectstate));
-    // }
-    // setdistrict('');
+    
     fetchChartTableData();
     const newDate = new Date();
     const formattedDate = `${newDate.getUTCDate()}/${1 + newDate.getMonth()
@@ -158,10 +141,7 @@ const StudentProgress = () => {
       label: "UDISE CODE",
       key: "organization_code",
     },
-    // {
-    //   label: "ATL CODE",
-    //   key: "organization_code",
-    // },
+   
     {
       label: "School Name",
       key: "organization_name",
@@ -273,29 +253,10 @@ const StudentProgress = () => {
       key: "post_survey_status",
     },
 
-    // {
-    //     label: 'No.of Teams Idea Submitted',
-    //     key: 'submittedcout'
-    // },
-    // {
-    //     label: 'No.of Teams Idea in Draft',
-    //     key: 'draftcout'
-    // },
-    // {
-    //     label: 'No.of Teams Idea NOt Initiated',
-    //     key: 'ideanotIN'
-    // }
+
   ];
 
-  // useEffect(() => {
-  //     dispatch(getDistrictData());
-  //     fetchChartTableData();
-  //     const newDate = new Date();
-  //     const formattedDate = `${newDate.getUTCDate()}/${
-  //         1 + newDate.getMonth()
-  //     }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
-  //     setNewFormat(formattedDate);
-  // }, []);
+ 
 
   var chartOption = {
     chart: {
@@ -534,48 +495,7 @@ const StudentProgress = () => {
     ],
   };
 
-  // var radialChart = {
-  //   chart: {
-  //     height: 350,
-  //     type: "donut",
-  //     toolbar: {
-  //       show: false,
-  //     },
-  //   },
-  //   colors: ["rgb(0, 227, 150)", "rgb(254, 176, 25)", "rgb(255, 69, 96)"],
-  //   plotOptions: {
-  //     radialBar: {
-  //       dataLabels: {
-  //         name: {
-  //           fontSize: "22px",
-  //         },
-  //         value: {
-  //           fontSize: "16px",
-  //         },
-  //         total: {
-  //           show: true,
-  //           label: "Total",
-  //           formatter: function () {
-  //             return totalCount.totalStudents;
-  //           },
-  //         },
-  //       },
-  //     },
-  //   },
-  //   series: [
-  //     Math.round((totalCount.courseCompleted * 100) / totalCount.totalStudents),
-  //     Math.round(
-  //       (totalCount.courseINprogesss * 100) / totalCount.totalStudents
-  //     ),
-  //     Math.round(
-  //       ((totalCount.totalStudents -
-  //         (totalCount.courseCompleted + totalCount.courseINprogesss)) *
-  //         100) /
-  //       totalCount.totalStudents
-  //     ),
-  //   ],
-  //   labels: ["Completed", "InProgress", "NotStarted"],
-  // };
+
   var radialChart = {
     chart: {
       height: 330,
@@ -614,59 +534,7 @@ const StudentProgress = () => {
     ],
   };
 
-  // useEffect(() => {
-  //     nonAtlCount();
-  // }, []);
-  const nonAtlCount = () => {
-    var config = {
-      method: "get",
-      url:
-        process.env.REACT_APP_API_BASE_URL_FOR_REPORTS + `/reports/studentATLnonATLcount`,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${currentUser.data[0]?.token}`,
-      },
-    };
-    axios(config)
-      .then(function (res) {
-        if (res.status === 200) {
-          var mentorStuArray = [];
-          res &&
-            res.data &&
-            res.data.data &&
-            res.data.data.map((students, index) => {
-              var key = index + 1;
-              return mentorStuArray.push({ ...students, key });
-            });
-          setAtl(mentorStuArray);
-
-          // setAtl(response.data.data);
-          const barStudentData = {
-            labels: mentorStuArray.map((item) => item.state),
-            datasets: [
-              {
-                label: "No.of  ATL Students",
-                data: mentorStuArray.map((item) => item.ATL_Student_Count),
-                backgroundColor: "rgba(255, 0, 0, 0.6)",
-              },
-              {
-                label: "No.of Non ATL Students",
-                data: mentorStuArray.map((item) => item.NONATL_Student_Count),
-                backgroundColor: "rgba(75, 162, 192, 0.6)",
-              },
-            ],
-          };
-          setBarChart3Data(barStudentData);
-          // console.log(barStudentData,"barStudentData");
-          setseries7(barStudentData.datasets[0].data);
-          setseries6(barStudentData.datasets[1].data);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+ 
   const handleDownload = () => {
     if (!selectstate || !district || !category) {
       notification.warning({
@@ -680,7 +548,6 @@ const StudentProgress = () => {
   };
   useEffect(() => {
     if (studentDetailedReportsData.length > 0) {
-      console.log("Performing operation with the updated data.");
       csvLinkRef.current.link.click();
     }
   }, [studentDetailedReportsData]);
@@ -692,7 +559,6 @@ const StudentProgress = () => {
         category: category,
       })
     );
-    // console.log(selectstate,district,category);
     const config = {
       method: "get",
       url:
@@ -824,9 +690,7 @@ const StudentProgress = () => {
           } else {
             openNotificationWithIcon("error", "No Data Found");
           }
-          //   csvLinkRef.current.link.click();
-          //   console.log(studentDetailedReportsData,"ttt");
-          // openNotificationWithIcon("success", "Report Downloaded Successfully");
+         
           setIsDownload(false);
         }
       })
@@ -857,7 +721,6 @@ const StudentProgress = () => {
       .then((response) => {
         if (response.status === 200) {
           setIsloader(true);
-          // console.log(response,"view");
           const summary = response.data.data[0].summary;
           const studentCountDetails = response.data.data[0].studentCountDetails;
 
@@ -868,9 +731,7 @@ const StudentProgress = () => {
           const combinedArray = summary.map((summaryItem) => {
             const district = summaryItem.district;
             const totalTeams = summaryItem.totalTeams;
-            // const teamCountItem = teamCount.find(
-            //     (item) => item.state === state
-            // );
+          
             const draftCountItem = draftCount.find(
               (item) => item.district === district
             );
@@ -890,14 +751,7 @@ const StudentProgress = () => {
               summaryItem.totalTeams -
               ((submittedCountItem ? submittedCountItem?.submittedCount : 0) +
                 (draftCountItem ? draftCountItem?.draftCount : 0));
-            // const courseNotStarted =
-            //   summaryItem.totalTeams -
-            //   ((courseCompletedItem
-            //     ? courseCompletedItem?.studentCourseCMP
-            //     : 0) +
-            //     (courseINprogesssItem
-            //       ? courseINprogesssItem?.studentCourseIN
-            //       : 0));
+           
             
               const courseNotStarted = (studentCountItem) ? (Math.abs(
     studentCountItem?.totalstudent  -
@@ -912,16 +766,7 @@ const StudentProgress = () => {
                   
 
 
-            // const coursePercentage =
-            //   studentCountItem && studentCountItem.totalstudent > 0
-            //     ? Math.round(
-            //       ((courseCompletedItem
-            //         ? courseCompletedItem.studentCourseCMP
-            //         : 0) /
-            //         studentCountItem.totalstudent) *
-            //       100
-            //     )
-            //     : 0;
+           
                 const coursePercentage = 
   studentCountItem && studentCountItem.totalstudent > 0
     ? Math.round(
@@ -956,7 +801,6 @@ const StudentProgress = () => {
           const total = combinedArray.reduce(
             (acc, item) => {
               acc.district = "Total";
-              // acc.totalReg += item.totalReg;
               acc.totalTeams += item.totalTeams;
               acc.totalStudents += item.totalStudents;
               acc.draftCount += item.draftCount;
@@ -972,15 +816,11 @@ const StudentProgress = () => {
             },
             {
               district: "None",
-              // totalReg: 0,
               totalTeams: 0,
               totalStudents: 0,
               draftCount: 0,
               submittedCount: 0,
               ideaNotStarted: 0,
-              // maleStudents: 0,
-              // femaleStudents: 0,
-              // otherStudents : 0,
               coursePercentage:0,
               courseCompleted: 0,
               courseINprogesss: 0,
@@ -1080,7 +920,6 @@ const StudentProgress = () => {
           setBarChart1Data(barData);
           setBarChart2Data(stackedBarChartData);
           setTotalCount(total);
-          // console.log(total,"11");
         }
       })
       .catch((error) => {
@@ -1105,15 +944,7 @@ const StudentProgress = () => {
               </h6>
             </div>
           </div>
-          {/* <div className="page-btn">
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={() => navigate("/reports")}
-            >
-              <i className="fas fa-arrow-left"></i> Back
-            </button>
-          </div> */}
+        
         </div>
 
         <Container className="RegReports userlist">
@@ -1122,12 +953,7 @@ const StudentProgress = () => {
               <Col md={3}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
                   <p>{selectstate}</p>
-                  {/* <Select
-                    list={fullStatesNames}
-                    setValue={setSelectState}
-                    placeHolder={"Select State"}
-                    value={selectstate}
-                  /> */}
+                 
                 </div>
               </Col>
               <Col md={3}>
@@ -1142,12 +968,7 @@ const StudentProgress = () => {
               </Col>
               <Col md={3}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
-                  {/* <Select
-                    list={categoryData}
-                    setValue={setCategory}
-                    placeHolder={"Select Category"}
-                    value={category}
-                  /> */}
+                 
                   {selectstate === "Tamil Nadu" ? (
                     <Select
                       list={categoryDataTn}
@@ -1256,7 +1077,6 @@ const StudentProgress = () => {
                                 type="button"
                                 onClick={() => {
                                   if (downloadTableData) {
-                                    // setIsDownloading(true);
                                     setDownloadTableData(null);
                                     csvLinkRefTable.current.link.click();
                                   }
@@ -1378,7 +1198,6 @@ const StudentProgress = () => {
                                     <td>{item.submittedCount}</td>{" "}
                                     <td>{item.draftCount}</td>{" "}
                                     <td>{item.ideaNotStarted}</td>
-           {/* { console.log(item.courseNotStarted,"course not")} */}
                                   </tr>
                                 ))}
                                 <tr>
@@ -1421,14 +1240,7 @@ const StudentProgress = () => {
                                   </td>
 
                                  
-                                  {/* <td style={{ color: "crimson" }}>
-                                    {Math.round(
-                                      (totalCount.courseCompleted /
-                                        totalCount.totalStudents) *
-                                      100
-                                    )}
-                                    %
-                                  </td> */}
+                                 
                                   <td style={{ color: "crimson" }}>{totalCount.submittedCount}</td>{" "}
                                   <td style={{ color: "crimson" }}>{totalCount.draftCount}</td>{" "}
                                   <td style={{ color: "crimson" }}>{totalCount.ideaNotStarted}</td>
@@ -1479,22 +1291,7 @@ const StudentProgress = () => {
                   </div>
                 </div>
               </div>
-              {/* <div className="col-md-12">
-                        <div className="card">
-                        <div className="card-header">
-                            <h5 className="card-title">No.of Students Enrolled from ATL v/s Non ATL Schools{' '}{newFormat}</h5>
-                        </div>
-                        <div className="card-body">
-                            <div id="mixed-chart" />
-                            <ReactApexChart
-                            options={optionsStudent}
-                            series={optionsStudent.series}
-                            type="line"
-                            height={400}
-                            />
-                        </div>
-                        </div>
-                    </div> */}
+            
 
            
             </div>

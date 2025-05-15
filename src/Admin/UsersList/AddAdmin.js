@@ -1,9 +1,7 @@
 /* eslint-disable indent */
 import React from 'react';
 import { Modal, Form, FormGroup } from 'react-bootstrap';
-// import { InputBox } from '../../stories/InputBox/InputBox';
 import { Label } from 'reactstrap';
-//import { Button } from '../../stories/Button';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -175,7 +173,6 @@ const Register = (props) => {
                                         onBlur={formik.handleBlur}
                                         value={formik.values.username}
                                         maxLength={100}
-                                        // isDisabled={stepTwoData.mobile ? true : false}
                                     />
 
                                     {formik.touched.username &&
@@ -227,19 +224,7 @@ const Register = (props) => {
                               Add User
                             </button>
                           </div>
-                        {/* <div className="mt-3">
-                            <Button
-                                label={'Add Admin'}
-                                btnClass={
-                                    !(formik.dirty && formik.isValid)
-                                        ? 'default'
-                                        : 'primary'
-                                }
-                                size="large"
-                                type="submit"
-                                disabled={!(formik.dirty && formik.isValid)}
-                            />
-                        </div> */}
+                       
                     </Form>
                 </div>
             </Modal.Body>

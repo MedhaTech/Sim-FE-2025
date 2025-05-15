@@ -22,6 +22,8 @@ const BadgesComp = () => {
     const [badges, setBadges] = useState();
     const currentUser = getCurrentUser('current_user');
     const badgesfetch = async () => {
+        // This function fetches badges of mentor from the API //
+
         const fectchTecParam = encryptGlobal(JSON.stringify(currentUser?.data[0]?.user_id));
         const dataquery = encryptGlobal(JSON.stringify({
             status: "ACTIVE",
@@ -86,14 +88,7 @@ const BadgesComp = () => {
                                                 <br/>
                                                 {dataOf[i]}
                                             </CardBody>
-                                            {/* <CardBody>
-                                                <CardSubtitle className="badge-date">
-                                                EARNED ON:{' '}
-                                                <span className="badge-time">
-                                                    {badge?.student_status ? moment(badge?.student_status).format("DD MMM YYYY") :"Locked"}
-                                                </span>
-                                            </CardSubtitle>
-                                            </CardBody> */}
+                                            
                                         </Card>
                                     </div>
                                 );

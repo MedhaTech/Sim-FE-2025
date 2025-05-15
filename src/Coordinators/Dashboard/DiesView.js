@@ -2,11 +2,8 @@
 /* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import Layout from '../Layout';
 import { Container, Row, Card, CardBody, CardText, Col } from 'reactstrap';
-// import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import DoughnutChart from '../../Teacher/Dashboard/TeamsProgDS';
-// import { Button } from '../../stories/Button';
 import axios from 'axios';
 import { getCurrentUser } from '../../helpers/Utils';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
@@ -17,8 +14,6 @@ const DiesView = () => {
     const orgDaTa = JSON.parse(localStorage.getItem('orgData'));
 
     const [course, setCourse] = useState([]);
-    const [button, setButton] = useState('');
-    const [data, setData] = useState('');
     // where orgDaTa = orgnization details //
     // we can see all orgnization , mentor details //
 
@@ -69,11 +64,7 @@ const DiesView = () => {
 
     const atlData = orgDaTa.organization_code;
     const altRes = atlData.split('-');
-    const atlNew = altRes[0];
-    const percentageBWNumbers = (a, b) => {
-        // here a = all_topics_count ; b= topics_completed_count //
-        return (((a - b) / a) * 100).toFixed(2);
-    };
+   
     return (
         <div className="page-wrapper">
             <div className="content">

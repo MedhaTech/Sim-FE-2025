@@ -2,10 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Badge } from 'reactstrap';
-// import Layout from '../../Admin/Layout';
-import { BsPlusLg } from 'react-icons/bs';
-import { Button } from '../../stories/Button';
-// import { useHistory } from 'react-router-dom';
+
 import { getSchoolRegistationBulkUploadList } from '../../redux/actions';
 import { connect } from 'react-redux';
 import DataTable, { Alignment } from 'react-data-table-component';
@@ -20,7 +17,6 @@ const TicketsPage = (props) => {
     const navigate = useNavigate();
     const [isloader, setIsloader] = useState(false);
 
-    // here we can see all the support tickets //
     const currentUser = getCurrentUser('current_user');
     const [reqList, setReqList] = useState(false);
     const [newList, setNewList] = useState(false);
@@ -47,7 +43,6 @@ const TicketsPage = (props) => {
         return () => clearTimeout(timeout);
     }, []);
 
-    // const history = useHistory();
     useEffect(() => {
         props.getSchoolRegistationBulkUploadActions('i');
         
@@ -84,7 +79,6 @@ const TicketsPage = (props) => {
         };
         const previousStatus = item.status;
 
-        // Custom message based on the status change
         let message = '';
     
         if (previousStatus === 'ACTIVE' && itemS === 'INACTIVE') {
@@ -207,7 +201,6 @@ const TicketsPage = (props) => {
         };
         const previousStatus = item.status;
 
-        // Custom message based on the status change
         let message = '';
     
         if (previousStatus === 'ACTIVE' && itemS === 'INACTIVE') {
@@ -389,12 +382,7 @@ const TicketsPage = (props) => {
                 cellExport: (row) => row.category,
                 width: '8rem'
             },
-            // {
-            //     name: 'Principal Name',
-            //     selector: 'principal_name',
-            //     cellExport: (row) => row.principal_name,
-            //     width: '15rem'
-            // },
+          
             {
                 name: 'Status',
                 cellExport: (row) => row.status,
@@ -417,7 +405,6 @@ const TicketsPage = (props) => {
                         >
                             <div className="btn btn-info">Edit</div>
                         </div>
-                        {/* {disableBtn === false ? setDisableBtn(false) */}
                         <div
                             key={record}
                             onClick={() =>
@@ -428,7 +415,6 @@ const TicketsPage = (props) => {
                         >
                             <div className="btn btn-warning ">Test</div>
                         </div>
-                        {/* : setDisableBtn(true)} */}
                         <div
                             key={record}
                             onClick={() =>
@@ -443,7 +429,6 @@ const TicketsPage = (props) => {
             }
         ]
     };
-    // console.log(SchoolsData,"Data");
 
     const reqSchoolsData = {
         data: reqSchoolsResponse,
@@ -451,7 +436,6 @@ const TicketsPage = (props) => {
             {
                 name: 'No',
                 selector: (row, key) => key + 1,
-                // sortable: true,
                 width: '4rem'
             },
             {
@@ -486,12 +470,7 @@ const TicketsPage = (props) => {
                 cellExport: (row) => row.category,
                 width: '8rem'
             },
-            // {
-            //     name: 'Principal Name',
-            //     selector: 'principal_name',
-            //     cellExport: (row) => row.principal_name,
-            //     width: '15rem'
-            // },
+           
             {
                 name: 'Status',
                 cell: (row) => [
@@ -576,12 +555,7 @@ const TicketsPage = (props) => {
                 cellExport: (row) => row.category,
                 width: '8rem'
             },
-            // {
-            //     name: 'Principal Name',
-            //     selector: 'principal_name',
-            //     cellExport: (row) => row.principal_name,
-            //     width: '15rem'
-            // },
+          
             {
                 name: 'Status',
                 cell: (row) => [
@@ -625,13 +599,7 @@ const TicketsPage = (props) => {
             }
         ]
     };
-    // const customStyles = {
-    //     head: {
-    //       style: {
-    //         fontSize: "1em", // Adjust as needed
-    //       },
-    //     },
-    //   };
+    
       const customStyles = {
         rows: {
           style: {
