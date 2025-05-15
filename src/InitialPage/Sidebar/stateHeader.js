@@ -32,7 +32,6 @@ const MentorHeader = () => {
     const trimmedValue = numericValue.trim();
 
     setDiesCode(trimmedValue);
-    // setDiesCode(e.target.value);
   };
   const isElementVisible = (element) => {
     return element.offsetWidth > 0 || element.offsetHeight > 0;

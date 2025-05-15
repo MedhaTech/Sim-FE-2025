@@ -79,6 +79,8 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
   }, [mentorid]);
 
   const teamNameandIDsbymentorid = (mentorid) => {
+    // this function fetches all teams list from the API //
+    
     const teamApi = encryptGlobal(
       JSON.stringify({
         mentor_id: mentorid,

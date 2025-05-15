@@ -18,6 +18,8 @@ const Dashboard = () => {
   }, []);
 
   async function handlecountvalue() {
+    // This function  fetches all counts of ideas
+
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
     await axios
       .get(`${URL.gettotalcount}`, axiosConfig)

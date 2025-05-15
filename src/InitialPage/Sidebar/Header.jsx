@@ -153,6 +153,8 @@ const Header = () => {
     }
   }, [diesCode]);
   const handleSearch = (diesCode) => {
+    //where we can search through diescode //
+    // we can see Registration Details & Mentor Details //
     const body = JSON.stringify({
       organization_code: diesCode,
     });

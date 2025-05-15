@@ -75,7 +75,7 @@ const EvaluatedIdea = () => {
     }, [evaluatedIdeaList]);
 
     const handleclickcall = () => {
-        // here we can select status , district , SDG //
+        // here we can select status , district , SDG , rejected reason1 , rejected reason2 //
         const newQuery = {
             level:'L1',
             evaluation_status: status !== 'Both'? (status === 'Accepted' ? 'SELECTEDROUND1' : 'REJECTEDROUND1'): '',

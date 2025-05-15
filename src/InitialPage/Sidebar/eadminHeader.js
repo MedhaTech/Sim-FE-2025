@@ -134,6 +134,8 @@ const EadmiHeader = () => {
   };
 
   const handleSearch = (diesCode) => {
+    //where we can search through diescode //
+    // we can see Registration Details & Mentor Details //
     const popParam = encryptGlobal(diesCode);
     var config = {
       method: "get",
