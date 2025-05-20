@@ -37,6 +37,7 @@ import teamale from "../../assets/img/teacher-male.png";
 
 import teaoth from "../../assets/img/teacher-other.png";
 import stuoth from "../../assets/img/student-other.png";
+import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
 
 const Dashboard = () => {
   const currentUser = getCurrentUser('current_user');
@@ -290,6 +291,21 @@ const adminStudentCourseCount = () => {
         });
 };
 
+const s3 = new S3Client({ region: 'ap-south-1' });
+
+async function getFile(bucketName,key ) {
+  try {
+    const command = new GetObjectCommand({ Bucket: bucketName, Key: key });
+    const data = await s3.send(command);
+    // data.Body is a stream, you can convert to buffer/string as needed
+    return data.Body;
+  } catch (err) {
+    console.error("Error fetching file:", err);
+    throw err;
+}
+
+}
+console.log(getFile('sim-2025','ideas/stage/155/629df021ec609_download.jpg'));
   return (
     <div>
       <div className="page-wrapper" >
