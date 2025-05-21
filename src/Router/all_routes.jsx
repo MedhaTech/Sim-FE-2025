@@ -51,6 +51,7 @@ institutionreport:"/institution-report",
   reportsteacher : "/reportsteacher",
   adminresources : "/adminresources",
   stateresources : "/stateresources",
+  profile:"/profile",
 
   createResource : "/createResource",
   createStateResource : "/createStateResource",

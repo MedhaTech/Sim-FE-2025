@@ -62,6 +62,8 @@ const Dashboard = (props) => {
     }
   }, [currentUser?.data[0]?.mentor_id]);
   const ideaStatusfun = (id) => {
+    // Function to fetch the Ideas Status from the API
+
     const ideaStatusparam = encryptGlobal(
       JSON.stringify({
         team_id: id,
@@ -99,6 +101,8 @@ const Dashboard = (props) => {
  
 
   const teamListbymentorid = (mentorid) => {
+    // Function to fetch the all Teams List from the API
+
     const teamparam = encryptGlobal(
       JSON.stringify({
         mentor_id: mentorid,
@@ -269,6 +273,8 @@ ideaStatus===  null &&
   };
 
   const handleDeleteTeam = (student) => {
+    // Function to fetch Delete The team from the API
+
     const MySwal = withReactContent(Swal);
     MySwal.fire({
       title: t('general_req.are_you_sure'),
@@ -312,6 +318,8 @@ ideaStatus===  null &&
     });
   };
   const handleDeleteStudent = (item) => {
+    // Function to fetch Delete The Student from the API
+
     const MySwal = withReactContent(Swal);
     MySwal.fire({
       title: t('general_req.are_you_sure'),
@@ -382,6 +390,8 @@ ideaStatus===  null &&
     },
   };
   const handleSwitchTeam = (item) => {
+    // Function to fetch Switch from one Team to another Team 
+
     if (teamsListData.length > 1) {
       teamListby();
       setselectedstudent(item);
@@ -390,6 +400,8 @@ ideaStatus===  null &&
     }
   };
   const teamListby = () => {
+    // Function to fetch all Teams list  from the API
+
     const teamListbymentorparam = encryptGlobal(
       JSON.stringify({
         mentor_id: currentUser?.data[0]?.mentor_id,
@@ -452,6 +464,8 @@ ideaStatus===  null &&
   };
 
   const handleChangeStudent = (name) => {
+    // Function to  change student from  one team to another team from the API
+
     const body = {
       team_id: teamchangeobj[name].toString(),
       full_name: selectedstudent.full_name,

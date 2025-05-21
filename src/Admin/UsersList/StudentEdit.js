@@ -6,7 +6,6 @@ import { Form, Row, Col, Label } from "reactstrap";
 
 import {
   getCurrentUser,
-  setCurrentUser,
   openNotificationWithIcon,
 } from "../../helpers/Utils";
 import {

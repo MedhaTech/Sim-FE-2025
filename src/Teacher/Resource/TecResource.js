@@ -32,6 +32,8 @@ const [hoveredRow, setHoveredRow] = useState(null);
   }, []);
 
   async function fetchResourceList() {
+     // this function fetches all resources list from the API
+
     const fectchTecParam = encryptGlobal(
       JSON.stringify({
         role: "mentor",

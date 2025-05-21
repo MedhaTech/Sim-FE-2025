@@ -204,6 +204,8 @@ const [stuData,setStuData]=useState("");
 
 
   useEffect(() => {
+               // This function fetches mentors popup from the API //
+    
     const newListParam = encryptGlobal(
       JSON.stringify({
         state: currentUser.data[0]?.state,
@@ -279,6 +281,8 @@ const [stuData,setStuData]=useState("");
   const [teacPostSurvey, setTeacPostSurvey] = useState();
 
   const mentorTeamsCount = () => {
+    // Function to fetch the Teams Count from the API
+
     const teamApi = encryptGlobal(
       JSON.stringify({
         mentor_id: currentUser?.data[0]?.mentor_id,
@@ -308,6 +312,8 @@ const [stuData,setStuData]=useState("");
       });
   };
   const mentorIdeaCount = () => {
+    // Function to fetch the Ideas Count from the API
+
     const ideaApi = encryptGlobal(
       JSON.stringify({
         mentor_id: currentUser?.data[0]?.mentor_id,
@@ -337,6 +343,8 @@ const [stuData,setStuData]=useState("");
       });
   };
   const mentorStudentCount = () => {
+    // Function to fetch the Students Count from the API
+
     const studentApi = encryptGlobal(
       JSON.stringify({
         mentor_id: currentUser?.data[0]?.mentor_id,
@@ -365,6 +373,8 @@ const [stuData,setStuData]=useState("");
       });
   };
   const mentorcoursepercentage = () => {
+    // Function to fetch the Course % from the API
+
     const corseApi = encryptGlobal(
       JSON.stringify({
         user_id: currentUser?.data[0]?.user_id,
@@ -399,6 +409,8 @@ const [stuData,setStuData]=useState("");
       });
   };
   const mentorpostsurvey = () => {
+    // Function to fetch the Post survey ,Pre Survey status from the API
+
     const postsurveyApi = encryptGlobal(
       JSON.stringify({
         user_id: currentUser?.data[0]?.user_id,
