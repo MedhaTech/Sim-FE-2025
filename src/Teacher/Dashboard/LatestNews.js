@@ -28,6 +28,8 @@ function LatestNews() {
     return { day, month };
   };
   useEffect(() => {
+    // this function fetches latest news list from the API
+
     const fetchNews = async () => {
       let teacherParam = encryptGlobal(
         JSON.stringify({
