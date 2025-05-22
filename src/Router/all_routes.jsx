@@ -52,7 +52,8 @@ institutionreport:"/institution-report",
   adminresources : "/adminresources",
   stateresources : "/stateresources",
   profile:"/profile",
-
+mentorprofile:"/mentorprofile",
+  mentoreditprofile:"/mentoreditprofile",
   createResource : "/createResource",
   createStateResource : "/createStateResource",
 
