@@ -50,6 +50,36 @@ const AdminResources = () => {
             console.log(error);
         }
     }
+    const [newurl,setnewurl] = useState('');
+const handleFileDownload = async(file) =>{
+     const parts = file.split('/');
+    const path = parts.slice(3).join('/');
+    const openParam = encryptGlobal(JSON.stringify({
+      filePath: path
+    }));
+    var config = {
+      method: 'get',
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/admins/s3fileaccess?Data=${openParam}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${currentUser?.data[0]?.token}`
+      }
+    };
+    await axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+         setnewurl(response.data.data);
+        setTimeout(() => {
+                  document.getElementById('myLink').click();
+                }, 500);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+};
     const teacherData = {
         data: tecList || [],
 
@@ -124,14 +154,18 @@ const AdminResources = () => {
                     };
             
                     return (
-                        <a
-                            href={getFileViewerURL(record.file, fileExtension)}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="badge badge-md bg-light"
-                        >
-                            {getFileIcon(fileExtension, isLink)}
-                        </a>
+                        <>
+                        <div onClick={()=>handleFileDownload(record.file)}>{getFileIcon(fileExtension, isLink)}</div>
+               <a
+                  href={getFileViewerURL(newurl, fileExtension)}
+                  id='myLink'
+                  target="_blank"
+                  className="badge badge-md bg-light"
+                  rel="noopener noreferrer"
+                  style={{ display: 'none' }}
+              >
+               </a>
+                        </>
                     );
                 }
             },
@@ -148,18 +182,22 @@ const AdminResources = () => {
                     const isImage = ['png', 'jpg', 'jpeg', 'gif'].includes(fileExtension);
             
                     return (
-                        <a
-                            href={record.image}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="badge badge-md bg-light"
-                        >
-                            {isImage ? (
+                        <>
+                        <div onClick={()=>handleFileDownload(record.image)}>{isImage ? (
                                 <PiImageFill size={"25"} style={{ color: "#fe9f43" }} />
                             ) : (
                                 <i className="fas fa-file" style={{ color: "black" }}></i>
-                            )}
-                        </a>
+                            )}</div>
+               <a
+                  href={newurl}
+                  id='myLink'
+                  target="_blank"
+                  className="badge badge-md bg-light"
+                  rel="noopener noreferrer"
+                  style={{ display: 'none' }}
+              >
+               </a>
+                        </>
                     );
                 }
             },

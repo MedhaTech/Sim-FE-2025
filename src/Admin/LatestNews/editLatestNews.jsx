@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, FormGroup, Label, Form, Input } from "reactstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -23,7 +23,36 @@ const EditLatestNews = (props) => {
     type: "text",
     className: "defaultInput",
   };
-
+const [newurl,setnewurl] = useState('');
+    useEffect(()=>{
+        handleFileDownload(newsID && newsID.file_name);
+    },[]);
+    const handleFileDownload = async(file) =>{
+         const parts = file.split('/');
+        const path = parts.slice(3).join('/');
+        const openParam = encryptGlobal(JSON.stringify({
+          filePath: path
+        }));
+        var config = {
+          method: 'get',
+          url:
+            process.env.REACT_APP_API_BASE_URL +
+            `/admins/s3fileaccess?Data=${openParam}`,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${currentUser?.data[0]?.token}`
+          }
+        };
+        await axios(config)
+          .then(function (response) {
+            if (response.status === 200) {
+             setnewurl(response.data.data);
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    };
   const fileHandler = (e) => {
     // Handles file selection and reads the selected file //
 
@@ -323,7 +352,7 @@ const EditLatestNews = (props) => {
                                   window.open(fileURL, "_blank");
                                 } else {
                                   window.open(
-                                    formik.values.file_name,
+                                    newurl,
                                     "_blank"
                                   );
                                 }
