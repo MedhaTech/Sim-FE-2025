@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, Form, Label, Card, CardBody, Input } from "reactstrap";
 import axios from "axios";
 
@@ -25,6 +25,7 @@ import { useLayoutEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FaComments, FaFile, FaLink } from "react-icons/fa";
 import { UncontrolledAlert } from "reactstrap";
+import { encryptGlobal } from "../../constants/encryptDecrypt";
 
 const StateRes = (props) => {
   const { search } = useLocation();
@@ -151,6 +152,36 @@ const StateRes = (props) => {
     }
     formik.setFieldValue("file_name", file);
   };
+  const [newurl,setnewurl] = useState('');
+  const handleFileDownload = async(file) =>{
+       const parts = file.split('/');
+      const path = parts.slice(3).join('/');
+      const openParam = encryptGlobal(JSON.stringify({
+        filePath: path
+      }));
+      var config = {
+        method: 'get',
+        url:
+          process.env.REACT_APP_API_BASE_URL +
+          `/admins/s3fileaccess?Data=${openParam}`,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${currentUser?.data[0]?.token}`
+        }
+      };
+      await axios(config)
+        .then(function (response) {
+          if (response.status === 200) {
+           setnewurl(response.data.data);
+          setTimeout(() => {
+                    document.getElementById('myLink').click();
+                  }, 500);
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+  };
   return (
     <div className="page-wrapper">
         <h4 className="m-2" 
@@ -266,14 +297,16 @@ const StateRes = (props) => {
                               </a>
                             )}
                             {data?.file && (
-                              <a
-                                href={data?.file}
+                              <><div className="d-inline" onClick={()=>handleFileDownload(data?.file)}><FaFile />
+                                {"File"}</div>
+                               <a
+                                href={newurl}
+                                id='myLink'
                                 target="_blank"
                                 rel="noreferrer"
                               >
-                                <FaFile />
-                                {"File"}
                               </a>
+                              </>
                             )}
                           </Col>
                           <Col md={6} className="text-right">
