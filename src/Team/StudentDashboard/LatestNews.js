@@ -59,7 +59,36 @@ function LatestNews() {
     return { day, month };
   };
   
-  
+  const [newurl,setnewurl] = useState('');
+const handleFileDownload = async(file) =>{
+     const parts = file.split('/');
+    const path = parts.slice(3).join('/');
+    const openParam = encryptGlobal(JSON.stringify({
+      filePath: path
+    }));
+    var config = {
+      method: 'get',
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/admins/s3fileaccess?Data=${openParam}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${currentUser?.data[0]?.token}`
+      }
+    };
+    await axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+         setnewurl(response.data.data);
+        setTimeout(() => {
+                  document.getElementById('myLink').click();
+                }, 500);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    };
   return (
     <div className="card flex-fill default-cover mb-4 latest-news-container">
       <div className="card-header d-flex justify-content-between align-items-center">
@@ -123,14 +152,17 @@ function LatestNews() {
           )}
 
           {item?.file_name && (
-            <a
-              className="link-item m-2 p-2"
-              href={item?.file_name}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <MdOutlineFileDownload size={20} style={{ color: "black" }} />
-            </a>
+             <>
+                        <div className="d-inline" onClick={()=>handleFileDownload(item?.file_name)}><MdOutlineFileDownload size={20} style={{ color: "black" }} /></div>
+                        <a
+                          id='myLink'
+                          href={newurl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ display: 'none' }}
+                        >  
+                        </a>
+                        </>
           )}
 
           {item?.url && (
