@@ -4,6 +4,7 @@ import "./Grid.css";
 import pdfIcon from "../../assets/img/pdfn3.png";
 import wordIcon from "../../assets/img/docume.jpg";
 import urlIcon from "../../assets/img/URL.jpg";
+import ImgIcon from "../../assets/img/Img.png";
 import { FaLink } from "react-icons/fa";
 import axios from 'axios';
 import { FaYoutube } from "react-icons/fa6";
@@ -32,7 +33,7 @@ const FileGrid = ({ resList }) => {
     } else if (url.endsWith(".docx") || url.endsWith(".doc")) {
       return wordIcon; 
     } else if (url.match(/\.(jpeg|jpg|png|gif|JPEG|JPG|PNG|GIF)$/)) {
-      return url; 
+      return ImgIcon; 
     } else {
       return "https://upload.wikimedia.org/wikipedia/commons/8/89/File_icon.svg"; 
     }
