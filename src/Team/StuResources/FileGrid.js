@@ -1,15 +1,18 @@
 /* eslint-disable indent */
-import React from "react";
+import React, { useState } from "react";
 import "./Grid.css"; 
 import pdfIcon from "../../assets/img/pdfn3.png";
 import wordIcon from "../../assets/img/docume.jpg";
 import urlIcon from "../../assets/img/URL.jpg";
+import ImgIcon from "../../assets/img/Img.png";
 import { FaLink } from "react-icons/fa";
-
+import axios from 'axios';
 import { FaYoutube } from "react-icons/fa6";
 import { FaImage } from "react-icons/fa6";
 import { FaFilePdf } from "react-icons/fa6";
 import { FaFileWord } from "react-icons/fa";
+import { encryptGlobal } from "../../constants/encryptDecrypt";
+import { getCurrentUser } from "../../helpers/Utils";
 const FileGrid = ({ resList }) => {
   const isValidUrl = (string) => {
     try {
@@ -30,7 +33,7 @@ const FileGrid = ({ resList }) => {
     } else if (url.endsWith(".docx") || url.endsWith(".doc")) {
       return wordIcon; 
     } else if (url.match(/\.(jpeg|jpg|png|gif|JPEG|JPG|PNG|GIF)$/)) {
-      return url; 
+      return ImgIcon; 
     } else {
       return "https://upload.wikimedia.org/wikipedia/commons/8/89/File_icon.svg"; 
     }
@@ -69,7 +72,37 @@ const FileGrid = ({ resList }) => {
       return null;
     }
   };
-
+const [newurl,setnewurl] = useState('');
+const currentUser = getCurrentUser('current_user');
+const handleFileDownload = async(file) =>{
+     const parts = file.split('/');
+    const path = parts.slice(3).join('/');
+    const openParam = encryptGlobal(JSON.stringify({
+      filePath: path
+    }));
+    var config = {
+      method: 'get',
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/admins/s3fileaccess?Data=${openParam}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${currentUser?.data[0]?.token}`
+      }
+    };
+    await axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+         setnewurl(response.data.data);
+        setTimeout(() => {
+                  document.getElementById('myLink').click();
+                }, 500);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+};
   return (
     <div className="myComponent">
         {resList.length > 0 ? (
@@ -94,23 +127,22 @@ const FileGrid = ({ resList }) => {
         {record.type === "file" ? (
           <div>
           
-
-    <a href={record.attachments} target="_blank" rel="noopener noreferrer">
-      <img
+ <img
         src={getFilePreview(record.attachments)}
         alt="File Preview"
+        onClick={()=>handleFileDownload(record.attachments)}
         className="card-img-top mb-1"
         style={{ maxHeight: "120px", objectFit: "cover" }}
       />
-    </a>
-    <div className="d-grid">
+    <div className="d-grid" >
+      <div className="btn btn-sm btn-outline-primary mt-2 mb-1" onClick={()=>handleFileDownload(record.attachments)}><i className="fas fa-external-link-alt"></i> Open File</div>
             <a
-              href={record.attachments}
+              href={newurl}
+              id='myLink'
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-sm btn-outline-primary mt-2 mb-1"
+              style={{ display: 'none' }}
             >
-              <i className="fas fa-external-link-alt"></i> Open File
             </a>
           </div>
           </div>

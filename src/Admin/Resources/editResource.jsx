@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col, FormGroup, Label, Form,Input } from 'reactstrap';
 import { Button } from '../../stories/Button';
 import { useFormik } from 'formik';
@@ -23,6 +23,37 @@ const EditResource = () => {
     const inputDICE = {
         type: 'text',
         className: 'defaultInput'
+    };
+
+    const [newurl,setnewurl] = useState('');
+    useEffect(()=>{
+        handleFileDownload(resID && resID.attachments);
+    },[]);
+    const handleFileDownload = async(file) =>{
+         const parts = file.split('/');
+        const path = parts.slice(3).join('/');
+        const openParam = encryptGlobal(JSON.stringify({
+          filePath: path
+        }));
+        var config = {
+          method: 'get',
+          url:
+            process.env.REACT_APP_API_BASE_URL +
+            `/admins/s3fileaccess?Data=${openParam}`,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${currentUser?.data[0]?.token}`
+          }
+        };
+        await axios(config)
+          .then(function (response) {
+            if (response.status === 200) {
+             setnewurl(response.data.data);
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
     };
    
     const fileHandler = (e) => {
@@ -345,7 +376,7 @@ const EditResource = () => {
                                                                     const fileURL = URL.createObjectURL(formik.values.attachments);
                                                                     window.open(fileURL, '_blank');
                                                               } else {
-                                                                    window.open(formik.values.attachments, '_blank');
+                                                                    window.open(newurl, '_blank');
                                                                 }
                                                             }}
                                                            

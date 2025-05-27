@@ -420,6 +420,36 @@ const AdminLatestNews = () => {
             }
         ]
     };
+    const [newurl,setnewurl] = useState('');
+const handleFileDownload = async(file) =>{
+     const parts = file.split('/');
+    const path = parts.slice(3).join('/');
+    const openParam = encryptGlobal(JSON.stringify({
+      filePath: path
+    }));
+    var config = {
+      method: 'get',
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/admins/s3fileaccess?Data=${openParam}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${currentUser?.data[0]?.token}`
+      }
+    };
+    await axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+         setnewurl(response.data.data);
+        setTimeout(() => {
+                  document.getElementById('myLink').click();
+                }, 500);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+};
 
     const resData = {
         data: resList && resList.length > 0 ? resList : [],
@@ -456,16 +486,19 @@ const AdminLatestNews = () => {
                         return <p>No file</p>;
                     } else {
                         return (
-                            
-                                <a
-                                    href={record.file_name}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="badge badge-md bg-light"
-                                >
-                                    <i className="fas fa-file-lines" style={{color:"blue"}}></i>
-                                </a>
-                           
+                             <>
+           <div onClick={()=>handleFileDownload(record.file_name)}><i className="fas fa-file-lines" style={{color:"blue"}}></i></div>
+               <a
+                  href={newurl}
+                  id='myLink'
+                  target="_blank"
+                  className="badge badge-md bg-light"
+                  rel="noopener noreferrer"
+                  style={{ display: 'none' }}
+              >
+               </a>
+            </>
+
                         );
                     }
                 }

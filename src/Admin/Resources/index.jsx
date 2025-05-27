@@ -1,6 +1,5 @@
 /* eslint-disable indent */
-import { useState } from 'react';
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import { Container, Row } from 'reactstrap';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import DataTable, { Alignment } from 'react-data-table-component';
@@ -108,7 +107,36 @@ const AdminResources = () => {
                  } 
             });
     };
-
+    const [newurl,setnewurl] = useState('');
+const handleFileDownload = async(file) =>{
+     const parts = file.split('/');
+    const path = parts.slice(3).join('/');
+    const openParam = encryptGlobal(JSON.stringify({
+      filePath: path
+    }));
+    var config = {
+      method: 'get',
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/admins/s3fileaccess?Data=${openParam}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${currentUser?.data[0]?.token}`
+      }
+    };
+    await axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+         setnewurl(response.data.data);
+        setTimeout(() => {
+                  document.getElementById('myLink').click();
+                }, 500);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+};
     const resData = {
         data: resList && resList.length > 0 ? resList : [],
         // data: staticData,
@@ -178,16 +206,19 @@ const AdminResources = () => {
                       return <i className="fas fa-file" style={{ color: "black" }}></i>;
               }
           };
-  
           return (
-              <a
-                  href={getFileViewerURL(record.attachments, fileExtension)}
+            <>
+           <div onClick={()=>handleFileDownload(record.attachments)}>{getFileIcon(fileExtension, isLink)}</div>
+               <a
+                  href={getFileViewerURL(newurl,fileExtension)}
+                  id='myLink'
                   target="_blank"
                   className="badge badge-md bg-light"
                   rel="noopener noreferrer"
+                  style={{ display: 'none' }}
               >
-                  {getFileIcon(fileExtension, isLink)}
-              </a>
+               </a>
+            </>
           );
       }
   },

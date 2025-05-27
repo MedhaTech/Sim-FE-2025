@@ -202,6 +202,37 @@ const [postdata,setPostData]=useState("");
 const [teamdata,setTeamData]=useState("");
 const [stuData,setStuData]=useState("");
 
+const handleFileDownload = async(file,type) =>{
+     const parts = file.split('/');
+    const path = parts.slice(3).join('/');
+    const openParam = encryptGlobal(JSON.stringify({
+      filePath: path
+    }));
+    var config = {
+      method: 'get',
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/admins/s3fileaccess?Data=${openParam}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${currentUser?.data[0]?.token}`
+      }
+    };
+    await axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+      if(type==='file'){
+        setFile(response.data.data);
+      }
+      if(type==='img'){
+        setImageData(response.data.data);
+      }
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+};
 
   useEffect(() => {
                // This function fetches mentors popup from the API //
@@ -227,9 +258,8 @@ const [stuData,setStuData]=useState("");
       .then(function (res) {
         if (res.status === 200 && res.data.data[0]?.on_off === "1") {
           setShowsPopup(true);
-
-          setFile(res?.data?.data[0]?.file);
-          setImageData(res?.data?.data[0]?.image);
+          handleFileDownload(res?.data?.data[0]?.file,'file');
+          handleFileDownload(res?.data?.data[0]?.image,'img');
           setUrlData(res?.data?.data[0]?.url);
           setYoutube(res?.data?.data[0]?.youtube);
 

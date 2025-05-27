@@ -39,13 +39,44 @@ import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { themes, themesList, focusareasList } from "./themesData";
 import {languageOptions} from "../../RegPage/ORGData";
 
-const LinkComponent = ({ original, item, url, removeFileHandler, i }) => {
+const LinkComponent = ({ original, item, url, removeFileHandler, i,currentUser }) => {
   let a_link;
   let count;
   if (url) {
     a_link = item.split("/");
     count = a_link.length - 1;
   }
+   const [newurl,setnewurl] = useState('');
+  const handleFileDownload = async(file) =>{
+       const parts = file.split('/');
+      const path = parts.slice(3).join('/');
+      const openParam = encryptGlobal(JSON.stringify({
+        filePath: path
+      }));
+      var config = {
+        method: 'get',
+        url:
+          process.env.REACT_APP_API_BASE_URL +
+          `/admins/s3fileaccess?Data=${openParam}`,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${currentUser?.data[0]?.token}`
+        }
+      };
+      await axios(config)
+        .then(function (response) {
+          if (response.status === 200) {
+           setnewurl(response.data.data);
+          // setTimeout(() => {
+          //           document.getElementById('myLink').click();
+          //         }, 500);
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      };
+      handleFileDownload(item);
   return (
     <>
       {original ? (
@@ -60,7 +91,7 @@ const LinkComponent = ({ original, item, url, removeFileHandler, i }) => {
       ) : (
         <a
           className="badge mb-2 bg-info p-3 ms-3"
-          href={item}
+          href={newurl}
           target="_blank"
           rel="noreferrer"
         >
@@ -1420,6 +1451,7 @@ if(formData?.verified_status === "ACCEPTED"){
                                       item={item}
                                       url={true}
                                       key={i}
+                                      currentUser={currentUser}
                                     />
                                   ))}
                                 {!immediateLink &&
@@ -1431,6 +1463,7 @@ if(formData?.verified_status === "ACCEPTED"){
                                       i={i}
                                       key={i}
                                       removeFileHandler={removeFileHandler}
+                                      currentUser={currentUser}
                                     />
                                   ))}
 
@@ -1442,6 +1475,7 @@ if(formData?.verified_status === "ACCEPTED"){
                                       item={item}
                                       url={true}
                                       key={i}
+                                      currentUser={currentUser}
                                     />
                                   ))}
                               </div>
