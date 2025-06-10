@@ -28,7 +28,7 @@ const TicketsPage = (props) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [tableData, settableData] = React.useState([]);
-   
+   const [showspin, setshowspin] = React.useState(false);
     const district = localStorage.getItem('dist');
     
 const updateStatesList=["All States",...stateList];
