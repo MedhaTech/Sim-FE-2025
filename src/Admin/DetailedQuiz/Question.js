@@ -281,8 +281,8 @@ const Question = (props) => {
                                                               isSubmitted
                                                             ? '2px solid red'
                                                             : '',
-                                                        paddingTop: '1.5rem',
-                                                        paddingBottom: '1.5rem',
+                                                        paddingTop: '1rem',
+                                                        paddingBottom: '1rem',
                                                         fontWeight: 'bold',
                                                         borderRadius: '1rem'
                                                     }}
