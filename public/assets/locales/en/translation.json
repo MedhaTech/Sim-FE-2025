@@ -95,8 +95,9 @@
         "addstudentheading":"Team and Students Registration into SIM",
         "subheading":"Create new team and add students",
         "addteamdetails":"STUDENTS DETAILS",
+         "addteamdetails1":"DETAILS",
+        "addteamdetails2":"STUDENTS",
         "firststudent":"STUDENT 1 DETAILS",
-        "secondstudent":"STUDENT 2 DETAILS",
         "thirdstudent":"STUDENT 3 DETAILS",
         "createteam":"Create Team",
         "backtoteams":"Back to Teams",
@@ -221,6 +222,8 @@
         "Mandal":"Mandal / Taluka", "SchoolType":"School Type", "SchoolBoard":"School Board",
         "PrincipalName":"Principal Name",
         "PrincipalMobileNo":"Principal Mobile No",
+        "PrincipalwMobileNo":"Principal Whatsapp Mobile No",
+
         "PrincipalEmailID":"Principal Email ID",
         "note":"Please complete the following post survey to get your certificate.",
         "SUBMIT":"SUBMIT",
@@ -269,7 +272,6 @@
         "Takesurvey":"Take survey & Get Certificate",
         "TeamUsername":"Team Username",
         "StudentFullName":"Student Full Name",
-
         
 "popup1":"Team Member Created Successfully",
 "popup2":"Team Created Successfully",
@@ -284,7 +286,10 @@
 "popup11":"Student Deleted Successfully",
 "popup12":"Team Deleted Successfully",
 "popup13":"Opps! Student shift was unsuccessful",
-"popup14":"Student not Deleted"
+"popup14":"Student not Deleted",
+"remove":"Remove",
+"adduser":"Teacher Edit Profile",
+"adduser1":"User Profile"
 
 
 
