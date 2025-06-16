@@ -16,40 +16,44 @@ import { LiaCertificateSolid } from "react-icons/lia";
 import { FaFlagCheckered } from "react-icons/fa";
 import { BiLogoMicrosoftTeams } from "react-icons/bi";
 import { PiStudentFill } from "react-icons/pi";
+import { useTranslation } from "react-i18next";
+
     const MultiTeacher = ({ teamsCount, postdata, studentCount,courseData ,ideaCount}) => {
+           const { t } = useTranslation();
+        
         const steps = [
             {
-                name: 'Pre Survey',
+                name: t('teacherJourney.add1'),
                 status: "Completed", 
                 icon: <FaCheckCircle color="green" /> 
             },
             {
-                name: 'Team Creation',
+                name:  t('teacherJourney.add2'),
                 status: teamsCount > 0  ? "Completed" : "Pending",
                 icon: teamsCount > 0 ? <FaCheckCircle color="green" /> : <BiLogoMicrosoftTeams color="brown" />
             },
             {
-                name: 'Students Enrolled',
+                name:  t('teacherJourney.add3'),
                 status: studentCount > 0 ? "Completed" : "Pending",
                 icon: studentCount > 0 ? <FaCheckCircle color="green" /> : <PiStudentFill style={{ color: "purple" }} />
             },
             {
-                name: 'Course',
+                name:  t('teacherJourney.add4'),
                 status: courseData === "Completed" ? "Completed" : "Pending",
                 icon: courseData === "Completed" ? <FaCheckCircle color="green" /> : <FaTv color="blue" />
             },
            
             {
-                name: 'Idea Submission',
+                name:  t('teacherJourney.add5'),
                 status: ideaCount >= 1 ? "Completed" : "Pending",
                 icon: ideaCount >= 1 ? <FaCheckCircle color="green" /> : <LuSend color="orange" />
                             },
             {
-                name: 'Post Survey',
+                name:  t('teacherJourney.add6'),
                 status: postdata === "Completed" ? "Completed" : "Pending",
                 icon: postdata === "Completed" ? <FaCheckCircle color="green" /> : <FiEdit3 color="sky blue" />},
             {
-                name: 'Certificate',
+                name:  t('teacherJourney.add7'),
                 status: postdata === "Completed"&& ideaCount >= 1 ? "Completed" : "Disabled",
                 icon: postdata === "Completed" && ideaCount >= 1 ? <FaFlagCheckered color="green" /> : <LiaCertificateSolid color="green" />
             },
