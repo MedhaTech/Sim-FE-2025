@@ -21,12 +21,9 @@ import Confetti from "react-confetti";
 
 import Vimeo from "@u-wave/react-vimeo";
 
-
-
 import { getCurrentUser } from "../../helpers/Utils";
 import axios from "axios";
 import { connect, useSelector } from "react-redux";
-
 
 import jsPDF from "jspdf";
 import { useLayoutEffect } from "react";
@@ -36,7 +33,6 @@ import { encryptGlobal } from "../../constants/encryptDecrypt";
 
 //VIMEO REFERENCE
 //https://github.com/u-wave/react-vimeo/blob/default/test/util/createVimeo.js
-import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import FeatherIcon from "feather-icons-react";
 
@@ -46,7 +42,6 @@ const TeacherPlayVideo = (props) => {
   const [id, setResponce] = useState([]);
   const { id: paramId } = useParams();
   const course_id = paramId ? paramId : 1;
-
   const currentUser = getCurrentUser("current_user");
   const [condition, setCondition] = useState("");
   const [modalShow, setModalShow] = useState(false);
@@ -97,7 +92,6 @@ const TeacherPlayVideo = (props) => {
   const scrollRef = React.createRef();
   const [quizStart, setQuizStart] = useState(false);
 
-  const dispatch = useDispatch();
 
   const getLastCourseStatus = (data = []) => {
     const length = data && data.length > 0 ? data.length - 1 : 0;
@@ -153,12 +147,16 @@ const TeacherPlayVideo = (props) => {
   }, [props.teaherCoursesDetails]);
 
   async function fetchData(videoId) {
+   
     const fetchParam = encryptGlobal(JSON.stringify(videoId));
     // here videoId = videoId //
     setVideoId(videoId);
     var config = {
       method: "get",
-      url: process.env.REACT_APP_API_BASE_URL + "/videos/" + fetchParam,
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        "/videos/" +
+        fetchParam ,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${currentUser?.data[0]?.token}`,
@@ -203,7 +201,7 @@ const TeacherPlayVideo = (props) => {
         console.log(error);
       });
   }
- 
+
   // async function getisquizcompleted() {
   //   let quizParamData = encryptGlobal(
   //     JSON.stringify({
@@ -331,8 +329,6 @@ const TeacherPlayVideo = (props) => {
   const handleSeeked = (event) => {
     // console.log("428 event fired: ", event);
   };
-
- 
 
   const handleTimeUpdate = (event) => {
     const videoLength = event.duration; //500
@@ -580,6 +576,10 @@ const TeacherPlayVideo = (props) => {
       },
     });
   };
+  const getFileTitle = (url) => {
+  const fileName = url.split("/").pop().split(".")[0].replace(/[_+]/g, " ");
+  return t(`teacherJourney.${fileName}`, fileName); 
+};
   return (
     <div className="page-wrapper">
       <div className="content">
@@ -606,7 +606,7 @@ const TeacherPlayVideo = (props) => {
                         data-feather="file-text"
                         className="feather-file-text"
                       ></i>{" "}
-                      Lessons
+                       {t("teacherJourney.lesson")}
                     </h5>
                   </div>
                   <div
@@ -678,7 +678,8 @@ const TeacherPlayVideo = (props) => {
                                     className="course-title"
                                     style={{ "font-weight": "600" }}
                                   >
-                                    {course.title}
+                                    {/* {course.title} */}
+                                    {t(`teacherJourney.${course.title}`)}
                                   </span>
                                 </p>
                               </Col>
@@ -690,185 +691,169 @@ const TeacherPlayVideo = (props) => {
                 </div>
               </Col>
 
-
               <Col xl={8} className="course-video mb-5 order-1 order-xl-2">
-                {
-                 
-                  item === "ATTACHMENT" &&
-                  !instructions &&
-                  handbook &&
-                  props.mentorAttachments.length > 0 &&
-                  props.mentorAttachments[0]?.attachments?.split("{{}}") ? (
-                    <Fragment>
-                      <Card className="course-sec-basic p-2">
+                {item === "ATTACHMENT" &&
+                !instructions &&
+                handbook &&
+                props.mentorAttachments.length > 0 &&
+                props.mentorAttachments[0]?.attachments?.split("{{}}") ? (
+                  <Fragment>
+                    <Card className="course-sec-basic p-2">
+                      <CardBody>
+                        <CardTitle className="text-left text-primary" tag="h2">
+                          {t("teacherJourney.teacherhand")}
+                        </CardTitle>
                         <CardBody>
-                          <CardTitle
-                            className="text-left text-primary"
-                            tag="h2"
-                          >
-                            {t("teacherJourney.teacherhand")}
-                          </CardTitle>
-                          <CardBody>
-                            <p>
-                              <b> {t("teacherJourney.dear")}</b>
-                            </p>
-                            <p>{t("teacherJourney.hand1")}</p>
-                            <p className="text-success">
-                              <b>{t("teacherJourney.hnad2")}</b>
-                            </p>
+                          <p>
+                            <b> {t("teacherJourney.dear")}</b>
+                          </p>
+                          <p>{t("teacherJourney.hand1")}</p>
+                          <p className="text-success">
+                            <b>{t("teacherJourney.hnad2")}</b>
+                          </p>
 
-                            <ul>
-                              <li> {t("teacherJourney.hand3")}</li>
-                              <li> {t("teacherJourney.hand4")}</li>
-                              <li>{t("teacherJourney.hand5")}</li>
-                              <li>{t("teacherJourney.hand6")}</li>
-                              <li>{t("teacherJourney.hand7")}</li>
-                              <li>{t("teacherJourney.hand8")}</li>
-                              <li>{t("teacherJourney.hand9")}</li>
-                            </ul>
-                            <br></br>
-                            <p>{t("teacherJourney.hand10")}</p>
+                          <ul>
+                            <li> {t("teacherJourney.hand3")}</li>
+                            <li> {t("teacherJourney.hand4")}</li>
+                            <li>{t("teacherJourney.hand5")}</li>
+                            <li>{t("teacherJourney.hand6")}</li>
+                            <li>{t("teacherJourney.hand7")}</li>
+                            <li>{t("teacherJourney.hand8")}</li>
+                            <li>{t("teacherJourney.hand9")}</li>
+                          </ul>
+                          <br></br>
+                          <p>{t("teacherJourney.hand10")}</p>
 
-                            <p>
-                              {t("teacherJourney.hand11")}
+                          <p>{t("teacherJourney.hand11")}</p>
+                        </CardBody>
+                        <div className="text-left mb-2">
+                          <div>
+                            {worksheetResponce &&
+                              worksheetResponce?.length > 0 &&
+                              worksheetResponce.map((item, i) => (
+                                <button
+                                  style={{
+                                    margin: "5px",
+                                  }}
+                                  key={i}
+                                  className="btn btn-secondary"
+                                  onClick={() => handleDownload(item)}
+                                >
+                                  {/* {`Download ${item
+                                    .split("/")
+                                    [item.split("/").length - 1].split(".")[0]
+                                    .replace("_", " ")}`} */}
+                                          {`${t("teacherJourney.download_file")} ${getFileTitle(item)}`}
 
-                          
-                            </p>
-
-                           
-                          </CardBody>
-                          <div className="text-left mb-2">
-                            <div>
-                              {worksheetResponce &&
-                                worksheetResponce?.length > 0 &&
-                                worksheetResponce.map((item, i) => (
-                                  <button
-                                    style={{
-                                      margin: "5px",
-                                    }}
-                                    key={i}
-                                    className="btn btn-secondary"
-                                    
-                                    onClick={() => handleDownload(item)}
-                                  >
-                                    {`Download ${item
-                                      .split("/")
-                                      [item.split("/").length - 1].split(".")[0]
-                                      .replace("_", " ")}`}
-                                  </button>
-                                ))}
-                            </div>
+                                </button>
+                              ))}
                           </div>
-                          <Col className="text-right">
-                            <button
-                              // label={"Continue"}
-                              onClick={() => handlenextend()}
-                              className="btn btn-warning"
-                            >
-                              Continue
-                            </button>
-                          </Col>
+                        </div>
+                        <Col className="text-right">
+                          <button
+                            // label={"Continue"}
+                            onClick={() => handlenextend()}
+                            className="btn btn-warning"
+                          >
+                            {t("teacherJourney.Continue")}
+                          </button>
+                        </Col>
+                      </CardBody>
+                    </Card>
+                  </Fragment>
+                ) : item === "VIDEO" && condition === "Video1" ? (
+                  <Card className="embed-container">
+                    <CardTitle className="text-left p-1 d-flex justify-content-between align-items-center">
+                      {/* <h3>{courseData.title}</h3> */}
+                      <h3>{t(`teacherJourney.${courseData.title}`)}</h3>
+                    </CardTitle>
+                    <Vimeo
+                      video={id.video_stream_id}
+                      volume={volume}
+                      paused={paused}
+                      onPause={handlePlayerPause}
+                      onPlay={handlePlayerPlay}
+                      onSeeked={handleSeeked}
+                      onTimeUpdate={handleTimeUpdate}
+                      onEnd={handleVimeoOnEnd}
+                    />
+                  </Card>
+                ) : (
+                  !instructions &&
+                  !handbook && (
+                    <Fragment>
+                      <Card className="course-sec-basic ">
+                        <CardBody>
+                          {getLastCourseStatus(teacherCourseDetails) &&
+                          !finalPage ? (
+                            <div>
+                              <Confetti className="w-100" />;
+                              <h3 className="text-success text-center">
+                                🎉 {t("teacherJourney.coursecom")}
+                                🎉
+                              </h3>
+                              <br />
+                              <p>
+                                <b style={{ color: "green" }}>
+                                  {t("teacherJourney.text1")}
+                                </b>
+                              </p>
+                              <ol className="text-left">
+                                <li>{t("teacherJourney.tex2")}</li>
+                                <li>{t("teacherJourney.text3")}</li>
+                                <li>{t("teacherJourney.text4")}</li>
+                                <li>{t("teacherJourney.tex5")}</li>
+                                <li>{t("teacherJourney.text6")}</li>
+                                <li>{t("teacherJourney.text7")}</li>
+                              </ol>
+                              <br />
+                              <p>{t("teacherJourney.text8")}</p>
+                            </div>
+                          ) : (
+                            <div>
+                              <div
+                                dangerouslySetInnerHTML={{
+                                  __html: t("teacherJourney.teacher_welcome_html"),
+                                }}
+                              ></div>
+                              <br />
+                              {firstObj[0] &&
+                              firstObj[0].progress == "INCOMPLETE" ? (
+                                <div className="mt-2">
+                                  <button
+                                    className="btn btn-warning mt-2"
+                                    onClick={(e) => startFirstCourse(e)}
+                                  >
+                                    {t("teacherJourney.sCourse")}
+                                  </button>
+                                </div>
+                              ) : (
+                                <div>
+                                  {getLastCourseStatus(teacherCourseDetails) ? (
+                                    <button
+                                      className="btn btn-warning"
+                                      onClick={(e) => startContinueCourse(e)}
+                                    >
+                                      {t("teacherJourney.CONTINUECOURSE")}
+                                    </button>
+                                  ) : (
+                                    <button
+                                      className="btn btn-warning"
+                                      onClick={(e) => startContinueCourse(e)}
+                                    >
+                                      {t("teacherJourney.CONTINUECOURSE")}
+                                    </button>
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          )}
                         </CardBody>
                       </Card>
                     </Fragment>
-                  ) : item === "VIDEO" && condition === "Video1" ? (
-                    <Card className="embed-container">
-                      <CardTitle className="text-left p-1 d-flex justify-content-between align-items-center">
-                        <h3>{courseData.title}</h3>
-                       
-                      </CardTitle>
-                      <Vimeo
-                        video={id.video_stream_id}
-                        volume={volume}
-                        paused={paused}
-                        onPause={handlePlayerPause}
-                        onPlay={handlePlayerPlay}
-                        onSeeked={handleSeeked}
-                        onTimeUpdate={handleTimeUpdate}
-                        onEnd={handleVimeoOnEnd}
-                      />
-                    </Card>
-                  ) : (
-                    
-                    !instructions &&
-                    !handbook && (
-                      <Fragment>
-                        <Card className="course-sec-basic ">
-                          <CardBody>
-                            {getLastCourseStatus(teacherCourseDetails) &&
-                            !finalPage ? (
-                              <div>
-                                <Confetti className="w-100" />;
-                                <h3 className="text-success text-center">
-                                  🎉 {t("teacherJourney.coursecom")}
-                                  🎉
-                                </h3>
-                                <br />
-                                <p>
-                                  <b style={{ color: "green" }}>
-                                    {t("teacherJourney.text1")}
-                                  </b>
-                                </p>
-                                <ol className="text-left">
-                                  <li>{t("teacherJourney.tex2")}</li>
-                                  <li>{t("teacherJourney.text3")}</li>
-                                  <li>{t("teacherJourney.text4")}</li>
-                                  <li>{t("teacherJourney.tex5")}</li>
-                                  <li>{t("teacherJourney.text6")}</li>
-                                  <li>{t("teacherJourney.text7")}</li>
-                                </ol>
-                                <br />
-                                <p>{t("teacherJourney.text8")}</p>
-                              </div>
-                            ) : (
-                              <div>
-                                <div
-                                  dangerouslySetInnerHTML={{
-                                    __html:
-                                      "<h3 class='text-success'>Welcome Teachers! </h3></br>We’re excited that you will be part of the program in guiding your student through it.</br><p>Now it’s time to start the program.</p><ol>We would like you all to go through the following in order.</br><li>1. Watch the instructional videos for overview of the program.</li><li>2. Read the teacher's handbook for a summary of the course and other important instructions.</li></ol></br><p>You have one week to do these. Afterwards, you and your students will be ready to start their problem solving journey!</p><p>We hope you enjoy guiding the students as they embark on this new journey!</p>Wishing you all the best!",
-                                  }}
-                                ></div>
-                                <br />
-                                {firstObj[0] &&
-                                firstObj[0].progress == "INCOMPLETE" ? (
-                                  <div className="mt-2">
-                                    <button
-                                      className="btn btn-warning mt-2"
-                                      onClick={(e) => startFirstCourse(e)}
-                                    >
-                                      {t("teacherJourney.sCourse")}
-                                    </button>
-                                  </div>
-                                ) : (
-                                  <div>
-                                    {getLastCourseStatus(
-                                      teacherCourseDetails
-                                    ) ? (
-                                      <button
-                                        className="btn btn-warning"
-                                        onClick={(e) => startContinueCourse(e)}
-                                      >
-                                        {t("teacherJourney.CONTINUECOURSE")}
-                                      </button>
-                                    ) : (
-                                      <button
-                                        className="btn btn-warning"
-                                        onClick={(e) => startContinueCourse(e)}
-                                      >
-                                        {t("teacherJourney.CONTINUECOURSE")}
-                                      </button>
-                                    )}
-                                  </div>
-                                )}
-                              </div>
-                            )}
-                          </CardBody>
-                        </Card>
-                      </Fragment>
-                    )
                   )
-                }
-               
+                )}
+
                 {item === "ATTACHMENT" &&
                   instructions &&
                   !handbook &&
@@ -907,7 +892,6 @@ const TeacherPlayVideo = (props) => {
                       </Card>
                     </Fragment>
                   )}
-
               </Col>
             </Row>
           </div>
