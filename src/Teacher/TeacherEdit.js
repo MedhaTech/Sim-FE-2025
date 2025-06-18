@@ -274,8 +274,8 @@ const TeacherEditProfile = () => {
       <div className="content">
         <div className="page-header">
           <div className="page-title">
-            <h4>Teacher Edit Profile</h4>
-            <h6>User Profile</h6>
+            <h4>{t('teacherJourney.adduser')}</h4>
+            <h6> {t('teacherJourney.adduser1')}</h6>
           </div>
         </div>
         {/* /product list */}
@@ -306,7 +306,7 @@ const TeacherEditProfile = () => {
               <div className="row">
                 <div className="form-login col-lg-3 col-sm-12">
                   <div className="input-blocks">
-                    <label>Title</label>
+                    <label>{t('teacehr_red.title')}</label>
                     <select
                       id="inputState"
                       className="form-select"
@@ -328,7 +328,7 @@ const TeacherEditProfile = () => {
                 </div>
                 <div className="form-login col-lg-3 col-sm-12">
                   <div className="input-blocks">
-                    <label className="form-label">Teacher Name</label>
+                    <label className="form-label">{t('teacherJourney.tecname')}</label>
                     <input
                       type="text"
                       className="form-control"
@@ -354,7 +354,7 @@ const TeacherEditProfile = () => {
                 </div>
                 <div className="form-login col-lg-3 col-sm-12">
                   <div className="input-blocks">
-                    <label>Gender</label>
+                    <label>{t('teacherJourney.gender')}</label>
                     <select
                       id="inputState"
                       className="form-select"
@@ -375,7 +375,7 @@ const TeacherEditProfile = () => {
                 </div>
                 <div className="form-login col-lg-3 col-sm-12">
                   <div className="input-blocks">
-                    <label>Whatsapp Number</label>
+                    <label>{t('teacherJourney.WhatsappNumber')}</label>
                     <input
                       type="text"
                       className="form-control"
@@ -405,7 +405,7 @@ const TeacherEditProfile = () => {
                 {/* New fields  */}
                 <div className="form-login col-lg-6 col-sm-12 ">
                   <div className="input-blocks">
-                    <label className="form-label">School Name</label>
+                    <label className="form-label">{t('teacherJourney.sname')}</label>
                     <input
                       type="text"
                       className="form-control"
@@ -431,7 +431,7 @@ const TeacherEditProfile = () => {
                 
                 <div className="form-login col-lg-6 col-sm-12">
                   <div className="input-blocks">
-                    <label className="form-label">District Name</label>
+                    <label className="form-label">{t('teacherJourney.District')}</label>
                     <select                        
                         name="district"
                         className="form-select"
@@ -462,7 +462,7 @@ const TeacherEditProfile = () => {
 
                 <div className="form-login col-lg-4 col-sm-12">
                   <div className="input-blocks">
-                    <label className="form-label">Principal Name</label>
+                    <label className="form-label">{t('teacherJourney.PrincipalName')}</label>
                     <input
                       type="text"
                       className="form-control"
@@ -488,7 +488,7 @@ const TeacherEditProfile = () => {
                 </div>
                 <div className="form-login col-lg-4 col-sm-12">
                   <div className="input-blocks">
-                    <label className="form-label">Principal Email ID</label>
+                    <label className="form-label">{t('teacherJourney.PrincipalEmailID')}</label>
                     <input
                       type="email"
                       className="form-control"
@@ -510,7 +510,7 @@ const TeacherEditProfile = () => {
                 </div>
                 <div className="form-login col-lg-4 col-sm-12">
                   <div className="input-blocks">
-                    <label>Principal Mobile/WhatsApp No</label>
+                    <label>{t('teacherJourney.PrincipalwMobileNo')}</label>
                     <input
                       type="text"
                       className="form-control"
@@ -547,10 +547,11 @@ const TeacherEditProfile = () => {
                     }`}
                     disabled={!(formik.isValid)}
                   >
-                    Submit
+                    {t('teacherJourney.submit')}
                   </button>
                   <Link className="btn btn-cancel" to={"/mentorprofile"}  style={cancelLinkStyle}>
-                    Cancel
+                                        {t('teacherJourney.Cancel')}
+
                   </Link>
                 </div>
               </div>

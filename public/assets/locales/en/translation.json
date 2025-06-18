@@ -66,7 +66,20 @@
     "teacherJourney": {
         "heading":"here's what's happening with your School Innovation Marathon 2025 journey.",
 
+  "teacher_welcome_html": "<h3 class='text-success'>Welcome Teachers!</h3><br/>We’re excited that you will be part of the program in guiding your student through it.<br/><p>Now it’s time to start the program.</p><ol><li>1. Watch the instructional videos for overview of the program.</li><li>2. Read the teacher's handbook for a summary of the course and other important instructions.</li></ol><br/><p>You have one week to do these. Afterwards, you and your students will be ready to start their problem solving journey!</p><p>We hope you enjoy guiding the students as they embark on this new journey!</p>Wishing you all the best!",
+ "Introduction to program": "Introduction to program",
+    "Understanding the learner's journey": "Understanding the learner's journey",
+    "Workbook and Idea Submission": "Workbook and Idea Submission",
+    "Teacher Roles and Responsibilities": "Teacher Roles and Responsibilities",
+    "Handbook": "Handbook",
+     "Student Workbook": "Student Workbook",
+    "Themes": "Themes",
+     "download_file": "Download",
+    "Congratulations": "Congratulations",
+
         "Dbcourse":"Teacher Course",
+        "lesson":"Lessons",
+
         "Dbteams":"Teams Created",
         "Dbstudents":"Students Enrolled",
         "IdeaSubmission":"Idea Submissions",
@@ -95,8 +108,9 @@
         "addstudentheading":"Team and Students Registration into SIM",
         "subheading":"Create new team and add students",
         "addteamdetails":"STUDENTS DETAILS",
+         "addteamdetails1":"DETAILS",
+        "addteamdetails2":"STUDENTS",
         "firststudent":"STUDENT 1 DETAILS",
-        "secondstudent":"STUDENT 2 DETAILS",
         "thirdstudent":"STUDENT 3 DETAILS",
         "createteam":"Create Team",
         "backtoteams":"Back to Teams",
@@ -221,6 +235,8 @@
         "Mandal":"Mandal / Taluka", "SchoolType":"School Type", "SchoolBoard":"School Board",
         "PrincipalName":"Principal Name",
         "PrincipalMobileNo":"Principal Mobile No",
+        "PrincipalwMobileNo":"Principal Whatsapp Mobile No",
+
         "PrincipalEmailID":"Principal Email ID",
         "note":"Please complete the following post survey to get your certificate.",
         "SUBMIT":"SUBMIT",
@@ -269,7 +285,6 @@
         "Takesurvey":"Take survey & Get Certificate",
         "TeamUsername":"Team Username",
         "StudentFullName":"Student Full Name",
-
         
 "popup1":"Team Member Created Successfully",
 "popup2":"Team Created Successfully",
@@ -284,7 +299,18 @@
 "popup11":"Student Deleted Successfully",
 "popup12":"Team Deleted Successfully",
 "popup13":"Opps! Student shift was unsuccessful",
-"popup14":"Student not Deleted"
+"popup14":"Student not Deleted",
+"remove":"Remove",
+"adduser":"Teacher Edit Profile",
+"add1":"Pre Survey",
+"add2":"Team Creation",
+"add3":"Students Enrolled",
+"add4":"Course",
+"add5":"Idea Submission",
+"add6":"Post Survey",
+"add7":"Certificate"
+
+
 
 
 

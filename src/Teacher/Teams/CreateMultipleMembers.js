@@ -329,8 +329,8 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
       <div className="page-header">
         <div className="add-item d-flex">
           <div className="page-title">
-            <h4>Team and Students Registration into SIM</h4>
-            <h6>Create new team and add students</h6>
+            <h4>{t('teacherJourney.addstudentheading')}</h4>
+            <h6>{t('teacherJourney.subheading')}</h6>
           </div>
         </div>
         <ul className="table-top-head">
@@ -341,7 +341,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
                 className="btn btn-secondary"
                 onClick={() => navigate("/mentorteams")}
               >
-                <i className="fas fa-arrow-left"></i> Back to Teams
+                <i className="fas fa-arrow-left"></i> {t('teacherJourney.backtoteams')}
               </button>
             </div>
           </li>
@@ -351,12 +351,12 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
       <div className="card">
         <div className="card-body pb-0">
           <div className="card-title-head">
-            <h6>TEAM DETAILS</h6>
+            <h6>{t('teacherJourney.teamdetails')}</h6>
           </div>
           <Row className="mb-3 modal-body-table search-modal-header">
             <Col md={6}>
               <Label className="form-label">
-                Team Name
+                {t('teacherJourney.tname')}
                 <span required className="p-1">
                   *
                 </span>
@@ -375,12 +375,12 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
             </Col>
             <Col md={6} className="mb-xl-0">
               <Label className="form-label">
-                Team Email Address
+                {t('teacherJourney.temail')}
                
               </Label>
               <input
                 className="form-control"
-                placeholder="Enter Email Address"
+                placeholder="Enter Email "
                 id="teamemail"
                 name="teamemail"
                 type="email"
@@ -391,7 +391,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
             </Col>
           </Row>
           <div className="card-title-head">
-            <h6>STUDENTS DETAILS</h6>
+            <h6> {t('teacherJourney.addteamdetails')}</h6>
           </div>
           {studentData.map((item, i) => {
             const foundErrObject = { ...itemDataErrors[i] };
@@ -403,13 +403,13 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
             return (
               <div key={i} className="mb-3">
                 <div className="d-flex justify-content-between align-items-center">
-                  <h6 className="mt-2 mb-2">STUDENT {i + 1} DETAILS</h6>
+                  <h6 className="mt-2 mb-2">{t('teacherJourney.addteamdetails2')} {i + 1} {t('teacherJourney.addteamdetails1')}</h6>
                   {showRemoveButton && (
                     <button
                       onClick={() => removeItem(i)}
                       className="btn btn-sm btn-square btn-soft-danger"
                     >
-                      <i className="fa-solid fa-xmark"></i> Remove
+                      <i className="fa-solid fa-xmark"></i> {t('teacherJourney.remove')}
                     </button>
                   )}
                 </div>
@@ -418,7 +418,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
                   {/* <Row> */}
                   <Col md={4}>
                     <Label className="form-label">
-                      Full Name
+                      {t('teacherJourney.tfullname')}
                       <span required className="p-1">
                         *
                       </span>
@@ -442,7 +442,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
                   
                   <Col md={4} className="mb-xl-0">
                         <Label className="form-label">
-                          Email Address
+                           {t('teacherJourney.eamil1')}
                          
                         </Label>
                         <input
@@ -464,7 +464,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
                   {/* </Row> */}
                   <Col md={4} className="mb-xl-0">
                     <Label htmlFor="inputState" className="form-label">
-                      Disability
+                      {t('teacherJourney.disability')}
                       <span required className="p-1">
                         *
                       </span>
@@ -507,7 +507,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
                   </Col>
                   <Col md={4} className="mb-xl-0">
                     <Label htmlFor="inputState" className="form-label">
-                      Age
+                      {t('teacherJourney.age')}
                       <span required className="p-1">
                         *
                       </span>
@@ -534,7 +534,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
 
                   <Col md={4}>
                     <Label htmlFor="inputState" className="form-label">
-                      Class
+                      {t('teacherJourney.class')}
                       <span required className="p-1">
                         *
                       </span>
@@ -561,7 +561,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
                   </Col>
                   <Col md={4} className="mb-5 mb-xl-0">
                     <Label htmlFor="inputState" className="form-label">
-                      Gender
+                       {t('teacherJourney.gender')}
                       <span required className="p-1">
                         *
                       </span>
@@ -601,11 +601,13 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
               onClick={handleSumbit}
               disabled={!button}
             >
-              CREATE TEAM
+                                        {t('teacherJourney.createteam')}
+
             </button>
           ) : (
             <button type="button" className="btn btn-warning text-right">
-              CREATE TEAM
+                                                     {t('teacherJourney.createteam')}
+
             </button>
           )}
          
@@ -617,7 +619,8 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
             className="btn btn-secondary "
             onClick={() => navigate("/mentorteams")}
           >
-            DISCARD
+                                                    {t('teacherJourney.discard')}
+
           </button>
         </Col>
       </Row>

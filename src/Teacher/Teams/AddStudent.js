@@ -198,7 +198,7 @@ export const CreateTeamMember = () => {
                               value={formik.values.disability}
                               onChange={formik.handleChange}
                             >
-                              <option value="">  {t('teacherJourney.select')}</option>
+                              <option value="">Select Status</option>
                               <option value="No">No</option>
                               <option value="Physically Challenged">
                                 Physically Challenged
