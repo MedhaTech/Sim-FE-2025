@@ -525,7 +525,7 @@ ideaStatus===  null &&
               <li>
               <div className="page-btn mb-2">
                 <Link to="/createteam" className="btn btn-added btn-primary">
-                  <PlusCircle className="me-2" style={{color:"white"}} />
+                  <PlusCircle  style={{color:"white"}} />
                   {t('teacherJourney.addteam')}
                 </Link>
               </div>

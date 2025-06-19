@@ -298,7 +298,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
               teacherCreateMultipleStudent(
                 updatedStudentData,
                 navigate,
-                setIsClicked
+                setIsClicked,t
               )
             );
           }, 2000);
@@ -424,7 +424,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
                       </span>
                     </Label>
                     <input
-                      className="form-control"
+                      className="form-control mb-2"
                       placeholder="Enter Full Name"
                       id="full_name"
                       name="full_name"

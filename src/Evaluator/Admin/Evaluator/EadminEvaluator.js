@@ -312,7 +312,7 @@ const TicketsPage = (props) => {
                                                     <Download className="me-2" style={{ color: "white" }} />
                                                     <b>Data List</b>
                                                 </>}
-                                                btnClass="primary"
+                                                btnClass="primary m-2"
                                                 size="small"
                                                 shape="btn-square" />
                                         </a>
@@ -322,7 +322,7 @@ const TicketsPage = (props) => {
                                                     <Download className="me-2" style={{ color: "white" }} />
                                                     <b>Template</b>
                                                 </>}
-                                                btnClass="primary"
+                                                btnClass="primary m-2"
                                                 size="small"
                                                 shape="btn-square" />
                                         </a>
@@ -344,7 +344,7 @@ const TicketsPage = (props) => {
                                                         <b>Upload File</b>
                                                     </>
                                                 }
-                                                btnClass="primary"
+                                                btnClass="primary m-2"
                                                 size="small"
                                                 shape="btn-square"
                                                 onClick={() => {
@@ -363,7 +363,7 @@ const TicketsPage = (props) => {
                                                     <b>Add New Evaluator</b>
                                                 </>
                                             }
-                                            btnClass="primary"
+                                            btnClass="primary m-2"
                                             size="small"
                                             shape="btn-square"
                                             Icon={BsUpload}

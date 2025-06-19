@@ -139,7 +139,7 @@ export const CreateTeamMember = () => {
                               </span>
                             </Label>
                             <input
-                              className="form-control"
+                              className="form-control mb-2"
                               placeholder="Enter Full Name"
                               id="fullName"
                               name="fullName"

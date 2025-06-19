@@ -632,7 +632,7 @@ ideaCount={ideaCount}
             {/* Teacher dashboard stats */}
             <div className="row">
               <div className="col-xl-3 col-sm-6 col-12 d-flex">
-                <div className="dash-widget dash2 w-100">
+                <div className="dash-widget dash2 w-100" style={{ minHeight: '110px' }}>
                   <div className="dash-widgetimg">
                     <span>
                       <FaChalkboardTeacher
@@ -641,7 +641,7 @@ ideaCount={ideaCount}
                       />
                     </span>
                   </div>
-                  <div className="dash-widgetcontent">
+                  <div className="dash-widgetcontent ">
                     {teacCourseLoading ? (
                       <Loader />
                     ) : coursepercentage === 0 ? (
@@ -670,7 +670,7 @@ ideaCount={ideaCount}
                 </div>
               </div>
               <div className="col-xl-3 col-sm-6 col-12 d-flex">
-                <div className="dash-widget w-100">
+                <div className="dash-widget w-100"  style={{ minHeight: '110px' }}>
                   <div className="dash-widgetimg">
                     <span>
                       <FaUsers size={30} style={{ color: "crimson" }} />
@@ -698,7 +698,7 @@ ideaCount={ideaCount}
                 </div>
               </div>
               <div className="col-xl-3 col-sm-6 col-12 d-flex">
-                <div className="dash-widget dash1 w-100">
+                <div className="dash-widget dash1 w-100"  style={{ minHeight: '110px' }}>
                   <div className="dash-widgetimg">
                     <span>
                       <FaUserGraduate
@@ -729,7 +729,7 @@ ideaCount={ideaCount}
                 </div>
               </div>
               <div className="col-xl-3 col-sm-6 col-12 d-flex">
-                <div className="dash-widget dash3 w-100">
+                <div className="dash-widget dash3 w-100"  style={{ minHeight: '110px' }}>
                   <div className="dash-widgetimg">
                     <span>
                       <FaPaperPlane size={30} style={{ color: "purple" }} />
@@ -770,7 +770,7 @@ ideaCount={ideaCount}
                       <>
                         <h4> {t('teacherJourney.post')}</h4>
                         <h5>
-                        {t('teacherJourney.submitted')} <CheckCircle size={15} color="white" />
+                        {t('teacherJourney.submitted')} <CheckCircle size="15" color="white" />
                         </h5>
                       </>
                     ) : (
@@ -781,7 +781,7 @@ ideaCount={ideaCount}
                     )}
                   </div>
                   <div className="dash-imgs">
-                    <FaPoll />
+                    <FaPoll size="20" />
                   </div>
                 </div>
               </div>
@@ -794,7 +794,7 @@ ideaCount={ideaCount}
                         <h5>{t('teacherJourney.aftersurvey')}</h5>
                       </div>
                       <div className="dash-imgs">
-                        <GiAchievement size={30} />
+                        <GiAchievement size="30" />
                       </div>
                     </div>
                   </>
@@ -824,14 +824,14 @@ ideaCount={ideaCount}
                         {currentUser?.data[0]?.state !== "Tamil Nadu" && (
                           <h5>
                             {t('teacherJourney.Clickhere')}&nbsp;
-                            <FeatherIcon icon="arrow-down-circle" size={30} />
+                            <FeatherIcon icon="arrow-down-circle" size={20} />
                             &nbsp; {t('teacherJourney.Certificate')}
                           </h5>
                         )}
                          {currentUser?.data[0]?.state === "Tamil Nadu" && (
                           <h5>
                             {t('teacherJourney.Clickhere')}&nbsp;
-                            <FeatherIcon icon="arrow-down-circle" size={30} />
+                            <FeatherIcon icon="arrow-down-circle" size={20} />
                             &nbsp; {t('teacherJourney.Certificate')}
                           </h5>
                         )}
@@ -839,7 +839,7 @@ ideaCount={ideaCount}
                       </div>
 
                       <div className="dash-imgs">
-                        <GiAchievement size={40} />
+                        <GiAchievement size="30" />
                       </div>
                     </>
                   </div>
@@ -861,7 +861,7 @@ ideaCount={ideaCount}
                     <h4> {t('teacherJourney.joinwhtsapp')}</h4>
                     <h5>{t('teacherJourney.supporthere')}</h5>
                   </div>
-                  <div className="dash-imgs">
+                  <div className="dash-imgs" size="20">
                     {whatsappLink === null ? (
                       <a
                         href={whatsappLink}
@@ -871,6 +871,7 @@ ideaCount={ideaCount}
                         <FaWhatsapp
                           onClick={handleWhatsapp}
                           style={{ color: "white" }}
+                          size="20"
                         />
                       </a>
                     ) : (
@@ -879,7 +880,7 @@ ideaCount={ideaCount}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <FaWhatsapp style={{ color: "white" }} />
+                        <FaWhatsapp style={{ color: "white" }} size="20" />
                       </a>
                     )}
                   </div>
