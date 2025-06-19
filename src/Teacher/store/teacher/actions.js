@@ -16,6 +16,7 @@ import {
 } from "../../../helpers/Utils.js";
 import { encryptGlobal } from "../../../constants/encryptDecrypt.js";
 
+
 export const teacherLoginUserSuccess = (user) => async (dispatch) => {
   dispatch({
     type: TEACHER_LOGIN_USER_SUCCESS,
@@ -134,7 +135,7 @@ export const teacherLoginUser =
   
 
 export const teacherCreateMultipleStudent =
-  (data, navigate, setIsClicked) => async () => {
+  (data, navigate, setIsClicked,t) => async () => {
     try {
       const axiosConfig = getNormalHeaders(KEY.User_API_Key);
       const result = await axios
@@ -144,7 +145,10 @@ export const teacherCreateMultipleStudent =
           return err.response;
         });
       if (result && result.status === 201) {
-        openNotificationWithIcon("success", result.data.data);
+        // openNotificationWithIcon("success", result.data.data);
+        const message = result.data.data; 
+const name = message?.split("successfully")[0].trim();  
+openNotificationWithIcon("success", t("teacherJourney.data",{ name }));
         navigate("/mentorteams");
         setIsClicked(false);
       } else {
