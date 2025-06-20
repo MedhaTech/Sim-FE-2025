@@ -147,33 +147,37 @@ const Dashboard = (props) => {
 
   const renderViewTooltip = (props) => (
     <Tooltip id="refresh-tooltip" {...props}>
-      View
+       {t('teacherJourney.option17')}
     </Tooltip>
   );
   const renderAddTooltip = (props) => (
     <Tooltip id="refresh-tooltip" {...props}>
-      Add Student
+            {t('teacherJourney.option18')}
+
     </Tooltip>
   );
   const renderHideTooltip = (props) => (
     <Tooltip id="refresh-tooltip" {...props}>
-      Hide
+      {t('teacherJourney.option19')}
     </Tooltip>
   );
   const renderEditTooltip = (props) => (
     <Tooltip id="refresh-tooltip" {...props}>
-      Edit Stu
+            {t('teacherJourney.option20')}
+
     </Tooltip>
   );
   const renderSwitchTooltip = (props) => (
     <Tooltip id="refresh-tooltip" {...props}>
-      Change Team
+                  {t('teacherJourney.option21')}
+
     </Tooltip>
   );
 
   const renderDelTooltip = (props) => (
     <Tooltip id="refresh-tooltip" {...props}>
-      Del Stu
+                        {t('teacherJourney.option22')}
+
     </Tooltip>
   );
   
@@ -274,16 +278,18 @@ ideaStatus===  null &&
 
   const handleDeleteTeam = (student) => {
     // Function to fetch Delete The team from the API
-
+ const btnLabel = t('general_req.btn_ok');
     const MySwal = withReactContent(Swal);
     MySwal.fire({
       title: t('general_req.are_you_sure'),
       text:  t('general_req.revert'),
       showCancelButton: true,
       confirmButtonColor: "#00ff00",
-      confirmButtonText:  t('general_req.del'),
+      //  confirmButtonText: t('general_req.btn_ok') ,
+        confirmButtonText: btnLabel,
       cancelButtonColor: "#ff0000",
       cancelButtonText:t('general_req.btn_cancel'),
+      
     }).then((result) => {
       if (result.isConfirmed) {
         const paramId = encryptGlobal(JSON.stringify(student));
@@ -313,20 +319,26 @@ ideaStatus===  null &&
             console.log(error);
           });
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        MySwal.fire("Cancelled", "Team not Deleted", "error");
+        MySwal.fire({
+        title: t('teacherJourney.option28'),
+        text: t('teacherJourney.option29'),
+        icon: "error",
+        confirmButtonText: btnLabel 
+      });
+        // MySwal.fire(t('teacherJourney.option28'), t('teacherJourney.option29'), "error");
       }
     });
   };
   const handleDeleteStudent = (item) => {
     // Function to fetch Delete The Student from the API
-
+ const btnLabel = t('general_req.btn_ok');
     const MySwal = withReactContent(Swal);
     MySwal.fire({
       title: t('general_req.are_you_sure'),
       text: t('general_req.revert'),
       showCancelButton: true,
       confirmButtonColor: "#00ff00",
-      confirmButtonText:  t('general_req.del'),
+       confirmButtonText: btnLabel,
       cancelButtonColor: "#ff0000",
       cancelButtonText: t('general_req.btn_cancel'),
     }).then((result) => {
@@ -358,7 +370,13 @@ ideaStatus===  null &&
             console.log(error);
           });
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        MySwal.fire("Cancelled",  t('teacherJourney.popup14'), "error");
+         MySwal.fire({
+        title: t('teacherJourney.option28'),
+        text:t('teacherJourney.popup14'),
+        icon: "error",
+        confirmButtonText: btnLabel 
+      });
+        // MySwal.fire({t('teacherJourney.option28'),  t('teacherJourney.popup14'), "error"});
       }
     });
   };
@@ -559,7 +577,7 @@ ideaStatus===  null &&
                   <Select
                     list={teamlist}
                     setValue={setvalue}
-                    placeHolder={"Please Select team"}
+                    placeHolder={t('teacherJourney.option24')}
                     value={value}
                   />
                 </div>

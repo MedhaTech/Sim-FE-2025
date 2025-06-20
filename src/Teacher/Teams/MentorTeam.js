@@ -87,7 +87,7 @@ export const CreateTeamMember = (props) => {
 
     validationSchema: Yup.object({
       fullName: Yup.string()
-        .required("Please Enter valid Full Name")
+        .required("Please Enter Full Name")
         .max(40)
         .required()
         .matches(

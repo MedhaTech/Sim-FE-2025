@@ -46,31 +46,31 @@ const StuEdit = () => {
     validationSchema: Yup.object({
       fullName: Yup.string()
         .required(
-          <span style={{ color: "red" }}>Please Enter valid Full Name</span>
+          <span style={{ color: "red" }}>{t('teacherJourney.vali3')}</span>
         )
         .max(40)
         .matches(
           /^[A-Za-z0-9\s]*$/,
-          "Please enter only alphanumeric characters"
+           t('teacherJourney.vali24')
         )
         .trim(),
       age: Yup.number()
         .integer()
-        .min(10, "Min age is 10")
-        .max(18, "Max age is 18")
-        .required(<span style={{ color: "red" }}>Please Select Age</span>),
+         .min(10,  t('teacherJourney.vali21'))
+        .max(18, t('teacherJourney.vali22'))
+        .required(<span style={{ color: "red" }}>{t('teacherJourney.vali17')}</span>),
       gender: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select Gender</span>
+        <span style={{ color: "red" }}>{t('teacherJourney.vali18')}</span>
       ),
-       email: Yup.string().email("Please Enter Valid Email Address").max(255)
+       email: Yup.string().email(t('teacherJourney.vali13')).max(255)
        .optional(),
            
       disability: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select Disability Status</span>
+        <span style={{ color: "red" }}>{t('teacherJourney.vali19')}</span>
       ),
       grade: Yup.string()
         .max(40)
-        .required(<span style={{ color: "red" }}>Please Select Class</span>),
+        .required(<span style={{ color: "red" }}>{t('teacherJourney.vali20')}</span>),
     }),
 
     onSubmit: (values) => {
@@ -155,7 +155,7 @@ const StuEdit = () => {
                       </Label>
                       <input
                         className="form-control"
-                        placeholder="Please Enter Your Full Name"
+                        placeholder={t("teacherJourney.place1")}
                         id="fullName"
                         name="fullName"
                         onChange={(e) => {
@@ -182,7 +182,7 @@ const StuEdit = () => {
                                                 </Label>
                                                 <input
                                                   className="form-control"
-                                                  placeholder="Enter  Email Address"
+                                                  placeholder={t("teacherJourney.place2")}
                                                   id="email"
                                                   name="email"
                                                  
@@ -211,30 +211,32 @@ const StuEdit = () => {
                         value={formik.values.disability}
                         onChange={formik.handleChange}
                       >
-                        <option value="">Select Status</option>
-                        <option value="No">No</option>
-                        <option value="Physically Challenged">
-                          Physically Challenged
-                        </option>
-                        <option value="Visually Challenged">
-                          Visually Challenged
-                        </option>
-                        <option value="Locomotor Disability">
-                          Locomotor Disability
-                        </option>
-                        <option value="Intellectual Disability">
-                          Intellectual Disability
-                        </option>
-                        <option value="Learning Disability">
-                          Learning Disability
-                        </option>
-                        <option value="Hearing Impaired">
-                          Hearing Impaired
-                        </option>
-                        <option value="Autism or Cerebral Palsy or Other">
-                          Autism/Cerebral Palsy/Other
-                        </option>
-                        <option value="Others">Others</option>
+                        <option value="">{t("teacherJourney.place3")}</option>
+                      <option value="No">{t("teacherJourney.option4")}</option>
+                      <option value="Physically Challenged">
+                        {t("teacherJourney.option5")}
+                      </option>
+                      <option value="Visually Challenged">
+                        {t("teacherJourney.option6")}
+                      </option>
+                      <option value="Locomotor Disability">
+                        {t("teacherJourney.option7")}
+                      </option>
+                      <option value="Intellectual Disability">
+                        {t("teacherJourney.option8")}
+                      </option>
+                      <option value="Learning Disability">
+                        {t("teacherJourney.option9")}
+                      </option>
+                      <option value="Hearing Impaired">
+                        {t("teacherJourney.option10")}
+                      </option>
+                      <option value="Autism or Cerebral Palsy or Other">
+                        {t("teacherJourney.option11")}
+                      </option>
+                      <option value="Others">
+                        {t("teacherJourney.option12")}
+                      </option>
                       </select>
                       {formik.touched.disability && formik.errors.disability ? (
                         <small className="error-cls">
@@ -257,7 +259,7 @@ const StuEdit = () => {
                         onBlur={formik.handleBlur}
                         value={formik.values.age}
                       >
-                        <option value={""}>Select Age</option>
+                        <option value={""}>{t("teacherJourney.place4")}</option>
                         {allowedAge.map((item) => (
                           <option key={item} value={item}>
                             {item}
@@ -282,14 +284,14 @@ const StuEdit = () => {
                         value={formik.values.grade}
                         onChange={formik.handleChange}
                       >
-                        <option value="">Select Class..</option>
-                        <option value="6">Class 6</option>
-                        <option value="7">Class 7</option>
-                        <option value="8">Class 8</option>
-                        <option value="9">Class 9</option>
-                        <option value="10">Class 10</option>
-                        <option value="11">Class 11</option>
-                        <option value="12">Class 12</option>
+                         <option value="">{t('teacherJourney.place5')}..</option>
+                              <option value="6">{t('teacherJourney.vali26')} 6</option>
+                              <option value="7">{t('teacherJourney.vali26')} 7</option>
+                              <option value="8">{t('teacherJourney.vali26')} 8</option>
+                              <option value="9">{t('teacherJourney.vali26')} 9</option>
+                              <option value="10">{t('teacherJourney.vali26')} 10</option>
+                              <option value="11">{t('teacherJourney.vali26')} 11</option>
+                              <option value="12">{t('teacherJourney.vali26')} 12</option>
                       </select>
                       {formik.touched.grade && formik.errors.grade ? (
                         <small className="error-cls">
@@ -311,10 +313,16 @@ const StuEdit = () => {
                         value={formik.values.gender}
                         onChange={formik.handleChange}
                       >
-                        <option value="">Select Gender</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Prefer Not to Mention">Prefer Not to Mention</option>
+                        <option value="">{t("teacherJourney.place6")}</option>
+                      <option value="Male">
+                        {t("teacherJourney.option1")}
+                      </option>
+                      <option value="Female">
+                        {t("teacherJourney.option2")}
+                      </option>
+                      <option value="Prefer Not to Mention">
+                        {t("teacherJourney.option3")}
+                      </option>
                       </select>
 
                       {formik.touched.gender && formik.errors.gender ? (

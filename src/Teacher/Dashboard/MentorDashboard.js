@@ -40,6 +40,8 @@ import MultiTeacher from "./MultiTeacher";
 import { IoArrowDownCircleOutline } from "react-icons/io5";
 import { PiLinkSimpleBold } from "react-icons/pi";
 const GreetingModal = (props) => {
+   const { t } = useTranslation();
+
   return (
     <Modal
       show={props.show}
@@ -140,9 +142,9 @@ const GreetingModal = (props) => {
 
 {props.state != null && (
   <div className="d-flex align-items-center justify-content-end">
-    <strong className="me-2">Reference Course</strong>
+    <strong className="me-2">{t('teacherJourney.ref')}</strong>
     <Link to={props.state}>
-      <button className="btn btn-warning">Navigate</button>
+      <button className="btn btn-warning">{t('teacherJourney.navigate')}</button>
     </Link>
   </div>
 )}
@@ -508,7 +510,7 @@ const handleFileDownload = async(file,type) =>{
 
   const renderTooltip = (props) => (
     <Tooltip id="pdf-tooltip" {...props}>
-      Watch Demo
+     {t('teacherJourney.option25')}
     </Tooltip>
   );
   const handleShow = (i) => {
