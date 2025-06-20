@@ -56,7 +56,7 @@ const [data,setData]=useState({});
 
 const renderTooltip = (props) => (
   <Tooltip id="pdf-tooltip" {...props} >
-    Watch Demo
+     {t('teacherJourney.option25')}
   </Tooltip>
 );
 
