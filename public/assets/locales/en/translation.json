@@ -64,7 +64,122 @@
         "error:job_type": "Invalid Job Type"
     },
     "teacherJourney": {
+      "place1":"Enter Full Name",  
+      "place2":"Enter Email Address", 
+      "place3":"Select Status",  
+      "place4":"Select Age",  
+      "place5":"Select Class",  
+      "place6":"Select Gender",
+      "place7":"Enter Team Name", 
+      "place8":"Title", 
+      "place9":"Select District", 
+      "place10":"Current value", 
+      "vali1":"Please select Title",
+      "vali2":"Please select Gender",
+      "vali3":"Please Enter Full Name",
+      "vali4":"Special Characters are not allowed",
+      "vali5":"Special characters are not allowed in the School Name",
+      "vali6":"School Name cannot be more than 40 characters",
+      "vali7":"Please Enter School Name",
+      "vali8":"Please Enter Principal Name",
+      "vali9":"Please Enter Mobile Number",
+      "vali10":"Mobile number is not valid (Enter only digits)",
+      "vali11":"Please enter only 10 digit valid number",
+      "vali12":"Number is less than 10 digits",
+      "vali13":"Please Enter Valid Email Address",
+      "vali14":"Email Must be Valid",
+      "vali15":"Please Enter WhatsApp Number",
+      "vali16":"Please Enter WhatsApp Number",
+      "vali17":"Please Select Age",
+      "vali18":"Please Select Gender",
+      "vali19":"Please Select Disability Status",
+      "vali20":"Please Select Class",
+      "vali21":"Min age is 10",
+      "vali22":"Max age is 18",
+      "vali23":"Please Enter Team Name",
+      "vali24":"Only alphanumeric characters are allowed",
+      "vali25":"Only alphabetical characters and spaces are allowed",
+      "vali26":"Class",
+      "option1":"Male",
+      "option2":"Female",
+      "option3":"Prefer Not to Mention",
+      "option4":"No",
+      "option5":"Physically Challenged",
+      "option6":"Visually Challenged",
+      "option7":"Locomotor Disability",
+      "option8":"Intellectual Disability",
+      "option9":"Learning Disability",
+      "option10":"Hearing Impaired",
+      "option11":"Autism/Cerebral Palsy/Other",
+      "option12":"Others",
+      "option13":"Dr",
+      "option14":"Mr",
+      "option15":"Miss",
+      "option16":"Mrs",
+      "option17":"View",
+      "option18":"Add Student",
+      "option19":"Hide",
+      "option20":"Edit Stu",
+      "option21":"Change Team",
+      "option22":"Del Stu",
+      "option23":"Stu",
+      "option25":"Watch Demo",
+
+      "option24":"Please Select Team",
+      "option26":"Choose a team",
+      "option27":"Redirect",
+      "option28":"Cancelled",
+      "option29":"Team not Deleted",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
+
+
+
+
+
+
         "heading":"here's what's happening with your School Innovation Marathon 2025 journey.",
+"ref":"Reference Course",
+"navigate":"Navigate",
 
   "teacher_welcome_html": "<h3 class='text-success'>Welcome Teachers!</h3><br/>We’re excited that you will be part of the program in guiding your student through it.<br/><p>Now it’s time to start the program.</p><ol><li>1. Watch the instructional videos for overview of the program.</li><li>2. Read the teacher's handbook for a summary of the course and other important instructions.</li></ol><br/><p>You have one week to do these. Afterwards, you and your students will be ready to start their problem solving journey!</p><p>We hope you enjoy guiding the students as they embark on this new journey!</p>Wishing you all the best!",
  "Introduction to program": "Introduction to program",
@@ -76,7 +191,7 @@
     "Themes": "Themes",
      "download_file": "Download",
     "Congratulations": "Congratulations",
-
+"data":"{{name}} successfully created",
         "Dbcourse":"Teacher Course",
         "lesson":"Lessons",
 
@@ -95,7 +210,7 @@
         "teamdetails":"Team Details",
         "tname":"Team Name",
         "longinid":"Login ID",
-        "temail":"Team Email",
+        "temail":"Team Email Address",
         "password":"Password",
         "teammember":"Team Members",
         "tfullname":"Full Name",
@@ -117,7 +232,7 @@
         "discard":"Discard",
         "addteam":"Add Team & Students",
         "teamnames":"Team Login's",
-        "liststu":"#Stu",
+        "liststu":"Stu",
         "onestudent":"Add Student",
         "submit":"Submit",
         "postsurvey":"We value your response the most.",

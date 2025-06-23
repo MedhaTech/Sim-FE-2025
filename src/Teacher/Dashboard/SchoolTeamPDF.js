@@ -201,7 +201,7 @@ function SchoolTeamPDF() {
                 />
             </div>
             <div className="dash-imgs" onClick={tsetcall}>
-                <FaKey />
+                <FaKey size="20" />
             </div>
         </>
     );

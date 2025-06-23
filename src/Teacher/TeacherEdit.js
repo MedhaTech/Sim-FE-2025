@@ -45,102 +45,102 @@ const TeacherEditProfile = () => {
     // where data = mentorData //
     const adminValidation = Yup.object({
       title: Yup.string().required(
-        <span style={{ color: "red" }}>Please select Title</span>
+        <span style={{ color: "red" }}>{t('teacherJourney.place8')}</span>
       ),
       gender:Yup.string().required(
-        <span style={{ color: "red" }}>Please select Gender</span>
+        <span style={{ color: "red" }}>{t('teacherJourney.vali18')}</span>
       ),
       full_name: Yup.string()
       .trim()
-      .min(2, <span style={{ color: "red" }}>Please Enter Full Name</span>)
+      .min(2, <span style={{ color: "red" }}>{t('teacherJourney.vali3')}</span>)
       .matches(
         /^[aA-zZ\s]+$/,
         <span style={{ color: "red" }}>
-          Special Characters are not allowed
+           {t('teacherJourney.vali24')}
         </span>
       )
-      .required(<span style={{ color: "red" }}>Please Enter Full Name</span>),
+      .required(<span style={{ color: "red" }}>{t('teacherJourney.vali3')}</span>),
       organization_name : Yup.string()
       .trim()
-      .min(2, <span style={{ color: "red" }}>Please Enter School Name</span>)
+      .min(2, <span style={{ color: "red" }}>{t('teacherJourney.vali7')}</span>)
       .matches(
         /^[a-zA-Z0-9\s]+$/,
-        'Special characters are not allowed in the School Name'
+        t('teacherJourney.vali5')
       )
       .max(
         40,
         <span style={{ color: "red" }}>
-          School Name cannot be more than 40 characters
+          {t('teacherJourney.vali6')}
         </span>
       )
-      .required(<span style={{ color: "red" }}>Please Enter School Name</span>),
+      .required(<span style={{ color: "red" }}>{t('teacherJourney.placvali7e8')}</span>),
       principal_name: Yup.string()
         .trim()
-        .min(2, <span style={{ color: "red" }}>Please Enter Principal Name</span>)
+        .min(2, <span style={{ color: "red" }}>{t('teacherJourney.vali8')}</span>)
         .matches(
           /^[aA-zZ\s]+$/,
           <span style={{ color: "red" }}>
-            Special Characters are not allowed
+            {t('teacherJourney.vali4')}
           </span>
         )
-        .required(<span style={{ color: "red" }}>Please Enter Principal Name</span>),
+        .required(<span style={{ color: "red" }}>{t('teacherJourney.vali8')}</span>),
       
       principal_mobile: Yup.string()
           .required(
-            <span style={{ color: "red" }}>Please Enter Mobile Number</span>
+            <span style={{ color: "red" }}>{t('teacherJourney.vali9')}</span>
           )
           .trim()
           .matches(
             /^\d+$/,
             <span style={{ color: "red" }}>
-              Mobile number is not valid (Enter only digits)
+             {t('teacherJourney.vali10')}
             </span>
           )
           .max(
             10,
             <span style={{ color: "red" }}>
-              Please enter only 10 digit valid number
+              {t('teacherJourney.vali11')}
             </span>
           )
           .min(
             10,
-            <span style={{ color: "red" }}>Number is less than 10 digits</span>
+            <span style={{ color: "red" }}>{t('teacherJourney.vali12')}</span>
           ),
       district: Yup.string()
       .required('District not in required format'),
       principal_email: Yup.string()
           .email(
-            <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
+            <span style={{ color: "red" }}>{t('teacherJourney.vali13')}</span>
           )
           .required(
-            <span style={{ color: "red" }}>Please Enter Email Address</span>
+            <span style={{ color: "red" }}>{t('teacherJourney.place2')}</span>
           )
           .matches(
             /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            "Email Must be Valid"
+            t('teacherJourney.vali13')
           )
           .max(255),
       
       whatapp_mobile: Yup.string()
           .required(
-            <span style={{ color: "red" }}>Please Enter WhatsApp Number</span>
+            <span style={{ color: "red" }}>{t('teacherJourney.vali15')}</span>
           )
           .trim()
           .matches(
             /^\d+$/,
             <span style={{ color: "red" }}>
-              Mobile number is not valid (Enter only digit)
+            {t('teacherJourney.vali10')}
             </span>
           )
           .max(
             10,
             <span style={{ color: "red" }}>
-              Please enter only 10 digit valid number
+              {t('teacherJourney.vali11')}
             </span>
           )
           .min(
             10,
-            <span style={{ color: "red" }}>Number is less than 10 digits</span>
+            <span style={{ color: "red" }}>{t('teacherJourney.vali12')}</span>
           ),
     });
     return adminValidation;
@@ -315,11 +315,11 @@ const TeacherEditProfile = () => {
                       onBlur={formik.handleBlur}
                       onChange={formik.handleChange}
                     >
-                      <option value="">Title</option>
-                      <option value="Dr">Dr</option>
-                      <option value="Mr">Mr</option>
-                      <option value="Miss">Miss</option>
-                      <option value="Mrs">Mrs</option>
+                      <option value="">{t('teacherJourney.place8')}</option>
+                      <option value="Dr">{t('teacherJourney.option13')}</option>
+                      <option value="Mr">{t('teacherJourney.option14')}</option>
+                      <option value="Miss">{t('teacherJourney.option15')}</option>
+                      <option value="Mrs">{t('teacherJourney.option16')}</option>
                     </select>
                     {formik.touched.title && formik.errors.title ? (
                       <small className="error-cls">{formik.errors.title}</small>
@@ -363,10 +363,16 @@ const TeacherEditProfile = () => {
                       onBlur={formik.handleBlur}
                       onChange={formik.handleChange}
                     >
-                      <option value="">Gender</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Prefer Not to Mention">Prefer Not to Mention</option>
+                      <option value="">{t("teacherJourney.place6")}</option>
+                      <option value="Male">
+                        {t("teacherJourney.option1")}
+                      </option>
+                      <option value="Female">
+                        {t("teacherJourney.option2")}
+                      </option>
+                      <option value="Prefer Not to Mention">
+                        {t("teacherJourney.option3")}
+                      </option>
                     </select>
                     {formik.touched.gender && formik.errors.gender ? (
                       <small className="error-cls">{formik.errors.gender}</small>
@@ -442,7 +448,7 @@ const TeacherEditProfile = () => {
                             formik.setFieldValue( 'district', selectedDistrict );
                         }}
                       >
-                        <option value={""}> Select District </option>
+                        <option value={""}>{t('teacherJourney.place9')}</option>
                         {districts.map( (district) => ( 
                           <option key={district} value={district}>
                                     {district}
@@ -453,7 +459,7 @@ const TeacherEditProfile = () => {
                     
                       {formik.errors.district ? (
                           <small className="error-cls" style={{color:"red"}}>
-                              Current value : {mentorData?.district}<br/>
+                              {t('teacherJourney.place10')} : {mentorData?.district}<br/>
                               {formik.errors.district}
                           </small>
                       ) : null}

@@ -701,7 +701,7 @@ const[extractId,setExtractId]=useState("");
     problemStatement?.length > 0;
  const renderTooltip = (props) => (
     <Tooltip id="pdf-tooltip" {...props}>
-      Watch Demo
+       {t('teacherJourney.option25')}
     </Tooltip>
   );
     useEffect(()=>{

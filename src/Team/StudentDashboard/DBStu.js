@@ -34,6 +34,8 @@ import { IoArrowDownCircleOutline } from "react-icons/io5";
 import { PiLinkSimpleBold } from "react-icons/pi";
 import LanguageSelectorComp from '../../components/LanguageSelectorComp/index.js';
 import MultiProgressBar from "./Multiprogessbar.js";
+import { useTranslation } from "react-i18next";
+
 const GreetingModal = (props) => {
   return (
     <Modal
@@ -179,7 +181,7 @@ const DBStu = () => {
 
   const [show, setShow] = useState(false);
 
-
+ const { t } = useTranslation();
    const [file, setFile] = useState("");
   //  const fileName = file.substring(file.lastIndexOf('/') + 1);
   //  const decodedFileName = decodeURIComponent(fileName);
@@ -279,12 +281,12 @@ const DBStu = () => {
 
   const renderTooltip = (props) => (
     <Tooltip id="pdf-tooltip" {...props} >
-      Watch Demo
+       {t('teacherJourney.option25')}
     </Tooltip>
   );
   const renderViewTooltip = (props) => (
     <Tooltip id="refresh-tooltip" {...props}>
-      Redirect
+      {t('teacherJourney.option27')}
     </Tooltip>
   );
 

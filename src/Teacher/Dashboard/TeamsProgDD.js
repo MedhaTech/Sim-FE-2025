@@ -417,7 +417,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
 
   const renderTooltip = (props) => (
     <Tooltip id="pdf-tooltip" {...props} >
-      Watch Demo
+      {t('teacherJourney.option25')}
     </Tooltip>
   );
 
@@ -472,11 +472,11 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
         </div>
         <div className="card-body">
           <div className="table-top">
-            <div className="form-sort select-bluk">
+            <div className="form-sort select-bluk" >
               <Select
                 classNamePrefix="react-select"
                 options={customer}
-                placeholder="Choose a team"
+                placeholder={t('teacherJourney.option26')}
                 onChange={handleSelectChange}
                 value={customer.find((option) => option.value === teamId)}
               />
