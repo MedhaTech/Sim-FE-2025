@@ -359,7 +359,7 @@ const CreateMultipleMembers = ({ id, teamLengthValue }) => {
                 </span>
               </Label>
               <input
-                className="form-control"
+                className="form-control mb-2"
                 placeholder={t("teacherJourney.place7")}
                 id="teamname"
                 name="teamname"
@@ -373,7 +373,7 @@ const CreateMultipleMembers = ({ id, teamLengthValue }) => {
             <Col md={6} className="mb-xl-0">
               <Label className="form-label">{t("teacherJourney.temail")}</Label>
               <input
-                className="form-control"
+                className="form-control mb-2"
                 placeholder={t("teacherJourney.place2")}
                 id="teamemail"
                 name="teamemail"
@@ -446,7 +446,7 @@ const CreateMultipleMembers = ({ id, teamLengthValue }) => {
                       {t("teacherJourney.eamil1")}
                     </Label>
                     <input
-                      className="form-control"
+                      className="form-control mb-2"
                       placeholder={t("teacherJourney.place2")}
                       id="email"
                       name="email"
@@ -471,7 +471,7 @@ const CreateMultipleMembers = ({ id, teamLengthValue }) => {
                     </Label>
                     <select
                       id="inputState"
-                      className="form-select"
+                      className="form-select mb-2"
                       name="disability"
                       value={item.disability}
                       onChange={(e) => handleChange(e, i)}
@@ -518,7 +518,7 @@ const CreateMultipleMembers = ({ id, teamLengthValue }) => {
                     </Label>
                     <select
                       id="inputState"
-                      className="form-select"
+                      className="form-select mb-2"
                       name="Age"
                       value={item.Age}
                       onChange={(e) => handleChange(e, i)}
@@ -544,7 +544,7 @@ const CreateMultipleMembers = ({ id, teamLengthValue }) => {
                     </Label>
                     <select
                       id="inputState"
-                      className="form-select"
+                      className="form-select mb-2"
                       name="Grade"
                       value={item.Grade}
                       onChange={(e) => handleChange(e, i)}
@@ -574,7 +574,7 @@ const CreateMultipleMembers = ({ id, teamLengthValue }) => {
 
                     <select
                       id="inputState"
-                      className="form-select"
+                      className="form-select mb-2"
                       name="Gender"
                       value={item.Gender}
                       onChange={(e) => handleChange(e, i)}
