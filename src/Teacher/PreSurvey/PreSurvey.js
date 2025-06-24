@@ -286,28 +286,17 @@ const fetchwhatsapplink = () => {
                         </Col>
                         <Col md={8}>
                           <h2 className="text-danger">
-                          Welcome teachers and mentors!
-
+                         {t("teacherJourney.headings")}
                           </h2>
                          
                            <div>
       <br />
-      <p>
-        We are delighted that you have signed up for this program and have
-        joined us on this journey of nurturing problem solving and innovation in
-        youth. As you are already aware, you will be playing the role of a guide
-        teacher to the students for the duration of the course. The portal includes
-        various information modules and resources that will help you and your
-        students on their learning journeys.
-      </p>
+      <p>{t("teacherJourney.introText")}</p>
 
-      <b className="text-success">
-        Your journey as a guide teacher will include the following key milestones.
-        We would like you all to go through the following in order.
-      </b>
+       <b className="text-success">{t("teacherJourney.milestoneIntro")}</b>
       <br />
       <p>
-        Please make sure you’ve joined the{" "}
+         {t("teacherJourney.whatsappInstruction")}{" "}
         <span
           onClick={fetchwhatsapplink}
           onMouseEnter={() => setHovered(true)}
@@ -319,48 +308,48 @@ const fetchwhatsapplink = () => {
           fontWeight: "bold",
         }}
         >
-          WhatsApp group
+          {t("teacherJourney.whatsappGroup")}
         </span>{" "}
-        at the earliest to stay informed and engaged.
+         {t("teacherJourney.whatsappEndText")}
       </p>
 
       <ol>
-        <li>Step 1 : Register and take the pre-survey.</li>
-        <li>Step 2 : Watch the instructional videos to understand the program.</li>
-        <li>Step 3 : Conduct awareness & Orientation sessions for the students.</li>
-        <li>Step 4 : Form teams and register them on the portal.</li>
-        <li>Step 5 : Mentor students throughout the program.</li>
-        <li>Step 6 : Ensure teams complete the course & submit their final ideas.</li>
-        <li>Step 7 : Complete the post survey.</li>
-        <li>Step 8 : Download your teacher’s certificate.</li>
-        <li>Step 9 : Guide students to download their certificates once they finish the course and submit idea.</li>
+         <li>{t("teacherJourney.step1")}</li>
+      <li>{t("teacherJourney.step2")}</li>
+      <li>{t("teacherJourney.step3")}</li>
+      <li>{t("teacherJourney.step4")}</li>
+      <li>{t("teacherJourney.step5")}</li>
+      <li>{t("teacherJourney.step6")}</li>
+      <li>{t("teacherJourney.step7")}</li>
+      <li>{t("teacherJourney.step8")}</li>
+      <li>{t("teacherJourney.step9")}</li>
       </ol>
 
       <br />
       <p>
-        We hope you and the students will have a great time doing this program.
+         {t("teacherJourney.closingText")}
         <br />
-        We wish you all the best!
+         {t("teacherJourney.goodLuck")}
       </p>
     </div>
                           <button
                             className="btn btn-primary m-3"
                             onClick={handleStart}
                           >
-                            Start Now
+                              {t("teacherJourney.startNow")}
                           </button>
                           <button
                             className="btn btn-secondary"
                             onClick={handleLogout}
                           >
-                            <img src={logoutIcon} alt="LogoutIcon" /> Do Later
+                            <img src={logoutIcon} alt="LogoutIcon" /> {t("teacherJourney.doLater")}
                           </button>
                         </Col>
                       </Row>
                     </CardBody>
                   ) : (
                     <CardBody>
-                      <h4>Pre Survey</h4>
+                      <h4> {t("teacherJourney.PreSurvey")}</h4>
 
                       {preSurveyStatus != "COMPLETED" && (
                         <Form

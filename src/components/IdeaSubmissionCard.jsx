@@ -19,10 +19,12 @@ import logout from "../assets/img/logout.png";
 import Swal from "sweetalert2/dist/sweetalert2";
 import VideoPopup from "../Evaluator/IdeaList/Videopop";
 import FilePreviewModal from '../Evaluator/IdeaList/Modal';
+import { useTranslation } from "react-i18next";
 
 const LinkComponent = ({ item,currentUser }) => {
    const [selectedFile, setSelectedFile] = useState(null);
         const [showModal, setShowModal] = useState(false);
+        
         const handlePreview = async(file,fileName) => {
           const parts = file.split('/');
     const path = parts.slice(3).join('/');
@@ -92,6 +94,8 @@ const IdeaSubmissionCard = ({
   setIdeaCount,
 }) => {
   const submitted = response;
+           const { t } = useTranslation();
+
   const [showDefault, setshowDefault] = useState(true);
   const currentUser = getCurrentUser("current_user");
   const dispatch = useDispatch();
@@ -128,13 +132,13 @@ const IdeaSubmissionCard = ({
       .fire({
         title:
           handledText === "accept"
-            ? "You are attempting to accept this Idea"
-            : "You are attempting to approve this Idea",
-        text: "Are you sure?",
+            ? t("teacherJourney_accept_title")
+            : t("teacherJourney.confirm_reject_title"),
+        text: t("teacherJourney.are_you_sure"), 
         imageUrl: `${logout}`,
-        confirmButtonText: "Approve",
+        confirmButtonText: t("teacherJourney.approve"),
         showCancelButton: true,
-        cancelButtonText: "Cancel",
+        cancelButtonText: t("teacherJourney.cancel"), 
         reverseButtons: false,
       })
       .then((result) => {
@@ -476,7 +480,7 @@ const IdeaSubmissionCard = ({
             submittedResponse?.verified_status !== "ACCEPTED" ? (
             <Button
               size="small"
-              label={"Approve"}
+              label= {t("teacherJourney.approve")}
               btnClass="primary text-left"
               onClick={handleAlert}
             />
@@ -532,7 +536,8 @@ const IdeaSubmissionCard = ({
           )}
           <Button
             size="small"
-            label={"Download"}
+                          label= {t("teacherJourney.download_file")}
+
             btnClass="primary ms-auto"
             onClick={ideaPdfDownload}
           />
