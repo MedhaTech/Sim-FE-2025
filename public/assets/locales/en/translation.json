@@ -155,10 +155,44 @@
      "download_file": "Download",
     "Congratulations": "Congratulations",
 "data":"{{name}} successfully created",
+ "headings": "Welcome teachers and mentors!",
+ "headings2": "Mentors SIM Road Map",
 
+ "headings1": "Know more about your role as a mentor in School Innovation Marathon ",
 
+    "introText": "We are delighted that you have signed up for this program and have joined us on this journey of nurturing problem solving and innovation in youth. As you are already aware, you will be playing the role of a guide teacher to the students for the duration of the course. The portal includes various information modules and resources that will help you and your students on their learning journeys.",
+    "milestoneIntro": "Your journey as a guide teacher will include the following key milestones. We would like you all to go through the following in order.",
+    "whatsappInstruction": "Please make sure you’ve joined the",
+    "whatsappGroup": "WhatsApp group",
+    "whatsappEndText": "at the earliest to stay informed and engaged.",
+    "step1": "Step 1: Register and take the pre-survey.",
+    "step2": "Step 2: Watch the instructional videos to understand the program.",
+    "step3": "Step 3: Conduct awareness & Orientation sessions for the students.",
+    "step4": "Step 4: Form teams and register them on the portal.",
+    "step5": "Step 5: Mentor students throughout the program.",
+    "step6": "Step 6: Ensure teams complete the course & submit their final ideas.",
+    "step7": "Step 7: Complete the post survey.",
+    "step8": "Step 8: Download your teacher’s certificate.",
+    "step9": "Step 9: Guide students to download their certificates once they finish the course and submit idea.",
+    "closingText": "We hope you and the students will have a great time doing this program.",
+    "goodLuck": "We wish you all the best!",
+    "startNow": "Start Now",
+    "doLater": "Do Later",
 
+"confirm_accept_title": "You are attempting to accept this Idea",
+    "confirm_reject_title": "You are attempting to reject this Idea",
+     "are_you_sure": "Are you sure?",
+    "reject": "Reject",
+    "cancel": "Cancel",
 
+ "not_novel_common": "Not novel - Idea and problem common and already in use.",
+    "not_novel_plagiarized": "Not novel - Idea has been 100% plagiarized.",
+    "not_useful": "Not useful - Idea does not solve the problem identified / problem & solution not connected.",
+    "not_understandable": "Not understandable - Idea Submission does not have proper details to make a decision.",
+    "not_clear_usefulness": "Not clear (usefulness)",
+    "not_filled": "Not filled - Inaccurate data (form is not filled properly)",
+
+    "approve": "Approve",
 
 
 

@@ -1,5 +1,5 @@
 // Foulders Reducers //
-// import { languageOptions } from '../../../constants/languageOptions.js';
+import { languageOptions } from '../../../constants/languageOptions.js';
 import {
     MENTORS_CREATE,
     MENTORS_CREATE_SUCCESS,
@@ -17,6 +17,7 @@ import {
     MENTORS_GET_SUPPORT_TICKETS_RESPONSES_BY_ID,
     GET_TEACHERS_PRESURVEY_STATUS
 } from '../../../redux/actions.js';
+const localLang1 = JSON.parse(localStorage.getItem('m_language'));
 
 const INIT_STATE = {
     currentUser: {},
@@ -27,7 +28,7 @@ const INIT_STATE = {
     supportTickets:[],
     supportTicket:{},
     supportTicketRespnses:{},
-    mentorLanguage:"",
+    mentorLanguage:localLang1 ? localLang1 : languageOptions[0],
     teacherPresurveyStatus:null,
     preSurveyList:[],
     quizSurveyId:0
