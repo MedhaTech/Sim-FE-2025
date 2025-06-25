@@ -55,14 +55,22 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
   const [isReject, setIsreject] = React.useState(false);
   const [reason, setReason] = React.useState("");
   const [noData,setNoData]=useState(false);
+  // const selectData = [
+  //   "Not novel - Idea and problem common and already in use.",
+  //   "Not novel - Idea has been 100% plagiarized.",
+  //   "Not useful - Idea does not solve the problem identified / problem & solution not connected.",
+  //   "Not understandable - Idea Submission does not have proper details to make a decision.",
+  //   "Not clear (usefulness)",
+  //   "Not filled - Inaccurate data (form is not filled properly)",
+  // ];
   const selectData = [
-    "Not novel - Idea and problem common and already in use.",
-    "Not novel - Idea has been 100% plagiarized.",
-    "Not useful - Idea does not solve the problem identified / problem & solution not connected.",
-    "Not understandable - Idea Submission does not have proper details to make a decision.",
-    "Not clear (usefulness)",
-    "Not filled - Inaccurate data (form is not filled properly)",
-  ];
+  t("teacherJourney.not_novel_common"),
+  t("teacherJourney.not_novel_plagiarized"),
+  t("teacherJourney.not_useful"),
+  t("teacherJourney.not_understandable"),
+  t("teacherJourney.not_clear_usefulness"),
+  t("teacherJourney.not_filled"),
+];
   useEffect(() => {
     if (teamId) {
       dispatch(getTeamMemberStatus(teamId, setshowDefault));
@@ -345,13 +353,13 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
       .fire({
         title:
           handledText === "accept"
-            ? "You are attempting to accept this Idea"
-            : "You are attempting to reject this Idea",
-        text: "Are you sure?",
+            ? t("teacherJourney_accept_title")
+            : t("teacherJourney.confirm_reject_title"),
+        text: t("teacherJourney.are_you_sure"), 
         imageUrl: `${logout}`,
-        confirmButtonText: "Reject",
+        confirmButtonText:  t("teacherJourney.reject"), 
         showCancelButton: true,
-        cancelButtonText: "Cancel",
+        cancelButtonText: t("teacherJourney.cancel"), 
         reverseButtons: false,
       })
       .then((result) => {
@@ -586,7 +594,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
                       <Selects
                         list={selectData}
                         setValue={setReason}
-                        placeHolder={"Please Select Reject Reason"}
+                        placeHolder= {t('teacherJourney.RejectIdeasubmission')}
                         value={reason}
                       />
                     </Col>

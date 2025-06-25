@@ -5,10 +5,12 @@ import CountUp from "react-countup";
 import { RotateCcw } from "feather-icons-react/build/IconComponents";
 import { Link } from "react-router-dom";
 import VideoModal from "../../HelpVideo/VideoModal";
-import { getCurrentUser } from "../../helpers/Utils";
+import { getCurrentUser, getNormalHeaders } from "../../helpers/Utils";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { URL, KEY } from "../../constants/defaultValues";
 
 import { useNavigate } from "react-router-dom";
 import { FaUsers } from "react-icons/fa";
@@ -39,6 +41,8 @@ import FeatherIcon from "feather-icons-react";
 import MultiTeacher from "./MultiTeacher";
 import { IoArrowDownCircleOutline } from "react-icons/io5";
 import { PiLinkSimpleBold } from "react-icons/pi";
+import { getLanguage } from '../../constants/languageOptions';
+
 const GreetingModal = (props) => {
    const { t } = useTranslation();
 
@@ -163,7 +167,8 @@ const GreetingModal = (props) => {
 const MentorDashboard = () => {
    const { t } = useTranslation();
   const [showsPopup, setShowsPopup] = useState(false);
-  
+      const language = useSelector((state) => state?.mentors?.mentorLanguage);
+
   const [poptype, setPopType] = useState("");
 
   const [state, setState] = useState("");
@@ -301,7 +306,7 @@ const handleFileDownload = async(file,type) =>{
       mentorStudentCount();
       mentorcoursepercentage();
       mentorpostsurvey();
-      fetchwhatsapplink();
+      fetchwhatsapplink(language);
       scroll();
     }
   }, [currentUser?.data[0]?.user_id]);
@@ -474,11 +479,14 @@ const handleFileDownload = async(file,type) =>{
       });
   };
   //////whatsapp/////
-  const fetchwhatsapplink = () => {
+  const fetchwhatsapplink = (language) => {
     // Function to fetch the WhatsApp link from the API
+            const locale = getLanguage(language);
+             
     const statenameApi = encryptGlobal(
       JSON.stringify({
         state_name: currentUser?.data[0]?.state,
+        locale,
       })
     );
     var config = {

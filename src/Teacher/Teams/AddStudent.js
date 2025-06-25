@@ -167,7 +167,7 @@ export const CreateTeamMember = () => {
                              
                             </Label>
                             <input
-                              className="form-control"
+                              className="form-control mb-2"
                               placeholder={t('teacherJourney.place2')}
                               id="email"
                               name="email"
@@ -193,7 +193,7 @@ export const CreateTeamMember = () => {
                             </Label>
                             <select
                               id="inputState"
-                              className="form-select"
+                              className="form-select mb-2"
                               name="disability"
                               value={formik.values.disability}
                               onChange={formik.handleChange}
@@ -239,7 +239,7 @@ export const CreateTeamMember = () => {
                             </Label>
                             <select
                               id="inputState"
-                              className="form-select"
+                              className="form-select mb-2"
                               name="age"
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur}
@@ -267,7 +267,7 @@ export const CreateTeamMember = () => {
                             </Label>
                             <select
                               id="inputState"
-                              className="form-select"
+                              className="form-select mb-2"
                               name="grade"
                               value={formik.values.grade}
                               onChange={formik.handleChange}
@@ -297,7 +297,7 @@ export const CreateTeamMember = () => {
 
                             <select
                               name="gender"
-                              className="form-select"
+                              className="form-select mb-2"
                               id="inputState"
                               value={formik.values.gender}
                               onChange={formik.handleChange}

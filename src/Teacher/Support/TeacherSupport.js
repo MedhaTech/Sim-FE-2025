@@ -38,11 +38,17 @@ const TeacherSupport = () => {
     dispatch(getSupportTickets(currentUser?.data[0]));
   }, []);
 
+  // const ticketOptions = [
+  //   { value: "", label: "Select Category", display: true },
+  //   { value: "General", label: "General query" },
+  //   { value: "Technical", label: "Technical query" },
+  //   { value: "Suggestion", label: "Suggestion" },
+  // ];
   const ticketOptions = [
-    { value: "", label: "Select Category", display: true },
-    { value: "General", label: "General query" },
-    { value: "Technical", label: "Technical query" },
-    { value: "Suggestion", label: "Suggestion" },
+    { value: "", label: t("teacherJourney.selectCategory"), isDisabled: true },
+    { value: "General", label: t("teacherJourney.generalQuery") },
+    { value: "Technical", label: t("teacherJourney.technicalQuery") },
+    { value: "Suggestion", label: t("teacherJourney.suggestion") },
   ];
 
   useEffect(() => {
@@ -53,7 +59,7 @@ const TeacherSupport = () => {
     data: supportTickets,
     columns: [
       {
-        name: <h6>{t("teacherJourney.No")}</h6>,
+        name: <h6>#</h6>,
         selector: (row) => row.id,
         width: "4rem",
       },
@@ -179,8 +185,8 @@ const TeacherSupport = () => {
     },
 
     validationSchema: Yup.object({
-      ticket: Yup.string().required("Required"),
-      ticketDetails: Yup.string().required("Required"),
+      ticket: Yup.string().required(t('teacherJourney.selectCategory')),
+      ticketDetails: Yup.string().required(t('teacherJourney.support1')),
       file_name: Yup.mixed(),
       url: Yup.string(),
     }),
@@ -280,7 +286,7 @@ const TeacherSupport = () => {
     },
 
     validationSchema: Yup.object({
-      ansTicket: Yup.string().required("Required"),
+      ansTicket: Yup.string().required(t('teacherJourney.support1')),
       selectStatusTicket: Yup.string(),
     }),
 
@@ -432,7 +438,7 @@ const TeacherSupport = () => {
                             value={ticketOptions.find(
                               (option) => option.value === formik1.values.ticket
                             )}
-                            placeholder="Select Category"
+                           placeholder={t("teacherJourney.selectCategory")} 
                           />
                           {formik1.errors.ticket ? (
                             <small className="error-cls text-danger">
@@ -447,7 +453,7 @@ const TeacherSupport = () => {
                         </label>
                         <textarea
                           className="text-form form-control"
-                          placeholder="Enter Details"
+                          placeholder={t("teacherJourney.support1")} 
                           id="ticketDetails"
                           name="ticketDetails"
                           rows={4}
@@ -470,7 +476,8 @@ const TeacherSupport = () => {
                           type="text"
                           name="url"
                           id="url"
-                          placeholder="Please enter the link"
+                          placeholder={t("teacherJourney.support2")} 
+
                           onChange={formik1.handleChange}
                           onBlur={formik1.handleBlur}
                           value={formik1.values.url}
@@ -722,7 +729,8 @@ const TeacherSupport = () => {
                           </label>
                           <textarea
                             className="text-form form-control"
-                            placeholder="Enter Details"
+                           placeholder={t("teacherJourney.support1")} 
+
                             id="ansTicket"
                             name="ansTicket"
                             rows={4}
@@ -745,7 +753,8 @@ const TeacherSupport = () => {
                             type="text"
                             name="url"
                             id="url"
-                            placeholder="Please enter the link"
+                           placeholder={t("teacherJourney.support2")} 
+
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.url}
@@ -815,14 +824,19 @@ const TeacherSupport = () => {
                               value={formik.values.selectStatusTicket}
                             >
                               <option value="" disabled={true}>
-                                {supportTicket && supportTicket.status
+                                {/* {supportTicket && supportTicket.status
                                   ? supportTicket.status
-                                  : "Select Status"}
+                                  : t("teacherJourney.selectStatus")} */}
+                                  {supportTicket && supportTicket.status
+  ? t(`teacherJourney.${supportTicket.status.toLowerCase()}`)
+  : t("teacherJourney.selectStatus")}
+
                               </option>
-                              <option value="OPEN">OPEN </option>
-                              <option value="INPROGRESS">INPROGRESS </option>
-                              <option value="RESOLVED">RESOLVED </option>
-                              <option value="INVALID">INVALID </option>
+                              <option value="OPEN">{t("teacherJourney.open")}</option>
+<option value="INPROGRESS">{t("teacherJourney.inProgress")}</option>
+<option value="RESOLVED">{t("teacherJourney.resolved")}</option>
+<option value="INVALID">{t("teacherJourney.invalid")}</option>
+
                             </select>
                             {formik.touched.selectStatusTicket &&
                               formik.errors.selectStatusTicket && (

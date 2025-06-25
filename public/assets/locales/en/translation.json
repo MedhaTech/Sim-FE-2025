@@ -130,10 +130,69 @@
       "option27":"Redirect",
       "option28":"Cancelled",
       "option29":"Team not Deleted",
+      "support1":"Please Enter Details",
+      "support2":"Please enter the link",
+      "selectCategory": "Select Category",
+      "selectStatus": "Select Status",
 
 
+  "generalQuery": "General query",
+  "technicalQuery": "Technical query",
+  "suggestion": "Suggestion",
+  "open": "OPEN",
+    "inProgress": "INPROGRESS",
+    "resolved": "RESOLVED",
+    "invalid": "INVALID",
+"ref":"Reference Course",
+"navigate":"Navigate",
+"Introduction to program": "Introduction to program",
+    "Understanding the learner's journey": "Understanding the learner's journey",
+    "Workbook and Idea Submission": "Workbook and Idea Submission",
+    "Teacher Roles and Responsibilities": "Teacher Roles and Responsibilities",
+    "Handbook": "Handbook",
+     "Student Workbook": "Student Workbook",
+    "Themes": "Themes",
+     "download_file": "Download",
+    "Congratulations": "Congratulations",
+"data":"{{name}} successfully created",
+ "headings": "Welcome teachers and mentors!",
+ "headings2": "Mentors SIM Road Map",
 
+ "headings1": "Know more about your role as a mentor in School Innovation Marathon ",
 
+    "introText": "We are delighted that you have signed up for this program and have joined us on this journey of nurturing problem solving and innovation in youth. As you are already aware, you will be playing the role of a guide teacher to the students for the duration of the course. The portal includes various information modules and resources that will help you and your students on their learning journeys.",
+    "milestoneIntro": "Your journey as a guide teacher will include the following key milestones. We would like you all to go through the following in order.",
+    "whatsappInstruction": "Please make sure you’ve joined the",
+    "whatsappGroup": "WhatsApp group",
+    "whatsappEndText": "at the earliest to stay informed and engaged.",
+    "step1": "Step 1: Register and take the pre-survey.",
+    "step2": "Step 2: Watch the instructional videos to understand the program.",
+    "step3": "Step 3: Conduct awareness & Orientation sessions for the students.",
+    "step4": "Step 4: Form teams and register them on the portal.",
+    "step5": "Step 5: Mentor students throughout the program.",
+    "step6": "Step 6: Ensure teams complete the course & submit their final ideas.",
+    "step7": "Step 7: Complete the post survey.",
+    "step8": "Step 8: Download your teacher’s certificate.",
+    "step9": "Step 9: Guide students to download their certificates once they finish the course and submit idea.",
+    "closingText": "We hope you and the students will have a great time doing this program.",
+    "goodLuck": "We wish you all the best!",
+    "startNow": "Start Now",
+    "doLater": "Do Later",
+
+"confirm_accept_title": "You are attempting to accept this Idea",
+    "confirm_reject_title": "You are attempting to reject this Idea",
+     "are_you_sure": "Are you sure?",
+    "reject": "Reject",
+    "cancel": "Cancel",
+
+ "not_novel_common": "Not novel - Idea and problem common and already in use.",
+    "not_novel_plagiarized": "Not novel - Idea has been 100% plagiarized.",
+    "not_useful": "Not useful - Idea does not solve the problem identified / problem & solution not connected.",
+    "not_understandable": "Not understandable - Idea Submission does not have proper details to make a decision.",
+    "not_clear_usefulness": "Not clear (usefulness)",
+    "not_filled": "Not filled - Inaccurate data (form is not filled properly)",
+
+    "approve": "Approve",
 
 
 
@@ -178,20 +237,10 @@
 
 
         "heading":"here's what's happening with your School Innovation Marathon 2025 journey.",
-"ref":"Reference Course",
-"navigate":"Navigate",
+
 
   "teacher_welcome_html": "<h3 class='text-success'>Welcome Teachers!</h3><br/>We’re excited that you will be part of the program in guiding your student through it.<br/><p>Now it’s time to start the program.</p><ol><li>1. Watch the instructional videos for overview of the program.</li><li>2. Read the teacher's handbook for a summary of the course and other important instructions.</li></ol><br/><p>You have one week to do these. Afterwards, you and your students will be ready to start their problem solving journey!</p><p>We hope you enjoy guiding the students as they embark on this new journey!</p>Wishing you all the best!",
- "Introduction to program": "Introduction to program",
-    "Understanding the learner's journey": "Understanding the learner's journey",
-    "Workbook and Idea Submission": "Workbook and Idea Submission",
-    "Teacher Roles and Responsibilities": "Teacher Roles and Responsibilities",
-    "Handbook": "Handbook",
-     "Student Workbook": "Student Workbook",
-    "Themes": "Themes",
-     "download_file": "Download",
-    "Congratulations": "Congratulations",
-"data":"{{name}} successfully created",
+ 
         "Dbcourse":"Teacher Course",
         "lesson":"Lessons",
 
@@ -436,6 +485,7 @@
 
 
 
+
         
         
 
@@ -447,6 +497,32 @@
 
 
     },
+"ideaSubmission": {
+  "theme": "Theme",
+  "language": "Idea Submission Language",
+  "focusArea": "1. Focus Area",
+  "ideaTitle": "2. Title of your idea (Think of a proper name. Don't describe the solution or problem statement here.)",
+  "problemStatement": "3. Write down your Problem statement",
+  "causes": "4. List the Causes of the problem",
+  "effects": "5. List the Effects of the problem",
+  "community": "6. In which places in your community did you find this problem?",
+  "facing": "7. Who all are facing this problem?",
+  "solution": "8. Describe the solution to the problem your team found. Explain your solution clearly - how does it work, who is it helping, and how will it solve the problem.",
+  "stakeholders": "9. Apart from your teacher, how many stakeholders did you speak to (other than your teacher)?",
+  "problemSolving": "10. Pick the actions your team did in your problem solving journey",
+  "feedback": "11. Mention the feedback and any changes made, if any, to your problem or solution.",
+  "prototypeDoc": "12. Descriptive Document/Image of your prototype",
+  "prototypeVideo": "13. Clear Video Explaining your Solution [Only YouTube Video Links are Accepted.]",
+  "workbook": "14. Did your team complete and submit the workbook to your school Guide teacher?",
+  "approve": "Approve",
+  "download": "Download File",
+  "acceptedAt": "Accepted At",
+  "rejectedAt": "Rejected At",
+  "lastModifiedBy": "Last Modified By",
+  "submittedBy": "Submitted By",
+  "rejectedReason": "Reason for Rejection"
+},
+
    
     "loginPage": {
         "Student": "Student",
@@ -503,8 +579,8 @@
         "Change your password": "Change your password",
         "password_helps_prevent_unauthorized": "A strong password helps prevent unauthorized access to your account.",
         "Current_password": "Current password",
-        "Enter_current_password_here": "Enter current password here",
-        "New_password": "New password",
+        "Enter_current_password_here": "Enter Current Password ",
+        "New_password": "Enter New password",
         "Create_new_password_here": "Create new password here",
         "8-charac_minimum_case_sensitive": "8-character minimum; case sensitive",
         "Verify_New_password": "Confirm New password",
@@ -512,15 +588,19 @@
         "Change_password": "Change password"
     },
     "schoolpswd": {
-        "Change your password": "Change your password",
         "password_helps_prevent_unauthorized": "A strong password helps prevent unauthorized access to your account.",
-        "Current_password": "Current password",
-        "Enter_current_password_here": "Enter current password here",
-        "New_password": "New password",
-        "Create_new_password_here": "Create new password here",
-        "8-charac_minimum_case_sensitive": "8-character minimum; case sensitive",
+        "Current_password": "Enter Current password",
         "Verify_New_password": "Confirm New password",
+        "New_password": "Enter New password",
+ "required": "Required",
+  "passwordFormat": "Password must be at least 8 characters and include one uppercase, one lowercase, one number, and one special character",
+  "passwordMatch": "Passwords must match",
+   "minLength": "New Password must be 8-character minimum",
+  "sameAsOld": "Old Password and New Password are same",
+  "notMatching": "New Password and Confirm Password not same",
+  "success": "Password updated successfully",
         "Cancel": "Cancel",
+        
         "Change_password": "Change password"
     },
     "coordinatorpswd": {

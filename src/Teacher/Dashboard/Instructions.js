@@ -3,11 +3,13 @@ import { ArrowLeft } from "feather-icons-react/build/IconComponents";
 import React  from "react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const InstructionsTeacher = () => {
 const location = useLocation();
 const { instruction } = location.state || {};
 // console.log(instruction,"instruction");
+  const { t } = useTranslation();
 
 return (
     <div className="page-wrapper">
@@ -15,8 +17,8 @@ return (
           <div className="page-header">
             <div className="add-item d-flex">
               <div className="page-title">
-                <h4>Mentor&apos;s SIM Road Map</h4>
-                <h6>Know more about your role as a mentor in School Innovation Marathon </h6>
+                <h4> {t("teacherJourney.headings2")}</h4>
+                <h6>{t("teacherJourney.headings1")}</h6>
               </div>
             </div>
             <ul className="table-top-head">
@@ -32,7 +34,7 @@ return (
           </div>
 
         <div>
-            <h2 className="text-danger">Welcome teachers and mentors!</h2>
+            <h2 className="text-danger">{t("teacherJourney.headings")}</h2>
             <div dangerouslySetInnerHTML={{ __html: instruction }} />
         </div>
 
