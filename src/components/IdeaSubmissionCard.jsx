@@ -18,42 +18,47 @@ import Ideapdf from "../Teacher/Dashboard/DetailToDownload";
 import logout from "../assets/img/logout.png";
 import Swal from "sweetalert2/dist/sweetalert2";
 import VideoPopup from "../Evaluator/IdeaList/Videopop";
-import FilePreviewModal from '../Evaluator/IdeaList/Modal';
+import FilePreviewModal from "../Evaluator/IdeaList/Modal";
 import { useTranslation } from "react-i18next";
 
-const LinkComponent = ({ item,currentUser }) => {
-   const [selectedFile, setSelectedFile] = useState(null);
-        const [showModal, setShowModal] = useState(false);
-        
-        const handlePreview = async(file,fileName) => {
-          const parts = file.split('/');
-    const path = parts.slice(3).join('/');
-    const openParam = encryptGlobal(JSON.stringify({
-      filePath: path
-    }));
+const LinkComponent = ({ item, currentUser }) => {
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const handlePreview = async (file, fileName) => {
+    const parts = file.split("/");
+    const path = parts.slice(3).join("/");
+    const openParam = encryptGlobal(
+      JSON.stringify({
+        filePath: path,
+      })
+    );
     var config = {
-      method: 'get',
+      method: "get",
       url:
         process.env.REACT_APP_API_BASE_URL +
         `/admins/s3fileaccess?Data=${openParam}`,
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${currentUser?.data[0]?.token}`
-      }
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+      },
     };
     await axios(config)
       .then(function (response) {
         if (response.status === 200) {
-        setTimeout(() => {
-                  setSelectedFile({ prototype_image: response.data.data,fileName:fileName });
-          setShowModal(true);
-                }, 500);
+          setTimeout(() => {
+            setSelectedFile({
+              prototype_image: response.data.data,
+              fileName: fileName,
+            });
+            setShowModal(true);
+          }, 500);
         }
       })
       .catch(function (error) {
         console.log(error);
       });
-        };
+  };
   return (
     <>
       {item &&
@@ -61,40 +66,33 @@ const LinkComponent = ({ item,currentUser }) => {
         item.map((ans, i) => {
           let a_link = ans.split("/");
           let count = a_link.length - 1;
-           let fileName = a_link[count];
+          let fileName = a_link[count];
           return (
             <a
               key={i}
               className="badge mb-2 bg-info p-3 ms-3 col-3"
-              style={{ cursor: 'pointer' }}
-              onClick={() => handlePreview(ans,fileName)}
+              style={{ cursor: "pointer" }}
+              onClick={() => handlePreview(ans, fileName)}
               target="_blank"
               rel="noreferrer"
             >
-              <span className="file-name">
-                            {fileName}
-                        </span>
+              <span className="file-name">{fileName}</span>
             </a>
           );
         })}
-         {selectedFile && (
-                    <FilePreviewModal
-                      show={showModal}
-                      onHide={() => setShowModal(false)}
-                      teamResponse={selectedFile}
-                    />
-                  )}
+      {selectedFile && (
+        <FilePreviewModal
+          show={showModal}
+          onHide={() => setShowModal(false)}
+          teamResponse={selectedFile}
+        />
+      )}
     </>
   );
 };
-const IdeaSubmissionCard = ({
-  handleClose,
-  show,
-  response,
-  setIdeaCount,
-}) => {
+const IdeaSubmissionCard = ({ handleClose, show, response, setIdeaCount }) => {
   const submitted = response;
-           const { t } = useTranslation();
+  const { t } = useTranslation();
 
   const [showDefault, setshowDefault] = useState(true);
   const currentUser = getCurrentUser("current_user");
@@ -107,16 +105,14 @@ const IdeaSubmissionCard = ({
   const files = submittedResponse?.prototype_image
     ? JSON.parse(submittedResponse.prototype_image)
     : [];
- const [images,setImages] = React.useState([]);
+  const [images, setImages] = React.useState([]);
 
- 
   const teamId = submittedResponse.team_id;
-   useEffect(() => {
-          if (submittedResponse) {
-              setImages(JSON.parse(submittedResponse.prototype_image));
-          }
-      }, [submittedResponse]);
-
+  useEffect(() => {
+    if (submittedResponse) {
+      setImages(JSON.parse(submittedResponse.prototype_image));
+    }
+  }, [submittedResponse]);
 
   const handleAlert = (handledText) => {
     // here we can delete the team //
@@ -134,11 +130,11 @@ const IdeaSubmissionCard = ({
           handledText === "accept"
             ? t("teacherJourney_accept_title")
             : t("teacherJourney.confirm_reject_title"),
-        text: t("teacherJourney.are_you_sure"), 
+        text: t("teacherJourney.are_you_sure"),
         imageUrl: `${logout}`,
         confirmButtonText: t("teacherJourney.approve"),
         showCancelButton: true,
-        cancelButtonText: t("teacherJourney.cancel"), 
+        cancelButtonText: t("teacherJourney.cancel"),
         reverseButtons: false,
       })
       .then((result) => {
@@ -152,7 +148,7 @@ const IdeaSubmissionCard = ({
       });
   };
   const handleAccept = () => {
-        // this function update the status
+    // this function update the status
 
     const currentTime = new Date().toLocaleString();
 
@@ -190,7 +186,7 @@ const IdeaSubmissionCard = ({
       });
   };
   const ideaSubmittedApi = (teamId) => {
-               // This function fetches idea submission details from the API //
+    // This function fetches idea submission details from the API //
 
     const Param = encryptGlobal(
       JSON.stringify({
@@ -251,25 +247,24 @@ const IdeaSubmissionCard = ({
       });
   };
 
-
-  ///idea pdf 
+  ///idea pdf
   const [ideaPdfValues, setIdeaPdfValues] = useState();
   const ideaDataforPDF = () => {
     const ideaDataApi = encryptGlobal(
       JSON.stringify({
-        team_id: teamId
+        team_id: teamId,
       })
     );
     var config = {
-      method: 'get',
+      method: "get",
       url:
         process.env.REACT_APP_API_BASE_URL +
         `/challenge_response/submittedDetailsforideapdf?Data=${ideaDataApi}`,
       headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${currentUser.data[0]?.token}`
-      }
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+      },
     };
     axios(config)
       .then(function (response) {
@@ -289,27 +284,19 @@ const IdeaSubmissionCard = ({
     }
   }, [ideaPdfValues]);
 
-
   const ideaPdfDownload = () => {
     ideaDataforPDF();
   };
 
-
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
-    content: () => componentRef.current
+    content: () => componentRef.current,
   });
-
-
-
 
   return (
     <div>
-      <div style={{ display: 'none' }}>
-        <Ideapdf
-          ref={componentRef}
-          ideaDetails={ideaPdfValues}
-        />
+      <div style={{ display: "none" }}>
+        <Ideapdf ref={componentRef} ideaDetails={ideaPdfValues} />
       </div>
 
       <Modal
@@ -325,15 +312,15 @@ const IdeaSubmissionCard = ({
             id="contained-modal-title-vcenter"
             className="w-100 d-block text-center"
           >
-            Theme : {response.theme}
+            {t("ideaSubmission.theme")} : {response.theme}
           </Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
-        <Card className="p-1">
+          <Card className="p-1">
             <CardBody>
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
-              Idea Submission Language 
+                {t("ideaSubmission.language")}
               </label>
               <CardText>{response.language}</CardText>
             </CardBody>
@@ -341,7 +328,7 @@ const IdeaSubmissionCard = ({
           <Card className="p-1">
             <CardBody>
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
-                1. Focus Area
+                {t("ideaSubmission.focusArea")}
               </label>
               <CardText>{response.focus_area}</CardText>
             </CardBody>
@@ -349,8 +336,7 @@ const IdeaSubmissionCard = ({
           <Card className="p-1">
             <CardBody>
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
-                2. Title of your idea (Think of a proper name. Don't describe
-                the solution or problem statement here.)
+                {t("ideaSubmission.ideaTitle")}
               </label>
               <CardText>{submittedResponse.title}</CardText>
             </CardBody>
@@ -358,7 +344,7 @@ const IdeaSubmissionCard = ({
           <Card className="p-1">
             <CardBody>
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
-                3. Write down your Problem statement
+                {t("ideaSubmission.problemStatement")}
               </label>
               <CardText>{submittedResponse.problem_statement}</CardText>
             </CardBody>
@@ -366,7 +352,7 @@ const IdeaSubmissionCard = ({
           <Card className="p-1">
             <CardBody>
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
-                4. List the Causes of the problem
+                {t("ideaSubmission.causes")}
               </label>
               <CardText>{submittedResponse.causes}</CardText>
             </CardBody>
@@ -374,7 +360,7 @@ const IdeaSubmissionCard = ({
           <Card className="p-1">
             <CardBody>
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
-                5. List the Effects of the problem
+                {t("ideaSubmission.effects")}
               </label>
               <CardText>{submittedResponse.effects}</CardText>
             </CardBody>
@@ -382,7 +368,7 @@ const IdeaSubmissionCard = ({
           <Card className="p-1">
             <CardBody>
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
-                6. In which places in your community did you find this problem?
+                {t("ideaSubmission.community")}
               </label>
               <CardText>{submittedResponse.community}</CardText>
             </CardBody>
@@ -390,7 +376,7 @@ const IdeaSubmissionCard = ({
           <Card className="p-1">
             <CardBody>
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
-                7. Who all are facing this problem?
+                {t("ideaSubmission.facing")}
               </label>
               <CardText>{submittedResponse.facing}</CardText>
             </CardBody>
@@ -398,9 +384,7 @@ const IdeaSubmissionCard = ({
           <Card className="p-1">
             <CardBody>
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
-                8. Describe the solution to the problem your team found. Explain
-                your solution clearly - how does it work, who is it helping, and
-                how will it solve the problem.
+                {t("ideaSubmission.solution")}
               </label>
               <CardText>{submittedResponse.solution}</CardText>
             </CardBody>
@@ -408,8 +392,7 @@ const IdeaSubmissionCard = ({
           <Card className="p-1">
             <CardBody>
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
-                9. Apart from your teacher, how many people/stakeholders did you
-                speak to to understand or improve your problem or solution?
+                {t("ideaSubmission.stakeholders")}
               </label>
               <CardText>{submittedResponse.stakeholders}</CardText>
             </CardBody>
@@ -417,8 +400,7 @@ const IdeaSubmissionCard = ({
           <Card className="p-1">
             <CardBody>
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
-                10. Pick the actions your team did in your problem solving
-                journey (You can choose multiple options)
+                {t("ideaSubmission.problemSolving")}
               </label>
               <CardText>
                 {/* {submittedResponse.problem_solving} */}
@@ -429,8 +411,7 @@ const IdeaSubmissionCard = ({
           <Card className="p-1">
             <CardBody>
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
-                11. Mention the feedback that your team got and the changes you
-                have made, if any, to your problem or solution.
+                {t("ideaSubmission.feedback")}
               </label>
               <CardText>{submittedResponse.feedback}</CardText>
             </CardBody>
@@ -438,49 +419,46 @@ const IdeaSubmissionCard = ({
           <Card className="p-1">
             <CardBody>
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
-                12. Descriptive Document/Image of your prototype
+                {t("ideaSubmission.prototypeDoc")}
               </label>
-            
+
               <CardText>
-               
-                  <Card>  {
-                        <LinkComponent item={images} currentUser={currentUser} />
-                      }</Card>
-              
+                <Card>
+                  {" "}
+                  {<LinkComponent item={images} currentUser={currentUser} />}
+                </Card>
               </CardText>
             </CardBody>
           </Card>
           <Card className="p-1">
             <CardBody>
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
-                13. Clear YouTube Video Explaining your Solution
+                {t("ideaSubmission.prototypeVideo")}
               </label>
               <CardText>
-              {submittedResponse?.prototype_link && (
-  <VideoPopup videoUrl={submittedResponse.prototype_link} />
-)}
-                </CardText>
+                {submittedResponse?.prototype_link && (
+                  <VideoPopup videoUrl={submittedResponse.prototype_link} />
+                )}
+              </CardText>
             </CardBody>
           </Card>
           <Card className="p-1">
             <CardBody>
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
-                14. Did your team complete and submit the workbook to your
-                school Guide teacher?
+                {t("ideaSubmission.workbook")}
               </label>
               <CardText>{submittedResponse.workbook}</CardText>
             </CardBody>
           </Card>
         </Modal.Body>
         <Modal.Footer>
-
           {hide &&
-            submittedResponse?.status === "SUBMITTED" &&
-            submittedResponse?.verified_status !== "REJECTED" &&
-            submittedResponse?.verified_status !== "ACCEPTED" ? (
+          submittedResponse?.status === "SUBMITTED" &&
+          submittedResponse?.verified_status !== "REJECTED" &&
+          submittedResponse?.verified_status !== "ACCEPTED" ? (
             <Button
               size="small"
-              label= {t("teacherJourney.approve")}
+              label={t("teacherJourney.approve")}
               btnClass="primary text-left"
               onClick={handleAlert}
             />
@@ -489,11 +467,11 @@ const IdeaSubmissionCard = ({
               {submittedResponse?.verified_status == "ACCEPTED" && (
                 <div>
                   <p style={{ fontSize: "1rem" }} className="fw-bold">
-                    Accepted At :{" "}
+                    {t("ideaSubmission.acceptedAt")}:{" "}
                     {submittedResponse.verified_at
                       ? moment(submittedResponse.verified_at).format(
-                        "DD-MM-YYYY"
-                      )
+                          "DD-MM-YYYY"
+                        )
                       : "-"}
                   </p>
                 </div>
@@ -501,19 +479,19 @@ const IdeaSubmissionCard = ({
               {submittedResponse?.verified_status === "REJECTED" && (
                 <div>
                   <p style={{ fontSize: "1rem" }} className="fw-bold">
-                    Last Modifiled By :{" "}
+                    {t("ideaSubmission.lastModifiedBy")}:{" "}
                     {submittedResponse?.initiated_name}
                   </p>
                   <p style={{ fontSize: "1rem" }} className="fw-bold">
-                    Rejected At :{" "}
+                    {t("ideaSubmission.rejectedAt")}:{" "}
                     {submittedResponse.verified_at
                       ? moment(submittedResponse.verified_at).format(
-                        "DD-MM-YYYY"
-                      )
+                          "DD-MM-YYYY"
+                        )
                       : "-"}
                   </p>
                   <p style={{ fontSize: "1rem" }} className="fw-bold">
-                    Reason for Rejection :{" "}
+                    {t("ideaSubmission.rejectedReason")} :{" "}
                     {submittedResponse?.mentor_rejected_reason}
                   </p>
                 </div>
@@ -523,21 +501,23 @@ const IdeaSubmissionCard = ({
           {submittedResponse?.status === "SUBMITTED" && (
             <div>
               <p style={{ fontSize: "1rem" }} className="fw-bold">
-                Submitted By : {submittedResponse.initiated_name}
+                {t("ideaSubmission.submittedBy")} :{" "}
+                {submittedResponse.initiated_name}
               </p>
             </div>
           )}
-          {submittedResponse?.status === "DRAFT" && submittedResponse?.verified_status === null && (
-            <div>
-              <p style={{ fontSize: "1rem" }} className="fw-bold">
-                Last Modified By : {submittedResponse.initiated_name}
-              </p>
-            </div>
-          )}
+          {submittedResponse?.status === "DRAFT" &&
+            submittedResponse?.verified_status === null && (
+              <div>
+                <p style={{ fontSize: "1rem" }} className="fw-bold">
+                  {t("ideaSubmission.lastModifiedBy")} :{" "}
+                  {submittedResponse.initiated_name}
+                </p>
+              </div>
+            )}
           <Button
             size="small"
-                          label= {t("teacherJourney.download_file")}
-
+            label={t("teacherJourney.download_file")}
             btnClass="primary ms-auto"
             onClick={ideaPdfDownload}
           />

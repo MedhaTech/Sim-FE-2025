@@ -391,6 +391,32 @@
 
 
     },
+"ideaSubmission": {
+  "theme": "థీమ్",
+  "language": "ఆలోచన సమర్పణ భాష",
+  "focusArea": "1. ఫోకస్ ఏరియా",
+  "ideaTitle": "2. మీ ఐడియా యొక్క శీర్షిక (సరైన పేరును ఆలోచించండి. సొల్యూషన్ లేదా ప్రాబ్లం స్టేట్మెంట్ ఇక్కడ వివరించవద్దు.)",
+  "problemStatement": "3. మీ ప్రాబ్లం స్టేట్మెంట్ని వ్రాయండి",
+  "causes": "4. ప్రాబ్లం యొక్క కారణాల లిస్ట్ వ్రాయండి.",
+  "effects": "5. ప్రాబ్లం యొక్క ప్రభావాల లిస్ట్ వ్రాయండి",
+  "community": "6. మీ కమ్యూనిటిలోని ఏ ప్రదేశాలలో మీరు ఈ సమస్యను కనుగొన్నారు?",
+  "facing": "7. ఈ ప్రాబ్లంని ఎవరు ఎదుర్కొంటున్నారు?",
+  "solution": "8. మీ టీమ్ కనుగొన్న సమస్యకు పరిష్కారాన్ని వివరించండి. మీ పరిష్కారాన్ని స్పష్టంగా వివరించండి - ఇది ఎలా పని చేస్తుంది, ఇది ఎవరికి ఉపయోగ పడుతుంది మరియు సమస్యను ఎలా పరిష్కరిస్తుంది.",
+  "stakeholders": "9. మీ టీచర్‌ కాకుండా, మీ సమస్య లేదా పరిష్కారాన్ని అర్థం చేసుకోవడానికి లేదా మెరుగుపరచడానికి మీరు ఎంత మంది వ్యక్తులతో/స్టేక్‌హోల్డర్‌లతో మాట్లాడారు?",
+  "problemSolving": "10. మీ ప్రాబ్లం సాల్వింగ్ జర్నీలో మీ టీమ్ తీసుకున్న చర్యలను ఎంచుకోండి (మీరు బహుళ ఎంపికలను ఎంచుకోవచ్చు)",
+  "feedback": "11. మీ టీమ్ పొందిన ఫీడ్బాక్ ద్వారా మీ సమస్య లేదా పరిష్కారానికి మీరు ఏవైనా మార్పులు చేసినట్లయితే, వాటిని పేర్కొనండి.",
+  "prototypeDoc": "12. మీ ప్రోటోటైప్ (Prototype) యొక్క వివరణాత్మక పత్రం (Descriptive Document) లేదా చిత్రం (Image)",
+  "prototypeVideo": "13. మీ పరిష్కారం (Solution) ని వివరించే స్పష్టమైన వీడియో (Video) [ YouTube వీడియో లింక్‌లు మాత్రమే అంగీకరించబడతాయి.]",
+  "workbook": "14. మీ టీమ్ వర్క్‌బుక్‌ని పూర్తి చేసి, మీ స్కూల్ గైడ్ టీచర్‌కి సబ్మిట్ చేసిందా?",
+  "approve": "ఆమోదించు",
+  "download": "ఫైల్ డౌన్లోడ్",
+  "acceptedAt": "ఆమోదించిన తేదీ",
+  "rejectedAt": "నిరాకరించిన తేదీ",
+  "lastModifiedBy": "చివరిగా మార్చింది",
+  "submittedBy": "సమర్పించిన వారు",
+  "rejectedReason": "నిరాకరణకు కారణం"
+},
+
     "loginPage": {
         "Student": "Student",
         "Back": "Back",
@@ -455,14 +481,21 @@
         "Change_password": "పాస్వర్డ్ మార్చండి"
     },
     "schoolpswd": {
+                "Current_password": "ప్రస్తుత పాస్‌వర్డ్ను నమోదు చేయండి",
+  "Verify_New_password": "కొత్త పాస్‌వర్డ్‌ను నిర్ధారించండి",
+  "New_password": "కొత్త పాస్‌వర్డ్ను నమోదు చేయండి",
+  "required": "అవసరం",
+  "passwordFormat": "పాస్‌వర్డ్ కనీసం 8 అక్షరాలు ఉండాలి మరియు ఒక పెద్ద అక్షరం, ఒక చిన్న అక్షరం, ఒక సంఖ్య, మరియు ఒక ప్రత్యేక అక్షరాన్ని కలిగి ఉండాలి",
+  "passwordMatch": "పాస్‌వర్డ్లు ఒకేలా ఉండాలి",
+  "minLength": "కొత్త పాస్‌వర్డ్ కనీసం 8 అక్షరాలు ఉండాలి",
+  "sameAsOld": "పాత పాస్‌వర్డ్ మరియు కొత్త పాస్‌వర్డ్ ఒకేలా ఉన్నాయి",
+  "notMatching": "కొత్త పాస్‌వర్డ్ మరియు నిర్ధారిత పాస్‌వర్డ్ ఒకేలా లేవు",
+  "success": "పాస్‌వర్డ్ విజయవంతంగా నవీకరించబడింది",
         "Change your password": "Change your password",
         "password_helps_prevent_unauthorized": "A strong password helps prevent unauthorized access to your unisolve account.",
-        "Current_password": "Current password",
         "Enter_current_password_here": "Enter current password here",
-        "New_password": "New password",
         "Create_new_password_here": "Create new password here",
         "8-charac_minimum_case_sensitive": "8-character minimum; case sensitive",
-        "Verify_New_password": "Confirm New password",
         "Cancel": "రద్దు చేయండి",
         "Change_password": "పాస్వర్డ్ మార్చండి"
     },

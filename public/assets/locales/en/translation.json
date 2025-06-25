@@ -485,6 +485,7 @@
 
 
 
+
         
         
 
@@ -496,6 +497,32 @@
 
 
     },
+"ideaSubmission": {
+  "theme": "Theme",
+  "language": "Idea Submission Language",
+  "focusArea": "1. Focus Area",
+  "ideaTitle": "2. Title of your idea (Think of a proper name. Don't describe the solution or problem statement here.)",
+  "problemStatement": "3. Write down your Problem statement",
+  "causes": "4. List the Causes of the problem",
+  "effects": "5. List the Effects of the problem",
+  "community": "6. In which places in your community did you find this problem?",
+  "facing": "7. Who all are facing this problem?",
+  "solution": "8. Describe the solution to the problem your team found. Explain your solution clearly - how does it work, who is it helping, and how will it solve the problem.",
+  "stakeholders": "9. Apart from your teacher, how many stakeholders did you speak to (other than your teacher)?",
+  "problemSolving": "10. Pick the actions your team did in your problem solving journey",
+  "feedback": "11. Mention the feedback and any changes made, if any, to your problem or solution.",
+  "prototypeDoc": "12. Descriptive Document/Image of your prototype",
+  "prototypeVideo": "13. Clear Video Explaining your Solution [Only YouTube Video Links are Accepted.]",
+  "workbook": "14. Did your team complete and submit the workbook to your school Guide teacher?",
+  "approve": "Approve",
+  "download": "Download File",
+  "acceptedAt": "Accepted At",
+  "rejectedAt": "Rejected At",
+  "lastModifiedBy": "Last Modified By",
+  "submittedBy": "Submitted By",
+  "rejectedReason": "Reason for Rejection"
+},
+
    
     "loginPage": {
         "Student": "Student",
@@ -552,8 +579,8 @@
         "Change your password": "Change your password",
         "password_helps_prevent_unauthorized": "A strong password helps prevent unauthorized access to your account.",
         "Current_password": "Current password",
-        "Enter_current_password_here": "Enter current password here",
-        "New_password": "New password",
+        "Enter_current_password_here": "Enter Current Password ",
+        "New_password": "Enter New password",
         "Create_new_password_here": "Create new password here",
         "8-charac_minimum_case_sensitive": "8-character minimum; case sensitive",
         "Verify_New_password": "Confirm New password",
@@ -561,15 +588,19 @@
         "Change_password": "Change password"
     },
     "schoolpswd": {
-        "Change your password": "Change your password",
         "password_helps_prevent_unauthorized": "A strong password helps prevent unauthorized access to your account.",
-        "Current_password": "Current password",
-        "Enter_current_password_here": "Enter current password here",
-        "New_password": "New password",
-        "Create_new_password_here": "Create new password here",
-        "8-charac_minimum_case_sensitive": "8-character minimum; case sensitive",
+        "Current_password": "Enter Current password",
         "Verify_New_password": "Confirm New password",
+        "New_password": "Enter New password",
+ "required": "Required",
+  "passwordFormat": "Password must be at least 8 characters and include one uppercase, one lowercase, one number, and one special character",
+  "passwordMatch": "Passwords must match",
+   "minLength": "New Password must be 8-character minimum",
+  "sameAsOld": "Old Password and New Password are same",
+  "notMatching": "New Password and Confirm Password not same",
+  "success": "Password updated successfully",
         "Cancel": "Cancel",
+        
         "Change_password": "Change password"
     },
     "coordinatorpswd": {
