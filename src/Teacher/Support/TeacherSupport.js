@@ -65,7 +65,13 @@ const TeacherSupport = () => {
       },
       {
         name: <h6>{t("teacherJourney.Category")}</h6>,
-        selector: (row) => row.query_category,
+        // selector: (row) => row.query_category,
+         selector: (row) => {
+    if (row.query_category === "Technical") return t("teacherJourney.technicalQuery");
+    if (row.query_category === "General") return t("teacherJourney.generalQuery");
+    if (row.query_category === "Suggestion") return t("teacherJourney.suggestion");
+    return row.query_category || ""; 
+  },
         sortable: true,
         width: "10rem",
       },

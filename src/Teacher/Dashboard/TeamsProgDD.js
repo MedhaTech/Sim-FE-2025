@@ -460,7 +460,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
                         {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
                         
                     >
-                      <FaPlay  style={{color:"red"}} />
+                      {t('teacherJourney.demo')} <FaPlay  style={{color:"red"}} />
                     </Link>
                   </OverlayTrigger>
                 </div>

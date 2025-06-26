@@ -98,7 +98,8 @@ const ChangePwd = (props) => {
             }, 2000);
           })
           .catch(function (error) {
-            SetError(error.response.data.message);
+             SetError(t("teacherJourney.error"));
+            // SetError(error.response.data.message);
           });
       }
     },

@@ -623,7 +623,7 @@ const handleFileDownload = async(file,type) =>{
                             }
                           : {})}
                       >
-                        <FaPlay style={{ color: "red" }} />
+                         {t('teacherJourney.demo')} <FaPlay style={{ color: "red" }} />
                       </Link>
                     </OverlayTrigger>
                   </div>
@@ -1054,7 +1054,7 @@ ideaCount={ideaCount}
                                           }
                                         : {})}
                                     >
-                                      <FaPlay style={{ color: "red" }} />
+                                        <FaPlay style={{ color: "red" }} />
                                     </Link>
                                   </OverlayTrigger>
                                 </div>
@@ -1152,7 +1152,7 @@ ideaCount={ideaCount}
                                           }
                                         : {})}
                                     >
-                                      <FaPlay style={{ color: "red" }} />
+                                       <FaPlay style={{ color: "red" }} />
                                     </Link>
                                   </OverlayTrigger>
                                 </div>
@@ -1242,7 +1242,7 @@ ideaCount={ideaCount}
                                           }
                                         : {})}
                                     >
-                                      <FaPlay style={{ color: "red" }} />
+                                       <FaPlay style={{ color: "red" }} />
                                     </Link>
                                   </OverlayTrigger>
                                 </div>
@@ -1316,7 +1316,7 @@ ideaCount={ideaCount}
                                           }
                                         : {})}
                                     >
-                                      <FaPlay style={{ color: "red" }} />
+                                     <FaPlay style={{ color: "red" }} />
                                     </Link>
                                   </OverlayTrigger>
                                 </div>

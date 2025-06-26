@@ -15,10 +15,10 @@ import logo from "../../assets/img/new-logo.png";
 import female from "../../assets/img/Female_Profile.png";
 import male from "../../assets/img/Male_Profile.png";
 import user from "../../assets/img/user.png";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faKey,faUser } from '@fortawesome/free-solid-svg-icons';
-import  "./styles.css";
-import LanguageSelectorComp from '../../components/LanguageSelectorComp/index.js';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faKey, faUser } from "@fortawesome/free-solid-svg-icons";
+import "./styles.css";
+import LanguageSelectorComp from "../../components/LanguageSelectorComp/index.js";
 
 const MentorHeader = () => {
   const route = all_routes;
@@ -26,7 +26,7 @@ const MentorHeader = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const { t } = useTranslation();
   const currentUser = getCurrentUser("current_user");
-  const presurvey = localStorage.getItem("presurveystatus") ;
+  const presurvey = localStorage.getItem("presurveystatus");
   const isElementVisible = (element) => {
     return element.offsetWidth > 0 || element.offsetHeight > 0;
   };
@@ -156,7 +156,7 @@ const MentorHeader = () => {
       case "Female":
         return female;
       case "FEMALE":
-          return female;
+        return female;
       default:
         return user;
     }
@@ -195,20 +195,15 @@ const MentorHeader = () => {
   }, []);
 
   return (
-    
     <>
-    
-      <div className="header">
-        {/* Logo */}
+      {/* <div className="header">
         <div
           className={`header-left ${toggle ? "" : "active"}`}
           onMouseLeave={expandMenu}
           onMouseOver={expandMenuOpen}
         >
-          <img src={logo} alt="Logo"  className="responsive-image" />
-         
+          <img src={logo} alt="Logo" className="responsive-image" />
         </div>
-        {/* /Logo */}
         <Link
           id="mobile_btn"
           className="mobile_btn"
@@ -221,18 +216,14 @@ const MentorHeader = () => {
             <span />
           </span>
         </Link>
-        {/* Header Menu */}
         <ul className="nav user-menu">
-          <li className="nav-item nav-searchinputs">
-           
-          </li>
-         
-          
+          <li className="nav-item nav-searchinputs"></li>
+
           <div className="d-flex align-items-center">
-              <div className="dropdown ">
-                  <LanguageSelectorComp module="mentor" />
-              </div>
+            <div className="dropdown ">
+              <LanguageSelectorComp module="mentor" />
             </div>
+          </div>
           <li className="nav-item nav-item-box">
             <Link
               to="#"
@@ -240,12 +231,14 @@ const MentorHeader = () => {
               onClick={() => toggleFullscreen()}
               className={isFullscreen ? "Exit Fullscreen" : "Go Fullscreen"}
             >
-              {
-                    isFullscreen ? <FeatherIcon icon="minimize" /> : <FeatherIcon icon="maximize" />
-                }
+              {isFullscreen ? (
+                <FeatherIcon icon="minimize" />
+              ) : (
+                <FeatherIcon icon="maximize" />
+              )}
             </Link>
           </li>
-        
+
           <li className="nav-item dropdown has-arrow main-drop">
             <Link
               to="/mentorprofile"
@@ -254,18 +247,17 @@ const MentorHeader = () => {
             >
               <span className="user-info">
                 <span className="user-letter">
-               
                   <img
                     src={getProfileImage(currentUser?.data[0]?.gender)}
                     alt="Profile"
                   />
                 </span>
                 <span className="user-detail">
-                  <span className="user-name">
+                  <span className="user-name"> {capitalizedFullName}</span>
+                  <span className="user-role">
                     {" "}
-                    {capitalizedFullName}
+                    {t("teacherJourney.join_Mentor")}
                   </span>
-                  <span className="user-role"> {t('teacherJourney.join_Mentor')}</span>
                 </span>
               </span>
             </Link>
@@ -281,44 +273,40 @@ const MentorHeader = () => {
                   </span>
                   <div className="profilesets">
                     <h6>{capitalizedFullName}</h6>
-                    <h5> {t('teacherJourney.join_Mentor')}</h5>
+                    <h5> {t("teacherJourney.join_Mentor")}</h5>
                   </div>
                 </div>
-                {(presurvey != "INCOMPLETED") ? (
-                <>
-                <hr className="m-0" />
-                <Link
-                  className="dropdown-item"
-                  to={"/mentorprofile"}
-                >
-                  <FontAwesomeIcon icon={faUser} /> <h6>{t('home.my_profile')}</h6> 
-                </Link>
-                <hr className="m-0" />
-                <Link
-                  className="dropdown-item"
-                  to={"/mentorchangepwd"}
-                >
-                  <FontAwesomeIcon icon={faKey} /> <h6> {t('teacherJourney.pas4')}</h6> 
-                </Link>
-                </>
-                ): null}
+                {presurvey != "INCOMPLETED" ? (
+                  <>
+                    <hr className="m-0" />
+                    <Link className="dropdown-item" to={"/mentorprofile"}>
+                      <FontAwesomeIcon icon={faUser} />{" "}
+                      <h6>{t("home.my_profile")}</h6>
+                    </Link>
+                    <hr className="m-0" />
+                    <Link className="dropdown-item" to={"/mentorchangepwd"}>
+                      <FontAwesomeIcon icon={faKey} />{" "}
+                      <h6> {t("teacherJourney.pas4")}</h6>
+                    </Link>
+                  </>
+                ) : null}
                 <hr className="m-0" />
                 <Link
                   className="dropdown-item logout pb-0"
                   to=""
                   onClick={handleLogout}
                 >
-                 
                   <img src={logoutIcon} alt="LogoutIcon" />
-                  {t('teacher.logout')}
+                  {t("teacher.logout")}
                 </Link>
               </div>
             </div>
           </li>
         </ul>
-        {/* /Header Menu */}
-        {/* Mobile Menu */}
-        <div className="dropdown mobile-user-menu">
+        <div className="dropdown mobile-user-menu" style={{ flexShrink: 0 }}>
+          <div className="dropdown-item p-0">
+            <LanguageSelectorComp module="mentor" />
+          </div>
           <Link
             to="#"
             className="nav-link dropdown-toggle"
@@ -328,29 +316,187 @@ const MentorHeader = () => {
             <i className="fa fa-ellipsis-v" />
           </Link>
           <div className="dropdown-menu dropdown-menu-right">
-          {(presurvey != "INCOMPLETED") ? (
-            <>
-              <Link
-                className="dropdown-item"
-                to={"/mentorprofile"}
-              >
-                My Profile
-              </Link>
-            
-              <Link className="dropdown-item" to={"/mentorchangepwd"}>
-                Change Password
-              </Link>
-            </>
-          ):null}
+            {presurvey != "INCOMPLETED" ? (
+              <>
+                <Link className="dropdown-item" to={"/mentorprofile"}>
+                  My Profile
+                </Link>
+
+                <Link className="dropdown-item" to={"/mentorchangepwd"}>
+                  Change Password
+                </Link>
+              </>
+            ) : null}
+
             <Link className="dropdown-item" to="signin" onClick={handleLogout1}>
               Logout
             </Link>
           </div>
         </div>
-        {/* /Mobile Menu */}
+      </div> */}
+     
+<div className="header d-none d-md-flex align-items-center justify-content-between px-3 py-2 border-bottom bg-white">
+  <div
+    className={`header-left ${toggle ? "" : "active"}`}
+    onMouseLeave={expandMenu}
+    onMouseOver={expandMenuOpen}
+  >
+    <img src={logo} alt="Logo" className="responsive-image" />
+  </div>
+
+  <ul className="nav user-menu align-items-center mb-0">
+    {/* Language Dropdown */}
+    <li className="nav-item">
+      <div className="dropdown me-3">
+        <LanguageSelectorComp module="mentor" />
       </div>
+    </li>
+
+    {/* Fullscreen Toggle */}
+    <li className="nav-item">
+      <Link
+        to="#"
+        id="btnFullscreen"
+        onClick={toggleFullscreen}
+        className="nav-link"
+      >
+        <FeatherIcon icon={isFullscreen ? "minimize" : "maximize"} />
+      </Link>
+    </li>
+
+    {/* Profile Dropdown */}
+    <li className="nav-item dropdown has-arrow main-drop">
+      <Link
+        to="/mentorprofile"
+        className="dropdown-toggle nav-link userset"
+        data-bs-toggle="dropdown"
+      >
+        <span className="user-info d-flex align-items-center">
+          <img
+            src={getProfileImage(currentUser?.data[0]?.gender)}
+            alt="Profile"
+            className="user-letter"
+          />
+          <span className="user-detail ms-2">
+            <span className="user-name">{capitalizedFullName}</span>
+            <span className="user-role">{t("teacherJourney.join_Mentor")}</span>
+          </span>
+        </span>
+      </Link>
+      <div className="dropdown-menu menu-drop-user">
+        <div className="profilename">
+          <div className="profileset">
+            
+            {/* <img
+              src={getProfileImage(currentUser?.data[0]?.gender)}
+              alt="Profile"
+              className="user-img"
+            /> */}
+             <span className="user-img">
+                  
+                    <span className="status online" />
+                  </span>
+            <div className="profilesets">
+              <h6>{capitalizedFullName}</h6>
+              <h5>{t("teacherJourney.join_Mentor")}</h5>
+            </div>
+          </div>
+          {presurvey !== "INCOMPLETED" && (
+            <>
+              <hr className="m-0"/>
+              <Link className="dropdown-item" to="/mentorprofile">
+                <FontAwesomeIcon icon={faUser} /> {t("home.my_profile")}
+              </Link>
+              <hr className="m-0"/>
+              <Link className="dropdown-item" to="/mentorchangepwd">
+                <FontAwesomeIcon icon={faKey} /> {t("teacherJourney.pas4")}
+              </Link>
+            </>
+          )}
+          <hr className="m-0"/>
+          <Link
+            className="dropdown-item logout pb-0"
+            to="#"
+            onClick={handleLogout}
+          >
+            <img src={logoutIcon} alt="Logout" className="me-1" />
+            {t("teacher.logout")}
+          </Link>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+{/* ✅ Mobile Header */}
+<div
+  className="d-md-none"
+  style={{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: "10px 15px",
+    backgroundColor: "#fff",
+    borderBottom: "1px solid #eee",
+  }}
+>
+  {/* Left: Sidebar, Logo, Language */}
+  <div className="d-flex align-items-center gap-2">
+    {/* Sidebar Button */}
+    <Link
+      id="mobile_btn"
+      className="mobile_btn"
+      to="#"
+      onClick={sidebarOverlay}
+    >
+      <span className="bar-icon">
+        <span />
+        <span />
+        <span />
+      </span>
+    </Link>
+
+    {/* Logo */}
+    <img src={logo} alt="Logo" style={{ width: "130px", height: "auto" }} />
+
+    {/* Language Dropdown */}
+    <div className="ms-2">
+      <LanguageSelectorComp module="mentor" />
+    </div>
+  </div>
+
+  {/* Right: Profile Menu */}
+  <div className="dropdown">
+    <Link
+      to="#"
+      className="nav-link dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+      style={{ boxShadow: "none", outline: "none" }}
+    >
+      {/* <i className="fa fa-ellipsis-v fs-5" /> */}
+    </Link>
+
+    <div className="dropdown-menu dropdown-menu-end">
+      {presurvey !== "INCOMPLETED" && (
+        <>
+          <Link className="dropdown-item" to="/mentorprofile">
+            My Profile
+          </Link>
+          <Link className="dropdown-item" to="/mentorchangepwd">
+            Change Password
+          </Link>
+        </>
+      )}
+      <Link className="dropdown-item" to="signin" onClick={handleLogout1}>
+        Logout
+      </Link>
+    </div>
+  </div>
+</div>
+
+
     </>
-    
   );
 };
 
