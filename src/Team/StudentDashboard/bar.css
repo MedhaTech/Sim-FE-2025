@@ -71,3 +71,18 @@
 .pending-line {
     background: linear-gradient(90deg, #aaa, #ddd); 
 }
+@media (max-width: 768px) {
+  .roadmap-container {
+    flex-direction: column; /* Stack items vertically in mobile */
+    justify-content: center; /* Optional: center them */
+  }
+
+  .completed-line {
+    background: none !important; /* Removes the green gradient */
+    padding: 0 !important;       /* Removes vertical spacing */
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+  }
+}
+

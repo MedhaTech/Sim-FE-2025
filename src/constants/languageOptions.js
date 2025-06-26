@@ -6,22 +6,22 @@ export const languageOptions = [
     },
     {
         code: 'tn',
-        name: 'Tamil',
+        name: 'தமிழ்',
         country_code: 'in'
     },
     {
         code: 'hi',
-        name: 'Hindi',
+        name: 'हिन्दी',
         country_code: 'in'
     },
     {
         code: 'te',
-        name: 'Telugu',
+        name: 'తెలుగు',
         country_code: 'in'
     },
     {
         code: 'ka',
-        name: 'Kannada',
+        name: 'ಕನ್ನಡ',
         country_code: 'in'
     }
 
