@@ -227,7 +227,7 @@ const TeacherSupport = () => {
           body["link"] = values.url;
         }
 
-        dispatch(createSupportTickets(body));
+        dispatch(createSupportTickets(body),t);
         document.getElementById("discard").click();
         setTimeout(() => {
           dispatch(getSupportTickets(currentUser?.data[0]));
@@ -328,13 +328,13 @@ const TeacherSupport = () => {
           bodyForm2["link"] = values.url;
         }
 
-        dispatch(createSupportTicketResponse(bodyForm2));
+        dispatch(createSupportTicketResponse(bodyForm2),t);
         dispatch(
           SupportTicketStatusChange(id, { status: values.selectStatusTicket })
         );
         document.getElementById("sendresponseID").click();
         setTimeout(() => {
-          dispatch(getSupportTickets(currentUser?.data[0]));
+          dispatch(getSupportTickets(currentUser?.data[0]),t);
         }, 500);
       } catch (error) {
         console.log(error);
@@ -568,6 +568,7 @@ const TeacherSupport = () => {
         className="offcanvas offcanvas-end em-payrol-add"
         tabIndex={-1}
         id="offcanvasRight"
+       
       >
         <div className="offcanvas-body p-0">
           <div className="page-wrapper-new">
