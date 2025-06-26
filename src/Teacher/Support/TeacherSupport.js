@@ -227,7 +227,7 @@ const TeacherSupport = () => {
           body["link"] = values.url;
         }
 
-        dispatch(createSupportTickets(body),t);
+        dispatch(createSupportTickets(body,t));
         document.getElementById("discard").click();
         setTimeout(() => {
           dispatch(getSupportTickets(currentUser?.data[0]));
