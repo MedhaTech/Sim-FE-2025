@@ -193,7 +193,8 @@
     "not_filled": "Not filled - Inaccurate data (form is not filled properly)",
 
     "approve": "Approve",
-
+"ticketCreated": "Ticket created successfully!",
+    "replySubmitted": "Reply submitted successfully!",
 
 
 
