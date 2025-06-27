@@ -39,7 +39,7 @@ const CreateMultipleMembers = ({ id, teamLengthValue }) => {
     Grade: "",
     Gender: "",
     disability: "",
-    email: "",
+    // email: "",
   };
   const dispatch = useDispatch();
   const [itemDataErrors, setItemDataErrors] = useState([studentBody]);
@@ -98,7 +98,7 @@ const CreateMultipleMembers = ({ id, teamLengthValue }) => {
     Age: "",
     Grade: "",
     Gender: "",
-    email: "",
+    // email: "",
     disability: "",
   }));
   const MIN_STUDENTS = loginState === "Tamil Nadu" ? 2 : 2;
@@ -113,7 +113,7 @@ const CreateMultipleMembers = ({ id, teamLengthValue }) => {
       Age: "",
       Grade: "",
       Gender: "",
-      email: "",
+      // email: "",
       disability: "",
     }));
     setStudentData(updatedStudentData);
@@ -186,13 +186,13 @@ const CreateMultipleMembers = ({ id, teamLengthValue }) => {
       }
 
       const emailRegex = /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/;
-      if (item.email && item.email.trim() !== "") {
-        if (!emailRegex.test(item.email)) {
-          err["email"] = (
-            <span style={{ color: "red" }}>{t('teacherJourney.vali13')}</span>
-          );
-        }
-      }
+      // if (item.email && item.email.trim() !== "") {
+      //   if (!emailRegex.test(item.email)) {
+      //     err["email"] = (
+      //       <span style={{ color: "red" }}>{t('teacherJourney.vali13')}</span>
+      //     );
+      //   }
+      // }
       if (!item.Age)
         err["Age"] = <span style={{ color: "red" }}>{t('teacherJourney.vali17')}</span>;
 
@@ -285,9 +285,9 @@ const CreateMultipleMembers = ({ id, teamLengthValue }) => {
               state: currentUser?.data[0]?.state,
             };
 
-            if (student.email && student.email.trim() !== "") {
-              updatedStudent.email = student.email;
-            }
+            // if (student.email && student.email.trim() !== "") {
+            //   updatedStudent.email = student.email;
+            // }
 
             return updatedStudent;
           });
@@ -417,7 +417,7 @@ const CreateMultipleMembers = ({ id, teamLengthValue }) => {
                 {/* <hr /> */}
                 <Row className="mb-3 modal-body-table search-modal-header">
                   {/* <Row> */}
-                  <Col md={4}>
+                  <Col md={6}>
                     <Label className="form-label">
                       {t("teacherJourney.tfullname")}
                       <span required className="p-1">
@@ -441,7 +441,7 @@ const CreateMultipleMembers = ({ id, teamLengthValue }) => {
                     ) : null}
                   </Col>
 
-                  <Col md={4} className="mb-xl-0">
+                  {/* <Col md={4} className="mb-xl-0">
                     <Label className="form-label">
                       {t("teacherJourney.eamil1")}
                     </Label>
@@ -460,9 +460,9 @@ const CreateMultipleMembers = ({ id, teamLengthValue }) => {
                         {foundErrObject.email}
                       </small>
                     ) : null}
-                  </Col>
+                  </Col> */}
                   {/* </Row> */}
-                  <Col md={4} className="mb-xl-0">
+                  <Col md={6} className="mb-xl-0">
                     <Label htmlFor="inputState" className="form-label">
                       {t("teacherJourney.disability")}
                       <span required className="p-1">

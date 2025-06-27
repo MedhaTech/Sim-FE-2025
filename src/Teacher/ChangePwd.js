@@ -213,10 +213,7 @@ const ChangePwd = (props) => {
                       }}
                     ></div>
                   </div>
-                  <small className="mt-2">
-                  {/* {t('teacherJourney.8-charac_minimum_case_sensitive')} */}
-                  </small>
-                  <br />
+                 
                   {formik.touched.newPassword && formik.errors.newPassword ? (
                     <small className="error-cls" style={{ color: "red" }}>
                       {formik.errors.newPassword}

@@ -31,7 +31,7 @@ export const CreateTeamMember = () => {
       grade: "",
       gender: "",
       disability: "",
-      email:""
+      // email:""
     },
 
     validationSchema: Yup.object({
@@ -51,11 +51,11 @@ export const CreateTeamMember = () => {
       gender: Yup.string().required(
         <span style={{ color: "red" }}>{t('teacherJourney.vali18')}</span>
       ),
-      email: Yup.string().email(t('teacherJourney.vali13')).max(255)
-      .optional(),
-      disability: Yup.string().required(
-        <span style={{ color: "red" }}>{t('teacherJourney.vali19')}</span>
-      ),
+      // email: Yup.string().email(t('teacherJourney.vali13')).max(255)
+      // .optional(),
+      // disability: Yup.string().required(
+      //   <span style={{ color: "red" }}>{t('teacherJourney.vali19')}</span>
+      // ),
       grade: Yup.string()
         .max(40)
         .required(<span style={{ color: "red" }}>{t('teacherJourney.vali20')}</span>),
@@ -73,9 +73,9 @@ export const CreateTeamMember = () => {
         disability: values.disability,
         state:currentUser?.data[0]?.state,
       };
-      if (values.email !== "") {
-        body["email"] = values.email;
-      } 
+      // if (values.email !== "") {
+      //   body["email"] = values.email;
+      // } 
       var config = {
         method: "post",
         url: process.env.REACT_APP_API_BASE_URL + "/students/addStudent",
@@ -131,7 +131,7 @@ export const CreateTeamMember = () => {
                     <Form onSubmit={formik.handleSubmit} isSubmitting>
                       <div className="create-ticket register-blockt">
                         <Row className="mb-3 modal-body-table search-modal-header" >
-                          <Col md={4}>
+                          <Col md={6}>
                             <Label className="form-label">
                             {t('teacherJourney.tfullname')}
                               <span required className="p-1">
@@ -161,7 +161,7 @@ export const CreateTeamMember = () => {
                               </small>
                             ) : null}
                           </Col>
-                          <Col md={4}>
+                          {/* <Col md={4}>
                             <Label className="form-label">
                             {t('teacherJourney.eamil1')}
                              
@@ -182,9 +182,9 @@ export const CreateTeamMember = () => {
                                 {formik.errors.email}
                               </small>
                             ) : null}
-                          </Col>
+                          </Col> */}
                        
-                          <Col md={4}>
+                          <Col md={6}>
                             <Label htmlFor="inputState" className="form-label">
                             {t('teacherJourney.disability')}
                               <span required className="p-1">
