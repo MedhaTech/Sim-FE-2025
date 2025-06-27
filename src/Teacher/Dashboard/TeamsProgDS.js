@@ -46,7 +46,7 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
   const [ideaStatusEval, setIdeaStatusEval] = useState("-");
   const [isReject, setIsreject] = React.useState(false);
   const [reason, setReason] = React.useState("");
-  const [noData,setNoData]=useState(false);
+  const [noData, setNoData] = useState(false);
   const selectData = [
     "Not novel - Idea and problem common and already in use.",
     "Not novel - Idea has been 100% plagiarized.",
@@ -80,7 +80,7 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
 
   const teamNameandIDsbymentorid = (mentorid) => {
     // this function fetches all teams list from the API //
-    
+
     const teamApi = encryptGlobal(
       JSON.stringify({
         mentor_id: mentorid,
@@ -139,7 +139,6 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
             record.topics_completed_count
           );
         return (
-        
           <div
             className="progress progress-sm progress-custom progress-animate"
             role="progressbar"
@@ -219,7 +218,7 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
     },
   ];
   const submittedApi = (teamId) => {
-               // This function fetches idea submission details from the API //
+    // This function fetches idea submission details from the API //
 
     const Param = encryptGlobal(
       JSON.stringify({
@@ -243,13 +242,12 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
           if (response.data.data && response.data.data.length > 0) {
             setFormData(response.data.data[0]);
             setNoData(false);
-
           }
         }
       })
       .catch(function (error) {
         if (error.response.status === 404) {
-            setNoData(true);
+          setNoData(true);
         }
       });
   };
@@ -267,7 +265,7 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
     emailTeamCredentials();
   };
   useEffect(() => {
-               // This function fetches popup from the API //
+    // This function fetches popup from the API //
 
     const popaddParam = encryptGlobal("3");
     var config = {
@@ -295,7 +293,7 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
   }, []);
   ////////Email Team Credentisl////////////
   const emailTeamCredentials = () => {
-               // This function fetches team credentials from the API //
+    // This function fetches team credentials from the API //
 
     const teamCredMailApi = encryptGlobal(
       JSON.stringify({
@@ -327,7 +325,6 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
         console.log(error);
       });
   };
- 
 
   const handleAlert = (handledText) => {
     // here we can delete the team //
@@ -365,16 +362,13 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
   const handleL1Round = (handledText) => {
     // this function accept / reject the Idea //
 
-   
     const body = JSON.stringify({
       verified_status: "REJECTED",
       status: "DRAFT",
       mentor_rejected_reason: handledText == "reject" ? reason : "",
     });
     const ideaID = encryptGlobal(
-      JSON.stringify(
-        formData.challenge_response_id
-      )
+      JSON.stringify(formData.challenge_response_id)
     );
     var config = {
       method: "put",
@@ -400,7 +394,6 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
         dispatch(getTeamMemberStatus(teamId, setshowDefault));
         submittedApi(teamId);
         window.location.reload();
-
       })
       .catch(function (error) {
         openNotificationWithIcon("error", error?.response?.data?.message);
@@ -426,7 +419,7 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
                 verticalAlign: "middle",
               }}
             />
-            Team Progress 
+            Team Progress
           </h4>
           <button
             className="btn btn-secondary d-flex align-items-center"
@@ -451,37 +444,43 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
                 value={customer.find((option) => option.value === teamId)}
               />
             </div>
-          
-          {teamId && (
-            <>
-              <Row>
-                <div className="singlediv">
+
+            {teamId && (
+              <>
+                <Row>
+                  <div className="singlediv">
                     <span className="fw-bold text-info">IDEA STATUS :</span>
                     <span style={{ paddingLeft: "1rem" }}>
-                      {noData
-          ? <span className="text-warning">NOT STARTED</span>
-          : formData?.verified_status === "ACCEPTED"
-          ? <span className="text-success">ACCEPTED</span>
-          : formData?.verified_status === "REJECTED"
-          ?  <span className="text-danger">REJECTED</span>
-          : formData?.status || <span className="text-warning">NOT STARTED</span>}
+                      {noData ? (
+                        <span className="text-warning">NOT STARTED</span>
+                      ) : formData?.verified_status === "ACCEPTED" ? (
+                        <span className="text-success">ACCEPTED</span>
+                      ) : formData?.verified_status === "REJECTED" ? (
+                        <span className="text-danger">REJECTED</span>
+                      ) : (
+                        formData?.status || (
+                          <span className="text-warning">NOT STARTED</span>
+                        )
+                      )}
                     </span>
-                </div>
-              </Row>
-              <>
-                <div>
-                  {!noData && (formData?.status === "SUBMITTED" || formData?.status === "DRAFT" ) && (
-                    <button
-                      className="btn btn-primary d-flex align-items-center"
-                     
-                      onClick={() => setIdeaShow(true)}
-                    >View Idea</button>
-                  )}
-                </div>
-               
+                  </div>
+                </Row>
+                <>
+                  <div>
+                    {!noData &&
+                      (formData?.status === "SUBMITTED" ||
+                        formData?.status === "DRAFT") && (
+                        <button
+                          className="btn btn-primary d-flex align-items-center"
+                          onClick={() => setIdeaShow(true)}
+                        >
+                          View Idea
+                        </button>
+                      )}
+                  </div>
+                </>
               </>
-            </>
-          )}
+            )}
           </div>
           <div className="table-responsive">
             {showDefault && (
@@ -546,7 +545,6 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
                         value={reason}
                       />
                     </Col>
-                  
                   </Col>
                 </div>
                 <div className="text-center">

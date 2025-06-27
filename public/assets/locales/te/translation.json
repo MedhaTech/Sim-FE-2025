@@ -254,6 +254,8 @@
         "IDEASTATUS":"ఐడియా స్థితి :",
         "logins":"టీమ్స్ లాగిన్",
         "NOTSTARTED":"ప్రారంభం కాలేదు",
+          "draft":"డ్రాఫ్ట్",
+        "submitt":"సమర్పించబడింది",
         "ACCEPTED":"అంగీకరించారు",
         "REJECTED":"తిరస్కరించబడింది",
         "ViewIdea":"ఐడియాను చూడండి",
@@ -699,6 +701,7 @@
         "profile": "My Profile",
         "logout": "Logout"
     },
+    
     "teacher_teams": {
         "team_heading": "Teams Management",
         "create_team": "Create Team",
@@ -976,6 +979,24 @@
 
     },
     "themes" : {
+        "sustainabletheme" : "సస్టైనబుల్ డెవలప్మెంట్ అండ్ ఎన్విరాన్మెంట్",
+
+        "digitaltheme" : "డిజిటల్ ట్రాన్స్ఫార్మేషన్",
+
+        "healththeme" : "హెల్త్ అండ్ వెల్-బీయింగ్",
+
+        "educationtheme" :"క్వాలిటి ఎడ్యుకేషన్",
+
+        "economictheme" : "ఎకనామిక్ ఎంపవర్మెంట్",
+
+        "smarttheme" : "స్మార్ట్ అండ్ రెసిలియంట్ కమ్మ్యునిటీ",
+
+        "agritheme" :"అగ్రికల్చర్ అండ్ రూరల్ డెవలప్మెంట్",
+
+        "othertheme" : "ఇతరత్రా"
+
+    },
+     "theme" : {
         "sustainabletheme" : "సస్టైనబుల్ డెవలప్మెంట్ అండ్ ఎన్విరాన్మెంట్",
 
         "digitaltheme" : "డిజిటల్ ట్రాన్స్ఫార్మేషన్",

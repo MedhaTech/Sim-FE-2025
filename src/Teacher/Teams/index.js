@@ -681,7 +681,7 @@ ideaStatus===  null &&
                             <thead>
                               <tr>
                                 <th style={{color:"crimson"}}>{t('teacherJourney.tfullname')}</th>
-                                <th style={{color:"crimson"}}>{t('teacherJourney.eamil')}</th>
+                                {/* <th style={{color:"crimson"}}>{t('teacherJourney.eamil')}</th> */}
                                 <th style={{color:"crimson"}}>{t('teacherJourney.disability')}</th>
                                 <th style={{color:"crimson"}}>{t('teacherJourney.age')}</th>
                                 <th style={{color:"crimson"}}>{t('teacherJourney.class')}</th>
@@ -693,7 +693,7 @@ ideaStatus===  null &&
                               {teamsListData.map((student, index) => (
                                 <tr key={index}>
                                   <td>{student.full_name}</td>
-                                  <td>{student.email ? (student.email.length > 16 ? student.email.slice(0, 16) + "..." : student.email) : "-"}</td>
+                                  {/* <td>{student.email ? (student.email.length > 16 ? student.email.slice(0, 16) + "..." : student.email) : "-"}</td> */}
 
                                   <td>{student.disability}</td>
 

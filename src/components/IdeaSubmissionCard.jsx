@@ -292,7 +292,17 @@ const IdeaSubmissionCard = ({ handleClose, show, response, setIdeaCount }) => {
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
-
+const labelToKeyMap = {
+  "Sustainable Development & Environment": "sustainabletheme",
+  "Digital Transformation": "digitaltheme",
+  "Health and Well-being": "healththeme",
+  "Quality Education": "educationtheme",
+  "Economic Empowerment": "economictheme",
+  "Smart and Resilient Communities": "smarttheme",
+  "Agriculture and Rural Development": "agritheme",
+  "Others": "othertheme",
+};
+const themeKey = labelToKeyMap[response.theme];
   return (
     <div>
       <div style={{ display: "none" }}>
@@ -312,117 +322,125 @@ const IdeaSubmissionCard = ({ handleClose, show, response, setIdeaCount }) => {
             id="contained-modal-title-vcenter"
             className="w-100 d-block text-center"
           >
-            {t("ideaSubmission.theme")} : {response.theme}
+            {t("ideaSubmission.theme")} : {t(`theme.${themeKey}`)}
           </Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
-          <Card className="p-1">
+          {/* <Card className="mb-3 border-start border-4 border-primary rounded shadow-sm">
             <CardBody>
-              <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
+              <label className="fw-semibold">
                 {t("ideaSubmission.language")}
               </label>
-              <CardText>{response.language}</CardText>
+              <CardText style={{ fontSize: "1rem" }}>{response.language}</CardText>
             </CardBody>
-          </Card>
-          <Card className="p-1">
+          </Card> */}
+          <Card  className="mb-3 border-start border-4 border-primary rounded shadow-top  shadow-sm">
             <CardBody>
-              <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
+              <label className="fw-semibold">
+                {t("ideaSubmission.language")}
+              </label>
+              <CardText className="mt-2 fw-semibold fs-6">{response.language}</CardText>
+            </CardBody>
+          </Card >
+          <Card className="mb-3 border-start border-4 border-primary rounded shadow-sm">
+            <CardBody>
+              <label className="fw-semibold">
                 {t("ideaSubmission.focusArea")}
               </label>
-              <CardText>{response.focus_area}</CardText>
+              <CardText className="mt-2 fw-semibold fs-6">{response.focus_area}</CardText>
             </CardBody>
           </Card>
-          <Card className="p-1">
+          <Card className="mb-3 border-start border-4 border-primary rounded shadow-sm">
             <CardBody>
-              <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
+              <label className="fw-semibold">
                 {t("ideaSubmission.ideaTitle")}
               </label>
-              <CardText>{submittedResponse.title}</CardText>
+              <CardText className="mt-2 fw-semibold fs-6">{submittedResponse.title}</CardText>
             </CardBody>
           </Card>
-          <Card className="p-1">
+          <Card className="mb-3 border-start border-4 border-primary rounded shadow-sm">
             <CardBody>
-              <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
+              <label className="fw-semibold">
                 {t("ideaSubmission.problemStatement")}
               </label>
-              <CardText>{submittedResponse.problem_statement}</CardText>
+              <CardText className="mt-2 fw-semibold fs-6">{submittedResponse.problem_statement}</CardText>
             </CardBody>
           </Card>
-          <Card className="p-1">
+          <Card className="mb-3 border-start border-4 border-primary rounded shadow-sm">
             <CardBody>
-              <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
+              <label className="fw-semibold">
                 {t("ideaSubmission.causes")}
               </label>
-              <CardText>{submittedResponse.causes}</CardText>
+              <CardText className="mt-2 fw-semibold fs-6">{submittedResponse.causes}</CardText>
             </CardBody>
           </Card>
-          <Card className="p-1">
+          <Card className="mb-3 border-start border-4 border-primary rounded shadow-sm">
             <CardBody>
-              <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
+              <label className="fw-semibold">
                 {t("ideaSubmission.effects")}
               </label>
-              <CardText>{submittedResponse.effects}</CardText>
+              <CardText className="mt-2 fw-semibold fs-6">{submittedResponse.effects}</CardText>
             </CardBody>
           </Card>
-          <Card className="p-1">
+          <Card className="mb-3 border-start border-4 border-primary rounded shadow-sm">
             <CardBody>
-              <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
+              <label className="fw-semibold">
                 {t("ideaSubmission.community")}
               </label>
-              <CardText>{submittedResponse.community}</CardText>
+              <CardText className="mt-2 fw-semibold fs-6">{submittedResponse.community}</CardText>
             </CardBody>
           </Card>{" "}
-          <Card className="p-1">
+          <Card className="mb-3 border-start border-4 border-primary rounded shadow-sm">
             <CardBody>
-              <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
+              <label className="fw-semibold">
                 {t("ideaSubmission.facing")}
               </label>
-              <CardText>{submittedResponse.facing}</CardText>
+              <CardText className="mt-2 fw-semibold fs-6">{submittedResponse.facing}</CardText>
             </CardBody>
           </Card>{" "}
-          <Card className="p-1">
+          <Card className="mb-3 border-start border-4 border-primary rounded shadow-sm">
             <CardBody>
-              <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
+              <label className="fw-semibold">
                 {t("ideaSubmission.solution")}
               </label>
-              <CardText>{submittedResponse.solution}</CardText>
+              <CardText className="mt-2 fw-semibold fs-6">{submittedResponse.solution}</CardText>
             </CardBody>
           </Card>
-          <Card className="p-1">
+          <Card className="mb-3 border-start border-4 border-primary rounded shadow-sm">
             <CardBody>
-              <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
+              <label className="fw-semibold">
                 {t("ideaSubmission.stakeholders")}
               </label>
-              <CardText>{submittedResponse.stakeholders}</CardText>
+              <CardText className="mt-2 fw-semibold fs-6">{submittedResponse.stakeholders}</CardText>
             </CardBody>
           </Card>{" "}
-          <Card className="p-1">
+          <Card className="mb-3 border-start border-4 border-primary rounded shadow-sm">
             <CardBody>
-              <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
+              <label className="fw-semibold">
                 {t("ideaSubmission.problemSolving")}
               </label>
-              <CardText>
+              <CardText className="mt-2 fw-semibold fs-6">
                 {/* {submittedResponse.problem_solving} */}
                 {problemSolvingArray.join(", ")}
               </CardText>
             </CardBody>
           </Card>{" "}
-          <Card className="p-1">
+          <Card className="mb-3 border-start border-4 border-primary rounded shadow-sm">
             <CardBody>
-              <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
+              <label className="fw-semibold">
                 {t("ideaSubmission.feedback")}
               </label>
-              <CardText>{submittedResponse.feedback}</CardText>
+              <CardText className="mt-2 fw-semibold fs-6">{submittedResponse.feedback}</CardText>
             </CardBody>
           </Card>
-          <Card className="p-1">
+          <Card className="mb-3 border-start border-4 border-primary rounded shadow-sm">
             <CardBody>
-              <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
+              <label className="fw-semibold">
                 {t("ideaSubmission.prototypeDoc")}
               </label>
 
-              <CardText>
+              <CardText className="mt-2 fw-semibold fs-6">
                 <Card>
                   {" "}
                   {<LinkComponent item={images} currentUser={currentUser} />}
@@ -430,24 +448,24 @@ const IdeaSubmissionCard = ({ handleClose, show, response, setIdeaCount }) => {
               </CardText>
             </CardBody>
           </Card>
-          <Card className="p-1">
+          <Card className="mb-3 border-start border-4 border-primary rounded shadow-sm">
             <CardBody>
-              <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
+              <label className="fw-semibold">
                 {t("ideaSubmission.prototypeVideo")}
               </label>
-              <CardText>
+              <CardText className="mt-2 fw-semibold fs-6">
                 {submittedResponse?.prototype_link && (
                   <VideoPopup videoUrl={submittedResponse.prototype_link} />
                 )}
               </CardText>
             </CardBody>
           </Card>
-          <Card className="p-1">
+          <Card className="mb-3 border-start border-4 border-primary rounded shadow-sm">
             <CardBody>
-              <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
+              <label className="fw-semibold">
                 {t("ideaSubmission.workbook")}
               </label>
-              <CardText>{submittedResponse.workbook}</CardText>
+              <CardText className="mt-2 fw-semibold fs-6">{submittedResponse.workbook}</CardText>
             </CardBody>
           </Card>
         </Modal.Body>

@@ -34,7 +34,7 @@ const StuEdit = () => {
       grade: studentData && studentData.Grade,
       gender: studentData && studentData.Gender,
       disability: studentData && studentData.disability,
-      email: studentData && studentData.email,
+      // email: studentData && studentData.email,
     },
 
     validationSchema: Yup.object({
@@ -56,8 +56,8 @@ const StuEdit = () => {
       gender: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Gender</span>
       ),
-       email: Yup.string().email("Please Enter Valid Email Address").max(255)
-             .optional(),
+      //  email: Yup.string().email("Please Enter Valid Email Address").max(255)
+      //        .optional(),
       disability: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Disability Status</span>
       ),
@@ -78,9 +78,9 @@ const StuEdit = () => {
       if (studentData && studentData.full_name !== values.fullName) {
         body["full_name"] = values.fullName;
       }
-      if (studentData && studentData.email !== values.email) {
-        body["email"] = values.email;
-      }
+      // if (studentData && studentData.email !== values.email) {
+      //   body["email"] = values.email;
+      // }
       const teamparamId = encryptGlobal(JSON.stringify(studentData.student_id));
       var config = {
         method: "put",
@@ -127,7 +127,7 @@ const StuEdit = () => {
              
                 <div className="create-ticket register-blockt">
                   <Row className="mb-3 modal-body-table search-modal-header">
-                    <Col md={4}>
+                    <Col md={6}>
                       <Label className="form-label">
                         Full Name
                         <span required className="p-1">
@@ -156,7 +156,7 @@ const StuEdit = () => {
                         </small>
                       ) : null}
                     </Col>
-                    <Col md={4}>
+                    {/* <Col md={4}>
                                                                     <Label className="form-label">
                                                                       Email Address
                                                                      
@@ -177,8 +177,8 @@ const StuEdit = () => {
                                                                         {formik.errors.email}
                                                                       </small>
                                                                     ) : null}
-                                                                  </Col>
-                                                                  <Col md={4}>
+                                                                  </Col> */}
+                                                                  <Col md={6}>
                       <Label htmlFor="inputState" className="form-label">
                         Disability
                         <span required className="p-1">

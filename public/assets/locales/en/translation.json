@@ -134,7 +134,7 @@
       "support2":"Please enter the link",
       "selectCategory": "Select Category",
       "selectStatus": "Select Status",
-"demo":"Demo Video",
+"demo":"DEMO",
 "error":"User password doesn't match",
   "generalQuery": "General",
   "technicalQuery": "Technical",
@@ -348,6 +348,8 @@
         "NOTSTARTED":"NOT STARTED",
         "ACCEPTED":"ACCEPTED",
         "REJECTED":"REJECTED",
+          "draft":"DRAFT",
+        "submitt":"SUBMITTED",
         "ViewIdea":"View Idea",
         "RejectSubmission":"Reject Submission",
         "RejectIdeasubmission":"Reject Idea submission",
@@ -1047,6 +1049,19 @@
         "agritheme" : "Agriculture and Rural Development",
         "othertheme" : "Others"
     },
+     "theme" : {
+        "sustainabletheme" : "Sustainable Development & Environment",
+        "digitaltheme" : "Digital Transformation",
+        "healththeme" : "Health and Well-being",
+        "educationtheme" : "Quality Education",
+        "economictheme" : "Economic Empowerment",
+        "smarttheme" : "Smart and Resilient Communities",
+        "agritheme" : "Agriculture and Rural Development",
+        "othertheme" : "Others"
+      
+
+    },
+    
     "themedetails" : {
         "sustainabletheme" : "Sustainable Development is about balancing economic growth, environmental care, and social well-being to ensure a better future for all.",
         "digitaltheme" : "Highlights the critical role of digital technologies in bridging the digital divide and fostering innovation, making India a leader in the digital economy.",
