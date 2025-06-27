@@ -30,7 +30,7 @@ import { Link } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
 import VideoModal from "../../HelpVideo/VideoModal";
 import { useTranslation } from "react-i18next";
-import demo from "../../assets/img/deemo.png";
+// import demo from "../../assets/img/deemo.png";
 
 const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
   const [ideaShow, setIdeaShow] = useState(false);
@@ -444,7 +444,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
               className="action-table-data"
               style={{ display: "inline-block" }}
             >
-              {/* <div className="edit-delete-action">
+              <div className="edit-delete-action">
                 <OverlayTrigger placement="top" overlay={renderTooltip}>
                   <Link
                     to="#"
@@ -457,33 +457,12 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
                         }
                       : {})}
                   >
-                    {t("teacherJourney.demo")}{" "}
+                    {/* {t("teacherJourney.demo")}{" "} */}
                     <FaPlay style={{ color: "red" }} />
                   </Link>
                 </OverlayTrigger>
-              </div> */}
-               <Link
-                                to="#"
-                                onClick={() => handleShow(0)}
-                                {...(show
-                                  ? {
-                                      "data-bs-toggle": "modal",
-                                      "data-bs-target": "#add-units",
-                                    }
-                                  : {})}
-                              >
-                                <img
-                                  src={demo}
-                                  alt="Play"
-                                  style={{
-                                    height: "20%",
-                                    width: "15%",
-                                    // display: "flex",
-                                    // justifyContent: "center",
-                                    // alignItems: "center",
-                                  }}
-                                />
-                              </Link>
+              </div>
+             
             </div>
           </h4>
           <button
