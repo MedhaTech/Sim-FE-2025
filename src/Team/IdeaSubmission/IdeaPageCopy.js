@@ -24,7 +24,6 @@ import { getCurrentUser } from "../../helpers/Utils";
 import { openNotificationWithIcon } from "../../helpers/Utils";
 import axios from "axios";
 import { KEY, URL } from "../../constants/defaultValues";
-import play from "../../assets/img/playicon.png";
 
 import CommonPage from "../../components/CommonPage";
 import { useTranslation } from "react-i18next";
@@ -34,6 +33,7 @@ import moment from "moment";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { themes, themesList, focusareasList } from "./themesData";
 import { languageOptions } from "../../RegPage/ORGData";
+import { FiPlayCircle } from "react-icons/fi";
 
 const LinkComponent = ({
   original,
@@ -1495,15 +1495,13 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                   marginLeft: "10px",
                                 }}
                               >
-                                <img
-                                  src={play}
-                                  className="icon"
-                                  alt="play"
-                                  style={{
-                                    verticalAlign: "middle",
-                                    width: "4%",
-                                  }}
-                                />
+                               <span
+                                                                                                                     style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
+                                                                                                                                   className="badge"
+                                                                                                                   
+                                                                                                                   >
+                                                                                                                     <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;DEMO</span>
+                                                                                                                   </span>
                               </span>
                             </OverlayTrigger>
                             </div>

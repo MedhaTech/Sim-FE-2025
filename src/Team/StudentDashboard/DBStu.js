@@ -22,7 +22,7 @@ import { FaBook, FaLightbulb } from 'react-icons/fa';
 import { FaLifeRing } from 'react-icons/fa';
 import { FaPoll } from 'react-icons/fa';
 import { FaRoute } from 'react-icons/fa';
-import { FaPlay } from 'react-icons/fa';
+
 import { FaUsers } from 'react-icons/fa';
 import { FaChalkboardTeacher } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
@@ -35,6 +35,7 @@ import { PiLinkSimpleBold } from "react-icons/pi";
 import LanguageSelectorComp from '../../components/LanguageSelectorComp/index.js';
 import MultiProgressBar from "./Multiprogessbar.js";
 import { useTranslation } from "react-i18next";
+import { FiPlayCircle } from "react-icons/fi";
 
 const GreetingModal = (props) => {
   return (
@@ -688,17 +689,21 @@ const [postdata,setPostData]=useState("");
             <div className="col-xl-6 col-sm-12 col-12 d-flex">
               <div className="card flex-fill default-cover w-100 mb-4">
                 <div className="card-header d-flex justify-content-between align-items-center">
-                  <h4 className="card-title mb-0">SIM Road Map{""}
+                  <h4 className="card-title mb-0">SIM Road Map&nbsp;
                   <OverlayTrigger placement="top" overlay={renderTooltip}>
-                                  <Link
-                                      to="#"
-                                      className="me-2 p-2"
-                                      onClick={() => handleShow(5)}
-                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
-                                      
-                                  >
-                                    <FaPlay  style={{color:"red"}} />
-                                  </Link>
+                                 <span
+                                                                                             style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
+                                                                                                           className="badge"
+                                                                                             onClick={() => handleShow(5)}
+                                                                                             {...(show
+                                                                                               ? {
+                                                                                                   "data-bs-toggle": "modal",
+                                                                                                   "data-bs-target": "#add-units",
+                                                                                                 }
+                                                                                               : {})}
+                                                                                           >
+                                                                                             <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
+                                                                                           </span>
                                 </OverlayTrigger>
                   </h4>
                   <div className="dropdown" onClick={handleNavigation}>
@@ -734,15 +739,20 @@ const [postdata,setPostData]=useState("");
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
-                                  <Link
-                                      to="#"
-                                      className="me-2 p-2"
-                                      onClick={() => handleShow(0)}
-                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
-                                      
-                                  >
-                                    <FaPlay  style={{color:"red"}} />
-                                  </Link>
+                                  <span
+                                                                                              style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
+                                                                                                            className="badge"
+                                                                                              onClick={() => handleShow(0)}
+                                                                                              {...(show
+                                                                                                ? {
+                                                                                                    "data-bs-toggle": "modal",
+                                                                                                    "data-bs-target": "#add-units",
+                                                                                                  }
+                                                                                                : {})}
+                                                                                            >
+                                                                                              <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
+                                                                                            </span>
+                                 
                                 </OverlayTrigger>
                               </div>
                             </div>
@@ -803,15 +813,19 @@ const [postdata,setPostData]=useState("");
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
-                                  <Link
-                                      to="#"
-                                      className="me-2 p-2"
-                                      onClick={() => handleShow(1)}
-                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
-                                      
-                                  >
-                                    <FaPlay  style={{color:"red"}} />
-                                  </Link>
+                                  <span
+                                                                                              style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
+                                                                                                            className="badge"
+                                                                                              onClick={() => handleShow(1)}
+                                                                                              {...(show
+                                                                                                ? {
+                                                                                                    "data-bs-toggle": "modal",
+                                                                                                    "data-bs-target": "#add-units",
+                                                                                                  }
+                                                                                                : {})}
+                                                                                            >
+                                                                                              <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
+                                                                                            </span>
                                 </OverlayTrigger>
                               </div>
                             </div>
@@ -884,15 +898,19 @@ const [postdata,setPostData]=useState("");
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
-                                  <Link
-                                      to="#"
-                                      className="me-2 p-2"
-                                      onClick={() => handleShow(2)}
-                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
-                                      
-                                  >
-                                    <FaPlay  style={{color:"red"}} />
-                                  </Link>
+                                  <span
+                                                                                              style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
+                                                                                                            className="badge"
+                                                                                              onClick={() => handleShow(2)}
+                                                                                              {...(show
+                                                                                                ? {
+                                                                                                    "data-bs-toggle": "modal",
+                                                                                                    "data-bs-target": "#add-units",
+                                                                                                  }
+                                                                                                : {})}
+                                                                                            >
+                                                                                              <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
+                                                                                            </span>
                                 </OverlayTrigger>
                               </div>
                             </div>
@@ -964,15 +982,19 @@ const [postdata,setPostData]=useState("");
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
-                                  <Link
-                                      to="#"
-                                      className="me-2 p-2"
-                                      onClick={() => handleShow(3)}
-                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
-                                      
-                                  >
-                                    <FaPlay  style={{color:"red"}} />
-                                  </Link>
+                                  <span
+                                                                                              style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
+                                                                                                            className="badge"
+                                                                                              onClick={() => handleShow(3)}
+                                                                                              {...(show
+                                                                                                ? {
+                                                                                                    "data-bs-toggle": "modal",
+                                                                                                    "data-bs-target": "#add-units",
+                                                                                                  }
+                                                                                                : {})}
+                                                                                            >
+                                                                                              <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
+                                                                                            </span>
                                 </OverlayTrigger>
                               </div>
                             </div>
@@ -1032,15 +1054,19 @@ const [postdata,setPostData]=useState("");
                             <div className="action-table-data">
                               <div className="edit-delete-action">
                                 <OverlayTrigger placement="top" overlay={renderTooltip}>
-                                  <Link
-                                      to="#"
-                                      className="me-2 p-2"
-                                      onClick={() => handleShow(4)}
-                                      {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
-                                      
-                                  >
-                                    <FaPlay  style={{color:"red"}} />
-                                  </Link>
+                                  <span
+                                                                                              style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
+                                                                                                            className="badge"
+                                                                                              onClick={() => handleShow(4)}
+                                                                                              {...(show
+                                                                                                ? {
+                                                                                                    "data-bs-toggle": "modal",
+                                                                                                    "data-bs-target": "#add-units",
+                                                                                                  }
+                                                                                                : {})}
+                                                                                            >
+                                                                                              <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
+                                                                                            </span>
                                 </OverlayTrigger>
                               </div>
                             </div>
