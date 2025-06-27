@@ -10,8 +10,6 @@ import { encryptGlobal } from "../../constants/encryptDecrypt";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { URL, KEY } from "../../constants/defaultValues";
-
 import { useNavigate } from "react-router-dom";
 import { FaUsers } from "react-icons/fa";
 import { FaUserGraduate } from "react-icons/fa";
@@ -19,7 +17,6 @@ import { FaPaperPlane } from "react-icons/fa";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { FaRoute } from "react-icons/fa";
 import { CheckCircle } from "react-feather";
-import { FaPlay } from "react-icons/fa";
 import LatestNews from "./LatestNews";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import { Tooltip } from "react-bootstrap";
@@ -42,6 +39,7 @@ import MultiTeacher from "./MultiTeacher";
 import { IoArrowDownCircleOutline } from "react-icons/io5";
 import { PiLinkSimpleBold } from "react-icons/pi";
 import { getLanguage } from '../../constants/languageOptions';
+import { FiPlayCircle } from "react-icons/fi";
 
 const GreetingModal = (props) => {
    const { t } = useTranslation();
@@ -612,9 +610,9 @@ const handleFileDownload = async(file,type) =>{
                 <div className="action-table-data">
                   <div className="edit-delete-action">
                     <OverlayTrigger placement="top" overlay={renderTooltip}>
-                      <Link
-                        to="#"
-                        className="me-2 p-2"
+                      <span
+                        style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
+                                      className="badge"
                         onClick={() => handleShow(5)}
                         {...(show
                           ? {
@@ -623,8 +621,8 @@ const handleFileDownload = async(file,type) =>{
                             }
                           : {})}
                       >
-                         {t('teacherJourney.demo')} <FaPlay style={{ color: "red" }} />
-                      </Link>
+                        <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
+                      </span>
                     </OverlayTrigger>
                   </div>
                 </div>
@@ -951,19 +949,15 @@ ideaCount={ideaCount}
                                     placement="top"
                                     overlay={renderTooltip}
                                   >
-                                    <Link
-                                      to="#"
-                                      className="me-2 p-2"
+                                    <span
+                                      style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
+                                      className="badge"
                                       onClick={() => handleShow(0)}
-                                      {...(show
-                                        ? {
-                                            "data-bs-toggle": "modal",
-                                            "data-bs-target": "#add-units",
-                                          }
-                                        : {})}
+                                      data-bs-toggle={show ? "modal" : undefined}
+                                      data-bs-target={show ? "#add-units" : undefined}
                                     >
-                                      <FaPlay style={{ color: "red" }} />
-                                    </Link>
+                                        <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;DEMO</span>
+                                    </span>
                                   </OverlayTrigger>
                                 </div>
                               </div>
@@ -1043,9 +1037,9 @@ ideaCount={ideaCount}
                                     placement="top"
                                     overlay={renderTooltip}
                                   >
-                                    <Link
-                                      to="#"
-                                      className="me-2 p-2"
+                                    <span
+                                    style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
+                                      className="badge"
                                       onClick={() => handleShow(1)}
                                       {...(show
                                         ? {
@@ -1054,8 +1048,8 @@ ideaCount={ideaCount}
                                           }
                                         : {})}
                                     >
-                                        <FaPlay style={{ color: "red" }} />
-                                    </Link>
+                                        <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;DEMO</span>
+                                    </span>
                                   </OverlayTrigger>
                                 </div>
                               </div>
@@ -1141,9 +1135,9 @@ ideaCount={ideaCount}
                                     placement="top"
                                     overlay={renderTooltip}
                                   >
-                                    <Link
-                                      to="#"
-                                      className="me-2 p-2"
+                                    <span
+                                      style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
+                                      className="badge"
                                       onClick={() => handleShow(2)}
                                       {...(show
                                         ? {
@@ -1152,8 +1146,8 @@ ideaCount={ideaCount}
                                           }
                                         : {})}
                                     >
-                                       <FaPlay style={{ color: "red" }} />
-                                    </Link>
+                                       <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;DEMO</span>
+                                    </span>
                                   </OverlayTrigger>
                                 </div>
                               </div>
@@ -1231,9 +1225,9 @@ ideaCount={ideaCount}
                                     placement="top"
                                     overlay={renderTooltip}
                                   >
-                                    <Link
-                                      to="#"
-                                      className="me-2 p-2"
+                                    <span
+                                      style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
+                                      className="badge"
                                       onClick={() => handleShow(3)}
                                       {...(show
                                         ? {
@@ -1242,8 +1236,8 @@ ideaCount={ideaCount}
                                           }
                                         : {})}
                                     >
-                                       <FaPlay style={{ color: "red" }} />
-                                    </Link>
+                                       <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;DEMO</span>
+                                    </span>
                                   </OverlayTrigger>
                                 </div>
                               </div>
@@ -1305,9 +1299,9 @@ ideaCount={ideaCount}
                                     placement="top"
                                     overlay={renderTooltip}
                                   >
-                                    <Link
-                                      to="#"
-                                      className="me-2 p-2"
+                                    <span
+                                      style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
+                                      className="badge"
                                       onClick={() => handleShow(4)}
                                       {...(show
                                         ? {
@@ -1316,8 +1310,8 @@ ideaCount={ideaCount}
                                           }
                                         : {})}
                                     >
-                                     <FaPlay style={{ color: "red" }} />
-                                    </Link>
+                                     <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;DEMO</span>
+                                    </span>
                                   </OverlayTrigger>
                                 </div>
                               </div>
