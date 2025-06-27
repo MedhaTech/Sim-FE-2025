@@ -65,7 +65,13 @@ const TeacherSupport = () => {
       },
       {
         name: <h6>{t("teacherJourney.Category")}</h6>,
-        selector: (row) => row.query_category,
+        // selector: (row) => row.query_category,
+         selector: (row) => {
+    if (row.query_category === "Technical") return t("teacherJourney.technicalQuery");
+    if (row.query_category === "General") return t("teacherJourney.generalQuery");
+    if (row.query_category === "Suggestion") return t("teacherJourney.suggestion");
+    return row.query_category || ""; 
+  },
         sortable: true,
         width: "10rem",
       },
@@ -221,7 +227,7 @@ const TeacherSupport = () => {
           body["link"] = values.url;
         }
 
-        dispatch(createSupportTickets(body));
+        dispatch(createSupportTickets(body,t));
         document.getElementById("discard").click();
         setTimeout(() => {
           dispatch(getSupportTickets(currentUser?.data[0]));
@@ -322,13 +328,13 @@ const TeacherSupport = () => {
           bodyForm2["link"] = values.url;
         }
 
-        dispatch(createSupportTicketResponse(bodyForm2));
+        dispatch(createSupportTicketResponse(bodyForm2),t);
         dispatch(
           SupportTicketStatusChange(id, { status: values.selectStatusTicket })
         );
         document.getElementById("sendresponseID").click();
         setTimeout(() => {
-          dispatch(getSupportTickets(currentUser?.data[0]));
+          dispatch(getSupportTickets(currentUser?.data[0]),t);
         }, 500);
       } catch (error) {
         console.log(error);
@@ -562,6 +568,7 @@ const TeacherSupport = () => {
         className="offcanvas offcanvas-end em-payrol-add"
         tabIndex={-1}
         id="offcanvasRight"
+       
       >
         <div className="offcanvas-body p-0">
           <div className="page-wrapper-new">

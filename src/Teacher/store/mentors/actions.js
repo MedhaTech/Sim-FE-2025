@@ -240,7 +240,7 @@ export const getSupportTickets = (user) => async (dispatch) => {
   }
 };
 
-export const createSupportTickets = (data) => async () => {
+export const createSupportTickets = (data,t) => async () => {
   try {
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
     const result = await axios
@@ -251,7 +251,7 @@ export const createSupportTickets = (data) => async () => {
       });
 
     if (result && result.status === 201) {
-      openNotificationWithIcon("success", "Ticket Created Sucessfully!", "");
+    openNotificationWithIcon("success", t("teacherJourney.ticketCreated"), "");
     } else {
       openNotificationWithIcon("error", "Something went wrong!", "");
     }
@@ -361,7 +361,7 @@ export const getTeacherPresurveyStatus = () => async (dispatch) => {
   }
 };
 
-export const createSupportTicketResponse = (data) => async () => {
+export const createSupportTicketResponse = (data,t) => async () => {
 
   try {
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
@@ -373,7 +373,8 @@ export const createSupportTicketResponse = (data) => async () => {
       });
 
     if (result && result.status === 201) {
-      openNotificationWithIcon("success", "Reply submitted successfully!", "");
+      // openNotificationWithIcon("success", "Reply submitted successfully!", "");
+     openNotificationWithIcon("success", t("teacherJourney.replySubmitted"), "");
     } else {
       openNotificationWithIcon("error", "Something went wrong!else", "");
     }

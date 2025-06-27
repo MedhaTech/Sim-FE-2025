@@ -134,10 +134,10 @@
       "support2":"Please enter the link",
       "selectCategory": "Select Category",
       "selectStatus": "Select Status",
-
-
-  "generalQuery": "General query",
-  "technicalQuery": "Technical query",
+"demo":"Demo Video",
+"error":"User password doesn't match",
+  "generalQuery": "General",
+  "technicalQuery": "Technical",
   "suggestion": "Suggestion",
   "open": "OPEN",
     "inProgress": "INPROGRESS",
@@ -193,7 +193,8 @@
     "not_filled": "Not filled - Inaccurate data (form is not filled properly)",
 
     "approve": "Approve",
-
+"ticketCreated": "Ticket created successfully!",
+    "replySubmitted": "Reply submitted successfully!",
 
 
 
