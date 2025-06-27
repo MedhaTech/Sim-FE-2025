@@ -71,3 +71,11 @@
 .pending-line {
     background: linear-gradient(90deg, #aaa, #ddd); 
 }
+@media (max-width: 767.98px) {
+  .step-line,
+  .step-line.completed-line,
+  .step-line.pending-line {
+    display: none !important;
+  }
+}
+
