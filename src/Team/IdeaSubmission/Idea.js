@@ -1,15 +1,15 @@
 /* eslint-disable indent */
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect, useRef } from 'react';
-import IdeaPageCopy from './IdeaPageCopy';
-import { Link } from 'react-router-dom';
-import ImageWithBasePath from '../../core/img/imagewithbasebath';
-import { Check } from 'react-feather';
+import React, { useState, useEffect, useRef } from "react";
+import IdeaPageCopy from "./IdeaPageCopy";
+import { Link } from "react-router-dom";
+import ImageWithBasePath from "../../core/img/imagewithbasebath";
+import { Check } from "react-feather";
 import FeatherIcon from "feather-icons-react";
 import { themes, themesList } from "./themesData";
-import { getCurrentUser } from '../../helpers/Utils';
-import { encryptGlobal } from '../../constants/encryptDecrypt';
-import axios from 'axios';
+import { getCurrentUser } from "../../helpers/Utils";
+import { encryptGlobal } from "../../constants/encryptDecrypt";
+import axios from "axios";
 import { useTranslation } from "react-i18next";
 
 const settings = {
@@ -53,10 +53,10 @@ const settings = {
 };
 
 const Idea = ({ showChallenge, idea }) => {
-const { t } = useTranslation();
+  const { t } = useTranslation();
 
   const [theme, setTheme] = useState(null);
-  const currentUser = getCurrentUser('current_user');
+  const currentUser = getCurrentUser("current_user");
   const TeamId = currentUser?.data[0]?.team_id;
   const [themeInt, setThemeInt] = useState("");
   const [error4, seterror4] = useState(false);
@@ -66,7 +66,7 @@ const { t } = useTranslation();
   const [initiate, setInitiate] = useState("");
 
   const submittedApi = () => {
-               // This function fetches idea submission details from the API //
+    // This function fetches idea submission details from the API //
 
     const Param = encryptGlobal(
       JSON.stringify({
@@ -91,7 +91,6 @@ const { t } = useTranslation();
             const data = response.data.data[0];
             setInitiate(response.data.data[0].initiate_by);
             idea();
-
           }
         }
       })
@@ -99,26 +98,22 @@ const { t } = useTranslation();
         if (error.response.status === 404) {
           //   seterror4( true);
         }
-
       });
   };
   useEffect(() => {
     submittedApi();
   }, []);
 
-
-
   const challenges = () => {
     showChallenge();
   };
   return (
-    <div className='page-wrapper'>
-      
-      <div className='content'>
+    <div className="page-wrapper">
+      <div className="content">
         <div className="page-header">
           <div className="page-title">
-            <h4>  {t('home.idea_submission')}</h4>
-            <h6>{t('home.share')}</h6>
+            <h4> {t("home.idea_submission")}</h4>
+            <h6>{t("home.share")}</h6>
           </div>
         </div>
 
@@ -131,25 +126,33 @@ const { t } = useTranslation();
                     <div className="tab_content active">
                       <div className="row">
                         {themes.map((theme) => (
-                          <div id={theme.id} key={theme.id} className="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2" onClick={() => setData(theme.id)}>
+                          <div
+                            id={theme.id}
+                            key={theme.id}
+                            className="col-sm-2 col-md-6 col-lg-3 col-xl-3 pe-2"
+                            onClick={() => setData(theme.id)}
+                          >
                             <div className="product-info default-cover card">
                               <Link className="img-bg">
-                                <img
-                                  src={theme.image}
-                                  alt={theme.id}
-                                />
+                                <img src={theme.image} alt={theme.id} />
                                 <span>
-
                                   <Check className="feather-16" />
                                 </span>
                               </Link>
-                             
+
                               <h6 className="product-name">
                                 <Link to="#">{t(theme.title)}</Link>
                               </h6>
                               <div className="d-flex align-items-center justify-content-between price">
-                                <span>{t('home.ideafocus')}</span>
-                                {theme.id === 8 ? (<p><FeatherIcon size={20} icon="loader" /></p>) : (<p>{theme.focusareas.length - 1}</p>)}
+                                <span>{t("home.ideafocus")}</span>
+                                {/* {theme.id === 8 ? (
+                                  <p>
+                                    <FeatherIcon size={20} icon="loader" />
+                                  </p>
+                                ) : (
+                                  <p>{theme.focusareas.length}</p>
+                                )} */}
+                                <p>{theme.focusareas.length}</p>
                               </div>
                             </div>
                           </div>
@@ -165,8 +168,8 @@ const { t } = useTranslation();
                 <aside className="product-order-list">
                   <div className="head d-flex align-items-center justify-content-between w-100">
                     <div className="">
-                      <h5>{t('home.select')}</h5> 
-                      <span>{t('home.selectv')}</span>
+                      <h5>{t("home.select")}</h5>
+                      <span>{t("home.selectv")}</span>
                     </div>
                   </div>
                 </aside>
@@ -176,42 +179,59 @@ const { t } = useTranslation();
                 <aside className="product-order-list">
                   <div className="head d-flex align-items-center justify-content-between w-100">
                     <div className="">
-                      <h5>{t(themes[data - 1].title)}</h5><br />
+                      <h5>{t(themes[data - 1].title)}</h5>
+                      <br />
                       <span>{t(themes[data - 1].desc)}</span>
                     </div>
                   </div>
                   <div className="product-added block-section">
                     <div className="head-text d-flex align-items-center justify-content-between">
                       <h6 className="d-flex align-items-center mb-0">
-                      {t('home.ideafocus')}<span className="count">{themes[data - 1].id === 8 ? (<p><FeatherIcon size={20} icon="loader" /></p>) : (<p>{themes[data - 1].focusareas.length - 1}</p>)}</span>
+                        {t("home.ideafocus")}
+                        {/* <span className="count">
+                          {themes[data - 1].id === 8 ? (
+                            <p>
+                              <FeatherIcon size={20} icon="loader" />
+                            </p>
+                          ) : (
+                            <p>{themes[data - 1].focusareas.length}</p>
+                          )}
+                        </span> */}
+                        <span className="count">
+                          <p>{themes[data - 1].focusareas.length}</p>
+                        </span>
                       </h6>
                     </div>
                     <div className="product-wrap">
                       <div className="product-list d-flex align-items-center justify-content-between">
                         <div className="d-flex align-items-center product-info">
                           <div className="info">
-                            {themes[data - 1].focusareas.slice(0, themes[data - 1].focusareas.length - 1).map((focusarea, index) => (
+                            {/* {themes[data - 1].focusareas.slice(0, themes[data - 1].focusareas.length).map((focusarea, index) => (
                               <h6 key={index}>
                                 <span>{t(focusarea)}</span>
                               </h6>
-                            ))}
-                           
+                            ))} */}
+                            {themes[data - 1].focusareas.map(
+                              (focusarea, index) => (
+                                <h6 key={index}>
+                                  <span>{t(focusarea)}</span>
+                                </h6>
+                              )
+                            )}
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className="btn-row d-sm-flex align-items-center justify-content-between"
+                  <div
+                    className="btn-row d-sm-flex align-items-center justify-content-between"
                     onClick={() => setTheme(themes[data - 1].title)}
-                 
                   >
-                    <Link
-                      className="btn btn-info btn-icon flex-fill"
-                    >
+                    <Link className="btn btn-info btn-icon flex-fill">
                       <span className="me-1 d-flex align-items-center">
                         <i data-feather="pause" className="feather-16" />
                       </span>
-                      {t('idea_page.proceed')}
+                      {t("idea_page.proceed")}
                     </Link>
                   </div>
                 </aside>
@@ -219,9 +239,8 @@ const { t } = useTranslation();
             )}
           </div>
         ) : (
-          <IdeaPageCopy  showChallenges={challenges} />
+          <IdeaPageCopy showChallenges={challenges} />
         )}
-
       </div>
     </div>
   );
