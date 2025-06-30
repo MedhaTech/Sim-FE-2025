@@ -905,7 +905,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </h5>
                           </Row>
                           <div className="card comment-card">
-                            <div className="question quiz mb-0">
+                            <div className="question quiz mb-0 mt-2">
                               <b
                                 style={{
                                   fontSize: "1rem",
@@ -939,7 +939,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </div>
                           </div>
                           <div className="card comment-card">
-                            <div className="question quiz mb-0">
+                            <div className="question quiz mb-0 mt-2">
                               <b
                                 style={{
                                   fontSize: "1rem",
@@ -989,7 +989,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             )}
                           </div>
                           <div className="card comment-card">
-                            <div className="question quiz mb-0">
+                            <div className="question quiz mb-0 mt-2">
                               <b
                                 style={{
                                   fontSize: "1rem",
@@ -1023,7 +1023,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </div>
                           </div>
                           <div className="card comment-card">
-                            <div className="question quiz mb-0">
+                            <div className="question quiz mb-0 mt-2">
                               <b
                                 style={{
                                   fontSize: "1rem",
@@ -1050,7 +1050,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </div>
                           </div>
                           <div className="card comment-card">
-                            <div className="question quiz mb-0">
+                            <div className="question quiz mb-0 mt-2">
                               <b
                                 style={{
                                   fontSize: "1rem",
@@ -1081,7 +1081,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </div>
                           </div>
                           <div className="card comment-card">
-                            <div className="question quiz mb-0">
+                            <div className="question quiz mb-0 mt-2">
                               <b
                                 style={{
                                   fontSize: "1rem",
@@ -1107,7 +1107,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </div>
                           </div>
                           <div className="card comment-card">
-                            <div className="question quiz mb-0">
+                            <div className="question quiz mb-0 mt-2">
                               <b
                                 style={{
                                   fontSize: "1rem",
@@ -1133,7 +1133,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </div>
                           </div>
                           <div className="card comment-card">
-                            <div className="question quiz mb-0">
+                            <div className="question quiz mb-0 mt-2">
                               <b
                                 style={{
                                   fontSize: "1rem",
@@ -1161,7 +1161,14 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                           setCommunity(e.target.value)
                                         }
                                       />
-                                      <span style={{ marginLeft: "5px", color: "black" }}>{item.label}</span>
+                                      <span
+                                        style={{
+                                          marginLeft: "5px",
+                                          color: "black",
+                                        }}
+                                      >
+                                        {item.label}
+                                      </span>
 
                                       {/* {item.label} */}
                                     </label>
@@ -1171,7 +1178,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </div>
                           </div>
                           <div className="card comment-card">
-                            <div className="question quiz mb-0">
+                            <div className="question quiz mb-0 mt-2">
                               <b
                                 style={{
                                   fontSize: "1rem",
@@ -1222,7 +1229,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </h5>
                           </Row>
                           <div className="card comment-card">
-                            <div className="question quiz mb-0">
+                            <div className="question quiz mb-0 mt-2">
                               <b
                                 style={{
                                   fontSize: "1rem",
@@ -1248,7 +1255,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </div>
                           </div>
                           <div className="card comment-card">
-                            <div className="question quiz mb-0 p-4">
+                            <div className="question quiz mb-0 mt-2">
                               <b
                                 style={{
                                   fontSize: "1rem",
@@ -1276,7 +1283,14 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                           setStakeholders(e.target.value)
                                         }
                                       />
-                                      <span style={{ marginLeft: "5px", color: "black" }}>{item.label}</span>
+                                      <span
+                                        style={{
+                                          marginLeft: "5px",
+                                          color: "black",
+                                        }}
+                                      >
+                                        {item.label}
+                                      </span>
 
                                       {/* {item.label} */}
                                     </label>
@@ -1326,7 +1340,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </div>
                           </div>
                           <div className="card comment-card">
-                            <div className="question quiz mb-0">
+                            <div className="question quiz mb-0 mt-2">
                               <b
                                 style={{
                                   fontSize: "1rem",
@@ -1384,7 +1398,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                           </Row>
 
                           <div className="card comment-card">
-                            <div className="question quiz mb-0">
+                            <div className="question quiz mb-0 mt-2">
                               <b
                                 style={{
                                   fontSize: "1rem",
@@ -1431,11 +1445,21 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 </div>
                                 {/* </FormGroup> */}
                                 <div className="mx-4">
-                                  {isDisabled && prototypeImage.length < 1 ? (
+                                  {/* {isDisabled && prototypeImage.length < 1 ? (
+                                    <p className="text-danger">
+                                      {t("ideaform_questions.filetext")}
+                                    </p>
+                                  ) : null} */}
+                                  {isDisabled &&
+                                  prototypeImage.length < 1 &&
+                                  files.length < 1 &&
+                                  (!immediateLink ||
+                                    immediateLink.length < 1) ? (
                                     <p className="text-danger">
                                       {t("ideaform_questions.filetext")}
                                     </p>
                                   ) : null}
+
                                   {immediateLink &&
                                     immediateLink.length > 0 &&
                                     immediateLink.map((item, i) => (
@@ -1475,7 +1499,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </div>
                           </div>
                           <div className="card comment-card">
-                            <div className="question quiz mb-0">
+                            <div className="question quiz mb-0 mt-2">
                               <b
                                 style={{
                                   fontSize: "1rem",
@@ -1594,7 +1618,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </b>
                           </div>
                           <div className="card comment-card">
-                            <div className="question quiz mb-0">
+                            <div className="question quiz mb-0 mt-2">
                               <b
                                 style={{
                                   fontSize: "1rem",
@@ -1622,8 +1646,14 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                           setWorkbook(e.target.value)
                                         }
                                       />
-                                         <span style={{ marginLeft: "5px",color:"balck" }} >{item.label}</span>
-                                      {/* {item.label} */}
+                                      <span
+                                        style={{
+                                          marginLeft: "5px",
+                                          color: "black",
+                                        }}
+                                      >
+                                        {item.label}
+                                      </span>
                                     </label>
                                   </div>
                                 ))}
