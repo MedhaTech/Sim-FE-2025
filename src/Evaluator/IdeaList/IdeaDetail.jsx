@@ -181,7 +181,7 @@ const downloadFile = (item) => {
                                     <Row>
                                         <Col>
                                             <h4 className="mb-md-4 mb-3">
-                                                Theme :
+                                                Theme:
                                                 <span className="text-capitalize">
                                                 {props?.ideaDetails?.theme?.toLowerCase() ||
                                                         ''}
@@ -411,9 +411,8 @@ const downloadFile = (item) => {
                                     </div>
                                 </div>
                             </div>{' '}
-                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                            {/* <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
-                                    // key={index}
                                     className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
@@ -435,7 +434,7 @@ const downloadFile = (item) => {
                                         </p>
                                     </div>
                                 </div>
-                            </div>{' '}
+                            </div>{' '} */}
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -447,7 +446,7 @@ const downloadFile = (item) => {
                                                fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                             8. Who all are facing this problem?
+                                             7. Who all are facing this problem?
                                         </b>
                                     </div>
                                     <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
@@ -474,7 +473,7 @@ const downloadFile = (item) => {
                                                fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                              9. Describe the solution to the problem your team found. Explain
+                                              8. Describe the solution to the problem your team found. Explain
                 your solution clearly - how does it work, who is it helping, and
                 how will it solve the problem.
                                         </b>
@@ -490,9 +489,8 @@ const downloadFile = (item) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                            {/* <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
-                                    // key={index}
                                     className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
@@ -515,10 +513,9 @@ const downloadFile = (item) => {
                                         </p>
                                     </div>
                                 </div>
-                            </div>{' '}
-                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                            </div>{' '} */}
+                            {/* <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
-                                    // key={index}
                                     className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
@@ -547,7 +544,7 @@ const downloadFile = (item) => {
                                         </p>
                                     </div>
                                 </div>
-                            </div>{' '}
+                            </div>{' '} */}
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -559,7 +556,7 @@ const downloadFile = (item) => {
                                                fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                             12. Mention the feedback that your team got and the changes you
+                                             9. Mention the feedback that your team got and the changes you
                                              have made, if any, to your problem or solution.
                                         </b>
                                     </div>
@@ -588,7 +585,7 @@ const downloadFile = (item) => {
                                                        fontSize: '1rem',marginBottom:"1rem"
                                                     }}
                                                 >
-                                                    13. Descriptive Document/Image of your prototype 
+                                                    10. Descriptive Document/Image of your prototype 
                                                 </b>
                                             </div>
                                             <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
@@ -611,7 +608,7 @@ const downloadFile = (item) => {
                                                fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                            14. Clear YouTube Video Explaining your Solution
+                                            11. Clear YouTube Video Explaining your Solution
                                         </b>
                                     </div>
                                     <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
@@ -630,9 +627,8 @@ const downloadFile = (item) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                            {/* <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
-                                    // key={index}
                                     className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
@@ -655,7 +651,7 @@ const downloadFile = (item) => {
                                         </p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
 
                             <div className="d-md-flex">
                                 {props?.ideaDetails?.status === 'SUBMITTED' && (
