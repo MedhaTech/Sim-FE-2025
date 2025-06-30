@@ -19,7 +19,7 @@ export const languageOptions=['English','Hindi-हिन्दी',
 };
  export const menusList= ["Overall Schools","PopUp","Resource","Latest News","State Specific","SUPPORT", "Mentors","Teams","Students","Admins","Reports","Bulk Email",];
 export const stateList = [
-  "Andaman and Nicobar Islands",
+  "Andaman And Nicobar Islands",
   "Andhra Pradesh",
   "Arunachal Pradesh",
   "Assam",
@@ -31,7 +31,7 @@ export const stateList = [
   "Gujarat",
   "Haryana",
   "Himachal Pradesh",
-  "Jammu and Kashmir",
+  "Jammu And Kashmir",
   "Jharkhand",
   "Karnataka",
   "Kerala",
