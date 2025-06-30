@@ -13,7 +13,7 @@ import { connect } from "react-redux";
 import { openNotificationWithIcon } from "../helpers/Utils";
 import { useNavigate } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import play from "../assets/img/playicon.png";
+import { FiPlayCircle } from "react-icons/fi";
 
 const LogInTeacher = (props) => {
   const navigate = useNavigate();
@@ -103,12 +103,13 @@ const LogInTeacher = (props) => {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <img
-                            src={play}
-                            className="icon"
-                            alt="play"
-                            style={{ verticalAlign: "middle", width: "7%" }}
-                          />
+                           <span
+                                                                                      style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
+                                                                                                    className="badge"
+                                                                                    
+                                                                                    >
+                                                                                      <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;DEMO</span>
+                                                                                    </span>
                         </a>
                       </OverlayTrigger>
                   </h3>

@@ -11,11 +11,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getTeacherByID } from '../redux/actions';
 import user from "../assets/img/user.png";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import { FaPlay } from 'react-icons/fa';
 import VideoModal from '../HelpVideo/VideoModal';
 import { useTranslation } from "react-i18next";
 
 import axios from "axios";
+import { FiPlayCircle } from "react-icons/fi";
 const TeacherProfile = () => {
    const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -75,15 +75,19 @@ const handleShow = () => {
             <div className="action-table-data" style={{"display": "inline-block"}}>
                 <div className="edit-delete-action">
                   <OverlayTrigger placement="top" overlay={renderTooltip}>
-                    <Link
-                        to="#"
-                        className="me-2 p-2"
-                        onClick={() => handleShow()}
-                        {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
-                        
-                    >
-                      <FaPlay  style={{color:"red"}} />
-                    </Link>
+                   <span
+                                                            style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
+                                                                          className="badge"
+                                                            onClick={() => handleShow()}
+                                                            {...(show
+                                                              ? {
+                                                                  "data-bs-toggle": "modal",
+                                                                  "data-bs-target": "#add-units",
+                                                                }
+                                                              : {})}
+                                                          >
+                                                            <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
+                                                          </span>
                   </OverlayTrigger>
                 </div>
               </div>

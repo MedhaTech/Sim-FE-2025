@@ -24,7 +24,6 @@ import { getCurrentUser } from "../../helpers/Utils";
 import { openNotificationWithIcon } from "../../helpers/Utils";
 import axios from "axios";
 import { KEY, URL } from "../../constants/defaultValues";
-import play from "../../assets/img/playicon.png";
 
 import CommonPage from "../../components/CommonPage";
 import { useTranslation } from "react-i18next";
@@ -34,6 +33,7 @@ import moment from "moment";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { themes, themesList, focusareasList } from "./themesData";
 import { languageOptions } from "../../RegPage/ORGData";
+import { FiPlayCircle } from "react-icons/fi";
 
 const LinkComponent = ({
   original,
@@ -1161,8 +1161,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                           setCommunity(e.target.value)
                                         }
                                       />
+                                      <span style={{ marginLeft: "5px", color: "black" }}>{item.label}</span>
 
-                                      {item.label}
+                                      {/* {item.label} */}
                                     </label>
                                   </div>
                                 ))}
@@ -1275,8 +1276,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                           setStakeholders(e.target.value)
                                         }
                                       />
+                                      <span style={{ marginLeft: "5px", color: "black" }}>{item.label}</span>
 
-                                      {item.label}
+                                      {/* {item.label} */}
                                     </label>
                                   </div>
                                 ))}
@@ -1482,30 +1484,44 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 {t("ideaform_questions.link")}{" "}
                                 {t("ideaform_questions.linkadd")}
                               </b>
-                            
 
-                            <OverlayTrigger
-                              placement="top"
-                              overlay={renderTooltip}
-                            >
-                              <span
-                                onClick={handleOpenModal}
-                                style={{
-                                  cursor: "pointer",
-                                  marginLeft: "10px",
-                                }}
+                              <OverlayTrigger
+                                placement="top"
+                                overlay={renderTooltip}
                               >
-                                <img
-                                  src={play}
-                                  className="icon"
-                                  alt="play"
+                                <span
+                                  onClick={handleOpenModal}
                                   style={{
-                                    verticalAlign: "middle",
-                                    width: "4%",
+                                    cursor: "pointer",
+                                    marginLeft: "10px",
                                   }}
-                                />
-                              </span>
-                            </OverlayTrigger>
+                                >
+                                  <span
+                                    style={{
+                                      backgroundColor: "#1B2850",
+                                      borderRadius: "2rem",
+                                      padding: "5px 10px",
+                                      fontSize: "14px",
+                                    }}
+                                    className="badge"
+                                  >
+                                    <FiPlayCircle
+                                      style={{
+                                        color: "#ffffff",
+                                        fontSize: "large",
+                                      }}
+                                    />{" "}
+                                    <span
+                                      style={{
+                                        color: "#ffffff",
+                                        fontSize: "10px",
+                                      }}
+                                    >
+                                      &nbsp;DEMO
+                                    </span>
+                                  </span>
+                                </span>
+                              </OverlayTrigger>
                             </div>
                             <Modal
                               show={showVideoModal}
@@ -1606,7 +1622,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                           setWorkbook(e.target.value)
                                         }
                                       />
-                                      {item.label}
+                                         <span style={{ marginLeft: "5px",color:"balck" }} >{item.label}</span>
+                                      {/* {item.label} */}
                                     </label>
                                   </div>
                                 ))}
