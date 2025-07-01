@@ -739,10 +739,7 @@ const TeacherPlayVideo = (props) => {
                                   className="btn btn-secondary"
                                   onClick={() => handleDownload(item)}
                                 >
-                                  {/* {`Download ${item
-                                    .split("/")
-                                    [item.split("/").length - 1].split(".")[0]
-                                    .replace("_", " ")}`} */}
+                                 
                                           {`${t("teacherJourney.download_file")} ${getFileTitle(item)}`}
 
                                 </button>

@@ -564,57 +564,53 @@ const IdeaReport = () => {
             (acc, item) => {
               acc.state = "Total";
               (acc.totalSubmited += item.totalSubmited),
-                (acc.AgricultureandRuralDevelopment +=
-                  item.AgricultureandRuralDevelopment);
-              acc.DigitalTransformation += item.DigitalTransformation;
-              acc.EconomicEmpowerment += item.EconomicEmpowerment;
-              acc.HealthandWellbeing += item.HealthandWellbeing;
-              acc.QualityEducation += item.QualityEducation;
-              acc.SustainableDevelopmentandEnvironment +=
-                item.SustainableDevelopmentandEnvironment;
+                (acc.BuildingaSustainableFuture +=
+                  item.BuildingaSustainableFuture);
+              acc.TechnologyforLearningandGrowth += item.TechnologyforLearningandGrowth;
+              acc.HealthNutritionWellbeing += item.HealthNutritionWellbeing;
+              acc.SkillsforLifeLivelihood += item.SkillsforLifeLivelihood;
+              acc.SmarterCommunitiesSaferFutures += item.SmarterCommunitiesSaferFutures;
+              acc.OpenCategoryThinkBeyond +=
+                item.OpenCategoryThinkBeyond;
 
-              acc.OTHERS += item.OTHERS;
 
-              acc.SmartandResilientCommunities +=
-                item.SmartandResilientCommunities;
+              acc.AgricultureRuralTransformation +=
+                item.AgricultureRuralTransformation;
               return acc;
             },
             {
               totalSubmited: 0,
 
-              AgricultureandRuralDevelopment: 0,
-              DigitalTransformation: 0,
-              EconomicEmpowerment: 0,
-              HealthandWellbeing: 0,
-              QualityEducation: 0,
-              SmartandResilientCommunities: 0,
-              SustainableDevelopmentandEnvironment: 0,
-              OTHERS: 0,
+              BuildingaSustainableFuture: 0,
+              TechnologyforLearningandGrowth: 0,
+              HealthNutritionWellbeing: 0,
+              SkillsforLifeLivelihood: 0,
+              SmarterCommunitiesSaferFutures: 0,
+              AgricultureRuralTransformation: 0,
+              OpenCategoryThinkBeyond: 0,
             }
           );
 
           const doughnutData = {
             labels: [
-              "Agriculture and Rural Development",
-              "Digital Transformation",
-              "Economic Empowerment",
-              "Health and Well-being",
-              "Quality Education",
-              "Smart and Resilient Communities",
-              "Sustainable Development and Environment",
-              "Others",
+             "Building a Sustainable Future",
+  "Technology for Learning and Growth",
+  "Health, Nutrition and Well-being",
+  "Skills for Life and Livelihood",
+  "Smarter Communities, Safer Futures",
+  "Agriculture and Rural Transformation",
+  "Open Category - Think Beyond"
             ],
             datasets: [
               {
                 data: [
-                  total.AgricultureandRuralDevelopment,
-                  total.DigitalTransformation,
-                  total.EconomicEmpowerment,
-                  total.HealthandWellbeing,
-                  total.QualityEducation,
-                  total.SmartandResilientCommunities,
-                  total.SustainableDevelopmentandEnvironment,
-                  total.Others,
+                  total.BuildingaSustainableFuture,
+                  total.TechnologyforLearningandGrowth,
+                  total.HealthNutritionWellbeing,
+                  total.SkillsforLifeLivelihood,
+                  total.SmarterCommunitiesSaferFutures,
+                  total.AgricultureRuralTransformation,
+                  total.OpenCategoryThinkBeyond,
                 ],
                 backgroundColor: [
                   "#8bcaf4",
@@ -624,7 +620,6 @@ const IdeaReport = () => {
                   "#648c11",
                   "#00ffff",
                   "#0000ff",
-                  "#800080",
                 ],
                 hoverBackgroundColor: [
                   "#36A2EB",
@@ -634,7 +629,6 @@ const IdeaReport = () => {
                   "#a6d608",
                   "#b2ffff",
                   "#4169e1",
-                  "#dda0dd",
                 ],
               },
             ],
