@@ -7,6 +7,7 @@ import LinkComponent from './LinkComponent';
 import { getCurrentUser } from '../../helpers/Utils';
 import RateIdea from './RateIdea';
 import { Row, Col, Form, Label } from 'reactstrap';
+import VideoPopup from './Videopop';
 
 const NextLevel = (props) => {
     const currentUser = getCurrentUser('current_user');
@@ -30,18 +31,18 @@ const NextLevel = (props) => {
                             <div className="row">
                                 <div className="col-lg-8">
                                     <Row>
-                                        <Col>
+                                        <Col md={6}>
                                             <h4 className="mb-md-4 mb-3">
-                                                Theme : 
+                                                Theme :&nbsp;
                                                 <span className="text-capitalize">
                                                 {props?.ideaDetails?.theme?.toLowerCase() ||
                                                         ''}
                                                 </span>
                                             </h4>
                                         </Col>
-                                        <Col>
+                                        <Col md={6}>
                                             <h4 className="mb-md-4 mb-3">
-                                                CID :
+                                                CID :&nbsp;
                                                 <span className="text-capitalize">
                                                 {props?.ideaDetails.challenge_response_id ||
                                                         ''}
@@ -114,7 +115,7 @@ const NextLevel = (props) => {
                                                 fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                            1.Theme
+                                            1. Theme
                                             
                                         </b>
                                     </div>
@@ -142,7 +143,7 @@ const NextLevel = (props) => {
                                                 fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                           2.Focus Area
+                                           2. Focus Area
                                            
                                         </b>
                                     </div>
@@ -468,14 +469,18 @@ const NextLevel = (props) => {
                                                 fontSize: '1rem',color:"black"
                                             }}
                                         >
-                                            <a 
+                                            {/* <a 
             href={teamResponse.prototype_link} 
             target="_blank" 
             rel="noopener noreferrer" 
             style={{ textDecoration: 'none', color: 'skyblue'}}
         >
             {teamResponse.prototype_link}
-        </a>
+
+        </a> */}
+         {teamResponse?.prototype_link && (
+  <VideoPopup videoUrl={teamResponse.prototype_link} />
+)}
                                         </p>
                                     </div>
                                 </div>

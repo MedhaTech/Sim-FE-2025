@@ -136,7 +136,9 @@ const EadmiHeader = () => {
     onMouseLeave={expandMenu}
     onMouseOver={expandMenuOpen}
   >
-    <img src={logo} alt="Logo" style={{ padding: "0.7rem" }} />
+    <img src={logo} alt="Logo" 
+    // style={{ padding: "0.7rem" }} 
+    className="responsive-image"/>
   </div>
 
   <Link
@@ -253,12 +255,12 @@ const EadmiHeader = () => {
               {(allIdeaList && allIdeaList?.evaluatedIdeas) || 0}
             </span>
           </p>
-          <p className="dropdown-item d-flex align-items-center">
+          {/* <p className="dropdown-item d-flex align-items-center">
             <span>Yet to be Processed :&nbsp;</span>
             <span className="text-danger">
               {(allIdeaList && allIdeaList?.openIdeas) || 0}
             </span>
-          </p>
+          </p> */}
         </div>
       )}
       <Link className="dropdown-item" to="/evaluator/change-password">
