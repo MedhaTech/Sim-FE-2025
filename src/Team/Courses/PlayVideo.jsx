@@ -1212,7 +1212,7 @@ const PlayVideoCourses = (props) => {
                                       <Col md={8}>
                                         {worksheetResponce.response === null ? (
                                           <>
-                                            <a
+                                            {/* <a
                                               href={pdfFileURL}
                                               target="_blank"
                                               rel="noreferrer"
@@ -1221,7 +1221,7 @@ const PlayVideoCourses = (props) => {
                                               {t(
                                                 "student.download_theme"
                                               )}
-                                            </a>
+                                            </a> */}
 
                                             <a
                                               href={

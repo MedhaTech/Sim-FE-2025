@@ -135,7 +135,7 @@ const teamId= currentUser.data[0]?.team_id;
                                         ></div>
 
                                         <div className="text-right">
-                                            <a
+                                            {/* <a
                                                 href={pdfFileURL}
                                                 target="_blank"
                                                 rel="noreferrer"
@@ -148,7 +148,7 @@ const teamId= currentUser.data[0]?.team_id;
                                                     btnClass="primary mt-4 mx-4 "
                                                     size="small"
                                                 />
-                                            </a> 
+                                            </a>  */}
                                            
                                         {
 

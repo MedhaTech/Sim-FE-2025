@@ -7,7 +7,7 @@ import i4 from "../../assets/img/Themes/4.png";
 import i5 from "../../assets/img/Themes/5.png";
 import i6 from "../../assets/img/Themes/6.png";
 import i7 from "../../assets/img/Themes/7.png";
-import i8 from "../../assets/img/Themes/8.png";
+// import i8 from "../../assets/img/Themes/8.png";
 
 export const themesList = [
   "Building a Sustainable Future",
@@ -16,8 +16,7 @@ export const themesList = [
   "Skills for Life and Livelihood",
   "Smarter Communities, Safer Futures",
   "Agriculture and Rural Transformation",
-  "Open Category - Think Beyond",
-  "Others",
+  "Open Category - Think Beyond"
 ];
 export const focusareasList = {
   "Building a Sustainable Future": [
@@ -69,9 +68,6 @@ export const focusareasList = {
     "Others",
   ],
   "Open Category - Think Beyond": [
-    "Modern Farming Techniques (e.g., hydroponics, precision farming)",
-    "Rural Development (e.g., rural infrastructure, community projects)",
-    "Food Security (e.g., food storage, distribution systems)",
     "Any original or disruptive idea that addresses a real-world challenge",
     "Others",
   ],
@@ -180,13 +176,7 @@ export const themes = [
     focusareas: ["openfocusareas.focusarea1"],
     desc: "themedetails.opentheme",
   },
-  {
-    id: 8,
-    image: i8,
-    title: "themes.othertheme",
-    focusareas: ["otherfocusareas.focusarea1"],
-    desc: "themedetails.othertheme",
-  },
+ 
 ];
 
 export const questions = [

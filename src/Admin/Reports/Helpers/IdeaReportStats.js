@@ -32,36 +32,35 @@ const IdeaReportStats = ({
       key: "totalSubmited",
     },
     {
-      label: "Agriculture and Rural Development",
-      key: "AgricultureandRuralDevelopment",
+      label: "Building a Sustainable Future",
+      key: "BuildingaSustainableFuture",
     },
     {
-      label: "Digital Transformation",
-      key: "DigitalTransformation",
+      label: "Technology for Learning and Growth",
+      key: "TechnologyforLearningandGrowth",
     },
     {
-      label: "Economic Empowerment",
-      key: "EconomicEmpowerment",
+      label: "Health, Nutrition and Well-being",
+      key: "HealthNutritionWellbeing",
     },
     {
-      label: "Health and Well-being",
-      key: "HealthandWellbeing",
+      label: "Skills for Life and Livelihood",
+
+      key: "SkillsforLifeLivelihood",
     },
     {
-      label: "Quality Education",
-      key: "QualityEducation",
+      label: "Smarter Communities, Safer Futures",
+      key: "SmarterCommunitiesSaferFutures",
     },
     {
-      label: "Smart and Resilient Communities",
-      key: "SmartandResilientCommunities",
+      label: "Agriculture and Rural Transformation",
+
+      key: "AgricultureRuralTransformation",
     },
     {
-      label: "Sustainable Development and Environment",
-      key: "SustainableDevelopmentandEnvironment",
-    },
-    {
-      label: "Others",
-      key: "OTHERS",
+      label: "Open Category - Think Beyond",
+
+      key: "OpenCategoryThinkBeyond",
     },
   ];
 
@@ -81,27 +80,24 @@ const IdeaReportStats = ({
       "#a6d608",
       "#b2ffff",
       "#4169e1",
-      "#dda0dd",
     ],
     labels: [
-      "Agriculture and Rural Development",
-      "Digital Transformation",
-      "Economic Empowerment",
-      "Health and Well-being",
-      "Quality Education",
-      "Smart and Resilient Communities",
-      "Sustainable Development and Environment",
-      "Others",
+      "Building a Sustainable Future",
+      "Technology for Learning and Growth",
+      "Health, Nutrition and Well-being",
+      "Skills for Life and Livelihood",
+      "Smarter Communities, Safer Futures",
+      "Agriculture and Rural Transformation",
+      "Open Category - Think Beyond",
     ],
     series: [
-      totalCount.AgricultureandRuralDevelopment,
-      totalCount.DigitalTransformation,
-      totalCount.EconomicEmpowerment,
-      totalCount.HealthandWellbeing,
-      totalCount.QualityEducation,
-      totalCount.SmartandResilientCommunities,
-      totalCount.SustainableDevelopmentandEnvironment,
-      totalCount.OTHERS,
+      totalCount.BuildingaSustainableFuture,
+      totalCount.TechnologyforLearningandGrowth,
+      totalCount.HealthNutritionWellbeing,
+      totalCount.SkillsforLifeLivelihood,
+      totalCount.SmarterCommunitiesSaferFutures,
+      totalCount.AgricultureRuralTransformation,
+      totalCount.OpenCategoryThinkBeyond,
     ],
     legend: {
       position: "top",
@@ -133,9 +129,7 @@ const IdeaReportStats = ({
                   <div className="col-sm-12 col-md-12 col-xl-12 d-flex">
                     <div className="card flex-fill default-cover w-100 mb-4">
                       <div className="card-header d-flex justify-content-between align-items-center">
-                        <h4 className="card-title mb-0">
-                          Data Analytics
-                        </h4>
+                        <h4 className="card-title mb-0">Data Analytics</h4>
                         <div className="dropdown">
                           <Link
                             to="#"
@@ -222,7 +216,7 @@ const IdeaReportStats = ({
                                     fontWeight: "bold",
                                   }}
                                 >
-                                  #Agriculture and Rural Development
+                                  #Building a Sustainable Future
                                 </th>
                                 <th
                                   style={{
@@ -230,7 +224,7 @@ const IdeaReportStats = ({
                                     color: "#36A2EB",
                                   }}
                                 >
-                                  #Digital Transformation
+                                  #Technology for Learning and Growth
                                 </th>
                                 <th
                                   style={{
@@ -238,7 +232,7 @@ const IdeaReportStats = ({
                                     color: "#36A2EB",
                                   }}
                                 >
-                                  #Economic Empowerment
+                                  #Health, Nutrition and Well-being
                                 </th>
                                 <th
                                   style={{
@@ -246,34 +240,16 @@ const IdeaReportStats = ({
                                     color: "#36A2EB",
                                   }}
                                 >
-                                  #Health and Well-being
-                                </th>
-
-                                <th
-                                  style={{
-                                    whiteSpace: "wrap",
-                                    color: "#36A2EB",
-                                  }}
-                                >
-                                  #Quality Education{" "}
+                                  #Skills for Life and Livelihood
                                 </th>
 
                                 <th
                                   style={{
                                     whiteSpace: "wrap",
                                     color: "#36A2EB",
-                                    fontWeight: "bold",
                                   }}
                                 >
-                                  #Smart and Resilient Communities
-                                </th>
-                                <th
-                                  style={{
-                                    whiteSpace: "wrap",
-                                    color: "#36A2EB",
-                                  }}
-                                >
-                                  #Sustainable Development and Environment
+                                  #Smarter Communities, Safer Futures{" "}
                                 </th>
 
                                 <th
@@ -283,7 +259,15 @@ const IdeaReportStats = ({
                                     fontWeight: "bold",
                                   }}
                                 >
-                                  #Others
+                                  #Agriculture and Rural Transformation
+                                </th>
+                                <th
+                                  style={{
+                                    whiteSpace: "wrap",
+                                    color: "#36A2EB",
+                                  }}
+                                >
+                                  #Open Category - Think Beyond
                                 </th>
                               </tr>
                             </thead>
@@ -304,19 +288,18 @@ const IdeaReportStats = ({
                                   </td>
                                   <td>{item.totalSubmited}</td>
                                   <td>
-                                    {item.AgricultureandRuralDevelopment}
+                                    {item.BuildingaSustainableFuture}
                                   </td>{" "}
-                                  <td>{item.DigitalTransformation}</td>
-                                  <td>{item.EconomicEmpowerment}</td>
-                                  <td>{item.HealthandWellbeing}</td>
-                                  <td>{item.QualityEducation}</td>
+                                  <td>{item.TechnologyforLearningandGrowth}</td>
+                                  <td>{item.HealthNutritionWellbeing}</td>
+                                  <td>{item.SkillsforLifeLivelihood}</td>
+                                  <td>{item.SmarterCommunitiesSaferFutures}</td>
                                   <td>
-                                    {item.SmartandResilientCommunities}
+                                    {item.AgricultureRuralTransformation}
                                   </td>{" "}
                                   <td>
-                                    {item.SustainableDevelopmentandEnvironment}
+                                    {item.OpenCategoryThinkBeyond}
                                   </td>
-                                  <td>{item.OTHERS}</td>
                                 </tr>
                               ))}
                               <tr>
@@ -336,30 +319,27 @@ const IdeaReportStats = ({
                                   {totalCount.totalSubmited}
                                 </td>
                                 <td style={{ color: "crimson" }}>
-                                  {totalCount.AgricultureandRuralDevelopment}
+                                  {totalCount.BuildingaSustainableFuture}
                                 </td>
                                 <td style={{ color: "crimson" }}>
-                                  {totalCount.DigitalTransformation}
+                                  {totalCount.TechnologyforLearningandGrowth}
                                 </td>
                                 <td style={{ color: "crimson" }}>
-                                  {totalCount.EconomicEmpowerment}
+                                  {totalCount.HealthNutritionWellbeing}
                                 </td>{" "}
                                 <td style={{ color: "crimson" }}>
-                                  {totalCount.HealthandWellbeing}
+                                  {totalCount.SkillsforLifeLivelihood}
                                 </td>
                                 <td style={{ color: "crimson" }}>
-                                  {totalCount.QualityEducation}
+                                  {totalCount.SmarterCommunitiesSaferFutures}
                                 </td>
                                 <td style={{ color: "crimson" }}>
-                                  {totalCount.SmartandResilientCommunities}
+                                  {totalCount.AgricultureRuralTransformation}
                                 </td>{" "}
                                 <td style={{ color: "crimson" }}>
                                   {
-                                    totalCount.SustainableDevelopmentandEnvironment
+                                    totalCount.OpenCategoryThinkBeyond
                                   }
-                                </td>
-                                <td style={{ color: "crimson" }}>
-                                  {totalCount.OTHERS}
                                 </td>
                               </tr>
                             </tbody>
