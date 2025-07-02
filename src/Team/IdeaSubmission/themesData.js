@@ -115,6 +115,8 @@ export const themes = [
       "healthfocusareas.focusarea2",
       "healthfocusareas.focusarea3",
       "healthfocusareas.focusarea4",
+      "healthfocusareas.focusarea5",
+
     //   "Others",
     ],
     desc: "themedetails.healththeme",
