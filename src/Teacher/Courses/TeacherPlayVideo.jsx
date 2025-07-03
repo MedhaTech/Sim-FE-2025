@@ -583,7 +583,7 @@ const TeacherPlayVideo = (props) => {
   return (
     <div className="page-wrapper">
       <div className="content">
-        <div className="page-header">
+        <div className="page-header mt-0 mt-md-3">
           <div className="add-item d-flex">
             <div className="page-title">
               <h4> {t("teacherJourney.Course")}</h4>
@@ -779,12 +779,12 @@ const TeacherPlayVideo = (props) => {
                   !instructions &&
                   !handbook && (
                     <Fragment>
-                      <Card className="course-sec-basic ">
+                      <Card className="course-sec-basic mt-3 mt-md-0">
                         <CardBody>
                           {getLastCourseStatus(teacherCourseDetails) &&
                           !finalPage ? (
                             <div>
-                              <Confetti className="w-100" />;
+                              <Confetti className="w-100" />
                               <h3 className="text-success text-center">
                                 🎉 {t("teacherJourney.coursecom")}
                                 🎉
@@ -856,7 +856,6 @@ const TeacherPlayVideo = (props) => {
                   !handbook &&
                   props.mentorAttachments.length > 0 &&
                   props.mentorAttachments[1]?.attachments?.split("{{}}") && (
-                    // .length > 2
                     <Fragment>
                       <Card className="course-sec-basic p-2">
                         <CardBody>

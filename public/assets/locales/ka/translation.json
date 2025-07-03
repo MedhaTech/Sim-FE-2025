@@ -779,8 +779,8 @@
         "feedbackq" : " Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.",
          "uploadq" : "Upload the following information:",
          "linkadd":" [Only YouTube Video Links are Accepted.]",
-        "image":"1.Descriptive Document/Image of your prototype",
-        "link":"2.Clear YouTube Video Explaining your Solution",
+        "image":"Descriptive Document/Image of your prototype",
+        "link":"Clear YouTube Video Explaining your Solution",
 "note":"Note: (Both Video & Document/Image have to be uploaded, Max Size of two files together is 10MB)",
 "filetext":"File Upload is mandatory *",
         
