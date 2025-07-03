@@ -25,7 +25,6 @@ export const focusareasList = {
     "Eco-Friendly Innovation",
     "Biodiversity & Climate Action",
     "Green Agriculture",
-    "Others",
   ],
   "Technology for Learning and Growth": [
     "Learning Tools & EdTech",
@@ -33,7 +32,6 @@ export const focusareasList = {
     "Coding, AI & Data Innovation",
    "Gamified Learning",
     "Teacher Support Tools",
-    "Others",
   ],
   "Health, Nutrition and Well-being": [
     "Low-cost Health Devices",
@@ -41,7 +39,6 @@ export const focusareasList = {
     "Clean Nutrition Innovations",
    "Fitness & Movement" ,
     "Community Health Awareness",
-    "Others",
   ],
   "Skills for Life and Livelihood": [
     "Vocational Skills & Local Craft",
@@ -49,7 +46,6 @@ export const focusareasList = {
     "Entrepreneurship & Startups",
     "Future-Ready Skills",
      "Innovation in Retail & Distribution",
-    "Others",
   ],
   "Smarter Communities, Safer Futures": [
     "Disaster Resilience",
@@ -57,7 +53,6 @@ export const focusareasList = {
     "Public Space Innovation",
     "Smart Devices for Community Use",
     "Digital Governance",
-    "Others",
   ],
   "Agriculture and Rural Transformation": [
     "Tech in Farming",
@@ -65,11 +60,9 @@ export const focusareasList = {
    "Rural Infrastructure",
    "Climate-Smart Farming",
     "Agri-Nutrition",
-    "Others",
   ],
   "Open Category - Think Beyond": [
     "Any original or disruptive idea that addresses a real-world challenge",
-    "Others",
   ],
 };
 
@@ -84,7 +77,6 @@ export const themes = [
       "buildingfocusareas.focusarea3",
       "buildingfocusareas.focusarea4",
       "buildingfocusareas.focusarea5",
-    //   "Others",
     ],
     desc: "themedetails.buildingtheme",
   },
@@ -101,7 +93,6 @@ export const themes = [
       "technologyfocusareas.focusarea4",
 
       "technologyfocusareas.focusarea5",
-    //   "Others",
 
     ],
     desc: "themedetails.technologytheme",
@@ -117,7 +108,6 @@ export const themes = [
       "healthfocusareas.focusarea4",
       "healthfocusareas.focusarea5",
 
-    //   "Others",
     ],
     desc: "themedetails.healththeme",
   },
@@ -133,7 +123,6 @@ export const themes = [
 
       "skillsfocusareas.focusarea4",
       "skillsfocusareas.focusarea5",
-    //   "Others",
 
     ],
     desc: "themedetails.skillstheme",
@@ -148,7 +137,6 @@ export const themes = [
       "smarterfocusareas.focusarea3",
       "smarterfocusareas.focusarea4",
       "smarterfocusareas.focusarea5",
-    //   "Others",
 
     ],
     desc: "themedetails.smartertheme",
@@ -166,7 +154,6 @@ export const themes = [
       "agriculturefocusareas.focusarea4",
 
       "agriculturefocusareas.focusarea5",
-    //   "Others",
 
     ],
     desc: "themedetails.agriculturetheme",

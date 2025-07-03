@@ -1397,7 +1397,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </h5>
                           </Row>
 
-                          <div className="card comment-card">
+                          {/* <div className="card comment-card">
                             <div className="question quiz mb-0 mt-2">
                               <b
                                 style={{
@@ -1443,13 +1443,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                     onChange={(e) => fileHandler(e)}
                                   />
                                 </div>
-                                {/* </FormGroup> */}
-                                <div className="mx-4">
-                                  {/* {isDisabled && prototypeImage.length < 1 ? (
-                                    <p className="text-danger">
-                                      {t("ideaform_questions.filetext")}
-                                    </p>
-                                  ) : null} */}
+                                <div className="mx-4 d-flex flex-wrap gap-2">
+                                 
                                   {isDisabled &&
                                   prototypeImage.length < 1 &&
                                   files.length < 1 &&
@@ -1497,7 +1492,94 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 </div>
                               </div>
                             </div>
+                          </div> */}
+                          <div className="card comment-card">
+                            <div className="question quiz mb-0 mt-2">
+                              <b style={{ fontSize: "1rem" }}>
+                                {t("ideaform_questions.uploadq")}
+                              </b>
+                            </div>
+                            <div>
+                              <b style={{ fontSize: "1rem" }}>
+                                {t("ideaform_questions.image")}
+                              </b>
+
+                              <div className="d-flex flex-wrap align-items-center gap-1 px-3 py-2">
+                                {!isDisabled && (
+                                  <>
+                                    <Button
+                                      label={t("home.ideaFi")}
+                                      btnClass={`${
+                                        isDisabled ? "secondary" : "primary"
+                                      } pointer`}
+                                      size="small"
+                                      onClick={() =>
+                                        document.getElementById("file").click()
+                                      }
+                                    />
+                                    <input
+                                      type="file"
+                                      name="file"
+                                      id="file"
+                                      style={{ display: "none" }}
+                                      disabled={isDisabled}
+                                      accept="image/jpeg,image/jpg,image/png,application/pdf"
+                                      multiple
+                                      onChange={(e) => fileHandler(e)}
+                                    />
+                                  </>
+                                )}
+
+                                <div className="d-flex flex-wrap gap-1">
+                                  {isDisabled &&
+                                  prototypeImage.length < 1 &&
+                                  files.length < 1 &&
+                                  (!immediateLink ||
+                                    immediateLink.length < 1) ? (
+                                    <p className="text-danger mb-0">
+                                      {t("ideaform_questions.filetext")}
+                                    </p>
+                                  ) : null}
+
+                                  {immediateLink?.length > 0 &&
+                                    immediateLink.map((item, i) => (
+                                      <LinkComponent
+                                        item={item}
+                                        url={true}
+                                        key={i}
+                                        currentUser={currentUser}
+                                      />
+                                    ))}
+
+                                  {!immediateLink &&
+                                    files.length > 0 &&
+                                    files.map((item, i) => (
+                                      <LinkComponent
+                                        original={true}
+                                        item={item}
+                                        i={i}
+                                        key={i}
+                                        removeFileHandler={removeFileHandler}
+                                        currentUser={currentUser}
+                                      />
+                                    ))}
+
+                                  {!immediateLink &&
+                                    files.length === 0 &&
+                                    Array.isArray(prototypeImage) &&
+                                    prototypeImage.map((item, i) => (
+                                      <LinkComponent
+                                        item={item}
+                                        url={true}
+                                        key={i}
+                                        currentUser={currentUser}
+                                      />
+                                    ))}
+                                </div>
+                              </div>
+                            </div>
                           </div>
+
                           <div className="card comment-card">
                             <div className="question quiz mb-0 mt-2">
                               <b
