@@ -179,18 +179,18 @@ const downloadFile = (item) => {
                             <div className="col-lg-8">
                                 {/* L1 Evaluated Ideas */}
                                     <Row>
-                                        <Col>
+                                        <Col md={6} >
                                             <h4 className="mb-md-4 mb-3">
-                                                Theme:
+                                                Theme :&nbsp;
                                                 <span className="text-capitalize">
                                                 {props?.ideaDetails?.theme?.toLowerCase() ||
                                                         ''}
                                                 </span>
                                             </h4>
                                         </Col>
-                                        <Col>
+                                        <Col md={6}>
                                             <h4 className="mb-md-4 mb-3">
-                                                CID :
+                                                CID :&nbsp;
                                                 <span className="text-capitalize">
                                                 {props?.ideaDetails.challenge_response_id ||
                                                         ''}
@@ -262,7 +262,7 @@ const downloadFile = (item) => {
                                                fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                            1.Theme
+                                            1. Theme
                                             
                                         </b>
                                     </div>
@@ -290,7 +290,7 @@ const downloadFile = (item) => {
                                                fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                           2.Focus Area
+                                           2. Focus Area
                                            
                                         </b>
                                     </div>

@@ -177,7 +177,7 @@ const EadmiHeader = () => {
           onMouseLeave={expandMenu}
           onMouseOver={expandMenuOpen}
         >
-          <img src={logo} alt="Logo" style={{ padding: "0.7rem" }} />
+          <img src={logo} alt="Logo" className="responsive-image" />
         </div>
         <Link
           id="mobile_btn"
