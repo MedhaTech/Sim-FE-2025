@@ -150,7 +150,7 @@ const IdeaReportStats = ({
                                 Theme-Wise Ideas Submissions as of {newFormat}
                               </b>
                             </p>
-                            {doughnutChartData && (
+                            {/* {doughnutChartData && (
                               <div id="donut-chart">
                                 <ReactApexChart
                                   options={chartOption}
@@ -158,6 +158,26 @@ const IdeaReportStats = ({
                                   type="donut"
                                   height={330}
                                 />
+                              </div>
+                            )} */}
+                            {doughnutChartData &&
+                            doughnutChartData.datasets &&
+                            doughnutChartData.datasets[0]?.data?.some(
+                              (value) => value > 0
+                            ) ? (
+                              <div id="donut-chart">
+                                <ReactApexChart
+                                  options={chartOption}
+                                  series={chartOption.series}
+                                  type="donut"
+                                  height={330}
+                                />
+                              </div>
+                            ) : (
+                              <div
+                                style={{ textAlign: "center", padding: "20px" }}
+                              >
+                                No Ideas to display Pie Chart
                               </div>
                             )}
                           </div>
@@ -297,9 +317,7 @@ const IdeaReportStats = ({
                                   <td>
                                     {item.AgricultureRuralTransformation}
                                   </td>{" "}
-                                  <td>
-                                    {item.OpenCategoryThinkBeyond}
-                                  </td>
+                                  <td>{item.OpenCategoryThinkBeyond}</td>
                                 </tr>
                               ))}
                               <tr>
@@ -337,9 +355,7 @@ const IdeaReportStats = ({
                                   {totalCount.AgricultureRuralTransformation}
                                 </td>{" "}
                                 <td style={{ color: "crimson" }}>
-                                  {
-                                    totalCount.OpenCategoryThinkBeyond
-                                  }
+                                  {totalCount.OpenCategoryThinkBeyond}
                                 </td>
                               </tr>
                             </tbody>
