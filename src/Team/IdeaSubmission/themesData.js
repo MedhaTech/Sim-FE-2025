@@ -12,11 +12,11 @@ import i7 from "../../assets/img/Themes/7.png";
 export const themesList = [
   "Building a Sustainable Future",
   "Technology for Learning and Growth",
-  "Health, Nutrition and Well-being",
+  "Health & Nutrition and Well-being",
   "Skills for Life and Livelihood",
-  "Smarter Communities, Safer Futures",
+  "Smarter Communities & Safer Futures",
   "Agriculture and Rural Transformation",
-  "Open Category - Think Beyond"
+  "Open Category - Think Beyond!"
 ];
 export const focusareasList = {
   "Building a Sustainable Future": [
@@ -33,7 +33,7 @@ export const focusareasList = {
    "Gamified Learning",
     "Teacher Support Tools",
   ],
-  "Health, Nutrition and Well-being": [
+  "Health & Nutrition and Well-being": [
     "Low-cost Health Devices",
     "Mental Health Support",
     "Clean Nutrition Innovations",
@@ -47,7 +47,7 @@ export const focusareasList = {
     "Future-Ready Skills",
      "Innovation in Retail & Distribution",
   ],
-  "Smarter Communities, Safer Futures": [
+  "Smarter Communities & Safer Futures": [
     "Disaster Resilience",
    "Urban-Rural Mobility",
     "Public Space Innovation",
@@ -61,7 +61,7 @@ export const focusareasList = {
    "Climate-Smart Farming",
     "Agri-Nutrition",
   ],
-  "Open Category - Think Beyond": [
+  "Open Category - Think Beyond!": [
     "Any original or disruptive idea that addresses a real-world challenge",
   ],
 };

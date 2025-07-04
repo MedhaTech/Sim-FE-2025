@@ -40,7 +40,7 @@ const IdeaReportStats = ({
       key: "TechnologyforLearningandGrowth",
     },
     {
-      label: "Health, Nutrition and Well-being",
+      label: "Health & Nutrition and Well-being",
       key: "HealthNutritionWellbeing",
     },
     {
@@ -49,7 +49,7 @@ const IdeaReportStats = ({
       key: "SkillsforLifeLivelihood",
     },
     {
-      label: "Smarter Communities, Safer Futures",
+      label: "Smarter Communities & Safer Futures",
       key: "SmarterCommunitiesSaferFutures",
     },
     {
@@ -58,7 +58,7 @@ const IdeaReportStats = ({
       key: "AgricultureRuralTransformation",
     },
     {
-      label: "Open Category - Think Beyond",
+      label: "Open Category - Think Beyond!",
 
       key: "OpenCategoryThinkBeyond",
     },
@@ -84,11 +84,11 @@ const IdeaReportStats = ({
     labels: [
       "Building a Sustainable Future",
       "Technology for Learning and Growth",
-      "Health, Nutrition and Well-being",
+      "Health & Nutrition and Well-being",
       "Skills for Life and Livelihood",
-      "Smarter Communities, Safer Futures",
+      "Smarter Communities & Safer Futures",
       "Agriculture and Rural Transformation",
-      "Open Category - Think Beyond",
+      "Open Category - Think Beyond!",
     ],
     series: [
       totalCount.BuildingaSustainableFuture,
@@ -252,7 +252,7 @@ const IdeaReportStats = ({
                                     color: "#36A2EB",
                                   }}
                                 >
-                                  #Health, Nutrition and Well-being
+                                  #Health & Nutrition and Well-being
                                 </th>
                                 <th
                                   style={{
@@ -269,7 +269,7 @@ const IdeaReportStats = ({
                                     color: "#36A2EB",
                                   }}
                                 >
-                                  #Smarter Communities, Safer Futures{" "}
+                                  #Smarter Communities & Safer Futures{" "}
                                 </th>
 
                                 <th
@@ -287,7 +287,7 @@ const IdeaReportStats = ({
                                     color: "#36A2EB",
                                   }}
                                 >
-                                  #Open Category - Think Beyond
+                                  #Open Category - Think Beyond!
                                 </th>
                               </tr>
                             </thead>

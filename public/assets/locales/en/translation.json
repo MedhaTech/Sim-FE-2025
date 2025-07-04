@@ -1055,11 +1055,11 @@
         "themes" : {
          "buildingtheme" : "Building a Sustainable Future",
         "technologytheme" : "Technology for Learning and Growth",
-        "healththeme" : "Health, Nutrition and Well-being",
+        "healththeme" : "Health & Nutrition and Well-being",
         "skillstheme" : "Skills for Life and Livelihood",
-        "smartertheme" : "Smarter Communities, Safer Futures",
+        "smartertheme" : "Smarter Communities & Safer Futures",
         "agriculturetheme" : "Agriculture and Rural Transformation",
-        "opentheme" : "Open Category - Think Beyond",
+        "opentheme" : "Open Category - Think Beyond!",
         "othertheme" : "Others"
     },
     "themedetails" : {
