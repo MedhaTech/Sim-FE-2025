@@ -678,11 +678,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     scroll();
   };
 
-  useEffect(() => {
-    if (prototypeLink !== formData?.prototype_link) {
-      setVerifySubmitt(false);
-    }
-  }, [prototypeLink]);
+
 
   useEffect(() => {
     if (
@@ -747,6 +743,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
             openNotificationWithIcon("error", response.data.message);
           } else {
             openNotificationWithIcon("success", response.data.message);
+            setPrototypeLink(videoId);
             setIsButtonDisabled(true);
             setVerifySubmitt(true);
           }
@@ -769,6 +766,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     setIsButtonDisabled(false);
     const videoId = getYouTubeVideoId(link);
     setExtractId(videoId);
+    setVerifySubmitt(false);
   };
   const handleVerify = (e) => {
     e.preventDefault();
