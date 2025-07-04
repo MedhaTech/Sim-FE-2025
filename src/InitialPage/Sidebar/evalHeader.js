@@ -263,9 +263,9 @@ const EadmiHeader = () => {
           </p> */}
         </div>
       )}
-      <Link className="dropdown-item" to="/evaluator/change-password">
+      {/* <Link className="dropdown-item" to="/evaluator/change-password">
         Change Password
-      </Link>
+      </Link> */}
       <Link className="dropdown-item"  to=""
             onClick={handleLogout}>
         Logout

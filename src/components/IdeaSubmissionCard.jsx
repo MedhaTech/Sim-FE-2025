@@ -4,7 +4,7 @@
 import moment from "moment/moment";
 import React, { useEffect, useState, useRef } from "react";
 import { Modal } from "react-bootstrap";
-import { Card, CardBody, CardTitle } from "reactstrap";
+import { Card, CardBody, CardTitle ,Col,Row} from "reactstrap";
 import { Button } from "../stories/Button";
 import { useReactToPrint } from "react-to-print";
 import { CardText } from "reactstrap";
@@ -61,7 +61,7 @@ const LinkComponent = ({ item, currentUser }) => {
   };
   return (
     <>
-      {item &&
+      {/* {item &&
         item.length > 0 &&
         item.map((ans, i) => {
           let a_link = ans.split("/");
@@ -70,16 +70,46 @@ const LinkComponent = ({ item, currentUser }) => {
           return (
             <a
               key={i}
-              className="badge mb-2 bg-info p-3 ms-3 col-3"
-              style={{ cursor: "pointer" }}
+              className="badge mb-2 bg-info p-2 ms-3 col-3"
+              style={{ cursor: "pointer", maxWidth: "100%",wordBreak: "break-word", whiteSpace: "normal", }}
               onClick={() => handlePreview(ans, fileName)}
               target="_blank"
               rel="noreferrer"
+
             >
               <span className="file-name">{fileName}</span>
             </a>
           );
-        })}
+        })} */}
+        <Row className="g-2">
+  {item &&
+    item.length > 0 &&
+    item.map((ans, i) => {
+      let a_link = ans.split("/");
+      let count = a_link.length - 1;
+      let fileName = a_link[count];
+
+      return (
+        <Col xs={12} sm={6} md={4} key={i}>
+          <a
+            className="badge bg-info w-100 p-2 d-block"
+            style={{
+              cursor: "pointer",
+              wordBreak: "break-word",
+              whiteSpace: "normal",
+              lineHeight: "1.2",
+            }}
+            onClick={() => handlePreview(ans, fileName)}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span className="file-name">{fileName}</span>
+          </a>
+        </Col>
+      );
+    })}
+</Row>
+
       {selectedFile && (
         <FilePreviewModal
           show={showModal}
@@ -293,14 +323,13 @@ const IdeaSubmissionCard = ({ handleClose, show, response, setIdeaCount }) => {
     content: () => componentRef.current,
   });
 const labelToKeyMap = {
-  "Sustainable Development & Environment": "sustainabletheme",
-  "Digital Transformation": "digitaltheme",
-  "Health and Well-being": "healththeme",
-  "Quality Education": "educationtheme",
-  "Economic Empowerment": "economictheme",
-  "Smart and Resilient Communities": "smarttheme",
-  "Agriculture and Rural Development": "agritheme",
-  "Others": "othertheme",
+ "Building a Sustainable Future": "buildingtheme",
+  "Technology for Learning and Growth": "technologytheme",
+  "Health, Nutrition and Well-being": "healththeme",
+  "Skills for Life and Livelihood": "skillstheme",
+  "Smarter Communities, Safer Futures": "smartertheme",
+  "Agriculture and Rural Transformation": "agriculturetheme",
+  "Open Category - Think Beyond": "opentheme",
 };
 const themeKey = labelToKeyMap[response.theme];
   return (
