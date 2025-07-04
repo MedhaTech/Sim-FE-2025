@@ -595,11 +595,11 @@ const IdeaReport = () => {
             labels: [
              "Building a Sustainable Future",
   "Technology for Learning and Growth",
-  "Health, Nutrition and Well-being",
+  "Health & Nutrition and Well-being",
   "Skills for Life and Livelihood",
-  "Smarter Communities, Safer Futures",
+  "Smarter Communities & Safer Futures",
   "Agriculture and Rural Transformation",
-  "Open Category - Think Beyond"
+  "Open Category - Think Beyond!"
             ],
             datasets: [
               {
