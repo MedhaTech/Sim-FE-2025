@@ -678,11 +678,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     scroll();
   };
 
-  useEffect(() => {
-    if (prototypeLink !== formData?.prototype_link) {
-      setVerifySubmitt(false);
-    }
-  }, [prototypeLink]);
+
 
   useEffect(() => {
     if (
@@ -747,6 +743,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
             openNotificationWithIcon("error", response.data.message);
           } else {
             openNotificationWithIcon("success", response.data.message);
+            setPrototypeLink(videoId);
             setIsButtonDisabled(true);
             setVerifySubmitt(true);
           }
@@ -769,6 +766,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     setIsButtonDisabled(false);
     const videoId = getYouTubeVideoId(link);
     setExtractId(videoId);
+    setVerifySubmitt(false);
   };
   const handleVerify = (e) => {
     e.preventDefault();
@@ -1655,7 +1653,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                     disabled={isDisabled}
                                     placeholder={t("home.ideaUp")}
                                     value={prototypeLink}
-                                    maxLength={300}
+                                    maxLength={400}
                                     onChange={handleInputChange}
                                     style={{ height: "150px" }}
                                   />
@@ -1674,9 +1672,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                     </div>
                                   )}
                                 </div>
-                                <div className="col-2 d-flex align-items-center pe-3">
+                                <div className="col-12 col-md-2 d-flex justify-content-end align-items-center pe-md-3 mb-2 mt-2">
                                   <button
-                                    className="btn btn-info "
+                                    className="btn btn-info"
                                     onClick={handleVerify}
                                     disabled={
                                       isDisabled ||
@@ -1684,9 +1682,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                       !prototypeLink
                                     }
                                   >
-                                    {/* Verify */}
                                     {t("idea_page.verify")}
-                                    {/* BACK */}
                                   </button>
                                 </div>
                               </div>

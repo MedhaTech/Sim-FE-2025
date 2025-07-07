@@ -428,7 +428,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
   return (
     <div>
       <div className="card table-list-card">
-        <div className="card-header d-flex justify-content-between align-items-center">
+        {/* <div className="card-header d-flex justify-content-between align-items-center">
           <h4 className="card-title mb-0">
             {" "}
             <img
@@ -446,22 +446,31 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
             >
               <div className="edit-delete-action">
                 <OverlayTrigger placement="top" overlay={renderTooltip}>
-                 <span
-                                         style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
-                                                       className="badge"
-                                         onClick={() => handleShow()}
-                                         {...(show
-                                           ? {
-                                               "data-bs-toggle": "modal",
-                                               "data-bs-target": "#add-units",
-                                             }
-                                           : {})}
-                                       >
-                                         <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
-                                       </span>
+                  <span
+                    style={{
+                      backgroundColor: "#1B2850",
+                      borderRadius: "2rem",
+                      padding: "5px 10px",
+                      fontSize: "14px",
+                    }}
+                    className="badge"
+                    onClick={() => handleShow()}
+                    {...(show
+                      ? {
+                          "data-bs-toggle": "modal",
+                          "data-bs-target": "#add-units",
+                        }
+                      : {})}
+                  >
+                    <FiPlayCircle
+                      style={{ color: "#ffffff", fontSize: "large" }}
+                    />{" "}
+                    <span style={{ color: "#ffffff", fontSize: "10px" }}>
+                      &nbsp;{t("teacherJourney.demo")}
+                    </span>
+                  </span>
                 </OverlayTrigger>
               </div>
-             
             </div>
           </h4>
           <button
@@ -475,7 +484,70 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
             />{" "}
             {t("teacherJourney.logins")}
           </button>
+        </div> */}
+        <div className="card-header">
+  <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+    <h4 className="card-title mb-2 mb-md-0 d-flex align-items-center">
+      <img
+        src={team}
+        alt="team"
+        style={{
+          marginRight: "6px",
+          width: "25px",
+          verticalAlign: "middle",
+        }}
+      />
+      {t("teacherJourney.teamprog")}
+      <div
+        className="action-table-data"
+        style={{ display: "inline-block", marginLeft: "10px" }}
+      >
+        <div className="edit-delete-action">
+          <OverlayTrigger placement="top" overlay={renderTooltip}>
+            <span
+              style={{
+                backgroundColor: "#1B2850",
+                borderRadius: "2rem",
+                padding: "5px 10px",
+                fontSize: "14px",
+              }}
+              className="badge"
+              onClick={() => handleShow()}
+              {...(show
+                ? {
+                    "data-bs-toggle": "modal",
+                    "data-bs-target": "#add-units",
+                  }
+                : {})}
+            >
+              <FiPlayCircle
+                style={{ color: "#ffffff", fontSize: "large" }}
+              />
+              <span style={{ color: "#ffffff", fontSize: "10px" }}>
+                &nbsp;{t("teacherJourney.demo")}
+              </span>
+            </span>
+          </OverlayTrigger>
         </div>
+      </div>
+    </h4>
+
+    <div className="mt-2 mt-md-0">
+      <button
+        className="btn btn-secondary d-flex align-items-center"
+        onClick={handleemailapi}
+      >
+        <Mail
+          className="feather-mail"
+          size={20}
+          style={{ marginRight: "5px" }}
+        />
+        {t("teacherJourney.logins")}
+      </button>
+    </div>
+  </div>
+</div>
+
         <div className="card-body">
           <div className="table-top">
             <div className="form-sort select-bluk">
@@ -490,7 +562,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
 
             {teamId && (
               <>
-                <Row>
+                <Row className="mt-2 g-2">
                   <div className="singlediv">
                     <span className="fw-bold text-info">
                       {" "}
@@ -512,25 +584,19 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
                         </span>
                       ) : formData?.status ? (
                         <span className="text-warning">
-                          {t(`teacherJourney.${formData.status.toLowerCase()}`)}
+                          {t(`teacherJourney.${formData.status.toLowerCase()}`).toUpperCase()}
                         </span>
                       ) : (
                         <span className="text-warning">
                           {t("teacherJourney.NOTSTARTED")}
                         </span>
                       )}
-                      {/* // ) : (
-                      //   formData?.status || (
-                      //     <span className="text-warning">
-                      //       {t("teacherJourney.NOTSTARTED")}
-                      //     </span>
-                      //   )
-                      // )} */}
+                     
                     </span>
                   </div>
                 </Row>
                 <>
-                  <div>
+                  {/* <div>
                     {!noData &&
                       (formData?.status === "SUBMITTED" ||
                         formData?.status === "DRAFT") && (
@@ -560,7 +626,39 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
                     ) : (
                       ""
                     )}
-                  </div>
+                  </div> */}
+                  <Row className="mt-1 g-2">
+  {!noData &&
+    (formData?.status === "SUBMITTED" || formData?.status === "DRAFT") && (
+      <Col xs={12} md="auto">
+        <button
+          className="btn btn-primary w-100"
+          onClick={() => setIdeaShow(true)}
+        >
+          {t("teacherJourney.ViewIdea")}
+        </button>
+      </Col>
+    )}
+
+  {!noData &&
+    formData?.status === "SUBMITTED" &&
+    formData?.verified_status !== "REJECTED" &&
+    (formData?.verified_status === null ||
+      formData?.verified_status !== "ACCEPTED") && (
+      <Col xs={12} md="auto">
+        <button
+          className="btn btn-danger w-100"
+          onClick={() => {
+            setIsreject(true);
+            setReason("");
+          }}
+        >
+          {t("teacherJourney.RejectSubmission")}
+        </button>
+      </Col>
+    )}
+</Row>
+
                 </>
               </>
             )}

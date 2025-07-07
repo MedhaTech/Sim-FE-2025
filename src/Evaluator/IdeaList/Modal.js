@@ -11,7 +11,8 @@ const FilePreviewModal = ({teamResponse, show, onHide} ) => {
     const url = teamResponse?.prototype_image;
     if (url) {
       const extension = url.split('.').pop().toLowerCase();
-      setFileType(extension);
+      const fileexten = extension.split('?'); 
+      setFileType(fileexten[0]);
     }
   }, [teamResponse]);
 

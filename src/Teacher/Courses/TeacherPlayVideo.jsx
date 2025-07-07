@@ -92,7 +92,13 @@ const TeacherPlayVideo = (props) => {
   const scrollRef = React.createRef();
   const [quizStart, setQuizStart] = useState(false);
 
+ const [width, setWidth] = useState(window.innerWidth);
 
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   const getLastCourseStatus = (data = []) => {
     const length = data && data.length > 0 ? data.length - 1 : 0;
     if (length) {
@@ -676,7 +682,7 @@ const TeacherPlayVideo = (props) => {
 
                                   <span
                                     className="course-title"
-                                    style={{ "font-weight": "600" }}
+                                    style={{ fontWeight: "600" , fontSize: width <= 576 ? "0.79rem" : "1rem",}}
                                   >
                                     {/* {course.title} */}
                                     {t(`teacherJourney.${course.title}`)}
@@ -759,10 +765,10 @@ const TeacherPlayVideo = (props) => {
                     </Card>
                   </Fragment>
                 ) : item === "VIDEO" && condition === "Video1" ? (
-                  <Card className="embed-container">
+                  <Card className="embed-container mt-2 mt-sm-0">
                     <CardTitle className="text-left p-1 d-flex justify-content-between align-items-center">
                       {/* <h3>{courseData.title}</h3> */}
-                      <h3>{t(`teacherJourney.${courseData.title}`)}</h3>
+                      <h3 >{t(`teacherJourney.${courseData.title}`)}</h3>
                     </CardTitle>
                     <Vimeo
                       video={id.video_stream_id}
