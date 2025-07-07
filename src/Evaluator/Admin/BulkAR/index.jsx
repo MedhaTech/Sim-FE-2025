@@ -352,7 +352,7 @@ const Evalprocess = () => {
                 </Row>
                 <div className="row mb-3">
                   <div
-                    className="employee-grid-profile col-4 m-3"
+                    className="employee-grid-profile col-12 col-md-4 m-3"
                     style={{ backgroundColor: "white", boxShadow: "none" }}
                   >
                     <div className="profile-head">
@@ -448,7 +448,7 @@ const Evalprocess = () => {
                     )}
                   </div>
                   <div
-                    className="employee-grid-profile col-4 m-3"
+                    className="employee-grid-profile col-12 col-md-4 m-3"
                     style={{ backgroundColor: "white", boxShadow: "none" }}
                   >
                     <div className="profile-head">
