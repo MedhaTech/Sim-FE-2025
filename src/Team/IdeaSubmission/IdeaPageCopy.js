@@ -43,6 +43,7 @@ const LinkComponent = ({
   i,
   currentUser,
 }) => {
+
   let a_link;
   let count;
   if (url) {
@@ -50,6 +51,20 @@ const LinkComponent = ({
     count = a_link.length - 1;
   }
   const [newurl, setnewurl] = useState("");
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 576);
+
+useEffect(() => {
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= 576);
+  };
+
+  window.addEventListener("resize", handleResize);
+
+  return () => {
+    window.removeEventListener("resize", handleResize);
+  };
+}, []);
+
   const handleFileDownload = async (file) => {
     const parts = file.split("/");
     const path = parts.slice(3).join("/");
@@ -84,7 +99,7 @@ const LinkComponent = ({
   handleFileDownload(item);
   return (
     <>
-      {original ? (
+      {/* {original ? (
         <div className="badge mb-2 bg-info ms-3">
           <span className="p-2">{item.name}</span>
           {original && (
@@ -102,7 +117,46 @@ const LinkComponent = ({
         >
           {a_link[count]}
         </a>
-      )}
+      )} */}
+    {original ? (
+  <div className="badge mb-2 bg-info ms-3 d-flex align-items-center">
+    <span
+      className="p-2"
+      style={{
+        display: "inline-block",
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        ...(isMobile && { maxWidth: "100px" }), // only on mobile
+      }}
+    >
+      {item.name}
+    </span>
+    <span className="pointer" onClick={() => removeFileHandler(i)}>
+      <AiOutlineCloseCircle size={20} />
+    </span>
+  </div>
+) : (
+  <a
+    className="badge mb-2 bg-info p-3 ms-3"
+    href={newurl}
+    target="_blank"
+    rel="noreferrer"
+    title={a_link[count]}
+    style={{
+      display: "inline-block",
+      whiteSpace: "nowrap",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+      ...(isMobile && { maxWidth: "100px" }), 
+    }}
+  >
+    {a_link[count]}
+  </a>
+)}
+
+
+
     </>
   );
 };
