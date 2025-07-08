@@ -305,7 +305,7 @@ const TicketsPage = (props) => {
                             <Row className="">
                                 <div className="page-header">
                                     <h4>Evaluator List</h4>
-                                    <div className="d-flex page-btn text-right">
+                                    {/* <div className="d-flex page-btn text-right">
                                         <a href={DataFile} target="_blank" rel="noreferrer">
                                             <Button
                                                 label={<>
@@ -369,8 +369,96 @@ const TicketsPage = (props) => {
                                             Icon={BsUpload}
                                             onClick={() => setRegisterModalShow(true)}
                                         />
-                                    </div>
+                                    </div> */}
+                                    <div className="row page-btn text-end">
+  {/* Data List */}
+  <div className="col-6 col-md-3 mb-2">
+    <a href={DataFile} target="_blank" rel="noreferrer">
+      <Button
+        label={
+          <div className="d-flex align-items-center justify-content-center text-nowrap">
+            {/* <Download className="me-2" style={{ color: "white" }} /> */}
+             <span className="d-none d-md-inline">
+          <Download className="me-2" style={{ color: "white" }} />
+        </span>
+            <b>Data List</b>
+          </div>
+        }
+        btnClass="primary w-100"
+        size="small"
+        shape="btn-square"
+      />
+    </a>
+  </div>
+
+  {/* Template */}
+  <div className="col-6 col-md-3 mb-2">
+    <a href={SampleFile} target="_blank" rel="noreferrer">
+      <Button
+        label={
+          <div className="d-flex align-items-center justify-content-center text-nowrap">
+            {/* <Download className="me-2" style={{ color: "white" }} /> */}
+             <span className="d-none d-md-inline">
+          <Download className="me-2" style={{ color: "white" }} />
+        </span>
+            <b>Template</b>
+          </div>
+        }
+        btnClass="primary w-100"
+        size="small"
+        shape="btn-square"
+      />
+    </a>
+  </div>
+
+  {/* Upload File */}
+  <div className="col-6 col-md-3 mb-2">
+    <input
+      type="file"
+      id="attachments"
+      name="attachments"
+      style={{ display: "none" }}
+      accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
+      onChange={handleFileUpload}
+    />
+    <Button
+      label={
+        <div className="d-flex align-items-center justify-content-center text-nowrap">
+           <span className="d-none d-md-inline">
+          <Upload className="me-2" style={{ color: "white" }} />
+        </span>
+          <b>Upload File</b>
+        </div>
+      }
+      btnClass="primary w-100"
+      size="small"
+      shape="btn-square"
+      onClick={() => document.getElementById("attachments").click()}
+    />
+  </div>
+
+  {/* Add New Evaluator */}
+  <div className="col-6 col-md-3 mb-2">
+    <Button
+      label={
+        <div className="d-flex align-items-center justify-content-center text-nowrap">
+          {/* <PlusCircle className="me-2" style={{ color: "white" }}   size={20} // Or 24, 28, etc.
+  strokeWidth={2}/> */}
+          <b> <span style={{fontSize:"1.5rem"}} className="d-none d-md-inline">+</span> Add Evaluator</b>
+        </div>
+      }
+      btnClass="primary w-100"
+      size="small"
+      shape="btn-square"
+      onClick={() => setRegisterModalShow(true)}
+    />
+  </div>
+</div>
+
                                 </div>
+                         
+
+
                                 <div className="ticket-data">
                                     <div className="my-2">
                                         <DataTableExtensions

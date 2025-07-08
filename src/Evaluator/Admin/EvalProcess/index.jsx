@@ -61,23 +61,23 @@ const Evalprocess = () => {
             {
                 name: <span style={{ fontWeight: 550 }}>No</span>,
                 selector: (row, key) => key + 1,
-                width: '6%'
+                width: '5rem'
             },
             {
                 name: <span style={{ fontWeight: 550 }}>Level Name</span>,
                 selector: (row) => row.level_name,
                 sortable: true,
-                width: '12%'
+                width: '8rem'
             },
             {
                 name: <span style={{ fontWeight: 550 }}>Evaluation Schema</span>,
                 selector: (row) => row.eval_schema,
-                width: '15%'
+                width: '10rem'
             },
             {
                 name: <span style={{ fontWeight: 550 }}>No of Evaluators per idea</span>,
                 selector: (row) => row.no_of_evaluation,
-                width: '25%'
+                width: '13rem'
             },
             {
                 name: <span style={{ fontWeight: 550 }}>Status</span>,
@@ -89,13 +89,13 @@ const Evalprocess = () => {
                         {row.status}
                     </Badge>
                 ],
-                width: '7%'
+                width: '7rem'
             },
             {
                 name: <span style={{ fontWeight: 550 }}>Actions</span>,
                 selector: 'action',
                 center: true,
-                width: '30%',
+                width: '15rem',
                 cell: (record) => [
                     <>
                         <div
