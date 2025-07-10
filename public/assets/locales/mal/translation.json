@@ -559,7 +559,7 @@
     "startnow": "Start Now",
     "dolater": "Do Later",
     "textdata": "Join us on this problem solving journey.",
-    "ideafocus": "Focus Area",
+    "ideafocus": "ഫോക്കസ് ഏരിയ",
     "select": "Select a theme",
     "selectv": "to know more",
     "addLanguage": "Select in which language you prefer Submitting Your Idea?",
@@ -969,80 +969,81 @@
   },
 
   "theme": {
-    "buildingtheme": "Building a Sustainable Future",
-    "technologytheme": "Technology for Learning and Growth",
-    "healththeme": "Health, Nutrition and Well-being",
-    "skillstheme": "Skills for Life and Livelihood",
-    "smartertheme": "Smarter Communities, Safer Futures",
-    "agriculturetheme": "Agriculture and Rural Transformation",
-    "opentheme": "Open Category - Think Beyond",
+    "buildingtheme": "സുസ്ഥിരമായ ഒരു ഭാവി കെട്ടിപ്പടുക്കൽ ",
+    "technologytheme": "പഠനത്തിനും വളർച്ചയ്ക്കുമുള്ള സാങ്കേതികവിദ്യ",
+    "healththeme": "ആരോഗ്യം, പോഷകാഹാരം & ക്ഷേമം",
+    "skillstheme": "ജീവിതത്തിനും ഉപജീവനത്തിനുമുള്ള കഴിവുകൾ",
+    "smartertheme": "മികച്ച സമൂഹങ്ങൾ, സുരക്ഷിതമായ ഭാവി",
+    "agriculturetheme": "കൃഷിയും ഗ്രാമീണ പരിവർത്തനവും",
+    "opentheme": "തുറന്ന കാറ്റഗറി - എല്ലാത്തിനുമാപ്പുറം ചിന്തിക്കൽ",
     "othertheme": "Others"
   },
   "themes": {
-    "buildingtheme": "Building a Sustainable Future",
-    "technologytheme": "Technology for Learning and Growth",
-    "healththeme": "Health & Nutrition and Well-being",
-    "skillstheme": "Skills for Life and Livelihood",
-    "smartertheme": "Smarter Communities & Safer Futures",
-    "agriculturetheme": "Agriculture and Rural Transformation",
-    "opentheme": "Open Category - Think Beyond!",
+   
+    "buildingtheme": "സുസ്ഥിരമായ ഒരു ഭാവി കെട്ടിപ്പടുക്കൽ ",
+    "technologytheme": "പഠനത്തിനും വളർച്ചയ്ക്കുമുള്ള സാങ്കേതികവിദ്യ",
+    "healththeme": "ആരോഗ്യം, പോഷകാഹാരം & ക്ഷേമം",
+    "skillstheme": "ജീവിതത്തിനും ഉപജീവനത്തിനുമുള്ള കഴിവുകൾ",
+    "smartertheme": "മികച്ച സമൂഹങ്ങൾ, സുരക്ഷിതമായ ഭാവി",
+    "agriculturetheme": "കൃഷിയും ഗ്രാമീണ പരിവർത്തനവും",
+    "opentheme": "തുറന്ന കാറ്റഗറി - എല്ലാത്തിനുമാപ്പുറം ചിന്തിക്കൽ",
     "othertheme": "Others"
   },
   "themedetails": {
-    "buildingtheme": "Promotes environmental awareness and life skills; integrates values-based and experiential learning. NEP encourages students to be environmentally responsible citizens. This theme enables students to innovate in sustainability, energy, water, and climate — all vital for the planet and aligned with global SDG goals.",
-    "technologytheme": "Strong emphasis on tech integration, digital infrastructure, and equitable access to quality education.Innovation in education technology supports NEP’s vision of universal foundational literacy, personalized learning, and digital inclusion. It also empowers students to co-create tech tools for learning.",
-    "healththeme": "Holistic development, including physical, mental, and emotional well-being, is central to NEP’s goals. NEP’s whole-child approach demands innovation in how students think about nutrition, mental health, fitness, and community wellness. This theme promotes health as foundational to learning and living.",
-    "skillstheme": "Strong focus on vocational education, entrepreneurship, and preparing students for life and work. NEP aims to integrate skill-based learning from an early age. This theme empowers students to develop job-ready, entrepreneurial, and financial skills while also encouraging local enterprise innovation.",
-    "smartertheme": "Encourages contextual learning and civic engagement, preparing students to lead and serve. NEP promotes learning that is rooted in local needs. This theme inspires students to think about their surroundings and build smart, safe, inclusive, and tech-enabled communities.",
-    "agriculturetheme": "Advocates for local knowledge systems, relevance in rural settings, and experiential learning. NEP emphasizes context-sensitive education. This theme brings attention to rural challenges and innovation in agriculture — vital sectors for inclusive and equitable development.",
-    "opentheme": "Encourages critical thinking, creativity, and problem-solving — key 21st-century skills. For students whose ideas don’t fit existing categories but address real-world problems. This promotes flexibility, interdisciplinary thinking, and true student agency",
+    "buildingtheme": "പരിസ്ഥിതിയെക്കുറിച്ചും പ്രധാനപ്പെട്ട ജീവിത കഴിവുകളെക്കുറിച്ചും മൂല്യാധിഷ്ഠിതവും അനുഭവാധിഷ്ഠിതവുമായി പഠിക്കാൻ ഈ പരിപാടി വിദ്യാർത്ഥികളെ സഹായിക്കുന്നു. പ്രകൃതിയെ പരിപാലിക്കുന്ന ഉത്തരവാദിത്തമുള്ള പൗരന്മാരായി വിദ്യാർത്ഥികൾ മാറണമെന്ന് NEP ആഗ്രഹിക്കുന്നു. കൂടാതെ, ഈ വിഷയം വിദ്യാർത്ഥികളെ സുസ്ഥിരത, ഊർജം, ജലം, കാലാവസ്ഥ എന്നിവയിൽ പുതിയ ആശയങ്ങൾ സൃഷ്ടിക്കാൻ സഹായിക്കുന്നു — ഭൂമിക്ക് അത്യന്താപേക്ഷിതമായതും ആഗോള SDG ലക്ഷ്യങ്ങളുമായി പൊരുത്തപ്പെടുന്നതുമാണിവ.",
+    "technologytheme": "വിദ്യാഭ്യാസത്തിൽ സാങ്കേതികവിദ്യ ഉപയോഗിക്കുന്നതിലും ഡിജിറ്റൽ സംവിധാനങ്ങൾ നിർമ്മിക്കുന്നതിലും എല്ലാ വിദ്യാർത്ഥികൾക്കും നല്ല പഠനത്തിലേക്ക് തുല്യ പ്രവേശനം ഉറപ്പാക്കുന്നതിലും ശക്തമായ ശ്രദ്ധ കേന്ദ്രീകരിക്കൽ.  വിദ്യാഭ്യാസ സാങ്കേതികവിദ്യയിലെ പുതിയ ആശയങ്ങൾ NEP യുടെ ലക്ഷ്യങ്ങൾ കൈവരിക്കാൻ സഹായിക്കുന്നു, ഓരോ കുട്ടിക്കും നന്നായി വായിക്കാനും എഴുതാനും കഴിയുമെന്ന് ഉറപ്പാക്കുക, വിദ്യാർത്ഥികൾക്ക് സ്വന്തം വേഗതയിൽ പഠിക്കാൻ അനുവദിക്കുക, ഡിജിറ്റൽ ലോകത്തിലെ എല്ലാവരെയും ഉൾപ്പെടുത്തുക തുടങ്ങിയ ലക്ഷ്യങ്ങൾ കൈവരിക്കാൻ ഇത് സഹായിക്കുന്നു.  കൂടാതെ, സാങ്കേതികവിദ്യ ഉപയോഗിച്ച് പഠന ഉപകരണങ്ങൾ സൃഷ്ടിക്കാൻ സഹായിക്കുന്നതിനുള്ള ശക്തിയും ഇത് വിദ്യാർത്ഥികൾക്ക് നൽകുന്നു.",
+    "healththeme": "ശാരീരികം, മാനസികം, ആത്മീയമായ സമഗ്രവികസനമാണ് ഈ വിദ്യാഭ്യാസ നയത്തിന്റെ (NEP) കേന്ദ്രലക്ഷ്യം. ഇത് ചെയ്യുന്നതിന്, ഭക്ഷണം, മാനസികാരോഗ്യം, വ്യായാമം, ഒരു സമൂഹമെന്ന നിലയിൽ ആരോഗ്യത്തോടെയിരിക്കുക എന്നിവയെക്കുറിച്ചുള്ള പുതിയ ചിന്താഗതികളെ പ്രോത്സാഹിപ്പിക്കുന്നു. വിദ്യാഭ്യാസത്തിനും ജീവിതത്തിനും ആരോഗ്യം അടിസ്ഥാനമാണെന്ന് ഈ വിഷയം ഊന്നിപ്പറയുന്നു.",
+    "skillstheme": "പ്രായോഗിക കഴിവുകൾ പഠിപ്പിക്കുന്നതിലും, ബിസിനസ് ചിന്തയെ പ്രോത്സാഹിപ്പിക്കുന്നതിലും, യഥാർത്ഥ ജീവിതത്തിനും ജോലിക്കും തയ്യാറെടുക്കാൻ വിദ്യാർത്ഥികളെ സഹായിക്കുന്നതിലും ദേശീയ വിദ്യാഭ്യാസ നയം (NEP) ശക്തമായ ശ്രദ്ധ കേന്ദ്രീകരിക്കുന്നു.  ചെറുപ്പം മുതലേ വിദ്യാർത്ഥികൾ ഉപയോഗപ്രദമായ കഴിവുകൾ പഠിച്ചു തുടങ്ങണമെന്ന് NEP ആഗ്രഹിക്കുന്നു. ജോലി നേടുന്നതിനും, ബിസിനസുകൾ ആരംഭിക്കുന്നതിനും, പണം കൈകാര്യം ചെയ്യുന്നതിനും, പ്രാദേശിക ബിസിനസുകളെ പിന്തുണയ്ക്കുന്നതിനും ആവശ്യമായ അറിവ് നേടാൻ ഇത് വിദ്യാർത്ഥികളെ  സഹായിക്കുന്നു.",
+    "smartertheme": "യഥാർത്ഥ ജീവിത സാഹചര്യങ്ങളുമായി ബന്ധപ്പെട്ട പഠനത്തെ ഇത് പ്രോത്സാഹിപ്പിക്കുകയും വിദ്യാർത്ഥികൾക്ക് അവരുടെ സമൂഹത്തിൽ പങ്കാളികളാകാൻ സഹായിക്കുകയും ചെയ്യുന്നു. കൂടാതെ, ഇത് അവരെ നേതാക്കളാകാനും മറ്റുള്ളവരെ സഹായിക്കാനും സജ്ജമാക്കുന്നു. ഈ ആശയം വിദ്യാർത്ഥികളെ തങ്ങളുടേതായ പരിസരത്തെക്കുറിച്ച് ചിന്തിക്കാൻ പ്രേരിപ്പിക്കുകയും സ്മാർട്ട്, സുരക്ഷിതം, ഉൾക്കൊള്ളുന്നതും സാങ്കേതിക സൗകര്യങ്ങളോടും കൂടിയ സമൂഹങ്ങൾ നിർമ്മിക്കാൻ പ്രചോദനം നൽകുകയും ചെയ്യുന്നു.",
+    "agriculturetheme": "പ്രാദേശിക അറിവ് ഉപയോഗിക്കുന്നതിനും, അനുഭവത്തിലൂടെ പഠിക്കുന്നതിനും, ഗ്രാമപ്രദേശങ്ങളുടെ ആവശ്യങ്ങൾക്ക് അനുയോജ്യമായ അധ്യാപനം നടത്തുന്നതിനും പിന്തുണ നൽകൽ.പ്രാദേശിക സാഹചര്യങ്ങൾ മനസ്സിലാക്കുന്ന വിദ്യാഭ്യാസത്തിലാണ് NEP ശ്രദ്ധ കേന്ദ്രീകരിക്കുന്നത്.  ഗ്രാമങ്ങളിൽ നേരിടുന്ന പ്രശ്നങ്ങൾ ഇത് എടുത്തുകാണിക്കുകയും കൃഷിയിൽ പുതിയ ആശയങ്ങൾ പ്രോത്സാഹിപ്പിക്കുകയും ചെയ്യുന്നു - രണ്ടും ന്യായവും സമഗ്രവുമായ വികസനത്തിന് പ്രധാനമാണ്.",
+    "opentheme": "വ്യക്തമായി ചിന്തിക്കുന്നതിനും, ക്രിയേറ്റിവിറ്റി പുലർത്തുന്നതിനും, പ്രശ്നങ്ങൾ പരിഹരിക്കുന്നതിനും - ഇന്നത്തെ ലോകത്തിന് പ്രധാനപ്പെട്ട കഴിവുകളെ പിന്തുണയ്ക്കുന്നതിനും. സാധാരണ ഗ്രൂപ്പുകളുമായി പൊരുത്തപ്പെടാത്തതും യഥാർത്ഥ ജീവിതത്തിലെ പ്രശ്നങ്ങൾ പരിഹരിക്കുന്നതുമായ ആശയങ്ങളുള്ള വിദ്യാർത്ഥികൾക്കുള്ളതാണ് ഇത്.  വഴക്കമുള്ളവരായിരിക്കാനും, വ്യത്യസ്ത വിഷയങ്ങളിൽ നിന്ന് പഠിക്കാനും, വിദ്യാർത്ഥികളെ അവരുടെ പഠനത്തിന്റെ നിയന്ത്രണം ഏറ്റെടുക്കാനും ഇത് പ്രോത്സാഹിപ്പിക്കുന്നു.",
     "othertheme": "Encourages innovative solutions in any other area that aligns with the vision of Viksit Bharat 2047, fostering a culture of broad-based development and progress."
   },
   "buildingfocusareas": {
-    "focusarea1": "Green Energy",
-    "focusarea2": "Water Conservation & Management",
-    "focusarea3": "Eco-Friendly Innovation",
-    "focusarea4": "Biodiversity & Climate Action",
-    "focusarea5": "Green Agriculture"
+    "focusarea1": "ശുദ്ധ ഊർജ്ജം",
+    "focusarea2": "ജല സംരക്ഷണവും മാനേജ്മെന്റും",
+    "focusarea3": "പരിസ്ഥിതി സൗഹൃദ ആശയങ്ങൾ",
+    "focusarea4": "പ്രകൃതിയും കാലാവസ്ഥയും സംരക്ഷിക്കൽ",
+    "focusarea5": "പരിസ്ഥിതി സൗഹൃദ കൃഷി"
   },
   "technologyfocusareas": {
-    "focusarea1": "Learning Tools & EdTech",
-    "focusarea2": "Inclusive and Accessible Learning",
-    "focusarea3": "Coding, AI & Data Innovation",
-    "focusarea4": "Gamified Learning",
-    "focusarea5": "Teacher Support Tools"
+    "focusarea1": "പഠനോപകരണങ്ങളും എഡ്ടെക് സാങ്കേതികവിദ്യയും",
+    "focusarea2": "ഉൾക്കൊള്ളുന്നതും ഏവർക്കും ലഭ്യമാകുന്നതുമായ പഠനം",
+    "focusarea3": "കോഡിംഗ്, കൃത്രിമബുദ്ധി (AI) & ഡാറ്റാ ഇന്നവേഷൻ.",
+    "focusarea4": "കളികളുടെ അടിസ്ഥാനത്തിലുള്ള പഠനരീതി (ഗെയ്മിഫൈഡ് ലേണിംഗ്)",
+    "focusarea5": "അധ്യാപകർക്ക് സഹായകരമായ ഉപകരണങ്ങൾ"
   },
   "healthfocusareas": {
-    "focusarea1": "Low-cost Health Devices",
-    "focusarea2": "Mental Health Support",
-    "focusarea3": "Clean Nutrition Innovations",
-    "focusarea4": "Fitness & Movement",
-    "focusarea5": "Community Health Awareness"
+    "focusarea1": "കുറഞ്ഞ  ചെലവിൽ ആരോഗ്യ ഉപകരണങ്ങൾ",
+    "focusarea2": "മാനസികാരോഗ്യ പിന്തുണ",
+    "focusarea3": "ശുദ്ധവും ആരോഗ്യകരവുമായ ഭക്ഷണത്തിനായുള്ള പുതിയ ആശയങ്ങൾ",
+    "focusarea4": "വ്യായാമവും ശാരീരിക പ്രവർത്തനവും",
+    "focusarea5": "സമൂഹാരോഗ്യ ബോധവത്ക്കരണം"
   },
   "skillsfocusareas": {
-    "focusarea1": "Vocational Skills & Local Craft",
-    "focusarea2": "Financial Literacy",
-    "focusarea3": "Entrepreneurship & Startups",
-    "focusarea4": "Future-Ready Skills",
-    "focusarea5": "Innovation in Retail & Distribution"
+    "focusarea1": "വ്യവസായ കഴിവുകളും പ്രാദേശിക കരകൗശലവും",
+    "focusarea2": "സാമ്പത്തിക സാക്ഷരത",
+    "focusarea3": "സംരംഭകത്വം & സ്റ്റാർട്ട്അപ്പുകൾ",
+    "focusarea4": "ഭാവിയിലേക്ക് വേണ്ടിയുള്ള  കഴിവുകൾ",
+    "focusarea5": "റീട്ടെയിൽ & വിതരണ മേഖലയിലെ ഇന്നവേഷൻ"
   },
 
   "smarterfocusareas": {
-    "focusarea1": "Disaster Resilience",
-    "focusarea2": "Urban-Rural Mobility",
-    "focusarea3": "Public Space Innovation",
-    "focusarea4": "Smart Devices for Community Use",
-    "focusarea5": "Digital Governance"
+    "focusarea1": "ദുരന്തപ്രതിരോധ ശേഷി",
+    "focusarea2": "നഗര-ഗ്രാമ ഗതാഗത സൗകര്യങ്ങൾ",
+    "focusarea3": "പൊതു സ്ഥലങ്ങളിലെ നവീകരണം",
+    "focusarea4": "സമൂഹത്തിനു വേണ്ടിയുള്ള സ്മാർട്ട് ഉപകരണങ്ങൾ",
+    "focusarea5": "ഡിജിറ്റൽ ഗവർണൻസ്"
   },
   "agriculturefocusareas": {
-    "focusarea1": "Tech in Farming",
-    "focusarea2": "Farm-to-Table Innovation",
-    "focusarea3": "Rural Infrastructure",
-    "focusarea4": "Climate-Smart Farming",
-    "focusarea5": "Agri-Nutrition"
+    "focusarea1": "കാർഷിക സാങ്കേതികവിദ്യ",
+    "focusarea2": "ഫാമുകളെ അടുക്കളകളുമായി ബന്ധിപ്പിക്കുന്നതിനുള്ള പുതിയ വഴികൾ",
+    "focusarea3": "അടിസ്ഥാനസൗകര്യങ്ങൾ",
+    "focusarea4": "കാലാവസ്ഥാ ബുദ്ധിമുട്ടുകളോട് പ്രതികരിക്കുന്ന കാർഷികരീതി",
+    "focusarea5": "കൃഷിയെ നല്ല പോഷകാഹാരവുമായി ബന്ധിപ്പിക്കൽ"
   },
   "openfocusareas": {
-    "focusarea1": "Any original or disruptive idea that addresses a real-world challenge"
+    "focusarea1": "യാഥാർഥ്യ പ്രശ്‌നങ്ങൾക്ക് പരിഹാരമായ അസാധാരണമായോ പുതിയതായോ ആയ ഏതെങ്കിലും ആശയം."
   },
   "otherfocusareas": {
     "focusarea1": "Any other area that broadly qualifies for the vision of Viksit Bharat"
