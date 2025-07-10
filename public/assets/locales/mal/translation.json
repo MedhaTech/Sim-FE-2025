@@ -559,7 +559,7 @@
     "startnow": "Start Now",
     "dolater": "Do Later",
     "textdata": "Join us on this problem solving journey.",
-    "ideafocus": "Focus Area",
+    "ideafocus": "ഫോക്കസ് ഏരിയ",
     "select": "Select a theme",
     "selectv": "to know more",
     "addLanguage": "Select in which language you prefer Submitting Your Idea?",
@@ -979,13 +979,14 @@
     "othertheme": "Others"
   },
   "themes": {
-    "buildingtheme": "Building a Sustainable Future",
-    "technologytheme": "Technology for Learning and Growth",
-    "healththeme": "Health & Nutrition and Well-being",
-    "skillstheme": "Skills for Life and Livelihood",
-    "smartertheme": "Smarter Communities & Safer Futures",
-    "agriculturetheme": "Agriculture and Rural Transformation",
-    "opentheme": "Open Category - Think Beyond!",
+   
+    "buildingtheme": "സുസ്ഥിരമായ ഒരു ഭാവി കെട്ടിപ്പടുക്കൽ ",
+    "technologytheme": "പഠനത്തിനും വളർച്ചയ്ക്കുമുള്ള സാങ്കേതികവിദ്യ",
+    "healththeme": "ആരോഗ്യം, പോഷകാഹാരം & ക്ഷേമം",
+    "skillstheme": "ജീവിതത്തിനും ഉപജീവനത്തിനുമുള്ള കഴിവുകൾ",
+    "smartertheme": "മികച്ച സമൂഹങ്ങൾ, സുരക്ഷിതമായ ഭാവി",
+    "agriculturetheme": "കൃഷിയും ഗ്രാമീണ പരിവർത്തനവും",
+    "opentheme": "തുറന്ന കാറ്റഗറി - എല്ലാത്തിനുമാപ്പുറം ചിന്തിക്കൽ",
     "othertheme": "Others"
   },
   "themedetails": {
