@@ -28,7 +28,6 @@ const CheckBox = ({ list, setValue, value, selValue,colSize = 3 }) => {
   className="my-auto mx-3"
   title={name}
 >
-  {/* {name.length > 27 ? name.slice(0, 27) + "..." : name} */}
   {colSize === 4 ? name : (name.length > 27 ? name.slice(0, 27) + "..." : name)}
 
 </label>
