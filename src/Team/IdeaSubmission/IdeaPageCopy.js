@@ -911,11 +911,12 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                       </div>
                     )}
 
-                    <div className="text-right">
+                    <div className="d-flex justify-content-end flex-wrap gap-2 w-100  flex-sm-nowrap" style={{ rowGap: "0.5rem" }}>
                       {!isDisabled && (
                         <Button
                           type="button"
-                          btnClass="me-3 btn btn-warning"
+                          btnClass="me-1 btn btn-warning"
+                          
                           onClick={(e) => handleSubmit(e, "DRAFT")}
                           size="small"
                           label={`${
@@ -930,15 +931,15 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                         <>
                           <Button
                             type="button"
-                            btnClass="me-3 btn btn-info"
+                            btnClass="me-1 btn btn-info"
                             onClick={handleEdit}
                             size="small"
                             label={t("teacher_teams.edit_idea")}
-                            style={{ marginRight: "1rem" }}
+                            // style={{ marginRight: "0.5rem" }}
                           />
                           <Button
                             type="button"
-                            btnClass="primary"
+                            btnClass="me-1 btn btn-warning"
                             onClick={(e) => handleSubmit(e, "SUBMITTED")}
                             size="small"
                             label={t("teacher_teams.submit")}
@@ -1701,7 +1702,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </Modal>
                             <div className="answers row flex-column p-3 pt-2">
                               <div className="row g-0 align-items-center">
-                                <div className="col-10 pe-3">
+                                <div className="col-12 col-md-10 pe-3">
                                   <textarea
                                     className="form-control"
                                     disabled={isDisabled}
