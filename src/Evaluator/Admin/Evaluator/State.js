@@ -11,7 +11,7 @@ import axios from 'axios';
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { URL, KEY } from '../../../constants/defaultValues';
-import Check from '../EvalProcess/Pages/Check.jsx';
+import Check from '../EvalProcess/Pages/Checkbox.js';
 import {themesList} from "../../../Team/IdeaSubmission/themesData";
 import {languageOptions} from "../../../RegPage/ORGData";
 import { useDispatch, useSelector ,} from 'react-redux';
