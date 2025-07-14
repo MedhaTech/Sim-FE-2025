@@ -13,7 +13,7 @@ import {languageOptions} from "../../../RegPage/ORGData";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { URL, KEY } from '../../../constants/defaultValues';
-import Check from './Pages/Check';
+import Check from './Pages/Checkbox.js';
 import { useDispatch, useSelector ,} from 'react-redux';
 import { encryptGlobal } from '../../../constants/encryptDecrypt';
 import { stateList, districtList } from "../../../RegPage/ORGData.js";
