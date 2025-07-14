@@ -2,12 +2,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState } from "react";
-//import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import Table from "../../core/pagination/datatable";
-// //import { ArrowRight } from "react-feather";
-// import { FaUsers } from 'react-icons/fa';
+
 ////////////////////New Code//////////////////////////
 import { getCurrentUser } from "../../helpers/Utils";
 import axios from "axios";
@@ -29,25 +27,24 @@ import logout from "../../assets/img/logout.png";
 import IdeaSubmissionCard from "../../components/IdeaSubmissionCard";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { FaPlay } from 'react-icons/fa';
-import VideoModal from '../../HelpVideo/VideoModal';
+import VideoModal from "../../HelpVideo/VideoModal";
 import { useTranslation } from "react-i18next";
+import { FiPlayCircle } from "react-icons/fi";
+// import demo from "../../assets/img/deemo.png";
 
 const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
   const [ideaShow, setIdeaShow] = useState(false);
   const [ChangeShow, setChangeShow] = useState(false);
-   const { t } = useTranslation();
-  const [show , setShow] = useState(false);
-  const [video , setVideo] = useState("");
+  const { t } = useTranslation();
+  const [show, setShow] = useState(false);
+  const [video, setVideo] = useState("");
   //////////////New Code/////////////////////////
   const dispatch = useDispatch();
   const currentUser = getCurrentUser("current_user");
-  // const TeamId = currentUser?.data[0]?.team_id;
 
   const { teamsMembersStatus, teamsMembersStatusErr } = useSelector(
     (state) => state.teams
   );
-  // console.log(teamsMembersStatus,"11");
   const [isEvlCom, setIsEvlCom] = useState(false);
   const [isideadisable, setIsideadisable] = useState(false);
 
@@ -58,20 +55,27 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
   const [ideaStatusEval, setIdeaStatusEval] = useState("-");
   const [isReject, setIsreject] = React.useState(false);
   const [reason, setReason] = React.useState("");
-  const [noData,setNoData]=useState(false);
+  const [noData, setNoData] = useState(false);
+  // const selectData = [
+  //   "Not novel - Idea and problem common and already in use.",
+  //   "Not novel - Idea has been 100% plagiarized.",
+  //   "Not useful - Idea does not solve the problem identified / problem & solution not connected.",
+  //   "Not understandable - Idea Submission does not have proper details to make a decision.",
+  //   "Not clear (usefulness)",
+  //   "Not filled - Inaccurate data (form is not filled properly)",
+  // ];
   const selectData = [
-    "Not novel - Idea and problem common and already in use.",
-    "Not novel - Idea has been 100% plagiarized.",
-    "Not useful - Idea does not solve the problem identified / problem & solution not connected.",
-    "Not understandable - Idea Submission does not have proper details to make a decision.",
-    "Not clear (usefulness)",
-    "Not filled - Inaccurate data (form is not filled properly)",
+    t("teacherJourney.not_novel_common"),
+    t("teacherJourney.not_novel_plagiarized"),
+    t("teacherJourney.not_useful"),
+    t("teacherJourney.not_understandable"),
+    t("teacherJourney.not_clear_usefulness"),
+    t("teacherJourney.not_filled"),
   ];
   useEffect(() => {
     if (teamId) {
       dispatch(getTeamMemberStatus(teamId, setshowDefault));
       submittedApi(teamId);
-      //dispatch(getStudentChallengeSubmittedResponse(teamId));
     }
   }, [teamId, dispatch]);
   const percentageBWNumbers = (a, b) => {
@@ -121,7 +125,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
   const columns = [
     {
       // title: "Name",
-      title: t("teacherJourney.Name"), 
+      title: t("teacherJourney.Name"),
       dataIndex: "full_name",
       width: "15rem",
     },
@@ -150,30 +154,6 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
             record.topics_completed_count
           );
         return (
-          // <div className="d-flex">
-          //     <div style={{ width: '80%' }}>
-          //         <Progress
-          //             key={'25'}
-          //             className="progress-height"
-          //             animated
-          //             color={
-          //                 percent
-          //                     ? percent <= 25
-          //                         ? 'danger'
-          //                         : percent > 25 && percent <= 50
-          //                         ? 'info'
-          //                         : percent > 50 && percent <= 75
-          //                         ? 'warning'
-          //                         : 'sucess'
-          //                     : 'danger'
-          //             }
-          //             value={percent}
-          //         />
-          //     </div>
-          //     <span className="ms-2">
-          //         {Math.round(percent) ? Math.round(percent) : '0'}%
-          //     </span>
-          // </div>
           <div
             className="progress progress-sm progress-custom progress-animate"
             role="progressbar"
@@ -253,6 +233,8 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
     },
   ];
   const submittedApi = (teamId) => {
+    // This function fetches idea submission details from the API //
+
     const Param = encryptGlobal(
       JSON.stringify({
         team_id: teamId,
@@ -275,13 +257,12 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
           if (response.data.data && response.data.data.length > 0) {
             setFormData(response.data.data[0]);
             setNoData(false);
-
           }
         }
       })
       .catch(function (error) {
         if (error.response.status === 404) {
-            setNoData(true);
+          setNoData(true);
         }
       });
   };
@@ -297,7 +278,6 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
 
   const handleemailapi = () => {
     emailTeamCredentials();
-    // alert("hiii");
   };
   useEffect(() => {
     const popaddParam = encryptGlobal("3");
@@ -346,89 +326,14 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          openNotificationWithIcon(
-            "success",
-            t('teacherJourney.alerrt'),
-          );
+          openNotificationWithIcon("success", t("teacherJourney.alerrt"));
         }
       })
       .catch(function (error) {
         console.log(error);
       });
   };
-  useEffect(() => {
-    // if (noData == true){
-    //   setIdeaStatusEval("NOT STARTED");
-    // }else if(formData?.verified_status === "ACCEPTED"){
-    //   setIdeaStatusEval("ACCEPTED");
-    // }  else if(formData?.verified_status === "REJECTED"){
-    //   setIdeaStatusEval("REJECTED");
-    // } else {
-    //   setIdeaStatusEval(formData?.status);
-    // }
-    // if (formData.length === 0) {
-    //   setIdeaStatusEval("NOT STARTED");
-    // } else if (formData.final_result === "1") {
-    //   setIdeaStatusEval("Congratulations,Idea is selected for grand finale");
-    // } else if (formData.final_result === "0") {
-    //   setIdeaStatusEval("Shortlisted for final round of evaluation");
-    //   if (isEvlCom) {
-    //     setIdeaStatusEval("Better luck next time");
-    //   }
-    // } else if (formData.evaluation_status === "REJECTEDROUND1") {
-    //   setIdeaStatusEval("Better luck next time");
-    // } else if (formData.evaluation_status === "SELECTEDROUND1") {
-    //   setIdeaStatusEval("Promoted to Level 2 round of evaluation");
-    //   if (isEvlCom) {
-    //     setIdeaStatusEval("Better luck next time");
-    //   }
-    // } else if (formData?.verified_status === "ACCEPTED") {
-    //   setIdeaStatusEval("ACCEPTED");
-      
-    // }else if(formData?.verified_status === "REJECTED"){
-    //   setIdeaStatusEval("REJECTED");
-    // }else {
-    //   setIdeaStatusEval(formData?.status);
-    // }
-  //  else  {
-  //   setIdeaStatusEval(formData?.status);
-  // }
-  }, [formData]);
-  // console.log(formData?.status,"ss");
-  // const handleRevoke = async (id, type) => {
-  //     // alert("hii");
-  //     const handleRevokeId = encryptGlobal(JSON.stringify(id));
-  //     let submitData = {
-  //         status: type == 'DRAFT' ? 'SUBMITTED' : 'DRAFT'
-  //     };
-  //     var config = {
-  //         method: 'put',
-  //         url:
-  //             process.env.REACT_APP_API_BASE_URL +
-  //             `/challenge_response/updateEntry/${handleRevokeId}`,
-  //         headers: {
-  //             'Content-Type': 'application/json',
-  //             Authorization: `Bearer ${currentUser?.data[0]?.token}`
-  //         },
-  //         data: submitData
-  //     };
-  //     axios(config)
-  //         .then(function (response) {
-  //             if (response.status === 200) {
-  //                 openNotificationWithIcon(
-  //                     'success',
-  //                     'Idea Submission Status Successfully Update!',
-  //                     ''
-  //                 );
-  //                 dispatch(getTeamMemberStatus(teamId, setshowDefault));
-  //                 submittedApi(teamId);
-  //                 // dispatch(getStudentChallengeSubmittedResponse(teamId));
-  //             }
-  //         })
-  //         .catch(function (error) {
-  //             console.log(error);
-  //         });
-  // };
+
   const handleAlert = (handledText) => {
     // here we can delete the team //
     const swalWithBootstrapButtons = Swal.mixin({
@@ -443,13 +348,13 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
       .fire({
         title:
           handledText === "accept"
-            ? "You are attempting to accept this Idea"
-            : "You are attempting to reject this Idea",
-        text: "Are you sure?",
+            ? t("teacherJourney_accept_title")
+            : t("teacherJourney.confirm_reject_title"),
+        text: t("teacherJourney.are_you_sure"),
         imageUrl: `${logout}`,
-        confirmButtonText: "Reject",
+        confirmButtonText: t("teacherJourney.reject"),
         showCancelButton: true,
-        cancelButtonText: "Cancel",
+        cancelButtonText: t("teacherJourney.cancel"),
         reverseButtons: false,
       })
       .then((result) => {
@@ -463,18 +368,15 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
       });
   };
   const handleL1Round = (handledText) => {
-    // const currentTime = new Date().toLocaleString();
+    // this function accept / reject the Idea //
 
-   
     const body = JSON.stringify({
       verified_status: "REJECTED",
       status: "DRAFT",
       mentor_rejected_reason: handledText == "reject" ? reason : "",
     });
     const ideaID = encryptGlobal(
-      JSON.stringify(
-        formData.challenge_response_id
-      )
+      JSON.stringify(formData.challenge_response_id)
     );
     var config = {
       method: "put",
@@ -491,18 +393,15 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
     };
     axios(config)
       .then(function (response) {
-        // console.log(response, "11");
         openNotificationWithIcon(
           "success",
           response?.data?.message == "OK"
-            ? t('teacherJourney.textnoti')
+            ? t("teacherJourney.textnoti")
             : response?.data?.message
         );
         dispatch(getTeamMemberStatus(teamId, setshowDefault));
         submittedApi(teamId);
         window.location.reload();
-
-        // props?.setIsDetail(false);
       })
       .catch(function (error) {
         openNotificationWithIcon("error", error?.response?.data?.message);
@@ -516,8 +415,8 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
   };
 
   const renderTooltip = (props) => (
-    <Tooltip id="pdf-tooltip" {...props} >
-      Watch Demo
+    <Tooltip id="pdf-tooltip" {...props}>
+      {t("teacherJourney.option25")}
     </Tooltip>
   );
 
@@ -525,13 +424,11 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
     setVideo("https://www.youtube.com/embed/e0S4PRXLo0U?si=2-Avy3FT6Ryj_xIi");
     setShow(true);
   };
-  
 
-// console.log(formData,"ddd");
   return (
     <div>
       <div className="card table-list-card">
-        <div className="card-header d-flex justify-content-between align-items-center">
+        {/* <div className="card-header d-flex justify-content-between align-items-center">
           <h4 className="card-title mb-0">
             {" "}
             <img
@@ -542,22 +439,39 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
                 verticalAlign: "middle",
               }}
             />
-            {t('teacherJourney.teamprog')} {" "}
-            <div className="action-table-data" style={{"display": "inline-block"}}>
-                <div className="edit-delete-action">
-                  <OverlayTrigger placement="top" overlay={renderTooltip}>
-                    <Link
-                        to="#"
-                        className="me-2 p-2"
-                        onClick={() => handleShow()}
-                        {...(show ? { 'data-bs-toggle': 'modal', 'data-bs-target': '#add-units' } : {})}
-                        
-                    >
-                      <FaPlay  style={{color:"red"}} />
-                    </Link>
-                  </OverlayTrigger>
-                </div>
+            {t("teacherJourney.teamprog")}{" "}
+            <div
+              className="action-table-data"
+              style={{ display: "inline-block" }}
+            >
+              <div className="edit-delete-action">
+                <OverlayTrigger placement="top" overlay={renderTooltip}>
+                  <span
+                    style={{
+                      backgroundColor: "#1B2850",
+                      borderRadius: "2rem",
+                      padding: "5px 10px",
+                      fontSize: "14px",
+                    }}
+                    className="badge"
+                    onClick={() => handleShow()}
+                    {...(show
+                      ? {
+                          "data-bs-toggle": "modal",
+                          "data-bs-target": "#add-units",
+                        }
+                      : {})}
+                  >
+                    <FiPlayCircle
+                      style={{ color: "#ffffff", fontSize: "large" }}
+                    />{" "}
+                    <span style={{ color: "#ffffff", fontSize: "10px" }}>
+                      &nbsp;{t("teacherJourney.demo")}
+                    </span>
+                  </span>
+                </OverlayTrigger>
               </div>
+            </div>
           </h4>
           <button
             className="btn btn-secondary d-flex align-items-center"
@@ -568,99 +482,202 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
               size={20}
               style={{ marginRight: "5px" }}
             />{" "}
-             {t('teacherJourney.logins')}
+            {t("teacherJourney.logins")}
           </button>
+        </div> */}
+        <div className="card-header">
+  <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+    <h4 className="card-title mb-2 mb-md-0 d-flex align-items-center">
+      <img
+        src={team}
+        alt="team"
+        style={{
+          marginRight: "6px",
+          width: "25px",
+          verticalAlign: "middle",
+        }}
+      />
+      {t("teacherJourney.teamprog")}
+      <div
+        className="action-table-data"
+        style={{ display: "inline-block", marginLeft: "10px" }}
+      >
+        <div className="edit-delete-action">
+          <OverlayTrigger placement="top" overlay={renderTooltip}>
+            <span
+              style={{
+                backgroundColor: "#1B2850",
+                borderRadius: "2rem",
+                padding: "5px 10px",
+                fontSize: "14px",
+              }}
+              className="badge"
+              onClick={() => handleShow()}
+              {...(show
+                ? {
+                    "data-bs-toggle": "modal",
+                    "data-bs-target": "#add-units",
+                  }
+                : {})}
+            >
+              <FiPlayCircle
+                style={{ color: "#ffffff", fontSize: "large" }}
+              />
+              <span style={{ color: "#ffffff", fontSize: "10px" }}>
+                &nbsp;{t("teacherJourney.demo")}
+              </span>
+            </span>
+          </OverlayTrigger>
         </div>
+      </div>
+    </h4>
+
+    <div className="mt-2 mt-md-0">
+      <button
+        className="btn btn-secondary d-flex align-items-center"
+        onClick={handleemailapi}
+      >
+        <Mail
+          className="feather-mail"
+          size={20}
+          style={{ marginRight: "5px" }}
+        />
+        {t("teacherJourney.logins")}
+      </button>
+    </div>
+  </div>
+</div>
+
         <div className="card-body">
           <div className="table-top">
             <div className="form-sort select-bluk">
               <Select
                 classNamePrefix="react-select"
                 options={customer}
-                placeholder="Choose a team"
+                placeholder={t("teacherJourney.option26")}
                 onChange={handleSelectChange}
                 value={customer.find((option) => option.value === teamId)}
               />
             </div>
-          
-          {teamId && (
-            <>
-              <Row>
-                <div className="singlediv">
-                    <span className="fw-bold text-info"> {t('teacherJourney.IDEASTATUS')}</span>
-                    <span style={{ paddingLeft: "1rem" }}>
-                      {noData
-          ? <span className="text-warning"> {t('teacherJourney.NOTSTARTED')}</span>
-          : formData?.verified_status === "ACCEPTED"
-          ? <span className="text-success">{t('teacherJourney.ACCEPTED')}</span>
-          : formData?.verified_status === "REJECTED"
-          ?  <span className="text-danger">{t('teacherJourney.REJECTED')}</span>
-          : formData?.status || <span className="text-warning">{t('teacherJourney.NOTSTARTED')}</span>}
-                    </span>
-                </div>
-              </Row>
+
+            {teamId && (
               <>
-                <div>
-                  {!noData && (formData?.status === "SUBMITTED" || formData?.status === "DRAFT" ) && (
-                    <button
-                      className="btn btn-primary d-flex align-items-center"
-                      // disabled={
-                      //   teamsMembersStatus.length > 0 &&
-                      //   formData?.status === "SUBMITTED"
-                      //     ? false
-                      //     : true
-                      // }
-                      // btnClass={`${
-                      //   teamsMembersStatus.length > 0 &&
-                      //   formData?.status === "SUBMITTED"
-                      //     ? "primary"
-                      //     : "primary"
-                      // }`}
-                      onClick={() => setIdeaShow(true)}
-                    >{t('teacherJourney.ViewIdea')}</button>
-                  )}
-                </div>
-                <div>
-                  {!noData &&(formData?.status === "SUBMITTED" && formData?.verified_status !=="REJECTED" &&
-                 (formData?.verified_status === null  || formData?.verified_status !== "ACCEPTED" )) ?(
-                    <button
-                      className="btn btn-danger d-flex align-items-center"
-                      onClick={() => {
-                        // handleAlert('reject');
-                        setIsreject(true);
-                        setReason("");
-                      }}
-                    >
-                      {t('teacherJourney.RejectSubmission')}
-                    </button>
-                  ) : (
-                    ""
-                  )}
-                </div>
+                <Row className="mt-2 g-2">
+                  <div className="singlediv">
+                    <span className="fw-bold text-info">
+                      {" "}
+                      {t("teacherJourney.IDEASTATUS")}
+                    </span>
+                    <span style={{ paddingLeft: "1rem" }}>
+                      {noData ? (
+                        <span className="text-warning">
+                          {" "}
+                          {t("teacherJourney.NOTSTARTED")}
+                        </span>
+                      ) : formData?.verified_status === "ACCEPTED" ? (
+                        <span className="text-success">
+                          {t("teacherJourney.ACCEPTED")}
+                        </span>
+                      ) : formData?.verified_status === "REJECTED" ? (
+                        <span className="text-danger">
+                          {t("teacherJourney.REJECTED")}
+                        </span>
+                      ) : formData?.status ? (
+                        <span className="text-warning">
+                          {t(`teacherJourney.${formData.status.toLowerCase()}`).toUpperCase()}
+                        </span>
+                      ) : (
+                        <span className="text-warning">
+                          {t("teacherJourney.NOTSTARTED")}
+                        </span>
+                      )}
+                     
+                    </span>
+                  </div>
+                </Row>
+                <>
+                  {/* <div>
+                    {!noData &&
+                      (formData?.status === "SUBMITTED" ||
+                        formData?.status === "DRAFT") && (
+                        <button
+                          className="btn btn-primary d-flex align-items-center"
+                          onClick={() => setIdeaShow(true)}
+                        >
+                          {t("teacherJourney.ViewIdea")}
+                        </button>
+                      )}
+                  </div>
+                  <div>
+                    {!noData &&
+                    formData?.status === "SUBMITTED" &&
+                    formData?.verified_status !== "REJECTED" &&
+                    (formData?.verified_status === null ||
+                      formData?.verified_status !== "ACCEPTED") ? (
+                      <button
+                        className="btn btn-danger d-flex align-items-center"
+                        onClick={() => {
+                          setIsreject(true);
+                          setReason("");
+                        }}
+                      >
+                        {t("teacherJourney.RejectSubmission")}
+                      </button>
+                    ) : (
+                      ""
+                    )}
+                  </div> */}
+                  <Row className="mt-1 g-2">
+  {!noData &&
+    (formData?.status === "SUBMITTED" || formData?.status === "DRAFT") && (
+      <Col xs={12} md="auto">
+        <button
+          className="btn btn-primary w-100"
+          onClick={() => setIdeaShow(true)}
+        >
+          {t("teacherJourney.ViewIdea")}
+        </button>
+      </Col>
+    )}
+
+  {!noData &&
+    formData?.status === "SUBMITTED" &&
+    formData?.verified_status !== "REJECTED" &&
+    (formData?.verified_status === null ||
+      formData?.verified_status !== "ACCEPTED") && (
+      <Col xs={12} md="auto">
+        <button
+          className="btn btn-danger w-100"
+          onClick={() => {
+            setIsreject(true);
+            setReason("");
+          }}
+        >
+          {t("teacherJourney.RejectSubmission")}
+        </button>
+      </Col>
+    )}
+</Row>
+
+                </>
               </>
-            </>
-          )}
+            )}
           </div>
           <div className="table-responsive">
             {showDefault && (
               <div className="d-flex justify-content-center align-items-center">
-                <h4 className="text-primary">
-                {t('teacherJourney.default')}
-                </h4>
+                <h4 className="text-primary">{t("teacherJourney.default")}</h4>
               </div>
             )}
             {teamsMembersStatus.length > 0 && !showDefault ? (
               <Table
-                //bordered
                 pagination={false}
                 dataSource={teamsMembersStatus}
                 columns={columns}
               />
             ) : teamsMembersStatusErr ? (
               <div className="d-flex justify-content-center align-items-center">
-                <h4 className="text-danger">
-                  {/* There are no students in selected Team */}
-                </h4>
+                <h4 className="text-danger"></h4>
               </div>
             ) : null}
           </div>
@@ -670,7 +687,6 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
               handleClose={() => setIdeaShow(false)}
               response={formData}
               setIdeaCount={setIdeaCount}
-              // setApproval={setApproval}
             />
           )}
           {isReject && (
@@ -690,23 +706,22 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
                   id="contained-modal-title-vcenter"
                   className="w-100 d-block text-center"
                 >
-                   {t('teacherJourney.RejectIdeasubmission')}
+                  {t("teacherJourney.RejectIdeasubmission")}
                 </Modal.Title>
               </Modal.Header>
 
               <Modal.Body>
                 <div className="my-3 text-center">
-                  <h4> {t('teacherJourney.drop')}</h4>
+                  <h4> {t("teacherJourney.drop")}</h4>
                   <Col>
                     <Col className="m-5">
                       <Selects
                         list={selectData}
                         setValue={setReason}
-                        placeHolder={"Please Select Reject Reason"}
+                        placeHolder={t("teacherJourney.RejectIdeasubmission")}
                         value={reason}
                       />
                     </Col>
-                  
                   </Col>
                 </div>
                 <div className="text-center">
@@ -722,7 +737,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
             </Modal>
           )}
         </div>
-        {show &&  <VideoModal v={video} setShow={setShow}/>}
+        {show && <VideoModal v={video} setShow={setShow} />}
       </div>
     </div>
   );

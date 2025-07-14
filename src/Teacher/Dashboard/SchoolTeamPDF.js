@@ -172,7 +172,7 @@ function SchoolTeamPDF() {
             && ideaValuesForPDF !== undefined
         ) {
             handlePrint();
-            console.log('printcontinue');
+            // console.log('printcontinue');
         } else {
             console.log("Some PDF printing related api's are failing");
         }
@@ -201,7 +201,7 @@ function SchoolTeamPDF() {
                 />
             </div>
             <div className="dash-imgs" onClick={tsetcall}>
-                <FaKey />
+                <FaKey size="20" />
             </div>
         </>
     );

@@ -149,7 +149,7 @@ class Schoolpdf extends React.Component {
                                 position: 'absolute',
                                 top: '29rem',
                                 left: '11rem',
-                                fontSize: '1.3rem',
+                                fontSize: '1.2rem',
                                 fontFamily: 'Poppins'
                             }}
                         >
@@ -164,7 +164,11 @@ class Schoolpdf extends React.Component {
                                 position: 'absolute',
                                 top: '32rem',
                                 left: '7rem',
-                                fontSize: '1.3rem',
+                                fontSize: '1.2rem',
+                                width:"15rem",
+                                wordWrap: "break-word",
+                                overflowWrap: "break-word",
+                                lineHeight: "1",
                                 fontFamily: 'Poppins'
                             }}
                         >
@@ -179,7 +183,7 @@ class Schoolpdf extends React.Component {
                                 position: 'absolute',
                                 top: '34.8rem',
                                 left: '30rem',
-                                fontSize: '1.3rem',
+                                fontSize: '1.2rem',
                                 fontFamily: 'Poppins'
                             }}
                         >
@@ -191,7 +195,11 @@ class Schoolpdf extends React.Component {
                                 position: 'absolute',
                                 top: '34.8rem',
                                 left: '8rem',
-                                fontSize: '1.3rem',
+                                fontSize: '1.2rem',
+                                width:"15rem",
+                                wordWrap: "break-word",
+                                overflowWrap: "break-word",
+                                lineHeight: "1",
                                 fontFamily: 'Poppins'
                             }}
                         >
@@ -205,7 +213,7 @@ class Schoolpdf extends React.Component {
                                 position: 'absolute',
                                 top: '31.8rem',
                                 left: '30rem',
-                                fontSize: '1.3rem',
+                                fontSize: '1.2rem',
                                 fontFamily: 'Poppins'
                             }}
                         >
@@ -220,7 +228,7 @@ class Schoolpdf extends React.Component {
                                 position: 'absolute',
                                 top: '37.6rem',
                                 left: '31rem',
-                                fontSize: '1.3rem',
+                                fontSize: '1.2rem',
                                 fontFamily: 'Poppins'
                             }}
                         >
@@ -232,7 +240,7 @@ class Schoolpdf extends React.Component {
                                 position: 'absolute',
                                 top: '37.7rem',
                                 left: '10rem',
-                                fontSize: '1.3rem',
+                                fontSize: '1.2rem',
                                 fontFamily: 'Poppins'
                             }}
                         >
@@ -247,7 +255,7 @@ class Schoolpdf extends React.Component {
                                 position: 'absolute',
                                 top: '29rem',
                                 left: '34rem',
-                                fontSize: '1.3rem',
+                                fontSize: '1.2rem',
                                 fontFamily: 'Poppins'
                             }}
                         >

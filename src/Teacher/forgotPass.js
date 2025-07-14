@@ -11,10 +11,9 @@ import { URL, KEY } from "../constants/defaultValues";
 import { useNavigate } from "react-router-dom";
 import { getNormalHeaders, openNotificationWithIcon } from "../helpers/Utils";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import play from "../assets/img/playicon.png";
+import { FiPlayCircle } from "react-icons/fi";
 
 const Forgotpassword = () => {
-  // const [errorMsg, seterrorMsg] = useState("");
   const navigate = useNavigate();
   
   const formik = useFormik({
@@ -50,7 +49,6 @@ const Forgotpassword = () => {
               "success",
               "For registered users password reset link will be sent to registered email"
             );
-            // seterrorMsg("");
             setTimeout(() => {
               navigate("/teacher");
             }, 2000);
@@ -62,14 +60,11 @@ const Forgotpassword = () => {
             "error",
             "For registered users password reset link will be sent to registered email"
           );
-          // seterrorMsg(err.response.data.message);
           return err.response;
         });
     },
   });
-  // useEffect(()=>{
-  //   seterrorMsg("");
-  // },[formik.values.email]);
+  
   
   const handleLogoClick = () => {
     navigate('/');
@@ -95,9 +90,7 @@ const Forgotpassword = () => {
                     // className="logo-image"
                   />
                 </div>
-                {/* <Link to={route.dashboard} className="login-logo logo-white">
-                  <ImageWithBasePath src="assets/img/logo-white.png" alt />
-                </Link> */}
+              
                 <div className="login-userheading">
                   <h3>Forgot your SIM password?{" "}
                   <OverlayTrigger placement="top" overlay={renderTooltip}>
@@ -106,19 +99,17 @@ const Forgotpassword = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <img
-                            src={play}
-                            className="icon"
-                            alt="play"
-                            style={{ verticalAlign: "middle", width: "7%" }}
-                          />
+                         <span
+                                                                                                               style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
+                                                                                                                             className="badge"
+                                                                                                             
+                                                                                                             >
+                                                                                                               <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;DEMO</span>
+                                                                                                             </span>
                         </a>
                       </OverlayTrigger>
                   </h3>
-                  {/* <h4>
-                    If you forgot your password, well, then we’ll email you
-                    instructions to reset your password.
-                  </h4> */}
+                 
                 </div>
                 <div className="form-login">
                   <label>Email</label>
@@ -141,11 +132,7 @@ const Forgotpassword = () => {
                     <img src={email} alt="Email" />
                   </div>
                 </div>
-                {/* {errorMsg === "User not found" && (
-                  <b className="text-danger m-3">
-                    Please Enter Registered Email Address
-                  </b>
-                )} */}
+               
                 <div className="form-login">
                   <button
                     className={`btn btn-login ${

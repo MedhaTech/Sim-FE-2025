@@ -52,11 +52,7 @@ export const loginUser = (data, navigate, module) => async (dispatch) => {
     }
   } catch (error) {
     dispatch(loginUserError({}));
-    // NotificationManager.error(
-    //   "Server down! Please try again later.",
-    //   "Error",
-    //   3000
-    // );
+    
   }
 };
 

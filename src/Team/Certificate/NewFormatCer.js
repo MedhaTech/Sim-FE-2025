@@ -37,6 +37,8 @@ const Instructions = () => {
   const currentUser = getCurrentUser("current_user");
 
   const handleCertificateDownload = () => {
+    // Handles downloading the certificate using the full name and organization name
+
     const fullName = currentUser?.data[0]?.full_name;
     const collegeName = currentUser?.data[0]?.organization_name;
 
@@ -78,6 +80,8 @@ const Instructions = () => {
       );
   };
   const handleCertificateDownloadTN = () => {
+    // Handles downloading the certificate using the full name and organization name
+
     const fullName = currentUser?.data[0]?.full_name;
     const collegeName = currentUser?.data[0]?.organization_name;
 
@@ -90,7 +94,6 @@ const Instructions = () => {
     doc.setTextColor("black");
     const badge = "the_finisher";
     const formattedCourseDate1 = courseDate ? moment(courseDate).format("DD-MM-YYYY") : "No Date";
-    // console.log(formattedCourseDate1,"hello");
    
     const pageWidth1 = doc.internal.pageSize.getWidth();
     const fullNameWidth =
@@ -130,6 +133,8 @@ doc.text(formattedCourseDate1, xCourseDate1, yCourseDate1);
       );
   };
   const handleCertificateDownloadTN1 = () => {
+    // Handles downloading the certificate using the full name and organization name
+
     const fullName = currentUser?.data[0]?.full_name;
     const collegeName = currentUser?.data[0]?.organization_name;
 
@@ -142,7 +147,6 @@ doc.text(formattedCourseDate1, xCourseDate1, yCourseDate1);
     doc.setTextColor("black");
     const badge = "the_finisher";
     const formattedCourseDate = surveyDates ? moment(surveyDates).format("DD-MM-YYYY") : "No Date";
-    // console.log(formattedCourseDate,"hello");
    
     const pageWidth1 = doc.internal.pageSize.getWidth();
     const fullNameWidth =
@@ -171,6 +175,8 @@ doc.text(formattedCourseDate, xCourseDate, yCourseDate);
      
   };
   const handleCertificateDownload1 = () => {
+    // Handles downloading the certificate using the full name and organization name
+
     const content = pdfRef.current;
     const fullName = currentUser?.data[0]?.full_name;
     const collegeName = currentUser?.data[0]?.organization_name;
@@ -202,6 +208,8 @@ doc.text(formattedCourseDate, xCourseDate, yCourseDate);
   };
  
   const handleCertificateDownload2 = () => {
+    // Handles downloading the certificate using the full name and organization name
+
     const fullName = currentUser?.data[0]?.full_name;
     const collegeName = currentUser?.data[0]?.organization_name;
     const doc = new jsPDF("l", "mm", [298, 211]);
@@ -246,9 +254,7 @@ doc.text(formattedCourseDate, xCourseDate, yCourseDate);
     (state) => state?.studentRegistration?.studentLanguage
   );
   const user = currentUser.data[0]?.student_id;
-  //    useEffect(() => {
-  //       mentorViewApi();
-  //     }, [user]);
+ 
   useEffect(() => {
     StateData();
     stuCoursePercent();
@@ -260,33 +266,10 @@ doc.text(formattedCourseDate, xCourseDate, yCourseDate);
 
 
 
-  const mentorViewApi = () => {
-    let supId;
-    if (typeof user !== "string") {
-      supId = encryptGlobal(JSON.stringify(user));
-    } else {
-      supId = encryptGlobal(user);
-    }
-    var config = {
-      method: "get",
-      url: process.env.REACT_APP_API_BASE_URL + `/students/${supId}`,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${currentUser.data[0]?.token}`,
-      },
-    };
-    axios(config)
-      .then(function (response) {
-        if (response.status === 200) {
-          setData(response?.data?.data[0]);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+ 
   const StateData = async () => {
+               // This function fetches states specific list from the API //
+
     const fectchTecParam = encryptGlobal(
       JSON.stringify({
         state: currentUser?.data[0]?.state,
@@ -306,7 +289,6 @@ doc.text(formattedCourseDate, xCourseDate, yCourseDate);
     await axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response,"111");
           setResList(response.data.data[0].certificate);
         }
       })
@@ -361,7 +343,7 @@ doc.text(formattedCourseDate, xCourseDate, yCourseDate);
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          console.log(response, "res");
+          // console.log(response, "res");
         }
       })
       .catch(function (error) {
@@ -369,6 +351,8 @@ doc.text(formattedCourseDate, xCourseDate, yCourseDate);
       });
   };
   const certificateApi = () => {
+               // This function fetches Certificate dates from the API //
+
     const Param = encryptGlobal(JSON.stringify(currentUser?.data[0]?.user_id));
     var configidea = {
       method: "get",
@@ -393,7 +377,7 @@ doc.text(formattedCourseDate, xCourseDate, yCourseDate);
             setSurveyDates(postSurveyDate || null);
             setCourseDate(courseDateValue || null);
           } else {
-            console.log("No data available:", response.data.data);
+            // console.log("No data available:", response.data.data);
             setSurveyDates(null);
             setCourseDate(null);
           }
@@ -410,6 +394,8 @@ doc.text(formattedCourseDate, xCourseDate, yCourseDate);
       ? currentUser?.data[0]?.student_id
       : currentUser?.data[0]?.type_id;
   const submittedApi = () => {
+               // This function fetches idea submission details from the API //
+
     const Param = encryptGlobal(
       JSON.stringify({
         team_id: currentUser?.data[0]?.team_id,
@@ -444,6 +430,8 @@ doc.text(formattedCourseDate, xCourseDate, yCourseDate);
   };
 
   const stuCoursePercent = () => {
+               // This function fetches students Course percentage from the API //
+
     const corseApi = encryptGlobal(
       JSON.stringify({
         user_id: currentUser?.data[0]?.user_id,
@@ -476,6 +464,8 @@ doc.text(formattedCourseDate, xCourseDate, yCourseDate);
       });
   };
   const Ideas = async (resList) => {
+               // This function fetches L2 score and Idea status from the API //
+
     const corseApi1 = encryptGlobal(
       JSON.stringify({
         team_id: currentUser?.data[0]?.team_id,
@@ -514,7 +504,6 @@ doc.text(formattedCourseDate, xCourseDate, yCourseDate);
     documentTitle: `${currentUser?.data[0]?.full_name}`,
   });
  
-  console.log("course :",course,"ResList :", resList);
 const colClass = isEligible
   ? "col-12 col-md-4 col-lg-4 col-xl-4 col-xxl-3"
   : "col-12 col-md-6 col-lg-6 col-xl-4 col-xxl-3";
@@ -546,11 +535,7 @@ const colClass = isEligible
                        
                       }}
                       disabled={!(course === true && resList === 1)}
-//                       onClick={
-// (course === true && resList === 1)
-//                           ? handleCertificateDownload
-//                           : (e) => e.preventDefault()
-//                       }
+
 onClick={(e) => {
   if (!(course === true && resList === 1)) {
     e.preventDefault();
@@ -624,11 +609,7 @@ onClick={(e) => {
                         borderRadius: "20px",
                       }}
                       disabled={ideaStatus !== "SUBMITTED" && resList !==1 }
-                      // onClick={
-                      //   ideaStatus === "SUBMITTED"
-                      //     ? handleCertificateDownload1
-                      //     : (e) => e.preventDefault()
-                      // }
+                    
                       onClick={(e) => {
                         if (ideaStatus === "SUBMITTED" && resList === 1 ) {
                           if (currentUser?.data[0]?.state !== "Tamil Nadu") {

@@ -2,12 +2,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState } from "react";
-//import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import Table from "../../core/pagination/datatable";
-// //import { ArrowRight } from "react-feather";
-// import { FaUsers } from 'react-icons/fa';
 ////////////////////New Code//////////////////////////
 import { getCurrentUser } from "../../helpers/Utils";
 import axios from "axios";
@@ -35,12 +32,10 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
   //////////////New Code/////////////////////////
   const dispatch = useDispatch();
   const currentUser = getCurrentUser("current_user");
-  // const TeamId = currentUser?.data[0]?.team_id;
 
   const { teamsMembersStatus, teamsMembersStatusErr } = useSelector(
     (state) => state.teams
   );
-  // console.log(teamsMembersStatus,"11");
   const [isEvlCom, setIsEvlCom] = useState(false);
   const [isideadisable, setIsideadisable] = useState(false);
 
@@ -51,7 +46,7 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
   const [ideaStatusEval, setIdeaStatusEval] = useState("-");
   const [isReject, setIsreject] = React.useState(false);
   const [reason, setReason] = React.useState("");
-  const [noData,setNoData]=useState(false);
+  const [noData, setNoData] = useState(false);
   const selectData = [
     "Not novel - Idea and problem common and already in use.",
     "Not novel - Idea has been 100% plagiarized.",
@@ -84,6 +79,8 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
   }, [mentorid]);
 
   const teamNameandIDsbymentorid = (mentorid) => {
+    // this function fetches all teams list from the API //
+
     const teamApi = encryptGlobal(
       JSON.stringify({
         mentor_id: mentorid,
@@ -142,30 +139,6 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
             record.topics_completed_count
           );
         return (
-          // <div className="d-flex">
-          //     <div style={{ width: '80%' }}>
-          //         <Progress
-          //             key={'25'}
-          //             className="progress-height"
-          //             animated
-          //             color={
-          //                 percent
-          //                     ? percent <= 25
-          //                         ? 'danger'
-          //                         : percent > 25 && percent <= 50
-          //                         ? 'info'
-          //                         : percent > 50 && percent <= 75
-          //                         ? 'warning'
-          //                         : 'sucess'
-          //                     : 'danger'
-          //             }
-          //             value={percent}
-          //         />
-          //     </div>
-          //     <span className="ms-2">
-          //         {Math.round(percent) ? Math.round(percent) : '0'}%
-          //     </span>
-          // </div>
           <div
             className="progress progress-sm progress-custom progress-animate"
             role="progressbar"
@@ -245,6 +218,8 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
     },
   ];
   const submittedApi = (teamId) => {
+    // This function fetches idea submission details from the API //
+
     const Param = encryptGlobal(
       JSON.stringify({
         team_id: teamId,
@@ -267,13 +242,12 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
           if (response.data.data && response.data.data.length > 0) {
             setFormData(response.data.data[0]);
             setNoData(false);
-
           }
         }
       })
       .catch(function (error) {
         if (error.response.status === 404) {
-            setNoData(true);
+          setNoData(true);
         }
       });
   };
@@ -291,6 +265,8 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
     emailTeamCredentials();
   };
   useEffect(() => {
+    // This function fetches popup from the API //
+
     const popaddParam = encryptGlobal("3");
     var config = {
       method: "get",
@@ -317,6 +293,8 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
   }, []);
   ////////Email Team Credentisl////////////
   const emailTeamCredentials = () => {
+    // This function fetches team credentials from the API //
+
     const teamCredMailApi = encryptGlobal(
       JSON.stringify({
         mentor_id: user[0].mentor_id,
@@ -347,79 +325,7 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
         console.log(error);
       });
   };
-  useEffect(() => {
-    // if (noData == true){
-    //   setIdeaStatusEval("NOT STARTED");
-    // }else if(formData?.verified_status === "ACCEPTED"){
-    //   setIdeaStatusEval("ACCEPTED");
-    // }  else if(formData?.verified_status === "REJECTED"){
-    //   setIdeaStatusEval("REJECTED");
-    // } else {
-    //   setIdeaStatusEval(formData?.status);
-    // }
-    // if (formData.length === 0) {
-    //   setIdeaStatusEval("NOT STARTED");
-    // } else if (formData.final_result === "1") {
-    //   setIdeaStatusEval("Congratulations,Idea is selected for grand finale");
-    // } else if (formData.final_result === "0") {
-    //   setIdeaStatusEval("Shortlisted for final round of evaluation");
-    //   if (isEvlCom) {
-    //     setIdeaStatusEval("Better luck next time");
-    //   }
-    // } else if (formData.evaluation_status === "REJECTEDROUND1") {
-    //   setIdeaStatusEval("Better luck next time");
-    // } else if (formData.evaluation_status === "SELECTEDROUND1") {
-    //   setIdeaStatusEval("Promoted to Level 2 round of evaluation");
-    //   if (isEvlCom) {
-    //     setIdeaStatusEval("Better luck next time");
-    //   }
-    // } else if (formData?.verified_status === "ACCEPTED") {
-    //   setIdeaStatusEval("ACCEPTED");
-      
-    // }else if(formData?.verified_status === "REJECTED"){
-    //   setIdeaStatusEval("REJECTED");
-    // }else {
-    //   setIdeaStatusEval(formData?.status);
-    // }
-  //  else  {
-  //   setIdeaStatusEval(formData?.status);
-  // }
-  }, [formData]);
-  // console.log(formData?.status,"ss");
-  // const handleRevoke = async (id, type) => {
-  //     // alert("hii");
-  //     const handleRevokeId = encryptGlobal(JSON.stringify(id));
-  //     let submitData = {
-  //         status: type == 'DRAFT' ? 'SUBMITTED' : 'DRAFT'
-  //     };
-  //     var config = {
-  //         method: 'put',
-  //         url:
-  //             process.env.REACT_APP_API_BASE_URL +
-  //             `/challenge_response/updateEntry/${handleRevokeId}`,
-  //         headers: {
-  //             'Content-Type': 'application/json',
-  //             Authorization: `Bearer ${currentUser?.data[0]?.token}`
-  //         },
-  //         data: submitData
-  //     };
-  //     axios(config)
-  //         .then(function (response) {
-  //             if (response.status === 200) {
-  //                 openNotificationWithIcon(
-  //                     'success',
-  //                     'Idea Submission Status Successfully Update!',
-  //                     ''
-  //                 );
-  //                 dispatch(getTeamMemberStatus(teamId, setshowDefault));
-  //                 submittedApi(teamId);
-  //                 // dispatch(getStudentChallengeSubmittedResponse(teamId));
-  //             }
-  //         })
-  //         .catch(function (error) {
-  //             console.log(error);
-  //         });
-  // };
+
   const handleAlert = (handledText) => {
     // here we can delete the team //
     const swalWithBootstrapButtons = Swal.mixin({
@@ -454,18 +360,15 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
       });
   };
   const handleL1Round = (handledText) => {
-    // const currentTime = new Date().toLocaleString();
+    // this function accept / reject the Idea //
 
-   
     const body = JSON.stringify({
       verified_status: "REJECTED",
       status: "DRAFT",
       mentor_rejected_reason: handledText == "reject" ? reason : "",
     });
     const ideaID = encryptGlobal(
-      JSON.stringify(
-        formData.challenge_response_id
-      )
+      JSON.stringify(formData.challenge_response_id)
     );
     var config = {
       method: "put",
@@ -482,7 +385,6 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
     };
     axios(config)
       .then(function (response) {
-        // console.log(response, "11");
         openNotificationWithIcon(
           "success",
           response?.data?.message == "OK"
@@ -492,8 +394,6 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
         dispatch(getTeamMemberStatus(teamId, setshowDefault));
         submittedApi(teamId);
         window.location.reload();
-
-        // props?.setIsDetail(false);
       })
       .catch(function (error) {
         openNotificationWithIcon("error", error?.response?.data?.message);
@@ -519,7 +419,7 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
                 verticalAlign: "middle",
               }}
             />
-            Team Progress 
+            Team Progress
           </h4>
           <button
             className="btn btn-secondary d-flex align-items-center"
@@ -544,63 +444,43 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
                 value={customer.find((option) => option.value === teamId)}
               />
             </div>
-          
-          {teamId && (
-            <>
-              <Row>
-                <div className="singlediv">
+
+            {teamId && (
+              <>
+                <Row>
+                  <div className="singlediv">
                     <span className="fw-bold text-info">IDEA STATUS :</span>
                     <span style={{ paddingLeft: "1rem" }}>
-                      {noData
-          ? <span className="text-warning">NOT STARTED</span>
-          : formData?.verified_status === "ACCEPTED"
-          ? <span className="text-success">ACCEPTED</span>
-          : formData?.verified_status === "REJECTED"
-          ?  <span className="text-danger">REJECTED</span>
-          : formData?.status || <span className="text-warning">NOT STARTED</span>}
+                      {noData ? (
+                        <span className="text-warning">NOT STARTED</span>
+                      ) : formData?.verified_status === "ACCEPTED" ? (
+                        <span className="text-success">ACCEPTED</span>
+                      ) : formData?.verified_status === "REJECTED" ? (
+                        <span className="text-danger">REJECTED</span>
+                      ) : (
+                        formData?.status || (
+                          <span className="text-warning">NOT STARTED</span>
+                        )
+                      )}
                     </span>
-                </div>
-              </Row>
-              <>
-                <div>
-                  {!noData && (formData?.status === "SUBMITTED" || formData?.status === "DRAFT" ) && (
-                    <button
-                      className="btn btn-primary d-flex align-items-center"
-                      // disabled={
-                      //   teamsMembersStatus.length > 0 &&
-                      //   formData?.status === "SUBMITTED"
-                      //     ? false
-                      //     : true
-                      // }
-                      // btnClass={`${
-                      //   teamsMembersStatus.length > 0 &&
-                      //   formData?.status === "SUBMITTED"
-                      //     ? "primary"
-                      //     : "primary"
-                      // }`}
-                      onClick={() => setIdeaShow(true)}
-                    >View Idea</button>
-                  )}
-                </div>
-                {/* <div>
-                  {!noData &&(formData?.status === "SUBMITTED" && formData?.verified_status !=="REJECTED" &&
-                 (formData?.verified_status === null  || formData?.verified_status !== "ACCEPTED" )) ?(
-                    <button
-                      className="btn btn-danger d-flex align-items-center"
-                      onClick={() => {
-                        setIsreject(true);
-                        setReason("");
-                      }}
-                    >
-                      Reject Submission
-                    </button>
-                  ) : (
-                    ""
-                  )}
-                </div> */}
+                  </div>
+                </Row>
+                <>
+                  <div>
+                    {!noData &&
+                      (formData?.status === "SUBMITTED" ||
+                        formData?.status === "DRAFT") && (
+                        <button
+                          className="btn btn-primary d-flex align-items-center"
+                          onClick={() => setIdeaShow(true)}
+                        >
+                          View Idea
+                        </button>
+                      )}
+                  </div>
+                </>
               </>
-            </>
-          )}
+            )}
           </div>
           <div className="table-responsive">
             {showDefault && (
@@ -631,7 +511,6 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
               handleClose={() => setIdeaShow(false)}
               response={formData}
               setIdeaCount={setIdeaCount}
-              // setApproval={setApproval}
             />
           )}
           {isReject && (
@@ -666,7 +545,6 @@ const TeamsProgDS = ({ user, setApproval, setIdeaCount }) => {
                         value={reason}
                       />
                     </Col>
-                  
                   </Col>
                 </div>
                 <div className="text-center">

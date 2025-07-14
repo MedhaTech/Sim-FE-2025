@@ -7,16 +7,9 @@ import DataTableExtensions from 'react-data-table-component-extensions';
 import DataTable, { Alignment } from 'react-data-table-component';
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
-// import { Link } from 'react-router-dom';
 import { openNotificationWithIcon } from '../../helpers/Utils';
-// import { ReactDOM } from 'react-dom';
-// import * as ReactDOM from 'react-dom';
-import Swal from 'sweetalert2/dist/sweetalert2';
-import logout from '../../assets/img/logout.png';
 import { useNavigate } from 'react-router-dom';
-import { PlusCircle } from "feather-icons-react/build/IconComponents";
 import { FaWhatsapp } from 'react-icons/fa';
-import { FaCheck, FaTimes } from 'react-icons/fa';  // For success and disable icons
 import ToggleButton from './Toggle';
 import 'sweetalert2/src/sweetalert2.scss';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
@@ -28,7 +21,8 @@ const StateData = () => {
         handleResList();
     }, []);
     async function handleResList() {
-        //  handleResList Api where we can see list of all resource //
+               // This function fetches states specific list from the API //
+
         let config = {
             method: 'get',
             url: process.env.REACT_APP_API_BASE_URL + '/states/specific',
@@ -40,7 +34,6 @@ const StateData = () => {
         await axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    // console.log(response,"ress");
                     setResList(response?.data?.data);
                 }
             })
@@ -67,66 +60,10 @@ const StateData = () => {
         localStorage.setItem('resID', JSON.stringify(item));
     };
 
-    const handleDelete = (item) => {
-        // here we can delete the team //
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: 'btn btn-submit',
-                cancelButton: 'btn btn-cancel'
-            },
-            buttonsStyling: false
-        });
-
-        swalWithBootstrapButtons
-            .fire({
-                title: "<h4>Are you sure?</h4>",
-                text: "Do you really want to delete this item, This process cannot be undone.",
-                imageUrl: `${logout}`,
-                // showCloseButton: true,
-                confirmButtonText: 'Delete',
-                showCancelButton: true,
-                cancelButtonText: 'Cancel',
-                reverseButtons: false
-            })
-            .then((result) => {
-                if (result.isConfirmed) {
-                    const delParam = encryptGlobal(
-                        JSON.stringify(item.resource_id)
-                    );
-                    var config = {
-                        method: 'delete',
-                        url:
-                            process.env.REACT_APP_API_BASE_URL +
-                            '/resource/' +
-                            delParam,
-                        headers: {
-                            'Content-Type': 'application/json',
-                            // Accept: "application/json",
-                            Authorization: `Bearer ${currentUser?.data[0]?.token}`
-                        }
-                    };
-                    axios(config)
-                        .then(function (response) {
-                            if (response.status === 200) {
-                                openNotificationWithIcon(
-                                    'success',
-                                    'Resource Deleted Successfully'
-                                );
-                                handleResList();
-                            } else {
-                                openNotificationWithIcon(
-                                    'error',
-                                    'Opps! Something Wrong'
-                                );
-                            }
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                }
-            });
-    };
+ 
     async function handleStatus(item, value, type) {
+        // This function updates status with the  type and value // 
+
         const body = {
             mentor_note: item.mentor_note,
             student_note: item.student_note,
@@ -153,7 +90,6 @@ const StateData = () => {
         await axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    // console.log(value,"put");
 
                     if (value === 0) {
                         if (type === 'idea') {
@@ -187,19 +123,16 @@ const StateData = () => {
 
                         handleResList();
                     }, 500);
-                    // setshowspin(false);
                 }
             })
             .catch(function (error) {
                 console.log(error);
-                // setshowspin(false);
             });
     }
     const stripHTMLTags = (text) => {
-        return text.replace(/<\/?[^>]+(>|$)/g, ""); // Removes all HTML tags
+        return text.replace(/<\/?[^>]+(>|$)/g, ""); 
     };
     const resData = {
-        // data: resList || [],
         data: array,
         columns: [
 
@@ -232,7 +165,6 @@ const StateData = () => {
                                 rel="noreferrer"
                             >
                                 <FaWhatsapp style={{ color: "green", fontSize: "1.5rem" }} />
-                                {/* Navigate */}
                             </a>
                         );
                     }
@@ -326,13 +258,10 @@ const StateData = () => {
                                 exportHeaders
                             >
                                 <DataTable
-                                    // data={setResList}
-                                    // noHeader
+                                    
                                     defaultSortField="id"
                                     customStyles={customStyles}
-                                    // pagination={true} 
-                                    // paginationPerPage={10} 
-                                    // paginationRowsPerPageOptions={[10, 20, 30, 50]}
+                                   
                                     defaultSortAsc={false}
                                     pagination
                                     highlightOnHover

@@ -6,19 +6,11 @@ import { Button } from "../../stories/Button";
 import { CSVLink } from "react-csv";
 import { getCurrentUser } from "../../helpers/Utils";
 import { useNavigate, Link } from "react-router-dom";
-// import {
-//     getDistrictData,
-//     getStateData,
-//     getFetchDistData
-// } from '../../../redux/studentRegistration/actions';
+
 import { ArrowRight } from "feather-icons-react/build/IconComponents";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "./Select";
 import axios from "axios";
-// import '../reports.scss';
-import { Doughnut } from "react-chartjs-2";
-import { Bar } from "react-chartjs-2";
-// import { categoryValue } from '../../Schools/constentText';
 import { notification } from "antd";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { stateList, districtList } from "../../RegPage/ORGData";
@@ -50,8 +42,7 @@ const TeacherProgressDetailed = () => {
   ];
 
   const newstateList = ["All States", ...stateList];
-  // const categoryData =
-  //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
+ 
   const [mentorDetailedReportsData, setmentorDetailedReportsData] = useState(
     []
   );
@@ -95,20 +86,14 @@ const TeacherProgressDetailed = () => {
     datasets: [],
   });
   const fullStatesNames = newstateList;
-  // const fiterDistData = districtList[selectstate];
   const allDistricts = {
     "All Districts": [...Object.values(districtList).flat()],
     ...districtList,
   };
   const fiterDistData = ["All Districts", ...(allDistricts[selectstate] || [])];
-  // useEffect(() => {
-  //     dispatch(getStateData());
-  // }, []);
+ 
   useEffect(() => {
-    // if (selectstate !== '') {
-    //     dispatch(getFetchDistData(selectstate));
-    // }
-    // setdistrict('');
+   
     fetchChartTableData();
     const newDate = new Date();
     const formattedDate = `${newDate.getUTCDate()}/${1 + newDate.getMonth()
@@ -164,10 +149,7 @@ const TeacherProgressDetailed = () => {
       label: "UDISE CODE",
       key: "organization_code",
     },
-    // {
-    //   label: "ATL CODE",
-    //   key: "organization_code",
-    // },
+   
     {
       label: "School Name",
       key: "organization_name",
@@ -281,25 +263,10 @@ const TeacherProgressDetailed = () => {
     },
 
 
-    // {
-    //     label: 'No.of Students Postsurvey Not Started',
-    //     key: 'not_start_pre'
-    // },
-    // {
-    //     label: 'No.of Students Posturvey Completed',
-    //     key: 'preSur_cmp'
-    // }
+   
   ];
 
-  // useEffect(() => {
-  //     dispatch(getDistrictData());
-  //     fetchChartTableData();
-  //     const newDate = new Date();
-  //     const formattedDate = `${newDate.getUTCDate()}/${
-  //         1 + newDate.getMonth()
-  //     }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
-  //     setNewFormat(formattedDate);
-  // }, []);
+ 
 
   var chartOption = {
     chart: {
@@ -648,8 +615,7 @@ const TeacherProgressDetailed = () => {
       opacity: 1,
     },
   };
-  //   console.log(totalCount.totalReg,"courseINcompleted",);
-  //   console.log(totalCount.totalReg, "tt");
+  
 
   useEffect(() => {
     nonAtlCount();
@@ -684,7 +650,6 @@ const TeacherProgressDetailed = () => {
             });
           setAtl(mentorStuArray);
 
-          // setAtl(response.data.data);
           const barStudentData = {
             labels: mentorStuArray.map((item) => item.state),
             datasets: [
@@ -701,7 +666,6 @@ const TeacherProgressDetailed = () => {
             ],
           };
           setBarChart3Data(barStudentData);
-          // console.log(barStudentData,"barStudentData");
           setseries7(barStudentData.datasets[0].data);
           setseries6(barStudentData.datasets[1].data);
         }
@@ -729,7 +693,6 @@ const TeacherProgressDetailed = () => {
         category: category,
       })
     );
-    // console.log(selectstate,district,category);
     const config = {
       method: "get",
       url:
@@ -743,7 +706,6 @@ const TeacherProgressDetailed = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response,"22");
 
           const preSurveyMap = response.data.data[0].preSurvey.reduce(
             (map, item) => {
@@ -844,18 +806,7 @@ const TeacherProgressDetailed = () => {
             },
             {}
           );
-          // const StuPostComCountMap = response.data.data[0].studentpostsurvey
-          // .reduce((map, item) => {
-          //     map[item.mentor_id] = item.preSur_cmp
-          //     ;
-          //     return map;
-          // }, {});
-          // const stuPostNotStartedMap = Object.keys(studentCountMap).reduce((map, mentor_id) => {
-          //     const totalStudents = studentCountMap[mentor_id] || 0;
-          //     const postSurveyCompleted = StuPostComCountMap[mentor_id] || 0;
-          //     map[mentor_id] = totalStudents - postSurveyCompleted;
-          //     return map;
-          // }, {});
+         
           const newdatalist = response.data.data[0].summary.map((item) => ({
             ...item,
             pre_survey_status: preSurveyMap[item.user_id] || "Not started",
@@ -873,10 +824,8 @@ const TeacherProgressDetailed = () => {
             notInitatedIdeas: notInitiatedMap[item.mentor_id] || 0,
             preSur_cmp: StuPreComCountMap[item.mentor_id] || 0,
             not_start_pre: stuPreNotStartedMap[item.mentor_id] || 0,
-            // postSur_cmp: StuPostComCountMap[item.mentor_id] || 0 ,
-            // not_start_post: stuPostNotStartedMap[item.mentor_id] || 0 ,
+           
           }));
-          // console.log(newdatalist,"dd");
           setmentorDetailedReportsData(newdatalist);
           if (response.data.data[0].summary.length > 0) {
             openNotificationWithIcon(
@@ -887,11 +836,7 @@ const TeacherProgressDetailed = () => {
             openNotificationWithIcon("error", "No Data Found");
           }
 
-          // csvLinkRef.current.link.click();
-          // openNotificationWithIcon(
-          //     'success',
-          //     "Report Downloaded Successfully"
-          // );
+         
           setIsDownload(false);
         }
       })
@@ -939,7 +884,6 @@ const TeacherProgressDetailed = () => {
   useEffect(() => {
     if (mentorDetailedReportsData.length > 0) {
       csvLinkRef.current.link.click();
-      console.log("Performing operation with the updated data.");
     }
   }, [mentorDetailedReportsData]);
   const fetchChartTableData = () => {
@@ -975,7 +919,6 @@ const TeacherProgressDetailed = () => {
                 other: otherCount,
               };
             });
-          // console.log(studentCountDetails,"student");
           const courseCompleted = response.data.data[0].courseCompleted;
           const courseINcompleted = response.data.data[0].courseINcompleted;
 
@@ -1160,15 +1103,7 @@ const TeacherProgressDetailed = () => {
                 <h6>Teacher Progress - Pre survey , Course, Post survey, Teams&Progress Status Report</h6>
             </div>
           </div>
-          {/* <div className="page-btn">
-                <button
-                    type="button"
-                    className="btn btn-secondary"
-                    onClick={() => navigate("/reports")}
-                >
-                    <i className="fas fa-arrow-left"></i> Back
-                </button>
-            </div> */}
+       
         </div>
 
         <Container className="RegReports userlist">
@@ -1177,12 +1112,7 @@ const TeacherProgressDetailed = () => {
               <Col md={3}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
                   <p>{selectstate}</p>
-                  {/* <Select
-                                list={fullStatesNames}
-                                setValue={setSelectState}
-                                placeHolder={'Select State'}
-                                value={selectstate}
-                            /> */}
+                 
                 </div>
               </Col>
               <Col md={3}>
@@ -1197,12 +1127,7 @@ const TeacherProgressDetailed = () => {
               </Col>
               <Col md={3}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
-                  {/* <Select
-                                list={categoryData}
-                                setValue={setCategory}
-                                placeHolder={'Select Category'}
-                                value={category}
-                            /> */}
+                 
                   {selectstate === "Tamil Nadu" ? (
                     <Select
                       list={categoryDataTn}
@@ -1310,7 +1235,6 @@ const TeacherProgressDetailed = () => {
                                   type="button"
                                   onClick={() => {
                                     if (downloadTableData) {
-                                      // setIsDownloading(true);
                                       setDownloadTableData(null);
                                       csvLinkRefTable.current.link.click();
                                     }
@@ -1515,7 +1439,6 @@ const TeacherProgressDetailed = () => {
                         options={options}
                         series={options.series}
                         type="bar"
-                        // type="line"
                         height={400}
                       />
                     </div>
@@ -1558,23 +1481,7 @@ const TeacherProgressDetailed = () => {
                     </div>
                   </div>
                 </div>
-                {/* {selectstate !== "Tamil Nadu" &&( <div className="col-md-12">
-                        <div className="card">
-                        <div className="card-header">
-                            <h5 className="card-title">No.of Students Enrolled from ATL v/s Non ATL Schools{' '}{newFormat}</h5>
-                        </div>
-                        <div className="card-body">
-                            <div id="mixed-chart" />
-                            <ReactApexChart
-                            options={optionsStudent}
-                            series={optionsStudent.series}
-                            type="line"
-                            height={400}
-                            />
-                        </div>
-                        </div>
-                    </div>
-)} */}
+             
               
               </div>
               :
@@ -1604,7 +1511,7 @@ const TeacherProgressDetailed = () => {
                     className="hidden"
                     ref={csvLinkRef}
                   >
-                    Download Teacherdetailed CSV
+                    Download Teacher detailed CSV
                   </CSVLink>
                 )}
         </Container>

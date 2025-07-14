@@ -12,10 +12,9 @@ import { teacherCreateMultipleStudent } from "../store/teacher/actions";
 import { useLocation } from "react-router-dom";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { useNavigate } from "react-router-dom";
-import {teamLength} from "../../RegPage/ORGData";
+import { teamLength } from "../../RegPage/ORGData";
 import { useTranslation } from "react-i18next";
 
-// import { all_routes } from "../../Router/all_routes";
 const studentBody = {
   full_name: "",
   Age: "",
@@ -28,12 +27,10 @@ const studentBody = {
 const grades = [6, 7, 8, 9, 10, 11, 12];
 const allowedAge = [10, 11, 12, 13, 14, 15, 16, 17, 18];
 
-const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
-   const { t } = useTranslation();
-  // console.log(teamLengthValue,"teamLengthValue");
+const CreateMultipleMembers = ({ id, teamLengthValue }) => {
+  const { t } = useTranslation();
   const [teamId, setTeamId] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  // const [itemDataErrors, setItemDataErrors] = useState([]);
   const tempStudentData = {
     team_id: teamId,
     role: "STUDENT",
@@ -42,12 +39,12 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
     Grade: "",
     Gender: "",
     disability: "",
-    email: "",
+    // email: "",
   };
   const dispatch = useDispatch();
   const [itemDataErrors, setItemDataErrors] = useState([studentBody]);
   const currentUser = getCurrentUser("current_user");
-  const loginState=currentUser?.data[0]?.state;
+  const loginState = currentUser?.data[0]?.state;
   const getTeamLength = (loginState) => {
     if (loginState === "Tamil Nadu") {
       return teamLength["Tamil Nadu"];
@@ -55,10 +52,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
       return teamLength.default;
     }
   };
-  // const teamLengthValue = getTeamLength(loginState);
-  // console.log(teamLengthValue,"11");
 
-  //   const history = useHistory();
   const navigate = useNavigate();
 
   const [isClicked, setIsClicked] = useState(false);
@@ -67,37 +61,20 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
 
   const [teamNameError, setTeamNameError] = useState("");
 
-  // const handleteamname = (e) => {
-  //   const numericValue = e.target.value;
-  //   const trimmedValue = numericValue.trim();
-  //   setTeamname(trimmedValue);
-
-  //   if (trimmedValue.length < 1) {
-  //     setTeamNameError("Please Enter Team Name");
-  //   } else {
-  //     setTeamNameError("");
-  //   }
-  // };
   const handleteamname = (e) => {
     const inputValue = e.target.value;
-    //const lettersOnly = inputValue.replace(/[^a-zA-Z\s]/g, "");
     const patternOnlyalfa = /^[a-zA-Z0-9\s]*$/;
     setTeamname(inputValue);
 
     if (inputValue.trim().length < 1) {
-      setTeamNameError("Please Enter Team Name");
+      setTeamNameError(t('teacherJourney.vali23'));
     } else if (!patternOnlyalfa.test(inputValue)) {
-      setTeamNameError("Only alphanumeric characters are allowed");
+      setTeamNameError(t('teacherJourney.vali24'));
     } else {
       setTeamNameError("");
     }
   };
-  // const handleteamemail = (e) => {
-  //   const numericValue = e.target.value;
-  //   const trimmedValue = numericValue.trim();
 
-  //   setTeamemail(trimmedValue);
-  // };
   const [emailError, setEmailError] = useState("");
 
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -107,18 +84,12 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
     const trimmedValue = numericValue.trim();
     setTeamemail(trimmedValue);
 
-    // if (!emailPattern.test(trimmedValue)) {
-    //   setEmailError("Enter a valid email address");
-    // } else {
-    //   setEmailError("");
-    // }
     if (trimmedValue && !emailPattern.test(trimmedValue)) {
-      setEmailError("Enter a valid email address");
+      setEmailError(t('teacherJourney.vali13'));
     } else {
-      setEmailError(""); // Clear error if input is empty or valid
+      setEmailError("");
     }
   };
-  // const loginState = currentUser?.data[0]?.state;
   const numberOfFields = getTeamLength(loginState);
   const initialStudentData = Array.from({ length: numberOfFields }, () => ({
     team_id: teamId,
@@ -127,7 +98,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
     Age: "",
     Grade: "",
     Gender: "",
-    email: "",
+    // email: "",
     disability: "",
   }));
   const MIN_STUDENTS = loginState === "Tamil Nadu" ? 2 : 2;
@@ -142,46 +113,13 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
       Age: "",
       Grade: "",
       Gender: "",
-      email: "",
+      // email: "",
       disability: "",
     }));
     setStudentData(updatedStudentData);
   }, [loginState, numberOfFields, teamId]);
-  // const [studentData, setStudentData] = useState([
-  //   {
-  //     team_id: teamId,
-  //     role: "STUDENT",
-  //     full_name: "",
-  //     Age: "",
-  //     Grade: "",
-  //     Gender: "",
-  //     // username: "",
-  //     disability: "",
-  //   },
-  //   {
-  //     team_id: teamId,
-  //     role: "STUDENT",
-  //     full_name: "",
-  //     Age: "",
-  //     Grade: "",
-  //     Gender: "",
-  //     // username: "",
-  //     disability: "",
-  //   },
-  //   {
-  //     team_id: teamId,
-  //     role: "STUDENT",
-  //     full_name: "",
-  //     Age: "",
-  //     Grade: "",
-  //     Gender: "",
-  //     // username: "",
-  //     disability: "",
-  //   },
 
-  // ]);
   let pattern = /^[A-Za-z\s]+$/;
-  // const emailRegex = /[A-Za-z-@+.-]*$/;
   const emailRegex = /^[\w.]+@([\w-]+\.)+[\w-]{2,4}$/;
   const handleChange = (e, i) => {
     let newItem = [...studentData];
@@ -197,7 +135,9 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
               const { index } = check.match(pattern);
               if (index) {
                 const foo = { ...errCopy[i] };
-                foo[e.target.name] = "Only alphanumeric characters are allowed";
+                // foo[e.target.name] = "Only alphanumeric characters are allowed";
+                foo[e.target.name] =  t('teacherJourney.vali4');
+
                 errCopy[i] = { ...foo };
                 setItemDataErrors(errCopy);
                 return;
@@ -210,7 +150,9 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
               const { index } = check.match(emailRegex);
               if (index) {
                 const foo = { ...errCopy[i] };
-                foo[e.target.name] = "Enter Valid Email Address";
+                // foo[e.target.name] = "Enter Valid Email Address";
+                foo[e.target.name] = t('teacherJourney.vali13');
+
                 errCopy[i] = { ...foo };
                 setItemDataErrors(errCopy);
                 return;
@@ -233,56 +175,44 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
       let err = {};
       if (!item.full_name.trim()) {
         err["full_name"] = (
-          <span style={{ color: "red" }}>Please Enter Full Name</span>
+          <span style={{ color: "red" }}>{t('teacherJourney.vali3')}</span>
         );
       } else if (!/^[A-Za-z\s]+$/i.test(item.full_name)) {
         err["full_name"] = (
           <span style={{ color: "red" }}>
-            Only alphabetical characters and spaces are allowed
+            {t('teacherJourney.vali25')}
           </span>
         );
       }
-     // Mandatory //
-      // const emailRegex = /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/;
-      // if (!item.email || !item.email.trim()) {
-      //   err["email"] = (
-      //     <span style={{ color: "red" }}>Please Enter Email</span>
-      //   );
-      // } else if (!emailRegex.test(item.email)) {
-      //   err["email"] = (
-      //     <span style={{ color: "red" }}>Enter a Valid Email Address</span>
-      //   );
-      // }
-      // optional //
+
       const emailRegex = /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/;
-      if (item.email && item.email.trim() !== "") {
-        if (!emailRegex.test(item.email)) {
-          err["email"] = (
-            <span style={{ color: "red" }}>Enter a Valid Email Address</span>
-          );
-        }
-      }
+      // if (item.email && item.email.trim() !== "") {
+      //   if (!emailRegex.test(item.email)) {
+      //     err["email"] = (
+      //       <span style={{ color: "red" }}>{t('teacherJourney.vali13')}</span>
+      //     );
+      //   }
+      // }
       if (!item.Age)
-        err["Age"] = <span style={{ color: "red" }}>Please Select Age</span>;
+        err["Age"] = <span style={{ color: "red" }}>{t('teacherJourney.vali17')}</span>;
 
       if (!item.disability)
         err["disability"] = (
-          <span style={{ color: "red" }}>Please Select Disability Status</span>
+          <span style={{ color: "red" }}>{t('teacherJourney.vali19')}</span>
         );
       if (!item.Grade)
         err["Grade"] = (
-          <span style={{ color: "red" }}>Please Select Class</span>
+          <span style={{ color: "red" }}>{t('teacherJourney.vali20')}</span>
         );
       if (!item.Gender)
         err["Gender"] = (
-          <span style={{ color: "red" }}>Please Select Gender</span>
+          <span style={{ color: "red" }}>{t('teacherJourney.vali18')}</span>
         );
       if (Object.values(err).length === 0) {
         return { ...studentBody, i };
       }
       return { ...err, i };
     });
-    // const combinedErrors = [...errors, teamErrors];
     setItemDataErrors(errors.filter((item) => Object.values(item).length > 0));
     const filterEmpty = errors.filter((item) => {
       const ce = { ...item };
@@ -314,28 +244,22 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
     setStudentData(newItems);
   };
   const handleSumbit = () => {
-    // alert("hii");
     if (!validateItemData()) return;
     //setIsClicked(true);
     const checkDuplicateName = containsDuplicates(
       studentData.map((item) => item.full_name)
     );
     if (checkDuplicateName) {
-      openNotificationWithIcon(
-        "error",
-        t('teacherJourney.popup3')
-      );
+      openNotificationWithIcon("error", t("teacherJourney.popup3"));
       setIsClicked(false);
       return;
     }
     const body = {
       mentor_id: JSON.stringify(currentUser?.data[0]?.mentor_id),
       team_name: teamname,
-      team_email: teamemail ? teamemail :"",
+      team_email: teamemail ? teamemail : "",
     };
-    //  if (teamemail !== "") {
-    //       body["team_email"] = teamemail;
-    //     }
+
     var config = {
       method: "post",
       url: process.env.REACT_APP_API_BASE_URL + "/teams",
@@ -346,91 +270,63 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
       },
       data: body,
     };
-    // console.log(body,"body");
     axios(config)
       .then(function (response) {
         if (response.status === 201) {
           const newTeamId = response.data.data[0].profile.team_id;
           setTeamId(response.data.data[0].profile.team_id);
-          openNotificationWithIcon("success",  t('teacherJourney.popup2'));
+          openNotificationWithIcon("success", t("teacherJourney.popup2"));
           setIsClicked(true);
-        //   const updatedStudentData = studentData.map((student) => ({
-        //     ...student,
-        //     team_id: JSON.stringify(newTeamId),
-        // state:currentUser?.data[0]?.state,
 
-        //   }));
-        const updatedStudentData = studentData.map((student) => {
-          let updatedStudent = {
-            ...student,
-            team_id: JSON.stringify(newTeamId),
-            state: currentUser?.data[0]?.state,
-          };
-        
-          // optional 'email'  //
-          if (student.email && student.email.trim() !== "") {
-            updatedStudent.email = student.email;
-          }
-        
-          return updatedStudent;
-        });
-        
-        // console.log(updatedStudentData, "data");
+          const updatedStudentData = studentData.map((student) => {
+            let updatedStudent = {
+              ...student,
+              team_id: JSON.stringify(newTeamId),
+              state: currentUser?.data[0]?.state,
+            };
+
+            // if (student.email && student.email.trim() !== "") {
+            //   updatedStudent.email = student.email;
+            // }
+
+            return updatedStudent;
+          });
+
           setTimeout(() => {
             dispatch(
               teacherCreateMultipleStudent(
                 updatedStudentData,
                 navigate,
-                setIsClicked
+                setIsClicked,
+                t
               )
             );
           }, 2000);
-          // if (teamId) {
-          //   setTimeout(() => {
-          //     dispatch(
-          //       teacherCreateMultipleStudent(
-          //         updatedStudentData,
-          //         navigate,
-          //         setIsClicked
-          //       )
-          //     );
-          //   }, 5000);
-          // }
-
-          // dispatch(
-          //   teacherCreateMultipleStudent(studentData, navigate, setIsClicked)
-          // );
         } else {
           openNotificationWithIcon("error", "Opps! Something Wrong");
         }
       })
       .catch(function (error) {
         if (error.response.data.status === 400) {
-          // console.log(error, "eee");
-          openNotificationWithIcon(
-            "error",
-            t('teacherJourney.popup4')
-          );
+          openNotificationWithIcon("error", t("teacherJourney.popup4"));
         }
       });
-    // dispatch(teacherCreateMultipleStudent(studentData, navigate, setIsClicked));
   };
 
-  // const button = teamname && teamemail && studentData;
   const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return email ? emailRegex.test(email) : true;
   };
-  
+
   const button = teamname && studentData && isValidEmail(teamemail);
- 
+
   return (
     <div className="page-wrapper">
       <div className="page-header">
         <div className="add-item d-flex">
           <div className="page-title">
-            <h4>Team and Students Registration into SIM</h4>
-            <h6>Create new team and add students</h6>
+            <h4>{t("teacherJourney.addstudentheading")}</h4>
+            <h6>{t("teacherJourney.subheading")}</h6>
           </div>
         </div>
         <ul className="table-top-head">
@@ -441,7 +337,8 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
                 className="btn btn-secondary"
                 onClick={() => navigate("/mentorteams")}
               >
-                <i className="fas fa-arrow-left"></i> Back to Teams
+                <i className="fas fa-arrow-left"></i>{" "}
+                {t("teacherJourney.backtoteams")}
               </button>
             </div>
           </li>
@@ -451,19 +348,19 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
       <div className="card">
         <div className="card-body pb-0">
           <div className="card-title-head">
-            <h6>TEAM DETAILS</h6>
+            <h6>{t("teacherJourney.teamdetails")}</h6>
           </div>
           <Row className="mb-3 modal-body-table search-modal-header">
             <Col md={6}>
               <Label className="form-label">
-                Team Name
+                {t("teacherJourney.tname")}
                 <span required className="p-1">
                   *
                 </span>
               </Label>
               <input
-                className="form-control"
-                placeholder="Enter Team Name"
+                className="form-control mb-2"
+                placeholder={t("teacherJourney.place7")}
                 id="teamname"
                 name="teamname"
                 onChange={(e) => handleteamname(e)}
@@ -474,15 +371,10 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
               )}
             </Col>
             <Col md={6} className="mb-xl-0">
-              <Label className="form-label">
-                Team Email Address
-                {/* <span required className="p-1">
-                  *
-                </span> */}
-              </Label>
+              <Label className="form-label">{t("teacherJourney.temail")}</Label>
               <input
-                className="form-control"
-                placeholder="Enter Email Address"
+                className="form-control mb-2"
+                placeholder={t("teacherJourney.place2")}
                 id="teamemail"
                 name="teamemail"
                 type="email"
@@ -493,44 +385,48 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
             </Col>
           </Row>
           <div className="card-title-head">
-            <h6>STUDENTS DETAILS</h6>
+            <h6> {t("teacherJourney.addteamdetails")}</h6>
           </div>
           {studentData.map((item, i) => {
             const foundErrObject = { ...itemDataErrors[i] };
-            // const showRemoveButton = (
-            //   (loginState === "Tamil Nadu" && studentData.length > MIN_STUDENTS) ||
-            //   (loginState !== "Tamil Nadu" && studentData.length > MIN_STUDENTS)
-            // );
-            const showRemoveButton = (
-              (loginState === "Tamil Nadu" && studentData.length > MIN_STUDENTS && i >= MIN_STUDENTS) ||
-              (loginState !== "Tamil Nadu" && studentData.length > MIN_STUDENTS && i >= MIN_STUDENTS)
-            );
+
+            const showRemoveButton =
+              (loginState === "Tamil Nadu" &&
+                studentData.length > MIN_STUDENTS &&
+                i >= MIN_STUDENTS) ||
+              (loginState !== "Tamil Nadu" &&
+                studentData.length > MIN_STUDENTS &&
+                i >= MIN_STUDENTS);
             return (
               <div key={i} className="mb-3">
                 <div className="d-flex justify-content-between align-items-center">
-                  <h6 className="mt-2 mb-2">STUDENT {i + 1} DETAILS</h6>
+                  <h6 className="mt-2 mb-2">
+                    {t("teacherJourney.addteamdetails2")} {i + 1}{" "}
+                    {t("teacherJourney.addteamdetails1")}
+                  </h6>
                   {showRemoveButton && (
                     <button
                       onClick={() => removeItem(i)}
                       className="btn btn-sm btn-square btn-soft-danger"
                     >
-                      <i className="fa-solid fa-xmark"></i> Remove
+                      <i className="fa-solid fa-xmark"></i>{" "}
+                      {t("teacherJourney.remove")}
                     </button>
                   )}
                 </div>
                 {/* <hr /> */}
                 <Row className="mb-3 modal-body-table search-modal-header">
                   {/* <Row> */}
-                  <Col md={4}>
+                  <Col md={6}>
                     <Label className="form-label">
-                      Full Name
+                      {t("teacherJourney.tfullname")}
                       <span required className="p-1">
                         *
                       </span>
                     </Label>
                     <input
-                      className="form-control"
-                      placeholder="Enter Full Name"
+                      className="form-control mb-2"
+                      placeholder={t("teacherJourney.place1")}
                       id="full_name"
                       name="full_name"
                       onChange={(e) => {
@@ -544,67 +440,68 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
                       </small>
                     ) : null}
                   </Col>
-                  
-                  <Col md={4} className="mb-xl-0">
-                        <Label className="form-label">
-                          Email Address
-                          {/* <span required className="p-1">
-                            *
-                          </span> */}
-                        </Label>
-                        <input
-                          className="form-control"
-                          placeholder="Enter Email Address"
-                          id="email"
-                          name="email"
-                          onChange={(e) => {
-                            handleChange(e, i);
-                          }}
-                          value={item.email}
-                        />
-                        {foundErrObject?.email ? (
-                          <small className="error-cls">
-                            {foundErrObject.email}
-                          </small>
-                        ) : null}
-                      </Col>
+
+                  {/* <Col md={4} className="mb-xl-0">
+                    <Label className="form-label">
+                      {t("teacherJourney.eamil1")}
+                    </Label>
+                    <input
+                      className="form-control mb-2"
+                      placeholder={t("teacherJourney.place2")}
+                      id="email"
+                      name="email"
+                      onChange={(e) => {
+                        handleChange(e, i);
+                      }}
+                      value={item.email}
+                    />
+                    {foundErrObject?.email ? (
+                      <small className="error-cls">
+                        {foundErrObject.email}
+                      </small>
+                    ) : null}
+                  </Col> */}
                   {/* </Row> */}
-                  <Col md={4} className="mb-xl-0">
+                  <Col md={6} className="mb-xl-0">
                     <Label htmlFor="inputState" className="form-label">
-                      Disability
+                      {t("teacherJourney.disability")}
                       <span required className="p-1">
                         *
                       </span>
                     </Label>
                     <select
                       id="inputState"
-                      className="form-select"
+                      className="form-select mb-2"
                       name="disability"
                       value={item.disability}
                       onChange={(e) => handleChange(e, i)}
                     >
-                      <option value="">Select Status</option>
-                      <option value="No">No</option>
+                      <option value="">{t("teacherJourney.place3")}</option>
+                      <option value="No">{t("teacherJourney.option4")}</option>
                       <option value="Physically Challenged">
-                        Physically Challenged
+                        {t("teacherJourney.option5")}
                       </option>
                       <option value="Visually Challenged">
-                        Visually Challenged
+                        {t("teacherJourney.option6")}
                       </option>
                       <option value="Locomotor Disability">
-                        Locomotor Disability
+                        {t("teacherJourney.option7")}
                       </option>
                       <option value="Intellectual Disability">
-                        Intellectual Disability
+                        {t("teacherJourney.option8")}
                       </option>
                       <option value="Learning Disability">
-                        Learning Disability
+                        {t("teacherJourney.option9")}
                       </option>
-                      <option value="Hearing Impaired">Hearing Impaired</option>
+                      <option value="Hearing Impaired">
+                        {t("teacherJourney.option10")}
+                      </option>
                       <option value="Autism or Cerebral Palsy or Other">
-                        Autism/Cerebral Palsy/Other
+                        {t("teacherJourney.option11")}
                       </option>
-                      <option value="Others">Others</option>
+                      <option value="Others">
+                        {t("teacherJourney.option12")}
+                      </option>
                     </select>
                     {foundErrObject?.disability ? (
                       <small className="error-cls">
@@ -614,19 +511,19 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
                   </Col>
                   <Col md={4} className="mb-xl-0">
                     <Label htmlFor="inputState" className="form-label">
-                      Age
+                      {t("teacherJourney.age")}
                       <span required className="p-1">
                         *
                       </span>
                     </Label>
                     <select
                       id="inputState"
-                      className="form-select"
+                      className="form-select mb-2"
                       name="Age"
                       value={item.Age}
                       onChange={(e) => handleChange(e, i)}
                     >
-                      <option value={""}>Select Age</option>
+                      <option value={""}>{t("teacherJourney.place4")}</option>
                       {allowedAge.map((item) => (
                         <option key={item} value={item}>
                           {item}
@@ -637,26 +534,27 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
                       <small className="error-cls">{foundErrObject.Age}</small>
                     ) : null}
                   </Col>
-                
 
                   <Col md={4}>
                     <Label htmlFor="inputState" className="form-label">
-                      Class
+                      {t("teacherJourney.class")}
                       <span required className="p-1">
                         *
                       </span>
                     </Label>
                     <select
                       id="inputState"
-                      className="form-select"
+                      className="form-select mb-2"
                       name="Grade"
                       value={item.Grade}
                       onChange={(e) => handleChange(e, i)}
                     >
-                      <option value="">Select Class</option>
+                      <option value="">
+                        {t("teacherJourney.place5")}..
+                      </option>
                       {grades.map((item) => (
                         <option key={item} value={item}>
-                          Class {item}
+                          {t("teacherJourney.vali26")} {item}
                         </option>
                       ))}
                     </select>
@@ -668,7 +566,7 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
                   </Col>
                   <Col md={4} className="mb-5 mb-xl-0">
                     <Label htmlFor="inputState" className="form-label">
-                      Gender
+                      {t("teacherJourney.gender")}
                       <span required className="p-1">
                         *
                       </span>
@@ -676,15 +574,21 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
 
                     <select
                       id="inputState"
-                      className="form-select"
+                      className="form-select mb-2"
                       name="Gender"
                       value={item.Gender}
                       onChange={(e) => handleChange(e, i)}
                     >
-                      <option value="">Select Gender</option>
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                      <option value="Prefer Not to Mention">Prefer Not to Mention</option>
+                      <option value="">{t("teacherJourney.place6")}</option>
+                      <option value="Male">
+                        {t("teacherJourney.option1")}
+                      </option>
+                      <option value="Female">
+                        {t("teacherJourney.option2")}
+                      </option>
+                      <option value="Prefer Not to Mention">
+                        {t("teacherJourney.option3")}
+                      </option>
                     </select>
                     {foundErrObject?.Gender ? (
                       <small className="error-cls">
@@ -708,45 +612,22 @@ const CreateMultipleMembers = ({ id ,teamLengthValue}) => {
               onClick={handleSumbit}
               disabled={!button}
             >
-              CREATE TEAM
+              {t("teacherJourney.createteam")}
             </button>
           ) : (
             <button type="button" className="btn btn-warning text-right">
-              CREATE TEAM
+              {t("teacherJourney.createteam")}
             </button>
           )}
-          {/* {studentData.length < 4 && (
-                  <div className="">
-                    <button
-                      // label={"Add More"}
-                      onClick={addItem}
-                      // btnClass={
-                      //   studentData.length != 3 ? "primary" : "default"
-                      // }
-                      // size="small"
-                      disabled={studentData.length === 3}
-                    >
-                      Add More
-                    </button>
-                  </div>
-                )} */}
         </Col>
-        {/* <Col className="mt-2 text-right">
-            <button
-              type="button"
-              className="btn btn-secondary m-2 ml-auto"
-              onClick={() => navigate("/mentorteams")}
-            >
-              Discard
-            </button>
-          </Col> */}
+
         <Col className="mt-2 d-flex justify-content-end">
           <button
             type="button"
             className="btn btn-secondary "
             onClick={() => navigate("/mentorteams")}
           >
-            DISCARD
+            {t("teacherJourney.discard")}
           </button>
         </Col>
       </Row>

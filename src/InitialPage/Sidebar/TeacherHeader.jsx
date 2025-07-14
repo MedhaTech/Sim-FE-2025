@@ -11,15 +11,14 @@ import { logout } from "../../helpers/Utils";
 import { useNavigate } from "react-router-dom";
 import { getCurrentUser } from "../../helpers/Utils";
 import logoutIcon from "../../assets/img/icons/log-out.svg";
-// import avtar from "../../assets/img/profiles/avator1.jpg";
 import logo from "../../assets/img/new-logo.png";
 import female from "../../assets/img/Female_Profile.png";
 import male from "../../assets/img/Male_Profile.png";
 import user from "../../assets/img/user.png";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faKey,faUser } from '@fortawesome/free-solid-svg-icons';
-import  "./styles.css";
-import LanguageSelectorComp from '../../components/LanguageSelectorComp/index.js';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faKey, faUser } from "@fortawesome/free-solid-svg-icons";
+import "./styles.css";
+import LanguageSelectorComp from "../../components/LanguageSelectorComp/index.js";
 
 const MentorHeader = () => {
   const route = all_routes;
@@ -27,8 +26,7 @@ const MentorHeader = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const { t } = useTranslation();
   const currentUser = getCurrentUser("current_user");
-  const presurvey = localStorage.getItem("presurveystatus") ;
-  // console.log(currentUser, " currentUser");
+  const presurvey = localStorage.getItem("presurveystatus");
   const isElementVisible = (element) => {
     return element.offsetWidth > 0 || element.offsetHeight > 0;
   };
@@ -158,7 +156,7 @@ const MentorHeader = () => {
       case "Female":
         return female;
       case "FEMALE":
-          return female;
+        return female;
       default:
         return user;
     }
@@ -197,43 +195,15 @@ const MentorHeader = () => {
   }, []);
 
   return (
-    
     <>
-    
-      <div className="header">
-        {/* Logo */}
+      {/* <div className="header">
         <div
           className={`header-left ${toggle ? "" : "active"}`}
           onMouseLeave={expandMenu}
           onMouseOver={expandMenuOpen}
         >
-          <img src={logo} alt="Logo"  className="responsive-image" />
-          {/* <Link to="/dashboard" className="logo logo-normal">
-            <ImageWithBasePath src="assets/img/logo.png" alt="img" />
-          </Link>
-          <Link to="/dashboard" className="logo logo-white">
-            <ImageWithBasePath src="assets/img/logo-white.png" alt="img" />
-          </Link>
-          <Link to="/dashboard" className="logo-small">
-            <ImageWithBasePath src="assets/img/logo-small.png" alt="img" />
-          </Link> */}
-          {/* <Link
-            id="toggle_btn"
-            to="#"
-            style={{
-              display:
-                pathname.includes("tasks") || pathname.includes("pos")
-                  ? "none"
-                  : pathname.includes("compose")
-                  ? "none"
-                  : "",
-            }}
-            onClick={handlesidebar}
-          >
-            <FeatherIcon icon="chevrons-left" className="feather-16" />
-          </Link> */}
+          <img src={logo} alt="Logo" className="responsive-image" />
         </div>
-        {/* /Logo */}
         <Link
           id="mobile_btn"
           className="mobile_btn"
@@ -246,226 +216,14 @@ const MentorHeader = () => {
             <span />
           </span>
         </Link>
-        {/* Header Menu */}
         <ul className="nav user-menu">
-          {/* Search */}
-          <li className="nav-item nav-searchinputs">
-            {/* <div className="top-nav-search"> */}
-            {/* <Link to="#" className="responsive-search">
-                <Search />
-              </Link> */}
-            {/* <form action="#" className="dropdown">
-                <div
-                  className="searchinputs dropdown-toggle"
-                  id="dropdownMenuClickable"
-                  data-bs-toggle="dropdown"
-                  data-bs-auto-close="false"
-                >
-                  <input type="text" placeholder="Search" />
-                  <div className="search-addon">
-                    <span>
-                      <XCircle className="feather-14" />
-                    </span>
-                  </div>
-                </div>
-                <div
-                  className="dropdown-menu search-dropdown"
-                  aria-labelledby="dropdownMenuClickable"
-                >
-                  <div className="search-info">
-                    <h6>
-                      <span>
-                        <i data-feather="search" className="feather-16" />
-                      </span>
-                      Recent Searches
-                    </h6>
-                    <ul className="search-tags">
-                      <li>
-                        <Link to="#">Products</Link>
-                      </li>
-                      <li>
-                        <Link to="#">Sales</Link>
-                      </li>
-                      <li>
-                        <Link to="#">Applications</Link>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="search-info">
-                    <h6>
-                      <span>
-                        <i data-feather="help-circle" className="feather-16" />
-                      </span>
-                      Help
-                    </h6>
-                    <p>
-                      How to Change Product Volume from 0 to 200 on Inventory
-                      management
-                    </p>
-                    <p>Change Product Name</p>
-                    <p>Aim Unisolve</p>
-                  </div>
-                  <div className="search-info">
-                    <h6>
-                      <span>
-                        <i data-feather="user" className="feather-16" />
-                      </span>
-                      Customers
-                    </h6>
-                    <ul className="customers">
-                      <li>
-                        <Link to="#">
-                          Aron Varu
-                          <ImageWithBasePath
-                            src="assets/img/profiles/avator1.jpg"
-                            alt
-                            className="img-fluid"
-                          />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="#">
-                          Jonita
-                          <ImageWithBasePath
-                            src="assets/img/profiles/avatar-01.jpg"
-                            alt
-                            className="img-fluid"
-                          />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="#">
-                          Aaron
-                          <ImageWithBasePath
-                            src="assets/img/profiles/avatar-10.jpg"
-                            alt
-                            className="img-fluid"
-                          />
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </form> */}
-            {/* </div> */}
-          </li>
-          {/* /Search */}
+          <li className="nav-item nav-searchinputs"></li>
 
-          {/* Select Store */}
-          {/* <li className="nav-item dropdown has-arrow main-drop select-store-dropdown">
-            <Link
-              to="#"
-              className="dropdown-toggle nav-link select-store"
-              data-bs-toggle="dropdown"
-            >
-              <span className="user-info">
-                <span className="user-letter">
-                  <ImageWithBasePath
-                    src="assets/img/store/store-01.png"
-                    alt="Store Logo"
-                    className="img-fluid"
-                  />
-                </span>
-                <span className="user-detail">
-                  <span className="user-name">Select Store</span>
-                </span>
-              </span>
-            </Link>
-            <div className="dropdown-menu dropdown-menu-right">
-              <Link to="#" className="dropdown-item">
-                <ImageWithBasePath
-                  src="assets/img/store/store-01.png"
-                  alt="Store Logo"
-                  className="img-fluid"
-                />{" "}
-                Grocery Alpha
-              </Link>
-              <Link to="#" className="dropdown-item">
-                <ImageWithBasePath
-                  src="assets/img/store/store-02.png"
-                  alt="Store Logo"
-                  className="img-fluid"
-                />{" "}
-                Grocery Apex
-              </Link>
-              <Link to="#" className="dropdown-item">
-                <ImageWithBasePath
-                  src="assets/img/store/store-03.png"
-                  alt="Store Logo"
-                  className="img-fluid"
-                />{" "}
-                Grocery Bevy
-              </Link>
-              <Link to="#" className="dropdown-item">
-                <ImageWithBasePath
-                  src="assets/img/store/store-04.png"
-                  alt="Store Logo"
-                  className="img-fluid"
-                />{" "}
-                Grocery Eden
-              </Link>
-            </div>
-          </li> */}
-          {/* /Select Store */}
-
-          {/* Flag */}
-          {/* <li className="nav-item dropdown has-arrow flag-nav nav-item-box">
-            <Link
-              className="nav-link dropdown-toggle"
-              data-bs-toggle="dropdown"
-              to="#"
-              role="button"
-            > */}
-          {/* <i data-feather="globe" /> */}
-          {/* <FeatherIcon icon="globe" /> */}
-          {/* <ImageWithBasePath
-            src="assets/img/flags/us.png"
-            alt="img"
-            height={16}
-          /> */}
-          {/* </Link> */}
-          {/* <div className="dropdown-menu dropdown-menu-right">
-          <Link to="#" className="dropdown-item active">
-                <ImageWithBasePath
-                  src="assets/img/flags/us.png"
-                  alt="img"
-                  height={16}
-                />
-                English
-              </Link>
-              <Link to="#" className="dropdown-item">
-                <ImageWithBasePath
-                  src="assets/img/flags/fr.png"
-                  alt="img"
-                  height={16}
-                />{" "}
-                French
-              </Link>
-              <Link to="#" className="dropdown-item">
-                <ImageWithBasePath
-                  src="assets/img/flags/es.png"
-                  alt="img"
-                  height={16}
-                />{" "}
-                Spanish
-              </Link>
-              <Link to="#" className="dropdown-item">
-                <ImageWithBasePath
-                  src="assets/img/flags/de.png"
-                  alt="img"
-                  height={16}
-                />{" "}
-                German
-              </Link>
-          </div> */}
-          {/* </li> */}
-          {/* /Flag */}
-          
           <div className="d-flex align-items-center">
-              <div className="dropdown ">
-                  <LanguageSelectorComp module="mentor" />
-              </div>
+            <div className="dropdown ">
+              <LanguageSelectorComp module="mentor" />
             </div>
+          </div>
           <li className="nav-item nav-item-box">
             <Link
               to="#"
@@ -473,186 +231,14 @@ const MentorHeader = () => {
               onClick={() => toggleFullscreen()}
               className={isFullscreen ? "Exit Fullscreen" : "Go Fullscreen"}
             >
-              {
-                    isFullscreen ? <FeatherIcon icon="minimize" /> : <FeatherIcon icon="maximize" />
-                }
+              {isFullscreen ? (
+                <FeatherIcon icon="minimize" />
+              ) : (
+                <FeatherIcon icon="maximize" />
+              )}
             </Link>
           </li>
-          {/* <li className="nav-item nav-item-box">
-            <Link to="/email"> */}
-          {/* <i data-feather="mail" /> */}
-          {/* <FeatherIcon icon="mail" />
-              <span className="badge rounded-pill">1</span>
-            </Link>
-          </li> */}
-          {/* Notifications */}
-          {/* <li className="nav-item dropdown nav-item-box">
-            <Link
-              to="#"
-              className="dropdown-toggle nav-link"
-              data-bs-toggle="dropdown"
-            > */}
-          {/* <i data-feather="bell" />
-              <FeatherIcon icon="bell" />
-              <span className="badge rounded-pill">2</span>
-            </Link> */}
-          {/* <div className="dropdown-menu notifications">
-              <div className="topnav-dropdown-header">
-                <span className="notification-title">Notifications</span>
-                <Link to="#" className="clear-noti">
-                  {" "}
-                  Clear All{" "}
-                </Link>
-              </div>
-              <div className="noti-content">
-                <ul className="notification-list">
-                  <li className="notification-message active">
-                    <Link to="/activities">
-                      <div className="media d-flex">
-                        <span className="avatar flex-shrink-0">
-                          <ImageWithBasePath
-                            alt="img"
-                            src="assets/img/profiles/avatar-02.jpg"
-                          />
-                        </span>
-                        <div className="media-body flex-grow-1">
-                          <p className="noti-details">
-                            <span className="noti-title">John Doe</span> added
-                            new task{" "}
-                            <span className="noti-title">
-                              Patient appointment booking
-                            </span>
-                          </p>
-                          <p className="noti-time">
-                            <span className="notification-time">
-                              4 mins ago
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-                    </Link>
-                  </li>
-                  <li className="notification-message">
-                    <Link to="/activities">
-                      <div className="media d-flex">
-                        <span className="avatar flex-shrink-0">
-                          <ImageWithBasePath
-                            alt="img"
-                            src="assets/img/profiles/avatar-03.jpg"
-                          />
-                        </span>
-                        <div className="media-body flex-grow-1">
-                          <p className="noti-details">
-                            <span className="noti-title">Tarah Shropshire</span>{" "}
-                            changed the task name{" "}
-                            <span className="noti-title">
-                              Appointment booking with payment gateway
-                            </span>
-                          </p>
-                          <p className="noti-time">
-                            <span className="notification-time">
-                              6 mins ago
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-                    </Link>
-                  </li>
-                  <li className="notification-message">
-                    <Link to="/activities">
-                      <div className="media d-flex">
-                        <span className="avatar flex-shrink-0">
-                          <ImageWithBasePath
-                            alt="img"
-                            src="assets/img/profiles/avatar-06.jpg"
-                          />
-                        </span>
-                        <div className="media-body flex-grow-1">
-                          <p className="noti-details">
-                            <span className="noti-title">Misty Tison</span>{" "}
-                            added{" "}
-                            <span className="noti-title">Domenic Houston</span>{" "}
-                            and <span className="noti-title">Claire Mapes</span>{" "}
-                            to project{" "}
-                            <span className="noti-title">
-                              Doctor available module
-                            </span>
-                          </p>
-                          <p className="noti-time">
-                            <span className="notification-time">
-                              8 mins ago
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-                    </Link>
-                  </li>
-                  <li className="notification-message">
-                    <Link to="/activities">
-                      <div className="media d-flex">
-                        <span className="avatar flex-shrink-0">
-                          <ImageWithBasePath
-                            alt="img"
-                            src="assets/img/profiles/avatar-17.jpg"
-                          />
-                        </span>
-                        <div className="media-body flex-grow-1">
-                          <p className="noti-details">
-                            <span className="noti-title">Rolland Webber</span>{" "}
-                            completed task{" "}
-                            <span className="noti-title">
-                              Patient and Doctor video conferencing
-                            </span>
-                          </p>
-                          <p className="noti-time">
-                            <span className="notification-time">
-                              12 mins ago
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-                    </Link>
-                  </li>
-                  <li className="notification-message">
-                    <Link to="/activities">
-                      <div className="media d-flex">
-                        <span className="avatar flex-shrink-0">
-                          <ImageWithBasePath
-                            alt="img"
-                            src="assets/img/profiles/avatar-13.jpg"
-                          />
-                        </span>
-                        <div className="media-body flex-grow-1">
-                          <p className="noti-details">
-                            <span className="noti-title">Bernardo Galaviz</span>{" "}
-                            added new task{" "}
-                            <span className="noti-title">
-                              Private chat module
-                            </span>
-                          </p>
-                          <p className="noti-time">
-                            <span className="notification-time">
-                              2 days ago
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-              <div className="topnav-dropdown-footer">
-                <Link to="/activities">View all Notifications</Link>
-              </div>
-            </div> */}
-          {/* </li> */}
-          {/* /Notifications */}
-          {/* <li className="nav-item nav-item-box"> */}
-          {/* <Link to="/general-settings"> */}
-          {/* <i data-feather="settings" /> */}
-          {/* <FeatherIcon icon="settings" /> */}
-          {/* </Link> */}
-          {/* </li> */}
+
           <li className="nav-item dropdown has-arrow main-drop">
             <Link
               to="/mentorprofile"
@@ -661,24 +247,17 @@ const MentorHeader = () => {
             >
               <span className="user-info">
                 <span className="user-letter">
-                  {/* <ImageWithBasePath
-                    src="assets/img/profiles/avator1.jpg"
-                    alt="img"
-                    className="img-fluid"
-                  /> */}
                   <img
                     src={getProfileImage(currentUser?.data[0]?.gender)}
                     alt="Profile"
                   />
                 </span>
                 <span className="user-detail">
-                  {/* {currentUser?.data[0]?.role} */}
-                  <span className="user-name">
+                  <span className="user-name"> {capitalizedFullName}</span>
+                  <span className="user-role">
                     {" "}
-                    {capitalizedFullName}
-                    {/* {currentUser?.data[0]?.full_name} */}
+                    {t("teacherJourney.join_Mentor")}
                   </span>
-                  <span className="user-role"> {t('teacherJourney.join_Mentor')}</span>
                 </span>
               </span>
             </Link>
@@ -693,52 +272,41 @@ const MentorHeader = () => {
                     <span className="status online" />
                   </span>
                   <div className="profilesets">
-                    {/* <h6> {currentUser?.data[0]?.full_name}</h6> */}
                     <h6>{capitalizedFullName}</h6>
-                    <h5> {t('teacherJourney.join_Mentor')}</h5>
+                    <h5> {t("teacherJourney.join_Mentor")}</h5>
                   </div>
                 </div>
-                {(presurvey != "INCOMPLETED") ? (
-                <>
-                <hr className="m-0" />
-                <Link
-                  className="dropdown-item"
-                  // onClick={handleProfile}
-                  to={"/mentorprofile"}
-                  // onClick={() => navigate("/admin/profile")}
-                >
-                  <FontAwesomeIcon icon={faUser} /> <h6>{t('home.my_profile')}</h6> 
-                </Link>
-                <hr className="m-0" />
-                <Link
-                  className="dropdown-item"
-                  to={"/mentorchangepwd"}
-                >
-                  <FontAwesomeIcon icon={faKey} /> <h6> {t('teacherJourney.pas4')}</h6> 
-                </Link>
-                </>
-                ): null}
+                {presurvey != "INCOMPLETED" ? (
+                  <>
+                    <hr className="m-0" />
+                    <Link className="dropdown-item" to={"/mentorprofile"}>
+                      <FontAwesomeIcon icon={faUser} />{" "}
+                      <h6>{t("home.my_profile")}</h6>
+                    </Link>
+                    <hr className="m-0" />
+                    <Link className="dropdown-item" to={"/mentorchangepwd"}>
+                      <FontAwesomeIcon icon={faKey} />{" "}
+                      <h6> {t("teacherJourney.pas4")}</h6>
+                    </Link>
+                  </>
+                ) : null}
                 <hr className="m-0" />
                 <Link
                   className="dropdown-item logout pb-0"
                   to=""
                   onClick={handleLogout}
                 >
-                  {/* <ImageWithBasePath
-                    src="assets/img/icons/log-out.svg"
-                    alt="img"
-                    className="me-2"
-                  /> */}
                   <img src={logoutIcon} alt="LogoutIcon" />
-                  {t('teacher.logout')}
+                  {t("teacher.logout")}
                 </Link>
               </div>
             </div>
           </li>
         </ul>
-        {/* /Header Menu */}
-        {/* Mobile Menu */}
-        <div className="dropdown mobile-user-menu">
+        <div className="dropdown mobile-user-menu" style={{ flexShrink: 0 }}>
+          <div className="dropdown-item p-0">
+            <LanguageSelectorComp module="mentor" />
+          </div>
           <Link
             to="#"
             className="nav-link dropdown-toggle"
@@ -748,35 +316,187 @@ const MentorHeader = () => {
             <i className="fa fa-ellipsis-v" />
           </Link>
           <div className="dropdown-menu dropdown-menu-right">
-          {(presurvey != "INCOMPLETED") ? (
-            <>
-              <Link
-                className="dropdown-item"
-                to={"/mentorprofile"}
-                // onClick={() => navigate("/mentorprofile")}
-              >
-                My Profile
-              </Link>
-              {/* <Link
-                    className="dropdown-item"
-                    to={"/mentorchangepwd"}
-                  >
-                    <FontAwesomeIcon icon={faKey} />Change Password 
-                  </Link> */}
-              <Link className="dropdown-item" to={"/mentorchangepwd"}>
-                Change Password
-              </Link>
-            </>
-          ):null}
+            {presurvey != "INCOMPLETED" ? (
+              <>
+                <Link className="dropdown-item" to={"/mentorprofile"}>
+                  My Profile
+                </Link>
+
+                <Link className="dropdown-item" to={"/mentorchangepwd"}>
+                  Change Password
+                </Link>
+              </>
+            ) : null}
+
             <Link className="dropdown-item" to="signin" onClick={handleLogout1}>
               Logout
             </Link>
           </div>
         </div>
-        {/* /Mobile Menu */}
+      </div> */}
+     
+<div className="header d-none d-md-flex align-items-center justify-content-between px-3 py-2 border-bottom bg-white">
+  <div
+    className={`header-left ${toggle ? "" : "active"}`}
+    onMouseLeave={expandMenu}
+    onMouseOver={expandMenuOpen}
+  >
+    <img src={logo} alt="Logo" className="responsive-image" />
+  </div>
+
+  <ul className="nav user-menu align-items-center mb-0">
+    {/* Language Dropdown */}
+    {/* <li className="nav-item">
+      <div className="dropdown me-3">
+        <LanguageSelectorComp module="mentor" />
       </div>
+    </li> */}
+
+    {/* Fullscreen Toggle */}
+    <li className="nav-item">
+      <Link
+        to="#"
+        id="btnFullscreen"
+        onClick={toggleFullscreen}
+        className="nav-link"
+      >
+        <FeatherIcon icon={isFullscreen ? "minimize" : "maximize"} />
+      </Link>
+    </li>
+
+    {/* Profile Dropdown */}
+    <li className="nav-item dropdown has-arrow main-drop">
+      <Link
+        to="/mentorprofile"
+        className="dropdown-toggle nav-link userset"
+        data-bs-toggle="dropdown"
+      >
+        <span className="user-info d-flex align-items-center">
+          <img
+            src={getProfileImage(currentUser?.data[0]?.gender)}
+            alt="Profile"
+            className="user-letter"
+          />
+          <span className="user-detail ms-2">
+            <span className="user-name">{capitalizedFullName}</span>
+            <span className="user-role">{t("teacherJourney.join_Mentor")}</span>
+          </span>
+        </span>
+      </Link>
+      <div className="dropdown-menu menu-drop-user">
+        <div className="profilename">
+          <div className="profileset">
+            
+            {/* <img
+              src={getProfileImage(currentUser?.data[0]?.gender)}
+              alt="Profile"
+              className="user-img"
+            /> */}
+             <span className="user-img">
+                  
+                    <span className="status online" />
+                  </span>
+            <div className="profilesets">
+              <h6>{capitalizedFullName}</h6>
+              <h5>{t("teacherJourney.join_Mentor")}</h5>
+            </div>
+          </div>
+          {presurvey !== "INCOMPLETED" && (
+            <>
+              <hr className="m-0"/>
+              <Link className="dropdown-item" to="/mentorprofile">
+                <FontAwesomeIcon icon={faUser} /> {t("home.my_profile")}
+              </Link>
+              <hr className="m-0"/>
+              <Link className="dropdown-item" to="/mentorchangepwd">
+                <FontAwesomeIcon icon={faKey} /> {t("teacherJourney.pas4")}
+              </Link>
+            </>
+          )}
+          <hr className="m-0"/>
+          <Link
+            className="dropdown-item logout pb-0"
+            to="#"
+            onClick={handleLogout}
+          >
+            <img src={logoutIcon} alt="Logout" className="me-1" />
+            {t("teacher.logout")}
+          </Link>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+{/* ✅ Mobile Header */}
+<div
+  className="d-md-none"
+  style={{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: "10px 15px",
+    backgroundColor: "#fff",
+    borderBottom: "1px solid #eee",
+  }}
+>
+  {/* Left: Sidebar, Logo, Language */}
+  <div className="d-flex align-items-center gap-2">
+    {/* Sidebar Button */}
+    <Link
+      id="mobile_btn"
+      className="mobile_btn"
+      to="#"
+      onClick={sidebarOverlay}
+    >
+      <span className="bar-icon">
+        <span />
+        <span />
+        <span />
+      </span>
+    </Link>
+
+    {/* Logo */}
+    <img src={logo} alt="Logo" style={{ width: "130px", height: "auto" }} />
+
+    {/* Language Dropdown */}
+    {/* <div className="ms-2">
+      <LanguageSelectorComp module="mentor" />
+    </div> */}
+  </div>
+
+  {/* Right: Profile Menu */}
+  <div className="dropdown">
+    <Link
+      to="#"
+      className="nav-link dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+      style={{ boxShadow: "none", outline: "none" }}
+    >
+      {/* <i className="fa fa-ellipsis-v fs-5" /> */}
+    </Link>
+
+    <div className="dropdown-menu dropdown-menu-end">
+      {presurvey !== "INCOMPLETED" && (
+        <>
+          <Link className="dropdown-item" to="/mentorprofile">
+            My Profile
+          </Link>
+          <Link className="dropdown-item" to="/mentorchangepwd">
+            Change Password
+          </Link>
+        </>
+      )}
+      <Link className="dropdown-item" to="signin" onClick={handleLogout1}>
+        Logout
+      </Link>
+    </div>
+  </div>
+</div>
+
+
     </>
-    
   );
 };
 

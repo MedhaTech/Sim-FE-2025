@@ -18,7 +18,6 @@ const CommonPage = ({
   // here we can see showChallenges button means we can see the submitted idea //
   const { t } = useTranslation();
   const navigate = useNavigate();
-  // const history = useHistory();
   const handleClick = () => {
     // here we can go for the next course //
     navigate("/studentpostsurvey");

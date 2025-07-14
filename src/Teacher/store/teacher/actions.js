@@ -16,6 +16,7 @@ import {
 } from "../../../helpers/Utils.js";
 import { encryptGlobal } from "../../../constants/encryptDecrypt.js";
 
+
 export const teacherLoginUserSuccess = (user) => async (dispatch) => {
   dispatch({
     type: TEACHER_LOGIN_USER_SUCCESS,
@@ -100,7 +101,6 @@ export const teacherLoginUser =
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log(response);
                     const pre = (response.data.data[0].preSurvey);
                     if (pre != 'COMPLETED') {
                       localStorage.setItem("presurveystatus", "INCOMPLETED");
@@ -114,13 +114,7 @@ export const teacherLoginUser =
             .catch(function (error) {
                 console.log(error);
             });
-        //const PreSurvey = mentorpresurvey(); 
-        
-        //return true;
-        //navigate("/teacher-dashboard");
-        // setTimeout(() => {
-        //     localStorage.clear();
-        // }, 60000);
+      
       } else {
         if (result.status === 401) {
           openNotificationWithIcon(
@@ -134,19 +128,14 @@ export const teacherLoginUser =
       }
     } catch (error) {
       dispatch(teacherLoginUserError({}));
-      // NotificationManager.error(
-      //   "Server down! Please try again later.",
-      //   "Error",
-      //   3000
-      // );
+      
     }
   };
 
   
 
 export const teacherCreateMultipleStudent =
-  (data, navigate, setIsClicked) => async () => {
-    // console.log(data, "multi");
+  (data, navigate, setIsClicked,t) => async () => {
     try {
       const axiosConfig = getNormalHeaders(KEY.User_API_Key);
       const result = await axios
@@ -156,7 +145,10 @@ export const teacherCreateMultipleStudent =
           return err.response;
         });
       if (result && result.status === 201) {
-        openNotificationWithIcon("success", result.data.data);
+        // openNotificationWithIcon("success", result.data.data);
+        const message = result.data.data; 
+const name = message?.split("successfully")[0].trim();  
+openNotificationWithIcon("success", t("teacherJourney.data",{ name }));
         navigate("/mentorteams");
         setIsClicked(false);
       } else {
@@ -180,7 +172,6 @@ export const teacherLoginUserLogOut = (navigate) => async () => {
       });
     if (result && result.status === 200) {
       setCurrentUser();
-      // localStorage.removeItem('headerOption');
       navigate("/teacher");
     }
   } catch (error) {

@@ -1,14 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState ,useEffect} from "react";
-import CountUp from "react-countup";
-import {
-  File,
-  User,
-  UserCheck,
-} from "feather-icons-react/build/IconComponents";
-// import ImageWithBasePath from "../../core/img/imagewithbasebath";
-// import { all_routes } from "../../Router/all_routes";
+
 import {
   getCurrentUser,
  
@@ -29,6 +22,8 @@ const Dashboard = () => {
   }, []);
 
   async function handlecountvalue() {
+               // This function fetches all counts of stats of ideas count the API //
+
       const axiosConfig = getNormalHeaders(KEY.User_API_Key);
       await axios
           .get(`${URL.gettotalcount}`, axiosConfig)

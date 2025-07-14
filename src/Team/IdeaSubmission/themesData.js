@@ -7,205 +7,172 @@ import i4 from "../../assets/img/Themes/4.png";
 import i5 from "../../assets/img/Themes/5.png";
 import i6 from "../../assets/img/Themes/6.png";
 import i7 from "../../assets/img/Themes/7.png";
-import i8 from "../../assets/img/Themes/8.png";
-// import { useTranslation } from 'react-i18next';
-
-// const { t } = useTranslation();
+// import i8 from "../../assets/img/Themes/8.png";
 
 export const themesList = [
-"Sustainable Development and Environment",
- "Digital Transformation",
-    "Health and Well-being",
-    "Quality Education",
-    "Economic Empowerment",
-    "Smart and Resilient Communities",
-    "Agriculture and Rural Development",
-    "Others"
+  "Building a Sustainable Future",
+  "Technology for Learning and Growth",
+  "Health & Nutrition and Well-being",
+  "Skills for Life and Livelihood",
+  "Smarter Communities & Safer Futures",
+  "Agriculture and Rural Transformation",
+  "Open Category - Think Beyond!"
 ];
 export const focusareasList = {
-    "Sustainable Development and Environment": [
-        "Renewable Energy (e.g., solar, wind, hydro)",
-        "Waste Management (e.g., recycling, composting)",
-        "Clean Water (e.g., water purification, rainwater harvesting)",
-        "Environment Protection (e.g., pollution control, reforestation)",
-        "Sustainable Agriculture (e.g., organic farming, soil conservation)",
-        "Others"
-    ],
-    "Digital Transformation": [
-        "Internet of Things (IoT) (e.g., smart homes, connected devices)",
-        "Information Technology (e.g., software, apps)",
-        "Cybersecurity (e.g., protecting data, secure online practices)",
-        "Blockchain (e.g., secure transactions, decentralized systems)",
-        "Artificial Intelligence (AI) and Machine Learning (ML) (e.g., smart assistants, predictive analytics)",
-        "Others"
-    ],
-    "Health and Well-being" : [
-        "Medical Devices (e.g., health monitors, diagnostic tools)",
-        "Nutrition and Healthy Eating (e.g., balanced diets, fortified foods)",
-        "Mental Health (e.g., stress management, counseling tools)",
-        "Fitness and Sports (e.g., exercise programs, sports innovations)",
-        "Others"
-    ],
-    "Quality Education" : [
-        "Online Learning (e.g., e-learning platforms, virtual classrooms)",
-        "Inclusive Education (e.g., education for all, special needs education)",
-        "Teacher Training (e.g., professional development, new teaching methods)",
-        "Educational Technology (e.g., interactive learning tools, digital textbooks)" ,
-        "Others"
-    ],
-    "Economic Empowerment" : [
-        "Financial Education (e.g., budgeting, saving, investing)",
-        "Start-up Innovations (e.g., new business ideas, entrepreneurship support)",
-        "Vocational Training (e.g., skill development, job readiness)",
-        "Retail Innovations (e.g., new products, better shopping experiences)"  ,
-        "Others"
-    ],
-    "Smart and Resilient Communities" : [
-        "Smart Cities (e.g., smart traffic systems, digital public services)",
-        "Electric Vehicles (e.g., electric cars, charging stations)",
-        "Disaster Management (e.g., emergency response systems, disaster-proof buildings)",
-        "Robotics and Drones (e.g., automation, aerial surveys)",
-        "Smart Textiles (e.g., wearable technology, smart fabrics)",
-        "Travel and Tourism (e.g., eco-tourism, smart travel apps)",
-        "Others"
-    ],
-    "Agriculture and Rural Development" : [
-        "Modern Farming Techniques (e.g., hydroponics, precision farming)",
-        "Rural Development (e.g., rural infrastructure, community projects)",
-        "Food Security (e.g., food storage, distribution systems)",
-        "Nutrition (e.g., healthy diets, fortified foods)"  ,
-        "Others"
-    ],
+  "Building a Sustainable Future": [
+    "Green Energy",
+    "Water Conservation & Management",
+    "Eco-Friendly Innovation",
+    "Biodiversity & Climate Action",
+    "Green Agriculture",
+  ],
+  "Technology for Learning and Growth": [
+    "Learning Tools & EdTech",
+   "Inclusive and Accessible Learning",
+    "Coding, AI & Data Innovation",
+   "Gamified Learning",
+    "Teacher Support Tools",
+  ],
+  "Health & Nutrition and Well-being": [
+    "Low-cost Health Devices",
+    "Mental Health Support",
+    "Clean Nutrition Innovations",
+   "Fitness & Movement" ,
+    "Community Health Awareness",
+  ],
+  "Skills for Life and Livelihood": [
+    "Vocational Skills & Local Craft",
+    "Financial Literacy",
+    "Entrepreneurship & Startups",
+    "Future-Ready Skills",
+     "Innovation in Retail & Distribution",
+  ],
+  "Smarter Communities & Safer Futures": [
+    "Disaster Resilience",
+   "Urban-Rural Mobility",
+    "Public Space Innovation",
+    "Smart Devices for Community Use",
+    "Digital Governance",
+  ],
+  "Agriculture and Rural Transformation": [
+    "Tech in Farming",
+    "Farm-to-Table Innovation",
+   "Rural Infrastructure",
+   "Climate-Smart Farming",
+    "Agri-Nutrition",
+  ],
+  "Open Category - Think Beyond!": [
+    "Any original or disruptive idea that addresses a real-world challenge",
+  ],
 };
 
 export const themes = [
-    {   id: 1, 
-        image: i1, 
-        title: 'themes.sustainabletheme', 
-        focusareas: [
-            "sustainablefocusareas.focusarea1",
-            "sustainablefocusareas.focusarea2",
-           "sustainablefocusareas.focusarea3",
-           "sustainablefocusareas.focusarea4",
-           "sustainablefocusareas.focusarea5",
-            "Others"
-        ], 
-        desc:  "themedetails.sustainabletheme",
-    },
-    { 
-        id: 2, 
-        image: i2, 
-        title: "themes.digitaltheme", 
-        focusareas: [
-            "digitalfocusareas.focusarea1",
-            "digitalfocusareas.focusarea2",
+  {
+    id: 1,
+    image: i1,
+    title: "themes.buildingtheme",
+    focusareas: [
+      "buildingfocusareas.focusarea1",
+      "buildingfocusareas.focusarea2",
+      "buildingfocusareas.focusarea3",
+      "buildingfocusareas.focusarea4",
+      "buildingfocusareas.focusarea5",
+    ],
+    desc: "themedetails.buildingtheme",
+  },
+  {
+    id: 2,
+    image: i2,
+    title: "themes.technologytheme",
+    focusareas: [
+      "technologyfocusareas.focusarea1",
+      "technologyfocusareas.focusarea2",
 
-            "digitalfocusareas.focusarea3",
+      "technologyfocusareas.focusarea3",
 
-            "digitalfocusareas.focusarea4",
+      "technologyfocusareas.focusarea4",
 
-            "digitalfocusareas.focusarea5",
+      "technologyfocusareas.focusarea5",
 
-            "Others"
-        ], 
-        desc:  "themedetails.digitaltheme",
-    },
-    { 
-        id: 3, 
-        image: i3, 
-        title:  "themes.healththeme", 
-        focusareas: [
-           "healthfocusareas.focusarea1",
-           "healthfocusareas.focusarea2",
-           "healthfocusareas.focusarea3",
-           "healthfocusareas.focusarea4",
-            "Others"
-        ], 
-        desc: "themedetails.healththeme",
-    },
-    { 
-        id: 4, 
-        image: i4, 
-        title: "themes.educationtheme", 
-        focusareas: [
-            "educationfocusareas.focusarea1",
-            "educationfocusareas.focusarea2",
+    ],
+    desc: "themedetails.technologytheme",
+  },
+  {
+    id: 3,
+    image: i3,
+    title: "themes.healththeme",
+    focusareas: [
+      "healthfocusareas.focusarea1",
+      "healthfocusareas.focusarea2",
+      "healthfocusareas.focusarea3",
+      "healthfocusareas.focusarea4",
+      "healthfocusareas.focusarea5",
 
-            "educationfocusareas.focusarea3",
+    ],
+    desc: "themedetails.healththeme",
+  },
+  {
+    id: 4,
+    image: i4,
+    title: "themes.skillstheme",
+    focusareas: [
+      "skillsfocusareas.focusarea1",
+      "skillsfocusareas.focusarea2",
 
-            "educationfocusareas.focusarea4",
+      "skillsfocusareas.focusarea3",
 
-            "Others"
-        ], 
-    desc: "themedetails.educationtheme",
+      "skillsfocusareas.focusarea4",
+      "skillsfocusareas.focusarea5",
 
-    },
-    { 
-        id: 5, 
-        image: i5, 
-        title:  "themes.economictheme", 
-        focusareas: [
-            "economicfocusareas.focusarea1",
-            "economicfocusareas.focusarea2",
-            "economicfocusareas.focusarea3",
-            "economicfocusareas.focusarea4",
-            "Others"
-        ], 
-        desc:"themedetails.economictheme",
-    },
-    { 
-        id: 6, 
-        image: i6, 
-        title: "themes.smarttheme",
-        focusareas: [
-            "smartfocusareas.focusarea1",
-            "smartfocusareas.focusarea2",
+    ],
+    desc: "themedetails.skillstheme",
+  },
+  {
+    id: 5,
+    image: i5,
+    title: "themes.smartertheme",
+    focusareas: [
+      "smarterfocusareas.focusarea1",
+      "smarterfocusareas.focusarea2",
+      "smarterfocusareas.focusarea3",
+      "smarterfocusareas.focusarea4",
+      "smarterfocusareas.focusarea5",
 
-            "smartfocusareas.focusarea3",
+    ],
+    desc: "themedetails.smartertheme",
+  },
+  {
+    id: 6,
+    image: i6,
+    title: "themes.agriculturetheme",
+    focusareas: [
+      "agriculturefocusareas.focusarea1",
+      "agriculturefocusareas.focusarea2",
 
-            "smartfocusareas.focusarea4",
+      "agriculturefocusareas.focusarea3",
 
-            "smartfocusareas.focusarea5",
+      "agriculturefocusareas.focusarea4",
 
-            "smartfocusareas.focusarea6",
+      "agriculturefocusareas.focusarea5",
 
-            "Others"
-        ], 
-        desc:"themedetails.smarttheme",
-    },
-    { 
-        id: 7, 
-        image: i7, 
-        title: "themes.agritheme",
-        focusareas: [
-            "agrifocusareas.focusarea1",
-
-            "agrifocusareas.focusarea2",
-
-            "agrifocusareas.focusarea3",
-            "agrifocusareas.focusarea4",
-
-
-            "Others"
-        ], 
-        desc:"themedetails.agritheme",
-    },
-    { 
-        id: 8, 
-        image: i8, 
-        title: "themes.othertheme", 
-        focusareas:  ["otherfocusareas.focusarea1"], 
-        desc:"themedetails.othertheme",
-    }
-  ];
+    ],
+    desc: "themedetails.agriculturetheme",
+  },
+  {
+    id: 7,
+    image: i7,
+    title: "themes.opentheme",
+    focusareas: ["openfocusareas.focusarea1"],
+    desc: "themedetails.opentheme",
+  },
+ 
+];
 
 export const questions = [
-    { qid: 1, title: 'Select a theme which relates to your idea' },
-    { qid: 2, title: 'Select focus area' },
-    { qid: 3, title: 'Describe your problem statement' },
-    { qid: 4, title: 'Give a Title to your IDEA' },
-    { qid: 5, title: 'Describe your Idea in detail' },
-    { qid: 6, title: 'Share video link of your idea prototype' },
-  ];
-
-  
+  { qid: 1, title: "Select a theme which relates to your idea" },
+  { qid: 2, title: "Select focus area" },
+  { qid: 3, title: "Describe your problem statement" },
+  { qid: 4, title: "Give a Title to your IDEA" },
+  { qid: 5, title: "Describe your Idea in detail" },
+  { qid: 6, title: "Share video link of your idea prototype" },
+];

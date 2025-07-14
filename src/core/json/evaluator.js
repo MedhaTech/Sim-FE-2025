@@ -33,20 +33,7 @@ const EvaluatorSidebarData = () => {
           showSubRoute: false,
           submenu: false,
         },
-        // {
-        //     label:"L1 Evaluated Ideas",
-        //   link: "/evaluator/evaluated-ideas",
-        //   icon: <Icon.FilePlus />,
-        //   showSubRoute: false,
-        //   submenu: false,
-        // },
-        // {
-        //     label:"L2 Evaluated Ideas",
-        //     link: "/evaluator/evaluated-ideasL2",
-        //     icon: <Icon.Database />,
-        //     showSubRoute: false,
-        //     submenu: false,
-        //   },
+       
      
       ],
     },

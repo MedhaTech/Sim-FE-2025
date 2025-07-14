@@ -2,18 +2,13 @@
 /* eslint-disable indent */
 import { useState } from 'react';
 import React, { useEffect } from 'react';
-// import Layout from '../Layout';
 import { Container, Row, Col } from 'reactstrap';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import DataTable, { Alignment } from 'react-data-table-component';
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
-// import { Link } from 'react-router-dom';
 import { openNotificationWithIcon } from '../../helpers/Utils';
-// import { Button } from '../../stories/Button';
-// import { useHistory } from 'react-router-dom';
-// import { ReactDOM } from 'react-dom';
-// import * as ReactDOM from 'react-dom';
+
 import Swal from 'sweetalert2/dist/sweetalert2';
 import { useNavigate } from "react-router-dom";
 
@@ -21,10 +16,8 @@ import logout from '../../assets/img/logout.png';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import 'sweetalert2/src/sweetalert2.scss';
 import { AlertOctagon,PlusCircle, Check} from 'feather-icons-react/build/IconComponents';
-import ToggleButton from './Toggles'; 
 
 const AdminLatestNews = () => {
-    // const history = useHistory();
     const navigate = useNavigate();
     const [resList, setResList] = useState([]);
     const [studentList, setStudentList] = useState([]);
@@ -36,6 +29,8 @@ const AdminLatestNews = () => {
         teacherList();
     }, []);
     const teacherList = () => {
+        // This function fetches mentor latest news list  from the API //
+        
         let teacherParam = encryptGlobal(
             JSON.stringify({
                 category: 'mentor'
@@ -67,6 +62,7 @@ const AdminLatestNews = () => {
         setReqList(false);
     };
     async function handleNewStatus(data, value) {
+        // This function updates status with the value // 
         const body = {
             status: "ACTIVE",
             category: data.category,
@@ -145,7 +141,6 @@ const AdminLatestNews = () => {
                             delteId,
                         headers: {
                             'Content-Type': 'application/json',
-                            // Accept: "application/json",
                             Authorization: `Bearer ${currentUser?.data[0]?.token}`
                         }
                     };
@@ -171,8 +166,6 @@ const AdminLatestNews = () => {
             });
     };
     const handleStudentList = async (e) => {
-        // alert('hii');
-        // here we can see  list of inActive institutions //
         await stuList();
     };
     const handleStuDelete = (itemA) => {
@@ -209,7 +202,6 @@ const AdminLatestNews = () => {
                             tecId,
                         headers: {
                             'Content-Type': 'application/json',
-                            // Accept: "application/json",
                             Authorization: `Bearer ${currentUser?.data[0]?.token}`
                         }
                     };
@@ -218,7 +210,7 @@ const AdminLatestNews = () => {
                             if (response.status === 200) {
                                 openNotificationWithIcon(
                                     'success',
-                                    'News succesfully deleted'
+                                    'News successfully deleted'
                                 );
                                 stuList();
                             } else {
@@ -235,6 +227,8 @@ const AdminLatestNews = () => {
             });
     };
     async function handleNewStuStatus(item, number) {
+       // This function updates  status with the given category and details //
+
         const body = {
             status: "ACTIVE",
             category: item.category,
@@ -274,6 +268,8 @@ const AdminLatestNews = () => {
             });
     }
     const stuList = () => {
+        // This function fetches student latest news list  from the API //
+
         const stuParam = encryptGlobal(
             JSON.stringify({
                 category: 'student'
@@ -322,16 +318,7 @@ const AdminLatestNews = () => {
                 sortable: true,
                 width: '10rem'
             },
-            // {
-            //     name: 'Enable/Disable',
-            //     width: '12rem',
-            //     cell: (record) => (
-            //       <ToggleButton
-            //         isEnabled={record.new_status === "1"}
-            //         onToggle={(newStatus) => handleNewStuStatus(record,"0" ,newStatus.toString())}
-            //       />
-            //     )
-            //   },
+          
             
             {
                 name: 'Details',
@@ -433,6 +420,36 @@ const AdminLatestNews = () => {
             }
         ]
     };
+    const [newurl,setnewurl] = useState('');
+const handleFileDownload = async(file) =>{
+     const parts = file.split('/');
+    const path = parts.slice(3).join('/');
+    const openParam = encryptGlobal(JSON.stringify({
+      filePath: path
+    }));
+    var config = {
+      method: 'get',
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/admins/s3fileaccess?Data=${openParam}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${currentUser?.data[0]?.token}`
+      }
+    };
+    await axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+         setnewurl(response.data.data);
+        setTimeout(() => {
+                  document.getElementById('myLink').click();
+                }, 500);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+};
 
     const resData = {
         data: resList && resList.length > 0 ? resList : [],
@@ -469,16 +486,19 @@ const AdminLatestNews = () => {
                         return <p>No file</p>;
                     } else {
                         return (
-                            
-                                <a
-                                    href={record.file_name}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="badge badge-md bg-light"
-                                >
-                                    <i className="fas fa-file-lines" style={{color:"blue"}}></i>
-                                </a>
-                           
+                             <>
+           <div onClick={()=>handleFileDownload(record.file_name)}><i className="fas fa-file-lines" style={{color:"blue"}}></i></div>
+               <a
+                  href={newurl}
+                  id='myLink'
+                  target="_blank"
+                  className="badge badge-md bg-light"
+                  rel="noopener noreferrer"
+                  style={{ display: 'none' }}
+              >
+               </a>
+            </>
+
                         );
                     }
                 }
@@ -554,25 +574,7 @@ const AdminLatestNews = () => {
                               Delete
                         </button>
 
-                        {/* <div
-                            key={record}
-                            onClick={() => handleEdit(record)}
-                            style={{ marginRight: '12px' }}
-                        >
-                            <div className="btn btn-primary mx-2">
-                                Edit
-                            </div>
-                        </div> */}
-
-                        {/* <div
-                            key={record}
-                            onClick={() => handleDelete(record)}
-                            style={{ marginRight: '12px' }}
-                        >
-                            <div className="btn btn-primary mx-2">
-                                Delete
-                            </div>
-                        </div> */}
+                      
                     </>
                 ]
             }
@@ -648,45 +650,9 @@ const AdminLatestNews = () => {
                 </div>
                 <Container className="ticket-page mb-50">
                     <Row className="pt-3">
-                        {/* <Col className="col-auto">
-                            {reqList ? (
-                                <h2>Student Latest News</h2>
-                            ) : (
-                                <h2>Teacher Latest News</h2>
-                            )}
-                        </Col> */}
+                       
 
-                        {/* <Col className="ticket-btn col ml-auto ">
-                            {reqList ? (
-                                <div className="d-flex justify-content-end">
-                                    <button
-                                        className='btn btn-secondary'
-                                            onClick={(e) => handleBack(e)}
-                                        >
-                                        Back
-                                        </button>
-                                </div>
-                            ) : (
-                                <div className="d-flex justify-content-end">
-                                    <button
-                                    className='btn btn-warning me-2'
-                                        onClick={(e) => handleStudentList(e)}
-                                    >
-                                        Student Latest News
-                                    </button>
-                                    <button
-                                    className='btn btn-info'
-                                        onClick={() =>
-                                            navigate(
-                                                '/create-news'
-                                            )
-                                        }
-                                    >
-    Create LatestNews
-                                </button>
-                                </div>
-                            )}
-                        </Col> */}
+                    
                         {reqList ? (
                             <div>
                                 <DataTableExtensions
@@ -696,7 +662,6 @@ const AdminLatestNews = () => {
                                     exportHeaders
                                 >
                                     <DataTable
-                                        // data={SRows}
                                         defaultSortField="id"
                                         defaultSortAsc={false}
                                         customStyles={customStyles}
@@ -717,8 +682,7 @@ const AdminLatestNews = () => {
                                     exportHeaders
                                 >
                                     <DataTable
-                                        // data={setResList}
-                                        // noHeader
+                                       
                                         defaultSortField="id"
                                         customStyles={customStyles}
 

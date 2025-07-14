@@ -65,6 +65,8 @@
     },
     "teacherJourney": {
         "heading":"here's what's happening with your School Innovation Marathon 2025 journey.",
+  "teacher_welcome_html": "<h3 class='text-success'>Welcome Teachers!</h3><br/>We’re excited that you will be part of the program in guiding your student through it.<br/><p>Now it’s time to start the program.</p><ol><li>1. Watch the instructional videos for overview of the program.</li><li>2. Read the teacher's handbook for a summary of the course and other important instructions.</li></ol><br/><p>You have one week to do these. Afterwards, you and your students will be ready to start their problem solving journey!</p><p>We hope you enjoy guiding the students as they embark on this new journey!</p>Wishing you all the best!",
+
         "Dbcourse":"Teacher Course",
         "Dbteams":"Teams Created",
         "Dbstudents":"Students Enrolled",
@@ -100,7 +102,7 @@
         "createteam":"Create Team",
         "backtoteams":"Back to Teams",
         "discard":"Discard",
-        "addteam":"Add Team & Students",
+        "addteam":" Add Team & Students",
         "teamnames":"Team Login's",
         "liststu":"Stu",
         "onestudent":"Add Student",

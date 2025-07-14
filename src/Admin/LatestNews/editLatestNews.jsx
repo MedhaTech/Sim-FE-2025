@@ -1,14 +1,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React from "react";
-// import Layout from '../Layout';
+import React, { useEffect, useState } from "react";
 import { Row, Col, FormGroup, Label, Form, Input } from "reactstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Button } from "../../stories/Button";
 import { getCurrentUser, openNotificationWithIcon } from "../../helpers/Utils";
 import { useTranslation } from "react-i18next";
-// import { useHistory } from 'react-router-dom';
 import axios from "axios";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { useNavigate } from "react-router-dom";
@@ -21,13 +19,43 @@ const EditLatestNews = (props) => {
   const allData = ["All States", ...stateList];
   const newsID = JSON.parse(localStorage.getItem("newsID"));
   const currentUser = getCurrentUser("current_user");
-  // const history = useHistory();
   const inputDICE = {
     type: "text",
     className: "defaultInput",
   };
-
+const [newurl,setnewurl] = useState('');
+    useEffect(()=>{
+        handleFileDownload(newsID && newsID.file_name);
+    },[]);
+    const handleFileDownload = async(file) =>{
+         const parts = file.split('/');
+        const path = parts.slice(3).join('/');
+        const openParam = encryptGlobal(JSON.stringify({
+          filePath: path
+        }));
+        var config = {
+          method: 'get',
+          url:
+            process.env.REACT_APP_API_BASE_URL +
+            `/admins/s3fileaccess?Data=${openParam}`,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${currentUser?.data[0]?.token}`
+          }
+        };
+        await axios(config)
+          .then(function (response) {
+            if (response.status === 200) {
+             setnewurl(response.data.data);
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    };
   const fileHandler = (e) => {
+    // Handles file selection and reads the selected file //
+
     let file = e.target.files[0];
 
     if (!file) {
@@ -71,7 +99,6 @@ const EditLatestNews = (props) => {
 
     formik.setFieldValue("file_name", file);
   };
-  console.log(newsID, "newsID");
   const formik = useFormik({
     initialValues: {
       role: newsID && newsID.category,
@@ -94,8 +121,7 @@ const EditLatestNews = (props) => {
         .optional()
         .oneOf(["0", "1"])
         .required("New Status type is Required"),
-      // file_name: Yup.mixed(),
-      // url: Yup.string()
+      
     }),
     onSubmit: async (values) => {
       try {
@@ -130,9 +156,7 @@ const EditLatestNews = (props) => {
         if (values.file_name !== "" && values.file_name !== null) {
           body["file_name"] = values.file_name;
         }
-        // if (values.url !== "" && values.url !== null) {
-        //   body["url"] = values.url;
-        // }
+        
         if (values.url) {
           body["url"] = values.url;
         } else {
@@ -198,7 +222,6 @@ const EditLatestNews = (props) => {
               <div>
                 <Form onSubmit={formik.handleSubmit} isSubmitting>
                   <div className="create-ticket register-block">
-                    {/* <FormGroup className="form-group" md={12}> */}
                     <Row className="mb-3 modal-body-table search-modal-header">
                       <Col md={4}>
                         <Label className="mb-2" htmlFor="role">
@@ -259,9 +282,9 @@ const EditLatestNews = (props) => {
                           list={allData}
                           setValue={(value) =>
                             formik.setFieldValue("state", value)
-                          } // Update Formik state
+                          } 
                           placeHolder={"Select State"}
-                          value={formik.values.state} // Bind the Formik state value
+                          value={formik.values.state} 
                         />
                         {formik.errors.state ? (
                           <small className="error-cls" style={{ color: "red" }}>
@@ -321,7 +344,6 @@ const EditLatestNews = (props) => {
                             <button
                               className="btn btn-info m-2"
                               type="button"
-                              // disabled={!formik.values.attachments}
                               onClick={() => {
                                 if (formik.values.file_name instanceof File) {
                                   const fileURL = URL.createObjectURL(
@@ -330,7 +352,7 @@ const EditLatestNews = (props) => {
                                   window.open(fileURL, "_blank");
                                 } else {
                                   window.open(
-                                    formik.values.file_name,
+                                    newurl,
                                     "_blank"
                                   );
                                 }
@@ -346,7 +368,6 @@ const EditLatestNews = (props) => {
                           {formik.values.file_name &&
                           formik.values.file_name.name ? (
                             <span className="ml-2 p-3">
-                              {/* {formik.values.file_name.name} */}
                             </span>
                           ) : (
                             <span className="ml-2 p-3">
@@ -385,10 +406,8 @@ const EditLatestNews = (props) => {
                         )}
                       </Col>
                     </Row>
-                    {/* </FormGroup> */}
                   </div>
 
-                  {/* <hr className="mt-4 mb-4" /> */}
                   <Row>
                     <div style={buttonContainerStyle}>
                       <button

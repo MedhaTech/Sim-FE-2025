@@ -2,30 +2,18 @@
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Table } from "reactstrap";
-import { Button } from "../../../stories/Button";
 import { CSVLink } from "react-csv";
 import { getCurrentUser } from "../../../helpers/Utils";
 import { useNavigate, Link } from "react-router-dom";
-import {
-  getDistrictData,
-  getStateData,
-  getFetchDistData,
-} from "../../../redux/studentRegistration/actions";
+
 import { ArrowRight } from "feather-icons-react/build/IconComponents";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "../Helpers/Select";
 import axios from "axios";
-// import '../reports.scss';
-import { Doughnut } from "react-chartjs-2";
-import { Bar } from "react-chartjs-2";
-import { categoryValue } from "../../Schools/constentText";
-import { notification } from "antd";
 import { encryptGlobal } from "../../../constants/encryptDecrypt";
 import { stateList, districtList } from "../../../RegPage/ORGData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faMale,
-  faFemale,
   faChalkboardTeacher,
 } from "@fortawesome/free-solid-svg-icons";
 import ReactApexChart from "react-apexcharts";
@@ -47,8 +35,7 @@ const StudentProgress = () => {
     "Non ATL",
   ];
   const newstateList = ["All States", ...stateList];
-  // const categoryData =
-  //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
+  
   const [studentDetailedReportsData, setstudentDetailedReportsData] = useState(
     []
   );
@@ -66,7 +53,6 @@ const StudentProgress = () => {
   const [downloadTableData, setDownloadTableData] = useState([]);
   const [newFormat, setNewFormat] = useState("");
   const [atl, setAtl] = useState("");
-  const [nonAtl, setNonAtl] = useState("");
   const [series1, setseries1] = useState([]);
   const [series2, setseries2] = useState([]);
   const [series3, setseries3] = useState([]);
@@ -103,13 +89,9 @@ const StudentProgress = () => {
   ];
     const [modifiedChartTableData, setModifiedChartTableData] = useState([]);
    const [hasData, setHasData] = useState(false);
-  // const fiterDistData = districtList[selectstate];
 
   useEffect(() => {
-    // if (selectstate !== '') {
-    //     dispatch(getFetchDistData(selectstate));
-    // }
-    // setdistrict('');
+    
     fetchChartTableData();
     const newDate = new Date();
     const formattedDate = `${newDate.getUTCDate()}/${1 + newDate.getMonth()
@@ -599,59 +581,8 @@ const StudentProgress = () => {
     ],
   };
 
-  // useEffect(() => {
-  //     nonAtlCount();
-  // }, []);
-  const nonAtlCount = () => {
-    var config = {
-      method: "get",
-      url:
-        process.env.REACT_APP_API_BASE_URL_FOR_REPORTS + `/reports/studentATLnonATLcount`,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${currentUser.data[0]?.token}`,
-      },
-    };
-    axios(config)
-      .then(function (res) {
-        if (res.status === 200) {
-          var mentorStuArray = [];
-          res &&
-            res.data &&
-            res.data.data &&
-            res.data.data.map((students, index) => {
-              var key = index + 1;
-              return mentorStuArray.push({ ...students, key });
-            });
-          setAtl(mentorStuArray);
 
-          // setAtl(response.data.data);
-          const barStudentData = {
-            labels: mentorStuArray.map((item) => item.state),
-            datasets: [
-              {
-                label: "No.of  ATL Students",
-                data: mentorStuArray.map((item) => item.ATL_Student_Count),
-                backgroundColor: "rgba(255, 0, 0, 0.6)",
-              },
-              {
-                label: "No.of Non ATL Students",
-                data: mentorStuArray.map((item) => item.NONATL_Student_Count),
-                backgroundColor: "rgba(75, 162, 192, 0.6)",
-              },
-            ],
-          };
-          setBarChart3Data(barStudentData);
-          // console.log(barStudentData,"barStudentData");
-          setseries7(barStudentData.datasets[0].data);
-          setseries6(barStudentData.datasets[1].data);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+ 
   const filterData= (updatedHeaders)=>{
     const filteredData = modifiedChartTableData.map((item) => {
 
@@ -664,22 +595,18 @@ const StudentProgress = () => {
         }
       });
     
-      console.log("Filtered Item:", filteredItem); 
       return Object.keys(filteredItem).length > 0 ? filteredItem : null; 
     }).filter(Boolean); 
-    console.log("Final Filtered Data for Download:", filteredData);
     setstudentDetailedReportsData(filteredData);
   };
  
   const enable = selectstate?.trim() !== "" && district?.trim() !== "" && category?.trim() !== "";
  
     useEffect(() => {
-        console.log("Updated Download Table Data:", studentDetailedReportsData);
       }, [studentDetailedReportsData]); 
      
         useEffect(() => {
             if (isReadyToDownload && studentDetailedReportsData.length > 0) {
-              console.log("Downloading CSV with data:", studentDetailedReportsData);
               const formattedCSVData = studentDetailedReportsData.map((item) =>
                 Object.fromEntries(
                   Object.entries(item).map(([key, value]) => [headerMapping[key] || key, value])
@@ -689,7 +616,6 @@ const StudentProgress = () => {
         
           setTimeout(() => {
                 csvLinkRef.current.link.click();
-                console.log("Downloading CSV with formatted headers:", formattedCSVData);
                 openNotificationWithIcon("success", "Report Downloaded Successfully");
                 setIsReadyToDownload(false); 
               }, 1000);
@@ -827,21 +753,7 @@ const StudentProgress = () => {
             };
           });
           setModifiedChartTableData(newdatalist);
-          // const filteredData = newdatalist.map((item) => {
-          //   let filteredItem = {};
-          //   selectedHeaders.forEach((key) => {
-          //     if (item && Object.prototype.hasOwnProperty.call(item, key)) {  
-          //       filteredItem[key] = item[key] ?? ""; 
-          //     } else {
-          //       console.warn(`Key "${key}" not found in item:`, item); 
-          //     }
-          //   });
-          
-          //   console.log("Filtered Item:", filteredItem); 
-          //   return Object.keys(filteredItem).length > 0 ? filteredItem : null; 
-          // }).filter(Boolean); 
-          // console.log("Final Filtered Data for Download:", filteredData);
-          // setstudentDetailedReportsData(filteredData);
+         
           if (response.data.data[0].summary.length > 0) {
             setIsCustomizationEnabled(true);
             setHasData(true); 
@@ -875,7 +787,6 @@ const StudentProgress = () => {
       .then((response) => {
         if (response.status === 200) {
           setIsloader(true);
-          // console.log(response,"view");
           const summary = response.data.data[0].summary;
           const studentCountDetails = response.data.data[0].studentCountDetails;
 
@@ -912,7 +823,6 @@ const StudentProgress = () => {
                   ? courseINprogesssItem.studentCourseIN
                   : 0))
             )) : 0;
-            // console.log(courseNotStarted,"11");
             const ideaNotStarted =
               summaryItem.totalTeams -
               ((submittedCountItem
@@ -953,12 +863,10 @@ const StudentProgress = () => {
           const total = combinedArray.reduce(
             (acc, item) => {
               acc.state = "Total";
-              // acc.totalReg += item.totalReg;
               acc.totalTeams += item.totalTeams;
               acc.totalStudents += item.totalStudents;
               acc.draftCount += item.draftCount;
               acc.submittedCount += item.submittedCount;
-              // acc.otherStudents += item.otherStudents;
               acc.courseCompleted += item.courseCompleted;
               acc.courseINprogesss += item.courseINprogesss;
               acc.ideaNotStarted =
@@ -971,14 +879,12 @@ const StudentProgress = () => {
             },
             {
               state: "None",
-              // totalReg: 0,
               totalTeams: 0,
               totalStudents: 0,
 
               draftCount: 0,
               submittedCount: 0,
               ideaNotStarted: 0,
-              // otherStudents : 0,
               courseCompleted: 0,
               courseINprogesss: 0,
               courseNotStarted: 0,
@@ -1139,12 +1045,7 @@ const StudentProgress = () => {
               </Col>
               <Col md={2}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
-                  {/* <Select
-                    list={categoryData}
-                    setValue={setCategory}
-                    placeHolder={"Select Category"}
-                    value={category}
-                  /> */}
+                
                   {selectstate === "Tamil Nadu" ? (
                     <Select
                       list={categoryDataTn}
@@ -1162,10 +1063,7 @@ const StudentProgress = () => {
              
                <Col md={2}>
                                           <button
-                                              //  onClick={() => {setShowCustomization(!showCustomization);
-                                              //   fetchData();
-                                              //   setSelectedHeaders([]);
-                                              // }}
+                                             
                                               onClick={handleCustomizationClick}
                                               type="button"
                                               disabled={!enable}
@@ -1174,68 +1072,7 @@ const StudentProgress = () => {
                                               Customization
                                             </button>
                                           </Col>
-                                          {/* {showCustomization && hasData && (
-                <div className="card mt-3" >
-                  <div className="card-body">
-                    <h5 className="card-title">Select Columns</h5>
-                    <div className="row">
-                    <div className="col-md-3">
-                    <div className="form-check mb-2">
-                      <input
-                        type="checkbox"
-                        className="form-check-input"
-                        id="selectAll"
-                        checked={selectedHeaders.length === allHeaders.length}
-                        onChange={handleSelectAll}
-                      />
-                      <label className="form-check-label ms-2" htmlFor="selectAll">
-                        Select All
-                      </label>
-                    </div>
-                    </div>
-
-              
-                  
-                      {allHeaders.map((header) => (
-                        <div className="col-md-3" key={header.key}>
-                          <div className="form-check">
-                            <input
-                              type="checkbox"
-                              className="form-check-input"
-                              id={header.key}
-                              checked={selectedHeaders.includes(header.key)}
-                              onChange={() => handleCheckboxChange(header.key)}
-                            />
-                            <label className="form-check-label ms-2" htmlFor={header.key}>
-                              {header.label}
-                            </label>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-              
-                    <button
-                      className="btn btn-danger mt-3"
-                     
-                      onClick={() => {
-                        setShowCustomization(false);
-                        if (!studentDetailedReportsData || studentDetailedReportsData.length === 0) {
-                          console.log("Fetching data before download...");
-                          filterData();
-                          // fetchData(); 
-                        }
-                        setTimeout(() => {
-                          console.log("Checking Data Before Download:", studentDetailedReportsData);
-                          setIsReadyToDownload(true);
-                        }, 1000);
-                      }}
-                      disabled={selectedHeaders.length === 0}
-                    >
-                      Download Report
-                    </button>
-                  </div>
-                </div>
-              )} */}
+                                         
                 {showCustomization &&  hasData && (
   <div className="card mt-3" >
     <div className="card-body">
@@ -1287,13 +1124,11 @@ const StudentProgress = () => {
         onClick={() => {
           setShowCustomization(false);
           if (!downloadTableData || downloadTableData.length === 0) {
-            console.log("Fetching data before download...");
             filterData();
 
           }
       
           setTimeout(() => {
-            console.log("Checking Data Before Download:", downloadTableData);
           
             setIsReadyToDownload(true);
           }, 1000);
@@ -1383,7 +1218,6 @@ const StudentProgress = () => {
                                 type="button"
                                 onClick={() => {
                                   if (downloadTableData) {
-                                    // setIsDownloading(true);
                                     setDownloadTableData(null);
                                     csvLinkRefTable.current.link.click();
                                   }
@@ -1604,22 +1438,7 @@ const StudentProgress = () => {
                   </div>
                 </div>
               </div>
-              {/* <div className="col-md-12">
-                        <div className="card">
-                        <div className="card-header">
-                            <h5 className="card-title">No.of Students Enrolled from ATL v/s Non ATL Schools{' '}{newFormat}</h5>
-                        </div>
-                        <div className="card-body">
-                            <div id="mixed-chart" />
-                            <ReactApexChart
-                            options={optionsStudent}
-                            series={optionsStudent.series}
-                            type="line"
-                            height={400}
-                            />
-                        </div>
-                        </div>
-                    </div> */}
+            
 
              
             </div>
@@ -1642,7 +1461,6 @@ const StudentProgress = () => {
 
               {studentDetailedReportsData && (
                 <CSVLink
-                  // headers={teacherDetailsHeaders}
                   data={formattedDataForDownload}
                   filename={`StudentProgressDetailedReport_${newFormat}.csv`}
                   className="hidden"

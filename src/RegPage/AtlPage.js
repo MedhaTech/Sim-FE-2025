@@ -1,3 +1,4 @@
+/* eslint-disable no-empty */
 /* eslint-disable indent */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-undef */
@@ -17,11 +18,11 @@ import { useNavigate } from "react-router-dom";
 import logo from "../assets/img/new-logo.png";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import user from "../assets/img/icons/user-icon.svg";
-import play from "../assets/img/playicon.png";
 import copy from "../assets/img/copyrights.png";
 import { ArrowRight } from "feather-icons-react";
 import { stateList, districtList } from "./ORGData.js";
 import { openNotificationWithIcon } from "../helpers/Utils.js";
+import { FiPlayCircle } from "react-icons/fi";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -57,21 +58,13 @@ const Register = () => {
   const [timer, setTimer] = useState(0);
   const [person, setPerson] = useState(true);
   const [design, setDesign] = useState(false);
-  const [emailData, setEmailData] = useState("");
-  const [mobileData, setMobileData] = useState("");
+  
   const [mentData, setMentData] = useState({});
-  const [multiData, setMultiData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false); 
-  // console.log(isSubmitting,"click");
 
-  const normalizeStateName = (stateName) => {
-    return stateName
-      .toLowerCase()
-      .replace(/\b\w/g, (char) => char.toUpperCase());
-  };
+  
 
   const handleOnChange = (e) => {
-    // const numericValue = e.target.value.replace(/\D/g, "");
     const numericValue = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
     const trimmedValue = numericValue.trim();
 
@@ -99,12 +92,10 @@ const Register = () => {
       if (diesCode.length === 11) {
         setIsButtonEnabled(true);
       }
-      //formik.setFieldValue("whatapp_mobile", formik.values.mobile);
-      //setWtsNum(formik.values.mobile);
+     
     } else {
       setCheckBox1(false);
       setIsButtonEnabled(false);
-      //formik.setFieldValue("whatapp_mobile", "");
     }
   };
 
@@ -112,6 +103,7 @@ const Register = () => {
   localStorage.setItem("diesCode", JSON.stringify(diesCode));
 
   const handleRegister = (e) => {
+    // This function fetches organization data based on the DIES code
     const body = JSON.stringify({
       organization_code: diesCode,
     });
@@ -126,28 +118,7 @@ const Register = () => {
     };
     axios(config)
       .then(function (response) {
-        // if (response?.status === 200) {
-        //   console.log(response,"eivnir");
-        //   if (
-        //     response?.data?.data[0].mentor != null &&
-        //     response?.data?.data[0].mentor != ""
-        //   ) {
-        //     setError("Another Teacher is already registered in given School");
-        //   } else {
-        //     if (Object.keys(response?.data?.data[0]).length) {
-        //       setOrgData(response?.data?.data[0]);
-        //       formik.setFieldValue(
-        //         "organization_code",
-        //         response?.data?.data[0].organization_code
-        //       );
-
-        //       setDiceBtn(false);
-        //       setSchoolBtn(true);
-        //     } else {
-        //       setError("Oops..! UDISE Code seems incorrect");
-        //     }
-        //   }
-        // }
+       
         if (response?.status == 200) {
 
 
@@ -159,13 +130,10 @@ const Register = () => {
 }else{
           if (
             response?.data?.data[0] &&
-            // response?.data?.data[0].category == "ATL" &&
             process.env.REACT_APP_USEDICECODE == 1
           ) {
             if (
               Object.keys(response?.data?.data[0]).length
-              // &&
-              // response?.data?.data[0].category === "ATL"
             ) {
               setDropDownbtn(response?.data?.data[0].mentor != null);
               if (response?.data?.data[0].mentor != null) {
@@ -183,18 +151,12 @@ const Register = () => {
               );
 
               const fetchedstate = response?.data?.data[0].state;
-              //const normalizedState = normalizeStateName(fetchedstate);
-              //setStateData(normalizedState);
               setStateData(fetchedstate);
               setDistrictData(districtList[fetchedstate] || []);
 
               setDiceBtn(false);
               setSchoolBtn(true);
-            } else {
-              // setError(
-              //   "Entered Code belongs to Non-Atl school. Kindly register as Non-ATL"
-              // );
-            }
+            } 
           } 
       }
       }
@@ -204,7 +166,6 @@ const Register = () => {
         if (error?.response?.data?.status === 404) {
           navigate("/non-atl-register", { state: diesCode });
 
-          // setError("Oops..!  UDISE Code seems incorrect");
         }
       });
 
@@ -222,7 +183,6 @@ const Register = () => {
     initialValues: {
       full_name: "",
       organization_code: diesCode,
-      // username: '',
       mobile: "",
       whatapp_mobile: "",
       role: "MENTOR",
@@ -280,7 +240,6 @@ const Register = () => {
         .matches(
           /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
           "Email Must be VALID"
-          // <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
         )
         .max(255),
       whatapp_mobile: Yup.string()
@@ -370,7 +329,6 @@ const Register = () => {
           })
           .catch((err) => {
             openNotificationWithIcon("error", err.response.data?.message);
-            // setBtn(false);
             formik.setErrors({
               check: err.response && err?.response?.data?.message,
             });
@@ -392,8 +350,8 @@ const Register = () => {
   
   },[formik.values.email]);
   async function apiCall(mentData) {
-    // Dice code list API //
-    // where list = diescode  //
+       // this function Sends a request to trigger the mentor welcome email
+
     const body = {
       school_name: orgData.organization_name,
       udise_code: orgData.organization_code,
@@ -451,6 +409,7 @@ const Register = () => {
     }
   };
   const handleSendOtp = async (e) => {
+    // This function  Sends a request to generate and send OTP to the user's mobile and email
     formik.setFieldValue("mobile", formik.values.mobile);
     setTimer(60);
 
@@ -476,7 +435,6 @@ const Register = () => {
       .then(function (response) {
         if (response.status === 202) {
           const UNhashedPassword = decryptGlobal(response?.data?.data);
-          // console.log(UNhashedPassword, "111111111111111111111111111");
           setOtpRes(JSON.parse(UNhashedPassword));
           openNotificationWithIcon("success", "Otp send to Email Id");
           setBtnOtp(true);
@@ -496,12 +454,7 @@ const Register = () => {
           setDisable(true);
           setAreInputsDisabled(false);
           setTimer(0);
-          // openNotificationWithIcon("error", "Email ID already exists");
-          // setTimeout(() => {
-          //   setDisable(true);
-          //   setHoldKey(false);
-          //   setTimer(0);
-          // }, 1000);
+        
         }
       });
     e.preventDefault();
@@ -511,17 +464,7 @@ const Register = () => {
     setErrorMsg(false);
   };
 
-  // useEffect(() => {
-  //   if (timer > 0) {
-  //     const intervalId = setInterval(() => {
-  //       setTimer((prevTimer) => prevTimer - 1);
-  //     }, 1000);
-  //     return () => clearInterval(intervalId);
-  //   } else if (timer === 0 && otpSent) {
-  //     setAreInputsDisabled(false);
-  //     setOtpSent(false);
-  //   }
-  // }, [timer, otpSent]);
+
   useEffect(() => {
     if (timer > 0) {
       const intervalId = setInterval(() => {
@@ -567,8 +510,7 @@ const Register = () => {
     navigate('/');
   };
 
-  //console.log(formik.values.district,"district", );
-  // const route = all_routes;
+ 
   return (
     <div className="main-wrapper">
       <div className="account-content">
@@ -591,12 +533,13 @@ const Register = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <img
-                            src={play}
-                            className="icon"
-                            alt="play"
-                            style={{ verticalAlign: "middle", width: "7%" }}
-                          />
+                         <span
+                                                                                                               style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
+                                                                                                                             className="badge"
+                                                                                                             
+                                                                                                             >
+                                                                                                               <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;DEMO</span>
+                                                                                                             </span>
                         </a>
                       </OverlayTrigger>
                     </h3>
@@ -669,7 +612,6 @@ const Register = () => {
                         >
                           {" "}
                           Proceed
-                          <span> {/* <ArrowRight /> */}</span>
                         </button>
                         <p className="form-login mb-3">
                           Already have an account ?
@@ -724,7 +666,6 @@ const Register = () => {
                     <div className="card">
                       <div className="card-body">
                         <div className="row g-3 mt-0">
-                          {/* {person && ( */}
                           <>
                             <div className="col-md-3">
                               <label
@@ -736,7 +677,6 @@ const Register = () => {
                               <select
                                 id="inputState"
                                 className="form-select"
-                                // disabled={holdKey ? true : false}
                                 disabled={areInputsDisabled}
                                 name="title"
                                 value={formik.values.title}
@@ -765,7 +705,6 @@ const Register = () => {
                                 id="full_name"
                                 disabled={areInputsDisabled}
                                 name="full_name"
-                                // onChange={formik.handleChange}
                                 onChange={(e) => {
                                   const inputValue = e.target.value;
                                   const lettersOnly = inputValue.replace(
@@ -818,7 +757,6 @@ const Register = () => {
                             </div>
                             {!dropdownbtn ? (
                               <div
-                                // className="col-md-4"
                                 className={`col-md-${design ? 4 : 0}`}
                               >
                                 <label
@@ -854,7 +792,6 @@ const Register = () => {
                               ""
                             )}
                             <div
-                              // className="col-md-5"
                               className={`col-md-${design ? 5 : 6}`}
                             >
                               <label
@@ -883,7 +820,6 @@ const Register = () => {
                               ) : null}
                             </div>
                             <div
-                              // className="col-md-3"
                               className={`col-md-${design ? 3 : 6}`}
                             >
                               <label
@@ -1007,8 +943,6 @@ const Register = () => {
                               ) : null}
                             </div>
                           </>
-                          {/* )} */}
-                          {/* {person && ( */}
                           <div className="col-md-12">
                             <button
                               type="button"
@@ -1029,26 +963,13 @@ const Register = () => {
                                   {timer > 0
                                     ? `Access Resend OTP in ${timer < 10 ? `0${timer}` : timer} sec`
                                     : "Resend OTP enabled"}
-                                  {/* {timer > 0
-                                    ? `Otp will expire in 00:${
-                                        timer < 10 ? `0${timer}` : timer
-                                      } seconds`
-                                    : "Otp expired"} */}
+                                 
                                 </p>
                               </div>
 
                               <div className="login-content user-login">
                                 <div className="login-logo">
-                                  {/* <ImageWithBasePath
-                                    src="assets/img/logo.png"
-                                    alt="img"
-                                  /> */}
-                                  {/* <Link className="login-logo logo-white">
-                                    <ImageWithBasePath
-                                      src="assets/img/logo-white.png"
-                                      alt
-                                    />
-                                  </Link> */}
+                                 
                                 </div>
                                 <div className="login-userset text-center justify-content-center">
                                   <div className="login-userheading">
@@ -1140,7 +1061,6 @@ const Register = () => {
             ) : (
               "Verify My Account"
             )}
-                                {/* Verify My Account */}
                               </button>
                             </div>
                           )}

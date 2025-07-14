@@ -1,7 +1,6 @@
 /* eslint-disable indent */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col, FormGroup, Label, Form,Input } from 'reactstrap';
-// import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { Button } from '../../stories/Button';
 import { useFormik } from 'formik';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
@@ -25,8 +24,41 @@ const EditResource = () => {
         type: 'text',
         className: 'defaultInput'
     };
+
+    const [newurl,setnewurl] = useState('');
+    useEffect(()=>{
+        handleFileDownload(resID && resID.attachments);
+    },[]);
+    const handleFileDownload = async(file) =>{
+         const parts = file.split('/');
+        const path = parts.slice(3).join('/');
+        const openParam = encryptGlobal(JSON.stringify({
+          filePath: path
+        }));
+        var config = {
+          method: 'get',
+          url:
+            process.env.REACT_APP_API_BASE_URL +
+            `/admins/s3fileaccess?Data=${openParam}`,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${currentUser?.data[0]?.token}`
+          }
+        };
+        await axios(config)
+          .then(function (response) {
+            if (response.status === 200) {
+             setnewurl(response.data.data);
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    };
    
     const fileHandler = (e) => {
+    // Handles file selection and reads the selected file //
+
         let file = e.target.files[0];
 
         if (!file) {
@@ -46,9 +78,7 @@ const EditResource = () => {
             'application/msword',
             'application/pdf',
             'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            // xsl and xslx //
-    //         'application/vnd.ms-excel', 
-    // 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' 
+            
         ];
         if (!allowedTypes.includes(file.type)) {
             openNotificationWithIcon(
@@ -122,14 +152,7 @@ const EditResource = () => {
                     );
                     values.attachments =
                         response?.data?.data[0].attachments[0].toString();
-                    // if (response.status === 200) {
-                    //     openNotificationWithIcon(
-                    //       'success',
-                    //       'File Updated Successfully'
-                    //     );
-                    //   } else {
-                    //     openNotificationWithIcon('error', 'Opps! Something Wrong');
-                    //   }
+                   
                 }
 
                 const body = {
@@ -157,7 +180,6 @@ const EditResource = () => {
 
                 if (response.status === 200) {
                     navigate('/adminresources');
-                    //props.history.push('/admin/Resources');
                     openNotificationWithIcon(
                         'success',
                         'Resource Updated Successfully'
@@ -180,11 +202,7 @@ const EditResource = () => {
         marginRight: '10px',
       };
 
-    //   const handleStateChange = (event) => {
-    //     const state = event.target.value;
-    //     formik.setFieldValue("state", state);
-    //   };
-      console.log(formik.values.state,"state");
+   
     return (
         <div className="page-wrapper">
              <h4 className="m-2" 
@@ -241,22 +259,11 @@ const EditResource = () => {
                           </Label>
                           <Select
   list={allData}
-  setValue={(value) => formik.setFieldValue("state", value)} // Update Formik state
+  setValue={(value) => formik.setFieldValue("state", value)} 
   placeHolder={"Select State"}
-  value={formik.values.state}  // Bind the Formik state value
+  value={formik.values.state}
 />
-                          {/* <select
-                            id="inputState"
-                            className="form-select"
-                            onChange={(e) => handleStateChange(e)}
-                          >
-                            <option value="">Select State</option>
-                            {allData.map((state) => (
-                              <option key={state} value={formik.values.state}>
-                                {state}
-                              </option>
-                            ))}
-                          </select> */}
+                         
 
                           {formik.touched.state && formik.errors.state ? (
                             <small
@@ -369,7 +376,7 @@ const EditResource = () => {
                                                                     const fileURL = URL.createObjectURL(formik.values.attachments);
                                                                     window.open(fileURL, '_blank');
                                                               } else {
-                                                                    window.open(formik.values.attachments, '_blank');
+                                                                    window.open(newurl, '_blank');
                                                                 }
                                                             }}
                                                            
@@ -485,30 +492,7 @@ const EditResource = () => {
                                             </button>
                                         </div>
                                     </Row>
-                                    {/* <Row>
-                                        <Col className="col-xs-12 col-sm-6">
-                                            <Button
-                                                label="Discard"
-                                                btnClass="secondary"
-                                                size="small"
-                                                onClick={() => navigate('/adminresources')}
-                                                
-                                            />
-                                        </Col>
-                                        <Col className="submit-btn col-xs-12 col-sm-6">
-                                            <Button
-                                                label="Submit details"
-                                                type="submit"
-                                                btnClass={
-                                                    !formik.dirty || !formik.isValid
-                                                        ? 'default'
-                                                        : 'primary'
-                                                }
-                                                size="small"
-                                                disabled={!formik.dirty}
-                                            />
-                                        </Col>
-                                    </Row> */}
+                                  
                                 </Form>
                             </div>
                         </Col>

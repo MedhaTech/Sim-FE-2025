@@ -29,10 +29,10 @@ const Instructions = () => {
                     }}
                 ></div>
 
-                <div className='mt-2 mb-3' >
+                <div className='mt-2 mb-3 d-flex flex-md-row flex-column align-items-center align-items-md-start' >
                     <Button
                         label={'L1 - Round Evaluator'}
-                        btnClass="primary mx-3"
+                        btnClass="primary my-2 mx-md-3"
                         size="small"
                         onClick={() =>
                             navigate('/evaluator/submitted-ideas')
@@ -40,7 +40,7 @@ const Instructions = () => {
                     />
                     <Button
                         label={'L2 - Round Evaluator'}
-                        btnClass="primary mx-3"
+                        btnClass="primary my-2 mx-md-3"
                         size="small"
                         onClick={() =>
                             navigate('/evaluator2/submitted-ideas')

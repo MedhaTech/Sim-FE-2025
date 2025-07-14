@@ -62,26 +62,7 @@ const StateSidebarData = () => {
           showSubRoute: false,
           submenu: false,
         },
-  //         {
-  //   label: "Reports",
-  //   submenuOpen: true,
-  //   // link: "/state-reports",
-  //   icon: <Icon.Bookmark />,
-  //   showSubRoute: false,
-  //   submenuHdr: "Reports",
-  //   role: "STATE",
-  //   submenuItems: [
-  //     {
-  //       label: "Institutions",
-  //       link: "/institution-report",
-  //       icon: <Icon.Codesandbox />,
-  //       showSubRoute: false,
-  //       submenu: false,
-  //     },
-     
-     
-  //   ],
-  // },
+ 
     
        
       ],

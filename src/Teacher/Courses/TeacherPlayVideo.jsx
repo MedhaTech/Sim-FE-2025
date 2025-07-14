@@ -9,7 +9,6 @@ import { Row, Col } from "react-bootstrap";
 import "./style.scss";
 import { BsChevronRight, BsFilter } from "react-icons/bs";
 import { RiAwardFill } from "react-icons/ri";
-// import { CommonDropDownComp } from '../../stories/CommonDropdown/CommonDropdownComp';
 import { Card, CardBody, CardTitle } from "reactstrap";
 import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
 import {
@@ -17,30 +16,15 @@ import {
   getAdminCourseDetails,
   getMentorCourseAttachments,
 } from "../../redux/actions";
-// import { BsLayoutTextSidebarReverse } from 'react-icons/bs';
-// import { VscCircleFilled } from 'react-icons/vsc';
-// import { VscCheck } from 'react-icons/vsc';
+
 import Confetti from "react-confetti";
 
 import Vimeo from "@u-wave/react-vimeo";
-// import Layout from '../Layout';
 
-// import { BsQuestionCircle } from 'react-icons/bs';
-import { Accordion, Modal } from "react-bootstrap";
-
-// import { Button } from '../../stories/Button';
-import { GrDocument } from "react-icons/gr";
-import { AiFillPlayCircle } from "react-icons/ai";
 import { getCurrentUser } from "../../helpers/Utils";
 import axios from "axios";
-// import ModuleAssesmentImg from '../../assets/media/moduleAssesmentPopup.svg';
 import { connect, useSelector } from "react-redux";
 
-// import DetaledQuiz from "../../Admin/DetailedQuiz/DetaledQuiz";
-
-// import Csv from '../../assets/media/csv1.png';
-
-// import Pdf from '../../assets/media/csv1.png';
 import jsPDF from "jspdf";
 import { useLayoutEffect } from "react";
 import { FaBullseye } from "react-icons/fa";
@@ -49,7 +33,6 @@ import { encryptGlobal } from "../../constants/encryptDecrypt";
 
 //VIMEO REFERENCE
 //https://github.com/u-wave/react-vimeo/blob/default/test/util/createVimeo.js
-import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import FeatherIcon from "feather-icons-react";
 
@@ -59,12 +42,9 @@ const TeacherPlayVideo = (props) => {
   const [id, setResponce] = useState([]);
   const { id: paramId } = useParams();
   const course_id = paramId ? paramId : 1;
-
-  // const course_id = props.match.params.id ? props.match.params.id : 1;
   const currentUser = getCurrentUser("current_user");
   const [condition, setCondition] = useState("");
   const [modalShow, setModalShow] = useState(false);
-  // const [showQuiz, setHideQuiz] = useState(false);
   const [quizId, setQizId] = useState("");
   const [worksheetId, setWorksheetId] = useState("");
   const [backToQuiz, setBackToQuiz] = useState(false);
@@ -109,12 +89,16 @@ const TeacherPlayVideo = (props) => {
   const [courseData, setCourseData] = useState(null);
   const [isquizcompleted, setisquizcompleted] = useState(false);
   const [finalPage, setFinalPage] = useState(false);
-  console.log(finalPage, "pp");
   const scrollRef = React.createRef();
   const [quizStart, setQuizStart] = useState(false);
 
-  const dispatch = useDispatch();
+ const [width, setWidth] = useState(window.innerWidth);
 
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   const getLastCourseStatus = (data = []) => {
     const length = data && data.length > 0 ? data.length - 1 : 0;
     if (length) {
@@ -169,12 +153,16 @@ const TeacherPlayVideo = (props) => {
   }, [props.teaherCoursesDetails]);
 
   async function fetchData(videoId) {
+   
     const fetchParam = encryptGlobal(JSON.stringify(videoId));
     // here videoId = videoId //
     setVideoId(videoId);
     var config = {
       method: "get",
-      url: process.env.REACT_APP_API_BASE_URL + "/videos/" + fetchParam,
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        "/videos/" +
+        fetchParam ,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${currentUser?.data[0]?.token}`,
@@ -219,50 +207,48 @@ const TeacherPlayVideo = (props) => {
         console.log(error);
       });
   }
-  // useEffect(() => {
-  //   getisquizcompleted();
-  // }, []);
-  async function getisquizcompleted() {
-    let quizParamData = encryptGlobal(
-      JSON.stringify({
-        attempts: 1,
-        locale: "en",
-      })
-    );
-    const quiZEnId = encryptGlobal("8");
-    var config = {
-      method: "get",
 
-      url:
-        process.env.REACT_APP_API_BASE_URL +
-        `/quiz/${quiZEnId}/nextQuestion?Data=${quizParamData}`,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${currentUser?.data[0]?.token}`,
-      },
-    };
-    axios(config)
-      .then(function (response) {
-        if (response.status === 200) {
-          if (
-            response.data.data ===
-            "Quiz has been completed no more questions to display"
-          ) {
-            setisquizcompleted(true);
-            setQuizStart(false);
-          } else if (response?.data?.data[0]?.question_no === 1) {
-            setQuizStart(true);
-            setisquizcompleted(false);
-          } else {
-            setQuizStart(false);
-            setisquizcompleted(false);
-          }
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
+  // async function getisquizcompleted() {
+  //   let quizParamData = encryptGlobal(
+  //     JSON.stringify({
+  //       attempts: 1,
+  //       locale: "en",
+  //     })
+  //   );
+  //   const quiZEnId = encryptGlobal("8");
+  //   var config = {
+  //     method: "get",
+
+  //     url:
+  //       process.env.REACT_APP_API_BASE_URL +
+  //       `/quiz/${quiZEnId}/nextQuestion?Data=${quizParamData}`,
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+  //     },
+  //   };
+  //   axios(config)
+  //     .then(function (response) {
+  //       if (response.status === 200) {
+  //         if (
+  //           response.data.data ===
+  //           "Quiz has been completed no more questions to display"
+  //         ) {
+  //           setisquizcompleted(true);
+  //           setQuizStart(false);
+  //         } else if (response?.data?.data[0]?.question_no === 1) {
+  //           setQuizStart(true);
+  //           setisquizcompleted(false);
+  //         } else {
+  //           setQuizStart(false);
+  //           setisquizcompleted(false);
+  //         }
+  //       }
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // }
 
   const handleNxtVideo = (id) => {
     // here id = course_id //
@@ -292,7 +278,6 @@ const TeacherPlayVideo = (props) => {
         if (response.status === 201) {
           setUpdateModuleResponce(response.data && response.data.data[0]);
           props.getTeacherCourseDetailsActions(course_id);
-          // console.log(response,"AAAAAA");
         }
       })
       .catch(function (error) {
@@ -350,13 +335,6 @@ const TeacherPlayVideo = (props) => {
   const handleSeeked = (event) => {
     // console.log("428 event fired: ", event);
   };
-
-  // const handleTimeUpdate = (event) => {
-  //   // console.log("432event fired: ", event);
-  //   if (event.seconds > "11.62") {
-  //     // setModalShow(true);
-  //   }
-  // };
 
   const handleTimeUpdate = (event) => {
     const videoLength = event.duration; //500
@@ -604,11 +582,14 @@ const TeacherPlayVideo = (props) => {
       },
     });
   };
-  // console.log(teacherCourseDetails,"qq");
+  const getFileTitle = (url) => {
+  const fileName = url.split("/").pop().split(".")[0].replace(/[_+]/g, " ");
+  return t(`teacherJourney.${fileName}`, fileName); 
+};
   return (
     <div className="page-wrapper">
       <div className="content">
-        <div className="page-header">
+        <div className="page-header mt-0 mt-md-3">
           <div className="add-item d-flex">
             <div className="page-title">
               <h4> {t("teacherJourney.Course")}</h4>
@@ -631,7 +612,7 @@ const TeacherPlayVideo = (props) => {
                         data-feather="file-text"
                         className="feather-file-text"
                       ></i>{" "}
-                      Lessons
+                       {t("teacherJourney.lesson")}
                     </h5>
                   </div>
                   <div
@@ -701,9 +682,10 @@ const TeacherPlayVideo = (props) => {
 
                                   <span
                                     className="course-title"
-                                    style={{ "font-weight": "600" }}
+                                    style={{ fontWeight: "600" , fontSize: width <= 576 ? "0.79rem" : "1rem",}}
                                   >
-                                    {course.title}
+                                    {/* {course.title} */}
+                                    {t(`teacherJourney.${course.title}`)}
                                   </span>
                                 </p>
                               </Col>
@@ -714,436 +696,172 @@ const TeacherPlayVideo = (props) => {
                   </div>
                 </div>
               </Col>
-              {/* <Col xl={4} className="course-assement order-2 order-xl-1 ">
-                <div className="assement-info">
-                  <h3>Lessons</h3>
-                  <div className="view-head"></div>
-                  <div className="assement-item" id="scrollbar">
-                    {teacherCourseDetails &&
-                      teacherCourseDetails.length &&
-                      teacherCourseDetails.map((course, index) => {
-                        return (
-                          <div
-                            key={index}
-                            className={`course-sec-list ${course.progress === "COMPLETED"
-                              ? "hHover"
-                              : "hHover"
-                              }  `}
-                          >
-                            <Row
-                              style={{
-                                background:
-                                  currentTopicId ===
-                                  course.mentor_course_topic_id && "#f0f3f8",
-                              }}
-                              className={`justify-content-between w-100 px-4 py-3 ${course.progress === "COMPLETED"
-                                ? "hHover"
-                                : "noCurser"
-                                }`}
-                            >
-                              <Col
-                                md={12}
-                                className="my-auto"
-                                onClick={() => {
-                                  setCourseData(course);
-                                  handleSelect(
-                                    course.topic_type_id,
-                                    course.mentor_course_topic_id,
-                                    course.topic_type
-                                  );
-                                  if (
-                                    course.title.toLowerCase() === "handbook" ||
-                                    course.title === "கையேடு"
-                                  ) {
-                                    setHandbook(true);
-                                    setInstructions(false);
-                                  } else if (
-                                    course.title.toLowerCase() ===
-                                    "congratulations" ||
-                                    course.title === "வழிமுறைகள்"
-                                  ) {
-                                    setInstructions(true);
-                                    setHandbook(false);
-                                  } else if (
-                                    course.title.toLowerCase() === "certificate"
-                                  ) {
-                                    setCertificate(true);
-                                    setItem("CERTIFICATE");
-                                  }
-                                }}
-                              >
-                                <p className="course-icon mb-0">
-                                  {videoStatus(
-                                    course.topic_type,
-                                    course.progress
-                                  )}
-
-                                  <span className="course-title">
-                                    {course.title}
-                                  </span>
-                                </p>
-                                {/* <p className="course-time mb-0 px-5 my-auto">
-                                                            {course.video_duration && (
-                                                                <span className="px-2">
-                                                                    {Math.floor(
-                                                                        course.video_duration / 60
-                                                                    )}
-                                                                    {""} min
-                                                                </span>
-                                                            )}
-                                                        </p> */}
-              {/*</Col>
-                            </Row>
-                          </div>
-                        );
-                      })}
-                  </div>
-                </div>
-              </Col> */}
 
               <Col xl={8} className="course-video mb-5 order-1 order-xl-2">
-                {
-                  // item === "QUIZ" && !showQuiz ? (
-                  //   <div
-                  //     size="lg"
-                  //     className="modal-popup text-screen text-center  modal-popup"
-                  //   >
-                  //     <div className="modal-content">
-                  //       {quizStart ? (
-                  //         <Modal.Header>
-                  //           <Modal.Title className="w-100 d-block mb-2">
-                  //             Ready for a quick test?
-                  //           </Modal.Title>
-                  //           <div className="w-100 d-block text-left">
-                  //             <p
-                  //               className="text-center"
-                  //               style={{
-                  //                 fontSize: "1.5rem",
-                  //               }}
-                  //             >
-                  //               Here is a short quiz (15 Questions) to check for
-                  //               understanding about the program and teachers role.
-                  //             </p>
-                  //             <b>Instructions:</b>
-                  //             <ol>
-                  //               <li>
-                  //                 Read the Teacher Handbook completely before
-                  //                 taking the quiz.
-                  //               </li>
-                  //               <li>
-                  //                 Quiz will consist of 15 questions and will take
-                  //                 5-10 minutes to complete.
-                  //               </li>
-                  //               <li>
-                  //                 Score will be displayed at the end of the quiz
-                  //                 for your reference.
-                  //               </li>
-                  //               <li>You can attempt the quiz only once.</li>
-                  //             </ol>
-                  //           </div>
-                  //         </Modal.Header>
-                  //       ) : isquizcompleted ? (
-                  //         <Modal.Header>
-                  //           <Modal.Title className="w-100 d-block mb-2">
-                  //             Quick test Completed successfully
-                  //           </Modal.Title>
-                  //           <p className="w-100 d-block">Check your score.</p>
-                  //         </Modal.Header>
-                  //       ) : (
-                  //         <Modal.Header>
-                  //           <Modal.Title className="w-100 d-block mb-2">
-                  //             Continue your quick test
-                  //           </Modal.Title>
-                  //           <div className="w-100 d-block text-left">
-                  //             <p
-                  //               className="text-center"
-                  //               style={{
-                  //                 fontSize: "1.5rem",
-                  //               }}
-                  //             >
-                  //               Here is a short quiz (15 Questions) to check for
-                  //               understanding about the program and teachers role.
-                  //             </p>
-                  //             <b>Instructions:</b>
-                  //             <ol>
-                  //               <li>
-                  //                 Read the Teacher Handbook completely before
-                  //                 taking the quiz.
-                  //               </li>
-                  //               <li>
-                  //                 Quiz will consist of 15 questions and will take
-                  //                 5-10 minutes to complete.
-                  //               </li>
-                  //               <li>
-                  //                 Score will be displayed at the end of the quiz
-                  //                 for your reference.
-                  //               </li>
-                  //               <li>You can attempt the quiz only once.</li>
-                  //             </ol>
-                  //           </div>
-                  //         </Modal.Header>
-                  //       )}
-
-                  //       <Modal.Body>
-                  //         <figure>
-                  //           <img
-                  //             // src={ModuleAssesmentImg}
-                  //             alt="test"
-                  //             className="img-fluid w-50"
-                  //           />
-                  //         </figure>
-                  //         {/* <Button
-                  //               label={
-                  //                 quizStart
-                  //                   ? "Let's Start"
-                  //                   : isquizcompleted
-                  //                   ? "See Score"
-                  //                   : "Resume Quiz"
-                  //               }
-                  //               btnclassName="primary mt-4"
-                  //               size="small"
-                  //               onClick={() => setHideQuiz(true)}
-                  //             /> */}
-                  //         <button
-                  //           className="btn btn-warning"
-                  //           onClick={() => setHideQuiz(true)}
-                  //         >
-                  //           Let's Start
-                  //         </button>
-                  //       </Modal.Body>
-                  //     </div>
-                  //   </div>
-                  // ) :
-                  item === "ATTACHMENT" &&
-                  !instructions &&
-                  handbook &&
-                  props.mentorAttachments.length > 0 &&
-                  props.mentorAttachments[0]?.attachments?.split("{{}}") ? (
-                    // .length === 1
-                    <Fragment>
-                      <Card className="course-sec-basic p-2">
+                {item === "ATTACHMENT" &&
+                !instructions &&
+                handbook &&
+                props.mentorAttachments.length > 0 &&
+                props.mentorAttachments[0]?.attachments?.split("{{}}") ? (
+                  <Fragment>
+                    <Card className="course-sec-basic p-2">
+                      <CardBody>
+                        <CardTitle className="text-left text-primary" tag="h2">
+                          {t("teacherJourney.teacherhand")}
+                        </CardTitle>
                         <CardBody>
-                          <CardTitle
-                            className="text-left text-primary"
-                            tag="h2"
-                          >
-                            {t("teacherJourney.teacherhand")}
-                          </CardTitle>
-                          <CardBody>
-                            <p>
-                              <b> {t("teacherJourney.dear")}</b>
-                            </p>
-                            <p>{t("teacherJourney.hand1")}</p>
-                            <p className="text-success">
-                              <b>{t("teacherJourney.hnad2")}</b>
-                            </p>
+                          <p>
+                            <b> {t("teacherJourney.dear")}</b>
+                          </p>
+                          <p>{t("teacherJourney.hand1")}</p>
+                          <p className="text-success">
+                            <b>{t("teacherJourney.hnad2")}</b>
+                          </p>
 
-                            <ul>
-                              <li> {t("teacherJourney.hand3")}</li>
-                              <li> {t("teacherJourney.hand4")}</li>
-                              <li>{t("teacherJourney.hand5")}</li>
-                              <li>{t("teacherJourney.hand6")}</li>
-                              <li>{t("teacherJourney.hand7")}</li>
-                              <li>{t("teacherJourney.hand8")}</li>
-                              <li>{t("teacherJourney.hand9")}</li>
-                            </ul>
-                            <br></br>
-                            <p>{t("teacherJourney.hand10")}</p>
+                          <ul>
+                            <li> {t("teacherJourney.hand3")}</li>
+                            <li> {t("teacherJourney.hand4")}</li>
+                            <li>{t("teacherJourney.hand5")}</li>
+                            <li>{t("teacherJourney.hand6")}</li>
+                            <li>{t("teacherJourney.hand7")}</li>
+                            <li>{t("teacherJourney.hand8")}</li>
+                            <li>{t("teacherJourney.hand9")}</li>
+                          </ul>
+                          <br></br>
+                          <p>{t("teacherJourney.hand10")}</p>
 
-                            <p>
-                              {t("teacherJourney.hand11")}
+                          <p>{t("teacherJourney.hand11")}</p>
+                        </CardBody>
+                        <div className="text-left mb-2">
+                          <div>
+                            {worksheetResponce &&
+                              worksheetResponce?.length > 0 &&
+                              worksheetResponce.map((item, i) => (
+                                <button
+                                  style={{
+                                    margin: "5px",
+                                  }}
+                                  key={i}
+                                  className="btn btn-secondary"
+                                  onClick={() => handleDownload(item)}
+                                >
+                                 
+                                          {`${t("teacherJourney.download_file")} ${getFileTitle(item)}`}
 
-                              {/* <b>
-                                                        The resource section
-                                                        will have the Teacher
-                                                        Handbook and the Student
-                                                        workbook.
-                                                    </b>
-                                                    The students will also be
-                                                    able to access the Student
-                                                    workbook in their own
-                                                    profiles. */}
-                            </p>
-
-                            {/* <p>
-                            To know that you are ready to support the students in this program, you will be required to take a quiz.  Don’t worry, the quiz is not a test, it is designed to help you recall the things you have to keep in mind while doing the program. All the best! 
-
-                            </p> */}
-                          </CardBody>
-                          <div className="text-left mb-2">
-                            <div>
-                              {worksheetResponce &&
-                                worksheetResponce?.length > 0 &&
-                                worksheetResponce.map((item, i) => (
-                                  <button
-                                    style={{
-                                      margin: "5px",
-                                    }}
-                                    key={i}
-                                    className="btn btn-secondary"
-                                    // label={`Download ${item
-                                    //   .split("/")
-                                    //   [item.split("/").length - 1].split(".")[0]
-                                    //   .replace("_", " ")}`}
-                                    // btnclassName="secondary mx-2"
-                                    // size="small"
-                                    onClick={() => handleDownload(item)}
-                                  >
-                                    {`Download ${item
-                                      .split("/")
-                                      [item.split("/").length - 1].split(".")[0]
-                                      .replace("_", " ")}`}
-                                  </button>
-                                ))}
-                            </div>
+                                </button>
+                              ))}
                           </div>
-                          <Col className="text-right">
-                            <button
-                              // label={"Continue"}
-                              onClick={() => handlenextend()}
-                              className="btn btn-warning"
-                            >
-                              Continue
-                            </button>
-                          </Col>
+                        </div>
+                        <Col className="text-right">
+                          <button
+                            // label={"Continue"}
+                            onClick={() => handlenextend()}
+                            className="btn btn-warning"
+                          >
+                            {t("teacherJourney.Continue")}
+                          </button>
+                        </Col>
+                      </CardBody>
+                    </Card>
+                  </Fragment>
+                ) : item === "VIDEO" && condition === "Video1" ? (
+                  <Card className="embed-container mt-2 mt-sm-0">
+                    <CardTitle className="text-left p-1 d-flex justify-content-between align-items-center">
+                      {/* <h3>{courseData.title}</h3> */}
+                      <h3 >{t(`teacherJourney.${courseData.title}`)}</h3>
+                    </CardTitle>
+                    <Vimeo
+                      video={id.video_stream_id}
+                      volume={volume}
+                      paused={paused}
+                      onPause={handlePlayerPause}
+                      onPlay={handlePlayerPlay}
+                      onSeeked={handleSeeked}
+                      onTimeUpdate={handleTimeUpdate}
+                      onEnd={handleVimeoOnEnd}
+                    />
+                  </Card>
+                ) : (
+                  !instructions &&
+                  !handbook && (
+                    <Fragment>
+                      <Card className="course-sec-basic mt-3 mt-md-0">
+                        <CardBody>
+                          {getLastCourseStatus(teacherCourseDetails) &&
+                          !finalPage ? (
+                            <div>
+                              <Confetti className="w-100" />
+                              <h3 className="text-success text-center">
+                                🎉 {t("teacherJourney.coursecom")}
+                                🎉
+                              </h3>
+                              <br />
+                              <p>
+                                <b style={{ color: "green" }}>
+                                  {t("teacherJourney.text1")}
+                                </b>
+                              </p>
+                              <ol className="text-left">
+                                <li>{t("teacherJourney.tex2")}</li>
+                                <li>{t("teacherJourney.text3")}</li>
+                                <li>{t("teacherJourney.text4")}</li>
+                                <li>{t("teacherJourney.tex5")}</li>
+                                <li>{t("teacherJourney.text6")}</li>
+                                <li>{t("teacherJourney.text7")}</li>
+                              </ol>
+                              <br />
+                              <p>{t("teacherJourney.text8")}</p>
+                            </div>
+                          ) : (
+                            <div>
+                              <div
+                                dangerouslySetInnerHTML={{
+                                  __html: t("teacherJourney.teacher_welcome_html"),
+                                }}
+                              ></div>
+                              <br />
+                              {firstObj[0] &&
+                              firstObj[0].progress == "INCOMPLETE" ? (
+                                <div className="mt-2">
+                                  <button
+                                    className="btn btn-warning mt-2"
+                                    onClick={(e) => startFirstCourse(e)}
+                                  >
+                                    {t("teacherJourney.sCourse")}
+                                  </button>
+                                </div>
+                              ) : (
+                                <div>
+                                  {getLastCourseStatus(teacherCourseDetails) ? (
+                                    <button
+                                      className="btn btn-warning"
+                                      onClick={(e) => startContinueCourse(e)}
+                                    >
+                                      {t("teacherJourney.CONTINUECOURSE")}
+                                    </button>
+                                  ) : (
+                                    <button
+                                      className="btn btn-warning"
+                                      onClick={(e) => startContinueCourse(e)}
+                                    >
+                                      {t("teacherJourney.CONTINUECOURSE")}
+                                    </button>
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          )}
                         </CardBody>
                       </Card>
                     </Fragment>
-                  ) : item === "VIDEO" && condition === "Video1" ? (
-                    <Card className="embed-container">
-                      <CardTitle className="text-left p-1 d-flex justify-content-between align-items-center">
-                        <h3>{courseData.title}</h3>
-                        {/* {backToQuiz && (
-                        <Button
-                          label="Back to Quiz"
-                          btnclassName="primary"
-                          size="small"
-                          onClick={() => {
-                            setBackToQuiz(false);
-                            setItem("");
-                            setHideQuiz(true);
-                            // setQuizTopic("");
-                          }}
-                        />
-                      )} */}
-                      </CardTitle>
-                      <Vimeo
-                        video={id.video_stream_id}
-                        volume={volume}
-                        paused={paused}
-                        onPause={handlePlayerPause}
-                        onPlay={handlePlayerPlay}
-                        onSeeked={handleSeeked}
-                        onTimeUpdate={handleTimeUpdate}
-                        onEnd={handleVimeoOnEnd}
-                      />
-                    </Card>
-                  ) : (
-                    // showQuiz === false &&
-                    // !certificate &&
-                    !instructions &&
-                    !handbook && (
-                      <Fragment>
-                        <Card className="course-sec-basic ">
-                          <CardBody>
-                            {getLastCourseStatus(teacherCourseDetails) &&
-                            //  isquizcompleted
-                            !finalPage ? (
-                              <div>
-                                <Confetti className="w-100" />;
-                                <h3 className="text-success text-center">
-                                  🎉 {t("teacherJourney.coursecom")}
-                                  🎉
-                                </h3>
-                                <br />
-                                <p>
-                                  <b style={{ color: "green" }}>
-                                    {t("teacherJourney.text1")}
-                                  </b>
-                                </p>
-                                <ol className="text-left">
-                                  <li>{t("teacherJourney.tex2")}</li>
-                                  <li>{t("teacherJourney.text3")}</li>
-                                  <li>{t("teacherJourney.text4")}</li>
-                                  <li>{t("teacherJourney.tex5")}</li>
-                                  <li>{t("teacherJourney.text6")}</li>
-                                  <li>{t("teacherJourney.text7")}</li>
-                                </ol>
-                                <br />
-                                <p>{t("teacherJourney.text8")}</p>
-                              </div>
-                            ) : (
-                              <div>
-                                <div
-                                  dangerouslySetInnerHTML={{
-                                    __html:
-                                      "<h3 class='text-success'>Welcome Teachers! </h3></br>We’re excited that you will be part of the program in guiding your student through it.</br><p>Now it’s time to start the program.</p><ol>We would like you all to go through the following in order.</br><li>1. Watch the instructional videos for overview of the program.</li><li>2. Read the teacher's handbook for a summary of the course and other important instructions.</li></ol></br><p>You have one week to do these. Afterwards, you and your students will be ready to start their problem solving journey!</p><p>We hope you enjoy guiding the students as they embark on this new journey!</p>Wishing you all the best!",
-                                  }}
-                                ></div>
-                                <br />
-                                {firstObj[0] &&
-                                firstObj[0].progress == "INCOMPLETE" ? (
-                                  <div className="mt-2">
-                                    <button
-                                      className="btn btn-warning mt-2"
-                                      onClick={(e) => startFirstCourse(e)}
-                                    >
-                                      {t("teacherJourney.sCourse")}
-                                    </button>
-                                  </div>
-                                ) : (
-                                  <div>
-                                    {getLastCourseStatus(
-                                      teacherCourseDetails
-                                    ) ? (
-                                      <button
-                                        className="btn btn-warning"
-                                        onClick={(e) => startContinueCourse(e)}
-                                      >
-                                        {t("teacherJourney.CONTINUECOURSE")}
-                                      </button>
-                                    ) : (
-                                      <button
-                                        className="btn btn-warning"
-                                        onClick={(e) => startContinueCourse(e)}
-                                      >
-                                        {t("teacherJourney.CONTINUECOURSE")}
-                                      </button>
-                                    )}
-                                  </div>
-                                )}
-                              </div>
-                            )}
-                          </CardBody>
-                        </Card>
-                      </Fragment>
-                    )
                   )
-                }
-                {/* {showQuiz ? (
-                  <DetaledQuiz
-                    course_id={course_id}
-                    quizId={quizId}
-                    handleQuiz={handleQuiz}
-                    handleClose={handleClose}
-                    handleNxtVideo={handleNxtVideo}
-                    setBackToQuiz={setBackToQuiz}
-                    setHideQuiz={setHideQuiz}
-                    quiz="true"
-                    setInstructions={setInstructions}
-                    setHandbook={setHandbook}
-                    instructions={instructions ? "no" : "yes"}
-                    // setQuizTopic={setQuizTopic}
-                  />
-                ) : (
-                  ""
-                )} */}
+                )}
+
                 {item === "ATTACHMENT" &&
                   instructions &&
                   !handbook &&
                   props.mentorAttachments.length > 0 &&
                   props.mentorAttachments[1]?.attachments?.split("{{}}") && (
-                    // .length > 2
                     <Fragment>
                       <Card className="course-sec-basic p-2">
                         <CardBody>
@@ -1176,43 +894,6 @@ const TeacherPlayVideo = (props) => {
                       </Card>
                     </Fragment>
                   )}
-                {/* {item === "CERTIFICATE" && certificate && (
-                  <Fragment>
-                    <Card className="course-sec-basic p-5">
-                      <CardBody>
-                        <CardTitle className=" text-left pt-4 pb-4" tag="h2">
-                          Certificate
-                        </CardTitle>
-                        {worksheetResponce.response === null && (
-                          <p>Please Download Certificate...</p>
-                        )}
-                        <div ref={pdfRef} style={{ position: "relative" }}>
-                          <span
-                            className="text-capitalize"
-                            style={{
-                              position: "absolute",
-                              top: "19%",
-                              left: "16%",
-                              fontSize: "inherit",
-                            }}
-                          >
-                            {currentUser?.data[0]?.full_name}
-                          </span>
-                          <img
-                            alt="certificate"
-                            style={{
-                              width: "297px",
-                              height: "209px",
-                            }}
-                          />
-                        </div>
-                        <div className="text-right">
-                         
-                        </div>
-                      </CardBody>
-                    </Card>
-                  </Fragment>
-                )} */}
               </Col>
             </Row>
           </div>

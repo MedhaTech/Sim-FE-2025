@@ -155,7 +155,6 @@ const ReportsRegistration = () => {
     return acc;
   }, {});
 
-  // console.log("Dynamic labelToKeyMap:", labelToKeyMap);
   const notRegHeaders = [
     {
       label: "UDISE CODE",
@@ -259,7 +258,6 @@ const ReportsRegistration = () => {
     category?.trim() !== "";
   const [filterheaders, setfilterheaders] = useState([]);
   const handleDownload = () => {
-    //alert("iam Download Function");
     if (!RegTeachersState || !RegTeachersdistrict || !filterType || !category) {
       notification.warning({
         message:
@@ -307,6 +305,8 @@ const ReportsRegistration = () => {
   }, [RegTeachersState, RegTeachersdistrict, filterType, category]);
 
   const fetchData = (item) => {
+   // This function filters  data based on selected state, district, category
+
     const param = encryptGlobal(
       JSON.stringify({
         state: RegTeachersState,
@@ -348,7 +348,6 @@ const ReportsRegistration = () => {
           if (item === "Registered") {
             setFilteredData(response?.data?.data || []);
             setDownloadData(response?.data?.data || []);
-            // setSavedReports(response?.data?.data || []);
             if (response?.data.count > 0) {
               setShowCustomization(!showCustomization);
             } else {
@@ -357,7 +356,6 @@ const ReportsRegistration = () => {
           } else if (item === "Not Registered") {
             setFilteresData(response?.data?.data || []);
             setDownloadNotRegisteredData(response?.data?.data || []);
-            // setSavedReports1(response?.data?.data || []);
 
             if (response?.data.count > 0) {
               setShowCustomization(!showCustomization);
@@ -387,7 +385,6 @@ const ReportsRegistration = () => {
     if (filteresData.length > 0 && filterheaders.length > 0) {
       setDownloadNotRegisteredData(filteresData);
       csvLinkRefNotRegistered.current.link.click();
-      console.log("Performing operation with the updated data.");
       openNotificationWithIcon(
         "success",
         `${filterType} Report Downloaded Successfully`
@@ -420,7 +417,8 @@ const ReportsRegistration = () => {
   };
 
   const handleSaveReport = async (filterType) => {
-    console.log(filterType,"filterType");
+    // This function filters the data and saves the FilterType report
+    
     const pattern = /^[a-zA-Z0-9 \-()&.,_]*$/;
     if (pattern.test(inputValue) && inputValue !== "") {
       const body = JSON.stringify({
@@ -454,7 +452,6 @@ const ReportsRegistration = () => {
         setInputValue("");
         if (filterType === "Not Registered") {
           fetchSavedReportsData1();
-          console.log("res if", "filterType");
         } else {
           fetchSavedReportsData();
         }
@@ -475,6 +472,8 @@ const ReportsRegistration = () => {
     fetchSavedReportsData1();
   }, []);
   const fetchSavedReportsData1 = () => {
+    // this function fetches all saved reports list from the API
+
     const apiRes = encryptGlobal(
       JSON.stringify({
         report_type: "teacher-not-registered-registration-report",
@@ -499,6 +498,8 @@ const ReportsRegistration = () => {
       });
   };
   const fetchSavedReportsData = () => {
+    // this function fetches all saved reports list from the API
+
     const apiRes = encryptGlobal(
       JSON.stringify({
         report_type: "teacher-registration-report",
@@ -531,13 +532,11 @@ const ReportsRegistration = () => {
     let columnKeys = [];
     try {
       columnKeys = data.columns ? JSON.parse(data.columns) : [];
-      // console.log("Parsed column keys:", columnKeys);
     } catch (err) {
       console.error("Error parsing columns:", err);
     }
     const mappedColumnKeys = columnKeys.map((label) => labelToKeyMap[label]);
 
-    // console.log("Mapped Column Keys:", mappedColumnKeys);
 
     const headerList =
       data.report_type === "teacher-registration-report"
@@ -547,7 +546,6 @@ const ReportsRegistration = () => {
     const filteredHeaders = headerList.filter((header) =>
       mappedColumnKeys.includes(header.key)
     );
-    // console.log("Filtered Headers:", filteredHeaders);
 
     setSavedHeader(filteredHeaders);
     fetchDataDownloadApi(data.report_type, data.filters);
@@ -558,13 +556,11 @@ const ReportsRegistration = () => {
     let columnKeys = [];
     try {
       columnKeys = data.columns ? JSON.parse(data.columns) : [];
-      // console.log("Parsed column keys:", columnKeys);
     } catch (err) {
       console.error("Error parsing columns:", err);
     }
     const mappedColumnKeys1 = columnKeys.map((label) => labelToKeyMap1[label]);
 
-    // console.log("Mapped Column Keys:", mappedColumnKeys1);
 
     const headerList =
       data.report_type === "teacher-not-registered-registration-report"
@@ -574,7 +570,6 @@ const ReportsRegistration = () => {
     const filteredHeaders = headerList.filter((header) =>
       mappedColumnKeys1.includes(header.key)
     );
-    console.log("Filtered Headers:", filteredHeaders);
     setSavedHeader1(filteredHeaders);
     fetchDataDownloadApi1(data.report_type, data.filters);
 
@@ -611,7 +606,6 @@ const ReportsRegistration = () => {
       });
   };
   const fetchDataDownloadApi = (item, param) => {
-    // alert("i am Reg Report");
     const apiRes = encryptGlobal(param);
 
     const config = {
@@ -655,6 +649,8 @@ const ReportsRegistration = () => {
   }, [savedReports1, savedHeader]);
 
   const handleReportfileDelete = (data) => {
+    // this function fetches delete reports  from the API
+
     const idparm = encryptGlobal(JSON.stringify(data.report_file_id));
     const config = {
       method: "delete",
@@ -676,6 +672,8 @@ const ReportsRegistration = () => {
       });
   };
   const handleReportfileDelete1 = (data) => {
+    // this function fetches delete reports  from the API
+
     const idparm = encryptGlobal(JSON.stringify(data.report_file_id));
     const config = {
       method: "delete",

@@ -2,29 +2,16 @@
 /* eslint-disable indent */
 import React, { useEffect, useState } from "react";
 import { Row, Col, Form, Label, FormGroup } from "reactstrap";
-// import { withRouter } from 'react-router-dom';
 import "./style.scss";
-// import Layout from '../../Admin/Layout';
-// import { Button } from '../../stories/Button';
 import axios from "axios";
-// import { InputBox } from '../../stories/InputBox/InputBox';
 import * as Yup from "yup";
 import { useFormik } from "formik";
-// import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
-import { URL, KEY } from "../../constants/defaultValues";
 import {
-  getNormalHeaders,
   openNotificationWithIcon,
 } from "../../helpers/Utils";
-import Select from "./Select";
-import {
-  // getDistrictData,
-  getStateData,
-  getFetchDistData,
-} from "../../redux/studentRegistration/actions";
+
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { categoryValue, stateValue } from "./constentText";
+
 import { useNavigate } from "react-router-dom";
 import { stateList, districtList ,mandalList,SchoolBoard,SchoolType} from "../../RegPage/ORGData";
 const AddNewSchool = (props) => {
@@ -47,10 +34,7 @@ const AddNewSchool = (props) => {
     className: "form-control",
   };
 
-  const inputDICE2 = {
-    type: "text",
-    className: "form-control",
-  };
+  
   const formik = useFormik({
     initialValues: {
       organization_name: "",
@@ -86,7 +70,6 @@ const AddNewSchool = (props) => {
         )
         .required("Organization Name is Required"),
       organization_code: Yup.string()
-        // .matches(/[^a-zA-Z0-9]/g, 'Please enter Numeric values')
         .max(11, "Please enter only 11 digit valid UDISE code")
         .min(11, "UDISE code is less than 11 digits")
         .required("UDISE Code is Required"),
@@ -128,15 +111,7 @@ other_board: Yup.string().test(
     return true; 
   }
 ),
-      // .optional()
-      // .matches(/^[aA-zZ\s]+$/, 'Invalid State'),
-      // principal_email: Yup.string()
-      //     .optional()
-      //     .email('Invalid email address format'),
-      // principal_name: Yup.string()
-      //     .optional()
-      //     .matches(/^[aA-zZ\s/^.*$/]+$/, 'Invalid Name')
-      //     .trim(),
+     
       city: Yup.string()
         .matches(/^[aA-zZ\s/^.*$/]+$/, "please enter valid city name")
         .optional(),
@@ -189,29 +164,7 @@ other_board: Yup.string().test(
           openNotificationWithIcon("error", "Udise code must be unique");
           return err.response;
         });
-      // const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-      // await axios
-      //     .post(
-      //         `${URL.createOrganization}`,
-      //         JSON.stringify(values, null, 2),
-      //         axiosConfig
-      //     )
-      //     .then((checkOrgRes) => {
-      //         if (checkOrgRes.status == 201) {
-      //             openNotificationWithIcon(
-      //                 'success',
-      //                 'School Create Successfully'
-      //             );
-      //             navigate('/institutions');
-      //         }
-      //     })
-      //     .catch((err) => {
-      //         openNotificationWithIcon(
-      //             'error',
-      //             err.response.data.message
-      //         );
-      //         return err.response;
-      //     });
+     
     },
   });
 
@@ -259,7 +212,6 @@ other_board: Yup.string().test(
         <div className="EditPersonalDetails new-member-page">
           <Row>
             <Col className="col-xl-10 offset-xl-1 offset-md-0">
-              {/* <BreadcrumbTwo {...headingDetails} /> */}
               <h3 className="mb-5"> Add New Institution Details</h3>
 
               <div>
@@ -270,7 +222,6 @@ other_board: Yup.string().test(
                         <Label
                           className="form-label"
                           htmlFor="organization_code"
-                          // style={{ fontSize: 15 }}
                         >
                           UDISE Code
                           <span required>*</span>
@@ -320,7 +271,6 @@ other_board: Yup.string().test(
                           District
                           <span required>*</span>
                         </Label>
-                        {/* <Col md={3}> */}
                         <select
                           id="inputState"
                           className="form-select"
@@ -346,12 +296,10 @@ other_board: Yup.string().test(
                         Mandal / Taluka
                           <span required>*</span>
                         </Label>
-                        {/* <Col md={3}> */}
                         <select
                           id="mandal"
                           className="form-select"
                           value={formik.values.mandal}
-                          // value={selectedMandal}
                           onChange={handleMandalChange }
                         >
                           <option value="">Select Mandal / Taluka</option>
@@ -376,7 +324,6 @@ other_board: Yup.string().test(
                         School Type
                           <span required>*</span>
                         </Label>
-                        {/* <Col md={3}> */}
                         <select
                           id="school_type"
                           className="form-select"
@@ -427,7 +374,6 @@ other_board: Yup.string().test(
                         School Board
                           <span required>*</span>
                         </Label>
-                        {/* <Col md={3}> */}
                         <select
                           id="board"
                           className="form-select"
@@ -476,18 +422,15 @@ other_board: Yup.string().test(
                      
                    
                      
-                    {/* </Row> */}
                     <Row className="mb-3 modal-body-table search-modal-header">
                      {formik.values.state == "Tamil Nadu" ? (<Col md={4}>
                         <Label
-                          // className="mb-2"
                           className="form-label"
                           htmlFor="category"
                         >
                           Category
                           <span required>*</span>
                         </Label>
-                        {/* <Col md={3}> */}{" "}
                         
                         <select
                           id="inputState"
@@ -512,14 +455,12 @@ other_board: Yup.string().test(
                       </Col>) :(
                       <Col md={4}>
                         <Label
-                          // className="mb-2"
                           className="form-label"
                           htmlFor="category"
                         >
                           Category
                           <span required>*</span>
                         </Label>
-                        {/* <Col md={3}> */}{" "}
                         
                         <select
                           id="inputState"
@@ -547,7 +488,6 @@ other_board: Yup.string().test(
                         <Label
                           className="form-label"
                           htmlFor="organization_name"
-                          // style={{ fontSize: 15 }}
                         >
                           Institute/School Name
                           <span required>*</span>
@@ -578,7 +518,6 @@ other_board: Yup.string().test(
                       <Col md={4}>
                         <Label className="form-label" htmlFor="address">
                           Address
-                          {/* <span required>*</span> */}
                         </Label>
                         <input
                           {...inputDICE}
@@ -602,10 +541,8 @@ other_board: Yup.string().test(
                         <Label
                           className="form-label"
                           htmlFor="pin_code"
-                          // style={{ fontSize: 15 }}
                         >
                           PinCode
-                          {/* <span required>*</span> */}
                         </Label>
                         <input
                           {...inputDICE}
@@ -626,10 +563,8 @@ other_board: Yup.string().test(
                         <Label
                           className="form-label"
                           htmlFor="unique_code"
-                          // style={{ fontSize: 15 }}
                         >
                           ATL Code
-                          {/* <span required>*</span> */}
                         </Label>
                         <input
                           {...inputDICE}
@@ -640,7 +575,6 @@ other_board: Yup.string().test(
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.values.unique_code}
-                          // isDisabled={holdKey ? true : false}
                         />
                         {formik.touched.unique_code &&
                         formik.errors.unique_code ? (

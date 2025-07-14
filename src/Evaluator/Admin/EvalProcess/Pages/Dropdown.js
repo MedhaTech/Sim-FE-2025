@@ -3,14 +3,9 @@
 /* eslint-disable indent */
 import React, { useEffect } from "react";
 
-// import { Button } from "../../../stories/Button";
 import axios from "axios";
-import CryptoJS from "crypto-js";
-// import { Link } from "react-router-dom";
-// import male from "../../../assets/img/admin.jpg";
 import { useLocation } from "react-router-dom";
 
-// import { InputBox } from '../../../stories/InputBox/InputBox';
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -18,11 +13,7 @@ import {
   openNotificationWithIcon,
 } from "../../../../helpers/Utils";
 import { useNavigate } from "react-router-dom";
-// import { getAdminEvalutorsList } from "../../../redux/actions";
-// import { getAdmin } from '../store/admin/actions';
 import { useDispatch } from "react-redux";
-// import Select from "../../Admin/Challenges/pages/Select";
-// import { getDistrictData } from '../../redux/studentRegistration/actions';
 import {themesList} from "../../../../Team/IdeaSubmission/themesData";
 import {languageOptions} from "../../../../RegPage/ORGData";
 import { useSelector } from "react-redux";
@@ -39,7 +30,6 @@ const allDataThemes= ["All Themes",...themesList];
   const currentUser = getCurrentUser("current_user");
   const dispatch = useDispatch();
   const mentorData = location.state || {};
-  console.log(mentorData, "mentorData");
 
  
 
@@ -48,10 +38,8 @@ const allDataThemes= ["All Themes",...themesList];
     const adminValidation = Yup.object({
      
         language: Yup.string()
-                // .max(40)
                 .required(<span style={{ color: "red" }}>Please Select Language</span>),
                 theme: Yup.string()
-                // .max(40)
                 .required(<span style={{ color: "red" }}>Please Select Theme</span>),
      
     });
@@ -81,13 +69,7 @@ const allDataThemes= ["All Themes",...themesList];
     
         const evalid = encryptGlobal(JSON.stringify(mentorData.evaluation_process_id));
       
-        // const body = {
-                   
-        //   language: values.language === "All Languages" ? languageOptions.join(", ") : values.language,
-        //   theme: values.theme === "All Themes"
-        //     ? themesList.join(", ")      
-        //     : values.theme,             
-        // };
+       
         const body = {
           language: values.language.trim() === "All Languages"
             ? languageOptions.map(lang => lang.trim()).join(",")
@@ -97,17 +79,7 @@ const allDataThemes= ["All Themes",...themesList];
             ? themesList.map(theme => theme.trim()).join(",")
             : values.theme.trim(),
         };
-        console.log(body,"body");
-        // const body = {
-        //   language: selectedLanguage === "All Languages" ? languageOptions : [selectedLanguage],
-        //     theme: selectedTheme === "All Themes" ? themesList : [selectedTheme],
-        //   };
-    //   if (mentorData?.language !== values.language) {
-    //     body["language"] = values.language;
-    //   }
-    //   if (mentorData?.theme !== values.theme) {
-    //     body["theme"] = values.theme;
-    //   }
+       
 
       const url = process.env.REACT_APP_API_BASE_URL + `/evaluationProcess/${evalid}`;
 
@@ -166,35 +138,20 @@ const allDataThemes= ["All Themes",...themesList];
     marginRight: "10px",
   };
 
-  const cancelLinkStyle = {
-    marginLeft: "auto",
-  };
+ 
   return (
     <div className="page-wrapper">
       <div className="content">
         <div className="page-header">
           <div className="page-title">
             <h4>Update Theme and Language</h4>
-            {/* <h6>User Profile</h6> */}
           </div>
         </div>
         {/* /product list */}
         <form onSubmit={formik.handleSubmit}>
           <div className="card">
             <div className="card-body">
-              {/* <div className="profile-set">
-                <div className="profile-head"></div>
-                <div className="profile-top">
-                  <div className="profile-content">
-                    <div className="profile-contentimg">
-                      <img src={male} alt="Female" id="blah" />
-                    </div>
-                    <div className="profile-contentname">
-                      <h2>{mentorData?.full_name}</h2>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
+             
               <div className="row">
                
 
@@ -267,9 +224,7 @@ const allDataThemes= ["All Themes",...themesList];
                     type="button"
                     className="btn btn-secondary"
                     style={{ marginLeft: "auto" }}
-                    // className="btn btn-cancel"
-                    // to={"/eadmin/evaluator"}
-                    // style={cancelLinkStyle}
+                   
                   >
                     Cancel
                   </button>

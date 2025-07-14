@@ -38,11 +38,17 @@ const TeacherSupport = () => {
     dispatch(getSupportTickets(currentUser?.data[0]));
   }, []);
 
+  // const ticketOptions = [
+  //   { value: "", label: "Select Category", display: true },
+  //   { value: "General", label: "General query" },
+  //   { value: "Technical", label: "Technical query" },
+  //   { value: "Suggestion", label: "Suggestion" },
+  // ];
   const ticketOptions = [
-    { value: "", label: "Select Category", display: true },
-    { value: "General", label: "General query" },
-    { value: "Technical", label: "Technical query" },
-    { value: "Suggestion", label: "Suggestion" },
+    { value: "", label: t("teacherJourney.selectCategory"), isDisabled: true },
+    { value: "General", label: t("teacherJourney.generalQuery") },
+    { value: "Technical", label: t("teacherJourney.technicalQuery") },
+    { value: "Suggestion", label: t("teacherJourney.suggestion") },
   ];
 
   useEffect(() => {
@@ -53,13 +59,22 @@ const TeacherSupport = () => {
     data: supportTickets,
     columns: [
       {
-        name: <h6>{t("teacherJourney.No")}</h6>,
+        name: <h6>#</h6>,
         selector: (row) => row.id,
         width: "4rem",
       },
       {
         name: <h6>{t("teacherJourney.Category")}</h6>,
-        selector: (row) => row.query_category,
+        // selector: (row) => row.query_category,
+        selector: (row) => {
+          if (row.query_category === "Technical")
+            return t("teacherJourney.technicalQuery");
+          if (row.query_category === "General")
+            return t("teacherJourney.generalQuery");
+          if (row.query_category === "Suggestion")
+            return t("teacherJourney.suggestion");
+          return row.query_category || "";
+        },
         sortable: true,
         width: "10rem",
       },
@@ -99,23 +114,23 @@ const TeacherSupport = () => {
         cell: (params) => [
           params.status === "OPEN" ? (
             <span className="badge bg-secondary">
-                            {t("teacherJourney.Open")}
-                        </span>
-                    ) : params?.status === 'INPROGRESS' ? (
-                        <span className="badge bg-info">
-                             {t("teacherJourney.Inprogress")}
-                        </span>
-                    ) : params?.status === 'RESOLVED' ? (
-                        <span className="badge bg-success">
-                             {t("teacherJourney.Resolved")}
-                        </span>
-                    ) : params?.status === 'INVALID' ? (
-                        <span className="badge bg-light text-dark">
-                             {t("teacherJourney.Invalid")}
-                        </span>
-                    ) : (
-                        ''
-                    )
+              {t("teacherJourney.Open")}
+            </span>
+          ) : params?.status === "INPROGRESS" ? (
+            <span className="badge bg-info">
+              {t("teacherJourney.Inprogress")}
+            </span>
+          ) : params?.status === "RESOLVED" ? (
+            <span className="badge bg-success">
+              {t("teacherJourney.Resolved")}
+            </span>
+          ) : params?.status === "INVALID" ? (
+            <span className="badge bg-danger">
+              {t("teacherJourney.Invalid")}
+            </span>
+          ) : (
+            ""
+          ),
         ],
       },
     ],
@@ -125,6 +140,8 @@ const TeacherSupport = () => {
   const dispatch = useDispatch();
 
   const fileHandler = (e) => {
+    // Handles file selection and reads the selected file
+
     let file = e.target.files[0];
 
     if (!file) {
@@ -159,10 +176,7 @@ const TeacherSupport = () => {
     }
 
     if (!isValidFileName) {
-      openNotificationWithIcon(
-        "error",
-        t('home.condition'),
-      );
+      openNotificationWithIcon("error", t("home.condition"));
       return;
     }
     formik1.setFieldValue("file_name", file);
@@ -177,8 +191,8 @@ const TeacherSupport = () => {
     },
 
     validationSchema: Yup.object({
-      ticket: Yup.string().required("Required"),
-      ticketDetails: Yup.string().required("Required"),
+      ticket: Yup.string().required(t("teacherJourney.selectCategory")),
+      ticketDetails: Yup.string().required(t("teacherJourney.support1")),
       file_name: Yup.mixed(),
       url: Yup.string(),
     }),
@@ -213,7 +227,7 @@ const TeacherSupport = () => {
           body["link"] = values.url;
         }
 
-        dispatch(createSupportTickets(body));
+        dispatch(createSupportTickets(body, t));
         document.getElementById("discard").click();
         setTimeout(() => {
           dispatch(getSupportTickets(currentUser?.data[0]));
@@ -224,6 +238,8 @@ const TeacherSupport = () => {
     },
   });
   const fileHandlerforFormik = (e) => {
+    // Handles file selection and reads the selected file
+
     let file = e.target.files[0];
 
     if (!file) {
@@ -258,10 +274,7 @@ const TeacherSupport = () => {
     }
 
     if (!isValidFileName) {
-      openNotificationWithIcon(
-        "error",
-        t('home.condition'),
-      );
+      openNotificationWithIcon("error", t("home.condition"));
       return;
     }
     formik.setFieldValue("file_name", file);
@@ -276,7 +289,7 @@ const TeacherSupport = () => {
     },
 
     validationSchema: Yup.object({
-      ansTicket: Yup.string().required("Required"),
+      ansTicket: Yup.string().required(t("teacherJourney.support1")),
       selectStatusTicket: Yup.string(),
     }),
 
@@ -312,13 +325,13 @@ const TeacherSupport = () => {
           bodyForm2["link"] = values.url;
         }
 
-        dispatch(createSupportTicketResponse(bodyForm2));
+        dispatch(createSupportTicketResponse(bodyForm2), t);
         dispatch(
           SupportTicketStatusChange(id, { status: values.selectStatusTicket })
         );
         document.getElementById("sendresponseID").click();
         setTimeout(() => {
-          dispatch(getSupportTickets(currentUser?.data[0]));
+          dispatch(getSupportTickets(currentUser?.data[0]), t);
         }, 500);
       } catch (error) {
         console.log(error);
@@ -337,8 +350,8 @@ const TeacherSupport = () => {
           <div className="page-header">
             <div className="add-item d-flex">
               <div className="page-title">
-                <h4> {t('home.Support')}</h4>
-                <h6> {t('teacherJourney.support')}</h6>
+                <h4> {t("home.Support")}</h4>
+                <h6> {t("teacherJourney.support")}</h6>
               </div>
             </div>
             <div className="page-btn">
@@ -350,7 +363,7 @@ const TeacherSupport = () => {
                 aria-controls="offcanvasRight-add"
               >
                 <PlusCircle className="me-2" />
-                {t('teacherJourney.ask')}
+                {t("teacherJourney.ask")}
               </button>
             </div>
           </div>
@@ -392,7 +405,7 @@ const TeacherSupport = () => {
             <div className="content">
               <div className="page-header justify-content-between">
                 <div className="page-title">
-                  <h4> {t('teacherJourney.ask')}</h4>
+                  <h4> {t("teacherJourney.ask")}</h4>
                 </div>
                 <div className="page-btn">
                   <a
@@ -402,7 +415,7 @@ const TeacherSupport = () => {
                     onClick={() => formik1.resetForm()}
                   >
                     <ArrowLeft className="me-2" />
-                    {t('teacherJourney.backlist')}
+                    {t("teacherJourney.backlist")}
                   </a>
                 </div>
               </div>
@@ -414,7 +427,8 @@ const TeacherSupport = () => {
                       <div className="col-lg-4 col-sm-6 col-12">
                         <div className="mb-3">
                           <label className="form-label">
-                          {t('teacherJourney.category')}<span>*</span>
+                            {t("teacherJourney.category")}
+                            <span>*</span>
                           </label>
                           <Select
                             name="ticket"
@@ -428,7 +442,7 @@ const TeacherSupport = () => {
                             value={ticketOptions.find(
                               (option) => option.value === formik1.values.ticket
                             )}
-                            placeholder="Select Category"
+                            placeholder={t("teacherJourney.selectCategory")}
                           />
                           {formik1.errors.ticket ? (
                             <small className="error-cls text-danger">
@@ -439,11 +453,11 @@ const TeacherSupport = () => {
                       </div>
                       <div className="mb-3">
                         <label className="form-label">
-                        {t('teacherJourney.Description')} <span>*</span>
+                          {t("teacherJourney.Description")} <span>*</span>
                         </label>
                         <textarea
                           className="text-form form-control"
-                          placeholder="Enter Details"
+                          placeholder={t("teacherJourney.support1")}
                           id="ticketDetails"
                           name="ticketDetails"
                           rows={4}
@@ -460,13 +474,13 @@ const TeacherSupport = () => {
                       </div>
                       <div className="mb-3">
                         <Label className="mb-2" htmlFor="url">
-                        {t('teacherJourney.link')} 
+                          {t("teacherJourney.link")}
                         </Label>
                         <Input
                           type="text"
                           name="url"
                           id="url"
-                          placeholder="Please enter the link"
+                          placeholder={t("teacherJourney.support2")}
                           onChange={formik1.handleChange}
                           onBlur={formik1.handleBlur}
                           value={formik1.values.url}
@@ -479,7 +493,7 @@ const TeacherSupport = () => {
                       </div>
                       <div className="mb-3">
                         <Label className="mb-2" htmlFor="file_name">
-                        {t('teacherJourney.file')} 
+                          {t("teacherJourney.file")}
                         </Label>
                         <div className="d-flex align-items-center">
                           <input
@@ -494,15 +508,15 @@ const TeacherSupport = () => {
                             onBlur={formik1.handleBlur}
                           />
                           <button
-                            className="btn btn-primary add-em-payroll"
+                            className="btn btn-primary add-em-payroll me-2"
                             type="button"
                             onClick={() => {
                               document.getElementById("file_name").click();
                             }}
                           >
-                            {t('student.upload_file')} 
+                            {t("student.upload_file")}
                           </button>
-                          {formik1.values.file_name ? (
+                          {/* {formik1.values.file_name ? (
                             <span className="ml-2">
                               {formik1.values.file_name.name}
                             </span>
@@ -510,7 +524,18 @@ const TeacherSupport = () => {
                             <span className="ml-2">
                               {formik1.initialValues.file_name}
                             </span>
-                          )}
+                          )} */}
+                                                      {formik1.values.file_name ? (
+                              <span className="badge bg-info ml-2 p-2">
+                                {formik1.values.file_name.name}
+                              </span>
+                            ) : (
+                              formik1.initialValues.file_name && (
+                                <span className="badge bg-info ml-2 p-2">
+                                  {formik1.initialValues.file_name}
+                                </span>
+                              )
+                            )}
                         </div>
                         {formik1.touched.file_name &&
                           formik1.errors.file_name && (
@@ -528,10 +553,10 @@ const TeacherSupport = () => {
                             data-bs-dismiss="offcanvas"
                             onClick={() => formik1.resetForm()}
                           >
-                             {t('teacherJourney.discard')} 
+                            {t("teacherJourney.discard")}
                           </button>
                           <button type="submit" className="btn btn-save">
-                          {t('teacherJourney.create')} 
+                            {t("teacherJourney.create")}
                           </button>
                         </div>
                       </div>
@@ -557,7 +582,7 @@ const TeacherSupport = () => {
             <div className="content">
               <div className="page-header justify-content-between">
                 <div className="page-title">
-                  <h4> {t('teacherJourney.chat')} </h4>
+                  <h4> {t("teacherJourney.chat")} </h4>
                 </div>
                 <div className="page-btn">
                   <a
@@ -567,7 +592,7 @@ const TeacherSupport = () => {
                     onClick={() => formik.resetForm()}
                   >
                     <ArrowLeft className="me-2" />
-                    {t('teacherJourney.backlist')} 
+                    {t("teacherJourney.backlist")}
                   </a>
                 </div>
               </div>
@@ -587,26 +612,14 @@ const TeacherSupport = () => {
                   >
                     <Row>
                       <Col md={12}>
-                            <div
-                              className="saved-text"
-                              style={{ whiteSpace: "pre-wrap", marginTop: "1rem" }}
-                            >
-                              {supportTicket.query_details}
-                            </div>
-                        {/* <strong style={{ whiteSpace: "pre-line" }}>
+                        <div
+                          className="saved-text"
+                          style={{ whiteSpace: "pre-wrap", marginTop: "1rem" }}
+                        >
                           {supportTicket.query_details}
-                        </strong> */}
-                        <hr />
+                        </div>
 
-                        {/* <strong style={{ whiteSpace: "pre-line" }}>
-        <span 
-            dangerouslySetInnerHTML={{
-                __html: supportTicket.query_details 
-                    ? supportTicket.query_details.replace(/\n/g, '<br />')
-                    : ''
-            }}
-        />
-    </strong> */}
+                        <hr />
                       </Col>
 
                       <Col md={3}>
@@ -665,20 +678,20 @@ const TeacherSupport = () => {
                           <Row>
                             <Col md={12}>
                               <div
-                                  className="saved-text"
-                                  style={{ whiteSpace: "pre-wrap", marginTop: "1rem" }}
-                                >
-                                  {data.reply_details}
-                                </div>
+                                className="saved-text"
+                                style={{
+                                  whiteSpace: "pre-wrap",
+                                  marginTop: "1rem",
+                                }}
+                              >
+                                {data.reply_details}
+                              </div>
                               {/* <strong>{data.reply_details}</strong> */}
                               <hr />
                             </Col>
                             <Col md={3}>
                               <span>
                                 <FaUserCircle />{" "}
-                                {/* {
-                                                                        data.created_by
-                                                                    } */}
                                 {data.created_by == null
                                   ? data.replied_by
                                   : data.created_by}
@@ -726,11 +739,11 @@ const TeacherSupport = () => {
                       <Col md={12}>
                         <div>
                           <label className="form-label">
-                          {t('teacherJourney.description')}  <span>*</span>
+                            {t("teacherJourney.description")} <span>*</span>
                           </label>
                           <textarea
                             className="text-form form-control"
-                            placeholder="Enter Details"
+                            placeholder={t("teacherJourney.support1")}
                             id="ansTicket"
                             name="ansTicket"
                             rows={4}
@@ -747,13 +760,13 @@ const TeacherSupport = () => {
                         </div>
                         <div className="mb-3">
                           <Label className="mb-2" htmlFor="url">
-                          {t('teacherJourney.link')} 
+                            {t("teacherJourney.link")}
                           </Label>
                           <Input
                             type="text"
                             name="url"
                             id="url"
-                            placeholder="Please enter the link"
+                            placeholder={t("teacherJourney.support2")}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.url}
@@ -766,7 +779,7 @@ const TeacherSupport = () => {
                         </div>
                         <div className="mb-3">
                           <Label className="mb-2" htmlFor="file_name">
-                          {t('teacherJourney.file')} 
+                            {t("teacherJourney.file")}
                           </Label>
                           <div className="d-flex align-items-center">
                             <input
@@ -781,22 +794,25 @@ const TeacherSupport = () => {
                               onBlur={formik.handleBlur}
                             />
                             <button
-                              className="btn btn-primary add-em-payroll"
+                              className="btn btn-primary add-em-payroll me-2"
                               type="button"
                               onClick={() => {
                                 document.getElementById("file_name2").click();
                               }}
                             >
-                               {t('student.upload_file')}
+                              {t("student.upload_file")}
                             </button>
+
                             {formik.values.file_name ? (
-                              <span className="ml-2">
+                              <span className="badge bg-info ml-2 p-2">
                                 {formik.values.file_name.name}
                               </span>
                             ) : (
-                              <span className="ml-2">
-                                {formik.initialValues.file_name}
-                              </span>
+                              formik.initialValues.file_name && (
+                                <span className="badge bg-info ml-2 p-2">
+                                  {formik.initialValues.file_name}
+                                </span>
+                              )
                             )}
                           </div>
                           {formik.touched.file_name &&
@@ -807,7 +823,10 @@ const TeacherSupport = () => {
                             )}
                         </div>
                         <div className="mb-3">
-                          <Label className="mb-2"> {t('teacherJourney.select')} </Label>
+                          <Label className="mb-2">
+                            {" "}
+                            {t("teacherJourney.select")}{" "}
+                          </Label>
                           <Col className="form-group" md={12}>
                             <select
                               name=" selectStatusTicket"
@@ -823,14 +842,27 @@ const TeacherSupport = () => {
                               value={formik.values.selectStatusTicket}
                             >
                               <option value="" disabled={true}>
-                                {supportTicket && supportTicket.status
+                                {/* {supportTicket && supportTicket.status
                                   ? supportTicket.status
-                                  : "Select Status"}
+                                  : t("teacherJourney.selectStatus")} */}
+                                {supportTicket && supportTicket.status
+                                  ? t(
+                                      `teacherJourney.${supportTicket.status.toLowerCase()}`
+                                    )
+                                  : t("teacherJourney.selectStatus")}
                               </option>
-                              <option value="OPEN">OPEN </option>
-                              <option value="INPROGRESS">INPROGRESS </option>
-                              <option value="RESOLVED">RESOLVED </option>
-                              <option value="INVALID">INVALID </option>
+                              <option value="OPEN">
+                                {t("teacherJourney.open")}
+                              </option>
+                              <option value="INPROGRESS">
+                                {t("teacherJourney.inProgress")}
+                              </option>
+                              <option value="RESOLVED">
+                                {t("teacherJourney.resolved")}
+                              </option>
+                              <option value="INVALID">
+                                {t("teacherJourney.invalid")}
+                              </option>
                             </select>
                             {formik.touched.selectStatusTicket &&
                               formik.errors.selectStatusTicket && (
@@ -844,7 +876,7 @@ const TeacherSupport = () => {
                     </Row>
                   ) : (
                     <UncontrolledAlert color="danger" className="mb-2">
-                      {t('teacherJourney.close')}
+                      {t("teacherJourney.close")}
                     </UncontrolledAlert>
                   )}
                 </Card>
@@ -863,10 +895,10 @@ const TeacherSupport = () => {
                             data-bs-dismiss="offcanvas"
                             onClick={() => formik.resetForm()}
                           >
-                             {t('teacherJourney.discard')}
+                            {t("teacherJourney.discard")}
                           </button>
                           <button type="submit" className="btn btn-save">
-                          {t('teacherJourney.send')}
+                            {t("teacherJourney.send")}
                           </button>
                         </div>
                       </div>

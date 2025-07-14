@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect } from 'react';
-// import Layout from '../Pages/Layout';
 import { Row, Col, Label, Container, Card, } from 'reactstrap';
 import { Button } from '../../../stories/Button';
 import {
@@ -12,20 +11,17 @@ import axios from 'axios';
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { URL, KEY } from '../../../constants/defaultValues';
-import Check from '../EvalProcess/Pages/Check.jsx';
+import Check from '../EvalProcess/Pages/Checkbox.js';
 import {themesList} from "../../../Team/IdeaSubmission/themesData";
 import {languageOptions} from "../../../RegPage/ORGData";
 import { useDispatch, useSelector ,} from 'react-redux';
-// import { getStateData } from '../../../redux/studentRegistration/actions';
 import { encryptGlobal } from '../../../constants/encryptDecrypt';
 import { stateList, districtList } from "../../../RegPage/ORGData.js";
 const State = (props) => {
     const location = useLocation();
     const { evaluatorId } = location.state || {};
-    // console.log(evaluatorId,"id");
     const evalID = JSON.parse(localStorage.getItem('eavlId'));
     const IdIntial =evaluatorId ? evaluatorId : evalID.evaluator_id ;
-    // console.log(evalID,"item");
     const allDataLanguages= ["All Languages",...languageOptions];
     const allDataThemes= ["All Themes",...themesList];
     const dispatch = useDispatch();
@@ -183,11 +179,7 @@ const navigate = useNavigate();
               language: '',
                theme: ''
          };
-        // selectedStates.includes('All States')
-        //     ? (value.state = selectedStates
-        //           ?.filter((item) => item !== 'All States')
-        //           .toString())
-        //     : (value.state = selectedStates.toString());
+     
         value.state = selectedStates.includes('All States')
         ? selectedStates.filter((item) => item !== 'All States').toString()
         : selectedStates.toString();

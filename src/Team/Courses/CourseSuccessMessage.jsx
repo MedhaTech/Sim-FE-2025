@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import Confetti from "react-confetti";
-// import { useHistory } from "react-router-dom";
 import ResultStar from "../../assets/img/quiz-result-star.png";
 import { Button } from "../../stories/Button";
 import succesImg from "../../assets/img/success1.jpeg";
@@ -17,7 +16,6 @@ import axios from 'axios';
 const CourseSuccessMessage = () => {
   const { t } = useTranslation();
   
-  // const history = useHistory();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentUser = getCurrentUser("current_user");
@@ -28,6 +26,8 @@ const CourseSuccessMessage = () => {
   const [initiate,setInitiate]=useState("");
 
   const submittedApi = () => {
+               // This function fetches idea submission details from the API //
+
     const Param = encryptGlobal(
       JSON.stringify({
         team_id: TeamId,
@@ -67,10 +67,7 @@ useEffect(() => {
     submittedApi();
 }, []);
 const handleClick = (page) => {
-    // alert("hii");
-    // dispatch(
-    //   getStudentDashboardStatus(currentUser?.data[0]?.user_id, language)
-    // );
+   
    
     setTimeout(() => {
       if (page === "certificate") {
@@ -89,10 +86,7 @@ const handleClick = (page) => {
       <Confetti className="w-100" />
       <div className="row justify-content-md-center ">
         <div className="col col-lg-10">
-          {/* <div className="results-heading"> */}
-
-          {/* <img src={ResultStar} alt="star" /> */}
-          {/* </div> */}
+         
           <div className="congratulations text-center">
             <div className="success_img text-center w-100">
               <Confetti className="w-100" />
@@ -135,8 +129,7 @@ const handleClick = (page) => {
               size="small"
               onClick={() => handleClick("certificate")} 
             />
-            {/* {t("student_course.go_idea_submission")}
-            </button> */}
+           
           </div>
         </div>
       </div>

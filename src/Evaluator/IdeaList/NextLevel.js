@@ -7,6 +7,7 @@ import LinkComponent from './LinkComponent';
 import { getCurrentUser } from '../../helpers/Utils';
 import RateIdea from './RateIdea';
 import { Row, Col, Form, Label } from 'reactstrap';
+import VideoPopup from './Videopop';
 
 const NextLevel = (props) => {
     const currentUser = getCurrentUser('current_user');
@@ -20,38 +21,7 @@ const NextLevel = (props) => {
             
         }
     }, [props]);
-    const files = teamResponse?.prototype_image
-    ? teamResponse?.prototype_image.split(',')
-    : [];
-const downloadFile = (item) => {
-    // const link = document.createElement('a');
-    // link.href = item;
-    // link.download = 'upload.pdf';
-    // document.body.appendChild(link);
-    // link.click();
-    // document.body.removeChild(link);
-    fetch(item)
-        .then((response) => {
-            // Convert the response to a blob
-            return response.blob();
-        })
-        .then((blob) => {
-            // Create a download link
-            const url = window.URL.createObjectURL(new Blob([blob]));
-            const link = document.createElement('a');
-            link.href = url;
-            const parts = item.split('/');
-            link.setAttribute('download', parts[parts.length - 1]);
-            document.body.appendChild(link);
-            link.click();
-            link.parentNode.removeChild(link);
-        })
-        .catch((error) => {
-            console.error('Error downloading file:', error);
-        });
-};
-
-// const problemSolvingArray = teamResponse?.problem_solving;
+   
     return (
         <>
             {teamResponse ? (
@@ -61,18 +31,18 @@ const downloadFile = (item) => {
                             <div className="row">
                                 <div className="col-lg-8">
                                     <Row>
-                                        <Col>
+                                        <Col md={6}>
                                             <h4 className="mb-md-4 mb-3">
-                                                Theme : 
+                                                Theme :&nbsp;
                                                 <span className="text-capitalize">
                                                 {props?.ideaDetails?.theme?.toLowerCase() ||
                                                         ''}
                                                 </span>
                                             </h4>
                                         </Col>
-                                        <Col>
+                                        <Col md={6}>
                                             <h4 className="mb-md-4 mb-3">
-                                                CID :
+                                                CID :&nbsp;
                                                 <span className="text-capitalize">
                                                 {props?.ideaDetails.challenge_response_id ||
                                                         ''}
@@ -145,7 +115,7 @@ const downloadFile = (item) => {
                                                 fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                            1.Theme
+                                            1. Theme
                                             
                                         </b>
                                     </div>
@@ -173,9 +143,8 @@ const downloadFile = (item) => {
                                                 fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                           2.Focus Area
-                                            {/* {item?.question_no || ''}.{' '}
-                                                {item?.question || ''} */}
+                                           2. Focus Area
+                                           
                                         </b>
                                     </div>
                                     <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
@@ -295,9 +264,8 @@ const downloadFile = (item) => {
                                     </div>
                                 </div>
                             </div>{' '}
-                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                            {/* <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
-                                    // key={index}
                                     className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
@@ -319,7 +287,7 @@ const downloadFile = (item) => {
                                         </p>
                                     </div>
                                 </div>
-                            </div>{' '}
+                            </div>{' '} */}
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -331,7 +299,7 @@ const downloadFile = (item) => {
                                                 fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                             8. Who all are facing this problem?
+                                             7. Who all are facing this problem?
                                         </b>
                                     </div>
                                     <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
@@ -358,7 +326,7 @@ const downloadFile = (item) => {
                                                 fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                              9. Describe the solution to the problem your team found. Explain
+                                              8. Describe the solution to the problem your team found. Explain
                 your solution clearly - how does it work, who is it helping, and
                 how will it solve the problem.
                                         </b>
@@ -374,9 +342,8 @@ const downloadFile = (item) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                            {/* <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
-                                    // key={index}
                                     className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
@@ -399,10 +366,9 @@ const downloadFile = (item) => {
                                         </p>
                                     </div>
                                 </div>
-                            </div>{' '}
-                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                            </div>{' '} */}
+                            {/* <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
-                                    // key={index}
                                     className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
@@ -431,7 +397,7 @@ const downloadFile = (item) => {
                                         </p>
                                     </div>
                                 </div>
-                            </div>{' '}
+                            </div>{' '} */}
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -443,7 +409,7 @@ const downloadFile = (item) => {
                                                 fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                             12. Mention the feedback that your team got and the changes you
+                                             9. Mention the feedback that your team got and the changes you
                                              have made, if any, to your problem or solution.
                                         </b>
                                     </div>
@@ -472,41 +438,14 @@ const downloadFile = (item) => {
                                                         fontSize: '1rem',marginBottom:"1rem"
                                                     }}
                                                 >
-                                                    13. Descriptive Document/Image of your prototype
+                                                    10. Descriptive Document/Image of your prototype
                                                 </b>
                                             </div>
                                             <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
                                             {
                         <LinkComponent item={images} />
                       }
-                                                {/* {files.length > 0 &&
-                                                    files.map((item, i) => (
-                                                        <div key={i}>
-                                                          
-                                                            <a
-                                                                key={i}
-                                                                className="badge mb-2 bg-info p-3 ms-3"
-                                                                target="_blank"
-                                                                rel="noreferrer"
-                                                                onClick={() =>
-                                                                    downloadFile(
-                                                                        item
-                                                                    )
-                                                                }
-                                                            >
-                                                                {item
-                                                                    .split('/')
-                                                                    .pop()}
-                                                            </a>
-                                                        </div>
-                                                    ))} */}
-                                                {/* <p
-                                        style={{
-                                            fontSize: '1.4rem'
-                                        }}
-                                    >
-                                        {teamResponse?.Prototype_file}
-                                    </p> */}
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -521,7 +460,7 @@ const downloadFile = (item) => {
                                                 fontSize: '1rem',marginBottom:"1rem"
                                             }}
                                         >
-                                            14. Clear YouTube Video Explaining your Solution
+                                            11. Clear YouTube Video Explaining your Solution
                                         </b>
                                     </div>
                                     <div className="bg-white p-3 mb-3" style={{ border: '1px solid #ccc', borderRadius: '10px',height:"auto" }}>
@@ -530,21 +469,24 @@ const downloadFile = (item) => {
                                                 fontSize: '1rem',color:"black"
                                             }}
                                         >
-                                            <a 
+                                            {/* <a 
             href={teamResponse.prototype_link} 
             target="_blank" 
             rel="noopener noreferrer" 
             style={{ textDecoration: 'none', color: 'skyblue'}}
         >
             {teamResponse.prototype_link}
-        </a>
+
+        </a> */}
+         {teamResponse?.prototype_link && (
+  <VideoPopup videoUrl={teamResponse.prototype_link} />
+)}
                                         </p>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                            {/* <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
-                                    // key={index}
                                     className="mb-4 my-3 comment-card px-4 py-2 card me-md-3"
                                 >
                                     <div className="question quiz mb-0">
@@ -567,60 +509,8 @@ const downloadFile = (item) => {
                                         </p>
                                     </div>
                                 </div>
-                            </div>
-                            {/* {teamResponse?.map((item, index) => {
-                                return (
-                                    <div
-                                        key={index}
-                                        className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
-                                    >
-                                        <div className="question quiz mb-0">
-                                            <b
-                                                style={{
-                                                    fontSize: '1.6rem'
-                                                }}
-                                            >
-                                                {item?.question_no || ''}.{' '}
-                                                {item?.question || ''}
-                                            </b>
-                                        </div>
-                                        <div className="bg-light rounded p-5">
-                                            <p
-                                                style={{
-                                                    fontSize: '1.4rem'
-                                                }}
-                                            >
-                                                {item?.question_type ===
-                                                'MCQ' ? (
-                                                    item?.selected_option?.map(
-                                                        (data, i) => {
-                                                            return (
-                                                                <div key={i}>
-                                                                    {data || ''}
-                                                                </div>
-                                                            );
-                                                        }
-                                                    )
-                                                ) : item?.question_type ===
-                                                      'TEXT' ||
-                                                  item?.question_type ===
-                                                      'MRQ' ? (
-                                                    item?.selected_option
-                                                ) : item?.question_type ===
-                                                  'DRAW' ? (
-                                                    <LinkComponent
-                                                        item={
-                                                            item.selected_option
-                                                        }
-                                                    />
-                                                ) : (
-                                                    ''
-                                                )}
-                                            </p>
-                                        </div>
-                                    </div>
-                                );
-                            })} */}
+                            </div> */}
+
                         </div>
                     </div>
 
@@ -634,7 +524,6 @@ const downloadFile = (item) => {
                         level={'L2'}
                         topRef={props?.topRef}
                         handleSkip={props?.handleSkip}
-                        // setIsNextDiv={props?.setIsNextDiv}
                     />
                     
                 </>

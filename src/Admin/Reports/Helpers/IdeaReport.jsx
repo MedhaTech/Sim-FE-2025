@@ -6,10 +6,7 @@ import { CSVLink } from "react-csv";
 import { getCurrentUser } from "../../../helpers/Utils";
 import { useNavigate, Link } from "react-router-dom";
 import {
-  OverlayTrigger,
-  Tooltip,
   Popover,
-  Button,
   Overlay,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -319,15 +316,13 @@ const IdeaReport = () => {
           if (item && Object.prototype.hasOwnProperty.call(item, key)) {
             filteredItem[key] = item[key] ?? "";
           } else {
-            console.warn(`Key "${key}" not found in item:`, item);
+            // console.warn(`Key "${key}" not found in item:`, item);
           }
         });
 
-        console.log("Filtered Item:", filteredItem);
         return Object.keys(filteredItem).length > 0 ? filteredItem : null;
       })
       .filter(Boolean);
-    console.log("Final Filtered Data for Download:", filteredData);
     setstudentDetailedReportsData(filteredData);
   };
   const handleCustomizationClick = () => {
@@ -351,7 +346,6 @@ const IdeaReport = () => {
 
   useEffect(() => {
     if (isReadyToDownload && studentDetailedReportsData.length > 0) {
-      console.log("Downloading CSV with data:", studentDetailedReportsData);
       const formattedCSVData = studentDetailedReportsData.map((item) =>
         Object.fromEntries(
           Object.entries(item).map(([key, value]) => [
@@ -364,16 +358,15 @@ const IdeaReport = () => {
 
       setTimeout(() => {
         handleExport();
-        console.log(
-          "Downloading CSV with formatted headers:",
-          formattedCSVData
-        );
+       
         openNotificationWithIcon("success", "Report Downloaded Successfully");
         setIsReadyToDownload(false);
       }, 1000);
     }
   }, [isReadyToDownload, studentDetailedReportsData]);
   const fetchData = (type, param) => {
+   // This function filters  data based on selected state, district, category, theme
+
     let apiRes;
     if (type === "save") {
       apiRes = encryptGlobal(param);
@@ -571,57 +564,53 @@ const IdeaReport = () => {
             (acc, item) => {
               acc.state = "Total";
               (acc.totalSubmited += item.totalSubmited),
-                (acc.AgricultureandRuralDevelopment +=
-                  item.AgricultureandRuralDevelopment);
-              acc.DigitalTransformation += item.DigitalTransformation;
-              acc.EconomicEmpowerment += item.EconomicEmpowerment;
-              acc.HealthandWellbeing += item.HealthandWellbeing;
-              acc.QualityEducation += item.QualityEducation;
-              acc.SustainableDevelopmentandEnvironment +=
-                item.SustainableDevelopmentandEnvironment;
+                (acc.BuildingaSustainableFuture +=
+                  item.BuildingaSustainableFuture);
+              acc.TechnologyforLearningandGrowth += item.TechnologyforLearningandGrowth;
+              acc.HealthNutritionWellbeing += item.HealthNutritionWellbeing;
+              acc.SkillsforLifeLivelihood += item.SkillsforLifeLivelihood;
+              acc.SmarterCommunitiesSaferFutures += item.SmarterCommunitiesSaferFutures;
+              acc.OpenCategoryThinkBeyond +=
+                item.OpenCategoryThinkBeyond;
 
-              acc.OTHERS += item.OTHERS;
 
-              acc.SmartandResilientCommunities +=
-                item.SmartandResilientCommunities;
+              acc.AgricultureRuralTransformation +=
+                item.AgricultureRuralTransformation;
               return acc;
             },
             {
               totalSubmited: 0,
 
-              AgricultureandRuralDevelopment: 0,
-              DigitalTransformation: 0,
-              EconomicEmpowerment: 0,
-              HealthandWellbeing: 0,
-              QualityEducation: 0,
-              SmartandResilientCommunities: 0,
-              SustainableDevelopmentandEnvironment: 0,
-              OTHERS: 0,
+              BuildingaSustainableFuture: 0,
+              TechnologyforLearningandGrowth: 0,
+              HealthNutritionWellbeing: 0,
+              SkillsforLifeLivelihood: 0,
+              SmarterCommunitiesSaferFutures: 0,
+              AgricultureRuralTransformation: 0,
+              OpenCategoryThinkBeyond: 0,
             }
           );
 
           const doughnutData = {
             labels: [
-              "Agriculture and Rural Development",
-              "Digital Transformation",
-              "Economic Empowerment",
-              "Health and Well-being",
-              "Quality Education",
-              "Smart and Resilient Communities",
-              "Sustainable Development and Environment",
-              "Others",
+             "Building a Sustainable Future",
+  "Technology for Learning and Growth",
+  "Health & Nutrition and Well-being",
+  "Skills for Life and Livelihood",
+  "Smarter Communities & Safer Futures",
+  "Agriculture and Rural Transformation",
+  "Open Category - Think Beyond!"
             ],
             datasets: [
               {
                 data: [
-                  total.AgricultureandRuralDevelopment,
-                  total.DigitalTransformation,
-                  total.EconomicEmpowerment,
-                  total.HealthandWellbeing,
-                  total.QualityEducation,
-                  total.SmartandResilientCommunities,
-                  total.SustainableDevelopmentandEnvironment,
-                  total.Others,
+                  total.BuildingaSustainableFuture,
+                  total.TechnologyforLearningandGrowth,
+                  total.HealthNutritionWellbeing,
+                  total.SkillsforLifeLivelihood,
+                  total.SmarterCommunitiesSaferFutures,
+                  total.AgricultureRuralTransformation,
+                  total.OpenCategoryThinkBeyond,
                 ],
                 backgroundColor: [
                   "#8bcaf4",
@@ -631,7 +620,6 @@ const IdeaReport = () => {
                   "#648c11",
                   "#00ffff",
                   "#0000ff",
-                  "#800080",
                 ],
                 hoverBackgroundColor: [
                   "#36A2EB",
@@ -641,7 +629,6 @@ const IdeaReport = () => {
                   "#a6d608",
                   "#b2ffff",
                   "#4169e1",
-                  "#dda0dd",
                 ],
               },
             ],
@@ -670,6 +657,8 @@ const IdeaReport = () => {
   };
 
   const handleSaveReport = async () => {
+    // This function filters the data and saves the Detailed Idea report
+
     const pattern = /^[a-zA-Z0-9 \-()&.,_]*$/;
     if (pattern.test(inputValue) && inputValue !== "") {
       const body = JSON.stringify({
@@ -713,6 +702,7 @@ const IdeaReport = () => {
     fetchSavedReportsData();
   }, []);
   const fetchSavedReportsData = () => {
+    // this function fetches all saved reports list from the API
     const apiRes = encryptGlobal(
       JSON.stringify({
         report_type: "ideadetailed-report",
@@ -746,7 +736,6 @@ const IdeaReport = () => {
         .map((header) => header)
     );
     fetchData("save", data.filters);
-    console.log(data.filters, "filters");
     setistabledownloadclicked(true);
   };
   useEffect(() => {
@@ -757,6 +746,8 @@ const IdeaReport = () => {
   }, [savedReports]);
 
   const handleReportfileDelete = (data) => {
+    // this function fetches delete reports  from the API
+
     const idparm = encryptGlobal(JSON.stringify(data.report_file_id));
     const config = {
       method: "delete",
@@ -1107,15 +1098,11 @@ const IdeaReport = () => {
                           !downloadTableData ||
                           downloadTableData.length === 0
                         ) {
-                          console.log("Fetching data before download...");
                           filterData();
                         }
 
                         setTimeout(() => {
-                          console.log(
-                            "Checking Data Before Download:",
-                            downloadTableData
-                          );
+                         
 
                           setIsReadyToDownload(true);
                         }, 1000);

@@ -8,8 +8,6 @@ import { Card, CardBody, CardTitle } from "reactstrap";
 import { Button } from "../stories/Button";
 import { FaDownload } from "react-icons/fa";
 import { useReactToPrint } from "react-to-print";
-// import DetailToDownload from '../Admin/Challenges/DetailToDownload';
-// import ViewDetail from '../Admin/Challenges/ViewDetail';
 import { CardText } from "reactstrap";
 import { openNotificationWithIcon } from "../helpers/Utils";
 import { getCurrentUser } from "../helpers/Utils";
@@ -40,7 +38,6 @@ const LinkComponent = ({ item }) => {
             <a
               key={i}
               className="badge mb-2 bg-info p-3 ms-3 col-3"
-              // href={ans}
               target="_blank"
               style={{ cursor: 'pointer' }}
 
@@ -67,111 +64,35 @@ const CooIdeaSubmissionCard = ({
   handleClose,
   show,
   response,
-  props,
   setIdeaCount,
-  setApproval,
 }) => {
   const submitted = response;
-  // console.log(response,"formData");
   const [showDefault, setshowDefault] = useState(true);
   const currentUser = getCurrentUser("current_user");
   const dispatch = useDispatch();
-  const [teamResponse, setTeamResponse] = React.useState([]);
   const mentorId = currentUser?.data[0]?.user_id;
-  const [answers, setAnswers] = useState([]);
   const [hide, setHide] = useState(true);
   const [submittedResponse, setIdeaSubmittedData] = React.useState(submitted);
   const Id = submittedResponse.challenge_response_id;
   const problemSolvingArray = JSON.parse(submittedResponse.problem_solving);
-  // const prototypeImageArray = JSON.parse(response.prototype_image);
   const files = submittedResponse?.prototype_image
     ? JSON.parse(submittedResponse.prototype_image)
     : [];
  const [images,setImages] = React.useState([]);
 
-  // const fileName = prototypeImageArray[0].split('/').pop();
-  // const [id,setId]=useState();
-  // console.log(submittedResponse,"11");
-  // console.log(Id,"id");
+ 
   const teamId = submittedResponse.team_id;
 
    useEffect(() => {
             if (submittedResponse) {
-                // setTeamResponse(props?.ideaDetails);
                 setImages(JSON.parse(submittedResponse.prototype_image));
             }
         }, [submittedResponse]);
-  // useEffect(() => {
-  //     if (submittedResponse && submittedResponse !== {}) {
-  //         const data = Object.entries(submittedResponse);
-  //         const answerFormat = data.map((item) => {
-  //             return {
-  //                 question_no: item[1].question_no,
-  //                 question: item[1].question,
-  //                 answer: item[1]?.selected_option,
-  //                 type: item[1]?.question_type
-  //             };
-  //         });
-  //         setAnswers(answerFormat);
-  //     }
-  // }, [submittedResponse]);
-  // const answersSort = [...answers].sort(
-  //     (a, b) => a.question_no - b.question_no
-  // );
 
-  // React.useEffect(() => {
-  //     if (submittedResponse) {
-  //         setTeamResponse(Object.entries(submittedResponse).map((e) => e[1]));
-  //     }
-  // }, [submittedResponse]);
-  // React.useEffect(() => {
-  //     if (props?.ideaDetails?.response) {
-  //         setTeamResponse(
-  //             Object.entries(props?.ideaDetails?.response).map((e) => e[1])
-  //         );
-  //     }
-  // }, [props]);
-  const handleAccept = () => {
-    // alert("helll");
-    const currentTime = new Date().toLocaleString();
-
-    const body = JSON.stringify({
-      verified_status: "ACCEPTED",
-      // verified_at: currentTime,
-    });
-    const ideaID = encryptGlobal(JSON.stringify(Id));
-    var config = {
-      method: "put",
-      url:
-        process.env.REACT_APP_API_BASE_URL +
-        `/challenge_response/updateEntry/${ideaID}`,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${currentUser?.data[0]?.token}`,
-      },
-      data: body,
-    };
-    axios(config)
-      .then(async function (response) {
-        if (response.status === 200) {
-          // setAcceptBtn(response.data.data);
-          // console.log(response, 'response');
-          openNotificationWithIcon("success", "Idea Approved Successfully");
-          setHide(false);
-          handleClose();
-          ideaSubmittedApi(teamId);
-          dispatch(getTeamMemberStatus(teamId, setshowDefault));
-          window.location.reload();
-
-          mentorIdeaCount();
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-        openNotificationWithIcon("error", "Something went wrong");
-      });
-  };
+ 
   const ideaSubmittedApi = (teamId) => {
+               // This function fetches idea submission details from the API //
+
     const Param = encryptGlobal(
       JSON.stringify({
         team_id: teamId,
@@ -193,7 +114,6 @@ const CooIdeaSubmissionCard = ({
         if (response.status === 200) {
           if (response.data.data && response.data.data.length > 0) {
             setIdeaSubmittedData(response.data.data[0]);
-            // setId(response.data.data[0].challenge_response_id);
           }
         }
       })
@@ -223,9 +143,7 @@ const CooIdeaSubmissionCard = ({
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response, 'ideasubmission page');
           setIdeaCount(response.data.data[0].idea_count);
-          // setApproval(response.data.data[0].PendingForApproval);
         }
       })
       .catch(function (error) {
@@ -233,35 +151,7 @@ const CooIdeaSubmissionCard = ({
       });
   };
 
-  const downloadFile = (item) => {
-    // const link = document.createElement('a');
-    // link.href = item;
-    // link.download = 'upload.pdf';
-    // document.body.appendChild(link);
-    // link.click();
-    // document.body.removeChild(link);
-    fetch(item)
-      .then((response) => {
-        // Convert the response to a blob
-        return response.blob();
-      })
-      .then((blob) => {
-        // Create a download link
-        const url = window.URL.createObjectURL(new Blob([blob]));
-        const link = document.createElement("a");
-        link.href = url;
-        const fileName = item.split("/").pop();
-        link.setAttribute("download", fileName);
-        // const parts = item.split('/');
-        // link.setAttribute('download', parts[parts.length - 1]);
-        document.body.appendChild(link);
-        link.click();
-        link.parentNode.removeChild(link);
-      })
-      .catch((error) => {
-        console.error("Error downloading file:", error);
-      });
-  };
+  
 
   ///idea pdf 
   const [ideaPdfValues, setIdeaPdfValues] = useState();
@@ -295,9 +185,8 @@ const CooIdeaSubmissionCard = ({
   useEffect(() => {
     if (ideaPdfValues !== undefined) {
       handlePrint();
-      console.log('printcontinue');
     } else {
-      console.log("Some PDF printing related api's are failing");
+      // console.log("Some PDF printing related api's are failing");
     }
   }, [ideaPdfValues]);
 
@@ -338,7 +227,6 @@ const CooIdeaSubmissionCard = ({
             className="w-100 d-block text-center"
           >
            Theme : {response.theme}
-            {/* Focus Area : <p>{response.focus_area}</p> */}
           </Modal.Title>
         </Modal.Header>
 
@@ -434,7 +322,6 @@ const CooIdeaSubmissionCard = ({
                 journey (You can choose multiple options)
               </label>
               <CardText>
-                {/* {submittedResponse.problem_solving} */}
                 {problemSolvingArray.join(", ")}
               </CardText>
             </CardBody>
@@ -453,26 +340,9 @@ const CooIdeaSubmissionCard = ({
               <label htmlFor="teams" className="" style={{ fontSize: "1rem" }}>
                 12. Descriptive Document/Image of your prototype
               </label>
-              {/* <CardText>
-                                {submittedResponse.prototype_image}
-                                {fileName}
-                            </CardText> */}
+             
               <CardText>
-                {/* {files.length > 0 &&
-                  files.map((item, i) => (
-                    <Card key={i}>
-                     
-                      <a
-                        key={i}
-                        className="badge bg-info col-3"
-                        target="_blank"
-                        rel="noreferrer"
-                        onClick={() => downloadFile(item)}
-                      >
-                        {item.split("/").pop()}
-                      </a>
-                    </Card>
-                  ))} */}
+               
                    <Card >  {
                                           <LinkComponent item={images} />
                                         }</Card>
@@ -489,7 +359,6 @@ const CooIdeaSubmissionCard = ({
               {submittedResponse?.prototype_link && (
   <VideoPopup videoUrl={submittedResponse.prototype_link} />
 )}
-                {/* <a href={submittedResponse.prototype_link} target="_blank" rel="noreferrer">{submittedResponse.prototype_link}</a> */}
                 </CardText>
             </CardBody>
           </Card>
@@ -504,54 +373,7 @@ const CooIdeaSubmissionCard = ({
           </Card>
         </Modal.Body>
         <Modal.Footer>
-          {/* <FaDownload size={22} onClick={handlePrint} /> */}
 
-          {/* {hide &&
-            submittedResponse?.status === "SUBMITTED" &&
-            submittedResponse?.verified_status !== "REJECTED" &&
-            submittedResponse?.verified_status !== "ACCEPTED" ? (
-            <Button
-              size="small"
-              label={"Approve"}
-              btnClass="primary text-left"
-              onClick={handleAccept}
-            />
-          ) : (
-            <>
-              {submittedResponse?.verified_status == "ACCEPTED" && (
-                <div>
-                  <p style={{ fontSize: "1rem" }} className="fw-bold">
-                    Accepted At :{" "}
-                    {submittedResponse.verified_at
-                      ? moment(submittedResponse.verified_at).format(
-                        "DD-MM-YYYY"
-                      )
-                      : "-"}
-                  </p>
-                </div>
-              )}
-              {submittedResponse?.verified_status === "REJECTED" && (
-                <div>
-                  <p style={{ fontSize: "1rem" }} className="fw-bold">
-                    Last Modifiled By :{" "}
-                    {submittedResponse?.initiated_name}
-                  </p>
-                  <p style={{ fontSize: "1rem" }} className="fw-bold">
-                    Rejected At :{" "}
-                    {submittedResponse.verified_at
-                      ? moment(submittedResponse.verified_at).format(
-                        "DD-MM-YYYY"
-                      )
-                      : "-"}
-                  </p>
-                  <p style={{ fontSize: "1rem" }} className="fw-bold">
-                    Reason for Rejection :{" "}
-                    {submittedResponse?.mentor_rejected_reason}
-                  </p>
-                </div>
-              )}
-            </>
-          )} */}
           {submittedResponse?.status === "SUBMITTED" && (
             <div>
               <p style={{ fontSize: "1rem" }} className="fw-bold">

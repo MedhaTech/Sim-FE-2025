@@ -1,25 +1,14 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState ,useEffect} from "react";
-import CountUp from "react-countup";
-import {
-  File,
-  User,
-  UserCheck,
-} from "feather-icons-react/build/IconComponents";
-import ImageWithBasePath from "../../core/img/imagewithbasebath";
-// import { all_routes } from "../../Router/all_routes";
+
 import {
   getCurrentUser,
  
 } from '../../helpers/Utils';
 import axios from 'axios';
 import { FaChalkboardTeacher } from 'react-icons/fa'; 
-import { FaPaperPlane } from 'react-icons/fa';
 import { FaUsers } from 'react-icons/fa';
-import { FaUserGraduate } from 'react-icons/fa';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMale, faFemale, faSchool } from '@fortawesome/free-solid-svg-icons';
 import { FcLibrary } from "react-icons/fc";
 import teacherreg from "../../assets/img/teacherreg.png";
 import ideasub from "../../assets/img/submission.png";
@@ -40,7 +29,6 @@ import stuoth from "../../assets/img/student-other.png";
 
 const Dashboard = () => {
   const currentUser = getCurrentUser('current_user');
-  // const route = all_routes;
   useEffect(() => {
     adminTeamsCount();
     adminSudentCount();
@@ -75,6 +63,8 @@ const [totalstudentCoursesCount, setTotalstudentCoursesCount] =
     useState('-');
 
 const nonAtlCount = () => {
+        // This function fetches atl and nonatl count from the API //
+
     var config = {
         method: 'get',
         url:
@@ -100,6 +90,8 @@ const nonAtlCount = () => {
         });
 };
 const adminTeamsCount = () => {
+        // This function fetches teamcounts count from the API //
+
     var config = {
         method: 'get',
         url: process.env.REACT_APP_API_BASE_URL + `/dashboard/teamCount`,
@@ -120,6 +112,8 @@ const adminTeamsCount = () => {
         });
 };
 const adminSudentCount = () => {
+        // This function fetches students count count from the API //
+
     var config = {
         method: 'get',
         url: process.env.REACT_APP_API_BASE_URL + `/dashboard/studentCount`,
@@ -141,6 +135,8 @@ const adminSudentCount = () => {
         });
 };
 const adminideasCount = () => {
+        // This function fetches ideas count count from the API //
+
     var config = {
         method: 'get',
         url: process.env.REACT_APP_API_BASE_URL + `/dashboard/ideasCount`,
@@ -165,6 +161,8 @@ const adminideasCount = () => {
         });
 };
 const adminMentorCount = () => {
+        // This function fetches mentors count count from the API //
+
     var config = {
         method: 'get',
         url: process.env.REACT_APP_API_BASE_URL + `/dashboard/mentorCount`,
@@ -177,20 +175,20 @@ const adminMentorCount = () => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-    console.log(response,"res");
     setTotalMentorCount(response.data.data[0].mentorCount);
     setTotalMentorFeMaleCount(response.data.data[0].mentorFemale
     );
     setTotalMentorMaleCount(response.data.data[0].mentorMale);
   }
-                // setTotalMentorCount(response.data.data[0].mentorCount);
-                // setTotalMentorMaleCount(response.data.data[0].mentorMale);
+               
         })
         .catch(function (error) {
             console.log(error);
         });
 };
 const adminSudentbygenderCount = () => {
+        // This function fetches students gender count  from the API //
+
     var config = {
         method: 'get',
         url:
@@ -217,6 +215,8 @@ const adminSudentbygenderCount = () => {
         });
 };
 const adminSchoolCount = () => {
+        // This function fetches schools count  from the API //
+
     var config = {
         method: 'get',
         url: process.env.REACT_APP_API_BASE_URL + `/dashboard/schoolCount`,
@@ -238,6 +238,8 @@ const adminSchoolCount = () => {
         });
 };
 const adminmentorCourseCount = () => {
+        // This function fetches mentors course completed count  from the API //
+
     var config = {
         method: 'get',
         url:
@@ -263,6 +265,8 @@ const adminmentorCourseCount = () => {
         });
 };
 const adminStudentCourseCount = () => {
+        // This function fetches students course completed count  from the API //
+
     var config = {
         method: 'get',
         url:
@@ -277,7 +281,6 @@ const adminStudentCourseCount = () => {
     axios(config)
         .then(function (response) {
             if (response.status === 200) {
-              // console.log(response,"11");
 
                 setStudentCoursesCompletedCount(
                     response.data.data[0].StudentCoursesCompletedCount
@@ -293,10 +296,7 @@ const adminStudentCourseCount = () => {
   return (
     <div>
       <div className="page-wrapper" >
-        {/* <h3 className="m-2" 
-        style={{ position: 'sticky', top: '0', backgroundColor: 'white', zIndex: 1000, padding: '10px' }}
-        >Dashboard
-        </h3> */}
+       
         <div className="content">
           <div className="row">
             <div className="col-xl-4 col-sm-6 col-12 d-flex">
@@ -450,7 +450,6 @@ const adminStudentCourseCount = () => {
                     
                   {(Number(totalMentorCount) - (Number(totalMentorMaleCount) + Number(totalMentorFeMaleCount)))}
                    
-                    {/* {totalteamsCount} */}
                   </h5>
                   <h6>Other Teachers</h6>
                 </div>
@@ -673,23 +672,7 @@ const adminStudentCourseCount = () => {
             
 
 
-            {/* <div className="col-xl-3 col-sm-6 col-12 d-flex">
-              <div className="dash-widget w-100">
-                <div className="dash-widgetimg">
-                 
-                  <span>
-                    <FaChalkboardTeacher size={30} style={{color:"royalblue"}}/>
-                  </span>
-                </div>
-                <div className="dash-widgetcontent">
-                  <h5>
-                    {mentorCoursesCompletedCount}
-
-                  </h5>
-                  <h6>Teachers Course Completed</h6>
-                </div>
-              </div>
-            </div> */}
+          
           </div>
         </div>
       </div>

@@ -361,7 +361,6 @@ class detailToDownload extends React.Component {
                                 <p style={{ overflowWrap: 'anywhere' }}>
                                 {(() => {
       const problemSolving = this.props?.ideaDetails?.problem_solving;
-      console.log('problemSolving:', problemSolving);
       try {
         const parsedData = JSON.parse(problemSolving);
 

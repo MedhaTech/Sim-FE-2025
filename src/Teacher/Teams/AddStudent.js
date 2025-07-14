@@ -31,36 +31,34 @@ export const CreateTeamMember = () => {
       grade: "",
       gender: "",
       disability: "",
-      email:""
+      // email:""
     },
 
     validationSchema: Yup.object({
       fullName: Yup.string()
-        .required(<span style={{ color: "red" }}>Please Enter Full Name</span>)
+        .required(<span style={{ color: "red" }}>{t('teacherJourney.vali3')}</span>)
         .max(40)
         .matches(
           /^[A-Za-z0-9\s]*$/,
-          "Please enter only alphanumeric characters"
+          t('teacherJourney.vali24')
         )
         .trim(),
       age: Yup.number()
         .integer()
-        .min(10, "Min age is 10")
-        .max(18, "Max age is 18")
-        .required(<span style={{ color: "red" }}>Please Select Age</span>),
+        .min(10,  t('teacherJourney.vali21'))
+        .max(18, t('teacherJourney.vali22'))
+        .required(<span style={{ color: "red" }}>{t('teacherJourney.vali17')}</span>),
       gender: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select Gender</span>
+        <span style={{ color: "red" }}>{t('teacherJourney.vali18')}</span>
       ),
-      email: Yup.string().email("Please Enter Valid Email Address").max(255)
-      // .required(<span style={{ color: "red" }}>Please Enter Email Address</span>),
-      .optional(),
-      disability: Yup.string().required(
-        <span style={{ color: "red" }}>Please Select Disability Status</span>
-      ),
+      // email: Yup.string().email(t('teacherJourney.vali13')).max(255)
+      // .optional(),
+      // disability: Yup.string().required(
+      //   <span style={{ color: "red" }}>{t('teacherJourney.vali19')}</span>
+      // ),
       grade: Yup.string()
-        // .matches("", "Please Select Class")
         .max(40)
-        .required(<span style={{ color: "red" }}>Please Select Class</span>),
+        .required(<span style={{ color: "red" }}>{t('teacherJourney.vali20')}</span>),
     }),
 
     onSubmit: (values) => {
@@ -75,9 +73,9 @@ export const CreateTeamMember = () => {
         disability: values.disability,
         state:currentUser?.data[0]?.state,
       };
-      if (values.email !== "") {
-        body["email"] = values.email;
-      } 
+      // if (values.email !== "") {
+      //   body["email"] = values.email;
+      // } 
       var config = {
         method: "post",
         url: process.env.REACT_APP_API_BASE_URL + "/students/addStudent",
@@ -124,7 +122,6 @@ export const CreateTeamMember = () => {
           <div className="EditPersonalDetails new-member-page">
             <Row>
               <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                {/* <BreadcrumbTwo {...headingDetails} /> */}
 
                 <>
                   <h3 className="m-4"> {t('teacherJourney.onestudent')}
@@ -134,7 +131,7 @@ export const CreateTeamMember = () => {
                     <Form onSubmit={formik.handleSubmit} isSubmitting>
                       <div className="create-ticket register-blockt">
                         <Row className="mb-3 modal-body-table search-modal-header" >
-                          <Col md={4}>
+                          <Col md={6}>
                             <Label className="form-label">
                             {t('teacherJourney.tfullname')}
                               <span required className="p-1">
@@ -142,8 +139,8 @@ export const CreateTeamMember = () => {
                               </span>
                             </Label>
                             <input
-                              className="form-control"
-                              placeholder="Enter Full Name"
+                              className="form-control mb-2"
+                              placeholder={t('teacherJourney.place1')}
                               id="fullName"
                               name="fullName"
                               onChange={(e) => {
@@ -154,7 +151,6 @@ export const CreateTeamMember = () => {
                                 );
                                 formik.setFieldValue("fullName", lettersOnly);
                               }}
-                              // onChange={formik.handleChange}
                               onBlur={formik.handleBlur}
                               value={formik.values.fullName}
                             />
@@ -165,26 +161,17 @@ export const CreateTeamMember = () => {
                               </small>
                             ) : null}
                           </Col>
-                          <Col md={4}>
+                          {/* <Col md={4}>
                             <Label className="form-label">
                             {t('teacherJourney.eamil1')}
-                              {/* <span required className="p-1">
-                                *
-                              </span> */}
+                             
                             </Label>
                             <input
-                              className="form-control"
-                              placeholder="Enter  Email Address"
+                              className="form-control mb-2"
+                              placeholder={t('teacherJourney.place2')}
                               id="email"
                               name="email"
-                              // onChange={(e) => {
-                              //   const inputValue = e.target.value;
-                              //   const lettersOnly = inputValue.replace(
-                              //     /[^a-zA-Z\s]/g,
-                              //     ""
-                              //   );
-                              //   formik.setFieldValue("f", lettersOnly);
-                              // }}
+                             
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur}
                               value={formik.values.email}
@@ -195,9 +182,9 @@ export const CreateTeamMember = () => {
                                 {formik.errors.email}
                               </small>
                             ) : null}
-                          </Col>
+                          </Col> */}
                        
-                          <Col md={4}>
+                          <Col md={6}>
                             <Label htmlFor="inputState" className="form-label">
                             {t('teacherJourney.disability')}
                               <span required className="p-1">
@@ -206,35 +193,35 @@ export const CreateTeamMember = () => {
                             </Label>
                             <select
                               id="inputState"
-                              className="form-select"
+                              className="form-select mb-2"
                               name="disability"
                               value={formik.values.disability}
                               onChange={formik.handleChange}
                             >
-                              <option value="">  {t('teacherJourney.select')}</option>
-                              <option value="No">No</option>
+                              <option value="">{t('teacherJourney.place3')}</option>
+                              <option value="No">{t('teacherJourney.option4')}</option>
                               <option value="Physically Challenged">
-                                Physically Challenged
+                                {t('teacherJourney.option5')}
                               </option>
                               <option value="Visually Challenged">
-                                Visually Challenged
+                                {t('teacherJourney.option6')}
                               </option>
                               <option value="Locomotor Disability">
-                                Locomotor Disability
+                                {t('teacherJourney.option7')}
                               </option>
                               <option value="Intellectual Disability">
-                                Intellectual Disability
+                                {t('teacherJourney.option8')}
                               </option>
                               <option value="Learning Disability">
-                                Learning Disability
+                                {t('teacherJourney.option9')}
                               </option>
                               <option value="Hearing Impaired">
-                                Hearing Impaired
+                                {t('teacherJourney.option10')}
                               </option>
                               <option value="Autism or Cerebral Palsy or Other">
-                                Autism/Cerebral Palsy/Other
+                                {t('teacherJourney.option11')}
                               </option>
-                              <option value="Others">Others</option>
+                              <option value="Others">{t('teacherJourney.option12')}</option>
                             </select>
                             {formik.touched.disability &&
                             formik.errors.disability ? (
@@ -252,13 +239,13 @@ export const CreateTeamMember = () => {
                             </Label>
                             <select
                               id="inputState"
-                              className="form-select"
+                              className="form-select mb-2"
                               name="age"
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur}
                               value={formik.values.age}
                             >
-                              <option value={""}>Select Age</option>
+                              <option value={""}>{t('teacherJourney.place4')}</option>
                               {allowedAge.map((item) => (
                                 <option key={item} value={item}>
                                   {item}
@@ -280,19 +267,19 @@ export const CreateTeamMember = () => {
                             </Label>
                             <select
                               id="inputState"
-                              className="form-select"
+                              className="form-select mb-2"
                               name="grade"
                               value={formik.values.grade}
                               onChange={formik.handleChange}
                             >
-                              <option value="">Select Class..</option>
-                              <option value="6">Class 6</option>
-                              <option value="7">Class 7</option>
-                              <option value="8">Class 8</option>
-                              <option value="9">Class 9</option>
-                              <option value="10">Class 10</option>
-                              <option value="11">Class 11</option>
-                              <option value="12">Class 12</option>
+                              <option value="">{t('teacherJourney.place5')}..</option>
+                              <option value="6">{t('teacherJourney.vali26')} 6</option>
+                              <option value="7">{t('teacherJourney.vali26')} 7</option>
+                              <option value="8">{t('teacherJourney.vali26')} 8</option>
+                              <option value="9">{t('teacherJourney.vali26')} 9</option>
+                              <option value="10">{t('teacherJourney.vali26')} 10</option>
+                              <option value="11">{t('teacherJourney.vali26')} 11</option>
+                              <option value="12">{t('teacherJourney.vali26')} 12</option>
                             </select>
                             {formik.touched.grade && formik.errors.grade ? (
                               <small className="error-cls">
@@ -310,16 +297,16 @@ export const CreateTeamMember = () => {
 
                             <select
                               name="gender"
-                              className="form-select"
+                              className="form-select mb-2"
                               id="inputState"
                               value={formik.values.gender}
                               onChange={formik.handleChange}
                             >
-                              <option value="">Select Gender</option>
-                              <option value="Male">Male</option>
-                              <option value="Female">Female</option>
+                              <option value="">{t('teacherJourney.place6')}</option>
+                              <option value="Male">{t('teacherJourney.option1')}</option>
+                              <option value="Female">{t('teacherJourney.option2')}</option>
                               <option value="Prefer Not to Mention">
-                                Prefer Not to Mention
+                                {t('teacherJourney.option3')}
                               </option>
                             </select>
 
@@ -332,7 +319,6 @@ export const CreateTeamMember = () => {
                         </Row>
                       </div>
 
-                      {/* <hr className="mt-2"></hr> */}
                       <Row>
                         <div style={buttonContainerStyle}>
                           <button type="submit" className="btn btn-warning" style={buttonStyle}>

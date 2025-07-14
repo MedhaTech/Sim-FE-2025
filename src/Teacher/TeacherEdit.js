@@ -7,7 +7,6 @@ import {
   setCurrentUser,
   openNotificationWithIcon,
 } from "../helpers/Utils";
-// import customer from "../assets/img/customer/customer5.jpg";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import * as Yup from "yup";
@@ -30,7 +29,6 @@ const TeacherEditProfile = () => {
   const location = useLocation();
   const [districts, setDistricts] = useState([]);
   const mentorData = location.state || {};
-  console.log(mentorData,"mentorData");
   const navigate = useNavigate();
 
 
@@ -47,103 +45,102 @@ const TeacherEditProfile = () => {
     // where data = mentorData //
     const adminValidation = Yup.object({
       title: Yup.string().required(
-        <span style={{ color: "red" }}>Please select Title</span>
+        <span style={{ color: "red" }}>{t('teacherJourney.place8')}</span>
       ),
       gender:Yup.string().required(
-        <span style={{ color: "red" }}>Please select Gender</span>
+        <span style={{ color: "red" }}>{t('teacherJourney.vali18')}</span>
       ),
       full_name: Yup.string()
       .trim()
-      .min(2, <span style={{ color: "red" }}>Please Enter Full Name</span>)
+      .min(2, <span style={{ color: "red" }}>{t('teacherJourney.vali3')}</span>)
       .matches(
         /^[aA-zZ\s]+$/,
         <span style={{ color: "red" }}>
-          Special Characters are not allowed
+           {t('teacherJourney.vali24')}
         </span>
       )
-      .required(<span style={{ color: "red" }}>Please Enter Full Name</span>),
+      .required(<span style={{ color: "red" }}>{t('teacherJourney.vali3')}</span>),
       organization_name : Yup.string()
       .trim()
-      .min(2, <span style={{ color: "red" }}>Please Enter School Name</span>)
+      .min(2, <span style={{ color: "red" }}>{t('teacherJourney.vali7')}</span>)
       .matches(
         /^[a-zA-Z0-9\s]+$/,
-        'Special characters are not allowed in the School Name'
+        t('teacherJourney.vali5')
       )
       .max(
         40,
         <span style={{ color: "red" }}>
-          School Name cannot be more than 40 characters
+          {t('teacherJourney.vali6')}
         </span>
       )
-      .required(<span style={{ color: "red" }}>Please Enter School Name</span>),
+      .required(<span style={{ color: "red" }}>{t('teacherJourney.placvali7e8')}</span>),
       principal_name: Yup.string()
         .trim()
-        .min(2, <span style={{ color: "red" }}>Please Enter Principal Name</span>)
+        .min(2, <span style={{ color: "red" }}>{t('teacherJourney.vali8')}</span>)
         .matches(
           /^[aA-zZ\s]+$/,
           <span style={{ color: "red" }}>
-            Special Characters are not allowed
+            {t('teacherJourney.vali4')}
           </span>
         )
-        .required(<span style={{ color: "red" }}>Please Enter Principal Name</span>),
+        .required(<span style={{ color: "red" }}>{t('teacherJourney.vali8')}</span>),
       
       principal_mobile: Yup.string()
           .required(
-            <span style={{ color: "red" }}>Please Enter Mobile Number</span>
+            <span style={{ color: "red" }}>{t('teacherJourney.vali9')}</span>
           )
           .trim()
           .matches(
             /^\d+$/,
             <span style={{ color: "red" }}>
-              Mobile number is not valid (Enter only digits)
+             {t('teacherJourney.vali10')}
             </span>
           )
           .max(
             10,
             <span style={{ color: "red" }}>
-              Please enter only 10 digit valid number
+              {t('teacherJourney.vali11')}
             </span>
           )
           .min(
             10,
-            <span style={{ color: "red" }}>Number is less than 10 digits</span>
+            <span style={{ color: "red" }}>{t('teacherJourney.vali12')}</span>
           ),
-      // state: Yup.string().required('State is required'),
       district: Yup.string()
       .required('District not in required format'),
       principal_email: Yup.string()
           .email(
-            <span style={{ color: "red" }}>Please Enter Valid Email Address</span>
+            <span style={{ color: "red" }}>{t('teacherJourney.vali13')}</span>
           )
           .required(
-            <span style={{ color: "red" }}>Please Enter Email Address</span>
+            <span style={{ color: "red" }}>{t('teacherJourney.place2')}</span>
           )
           .matches(
             /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            "Email Must be Valid"
+            t('teacherJourney.vali13')
           )
           .max(255),
       
       whatapp_mobile: Yup.string()
           .required(
-            <span style={{ color: "red" }}>Please Enter WhatsApp Number</span>
+            <span style={{ color: "red" }}>{t('teacherJourney.vali15')}</span>
           )
           .trim()
           .matches(
             /^\d+$/,
             <span style={{ color: "red" }}>
-              Mobile number is not valid (Enter only digit)
+            {t('teacherJourney.vali10')}
             </span>
           )
           .max(
             10,
             <span style={{ color: "red" }}>
-              Please enter only 10 digit valid number
+              {t('teacherJourney.vali11')}
             </span>
           )
           .min(
             10,
-            <span style={{ color: "red" }}>Number is less than 10 digits</span>
+            <span style={{ color: "red" }}>{t('teacherJourney.vali12')}</span>
           ),
     });
     return adminValidation;
@@ -158,7 +155,6 @@ const TeacherEditProfile = () => {
       whatapp_mobile: mentorData.whatapp_mobile,
       gender: mentorData.gender,
       district: "",
-      // state: mentorData?.state || '',
       organization_name : mentorData.organization_name
     };
     if (mentorData?.district && districtList[mentorData?.state]?.includes(mentorData?.district)) {
@@ -181,7 +177,6 @@ const TeacherEditProfile = () => {
       const whatapp_mobile = values.whatapp_mobile;
       const gender = values.gender;
       const organization_name = values.organization_name;
-      // const state = values.state;
       const district = values.district;
 
       const bodyt = JSON.stringify({
@@ -194,7 +189,6 @@ const TeacherEditProfile = () => {
       const bodys = JSON.stringify({
         organization_code : mentorData?.organization_code,
         status : mentorData?.status,
-        // state: state,
         district: district,
 
         principal_email : principal_email,
@@ -275,14 +269,13 @@ const TeacherEditProfile = () => {
   const cancelLinkStyle = {
     marginLeft: 'auto'
   };
-  console.log(formik.values.state,"ss");
   return (
     <div className="page-wrapper">
       <div className="content">
         <div className="page-header">
           <div className="page-title">
-            <h4>Teacher Edit Profile</h4>
-            <h6>User Profile</h6>
+            <h4>{t('teacherJourney.adduser')}</h4>
+            <h6> {t('teacherJourney.adduser1')}</h6>
           </div>
         </div>
         {/* /product list */}
@@ -294,7 +287,6 @@ const TeacherEditProfile = () => {
                 <div className="profile-top">
                   <div className="profile-content">
                     <div className="profile-contentimg">
-                    {/* currentUser?.data[0]?.gender === "Male" */}
                     {currentUser?.data[0]?.gender === "Male" || currentUser?.data[0]?.gender === "MALE" ? (
                       <img src={male} alt="Male" id="blah" />
                     ) : ((currentUser?.data[0]?.gender === "Female" || currentUser?.data[0]?.gender === "FEMALE")?(
@@ -314,7 +306,7 @@ const TeacherEditProfile = () => {
               <div className="row">
                 <div className="form-login col-lg-3 col-sm-12">
                   <div className="input-blocks">
-                    <label>Title</label>
+                    <label>{t('teacehr_red.title')}</label>
                     <select
                       id="inputState"
                       className="form-select"
@@ -323,11 +315,11 @@ const TeacherEditProfile = () => {
                       onBlur={formik.handleBlur}
                       onChange={formik.handleChange}
                     >
-                      <option value="">Title</option>
-                      <option value="Dr">Dr</option>
-                      <option value="Mr">Mr</option>
-                      <option value="Miss">Miss</option>
-                      <option value="Mrs">Mrs</option>
+                      <option value="">{t('teacherJourney.place8')}</option>
+                      <option value="Dr">{t('teacherJourney.option13')}</option>
+                      <option value="Mr">{t('teacherJourney.option14')}</option>
+                      <option value="Miss">{t('teacherJourney.option15')}</option>
+                      <option value="Mrs">{t('teacherJourney.option16')}</option>
                     </select>
                     {formik.touched.title && formik.errors.title ? (
                       <small className="error-cls">{formik.errors.title}</small>
@@ -336,13 +328,12 @@ const TeacherEditProfile = () => {
                 </div>
                 <div className="form-login col-lg-3 col-sm-12">
                   <div className="input-blocks">
-                    <label className="form-label">Teacher Name</label>
+                    <label className="form-label">{t('teacherJourney.tecname')}</label>
                     <input
                       type="text"
                       className="form-control"
                       id="full_name"
                       name="full_name"
-                      // onChange={formik.handleChange}
                       onChange={(e) => {
                         const inputValue = e.target.value;
                         const lettersOnly = inputValue.replace(
@@ -363,7 +354,7 @@ const TeacherEditProfile = () => {
                 </div>
                 <div className="form-login col-lg-3 col-sm-12">
                   <div className="input-blocks">
-                    <label>Gender</label>
+                    <label>{t('teacherJourney.gender')}</label>
                     <select
                       id="inputState"
                       className="form-select"
@@ -372,10 +363,16 @@ const TeacherEditProfile = () => {
                       onBlur={formik.handleBlur}
                       onChange={formik.handleChange}
                     >
-                      <option value="">Gender</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Prefer Not to Mention">Prefer Not to Mention</option>
+                      <option value="">{t("teacherJourney.place6")}</option>
+                      <option value="Male">
+                        {t("teacherJourney.option1")}
+                      </option>
+                      <option value="Female">
+                        {t("teacherJourney.option2")}
+                      </option>
+                      <option value="Prefer Not to Mention">
+                        {t("teacherJourney.option3")}
+                      </option>
                     </select>
                     {formik.touched.gender && formik.errors.gender ? (
                       <small className="error-cls">{formik.errors.gender}</small>
@@ -384,7 +381,7 @@ const TeacherEditProfile = () => {
                 </div>
                 <div className="form-login col-lg-3 col-sm-12">
                   <div className="input-blocks">
-                    <label>Whatsapp Number</label>
+                    <label>{t('teacherJourney.WhatsappNumber')}</label>
                     <input
                       type="text"
                       className="form-control"
@@ -414,13 +411,12 @@ const TeacherEditProfile = () => {
                 {/* New fields  */}
                 <div className="form-login col-lg-6 col-sm-12 ">
                   <div className="input-blocks">
-                    <label className="form-label">School Name</label>
+                    <label className="form-label">{t('teacherJourney.sname')}</label>
                     <input
                       type="text"
                       className="form-control"
                       id="organization_name"
                       name="organization_name"
-                      // onChange={formik.handleChange}
                       onChange={(e) => {
                         const inputValue = e.target.value;
                         const lettersOnly = inputValue.replace(/[^a-zA-Z0-9\s]/g, ""); 
@@ -437,77 +433,11 @@ const TeacherEditProfile = () => {
                     ) : null}
                   </div>
                 </div>
-                {/* <div className="form-login col-lg-6 col-sm-12">
-                  <div className="input-blocks">
-                    <label className="form-label">State </label>
-                    <select
-                                                      
-                    name="state"
-                    className="form-select"
-                    onBlur={
-                        formik.handleBlur
-                    }
-                    value={
-                        formik.values.state
-                    }
 
-                    onChange={(e) => {
-                        const selectedState =
-                            e.target.value;
-
-                        formik.setFieldValue(
-                            'state',
-                            selectedState
-                        );
-                        // formik.setFieldValue(
-                        //     'district',
-                        //     ''
-                        // ); 
-                    // {console.log(selectedState)};
-
-                        setDistricts(
-                            districtList[
-                            selectedState
-                            ] || []
-                        );
-                    }}
-                >
-                    <option value="">
-                        Select State
-                    </option>
-                    {stateList.map(
-                        (state) => (
-                            <option
-                                key={state}
-                                value={
-                                    state
-                                }
-                            >
-                                {state}
-                            </option>
-                        )
-                    )}
-                </select>
-                  {/* <Select
-  list={stateList}
-  setValue={(value) => {
-    formik.setFieldValue("state", value); 
-    setDistricts(districtList[value] || []); 
-}}
-  placeHolder={"Select State"}
-  value={formik.values.state}  
-/> 
-            {formik.errors.state ? (
-                <small className="error-cls" style={{color:"red"}}>
-                    {formik.errors.state}
-                </small>
-            ) : null}
-                  </div>
-                </div> */}
                 
                 <div className="form-login col-lg-6 col-sm-12">
                   <div className="input-blocks">
-                    <label className="form-label">District Name</label>
+                    <label className="form-label">{t('teacherJourney.District')}</label>
                     <select                        
                         name="district"
                         className="form-select"
@@ -518,7 +448,7 @@ const TeacherEditProfile = () => {
                             formik.setFieldValue( 'district', selectedDistrict );
                         }}
                       >
-                        <option value={""}> Select District </option>
+                        <option value={""}>{t('teacherJourney.place9')}</option>
                         {districts.map( (district) => ( 
                           <option key={district} value={district}>
                                     {district}
@@ -529,7 +459,7 @@ const TeacherEditProfile = () => {
                     
                       {formik.errors.district ? (
                           <small className="error-cls" style={{color:"red"}}>
-                              Current value : {mentorData?.district}<br/>
+                              {t('teacherJourney.place10')} : {mentorData?.district}<br/>
                               {formik.errors.district}
                           </small>
                       ) : null}
@@ -538,13 +468,12 @@ const TeacherEditProfile = () => {
 
                 <div className="form-login col-lg-4 col-sm-12">
                   <div className="input-blocks">
-                    <label className="form-label">Principal Name</label>
+                    <label className="form-label">{t('teacherJourney.PrincipalName')}</label>
                     <input
                       type="text"
                       className="form-control"
                       id="principal_name"
                       name="principal_name"
-                      // onChange={formik.handleChange}
                       onChange={(e) => {
                         const inputValue = e.target.value;
                         const lettersOnly = inputValue.replace(
@@ -565,19 +494,14 @@ const TeacherEditProfile = () => {
                 </div>
                 <div className="form-login col-lg-4 col-sm-12">
                   <div className="input-blocks">
-                    <label className="form-label">Principal Email ID</label>
+                    <label className="form-label">{t('teacherJourney.PrincipalEmailID')}</label>
                     <input
                       type="email"
                       className="form-control"
                       id="principal_email"
                       name="principal_email"
-                      // onChange={formik.handleChange}
                       onChange={(e) => {
-                        // const inputValue = e.target.value;
-                        // const lettersOnly = inputValue.replace(
-                        //   /[^a-zA-Z\s]/g,
-                        //   ""
-                        // );
+                        
                         formik.setFieldValue("principal_email", e.target.value);
                       }}
                       onBlur={formik.handleBlur}
@@ -592,7 +516,7 @@ const TeacherEditProfile = () => {
                 </div>
                 <div className="form-login col-lg-4 col-sm-12">
                   <div className="input-blocks">
-                    <label>Principal Mobile/WhatsApp No</label>
+                    <label>{t('teacherJourney.PrincipalwMobileNo')}</label>
                     <input
                       type="text"
                       className="form-control"
@@ -629,10 +553,11 @@ const TeacherEditProfile = () => {
                     }`}
                     disabled={!(formik.isValid)}
                   >
-                    Submit
+                    {t('teacherJourney.submit')}
                   </button>
                   <Link className="btn btn-cancel" to={"/mentorprofile"}  style={cancelLinkStyle}>
-                    Cancel
+                                        {t('teacherJourney.Cancel')}
+
                   </Link>
                 </div>
               </div>

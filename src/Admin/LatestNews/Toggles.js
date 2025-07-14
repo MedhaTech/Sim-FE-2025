@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import React, { useState } from 'react';
-import '../StateWise/style.css'; // Import the CSS file
+import '../StateWise/style.css'; 
 
 const ToggleSwitch = ({ isEnabled, onToggle }) => {
   const [enabled, setEnabled] = useState(isEnabled);

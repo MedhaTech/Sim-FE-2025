@@ -2,7 +2,6 @@
 /* eslint-disable indent */
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
-// import ImageWithBasePath from "../core/img/imagewithbasebath";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -14,7 +13,7 @@ import { connect } from "react-redux";
 import { openNotificationWithIcon } from "../helpers/Utils";
 import { useNavigate } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import play from "../assets/img/playicon.png";
+import { FiPlayCircle } from "react-icons/fi";
 const LogInTeam = (props) => {
   const navigate = useNavigate();
 
@@ -34,7 +33,6 @@ const LogInTeam = (props) => {
 
     validationSchema: Yup.object({
       email: Yup.string()
-        // .email("Must be a valid email")
         .required("Please Enter Your Team Id")
         .max(255)
         .trim(),
@@ -51,9 +49,7 @@ const LogInTeam = (props) => {
         openNotificationWithIcon(
           "error",
            "Clear your browser cache and try logging in"
-          // `Another User(${localStorage.getItem(
-          //   "module"
-          // )}) has already logged in`
+         
         );
         return;
       }
@@ -66,7 +62,6 @@ const LogInTeam = (props) => {
       const body = {
         username: values.email.trim(),
         password: encrypted,
-        // role: "TEAM",
       };
       props.teamLoginUserAction(body, navigate, "TEAM");
     },
@@ -102,18 +97,17 @@ const LogInTeam = (props) => {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <img
-                            src={play}
-                            className="icon"
-                            alt="play"
-                            style={{ verticalAlign: "middle", width: "7%" }}
-                          />
+                          <span
+                                                                                                                style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
+                                                                                                                              className="badge"
+                                                                                                              
+                                                                                                              >
+                                                                                                                <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;DEMO</span>
+                                                                                                              </span>
                         </a>
                       </OverlayTrigger>
                   </h3>
-                  {/* <h3>
-                   Student Team Journey coming soon ...
-                  </h3> */}
+                 
                   <h4>
                     Access the Team panel using your Team ID and password.
                   </h4>
@@ -195,43 +189,14 @@ const LogInTeam = (props) => {
                 </div> 
                 
                 
-                  {/* <div className="my-4 d-flex justify-content-center align-items-center copyright-text">
-                    <p>Copyright © 2023 DreamsPOS. All rights reserved</p>
-                  </div> */}
+                 
                  
               </div>
             </form>
           </div>
         </div>
       </div> 
-      {/* <div className="comming-soon-pg w-100">
-        <div className="coming-soon-box">
-          <div className="pos-logo" onClick={handleLogoClick}>
-              <img
-                  src={logo}
-                  alt="Logo"
-              />
-          </div>
-          <span>Student Team Journey</span>
-          <h1>
-            <span> COMING </span> SOON{" "}
-          </h1>
-          <p>The student team&apos;s journey will soon be enabled, offering a great experience.</p>
-          <br/>
-          <div className="signinform">
-            <h5>
-              Not a Team ?
-              <Link className="hover-a" to={"/login"}>
-                {" "}
-                Click Here
-              </Link>
-            </h5>
-          </div> 
-          
-          
-          
-        </div>
-      </div> */}
+
     </div>
   );
 };

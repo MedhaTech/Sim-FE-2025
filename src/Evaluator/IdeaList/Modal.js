@@ -4,23 +4,20 @@ import { Modal, Button } from 'react-bootstrap';
 import { Worker, Viewer } from '@react-pdf-viewer/core';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 
-const FilePreviewModal = ({teamResponse, show, onHide } ) => {
+const FilePreviewModal = ({teamResponse, show, onHide} ) => {
   const [fileType, setFileType] = useState('');
 
   useEffect(() => {
     const url = teamResponse?.prototype_image;
     if (url) {
       const extension = url.split('.').pop().toLowerCase();
-      setFileType(extension);
+      const fileexten = extension.split('?'); 
+      setFileType(fileexten[0]);
     }
   }, [teamResponse]);
 
   const isImage = ['jpg', 'jpeg', 'png', 'gif','JPG', 'JPEG', 'PNG', 'webp'].includes(fileType);
   const isPDF = fileType === 'pdf';
-  const fileName = teamResponse?.prototype_image
-    ? teamResponse.prototype_image.split('/').pop()
-    : 'No file available';
-    // console.log("PDF URL:", teamResponse?.prototype_image);
 
   return (
     <Modal show={show} onHide={onHide} size="md" centered>
@@ -52,7 +49,7 @@ const FilePreviewModal = ({teamResponse, show, onHide } ) => {
               rel="noopener noreferrer"
               download
             >
-              <Button variant="warning">{fileName}</Button>
+              <Button variant="warning">{teamResponse.fileName}</Button>
             </a>
           </div>
         )}
@@ -62,14 +59,3 @@ const FilePreviewModal = ({teamResponse, show, onHide } ) => {
 };
 
 export default FilePreviewModal;
-//   <div style={{ textAlign: 'center' }}>
-        //     <p>This is a PDF file. Click below to download:</p>
-        //     <a
-        //       href={teamResponse.prototype_image}
-        //       target="_blank"
-        //       rel="noopener noreferrer"
-        //       download
-        //     >
-        //       <Button variant="success">{fileName}</Button>
-        //     </a>
-        //   </div>

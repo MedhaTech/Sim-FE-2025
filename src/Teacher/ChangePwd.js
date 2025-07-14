@@ -17,7 +17,6 @@ import { faKey } from "@fortawesome/free-solid-svg-icons";
 const ChangePwd = (props) => {
   // here we can change the  teacher password //
   const currentUser = getCurrentUser("current_user");
-  //const history = useHistory();
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [error, SetError] = useState("");
@@ -37,30 +36,30 @@ const ChangePwd = (props) => {
 
     validationSchema: Yup.object({
       oldPassword: Yup.string().required(
-        <span style={{ color: "red" }}>Required</span>
+        <span style={{ color: "red" }}>{t("schoolpswd.Current_password")}</span>
       ),
       newPassword: Yup.string()
     .matches(
       passwordRegex,
-      "Password must be at least 8 characters and include one uppercase, one lowercase, one number, and one special character"
+       t("schoolpswd.passwordFormat")
     )
       .required(
-        <span style={{ color: "red" }}>Required</span>
+        <span style={{ color: "red" }}>{t("schoolpswd.New_password")}</span>
       ),
       confirmPassword: Yup.string()
-      .oneOf([Yup.ref("newPassword"), null], "Passwords must match")
+      .oneOf([Yup.ref("newPassword"), null], t("schoolpswd.passwordMatch"))
       .required(
-        <span style={{ color: "red" }}>Required</span>
+        <span style={{ color: "red" }}>{t("schoolpswd.Verify_New_password")}</span>
       ),
     }),
 
     onSubmit: (values) => {
       if (values.newPassword.length < 8) {
-        SetError("New Password must be 8-character minimum");
+        SetError(t("schoolpswd.minLength"));
       } else if (values.oldPassword === values.newPassword) {
-        SetError("Old Password and New Password are same");
+          SetError(t("schoolpswd.sameAsOld"));
       } else if (values.newPassword !== values.confirmPassword) {
-        SetError("New Password and Confirm Password not same");
+        SetError(t("schoolpswd.notMatching"));
       } else {
         const key = CryptoJS.enc.Hex.parse("253D3FB468A0E24677C28A624BE0F939");
         const iv = CryptoJS.enc.Hex.parse("00000000000000000000000000000000");
@@ -89,7 +88,7 @@ const ChangePwd = (props) => {
         };
         axios(config)
           .then(function (response) {
-            SetResponce("Password updated successfully");
+            SetResponce(t("schoolpswd.success"));
                         openNotificationWithIcon("success",   t('teacherJourney.popup8'));
             
            
@@ -99,7 +98,8 @@ const ChangePwd = (props) => {
             }, 2000);
           })
           .catch(function (error) {
-            SetError(error.response.data.message);
+             SetError(t("teacherJourney.error"));
+            // SetError(error.response.data.message);
           });
       }
     },
@@ -114,21 +114,21 @@ const ChangePwd = (props) => {
   const [confirmPassType, setConfirmPassType] = useState("password");
   const oldPassword = {
     type: oldPassType,
-    placeholder: "Enter Current Password",
+    placeholder: t("schoolpswd.Current_password"),
     className: "defaultInput",
   };
 
   const newPassword = {
     //  here we can generate new password //
     type: newPassType,
-    placeholder: "Enter New Password",
+    placeholder: t("schoolpswd.New_password"),
     className: "defaultInput",
   };
 
   const confirmPassword = {
     // here  newPassword  is confirmPassword //
     type: confirmPassType,
-    placeholder: "Confirm New Password",
+    placeholder: t("schoolpswd.Verify_New_password"),
   };
 
   const handleShowPassword = (name) => {
@@ -213,10 +213,7 @@ const ChangePwd = (props) => {
                       }}
                     ></div>
                   </div>
-                  <small className="mt-2">
-                  {/* {t('teacherJourney.8-charac_minimum_case_sensitive')} */}
-                  </small>
-                  <br />
+                 
                   {formik.touched.newPassword && formik.errors.newPassword ? (
                     <small className="error-cls" style={{ color: "red" }}>
                       {formik.errors.newPassword}

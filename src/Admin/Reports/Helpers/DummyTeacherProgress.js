@@ -2,24 +2,15 @@
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Table } from "reactstrap";
-import { Button } from "../../../stories/Button";
 import { CSVLink } from "react-csv";
 import { getCurrentUser } from "../../../helpers/Utils";
 import { useNavigate, Link } from "react-router-dom";
-import {
-  getDistrictData,
-  getStateData,
-  getFetchDistData,
-} from "../../../redux/studentRegistration/actions";
+
 import { ArrowRight } from "feather-icons-react/build/IconComponents";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "../Helpers/Select";
 import axios from "axios";
-// import '../reports.scss';
-import { Doughnut } from "react-chartjs-2";
-import { Bar } from "react-chartjs-2";
-import { categoryValue } from "../../Schools/constentText";
-import { notification } from "antd";
+
 import { encryptGlobal } from "../../../constants/encryptDecrypt";
 import { stateList, districtList } from "../../../RegPage/ORGData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -46,8 +37,7 @@ const TeacherProgressDetailed = () => {
     setdistrict("");
   }, [selectstate]);
   const newstateList = ["All States", ...stateList];
-  // const categoryData =
-  //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
+ 
   const [mentorDetailedReportsData, setmentorDetailedReportsData] = useState(
     []
   );
@@ -104,15 +94,9 @@ const TeacherProgressDetailed = () => {
     ...districtList,
   };
   const fiterDistData = ["All Districts", ...(allDistricts[selectstate] || [])];
-  // const fiterDistData = districtList[selectstate];
-  // useEffect(() => {
-  //     dispatch(getStateData());
-  // }, []);
+ 
   useEffect(() => {
-    // if (selectstate !== '') {
-    //     dispatch(getFetchDistData(selectstate));
-    // }
-    // setdistrict('');
+   
     fetchChartTableData();
     const newDate = new Date();
     const formattedDate = `${newDate.getUTCDate()}/${
@@ -337,14 +321,12 @@ const TeacherProgressDetailed = () => {
         if (item && Object.prototype.hasOwnProperty.call(item, key)) {  
           filteredItem[key] = item[key] ?? ""; 
         } else {
-          console.warn(`Key "${key}" not found in item:`, item); 
+          // console.warn(`Key "${key}" not found in item:`, item); 
         }
       });
     
-      console.log("Filtered Item:", filteredItem); 
       return Object.keys(filteredItem).length > 0 ? filteredItem : null; 
     }).filter(Boolean); 
-    console.log("Final Filtered Data for Download:", filteredData);
     setmentorDetailedReportsData(filteredData);
   };
   var chartOption = {
@@ -583,62 +565,6 @@ const TeacherProgressDetailed = () => {
     },
   };
 
-  // var optionsStudent = {
-  //     chart: {
-  //       height: 500,
-  //       type: "bar",
-  //       toolbar: {
-  //         show: false,
-  //       },
-  //       zoom: {
-  //         enabled: false,
-  //       },
-  //     },
-  //     colors: ['rgb(0, 143, 251)', 'rgb(0, 227, 150)'],
-  //     legend: {
-  //         position: "top",
-  //         horizontalAlign: "center",
-  //       },
-  //       dataLabels: {
-  //         enabled: false,
-  //       },
-  //       series: [
-  //         {
-  //           name: "# Registered Students",
-  //           data: seriesa,
-  //         },
-  //         {
-  //           name: "# Registered Teachers",
-  //           data: seriesb,
-  //         },
-  //       ],
-  //       stroke: {
-  //         curve: "straight",
-  //       },
-  //     // stroke: {
-  //     //   width: [0, 4],
-  //     // },
-
-  //     xaxis: {
-  //         categories: barChartNew.labels,
-  //         ticks: {
-  //                 maxRotation: 80,
-  //                 autoSkip: false
-  //             },
-  //     },
-  //     yaxis: {
-  //         beginAtZero: true,
-  //         ticks: {
-  //           stepSize: 20,
-  //         },
-  //         labels: {
-  //           formatter: (val) => {
-  //             return val / 1;
-  //           },
-  //         },
-  //       },
-
-  //   };
 
   var radialChart = {
     chart: {
@@ -706,7 +632,6 @@ const TeacherProgressDetailed = () => {
             });
           setAtl(mentorStuArray);
 
-          // setAtl(response.data.data);
           const barStudentData = {
             labels: mentorStuArray.map((item) => item.state),
             datasets: [
@@ -723,7 +648,6 @@ const TeacherProgressDetailed = () => {
             ],
           };
           setBarChart3Data(barStudentData);
-          // console.log(barStudentData,"barStudentData");
           setseries7(barStudentData.datasets[0].data);
           setseries6(barStudentData.datasets[1].data);
         }
@@ -754,7 +678,6 @@ const TeacherProgressDetailed = () => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response,"22");
 
           const preSurveyMap = response.data.data[0].preSurvey.reduce(
             (map, item) => {
@@ -894,12 +817,10 @@ const TeacherProgressDetailed = () => {
       });
   };
    useEffect(() => {
-      console.log("Updated Download Table Data:", mentorDetailedReportsData);
     }, [mentorDetailedReportsData]); 
    
       useEffect(() => {
           if (isReadyToDownload && mentorDetailedReportsData.length > 0) {
-            console.log("Downloading CSV with data:", mentorDetailedReportsData);
             const formattedCSVData = mentorDetailedReportsData.map((item) =>
               Object.fromEntries(
                 Object.entries(item).map(([key, value]) => [headerMapping[key] || key, value])
@@ -909,7 +830,6 @@ const TeacherProgressDetailed = () => {
       
         setTimeout(() => {
               csvLinkRef.current.link.click();
-              console.log("Downloading CSV with formatted headers:", formattedCSVData);
               openNotificationWithIcon("success", "Report Downloaded Successfully");
               setIsReadyToDownload(false); 
             }, 1000);
@@ -933,7 +853,6 @@ const TeacherProgressDetailed = () => {
       .then((response) => {
         if (response.status === 200) {
           setIsloader(true);
-          // console.log(response.data.data[0].studentCountDetails[0].totalstudent,"whole");
           const summary = response.data.data[0].summary;
           const teamCount = response.data.data[0].teamCount;
           const studentCountDetails =
@@ -946,7 +865,6 @@ const TeacherProgressDetailed = () => {
                 other: otherCount,
               };
             });
-          // console.log(studentCountDetails,"student");
           const courseCompleted = response.data.data[0].courseCompleted;
           const courseINcompleted = response.data.data[0].courseINcompleted;
 
@@ -1205,12 +1123,7 @@ const TeacherProgressDetailed = () => {
               </Col>
               <Col md={2}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
-                  {/* <Select
-                                list={categoryData}
-                                setValue={setCategory}
-                                placeHolder={'Select Category'}
-                                value={category}
-                            /> */}
+                 
                   {selectstate === "Tamil Nadu" ? (
                     <Select
                       list={categoryDataTn}
@@ -1231,10 +1144,7 @@ const TeacherProgressDetailed = () => {
              
                <Col md={2}>
                             <button
-                                  //  onClick={() => {setShowCustomization(!showCustomization);
-                                  //   fetchData();
-                                  //   setSelectedHeaders([]);
-                                  // }}
+                                 
                                   onClick={handleCustomizationClick}
                                 type="button"
                                 disabled={!enable}
@@ -1243,68 +1153,7 @@ const TeacherProgressDetailed = () => {
                                 Customization
                               </button>
                             </Col>
-                            {/* {showCustomization && hasData &&(
-  <div className="card mt-3" >
-    <div className="card-body">
-      <h5 className="card-title">Select Columns</h5>
-      <div className="row">
-      <div className="col-md-3">
-      <div className="form-check mb-2">
-        <input
-          type="checkbox"
-          className="form-check-input"
-          id="selectAll"
-          checked={selectedHeaders.length === allHeaders.length}
-          onChange={handleSelectAll}
-        />
-        <label className="form-check-label ms-2" htmlFor="selectAll">
-          Select All
-        </label>
-      </div>
-      </div>
-
-
-     
-        {allHeaders.map((header) => (
-          <div className="col-md-3" key={header.key}>
-            <div className="form-check">
-              <input
-                type="checkbox"
-                className="form-check-input"
-                id={header.key}
-                checked={selectedHeaders.includes(header.key)}
-                onChange={() => handleCheckboxChange(header.key)}
-              />
-              <label className="form-check-label ms-2" htmlFor={header.key}>
-                {header.label}
-              </label>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <button
-        className="btn btn-danger mt-3"
-       
-        onClick={() => {
-          setShowCustomization(false);
-          if (!mentorDetailedReportsData || mentorDetailedReportsData.length === 0) {
-            console.log("Fetching data before download...");
-            filterData();
-            // fetchData(); 
-          }
-          setTimeout(() => {
-            console.log("Checking Data Before Download:", mentorDetailedReportsData);
-            setIsReadyToDownload(true);
-          }, 1000);
-        }}
-        disabled={selectedHeaders.length === 0}
-      >
-        Download Report
-      </button>
-    </div>
-  </div>
-)} */}
+                           
  {showCustomization &&  hasData && (
   <div className="card mt-3" >
     <div className="card-body">
@@ -1356,13 +1205,11 @@ const TeacherProgressDetailed = () => {
         onClick={() => {
           setShowCustomization(false);
           if (!downloadTableData || downloadTableData.length === 0) {
-            console.log("Fetching data before download...");
             filterData();
 
           }
       
           setTimeout(() => {
-            console.log("Checking Data Before Download:", downloadTableData);
           
             setIsReadyToDownload(true);
           }, 1000);
@@ -1452,7 +1299,6 @@ const TeacherProgressDetailed = () => {
                                   type="button"
                                   onClick={() => {
                                     if (downloadTableData) {
-                                      // setIsDownloading(true);
                                       setDownloadTableData(null);
                                       csvLinkRefTable.current.link.click();
                                     }
@@ -1710,8 +1556,7 @@ const TeacherProgressDetailed = () => {
 
             {mentorDetailedReportsData && (
               <CSVLink
-                // headers={teacherDetailsHeaders}
-                // data={mentorDetailedReportsData}
+                
                 data={formattedDataForDownload}
                 filename={`TeacherProgressDetailedReport_${newFormat}.csv`}
                 className="hidden"

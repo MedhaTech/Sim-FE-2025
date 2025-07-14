@@ -32,6 +32,7 @@ const StuResource = () => {
   }, []);
 
   async function fetchResourceList() {
+     // this function fetches all resources list from the API
     const fectchTecParam = encryptGlobal(
       JSON.stringify({
         role: "student",
@@ -128,45 +129,7 @@ const StuResource = () => {
       },
   
   
-  //  {
-  //           width: '8rem',
-  //           cell: (record) =>
-  //             hoveredRow === record.resource_id ? (
-  //               <>
-  //                 {record.type === "link" ? (
-  //                   <a 
-  //                     href={record.attachments} 
-  //                     target="_blank" 
-  //                     rel="noopener noreferrer"
-  //                   >
-                     
-  //                     <MdConnectedTv size={"25"} style={{ color: "black" }} />
-  //                   </a>
-  //                 ) : (
-  //                   <a 
-  //                     href={record.attachments} 
-  //                     target="_blank" 
-  //                     rel="noopener noreferrer"
-  //                   >
-  //                     <MdOutlineFileDownload size={"25"} style={{ color: "black" }} />
-  //                   </a>
-  //                 )}
-  //               </>
-  //             ) : null,
-  //         },
-//   {
-//     // name: 'Download',
-//     width: '8rem',
-//     cell: (record) =>
-//       hoveredRow === record.
-//     resource_id
-//     ? (
-//         <a href={record.attachments} target="_blank" rel="noopener noreferrer">
-//           <MdOutlineFileDownload size={"25"} style={{ color: "black" }} />
-//         </a>
-//       ) : null,
-   
-// },
+
   
    
     ],
@@ -194,69 +157,10 @@ return (
         <div>
           <FileGrid resList={resList} />
         </div>
-        {/* <div className="card table-list-card my-2">
-          <DataTableExtensions
-            data={rows}
-            print={false}
-            export={false}
-            {...resData}
-            exportHeaders
-          >
-            <DataTable
-              defaultSortField="id"
-              defaultSortAsc={false}
-              columns={resData.columns}
-      data={resData.data}
-              customStyles={customStyles}
-              pagination
-              highlightOnHover
-              onRowMouseEnter={(row) => setHoveredRow(row.resource_id)}
-      onRowMouseLeave={() => setHoveredRow(null)}
-              fixedHeader
-              subHeaderAlign={Alignment.Center}
-            />
-          </DataTableExtensions>
-        </div> */}
+      
       </div>
     </div>
   );
 };
 
 export default StuResource;
-   // {
-      //     name: 'Type',
-      //     selector: (row) => row.type,
-      //     width: '25%'
-      // },
-      // {
-      //   name: "File / Link",
-      //   width: "20%",
-      //   cell: (record) => {
-      //     if (record.type === "file") {
-      //       return (
-      //         // <button className="btn btn-outline-warning btn-sm mx-2">
-      //           <a
-      //             href={record.attachments}
-      //             target="_blank"
-      //             className="badge badge-md bg-secondary"
-      //             rel="noopener noreferrer"
-      //           >
-      //             <i className="fas fa-file-lines"></i> Navigate
-      //           </a>
-      //         // </button>
-      //       );
-      //     } else if (record.type === "link") {
-      //       return (
-      //           <a
-      //             href={record.attachments}
-      //             target="_blank"
-      //             className="badge badge-md bg-secondary"
-      //             rel="noopener noreferrer"
-      //           >
-      //             <i className="fa-brands fa-youtube"></i> Navigate
-      //           </a>
-      //       );
-      //     }
-      //     return null;
-      //   },
-      // },

@@ -3,7 +3,6 @@
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Table } from "reactstrap";
-// import { Button } from '../../../stories/Button';
 import { CSVLink } from "react-csv";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -16,14 +15,12 @@ import moment from "moment/moment";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "../../../Admin/Reports/Helpers/Select.jsx";
 import { Bar } from "react-chartjs-2";
-// import { cardData } from '../../../Student/Pages/Ideas/SDGData.js';
 
 import axios from "axios";
 import "../../../Admin/Reports/reports.scss";
 import { Doughnut } from "react-chartjs-2";
 import { notification } from "antd";
 import { encryptGlobal } from "../../../constants/encryptDecrypt.js";
-// import { categoryValue } from '../../Schools/constentText';
 import { stateList, districtList } from "../../../RegPage/ORGData";
 import { themesList } from "../../../Team/IdeaSubmission/themesData";
 import * as XLSX from 'xlsx';
@@ -386,7 +383,6 @@ const ReportL2 = () => {
       
     };
   const handleDownload = () => {
-    // alert('hii');
     if (!RegTeachersState || !RegTeachersdistrict || !category || !sdg) {
       notification.warning({
         message:
@@ -399,15 +395,13 @@ const ReportL2 = () => {
   };
   useEffect(() => {
     if (studentDetailedReportsData.length > 0) {
-      console.log("Performing operation with the updated data.");
       handleExport();
-      // csvLinkRef.current.link.click();
     }
   }, [studentDetailedReportsData]);
 
   const fetchData = () => {
-    // const eDistParam =
-    //     RegTeachersdistrict === '' ? 'All Districts' : RegTeachersdistrict;
+   // This function filters  data based on selected state, district, category, theme
+   
     const api = encryptGlobal(
       JSON.stringify({
         state: RegTeachersState,
@@ -493,7 +487,6 @@ const ReportL2 = () => {
               unique_code: mentorMap[item.mentor_id].unique_code,
               organization_name: mentorMap[item.mentor_id].organization_name,
               state: mentorMap[item.mentor_id].state,
-              // whatapp_mobile: mentorMap[item.mentor_id].whatapp_mobile,
               mentorUserId: mentorMap[item.mentor_id].mentorUserId,
               city: mentorMap[item.mentor_id].city,
               principal_name: mentorMap[item.mentor_id].principal_name,
@@ -577,65 +570,7 @@ const ReportL2 = () => {
                                                   ? rating.comments.join(", ")
                                                   : "No Comments",
                                                   ...evaluatorColumns,
-                                                  // "Evaluator Name 1": rating.eval_count,
-                                                  // "Evaluator Name 2": rating.eval_count,
-
-              // ...item,
-              // overall_score: formatValue(rating.overall_score),
-              // novelty: formatValue(rating.novelty),
-              // feasibility: formatValue(rating.feasibility),
-              // feasibility_score: formatValue(rating.feasibility_score),
-              // scalability: formatValue(rating.scalability),
-              // quality_score: formatValue(rating.quality_score),
-              // sustainability: formatValue(rating.sustainability),
-              // useful: formatValue(rating.useful),
-              // eval_count: rating.eval_count,
-              // finalstatus:
-              //   item.final_result === null ? "Not Promoted" : "Promoted",
-              // verifiedment:
-              //   item.verified_status == null
-              //     ? "Not yet Reviewed"
-              //     : item.verified_status,
-              // username: mentorUsernameMap[item.mentorUserId],
-              // focus_area: item.focus_area
-              //   ? item.focus_area.replace(/,/g, ";").replace(/\n/g, " ")
-              //   : "",
-              // prototype_image: item.prototype_image
-              //   ? item.prototype_image.replace(/,/g, ";").replace(/\n/g, " ")
-              //   : "",
-              // problem_solving: item.problem_solving
-              //   ? item.problem_solving.replace(/,/g, ";").replace(/\n/g, " ")
-              //   : "",
-              // feedback: item.feedback
-              //   ? item.feedback.replace(/,/g, ";").replace(/\n/g, " ")
-              //   : "",
-              // stakeholders: item.stakeholders
-              //   ? item.stakeholders.replace(/,/g, ";").replace(/\n/g, " ")
-              //   : "",
-              // solution: item.solution
-              //   ? item.solution.replace(/,/g, ";").replace(/\n/g, " ")
-              //   : "",
-              // facing: item.facing
-              //   ? item.facing.replace(/,/g, ";").replace(/\n/g, " ")
-              //   : "",
-              // community: item.community
-              //   ? item.community.replace(/,/g, ";").replace(/\n/g, " ")
-              //   : "",
-              // effects: item.effects
-              //   ? item.effects.replace(/,/g, ";").replace(/\n/g, " ")
-              //   : "",
-              // causes: item.causes
-              //   ? item.causes.replace(/,/g, ";").replace(/\n/g, " ")
-              //   : "",
-              // problem_statement: item.problem_statement
-              //   ? item.problem_statement.replace(/,/g, ";").replace(/\n/g, " ")
-              //   : "",
-              // title: item.title
-              //   ? item.title.replace(/,/g, ";").replace(/\n/g, " ")
-              //   : "",
-              // verified_at: item.verified_at
-              //   ? moment(item.verified_at).format("DD-MM-YYYY")
-              //   : "",
+                                                 
             };
           });
           setDownloadData(newdatalist);
@@ -650,12 +585,7 @@ const ReportL2 = () => {
           }
 
           setIsDownloading(false);
-          // csvLinkRef.current.link.click();
-          // openNotificationWithIcon(
-          //     'success',
-          //     `L1 Status Detailed Reports Downloaded Successfully`
-          // );
-          // setIsDownloading(false);
+
         }
       })
       .catch((error) => {
@@ -664,11 +594,7 @@ const ReportL2 = () => {
       });
   };
 
-  // useEffect(() => {
-  //     if (filteredData.length > 0) {
-  //         setDownloadData(filteredData);
-  //     }
-  // }, [filteredData, downloadNotRegisteredData]);
+ 
 
   useEffect(() => {
     if (downloadComplete) {
@@ -677,7 +603,6 @@ const ReportL2 = () => {
 
       setRegTeachersdistrict("");
 
-      // setFilterType('');
       setsdg("");
     }
     const newDate = new Date();
@@ -699,7 +624,6 @@ const ReportL2 = () => {
     axios(config)
       .then((response) => {
         if (response.status === 200) {
-          // console.log(response, "response");
           const combinedArray = response?.data?.data || [];
           const total = combinedArray.reduce(
             (acc, item) => {
@@ -746,7 +670,6 @@ const ReportL2 = () => {
     axios(config)
       .then((response) => {
         if (response.status === 200) {
-          // console.log(response,"responsePre");
 
           const countData = {
             overall: {
@@ -862,14 +785,11 @@ const ReportL2 = () => {
             }
           );
 
-          // console.log(res,"22");
           var arrayB = chartTableData2;
           arrayB.push({ full_name: "Total Count", ...totalB });
           setChartTableData2(arrayB);
           setDownloadTableData2(chartTableData2);
           setTotalCountB(totalB);
-          // setChartTableData2(chartTableData2);
-          // setDownloadTableData2(chartTableData2);
         }
       })
       .catch((error) => {
@@ -898,7 +818,6 @@ const ReportL2 = () => {
           <div className="add-item d-flex">
             <div className="page-title">
               <h4>L2 - Report</h4>
-              {/* <h6>List of Teachers registered and their details</h6> */}
             </div>
           </div>
           <div className="page-btn">
@@ -934,16 +853,7 @@ const ReportL2 = () => {
                   />
                 </div>
               </Col>
-              {/* <Col md={2}>
-                  <div className="my-2 d-md-block d-flex justify-content-center">
-                    <Select
-                      list={filterOptions}
-                      setValue={setFilterType}
-                      placeHolder={"Select Filter"}
-                      value={filterType}
-                    />
-                  </div>
-                </Col> */}
+            
               <Col md={2}>
                 <div className="my-2 d-md-block d-flex justify-content-center">
                   {RegTeachersState === "Tamil Nadu" ? (
@@ -1128,19 +1038,7 @@ const ReportL2 = () => {
                                   <td>{item["7to8"]}</td>
                                   <td>{item["8to9"]}</td>
                                   <td>{item["9to10"]}</td>
-                                  {/* <td
-                                      style={{
-                                        maxWidth: "150px",
-                                        overflow: "hidden",
-                                        textOverflow: "ellipsis",
-                                        color: "crimson",
-                                      }}
-                                    >
-                                      {item.state}
-                                    </td>
-                                    <td> {item.totalSubmited}</td>
-                                    <td>{item.accepted}</td>
-                                    <td>{item.rejected}</td> */}
+
                                 </tr>
                               ))}
                             </tbody>
@@ -1367,24 +1265,7 @@ const ReportL2 = () => {
                                 >
                                   No of Ideas Evaluated
                                 </th>
-                                {/* <th
-                                    style={{
-                                      whiteSpace: "wrap",
-                                      color: "#36A2EB",
-                                      fontWeight: "bold",
-                                    }}
-                                  >
-                                    No of Ideas Accepted
-                                  </th>
-                                  <th
-                                    style={{
-                                      whiteSpace: "wrap",
-                                      color: "#36A2EB",
-                                      fontWeight: "bold",
-                                    }}
-                                  >
-                                    No of Ideas Rejected
-                                  </th> */}
+                               
                               </tr>
                             </thead>
                             <tbody>
@@ -1404,8 +1285,7 @@ const ReportL2 = () => {
                                   <td> {item.user_id}</td>
 
                                   <td> {item.totalEvaluated}</td>
-                                  {/* <td>{item.accepted}</td> */}
-                                  {/* <td>{item.rejected}</td> */}
+                                 
                                 </tr>
                               ))}
                             </tbody>

@@ -52,6 +52,8 @@
     },
     "teacherJourney": {
         "heading":"here's what's happening with your School Innovation Marathon 2025 journey.",
+  "teacher_welcome_html": "<h3 class='text-success'>Welcome Teachers!</h3><br/>We’re excited that you will be part of the program in guiding your student through it.<br/><p>Now it’s time to start the program.</p><ol><li>1. Watch the instructional videos for overview of the program.</li><li>2. Read the teacher's handbook for a summary of the course and other important instructions.</li></ol><br/><p>You have one week to do these. Afterwards, you and your students will be ready to start their problem solving journey!</p><p>We hope you enjoy guiding the students as they embark on this new journey!</p>Wishing you all the best!",
+
         "Dbcourse":"Teacher Course",
         "Dbteams":"Teams Created",
         "Dbstudents":"Students Enrolled",
@@ -739,8 +741,8 @@
         "feedbackq" : "எங்கள் முன்மாதிரி பற்றிய கருத்துக்களைப் பெற்றோம், அதை மாற்றியமைத்தோம்",
         "uploadq" : "பின்வரும் தகவலை பதிவேற்றவும்:",
         "linkadd":" [YouTube வீடியோ இணைப்புகள் மட்டுமே ஏற்றுக்கொள்ளப்படும்.]",
-        "image":"1.உங்களின் முன்மாதிரி (Prototype) பற்றிய விளக்க ஆவணம் (Descriptive Document) அல்லது படம் (Image)",
-        "link":"2.உங்களின் தீர்வை (Solution) விளக்கும் தெளிவான வீடியோ (Video)",
+        "image":"உங்களின் முன்மாதிரி (Prototype) பற்றிய விளக்க ஆவணம் (Descriptive Document) அல்லது படம் (Image)",
+        "link":"உங்களின் தீர்வை (Solution) விளக்கும் தெளிவான வீடியோ (Video)",
 "note":"குறிப்பு: (வீடியோ (Video) மற்றும் ஆவணம் (Document)/படம் (Image) இரண்டையும் பதிவேற்ற வேண்டும், இரண்டின் கூடுதலான அளவு 10MB)",
 "filetext":"கோப்பு பதிவேற்றம் கட்டாயமாகும் *",
         "workbookq" : "உங்கள் முன்மாதிரியின் படங்கள் / ஆவணங்கள் மற்றும் காணொளி இணைப்புகளைப் பதிவேற்றவும். (மொத்த அளவு வரம்பு",

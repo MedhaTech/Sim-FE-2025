@@ -6,12 +6,10 @@ import { Form, Row, Col, Label } from "reactstrap";
 
 import {
   getCurrentUser,
-  setCurrentUser,
   openNotificationWithIcon,
 } from "../../helpers/Utils";
 import {
   getAdminTeamMembersList,
-  // studentResetPassword
 } from "../../redux/actions";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
@@ -21,14 +19,10 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { useNavigate } from "react-router-dom";
-import female from "../../assets/img/Female_Profile.png";
-import male from "../../assets/img/Male_Profile.png";
-import user from "../../assets/img/user.png";
-import { isString } from "antd/es/button";
+
 const StuEdit = () => {
   const location = useLocation();
   const studentData = location.state || {};
-    // console.log(studentData, "111");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentUser = getCurrentUser("current_user");
@@ -40,8 +34,7 @@ const StuEdit = () => {
       grade: studentData && studentData.Grade,
       gender: studentData && studentData.Gender,
       disability: studentData && studentData.disability,
-      email: studentData && studentData.email,
-      //   username: studentData && studentData.username,
+      // email: studentData && studentData.email,
     },
 
     validationSchema: Yup.object({
@@ -63,9 +56,8 @@ const StuEdit = () => {
       gender: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Gender</span>
       ),
-       email: Yup.string().email("Please Enter Valid Email Address").max(255)
-             .optional(),
-      //   username: Yup.string().email("Must be a valid email").max(255),
+      //  email: Yup.string().email("Please Enter Valid Email Address").max(255)
+      //        .optional(),
       disability: Yup.string().required(
         <span style={{ color: "red" }}>Please Select Disability Status</span>
       ),
@@ -75,24 +67,20 @@ const StuEdit = () => {
     }),
 
     onSubmit: (values) => {
-      // alert("hii");
       const body = {
         team_id: JSON.stringify(studentData.team_id),
         role: "STUDENT",
-        // full_name: values.fullName,
         Age: values.age,
         Grade: values.grade,
         disability: values.disability,
         Gender: values.gender,
       };
-      // console.log(values.fullName,"values");
       if (studentData && studentData.full_name !== values.fullName) {
         body["full_name"] = values.fullName;
-        // console.log(studentData,studentData.full_name,values.fullName,"inside if");
       }
-      if (studentData && studentData.email !== values.email) {
-        body["email"] = values.email;
-      }
+      // if (studentData && studentData.email !== values.email) {
+      //   body["email"] = values.email;
+      // }
       const teamparamId = encryptGlobal(JSON.stringify(studentData.student_id));
       var config = {
         method: "put",
@@ -112,7 +100,6 @@ const StuEdit = () => {
             );
             dispatch(getAdminTeamMembersList(studentData.team_id));
             navigate("/students");
-            // handleView(studentData);
           } else {
             openNotificationWithIcon("error", "Opps! Something Wrong");
           }
@@ -140,7 +127,7 @@ const StuEdit = () => {
              
                 <div className="create-ticket register-blockt">
                   <Row className="mb-3 modal-body-table search-modal-header">
-                    <Col md={4}>
+                    <Col md={6}>
                       <Label className="form-label">
                         Full Name
                         <span required className="p-1">
@@ -152,7 +139,6 @@ const StuEdit = () => {
                         placeholder="Please Enter Your Full Name"
                         id="fullName"
                         name="fullName"
-                        // onChange={formik.handleChange}
                         onChange={(e) => {
                           const inputValue = e.target.value;
                           const lettersOnly = inputValue.replace(
@@ -170,26 +156,17 @@ const StuEdit = () => {
                         </small>
                       ) : null}
                     </Col>
-                    <Col md={4}>
+                    {/* <Col md={4}>
                                                                     <Label className="form-label">
                                                                       Email Address
-                                                                      {/* <span required className="p-1">
-                                                                        *
-                                                                      </span> */}
+                                                                     
                                                                     </Label>
                                                                     <input
                                                                       className="form-control"
                                                                       placeholder="Enter  Email Address"
                                                                       id="email"
                                                                       name="email"
-                                                                      // onChange={(e) => {
-                                                                      //   const inputValue = e.target.value;
-                                                                      //   const lettersOnly = inputValue.replace(
-                                                                      //     /[^a-zA-Z\s]/g,
-                                                                      //     ""
-                                                                      //   );
-                                                                      //   formik.setFieldValue("f", lettersOnly);
-                                                                      // }}
+                                                                     
                                                                       onChange={formik.handleChange}
                                                                       onBlur={formik.handleBlur}
                                                                       value={formik.values.email}
@@ -200,8 +177,8 @@ const StuEdit = () => {
                                                                         {formik.errors.email}
                                                                       </small>
                                                                     ) : null}
-                                                                  </Col>
-                                                                  <Col md={4}>
+                                                                  </Col> */}
+                                                                  <Col md={6}>
                       <Label htmlFor="inputState" className="form-label">
                         Disability
                         <span required className="p-1">
@@ -337,8 +314,7 @@ const StuEdit = () => {
                 <Row>
                   <Col className="mt-2" >
                     <button
-                      // type="submit" className="btn btn-warning"
-                      // style={{ marginRight: "10px" }}
+                     
                       type="submit"
                       className={`btn btn-warning  ${
                         !(formik.dirty && formik.isValid)

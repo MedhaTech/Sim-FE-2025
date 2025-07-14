@@ -4,7 +4,6 @@
 /* eslint-disable no-unused-vars */
 import React, { Fragment, useState, useEffect, useRef } from 'react';
 import { Row, Col } from 'react-bootstrap';
-// import './style.scss';
 import { Button } from '../../stories/Button';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -12,19 +11,14 @@ import Swal from 'sweetalert2/dist/sweetalert2';
 import logout from '../../assets/img/logout.png';
 import { Card, CardBody, CardTitle } from 'reactstrap';
 import { useDispatch, useSelector } from "react-redux";
-import { current } from '@reduxjs/toolkit';
 import { getCurrentUser, setCurrentUser } from "../../helpers/Utils";
 import { getTeamMemberStatus } from "../../Teacher/store/teams/actions";
 import axios from "axios";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
-// import { getLanguage } from "../../constants/languageOptions";
 
-// import Layout from '../../Layout';
 
 const InstructionsPage = (props) => {
-    // const language = useSelector(
-    //     (state) => state?.studentRegistration?.studentLanguage
-    // );
+    
     const [resList,setResList]=useState("");
     const { t } = useTranslation();
   const currentUser = getCurrentUser("current_user");
@@ -56,7 +50,7 @@ const teamId= currentUser.data[0]?.team_id;
             })
           );
       
-        //  handleResList Api where we can see list of all resource //
+        //  handleResList Api where we can see list of  state specific //
         let config = {
             method: 'get',
             url: process.env.REACT_APP_API_BASE_URL + `/states/specific?Data=${fectchTecParam}`,
@@ -68,7 +62,6 @@ const teamId= currentUser.data[0]?.team_id;
         await axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    // console.log(response,"ress");
                     setResList(response.data.data[0].
                         ideaSubmission
                         );
@@ -78,30 +71,7 @@ const teamId= currentUser.data[0]?.team_id;
                 console.log(error);
             });
     }
-    // const TnSpecific =currentUser?.data[0]?.state;
-    // useEffect(() => {
 
-      
-    //     if (teamsMembersStatus.length >= minLength && teamsMembersStatus.length <= maxLength) {
-    //       localStorage.setItem("ideaSubStatus", teamsMembersStatus[0].idea_submission);
-    //       console.log(teamsMembersStatus[0],"muconsole");
-      
-    //       if (Array.isArray(teamsMembersStatus)) {
-    //         let anyCompleted = false;
-      
-    //         teamsMembersStatus.forEach(record => {
-    //           let percent = 100 - percentageBWNumbers(record.all_topics_count, record.topics_completed_count);
-      
-    //           if (percent === 100) {
-    //             anyCompleted = true;
-    //           }
-    //         });
-            
-    //         const ideaStatus = anyCompleted ? 1 : 0;
-    //         setIdeaEnableStatus(ideaStatus); 
-    //       }
-    //     }
-    //   }, [teamsMembersStatus, currentUser?.data[0]?.state]); 
       
   
     
@@ -109,29 +79,8 @@ const teamId= currentUser.data[0]?.team_id;
         navigate('/idea');
     };
   
-    const handleideaenable = () => {
-        // alert("course Not completed");
-        console.log("course Not completed");
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: 'btn btn-submit',
-            },
-            buttonsStyling: false
-        });
-      
-        swalWithBootstrapButtons
-            .fire({
-                title: t('login.popinst'),
-                // text: "You can access idea submission only after all your teammates complete course.",
-                text:t('login.popcheck'),
-
-                imageUrl: `${logout}`,
-                confirmButtonText: t('login.ok'),
-            });
-        };
+  
         const handlePopup = () => {
-        // alert("Idea is Disabled");
-        console.log("Idea is Disabled");
 
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
@@ -186,7 +135,7 @@ const teamId= currentUser.data[0]?.team_id;
                                         ></div>
 
                                         <div className="text-right">
-                                            <a
+                                            {/* <a
                                                 href={pdfFileURL}
                                                 target="_blank"
                                                 rel="noreferrer"
@@ -199,21 +148,8 @@ const teamId= currentUser.data[0]?.team_id;
                                                     btnClass="primary mt-4 mx-4 "
                                                     size="small"
                                                 />
-                                            </a> 
-                                              {/* {
-                                              ideaEnableStatus !==1 ? 
+                                            </a>  */}
                                            
-                                                (<button onClick={handleideaenable} className='btn btn-secondary'>{t('idea_page.next')}</button>
-                                            ):
-                                            resList !==1 ?(
-                                                <button onClick={handlePopup} className='btn btn-secondary'>{t('idea_page.next')}</button>
-
-                                            ): <Button
-                                            label={t('idea_page.next')}
-                                            btnClass="primary mt-4 mx-4"
-                                            size="small"
-                                            onClick={handleNext}
-                                        />} */}
                                         {
 
      resList !== 1 ? (
@@ -231,17 +167,7 @@ const teamId= currentUser.data[0]?.team_id;
     )
 }
 
-                                            {/* {ideaEnableStatus ==1 ? 
-                                            (
-                                                <Button
-                                                    label={t('idea_page.next')}
-                                                    btnClass="primary mt-4 mx-4"
-                                                    size="small"
-                                                    onClick={handleNext}
-                                                />
-                                            ) : (
-                                                <button onClick={handleButtonClick} className='btn btn-secondary'>{t('idea_page.next')}</button>
-                                            )} */}
+                                           
                                           
                                             
                                         </div>

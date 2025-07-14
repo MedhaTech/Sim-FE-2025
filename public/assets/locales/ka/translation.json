@@ -65,6 +65,8 @@
     },
     "teacherJourney": {
         "heading":"here's what's happening with your School Innovation Marathon 2025 journey.",
+  "teacher_welcome_html": "<h3 class='text-success'>Welcome Teachers!</h3><br/>We’re excited that you will be part of the program in guiding your student through it.<br/><p>Now it’s time to start the program.</p><ol><li>1. Watch the instructional videos for overview of the program.</li><li>2. Read the teacher's handbook for a summary of the course and other important instructions.</li></ol><br/><p>You have one week to do these. Afterwards, you and your students will be ready to start their problem solving journey!</p><p>We hope you enjoy guiding the students as they embark on this new journey!</p>Wishing you all the best!",
+
         "Dbcourse":"Teacher Course",
         "Dbteams":"Teams Created",
         "Dbstudents":"Students Enrolled",
@@ -611,7 +613,7 @@
         "are_you_sure": "Are you sure?",
         "btn_logout": "Logout",
         "btn_cancel": "Cancel",
-        "btn_ok": "ok",
+        "btn_ok": "Ok",
         "cancelled": "Cancelled",
         "logged_in": "You are Logged in",
         "submit_idea": "Ask your guide teacher to go through the details entered by you to make sure they are correct. You cannot make changes once the idea is submitted. Invalid/Wrong entries will not be selected.",
@@ -777,8 +779,8 @@
         "feedbackq" : " Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.",
          "uploadq" : "Upload the following information:",
          "linkadd":" [Only YouTube Video Links are Accepted.]",
-        "image":"1.Descriptive Document/Image of your prototype",
-        "link":"2.Clear YouTube Video Explaining your Solution",
+        "image":"Descriptive Document/Image of your prototype",
+        "link":"Clear YouTube Video Explaining your Solution",
 "note":"Note: (Both Video & Document/Image have to be uploaded, Max Size of two files together is 10MB)",
 "filetext":"File Upload is mandatory *",
         
@@ -788,72 +790,76 @@
         "ideawarning" : "Save your idea & Ask your guide teacher to go through the details entered by you to make sure they are correct. You cannot make changes once the idea is submitted. Invalid/Wrong entries will not be selected.",
         "placeholdertext" : "List one by one with numbering…"
     },
-    "themes" : {
-        "sustainabletheme" : "Sustainable Development & Environment",
-        "digitaltheme" : "Digital Transformation",
-        "healththeme" : "Health and Well-being",
-        "educationtheme" : "Quality Education",
-        "economictheme" : "Economic Empowerment",
-        "smarttheme" : "Smart and Resilient Communities",
-        "agritheme" : "Agriculture and Rural Development",
+        "themes" : {
+         "buildingtheme" : "Building a Sustainable Future",
+        "technologytheme" : "Technology for Learning and Growth",
+        "healththeme" : "Health & Nutrition and Well-being",
+        "skillstheme" : "Skills for Life and Livelihood",
+        "smartertheme" : "Smarter Communities & Safer Futures",
+        "agriculturetheme" : "Agriculture and Rural Transformation",
+        "opentheme" : "Open Category - Think Beyond!",
         "othertheme" : "Others"
     },
     "themedetails" : {
-        "sustainabletheme" : "Sustainable Development is about balancing economic growth, environmental care, and social well-being to ensure a better future for all.",
-        "digitaltheme" : "Highlights the critical role of digital technologies in bridging the digital divide and fostering innovation, making India a leader in the digital economy.",
-        "healththeme" : "Focuses on ensuring physical, mental, and social wellness for individuals and communities to lead fulfilling lives.",
-        "educationtheme" : "Quality Education ensures inclusive, equitable learning opportunities that empower individuals with the knowledge and skills needed for lifelong success.",
-        "economictheme" : "Economic Empowerment enables individuals and communities to improve their financial stability and independence through access to resources, opportunities, and skills.",
-        "smarttheme" : "Smart and Resilient Communities use technology and sustainable practices to adapt to challenges, ensuring safety, efficiency, and long-term well-being for all members.",
-        "agritheme" : "Focuses on improving farming practices and infrastructure in rural areas to boost productivity, sustainability, and quality of life for rural communities.",
+        "buildingtheme" : "Promotes environmental awareness and life skills; integrates values-based and experiential learning. NEP encourages students to be environmentally responsible citizens. This theme enables students to innovate in sustainability, energy, water, and climate — all vital for the planet and aligned with global SDG goals.",
+        "technologytheme" : "Strong emphasis on tech integration, digital infrastructure, and equitable access to quality education.Innovation in education technology supports NEP’s vision of universal foundational literacy, personalized learning, and digital inclusion. It also empowers students to co-create tech tools for learning.",
+        "healththeme" : "Holistic development, including physical, mental, and emotional well-being, is central to NEP’s goals. NEP’s whole-child approach demands innovation in how students think about nutrition, mental health, fitness, and community wellness. This theme promotes health as foundational to learning and living.",
+        "skillstheme" : "Strong focus on vocational education, entrepreneurship, and preparing students for life and work. NEP aims to integrate skill-based learning from an early age. This theme empowers students to develop job-ready, entrepreneurial, and financial skills while also encouraging local enterprise innovation.",
+        "smartertheme" : "Encourages contextual learning and civic engagement, preparing students to lead and serve. NEP promotes learning that is rooted in local needs. This theme inspires students to think about their surroundings and build smart, safe, inclusive, and tech-enabled communities.",
+        "agriculturetheme" : "Advocates for local knowledge systems, relevance in rural settings, and experiential learning. NEP emphasizes context-sensitive education. This theme brings attention to rural challenges and innovation in agriculture — vital sectors for inclusive and equitable development.",
+        "opentheme" : "Encourages critical thinking, creativity, and problem-solving — key 21st-century skills. For students whose ideas don’t fit existing categories but address real-world problems. This promotes flexibility, interdisciplinary thinking, and true student agency",
         "othertheme" : "Encourages innovative solutions in any other area that aligns with the vision of Viksit Bharat 2047, fostering a culture of broad-based development and progress."
         
     },
-    "sustainablefocusareas" : {
-        "focusarea1" : "Renewable Energy (e.g., solar, wind, hydro)",
-        "focusarea2" : "Waste Management (e.g., recycling, composting)",
-        "focusarea3" : "Clean Water (e.g., water purification, rainwater harvesting)",
-        "focusarea4" : "Environment Protection (e.g., pollution control, reforestation)",
-        "focusarea5" : "Sustainable Agriculture (e.g., organic farming, soil conservation)"
+    "buildingfocusareas" : {
+        "focusarea1" : "Green Energy",
+        "focusarea2" : "Water Conservation & Management",
+        "focusarea3" : "Eco-Friendly Innovation",
+        "focusarea4" : "Biodiversity & Climate Action",
+        "focusarea5" : "Green Agriculture"
     },
-    "digitalfocusareas" : {
-        "focusarea1" : "Internet of Things (IoT) (e.g., smart homes, connected devices)",
-        "focusarea2" : "Information Technology (e.g., software, apps)",
-        "focusarea3" : "Cybersecurity (e.g., protecting data, secure online practices)",
-        "focusarea4" : "Blockchain (e.g., secure transactions, decentralized systems)",
-        "focusarea5" : "Artificial Intelligence (AI) & Machine Learning (ML) (e.g., smart assistants, predictive analytics)"
+    "technologyfocusareas" : {
+        "focusarea1" : "Learning Tools & EdTech",
+        "focusarea2" : "Inclusive and Accessible Learning",
+        "focusarea3" : "Coding, AI & Data Innovation",
+        "focusarea4" : "Gamified Learning",
+        "focusarea5" : "Teacher Support Tools"
     },
-    "healthfocusareas" : {
-        "focusarea1" : "Medical Devices (e.g., health monitors, diagnostic tools)",
-        "focusarea2" : "Nutrition and Healthy Eating (e.g., balanced diets, fortified foods)",
-        "focusarea3" : "Mental Health (e.g., stress management, counseling tools)",
-        "focusarea4" : "Fitness and Sports (e.g., exercise programs, sports innovations)"      
+     "healthfocusareas" : {
+        "focusarea1" : "Low-cost Health Devices",
+        "focusarea2" : "Mental Health Support",
+        "focusarea3" : "Clean Nutrition Innovations",
+        "focusarea4" : "Fitness & Movement" ,
+        "focusarea5" : "Community Health Awareness"
+
     },
-    "educationfocusareas" : {
-        "focusarea1" : "Online Learning (e.g., e-learning platforms, virtual classrooms)",
-        "focusarea2" : "Inclusive Education (e.g., education for all, special needs education)",
-        "focusarea3" : "Teacher Training (e.g., professional development, new teaching methods)",
-        "focusarea4" : "Educational Technology (e.g., interactive learning tools, digital textbooks)" 
+    "skillsfocusareas" : {
+        "focusarea1" : "Vocational Skills & Local Craft",
+        "focusarea2" : "Financial Literacy",
+        "focusarea3" : "Entrepreneurship & Startups",
+        "focusarea4" : "Future-Ready Skills",
+        "focusarea5" : "Innovation in Retail & Distribution"
+
     },
-    "economicfocusareas" : {
-        "focusarea1" : "Financial Education (e.g., budgeting, saving, investing)",
-        "focusarea2" : "Start-up Innovations (e.g., new business ideas, entrepreneurship support)",
-        "focusarea3" : "Vocational Training (e.g., skill development, job readiness)",
-        "focusarea4" : "Retail Innovations (e.g., new products, better shopping experiences)"  
+   
+    "smarterfocusareas" : {
+        "focusarea1" : "Disaster Resilience",
+        "focusarea2" : "Urban-Rural Mobility",
+        "focusarea3" : "Public Space Innovation",
+        "focusarea4" : "Smart Devices for Community Use",
+        "focusarea5" : "Digital Governance"
+
     },
-    "smartfocusareas" : {
-        "focusarea1" : "Smart Cities (e.g., smart traffic systems, digital public services)",
-        "focusarea2" : "Electric Vehicles (e.g., electric cars, charging stations)",
-        "focusarea3" : "Disaster Management (e.g., emergency response systems, disaster-proof buildings)",
-        "focusarea4" : "Robotics and Drones (e.g., automation, aerial surveys)",
-        "focusarea5" : "Smart Textiles (e.g., wearable technology, smart fabrics)",
-        "focusarea6" : "Travel and Tourism (e.g., eco-tourism, smart travel apps)"
+    "agriculturefocusareas" : {
+        "focusarea1" : "Tech in Farming",
+        "focusarea2" : "Farm-to-Table Innovation",
+        "focusarea3" : "Rural Infrastructure",
+        "focusarea4" : "Climate-Smart Farming",
+        "focusarea5" : "Agri-Nutrition"
     },
-    "agrifocusareas" : {
-        "focusarea1" : "Modern Farming Techniques (e.g., hydroponics, precision farming)",
-        "focusarea2" : "Rural Development (e.g., rural infrastructure, community projects)",
-        "focusarea3" : "Food Security (e.g., food storage, distribution systems)",
-        "focusarea4" : "Nutrition (e.g., healthy diets, fortified foods)"  
+    "openfocusareas" : {
+        "focusarea1" : "Any original or disruptive idea that addresses a real-world challenge"
+       
     },
     "otherfocusareas" : {
         "focusarea1" : "Any other area that broadly qualifies for the vision of Viksit Bharat"

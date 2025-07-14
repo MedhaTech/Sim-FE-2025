@@ -1,19 +1,12 @@
 /* eslint-disable indent */
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, Form, Label, Card, CardBody, Input } from "reactstrap";
-// import { withRouter } from 'react-router-dom';
-// import '../../Admin/Tickets/style.scss';
-// import Layout from '../Layout';
-import { Button } from "../../stories/Button";
-// import { DropDownWithSearch } from '../../stories/DropdownWithSearch/DropdownWithSearch';
-// import { TextArea } from '../../stories/TextArea/TextArea';
 import axios from "axios";
 
 import * as Yup from "yup";
 import { useFormik } from "formik";
-// import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { useDispatch, useSelector } from "react-redux";
 // eslint-disable-next-line no-unused-vars
 import { getCurrentUser, openNotificationWithIcon } from "../../helpers/Utils";
@@ -32,6 +25,7 @@ import { useLayoutEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FaComments, FaFile, FaLink } from "react-icons/fa";
 import { UncontrolledAlert } from "reactstrap";
+import { encryptGlobal } from "../../constants/encryptDecrypt";
 
 const StateRes = (props) => {
   const { search } = useLocation();
@@ -99,7 +93,6 @@ const StateRes = (props) => {
           SupportTicketStatusChange(id, { status: values.selectStatusTicket })
         );
         navigate("/admin-support");
-        // document.getElementById("sendresponseID").click();
         setTimeout(() => {
           dispatch(getSupportTickets(currentUser?.data[0]));
         }, 500);
@@ -107,34 +100,16 @@ const StateRes = (props) => {
         console.log(error);
       }
     },
-    // onSubmit: (values) => {
-    //     const ansTicket = values.ansTicket;
-    //     const body = JSON.stringify({
-    //         support_ticket_id: id,
-    //         reply_details: ansTicket
-    //         // selectStatusTicket: values.selectStatusTicket
-    //     });
-
-    //     dispatch(createSupportTicketResponse(body));
-    //     dispatch(
-    //         SupportTicketStatusChange(id, {
-    //             status: values.selectStatusTicket
-    //         })
-    //     );
-    //     navigate('/state-support');
-
-    //     setTimeout(() => {
-    //         dispatch(getSupportTicketById(id, language));
-    //     }, 500);
-    // }
+   
   });
-  // console.log(supportTicket?.status,"ss",formik.values.selectStatusTicket,"de");
   useEffect(() => {
     if (supportTicket?.status) {
       formik.setFieldValue("selectStatusTicket", supportTicket.status);
     }
   }, [supportTicket?.status]);
   const fileHandlerforFormik = (e) => {
+    // Handles file selection and reads the selected file
+
     let file = e.target.files[0];
 
     if (!file) {
@@ -177,6 +152,36 @@ const StateRes = (props) => {
     }
     formik.setFieldValue("file_name", file);
   };
+  const [newurl,setnewurl] = useState('');
+  const handleFileDownload = async(file) =>{
+       const parts = file.split('/');
+      const path = parts.slice(3).join('/');
+      const openParam = encryptGlobal(JSON.stringify({
+        filePath: path
+      }));
+      var config = {
+        method: 'get',
+        url:
+          process.env.REACT_APP_API_BASE_URL +
+          `/admins/s3fileaccess?Data=${openParam}`,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${currentUser?.data[0]?.token}`
+        }
+      };
+      await axios(config)
+        .then(function (response) {
+          if (response.status === 200) {
+           setnewurl(response.data.data);
+          setTimeout(() => {
+                    document.getElementById('myLink').click();
+                  }, 500);
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+  };
   return (
     <div className="page-wrapper">
         <h4 className="m-2" 
@@ -186,7 +191,6 @@ const StateRes = (props) => {
       <div className="content">
         <div className="EditPersonalDetails new-member-page">
           <Row>
-            {/* <Col className="col-xl-10 offset-xl-1 offset-md-0"> */}
             <form onSubmit={formik.handleSubmit}>
               <Card className="aside">
                 <div
@@ -207,7 +211,6 @@ const StateRes = (props) => {
                         >
                           {supportTicket?.query_details}
                         </div>
-                      {/* <strong>{supportTicket?.query_details}</strong> */}
                       <hr />
                     </Col>
                     <Col md={3}>
@@ -241,7 +244,6 @@ const StateRes = (props) => {
                       <span>
                         <FaRegClock />{" "}
                         {moment(supportTicket.created_at).format(
-                          // 'Do MMM, YYYY HH:mm',
                           "LLL"
                         )}
                       </span>
@@ -271,9 +273,7 @@ const StateRes = (props) => {
                             >
                               {data.reply_details}
                             </div>
-                            {/* <strong style={{ whiteSpace: "pre-line" }}>
-                              {data.reply_details}
-                            </strong> */}
+                           
                             <hr />
                           </Col>
                           <Col md={3}>
@@ -297,21 +297,22 @@ const StateRes = (props) => {
                               </a>
                             )}
                             {data?.file && (
-                              <a
-                                href={data?.file}
+                              <><div className="d-inline" onClick={()=>handleFileDownload(data?.file)}><FaFile />
+                                {"File"}</div>
+                               <a
+                                href={newurl}
+                                id='myLink'
                                 target="_blank"
                                 rel="noreferrer"
                               >
-                                <FaFile />
-                                {"File"}
                               </a>
+                              </>
                             )}
                           </Col>
                           <Col md={6} className="text-right">
                             <span>
                               <FaRegClock />{" "}
                               {moment(data.created_at).format(
-                                // 'Do MMM, YYYY HH:mm',
                                 "LLL"
                               )}
                             </span>
@@ -420,15 +421,11 @@ const StateRes = (props) => {
                               );
                             }}
                             onBlur={formik.handleBlur}
-                            // value={formik.values.selectStatusTicket}
                             value={formik.values.selectStatusTicket  || ""}
                           >
                             <option value="" disabled={true}>
-                              {/* {supportTicket?.status
-                                ? supportTicket?.status
-                                : "Select Status"} */}
+                            
                                   {supportTicket?.status || "Select Status"}
-                                 {/* {formik.values.selectStatusTicket ? "Select Status" : supportTicket?.status || "Select Status"} */}
                             </option>
                             <option value="OPEN">OPEN</option>
                             <option value="INPROGRESS">INPROGRESS</option>
@@ -474,254 +471,7 @@ const StateRes = (props) => {
                 </Row>
               </div>
             </form>
-            {/* <div>
-                            <Form onSubmit={formik.handleSubmit} isSubmitting>
-                                <Card className="card mb-4 my-3 comment-card px-0 card-outline-warning">
-                                    <CardBody>
-                                        <p>
-                                            <b>{supportTicket.query_details}</b>
-                                        </p>
-                                        <hr />
-                                        <Row>
-                                            <Col md={6}>
-                                                <span>
-                                                    <FaUserCircle />{' '}
-                                                    {supportTicket.created_by}
-                                                </span>{' '}
-                                            </Col>
-                                            <Col md={6} className="text-right">
-                                                <span>
-                                                    <FaRegClock />{' '}
-                                                    {moment(
-                                                        supportTicket.created_at
-                                                    ).format(
-                                                        'LLL'
-                                                    )}
-                                                </span>
-                                            </Col>
-                                        </Row>
-                                    </CardBody>
-                                </Card>
 
-                                {supportTicket?.support_ticket_replies?.length >
-                                    0 &&
-                                    supportTicket.support_ticket_replies.map(
-                                        (data, i) => {
-                                            return (
-                                                <>
-                                                    <Card className="card mb-4 my-3 comment-card card-outline-success">
-                                                        <CardBody>
-                                                            <p>
-                                                                {
-                                                                    data.reply_details
-                                                                }
-                                                            </p>
-                                                            <hr />
-                                                            <Row>
-                                                                <Col md={6}>
-                                                                    <span>
-                                                                        <FaUserCircle />{' '}
-                                                                        {
-                                                                            data.created_by
-                                                                        }
-                                                                    </span>{' '}
-                                                                </Col>
-                                                                <Col
-                                                                    md={6}
-                                                                    className="text-right"
-                                                                >
-                                                                    <span>
-                                                                        <FaRegClock />{' '}
-                                                                        {moment(
-                                                                            data.created_at
-                                                                        ).format(
-                                                                            'LLL'
-                                                                        )}
-                                                                    </span>
-                                                                </Col>
-                                                            </Row>
-                                                        </CardBody>
-                                                    </Card>
-                                                </>
-                                            );
-                                        }
-                                    )}
-
-                                {supportTicket.status != 'INVALID' ? (
-                                    <Row>
-                                        <Card className="aside p-4 py-4">
-                                            <Col md={12}>
-                                                <Label
-                                                    className="name-req mt-5"
-                                                    htmlFor="ticket"
-                                                >
-                                                    Details
-                                                    <span
-                                                        required
-                                                        className="p-1"
-                                                    >
-                                                        *
-                                                    </span>
-                                                </Label>
-                                                <textArea
-                                                    className={'defaultInput'}
-                                                    placeholder="Enter reply comments"
-                                                    id="ansTicket"
-                                                    name="ansTicket"
-                                                    onChange={
-                                                        formik.handleChange
-                                                    }
-                                                    onBlur={formik.handleBlur}
-                                                    value={
-                                                        formik.values.ansTicket
-                                                    }
-                                                />
-
-                                                {formik.touched.ansTicket &&
-                                                formik.errors.ansTicket ? (
-                                                    <small className="error-cls">
-                                                        {
-                                                            formik.errors
-                                                                .ansTicket
-                                                        }
-                                                    </small>
-                                                ) : null}
-                                            </Col>
-
-                                            <Col
-                                                className="form-group my-5  mb-md-0"
-                                                md={12}
-                                            >
-                                                <Label
-                                                    className="mb-2"
-                                                    htmlFor="select status"
-                                                >
-                                                    Select Status
-                                                </Label>
-                                                <Col
-                                                    className="form-group"
-                                                    md={12}
-                                                >
-                                                   
-                                                    <select
-                                                        name=" selectStatusTicket"
-                                                        id=" selectStatusTicket"
-                                                        className="form-control custom-dropdown"
-                                                       
-                                                        onChange={(e) => {
-                                                            formik.setFieldValue(
-                                                                'selectStatusTicket',
-                                                                e.target.value
-                                                            );
-                                                        }}
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        value={
-                                                            formik.values
-                                                                .selectStatusTicket
-                                                        }
-                                                    >
-                                                        <option
-                                                            value=""
-                                                            disabled={true}
-                                                        >
-                                                            {supportTicket &&
-                                                            supportTicket.status
-                                                                ? supportTicket.status
-                                                                : 'Select Status'}
-                                                        </option>
-                                                        <option value="OPEN">
-                                                            OPEN
-                                                        </option>
-                                                        <option value="INPROGRESS">
-                                                            INPROGRESS
-                                                        </option>
-                                                        <option value="RESOLVED">
-                                                            RESOLVED
-                                                        </option>
-                                                        <option value="INVALID">
-                                                            INVALID
-                                                        </option>
-                                                    </select>
-                                                    {formik.touched
-                                                        .selectStatusTicket &&
-                                                        formik.errors
-                                                            .selectStatusTicket && (
-                                                            <small className="error-cls">
-                                                                {
-                                                                    formik
-                                                                        .errors
-                                                                        .selectStatusTicket
-                                                                }
-                                                            </small>
-                                                        )}
-                                                </Col>
-
-                                                <Col
-                                                    className="form-group mt-5  mb-md-0"
-                                                    md={12}
-                                                ></Col>
-                                            </Col>
-                                        </Card>
-                                    </Row>
-                                ) : null}
-
-                                <hr className="mt-4 mb-4"></hr>
-                                <Row>
-                                    {supportTicket.status != 'INVALID' ? (
-                                        <Col className="col-xs-12 col-sm-6">
-                                            <Button
-                                                label="Discard"
-                                                btnClass="secondary"
-                                                size="small"
-                                                onClick={() =>
-                                                    (
-                                                        '/state-support'
-                                                    )
-                                                }
-                                            />
-                                        </Col>
-                                    ) : (
-                                        <Col className="col-xs-12 col-sm-6">
-                                            <Button
-                                                label="Back"
-                                                btnClass="secondary"
-                                                size="small"
-                                                onClick={() =>
-                                                    navigate(
-                                                        '/state-support'
-                                                    )
-                                                }
-                                            />
-                                        </Col>
-                                    )}
-                                    {supportTicket.status != 'INVALID' ? (
-                                        <Col className="submit-btn col-xs-12 col-sm-6">
-                                            <Button
-                                                label="Submit"
-                                                type="submit"
-                                                btnClass={
-                                                    !(
-                                                        formik.dirty &&
-                                                        formik.isValid
-                                                    )
-                                                        ? 'default'
-                                                        : 'primary'
-                                                }
-                                                size="small"
-                                                disabled={
-                                                    !(
-                                                        formik.dirty &&
-                                                        formik.isValid
-                                                    )
-                                                }
-                                            />
-                                        </Col>
-                                    ) : null}
-                                </Row>
-                            </Form>
-                        </div> */}
             {/* </Col> */}
           </Row>
         </div>

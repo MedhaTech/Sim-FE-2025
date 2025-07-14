@@ -16,11 +16,9 @@ import {teamLength} from "../../RegPage/ORGData";
 
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import { Tooltip } from "react-bootstrap";
-// import { Button } from "../../.stories/Button";
 
 import {
   getAdminTeamMembersList,
-  // studentResetPassword
 } from "../../redux/actions";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
@@ -50,7 +48,6 @@ const Dashboard = (props) => {
   const [value, setvalue] = useState("");
   const [ViewedTeam , setViewedTeam] = useState();
   const loginState=currentUser?.data[0]?.state;
-  // console.log(loginState,"state");
   const getTeamLength = (loginState) => {
     // Use `teamLength` object to determine the team length.
     return loginState === "Tamil Nadu" ? teamLength["Tamil Nadu"] : teamLength.default;
@@ -58,15 +55,15 @@ const Dashboard = (props) => {
   
   const teamLengthValue = getTeamLength(loginState);
   
-  // console.log(typeof(teamLengthValue), '11');
-// console.log(IdeaStatus,"ii");
+ 
   useEffect(() => {
     if (currentUser?.data[0]?.mentor_id) {
       teamListbymentorid(currentUser?.data[0]?.mentor_id);
     }
   }, [currentUser?.data[0]?.mentor_id]);
   const ideaStatusfun = (id) => {
-    // console.log(id, "id");
+    // Function to fetch the Ideas Status from the API
+
     const ideaStatusparam = encryptGlobal(
       JSON.stringify({
         team_id: id,
@@ -86,7 +83,6 @@ const Dashboard = (props) => {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // console.log(response, "teamId");
 
           setIdeaStatus(response.data.data[0].ideaStatus);
         }
@@ -99,13 +95,14 @@ const Dashboard = (props) => {
   useEffect(() => {
     setDataFinal(teamsListData);
     if (selectedTeam) {
-      // submittedApi(selectedTeam);
       ideaStatusfun(selectedTeam);
     }
   }, [selectedTeam]);
  
 
   const teamListbymentorid = (mentorid) => {
+    // Function to fetch the all Teams List from the API
+
     const teamparam = encryptGlobal(
       JSON.stringify({
         mentor_id: mentorid,
@@ -124,7 +121,6 @@ const Dashboard = (props) => {
       .then(function (response) {
         if (response.status === 200) {
           setTeamsList(response.data.data);
-          //console.log(teamsList,"teamslist");
         }
       })
       .catch(function (error) {
@@ -151,79 +147,64 @@ const Dashboard = (props) => {
 
   const renderViewTooltip = (props) => (
     <Tooltip id="refresh-tooltip" {...props}>
-      View
+       {t('teacherJourney.option17')}
     </Tooltip>
   );
   const renderAddTooltip = (props) => (
     <Tooltip id="refresh-tooltip" {...props}>
-      Add Student
+            {t('teacherJourney.option18')}
+
     </Tooltip>
   );
   const renderHideTooltip = (props) => (
     <Tooltip id="refresh-tooltip" {...props}>
-      Hide
+      {t('teacherJourney.option19')}
     </Tooltip>
   );
   const renderEditTooltip = (props) => (
     <Tooltip id="refresh-tooltip" {...props}>
-      Edit Stu
+            {t('teacherJourney.option20')}
+
     </Tooltip>
   );
   const renderSwitchTooltip = (props) => (
     <Tooltip id="refresh-tooltip" {...props}>
-      Change Team
+                  {t('teacherJourney.option21')}
+
     </Tooltip>
   );
 
   const renderDelTooltip = (props) => (
     <Tooltip id="refresh-tooltip" {...props}>
-      Del Stu
+                        {t('teacherJourney.option22')}
+
     </Tooltip>
   );
   
   const findTeamDetails = (id) => {
-    //console.log(teamsList,"teamdetailsfunc");
     const team = teamsList.find((item) => item.team_id === id);
     setViewedTeam(team);
-    //console.log(ViewedTeam , "viewed team");
   };
 
   const handleViewClick = (teamId, stuCount) => {
     if (selectedTeam === teamId) {
       setSelectedTeam(null);
     } else {
-      //console.log(teamId,stuCount);
       findTeamDetails(teamId);
       dispatch(getAdminTeamMembersList(teamId));
       setStuList(stuCount);
-      // props.getAdminTeamMembersListAction(teamId);
       setDataFinal([]);
       setTimeout(() => {
         setSelectedTeam(teamId);
       }, 1000);
     }
   };
-  // const handleViewClick = async (teamId) => {
-  //   if (selectedTeam === teamId) {
-  //     setSelectedTeam(null);
-  //   } else {
-  //     dispatch(getAdminTeamMembersList(teamId));
-  //     setDataFinal([])
-  //     // dispatch(getAdminTeamMembersList(teamId));
 
-  //            setTimeout(() => {
-  //         setSelectedTeam(teamId);
-  //       }, 1000);
-  //     }
-  //   }
-  // };
-  // console.log(typeof(process.env.REACT_APP_TEAM_LENGTH),'11');
   const adminTeamsList = {
     data: teamsArray,
     columns: [
       {
         name: <b style={{color:"crimson"}}>#</b>,
-        // selector: (row, key) => key + 1,
         selector: (row, index) => index + 1, 
         width: "14%",
       },
@@ -275,16 +256,7 @@ const Dashboard = (props) => {
            
 
             <div  key={params} onClick={() => handleCreate(params)}>
-              {/* {process.env.REACT_APP_TEAM_LENGTH > params.StudentCount && params.
-ideaStatus===  null &&
-(
-                <OverlayTrigger placement="top" overlay={renderAddTooltip}>
-                  <Link data-bs-toggle="tooltip" data-bs-placement="top" >
-                    <div className="btn btn-success btn-sm btn-added"> <i data-feather="plus-circle" className="feather-plus-circle" /></div>
-                  </Link>
-                </OverlayTrigger> 
-                
-              )} */}
+            
                {teamLengthValue > params.StudentCount && params.
 ideaStatus===  null &&
 (
@@ -305,16 +277,19 @@ ideaStatus===  null &&
   };
 
   const handleDeleteTeam = (student) => {
-    // console.log(student);
+    // Function to fetch Delete The team from the API
+ const btnLabel = t('general_req.btn_ok');
     const MySwal = withReactContent(Swal);
     MySwal.fire({
       title: t('general_req.are_you_sure'),
       text:  t('general_req.revert'),
       showCancelButton: true,
       confirmButtonColor: "#00ff00",
-      confirmButtonText:  t('general_req.del'),
+      //  confirmButtonText: t('general_req.btn_ok') ,
+        confirmButtonText: btnLabel,
       cancelButtonColor: "#ff0000",
       cancelButtonText:t('general_req.btn_cancel'),
+      
     }).then((result) => {
       if (result.isConfirmed) {
         const paramId = encryptGlobal(JSON.stringify(student));
@@ -323,7 +298,6 @@ ideaStatus===  null &&
           url: process.env.REACT_APP_API_BASE_URL + "/teams/" + paramId,
           headers: {
             "Content-Type": "application/json",
-            // Accept: "application/json",
             Authorization: `Bearer ${currentUser?.data[0]?.token}`,
           },
         };
@@ -331,14 +305,12 @@ ideaStatus===  null &&
           .then(function (response) {
             if (response.status === 200) {
               teamListbymentorid(currentUser?.data[0]?.mentor_id);
-              // dispatch(getAdminTeamMembersList(selectedTeam));
-              // openNotificationWithIcon("success", "Team Deleted Successfully");
+            
                openNotificationWithIcon(
                               "success",
                               t('teacherJourney.popup12'),
                             );
               window.location.reload();
-              // navigate("/teacher-dashboard");
             } else {
               openNotificationWithIcon("error", "Opps! Something Wrong");
             }
@@ -347,18 +319,26 @@ ideaStatus===  null &&
             console.log(error);
           });
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        MySwal.fire("Cancelled", "Team not Deleted", "error");
+        MySwal.fire({
+        title: t('teacherJourney.option28'),
+        text: t('teacherJourney.option29'),
+        icon: "error",
+        confirmButtonText: btnLabel 
+      });
+        // MySwal.fire(t('teacherJourney.option28'), t('teacherJourney.option29'), "error");
       }
     });
   };
   const handleDeleteStudent = (item) => {
+    // Function to fetch Delete The Student from the API
+ const btnLabel = t('general_req.btn_ok');
     const MySwal = withReactContent(Swal);
     MySwal.fire({
       title: t('general_req.are_you_sure'),
       text: t('general_req.revert'),
       showCancelButton: true,
       confirmButtonColor: "#00ff00",
-      confirmButtonText:  t('general_req.del'),
+       confirmButtonText: btnLabel,
       cancelButtonColor: "#ff0000",
       cancelButtonText: t('general_req.btn_cancel'),
     }).then((result) => {
@@ -369,7 +349,6 @@ ideaStatus===  null &&
           url: process.env.REACT_APP_API_BASE_URL + "/students/" + delparamId,
           headers: {
             "Content-Type": "application/json",
-            // Accept: "application/json",
             Authorization: `Bearer ${currentUser?.data[0]?.token}`,
           },
         };
@@ -383,7 +362,6 @@ ideaStatus===  null &&
                 t('teacherJourney.popup11'),
               );
               window.location.reload();
-              // navigate("/teacher-dashboard");
             } else {
               openNotificationWithIcon("error", "Opps! Something Wrong");
             }
@@ -392,7 +370,13 @@ ideaStatus===  null &&
             console.log(error);
           });
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        MySwal.fire("Cancelled",  t('teacherJourney.popup14'), "error");
+         MySwal.fire({
+        title: t('teacherJourney.option28'),
+        text:t('teacherJourney.popup14'),
+        icon: "error",
+        confirmButtonText: btnLabel 
+      });
+        // MySwal.fire({t('teacherJourney.option28'),  t('teacherJourney.popup14'), "error"});
       }
     });
   };
@@ -424,8 +408,8 @@ ideaStatus===  null &&
     },
   };
   const handleSwitchTeam = (item) => {
-    // alert("hii");
-    console.log(item,"item");
+    // Function to fetch Switch from one Team to another Team 
+
     if (teamsListData.length > 1) {
       teamListby();
       setselectedstudent(item);
@@ -434,6 +418,8 @@ ideaStatus===  null &&
     }
   };
   const teamListby = () => {
+    // Function to fetch all Teams list  from the API
+
     const teamListbymentorparam = encryptGlobal(
       JSON.stringify({
         mentor_id: currentUser?.data[0]?.mentor_id,
@@ -454,7 +440,6 @@ ideaStatus===  null &&
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          console.log(response,"res");
           const teamlistobj = {};
           const listofteams = response.data.data
             .map((item) => {
@@ -463,47 +448,23 @@ ideaStatus===  null &&
                   teamlistobj[item.team_name] = item.team_id;
                   return item.team_name;
                 }
-                console.log("not tamil");
               }else{
                 if (item.StudentCount < 5 && item.ideaStatus === null) {
                   teamlistobj[item.team_name] = item.team_id;
                   return item.team_name;
                 }
-                console.log("tamil");
 
               }
              
             })
             .filter(Boolean);
 
-          // const teamlistobj = {};
-
-          // const listofteams = response.data.data;
-          // console.log(listofteams)
-          // .map((item) => {
-          //   const isTamilNadu = loginState === 'Tamil Nadu';
-        
-          //   // Set the StudentCount limit based on the login state
-          //   const studentCountLimit = isTamilNadu ? 5 : 3;
-          //     if (
-          //         item.StudentCount < studentCountLimit &&
-          //         item.ideaStatus === null
-          //     ) {
-          //         teamlistobj[item.team_name] = item.team_id;
-          //         return item.team_name;
-          //     }
-          // })
           
-//console.log(selectedTeam,"selectedTeam",listofteams , "listofteams", teamlistobj , "teamlistobj");
-
-
-// console.log(selectedTeam.team_name,"select");
 
           if (Object.keys(teamlistobj).length > 0) {
             const matchingTeamKey = Object.entries(teamlistobj).find(
               ([key, value]) => value === selectedTeam
             )?.[0];
-            //console.log(matchingTeamKey,"matchingTeamKey");
             let index = listofteams.indexOf(matchingTeamKey);
 
             if (index >= 0) {
@@ -520,8 +481,9 @@ ideaStatus===  null &&
       });
   };
 
-  // console.log(teamlist,"list");
   const handleChangeStudent = (name) => {
+    // Function to  change student from  one team to another team from the API
+
     const body = {
       team_id: teamchangeobj[name].toString(),
       full_name: selectedstudent.full_name,
@@ -581,7 +543,7 @@ ideaStatus===  null &&
               <li>
               <div className="page-btn mb-2">
                 <Link to="/createteam" className="btn btn-added btn-primary">
-                  <PlusCircle className="me-2" style={{color:"white"}} />
+                  <PlusCircle  style={{color:"white"}} />
                   {t('teacherJourney.addteam')}
                 </Link>
               </div>
@@ -592,14 +554,11 @@ ideaStatus===  null &&
           {show && (
             <Modal
               show={show}
-              // onHide={() => setShow(false)}
-              //{...props}
-              // size="sm"
+              
               aria-labelledby="contained-modal-title-vcenter"
               centered
               className="assign-evaluator ChangePSWModal teacher-register-modal"
               backdrop="static"
-            // scrollable={true}
             >
               <Modal.Header closeButton onHide={() => setShow(false)}>
                 <Modal.Title
@@ -618,7 +577,7 @@ ideaStatus===  null &&
                   <Select
                     list={teamlist}
                     setValue={setvalue}
-                    placeHolder={"Please Select team"}
+                    placeHolder={t('teacherJourney.option24')}
                     value={value}
                   />
                 </div>
@@ -626,7 +585,6 @@ ideaStatus===  null &&
                 <div className="text-center">
                   <button
                     label={"Submit"}
-                    // btnClass={!value ? "default" : "primary"}
                     className="btn btn-warning"
                     onClick={() => handleChangeStudent(value)}
                     disabled={!value}
@@ -643,7 +601,6 @@ ideaStatus===  null &&
               sm={12}
               md={12}
               xl={4}>
-              {/* <h4>Teams List</h4> */}
               <div className="ticket-data">
                 <div className="my-2">
                   <DataTableExtensions
@@ -697,22 +654,7 @@ ideaStatus===  null &&
                       </p>
                     </Col>
                   </Row></div>
-                  {/* <Row className="mb-2 mt-2">
-                    <Col>
-                      <h5 className="mt-1 mb-1"> 1 </h5>
-                    </Col>
-                    <Col className="text-right">
-                      {stuList == 2 && (
-                        <button
-                          className="btn btn-danger btn-sm"
-                          onClick={() => handleDeleteTeam(selectedTeam)}
-                        >
-                          <i data-feather="trash-2" className="feather-trash-2" />
-                          {" Delete Team"}
-                        </button>
-                      )}
-                    </Col>
-                  </Row> */}
+                
                   <div className="card flex-fill default-cover mb-4">
                     <div className="card-header d-flex justify-content-between align-items-center">
                       <h4 className="card-title mb-0">{t('teacherJourney.teammember')}</h4>
@@ -739,7 +681,7 @@ ideaStatus===  null &&
                             <thead>
                               <tr>
                                 <th style={{color:"crimson"}}>{t('teacherJourney.tfullname')}</th>
-                                <th style={{color:"crimson"}}>{t('teacherJourney.eamil')}</th>
+                                {/* <th style={{color:"crimson"}}>{t('teacherJourney.eamil')}</th> */}
                                 <th style={{color:"crimson"}}>{t('teacherJourney.disability')}</th>
                                 <th style={{color:"crimson"}}>{t('teacherJourney.age')}</th>
                                 <th style={{color:"crimson"}}>{t('teacherJourney.class')}</th>
@@ -751,8 +693,7 @@ ideaStatus===  null &&
                               {teamsListData.map((student, index) => (
                                 <tr key={index}>
                                   <td>{student.full_name}</td>
-                                  {/* <td>{student.email ? student.email :"-" }</td> */}
-                                  <td>{student.email ? (student.email.length > 16 ? student.email.slice(0, 16) + "..." : student.email) : "-"}</td>
+                                  {/* <td>{student.email ? (student.email.length > 16 ? student.email.slice(0, 16) + "..." : student.email) : "-"}</td> */}
 
                                   <td>{student.disability}</td>
 
@@ -773,22 +714,7 @@ ideaStatus===  null &&
                                         </Link>
                                       </OverlayTrigger> 
                                           
-                                          {/* { 
-                                            stuList > 2 &&  IdeaStatus === 'No Idea' &&(
-                                            <OverlayTrigger placement="top" overlay={renderSwitchTooltip}>
-                                              <Link data-bs-toggle="tooltip" data-bs-placement="top" 
-                                                className="p-2 me-2"
-                                                to="#"
-                                                onClick={() => handleSwitchTeam(student)}
-                                              >
-                                                <FontAwesomeIcon
-                                                  icon={faUsers}
-                                                  title="fa fa-users"
-                                                />  
-                                              </Link>
-                                            </OverlayTrigger> 
-                                      
-                                         )} */}
+                                         
                                          {
   stuList > 2 &&
   IdeaStatus === 'No Idea' && (
@@ -824,37 +750,7 @@ ideaStatus===  null &&
                                          )}
                                           
                                         </div> 
-                                    {/* <button
-                                      className="me-2 p-2 btn btn-info btn-sm"
-                                      onClick={() => handleEdit(student)}
-                                    >
-                                      <i data-feather="edit" className="feather-edit" />
-                                      {/* Edit 
-                                    </button>
-                                    {stuList > 2 && (
-                                      <button
-                                        className="me-2 p-2 btn btn-danger btn-sm"
-                                        onClick={() => handleDeleteStudent(student)}
-                                      >
-                                        <i
-                                          data-feather="trash-2"
-                                          className="feather-trash-2"
-                                        />
-                                      </button>
-                                    )}
-                                    {stuList > 2 && (
-                                      // IdeaStatus === "No Idea" &&
-                                      <button
-                                        className="me-2 p-2 btn btn-secondary btn-sm"
-                                        onClick={() => handleSwitchTeam(student)}
-                                      >
-                                        <FontAwesomeIcon
-                                          icon={faUsers}
-                                          data-bs-toggle="tooltip"
-                                          title="fa fa-users"
-                                        />
-                                      </button>
-                                    )} */}
+
                                     {/* </div> */}
                                   </td>
                                 </tr>

@@ -1,15 +1,11 @@
 /* eslint-disable indent */
-import { useState } from 'react';
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import { Container, Row } from 'reactstrap';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import DataTable, { Alignment } from 'react-data-table-component';
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
-// import { Link } from 'react-router-dom';
 import { openNotificationWithIcon } from '../../helpers/Utils';
-// import { ReactDOM } from 'react-dom';
-// import * as ReactDOM from 'react-dom';
 import Swal from 'sweetalert2/dist/sweetalert2';
 import logout from '../../assets/img/logout.png';
 import { useNavigate } from 'react-router-dom';
@@ -69,7 +65,6 @@ const AdminResources = () => {
                 title: "<h4>Are you sure?</h4>",
                 text: "Do you really want to delete this item, This process cannot be undone.",
                 imageUrl: `${logout}`,
-                // showCloseButton: true,
                 confirmButtonText: 'Delete',
                 showCancelButton: true,
                 cancelButtonText: 'Cancel',
@@ -88,7 +83,6 @@ const AdminResources = () => {
                             delParam,
                         headers: {
                             'Content-Type': 'application/json',
-                            // Accept: "application/json",
                             Authorization: `Bearer ${currentUser?.data[0]?.token}`
                         }
                     };
@@ -113,7 +107,36 @@ const AdminResources = () => {
                  } 
             });
     };
-
+    const [newurl,setnewurl] = useState('');
+const handleFileDownload = async(file) =>{
+     const parts = file.split('/');
+    const path = parts.slice(3).join('/');
+    const openParam = encryptGlobal(JSON.stringify({
+      filePath: path
+    }));
+    var config = {
+      method: 'get',
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/admins/s3fileaccess?Data=${openParam}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${currentUser?.data[0]?.token}`
+      }
+    };
+    await axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+         setnewurl(response.data.data);
+        setTimeout(() => {
+                  document.getElementById('myLink').click();
+                }, 500);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+};
     const resData = {
         data: resList && resList.length > 0 ? resList : [],
         // data: staticData,
@@ -131,7 +154,6 @@ const AdminResources = () => {
                 selector: (row) => row.role,
                 sortable: true,
                 width: '6rem'
-                // center: true,
             },
             {
                 name: 'State',
@@ -180,59 +202,27 @@ const AdminResources = () => {
                   case 'docx':
                       return  <IoDocumentText size={"25"} style={{color:"skyblue"}}/>;
 
-                  // case 'xls':
-                  // case 'xlsx':
-                  //     return<LiaFileExcelSolid />;
-                  // case 'ppt':
-                  // case 'pptx':
-                  //     return <i className="fas fa-file-powerpoint" style={{ color: "orange" }}></i>;
                   default:
                       return <i className="fas fa-file" style={{ color: "black" }}></i>;
               }
           };
-  
           return (
-              <a
-                  href={getFileViewerURL(record.attachments, fileExtension)}
+            <>
+           <div onClick={()=>handleFileDownload(record.attachments)}>{getFileIcon(fileExtension, isLink)}</div>
+               <a
+                  href={getFileViewerURL(newurl,fileExtension)}
+                  id='myLink'
                   target="_blank"
                   className="badge badge-md bg-light"
                   rel="noopener noreferrer"
+                  style={{ display: 'none' }}
               >
-                  {getFileIcon(fileExtension, isLink)}
-              </a>
+               </a>
+            </>
           );
       }
   },
-            // {
-            //     name: 'Attachment',
-            //     width: '8rem',
-            //     cell: (record) => {
-            //         if (record.type === 'file') {
-            //             return (
-            //                 <a
-            //                     href={record.attachments}
-            //                     target="_blank"
-            //                     className="badge badge-md bg-light"
-            //                     rel="noopener noreferrer"
-            //                     >
-            //                     <i className="fas fa-file-lines" style={{color:"blue"}}></i>
-            //                 </a>
-            //             );
-            //         } else if (record.type === 'link') {
-            //             return (
-            //                 <a
-            //                     href={record.attachments}
-            //                     target="_blank"
-            //                     className="badge badge-md bg-light"
-            //                     rel="noopener noreferrer"
-            //                     >
-            //                     <i className="fa-brands fa-youtube" style={{color:"red"}}></i>
-            //                 </a>
-            //             );
-            //         }
-            //         return null;
-            //     }
-            // },
+           
             {
                 name: 'Actions',
                 center: true,
