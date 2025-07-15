@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect, useState } from "react";
 import { getCurrentUser } from "../../helpers/Utils";
@@ -153,14 +154,12 @@ const handleFileDownload = async(file) =>{
 
           {item?.file_name && (
              <>
-                        <div className="d-inline" onClick={()=>handleFileDownload(item?.file_name)}><MdOutlineFileDownload size={20} style={{ color: "black" }} /></div>
                         <a
-                          id='myLink'
-                          href={newurl}
+                           href={item?.file_name}
                           target="_blank"
                           rel="noopener noreferrer"
-                          style={{ display: 'none' }}
                         >  
+                         <MdOutlineFileDownload size={20} style={{ color: "black" }} /> 
                         </a>
                         </>
           )}
