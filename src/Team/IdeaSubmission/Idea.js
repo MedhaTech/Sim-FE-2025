@@ -145,14 +145,14 @@ const Idea = ({ showChallenge, idea }) => {
                               </h6>
                               <div className="d-flex align-items-center justify-content-between price">
                                 <span>{t("home.ideafocus")}</span>
-                                {/* {theme.id === 8 ? (
+                                {theme.id === 8 ? (
                                   <p>
                                     <FeatherIcon size={20} icon="loader" />
                                   </p>
                                 ) : (
                                   <p>{theme.focusareas.length}</p>
-                                )} */}
-                                <p>{theme.focusareas.length}</p>
+                                )}
+                                {/* <p>{theme.focusareas.length}</p> */}
                               </div>
                             </div>
                           </div>
@@ -188,7 +188,7 @@ const Idea = ({ showChallenge, idea }) => {
                     <div className="head-text d-flex align-items-center justify-content-between">
                       <h6 className="d-flex align-items-center mb-0">
                         {t("home.ideafocus")}
-                        {/* <span className="count">
+                        <span className="count">
                           {themes[data - 1].id === 8 ? (
                             <p>
                               <FeatherIcon size={20} icon="loader" />
@@ -196,28 +196,28 @@ const Idea = ({ showChallenge, idea }) => {
                           ) : (
                             <p>{themes[data - 1].focusareas.length}</p>
                           )}
-                        </span> */}
-                        <span className="count">
-                          <p>{themes[data - 1].focusareas.length}</p>
                         </span>
+                        {/* <span className="count">
+                          <p>{themes[data - 1].focusareas.length}</p>
+                        </span> */}
                       </h6>
                     </div>
                     <div className="product-wrap">
                       <div className="product-list d-flex align-items-center justify-content-between">
                         <div className="d-flex align-items-center product-info">
                           <div className="info">
-                            {/* {themes[data - 1].focusareas.slice(0, themes[data - 1].focusareas.length).map((focusarea, index) => (
+                            {themes[data - 1].focusareas.slice(0, themes[data - 1].focusareas.length).map((focusarea, index) => (
                               <h6 key={index}>
                                 <span>{t(focusarea)}</span>
                               </h6>
-                            ))} */}
-                            {themes[data - 1].focusareas.map(
+                            ))}
+                            {/* {themes[data - 1].focusareas.map(
                               (focusarea, index) => (
                                 <h6 key={index}>
                                   <span>{t(focusarea)}</span>
                                 </h6>
                               )
-                            )}
+                            )} */}
                           </div>
                         </div>
                       </div>

@@ -50,7 +50,6 @@ const LinkComponent = ({
     a_link = item.split("/");
     count = a_link.length - 1;
   }
-  const [newurl, setnewurl] = useState("");
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 576);
 
 useEffect(() => {
@@ -65,43 +64,18 @@ useEffect(() => {
   };
 }, []);
 
-  const handleFileDownload = async (file) => {
-    const parts = file.split("/");
-    const path = parts.slice(3).join("/");
-    const openParam = encryptGlobal(
-      JSON.stringify({
-        filePath: path,
-      })
-    );
-    var config = {
-      method: "get",
-      url:
-        process.env.REACT_APP_API_BASE_URL +
-        `/admins/s3fileaccess?Data=${openParam}`,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${currentUser?.data[0]?.token}`,
-      },
-    };
-    await axios(config)
-      .then(function (response) {
-        if (response.status === 200) {
-          setnewurl(response.data.data);
-          // setTimeout(() => {
-          //           document.getElementById('myLink').click();
-          //         }, 500);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-  handleFileDownload(item);
+  
   return (
     <>
-      {/* {original ? (
-        <div className="badge mb-2 bg-info ms-3">
-          <span className="p-2">{item.name}</span>
+      {original ? (
+        <div className="badge mb-2 bg-info ms-3 d-flex align-items-center">
+          <span className="p-2" style={{
+        display: "inline-block",
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        ...(isMobile && { maxWidth: "100px" }), 
+      }}>{item.name}</span>
           {original && (
             <span className="pointer" onClick={() => removeFileHandler(i)}>
               <AiOutlineCloseCircle size={20} />
@@ -111,14 +85,14 @@ useEffect(() => {
       ) : (
         <a
           className="badge mb-2 bg-info p-3 ms-3"
-          href={newurl}
+          href={item}
           target="_blank"
           rel="noreferrer"
         >
           {a_link[count]}
         </a>
-      )} */}
-    {original ? (
+      )}
+    {/* {original ? (
   <div className="badge mb-2 bg-info ms-3 d-flex align-items-center">
     <span
       className="p-2"
@@ -153,13 +127,14 @@ useEffect(() => {
   >
     {a_link[count]}
   </a>
-)}
+)} */}
 
 
 
     </>
   );
 };
+
 const IdeasPageNew = ({ showChallenges, ...props }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();

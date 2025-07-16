@@ -969,24 +969,24 @@
   },
 
   "theme": {
-    "buildingtheme": "Building a Sustainable Future",
-    "technologytheme": "Technology for Learning and Growth",
-    "healththeme": "Health, Nutrition and Well-being",
-    "skillstheme": "Skills for Life and Livelihood",
-    "smartertheme": "Smarter Communities, Safer Futures",
-    "agriculturetheme": "Agriculture and Rural Transformation",
-    "opentheme": "Open Category - Think Beyond",
-    "othertheme": "Others"
+    "healthwellnesstheme":  "Health & Wellness",
+    "womenchildtheme": "Women & Child Development",
+    "watertheme": "Water",
+    "lifestyletheme": "Lifestyle for Environment (LiFE)",
+    "culturaltheme": "Cultural Pride",
+    "tribaltheme":  "Tribal Empowerment",
+    "futuretheme": "Future-Ready Skills",
+    "localtheme": "Local Community Problems (Open Innovation)"
   },
   "themes": {
-    "buildingtheme": "Building a Sustainable Future",
-    "technologytheme": "Technology for Learning and Growth",
-    "healththeme": "Health & Nutrition and Well-being",
-    "skillstheme": "Skills for Life and Livelihood",
-    "smartertheme": "Smarter Communities & Safer Futures",
-    "agriculturetheme": "Agriculture and Rural Transformation",
-    "opentheme": "Open Category - Think Beyond!",
-    "othertheme": "Others"
+    "healthwellnesstheme":  "Health & Wellness",
+    "womenchildtheme": "Women & Child Development",
+    "watertheme": "Water",
+    "lifestyletheme": "Lifestyle for Environment (LiFE)",
+    "culturaltheme": "Cultural Pride",
+    "tribaltheme":  "Tribal Empowerment",
+    "futuretheme": "Future-Ready Skills",
+    "localtheme": "Local Community Problems (Open Innovation)"
   },
   "themedetails": {
     "buildingtheme": "Promotes environmental awareness and life skills; integrates values-based and experiential learning. NEP encourages students to be environmentally responsible citizens. This theme enables students to innovate in sustainability, energy, water, and climate — all vital for the planet and aligned with global SDG goals.",
@@ -998,53 +998,50 @@
     "opentheme": "Encourages critical thinking, creativity, and problem-solving — key 21st-century skills. For students whose ideas don’t fit existing categories but address real-world problems. This promotes flexibility, interdisciplinary thinking, and true student agency",
     "othertheme": "Encourages innovative solutions in any other area that aligns with the vision of Viksit Bharat 2047, fostering a culture of broad-based development and progress."
   },
-  "buildingfocusareas": {
-    "focusarea1": "Green Energy",
-    "focusarea2": "Water Conservation & Management",
-    "focusarea3": "Eco-Friendly Innovation",
-    "focusarea4": "Biodiversity & Climate Action",
-    "focusarea5": "Green Agriculture"
+  "healthwellnessfocusareas": {
+    "focusarea1": "Devices for Fitness and Preventive Health",
+    "focusarea2":  "Mental Health Support",
+    "focusarea3":  "Assistive Tech for the specially abled"
+   
   },
-  "technologyfocusareas": {
-    "focusarea1": "Learning Tools & EdTech",
-    "focusarea2": "Inclusive and Accessible Learning",
-    "focusarea3": "Coding, AI & Data Innovation",
-    "focusarea4": "Gamified Learning",
-    "focusarea5": "Teacher Support Tools"
+  "womenchildfocusareas": {
+    "focusarea1": "Menstrual Health and Hygiene Solutions",
+    "focusarea2": "Early Learning and Educational Tools",
+    "focusarea3": "Safety and Support Devices for Children and Women"
+  
   },
-  "healthfocusareas": {
-    "focusarea1": "Low-cost Health Devices",
-    "focusarea2": "Mental Health Support",
-    "focusarea3": "Clean Nutrition Innovations",
-    "focusarea4": "Fitness & Movement",
-    "focusarea5": "Community Health Awareness"
+  "waterfocusareas": {
+    "focusarea1": "Water Conservation & Sanitation",
+    "focusarea2": "Solutions for Water Pollution",
+    "focusarea3": "Enhancement of Water-Based Livelihoods"
+    
   },
-  "skillsfocusareas": {
-    "focusarea1": "Vocational Skills & Local Craft",
-    "focusarea2": "Financial Literacy",
-    "focusarea3": "Entrepreneurship & Startups",
-    "focusarea4": "Future-Ready Skills",
-    "focusarea5": "Innovation in Retail & Distribution"
+  "lifestylefocusareas": {
+    "focusarea1": "Green Energy and Climate Action",
+    "focusarea2": "Sustainable Modes of Transport",
+    "focusarea3": "Recycling & Waste Management"
+    
   },
 
-  "smarterfocusareas": {
-    "focusarea1": "Disaster Resilience",
-    "focusarea2": "Urban-Rural Mobility",
-    "focusarea3": "Public Space Innovation",
-    "focusarea4": "Smart Devices for Community Use",
-    "focusarea5": "Digital Governance"
+  "culturalfocusareas": {
+    "focusarea1": "Innovation in Arts, Music & Folk Traditions",
+    "focusarea2":  "Promotion of Indigenous and Local Sports",
+    "focusarea3": "Tools for Preserving Regional and Endangered Languages"
+    
   },
-  "agriculturefocusareas": {
-    "focusarea1": "Tech in Farming",
-    "focusarea2": "Farm-to-Table Innovation",
-    "focusarea3": "Rural Infrastructure",
-    "focusarea4": "Climate-Smart Farming",
-    "focusarea5": "Agri-Nutrition"
+  "tribalfocusareas": {
+    "focusarea1": "Preservation of Tribal Identity & Culture",
+    "focusarea2": "Products using Tribal Techniques",
+    "focusarea3": "Smart Solutions for Tribal & Hilly Regions"
+   
   },
-  "openfocusareas": {
-    "focusarea1": "Any original or disruptive idea that addresses a real-world challenge"
+  "futurefocusareas": {
+    "focusarea1": "Digital Tools for Learning and Skilling",
+    "focusarea2":  "Entrepreneurship and Local Livelihood Innovation",
+    "focusarea3": "Career Awareness and Job-Readiness Solutions"
+
   },
-  "otherfocusareas": {
-    "focusarea1": "Any other area that broadly qualifies for the vision of Viksit Bharat"
+  "localfocusareas": {
+    "focusarea1": "Other"
   }
 }
