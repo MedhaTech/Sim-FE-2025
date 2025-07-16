@@ -113,12 +113,17 @@ const handleFileDownload = async(file) =>{
                 name: 'File',
                 width: '9rem',
                 cell: (record) => {
-                    if (!record.file) {
+                     const fileUrl = record?.file || "";
+                    if (!fileUrl) {
                         return <p>No file</p>;
                     }
             
-                    const fileExtension = record.file.split('.').pop().toLowerCase();
-                    const isLink = !record.file.match(/\.(png|jpg|jpeg|gif|pdf|doc|docx|xls|xlsx|ppt|pptx|txt)$/);
+                    // const fileExtension = record.file.split('.').pop().toLowerCase();
+                    // const isLink = !record.file.match(/\.(png|jpg|jpeg|gif|pdf|doc|docx|xls|xlsx|ppt|pptx|txt)$/);
+                    const cleanFileName = fileUrl.split('?')[0]; 
+const fileExtension = cleanFileName.split('.').pop().toLowerCase();
+const isLink = !cleanFileName.match(/\.(png|jpg|jpeg|gif|pdf|doc|docx|xls|xlsx|ppt|pptx|txt)$/);
+
             
                     const getFileViewerURL = (url, extension) => {
                         if (isLink) {
@@ -155,15 +160,14 @@ const handleFileDownload = async(file) =>{
             
                     return (
                         <>
-                        <div onClick={()=>handleFileDownload(record.file)}>{getFileIcon(fileExtension, isLink)}</div>
+                       
                <a
-                  href={getFileViewerURL(newurl, fileExtension)}
-                  id='myLink'
+                  href={getFileViewerURL(record.file, fileExtension)}
                   target="_blank"
                   className="badge badge-md bg-light"
                   rel="noopener noreferrer"
-                  style={{ display: 'none' }}
               >
+                  {getFileIcon(fileExtension, isLink)}
                </a>
                         </>
                     );
@@ -183,19 +187,18 @@ const handleFileDownload = async(file) =>{
             
                     return (
                         <>
-                        <div onClick={()=>handleFileDownload(record.image)}>{isImage ? (
-                                <PiImageFill size={"25"} style={{ color: "#fe9f43" }} />
-                            ) : (
-                                <i className="fas fa-file" style={{ color: "black" }}></i>
-                            )}</div>
+                      
                <a
-                  href={newurl}
-                  id='myLink'
+                  href={record.image}
                   target="_blank"
                   className="badge badge-md bg-light"
                   rel="noopener noreferrer"
-                  style={{ display: 'none' }}
               >
+                 {isImage ? (
+                                <PiImageFill size={"25"} style={{ color: "#fe9f43" }} />
+                            ) : (
+                                <i className="fas fa-file" style={{ color: "black" }}></i>
+                            )}
                </a>
                         </>
                     );

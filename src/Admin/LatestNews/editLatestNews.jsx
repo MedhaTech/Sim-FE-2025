@@ -25,7 +25,7 @@ const EditLatestNews = (props) => {
   };
 const [newurl,setnewurl] = useState('');
     useEffect(()=>{
-        handleFileDownload(newsID && newsID.file_name);
+        // handleFileDownload(newsID && newsID.file_name);
     },[]);
     const handleFileDownload = async(file) =>{
          const parts = file.split('/');
@@ -352,7 +352,7 @@ const [newurl,setnewurl] = useState('');
                                   window.open(fileURL, "_blank");
                                 } else {
                                   window.open(
-                                    newurl,
+                                    formik.values.file_name,
                                     "_blank"
                                   );
                                 }

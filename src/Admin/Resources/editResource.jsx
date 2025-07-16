@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
 import { Row, Col, FormGroup, Label, Form,Input } from 'reactstrap';
@@ -27,7 +28,7 @@ const EditResource = () => {
 
     const [newurl,setnewurl] = useState('');
     useEffect(()=>{
-        handleFileDownload(resID && resID.attachments);
+        // handleFileDownload(resID && resID.attachments);
     },[]);
     const handleFileDownload = async(file) =>{
          const parts = file.split('/');
@@ -376,7 +377,7 @@ const EditResource = () => {
                                                                     const fileURL = URL.createObjectURL(formik.values.attachments);
                                                                     window.open(fileURL, '_blank');
                                                               } else {
-                                                                    window.open(newurl, '_blank');
+                                                                    window.open(formik.values.attachments, '_blank');
                                                                 }
                                                             }}
                                                            

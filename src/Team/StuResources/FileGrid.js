@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState } from "react";
 import "./Grid.css"; 
@@ -72,7 +73,7 @@ const FileGrid = ({ resList }) => {
       return null;
     }
   };
-const [newurl,setnewurl] = useState('');
+// const [newurl,setnewurl] = useState('');
 const currentUser = getCurrentUser('current_user');
 const handleFileDownload = async(file) =>{
      const parts = file.split('/');
@@ -93,7 +94,7 @@ const handleFileDownload = async(file) =>{
     await axios(config)
       .then(function (response) {
         if (response.status === 200) {
-         setnewurl(response.data.data);
+        //  setnewurl(response.data.data);
         setTimeout(() => {
                   document.getElementById('myLink').click();
                 }, 500);
@@ -134,7 +135,7 @@ const handleFileDownload = async(file) =>{
         className="card-img-top mb-1"
         style={{ maxHeight: "120px", objectFit: "cover" }}
       />
-    <div className="d-grid" >
+    {/* <div className="d-grid" >
       <div className="btn btn-sm btn-outline-primary mt-2 mb-1" onClick={()=>handleFileDownload(record.attachments)}><i className="fas fa-external-link-alt"></i> Open File</div>
             <a
               href={newurl}
@@ -143,6 +144,16 @@ const handleFileDownload = async(file) =>{
               rel="noopener noreferrer"
               style={{ display: 'none' }}
             >
+            </a>
+          </div> */}
+           <div className="d-grid">
+            <a
+              href={record.attachments}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-sm btn-outline-primary mt-2 mb-1"
+            >
+              <i className="fas fa-external-link-alt"></i> Open File
             </a>
           </div>
           </div>
