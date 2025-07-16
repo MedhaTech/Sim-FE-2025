@@ -487,15 +487,13 @@ const handleFileDownload = async(file) =>{
                     } else {
                         return (
                              <>
-           <div onClick={()=>handleFileDownload(record.file_name)}><i className="fas fa-file-lines" style={{color:"blue"}}></i></div>
                <a
-                  href={newurl}
-                  id='myLink'
+                  href={record.file_name}
                   target="_blank"
                   className="badge badge-md bg-light"
                   rel="noopener noreferrer"
-                  style={{ display: 'none' }}
               >
+           <i className="fas fa-file-lines" style={{color:"blue"}}></i>
                </a>
             </>
 

@@ -296,7 +296,7 @@ const StateRes = (props) => {
                                 {"Link "}
                               </a>
                             )}
-                            {data?.file && (
+                            {/* {data?.file && (
                               <><div className="d-inline" onClick={()=>handleFileDownload(data?.file)}><FaFile />
                                 {"File"}</div>
                                <a
@@ -307,6 +307,16 @@ const StateRes = (props) => {
                               >
                               </a>
                               </>
+                            )} */}
+                             {data?.file && (
+                              <a
+                                href={data?.file}
+                                target="_blank"
+                                rel="noreferrer"
+                              >
+                                <FaFile />
+                                {"File"}
+                              </a>
                             )}
                           </Col>
                           <Col md={6} className="text-right">
