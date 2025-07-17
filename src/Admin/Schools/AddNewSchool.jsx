@@ -6,24 +6,24 @@ import "./style.scss";
 import axios from "axios";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import {
-  openNotificationWithIcon,
-} from "../../helpers/Utils";
+import { openNotificationWithIcon } from "../../helpers/Utils";
 
 import { useDispatch } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
-import { stateList, districtList ,mandalList,SchoolBoard,SchoolType} from "../../RegPage/ORGData";
+import {
+  stateList,
+  districtList,
+  mandalList,
+  SchoolBoard,
+  SchoolType,
+} from "../../RegPage/ORGData";
 const AddNewSchool = (props) => {
   const filterCategory = ["ATL", "Non ATL"];
-  const categoryDataTn = [
-    "HSS",
-    "HS",
-    "Non ATL",
-  ];
+  const categoryDataTn = ["HSS", "HS", "Non ATL"];
   const navigate = useNavigate();
   const [districts, setDistricts] = useState([]);
- const [mandals, setMandals] = useState([]);
+  const [mandals, setMandals] = useState([]);
   const dispatch = useDispatch();
   const inputDICE = {
     type: "text",
@@ -34,7 +34,6 @@ const AddNewSchool = (props) => {
     className: "form-control",
   };
 
-  
   const formik = useFormik({
     initialValues: {
       organization_name: "",
@@ -47,11 +46,11 @@ const AddNewSchool = (props) => {
       unique_code: "",
       pin_code: "",
       address: "",
-      mandal:"",
-      school_type:"",
-      board:"",
-      other_school_type:"",
-      other_board:""
+      mandal: "",
+      school_type: "",
+      board: "",
+      other_school_type: "",
+      other_board: "",
     },
 
     validationSchema: Yup.object({
@@ -74,16 +73,17 @@ const AddNewSchool = (props) => {
         .min(11, "UDISE code is less than 11 digits")
         .required("UDISE Code is Required"),
       address: Yup.string()
-        .optional()
-        .matches(/^[a-zA-Z0-9\s\-,/._-]+$/, "Special characters are not allowed in the Address"
-),
+        .required("Please Enter Address")
+        .matches(
+          /^[a-zA-Z0-9\s\-,/._-]+$/,
+          "Special characters are not allowed in the Address"
+        ),
       pin_code: Yup.string()
         .matches(/^[0-9]*$/, "Please enter Numeric values")
-        .optional(),
-      district: Yup.string()
-        .required("District is Required"),
-      category: Yup.string()
-        .required("Category is Required"),
+        .required("Please Enter PinCode"),
+
+      district: Yup.string().required("District is Required"),
+      category: Yup.string().required("Category is Required"),
       state: Yup.string().required("State is required"),
       mandal: Yup.string().required("Mandal / Taluka is required"),
 
@@ -94,24 +94,24 @@ const AddNewSchool = (props) => {
         function (value) {
           const { school_type } = this.parent;
           if (school_type === "Others") {
-            return !!value; 
+            return !!value;
           }
-          return true; 
+          return true;
         }
       ),
-board: Yup.string().required("School Board is required"),
-other_board: Yup.string().test(
-  "other-board-required",
-  "Please Enter School Board",
-  function (value) {
-    const { board } = this.parent;
-    if (board === "Others") {
-      return !!value; 
-    }
-    return true; 
-  }
-),
-     
+      board: Yup.string().required("School Board is required"),
+      other_board: Yup.string().test(
+        "other-board-required",
+        "Please Enter School Board",
+        function (value) {
+          const { board } = this.parent;
+          if (board === "Others") {
+            return !!value;
+          }
+          return true;
+        }
+      ),
+
       city: Yup.string()
         .matches(/^[aA-zZ\s/^.*$/]+$/, "please enter valid city name")
         .optional(),
@@ -125,22 +125,21 @@ other_board: Yup.string().test(
         category: values.category.trim(),
         district: values.district.trim(),
         mandal: values.mandal.trim(),
-        school_type: values.school_type === "Others"
-    ? values.other_school_type
-    : values.school_type,
-    board: values.board === "Others"
-    ? values.other_board
-    : values.board,
+        school_type:
+          values.school_type === "Others"
+            ? values.other_school_type
+            : values.school_type,
+        board: values.board === "Others" ? values.other_board : values.board,
       };
       if (values.city !== "") {
         body["city"] = values.city;
-      } 
+      }
       if (values.address !== "") {
         body["address"] = values.address;
-      } 
-       if (values.unique_code !== "") {
+      }
+      if (values.unique_code !== "") {
         body["unique_code"] = values.unique_code;
-      } 
+      }
       if (values.pin_code !== "") {
         body["pin_code"] = values.pin_code;
       }
@@ -164,7 +163,6 @@ other_board: Yup.string().test(
           openNotificationWithIcon("error", "Udise code must be unique");
           return err.response;
         });
-     
     },
   });
 
@@ -204,10 +202,21 @@ other_board: Yup.string().test(
 
   return (
     <div className="page-wrapper">
-       <h4 className="m-2" 
-        style={{ position: 'sticky', top: '70px', zIndex: 1000, padding: '10px',backgroundColor: 'white', display: 'inline-block' , color: '#fe9f43',fontSize:"16px" }}
-        >Overall Schools
-        </h4>
+      <h4
+        className="m-2"
+        style={{
+          position: "sticky",
+          top: "70px",
+          zIndex: 1000,
+          padding: "10px",
+          backgroundColor: "white",
+          display: "inline-block",
+          color: "#fe9f43",
+          fontSize: "16px",
+        }}
+      >
+        Overall Schools
+      </h4>
       <div className="content">
         <div className="EditPersonalDetails new-member-page">
           <Row>
@@ -293,21 +302,21 @@ other_board: Yup.string().test(
                       </Col>
                       <Col md={3}>
                         <Label className="form-label" htmlFor="district">
-                        Mandal / Taluka
+                          Mandal / Taluka
                           <span required>*</span>
                         </Label>
                         <select
                           id="mandal"
                           className="form-select"
                           value={formik.values.mandal}
-                          onChange={handleMandalChange }
+                          onChange={handleMandalChange}
                         >
                           <option value="">Select Mandal / Taluka</option>
                           {mandals.map((mandal) => (
-                              <option key={mandal} value={mandal}>
-                                {mandal}
-                              </option>
-                            ))}
+                            <option key={mandal} value={mandal}>
+                              {mandal}
+                            </option>
+                          ))}
                         </select>
 
                         {formik.touched.mandal && formik.errors.mandal ? (
@@ -316,12 +325,11 @@ other_board: Yup.string().test(
                           </small>
                         ) : null}
                       </Col>
-                      </Row>
-                      <Row className="mb-3 modal-body-table search-modal-header">
-                    
+                    </Row>
+                    <Row className="mb-3 modal-body-table search-modal-header">
                       <Col md={formik.values.school_type === "Others" ? 3 : 6}>
                         <Label className="form-label" htmlFor="district">
-                        School Type
+                          School Type
                           <span required>*</span>
                         </Label>
                         <select
@@ -331,47 +339,51 @@ other_board: Yup.string().test(
                           onChange={formik.handleChange}
                         >
                           <option value="">Select School Type</option>
-                                                     {SchoolType.map((item) => (
-                                                       <option key={item} value={item}>
-                                                         {item}
-                                                       </option>
-                                                     ))}
+                          {SchoolType.map((item) => (
+                            <option key={item} value={item}>
+                              {item}
+                            </option>
+                          ))}
                         </select>
 
-                        {formik.touched.school_type && formik.errors.school_type ? (
+                        {formik.touched.school_type &&
+                        formik.errors.school_type ? (
                           <small className="error-cls" style={{ color: "red" }}>
                             {formik.errors.school_type}
                           </small>
                         ) : null}
                       </Col>
                       {formik.values.school_type === "Others" && (
-                      <Col md={3}>
-                        <Label className="form-label" htmlFor="district">
-                        School Type
-                          <span required>*</span>
-                        </Label>
-                        <input
-            type="text"
-             id="other_school_type"
-             {...inputDICE}
-        name="other_school_type"
-            placeholder="Please Enter School Type"
-            value={formik.values.other_school_type}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-           
-          />
+                        <Col md={3}>
+                          <Label className="form-label" htmlFor="district">
+                            School Type
+                            <span required>*</span>
+                          </Label>
+                          <input
+                            type="text"
+                            id="other_school_type"
+                            {...inputDICE}
+                            name="other_school_type"
+                            placeholder="Please Enter School Type"
+                            value={formik.values.other_school_type}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                          />
 
-                        {formik.touched.other_school_type && formik.errors.other_school_type ? (
-                          <small className="error-cls" style={{ color: "red" }}>
-                            {formik.errors.other_school_type}
-                          </small>
-                        ) : null}
-                      </Col>
+                          {formik.touched.other_school_type &&
+                          formik.errors.other_school_type ? (
+                            <small
+                              className="error-cls"
+                              style={{ color: "red" }}
+                            >
+                              {formik.errors.other_school_type}
+                            </small>
+                          ) : null}
+                        </Col>
                       )}
                       <Col md={formik.values.board === "Others" ? 3 : 6}>
                         <Label className="form-label" htmlFor="district">
-                        School Board
+                          School Board
                           <span required>*</span>
                         </Label>
                         <select
@@ -380,12 +392,12 @@ other_board: Yup.string().test(
                           value={formik.values.board}
                           onChange={formik.handleChange}
                         >
-                             <option value="">Select School Board</option>
-                                                      {SchoolBoard.map((item) => (
-                                                        <option key={item} value={item}>
-                                                          {item}
-                                                        </option>
-                                                      ))}
+                          <option value="">Select School Board</option>
+                          {SchoolBoard.map((item) => (
+                            <option key={item} value={item}>
+                              {item}
+                            </option>
+                          ))}
                         </select>
 
                         {formik.touched.board && formik.errors.board ? (
@@ -395,94 +407,98 @@ other_board: Yup.string().test(
                         ) : null}
                       </Col>
                       {formik.values.board === "Others" && (
-                      <Col md={3}>
-                        <Label className="form-label" htmlFor="district">
-                        School Board
-                          <span required>*</span>
-                        </Label>
-                        <input
-             id="other_board"
-        name="other_board"
-        {...inputDICE1}
-            placeholder="Please Enter School Board"
-            value={formik.values.other_board}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-           
-          />
+                        <Col md={3}>
+                          <Label className="form-label" htmlFor="district">
+                            School Board
+                            <span required>*</span>
+                          </Label>
+                          <input
+                            id="other_board"
+                            name="other_board"
+                            {...inputDICE1}
+                            placeholder="Please Enter School Board"
+                            value={formik.values.other_board}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                          />
 
-                        {formik.touched.other_board && formik.errors.other_board ? (
-                          <small className="error-cls" style={{ color: "red" }}>
-                            {formik.errors.other_board}
-                          </small>
-                        ) : null}
-                      </Col>
+                          {formik.touched.other_board &&
+                          formik.errors.other_board ? (
+                            <small
+                              className="error-cls"
+                              style={{ color: "red" }}
+                            >
+                              {formik.errors.other_board}
+                            </small>
+                          ) : null}
+                        </Col>
                       )}
-                      </Row>
-                     
-                   
-                     
+                    </Row>
+
                     <Row className="mb-3 modal-body-table search-modal-header">
-                     {formik.values.state == "Tamil Nadu" ? (<Col md={4}>
-                        <Label
-                          className="form-label"
-                          htmlFor="category"
-                        >
-                          Category
-                          <span required>*</span>
-                        </Label>
-                        
-                        <select
-                          id="inputState"
-                          name="category"
-                          className="form-select"
-                          onBlur={formik.handleBlur}
-                          value={formik.values.category}
-                          onChange={formik.handleChange}
-                        >
-                          <option value="">Select Category</option>
-                          {categoryDataTn.map((category) => (
-                            <option key={category} value={category}>
-                              {category}
-                            </option>
-                          ))}
-                        </select>
-                        {formik.touched.category && formik.errors.category ? (
-                          <small className="error-cls" style={{ color: "red" }}>
-                            {formik.errors.category}
-                          </small>
-                        ) : null}
-                      </Col>) :(
-                      <Col md={4}>
-                        <Label
-                          className="form-label"
-                          htmlFor="category"
-                        >
-                          Category
-                          <span required>*</span>
-                        </Label>
-                        
-                        <select
-                          id="inputState"
-                          name="category"
-                          className="form-select"
-                          onBlur={formik.handleBlur}
-                          value={formik.values.category}
-                          onChange={formik.handleChange}
-                        >
-                          <option value="">Select Category</option>
-                          {filterCategory.map((category) => (
-                            <option key={category} value={category}>
-                              {category}
-                            </option>
-                          ))}
-                        </select>
-                        {formik.touched.category && formik.errors.category ? (
-                          <small className="error-cls" style={{ color: "red" }}>
-                            {formik.errors.category}
-                          </small>
-                        ) : null}
-                      </Col>)}
+                      {formik.values.state == "Tamil Nadu" ? (
+                        <Col md={4}>
+                          <Label className="form-label" htmlFor="category">
+                            Category
+                            <span required>*</span>
+                          </Label>
+
+                          <select
+                            id="inputState"
+                            name="category"
+                            className="form-select"
+                            onBlur={formik.handleBlur}
+                            value={formik.values.category}
+                            onChange={formik.handleChange}
+                          >
+                            <option value="">Select Category</option>
+                            {categoryDataTn.map((category) => (
+                              <option key={category} value={category}>
+                                {category}
+                              </option>
+                            ))}
+                          </select>
+                          {formik.touched.category && formik.errors.category ? (
+                            <small
+                              className="error-cls"
+                              style={{ color: "red" }}
+                            >
+                              {formik.errors.category}
+                            </small>
+                          ) : null}
+                        </Col>
+                      ) : (
+                        <Col md={4}>
+                          <Label className="form-label" htmlFor="category">
+                            Category
+                            <span required>*</span>
+                          </Label>
+
+                          <select
+                            id="inputState"
+                            name="category"
+                            className="form-select"
+                            onBlur={formik.handleBlur}
+                            value={formik.values.category}
+                            onChange={formik.handleChange}
+                          >
+                            <option value="">Select Category</option>
+                            {filterCategory.map((category) => (
+                              <option key={category} value={category}>
+                                {category}
+                              </option>
+                            ))}
+                          </select>
+                          {formik.touched.category && formik.errors.category ? (
+                            <small
+                              className="error-cls"
+                              style={{ color: "red" }}
+                            >
+                              {formik.errors.category}
+                            </small>
+                          ) : null}
+                        </Col>
+                      )}
 
                       <Col md={4}>
                         <Label
@@ -518,6 +534,7 @@ other_board: Yup.string().test(
                       <Col md={4}>
                         <Label className="form-label" htmlFor="address">
                           Address
+                          <span required>*</span>
                         </Label>
                         <input
                           {...inputDICE}
@@ -538,32 +555,30 @@ other_board: Yup.string().test(
 
                     <Row className="mb-3 modal-body-table search-modal-header">
                       <Col md={4}>
-                        <Label
-                          className="form-label"
-                          htmlFor="pin_code"
-                        >
+                        <Label className="form-label" htmlFor="pin_code">
                           PinCode
+                          <span required>*</span>
                         </Label>
                         <input
                           {...inputDICE}
                           id="pin_code"
                           name="pin_code"
                           placeholder="Please enter PinCode"
-                          onChange={formik.handleChange}
+                          onChange={(e) => {
+                            const onlyNums = e.target.value.replace(/\D/g, "");
+                            formik.setFieldValue("pin_code", onlyNums);
+                          }}
                           onBlur={formik.handleBlur}
                           value={formik.values.pin_code}
                         />
                         {formik.touched.pin_code && formik.errors.pin_code ? (
-                          <small className="error-cls">
+                          <small className="error-cls" style={{ color: "red" }}>
                             {formik.errors.pin_code}
                           </small>
                         ) : null}
                       </Col>
                       <Col md={4}>
-                        <Label
-                          className="form-label"
-                          htmlFor="unique_code"
-                        >
+                        <Label className="form-label" htmlFor="unique_code">
                           ATL Code
                         </Label>
                         <input

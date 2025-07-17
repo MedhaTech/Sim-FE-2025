@@ -5,8 +5,6 @@ import React, { useEffect, useState } from "react";
 import { Row, Col, Form, Label, FormGroup } from "reactstrap";
 import "./style.scss";
 
-
-
 import axios from "axios";
 import { getCurrentUser } from "../../helpers/Utils";
 
@@ -20,9 +18,7 @@ import {
   SchoolBoard,
   SchoolType,
 } from "../../RegPage/ORGData";
-import {
-  openNotificationWithIcon,
-} from "../../helpers/Utils";
+import { openNotificationWithIcon } from "../../helpers/Utils";
 import { useDispatch } from "react-redux";
 
 import { encryptGlobal } from "../../constants/encryptDecrypt";
@@ -36,28 +32,28 @@ const EditSchool = (props) => {
       history.location.item &&
       history.location.item) ||
     listID;
-    const inputDICE1 = {
-        type: "text",
-        className: "form-control",
-      };
+  const inputDICE1 = {
+    type: "text",
+    className: "form-control",
+  };
   const dispatch = useDispatch();
   const [districts, setDistricts] = useState([]);
   const [mandals, setMandals] = useState([]);
 
-  const boardFromApi = listId?.board || ""; 
+  const boardFromApi = listId?.board || "";
 
   const isPredefined = SchoolBoard.includes(boardFromApi);
-  const typeFromApi = listId?.school_type || ""; 
+  const typeFromApi = listId?.school_type || "";
 
   const isPredefined1 = SchoolType.includes(typeFromApi);
   useEffect(() => {
     if (listId?.state) {
-        setDistricts(districtList[listId.state] || []);
+      setDistricts(districtList[listId.state] || []);
     }
     if (listId?.district) {
-        setMandals(mandalList[listId.district] || []);
+      setMandals(mandalList[listId.district] || []);
     }
-  }, [listId.state,listId?.district]);
+  }, [listId.state, listId?.district]);
   const inputDICE = {
     type: "text",
     className: "form-control",
@@ -79,10 +75,10 @@ const EditSchool = (props) => {
       address: listId?.address || "",
       category: listId?.category || "",
       mandal: listId?.mandal || "",
-    
-      school_type: isPredefined1 ? typeFromApi : (typeFromApi ? "Others" : ""),
+
+      school_type: isPredefined1 ? typeFromApi : typeFromApi ? "Others" : "",
       other_school_type: isPredefined1 ? "" : typeFromApi,
-      board: isPredefined ? boardFromApi : (boardFromApi ? "Others" : ""),
+      board: isPredefined ? boardFromApi : boardFromApi ? "Others" : "",
       other_board: isPredefined ? "" : boardFromApi,
     };
     if (
@@ -128,7 +124,8 @@ const EditSchool = (props) => {
         )
         .optional(),
       address: Yup.string()
-        .optional()
+        .required("Please Enter Address")
+
         .matches(
           /^[a-zA-Z0-9\s\-,/._-]+$/,
           "Special characters are not allowed in the Address"
@@ -137,11 +134,9 @@ const EditSchool = (props) => {
       pin_code: Yup.string()
         .matches(/^[0-9]*$/, "Please enter Numeric values")
         .min(6, "please enter valid pin code")
-        .optional(),
-      district: Yup.string()
-        .required("District is required"),
-      category: Yup.string()
-        .required("Category is Required"),
+        .required("Please Enter PinCode"),
+      district: Yup.string().required("District is required"),
+      category: Yup.string().required("Category is Required"),
       state: Yup.string().required("State is required"),
       mandal: Yup.string().required("Mandal / Taluka is required"),
 
@@ -169,7 +164,6 @@ const EditSchool = (props) => {
           return true;
         }
       ),
-      
 
       city: Yup.string()
         .matches(/^[aA-zZ\s/^.*$/]+$/, "please enter valid city")
@@ -335,7 +329,6 @@ const EditSchool = (props) => {
                             const selectedDistrict = e.target.value;
                             formik.setFieldValue("district", selectedDistrict);
                             setMandals(mandalList[selectedDistrict] || []);
-                           
                           }}
                         >
                           <option value="">Select District</option>
@@ -382,117 +375,119 @@ const EditSchool = (props) => {
                         ) : null}
                       </Col>
                     </Row>
-                     <Row className="mb-3 modal-body-table search-modal-header">
-                                        
-                                          <Col md={formik.values.school_type === "Others" ? 3 : 6}>
-                                            <Label className="form-label" htmlFor="district">
-                                            School Type
-                                              <span required>*</span>
-                                            </Label>
-                                            <select
-                                              id="school_type"
-                                              className="form-select"
-                                              value={formik.values.school_type}
-                                              onChange={formik.handleChange}
-                                            >
-                                              <option value="">Select School Type</option>
-                                                                         {SchoolType.map((item) => (
-                                                                           <option key={item} value={item}>
-                                                                             {item}
-                                                                           </option>
-                                                                         ))}
-                                            </select>
-                    
-                                            {formik.touched.school_type && formik.errors.school_type ? (
-                                              <small className="error-cls" style={{ color: "red" }}>
-                                                {formik.errors.school_type}
-                                              </small>
-                                            ) : null}
-                                          </Col>
-                                          {formik.values.school_type === "Others" && (
-                                          <Col md={3}>
-                                            <Label className="form-label" htmlFor="district">
-                                            School Type
-                                              <span required>*</span>
-                                            </Label>
-                                            <input
-                                type="text"
-                                 id="other_school_type"
-                                 {...inputDICE}
+                    <Row className="mb-3 modal-body-table search-modal-header">
+                      <Col md={formik.values.school_type === "Others" ? 3 : 6}>
+                        <Label className="form-label" htmlFor="district">
+                          School Type
+                          <span required>*</span>
+                        </Label>
+                        <select
+                          id="school_type"
+                          className="form-select"
+                          value={formik.values.school_type}
+                          onChange={formik.handleChange}
+                        >
+                          <option value="">Select School Type</option>
+                          {SchoolType.map((item) => (
+                            <option key={item} value={item}>
+                              {item}
+                            </option>
+                          ))}
+                        </select>
+
+                        {formik.touched.school_type &&
+                        formik.errors.school_type ? (
+                          <small className="error-cls" style={{ color: "red" }}>
+                            {formik.errors.school_type}
+                          </small>
+                        ) : null}
+                      </Col>
+                      {formik.values.school_type === "Others" && (
+                        <Col md={3}>
+                          <Label className="form-label" htmlFor="district">
+                            School Type
+                            <span required>*</span>
+                          </Label>
+                          <input
+                            type="text"
+                            id="other_school_type"
+                            {...inputDICE}
                             name="other_school_type"
-                                placeholder="Please Enter School Type"
-                                value={formik.values.other_school_type}
+                            placeholder="Please Enter School Type"
+                            value={formik.values.other_school_type}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                               
-                              />
-                    
-                                            {formik.touched.other_school_type && formik.errors.other_school_type ? (
-                                              <small className="error-cls" style={{ color: "red" }}>
-                                                {formik.errors.other_school_type}
-                                              </small>
-                                            ) : null}
-                                          </Col>
-                                          )}
-                                          <Col md={formik.values.board === "Others" ? 3 : 6}>
-                                            <Label className="form-label" htmlFor="district">
-                                            School Board
-                                              <span required>*</span>
-                                            </Label>
-                                            {/* <Col md={3}> */}
-                                            <select
-                                              id="board"
-                                              className="form-select"
-                                              value={formik.values.board}
-                                              onChange={formik.handleChange}
-                                            >
-                                                 <option value="">Select School Board</option>
-                                                                          {SchoolBoard.map((item) => (
-                                                                            <option key={item} value={item}>
-                                                                              {item}
-                                                                            </option>
-                                                                          ))}
-                                            </select>
-                    
-                                            {formik.touched.board && formik.errors.board ? (
-                                              <small className="error-cls" style={{ color: "red" }}>
-                                                {formik.errors.board}
-                                              </small>
-                                            ) : null}
-                                          </Col>
-                                          {formik.values.board === "Others" && (
-                                          <Col md={3}>
-                                            <Label className="form-label" htmlFor="district">
-                                            School Board
-                                              <span required>*</span>
-                                            </Label>
-                                            <input
-                                 id="other_board"
+                          />
+
+                          {formik.touched.other_school_type &&
+                          formik.errors.other_school_type ? (
+                            <small
+                              className="error-cls"
+                              style={{ color: "red" }}
+                            >
+                              {formik.errors.other_school_type}
+                            </small>
+                          ) : null}
+                        </Col>
+                      )}
+                      <Col md={formik.values.board === "Others" ? 3 : 6}>
+                        <Label className="form-label" htmlFor="district">
+                          School Board
+                          <span required>*</span>
+                        </Label>
+                        {/* <Col md={3}> */}
+                        <select
+                          id="board"
+                          className="form-select"
+                          value={formik.values.board}
+                          onChange={formik.handleChange}
+                        >
+                          <option value="">Select School Board</option>
+                          {SchoolBoard.map((item) => (
+                            <option key={item} value={item}>
+                              {item}
+                            </option>
+                          ))}
+                        </select>
+
+                        {formik.touched.board && formik.errors.board ? (
+                          <small className="error-cls" style={{ color: "red" }}>
+                            {formik.errors.board}
+                          </small>
+                        ) : null}
+                      </Col>
+                      {formik.values.board === "Others" && (
+                        <Col md={3}>
+                          <Label className="form-label" htmlFor="district">
+                            School Board
+                            <span required>*</span>
+                          </Label>
+                          <input
+                            id="other_board"
                             name="other_board"
                             {...inputDICE1}
-                                placeholder="Please Enter School Board"
-                                value={formik.values.other_board}
+                            placeholder="Please Enter School Board"
+                            value={formik.values.other_board}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                               
-                              />
-                    
-                                            {formik.touched.other_board && formik.errors.other_board ? (
-                                              <small className="error-cls" style={{ color: "red" }}>
-                                                {formik.errors.other_board}
-                                              </small>
-                                            ) : null}
-                                          </Col>
-                                          )}
-                                          </Row>
+                          />
+
+                          {formik.touched.other_board &&
+                          formik.errors.other_board ? (
+                            <small
+                              className="error-cls"
+                              style={{ color: "red" }}
+                            >
+                              {formik.errors.other_board}
+                            </small>
+                          ) : null}
+                        </Col>
+                      )}
+                    </Row>
                     <Row className="mb-3 modal-body-table search-modal-header">
-                     
                       {formik.values.state == "Tamil Nadu" ? (
                         <Col md={4}>
-                          <Label
-                            className="form-label"
-                            htmlFor="category"
-                          >
+                          <Label className="form-label" htmlFor="category">
                             Category
                             <span required>*</span>
                           </Label>
@@ -590,6 +585,7 @@ const EditSchool = (props) => {
                       <Col md={4}>
                         <Label className="form-label" htmlFor="address">
                           Address
+                          <span required>*</span>
                         </Label>
                         <input
                           {...inputDICE}
@@ -610,18 +606,19 @@ const EditSchool = (props) => {
 
                     <Row className="mb-3 modal-body-table search-modal-header">
                       <Col md={4}>
-                        <Label
-                          className="form-label"
-                          htmlFor="pin_code"
-                        >
+                        <Label className="form-label" htmlFor="pin_code">
                           PinCode
+                          <span required>*</span>
                         </Label>
                         <input
                           {...inputDICE}
                           id="pin_code"
                           name="pin_code"
                           placeholder="Please enter PinCode"
-                          onChange={formik.handleChange}
+                          onChange={(e) => {
+                            const onlyNums = e.target.value.replace(/\D/g, "");
+                            formik.setFieldValue("pin_code", onlyNums);
+                          }}
                           onBlur={formik.handleBlur}
                           value={formik.values.pin_code}
                         />
@@ -632,10 +629,7 @@ const EditSchool = (props) => {
                         ) : null}
                       </Col>
                       <Col md={4}>
-                        <Label
-                          className="form-label"
-                          htmlFor="unique_code"
-                        >
+                        <Label className="form-label" htmlFor="unique_code">
                           ATL Code
                         </Label>
                         <input
@@ -678,7 +672,6 @@ const EditSchool = (props) => {
                   </div>
 
                   <Row>
-                  
                     <div style={buttonContainerStyle}>
                       <button
                         type="submit"
