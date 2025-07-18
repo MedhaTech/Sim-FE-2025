@@ -107,15 +107,16 @@ const NonAtlSuccess = () => {
                   padding: "20px",
                 }}
               >
-                <Row className="justify-content-center">
+                <Row className="justify-content-center g-1">
                   <Col
-                    className="hover-a  col-md-6 col-sm-12"
+                    className="hover-a  col-md-5 col-sm-12"
                     style={{
                       border: "1px solid #ccc",
                       padding: "20px",
                       boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
                       borderRadius: "8px",
                       backgroundColor: "#f9f9f9",
+                       marginRight:"4px"
                     }}
                   >
                     <h4 className="mb-3 text-center">
@@ -148,7 +149,7 @@ const NonAtlSuccess = () => {
                     
                   </Col>
                   <Col
-                    className="hover-a  col-md-6 col-sm-12 "
+                    className="hover-a  col-md-5 col-sm-12 "
                     style={{
                       border: "1px solid #ccc",
                       padding: "20px",
