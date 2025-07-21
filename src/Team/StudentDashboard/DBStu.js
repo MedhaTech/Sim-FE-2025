@@ -26,7 +26,7 @@ import { FaRoute } from 'react-icons/fa';
 import { FaUsers } from 'react-icons/fa';
 import { FaChalkboardTeacher } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import VideoModal from '../../HelpVideo/VideoModal';
+import YoutubePopup from '../../HelpVideo/Youtubepop.js';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import axios from 'axios';
 import { Modal } from 'react-bootstrap';
@@ -295,13 +295,13 @@ const DBStu = () => {
     setVideo(vimeoId[i]);
     setShow(true);
   };
-  const vimeoId = ["https://www.youtube.com/embed/WxafskPsMog",
-    "https://www.youtube.com/embed/g5bDS1x5C4g",
-    "https://www.youtube.com/embed/0sG7Ew1fr6A",
-    "https://www.youtube.com/embed/mDkYsD1ZxYA",
-    "https://www.youtube.com/embed/NYxbFvjG8vQ",
-    "https://www.youtube.com/embed/A5vvpfnVvcE",
-
+  const vimeoId = [
+    "WxafskPsMog",
+    "g5bDS1x5C4g",
+    "0sG7Ew1fr6A",
+    "mDkYsD1ZxYA",
+    "NYxbFvjG8vQ",
+    "A5vvpfnVvcE"
   ];
 
 
@@ -695,12 +695,7 @@ const [postdata,setPostData]=useState("");
                                                                                              style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
                                                                                                            className="badge"
                                                                                              onClick={() => handleShow(5)}
-                                                                                             {...(show
-                                                                                               ? {
-                                                                                                   "data-bs-toggle": "modal",
-                                                                                                   "data-bs-target": "#add-units",
-                                                                                                 }
-                                                                                               : {})}
+                                                                                            
                                                                                            >
                                                                                              <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
                                                                                            </span>
@@ -743,12 +738,7 @@ const [postdata,setPostData]=useState("");
                                                                                               style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
                                                                                                             className="badge"
                                                                                               onClick={() => handleShow(0)}
-                                                                                              {...(show
-                                                                                                ? {
-                                                                                                    "data-bs-toggle": "modal",
-                                                                                                    "data-bs-target": "#add-units",
-                                                                                                  }
-                                                                                                : {})}
+                                                                                             
                                                                                             >
                                                                                               <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
                                                                                             </span>
@@ -817,12 +807,7 @@ const [postdata,setPostData]=useState("");
                                                                                               style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
                                                                                                             className="badge"
                                                                                               onClick={() => handleShow(1)}
-                                                                                              {...(show
-                                                                                                ? {
-                                                                                                    "data-bs-toggle": "modal",
-                                                                                                    "data-bs-target": "#add-units",
-                                                                                                  }
-                                                                                                : {})}
+                                                                                             
                                                                                             >
                                                                                               <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
                                                                                             </span>
@@ -902,12 +887,7 @@ const [postdata,setPostData]=useState("");
                                                                                               style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
                                                                                                             className="badge"
                                                                                               onClick={() => handleShow(2)}
-                                                                                              {...(show
-                                                                                                ? {
-                                                                                                    "data-bs-toggle": "modal",
-                                                                                                    "data-bs-target": "#add-units",
-                                                                                                  }
-                                                                                                : {})}
+                                                                                             
                                                                                             >
                                                                                               <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
                                                                                             </span>
@@ -986,12 +966,7 @@ const [postdata,setPostData]=useState("");
                                                                                               style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
                                                                                                             className="badge"
                                                                                               onClick={() => handleShow(3)}
-                                                                                              {...(show
-                                                                                                ? {
-                                                                                                    "data-bs-toggle": "modal",
-                                                                                                    "data-bs-target": "#add-units",
-                                                                                                  }
-                                                                                                : {})}
+                                                                                            
                                                                                             >
                                                                                               <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
                                                                                             </span>
@@ -1058,12 +1033,7 @@ const [postdata,setPostData]=useState("");
                                                                                               style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
                                                                                                             className="badge"
                                                                                               onClick={() => handleShow(4)}
-                                                                                              {...(show
-                                                                                                ? {
-                                                                                                    "data-bs-toggle": "modal",
-                                                                                                    "data-bs-target": "#add-units",
-                                                                                                  }
-                                                                                                : {})}
+                                                                                            
                                                                                             >
                                                                                               <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
                                                                                             </span>
@@ -1109,7 +1079,7 @@ const [postdata,setPostData]=useState("");
 
         </div>
       </div>
-      {show && <VideoModal v={video} setShow={setShow} />}
+      <YoutubePopup videoUrl={video} setShow={setShow} show = {show}/>
     </>
   );
 };

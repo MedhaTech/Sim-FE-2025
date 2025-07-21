@@ -7,62 +7,57 @@ import i4 from "../../assets/img/Themes/4.png";
 import i5 from "../../assets/img/Themes/5.png";
 import i6 from "../../assets/img/Themes/6.png";
 import i7 from "../../assets/img/Themes/7.png";
-// import i8 from "../../assets/img/Themes/8.png";
+import i8 from "../../assets/img/Themes/8.png";
 
 export const themesList = [
-  "Building a Sustainable Future",
-  "Technology for Learning and Growth",
-  "Health & Nutrition and Well-being",
-  "Skills for Life and Livelihood",
-  "Smarter Communities & Safer Futures",
-  "Agriculture and Rural Transformation",
-  "Open Category - Think Beyond!"
+  "Health & Wellness",
+  "Women & Child Development",
+  "Water",
+  "Lifestyle for Environment (LiFE)",
+  "Cultural Pride",
+  "Tribal Empowerment",
+  "Future-Ready Skills",
+  "Local Community Problems (Open Innovation)",
 ];
 export const focusareasList = {
-  "Building a Sustainable Future": [
-    "Green Energy",
-    "Water Conservation & Management",
-    "Eco-Friendly Innovation",
-    "Biodiversity & Climate Action",
-    "Green Agriculture",
-  ],
-  "Technology for Learning and Growth": [
-    "Learning Tools & EdTech",
-   "Inclusive and Accessible Learning",
-    "Coding, AI & Data Innovation",
-   "Gamified Learning",
-    "Teacher Support Tools",
-  ],
-  "Health & Nutrition and Well-being": [
-    "Low-cost Health Devices",
+  "Health & Wellness": [
+    "Devices for Fitness and Preventive Health",
     "Mental Health Support",
-    "Clean Nutrition Innovations",
-   "Fitness & Movement" ,
-    "Community Health Awareness",
+    "Assistive Tech for the specially abled",
   ],
-  "Skills for Life and Livelihood": [
-    "Vocational Skills & Local Craft",
-    "Financial Literacy",
-    "Entrepreneurship & Startups",
-    "Future-Ready Skills",
-     "Innovation in Retail & Distribution",
+  "Women & Child Development": [
+    "Menstrual Health and Hygiene Solutions",
+    "Early Learning and Educational Tools",
+    "Safety and Support Devices for Children and Women",
   ],
-  "Smarter Communities & Safer Futures": [
-    "Disaster Resilience",
-   "Urban-Rural Mobility",
-    "Public Space Innovation",
-    "Smart Devices for Community Use",
-    "Digital Governance",
+  Water: [
+    "Water Conservation & Sanitation",
+    "Solutions for Water Pollution",
+    "Enhancement of Water-Based Livelihoods",
   ],
-  "Agriculture and Rural Transformation": [
-    "Tech in Farming",
-    "Farm-to-Table Innovation",
-   "Rural Infrastructure",
-   "Climate-Smart Farming",
-    "Agri-Nutrition",
+  "Lifestyle for Environment (LiFE)": [
+    "Green Energy and Climate Action",
+    "Sustainable Modes of Transport",
+    "Recycling & Waste Management",
   ],
-  "Open Category - Think Beyond!": [
-    "Any original or disruptive idea that addresses a real-world challenge",
+  "Cultural Pride": [
+    "Innovation in Arts, Music & Folk Traditions",
+    "Promotion of Indigenous and Local Sports",
+    "Tools for Preserving Regional and Endangered Languages",
+  ],
+  "Tribal Empowerment": [
+    "Preservation of Tribal Identity & Culture",
+    "Products using Tribal Techniques",
+    "Smart Solutions for Tribal & Hilly Regions",
+  ],
+  "Future-Ready Skills": [
+    "Digital Tools for Learning and Skilling",
+    "Entrepreneurship and Local Livelihood Innovation",
+    "Career Awareness and Job-Readiness Solutions",
+  ],
+  "Local Community Problems (Open Innovation)": [
+    "Other",
+   
   ],
 };
 
@@ -70,102 +65,82 @@ export const themes = [
   {
     id: 1,
     image: i1,
-    title: "themes.buildingtheme",
+    title: "themes.healthwellnesstheme",
     focusareas: [
-      "buildingfocusareas.focusarea1",
-      "buildingfocusareas.focusarea2",
-      "buildingfocusareas.focusarea3",
-      "buildingfocusareas.focusarea4",
-      "buildingfocusareas.focusarea5",
+      "healthwellnessfocusareas.focusarea1",
+      "healthwellnessfocusareas.focusarea2",
+      "healthwellnessfocusareas.focusarea3",
     ],
-    desc: "themedetails.buildingtheme",
   },
   {
     id: 2,
     image: i2,
-    title: "themes.technologytheme",
+    title: "themes.womenchildtheme",
     focusareas: [
-      "technologyfocusareas.focusarea1",
-      "technologyfocusareas.focusarea2",
-
-      "technologyfocusareas.focusarea3",
-
-      "technologyfocusareas.focusarea4",
-
-      "technologyfocusareas.focusarea5",
-
+      "womenchildfocusareas.focusarea1",
+      "womenchildfocusareas.focusarea2",
+      "womenchildfocusareas.focusarea3",
     ],
-    desc: "themedetails.technologytheme",
   },
   {
     id: 3,
     image: i3,
-    title: "themes.healththeme",
+    title: "themes.watertheme",
     focusareas: [
-      "healthfocusareas.focusarea1",
-      "healthfocusareas.focusarea2",
-      "healthfocusareas.focusarea3",
-      "healthfocusareas.focusarea4",
-      "healthfocusareas.focusarea5",
-
+      "waterfocusareas.focusarea1",
+      "waterfocusareas.focusarea2",
+      "waterfocusareas.focusarea3",
     ],
-    desc: "themedetails.healththeme",
   },
   {
     id: 4,
     image: i4,
-    title: "themes.skillstheme",
+    title: "themes.lifestyletheme",
     focusareas: [
-      "skillsfocusareas.focusarea1",
-      "skillsfocusareas.focusarea2",
-
-      "skillsfocusareas.focusarea3",
-
-      "skillsfocusareas.focusarea4",
-      "skillsfocusareas.focusarea5",
-
+      "lifestylefocusareas.focusarea1",
+      "lifestylefocusareas.focusarea2",
+      "lifestylefocusareas.focusarea3",
     ],
-    desc: "themedetails.skillstheme",
   },
   {
     id: 5,
     image: i5,
-    title: "themes.smartertheme",
+    title: "themes.culturaltheme",
     focusareas: [
-      "smarterfocusareas.focusarea1",
-      "smarterfocusareas.focusarea2",
-      "smarterfocusareas.focusarea3",
-      "smarterfocusareas.focusarea4",
-      "smarterfocusareas.focusarea5",
-
+      "culturalfocusareas.focusarea1",
+      "culturalfocusareas.focusarea2",
+      "culturalfocusareas.focusarea3",
     ],
-    desc: "themedetails.smartertheme",
   },
   {
     id: 6,
     image: i6,
-    title: "themes.agriculturetheme",
+    title: "themes.tribaltheme",
     focusareas: [
-      "agriculturefocusareas.focusarea1",
-      "agriculturefocusareas.focusarea2",
+      "tribalfocusareas.focusarea1",
+      "tribalfocusareas.focusarea2",
 
-      "agriculturefocusareas.focusarea3",
-
-      "agriculturefocusareas.focusarea4",
-
-      "agriculturefocusareas.focusarea5",
-
+      "tribalfocusareas.focusarea3",
     ],
-    desc: "themedetails.agriculturetheme",
   },
   {
     id: 7,
     image: i7,
-    title: "themes.opentheme",
-    focusareas: ["openfocusareas.focusarea1"],
-    desc: "themedetails.opentheme",
+    title: "themes.futuretheme",
+    focusareas: [
+      "futurefocusareas.focusarea1",
+      "futurefocusareas.focusarea2",
+      "futurefocusareas.focusarea3",
+    ],
   },
- 
+   {
+    id: 8,
+    image: i8,
+    title: "themes.localtheme",
+    focusareas: [
+      "localfocusareas.focusarea1",
+    ],
+  },
 ];
 
 export const questions = [
