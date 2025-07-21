@@ -27,7 +27,7 @@ import logout from "../../assets/img/logout.png";
 import IdeaSubmissionCard from "../../components/IdeaSubmissionCard";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import VideoModal from "../../HelpVideo/VideoModal";
+import YoutubePopup from "../../HelpVideo/Youtubepop";
 import { useTranslation } from "react-i18next";
 import { FiPlayCircle } from "react-icons/fi";
 // import demo from "../../assets/img/deemo.png";
@@ -421,7 +421,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
   );
 
   const handleShow = () => {
-    setVideo("https://www.youtube.com/embed/e0S4PRXLo0U?si=2-Avy3FT6Ryj_xIi");
+    setVideo("e0S4PRXLo0U");
     setShow(true);
   };
 
@@ -513,12 +513,6 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
               }}
               className="badge"
               onClick={() => handleShow()}
-              {...(show
-                ? {
-                    "data-bs-toggle": "modal",
-                    "data-bs-target": "#add-units",
-                  }
-                : {})}
             >
               <FiPlayCircle
                 style={{ color: "#ffffff", fontSize: "large" }}
@@ -737,7 +731,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
             </Modal>
           )}
         </div>
-        {show && <VideoModal v={video} setShow={setShow} />}
+        <YoutubePopup videoUrl={video} setShow={setShow} show = {show}/>
       </div>
     </div>
   );
