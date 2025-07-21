@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from "react";
 import CountUp from "react-countup";
 import { RotateCcw } from "feather-icons-react/build/IconComponents";
 import { Link } from "react-router-dom";
-import VideoModal from "../../HelpVideo/VideoModal";
 import { getCurrentUser, getNormalHeaders } from "../../helpers/Utils";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import axios from "axios";
@@ -40,6 +39,7 @@ import { IoArrowDownCircleOutline } from "react-icons/io5";
 import { PiLinkSimpleBold } from "react-icons/pi";
 import { getLanguage } from '../../constants/languageOptions';
 import { FiPlayCircle } from "react-icons/fi";
+import YoutubePopup from "../../HelpVideo/Youtubepop";
 
 const GreetingModal = (props) => {
    const { t } = useTranslation();
@@ -520,16 +520,16 @@ const handleFileDownload = async(file,type) =>{
     </Tooltip>
   );
   const handleShow = (i) => {
-    setVideo(vimeoId[i]);
+    setVideo(YoutubeId[i]);
     setShow(true);
   };
-  const vimeoId = [
-    "https://www.youtube.com/embed/sT3I44RzZAI?si=W92OEckd0iS7rHvZ",
-    "https://www.youtube.com/embed/dWpG-TMyMrQ?si=J2NcbBCjxeelG2Us",
-    "https://www.youtube.com/embed/siaE-HPVvk0?si=GnJZoZgwLjGMmco7",
-    "https://www.youtube.com/embed/fse1a6IaeB0?si=DHOB_c2ngQV3C6SX",
-    "https://www.youtube.com/embed/LYS2A3ozZRU?si=Ds2b_17nrPiYH1aF",
-    "https://www.youtube.com/embed/OIsCwczsT0o?si=I6tpZPCZAMqvwIK-",
+  const YoutubeId = [
+    "sT3I44RzZAI",
+    "dWpG-TMyMrQ",
+    "siaE-HPVvk0",
+    "fse1a6IaeB0",
+    "LYS2A3ozZRU",
+    "OIsCwczsT0o",
   ];
 
   const handleCertificateDownload = () => {
@@ -614,12 +614,6 @@ const handleFileDownload = async(file,type) =>{
                         style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
                                       className="badge"
                         onClick={() => handleShow(5)}
-                        {...(show
-                          ? {
-                              "data-bs-toggle": "modal",
-                              "data-bs-target": "#add-units",
-                            }
-                          : {})}
                       >
                         <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
                       </span>
@@ -953,8 +947,6 @@ ideaCount={ideaCount}
                                       style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
                                       className="badge"
                                       onClick={() => handleShow(0)}
-                                      data-bs-toggle={show ? "modal" : undefined}
-                                      data-bs-target={show ? "#add-units" : undefined}
                                     >
                                         <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;DEMO</span>
                                     </span>
@@ -1041,12 +1033,6 @@ ideaCount={ideaCount}
                                     style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
                                       className="badge"
                                       onClick={() => handleShow(1)}
-                                      {...(show
-                                        ? {
-                                            "data-bs-toggle": "modal",
-                                            "data-bs-target": "#add-units",
-                                          }
-                                        : {})}
                                     >
                                         <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;DEMO</span>
                                     </span>
@@ -1139,12 +1125,6 @@ ideaCount={ideaCount}
                                       style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
                                       className="badge"
                                       onClick={() => handleShow(2)}
-                                      {...(show
-                                        ? {
-                                            "data-bs-toggle": "modal",
-                                            "data-bs-target": "#add-units",
-                                          }
-                                        : {})}
                                     >
                                        <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;DEMO</span>
                                     </span>
@@ -1229,12 +1209,6 @@ ideaCount={ideaCount}
                                       style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
                                       className="badge"
                                       onClick={() => handleShow(3)}
-                                      {...(show
-                                        ? {
-                                            "data-bs-toggle": "modal",
-                                            "data-bs-target": "#add-units",
-                                          }
-                                        : {})}
                                     >
                                        <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;DEMO</span>
                                     </span>
@@ -1303,12 +1277,6 @@ ideaCount={ideaCount}
                                       style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
                                       className="badge"
                                       onClick={() => handleShow(4)}
-                                      {...(show
-                                        ? {
-                                            "data-bs-toggle": "modal",
-                                            "data-bs-target": "#add-units",
-                                          }
-                                        : {})}
                                     >
                                      <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;DEMO</span>
                                     </span>
@@ -1362,7 +1330,7 @@ ideaCount={ideaCount}
           </div>
         </div>
       </div>
-      {show && <VideoModal v={video} setShow={setShow} />}
+        <YoutubePopup videoUrl={video} setShow={setShow} show = {show}/>
     </>
   );
 };

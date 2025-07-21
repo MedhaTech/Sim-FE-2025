@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getTeacherByID } from '../redux/actions';
 import user from "../assets/img/user.png";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import VideoModal from '../HelpVideo/VideoModal';
+import YoutubePopup from "../HelpVideo/Youtubepop";
 import { useTranslation } from "react-i18next";
 
 import axios from "axios";
@@ -61,7 +61,7 @@ const renderTooltip = (props) => (
 );
 
 const handleShow = () => {
-  setVideo("https://www.youtube.com/embed/Go8alatAXhE?si=QUtgk5bWg3160RpS");
+  setVideo("Go8alatAXhE");
   setShow(true);
 };
 
@@ -79,12 +79,6 @@ const handleShow = () => {
                                                             style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
                                                                           className="badge"
                                                             onClick={() => handleShow()}
-                                                            {...(show
-                                                              ? {
-                                                                  "data-bs-toggle": "modal",
-                                                                  "data-bs-target": "#add-units",
-                                                                }
-                                                              : {})}
                                                           >
                                                             <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
                                                           </span>
@@ -337,8 +331,7 @@ const handleShow = () => {
             </div>
           </div>
         </div>
-        {/* /product list */}
-        {show &&  <VideoModal v={video} setShow={setShow}/>}
+        <YoutubePopup videoUrl={video} setShow={setShow} show = {show}/>
       </div>
     </div>
   );
