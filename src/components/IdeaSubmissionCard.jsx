@@ -323,13 +323,15 @@ const IdeaSubmissionCard = ({ handleClose, show, response, setIdeaCount }) => {
     content: () => componentRef.current,
   });
 const labelToKeyMap = {
- "Building a Sustainable Future": "buildingtheme",
-  "Technology for Learning and Growth": "technologytheme",
-  "Health, Nutrition and Well-being": "healththeme",
-  "Skills for Life and Livelihood": "skillstheme",
-  "Smarter Communities, Safer Futures": "smartertheme",
-  "Agriculture and Rural Transformation": "agriculturetheme",
-  "Open Category - Think Beyond": "opentheme",
+ "Health & Wellness": "healthwellnesstheme",
+  "Women & Child Development": "womenchildtheme",
+  "Water": "watertheme",
+  "Lifestyle for Environment (LiFE)": "lifestyletheme",
+  "Cultural Pride": "culturaltheme",
+  "Tribal Empowerment": "tribaltheme",
+  "Future-Ready Skills": "futuretheme",
+  "Local Community Problems (Open Innovation)": "localtheme"
+
 };
 const themeKey = labelToKeyMap[response.theme];
   return (
