@@ -13,7 +13,6 @@ const ViewMore = () => {
 
     const orgDaTa = JSON.parse(localStorage.getItem('orgData'));
    
-
     const [course, setCourse] = useState([]);
     // where orgDaTa = orgnization details //
     // we can see all orgnization , mentor details //
@@ -21,7 +20,8 @@ const ViewMore = () => {
     var teamId = [];
     teamId.push({
         mentor_id: orgDaTa.mentor_id,
-        user_id: orgDaTa.user_id
+        user_id: orgDaTa.user_id,
+        email:orgDaTa.email
     });
 
     const handleBack = () => {
