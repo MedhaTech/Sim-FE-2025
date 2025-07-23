@@ -185,6 +185,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const [title, setTitle] = useState(formData?.title);
   // Add on
   const [language, setLanuage] = useState(formData?.language);
+  // const [otherLang, setOtherLang] = useState(formData?.language);
+
 
   const [problemStatement, setProblemStatement] = useState(
     formData?.problemStatement
@@ -720,6 +722,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const handleEdit = () => {
     setIsDisabled(false);
     scroll();
+
   };
 
 
@@ -1065,6 +1068,35 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               </select>
                             </div>
                           </div>
+                           {/* {language === "Other Language" && (
+                            <div className="card comment-card">
+                            <div className="question quiz mb-0 mt-2">
+                              <b
+                                style={{
+                                  fontSize: "1rem",
+                                }}
+                              >
+                                {t("home.addLanguageother")}
+                              </b>
+                            </div>
+                            <div className="answers row flex-column p-4">
+                              <textarea
+                                className="form-control"
+                                disabled={isDisabled}
+                                placeholder={t("home.idealang")}
+                                // {t("student_course.chars")}
+                                value={otherLang}
+                                rows={4}
+                                maxLength={500}
+                                onChange={(e) => setOtherLang(e.target.value)}
+                              />
+                              <div className="text-end">
+                                {t("student_course.chars")} :
+                                {500 - (otherLang ? otherLang.length : 0)}
+                              </div>
+                            </div>
+                          </div>
+                          )} */}
                           <div className="card comment-card">
                             <div className="question quiz mb-0 mt-2">
                               <b

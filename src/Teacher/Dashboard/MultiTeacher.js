@@ -18,7 +18,7 @@ import { BiLogoMicrosoftTeams } from "react-icons/bi";
 import { PiStudentFill } from "react-icons/pi";
 import { useTranslation } from "react-i18next";
 
-    const MultiTeacher = ({ teamsCount, postdata, studentCount,courseData ,ideaCount}) => {
+    const MultiTeacher = ({ teamsCount, postdata, studentCount,courseData ,ideaCount,approveideaCount}) => {
            const { t } = useTranslation();
         
         const steps = [
@@ -45,8 +45,8 @@ import { useTranslation } from "react-i18next";
            
             {
                 name:  t('teacherJourney.add5'),
-                status: ideaCount >= 1 ? "Completed" : "Pending",
-                icon: ideaCount >= 1 ? <FaCheckCircle color="green" /> : <LuSend color="orange" />
+                status: ideaCount === approveideaCount ? "Completed" : "Pending",
+                icon: ideaCount === approveideaCount ? <FaCheckCircle color="green" /> : <LuSend color="orange" />
                             },
             {
                 name:  t('teacherJourney.add6'),
