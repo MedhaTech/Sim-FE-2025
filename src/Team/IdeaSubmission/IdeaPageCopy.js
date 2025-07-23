@@ -88,8 +88,10 @@ useEffect(() => {
           href={item}
           target="_blank"
           rel="noreferrer"
+          title={a_link[count]?.split('?')[0]}
         >
-          {a_link[count]}
+          {/* {a_link[count]} */}
+        {a_link[count]?.split('?')[0]}
         </a>
       )}
     {/* {original ? (

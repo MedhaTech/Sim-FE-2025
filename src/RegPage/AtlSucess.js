@@ -160,6 +160,7 @@ const AtlSucess = () => {
                       boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
                       borderRadius: "8px",
                       backgroundColor: "#f9f9f9",
+                       marginLeft:"4px"
                     }}
                   >
                     <h4 className="mb-3 text-center ">
