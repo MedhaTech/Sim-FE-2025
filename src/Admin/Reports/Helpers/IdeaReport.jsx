@@ -5,10 +5,7 @@ import { Container, Row, Col, Table } from "reactstrap";
 import { CSVLink } from "react-csv";
 import { getCurrentUser } from "../../../helpers/Utils";
 import { useNavigate, Link } from "react-router-dom";
-import {
-  Popover,
-  Overlay,
-} from "react-bootstrap";
+import { Popover, Overlay } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "../Helpers/Select";
 import axios from "axios";
@@ -269,7 +266,7 @@ const IdeaReport = () => {
       "Pick the actions your team did in your problem solving journey (You can choose multiple options)",
     feedback:
       "Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.",
-    prototype_image: "Descriptive Document/Image of your prototype",
+    prototypeFileNames: "Descriptive Document/Image of your prototype",
     prototype_link: "Clear YouTube Video Explaining your Solution",
     workbook:
       "Did your team complete and submit the workbook to your school Guide teacher?",
@@ -358,14 +355,14 @@ const IdeaReport = () => {
 
       setTimeout(() => {
         handleExport();
-       
+
         openNotificationWithIcon("success", "Report Downloaded Successfully");
         setIsReadyToDownload(false);
       }, 1000);
     }
   }, [isReadyToDownload, studentDetailedReportsData]);
   const fetchData = (type, param) => {
-   // This function filters  data based on selected state, district, category, theme
+    // This function filters  data based on selected state, district, category, theme
 
     let apiRes;
     if (type === "save") {
@@ -466,6 +463,27 @@ const IdeaReport = () => {
             };
           });
           const newdatalist = mentorAndOrg.map((item) => {
+            let prototypeFileNames = "";
+
+            try {
+              const images =
+                typeof item.prototype_image === "string"
+                  ? JSON.parse(item.prototype_image)
+                  : item.prototype_image;
+
+              if (Array.isArray(images)) {
+                prototypeFileNames = images
+                  .map((url) => {
+                    const parsed = new URL(url);
+                    const parts = parsed.pathname.split("/");
+                    return parts[parts.length - 1];
+                  })
+                  .join(", ");
+              }
+            } catch (err) {
+              prototypeFileNames = "";
+            }
+
             return {
               "UDISE CODE": item.organization_code,
               State: item.state,
@@ -506,7 +524,7 @@ const IdeaReport = () => {
               "Mention the feedback that your team got and the changes you have made, if any, to your problem or solution.":
                 item.feedback,
               "Descriptive Document/Image of your prototype":
-                item.prototype_image,
+                prototypeFileNames,
               "Clear YouTube Video Explaining your Solution":
                 item.prototype_link,
               "Did your team complete and submit the workbook to your school Guide teacher?":
@@ -566,13 +584,13 @@ const IdeaReport = () => {
               (acc.totalSubmited += item.totalSubmited),
                 (acc.BuildingaSustainableFuture +=
                   item.BuildingaSustainableFuture);
-              acc.TechnologyforLearningandGrowth += item.TechnologyforLearningandGrowth;
+              acc.TechnologyforLearningandGrowth +=
+                item.TechnologyforLearningandGrowth;
               acc.HealthNutritionWellbeing += item.HealthNutritionWellbeing;
               acc.SkillsforLifeLivelihood += item.SkillsforLifeLivelihood;
-              acc.SmarterCommunitiesSaferFutures += item.SmarterCommunitiesSaferFutures;
-              acc.OpenCategoryThinkBeyond +=
-                item.OpenCategoryThinkBeyond;
-
+              acc.SmarterCommunitiesSaferFutures +=
+                item.SmarterCommunitiesSaferFutures;
+              acc.OpenCategoryThinkBeyond += item.OpenCategoryThinkBeyond;
 
               acc.AgricultureRuralTransformation +=
                 item.AgricultureRuralTransformation;
@@ -593,13 +611,13 @@ const IdeaReport = () => {
 
           const doughnutData = {
             labels: [
-             "Building a Sustainable Future",
-  "Technology for Learning and Growth",
-  "Health & Nutrition and Well-being",
-  "Skills for Life and Livelihood",
-  "Smarter Communities & Safer Futures",
-  "Agriculture and Rural Transformation",
-  "Open Category - Think Beyond!"
+              "Building a Sustainable Future",
+              "Technology for Learning and Growth",
+              "Health & Nutrition and Well-being",
+              "Skills for Life and Livelihood",
+              "Smarter Communities & Safer Futures",
+              "Agriculture and Rural Transformation",
+              "Open Category - Think Beyond!",
             ],
             datasets: [
               {
@@ -906,7 +924,7 @@ const IdeaReport = () => {
 
       {
         name: "Actions",
-        width: '15rem',
+        width: "15rem",
         center: true,
         cell: (record) => [
           <>
@@ -1102,8 +1120,6 @@ const IdeaReport = () => {
                         }
 
                         setTimeout(() => {
-                         
-
                           setIsReadyToDownload(true);
                         }, 1000);
                       }}
