@@ -34,6 +34,7 @@ import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { themes, themesList, focusareasList } from "./themesData";
 import { languageOptions } from "../../RegPage/ORGData";
 import { FiPlayCircle } from "react-icons/fi";
+import FilePreviewModal from "../../Evaluator/IdeaList/Modal";
 
 const LinkComponent = ({
   original,
@@ -51,7 +52,12 @@ const LinkComponent = ({
     count = a_link.length - 1;
   }
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 576);
-
+ const [selectedFile, setSelectedFile] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+   const handlePreview = (url) => {
+    setSelectedFile({ prototype_image: url });
+    setShowModal(true);
+  };
 useEffect(() => {
   const handleResize = () => {
     setIsMobile(window.innerWidth <= 576);
@@ -83,16 +89,23 @@ useEffect(() => {
           )}
         </div>
       ) : (
-        <a
+        <span
           className="badge mb-2 bg-info p-3 ms-3"
           href={item}
           target="_blank"
           rel="noreferrer"
+            onClick={() => handlePreview(item)}
           title={a_link[count]?.split('?')[0]}
         >
-          {/* {a_link[count]} */}
         {a_link[count]?.split('?')[0]}
-        </a>
+        </span>
+      )}
+        {selectedFile && (
+        <FilePreviewModal
+          show={showModal}
+          onHide={() => setShowModal(false)}
+          teamResponse={selectedFile}
+        />
       )}
     {/* {original ? (
   <div className="badge mb-2 bg-info ms-3 d-flex align-items-center">
