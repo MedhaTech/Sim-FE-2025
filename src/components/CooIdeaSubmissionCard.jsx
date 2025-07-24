@@ -4,7 +4,7 @@
 import moment from "moment/moment";
 import React, { useEffect, useState, useRef } from "react";
 import { Modal } from "react-bootstrap";
-import { Card, CardBody, CardTitle } from "reactstrap";
+import { Card, CardBody, CardTitle,Row,Col } from "reactstrap";
 import { Button } from "../stories/Button";
 import { FaDownload } from "react-icons/fa";
 import { useReactToPrint } from "react-to-print";
@@ -28,7 +28,7 @@ const LinkComponent = ({ item }) => {
         };
   return (
     <>
-      {item &&
+      {/* {item &&
         item.length > 0 &&
         item.map((ans, i) => {
           let a_link = ans.split("/");
@@ -49,7 +49,33 @@ const LinkComponent = ({ item }) => {
                         </span>
             </a>
           );
-        })}
+        })} */}
+       <Row>
+  {item &&
+    item.length > 0 &&
+    item.map((ans, i) => {
+      let fileName = '';
+      try {
+        const url = new URL(ans);
+        const segments = url.pathname.split('/');
+        fileName = segments[segments.length - 1];
+      } catch (err) {
+        fileName = `File_${i + 1}`;
+      }
+
+      return (
+        <Col key={i} xs={12} sm={6} md={4}>
+          <span
+            className="badge bg-info w-100 p-3 mb-3 d-block text-center"
+            style={{ cursor: "pointer" }}
+            onClick={() => handlePreview(ans)}
+          >
+            {fileName}
+          </span>
+        </Col>
+      );
+    })}
+</Row>
          {selectedFile && (
                             <FilePreviewModal
                               show={showModal}

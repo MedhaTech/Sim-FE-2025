@@ -170,6 +170,7 @@ const MentorDashboard = () => {
   const [poptype, setPopType] = useState("");
 
   const [state, setState] = useState("");
+  const [approveideaCount, setApproveIdeaCount] = useState(0);
 
   /////////////////NEW CODE//////////////////////////////////
 
@@ -306,6 +307,8 @@ const handleFileDownload = async(file,type) =>{
       mentorpostsurvey();
       fetchwhatsapplink(language);
       scroll();
+      mentorapproveCount();
+
     }
   }, [currentUser?.data[0]?.user_id]);
 
@@ -346,6 +349,34 @@ const handleFileDownload = async(file,type) =>{
         console.log(error);
       });
   };
+   const mentorapproveCount = () => {
+      const mentteamApi = encryptGlobal(
+        JSON.stringify({
+          mentor_id: currentUser?.data[0]?.mentor_id,
+        })
+      );
+      var config = {
+        method: "get",
+        url:
+          process.env.REACT_APP_API_BASE_URL +
+          `/dashboard/acceptedCount?Data=${mentteamApi}`,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${currentUser.data[0]?.token}`,
+        },
+      };
+      axios(config)
+        .then(function (response) {
+          if (response.status === 200) {
+  
+            setApproveIdeaCount(response.data.data[0].acceptedCount);
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    };
   const mentorIdeaCount = () => {
     // Function to fetch the Ideas Count from the API
 
@@ -629,6 +660,8 @@ const handleFileDownload = async(file,type) =>{
         teamsCount={teamsCount}
         studentCount={studentCount}
 ideaCount={ideaCount}
+approveideaCount={approveideaCount}
+
         courseData={courseData}  />
             </div>
             {/* Teacher dashboard stats */}

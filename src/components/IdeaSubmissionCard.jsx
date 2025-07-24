@@ -4,7 +4,7 @@
 import moment from "moment/moment";
 import React, { useEffect, useState, useRef } from "react";
 import { Modal } from "react-bootstrap";
-import { Card, CardBody, CardTitle ,Col,Row} from "reactstrap";
+import { Card, CardBody, CardTitle, Col, Row } from "reactstrap";
 import { Button } from "../stories/Button";
 import { useReactToPrint } from "react-to-print";
 import { CardText } from "reactstrap";
@@ -22,43 +22,13 @@ import FilePreviewModal from "../Evaluator/IdeaList/Modal";
 import { useTranslation } from "react-i18next";
 
 const LinkComponent = ({ item, currentUser }) => {
-  const [selectedFile, setSelectedFile] = useState(null);
   const [showModal, setShowModal] = useState(false);
+   const [selectedFile, setSelectedFile] = useState(null);
 
-  const handlePreview = async (file, fileName) => {
-    const parts = file.split("/");
-    const path = parts.slice(3).join("/");
-    const openParam = encryptGlobal(
-      JSON.stringify({
-        filePath: path,
-      })
-    );
-    var config = {
-      method: "get",
-      url:
-        process.env.REACT_APP_API_BASE_URL +
-        `/admins/s3fileaccess?Data=${openParam}`,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${currentUser?.data[0]?.token}`,
-      },
-    };
-    await axios(config)
-      .then(function (response) {
-        if (response.status === 200) {
-          setTimeout(() => {
-            setSelectedFile({
-              prototype_image: response.data.data,
-              fileName: fileName,
-            });
-            setShowModal(true);
-          }, 500);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+   const handlePreview = (url) => {
+          setSelectedFile({ prototype_image: url });
+          setShowModal(true);
+        };
   return (
     <>
       {/* {item &&
@@ -66,49 +36,54 @@ const LinkComponent = ({ item, currentUser }) => {
         item.map((ans, i) => {
           let a_link = ans.split("/");
           let count = a_link.length - 1;
-          let fileName = a_link[count];
+          const fileName = a_link[count]?.split('?')[0]; 
           return (
             <a
               key={i}
-              className="badge mb-2 bg-info p-2 ms-3 col-3"
-              style={{ cursor: "pointer", maxWidth: "100%",wordBreak: "break-word", whiteSpace: "normal", }}
-              onClick={() => handlePreview(ans, fileName)}
+              className="badge mb-2 bg-info p-3 ms-3"
+              href={ans}
               target="_blank"
+              onClick={() => handlePreview(ans)}
               rel="noreferrer"
-
             >
-              <span className="file-name">{fileName}</span>
+              {fileName}
             </a>
           );
         })} */}
-        <Row className="g-2">
-  {item &&
-    item.length > 0 &&
-    item.map((ans, i) => {
-      let a_link = ans.split("/");
-      let count = a_link.length - 1;
-      let fileName = a_link[count];
+       <Row>
+        {item &&
+          item.length > 0 &&
+          item.map((ans, i) => {
+            let fileName = '';
+            try {
+              const url = new URL(ans);
+              const segments = url.pathname.split('/');
+              fileName = segments[segments.length - 1];
+            } catch (err) {
+              fileName = `File_${i + 1}`;
+            }
+      
+            return (
+              <Col key={i} xs={12} sm={6} md={4}>
+                <span
+                  className="badge bg-info w-100 p-3 mb-3 d-block text-center"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handlePreview(ans)}
+                >
+                  {fileName}
+                </span>
+              </Col>
+            );
+          })}
+      </Row>
 
-      return (
-        <Col xs={12} sm={6} md={4} key={i}>
-          <a
-            className="badge bg-info w-100 p-2 d-block"
-            style={{
-              cursor: "pointer",
-              wordBreak: "break-word",
-              whiteSpace: "normal",
-              lineHeight: "1.2",
-            }}
-            onClick={() => handlePreview(ans, fileName)}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <span className="file-name">{fileName}</span>
-          </a>
-        </Col>
-      );
-    })}
-</Row>
+{selectedFile && (
+  <FilePreviewModal
+    show={showModal}
+    onHide={() => setShowModal(false)}
+    teamResponse={selectedFile}
+  />
+)}
 
       {selectedFile && (
         <FilePreviewModal
@@ -322,18 +297,17 @@ const IdeaSubmissionCard = ({ handleClose, show, response, setIdeaCount }) => {
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
-const labelToKeyMap = {
- "Health & Wellness": "healthwellnesstheme",
-  "Women & Child Development": "womenchildtheme",
-  "Water": "watertheme",
-  "Lifestyle for Environment (LiFE)": "lifestyletheme",
-  "Cultural Pride": "culturaltheme",
-  "Tribal Empowerment": "tribaltheme",
-  "Future-Ready Skills": "futuretheme",
-  "Local Community Problems (Open Innovation)": "localtheme"
-
-};
-const themeKey = labelToKeyMap[response.theme];
+  const labelToKeyMap = {
+    "Health & Wellness": "healthwellnesstheme",
+    "Women & Child Development": "womenchildtheme",
+    Water: "watertheme",
+    "Lifestyle for Environment (LiFE)": "lifestyletheme",
+    "Cultural Pride": "culturaltheme",
+    "Tribal Empowerment": "tribaltheme",
+    "Future-Ready Skills": "futuretheme",
+    "Local Community Problems (Open Innovation)": "localtheme",
+  };
+  const themeKey = labelToKeyMap[response.theme];
   return (
     <div>
       <div style={{ display: "none" }}>
@@ -366,20 +340,24 @@ const themeKey = labelToKeyMap[response.theme];
               <CardText style={{ fontSize: "1rem" }}>{response.language}</CardText>
             </CardBody>
           </Card> */}
-          <Card  className="mb-3 border-start border-4 border-primary rounded shadow-top  shadow-sm">
+          <Card className="mb-3 border-start border-4 border-primary rounded shadow-top  shadow-sm">
             <CardBody>
               <label className="fw-semibold">
                 {t("ideaSubmission.language")}
               </label>
-              <CardText className="mt-2 fw-semibold fs-6">{response.language}</CardText>
+              <CardText className="mt-2 fw-semibold fs-6">
+                {response.language}
+              </CardText>
             </CardBody>
-          </Card >
+          </Card>
           <Card className="mb-3 border-start border-4 border-primary rounded shadow-sm">
             <CardBody>
               <label className="fw-semibold">
                 {t("ideaSubmission.focusArea")}
               </label>
-              <CardText className="mt-2 fw-semibold fs-6">{response.focus_area}</CardText>
+              <CardText className="mt-2 fw-semibold fs-6">
+                {response.focus_area}
+              </CardText>
             </CardBody>
           </Card>
           <Card className="mb-3 border-start border-4 border-primary rounded shadow-sm">
@@ -387,7 +365,9 @@ const themeKey = labelToKeyMap[response.theme];
               <label className="fw-semibold">
                 {t("ideaSubmission.ideaTitle")}
               </label>
-              <CardText className="mt-2 fw-semibold fs-6">{submittedResponse.title}</CardText>
+              <CardText className="mt-2 fw-semibold fs-6">
+                {submittedResponse.title}
+              </CardText>
             </CardBody>
           </Card>
           <Card className="mb-3 border-start border-4 border-primary rounded shadow-sm">
@@ -395,7 +375,9 @@ const themeKey = labelToKeyMap[response.theme];
               <label className="fw-semibold">
                 {t("ideaSubmission.problemStatement")}
               </label>
-              <CardText className="mt-2 fw-semibold fs-6">{submittedResponse.problem_statement}</CardText>
+              <CardText className="mt-2 fw-semibold fs-6">
+                {submittedResponse.problem_statement}
+              </CardText>
             </CardBody>
           </Card>
           <Card className="mb-3 border-start border-4 border-primary rounded shadow-sm">
@@ -403,7 +385,9 @@ const themeKey = labelToKeyMap[response.theme];
               <label className="fw-semibold">
                 {t("ideaSubmission.causes")}
               </label>
-              <CardText className="mt-2 fw-semibold fs-6">{submittedResponse.causes}</CardText>
+              <CardText className="mt-2 fw-semibold fs-6">
+                {submittedResponse.causes}
+              </CardText>
             </CardBody>
           </Card>
           <Card className="mb-3 border-start border-4 border-primary rounded shadow-sm">
@@ -411,7 +395,9 @@ const themeKey = labelToKeyMap[response.theme];
               <label className="fw-semibold">
                 {t("ideaSubmission.effects")}
               </label>
-              <CardText className="mt-2 fw-semibold fs-6">{submittedResponse.effects}</CardText>
+              <CardText className="mt-2 fw-semibold fs-6">
+                {submittedResponse.effects}
+              </CardText>
             </CardBody>
           </Card>
           <Card className="mb-3 border-start border-4 border-primary rounded shadow-sm">
@@ -419,7 +405,9 @@ const themeKey = labelToKeyMap[response.theme];
               <label className="fw-semibold">
                 {t("ideaSubmission.community")}
               </label>
-              <CardText className="mt-2 fw-semibold fs-6">{submittedResponse.community}</CardText>
+              <CardText className="mt-2 fw-semibold fs-6">
+                {submittedResponse.community}
+              </CardText>
             </CardBody>
           </Card>{" "}
           <Card className="mb-3 border-start border-4 border-primary rounded shadow-sm">
@@ -427,7 +415,9 @@ const themeKey = labelToKeyMap[response.theme];
               <label className="fw-semibold">
                 {t("ideaSubmission.facing")}
               </label>
-              <CardText className="mt-2 fw-semibold fs-6">{submittedResponse.facing}</CardText>
+              <CardText className="mt-2 fw-semibold fs-6">
+                {submittedResponse.facing}
+              </CardText>
             </CardBody>
           </Card>{" "}
           <Card className="mb-3 border-start border-4 border-primary rounded shadow-sm">
@@ -435,7 +425,9 @@ const themeKey = labelToKeyMap[response.theme];
               <label className="fw-semibold">
                 {t("ideaSubmission.solution")}
               </label>
-              <CardText className="mt-2 fw-semibold fs-6">{submittedResponse.solution}</CardText>
+              <CardText className="mt-2 fw-semibold fs-6">
+                {submittedResponse.solution}
+              </CardText>
             </CardBody>
           </Card>
           <Card className="mb-3 border-start border-4 border-primary rounded shadow-sm">
@@ -443,7 +435,9 @@ const themeKey = labelToKeyMap[response.theme];
               <label className="fw-semibold">
                 {t("ideaSubmission.stakeholders")}
               </label>
-              <CardText className="mt-2 fw-semibold fs-6">{submittedResponse.stakeholders}</CardText>
+              <CardText className="mt-2 fw-semibold fs-6">
+                {submittedResponse.stakeholders}
+              </CardText>
             </CardBody>
           </Card>{" "}
           <Card className="mb-3 border-start border-4 border-primary rounded shadow-sm">
@@ -462,7 +456,9 @@ const themeKey = labelToKeyMap[response.theme];
               <label className="fw-semibold">
                 {t("ideaSubmission.feedback")}
               </label>
-              <CardText className="mt-2 fw-semibold fs-6">{submittedResponse.feedback}</CardText>
+              <CardText className="mt-2 fw-semibold fs-6">
+                {submittedResponse.feedback}
+              </CardText>
             </CardBody>
           </Card>
           <Card className="mb-3 border-start border-4 border-primary rounded shadow-sm">
@@ -496,7 +492,9 @@ const themeKey = labelToKeyMap[response.theme];
               <label className="fw-semibold">
                 {t("ideaSubmission.workbook")}
               </label>
-              <CardText className="mt-2 fw-semibold fs-6">{submittedResponse.workbook}</CardText>
+              <CardText className="mt-2 fw-semibold fs-6">
+                {submittedResponse.workbook}
+              </CardText>
             </CardBody>
           </Card>
         </Modal.Body>

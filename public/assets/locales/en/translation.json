@@ -433,7 +433,7 @@
     "add2": "Team Creation",
     "add3": "Students Enrolled",
     "add4": "Course",
-    "add5": "Idea Submission",
+    "add5": "Idea Approval",
     "add6": "Post Survey",
     "add7": "Certificate"
   },
@@ -563,6 +563,8 @@
     "select": "Select a theme",
     "selectv": "to know more",
     "addLanguage": "Select in which language you prefer Submitting Your Idea?",
+    "addLanguageother": "Enter the language you prefer Submitting Your Idea?",
+
     "share": "Share your Amazing Ideas with us ",
     "section1": "Section-1",
     "section2": "Section-2",
@@ -581,6 +583,8 @@
     "change_pass": "Change password",
     "resources": "Resources",
     "ideatit": "Enter Idea Title",
+    "idealang": "Enter IdeaSubmission Language",
+
     "ideaprob": "Enter Problem Statement",
     "ideaFoc": "Enter the Focus Area",
 
