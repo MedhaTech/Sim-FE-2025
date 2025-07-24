@@ -685,7 +685,7 @@
   },
   "teacher_certificate": {
     "download": "కోర్సు సర్టిఫికేట్‌ను డౌన్‌లోడ్ చేయండి",
-    "downloadn": "Download",
+    "downloadn":"డౌన్‌లోడ్",
 
     "addon_certificate": "ఐడియా సమర్పణ/పార్టిసిపేషన్ సర్టిఫికేట్",
     "participate_certificate": "ప్రశంసా పత్రం",
@@ -693,10 +693,10 @@
     "downloadaddon_certificate": "పార్టిసిపేషన్ సర్టిఫికేట్ డౌన్‌లోడ్ చేసుకోండి",
 
     "certificate": "కోర్సు పూర్తి చేసిన సర్టిఫికేట్",
-    "certificate_desc": "Please Download Certificate...",
+    "certificate_desc":"దయచేసి సర్టిఫికెట్ డౌన్‌లోడ్ చేసుకోండి...",
     "part_certificate_desc": "దయచేసి పార్టిసిపేట్ సర్టిఫికెట్‌ని డౌన్‌లోడ్ చేసుకోండి...",
-    "complete_postsurvey": "Please complete post survey to get course completion certificate",
-    "complete_post_survey_default": "Thank you for completing the journey and supporting your students in successful completion of the course and idea submission. Your certificate will be enabled soon.",
+    "complete_postsurvey": "మీ సర్టిఫికేట్ పొందడానికి దయచేసి పోస్ట్ సర్వేను పూర్తి చేయండి",
+    "complete_post_survey_default": "ప్రయాణాన్ని పూర్తి చేసినందుకు మరియు మీ విద్యార్థులు కోర్సును విజయవంతంగా పూర్తి చేయడంలో మరియు ఆలోచన సమర్పణలో మద్దతు ఇచ్చినందుకు ధన్యవాదాలు. మీ సర్టిఫికేట్ త్వరలో అందుబాటులోకి వస్తుంది.",
     "congratulations_innovators": "అభినందనలు, సృజనాత్మకులు!",
     "level_3_evaluation": "మీ ఆసక్తి, సృజనాత్మకత మరియు కష్టపడే తత్వం మిమ్మల్ని లెవల్ 3 విలువాచిన దశకు తీసుకువచ్చింది! ఇది మీ నిబద్ధత మరియు మీరు ప్రతిపాదించిన అద్భుతమైన ఆలోచనల యొక్క నిదర్శనం. మీరు ఈ దశకు చేరుకున్నప్పుడు, నూతన ఆవిష్కరణ పయనం గమ్యం తాకట్టు చేసే అంతే విలువైనదని గుర్తుంచుకోండి.",
     "innovation_journey_message": "ప్రతి సవాలు నేర్చుకునేందుకు, ఎదగడానికి, మరియు మీ ఆలోచనా శక్తిని ప్రదర్శించడానికి ఒక అవకాశంగా మారుతుంది. మీ హద్దులను అధిగమించండి, జిజ్ఞాసతో ఉండండి, మరియు మీ కలలను నమ్మండి. మీ ఆలోచనలు నిజమైన ప్రభావం చూపే సామర్థ్యం కలిగివుంటాయి, మరియు ఇది కేవలం ఆరంభం మాత్రమే! మీ అద్భుతమైన పనిని కొనసాగించండి, మరియు మీ నూతన ఆవిష్కరణ కాంతించేలా చేయండి!",
