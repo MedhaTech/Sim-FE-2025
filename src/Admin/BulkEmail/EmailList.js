@@ -279,7 +279,7 @@ async function fetchResList() {
                   </div>
                 </div>
               </div>
-              <div className="my-2">
+              {/* <div className="my-2">
                 {reqList ? (
                 <DataTableExtensions
                   print={false}
@@ -315,7 +315,7 @@ async function fetchResList() {
                   />
                 </DataTableExtensions> 
                 )}
-              </div>
+              </div> */}
             </Row>
           </Row>
         </Container>
