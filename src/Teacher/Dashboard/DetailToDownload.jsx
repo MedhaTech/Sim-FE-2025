@@ -1,12 +1,42 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React from 'react';
-import LinkComponent from './LinkComponent';
 import IdeaPage1 from '../../assets/img/idea report/idea_page1.png';
 import IdeaPage2 from '../../assets/img/idea report/idea_page2.jpg';
 import IdeaPage3 from '../../assets/img/idea report/idea_page3.jpg';
 import moment from 'moment';
-// const detailToDownload = (props) => {
+import { Col, Row } from 'reactstrap';
+    const LinkComponent = ({ item }) => {
+      return (
+        <>
+           <Row>
+            {item &&
+              item.length > 0 &&
+              item.map((ans, i) => {
+                let fileName = '';
+                try {
+                  const url = new URL(ans);
+                  const segments = url.pathname.split('/');
+                  fileName = segments[segments.length - 1];
+                } catch (err) {
+                  fileName = `File_${i + 1}`;
+                }
+          
+                return (
+                  <Col key={i} xs={12} sm={6} md={4}>
+                    <span
+                      className="badge bg-info w-100 p-3 mb-3 d-block text-center"
+                      style={{ cursor: "pointer" }}
+                    >
+                      {fileName}
+                    </span>
+                  </Col>
+                );
+              })}
+          </Row>
+        </>
+      );
+    };
 class detailToDownload extends React.Component {
     constructor(props) {
         super(props);

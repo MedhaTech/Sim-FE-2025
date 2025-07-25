@@ -236,7 +236,7 @@ async function fetchResList() {
                         <b>COMPOSE</b>
                       </button>
                    
-                      <button
+                      {/* <button
                         type="button"
                         className="btn btn-info"
                         onClick={() => handleResponseList()}
@@ -247,7 +247,7 @@ async function fetchResList() {
                           style={{ color: "white" }}
                         />
                         <b>RESPONSES</b>
-                      </button>
+                      </button> */}
                     </div>
                   </>
                 )}
