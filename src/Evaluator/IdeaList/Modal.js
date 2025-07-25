@@ -38,7 +38,7 @@ const { t } = useTranslation();
         
       //   <div style={{ height: '600px' }}>
       //   <Worker workerUrl={`https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js`}>
-      //     <Viewer fileUrl={'https://aictemicsim.blob.core.windows.net/datamicsim/ideas/dev/44/CR2025-7-18_14-15-55_2.pdf?sv=2024-11-04&ss=b&srt=sco&sp=rwdlaciytfx&se=2026-07-30T20:34:32Z&st=2025-07-09T12:34:32Z&spr=https&sig=kCvU3WLqnU6AsghfSCcq1NOJrL0VGL4i1ioHDqZx%2B2s%3D'} />
+      //     <Viewer fileUrl={teamResponse.prototype_image} />
       //   </Worker>
          
       // </div>
