@@ -246,7 +246,7 @@ class Schoolpdf extends React.Component {
                         >
                             {
                                 this?.props?.remMentor?.mentorData?.organization
-                                    ?.category
+                                    ?.school_type
                             }
                         </span>
                         <span
