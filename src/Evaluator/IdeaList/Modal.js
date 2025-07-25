@@ -1,8 +1,9 @@
 /* eslint-disable indent */
 import React, { useState,useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import { Worker, Viewer } from '@react-pdf-viewer/core';
-import '@react-pdf-viewer/core/lib/styles/index.css';
+import { useTranslation } from 'react-i18next';
+// import { Worker, Viewer } from '@react-pdf-viewer/core';
+// import '@react-pdf-viewer/core/lib/styles/index.css';
 
 const FilePreviewModal = ({teamResponse, show, onHide} ) => {
   const [fileType, setFileType] = useState('');
@@ -15,9 +16,9 @@ const FilePreviewModal = ({teamResponse, show, onHide} ) => {
       setFileType(fileexten[0]);
     }
   }, [teamResponse]);
-
+const { t } = useTranslation();
   const isImage = ['jpg', 'jpeg', 'png', 'gif','JPG', 'JPEG', 'PNG', 'webp'].includes(fileType);
-  const isPDF = fileType === 'pdf';
+  //const isPDF = fileType === 'pdf';
 
   return (
     <Modal show={show} onHide={onHide} size="md" centered>
@@ -31,16 +32,18 @@ const FilePreviewModal = ({teamResponse, show, onHide} ) => {
             alt="Preview"
             style={{ width: '100%', height: '100%' }}
           />
-        ) : isPDF  ?
-         (
+        ) 
+      //   : isPDF  ?
+      //    (
         
-        <div style={{ height: '600px' }}>
-        <Worker workerUrl={`https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js`}>
-          <Viewer fileUrl={teamResponse.prototype_image} />
-        </Worker>
+      //   <div style={{ height: '600px' }}>
+      //   <Worker workerUrl={`https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js`}>
+      //     <Viewer fileUrl={teamResponse.prototype_image} />
+      //   </Worker>
          
-      </div>
-        ) : (
+      // </div>
+      //   ) 
+        : (
           <div style={{ textAlign: 'center' }}>
             <p>Preview not available. Click below to download:</p>
             <a
@@ -49,7 +52,7 @@ const FilePreviewModal = ({teamResponse, show, onHide} ) => {
               rel="noopener noreferrer"
               download
             >
-              <Button variant="warning">{teamResponse.fileName}</Button>
+              <Button variant="warning">{t('ideaSubmission.download')}</Button>
             </a>
           </div>
         )}
