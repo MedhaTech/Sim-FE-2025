@@ -29,9 +29,10 @@ const FileGrid = ({ resList }) => {
   const getFilePreview = (url) => {
     if (!url || typeof url !== "string") return "https://upload.wikimedia.org/wikipedia/commons/8/89/File_icon.svg"; // Default icon
     
-    if (url.endsWith(".pdf")) {
+    const cleanUrl = url.split("?")[0];
+    if (cleanUrl .endsWith(".pdf")) {
       return pdfIcon; 
-    } else if (url.endsWith(".docx") || url.endsWith(".doc")) {
+    } else if (cleanUrl .endsWith(".docx") || cleanUrl .endsWith(".doc")) {
       return wordIcon; 
     } else if (url.match(/\.(jpeg|jpg|png|gif|JPEG|JPG|PNG|GIF)$/)) {
       return ImgIcon; 
@@ -131,7 +132,6 @@ const handleFileDownload = async(file) =>{
  <img
         src={getFilePreview(record.attachments)}
         alt="File Preview"
-        onClick={()=>handleFileDownload(record.attachments)}
         className="card-img-top mb-1"
         style={{ maxHeight: "120px", objectFit: "cover" }}
       />
