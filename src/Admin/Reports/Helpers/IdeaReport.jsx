@@ -582,53 +582,60 @@ const IdeaReport = () => {
             (acc, item) => {
               acc.state = "Total";
               (acc.totalSubmited += item.totalSubmited),
-                (acc.BuildingaSustainableFuture +=
-                  item.BuildingaSustainableFuture);
-              acc.TechnologyforLearningandGrowth +=
-                item.TechnologyforLearningandGrowth;
-              acc.HealthNutritionWellbeing += item.HealthNutritionWellbeing;
-              acc.SkillsforLifeLivelihood += item.SkillsforLifeLivelihood;
-              acc.SmarterCommunitiesSaferFutures +=
-                item.SmarterCommunitiesSaferFutures;
-              acc.OpenCategoryThinkBeyond += item.OpenCategoryThinkBeyond;
+                (acc.HealthWellness +=
+                  item.HealthWellness);
+              acc.WomenChildDevelopment +=
+                item.WomenChildDevelopment;
+              acc.Water += item.Water;
+              acc.LifestyleforEnvironment += item.LifestyleforEnvironment;
+              acc.CulturalPride +=
+                item.CulturalPride;
+              acc.TribalEmpowerment += item.TribalEmpowerment;
 
-              acc.AgricultureRuralTransformation +=
-                item.AgricultureRuralTransformation;
+              acc.FutureReadySkills +=
+                item.FutureReadySkills;
+                 acc.LocalCommunityProblems +=
+                item.LocalCommunityProblems;
               return acc;
             },
             {
               totalSubmited: 0,
 
-              BuildingaSustainableFuture: 0,
-              TechnologyforLearningandGrowth: 0,
-              HealthNutritionWellbeing: 0,
-              SkillsforLifeLivelihood: 0,
-              SmarterCommunitiesSaferFutures: 0,
-              AgricultureRuralTransformation: 0,
-              OpenCategoryThinkBeyond: 0,
+              HealthWellness: 0,
+              WomenChildDevelopment: 0,
+              Water: 0,
+              LifestyleforEnvironment: 0,
+              CulturalPride: 0,
+              FutureReadySkills: 0,
+              TribalEmpowerment: 0,
+              LocalCommunityProblems: 0,
+
             }
           );
 
           const doughnutData = {
             labels: [
-              "Building a Sustainable Future",
-              "Technology for Learning and Growth",
-              "Health & Nutrition and Well-being",
-              "Skills for Life and Livelihood",
-              "Smarter Communities & Safer Futures",
-              "Agriculture and Rural Transformation",
-              "Open Category - Think Beyond!",
+               "Health & Wellness",
+      "Women & Child Development",
+      "Water",
+      "Lifestyle for Environment (LiFE)",
+      "Cultural Pride",
+      "Tribal Empowerment",
+     "Future-Ready Skills",
+     "Local Community Problems (Open Innovation)"
             ],
             datasets: [
               {
                 data: [
-                  total.BuildingaSustainableFuture,
-                  total.TechnologyforLearningandGrowth,
-                  total.HealthNutritionWellbeing,
-                  total.SkillsforLifeLivelihood,
-                  total.SmarterCommunitiesSaferFutures,
-                  total.AgricultureRuralTransformation,
-                  total.OpenCategoryThinkBeyond,
+                  total.HealthWellness,
+                  total.WomenChildDevelopment,
+                  total.Water,
+                  total.LifestyleforEnvironment,
+                  total.CulturalPride,
+                  total.TribalEmpowerment,
+                  total.FutureReadySkills,
+                  total.LocalCommunityProblems,
+
                 ],
                 backgroundColor: [
                   "#8bcaf4",
@@ -638,6 +645,8 @@ const IdeaReport = () => {
                   "#648c11",
                   "#00ffff",
                   "#0000ff",
+      "#32cd32"
+
                 ],
                 hoverBackgroundColor: [
                   "#36A2EB",
@@ -647,6 +656,8 @@ const IdeaReport = () => {
                   "#a6d608",
                   "#b2ffff",
                   "#4169e1",
+      "#90ee90 "
+
                 ],
               },
             ],
