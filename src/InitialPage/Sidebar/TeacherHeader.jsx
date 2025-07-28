@@ -346,11 +346,11 @@ const MentorHeader = () => {
 
   <ul className="nav user-menu align-items-center mb-0">
     {/* Language Dropdown */}
-    {/* <li className="nav-item">
+    <li className="nav-item">
       <div className="dropdown me-3">
         <LanguageSelectorComp module="mentor" />
       </div>
-    </li> */}
+    </li>
 
     {/* Fullscreen Toggle */}
     <li className="nav-item">
