@@ -264,8 +264,10 @@ const handleFileDownload = async(file,type) =>{
       .then(function (res) {
         if (res.status === 200 && res.data.data[0]?.on_off === "1") {
           setShowsPopup(true);
-          handleFileDownload(res?.data?.data[0]?.file,'file');
-          handleFileDownload(res?.data?.data[0]?.image,'img');
+          setFile(res?.data?.data[0]?.file);
+          setImageData(res?.data?.data[0]?.image);
+          setPopType(res?.data?.data[0]?.type);
+
           setUrlData(res?.data?.data[0]?.url);
           setYoutube(res?.data?.data[0]?.youtube);
 

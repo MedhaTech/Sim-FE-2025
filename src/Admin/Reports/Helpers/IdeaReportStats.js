@@ -32,35 +32,40 @@ const IdeaReportStats = ({
       key: "totalSubmited",
     },
     {
-      label: "Building a Sustainable Future",
-      key: "BuildingaSustainableFuture",
+      label: "Health & Wellness",
+      key: "HealthWellness",
     },
     {
-      label: "Technology for Learning and Growth",
-      key: "TechnologyforLearningandGrowth",
+      label: "Women & Child Development",
+      key: "WomenChildDevelopment",
     },
     {
-      label: "Health & Nutrition and Well-being",
-      key: "HealthNutritionWellbeing",
+      label: "Water",
+      key: "Water",
     },
     {
-      label: "Skills for Life and Livelihood",
+      label: "Lifestyle for Environment (LiFE)",
 
-      key: "SkillsforLifeLivelihood",
+      key: "LifestyleforEnvironment",
     },
     {
-      label: "Smarter Communities & Safer Futures",
-      key: "SmarterCommunitiesSaferFutures",
+      label: "Cultural Pride",
+      key: "CulturalPride",
     },
     {
-      label: "Agriculture and Rural Transformation",
+      label: "Tribal Empowerment",
 
-      key: "AgricultureRuralTransformation",
+      key: "TribalEmpowerment",
     },
     {
-      label: "Open Category - Think Beyond!",
+      label: "Future-Ready Skills",
 
-      key: "OpenCategoryThinkBeyond",
+      key: "FutureReadySkills",
+    },
+      {
+      label: "Local Community Problems (Open Innovation",
+
+      key: "LocalCommunityProblems ",
     },
   ];
 
@@ -80,24 +85,29 @@ const IdeaReportStats = ({
       "#a6d608",
       "#b2ffff",
       "#4169e1",
+      "#32cd32"
     ],
     labels: [
-      "Building a Sustainable Future",
-      "Technology for Learning and Growth",
-      "Health & Nutrition and Well-being",
-      "Skills for Life and Livelihood",
-      "Smarter Communities & Safer Futures",
-      "Agriculture and Rural Transformation",
-      "Open Category - Think Beyond!",
+      "Health & Wellness",
+      "Women & Child Development",
+      "Water",
+      "Lifestyle for Environment (LiFE)",
+      "Cultural Pride",
+      "Tribal Empowerment",
+     "Future-Ready Skills",
+     "Local Community Problems (Open Innovation)"
     ],
     series: [
-      totalCount.BuildingaSustainableFuture,
-      totalCount.TechnologyforLearningandGrowth,
-      totalCount.HealthNutritionWellbeing,
-      totalCount.SkillsforLifeLivelihood,
-      totalCount.SmarterCommunitiesSaferFutures,
-      totalCount.AgricultureRuralTransformation,
-      totalCount.OpenCategoryThinkBeyond,
+      totalCount.HealthWellness,
+      totalCount.WomenChildDevelopment,
+      totalCount.Water,
+      totalCount.LifestyleforEnvironment,
+      totalCount.CulturalPride,
+      totalCount.TribalEmpowerment,
+      totalCount.FutureReadySkills,
+      totalCount.LocalCommunityProblems,
+
+
     ],
     legend: {
       position: "top",
@@ -236,7 +246,7 @@ const IdeaReportStats = ({
                                     fontWeight: "bold",
                                   }}
                                 >
-                                  #Building a Sustainable Future
+                                  #Health & Wellness
                                 </th>
                                 <th
                                   style={{
@@ -244,7 +254,7 @@ const IdeaReportStats = ({
                                     color: "#36A2EB",
                                   }}
                                 >
-                                  #Technology for Learning and Growth
+                                  #Women & Child Development
                                 </th>
                                 <th
                                   style={{
@@ -252,7 +262,7 @@ const IdeaReportStats = ({
                                     color: "#36A2EB",
                                   }}
                                 >
-                                  #Health & Nutrition and Well-being
+                                  #Water
                                 </th>
                                 <th
                                   style={{
@@ -260,7 +270,7 @@ const IdeaReportStats = ({
                                     color: "#36A2EB",
                                   }}
                                 >
-                                  #Skills for Life and Livelihood
+                                  #Lifestyle for Environment (LiFE)
                                 </th>
 
                                 <th
@@ -269,7 +279,7 @@ const IdeaReportStats = ({
                                     color: "#36A2EB",
                                   }}
                                 >
-                                  #Smarter Communities & Safer Futures{" "}
+                                  #Cultural Pride{" "}
                                 </th>
 
                                 <th
@@ -279,7 +289,7 @@ const IdeaReportStats = ({
                                     fontWeight: "bold",
                                   }}
                                 >
-                                  #Agriculture and Rural Transformation
+                                  #Tribal Empowerment
                                 </th>
                                 <th
                                   style={{
@@ -287,7 +297,15 @@ const IdeaReportStats = ({
                                     color: "#36A2EB",
                                   }}
                                 >
-                                  #Open Category - Think Beyond!
+                                  #Future-Ready Skills
+                                </th>
+                                 <th
+                                  style={{
+                                    whiteSpace: "wrap",
+                                    color: "#36A2EB",
+                                  }}
+                                >
+                                  #Local Community Problems (Open Innovation)
                                 </th>
                               </tr>
                             </thead>
@@ -308,16 +326,18 @@ const IdeaReportStats = ({
                                   </td>
                                   <td>{item.totalSubmited}</td>
                                   <td>
-                                    {item.BuildingaSustainableFuture}
+                                    {item.HealthWellness}
                                   </td>{" "}
-                                  <td>{item.TechnologyforLearningandGrowth}</td>
-                                  <td>{item.HealthNutritionWellbeing}</td>
-                                  <td>{item.SkillsforLifeLivelihood}</td>
-                                  <td>{item.SmarterCommunitiesSaferFutures}</td>
+                                  <td>{item.WomenChildDevelopment}</td>
+                                  <td>{item.Water}</td>
+                                  <td>{item.LifestyleforEnvironment}</td>
+                                  <td>{item.CulturalPride}</td>
                                   <td>
-                                    {item.AgricultureRuralTransformation}
+                                    {item.TribalEmpowerment}
                                   </td>{" "}
-                                  <td>{item.OpenCategoryThinkBeyond}</td>
+                                  <td>{item.FutureReadySkills}</td>
+                                  <td>{item.LocalCommunityProblems}</td>
+
                                 </tr>
                               ))}
                               <tr>
@@ -337,25 +357,28 @@ const IdeaReportStats = ({
                                   {totalCount.totalSubmited}
                                 </td>
                                 <td style={{ color: "crimson" }}>
-                                  {totalCount.BuildingaSustainableFuture}
+                                  {totalCount.HealthWellness}
                                 </td>
                                 <td style={{ color: "crimson" }}>
-                                  {totalCount.TechnologyforLearningandGrowth}
+                                  {totalCount.WomenChildDevelopment}
                                 </td>
                                 <td style={{ color: "crimson" }}>
-                                  {totalCount.HealthNutritionWellbeing}
+                                  {totalCount.Water}
                                 </td>{" "}
                                 <td style={{ color: "crimson" }}>
-                                  {totalCount.SkillsforLifeLivelihood}
+                                  {totalCount.LifestyleforEnvironment}
                                 </td>
                                 <td style={{ color: "crimson" }}>
-                                  {totalCount.SmarterCommunitiesSaferFutures}
+                                  {totalCount.CulturalPride}
                                 </td>
                                 <td style={{ color: "crimson" }}>
-                                  {totalCount.AgricultureRuralTransformation}
+                                  {totalCount.TribalEmpowerment}
                                 </td>{" "}
                                 <td style={{ color: "crimson" }}>
-                                  {totalCount.OpenCategoryThinkBeyond}
+                                  {totalCount.FutureReadySkills}
+                                </td>
+                                 <td style={{ color: "crimson" }}>
+                                  {totalCount.LocalCommunityProblems}
                                 </td>
                               </tr>
                             </tbody>
