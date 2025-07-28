@@ -247,9 +247,9 @@ const Header = () => {
 
 
         {currentUser?.data[0]?.role == "STUDENT" && (  <div className="d-flex align-items-center">
-              {/* <div className="dropdown ">
+              <div className="dropdown ">
                   <LanguageSelectorComp module="student" />
-              </div> */}
+              </div>
             </div>
             )}
           <li className="nav-item nav-item-box">
