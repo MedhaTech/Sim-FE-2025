@@ -351,12 +351,14 @@ const Register = () => {
   },[formik.values.email]);
   async function apiCall(mentData) {
        // this function Sends a request to trigger the mentor welcome email
-
     const body = {
-      school_name: orgData.organization_name,
       udise_code: orgData.organization_code,
-      district:formik.values.district,
+      school_type:orgData.school_type,
+      board:orgData.board,
+      school_name: orgData.organization_name,
       state: orgData.state,
+      district:formik.values.district,
+      mandal:orgData.mandal,
       pin_code: orgData.pin_code,
       email: mentData.username,
       mobile: mentData.mobile,
