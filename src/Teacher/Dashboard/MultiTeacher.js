@@ -27,7 +27,7 @@ const MultiTeacher = ({
   approveideaCount,
 }) => {
   const { t } = useTranslation();
-console.log(teamsCount,"tt");
+console.log(teamsCount,"tC",ideaCount,"ic",approveideaCount,"ac");
   const steps = [
     {
       name: t("teacherJourney.add1"),
@@ -69,27 +69,21 @@ console.log(teamsCount,"tt");
       name: t("teacherJourney.add5"),
       // status: ideaCount === approveideaCount ? "Completed" : "Pending",
       status:
-        teamsCount > 0
-          ? ideaCount === approveideaCount
-            ? "Completed"
-            : "Pending"
-          : "Pending",
+        teamsCount > 0 && ideaCount > 0 && ideaCount === approveideaCount
+    ? "Completed"
+    : "Pending",
     //   icon:
     //     ideaCount === approveideaCount ? (
     //       <FaCheckCircle color="green" />
     //     ) : (
     //       <LuSend color="orange" />
     //     ),
-     icon:
-    teamsCount > 0
-      ? ideaCount === approveideaCount ? (
-          <FaCheckCircle color="green" />
-        ) : (
-          <LuSend color="orange" />
-        )
-      : (
-        <LuSend color="orange" />
-      ),
+    icon:
+    teamsCount > 0 && ideaCount > 0 && ideaCount === approveideaCount ? (
+      <FaCheckCircle color="green" />
+    ) : (
+      <LuSend color="orange" />
+    ),
     },
     {
       name: t("teacherJourney.add6"),
