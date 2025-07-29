@@ -18,7 +18,7 @@
     "popdi": "Oops..! you can not access form",
     "popcheckD": "As Idea Submission is disabled by the Admin",
 
-    "popcheck": "You can access idea submission as long as at least one of your teammates has completed the course.",
+    "popcheck": "You can access idea submission only after all of your teammates have completed the course.",
     "ok": "Ok",
     "Title": "Together let’s learn and build something amazing.",
     "subtitle": "Creating change makers of tomorrow",
