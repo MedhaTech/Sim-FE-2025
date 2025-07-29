@@ -557,14 +557,18 @@ const NonAtlPage = () => {
   async function apiCall(mentData) {
    // this function Sends a request to trigger the mentor welcome email
     const body = JSON.stringify({
-      school_name: orgData.organization_name,
       udise_code: orgData.organization_code,
-      district: orgData.district,
+      school_type:orgData.school_type,
+      board:orgData.board,
+      school_name: orgData.organization_name,
       state: orgData.state,
+      district: orgData.district,
       pin_code: orgData.pin_code,
+      mandal:orgData.mandal,
       email: mentData.username,
       mobile: mentData.mobile,
     });
+
     var config = {
       method: "post",
       url: process.env.REACT_APP_API_BASE_URL + "/mentors/triggerWelcomeEmail",
