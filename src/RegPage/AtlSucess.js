@@ -153,7 +153,7 @@ const AtlSucess = () => {
                     </p>
                   </Col>
                   <Col
-                    className="hover-a col-md-6 col-sm-12"
+                    className="hover-a col-md-5 col-sm-12"
                     style={{
                       border: "1px solid #ccc",
                       padding: "20px",
