@@ -14,7 +14,11 @@ import { FaFilePdf } from "react-icons/fa6";
 import { FaFileWord } from "react-icons/fa";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 import { getCurrentUser } from "../../helpers/Utils";
+import { useTranslation } from "react-i18next";
+
 const FileGrid = ({ resList }) => {
+           const { t } = useTranslation();
+  
   const isValidUrl = (string) => {
     try {
       const url = new URL(string);
@@ -179,7 +183,7 @@ const handleFileDownload = async(file) =>{
             rel="noopener noreferrer"
             className="btn btn-sm btn-outline-primary mt-1"
           >
-            <i className="fas fa-external-link-alt"></i> Watch Video
+            <i className="fas fa-external-link-alt"></i> {t('teacherJourney.WatchVideo')}
           </a>
         </div>
       </>
@@ -200,7 +204,7 @@ const handleFileDownload = async(file) =>{
             rel="noopener noreferrer"
             className="btn btn-sm btn-outline-secondary mt-1"
           >
-            <i className="fas fa-external-link-alt"></i> Open File
+            <i className="fas fa-external-link-alt"></i> {t('teacherJourney.OpenFile')}
           </a>
         </div>
       </>
