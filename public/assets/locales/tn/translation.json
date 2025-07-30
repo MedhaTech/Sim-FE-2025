@@ -121,7 +121,7 @@
     "support2": "இணைப்பை உள்ளிடவும்",
     "selectCategory": "வகையைத் தேர்ந்தெடு",
     "selectStatus": "நிலையைத் தேர்ந்தெடு",
-    "demo": "DEMO",
+    "demo": "டெமோ",
     "error": "User password doesn't match",
     "generalQuery": "பொது",
     "technicalQuery": "தொழில்நுட்ப",
@@ -411,7 +411,13 @@
     "add4":"பாடநெறி",
     "add5":"ஐடியா ஒப்புதல்",
     "add6": "போஸ்ட் சர்வே",
-    "add7": "சான்றிதழ்"
+    "add7": "சான்றிதழ்",
+      "InDraft": "வரைவில்",
+    "NotInitiated": "தொடங்கப்படவில்லை",
+    "EARNEDON":"சம்பாதித்தது",
+      "OpenFile":"கோப்பைத் திற",
+     "WatchVideo":"வீடியோவைப் பாருங்கள்"
+
 
 
 

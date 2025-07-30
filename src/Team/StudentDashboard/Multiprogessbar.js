@@ -9,30 +9,34 @@ import { LuSend } from "react-icons/lu";
 import { FaTv } from "react-icons/fa";
 import { LiaCertificateSolid } from "react-icons/lia";
 import { FaFlagCheckered } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
+
     const MultiProgressBar = ({ predata, postdata, stuIdeaSub,courseData }) => {
+          const { t } = useTranslation();
+        
         const steps = [
             {
-                name: 'Pre Survey',
+                name:  t("teacherJourney.add1"),
                 status: predata === "Completed" ? "Completed" : "Pending",
                 icon: predata === "Completed" ? <FaCheckCircle color="green" /> : <FiEdit color="orange" />
             },
             {
-                name: 'Course',
+                name: t("teacherJourney.add4"),
                 status: courseData === "Completed" ? "Completed" : "Pending",
                 icon: courseData === "Completed" ? <FaCheckCircle color="green" /> : <FaTv color="blue" />
             },
             {
-                name: 'Idea Submission',
+                name: t("teacherJourney.dashIdea"),
                 status: stuIdeaSub === "SUBMITTED" ? "Completed" : "Pending",
                 icon: stuIdeaSub === "SUBMITTED" ? <FaCheckCircle color="green" /> : <LuSend color="orange" />
             },
             {
-                name: 'Post Survey',
+                name: t("teacherJourney.add6"),
                 status: postdata === "Completed" ? "Completed" : "Pending",
                 icon: postdata === "Completed" ? <FaCheckCircle color="green" /> : <FiEdit3 color="sky blue" />
             },
             {
-                name: 'Certificate',
+                name: t("teacherJourney.add7"),
                 status: postdata === "Completed" && stuIdeaSub === "SUBMITTED" ? "Completed" : "Disabled",
                 icon: postdata === "Completed"  && stuIdeaSub === "SUBMITTED" ? <FaFlagCheckered color="green" /> : <LiaCertificateSolid color="green" />
             },

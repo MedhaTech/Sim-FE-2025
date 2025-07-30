@@ -288,6 +288,7 @@
     "NotStarted": "Not Started",
     "InProgress": "InProgress",
     "Completed": "Completed",
+
     "completecert": "Complete survey & Get Certificate",
     "pending": "Pending",
     "Resources": "Resources",
@@ -435,7 +436,14 @@
     "add4": "Course",
     "add5": "Idea Approval",
     "add6": "Post Survey",
-    "add7": "Certificate"
+    "add7": "Certificate",
+    "InDraft": "In Draft",
+    "NotInitiated": "Not Initiated",
+    "EARNEDON":"EARNED ON",
+    "OpenFile":"Open File",
+     "WatchVideo":" Watch Video"
+
+
   },
   "ideaSubmission": {
     "theme": "Theme",
