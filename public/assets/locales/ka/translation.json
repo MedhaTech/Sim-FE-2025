@@ -12,7 +12,7 @@
     "signupwelcome": "Together let’s learn and build something amazing.",
     "login": {
         "logIn": "Log in",
-        "logOut": "Logout",
+        "logOut": "ಲಾಗ್ಔಟ್",
         "cancel": "Cancel",
 "popinst":"ಓಹ್..! ಐಡಿಯಾ ಸಲ್ಲಿಕೆ ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿಲ್ಲವೇ?",
 "popdi":"ಓಹ್..! ನೀವು ಫಾರ್ಮ್ ಅನ್ನು ಪ್ರವೇಶಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ",
@@ -600,7 +600,7 @@
         "certificate": "My Certificate",
         "profile": "My Profile",
         "password": "Change Password",
-        "logout": "Logout",
+        "logout": "ಲಾಗ್ಔಟ್",
         "question": "Question",
         "submit": "Submit",
         "continue": "Continue",
@@ -700,7 +700,7 @@
     },
     "teacher_header": {
         "profile": "My Profile",
-        "logout": "Logout"
+        "logout": "ಲಾಗ್ಔಟ್"
     },
     "teacher_teams": {
         "team_heading": "Teams Management",
@@ -759,13 +759,13 @@
         "loading": "Loading"
     },
     "general_req": {
-        "attempt_logout": "You are attempting to logout",
-        "are_you_sure": "Are you sure?",
-        "btn_logout": "Logout",
-        "btn_cancel": "Cancel",
-        "btn_ok": "Ok",
-        "cancelled": "Cancelled",
-        "logged_in": "You are Logged in",
+        "attempt_logout":"ನೀವು ಲಾಗ್ ಔಟ್ ಮಾಡಲು ಪ್ರಯತ್ನಿಸುತ್ತಿದ್ದೀರಿ",
+        "are_you_sure":"ನಿಮಗೆ ಖಚಿತವಾಗಿದೆಯೇ?",
+        "btn_logout":"ಲಾಗ್ಔಟ್",
+        "btn_cancel":"ರದ್ದುಮಾಡು",
+        "btn_ok": "ಸರಿ",
+        "cancelled": "ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ",
+        "logged_in": "ನೀವು ಲಾಗಿನ್ ಆಗಿದ್ದೀರಿ",
         "submit_idea": "Ask your guide teacher to go through the details entered by you to make sure they are correct. You cannot make changes once the idea is submitted. Invalid/Wrong entries will not be selected.",
         "idea_sub_cancelled": "Idea Submission Cancelled",
          "revert":"ನೀವು ಇದನ್ನು ಹಿಂತಿರುಗಿಸಲು ಸಾಧ್ಯವಾಗುವುದಿಲ್ಲ!",
