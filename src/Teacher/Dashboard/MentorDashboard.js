@@ -44,6 +44,9 @@ import YoutubePopup from "../../HelpVideo/Youtubepop";
 const GreetingModal = (props) => {
    const { t } = useTranslation();
 
+  console.log("Translation for ref:", t('teacherJourney.ref'));
+  console.log("Translation for navigate:", t('teacherJourney.navigate'));
+
   return (
     <Modal
       show={props.show}
@@ -147,6 +150,7 @@ const GreetingModal = (props) => {
     <strong className="me-2">{t('teacherJourney.ref')}</strong>
     <Link to={props.state}>
       <button className="btn btn-warning">{t('teacherJourney.navigate')}</button>
+      
     </Link>
   </div>
 )}
