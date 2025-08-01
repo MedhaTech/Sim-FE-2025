@@ -468,9 +468,9 @@ const MentorHeader = () => {
     <img src={logo} alt="Logo" style={{ width: "130px", height: "auto" }} />
 
     {/* Language Dropdown */}
-    {/* <div className="ms-2">
+     <div className="ms-2">
       <LanguageSelectorComp module="mentor" />
-    </div> */}
+    </div> 
   </div>
 
   {/* Right: Profile Menu */}
