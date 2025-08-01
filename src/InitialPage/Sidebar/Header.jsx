@@ -14,8 +14,16 @@ import logo from "../../assets/img/new-logo.png";
 import axios from "axios";
 import Icon from "../../assets/img/logos.jpg";
 import { openNotificationWithIcon } from "../../helpers/Utils.js";
+import { useLocation } from "react-router-dom";
 
 const Header = () => {
+   const location = useLocation(); 
+   useEffect(() => {
+      // Auto-close sidebar when route changes
+      document.querySelector(".main-wrapper")?.classList?.remove("slide-nav");
+      document.querySelector(".sidebar-overlay")?.classList?.remove("opened");
+      document.querySelector("html")?.classList?.remove("menu-opened");
+    }, [location.pathname]);
   const route = all_routes;
   const [toggle, SetToggle] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);

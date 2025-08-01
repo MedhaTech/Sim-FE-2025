@@ -19,9 +19,10 @@ import  "./styles.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import LanguageSelectorComp from '../../components/LanguageSelectorComp/index.js';
-
+import { useLocation } from "react-router-dom";
 const Header = () => {
   const route = all_routes;
+
   const [toggle, SetToggle] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const currentUser = getCurrentUser("current_user");
@@ -30,6 +31,12 @@ const Header = () => {
     return element.offsetWidth > 0 || element.offsetHeight > 0;
   };
 
+  useEffect(() => {
+    // Auto-close sidebar when route changes
+    document.querySelector(".main-wrapper")?.classList?.remove("slide-nav");
+    document.querySelector(".sidebar-overlay")?.classList?.remove("opened");
+    document.querySelector("html")?.classList?.remove("menu-opened");
+  }, [location.pathname]);
   useEffect(() => {
     const handleMouseover = (e) => {
       e.stopPropagation();
