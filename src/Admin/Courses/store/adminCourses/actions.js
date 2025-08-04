@@ -138,6 +138,7 @@ export const getAdminCourseDetails =
       const resLang = encryptGlobal(
         JSON.stringify({ locale, user_id: userid })
       );
+      console.log(locale,"tt");
       const result = await axios
         .get(
           `${URL.getAdminCousesDetails + couId}?Data=${resLang}`,
