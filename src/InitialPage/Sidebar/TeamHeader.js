@@ -453,11 +453,11 @@ const Header = () => {
     <img src={logo} alt="Logo" className="responsive-image" />
 
     {/* Language Selector after logo on mobile */}
-    {currentUser?.data[0]?.role === "STUDENT" && (
+    {/* {currentUser?.data[0]?.role === "STUDENT" && ( */}
       <div className="d-block d-md-none ms-2 me-3">
         <LanguageSelectorComp module="student" />
       </div>
-    )}
+    {/* // )} */}
 
     <Link
       id="toggle_btn"
@@ -486,11 +486,11 @@ const Header = () => {
 
   <ul className="nav user-menu">
     {/* Language Selector in top-right for desktop */}
-    {currentUser?.data[0]?.role === "STUDENT" && (
+    {/* {currentUser?.data[0]?.role === "STUDENT" && ( */}
       <li className="nav-item d-none d-md-block me-3">
         <LanguageSelectorComp module="student" />
       </li>
-    )}
+    {/* // )} */}
 
     {/* Fullscreen button */}
     <li className="nav-item nav-item-box">
