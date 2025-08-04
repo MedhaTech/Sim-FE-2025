@@ -44,6 +44,9 @@ import YoutubePopup from "../../HelpVideo/Youtubepop";
 const GreetingModal = (props) => {
    const { t } = useTranslation();
 
+  console.log("Translation for ref:", t('teacherJourney.ref'));
+  console.log("Translation for navigate:", t('teacherJourney.navigate'));
+
   return (
     <Modal
       show={props.show}
@@ -147,6 +150,7 @@ const GreetingModal = (props) => {
     <strong className="me-2">{t('teacherJourney.ref')}</strong>
     <Link to={props.state}>
       <button className="btn btn-warning">{t('teacherJourney.navigate')}</button>
+      
     </Link>
   </div>
 )}
@@ -181,7 +185,7 @@ const MentorDashboard = () => {
   );
   const renderViewTooltip = (props) => (
     <Tooltip id="refresh-tooltip" {...props}>
-      Redirect
+      {t('teacherJourney.option27')}
     </Tooltip>
   );
   const handleRefresh = () => {
@@ -983,7 +987,7 @@ approveideaCount={approveideaCount}
                                       className="badge"
                                       onClick={() => handleShow(0)}
                                     >
-                                        <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;DEMO</span>
+                                        <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
                                     </span>
                                   </OverlayTrigger>
                                 </div>
@@ -1069,7 +1073,7 @@ approveideaCount={approveideaCount}
                                       className="badge"
                                       onClick={() => handleShow(1)}
                                     >
-                                        <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;DEMO</span>
+                                        <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
                                     </span>
                                   </OverlayTrigger>
                                 </div>
@@ -1161,7 +1165,7 @@ approveideaCount={approveideaCount}
                                       className="badge"
                                       onClick={() => handleShow(2)}
                                     >
-                                       <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;DEMO</span>
+                                       <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
                                     </span>
                                   </OverlayTrigger>
                                 </div>
@@ -1245,7 +1249,7 @@ approveideaCount={approveideaCount}
                                       className="badge"
                                       onClick={() => handleShow(3)}
                                     >
-                                       <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;DEMO</span>
+                                       <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
                                     </span>
                                   </OverlayTrigger>
                                 </div>
@@ -1313,7 +1317,7 @@ approveideaCount={approveideaCount}
                                       className="badge"
                                       onClick={() => handleShow(4)}
                                     >
-                                     <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;DEMO</span>
+                                     <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
                                     </span>
                                   </OverlayTrigger>
                                 </div>

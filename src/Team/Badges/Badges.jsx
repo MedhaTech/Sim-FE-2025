@@ -16,7 +16,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getStudentBadges } from '../../redux/studentRegistration/actions';
 import { getCurrentUser } from '../../helpers/Utils';
 import moment from 'moment/moment';
+import { useTranslation } from "react-i18next";
+
 const BadgesComp = () => {
+         const { t } = useTranslation();
+    
     const {badges} = useSelector(state=>state.studentRegistration);
     const language = useSelector(
         (state) => state?.studentRegistration?.studentLanguage
@@ -34,7 +38,7 @@ const BadgesComp = () => {
                 <Container className=" mt-2 ">
                     <Row>
                         <Col md={12} className="w-100 d-block">
-                            <h4 className="title mb-4">My Badges</h4>
+                            <h4 className="title mb-4"> {t('teacherJourney.badge')}</h4>
                         </Col>
                     </Row>
                     <Row
@@ -60,7 +64,7 @@ const BadgesComp = () => {
                                                 {badge.name}
                                             </CardTitle>
                                             <CardSubtitle className="badge-date">
-                                                EARNED ON:{' '}
+                                                {t('teacherJourney.EARNEDON')}:{' '}
                                                 <span className="badge-time">
                                                     {badge?.student_status ? moment(badge?.student_status).format("DD MMM YYYY") :"Locked"}
                                                 </span>

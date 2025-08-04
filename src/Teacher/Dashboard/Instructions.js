@@ -26,7 +26,7 @@ return (
               <div className="page-btn mb-2">
                 <Link to="/teacher-dashboard" className="btn btn-added btn-secondary">
                   <ArrowLeft className="me-2" style={{color:"white"}} />
-                  Back
+                   {t("teacher_teams.back")}
                 </Link>
               </div>
               </li>

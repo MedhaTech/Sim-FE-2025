@@ -19,9 +19,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKey, faUser } from "@fortawesome/free-solid-svg-icons";
 import "./styles.css";
 import LanguageSelectorComp from "../../components/LanguageSelectorComp/index.js";
+import { useLocation } from "react-router-dom";
 
 const MentorHeader = () => {
   const route = all_routes;
+   const location = useLocation(); 
+   useEffect(() => {
+      // Auto-close sidebar when route changes
+      document.querySelector(".main-wrapper")?.classList?.remove("slide-nav");
+      document.querySelector(".sidebar-overlay")?.classList?.remove("opened");
+      document.querySelector("html")?.classList?.remove("menu-opened");
+    }, [location.pathname]);
   const [toggle, SetToggle] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const { t } = useTranslation();
@@ -460,9 +468,9 @@ const MentorHeader = () => {
     <img src={logo} alt="Logo" style={{ width: "130px", height: "auto" }} />
 
     {/* Language Dropdown */}
-    {/* <div className="ms-2">
+     <div className="ms-2">
       <LanguageSelectorComp module="mentor" />
-    </div> */}
+    </div> 
   </div>
 
   {/* Right: Profile Menu */}

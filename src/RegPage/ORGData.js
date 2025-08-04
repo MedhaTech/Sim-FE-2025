@@ -1,11 +1,31 @@
 /* eslint-disable no-irregular-whitespace */
 /* eslint-disable indent */
-export const languageOptions=['English','Hindi-हिन्दी',
-  "Telugu-తెలుగు",
-  'Tamil-தமிழ்',
-  'Kannada-ಕೆನಡಾ',
-  'Malayalam-മലയാളം',
-  'Other Language'];
+export const languageOptions=[
+    "English",
+    "Telugu-తెలుగు",
+    "Hindi-हिन्दी",
+    "Tamil-தமிழ்",
+    "Kannada-ಕನ್ನಡ",
+    "Malayalam-മലയാളം",
+    "Assamese-অসমীয়া",
+    "Bengali-বাংলা",
+    "Bodo-बड़ो",
+    "Dogri-डोगरी",
+    "Gujarati-ગુજરાતી",
+    "Kashmiri-كشميري",
+    "Konkani-कोंकणी",
+    "Maithili-मैथिली",
+    "Marathi-मराठी",
+    "Meitei",
+    "Nepali-नेपाली",
+    "Odia-ଓଡ଼ିଆ",
+    "Punjabi-ਪੰਜਾਬੀ",
+    "Sanskrit-संस्कृत",
+    "Santali-ᱥᱟᱱᱛᱟᱲᱤ",
+    "Sindhi-سنڌي",
+    "Urdu-اردو"
+];
+
    export const menuRoutes = {
     "All": "/admin-dashboard", 
      "Dashboard": "/admin-dashboard",
