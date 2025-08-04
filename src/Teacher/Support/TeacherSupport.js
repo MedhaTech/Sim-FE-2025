@@ -325,7 +325,7 @@ const TeacherSupport = () => {
           bodyForm2["link"] = values.url;
         }
 
-        dispatch(createSupportTicketResponse(bodyForm2), t);
+        dispatch(createSupportTicketResponse(bodyForm2,t));
         dispatch(
           SupportTicketStatusChange(id, { status: values.selectStatusTicket })
         );

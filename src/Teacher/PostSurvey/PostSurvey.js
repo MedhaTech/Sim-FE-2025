@@ -27,12 +27,14 @@ import { UncontrolledAlert } from "reactstrap";
 import { useTranslation } from "react-i18next";
 import PostSurveyStatic from "./PostSurveyStatic";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
+import { getLanguage } from '../../constants/languageOptions';
 
 const PostSurvey = () => {
   // here we can attempt all the questions then we are able to download the certificate //
   const { t } = useTranslation();
   const dispatch = useDispatch();
   //   const history = useHistory();
+  const language = useSelector((state) => state?.mentors?.mentorLanguage);
 
   const [postSurveyList, setPostSurveyList] = useState([]);
   const currentUser = getCurrentUser("current_user");
@@ -191,7 +193,6 @@ const PostSurvey = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
     let enParamDatas = encryptGlobal(
       JSON.stringify({
@@ -199,6 +200,7 @@ const PostSurvey = () => {
         user_id:userID,
       })
     );
+   
     let submitData = {
       responses: answerResponses,
     };
@@ -240,12 +242,14 @@ const PostSurvey = () => {
   useEffect(() => {
     let enDataone = encryptGlobal("3");
     let axiosConfig = getNormalHeaders(KEY.User_API_Key);
-    const lang = "locale=en";
-    const final = lang.split("=");
+    // const lang = "locale=en";
+    // const final = lang.split("=");
+ const locale = getLanguage(language);
+
     let enParamData = encryptGlobal(
       JSON.stringify({
         role: "MENTOR",
-        locale: final[1],
+        locale,
         user_id : userID,
       })
     );
