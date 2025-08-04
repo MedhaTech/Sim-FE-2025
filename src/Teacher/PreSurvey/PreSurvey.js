@@ -14,6 +14,8 @@ import {
 } from "reactstrap";
 import { useFormik } from "formik";
 import { URL, KEY } from "../../constants/defaultValues";
+import { getLanguage } from '../../constants/languageOptions';
+import i18n from 'i18next';
 import { logout } from "../../helpers/Utils";
 import logoutIcon from "../../assets/img/icons/log-out.svg";
 import {
@@ -30,6 +32,7 @@ import { useTranslation } from "react-i18next";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 
 const PreSurvey = () => {
+  const language = useSelector((state) => state?.mentors?.mentorLanguage);
   // here we can attempt all the questions then we are able to download the certificate //
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -112,7 +115,6 @@ const PreSurvey = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-
     const axiosConfig = getNormalHeaders(KEY.User_API_Key);
     let enParamDatas = encryptGlobal(
       JSON.stringify({
@@ -120,6 +122,7 @@ const PreSurvey = () => {
         user_id: userID,
       })
     );
+    
     let submitData = {
       responses: answerResponses,
     };
@@ -179,12 +182,14 @@ const PreSurvey = () => {
   useEffect(() => {
     let enDataone = encryptGlobal("1");
     let axiosConfig = getNormalHeaders(KEY.User_API_Key);
-    const lang = "locale=en";
-    const final = lang.split("=");
+    // const lang = "locale=en";
+    // const final = lang.split("=");
+     const locale = getLanguage(language);
+     console.log(locale,"tt");
     let enParamData = encryptGlobal(
       JSON.stringify({
         role: "MENTOR",
-        locale: final[1],
+        locale,
         user_id: userID,
       })
     );
@@ -672,7 +677,7 @@ const fetchwhatsapplink = () => {
                               className="btn btn-warning m-2"
                               onClick={(e) => handleOnSubmit(e)}
                             >
-                              SUBMIT
+                              {t("teacherJourney.submit")}
                             </button>
                           </div>
                         </Form>
@@ -688,8 +693,8 @@ const fetchwhatsapplink = () => {
                           </figure>
                           <div>
                             <h4>
-                              Congratulations... Pre-Survey Submitted
-                              Successfully..!
+                               {t("teacherJourney.texts")}
+                             
                             </h4>
                           </div>
                         </div>

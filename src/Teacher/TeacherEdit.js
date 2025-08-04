@@ -73,7 +73,7 @@ const TeacherEditProfile = () => {
           {t('teacherJourney.vali6')}
         </span>
       )
-      .required(<span style={{ color: "red" }}>{t('teacherJourney.placvali7e8')}</span>),
+      .required(<span style={{ color: "red" }}>{t('teacherJourney.vali7')}</span>),
       principal_name: Yup.string()
         .trim()
         .min(2, <span style={{ color: "red" }}>{t('teacherJourney.vali8')}</span>)

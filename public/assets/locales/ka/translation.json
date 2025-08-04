@@ -64,6 +64,8 @@
         "error:job_type": "Invalid Job Type"
     },
     "teacherJourney": {
+    "texts":"ಅಭಿನಂದನೆಗಳು... ಪೂರ್ವ ಸಮೀಕ್ಷೆಯನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಸಲ್ಲಿಸಲಾಗಿದೆ..!",
+
             "place1": "ಪೂರ್ಣ ಹೆಸರನ್ನು ನಮೂದಿಸಿ",
     "place2": "ಇಮೇಲ್ ವಿಳಾಸವನ್ನು ನಮೂದಿಸಿ",
     "place3": "ಸ್ಥಿತಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ",
@@ -72,6 +74,8 @@
     "place6": "ಲಿಂಗವನ್ನು ಆಯ್ಕೆಮಾಡಿ",
     "place7": "ತಂಡದ ಹೆಸರನ್ನು ನಮೂದಿಸಿ",
     "place8": "ಶೀರ್ಷಿಕೆ",
+    "adduser1":"ಬಳಕೆದಾರರ ಪ್ರೊಫೈಲ್",
+
     "place9": "ಜಿಲ್ಲೆಯನ್ನು ಆಯ್ಕೆ ಮಾಡಿ",
     "place10": "ಪ್ರಸ್ತುತ ಮೌಲ್ಯ",
     "vali1": "ದಯವಿಟ್ಟು ಶೀರ್ಷಿಕೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ",
@@ -178,6 +182,7 @@
     "goodLuck": "ನಾವು ನಿಮಗೆ ಶುಭ ಹಾರೈಸುತ್ತೇವೆ!",
     "startNow": "ಈಗ ಪ್ರಾರಂಭಿಸಿ",
     "doLater":"ನಂತರ ಮಾಡು",
+    "lesson": "ಪಾಠಗಳು",
 
     "confirm_accept_title": "ನೀವು ಈ ಕಲ್ಪನೆಯನ್ನು ಒಪ್ಪಿಕೊಳ್ಳಲು ಪ್ರಯತ್ನಿಸುತ್ತಿದ್ದೀರಿ",
     "confirm_reject_title": "ನೀವು ಈ ಕಲ್ಪನೆಯನ್ನು ತಿರಸ್ಕರಿಸಲು ಪ್ರಯತ್ನಿಸುತ್ತಿದ್ದೀರಿ",
@@ -191,13 +196,14 @@
     "not_understandable":"ಅರ್ಥವಾಗುತ್ತಿಲ್ಲ - ಐಡಿಯಾ ಸಲ್ಲಿಕೆಯು ನಿರ್ಧಾರ ತೆಗೆದುಕೊಳ್ಳಲು ಸರಿಯಾದ ವಿವರಗಳನ್ನು ಹೊಂದಿಲ್ಲ.",
     "not_clear_usefulness": "ಸ್ಪಷ್ಟವಾಗಿಲ್ಲ (ಉಪಯುಕ್ತತೆ)",
     "not_filled": "ಭರ್ತಿ ಮಾಡಲಾಗಿಲ್ಲ - ತಪ್ಪಾದ ಡೇಟಾ (ಫಾರ್ಮ್ ಸರಿಯಾಗಿ ತುಂಬಿಲ್ಲ)",
+    "PrincipalwMobileNo": "ಪ್ರಧಾನ ವಾಟ್ಸಾಪ್ ಮೊಬೈಲ್ ಸಂಖ್ಯೆ",
 
     "approve": "Approve",
     "ticketCreated": "Ticket created successfully!",
     "replySubmitted": "Reply submitted successfully!",
 
         "heading":"ನಿಮ್ಮ ಸ್ಕೂಲ್ ಇನ್ನೋವೇಶನ್ ಮ್ಯಾರಥಾನ್ 2025 ಪ್ರಯಾಣದಲ್ಲಿ ಏನಾಗುತ್ತಿದೆ ಎಂಬುದು ಇಲ್ಲಿದೆ.",
-  "teacher_welcome_html": "<h3 class='text-success'>Welcome Teachers!</h3><br/>We’re excited that you will be part of the program in guiding your student through it.<br/><p>Now it’s time to start the program.</p><ol><li>1. Watch the instructional videos for overview of the program.</li><li>2. Read the teacher's handbook for a summary of the course and other important instructions.</li></ol><br/><p>You have one week to do these. Afterwards, you and your students will be ready to start their problem solving journey!</p><p>We hope you enjoy guiding the students as they embark on this new journey!</p>Wishing you all the best!",
+  "teacher_welcome_html": "<h3 class='text-success'>ಶಿಕ್ಷಕರಿಗೆ ಸ್ವಾಗತ!</h3><br/>ನಿಮ್ಮ ವಿದ್ಯಾರ್ಥಿಗೆ ಮಾರ್ಗದರ್ಶನ ನೀಡುವಲ್ಲಿ ನೀವು ಕಾರ್ಯಕ್ರಮದ ಭಾಗವಾಗುತ್ತೀರಿ ಎಂದು ನಮಗೆ ತುಂಬಾ ಸಂತೋಷವಾಗಿದೆ.<br/><p>ಈಗ ಕಾರ್ಯಕ್ರಮವನ್ನು ಪ್ರಾರಂಭಿಸುವ ಸಮಯ.</p><ol><li>1. ಕಾರ್ಯಕ್ರಮದ ಅವಲೋಕನಕ್ಕಾಗಿ ಸೂಚನಾ ವೀಡಿಯೊಗಳನ್ನು ವೀಕ್ಷಿಸಿ.</li><li>2. ಕೋರ್ಸ್‌ನ ಸಾರಾಂಶ ಮತ್ತು ಇತರ ಪ್ರಮುಖ ಸೂಚನೆಗಳಿಗಾಗಿ ಶಿಕ್ಷಕರ ಕೈಪಿಡಿಯನ್ನು ಓದಿ.</li></ol><br/><p>ಇವುಗಳನ್ನು ಮಾಡಲು ನಿಮಗೆ ಒಂದು ವಾರವಿದೆ. ನಂತರ, ನೀವು ಮತ್ತು ನಿಮ್ಮ ವಿದ್ಯಾರ್ಥಿಗಳು ತಮ್ಮ ಸಮಸ್ಯೆ ಪರಿಹಾರ ಪ್ರಯಾಣವನ್ನು ಪ್ರಾರಂಭಿಸಲು ಸಿದ್ಧರಾಗಿರುತ್ತೀರಿ!</p><p>ವಿದ್ಯಾರ್ಥಿಗಳು ಈ ಹೊಸ ಪ್ರಯಾಣವನ್ನು ಪ್ರಾರಂಭಿಸುವಾಗ ಅವರಿಗೆ ಮಾರ್ಗದರ್ಶನ ನೀಡುವುದನ್ನು ನೀವು ಆನಂದಿಸುತ್ತೀರಿ ಎಂದು ನಾವು ಭಾವಿಸುತ್ತೇವೆ!</p>ನಿಮಗೆ ಶುಭ ಹಾರೈಸುತ್ತೇನೆ!",
 
         "Dbcourse":"ಶಿಕ್ಷಕರ ಕೋರ್ಸ್",
         "Dbteams":"ತಂಡಗಳನ್ನು ರಚಿಸಲಾಗಿದೆ",
@@ -750,7 +756,7 @@
         "edit_team_details": "Edit Team Details",
         "edit_team_member": "Edit Team Member",
         "edit_team_member_details": "Edit Team Member Details",
-        "back": "Back",
+        "back": "ಹಿಂದೆ",
         "male": "Male",
         "female": "Female",
         "others": "Others",

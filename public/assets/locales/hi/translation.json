@@ -64,6 +64,8 @@
         "error:job_type": "Invalid Job Type"
     },
     "teacherJourney": {
+    "texts":"बधाई हो... पूर्व-सर्वेक्षण सफलतापूर्वक प्रस्तुत किया गया..!",
+
             "place1": "पूरा नाम दर्ज करें",
     "place2": "ईमेल पता दर्ज करें",
     "place3": "स्थिति का चयन करें",
@@ -156,7 +158,7 @@
     "Congratulations": "बधाई हो",
     "data": "{{name}} सफलतापूर्वक बनाया गया",
     "headings": "शिक्षकों और सहायक शिक्षक का स्वागत है!",
-    "headings2": "मेंटर्स सिम रोड मैप",
+    "headings2": "मेंटर्स SIM रोड मैप",
 
     "headings1": "स्कूल इनोवेशन मैराथन में एक मेंटर  के रूप में अपनी भूमिका के बारे में अधिक जानें",
 
@@ -184,6 +186,7 @@
     "are_you_sure": "क्या आपको यकीन है?",
     "reject": "अस्वीकार करना",
     "cancel": "रद्द करना",
+    "PrincipalwMobileNo": "प्रधानाचार्य व्हाट्सएप मोबाइल नंबर",
 
     "not_novel_common": "नया नहीं - विचार और समस्या सामान्य है और पहले से ही प्रयोग में है।",
     "not_novel_plagiarized": "यह कोई नया विचार नहीं है – यह विचार पूरी तरह से नकल किया गया है।",
@@ -196,7 +199,7 @@
     "ticketCreated": "टिकट सफलतापूर्वक बनाया गया!",
     "replySubmitted": "उत्तर सफलतापूर्वक सबमिट किया गया!",
         "heading":"यहां बताया गया है कि आपके स्कूल इनोवेशन मैराथन 2025 की यात्रा में क्या हो रहा है",
-  "teacher_welcome_html": "<h3 class='text-success'>Welcome Teachers!</h3><br/>We’re excited that you will be part of the program in guiding your student through it.<br/><p>Now it’s time to start the program.</p><ol><li>1. Watch the instructional videos for overview of the program.</li><li>2. Read the teacher's handbook for a summary of the course and other important instructions.</li></ol><br/><p>You have one week to do these. Afterwards, you and your students will be ready to start their problem solving journey!</p><p>We hope you enjoy guiding the students as they embark on this new journey!</p>Wishing you all the best!",
+  "teacher_welcome_html":"<h3 class='text-success'>शिक्षकों, आपका स्वागत है!</h3><br/>हमें खुशी है कि आप इस कार्यक्रम का हिस्सा बनकर अपने छात्रों का मार्गदर्शन करेंगे।<br/><p>अब कार्यक्रम शुरू करने का समय आ गया है।</p><ol><li>1. कार्यक्रम के अवलोकन के लिए निर्देशात्मक वीडियो देखें।</li><li>2. पाठ्यक्रम के सारांश और अन्य महत्वपूर्ण निर्देशों के लिए शिक्षक की हैंडबुक पढ़ें।</li></ol><br/><p>ऐसा करने के लिए आपके पास एक सप्ताह का समय है। इसके बाद, आप और आपके छात्र अपनी समस्या समाधान यात्रा शुरू करने के लिए तैयार होंगे!</p><p>हमें उम्मीद है कि छात्रों को इस नई यात्रा पर मार्गदर्शन करने में आपको आनंद आएगा!</p>आपको ढेर सारी शुभकामनाएँ!",
 
         "Dbcourse":"शिक्षक पाठ्यक्रम,",
         "Dbteams":"टीमें बनाई गईं",
@@ -204,10 +207,10 @@
         "IdeaSubmission":"विचार प्रस्तुतियाँ",
         "Teams":"टीमें",
         "teamprog":"टीम प्रगति",
-        "roadmap":"सिम रोड मैप",
-        "default":"सिम प्रगति की जांच करने के लिए एक टीम का चयन करें",
+        "roadmap":"SIM रोड मैप",
+        "default":"SIM प्रगति की जांच करने के लिए एक टीम का चयन करें",
 "LatestNews":"ताजा खबर",
-        "resourcelist":"सिम कार्यक्रम संसाधनों की सूची",
+        "resourcelist":"SIM कार्यक्रम संसाधनों की सूची",
         "coursemenu":"अच्छी शिक्षा किसी को भी बदल सकती है",
         "teamsmenu":"नामांकित टीमें और छात्र",
         "text":"आप टीम बना सकते हैं और फिर टीम में छात्रों को देख, संपादित, हटा और स्वैप कर सकते हैं",
@@ -224,7 +227,7 @@
         "age":"आयु",
         "class":"कक्षा",
         "gender":"लिंग",
-        "addstudentheading":"टीम और छात्रों का सिम में पंजीकरण",
+        "addstudentheading":"टीम और छात्रों का SIM में पंजीकरण",
         "subheading":"नई टीम बनाएं और छात्रों को जोड़ें",
         "addteamdetails":"छात्रों का विवरण",
         "firststudent":"छात्र 1 विवरण",
@@ -255,7 +258,7 @@
         "dashIdea":"विचार प्रस्तुति",
         "post":"सर्वेक्षण पोस्ट करें",
         "coursecertificate":"पाठ्यक्रम प्रमाणपत्र",
-        "know":"सिम के बारे में जानने के लिए",
+        "know":"SIM के बारे में जानने के लिए",
         "clikhere":"यहां क्लिक करें और कोर्स शुरू करें",
         "noteams":"अभी तक टीम नहीं बनाई?",
         "addteamDB":"टीम बनाने के लिए यहां क्लिक करें",
@@ -334,7 +337,7 @@
         "hand10":"अगर आपको प्रोग्राम को लेकर कोई confusion हो, तो आप हैंडबुक देख सकते हैं। समझाने वाले वीडियो और हैंडबुक, दोनों मिलकर आपकी मदद करेंगे ताकि आप छात्रों के अच्छे गाइड बन सकें, खासकर जब वे अपनी वर्कबुक पर काम कर रहे हों.",
         "hand11":"छात्र थीम दस्तावेज़ देख सकते हैं, थीम और फ़ोकस क्षेत्र चुन सकते हैं, फ़ोकस क्षेत्र के आसपास की समस्या की पहचान कर सकते हैं और उसके लिए एक विचार प्रस्तुत कर सकते हैं। छात्र अपनी प्रोफ़ाइल में पाठ्यक्रम/संसाधन अनुभाग में दस्तावेज़ को डाउनलोड और एक्सेस भी कर सकेंगे.",
         "Continue":"जारी रखना",
-        "restag":"सिम कार्यक्रम संसाधनों की सूची",
+        "restag":"SIM कार्यक्रम संसाधनों की सूची",
         "description":"विवरण",
         "No":"नहीं",
         "attach":"लगाव",
@@ -401,6 +404,7 @@
         "Takesurvey":"सर्वेक्षण करें और प्रमाण पत्र प्राप्त करें",
         "TeamUsername":"टीम उपयोगकर्ता नाम",
         "StudentFullName":"छात्र का पूरा नाम",
+    "lesson": "सबक",
 
         "popup1":"टीम सदस्य सफलतापूर्वक बनाया गया",
 "popup2":"टीम सफलतापूर्वक बनाई गई",
@@ -418,6 +422,8 @@
 "popup14":"छात्र हटाया नहीं गया",
  "remove": "निकालना",
     "adduser": "शिक्षक प्रोफ़ाइल संपादित करें",
+    "adduser1": "उपयोगकर्ता रूपरेखा",
+
     "add1": "पूर्व सर्वेक्षण",
     "add2":"टीम निर्माण",
     "add3": "नामांकित छात्र",
@@ -753,7 +759,7 @@
         "edit_team_details": "Edit Team Details",
         "edit_team_member": "Edit Team Member",
         "edit_team_member_details": "Edit Team Member Details",
-        "back": "Back",
+        "back":"पीछे",
         "male": "Male",
         "female": "Female",
         "others": "Others",
