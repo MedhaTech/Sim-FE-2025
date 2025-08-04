@@ -243,6 +243,7 @@
     "liststu": "Stu",
     "onestudent": "Add Student",
     "submit": "Submit",
+    "texts":"Congratulations... Pre-Survey Submitted Successfully..!",
     "postsurvey": "We value your response the most.",
     "support": "Raise your queries here",
     "ask": "Ask Your Query",
@@ -288,6 +289,7 @@
     "NotStarted": "Not Started",
     "InProgress": "InProgress",
     "Completed": "Completed",
+
     "completecert": "Complete survey & Get Certificate",
     "pending": "Pending",
     "Resources": "Resources",
@@ -429,13 +431,22 @@
     "popup14": "Student not Deleted",
     "remove": "Remove",
     "adduser": "Teacher Edit Profile",
+    "adduser1":"User Profile",
+
     "add1": "Pre Survey",
     "add2": "Team Creation",
     "add3": "Students Enrolled",
     "add4": "Course",
     "add5": "Idea Approval",
     "add6": "Post Survey",
-    "add7": "Certificate"
+    "add7": "Certificate",
+    "InDraft": "In Draft",
+    "NotInitiated": "Not Initiated",
+    "EARNEDON":"EARNED ON",
+    "OpenFile":"Open File",
+     "WatchVideo":" Watch Video"
+
+
   },
   "ideaSubmission": {
     "theme": "Theme",

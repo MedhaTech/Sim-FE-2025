@@ -13,11 +13,19 @@ import logoutIcon from "../../assets/img/icons/log-out.svg";
 import logo from "../../assets/img/new-logo.png";
 import Icon from "../../assets/img/logos.jpg";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 import { openNotificationWithIcon } from "../../helpers/Utils.js";
 
 const MentorHeader = () => {
   const route = all_routes;
+   const location = useLocation(); 
+   useEffect(() => {
+      // Auto-close sidebar when route changes
+      document.querySelector(".main-wrapper")?.classList?.remove("slide-nav");
+      document.querySelector(".sidebar-overlay")?.classList?.remove("opened");
+      document.querySelector("html")?.classList?.remove("menu-opened");
+    }, [location.pathname]);
   const [toggle, SetToggle] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const { t } = useTranslation();
