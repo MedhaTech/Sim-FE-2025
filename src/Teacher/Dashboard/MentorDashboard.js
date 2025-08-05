@@ -37,15 +37,15 @@ import FeatherIcon from "feather-icons-react";
 import MultiTeacher from "./MultiTeacher";
 import { IoArrowDownCircleOutline } from "react-icons/io5";
 import { PiLinkSimpleBold } from "react-icons/pi";
-import { getLanguage } from '../../constants/languageOptions';
+import { getLanguage } from "../../constants/languageOptions";
 import { FiPlayCircle } from "react-icons/fi";
 import YoutubePopup from "../../HelpVideo/Youtubepop";
 
 const GreetingModal = (props) => {
-   const { t } = useTranslation();
+  const { t } = useTranslation();
 
-  console.log("Translation for ref:", t('teacherJourney.ref'));
-  console.log("Translation for navigate:", t('teacherJourney.navigate'));
+  console.log("Translation for ref:", t("teacherJourney.ref"));
+  console.log("Translation for navigate:", t("teacherJourney.navigate"));
 
   return (
     <Modal
@@ -56,120 +56,137 @@ const GreetingModal = (props) => {
       onHide={props.handleClose}
       backdrop={true}
     >
-    <Modal.Body>
-  <figure>
-    <div className="row">
-      {/* Case 1: Only video */}
-      {props.youtube && !props.imagedata && (
-        <div className="col-md-12">
-          <div className="modal-body custom-modal-body">
-            <div style={{ width: "100%", height: "50vh" }}>
-              <iframe
-                src={props.youtube
-                  .replace("youtu.be/", "www.youtube.com/embed/")
-                  .replace("watch?v=", "embed/")
-                  .split("&")[0]}
-                title="Video popup"
-                style={{ width: "100%", height: "100%" }}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Case 2: Only image */}
-      {props.imagedata && !props.youtube && (
-        <div className="col-md-12 d-flex justify-content-center align-items-center" style={{ height: "50vh" }}>
-          <img
-            src={props.imagedata}
-            alt="popup image"
-            className="img-fluid"
-            style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "contain" }}
-          />
-        </div>
-      )}
-
-      {/* Case 3: Both image and video */}
-      {props.youtube && props.imagedata && (
-        <>
-          {/* Image on top */}
-          <div className="col-md-12 d-flex justify-content-center align-items-center mb-3" style={{ height: "30vh" }}>
-            <img
-              src={props.imagedata}
-              alt="popup image"
-              className="img-fluid"
-              style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "contain" }}
-            />
-          </div>
-
-          {/* Video below */}
-          <div className="col-md-12">
-            <div className="modal-body custom-modal-body">
-              <div style={{ width: "100%", height: "30vh" }}>
-                <iframe
-                  src={props.youtube
-                    .replace("youtu.be/", "www.youtube.com/embed/")
-                    .replace("watch?v=", "embed/")
-                    .split("&")[0]}
-                  title="Video popup"
-                  style={{ width: "100%", height: "100%" }}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
+      <Modal.Body>
+        <figure>
+          <div className="row">
+            {/* Case 1: Only video */}
+            {props.youtube && !props.imagedata && (
+              <div className="col-md-12">
+                <div className="modal-body custom-modal-body">
+                  <div style={{ width: "100%", height: "50vh" }}>
+                    <iframe
+                      src={
+                        props.youtube
+                          .replace("youtu.be/", "www.youtube.com/embed/")
+                          .replace("watch?v=", "embed/")
+                          .split("&")[0]
+                      }
+                      title="Video popup"
+                      style={{ width: "100%", height: "100%" }}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                </div>
               </div>
-            </div>
+            )}
+
+            {/* Case 2: Only image */}
+            {props.imagedata && !props.youtube && (
+              <div
+                className="col-md-12 d-flex justify-content-center align-items-center"
+                style={{ height: "50vh" }}
+              >
+                <img
+                  src={props.imagedata}
+                  alt="popup image"
+                  className="img-fluid"
+                  style={{
+                    maxHeight: "100%",
+                    maxWidth: "100%",
+                    objectFit: "contain",
+                  }}
+                />
+              </div>
+            )}
+
+            {/* Case 3: Both image and video */}
+            {props.youtube && props.imagedata && (
+              <>
+                {/* Image on top */}
+                <div
+                  className="col-md-12 d-flex justify-content-center align-items-center mb-3"
+                  style={{ height: "30vh" }}
+                >
+                  <img
+                    src={props.imagedata}
+                    alt="popup image"
+                    className="img-fluid"
+                    style={{
+                      maxHeight: "100%",
+                      maxWidth: "100%",
+                      objectFit: "contain",
+                    }}
+                  />
+                </div>
+
+                {/* Video below */}
+                <div className="col-md-12">
+                  <div className="modal-body custom-modal-body">
+                    <div style={{ width: "100%", height: "30vh" }}>
+                      <iframe
+                        src={
+                          props.youtube
+                            .replace("youtu.be/", "www.youtube.com/embed/")
+                            .replace("watch?v=", "embed/")
+                            .split("&")[0]
+                        }
+                        title="Video popup"
+                        style={{ width: "100%", height: "100%" }}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      ></iframe>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
-        </>
-      )}
-    </div>
-  </figure>
-</Modal.Body>
+        </figure>
+      </Modal.Body>
 
-           <Modal.Footer>
-           <div className="d-flex justify-content-between align-items-center w-100">
+      <Modal.Footer>
+        <div className="d-flex justify-content-between align-items-center w-100">
+          <div>
+            {props.file && (
+              <a
+                href={props.file}
+                download
+                target="_blank"
+                rel="noopener noreferrer"
+                className="me-3"
+              >
+                <IoArrowDownCircleOutline size={30} />
+              </a>
+            )}
 
-<div>
-  {props.file && (
-    <a href={props.file} download target="_blank" rel="noopener noreferrer" className="me-3">
-      <IoArrowDownCircleOutline size={30}  />
-    </a>
-  )}
+            {props.urlData && (
+              <a href={props.urlData} target="_blank" rel="noopener noreferrer">
+                <PiLinkSimpleBold size={30} style={{ color: "blue" }} />
+              </a>
+            )}
+          </div>
 
-  {props.urlData && (
-    <a href={props.urlData} target="_blank" rel="noopener noreferrer">
-      <PiLinkSimpleBold size={30} style={{ color: "blue" }} />
-    </a>
-  )}
-</div>
-
-
-{props.state != null && (
-  <div className="d-flex align-items-center justify-content-end">
-    <strong className="me-2">{t('teacherJourney.ref')}</strong>
-    <Link to={props.state}>
-      <button className="btn btn-warning">{t('teacherJourney.navigate')}</button>
-      
-    </Link>
-  </div>
-)}
-
-</div>
-
-         
- 
-</Modal.Footer>
-
-
+          {props.state != null && (
+            <div className="d-flex align-items-center justify-content-end">
+              <strong className="me-2">{t("teacherJourney.ref")}</strong>
+              <Link to={props.state}>
+                <button className="btn btn-warning">
+                  {t("teacherJourney.navigate")}
+                </button>
+              </Link>
+            </div>
+          )}
+        </div>
+      </Modal.Footer>
     </Modal>
   );
 };
 
 const MentorDashboard = () => {
-   const { t } = useTranslation();
+  const { t } = useTranslation();
   const [showsPopup, setShowsPopup] = useState(false);
-      const language = useSelector((state) => state?.mentors?.mentorLanguage);
+  const language = useSelector((state) => state?.mentors?.mentorLanguage);
 
   const [poptype, setPopType] = useState("");
 
@@ -185,7 +202,7 @@ const MentorDashboard = () => {
   );
   const renderViewTooltip = (props) => (
     <Tooltip id="refresh-tooltip" {...props}>
-      {t('teacherJourney.option27')}
+      {t("teacherJourney.option27")}
     </Tooltip>
   );
   const handleRefresh = () => {
@@ -199,54 +216,55 @@ const MentorDashboard = () => {
   const [teacCourseLoading, setTeacCourseLoading] = useState(true);
   const [teacPostSLoading, setTeacPostSLoading] = useState(true);
   const [whatsappLink, setWhatsappLink] = useState("");
-const [courseData, setCourseData] = useState("");
+  const [courseData, setCourseData] = useState("");
   const [message, setMessage] = useState("");
 
-  
   const [file, setFile] = useState("");
-  
+
   const [imagedata, setImageData] = useState("");
   const [urlData, setUrlData] = useState("");
   const [youtube, setYoutube] = useState("");
-const [postdata,setPostData]=useState("");
-const [teamdata,setTeamData]=useState("");
-const [stuData,setStuData]=useState("");
+  const [postdata, setPostData] = useState("");
+  const [teamdata, setTeamData] = useState("");
+  const [stuData, setStuData] = useState("");
 
-const handleFileDownload = async(file,type) =>{
-     const parts = file.split('/');
-    const path = parts.slice(3).join('/');
-    const openParam = encryptGlobal(JSON.stringify({
-      filePath: path
-    }));
+  const handleFileDownload = async (file, type) => {
+    const parts = file.split("/");
+    const path = parts.slice(3).join("/");
+    const openParam = encryptGlobal(
+      JSON.stringify({
+        filePath: path,
+      })
+    );
     var config = {
-      method: 'get',
+      method: "get",
       url:
         process.env.REACT_APP_API_BASE_URL +
         `/admins/s3fileaccess?Data=${openParam}`,
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${currentUser?.data[0]?.token}`
-      }
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+      },
     };
     await axios(config)
       .then(function (response) {
         if (response.status === 200) {
-      if(type==='file'){
-        setFile(response.data.data);
-      }
-      if(type==='img'){
-        setImageData(response.data.data);
-      }
+          if (type === "file") {
+            setFile(response.data.data);
+          }
+          if (type === "img") {
+            setImageData(response.data.data);
+          }
         }
       })
       .catch(function (error) {
         console.log(error);
       });
-};
+  };
 
   useEffect(() => {
-               // This function fetches mentors popup from the API //
-    
+    // This function fetches mentors popup from the API //
+
     const newListParam = encryptGlobal(
       JSON.stringify({
         state: currentUser.data[0]?.state,
@@ -255,35 +273,34 @@ const handleFileDownload = async(file,type) =>{
     );
     let popupCount = parseInt(localStorage.getItem("popupCount")) || 0;
     if (popupCount < 3) {
-    var config = {
-      method: "get",
-      url: process.env.REACT_APP_API_BASE_URL + `/popup?Data=${newListParam}`,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${currentUser.data[0]?.token}`,
-      },
-    };
-    axios(config)
-      .then(function (res) {
-        if (res.status === 200 && res.data.data[0]?.on_off === "1") {
-          setShowsPopup(true);
-          setFile(res?.data?.data[0]?.file);
-          setImageData(res?.data?.data[0]?.image);
-          setPopType(res?.data?.data[0]?.type);
+      var config = {
+        method: "get",
+        url: process.env.REACT_APP_API_BASE_URL + `/popup?Data=${newListParam}`,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${currentUser.data[0]?.token}`,
+        },
+      };
+      axios(config)
+        .then(function (res) {
+          if (res.status === 200 && res.data.data[0]?.on_off === "1") {
+            setShowsPopup(true);
+            setFile(res?.data?.data[0]?.file);
+            setImageData(res?.data?.data[0]?.image);
+            setPopType(res?.data?.data[0]?.type);
 
-          setUrlData(res?.data?.data[0]?.url);
-          setYoutube(res?.data?.data[0]?.youtube);
+            setUrlData(res?.data?.data[0]?.url);
+            setYoutube(res?.data?.data[0]?.youtube);
 
-          setState(res?.data?.data[0]?.navigate);
-          localStorage.setItem("popupCount", popupCount + 1);
-       
-        }
-      })
-      .catch(function (error) {
-        setShowsPopup(false);
-        console.log(error);
-      });
+            setState(res?.data?.data[0]?.navigate);
+            localStorage.setItem("popupCount", popupCount + 1);
+          }
+        })
+        .catch(function (error) {
+          setShowsPopup(false);
+          console.log(error);
+        });
     }
   }, []);
   const Loader = () => (
@@ -314,7 +331,6 @@ const handleFileDownload = async(file,type) =>{
       fetchwhatsapplink(language);
       scroll();
       mentorapproveCount();
-
     }
   }, [currentUser?.data[0]?.user_id]);
 
@@ -346,7 +362,6 @@ const handleFileDownload = async(file,type) =>{
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          
           setTeamsCount(response.data.data[0].teams_count);
           setTeamCountLoading(false);
         }
@@ -355,34 +370,33 @@ const handleFileDownload = async(file,type) =>{
         console.log(error);
       });
   };
-   const mentorapproveCount = () => {
-      const mentteamApi = encryptGlobal(
-        JSON.stringify({
-          mentor_id: currentUser?.data[0]?.mentor_id,
-        })
-      );
-      var config = {
-        method: "get",
-        url:
-          process.env.REACT_APP_API_BASE_URL +
-          `/dashboard/acceptedCount?Data=${mentteamApi}`,
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: `Bearer ${currentUser.data[0]?.token}`,
-        },
-      };
-      axios(config)
-        .then(function (response) {
-          if (response.status === 200) {
-  
-            setApproveIdeaCount(response.data.data[0].acceptedCount);
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+  const mentorapproveCount = () => {
+    const mentteamApi = encryptGlobal(
+      JSON.stringify({
+        mentor_id: currentUser?.data[0]?.mentor_id,
+      })
+    );
+    var config = {
+      method: "get",
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/dashboard/acceptedCount?Data=${mentteamApi}`,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+      },
     };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          setApproveIdeaCount(response.data.data[0].acceptedCount);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
   const mentorIdeaCount = () => {
     // Function to fetch the Ideas Count from the API
 
@@ -405,7 +419,6 @@ const handleFileDownload = async(file,type) =>{
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-
           setIdeaCount(response.data.data[0].idea_count);
           setIdeaCountLoading(false);
         }
@@ -472,7 +485,7 @@ const handleFileDownload = async(file,type) =>{
               100
           );
           setCoursepercentage(per);
-          setCourseData(per === 100 ? "Completed" :"Not Started");
+          setCourseData(per === 100 ? "Completed" : "Not Started");
           setTeacCourseLoading(false);
         }
       })
@@ -504,7 +517,11 @@ const handleFileDownload = async(file,type) =>{
         if (response.status === 200) {
           const po = response.data.data[0].postSurvey;
           setTeacPostSurvey(po);
-          setPostData(response.data.data[0].postSurvey !== "INCOMPLETED" ? "Completed":"Not Stated");
+          setPostData(
+            response.data.data[0].postSurvey !== "INCOMPLETED"
+              ? "Completed"
+              : "Not Stated"
+          );
 
           setTeacPostSLoading(false);
         }
@@ -516,8 +533,8 @@ const handleFileDownload = async(file,type) =>{
   //////whatsapp/////
   const fetchwhatsapplink = (language) => {
     // Function to fetch the WhatsApp link from the API
-            const locale = getLanguage(language);
-             
+    const locale = getLanguage(language);
+
     const statenameApi = encryptGlobal(
       JSON.stringify({
         state_name: currentUser?.data[0]?.state,
@@ -553,7 +570,7 @@ const handleFileDownload = async(file,type) =>{
 
   const renderTooltip = (props) => (
     <Tooltip id="pdf-tooltip" {...props}>
-     {t('teacherJourney.option25')}
+      {t("teacherJourney.option25")}
     </Tooltip>
   );
   const handleShow = (i) => {
@@ -581,7 +598,6 @@ const handleFileDownload = async(file,type) =>{
     const section = document.querySelector("#start");
     section.scrollIntoView({ behavior: "smooth", block: "start" });
   };
-
 
   const componentRef = useRef();
   const handlePrintCertificate = useReactToPrint({
@@ -637,43 +653,52 @@ const handleFileDownload = async(file,type) =>{
                   &nbsp;Hi {currentUser?.data[0]?.full_name},
                 </h3>
                 &nbsp;
-                <h6>
-                 
-                  {t('teacherJourney.heading')}
-                </h6>
+                <h6>{t("teacherJourney.heading")}</h6>
               </div>
-            
+
               <div className="d-flex align-items-center">
                 <div className="action-table-data">
                   <div className="edit-delete-action">
                     <OverlayTrigger placement="top" overlay={renderTooltip}>
                       <span
-                        style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
-                                      className="badge"
+                        style={{
+                          backgroundColor: "#1B2850",
+                          borderRadius: "2rem",
+                          padding: "5px 10px",
+                          fontSize: "14px",
+                        }}
+                        className="badge"
                         onClick={() => handleShow(5)}
                       >
-                        <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
+                        <FiPlayCircle
+                          style={{ color: "#ffffff", fontSize: "large" }}
+                        />{" "}
+                        <span style={{ color: "#ffffff", fontSize: "10px" }}>
+                          &nbsp;{t("teacherJourney.demo")}
+                        </span>
                       </span>
                     </OverlayTrigger>
                   </div>
                 </div>
-                
               </div>
             </div>
             <div className="col-xl-12 col-sm-12 col-12 d-flex">
-              <MultiTeacher   
-        postdata={postdata} 
-        teamsCount={teamsCount}
-        studentCount={studentCount}
-ideaCount={ideaCount}
-approveideaCount={approveideaCount}
-
-        courseData={courseData}  />
+              <MultiTeacher
+                postdata={postdata}
+                teamsCount={teamsCount}
+                studentCount={studentCount}
+                ideaCount={ideaCount}
+                approveideaCount={approveideaCount}
+                courseData={courseData}
+              />
             </div>
             {/* Teacher dashboard stats */}
             <div className="row">
               <div className="col-xl-3 col-sm-6 col-12 d-flex">
-                <div className="dash-widget dash2 w-100" style={{ minHeight: '110px' }}>
+                <div
+                  className="dash-widget dash2 w-100"
+                  style={{ minHeight: "110px" }}
+                >
                   <div className="dash-widgetimg">
                     <span>
                       <FaChalkboardTeacher
@@ -687,9 +712,9 @@ approveideaCount={approveideaCount}
                       <Loader />
                     ) : coursepercentage === 0 ? (
                       <>
-                        <h5>{t('teacherJourney.know')}</h5>
+                        <h5>{t("teacherJourney.know")}</h5>
                         <a onClick={redirectToCourse} href="#">
-                        {t('teacherJourney.clikhere')}
+                          {t("teacherJourney.clikhere")}
                         </a>
                       </>
                     ) : (
@@ -702,7 +727,7 @@ approveideaCount={approveideaCount}
                           />{" "}
                           %
                         </h5>
-                        <h6>{t('teacherJourney.Dbcourse')}</h6>
+                        <h6>{t("teacherJourney.Dbcourse")}</h6>
 
                         {/* <h6>Teacher Course</h6> */}
                       </>
@@ -711,7 +736,10 @@ approveideaCount={approveideaCount}
                 </div>
               </div>
               <div className="col-xl-3 col-sm-6 col-12 d-flex">
-                <div className="dash-widget w-100"  style={{ minHeight: '110px' }}>
+                <div
+                  className="dash-widget w-100"
+                  style={{ minHeight: "110px" }}
+                >
                   <div className="dash-widgetimg">
                     <span>
                       <FaUsers size={30} style={{ color: "crimson" }} />
@@ -722,9 +750,9 @@ approveideaCount={approveideaCount}
                       <Loader />
                     ) : teamsCount === 0 ? (
                       <>
-                        <h5>{t('teacherJourney.noteams')}</h5>
+                        <h5>{t("teacherJourney.noteams")}</h5>
                         <a onClick={redirectToTeams} href="#">
-                        {t('teacherJourney.addteamDB')}
+                          {t("teacherJourney.addteamDB")}
                         </a>
                       </>
                     ) : (
@@ -732,14 +760,17 @@ approveideaCount={approveideaCount}
                         <h5>
                           <CountUp start={0} end={teamsCount} duration={2} />
                         </h5>
-                        <h6>  {t('teacherJourney.teamcreate')}</h6>
+                        <h6> {t("teacherJourney.teamcreate")}</h6>
                       </>
                     )}
                   </div>
                 </div>
               </div>
               <div className="col-xl-3 col-sm-6 col-12 d-flex">
-                <div className="dash-widget dash1 w-100"  style={{ minHeight: '110px' }}>
+                <div
+                  className="dash-widget dash1 w-100"
+                  style={{ minHeight: "110px" }}
+                >
                   <div className="dash-widgetimg">
                     <span>
                       <FaUserGraduate
@@ -753,9 +784,9 @@ approveideaCount={approveideaCount}
                       <Loader />
                     ) : studentCount === 0 ? (
                       <>
-                        <h5>{t('teacherJourney.npstudents')}</h5>
+                        <h5>{t("teacherJourney.npstudents")}</h5>
                         <a onClick={redirectToTeams} href="#">
-                        {t('teacherJourney.clickadd')}
+                          {t("teacherJourney.clickadd")}
                         </a>
                       </>
                     ) : (
@@ -763,14 +794,17 @@ approveideaCount={approveideaCount}
                         <h5>
                           <CountUp start={0} end={studentCount} duration={2} />
                         </h5>
-                        <h6> {t('teacherJourney.Dbstudents')}</h6>
+                        <h6> {t("teacherJourney.Dbstudents")}</h6>
                       </>
                     )}
                   </div>
                 </div>
               </div>
               <div className="col-xl-3 col-sm-6 col-12 d-flex">
-                <div className="dash-widget dash3 w-100"  style={{ minHeight: '110px' }}>
+                <div
+                  className="dash-widget dash3 w-100"
+                  style={{ minHeight: "110px" }}
+                >
                   <div className="dash-widgetimg">
                     <span>
                       <FaPaperPlane size={30} style={{ color: "purple" }} />
@@ -781,15 +815,15 @@ approveideaCount={approveideaCount}
                       <Loader />
                     ) : ideaCount === 0 ? (
                       <>
-                        <h5> {t('teacherJourney.noidea')}</h5>
-                        <h6>{t('teacherJourney.kind')}</h6>
+                        <h5> {t("teacherJourney.noidea")}</h5>
+                        <h6>{t("teacherJourney.kind")}</h6>
                       </>
                     ) : (
                       <>
                         <h5>
                           <CountUp start={0} end={ideaCount} duration={2} />
                         </h5>
-                        <h6>{t('teacherJourney.IdeaSubmission')}</h6>
+                        <h6>{t("teacherJourney.IdeaSubmission")}</h6>
                       </>
                     )}
                   </div>
@@ -803,21 +837,20 @@ approveideaCount={approveideaCount}
                       <Loader />
                     ) : ideaCount != teamsCount || teamsCount === 0 ? (
                       <>
-                        <h5>
-                        {t('teacherJourney.postnote')}
-                        </h5>
+                        <h5>{t("teacherJourney.postnote")}</h5>
                       </>
                     ) : teacPostSurvey === "COMPLETED" ? (
                       <>
-                        <h4> {t('teacherJourney.post')}</h4>
+                        <h4> {t("teacherJourney.post")}</h4>
                         <h5>
-                        {t('teacherJourney.submitted')} <CheckCircle size="15" color="white" />
+                          {t("teacherJourney.submitted")}{" "}
+                          <CheckCircle size="15" color="white" />
                         </h5>
                       </>
                     ) : (
                       <>
-                        <h4>{t('teacherJourney.post')}</h4>
-                        <h5>{t('teacherJourney.submitnote')}</h5>
+                        <h4>{t("teacherJourney.post")}</h4>
+                        <h5>{t("teacherJourney.submitnote")}</h5>
                       </>
                     )}
                   </div>
@@ -828,55 +861,51 @@ approveideaCount={approveideaCount}
               </div>
               <div className="col-xl-3 col-sm-6 col-12 d-flex">
                 {!(teacPostSurvey == "COMPLETED" && ideaCount >= 1) ? (
-                    <>
+                  <>
                     <div className="dash-count das1">
                       <div className="dash-counts">
-                        <h4>{t('teacherJourney.getcertificate')}</h4>
-                        <h5>{t('teacherJourney.aftersurvey')}</h5>
+                        <h4>{t("teacherJourney.getcertificate")}</h4>
+                        <h5>{t("teacherJourney.aftersurvey")}</h5>
                       </div>
                       <div className="dash-imgs">
                         <GiAchievement size="30" />
                       </div>
                     </div>
                   </>
-                
                 ) : (
-                   <div className="dash-count das1">
+                  <div className="dash-count das1">
                     <>
                       <div
                         className="dash-counts"
-                        onClick={
-                        
-                            handleCertificateDownload
+                        onClick={handleCertificateDownload}
+                        style={
+                          {
+                            // cursor:
+                            //   currentUser?.data[0]?.state !== "Tamil Nadu"
+                            //     ? "pointer"
+                            //     : "not-allowed",
+                            // opacity:
+                            //   currentUser?.data[0]?.state !== "Tamil Nadu"
+                            //     ? 1
+                            //     : 0.5,
+                          }
                         }
-                        style={{
-                          // cursor:
-                          //   currentUser?.data[0]?.state !== "Tamil Nadu"
-                          //     ? "pointer"
-                          //     : "not-allowed",
-                          // opacity:
-                          //   currentUser?.data[0]?.state !== "Tamil Nadu"
-                          //     ? 1
-                          //     : 0.5,
-                        }
-                      }
                       >
-                        <h4>{t('teacherJourney.Cong')}</h4>
+                        <h4>{t("teacherJourney.Cong")}</h4>
                         {currentUser?.data[0]?.state !== "Tamil Nadu" && (
                           <h5>
-                            {t('teacherJourney.Clickhere')}&nbsp;
+                            {t("teacherJourney.Clickhere")}&nbsp;
                             <FeatherIcon icon="arrow-down-circle" size={20} />
-                            &nbsp; {t('teacherJourney.Certificate')}
+                            &nbsp; {t("teacherJourney.Certificate")}
                           </h5>
                         )}
-                         {currentUser?.data[0]?.state === "Tamil Nadu" && (
+                        {currentUser?.data[0]?.state === "Tamil Nadu" && (
                           <h5>
-                            {t('teacherJourney.Clickhere')}&nbsp;
+                            {t("teacherJourney.Clickhere")}&nbsp;
                             <FeatherIcon icon="arrow-down-circle" size={20} />
-                            &nbsp; {t('teacherJourney.Certificate')}
+                            &nbsp; {t("teacherJourney.Certificate")}
                           </h5>
                         )}
-                       
                       </div>
 
                       <div className="dash-imgs">
@@ -884,14 +913,13 @@ approveideaCount={approveideaCount}
                       </div>
                     </>
                   </div>
-                
                 )}
               </div>
               <div className="col-xl-3 col-sm-6 col-12 d-flex">
                 <div className="dash-count das2">
                   <div className="dash-counts">
-                    <h4> {t('teacherJourney.teamprog')}</h4>
-                    <h5> {t('teacherJourney.login')}</h5>
+                    <h4> {t("teacherJourney.teamprog")}</h4>
+                    <h5> {t("teacherJourney.login")}</h5>
                   </div>
                   <SchoolTeamPDF />
                 </div>
@@ -899,8 +927,8 @@ approveideaCount={approveideaCount}
               <div className="col-xl-3 col-sm-6 col-12 d-flex">
                 <div className="dash-count das3">
                   <div className="dash-counts">
-                    <h4> {t('teacherJourney.joinwhtsapp')}</h4>
-                    <h5>{t('teacherJourney.supporthere')}</h5>
+                    <h4> {t("teacherJourney.joinwhtsapp")}</h4>
+                    <h5>{t("teacherJourney.supporthere")}</h5>
                   </div>
                   <div className="dash-imgs" size="20">
                     {whatsappLink === null ? (
@@ -934,7 +962,9 @@ approveideaCount={approveideaCount}
               <div className="col-xl-6 col-sm-12 col-12 d-flex">
                 <div className="card flex-fill default-cover w-100 mb-4">
                   <div className="card-header d-flex justify-content-between align-items-center">
-                    <h4 className="card-title mb-0">{t('teacherJourney.roadmap')} </h4>
+                    <h4 className="card-title mb-0">
+                      {t("teacherJourney.roadmap")}{" "}
+                    </h4>
                     <div className="dropdown" onClick={handleNavigation}>
                       <Link
                         to="/instructions"
@@ -967,10 +997,10 @@ approveideaCount={approveideaCount}
                                 </Link>
                                 <div className="info">
                                   <Link to={"/mentorteams"}>
-                                    <h4>{t('teacherJourney.Teams')} </h4>
+                                    <h4>{t("teacherJourney.Teams")} </h4>
                                   </Link>
                                   <p className="dull-text">
-                                  {t('teacherJourney.crud')} 
+                                    {t("teacherJourney.crud")}
                                   </p>
                                 </div>
                               </div>
@@ -983,11 +1013,29 @@ approveideaCount={approveideaCount}
                                     overlay={renderTooltip}
                                   >
                                     <span
-                                      style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
+                                      style={{
+                                        backgroundColor: "#1B2850",
+                                        borderRadius: "2rem",
+                                        padding: "5px 10px",
+                                        fontSize: "14px",
+                                      }}
                                       className="badge"
                                       onClick={() => handleShow(0)}
                                     >
-                                        <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
+                                      <FiPlayCircle
+                                        style={{
+                                          color: "#ffffff",
+                                          fontSize: "large",
+                                        }}
+                                      />{" "}
+                                      <span
+                                        style={{
+                                          color: "#ffffff",
+                                          fontSize: "10px",
+                                        }}
+                                      >
+                                        &nbsp;{t("teacherJourney.demo")}
+                                      </span>
                                     </span>
                                   </OverlayTrigger>
                                 </div>
@@ -1001,17 +1049,19 @@ approveideaCount={approveideaCount}
                                   <span
                                     className={"badge badge-linedangered"}
                                     onClick={redirectToTeams}
+                                    style={{ padding: "7px 10px" }}
                                   >
-                                     {t('teacherJourney.NotCreated')} 
+                                    {t("teacherJourney.NotCreated")}
                                   </span>
                                 </>
                               ) : (
                                 <>
                                   <span
                                     className={"badge badge-linesuccess"}
+                                    style={{ padding: "7px 10px" }}
                                     onClick={redirectToTeams}
                                   >
-                                     {t('teacherJourney.AddMore')} 
+                                  {t("teacherJourney.AddMore")}
                                   </span>
                                 </>
                               )}
@@ -1053,10 +1103,13 @@ approveideaCount={approveideaCount}
                                 </Link>
                                 <div className="info">
                                   <Link to={"/mentorcourse/1"}>
-                                    <h4> {t('teacherJourney.TeacherCourse')} </h4>
+                                    <h4>
+                                      {" "}
+                                      {t("teacherJourney.TeacherCourse")}{" "}
+                                    </h4>
                                   </Link>
                                   <p className="dull-text">
-                                  {t('teacherJourney.knowrole')}
+                                    {t("teacherJourney.knowrole")}
                                   </p>
                                 </div>
                               </div>
@@ -1069,11 +1122,29 @@ approveideaCount={approveideaCount}
                                     overlay={renderTooltip}
                                   >
                                     <span
-                                    style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
+                                      style={{
+                                        backgroundColor: "#1B2850",
+                                        borderRadius: "2rem",
+                                        padding: "5px 10px",
+                                        fontSize: "14px",
+                                      }}
                                       className="badge"
                                       onClick={() => handleShow(1)}
                                     >
-                                        <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
+                                      <FiPlayCircle
+                                        style={{
+                                          color: "#ffffff",
+                                          fontSize: "large",
+                                        }}
+                                      />{" "}
+                                      <span
+                                        style={{
+                                          color: "#ffffff",
+                                          fontSize: "10px",
+                                        }}
+                                      >
+                                        &nbsp;{t("teacherJourney.demo")}
+                                      </span>
                                     </span>
                                   </OverlayTrigger>
                                 </div>
@@ -1087,8 +1158,9 @@ approveideaCount={approveideaCount}
                                   <span
                                     className={"badge badge-linedangered"}
                                     onClick={redirectToCourse}
+                                    style={{ padding: "7px 10px" }}
                                   >
-                                     {t('teacherJourney.NotStarted')}
+                                    {t("teacherJourney.NotStarted")}
                                   </span>
                                 </>
                               ) : coursepercentage != 100 ? (
@@ -1096,14 +1168,18 @@ approveideaCount={approveideaCount}
                                   <span
                                     className={"badge badge-bgdanger"}
                                     onClick={redirectToCourse}
+                                    style={{ padding: "7px 10px" }}
                                   >
-                                     {t('teacherJourney.InProgress')}
+                                    {t("teacherJourney.InProgress")}
                                   </span>
                                 </>
                               ) : (
                                 <>
-                                  <span className={"badge badge-linesuccess"}>
-                                  {t('teacherJourney.Completed')}
+                                  <span
+                                    className={"badge badge-linesuccess"}
+                                    style={{ padding: "7px 10px" }}
+                                  >
+                                    {t("teacherJourney.Completed")}
                                   </span>
                                 </>
                               )}
@@ -1145,10 +1221,10 @@ approveideaCount={approveideaCount}
                                 </Link>
                                 <div className="info">
                                   <Link to={"/mentorpostsurvey"}>
-                                    <h4> {t('teacherJourney.post')}</h4>
+                                    <h4> {t("teacherJourney.post")}</h4>
                                   </Link>
                                   <p className="dull-text">
-                                  {t('teacherJourney.completecert')}
+                                    {t("teacherJourney.completecert")}
                                   </p>
                                 </div>
                               </div>
@@ -1161,11 +1237,29 @@ approveideaCount={approveideaCount}
                                     overlay={renderTooltip}
                                   >
                                     <span
-                                      style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
+                                      style={{
+                                        backgroundColor: "#1B2850",
+                                        borderRadius: "2rem",
+                                        padding: "5px 10px",
+                                        fontSize: "14px",
+                                      }}
                                       className="badge"
                                       onClick={() => handleShow(2)}
                                     >
-                                       <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
+                                      <FiPlayCircle
+                                        style={{
+                                          color: "#ffffff",
+                                          fontSize: "large",
+                                        }}
+                                      />{" "}
+                                      <span
+                                        style={{
+                                          color: "#ffffff",
+                                          fontSize: "10px",
+                                        }}
+                                      >
+                                        &nbsp;{t("teacherJourney.demo")}
+                                      </span>
                                     </span>
                                   </OverlayTrigger>
                                 </div>
@@ -1179,14 +1273,18 @@ approveideaCount={approveideaCount}
                                   <span
                                     className={"badge badge-linedangered"}
                                     onClick={redirectToPost}
+                                    style={{ padding: "7px 10px" }}
                                   >
-                                     {t('teacherJourney.pending')}
+                                    {t("teacherJourney.pending")}
                                   </span>
                                 </>
                               ) : (
                                 <>
-                                  <span className={"badge badge-linesuccess"}>
-                                  {t('teacherJourney.Completed')}
+                                  <span
+                                    className={"badge badge-linesuccess"}
+                                    style={{ padding: "7px 10px" }}
+                                  >
+                                    {t("teacherJourney.Completed")}
                                   </span>
                                 </>
                               )}
@@ -1229,10 +1327,10 @@ approveideaCount={approveideaCount}
                                 </Link>
                                 <div className="info">
                                   <Link to={"/tecresource"}>
-                                    <h4> {t('teacherJourney.Resources')}</h4>
+                                    <h4> {t("teacherJourney.Resources")}</h4>
                                   </Link>
                                   <p className="dull-text">
-                                  {t('teacherJourney.rescourcetext')}
+                                    {t("teacherJourney.rescourcetext")}
                                   </p>
                                 </div>
                               </div>
@@ -1245,11 +1343,29 @@ approveideaCount={approveideaCount}
                                     overlay={renderTooltip}
                                   >
                                     <span
-                                      style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
+                                      style={{
+                                        backgroundColor: "#1B2850",
+                                        borderRadius: "2rem",
+                                        padding: "5px 10px",
+                                        fontSize: "14px",
+                                      }}
                                       className="badge"
                                       onClick={() => handleShow(3)}
                                     >
-                                       <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
+                                      <FiPlayCircle
+                                        style={{
+                                          color: "#ffffff",
+                                          fontSize: "large",
+                                        }}
+                                      />{" "}
+                                      <span
+                                        style={{
+                                          color: "#ffffff",
+                                          fontSize: "10px",
+                                        }}
+                                      >
+                                        &nbsp;{t("teacherJourney.demo")}
+                                      </span>
                                     </span>
                                   </OverlayTrigger>
                                 </div>
@@ -1257,7 +1373,7 @@ approveideaCount={approveideaCount}
                             </td>
                             <td>
                               <span className={"badge badge-linesuccess"}>
-                              {t('teacherJourney.References')}
+                                {t("teacherJourney.References")}
                               </span>
                             </td>
                             <td>
@@ -1297,10 +1413,10 @@ approveideaCount={approveideaCount}
                                 </Link>
                                 <div className="info">
                                   <Link to={"/mentorsupport"}>
-                                    <h4> {t('teacherJourney.Support')}</h4>
+                                    <h4> {t("teacherJourney.Support")}</h4>
                                   </Link>
                                   <p className="dull-text">
-                                  {t('teacherJourney.riseQ')}
+                                    {t("teacherJourney.riseQ")}
                                   </p>
                                 </div>
                               </div>
@@ -1313,11 +1429,29 @@ approveideaCount={approveideaCount}
                                     overlay={renderTooltip}
                                   >
                                     <span
-                                      style={{ backgroundColor: "#1B2850",borderRadius:"2rem",padding:"5px 10px",fontSize:"14px" }}
+                                      style={{
+                                        backgroundColor: "#1B2850",
+                                        borderRadius: "2rem",
+                                        padding: "5px 10px",
+                                        fontSize: "14px",
+                                      }}
                                       className="badge"
                                       onClick={() => handleShow(4)}
                                     >
-                                     <FiPlayCircle style={{ color: "#ffffff",fontSize:"large" }} /> <span style={{ color: "#ffffff",fontSize:"10px" }}>&nbsp;{t('teacherJourney.demo')}</span>
+                                      <FiPlayCircle
+                                        style={{
+                                          color: "#ffffff",
+                                          fontSize: "large",
+                                        }}
+                                      />{" "}
+                                      <span
+                                        style={{
+                                          color: "#ffffff",
+                                          fontSize: "10px",
+                                        }}
+                                      >
+                                        &nbsp;{t("teacherJourney.demo")}
+                                      </span>
                                     </span>
                                   </OverlayTrigger>
                                 </div>
@@ -1325,7 +1459,7 @@ approveideaCount={approveideaCount}
                             </td>
                             <td>
                               <span className={"badge badge-linesuccess"}>
-                              {t('teacherJourney.HelpLine')}
+                                {t("teacherJourney.HelpLine")}
                               </span>
                             </td>
                             <td>
@@ -1369,7 +1503,7 @@ approveideaCount={approveideaCount}
           </div>
         </div>
       </div>
-        <YoutubePopup videoUrl={video} setShow={setShow} show = {show}/>
+      <YoutubePopup videoUrl={video} setShow={setShow} show={show} />
     </>
   );
 };
