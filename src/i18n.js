@@ -7,7 +7,7 @@ i18n.use(LanguageDetector)
     .use(initReactI18next)
     .use(HttpApi)
     .init({
-        supportedLngs: ['en', 'tn', 'te', 'ka', 'hi','mal'],
+        supportedLngs: ['en', 'tn', 'te', 'ka', 'hi','ml'],
         fallbackLng: 'en',
         detection: {
             order: ['htmlTag', 'cookie', 'localStorage', 'path', 'subdomain'],
