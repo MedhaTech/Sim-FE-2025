@@ -44,7 +44,6 @@ const LinkComponent = ({
   i,
   currentUser,
 }) => {
-
   let a_link;
   let count;
   if (url) {
@@ -52,36 +51,40 @@ const LinkComponent = ({
     count = a_link.length - 1;
   }
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 576);
- const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
   const [showModal, setShowModal] = useState(false);
-   const handlePreview = (url) => {
+  const handlePreview = (url) => {
     setSelectedFile({ prototype_image: url });
     setShowModal(true);
   };
-useEffect(() => {
-  const handleResize = () => {
-    setIsMobile(window.innerWidth <= 576);
-  };
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 576);
+    };
 
-  window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize);
 
-  return () => {
-    window.removeEventListener("resize", handleResize);
-  };
-}, []);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
-  
   return (
     <>
       {original ? (
         <div className="badge mb-2 bg-info ms-3 d-flex align-items-center">
-          <span className="p-2" style={{
-        display: "inline-block",
-        whiteSpace: "nowrap",
-        overflow: "hidden",
-        textOverflow: "ellipsis",
-        ...(isMobile && { maxWidth: "100px" }), 
-      }}>{item.name}</span>
+          <span
+            className="p-2"
+            style={{
+              display: "inline-block",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              ...(isMobile && { maxWidth: "100px" }),
+            }}
+          >
+            {item.name}
+          </span>
           {original && (
             <span className="pointer" onClick={() => removeFileHandler(i)}>
               <AiOutlineCloseCircle size={20} />
@@ -94,20 +97,20 @@ useEffect(() => {
           href={item}
           target="_blank"
           rel="noreferrer"
-            onClick={() => handlePreview(item)}
-          title={a_link[count]?.split('?')[0]}
+          onClick={() => handlePreview(item)}
+          title={a_link[count]?.split("?")[0]}
         >
-        {a_link[count]?.split('?')[0]}
+          {a_link[count]?.split("?")[0]}
         </span>
       )}
-        {selectedFile && (
+      {selectedFile && (
         <FilePreviewModal
           show={showModal}
           onHide={() => setShowModal(false)}
           teamResponse={selectedFile}
         />
       )}
-    {/* {original ? (
+      {/* {original ? (
   <div className="badge mb-2 bg-info ms-3 d-flex align-items-center">
     <span
       className="p-2"
@@ -143,9 +146,6 @@ useEffect(() => {
     {a_link[count]}
   </a>
 )} */}
-
-
-
     </>
   );
 };
@@ -186,7 +186,6 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   // Add on
   const [language, setLanuage] = useState(formData?.language);
   // const [otherLang, setOtherLang] = useState(formData?.language);
-
 
   const [problemStatement, setProblemStatement] = useState(
     formData?.problemStatement
@@ -389,6 +388,38 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   useEffect(() => {
     submittedApi();
   }, []);
+
+  const allValues =  (
+    theme === "" ||
+    theme === null ||
+    focusarea === "" ||
+    focusarea === null ||
+    problemStatement === "" ||
+    problemStatement === null ||
+    title === "" ||
+    title === null ||
+    causes === "" ||
+    causes === null ||
+    language === "" ||
+    language === null ||
+    effects === "" ||
+    effects === null ||
+    community === "" ||
+    community === null ||
+    facing === "" ||
+    facing === null ||
+    solution === "" ||
+    solution === null ||
+    stakeholders === "" ||
+    stakeholders === null ||
+    problemSolving === "" ||
+    problemSolving === null ||
+    feedback === "" ||
+    feedback === null ||
+    prototypeLink === "" ||
+    prototypeLink == null ||
+    workbook === "" ||
+    workbook == null) ? false : true ;
   const submittedApi = () => {
     // This function fetches idea submission details from the API //
 
@@ -722,10 +753,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const handleEdit = () => {
     setIsDisabled(false);
     scroll();
-
   };
-
-
 
   useEffect(() => {
     if (
@@ -819,7 +847,6 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     e.preventDefault();
     handleVideoApi(extractId);
   };
-
   return (
     <>
       {showPage ? (
@@ -904,8 +931,11 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                       </div>
                     )}
 
-                    <div className="d-flex justify-content-end flex-wrap gap-2 w-100  flex-sm-nowrap" style={{ rowGap: "0.5rem" }}>
-                      {!isDisabled && (
+                    <div
+                      className="d-flex justify-content-end flex-wrap gap-2 w-100  flex-sm-nowrap"
+                      style={{ rowGap: "0.5rem" }}
+                    >
+                      {/* {!isDisabled && (
                         <Button
                           type="button"
                           btnClass="me-1 btn btn-warning"
@@ -938,7 +968,29 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             label={t("teacher_teams.submit")}
                           />
                         </>
-                      )}
+                      )} */}
+                      {/* //////// */}
+                       {formData.status !== "SUBMITTED" && (
+                      <><Button
+                            type="button"
+                            btnClass="me-1 btn btn-warning"
+                            onClick={(e) => handleSubmit(e, "DRAFT")}
+                            size="small"
+                            label={`${loading.draft
+                                ? t("teacher_teams.loading")
+                                : t("teacher_teams.draft")}`}
+                            disabled={!enableSaveBtn || isDisabled} /><Button
+                              type="button"
+                              btnClass="me-1 btn btn-info"
+                              onClick={handleEdit}
+                              size="small"
+                              label={t("teacher_teams.edit_idea")} /><Button
+                              type="button"
+                              btnClass="me-1 btn btn-warning"
+                              onClick={(e) => handleSubmit(e, "SUBMITTED")}
+                              size="small"
+                              label={t("teacher_teams.submit")}
+                              disabled={!enableSaveBtn || isDisabled || !allValues || !verfiySubmitt} /></>)}
                     </div>
                     {currentSection === 1 && (
                       <div className="d-md-flex justify-content-end px-0">
@@ -1068,7 +1120,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               </select>
                             </div>
                           </div>
-                           {/* {language === "Other Language" && (
+                          {/* {language === "Other Language" && (
                             <div className="card comment-card">
                             <div className="question quiz mb-0 mt-2">
                               <b
