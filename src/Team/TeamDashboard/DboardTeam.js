@@ -22,6 +22,8 @@ import boy3 from "../../assets/img/boy3.png";
 import boy4 from "../../assets/img/boy4.png";
 import boy5 from "../../assets/img/boy5.png";
 import boy6 from "../../assets/img/boy6.png";
+import { useTranslation } from "react-i18next";
+
 import { FaUsers } from "react-icons/fa";
 import Table from "../../core/pagination/datatable";
 import { CheckCircle } from "react-feather";
@@ -40,6 +42,7 @@ const EmployeesGrid = () => {
   const route = all_routes;
   const currentUser = getCurrentUser("current_user");
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const data = useSelector((state) => state.toggle_header);
   const [isFilterVisible, setIsFilterVisible] = useState(false);
@@ -61,7 +64,6 @@ const EmployeesGrid = () => {
     </div>
   );
 
- 
   const [ideaEnableStatus, setIdeaEnableStatus] = useState(0);
   useEffect(() => {
     if (teamsMembersStatus.length >= 2 && teamsMembersStatus.length <= 5) {
@@ -107,12 +109,12 @@ const EmployeesGrid = () => {
 
   const columns = [
     {
-      title: "Name",
+      title: t("teacherJourney.Name"),
       dataIndex: "full_name",
       width: "15rem",
     },
     {
-      title: "Pre Survey",
+      title: t("teacherJourney.PreSurvey"),
       dataIndex: "pre_survey_status",
       align: "center",
       width: "15rem",
@@ -124,7 +126,7 @@ const EmployeesGrid = () => {
         ),
     },
     {
-      title: "Lesson Progress",
+      title: t("teacherJourney.leasson"),
       dataIndex: "address",
       align: "center",
       width: "30rem",
@@ -180,7 +182,7 @@ const EmployeesGrid = () => {
       },
     },
     {
-      title: "Idea Submission",
+      title: t("teacherJourney.dashIdea"),
       dataIndex: "idea_submission",
       align: "center",
       width: "20rem",
@@ -192,7 +194,8 @@ const EmployeesGrid = () => {
         ),
     },
     {
-      title: "Post Survey",
+      title: t("teacherJourney.post"),
+
       dataIndex: "post_survey_status",
       align: "center",
       width: "10rem",
@@ -204,7 +207,7 @@ const EmployeesGrid = () => {
         ),
     },
     {
-      title: "Course Certificate",
+      title: t("teacherJourney.coursecertificate"),
       dataIndex: "certificate",
       align: "center",
       width: "10rem",
@@ -229,7 +232,7 @@ const EmployeesGrid = () => {
   }, [currentUser?.data[0]?.team_id]);
   const mentorTeamsCount = (id) => {
     // this function fetches students count from the API
-    
+
     const popParam = encryptGlobal(JSON.stringify(id));
     var config = {
       method: "get",
@@ -253,9 +256,8 @@ const EmployeesGrid = () => {
       });
   };
 
-
   const stuSurveyStatus = (id) => {
-               // This function fetches student survey status from the API //
+    // This function fetches student survey status from the API //
 
     const surveyApi = encryptGlobal(
       JSON.stringify({
@@ -321,8 +323,6 @@ const EmployeesGrid = () => {
         return user;
     }
   };
- 
- 
 
   return (
     <div>
@@ -333,14 +333,11 @@ const EmployeesGrid = () => {
             <div className="d-flex align-items-center welcome-text">
               <h3 className="d-flex align-items-center">
                 <span style={{ fontSize: "30px" }}>👋</span>
-                &nbsp;Hi {currentUser?.data[0]?.full_name} &nbsp;
+                &nbsp;{t("teacherJourney.common.hi")}{" "}
+                {currentUser?.data[0]?.full_name} &nbsp;
               </h3>
 
-              <h6>
-                {" "}
-                Team, here&apos;s what&apos;s happening with your School
-                Innovation Marathon 2025 today.
-              </h6>
+              <h6> {t("teacherJourney.dashboard.team_update")}</h6>
             </div>
           </div>
           {/* Student Cards */}
@@ -356,7 +353,7 @@ const EmployeesGrid = () => {
                           className="btn btn-outline-warning text-center w-auto me-1"
                           onClick={() => handleStudent(student)}
                         >
-                          Login
+                          {t("teacherJourney.common.login")}
                         </button>
                       </div>
                     </div>
@@ -372,10 +369,18 @@ const EmployeesGrid = () => {
                     </div>
                     <ul className="department">
                       <li>
-                        Class <span>{student.Grade}th class</span>{" "}
+                        {t("teacherJourney.class")}{" "}
+                        <span>
+                          {student.Grade}{" "}
+                          {t("teacherJourney.common.class_suffix")}
+                        </span>{" "}
                       </li>
                       <li>
-                        Age <span>{student.Age} yrs</span>{" "}
+                        {t("teacherJourney.age")}
+                        <span>
+                          {student.Age}{" "} 
+                          {t("teacherJourney.common.years")}
+                        </span>{" "}
                       </li>
                     </ul>
                     <div className="departments">
@@ -388,38 +393,23 @@ const EmployeesGrid = () => {
                           0 ? (
                             teamsMembersStatus[i].idea_submission ? (
                               teamsMembersStatus[i].post_survey_status ? (
-                                <p>
-                                 Congratulations on achieving your certificate. Login and download it ✅
-
-                                </p>
+                                <p>{t("teacherJourney.certificate.message")}</p>
                               ) : (
                                 <p>
-                                  🥳 Congrats! Your idea is submitted💡
-                                  It&apos;s time to take Post-Survey
+                                  {t("teacherJourney.progress.idea_submitted")}
                                 </p>
                               )
                             ) : (
-                              <p>
-                                👏 Well Done Problem Solver! You&apos;re ready
-                                to submit idea💡
-                              </p>
+                              <p>{t("teacherJourney.progress.well_done")}</p>
                             )
                           ) : (
-                            <p>
-                              😄 Hope you are learning good techniques to solve
-                              problems👍🏻
-                            </p>
+                            <p>{t("teacherJourney.progress.hope_learning")}</p>
                           )
                         ) : (
-                          <p>
-                            👋 Start Course & know about 🔍Problem Solving
-                            Journey <FaRoute size={16} color="#20c997" />{" "}
-                          </p>
+                          <p>{t("teacherJourney.welcome.start_course")}</p>
                         )
                       ) : (
-                        <p>
-                          👋 Hi! Login & Get started with your Pre-Survey 😊
-                        </p>
+                        <p>{t("teacherJourney.welcome.loading")}</p>
                       )}
                     </div>
                   </div>
@@ -440,14 +430,17 @@ const EmployeesGrid = () => {
                     verticalAlign: "middle",
                   }}
                 />
-                Team Progress
+                {t("teacherJourney.teamprog")}
               </h4>
             </div>
             <div className="card-body">
               <div className="table-responsive">
                 {showDefault && (
                   <div className="d-flex justify-content-center align-items-center">
-                    <h4 className="text-primary">Loading</h4>
+                    <h4 className="text-primary">
+                      {" "}
+                      {t("teacherJourney.welcome.loading")}
+                    </h4>
                   </div>
                 )}
                 {teamsMembersStatus.length > 0 && !showDefault ? (
@@ -459,8 +452,7 @@ const EmployeesGrid = () => {
                   />
                 ) : teamsMembersStatusErr ? (
                   <div className="d-flex justify-content-center align-items-center">
-                    <h4 className="text-danger">
-                    </h4>
+                    <h4 className="text-danger"></h4>
                   </div>
                 ) : null}
               </div>
