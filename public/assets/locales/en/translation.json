@@ -429,6 +429,7 @@
     "Takesurvey": "Take survey & Get Certificate",
     "TeamUsername": "Team Username",
     "StudentFullName": "Student Full Name",
+    "notes": "Note",
 
     "popup1": "Team Member Created Successfully",
     "popup2": "Team Created Successfully",
@@ -447,7 +448,7 @@
     "remove": "Remove",
     "adduser": "Teacher Edit Profile",
     "adduser1":"User Profile",
-
+"saveDraftReminder": "Kindly save your idea as a draft prior to submission to ensure you can review and make changes if needed.",
     "add1": "Pre Survey",
     "add2": "Team Creation",
     "add3": "Students Enrolled",
@@ -1002,7 +1003,16 @@
     "ideawarning": "Save your idea & Ask your guide teacher to go through the details entered by you to make sure they are correct. You cannot make changes once the idea is submitted. Invalid/Wrong entries will not be selected.",
     "placeholdertext": "List one by one with numbering…"
   },
-
+  "themedetails": {
+    "buildingtheme": "Promotes environmental awareness and life skills; integrates values-based and experiential learning. NEP encourages students to be environmentally responsible citizens. This theme enables students to innovate in sustainability, energy, water, and climate — all vital for the planet and aligned with global SDG goals.",
+    "technologytheme": "Strong emphasis on tech integration, digital infrastructure, and equitable access to quality education.Innovation in education technology supports NEP’s vision of universal foundational literacy, personalized learning, and digital inclusion. It also empowers students to co-create tech tools for learning.",
+    "heal  ththeme": "Holistic development, including physical, mental, and emotional well-being, is central to NEP’s goals. NEP’s whole-child approach demands innovation in how students think about nutrition, mental health, fitness, and community wellness. This theme promotes health as foundational to learning and living.",
+    "skillstheme": "Strong focus on vocational education, entrepreneurship, and preparing students for life and work. NEP aims to integrate skill-based learning from an early age. This theme empowers students to develop job-ready, entrepreneurial, and financial skills while also encouraging local enterprise innovation.",
+    "smartertheme": "Encourages contextual learning and civic engagement, preparing students to lead and serve. NEP promotes learning that is rooted in local needs. This theme inspires students to think about their surroundings and build smart, safe, inclusive, and tech-enabled communities.",
+    "agriculturetheme": "Advocates for local knowledge systems, relevance in rural settings, and experiential learning. NEP emphasizes context-sensitive education. This theme brings attention to rural challenges and innovation in agriculture — vital sectors for inclusive and equitable development.",
+    "opentheme": "Encourages critical thinking, creativity, and problem-solving — key 21st-century skills. For students whose ideas don’t fit existing categories but address real-world problems. This promotes flexibility, interdisciplinary thinking, and true student agency",
+    "othertheme": "Encourages innovative solutions in any other area that aligns with the vision of Viksit Bharat 2047, fostering a culture of broad-based development and progress."
+  },
   "theme": {
     "healthwellnesstheme":  "Health & Wellness",
     "womenchildtheme": "Women & Child Development",
@@ -1023,16 +1033,7 @@
     "futuretheme": "Future-Ready Skills",
     "localtheme": "Local Community Problems (Open Innovation)"
   },
-  "themedetails": {
-    "buildingtheme": "Promotes environmental awareness and life skills; integrates values-based and experiential learning. NEP encourages students to be environmentally responsible citizens. This theme enables students to innovate in sustainability, energy, water, and climate — all vital for the planet and aligned with global SDG goals.",
-    "technologytheme": "Strong emphasis on tech integration, digital infrastructure, and equitable access to quality education.Innovation in education technology supports NEP’s vision of universal foundational literacy, personalized learning, and digital inclusion. It also empowers students to co-create tech tools for learning.",
-    "heal  ththeme": "Holistic development, including physical, mental, and emotional well-being, is central to NEP’s goals. NEP’s whole-child approach demands innovation in how students think about nutrition, mental health, fitness, and community wellness. This theme promotes health as foundational to learning and living.",
-    "skillstheme": "Strong focus on vocational education, entrepreneurship, and preparing students for life and work. NEP aims to integrate skill-based learning from an early age. This theme empowers students to develop job-ready, entrepreneurial, and financial skills while also encouraging local enterprise innovation.",
-    "smartertheme": "Encourages contextual learning and civic engagement, preparing students to lead and serve. NEP promotes learning that is rooted in local needs. This theme inspires students to think about their surroundings and build smart, safe, inclusive, and tech-enabled communities.",
-    "agriculturetheme": "Advocates for local knowledge systems, relevance in rural settings, and experiential learning. NEP emphasizes context-sensitive education. This theme brings attention to rural challenges and innovation in agriculture — vital sectors for inclusive and equitable development.",
-    "opentheme": "Encourages critical thinking, creativity, and problem-solving — key 21st-century skills. For students whose ideas don’t fit existing categories but address real-world problems. This promotes flexibility, interdisciplinary thinking, and true student agency",
-    "othertheme": "Encourages innovative solutions in any other area that aligns with the vision of Viksit Bharat 2047, fostering a culture of broad-based development and progress."
-  },
+
   "healthwellnessfocusareas": {
     "focusarea1": "Devices for Fitness and Preventive Health",
     "focusarea2":  "Mental Health Support",
