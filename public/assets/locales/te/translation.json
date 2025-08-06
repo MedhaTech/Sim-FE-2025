@@ -250,6 +250,8 @@
     "backlist": "జాబితాకు తిరిగి వెళ్ళు",
     "Description": "వివరణ",
     "link": "లింక్",
+    "notes": "గమనిక",
+
     "create": "టికెట్ సృష్టించండి",
     "chat": "చాట్ సప్పోర్ట్",
     "upload": "అప్ లోడ్ ఫైల్",
@@ -260,7 +262,7 @@
     "dashIdea": "ఐడియా సబ్మిషన్",
     "post": "పోస్ట్ సర్వే",
     "coursecertificate": "కోర్సు సర్టిఫికేట్",
-
+"saveDraftReminder": "దయచేసి మీ ఐడియాను సమర్పించే ముందు డ్రాఫ్ట్‌గా సేవ్ చేయండి, తద్వారా మీరు పరిశీలించి అవసరమైతే మార్పులు చేయవచ్చు.",
     "know": "SIM గురించి తెలుసుకోవడానికి",
     "clikhere": "ఇక్కడ క్లిక్ చేసి, కోర్సు ప్రారంభించండి",
     "noteams": "ఇంకా టీమ్ని సృష్టించాలా?",
@@ -1022,83 +1024,71 @@
 
     "placeholdertext": "నంబరింగ్‌తో ఒక్కొక్కటిగా జాబితా చేయండి..."
   },
-  "themes": {
-    "buildingtheme": "స్థిరమైన భవిష్యత్తును నిర్మించడం",
-    "technologytheme": "అభ్యాసం మరియు వృద్ధి కోసం సాంకేతికత",
-    "healththeme": " ఆరోగ్యం, పోషకాహారం & శ్రేయస్సు",
-    "skillstheme": "జీవితం & జీవనోపాధి కోసం నైపుణ్యాలు",
-    "smartertheme": "తెలివైన సంఘాలు, సురక్షితమైన   భవిష్యత్తులు",
-    "agriculturetheme": "వ్యవసాయం మరియు గ్రామీణ పరివర్తన",
-    "opentheme": "ఓపెన్ కేటగిరీ - థింక్ బియాండ్",
-    "othertheme": "Others"
-  },
   "theme": {
-   "buildingtheme": "స్థిరమైన భవిష్యత్తును నిర్మించడం",
-    "technologytheme": "అభ్యాసం మరియు వృద్ధి కోసం సాంకేతికత",
-    "healththeme": " ఆరోగ్యం, పోషకాహారం & శ్రేయస్సు",
-    "skillstheme": "జీవితం & జీవనోపాధి కోసం నైపుణ్యాలు",
-    "smartertheme": "తెలివైన సంఘాలు, సురక్షితమైన   భవిష్యత్తులు",
-    "agriculturetheme": "వ్యవసాయం మరియు గ్రామీణ పరివర్తన",
-    "opentheme": "ఓపెన్ కేటగిరీ - థింక్ బియాండ్",
-
-    "othertheme": "ఇతరత్రా"
+    "healthwellnesstheme":  "Health & Wellness",
+    "womenchildtheme": "Women & Child Development",
+    "watertheme": "Water",
+    "lifestyletheme": "Lifestyle for Environment (LiFE)",
+    "culturaltheme": "Cultural Pride",
+    "tribaltheme":  "Tribal Empowerment",
+    "futuretheme": "Future-Ready Skills",
+    "localtheme": "Local Community Problems (Open Innovation)"
   },
-  "themedetails": {
-    "buildingtheme": "పర్యావరణ అవగాహన మరియు జీవన నైపుణ్యాలను ప్రోత్సహిస్తుంది; విలువల ఆధారిత మరియు అనుభవపూర్వక అభ్యాసాన్ని ఏకీకృతం చేస్తుంది . NEP విద్యార్థులు పర్యావరణపరంగా బాధ్యతాయుతమైన పౌరులుగా ఉండమని ప్రోత్సహిస్తుంది. ఈ థీమ్ విద్యార్థులు స్థిరత్వం, శక్తి, నీరు మరియు వాతావరణంలో ఆవిష్కరణలను సాధించడానికి వీలు కల్పిస్తుంది - ఇవన్నీ భూమికి కీలకమైనవి మరియు ప్రపంచ SDG లక్ష్యాలకు అనుగుణంగా ఉంటాయి.",
-    "technologytheme": "సాంకేతిక అనుసంధానం, డిజిటల్ మౌలిక సదుపాయాలు మరియు నాణ్యమైన విద్యకు సమాన ప్రాప్యత పై బలమైన ప్రాధాన్యత. విద్యా సాంకేతికతలో ఆవిష్కరణ సార్వత్రిక ప్రాథమిక అక్షరాస్యత, వ్యక్తిగతీకరించిన అభ్యాసం మరియు డిజిటల్ అనుసంధానం అనే NEP దార్శనికతకు మద్దతు ఇస్తుంది. ఇది అభ్యాసం కోసం సాంకేతిక సాధనాలను సహ-సృష్టించడానికి విద్యార్థులకు అధికారం ఇస్తుంది.",
-    "healththeme": "శారీరక, మానసిక మరియు భావోద్వేగ శ్రేయస్సుతో సహా సమగ్ర అభివృద్ధి NEP లక్ష్యాలకు కేంద్రంగా ఉంది. NEP యొక్క హోల్-చైల్డ్ విధానంలో, విద్యార్థులు పోషకాహారం, మానసిక ఆరోగ్యం, ఫిట్‌నెస్ మరియు సమాజ శ్రేయస్సు గురించి ఎలా ఆలోచిస్తారో దానిలో ఆవిష్కరణను కోరుతుంది. ఈ థీమ్ నేర్చుకోవడం మరియు జీవించడానికి ఆరోగ్యాన్ని పునాదిగా ప్రోత్సహిస్తుంది.",
-    "skillstheme": "వృత్తి విద్య, వ్యవస్థాపకత మరియు విద్యార్థులను జీవితం మరియు పనికి సిద్ధం చేయడంపై బలమైన దృష్టి. చిన్నప్పటి నుండే నైపుణ్య ఆధారిత అభ్యాసాన్ని ఏకీకృతం చేయడం NEP లక్ష్యం. ఈ థీమ్ విద్యార్థులు ఉద్యోగానికి సిద్ధంగా ఉన్న, వ్యవస్థాపక మరియు ఆర్థిక నైపుణ్యాలను అభివృద్ధి చేసుకోవడానికి శక్తినిస్తుంది, అదే సమయంలో స్థానిక సంస్థ ఆవిష్కరణలను కూడా ప్రోత్సహిస్తుంది.",
-    "smartertheme": "సందర్భోచిత అభ్యాసం మరియు పౌర నిశ్చితార్థాన్ని ప్రోత్సహిస్తుంది, విద్యార్థులను నాయకత్వం వహించడానికి మరియు సేవ చేయడానికి సిద్ధం చేస్తుంది. NEP స్థానిక అవసరాలలో పాతుకుపోయిన అభ్యాసాన్ని ప్రోత్సహిస్తుంది. ఈ థీమ్ విద్యార్థులు తమ పరిసరాల గురించి ఆలోచించడానికి మరియు స్మార్ట్, సురక్షితమైన, కలుపుకొనిపోయే మరియు సాంకేతికత ఆధారిత సంఘాలను నిర్మించడానికి ప్రేరేపిస్తుంది.",
-    "agriculturetheme": "స్థానిక జ్ఞాన వ్యవస్థలు, గ్రామీణ ప్రాంతాల్లో ఔచిత్యము మరియు అనుభవపూర్వక అభ్యాసం కోసం వాదిస్తుంది. NEP సందర్భోచిత విద్యను నొక్కి చెబుతుంది. ఈ థీమ్ వ్యవసాయంలో గ్రామీణ సవాళ్లు మరియు ఆవిష్కరణలపై దృష్టిని ఆకర్షిస్తుంది - సమ్మిళిత మరియు సమాన అభివృద్ధికి కీలకమైన రంగాలు.",
-    "opentheme": "విమర్శనాత్మక ఆలోచన, సృజనాత్మకత మరియు సమస్య పరిష్కారాన్ని ప్రోత్సహిస్తుంది — 21వ శతాబ్దపు కీలకమైన నైపుణ్యాలు. ప్రస్తుత వర్గాలకు సరిపోని కానీ వాస్తవ ప్రపంచ సమస్యలను పరిష్కరించే ఆలోచనల విద్యార్థుల కోసం. ఇది వశ్యత, అంతర్-విభాగ ఆలోచన మరియు నిజమైన విద్యార్థి ఏజెన్సీని ప్రోత్సహిస్తుంది."
-  },
-    "buildingfocusareas": {
-    "focusarea1": "గ్రీన్ ఎనర్జీ",
-    "focusarea2": "నీటి సంరక్షణ & నిర్వహణ",
-    "focusarea3": "పర్యావరణ అనుకూల ఆవిష్కరణ",
-    "focusarea4": "జీవవైవిధ్యం & వాతావరణ చర్య",
-    "focusarea5": "గ్రీన్ అగ్రికల్చర్"
-  },
-  "technologyfocusareas": {
-    "focusarea1": "అభ్యాస సాధనాలు మరియు విద్యా సాంకేతికత",
-    "focusarea2": "ఇంక్లూసివ్ మరియు ప్రాప్యత అభ్యాసం",
-    "focusarea3": "కోడింగ్, AI & డేటా ఇన్నోవేషన్",
-    "focusarea4": "గేమిఫైడ్ లెర్నింగ్",
-    "focusarea5": "ఉపాధ్యాయ మద్దతు సాధనాలు"
-  },
-  "healthfocusareas": {
-    "focusarea1": "తక్కువ ధరలో ఆరోగ్య పరికరాలు",
-    "focusarea2": "మానసిక ఆరోగ్య మద్దతు",
-    "focusarea3": "క్లీన్ న్యూట్రిషన్ ఇన్నోవేషన్స్",
-    "focusarea4": "ఫిట్‌నెస్ మరియు కదలిక",
-    "focusarea5": "కమ్యూనిటీ హెల్త్ అవగాహన"
-  },
-  "skillsfocusareas": {
-    "focusarea1": "వృత్తి నైపుణ్యాలు మరియు స్థానిక కళలు",
-    "focusarea2": "ఆర్థిక అక్షరాస్యత",
-    "focusarea3": "వ్యవస్థాపకత మరియు స్టార్టప్‌లు",
-    "focusarea4": "భవిష్యత్తుకు సిద్ధంగా ఉన్న నైపుణ్యాలు",
-    "focusarea5": "రిటైల్ మరియు పంపిణీలో"
+"themes": {
+    "healthwellnesstheme":  "Health & Wellness",
+    "womenchildtheme": "Women & Child Development",
+    "watertheme": "Water",
+    "lifestyletheme": "Lifestyle for Environment (LiFE)",
+    "culturaltheme": "Cultural Pride",
+    "tribaltheme":  "Tribal Empowerment",
+    "futuretheme": "Future-Ready Skills",
+    "localtheme": "Local Community Problems (Open Innovation)"
   },
 
-  "smarterfocusareas": {
-    "focusarea1": "విపత్తు స్థితిస్థాపకత",
-    "focusarea2": "పట్టణ-గ్రామీణ రవాణా",
-    "focusarea3": "పబ్లిక్ స్పేస్ ఇన్నోవేషన్",
-    "focusarea4": "కమ్యూనిటీ ఉపయోగం కోసం స్మార్ట్ పరికరాలు",
-    "focusarea5": "డిజిటల్ గవర్నెన్స్"
+  "healthwellnessfocusareas": {
+    "focusarea1": "Devices for Fitness and Preventive Health",
+    "focusarea2":  "Mental Health Support",
+    "focusarea3":  "Assistive Tech for the specially abled"
+   
   },
-  "agriculturefocusareas": {
-    "focusarea1": "వ్యవసాయంలో సాంకేతికత",
-    "focusarea2": "ఫామ్-టు-టేబుల్ ఇన్నోవేషన్",
-    "focusarea3": "గ్రామీణ మౌలిక సదుపాయాలు",
-    "focusarea4": "వాతావరణానికి అనుగుణంగా వ్యవసాయం చేయడం",
-    "focusarea5": "వ్యవసాయ పోషకాహారం"
+  "womenchildfocusareas": {
+    "focusarea1": "Menstrual Health and Hygiene Solutions",
+    "focusarea2": "Early Learning and Educational Tools",
+    "focusarea3": "Safety and Support Devices for Children and Women"
+  
   },
-  "openfocusareas": {
-    "focusarea1": "వాస్తవ ప్రపంచ సవాలును పరిష్కరించే ఏదైనా అసలైన ఆలోచన"
+  "waterfocusareas": {
+    "focusarea1": "Water Conservation & Sanitation",
+    "focusarea2": "Solutions for Water Pollution",
+    "focusarea3": "Enhancement of Water-Based Livelihoods"
+    
   },
-  "otherfocusareas": {
-    "focusarea1": "Any other area that broadly qualifies for the vision of Viksit Bharat"
+  "lifestylefocusareas": {
+    "focusarea1": "Green Energy and Climate Action",
+    "focusarea2": "Sustainable Modes of Transport",
+    "focusarea3": "Recycling & Waste Management"
+    
+  },
+
+  "culturalfocusareas": {
+    "focusarea1": "Innovation in Arts, Music & Folk Traditions",
+    "focusarea2":  "Promotion of Indigenous and Local Sports",
+    "focusarea3": "Tools for Preserving Regional and Endangered Languages"
+    
+  },
+  "tribalfocusareas": {
+    "focusarea1": "Preservation of Tribal Identity & Culture",
+    "focusarea2": "Products using Tribal Techniques",
+    "focusarea3": "Smart Solutions for Tribal & Hilly Regions"
+   
+  },
+  "futurefocusareas": {
+    "focusarea1": "Digital Tools for Learning and Skilling",
+    "focusarea2":  "Entrepreneurship and Local Livelihood Innovation",
+    "focusarea3": "Career Awareness and Job-Readiness Solutions"
+
+  },
+  "localfocusareas": {
+    "focusarea1": "Other"
   }
 }
