@@ -1025,67 +1025,67 @@
     "placeholdertext": "నంబరింగ్‌తో ఒక్కొక్కటిగా జాబితా చేయండి..."
   },
   "theme": {
-    "healthwellnesstheme":  "Health & Wellness",
-    "womenchildtheme": "Women & Child Development",
-    "watertheme": "Water",
-    "lifestyletheme": "Lifestyle for Environment (LiFE)",
-    "culturaltheme": "Cultural Pride",
-    "tribaltheme":  "Tribal Empowerment",
-    "futuretheme": "Future-Ready Skills",
-    "localtheme": "Local Community Problems (Open Innovation)"
+    "healthwellnesstheme":  "ఆరోగ్యం & ఆరోగ్యం",
+    "womenchildtheme": "మహిళా & శిశు అభివృద్ధి",
+    "watertheme": "నీరు",
+    "lifestyletheme": "పర్యావరణం కోసం జీవనశైలి (LiFE)",
+    "culturaltheme": "సాంస్కృతిక గర్వం",
+    "tribaltheme":  "గిరిజన సాధికారత",
+    "futuretheme": "భవిష్యత్తుకు సిద్ధంగా ఉన్న నైపుణ్యాలు",
+    "localtheme": "స్థానిక సమాజ సమస్యలు (ఓపెన్ ఇన్నోవేషన్)"
   },
 "themes": {
-    "healthwellnesstheme":  "Health & Wellness",
-    "womenchildtheme": "Women & Child Development",
-    "watertheme": "Water",
-    "lifestyletheme": "Lifestyle for Environment (LiFE)",
-    "culturaltheme": "Cultural Pride",
-    "tribaltheme":  "Tribal Empowerment",
-    "futuretheme": "Future-Ready Skills",
-    "localtheme": "Local Community Problems (Open Innovation)"
+    "healthwellnesstheme":  "ఆరోగ్యం & ఆరోగ్యం",
+    "womenchildtheme": "మహిళా & శిశు అభివృద్ధి",
+    "watertheme": "నీరు",
+    "lifestyletheme": "పర్యావరణం కోసం జీవనశైలి (LiFE)",
+    "culturaltheme": "సాంస్కృతిక గర్వం",
+    "tribaltheme":  "గిరిజన సాధికారత",
+    "futuretheme": "భవిష్యత్తుకు సిద్ధంగా ఉన్న నైపుణ్యాలు",
+    "localtheme": "స్థానిక సమాజ సమస్యలు (ఓపెన్ ఇన్నోవేషన్)"
   },
 
   "healthwellnessfocusareas": {
-    "focusarea1": "Devices for Fitness and Preventive Health",
-    "focusarea2":  "Mental Health Support",
-    "focusarea3":  "Assistive Tech for the specially abled"
+    "focusarea1": "ఫిట్‌నెస్ మరియు నివారణ ఆరోగ్యం కోసం పరికరాలు",
+    "focusarea2":  "మానసిక ఆరోగ్య మద్దతు",
+    "focusarea3":  "ప్రత్యేక సామర్థ్యం ఉన్నవారికి సహాయక సాంకేతికత"
    
   },
   "womenchildfocusareas": {
-    "focusarea1": "Menstrual Health and Hygiene Solutions",
-    "focusarea2": "Early Learning and Educational Tools",
-    "focusarea3": "Safety and Support Devices for Children and Women"
+    "focusarea1": "రుతుక్రమ ఆరోగ్యం మరియు పరిశుభ్రత పరిష్కారాలు",
+    "focusarea2": "ప్రారంభ అభ్యాసం మరియు విద్యా ఉపకరణాలు",
+    "focusarea3": "పిల్లలు మరియు మహిళలకు భద్రత మరియు సహాయక పరికరాలు"
   
   },
   "waterfocusareas": {
-    "focusarea1": "Water Conservation & Sanitation",
-    "focusarea2": "Solutions for Water Pollution",
-    "focusarea3": "Enhancement of Water-Based Livelihoods"
+    "focusarea1": "నీటి సంరక్షణ & పారిశుధ్యం",
+    "focusarea2": "నీటి కాలుష్యానికి పరిష్కారాలు",
+    "focusarea3": "నీటి ఆధారిత జీవనోపాధి మెరుగుదల"
     
   },
   "lifestylefocusareas": {
-    "focusarea1": "Green Energy and Climate Action",
-    "focusarea2": "Sustainable Modes of Transport",
-    "focusarea3": "Recycling & Waste Management"
+    "focusarea1": "గ్రీన్ ఎనర్జీ మరియు క్లైమేట్ యాక్షన్",
+    "focusarea2": "స్థిరమైన రవాణా విధానాలు",
+    "focusarea3": "రీసైక్లింగ్ & వ్యర్థాల నిర్వహణ"
     
   },
 
   "culturalfocusareas": {
-    "focusarea1": "Innovation in Arts, Music & Folk Traditions",
-    "focusarea2":  "Promotion of Indigenous and Local Sports",
-    "focusarea3": "Tools for Preserving Regional and Endangered Languages"
+    "focusarea1": "కళలు, సంగీతం & జానపద సంప్రదాయాలలో ఆవిష్కరణలు",
+    "focusarea2":  "స్వదేశీ మరియు స్థానిక క్రీడలను ప్రోత్సహించడం",
+    "focusarea3": "ప్రాంతీయ మరియు అంతరించిపోతున్న భాషలను సంరక్షించడానికి ఉపకరణాలు"
     
   },
   "tribalfocusareas": {
-    "focusarea1": "Preservation of Tribal Identity & Culture",
-    "focusarea2": "Products using Tribal Techniques",
-    "focusarea3": "Smart Solutions for Tribal & Hilly Regions"
+    "focusarea1": "గిరిజన గుర్తింపు & సంస్కృతి పరిరక్షణ",
+    "focusarea2": "గిరిజన పద్ధతులను ఉపయోగించే ఉత్పత్తులు",
+    "focusarea3": "గిరిజన & కొండ ప్రాంతాలకు స్మార్ట్ సొల్యూషన్స్"
    
   },
   "futurefocusareas": {
-    "focusarea1": "Digital Tools for Learning and Skilling",
-    "focusarea2":  "Entrepreneurship and Local Livelihood Innovation",
-    "focusarea3": "Career Awareness and Job-Readiness Solutions"
+    "focusarea1": "అభ్యాసం మరియు నైపుణ్యం కోసం డిజిటల్ సాధనాలు",
+    "focusarea2":  "వ్యవస్థాపకత మరియు స్థానిక జీవనోపాధి ఆవిష్కరణ",
+    "focusarea3": "కెరీర్ అవగాహన మరియు ఉద్యోగ-సంసిద్ధత పరిష్కారాలు"
 
   },
   "localfocusareas": {
