@@ -1000,67 +1000,67 @@
   },
 
    "theme": {
-    "healthwellnesstheme":  "Health & Wellness",
-    "womenchildtheme": "Women & Child Development",
-    "watertheme": "Water",
-    "lifestyletheme": "Lifestyle for Environment (LiFE)",
-    "culturaltheme": "Cultural Pride",
-    "tribaltheme":  "Tribal Empowerment",
-    "futuretheme": "Future-Ready Skills",
-    "localtheme": "Local Community Problems (Open Innovation)"
+    "healthwellnesstheme":  "ആരോഗ്യവും ക്ഷേമവും",
+    "womenchildtheme": "സ്ത്രീ-ശിശു വികസനം",
+    "watertheme": "ജലം",
+    "lifestyletheme": "പരിസ്ഥിതിക്ക് അനുയോജ്യമായ ജീവിതശൈലി (LiFE)",
+    "culturaltheme": "സാംസ്കാരിക അഭിമാനം",
+    "tribaltheme":  "ഗോത്ര ശാക്തീകരണം",
+    "futuretheme": " ഭാവിക്ക് അനുയോജ്യമായ കഴിവുകൾ",
+    "localtheme": "പ്രാദേശിക സമൂഹ പ്രശ്നങ്ങൾ (തുറന്ന നവീകരണം)"
   },
 "themes": {
-    "healthwellnesstheme":  "Health & Wellness",
-    "womenchildtheme": "Women & Child Development",
-    "watertheme": "Water",
-    "lifestyletheme": "Lifestyle for Environment (LiFE)",
-    "culturaltheme": "Cultural Pride",
-    "tribaltheme":  "Tribal Empowerment",
-    "futuretheme": "Future-Ready Skills",
-    "localtheme": "Local Community Problems (Open Innovation)"
+    "healthwellnesstheme":  "ആരോഗ്യവും ക്ഷേമവും",
+    "womenchildtheme": "സ്ത്രീ-ശിശു വികസനം",
+    "watertheme": "ജലം",
+    "lifestyletheme": "പരിസ്ഥിതിക്ക് അനുയോജ്യമായ ജീവിതശൈലി (LiFE)",
+    "culturaltheme": "സാംസ്കാരിക അഭിമാനം",
+    "tribaltheme":  "ഗോത്ര ശാക്തീകരണം",
+    "futuretheme": " ഭാവിക്ക് അനുയോജ്യമായ കഴിവുകൾ",
+    "localtheme": "പ്രാദേശിക സമൂഹ പ്രശ്നങ്ങൾ (തുറന്ന നവീകരണം)"
   },
 
   "healthwellnessfocusareas": {
-    "focusarea1": "Devices for Fitness and Preventive Health",
-    "focusarea2":  "Mental Health Support",
-    "focusarea3":  "Assistive Tech for the specially abled"
+    "focusarea1": "ആളുകളെ ആരോഗ്യത്തോടെ നിലനിർത്താനും രോഗം തടയാനും സഹായിക്കുന്ന ഉപകരണങ്ങൾ",
+    "focusarea2":  "മാനസികാരോഗ്യത്തിനുള്ള പിന്തുണ",
+    "focusarea3":  "വൈകല്യമുള്ളവരെ സഹായിക്കുന്നതിനുള്ള സാങ്കേതികവിദ്യ"
    
   },
   "womenchildfocusareas": {
-    "focusarea1": "Menstrual Health and Hygiene Solutions",
-    "focusarea2": "Early Learning and Educational Tools",
-    "focusarea3": "Safety and Support Devices for Children and Women"
+    "focusarea1": "ആർത്തവ ആരോഗ്യ-ശുചിത്വ പരിഹാരങ്ങൾ",
+    "focusarea2": "കുട്ടികൾക്കുള്ള പഠന ഉപകരണങ്ങൾ",
+    "focusarea3": "സ്ത്രീകൾക്കും കുട്ടികൾക്കുമുള്ള സുരക്ഷയും പിന്തുണയും സംബന്ധിച്ച ഉപകരണങ്ങൾ"
   
   },
   "waterfocusareas": {
-    "focusarea1": "Water Conservation & Sanitation",
-    "focusarea2": "Solutions for Water Pollution",
-    "focusarea3": "Enhancement of Water-Based Livelihoods"
+    "focusarea1": "ജലം ലാഭിക്കുകയും അത് വൃത്തിയായി സൂക്ഷിക്കുകയും ചെയ്യുക",
+    "focusarea2": "ജലമലിനീകരണം കുറയ്ക്കുക",
+    "focusarea3": "ജലത്തെ അടിസ്ഥാനമാക്കിയുള്ള ജോലികളിൽ നിന്നുള്ള ജോലികളും വരുമാനവും മെച്ചപ്പെടുത്തുക"
     
   },
   "lifestylefocusareas": {
-    "focusarea1": "Green Energy and Climate Action",
-    "focusarea2": "Sustainable Modes of Transport",
-    "focusarea3": "Recycling & Waste Management"
+    "focusarea1": "ഹരിത ഊർജ്ജ ഉപയോഗവും കാലാവസ്ഥാ വ്യതിയാനത്തിനെതിരെ പോരാടലും",
+    "focusarea2": "പരിസ്ഥിതി സൗഹൃദ ഗതാഗതം പ്രോത്സാഹിപ്പിക്കൽ",
+    "focusarea3": "മാലിന്യ പുനരുപയോഗവും മാനേജ്മെന്റും"
     
   },
 
   "culturalfocusareas": {
-    "focusarea1": "Innovation in Arts, Music & Folk Traditions",
-    "focusarea2":  "Promotion of Indigenous and Local Sports",
-    "focusarea3": "Tools for Preserving Regional and Endangered Languages"
+    "focusarea1": "കല, സംഗീതം, നാടോടി പാരമ്പര്യങ്ങൾ എന്നിവയിലെ പുതിയ ആശയങ്ങൾ",
+    "focusarea2":  "പ്രാദേശികവും പരമ്പരാഗതവുമായ കായിക വിനോദങ്ങളെ പിന്തുണയ്ക്കൽ",
+    "focusarea3": "പ്രാദേശികവും വംശനാശഭീഷണി നേരിടുന്നതുമായ ഭാഷകളെ സംരക്ഷിക്കുന്നതിനുള്ള ഉപകരണങ്ങൾ/രീതികൾ ."
     
   },
   "tribalfocusareas": {
-    "focusarea1": "Preservation of Tribal Identity & Culture",
-    "focusarea2": "Products using Tribal Techniques",
-    "focusarea3": "Smart Solutions for Tribal & Hilly Regions"
+    "focusarea1": "ഗോത്ര സംസ്കാരവും സ്വത്വവും സംരക്ഷിക്കൽ",
+    "focusarea2": "ഗോത്ര അറിവും വൈദഗ്ധ്യവും ഉപയോഗിച്ച് നിർമ്മിച്ച ഉൽപ്പന്നങ്ങൾ",
+    "focusarea3": "ഗോത്ര, കുന്നിൻ പ്രദേശങ്ങൾക്കായുള്ള മികച്ച ആശയങ്ങൾ"
    
   },
   "futurefocusareas": {
-    "focusarea1": "Digital Tools for Learning and Skilling",
-    "focusarea2":  "Entrepreneurship and Local Livelihood Innovation",
-    "focusarea3": "Career Awareness and Job-Readiness Solutions"
+    "focusarea1": "പഠനത്തിനും സ്കിൽ  വികസനത്തിനുമുള്ള ഡിജിറ്റൽ ഉപകരണങ്ങൾ",
+    "focusarea2":  "പ്രാദേശിക ബിസിനസുകൾക്കും തൊഴിൽ സൃഷ്ടിക്കുമുള്ള പിന്തുണ",
+    "focusarea3": "ജോലികൾക്കും കരിയറുകൾക്കും തയ്യാറെടുക്കാൻ ആളുകളെ സഹായിക്കൽ" 
 
   },
   "localfocusareas": {

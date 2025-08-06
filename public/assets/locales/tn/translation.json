@@ -928,67 +928,67 @@
         "placeholdertext" : "எண்களுடன் ஒவ்வொன்றாக பட்டியலிடுங்கள்..."
     },
     "theme": {
-    "healthwellnesstheme":  "Health & Wellness",
-    "womenchildtheme": "Women & Child Development",
-    "watertheme": "Water",
-    "lifestyletheme": "Lifestyle for Environment (LiFE)",
-    "culturaltheme": "Cultural Pride",
-    "tribaltheme":  "Tribal Empowerment",
-    "futuretheme": "Future-Ready Skills",
-    "localtheme": "Local Community Problems (Open Innovation)"
+    "healthwellnesstheme":  "உடல்நலம் மற்றும் நல்வாழ்வு",
+    "womenchildtheme": "பெண்கள் மற்றும் குழந்தைகள் மேம்பாடு",
+    "watertheme": "நீர்",
+    "lifestyletheme": "சுற்றுச்சூழலுக்கான வாழ்க்கை முறை (LiFE)",
+    "culturaltheme": "கலாச்சார பெருமை",
+    "tribaltheme":  "பழங்குடியினருக்கு அதிகாரமளித்தல்",
+    "futuretheme": "எதிர்காலத்திற்குத் தயாராக இருக்கும் திறன்கள்",
+    "localtheme": "உள்ளூர் சமூகப் problemகள் (திறந்த கண்டுபிடிப்பு)"
   },
 "themes": {
-    "healthwellnesstheme":  "Health & Wellness",
-    "womenchildtheme": "Women & Child Development",
-    "watertheme": "Water",
-    "lifestyletheme": "Lifestyle for Environment (LiFE)",
-    "culturaltheme": "Cultural Pride",
-    "tribaltheme":  "Tribal Empowerment",
-    "futuretheme": "Future-Ready Skills",
-    "localtheme": "Local Community Problems (Open Innovation)"
+      "healthwellnesstheme":  "உடல்நலம் மற்றும் நல்வாழ்வு",
+    "womenchildtheme": "பெண்கள் மற்றும் குழந்தைகள் மேம்பாடு",
+    "watertheme": "நீர்",
+    "lifestyletheme": "சுற்றுச்சூழலுக்கான வாழ்க்கை முறை (LiFE)",
+    "culturaltheme": "கலாச்சார பெருமை",
+    "tribaltheme":  "பழங்குடியினருக்கு அதிகாரமளித்தல்",
+    "futuretheme": "எதிர்காலத்திற்குத் தயாராக இருக்கும் திறன்கள்",
+    "localtheme": "உள்ளூர் சமூகப் problemகள் (திறந்த கண்டுபிடிப்பு)"
   },
 
   "healthwellnessfocusareas": {
-    "focusarea1": "Devices for Fitness and Preventive Health",
-    "focusarea2":  "Mental Health Support",
-    "focusarea3":  "Assistive Tech for the specially abled"
+    "focusarea1": "உடற்தகுதி மற்றும் தடுப்பு தடுப்பு சுகாதாரத்திற்கான சாதனங்கள்",
+    "focusarea2":  "மனநல ஆதரவு",
+    "focusarea3":  "மாற்றுத் திறனாளிகளுக்கான துணை தொழில்நுட்பம்"
    
   },
   "womenchildfocusareas": {
-    "focusarea1": "Menstrual Health and Hygiene Solutions",
-    "focusarea2": "Early Learning and Educational Tools",
-    "focusarea3": "Safety and Support Devices for Children and Women"
+    "focusarea1": "மாதவிடாய் சுகாதாரம் மற்றும் சுகாதார தீர்வுகள்",
+    "focusarea2": "ஆரம்பகால கற்றல் மற்றும் கல்வி கருவிகள்",
+    "focusarea3": "குழந்தைகள் மற்றும் பெண்களுக்கான பாதுகாப்பு மற்றும் ஆதரவு சாதனங்கள்"
   
   },
   "waterfocusareas": {
-    "focusarea1": "Water Conservation & Sanitation",
-    "focusarea2": "Solutions for Water Pollution",
-    "focusarea3": "Enhancement of Water-Based Livelihoods"
+    "focusarea1": "நீர் பாதுகாப்பு மற்றும் சுகாதாரம்",
+    "focusarea2": "நீர் மாசுபாட்டிற்கான தீர்வுகள்",
+    "focusarea3": "நீர் சார்ந்த வாழ்வாதாரங்களை மேம்படுத்துதல்"
     
   },
   "lifestylefocusareas": {
-    "focusarea1": "Green Energy and Climate Action",
-    "focusarea2": "Sustainable Modes of Transport",
-    "focusarea3": "Recycling & Waste Management"
+    "focusarea1": "பசுமை ஆற்றல் மற்றும் காலநிலை நடவடிக்கை",
+    "focusarea2": "நிலையான போக்குவரத்து முறைகள்",
+    "focusarea3": "மறுசுழற்சி மற்றும் கழிவு மேலாண்மை"
     
   },
 
   "culturalfocusareas": {
-    "focusarea1": "Innovation in Arts, Music & Folk Traditions",
-    "focusarea2":  "Promotion of Indigenous and Local Sports",
-    "focusarea3": "Tools for Preserving Regional and Endangered Languages"
+    "focusarea1": "கலை, இசை மற்றும் நாட்டுப்புற மரபுகளில் புதுமை",
+    "focusarea2":  "பூர்வீக மற்றும் உள்ளூர் விளையாட்டுகளை ஊக்குவித்தல்",
+    "focusarea3": "பிராந்திய மற்றும் அழிந்து வரும் மொழிகளைப் பாதுகாப்பதற்கான கருவிகள்"
     
   },
   "tribalfocusareas": {
-    "focusarea1": "Preservation of Tribal Identity & Culture",
-    "focusarea2": "Products using Tribal Techniques",
-    "focusarea3": "Smart Solutions for Tribal & Hilly Regions"
+    "focusarea1": "பழங்குடியினரின் அடையாளம் மற்றும் கலாச்சாரத்தைப் பாதுகாத்தல்",
+    "focusarea2": "பழங்குடியினரின் நுட்பங்களைப் பயன்படுத்தும் தயாரிப்புகள்",
+    "focusarea3": "பழங்குடியினர் மற்றும் மலைப்பகுதிகளுக்கான ஸ்மார்ட் தீர்வுகள்"
    
   },
   "futurefocusareas": {
-    "focusarea1": "Digital Tools for Learning and Skilling",
-    "focusarea2":  "Entrepreneurship and Local Livelihood Innovation",
-    "focusarea3": "Career Awareness and Job-Readiness Solutions"
+    "focusarea1": "கற்றல் மற்றும் திறன் மேம்பாட்டிற்கான டிஜிட்டல் கருவிகள்",
+    "focusarea2":  "தொழில்முனைவு மற்றும் உள்ளூர் வாழ்வாதார கண்டுபிடிப்புகள்",
+    "focusarea3": "தொழில் விழிப்புணர்வு மற்றும் வேலை-தயார்நிலை தீர்வுகள்"
 
   },
   "localfocusareas": {
