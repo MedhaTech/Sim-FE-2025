@@ -26,7 +26,7 @@ export const languageOptions = [
     country_code: "in",
   },
   {
-    code: "mal",
+    code: "ml",
     name: "മലയാളം",
     country_code: "in",
   },
@@ -49,8 +49,8 @@ export const getLanguage = (lang) => {
     return `ka`;
   } else if (lang?.code == "tn") {
     return `tn`;
-  } else if (lang?.code == "mal") {
-    return `mal`;
+  } else if (lang?.code == "ml") {
+    return `ml`;
   } else {
     return `en`;
   }

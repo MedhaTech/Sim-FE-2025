@@ -9,10 +9,12 @@ import female from "../assets/img/Female_Profile.png";
 import male from "../assets/img/Male_Profile.png";
 import team1 from "../assets/img/icons/team.svg";
 import user from "../assets/img/user.png";
+import { useTranslation } from "react-i18next";
+
 const TeacherProfile = () => {
   const currentUser = getCurrentUser("current_user");
   const navigate = useNavigate();
-
+const { t } = useTranslation();
   const handleEdit = () => {
     navigate("/mentoreditprofile", {
       state: {
@@ -28,7 +30,7 @@ const TeacherProfile = () => {
       <div className="content">
         <div className="page-header">
           <div className="page-title">
-            <h4>My Profile</h4>
+            <h4>{t("home.my_profile")}</h4>
           </div>
         </div>
         {/* /product list */}
@@ -59,7 +61,7 @@ const TeacherProfile = () => {
             <div className="row">
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label">Team Name</label>
+                  <label className="form-label"> {t("teacherJourney.tname")}</label>
                   <input
                     type="text"
                     className="form-control"
@@ -70,7 +72,7 @@ const TeacherProfile = () => {
               </div>
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label">Team Username</label>
+                  <label className="form-label">{t("teacherJourney.TeamUsername")}</label>
                   <input
                     type="text"
                     className="form-control"
@@ -81,7 +83,7 @@ const TeacherProfile = () => {
               </div>
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
-                  <label>Team Email</label>
+                  <label>{t("teacherJourney.temail")}</label>
                   <input
                     type="email"
                     className="form-control"
@@ -92,7 +94,7 @@ const TeacherProfile = () => {
               </div>
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label">School Name</label>
+                  <label className="form-label">{t("teacherJourney.sname")}</label>
                   <input
                     type="text"
                     defaultValue={currentUser?.data[0]?.organization_name}
@@ -102,7 +104,7 @@ const TeacherProfile = () => {
               </div>
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label">Guide Teacher</label>
+                  <label className="form-label">{t("teacherJourney.guide")}</label>
                   <input
                     type="text"
                     className="form-control"
@@ -113,7 +115,7 @@ const TeacherProfile = () => {
               </div>
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label">State</label>
+                  <label className="form-label">{t("teacherJourney.State")}</label>
                   <input
                     type="text"
                     className="form-control"
@@ -124,7 +126,7 @@ const TeacherProfile = () => {
               </div>
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label">District</label>
+                  <label className="form-label">{t("teacherJourney.District")}</label>
                   <input
                     type="text"
                     className="form-control"

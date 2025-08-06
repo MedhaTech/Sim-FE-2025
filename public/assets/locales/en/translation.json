@@ -64,6 +64,21 @@
     "error:job_type": "Invalid Job Type"
   },
   "teacherJourney": {
+    "common.hi":"Hi",
+    "guide": "Guide Teacher",
+
+    "common.login": "Login",
+"common.class_suffix": "th class",
+"common.years": "yrs",
+
+    "welcome.loading": "Loading",
+  "welcome.login_pre_survey": "👋 Hi! Login & Get started with your Pre-Survey 😊",
+  "welcome.start_course": "👋 Start Course & know about 🔍Problem Solving Journey",
+  "progress.hope_learning": "😄 Hope you are learning good techniques to solve problems👍🏻",
+  "progress.well_done": "👏 Well Done Problem Solver! You're ready to submit idea💡",
+  "progress.idea_submitted": "🥳 Congrats! Your idea is submitted💡 It's time to take Post-Survey",
+  "certificate.message": "Congratulations on achieving your certificate. Login and download it ✅",
+  "dashboard.team_update": "Team, here's what's happening with your School Innovation Marathon 2025 today.",
     "place1": "Enter Full Name",
     "place2": "Enter Email Address",
     "place3": "Select Status",
@@ -566,6 +581,10 @@
     "Change_password": "Change password"
   },
   "home": {
+    "team": "Team",
+
+    "team_dashboard": "Team Dashboard",
+
     "preinst": "We're happy to have you join us in this exciting learning adventure!</br></br> <b class='text-success'>Here's what you'll do during the program:</b></br></br><ol><li>1. Log in to the portal to get started.</li><li>2. Complete the pre-survey to share your thoughts before we begin.</li><li>3. Dive into the course and explore all the amazing videos.</li><li>4. Work with your teammates to identify a problem and work together to find a solution.</li><li>5. Submit your innovative idea to the Innovation Marathon and showcase your creativity.</li><li>6. Complete the post-survey to share your feedback and experience.</li><li>7. Download your certificates to celebrate your achievements!</li></br>We can't wait to see the incredible ideas you'll come up with. Have fun, learn a lot, and let's make this an unforgettable journey!",
     "startnow": "Start Now",
     "dolater": "Do Later",
@@ -650,6 +669,7 @@
   },
   "teacher_get_started": {
     "heading": "Welcome Guide Teacher!",
+
     "desc": "<p>We are delighted that you have signed up for this program and have joined us on this journey of nurturing problem solving and innovation in youth. As you are already aware, you will be playing the role of a guide teacher to the students for the duration of the course.</p><p>The portal includes various information modules and resources that will help you and your students on their learning journeys.</p><p style='color:green'><b>Your journey as a guide teacher will include the following key milestones</b></p><ol><li>Register yourself on the portal and take the pre-survey.</li><li>Understand the program and the tech platform.</li><li>Identify teams and register them on the portal.</li><li>Arrange access to digital devices for students.</li><li>Support the students on their learning journey.</li><li>Ensure teams submit their final ideas on the portal.</li><li>Complete the post survey.</li><li>Download teacher’s certificate.</li><li>Instruct and support the students to download student certificates.</li></ol><p>We hope you and the students have a great time doing this program.</p><p>We wish you all the best!</p>",
     "btn": "START JOURNEY",
     "pre": "Pre survey has been submitted"
