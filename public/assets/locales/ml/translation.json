@@ -880,9 +880,9 @@
     "dear": "പ്രിയ വിദ്യാർത്ഥി,"
   },
   "badges": {
-    "congratulations": "Congratulations",
-    "earn": "you've just earned a new badge",
-    "ok": "OK"
+    "congratulations": "അഭിനന്ദനങ്ങൾ",
+    "earn": "നിങ്ങൾ ഒരു പുതിയ ബാഡ്ജ് നേടിയിരിക്കുന്നു",
+    "ok":"ശരി"
   },
   "student_course": {
     "modules":"മൊഡ്യൂളുകൾ",
