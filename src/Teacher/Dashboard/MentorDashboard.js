@@ -185,6 +185,7 @@ const GreetingModal = (props) => {
 
 const MentorDashboard = () => {
   const { t } = useTranslation();
+  const creEnable = false;
   const [showsPopup, setShowsPopup] = useState(false);
   const language = useSelector((state) => state?.mentors?.mentorLanguage);
 
@@ -860,7 +861,19 @@ const MentorDashboard = () => {
                 </div>
               </div>
               <div className="col-xl-3 col-sm-6 col-12 d-flex">
-                {!(teacPostSurvey == "COMPLETED" && ideaCount >= 1) ? (
+                {!creEnable ? (
+                  <>
+                    <div className="dash-count das1">
+                      <div className="dash-counts">
+                        <h4>{t("teacherJourney.getcertificate")}</h4>
+                        <h5>{t("teacher_certificate.disable_cer")}</h5>
+                      </div>
+                      <div className="dash-imgs">
+                        <GiAchievement size="30" />
+                      </div>
+                    </div>
+                  </>
+                ) : !(teacPostSurvey == "COMPLETED" && ideaCount >= 1) ? (
                   <>
                     <div className="dash-count das1">
                       <div className="dash-counts">
@@ -1061,7 +1074,7 @@ const MentorDashboard = () => {
                                     style={{ padding: "7px 10px" }}
                                     onClick={redirectToTeams}
                                   >
-                                  {t("teacherJourney.AddMore")}
+                                    {t("teacherJourney.AddMore")}
                                   </span>
                                 </>
                               )}

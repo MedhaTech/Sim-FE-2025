@@ -10,9 +10,10 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { ChevronUp } from "feather-icons-react/build/IconComponents";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
-import { getCurrentUser } from "../helpers/Utils";
+import { getCurrentUser, openNotificationWithIcon } from "../helpers/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import { setToogleHeader } from "../Admin/store/admin/actions";
+import axios from "axios";
 
 const AdminPassword = () => {
   const dispatch = useDispatch();
@@ -20,7 +21,6 @@ const AdminPassword = () => {
   const data = useSelector((state) => state?.admin?.toggle_header);
   const currentUser = getCurrentUser("current_user");
   const [error, SetError] = useState("");
-  const [responce, SetResponce] = useState("");
   const renderCollapseTooltip = (props) => (
     <Tooltip id="refresh-tooltip" {...props}>
       Collapse
@@ -80,12 +80,11 @@ const AdminPassword = () => {
         axios(config)
           .then(function (response) {
             if (response.status === 202) {
-              SetResponce(response.data.message);
-             
+              openNotificationWithIcon("success", "Password updated successfully");
             }
           })
           .catch(function (error) {
-            console.log(error);
+            openNotificationWithIcon("error", error.response.data.message);
           });
       }
     },
@@ -263,8 +262,7 @@ const AdminPassword = () => {
                     ) : null}
                   </div>
                 </div>
-                {error}
-                {responce}
+                <span className="text-danger">{error}</span>
                 <div className="form-login">
                   <button
                     type="submit"
