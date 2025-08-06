@@ -53,9 +53,9 @@ export const CreateTeamMember = () => {
       ),
       // email: Yup.string().email(t('teacherJourney.vali13')).max(255)
       // .optional(),
-      // disability: Yup.string().required(
-      //   <span style={{ color: "red" }}>{t('teacherJourney.vali19')}</span>
-      // ),
+      disability: Yup.string().required(
+        <span style={{ color: "red" }}>{t('teacherJourney.vali19')}</span>
+      ),
       grade: Yup.string()
         .max(40)
         .required(<span style={{ color: "red" }}>{t('teacherJourney.vali20')}</span>),
