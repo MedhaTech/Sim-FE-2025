@@ -1364,31 +1364,25 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                           </div>
                           <div>
                             <Col className="d-flex justify-content-end gap-2" >
-                              <Button
-                            type="button"
-                            btnClass="me-1 btn btn-warning"
-                            onClick={(e) => handleSubmit(e, "DRAFT")}
-                            size="small"
-                            label={`${
-                              loading.draft
-                                ? t("teacher_teams.loading")
-                                : t("teacher_teams.draft")
-                            }`}
-                            disabled={!enableSaveBtn || isDisabled}
-                          />
-                           <Button
-                            type="button"
-                            btnClass="me-1 btn btn-warning"
-                            onClick={(e) => handleSubmit(e, "SUBMITTED")}
-                            size="small"
-                            label={t("teacher_teams.submit")}
-                            disabled={
-                              !enableSaveBtn ||
-                              isDisabled ||
-                              !allValues ||
-                              !verfiySubmitt
-                            }
-                          />
+                             {formData.status !== "SUBMITTED" && (
+                              <><Button
+                                    type="button"
+                                    btnClass="me-1 btn btn-warning"
+                                    onClick={(e) => handleSubmit(e, "DRAFT")}
+                                    size="small"
+                                    label={`${loading.draft
+                                        ? t("teacher_teams.loading")
+                                        : t("teacher_teams.draft")}`}
+                                    disabled={!enableSaveBtn || isDisabled} /><Button
+                                      type="button"
+                                      btnClass="me-1 btn btn-warning"
+                                      onClick={(e) => handleSubmit(e, "SUBMITTED")}
+                                      size="small"
+                                      label={t("teacher_teams.submit")}
+                                      disabled={!enableSaveBtn ||
+                                        isDisabled ||
+                                        !allValues ||
+                                        !verfiySubmitt} /></>)}
                               <button
                                 className="btn btn-secondary"
                                 onClick={goToNext}
@@ -1561,31 +1555,26 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </Col>
 
                             <Col className="d-flex justify-content-end gap-2">
-                            <Button
-                            type="button"
-                            btnClass="me-1 btn btn-warning"
-                            onClick={(e) => handleSubmit(e, "DRAFT")}
-                            size="small"
-                            label={`${
-                              loading.draft
-                                ? t("teacher_teams.loading")
-                                : t("teacher_teams.draft")
-                            }`}
-                            disabled={!enableSaveBtn || isDisabled}
-                          />
-                           <Button
-                            type="button"
-                            btnClass="me-1 btn btn-warning"
-                            onClick={(e) => handleSubmit(e, "SUBMITTED")}
-                            size="small"
-                            label={t("teacher_teams.submit")}
-                            disabled={
-                              !enableSaveBtn ||
-                              isDisabled ||
-                              !allValues ||
-                              !verfiySubmitt
-                            }
-                          />
+                              {formData.status !== "SUBMITTED" && (
+                            <><Button
+                                    type="button"
+                                    btnClass="me-1 btn btn-warning"
+                                    onClick={(e) => handleSubmit(e, "DRAFT")}
+                                    size="small"
+                                    label={`${loading.draft
+                                        ? t("teacher_teams.loading")
+                                        : t("teacher_teams.draft")}`}
+                                    disabled={!enableSaveBtn || isDisabled} /><Button
+                                      type="button"
+                                      btnClass="me-1 btn btn-warning"
+                                      onClick={(e) => handleSubmit(e, "SUBMITTED")}
+                                      size="small"
+                                      label={t("teacher_teams.submit")}
+                                      disabled={!enableSaveBtn ||
+                                        isDisabled ||
+                                        !allValues ||
+                                        !verfiySubmitt} /></>
+                              )}
                               <button
                                 className="btn btn-secondary"
                                 onClick={goToNext}
@@ -1963,31 +1952,25 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </button>
                             </Col>
                              <Col className="d-flex justify-content-end gap-2">
-                              <Button
-                            type="button"
-                            btnClass="me-1 btn btn-warning"
-                            onClick={(e) => handleSubmit(e, "DRAFT")}
-                            size="small"
-                            label={`${
-                              loading.draft
-                                ? t("teacher_teams.loading")
-                                : t("teacher_teams.draft")
-                            }`}
-                            disabled={!enableSaveBtn || isDisabled}
-                          />
-                           <Button
-                            type="button"
-                            btnClass="me-1 btn btn-warning"
-                            onClick={(e) => handleSubmit(e, "SUBMITTED")}
-                            size="small"
-                            label={t("teacher_teams.submit")}
-                            disabled={
-                              !enableSaveBtn ||
-                              isDisabled ||
-                              !allValues ||
-                              !verfiySubmitt
-                            }
-                          />
+                               {formData.status !== "SUBMITTED" && (
+                              <><Button
+                                    type="button"
+                                    btnClass="me-1 btn btn-warning"
+                                    onClick={(e) => handleSubmit(e, "DRAFT")}
+                                    size="small"
+                                    label={`${loading.draft
+                                        ? t("teacher_teams.loading")
+                                        : t("teacher_teams.draft")}`}
+                                    disabled={!enableSaveBtn || isDisabled} /><Button
+                                      type="button"
+                                      btnClass="me-1 btn btn-warning"
+                                      onClick={(e) => handleSubmit(e, "SUBMITTED")}
+                                      size="small"
+                                      label={t("teacher_teams.submit")}
+                                      disabled={!enableSaveBtn ||
+                                        isDisabled ||
+                                        !allValues ||
+                                        !verfiySubmitt} /></>)}
                           </Col>
                           </div>
                         </Row>
