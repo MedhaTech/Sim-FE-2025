@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import FeatherIcon from "feather-icons-react";
-import { Search, Settings, User, XCircle } from "react-feather";
+import { Search, Settings, User, XCircle, Key } from "react-feather";
 import { all_routes } from "../../Router/all_routes";
 import { useTranslation } from "react-i18next";
 import { logout } from "../../helpers/Utils";
@@ -17,13 +17,13 @@ import { openNotificationWithIcon } from "../../helpers/Utils.js";
 import { useLocation } from "react-router-dom";
 
 const Header = () => {
-   const location = useLocation(); 
-   useEffect(() => {
-      // Auto-close sidebar when route changes
-      document.querySelector(".main-wrapper")?.classList?.remove("slide-nav");
-      document.querySelector(".sidebar-overlay")?.classList?.remove("opened");
-      document.querySelector("html")?.classList?.remove("menu-opened");
-    }, [location.pathname]);
+  const location = useLocation();
+  useEffect(() => {
+    // Auto-close sidebar when route changes
+    document.querySelector(".main-wrapper")?.classList?.remove("slide-nav");
+    document.querySelector(".sidebar-overlay")?.classList?.remove("opened");
+    document.querySelector("html")?.classList?.remove("menu-opened");
+  }, [location.pathname]);
   const route = all_routes;
   const [toggle, SetToggle] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -117,7 +117,6 @@ const Header = () => {
     document?.querySelector("html")?.classList?.toggle("menu-opened");
   };
 
-
   const exclusionArray = [
     "/reactjs/template/dream-pos/index-three",
     "/reactjs/template/dream-pos/index-one",
@@ -180,11 +179,17 @@ const Header = () => {
       .then(async function (response) {
         if (response.status == 200) {
           if (response?.data?.count > 0) {
-            if (response?.data?.data[0].status === "INACTIVE" && response?.data?.data[0].mentor == null) {
+            if (
+              response?.data?.data[0].status === "INACTIVE" &&
+              response?.data?.data[0].mentor == null
+            ) {
               openNotificationWithIcon("error", "Udise Code is Inactive");
               setDiesCode("");
             }
-            if (response?.data?.data[0].status === "ACTIVE" && response?.data?.data[0].mentor == null) {
+            if (
+              response?.data?.data[0].status === "ACTIVE" &&
+              response?.data?.data[0].mentor == null
+            ) {
               openNotificationWithIcon(
                 "error",
                 "No Teachers are Registered from the given UDISE Code"
@@ -228,13 +233,7 @@ const Header = () => {
           onMouseLeave={expandMenu}
           onMouseOver={expandMenuOpen}
         >
-          <img
-            src={logo}
-            alt="Logo"
-            style={{ padding: "0.7rem" }}
-          />
-         
-         
+          <img src={logo} alt="Logo" style={{ padding: "0.7rem" }} />
         </div>
         {/* /Logo */}
         <Link
@@ -252,39 +251,35 @@ const Header = () => {
         {/* Header Menu */}
         <ul className="nav user-menu">
           {/* Search */}
-          {currentUser.data[0].permission === "Dashboard,Overall Schools,PopUp,Resource,Latest News,State Specific,Support,Mentors,Teams,Students,Admins,States,Reports,Bulk Email" && (
-          <li className="nav-item nav-searchinputs">
-            <div className="top-nav-search">
-              <Link to="#" className="responsive-search">
-                <Search />
-              </Link>
-              <form action="#" className="dropdown">
-                <div
-                  className="searchinputs"
-                  data-bs-auto-close="false"
-                >
-                  <input
-                    type="text"
-                    placeholder="Enter UDISE Code"
-                    onChange={(e) => handleOnChange(e)}
-                    value={diesCode}
-                    maxLength={11}
-                    minLength={11}
-                    name="organization_code"
-                  />
-                  <div className="search-addon">
-                    <span>
-                      <XCircle className="feather-14" />
-                    </span>
+          {currentUser.data[0].permission ===
+            "Dashboard,Overall Schools,PopUp,Resource,Latest News,State Specific,Support,Mentors,Teams,Students,Admins,States,Reports,Bulk Email" && (
+            <li className="nav-item nav-searchinputs">
+              <div className="top-nav-search">
+                <Link to="#" className="responsive-search">
+                  <Search />
+                </Link>
+                <form action="#" className="dropdown">
+                  <div className="searchinputs" data-bs-auto-close="false">
+                    <input
+                      type="text"
+                      placeholder="Enter UDISE Code"
+                      onChange={(e) => handleOnChange(e)}
+                      value={diesCode}
+                      maxLength={11}
+                      minLength={11}
+                      name="organization_code"
+                    />
+                    <div className="search-addon">
+                      <span>
+                        <XCircle className="feather-14" />
+                      </span>
+                    </div>
                   </div>
-                </div>
-              
-              </form>
-            </div>
-          </li>
+                </form>
+              </div>
+            </li>
           )}
-         
-         
+
           <li className="nav-item nav-item-box">
             <Link
               to="#"
@@ -295,7 +290,7 @@ const Header = () => {
               <FeatherIcon icon="maximize" />
             </Link>
           </li>
-        
+
           <li className="nav-item dropdown has-arrow main-drop">
             <Link
               to="#"
@@ -304,7 +299,6 @@ const Header = () => {
             >
               <span className="user-info">
                 <span className="user-letter">
-                
                   <img src={Icon} alt="Team" id="blah" />
                 </span>
                 <span className="user-detail">
@@ -319,7 +313,6 @@ const Header = () => {
               <div className="profilename">
                 <div className="profileset">
                   <span className="user-img">
-                  
                     <span className="status online" />
                   </span>
                   <div className="profilesets">
@@ -327,20 +320,20 @@ const Header = () => {
                   </div>
                 </div>
                 <hr className="m-0" />
-                <Link
-                  className="dropdown-item"
-                  to={"/profile"}
-                >
+                <Link className="dropdown-item" to={"/profile"}>
                   <User className="me-2" /> My Profile
                 </Link>
-              
+                <hr className="m-0" />
+                <Link className="dropdown-item" to="/admin-password">
+                  <Key /> Change Password
+                </Link>
+
                 <hr className="m-0" />
                 <Link
                   className="dropdown-item logout pb-0"
                   to=""
                   onClick={handleLogout}
                 >
-                 
                   <img src={logoutIcon} alt="LogoutIcon" />
                   Logout
                 </Link>
@@ -362,13 +355,14 @@ const Header = () => {
           <div className="dropdown-menu dropdown-menu-right">
             <Link
               className="dropdown-item"
-              onClick={() => navigate("/profile")}
+              to="/profile"
             >
               My Profile
             </Link>
-         
-            <Link className="dropdown-item"  to=""
-                  onClick={handleLogout}>
+            <Link className="dropdown-item" to="/admin-password">
+              Change Password
+            </Link>
+            <Link className="dropdown-item" to="" onClick={handleLogout}>
               Logout
             </Link>
           </div>
