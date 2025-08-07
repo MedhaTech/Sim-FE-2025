@@ -16,16 +16,18 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 
 import { openNotificationWithIcon } from "../../helpers/Utils.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faKey } from "@fortawesome/free-solid-svg-icons";
 
 const MentorHeader = () => {
   const route = all_routes;
-   const location = useLocation(); 
-   useEffect(() => {
-      // Auto-close sidebar when route changes
-      document.querySelector(".main-wrapper")?.classList?.remove("slide-nav");
-      document.querySelector(".sidebar-overlay")?.classList?.remove("opened");
-      document.querySelector("html")?.classList?.remove("menu-opened");
-    }, [location.pathname]);
+  const location = useLocation();
+  useEffect(() => {
+    // Auto-close sidebar when route changes
+    document.querySelector(".main-wrapper")?.classList?.remove("slide-nav");
+    document.querySelector(".sidebar-overlay")?.classList?.remove("opened");
+    document.querySelector("html")?.classList?.remove("menu-opened");
+  }, [location.pathname]);
   const [toggle, SetToggle] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const { t } = useTranslation();
@@ -185,14 +187,15 @@ const MentorHeader = () => {
           //  console.log(response,"res");
           if (response?.data?.count > 0) {
             if (
-              response?.data?.data[0].status === "INACTIVE" && 
+              response?.data?.data[0].status === "INACTIVE" &&
               response?.data?.data[0].mentor === null
             ) {
               openNotificationWithIcon("error", "Udise Code is Inactive");
               setDiesCode("");
             } else if (
               response?.data?.data[0].status === "ACTIVE" &&
-              response?.data?.data[0].state === currentUser?.data[0]?.state_name &&
+              response?.data?.data[0].state ===
+                currentUser?.data[0]?.state_name &&
               response?.data?.data[0].mentor === null
             ) {
               openNotificationWithIcon(
@@ -201,20 +204,27 @@ const MentorHeader = () => {
               );
               setDiesCode("");
             } else if (
-              response?.data?.data[0].state === currentUser?.data[0]?.state_name &&
+              response?.data?.data[0].state ===
+                currentUser?.data[0]?.state_name &&
               response?.data?.data[0].mentor !== null
             ) {
               const multiOrgData = response?.data?.data;
               localStorage.removeItem("diesCode");
               localStorage.removeItem("multiOrgData");
               localStorage.setItem("diesCode", JSON.stringify(diesCode));
-              localStorage.setItem("multiOrgData", JSON.stringify(multiOrgData));
+              localStorage.setItem(
+                "multiOrgData",
+                JSON.stringify(multiOrgData)
+              );
               setMultiOrgData(multiOrgData);
               navigate("/coo-search", { state: { multiOrgData, diesCode } });
               setDiesCode("");
               window.location.reload();
             } else {
-              openNotificationWithIcon("error", "You are not authorised to look at other state data");
+              openNotificationWithIcon(
+                "error",
+                "You are not authorised to look at other state data"
+              );
               setDiesCode("");
             }
           } else {
@@ -222,7 +232,6 @@ const MentorHeader = () => {
             setDiesCode("");
           }
         }
-
       })
       .catch(function (error) {
         if (error?.response?.data?.status === 404) {
@@ -230,7 +239,7 @@ const MentorHeader = () => {
         }
       });
   };
- 
+
   return (
     <>
       <div className="header">
@@ -240,12 +249,7 @@ const MentorHeader = () => {
           onMouseLeave={expandMenu}
           onMouseOver={expandMenuOpen}
         >
-          <img
-            src={logo}
-            alt="Logo"
-            style={{ padding: "0.7rem" }}
-          />
-        
+          <img src={logo} alt="Logo" style={{ padding: "0.7rem" }} />
         </div>
         {/* /Logo */}
         <Link
@@ -269,11 +273,7 @@ const MentorHeader = () => {
                 <Search />
               </Link>
               <form action="#" className="dropdown">
-                <div
-                  className="searchinputs"
-                 
-                  data-bs-auto-close="false"
-                >
+                <div className="searchinputs" data-bs-auto-close="false">
                   <input
                     type="text"
                     placeholder="Enter UDISE Code"
@@ -289,7 +289,6 @@ const MentorHeader = () => {
                     </span>
                   </div>
                 </div>
-                
               </form>
             </div>
           </li>
@@ -304,7 +303,7 @@ const MentorHeader = () => {
               <FeatherIcon icon="maximize" />
             </Link>
           </li>
-         
+
           <li className="nav-item dropdown has-arrow main-drop">
             <Link
               to="#"
@@ -313,7 +312,6 @@ const MentorHeader = () => {
             >
               <span className="user-info">
                 <span className="user-letter">
-                 
                   <img src={Icon} alt="Team" id="blah" />
                 </span>
                 <span className="user-detail">
@@ -329,7 +327,6 @@ const MentorHeader = () => {
               <div className="profilename">
                 <div className="profileset">
                   <span className="user-img">
-                   
                     <span className="status online" />
                   </span>
                   <div className="profilesets">
@@ -338,14 +335,15 @@ const MentorHeader = () => {
                   </div>
                 </div>
                 <hr className="m-0" />
-               
+                <Link className="dropdown-item" to="/state-change-password">
+                  <FontAwesomeIcon icon={faKey} /> Change Password
+                </Link>
                 <hr className="m-0" />
                 <Link
                   className="dropdown-item logout pb-0"
                   to=""
                   onClick={handleLogout}
                 >
-                
                   <img src={logoutIcon} alt="LogoutIcon" />
                   Logout
                 </Link>
@@ -365,7 +363,9 @@ const MentorHeader = () => {
             <i className="fa fa-ellipsis-v" />
           </Link>
           <div className="dropdown-menu dropdown-menu-right">
-           
+            <Link className="dropdown-item" to="/state-change-password">
+              Change Password
+            </Link>
             <Link className="dropdown-item" to="signin">
               Logout
             </Link>

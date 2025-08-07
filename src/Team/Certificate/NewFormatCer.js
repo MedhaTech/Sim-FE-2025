@@ -18,7 +18,7 @@ import TncourseCompletionCertificate from "../../assets/img/Certificates/TnStuCo
 import TnparticipateCertificate from "../../assets/img/Certificates/TnStuParticipateFinal.jpg";
 import users from "../../assets/img/admin.jpg";
 import moment from "moment";
-
+import Congo from "../../assets/img/survey1.png";
 import { useTranslation } from "react-i18next";
 import { MdOutlineFileDownload } from "react-icons/md";
 import {
@@ -64,20 +64,17 @@ const Instructions = () => {
     const leftMargin = 85;
     doc.text(finalCollegeName, leftMargin, collegeNameY);
 
-    
-
-
     const certName = `${fullName.replace(/\s+/g, "_")}.pdf`;
     doc.save(certName);
     cerificateData();
-      dispatch(
-        updateStudentBadges(
-          { badge_slugs: [badge] },
-          currentUser?.data[0]?.user_id,
-          language,
-          t
-        )
-      );
+    dispatch(
+      updateStudentBadges(
+        { badge_slugs: [badge] },
+        currentUser?.data[0]?.user_id,
+        language,
+        t
+      )
+    );
   };
   const handleCertificateDownloadTN = () => {
     // Handles downloading the certificate using the full name and organization name
@@ -93,44 +90,49 @@ const Instructions = () => {
     doc.setFontSize(15);
     doc.setTextColor("black");
     const badge = "the_finisher";
-    const formattedCourseDate1 = courseDate ? moment(courseDate).format("DD-MM-YYYY") : "No Date";
-   
+    const formattedCourseDate1 = courseDate
+      ? moment(courseDate).format("DD-MM-YYYY")
+      : "No Date";
+
     const pageWidth1 = doc.internal.pageSize.getWidth();
     const fullNameWidth =
-  (doc.getStringUnitWidth(fullName) * doc.getFontSize()) /
-  doc.internal.scaleFactor;
-const x = pageWidth1 - fullNameWidth - 110;
-const y = 95;
-doc.setFontSize(15);
-doc.text(fullName, x, y);
+      (doc.getStringUnitWidth(fullName) * doc.getFontSize()) /
+      doc.internal.scaleFactor;
+    const x = pageWidth1 - fullNameWidth - 110;
+    const y = 95;
+    doc.setFontSize(15);
+    doc.text(fullName, x, y);
 
-const collegeNameY = y + 14;
-const pageWidth = doc.internal.pageSize.getWidth();
+    const collegeNameY = y + 14;
+    const pageWidth = doc.internal.pageSize.getWidth();
 
-const finalCollegeNameWidth =
-  (doc.getStringUnitWidth(finalCollegeName) * doc.getFontSize()) / doc.internal.scaleFactor;
-const xRightAlign = pageWidth - finalCollegeNameWidth - 160; 
-doc.text(finalCollegeName, xRightAlign, collegeNameY);
+    const finalCollegeNameWidth =
+      (doc.getStringUnitWidth(finalCollegeName) * doc.getFontSize()) /
+      doc.internal.scaleFactor;
+    const xRightAlign = pageWidth - finalCollegeNameWidth - 160;
+    doc.text(finalCollegeName, xRightAlign, collegeNameY);
 
-const pageWidth2 = doc.internal.pageSize.getWidth();
+    const pageWidth2 = doc.internal.pageSize.getWidth();
 
-const courseDateWidth = (doc.getStringUnitWidth(formattedCourseDate1) * doc.getFontSize()) / doc.internal.scaleFactor;
-const xCourseDate1 = pageWidth2 - courseDateWidth - 40; 
-const yCourseDate1 = 190; 
-doc.setFontSize(12);
-doc.text(formattedCourseDate1, xCourseDate1, yCourseDate1);
+    const courseDateWidth =
+      (doc.getStringUnitWidth(formattedCourseDate1) * doc.getFontSize()) /
+      doc.internal.scaleFactor;
+    const xCourseDate1 = pageWidth2 - courseDateWidth - 40;
+    const yCourseDate1 = 190;
+    doc.setFontSize(12);
+    doc.text(formattedCourseDate1, xCourseDate1, yCourseDate1);
 
     const certName = `${fullName.replace(/\s+/g, "_")}.pdf`;
     doc.save(certName);
     cerificateData();
-      dispatch(
-        updateStudentBadges(
-          { badge_slugs: [badge] },
-          currentUser?.data[0]?.user_id,
-          language,
-          t
-        )
-      );
+    dispatch(
+      updateStudentBadges(
+        { badge_slugs: [badge] },
+        currentUser?.data[0]?.user_id,
+        language,
+        t
+      )
+    );
   };
   const handleCertificateDownloadTN1 = () => {
     // Handles downloading the certificate using the full name and organization name
@@ -146,33 +148,37 @@ doc.text(formattedCourseDate1, xCourseDate1, yCourseDate1);
     doc.setFontSize(15);
     doc.setTextColor("black");
     const badge = "the_finisher";
-    const formattedCourseDate = surveyDates ? moment(surveyDates).format("DD-MM-YYYY") : "No Date";
-   
+    const formattedCourseDate = surveyDates
+      ? moment(surveyDates).format("DD-MM-YYYY")
+      : "No Date";
+
     const pageWidth1 = doc.internal.pageSize.getWidth();
     const fullNameWidth =
-  (doc.getStringUnitWidth(fullName) * doc.getFontSize()) /
-  doc.internal.scaleFactor;
-const x = pageWidth1 - fullNameWidth - 110;
-const y = 95;
-doc.text(fullName, x, y);
+      (doc.getStringUnitWidth(fullName) * doc.getFontSize()) /
+      doc.internal.scaleFactor;
+    const x = pageWidth1 - fullNameWidth - 110;
+    const y = 95;
+    doc.text(fullName, x, y);
 
-const collegeNameY = y + 14;
-const pageWidth = doc.internal.pageSize.getWidth();
-const finalCollegeNameWidth =
-  (doc.getStringUnitWidth(finalCollegeName) * doc.getFontSize()) / doc.internal.scaleFactor;
-const xRightAlign = pageWidth - finalCollegeNameWidth - 160; 
-doc.text(finalCollegeName, xRightAlign, collegeNameY);
+    const collegeNameY = y + 14;
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const finalCollegeNameWidth =
+      (doc.getStringUnitWidth(finalCollegeName) * doc.getFontSize()) /
+      doc.internal.scaleFactor;
+    const xRightAlign = pageWidth - finalCollegeNameWidth - 160;
+    doc.text(finalCollegeName, xRightAlign, collegeNameY);
 
-const pageWidth2 = doc.internal.pageSize.getWidth();
-const courseDateWidth = (doc.getStringUnitWidth(formattedCourseDate) * doc.getFontSize()) / doc.internal.scaleFactor;
-const xCourseDate = pageWidth2 - courseDateWidth - 40; 
-const yCourseDate = 190; 
-doc.setFontSize(12);
-doc.text(formattedCourseDate, xCourseDate, yCourseDate);
+    const pageWidth2 = doc.internal.pageSize.getWidth();
+    const courseDateWidth =
+      (doc.getStringUnitWidth(formattedCourseDate) * doc.getFontSize()) /
+      doc.internal.scaleFactor;
+    const xCourseDate = pageWidth2 - courseDateWidth - 40;
+    const yCourseDate = 190;
+    doc.setFontSize(12);
+    doc.text(formattedCourseDate, xCourseDate, yCourseDate);
 
     const certName = `${fullName.replace(/\s+/g, "_")}.pdf`;
     doc.save(certName);
-     
   };
   const handleCertificateDownload1 = () => {
     // Handles downloading the certificate using the full name and organization name
@@ -206,7 +212,7 @@ doc.text(formattedCourseDate, xCourseDate, yCourseDate);
     const certName = `${fullName.replace(/\s+/g, "_")}.pdf`;
     doc.save(certName);
   };
- 
+
   const handleCertificateDownload2 = () => {
     // Handles downloading the certificate using the full name and organization name
 
@@ -254,7 +260,7 @@ doc.text(formattedCourseDate, xCourseDate, yCourseDate);
     (state) => state?.studentRegistration?.studentLanguage
   );
   const user = currentUser.data[0]?.student_id;
- 
+
   useEffect(() => {
     StateData();
     stuCoursePercent();
@@ -264,11 +270,8 @@ doc.text(formattedCourseDate, xCourseDate, yCourseDate);
     apiData(language);
   }, []);
 
-
-
- 
   const StateData = async () => {
-               // This function fetches states specific list from the API //
+    // This function fetches states specific list from the API //
 
     const fectchTecParam = encryptGlobal(
       JSON.stringify({
@@ -351,7 +354,7 @@ doc.text(formattedCourseDate, xCourseDate, yCourseDate);
       });
   };
   const certificateApi = () => {
-               // This function fetches Certificate dates from the API //
+    // This function fetches Certificate dates from the API //
 
     const Param = encryptGlobal(JSON.stringify(currentUser?.data[0]?.user_id));
     var configidea = {
@@ -394,7 +397,7 @@ doc.text(formattedCourseDate, xCourseDate, yCourseDate);
       ? currentUser?.data[0]?.student_id
       : currentUser?.data[0]?.type_id;
   const submittedApi = () => {
-               // This function fetches idea submission details from the API //
+    // This function fetches idea submission details from the API //
 
     const Param = encryptGlobal(
       JSON.stringify({
@@ -430,7 +433,7 @@ doc.text(formattedCourseDate, xCourseDate, yCourseDate);
   };
 
   const stuCoursePercent = () => {
-               // This function fetches students Course percentage from the API //
+    // This function fetches students Course percentage from the API //
 
     const corseApi = encryptGlobal(
       JSON.stringify({
@@ -464,7 +467,7 @@ doc.text(formattedCourseDate, xCourseDate, yCourseDate);
       });
   };
   const Ideas = async (resList) => {
-               // This function fetches L2 score and Idea status from the API //
+    // This function fetches L2 score and Idea status from the API //
 
     const corseApi1 = encryptGlobal(
       JSON.stringify({
@@ -496,218 +499,254 @@ doc.text(formattedCourseDate, xCourseDate, yCourseDate);
       });
   };
 
-  const isEligible = resList === 1 && status === "SUBMITTED" && score !== null && score >= 6.5;
+  const isEligible =
+    resList === 1 && status === "SUBMITTED" && score !== null && score >= 6.5;
 
   const componentRef = useRef();
   const handlePrintCertificate = useReactToPrint({
     content: () => componentRef.current,
     documentTitle: `${currentUser?.data[0]?.full_name}`,
   });
- 
-const colClass = isEligible
-  ? "col-12 col-md-4 col-lg-4 col-xl-4 col-xxl-3"
-  : "col-12 col-md-6 col-lg-6 col-xl-4 col-xxl-3";
 
-
+  const colClass = isEligible
+    ? "col-12 col-md-4 col-lg-4 col-xl-4 col-xxl-3"
+    : "col-12 col-md-6 col-lg-6 col-xl-4 col-xxl-3";
+  const creEnable = false;
   return (
     <>
       <div className="page-wrapper">
         <div className="content">
-          <div className="row g-5">
-            <div className={colClass}>
-              <div className="employee-grid-profile" style={{ height: "auto" }}>
-                <div className="profile-info">
-                  <img
-                    src={users}
-                    alt="Profile"
-                    style={{ width: "150px", height: "150px" }}
-                  />
-                  <h5>{t("teacher_certificate.certificate")}</h5>
-                  <div style={{ textAlign: "left", marginTop: "1rem" }}>
-                    <Link
-                      to="#"
-                      className="btn btn-lg text-bold"
-                      style={{
-                        backgroundColor: (course === true && resList === 1 ) ? "#007e33" : "#aaa",
-                        color: "#fff",
-                        padding: "1rem",
-                        borderRadius: "20px",
-                       
-                      }}
-                      disabled={!(course === true && resList === 1)}
-
-onClick={(e) => {
-  if (!(course === true && resList === 1)) {
-    e.preventDefault();
-    return;
-  }
-
-  if (currentUser?.data[0]?.state  !== "Tamil Nadu") {
-    handleCertificateDownload();
-  } else {
-    handleCertificateDownloadTN(); 
-  }
-}}
-                    >
-                      <MdOutlineFileDownload size="27" /> {t("teacher_certificate.download")}
-                    </Link>
-                  </div>
-                 {(course === true && resList === 1) ? (
-                    <p style={{ marginTop: "1rem" }}>
-                      <span style={{ color: "green", fontWeight: "bold" }}>
-                        {t("teacher_certificate.congratulations_future_leaders")}
-                      </span>
-                      <br />
-                      {t("teacher_certificate.completed_course_message")}
-                      <span style={{ color: "green", fontWeight: "bold" }}>
-                        {t("teacher_certificate.21_century")}
-                      </span>
-                      {t("teacher_certificate.additional_message")} <br />
-                      {t("teacher_certificate.additional_message1")} <br />
-                      <span style={{ color: "green", fontWeight: "bold" }}>
-                        {t("teacher_certificate.proud_of_you")}
-                      </span>
-                    </p>
-                  ) : (
-                    <p style={{ marginTop: "1rem" }}>
-                      <span style={{ color: "red", fontWeight: "bold" }}>
-                        {t("teacher_certificate.note")}
-                      </span>
-                      :{" "}
-                      {t("teacher_certificate.certificate_enabled_on_100_percent_completion")}
-                      <span style={{ color: "red", fontWeight: "bold" }}>
-                        {t("teacher_certificate.red_msg1")}
-                      </span>
-                      {t("teacher_certificate.course_note")}
-                    </p>
-                  )}
-                  
-                </div>
-              </div>
-            </div>
-            <div className={colClass}>
-              <div
-                className="employee-grid-profile"
-                style={{ height: "auto" }}
-              >
-                <div className="profile-info">
-                  <img
-                    src={users}
-                    alt="Profile"
-                    style={{ width: "150px", height: "150px" }}
-                  />
-                  <h5>{t("teacher_certificate.addon_certificate")}</h5>
-                  <div style={{ textAlign: "left", marginTop: "1rem" }}>
-                    <Link
-                      to="#"
-                      className="btn btn-lg text-bold"
-                      style={{
-                        backgroundColor:
-                          ideaStatus === "SUBMITTED" && resList ===1  ? "#007e33" : "#aaa",
-                        color: "#fff",
-                        padding: "1rem",
-                        borderRadius: "20px",
-                      }}
-                      disabled={ideaStatus !== "SUBMITTED" && resList !==1 }
-                    
-                      onClick={(e) => {
-                        if (ideaStatus === "SUBMITTED" && resList === 1 ) {
-                          if (currentUser?.data[0]?.state !== "Tamil Nadu") {
-                            handleCertificateDownload1();
-                          } else {
-                            handleCertificateDownloadTN1();
+          {creEnable ? (
+            <div className="row g-5">
+              <div className={colClass}>
+                <div
+                  className="employee-grid-profile"
+                  style={{ height: "auto" }}
+                >
+                  <div className="profile-info">
+                    <img
+                      src={users}
+                      alt="Profile"
+                      style={{ width: "150px", height: "150px" }}
+                    />
+                    <h5>{t("teacher_certificate.certificate")}</h5>
+                    <div style={{ textAlign: "left", marginTop: "1rem" }}>
+                      <Link
+                        to="#"
+                        className="btn btn-lg text-bold"
+                        style={{
+                          backgroundColor:
+                            course === true && resList === 1
+                              ? "#007e33"
+                              : "#aaa",
+                          color: "#fff",
+                          padding: "1rem",
+                          borderRadius: "20px",
+                        }}
+                        disabled={!(course === true && resList === 1)}
+                        onClick={(e) => {
+                          if (!(course === true && resList === 1)) {
+                            e.preventDefault();
+                            return;
                           }
-                        } else {
-                          e.preventDefault();
-                        }
-                      }}
-                      
-                    >
-                      <MdOutlineFileDownload size="27" /> { t("teacher_certificate.downloadaddon_certificate")}
-                    </Link>
-                  </div>
-                  {(resList ===1 && ideaStatus === "SUBMITTED") ?
-                  ( <p style={{marginTop:"1rem"}}>
-                   <span style={{ color: "green", fontWeight: "bold" }}>
-                    
-                   </span>
-                   <br />
-                   <span style={{ color: "green", fontWeight: "bold" }}>
-                     {t("teacher_certificate.best_wishes")}
-                   </span>
-                 </p>
-               ) : (
-                 <p style={{marginTop:"1rem"}}>
-                   <span style={{ color: "red", fontWeight: "bold" }}>
-                     {t("teacher_certificate.note")}
-                   </span>
-                   :{t("teacher_certificate.addon")}<span style={{color:"red", fontWeight: "bold"}}>{t("teacher_certificate.addonred")}</span>
-                 </p>)}
-                </div>
-              </div>
-            </div>
-            {isEligible && (
-            <div className={colClass}>
-              <div
-                className="employee-grid-profile"
-                style={{ height: "auto" }}
-              >
-                <div className="profile-info">
-                  <img
-                    src={users}
-                    alt="Profile"
-                    style={{ width: "150px", height: "150px" }}
-                  />
-                  <h5>{ t("teacher_certificate.participate_certificate")}</h5>
-                  <div style={{ textAlign: "left", marginTop: "1rem" }}>
-                    <Link
-                      to="#"
-                      className="btn btn-lg text-bold"
-                      style={{
-                        backgroundColor: isEligible ? "#007e33" : "#aaa",
-                        color: "#fff",
-                        padding: "1rem",
-                        borderRadius: "20px",
-                      }}
-                      onClick={
-                        isEligible
-                          ? handleCertificateDownload2
-                          : (e) => e.preventDefault()
-                      }
-                    >
-                      <MdOutlineFileDownload size="27" />{t("teacher_certificate.downloadn")} { t("teacher_certificate.participate_certificate")}
-                    </Link>
-                  </div>
-                  {isEligible ? (
-  <p>
-    <span style={{ color: "green", fontWeight: "bold" }}>
-      🌟 {t("teacher_certificate.congratulations_innovators")}{" "}
-    </span>
-    <br />
-    {t("teacher_certificate.level_3_evaluation")} <br />
-    {t("teacher_certificate.innovation_journey_message")} <br />
-    <span style={{ color: "green", fontWeight: "bold" }}>
-      {t("teacher_certificate.best_wishes")}
-    </span>
-  </p>
-) : (
-  <p>
-    <span style={{ color: "red", fontWeight: "bold" }}>
-      {t("teacher_certificate.note")}
-    </span>
-    : {t("teacher_certificate.certificate_enabled_on_level_3")}{" "}
-    <span style={{ color: "red", fontWeight: "bold" }}>
-      {t("teacher_certificate.red_msg2")}
-    </span>{" "}
-    {t("teacher_certificate.idea_note")}
-  </p>
-)}
 
+                          if (currentUser?.data[0]?.state !== "Tamil Nadu") {
+                            handleCertificateDownload();
+                          } else {
+                            handleCertificateDownloadTN();
+                          }
+                        }}
+                      >
+                        <MdOutlineFileDownload size="27" />{" "}
+                        {t("teacher_certificate.download")}
+                      </Link>
+                    </div>
+                    {course === true && resList === 1 ? (
+                      <p style={{ marginTop: "1rem" }}>
+                        <span style={{ color: "green", fontWeight: "bold" }}>
+                          {t(
+                            "teacher_certificate.congratulations_future_leaders"
+                          )}
+                        </span>
+                        <br />
+                        {t("teacher_certificate.completed_course_message")}
+                        <span style={{ color: "green", fontWeight: "bold" }}>
+                          {t("teacher_certificate.21_century")}
+                        </span>
+                        {t("teacher_certificate.additional_message")} <br />
+                        {t("teacher_certificate.additional_message1")} <br />
+                        <span style={{ color: "green", fontWeight: "bold" }}>
+                          {t("teacher_certificate.proud_of_you")}
+                        </span>
+                      </p>
+                    ) : (
+                      <p style={{ marginTop: "1rem" }}>
+                        <span style={{ color: "red", fontWeight: "bold" }}>
+                          {t("teacher_certificate.note")}
+                        </span>
+                        :{" "}
+                        {t(
+                          "teacher_certificate.certificate_enabled_on_100_percent_completion"
+                        )}
+                        <span style={{ color: "red", fontWeight: "bold" }}>
+                          {t("teacher_certificate.red_msg1")}
+                        </span>
+                        {t("teacher_certificate.course_note")}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
+              <div className={colClass}>
+                <div
+                  className="employee-grid-profile"
+                  style={{ height: "auto" }}
+                >
+                  <div className="profile-info">
+                    <img
+                      src={users}
+                      alt="Profile"
+                      style={{ width: "150px", height: "150px" }}
+                    />
+                    <h5>{t("teacher_certificate.addon_certificate")}</h5>
+                    <div style={{ textAlign: "left", marginTop: "1rem" }}>
+                      <Link
+                        to="#"
+                        className="btn btn-lg text-bold"
+                        style={{
+                          backgroundColor:
+                            ideaStatus === "SUBMITTED" && resList === 1
+                              ? "#007e33"
+                              : "#aaa",
+                          color: "#fff",
+                          padding: "1rem",
+                          borderRadius: "20px",
+                        }}
+                        disabled={ideaStatus !== "SUBMITTED" && resList !== 1}
+                        onClick={(e) => {
+                          if (ideaStatus === "SUBMITTED" && resList === 1) {
+                            if (currentUser?.data[0]?.state !== "Tamil Nadu") {
+                              handleCertificateDownload1();
+                            } else {
+                              handleCertificateDownloadTN1();
+                            }
+                          } else {
+                            e.preventDefault();
+                          }
+                        }}
+                      >
+                        <MdOutlineFileDownload size="27" />{" "}
+                        {t("teacher_certificate.downloadaddon_certificate")}
+                      </Link>
+                    </div>
+                    {resList === 1 && ideaStatus === "SUBMITTED" ? (
+                      <p style={{ marginTop: "1rem" }}>
+                        <span
+                          style={{ color: "green", fontWeight: "bold" }}
+                        ></span>
+                        <br />
+                        <span style={{ color: "green", fontWeight: "bold" }}>
+                          {t("teacher_certificate.best_wishes")}
+                        </span>
+                      </p>
+                    ) : (
+                      <p style={{ marginTop: "1rem" }}>
+                        <span style={{ color: "red", fontWeight: "bold" }}>
+                          {t("teacher_certificate.note")}
+                        </span>
+                        :{t("teacher_certificate.addon")}
+                        <span style={{ color: "red", fontWeight: "bold" }}>
+                          {t("teacher_certificate.addonred")}
+                        </span>
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+              {isEligible && (
+                <div className={colClass}>
+                  <div
+                    className="employee-grid-profile"
+                    style={{ height: "auto" }}
+                  >
+                    <div className="profile-info">
+                      <img
+                        src={users}
+                        alt="Profile"
+                        style={{ width: "150px", height: "150px" }}
+                      />
+                      <h5>
+                        {t("teacher_certificate.participate_certificate")}
+                      </h5>
+                      <div style={{ textAlign: "left", marginTop: "1rem" }}>
+                        <Link
+                          to="#"
+                          className="btn btn-lg text-bold"
+                          style={{
+                            backgroundColor: isEligible ? "#007e33" : "#aaa",
+                            color: "#fff",
+                            padding: "1rem",
+                            borderRadius: "20px",
+                          }}
+                          onClick={
+                            isEligible
+                              ? handleCertificateDownload2
+                              : (e) => e.preventDefault()
+                          }
+                        >
+                          <MdOutlineFileDownload size="27" />
+                          {t("teacher_certificate.downloadn")}{" "}
+                          {t("teacher_certificate.participate_certificate")}
+                        </Link>
+                      </div>
+                      {isEligible ? (
+                        <p>
+                          <span style={{ color: "green", fontWeight: "bold" }}>
+                            🌟{" "}
+                            {t(
+                              "teacher_certificate.congratulations_innovators"
+                            )}{" "}
+                          </span>
+                          <br />
+                          {t("teacher_certificate.level_3_evaluation")} <br />
+                          {t(
+                            "teacher_certificate.innovation_journey_message"
+                          )}{" "}
+                          <br />
+                          <span style={{ color: "green", fontWeight: "bold" }}>
+                            {t("teacher_certificate.best_wishes")}
+                          </span>
+                        </p>
+                      ) : (
+                        <p>
+                          <span style={{ color: "red", fontWeight: "bold" }}>
+                            {t("teacher_certificate.note")}
+                          </span>
+                          :{" "}
+                          {t(
+                            "teacher_certificate.certificate_enabled_on_level_3"
+                          )}{" "}
+                          <span style={{ color: "red", fontWeight: "bold" }}>
+                            {t("teacher_certificate.red_msg2")}
+                          </span>{" "}
+                          {t("teacher_certificate.idea_note")}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
-            )}
-          </div>
+          ) : (
+            <div style={{ textAlign: "center" }}>
+              <div>
+                <img className="img-fluid imgSize" src={Congo}></img>
+              </div>
+              <div>
+                <h4>{t("student.click_button_post_survey")}</h4>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>
