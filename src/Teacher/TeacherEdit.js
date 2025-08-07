@@ -545,7 +545,7 @@ const TeacherEditProfile = () => {
                     ) : null}
                   </div>
                 </div>
-                <div className="form-login" style={formLoginStyle}>
+                <div  style={formLoginStyle}>
                   <button
                     style={buttonStyle}
                     
@@ -557,10 +557,17 @@ const TeacherEditProfile = () => {
                   >
                     {t('teacherJourney.submit')}
                   </button>
-                  <Link className="btn btn-cancel" to={"/mentorprofile"}  style={cancelLinkStyle}>
+                  {/* <Link className="btn btn-cancel" to={"/mentorprofile"}  style={cancelLinkStyle}>
                                         {t('teacherJourney.Cancel')}
 
-                  </Link>
+                  </Link> */}
+                   <button
+                      to={"/mentorprofile"}  style={cancelLinkStyle}
+                      type="button"
+                      className="btn btn-secondary"
+                    >
+                       {t('teacherJourney.Cancel')}
+                    </button>
                 </div>
               </div>
             </div>
