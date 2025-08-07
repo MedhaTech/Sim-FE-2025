@@ -933,7 +933,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             {t("idea_page.review")} :
                             {formData?.verified_status === null ||
                             formData?.verified_status === ""
-                              ? " Yet to be Reviewed"
+                              ?  t("teacherJourney.yet")
                               : formData?.verified_status === "ACCEPTED"
                               ? ` Accepted on ${moment(
                                   formData?.verified_at

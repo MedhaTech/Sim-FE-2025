@@ -380,7 +380,7 @@
     "PrincipalName": "Principal Name",
     "PrincipalMobileNo": "Principal Mobile No",
     "PrincipalwMobileNo": "Principal Whatsapp Mobile No",
-
+"yet":" Yet to be Reviewed",
     "PrincipalEmailID": "Principal Email ID",
     "note": "Please complete the following post survey to get your certificate.",
     "SUBMIT": "SUBMIT",
@@ -563,11 +563,15 @@
     "required": "Required",
     "passwordFormat": "Password must be at least 8 characters and include one uppercase, one lowercase, one number, and one special character",
     "passwordMatch": "Passwords must match",
+    
     "minLength": "New Password must be 8-character minimum",
     "sameAsOld": "Old Password and New Password are same",
     "notMatching": "New Password and Confirm Password not same",
     "success": "Password updated successfully",
     "Cancel": "Cancel",
+    "password_mismatch": "User password doesn't match",
+    "password_updated_success": " Password updated successfully",
+
 
     "Change_password": "Change password"
   },
