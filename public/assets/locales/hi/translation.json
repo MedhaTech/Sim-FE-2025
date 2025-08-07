@@ -520,18 +520,22 @@
         "Cancel": "रद्द करना",
         "Change_password": "पासवर्ड बदलें"
     },
-    "schoolpswd": {
-        "Change your password": "Change your password",
-        "password_helps_prevent_unauthorized": "A strong password helps prevent unauthorized access to your account.",
-        "Current_password": "Current password",
-        "Enter_current_password_here": "Enter current password here",
-        "New_password": "New password",
-        "Create_new_password_here": "Create new password here",
-        "8-charac_minimum_case_sensitive": "8-character minimum; case sensitive",
-        "Verify_New_password": "Confirm New password",
-        "Cancel": "Cancel",
-        "Change_password": "Change password"
-    },
+   "schoolpswd": {
+  "password_helps_prevent_unauthorized": "एक मजबूत पासवर्ड आपके खाते में अनधिकृत पहुंच को रोकने में मदद करता है।",
+  "Current_password": "वर्तमान पासवर्ड दर्ज करें",
+  "Verify_New_password": "नया पासवर्ड पुष्टि करें",
+  "New_password": "नया पासवर्ड दर्ज करें",
+  "required": "आवश्यक",
+  "passwordFormat": "पासवर्ड कम से कम 8 अक्षरों का होना चाहिए और एक अपरकेस, एक लोअरकेस, एक नंबर और एक विशेष अक्षर शामिल होना चाहिए",
+  "passwordMatch": "पासवर्ड मेल खाना चाहिए",
+  "minLength": "नया पासवर्ड कम से कम 8 अक्षरों का होना चाहिए",
+  "sameAsOld": "पुराना और नया पासवर्ड समान हैं",
+  "notMatching": "नया पासवर्ड और पुष्टि पासवर्ड मेल नहीं खा रहे हैं",
+  "success": "पासवर्ड सफलतापूर्वक अपडेट हो गया",
+  "Cancel": "रद्द करें",
+  "Change_password": "पासवर्ड बदलें"
+}
+,
     "coordinatorpswd": {
         "Change your password": "Change your password",
         "password_helps_prevent_unauthorized": "A strong password helps prevent unauthorized access to your account.",
@@ -855,7 +859,11 @@
     "badges": {
         "congratulations": "बधाई हो",
         "earn": "आपने अभी-अभी एक नया ब्याड्जपाया  है",
-        "ok": "ठीक है"
+        "ok": "ठीक है",
+        "enableAfter5Teams": "5 टीमें बनाने के बाद सक्षम होता है",
+      "enableAfter10Teams": "10 टीमें बनाने के बाद सक्षम होता है",
+      "enableAfterAllTeamsSubmitIdeas": "सभी टीमों द्वारा विचार जमा करने के बाद सक्षम होता है",
+      "enableAfterWinAll3Badges": "सभी 3 बैज जीतने के बाद सक्षम होता है"
     },
     "student_course": {
         "modules": "मॉड्यूल",
@@ -1021,6 +1029,34 @@
     "localtheme": "स्थानीय सामुदायिक समस्याएँ (खुला इनोवेशन)"
 
     },
+    "ideaSubmission": {
+  "theme": "विषय",
+  "language": "विचार प्रस्तुति भाषा",
+  "focusArea": "1. ध्यान केंद्रित क्षेत्र",
+  "ideaTitle": "2. आपके विचार का शीर्षक (यहाँ समाधान या समस्या का विवरण न लिखें)",
+  "problemStatement": "3. अपनी समस्या विवरण लिखें",
+  "causes": "4. समस्या के कारण सूचीबद्ध करें",
+  "effects": "5. समस्या के प्रभाव सूचीबद्ध करें",
+  "community": "6. अपने समुदाय में कहाँ इस समस्या को पाया?",
+  "facing": "7. यह समस्या किस-किसको हो रही है?",
+  "solution": "8. समाधान का वर्णन करें - यह कैसे काम करता है, किसकी मदद करता है, और समस्या को कैसे हल करेगा।",
+  "stakeholders": "9. अपने शिक्षक के अलावा, आपने कितने अन्य हितधारकों से बात की?",
+  "problemSolving": "10. अपनी टीम द्वारा की गई समस्या समाधान की क्रियाएं चुनें",
+  "feedback": "11. प्रतिक्रिया और किए गए बदलाव बताएं (यदि कोई हों)।",
+  "prototypeDoc": "12. आपके प्रोटोटाइप का वर्णनात्मक दस्तावेज/छवि",
+  "prototypeVideo": "13. समाधान स्पष्ट रूप से समझाने वाला वीडियो (केवल YouTube लिंक मान्य हैं)",
+  "workbook": "14. क्या आपकी टीम ने वर्कबुक पूरी कर अपने शिक्षक को जमा की?",
+  "approve": "स्वीकृत करें",
+  "VideoisnotPublic": "वीडियो सार्वजनिक नहीं है",
+  "download": "फ़ाइल डाउनलोड करें",
+  "acceptedAt": "स्वीकृत किया गया समय",
+  "rejectedAt": "अस्वीकृत किया गया समय",
+  "lastModifiedBy": "अंतिम रूप से संशोधित किया गया द्वारा",
+  "submittedBy": "द्वारा प्रस्तुत किया गया",
+  "videoLengthAndPublic": "वीडियो सार्वजनिक होना चाहिए और इसकी लंबाई 3–5 मिनट के भीतर होनी चाहिए",
+  "rejectedReason": "अस्वीकृति का कारण"
+},
+
     "themedetails" : {
         "sustainabletheme" : "सस्टेनेबल डेवेलोपेन्ट तब होता है जब आर्थिक विकास हो , वातावरण की सुरक्षा हो ,सामाजिक विकास हो सबके सुरक्षित भविस्य के लिए|" 
 ,
@@ -1083,6 +1119,6 @@
 
   },
   "localfocusareas": {
-    "focusarea1": "Other"
+    "focusarea1": "अन्य"
   }
 }

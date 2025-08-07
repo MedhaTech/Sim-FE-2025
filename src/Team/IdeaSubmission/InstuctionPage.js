@@ -217,14 +217,14 @@ useEffect(() => {
                           >
                             {t("idea_page.next")}
                           </button>
-                        ) : (
-                          <Button
+                        ) : ( */}
+                          {/* <Button
                             label={t("idea_page.next")}
                             btnClass="primary mt-4 mx-4"
                             size="small"
                             onClick={handleNext}
-                          />
-                        )} */}
+                          /> */}
+                        {/* )} */}
                           {
                                               ideaEnableStatus !==1 ? 
                                            
