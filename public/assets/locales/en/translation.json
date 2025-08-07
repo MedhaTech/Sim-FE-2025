@@ -482,12 +482,14 @@
     "prototypeVideo": "13. Clear Video Explaining your Solution [Only YouTube Video Links are Accepted.]",
     "workbook": "14. Did your team complete and submit the workbook to your school Guide teacher?",
     "approve": "Approve",
+    "VideoisnotPublic":"Video is not Public",
     "download": "Download File",
     "acceptedAt": "Accepted At",
     "rejectedAt": "Rejected At",
     "lastModifiedBy": "Last Modified By",
     "submittedBy": "Submitted By",
-    "rejectedReason": "Reason for Rejection"
+    "rejectedReason": "Reason for Rejection",
+    "videoLengthAndPublic": "Video is public and within the length 3–5 minutes"
   },
 
   "loginPage": {

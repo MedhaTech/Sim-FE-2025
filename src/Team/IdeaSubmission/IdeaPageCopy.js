@@ -817,9 +817,9 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
             setPrototypeLink("");
             setVerifySubmitt(false);
 
-            openNotificationWithIcon("error", response.data.message);
+            openNotificationWithIcon("error", t("ideaSubmission.VideoisnotPublic"));
           } else {
-            openNotificationWithIcon("success", response.data.message);
+            openNotificationWithIcon("success", t("ideaSubmission.videoLengthAndPublic"));
             setPrototypeLink(videoId);
             setIsButtonDisabled(true);
             setVerifySubmitt(true);
