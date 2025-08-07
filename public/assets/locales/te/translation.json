@@ -415,6 +415,7 @@
     "TeamUsername": "టీం యూసర్నెమ్",
     "StudentFullName": "విద్యార్థి పూర్తి పేరు",
     "approve": "ఆమోదించు",
+"yet": "ఇంకా సమీక్షించలేదు",
 
     "popup1": "టీం సభ్యుడు విజయవంతంగా సృష్టించబడింది",
     "popup2": "టీం విజయవంతంగా సృష్టించబడింది",
@@ -555,6 +556,9 @@
     "success": "పాస్‌వర్డ్ విజయవంతంగా నవీకరించబడింది",
     "Cancel": "రద్దు చేయండి",
     "Change_password": "పాస్వర్డ్ మార్చండి",
+    "password_mismatch": "వినియోగదారుని పాస్‌వర్డ్ సరిపోలడం లేదు",
+    "password_updated_success": " పాస్‌వర్డ్ విజయవంతంగా నవీకరించబడింది",
+
 
     "Enter_current_password_here": "Enter current password here",
     "Create_new_password_here": "Create new password here",

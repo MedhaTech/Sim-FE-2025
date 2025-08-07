@@ -8,7 +8,7 @@ import axios from "axios";
 import CryptoJS from "crypto-js";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { getCurrentUser,openNotificationWithIcon } from "../helpers/Utils";
+import { getCurrentUser, openNotificationWithIcon } from "../helpers/Utils";
 import { useTranslation } from "react-i18next";
 import "sweetalert2/src/sweetalert2.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -26,7 +26,8 @@ const ChangePwd = (props) => {
   const [isOldPasswordVisible, setOldPasswordVisible] = useState(false);
   const [isNewPasswordVisible, setNewPasswordVisible] = useState(false);
   const [isPasswordVisible, setPasswordVisible] = useState(false);
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   const formik = useFormik({
     initialValues: {
       oldPassword: "",
@@ -39,25 +40,24 @@ const ChangePwd = (props) => {
         <span style={{ color: "red" }}>{t("schoolpswd.Current_password")}</span>
       ),
       newPassword: Yup.string()
-    .matches(
-      passwordRegex,
-       t("schoolpswd.passwordFormat")
-    )
-      .required(
-        <span style={{ color: "red" }}>{t("schoolpswd.New_password")}</span>
-      ),
+        .matches(passwordRegex, t("schoolpswd.passwordFormat"))
+        .required(
+          <span style={{ color: "red" }}>{t("schoolpswd.New_password")}</span>
+        ),
       confirmPassword: Yup.string()
-      .oneOf([Yup.ref("newPassword"), null], t("schoolpswd.passwordMatch"))
-      .required(
-        <span style={{ color: "red" }}>{t("schoolpswd.Verify_New_password")}</span>
-      ),
+        .oneOf([Yup.ref("newPassword"), null], t("schoolpswd.passwordMatch"))
+        .required(
+          <span style={{ color: "red" }}>
+            {t("schoolpswd.Verify_New_password")}
+          </span>
+        ),
     }),
 
     onSubmit: (values) => {
       if (values.newPassword.length < 8) {
         SetError(t("schoolpswd.minLength"));
       } else if (values.oldPassword === values.newPassword) {
-          SetError(t("schoolpswd.sameAsOld"));
+        SetError(t("schoolpswd.sameAsOld"));
       } else if (values.newPassword !== values.confirmPassword) {
         SetError(t("schoolpswd.notMatching"));
       } else {
@@ -89,16 +89,20 @@ const ChangePwd = (props) => {
         axios(config)
           .then(function (response) {
             SetResponce(t("schoolpswd.success"));
-                        openNotificationWithIcon("success",   t('teacherJourney.popup8'));
-            
-           
+            openNotificationWithIcon("success", t("teacherJourney.popup8"));
+
             setTimeout(() => {
               SetResponce("");
               navigate("/teacher-dashboard");
             }, 2000);
           })
           .catch(function (error) {
-             SetError(t("teacherJourney.error"));
+            //  SetError(t("schoolpswd.passwordMatch"));
+            if (error?.response?.data?.status === 404) {
+              SetError(t("schoolpswd.password_mismatch"));
+            } else {
+              SetError(t("schoolpswd.passwordMatch"));
+            }
             // SetError(error.response.data.message);
           });
       }
@@ -160,13 +164,11 @@ const ChangePwd = (props) => {
             <form action="success-3" onSubmit={formik.handleSubmit}>
               <div className="login-userset">
                 <div className="login-userheading">
-                  <h3> {t('teacherJourney.Resetpassword')}</h3>
-                  <h4>
-                  {t('teacherJourney.curent')}
-                  </h4>
+                  <h3> {t("teacherJourney.Resetpassword")}</h3>
+                  <h4>{t("teacherJourney.curent")}</h4>
                 </div>
                 <div className="form-login mb-2">
-                  <label>{t('teacherJourney.pas1')}</label>
+                  <label>{t("teacherJourney.pas1")}</label>
                   <div className="pass-group">
                     <input
                       className="pass-input"
@@ -193,7 +195,7 @@ const ChangePwd = (props) => {
                   ) : null}
                 </div>
                 <div className="form-login mb-2">
-                  <label>{t('teacherJourney.pas2')}</label>
+                  <label>{t("teacherJourney.pas2")}</label>
                   <div className="pass-group">
                     <input
                       className="pass-inputs"
@@ -213,7 +215,7 @@ const ChangePwd = (props) => {
                       }}
                     ></div>
                   </div>
-                 
+
                   {formik.touched.newPassword && formik.errors.newPassword ? (
                     <small className="error-cls" style={{ color: "red" }}>
                       {formik.errors.newPassword}
@@ -221,7 +223,7 @@ const ChangePwd = (props) => {
                   ) : null}
                 </div>
                 <div className="form-login mb-2">
-                  <label> {t('teacherJourney.pas3')}</label>
+                  <label> {t("teacherJourney.pas3")}</label>
                   <div className="pass-group">
                     <input
                       className="pass-inputa"
@@ -252,14 +254,15 @@ const ChangePwd = (props) => {
                 <b style={{ color: "#3BB143" }}>{responce}</b>
                 <div className="form-login">
                   <button className="btn btn-login" type="submit">
-                  {t('teacherJourney.pas4')}{"  "} <FontAwesomeIcon icon={faKey} />
+                    {t("teacherJourney.pas4")}
+                    {"  "} <FontAwesomeIcon icon={faKey} />
                   </button>
                 </div>
                 <div className="signinform text-center">
                   <h4>
                     <Link to={"/teacher-dashboard"} className="hover-a">
                       {" "}
-                      {t('teacherJourney.Cancel')}{" "}
+                      {t("teacherJourney.Cancel")}{" "}
                     </Link>
                   </h4>
                 </div>
