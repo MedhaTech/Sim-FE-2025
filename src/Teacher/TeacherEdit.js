@@ -36,7 +36,7 @@ const TeacherEditProfile = () => {
   setDistricts(
       districtList[
           
-        mentorData.state
+        currentUser.data[0].state
       ] || []
   );
  },[mentorData.state]);
@@ -145,6 +145,7 @@ const TeacherEditProfile = () => {
     });
     return adminValidation;
   };
+
   const getInitialValues = (mentorData) => {
     const commonInitialValues = {
       full_name: mentorData?.full_name,
@@ -257,6 +258,7 @@ const TeacherEditProfile = () => {
           });
     },
   });
+
   const formLoginStyle = {
     display: 'flex',
     justifyContent: 'space-between',

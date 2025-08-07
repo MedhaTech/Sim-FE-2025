@@ -522,18 +522,22 @@
         "Cancel": "Cancel",
         "Change_password": "Change password"
     },
-    "schoolpswd": {
-        "Change your password": "Change your password",
-        "password_helps_prevent_unauthorized": "A strong password helps prevent unauthorized access to your account.",
-        "Current_password": "Current password",
-        "Enter_current_password_here": "Enter current password here",
-        "New_password": "New password",
-        "Create_new_password_here": "Create new password here",
-        "8-charac_minimum_case_sensitive": "8-character minimum; case sensitive",
-        "Verify_New_password": "Confirm New password",
-        "Cancel": "Cancel",
-        "Change_password": "Change password"
-    },
+   "schoolpswd": {
+  "password_helps_prevent_unauthorized": "ಶಕ್ತಿಯುತವಾದ ಪಾಸ್‌ವರ್ಡ್ ನಿಮ್ಮ ಖಾತೆಗೆ ಅನಧಿಕೃತ ಪ್ರವೇಶವನ್ನು ತಡೆಯಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ.",
+  "Current_password": "ಪ್ರಸ್ತುತ ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ",
+  "Verify_New_password": "ಹೊಸ ಪಾಸ್‌ವರ್ಡ್ ಖಚಿತಪಡಿಸಿ",
+  "New_password": "ಹೊಸ ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ",
+  "required": "ಅಗತ್ಯವಿದೆ",
+  "passwordFormat": "ಪಾಸ್‌ವರ್ಡ್ ಕನಿಷ್ಠ 8 ಅಕ್ಷರಗಳಾಗಿರಬೇಕು ಮತ್ತು ಒಂದು ದೊಡ್ಡಕ್ಷರ, ಒಂದು ಸಣ್ಣಕ್ಷರ, ಒಂದು ಸಂಖ್ಯೆ ಮತ್ತು ಒಂದು ವಿಶೇಷ ಚಿಹ್ನೆ ಹೊಂದಿರಬೇಕು",
+  "passwordMatch": "ಪಾಸ್‌ವರ್ಡ್‌ಗಳು ಹೊಂದಿಕೆಯಾಗಬೇಕು",
+  "minLength": "ಹೊಸ ಪಾಸ್‌ವರ್ಡ್ ಕನಿಷ್ಠ 8 ಅಕ್ಷರಗಳಾಗಿರಬೇಕು",
+  "sameAsOld": "ಹಳೆಯ ಮತ್ತು ಹೊಸ ಪಾಸ್‌ವರ್ಡ್ ಒಂದೇ",
+  "notMatching": "ಹೊಸ ಪಾಸ್‌ವರ್ಡ್ ಮತ್ತು ಖಚಿತಪಡಿಸಿದ ಪಾಸ್‌ವರ್ಡ್ ಹೊಂದಿಕೆಯಾಗುತ್ತಿಲ್ಲ",
+  "success": "ಪಾಸ್‌ವರ್ಡ್ ಯಶಸ್ವಿಯಾಗಿ ನವೀಕರಿಸಲಾಗಿದೆ",
+  "Cancel": "ರದ್ದುಮಾಡಿ",
+  "Change_password": "ಪಾಸ್‌ವರ್ಡ್ ಬದಲಾಯಿಸಿ"
+}
+,
     "coordinatorpswd": {
         "Change your password": "Change your password",
         "password_helps_prevent_unauthorized": "A strong password helps prevent unauthorized access to your account.",
@@ -770,7 +774,7 @@
         "delete_success": "Team Member Delete Successfully",
         "ok": "Ok",
         "sure": "Are You Sure?",
-        "submit": "Submit",
+        "submit":"ಸಲ್ಲಿಸು",
         "discard": "Discard",
         "view_team_member_details": " Team Members details",
         "view_team_member": "View Team Members",
@@ -783,10 +787,38 @@
         "male": "Male",
         "female": "Female",
         "others": "Others",
-        "edit_idea": "Edit Idea Submission",
-        "draft": "Save as Draft",
+        "edit_idea":"ಐಡಿಯಾ ಸಲ್ಲಿಕೆಯನ್ನು ಸಂಪಾದಿಸಿ",
+        "draft": "ಡ್ರಾಫ್ಟ್ ಆಗಿ ಉಳಿಸು",
         "loading": "Loading"
     },
+    "ideaSubmission": {
+  "theme": "ಥೀಮ್",
+  "language": "ಆವಿಷ್ಕಾರ ಸಲ್ಲಿಕೆ ಭಾಷೆ",
+  "focusArea": "1. ಗಮನ ಕೇಂದ್ರ",
+  "ideaTitle": "2. ನಿಮ್ಮ ಆವಿಷ್ಕಾರದ ಶೀರ್ಷಿಕೆ (ಇಲ್ಲಿ ಸಮಸ್ಯೆ ಅಥವಾ ಪರಿಹಾರವನ್ನು ವಿವರಿಸಬೇಡಿ)",
+  "problemStatement": "3. ನಿಮ್ಮ ಸಮಸ್ಯೆಯ ಹೇಳಿಕೆಯನ್ನು ಬರೆಯಿರಿ",
+  "causes": "4. ಸಮಸ್ಯೆಯ ಕಾರಣಗಳನ್ನು ಪಟ್ಟಿ ಮಾಡಿ",
+  "effects": "5. ಸಮಸ್ಯೆಯ ಪರಿಣಾಮಗಳನ್ನು ಪಟ್ಟಿ ಮಾಡಿ",
+  "community": "6. ನಿಮ್ಮ ಸಮುದಾಯದಲ್ಲಿ ಈ ಸಮಸ್ಯೆಯನ್ನು ನೀವು ಎಲ್ಲೆಲ್ಲಿ ಕಂಡಿರಿ?",
+  "facing": "7. ಯಾರು ಈ ಸಮಸ್ಯೆಯನ್ನು ಎದುರಿಸುತ್ತಿದ್ದಾರೆ?",
+  "solution": "8. ನಿಮ್ಮ ತಂಡ ಕಂಡುಹಿಡಿದ ಪರಿಹಾರವನ್ನು ವಿವರಿಸಿ - ಇದು ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ, ಯಾರಿಗೆ ಸಹಾಯ ಮಾಡುತ್ತದೆ ಮತ್ತು ಸಮಸ್ಯೆಯನ್ನು ಹೇಗೆ ಪರಿಹರಿಸುತ್ತದೆ.",
+  "stakeholders": "9. ನಿಮ್ಮ ಶಿಕ್ಷಕರ ಹೊರತು ಇತರ ಎಷ್ಟು ಹಿತಾಸಕ್ತರೊಂದಿಗೆ ನೀವು ಮಾತನಾಡಿದಿರಿ?",
+  "problemSolving": "10. ಸಮಸ್ಯೆ ಪರಿಹಾರ ಯಾತ್ರೆಯಲ್ಲಿ ನಿಮ್ಮ ತಂಡ ಮಾಡಿರುವ ಕ್ರಮಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+  "feedback": "11. ಪ್ರತಿಕ್ರಿಯೆ ಮತ್ತು ಮಾಡಿದ ಬದಲಾವಣೆಗಳನ್ನು ಉಲ್ಲೇಖಿಸಿ (ಎದೆಂದರೆ)",
+  "prototypeDoc": "12. ನಿಮ್ಮ ಪ್ರೋಟೋಟೈಪಿನ ವಿವರಾತ್ಮಕ ದಾಖಲೆ/ಚಿತ್ರ",
+  "prototypeVideo": "13. ನಿಮ್ಮ ಪರಿಹಾರವನ್ನು ವಿವರಿಸುವ ಸ್ಪಷ್ಟವಾದ ವೀಡಿಯೊ (ಕೇವಲ YouTube ಲಿಂಕುಗಳು ಮಾತ್ರ)",
+  "workbook": "14. ನಿಮ್ಮ ತಂಡ ವರ್ಕ್‌ಬುಕ್ ಪೂರ್ಣಗೊಳಿಸಿ ಶಾಲಾ ಮಾರ್ಗದರ್ಶಕ ಶಿಕ್ಷಕನಿಗೆ ಸಲ್ಲಿಸಿದ್ದಾರೆಯೇ?",
+  "approve": "ಅನುಮೋದಿಸಿ",
+  "VideoisnotPublic": "ವೀಡಿಯೊ ಸಾರ್ವಜನಿಕ ಅಲ್ಲ",
+  "download": "ಕಡತ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ",
+  "acceptedAt": "ಒಪ್ಪಿಕೊಂಡ ಸಮಯ",
+  "rejectedAt": "ತಿರಸ್ಕರಿಸಿದ ಸಮಯ",
+  "lastModifiedBy": "ಕೊನೆಗೆ ಬದಲಾಯಿಸಿದವರು",
+  "submittedBy": "ಸಲ್ಲಿಸಿದವರು",
+  "videoLengthAndPublic": "ವೀಡಿಯೊ ಸಾರ್ವಜನಿಕವಾಗಿರಬೇಕು ಮತ್ತು 3–5 ನಿಮಿಷಗಳ ಉದ್ದದೊಳಗಿರಬೇಕು",
+  "rejectedReason": "ತಿರಸ್ಕಾರದ ಕಾರಣ"
+},
+
     "general_req": {
         "attempt_logout":"ನೀವು ಲಾಗ್ ಔಟ್ ಮಾಡಲು ಪ್ರಯತ್ನಿಸುತ್ತಿದ್ದೀರಿ",
         "are_you_sure":"ನಿಮಗೆ ಖಚಿತವಾಗಿದೆಯೇ?",
@@ -1044,7 +1076,7 @@
 
   },
   "localfocusareas": {
-    "focusarea1": "Other"
+    "focusarea1": "ಇತರೆ"
   }
 
 }

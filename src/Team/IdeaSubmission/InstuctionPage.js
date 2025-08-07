@@ -217,15 +217,15 @@ useEffect(() => {
                           >
                             {t("idea_page.next")}
                           </button>
-                        ) : (
+                        ) : ( */}
                           <Button
                             label={t("idea_page.next")}
                             btnClass="primary mt-4 mx-4"
                             size="small"
                             onClick={handleNext}
                           />
-                        )} */}
-                          {
+                        {/* )} */}
+                          {/* {
                                               ideaEnableStatus !==1 ? 
                                            
                                                 (<button onClick={handleideaenable} className='btn btn-secondary'>{t('idea_page.next')}</button>
@@ -238,7 +238,7 @@ useEffect(() => {
                                             btnClass="primary mt-4 mx-4"
                                             size="small"
                                             onClick={handleNext}
-                                        />}
+                                        />} */}
                       </div>
                     </CardBody>
                   </Card>

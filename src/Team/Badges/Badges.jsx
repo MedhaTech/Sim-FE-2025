@@ -30,7 +30,7 @@ const BadgesComp = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getStudentBadges(currentUser?.data[0]?.user_id,language));
-    }, []);
+    }, [language]);
     return (
         <div className="page-wrapper">
       <div className="content">
