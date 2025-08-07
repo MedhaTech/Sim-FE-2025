@@ -884,9 +884,13 @@
         "dear":  "ಆತ್ಮೀಯ ವಿದ್ಯಾರ್ಥಿ,"
     },
     "badges": {
-        "congratulations":"ಅಭಿನಂದನೆಗಳು",
+         "congratulations":"ಅಭಿನಂದನೆಗಳು",
         "earn": "ನೀವು ಹೊಸ ಬ್ಯಾಡ್ಜ್ ಗಳಿಸಿದ್ದೀರಿ",
-        "ok": "ಸರಿ"
+        "ok": "ಸರಿ",
+        "enableAfter5Teams": "5 ತಂಡಗಳನ್ನು ರಚಿಸಿದ ನಂತರ ಸಕ್ರಿಯವಾಗುತ್ತದೆ",
+      "enableAfter10Teams": "10 ತಂಡಗಳನ್ನು ರಚಿಸಿದ ನಂತರ ಸಕ್ರಿಯವಾಗುತ್ತದೆ",
+      "enableAfterAllTeamsSubmitIdeas": "ಎಲ್ಲಾ ತಂಡಗಳು ಐಡಿಯಾಗಳನ್ನು ಸಲ್ಲಿಸಿದ ನಂತರ ಸಕ್ರಿಯವಾಗುತ್ತದೆ",
+      "enableAfterWinAll3Badges": "ಎಲ್ಲಾ 3 ಬ್ಯಾಡ್ಜ್‌ಗಳನ್ನು ಗೆದ್ದ ನಂತರ ಸಕ್ರಿಯವಾಗುತ್ತದೆ"
     },
     "student_course": {
         "modules": "ಮಾಡ್ಯೂಲ್‌ಗಳು",

@@ -859,7 +859,11 @@
     "badges": {
         "congratulations": "बधाई हो",
         "earn": "आपने अभी-अभी एक नया ब्याड्जपाया  है",
-        "ok": "ठीक है"
+        "ok": "ठीक है",
+        "enableAfter5Teams": "5 टीमें बनाने के बाद सक्षम होता है",
+      "enableAfter10Teams": "10 टीमें बनाने के बाद सक्षम होता है",
+      "enableAfterAllTeamsSubmitIdeas": "सभी टीमों द्वारा विचार जमा करने के बाद सक्षम होता है",
+      "enableAfterWinAll3Badges": "सभी 3 बैज जीतने के बाद सक्षम होता है"
     },
     "student_course": {
         "modules": "मॉड्यूल",

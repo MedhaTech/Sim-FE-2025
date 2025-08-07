@@ -893,7 +893,11 @@
   "badges": {
     "congratulations": "Congratulations",
     "earn": "you've just earned a new badge",
-    "ok": "OK"
+    "ok": "OK",
+    "enableAfter5Teams": "Enables after creating 5 teams",
+    "enableAfter10Teams": "Enables after creating 10 teams",
+    "enableAfterAllTeamsSubmitIdeas": "Enables after all teams submit IDEAS",
+    "enableAfterWinAll3Badges": "Enables after you win all 3 badges"
   },
   "student_course": {
     "modules": "Modules",
