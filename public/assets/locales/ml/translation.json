@@ -883,7 +883,11 @@
   "badges": {
     "congratulations": "Congratulations",
     "earn": "you've just earned a new badge",
-    "ok": "OK"
+    "ok": "OK",
+    "enableAfter5Teams": "5 ടീമുകൾ സൃഷ്ടിച്ച ശേഷം പ്രാപ്തമാകും",
+    "enableAfter10Teams": "10 ടീമുകൾ സൃഷ്ടിച്ച ശേഷം പ്രാപ്തമാകും",
+    "enableAfterAllTeamsSubmitIdeas": "എല്ലാ ടീമുകളും ആശയങ്ങൾ സമർപ്പിച്ച ശേഷം പ്രാപ്തമാകും",
+    "enableAfterWinAll3Badges": "എല്ലാ 3 ബാഡ്ജുകളും നേടിയ ശേഷം പ്രാപ്തമാകും"
   },
   "student_course": {
     "modules":"മൊഡ്യൂളുകൾ",
