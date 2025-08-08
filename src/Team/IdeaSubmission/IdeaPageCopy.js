@@ -318,7 +318,7 @@ const themeKey = themeTranslationKeys[selectedTheme];
 
     setFocus(mappedFocus);
     }
-  }, [formData.theme]);
+  }, [formData.theme,localStorage.getItem("s_language")]);
   useEffect(() => {
     setTheme(
       props?.theme !== "" && props?.theme !== undefined

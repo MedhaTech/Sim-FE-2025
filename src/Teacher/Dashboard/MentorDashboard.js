@@ -187,7 +187,7 @@ const MentorDashboard = () => {
   const { t } = useTranslation();
   const creEnable = false;
   const [showsPopup, setShowsPopup] = useState(false);
-  const language = useSelector((state) => state?.mentors?.mentorLanguage);
+  // const language = useSelector((state) => state?.mentors?.mentorLanguage);
 
   const [poptype, setPopType] = useState("");
 
@@ -321,6 +321,7 @@ const MentorDashboard = () => {
   };
 
   const currentUser = getCurrentUser("current_user");
+    const language = localStorage.getItem("m_language");
 
   useEffect(() => {
     if (currentUser?.data[0]?.user_id) {
@@ -329,7 +330,7 @@ const MentorDashboard = () => {
       mentorStudentCount();
       mentorcoursepercentage();
       mentorpostsurvey();
-      fetchwhatsapplink(language);
+      // fetchwhatsapplink(language);
       scroll();
       mentorapproveCount();
     }
@@ -592,7 +593,7 @@ const MentorDashboard = () => {
   };
 
   const handleNavigation = () => {
-    navigate("/instructions", { state: { instruction: message } });
+    navigate("/instructions");
   };
 
   const scroll = () => {
