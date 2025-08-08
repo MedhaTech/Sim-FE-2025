@@ -828,6 +828,7 @@ const DBStu = () => {
                                 <span
                                   className={"badge badge-linesuccess"}
                                   onClick={redirectToPreSurvey}
+                                  style={{ padding: '6px 10px' }}
                                 >
                                   {t("teacherJourney.Completed")}
                                 </span>
@@ -922,7 +923,7 @@ const DBStu = () => {
                               <>
                                 <span
                                   className={"badge badge-linedangered"}
-                                  onClick={redirectToCourse}
+                                  onClick={redirectToCourse} style={{ padding: '6px 10px' }}
                                 >
                                   {t("teacherJourney.NotStarted")}
                                 </span>
@@ -931,6 +932,7 @@ const DBStu = () => {
                               <>
                                 <span
                                   className={"badge badge-bgdanger"}
+                                   style={{ padding: '6px 10px' }}
                                   onClick={redirectToCourse}
                                 >
                                                                     {t("teacherJourney.InProgress")}
@@ -939,7 +941,7 @@ const DBStu = () => {
                               </>
                             ) : (
                               <>
-                                <span className={"badge badge-linesuccess"}>
+                                <span className={"badge badge-linesuccess"}  style={{ padding: '6px 10px' }}>
                                   {t("teacherJourney.Completed")}
                                 </span>
                               </>
@@ -1035,19 +1037,19 @@ const DBStu = () => {
                               <Loader />
                             ) : stuIdeaSub == "SUBMITTED" ? (
                               <>
-                                <span className={"badge badge-linesuccess"}>
+                                <span className={"badge badge-linesuccess"} style={{ padding: '6px 10px' }}>
                                   {t("teacherJourney.submitted")}
                                 </span>
                               </>
                             ) : stuIdeaSub == "DRAFT" ? (
                               <>
-                                <span className={"badge badge-bgdanger"}>
+                                <span className={"badge badge-bgdanger"} style={{ padding: '6px 10px' }}>
                                    {t("teacherJourney.InDraft")}
                                 </span>
                               </>
                             ) : (
                               <>
-                                <span className={"badge badge-linedangered"}>
+                                <span className={"badge badge-linedangered"} style={{ padding: '6px 10px' }}>
                                    {t("teacherJourney.NotInitiated")}
                                 </span>
                               </>
@@ -1152,14 +1154,14 @@ const DBStu = () => {
                               <>
                                 <span
                                   className={"badge badge-linedangered"}
-                                  onClick={redirectToPost}
+                                  onClick={redirectToPost} style={{ padding: '6px 10px' }}
                                 >
                                   {t("teacherJourney.pending")}
                                 </span>
                               </>
                             ) : (
                               <>
-                                <span className={"badge badge-linesuccess"}>
+                                <span className={"badge badge-linesuccess"} style={{ padding: '6px 10px' }}>
                                   {t("teacherJourney.Completed")}
                                 </span>
                               </>

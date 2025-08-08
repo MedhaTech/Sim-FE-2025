@@ -64,6 +64,21 @@
     "error:job_type": "Invalid Job Type"
   },
   "teacherJourney": {
+    "common.hi":"Hi",
+    "guide": "Guide Teacher",
+
+    "common.login": "Login",
+"common.class_suffix": "th class",
+"common.years": "yrs",
+
+    "welcome.loading": "Loading",
+  "welcome.login_pre_survey": "👋 Hi! Login & Get started with your Pre-Survey 😊",
+  "welcome.start_course": "👋 Start Course & know about 🔍Problem Solving Journey",
+  "progress.hope_learning": "😄 Hope you are learning good techniques to solve problems👍🏻",
+  "progress.well_done": "👏 Well Done Problem Solver! You're ready to submit idea💡",
+  "progress.idea_submitted": "🥳 Congrats! Your idea is submitted💡 It's time to take Post-Survey",
+  "certificate.message": "Congratulations on achieving your certificate. Login and download it ✅",
+  "dashboard.team_update": "Team, here's what's happening with your School Innovation Marathon 2025 today.",
     "place1": "Enter Full Name",
     "place2": "Enter Email Address",
     "place3": "Select Status",
@@ -365,7 +380,7 @@
     "PrincipalName": "Principal Name",
     "PrincipalMobileNo": "Principal Mobile No",
     "PrincipalwMobileNo": "Principal Whatsapp Mobile No",
-
+"yet":" Yet to be Reviewed",
     "PrincipalEmailID": "Principal Email ID",
     "note": "Please complete the following post survey to get your certificate.",
     "SUBMIT": "SUBMIT",
@@ -414,6 +429,7 @@
     "Takesurvey": "Take survey & Get Certificate",
     "TeamUsername": "Team Username",
     "StudentFullName": "Student Full Name",
+    "notes": "Note",
 
     "popup1": "Team Member Created Successfully",
     "popup2": "Team Created Successfully",
@@ -432,7 +448,7 @@
     "remove": "Remove",
     "adduser": "Teacher Edit Profile",
     "adduser1":"User Profile",
-
+"saveDraftReminder": "Kindly save your idea as a draft prior to submission to ensure you can review and make changes if needed.",
     "add1": "Pre Survey",
     "add2": "Team Creation",
     "add3": "Students Enrolled",
@@ -466,12 +482,14 @@
     "prototypeVideo": "13. Clear Video Explaining your Solution [Only YouTube Video Links are Accepted.]",
     "workbook": "14. Did your team complete and submit the workbook to your school Guide teacher?",
     "approve": "Approve",
+    "VideoisnotPublic":"Video is not Public",
     "download": "Download File",
     "acceptedAt": "Accepted At",
     "rejectedAt": "Rejected At",
     "lastModifiedBy": "Last Modified By",
     "submittedBy": "Submitted By",
-    "rejectedReason": "Reason for Rejection"
+    "rejectedReason": "Reason for Rejection",
+    "videoLengthAndPublic": "Video is public and within the length 3–5 minutes"
   },
 
   "loginPage": {
@@ -545,11 +563,15 @@
     "required": "Required",
     "passwordFormat": "Password must be at least 8 characters and include one uppercase, one lowercase, one number, and one special character",
     "passwordMatch": "Passwords must match",
+    
     "minLength": "New Password must be 8-character minimum",
     "sameAsOld": "Old Password and New Password are same",
     "notMatching": "New Password and Confirm Password not same",
     "success": "Password updated successfully",
     "Cancel": "Cancel",
+    "password_mismatch": "User password doesn't match",
+    "password_updated_success": " Password updated successfully",
+
 
     "Change_password": "Change password"
   },
@@ -566,6 +588,10 @@
     "Change_password": "Change password"
   },
   "home": {
+    "team": "Team",
+
+    "team_dashboard": "Team Dashboard",
+
     "preinst": "We're happy to have you join us in this exciting learning adventure!</br></br> <b class='text-success'>Here's what you'll do during the program:</b></br></br><ol><li>1. Log in to the portal to get started.</li><li>2. Complete the pre-survey to share your thoughts before we begin.</li><li>3. Dive into the course and explore all the amazing videos.</li><li>4. Work with your teammates to identify a problem and work together to find a solution.</li><li>5. Submit your innovative idea to the Innovation Marathon and showcase your creativity.</li><li>6. Complete the post-survey to share your feedback and experience.</li><li>7. Download your certificates to celebrate your achievements!</li></br>We can't wait to see the incredible ideas you'll come up with. Have fun, learn a lot, and let's make this an unforgettable journey!",
     "startnow": "Start Now",
     "dolater": "Do Later",
@@ -650,6 +676,7 @@
   },
   "teacher_get_started": {
     "heading": "Welcome Guide Teacher!",
+
     "desc": "<p>We are delighted that you have signed up for this program and have joined us on this journey of nurturing problem solving and innovation in youth. As you are already aware, you will be playing the role of a guide teacher to the students for the duration of the course.</p><p>The portal includes various information modules and resources that will help you and your students on their learning journeys.</p><p style='color:green'><b>Your journey as a guide teacher will include the following key milestones</b></p><ol><li>Register yourself on the portal and take the pre-survey.</li><li>Understand the program and the tech platform.</li><li>Identify teams and register them on the portal.</li><li>Arrange access to digital devices for students.</li><li>Support the students on their learning journey.</li><li>Ensure teams submit their final ideas on the portal.</li><li>Complete the post survey.</li><li>Download teacher’s certificate.</li><li>Instruct and support the students to download student certificates.</li></ol><p>We hope you and the students have a great time doing this program.</p><p>We wish you all the best!</p>",
     "btn": "START JOURNEY",
     "pre": "Pre survey has been submitted"
@@ -720,6 +747,7 @@
     "certificate_desc": "Please Download Certificate...",
     "part_certificate_desc": "Please Download Participate Certificate...",
     "complete_postsurvey": "Please complete post survey to get your certificate",
+    "disable_cer":"Your certificate will be enabled soon.",
     "complete_post_survey_default": "Thank you for completing the journey and supporting your students in successful completion of the course and idea submission. Your certificate will be enabled soon.",
     "congratulations_innovators": "Congratulations, Innovators!",
     "level_3_evaluation": "Your passion, creativity, and hard work have brought you to the Level 3 Round of Evaluation! This achievement is a testament to your dedication and the incredible ideas you’ve put forward. As you advance to this stage, remember that the journey of innovation is as valuable as the destination itself.",
@@ -869,7 +897,11 @@
   "badges": {
     "congratulations": "Congratulations",
     "earn": "you've just earned a new badge",
-    "ok": "OK"
+    "ok": "OK",
+    "enableAfter5Teams": "Enables after creating 5 teams",
+    "enableAfter10Teams": "Enables after creating 10 teams",
+    "enableAfterAllTeamsSubmitIdeas": "Enables after all teams submit IDEAS",
+    "enableAfterWinAll3Badges": "Enables after you win all 3 badges"
   },
   "student_course": {
     "modules": "Modules",
@@ -973,7 +1005,9 @@
     "image": "Descriptive Document/Image of your prototype",
     "link": "Clear Video Explaining your Solution",
     "linkadd": " [Only YouTube Video Links are Accepted.]",
-
+"select_theme": "Please select the Theme",
+"select_focus_area": "Please select the Focus Area",
+ "select_language": "Please select the Language",
     "note": "Note: (Both Video & Document/Image have to be uploaded, Max Size of two files together is 10MB)",
     "filetext": "File Upload is mandatory *",
     "workbookq": "Did your team complete and submit the workbook to your school Guide teacher?",
@@ -982,7 +1016,16 @@
     "ideawarning": "Save your idea & Ask your guide teacher to go through the details entered by you to make sure they are correct. You cannot make changes once the idea is submitted. Invalid/Wrong entries will not be selected.",
     "placeholdertext": "List one by one with numbering…"
   },
-
+  "themedetails": {
+    "buildingtheme": "Promotes environmental awareness and life skills; integrates values-based and experiential learning. NEP encourages students to be environmentally responsible citizens. This theme enables students to innovate in sustainability, energy, water, and climate — all vital for the planet and aligned with global SDG goals.",
+    "technologytheme": "Strong emphasis on tech integration, digital infrastructure, and equitable access to quality education.Innovation in education technology supports NEP’s vision of universal foundational literacy, personalized learning, and digital inclusion. It also empowers students to co-create tech tools for learning.",
+    "heal  ththeme": "Holistic development, including physical, mental, and emotional well-being, is central to NEP’s goals. NEP’s whole-child approach demands innovation in how students think about nutrition, mental health, fitness, and community wellness. This theme promotes health as foundational to learning and living.",
+    "skillstheme": "Strong focus on vocational education, entrepreneurship, and preparing students for life and work. NEP aims to integrate skill-based learning from an early age. This theme empowers students to develop job-ready, entrepreneurial, and financial skills while also encouraging local enterprise innovation.",
+    "smartertheme": "Encourages contextual learning and civic engagement, preparing students to lead and serve. NEP promotes learning that is rooted in local needs. This theme inspires students to think about their surroundings and build smart, safe, inclusive, and tech-enabled communities.",
+    "agriculturetheme": "Advocates for local knowledge systems, relevance in rural settings, and experiential learning. NEP emphasizes context-sensitive education. This theme brings attention to rural challenges and innovation in agriculture — vital sectors for inclusive and equitable development.",
+    "opentheme": "Encourages critical thinking, creativity, and problem-solving — key 21st-century skills. For students whose ideas don’t fit existing categories but address real-world problems. This promotes flexibility, interdisciplinary thinking, and true student agency",
+    "othertheme": "Encourages innovative solutions in any other area that aligns with the vision of Viksit Bharat 2047, fostering a culture of broad-based development and progress."
+  },
   "theme": {
     "healthwellnesstheme":  "Health & Wellness",
     "womenchildtheme": "Women & Child Development",
@@ -1003,16 +1046,7 @@
     "futuretheme": "Future-Ready Skills",
     "localtheme": "Local Community Problems (Open Innovation)"
   },
-  "themedetails": {
-    "buildingtheme": "Promotes environmental awareness and life skills; integrates values-based and experiential learning. NEP encourages students to be environmentally responsible citizens. This theme enables students to innovate in sustainability, energy, water, and climate — all vital for the planet and aligned with global SDG goals.",
-    "technologytheme": "Strong emphasis on tech integration, digital infrastructure, and equitable access to quality education.Innovation in education technology supports NEP’s vision of universal foundational literacy, personalized learning, and digital inclusion. It also empowers students to co-create tech tools for learning.",
-    "heal  ththeme": "Holistic development, including physical, mental, and emotional well-being, is central to NEP’s goals. NEP’s whole-child approach demands innovation in how students think about nutrition, mental health, fitness, and community wellness. This theme promotes health as foundational to learning and living.",
-    "skillstheme": "Strong focus on vocational education, entrepreneurship, and preparing students for life and work. NEP aims to integrate skill-based learning from an early age. This theme empowers students to develop job-ready, entrepreneurial, and financial skills while also encouraging local enterprise innovation.",
-    "smartertheme": "Encourages contextual learning and civic engagement, preparing students to lead and serve. NEP promotes learning that is rooted in local needs. This theme inspires students to think about their surroundings and build smart, safe, inclusive, and tech-enabled communities.",
-    "agriculturetheme": "Advocates for local knowledge systems, relevance in rural settings, and experiential learning. NEP emphasizes context-sensitive education. This theme brings attention to rural challenges and innovation in agriculture — vital sectors for inclusive and equitable development.",
-    "opentheme": "Encourages critical thinking, creativity, and problem-solving — key 21st-century skills. For students whose ideas don’t fit existing categories but address real-world problems. This promotes flexibility, interdisciplinary thinking, and true student agency",
-    "othertheme": "Encourages innovative solutions in any other area that aligns with the vision of Viksit Bharat 2047, fostering a culture of broad-based development and progress."
-  },
+
   "healthwellnessfocusareas": {
     "focusarea1": "Devices for Fitness and Preventive Health",
     "focusarea2":  "Mental Health Support",

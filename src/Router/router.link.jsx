@@ -92,7 +92,7 @@ import StateRes from "../Coordinators/CooTickets/TicketResponse";
 import StateResourcesList from "../Coordinators/Resources/index";
 import StateResourcesCreate from "../Coordinators/Resources/createResource";
 import StateResourcesEdit from "../Coordinators/Resources/editResource";
-
+import StateChangePassword from "../Coordinators/ChangePswModal";
 import AdminSupport from "../Admin/AdminTickets/Tickets";
 import AdminRes from "../Admin/AdminTickets/TicketResponse";
 import StateData from "../Admin/StateWise/StateData";
@@ -876,6 +876,15 @@ export const stateRoutes = [
     protected: true,
     route: Route,
   },
+  {
+    id: 13,
+    path: routes.StateChangePassword,
+    name: "SateChangePassword",
+    element: <StateChangePassword />,
+    protected: true,
+    route: Route,
+  },
+  
 ];
 export const eadminRoutes = [
   {

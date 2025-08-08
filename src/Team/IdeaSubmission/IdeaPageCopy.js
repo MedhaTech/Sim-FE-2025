@@ -31,7 +31,13 @@ import "sweetalert2/src/sweetalert2.scss";
 import moment from "moment";
 
 import { encryptGlobal } from "../../constants/encryptDecrypt";
-import { themes, themesList, focusareasList } from "./themesData";
+import {
+  themes,
+  themesList,
+  focusareasList,
+  themeTranslationKeys,
+  focusareasListTranslationKeys,
+} from "./themesData";
 import { languageOptions } from "../../RegPage/ORGData";
 import { FiPlayCircle } from "react-icons/fi";
 import FilePreviewModal from "../../Evaluator/IdeaList/Modal";
@@ -44,7 +50,6 @@ const LinkComponent = ({
   i,
   currentUser,
 }) => {
-
   let a_link;
   let count;
   if (url) {
@@ -52,36 +57,40 @@ const LinkComponent = ({
     count = a_link.length - 1;
   }
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 576);
- const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
   const [showModal, setShowModal] = useState(false);
-   const handlePreview = (url) => {
+  const handlePreview = (url) => {
     setSelectedFile({ prototype_image: url });
     setShowModal(true);
   };
-useEffect(() => {
-  const handleResize = () => {
-    setIsMobile(window.innerWidth <= 576);
-  };
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 576);
+    };
 
-  window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize);
 
-  return () => {
-    window.removeEventListener("resize", handleResize);
-  };
-}, []);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
-  
   return (
     <>
       {original ? (
         <div className="badge mb-2 bg-info ms-3 d-flex align-items-center">
-          <span className="p-2" style={{
-        display: "inline-block",
-        whiteSpace: "nowrap",
-        overflow: "hidden",
-        textOverflow: "ellipsis",
-        ...(isMobile && { maxWidth: "100px" }), 
-      }}>{item.name}</span>
+          <span
+            className="p-2"
+            style={{
+              display: "inline-block",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              ...(isMobile && { maxWidth: "100px" }),
+            }}
+          >
+            {item.name}
+          </span>
           {original && (
             <span className="pointer" onClick={() => removeFileHandler(i)}>
               <AiOutlineCloseCircle size={20} />
@@ -94,20 +103,20 @@ useEffect(() => {
           href={item}
           target="_blank"
           rel="noreferrer"
-            onClick={() => handlePreview(item)}
-          title={a_link[count]?.split('?')[0]}
+          onClick={() => handlePreview(item)}
+          title={a_link[count]?.split("?")[0]}
         >
-        {a_link[count]?.split('?')[0]}
+          {a_link[count]?.split("?")[0]}
         </span>
       )}
-        {selectedFile && (
+      {selectedFile && (
         <FilePreviewModal
           show={showModal}
           onHide={() => setShowModal(false)}
           teamResponse={selectedFile}
         />
       )}
-    {/* {original ? (
+      {/* {original ? (
   <div className="badge mb-2 bg-info ms-3 d-flex align-items-center">
     <span
       className="p-2"
@@ -143,9 +152,6 @@ useEffect(() => {
     {a_link[count]}
   </a>
 )} */}
-
-
-
     </>
   );
 };
@@ -187,7 +193,6 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const [language, setLanuage] = useState(formData?.language);
   // const [otherLang, setOtherLang] = useState(formData?.language);
 
-
   const [problemStatement, setProblemStatement] = useState(
     formData?.problemStatement
   );
@@ -222,6 +227,11 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     { value: "YES", label: t("ideaform_questions.workbookyes") },
     { value: "NO", label: t("ideaform_questions.workbookno") },
   ];
+  const translatedThemes = themesList.map((theme) => ({
+    value: theme,
+    label: t(themeTranslationKeys[theme]) || theme,
+  }));
+
   const people = [
     { value: "None", label: t("ideaform_questions.stakeholdersop1") },
     { value: "2-4 people", label: t("ideaform_questions.stakeholdersop2") },
@@ -267,7 +277,17 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       setFocus([]);
       setFocusArea("");
     } else {
-      setFocus(focusareasList[selectedTheme] || []);
+      // setFocus(focusareasList[selectedTheme] || []);
+const themeKey = themeTranslationKeys[selectedTheme]; 
+    const focusKey = themeKey?.replace("themes.", "");    
+    const keys = focusareasListTranslationKeys[focusKey] || [];
+
+    const mappedFocus = keys.map((item) => ({
+      value: item.value,        
+      label: t(item.labelKey),  
+    }));
+
+    setFocus(mappedFocus);
     }
   };
   const handleFocusAreaChange = (e) => {
@@ -286,9 +306,19 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     if (activeTheme === "Others") {
       setFocus([]);
     } else {
-      setFocus(focusareasList[activeTheme] || []);
+      // setFocus(focusareasList[activeTheme] || []);
+      const themeKey = themeTranslationKeys[activeTheme]; 
+    const focusKey = themeKey?.replace("themes.", "");   
+    const keys = focusareasListTranslationKeys[focusKey] || [];
+
+    const mappedFocus = keys.map((item) => ({
+      value: item.value,       
+      label: t(item.labelKey),  
+    }));
+
+    setFocus(mappedFocus);
     }
-  }, [formData.theme]);
+  }, [formData.theme,localStorage.getItem("s_language")]);
   useEffect(() => {
     setTheme(
       props?.theme !== "" && props?.theme !== undefined
@@ -389,6 +419,41 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   useEffect(() => {
     submittedApi();
   }, []);
+
+  const allValues =
+    theme === "" ||
+    theme === null ||
+    focusarea === "" ||
+    focusarea === null ||
+    problemStatement === "" ||
+    problemStatement === null ||
+    title === "" ||
+    title === null ||
+    causes === "" ||
+    causes === null ||
+    language === "" ||
+    language === null ||
+    effects === "" ||
+    effects === null ||
+    community === "" ||
+    community === null ||
+    facing === "" ||
+    facing === null ||
+    solution === "" ||
+    solution === null ||
+    stakeholders === "" ||
+    stakeholders === null ||
+    problemSolving === "" ||
+    problemSolving === null ||
+      (Array.isArray(problemSolving) && problemSolving.length === 0) ||
+    feedback === "" ||
+    feedback === null ||
+    prototypeLink === "" ||
+    prototypeLink == null ||
+    workbook === "" ||
+    workbook == null
+      ? false
+      : true;
   const submittedApi = () => {
     // This function fetches idea submission details from the API //
 
@@ -642,6 +707,8 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
         stakeholders === null ||
         problemSolving === "" ||
         problemSolving === null ||
+      (Array.isArray(problemSolving) && problemSolving.length === 0) ||
+
         feedback === "" ||
         feedback === null ||
         prototypeLink === "" ||
@@ -722,10 +789,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
   const handleEdit = () => {
     setIsDisabled(false);
     scroll();
-
   };
-
-
 
   useEffect(() => {
     if (
@@ -787,9 +851,15 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
             setPrototypeLink("");
             setVerifySubmitt(false);
 
-            openNotificationWithIcon("error", response.data.message);
+            openNotificationWithIcon(
+              "error",
+              t("ideaSubmission.VideoisnotPublic")
+            );
           } else {
-            openNotificationWithIcon("success", response.data.message);
+            openNotificationWithIcon(
+              "success",
+              t("ideaSubmission.videoLengthAndPublic")
+            );
             setPrototypeLink(videoId);
             setIsButtonDisabled(true);
             setVerifySubmitt(true);
@@ -819,7 +889,19 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     e.preventDefault();
     handleVideoApi(extractId);
   };
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <>
       {showPage ? (
@@ -885,7 +967,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             {t("idea_page.review")} :
                             {formData?.verified_status === null ||
                             formData?.verified_status === ""
-                              ? " Yet to be Reviewed"
+                              ? t("teacherJourney.yet")
                               : formData?.verified_status === "ACCEPTED"
                               ? ` Accepted on ${moment(
                                   formData?.verified_at
@@ -904,8 +986,11 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                       </div>
                     )}
 
-                    <div className="d-flex justify-content-end flex-wrap gap-2 w-100  flex-sm-nowrap" style={{ rowGap: "0.5rem" }}>
-                      {!isDisabled && (
+                    <div
+                      className="d-flex justify-content-end flex-wrap gap-2 w-100  flex-sm-nowrap"
+                      style={{ rowGap: "0.5rem" }}
+                    >
+                      {/* {!isDisabled && (
                         <Button
                           type="button"
                           btnClass="me-1 btn btn-warning"
@@ -938,8 +1023,62 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             label={t("teacher_teams.submit")}
                           />
                         </>
+                      )} */}
+                      {/* //////// */}
+                      {formData.status !== "SUBMITTED" && isDisabled && (
+                        <Button
+                          type="button"
+                          btnClass="me-1 btn btn-info"
+                          onClick={handleEdit}
+                          size="small"
+                          label={t("teacher_teams.edit_idea")}
+                        />
                       )}
+                      {/* place */}
+                      {/* {formData.status !== "SUBMITTED" && (
+                        <>
+                          <Button
+                            type="button"
+                            btnClass="me-1 btn btn-warning"
+                            onClick={(e) => handleSubmit(e, "DRAFT")}
+                            size="small"
+                            label={`${
+                              loading.draft
+                                ? t("teacher_teams.loading")
+                                : t("teacher_teams.draft")
+                            }`}
+                            disabled={!enableSaveBtn || isDisabled}
+                          />
+                         
+                          <Button
+                            type="button"
+                            btnClass="me-1 btn btn-warning"
+                            onClick={(e) => handleSubmit(e, "SUBMITTED")}
+                            size="small"
+                            label={t("teacher_teams.submit")}
+                            disabled={
+                              !enableSaveBtn ||
+                              isDisabled ||
+                              !allValues ||
+                              !verfiySubmitt
+                            }
+                          />
+                        </>
+                      )} */}
                     </div>
+                    {formData?.status !== "SUBMITTED" && (
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <p
+                          style={{ marginRight: "1rem", marginBottom: "1rem" }}
+                        >
+                          <span style={{ color: "red" }}>
+                            {" "}
+                            {t("teacherJourney.notes")} :{" "}
+                          </span>
+                          {t("teacherJourney.saveDraftReminder")}
+                        </p>
+                      </div>
+                    )}
                     {currentSection === 1 && (
                       <div className="d-md-flex justify-content-end px-0">
                         <Row>
@@ -970,15 +1109,24 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 id="theme"
                               >
                                 <option value={""}>
-                                  Please select the Theme
+                                  {t("ideaform_questions.select_theme")}
                                 </option>
-                                {themesList.map((item, i) => (
+                                {/* {translatedThemes.map((item, i) => (
                                   <option
                                     key={i}
                                     value={item}
                                     selected={item === theme}
                                   >
                                     {item}
+                                  </option>
+                                ))} */}
+                                {translatedThemes.map((item, i) => (
+                                  <option
+                                    key={i}
+                                    value={item.value}
+                                    selected={item.value === theme}
+                                  >
+                                    {item.label}
                                   </option>
                                 ))}
                               </select>
@@ -1017,17 +1165,24 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                   disabled={isDisabled}
                                   name="focusarea"
                                   id="focusarea"
+                                  // added
+                                   value={focusarea} 
                                 >
                                   <option value={""}>
-                                    Please select the Focus Area
+                                    {t("ideaform_questions.select_focus_area")}
                                   </option>
-                                  {focus.map((item, i) => (
+                                  {/* {focus.map((item, i) => (
                                     <option
                                       key={i}
                                       value={item}
                                       selected={item === focusarea}
                                     >
                                       {item}
+                                    </option>
+                                  ))} */}
+                                  {focus.map((item) => (
+                                    <option key={item.value} value={item.value}>
+                                      {item.label}
                                     </option>
                                   ))}
                                 </select>
@@ -1054,7 +1209,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 id="theme"
                               >
                                 <option value={""}>
-                                  Please select the Language
+                                     {t("ideaform_questions.select_language")}
                                 </option>
                                 {languageOptions.map((item, i) => (
                                   <option
@@ -1068,7 +1223,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               </select>
                             </div>
                           </div>
-                           {/* {language === "Other Language" && (
+                          {/* {language === "Other Language" && (
                             <div className="card comment-card">
                             <div className="question quiz mb-0 mt-2">
                               <b
@@ -1279,10 +1434,50 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             </div>
                           </div>
                           <div>
-                            <Col className="d-flex justify-content-end">
+                            <Col className="d-flex justify-content-end gap-2">
+                              {formData.status !== "SUBMITTED" && (
+                                <>
+                                  <Button
+                                    type="button"
+                                    btnClass="me-1 btn btn-warning"
+                                    onClick={(e) => handleSubmit(e, "DRAFT")}
+                                    size="small"
+                                    style={{
+                                      fontSize: isMobile ? "12px" : "14px",
+                                    }}
+                                    label={`${
+                                      loading.draft
+                                        ? t("teacher_teams.loading")
+                                        : t("teacher_teams.draft")
+                                    }`}
+                                    disabled={!enableSaveBtn || isDisabled}
+                                  />
+                                  <Button
+                                    type="button"
+                                    btnClass="me-1 btn btn-warning"
+                                    onClick={(e) =>
+                                      handleSubmit(e, "SUBMITTED")
+                                    }
+                                    size="small"
+                                    style={{
+                                      fontSize: isMobile ? "12px" : "14px",
+                                    }}
+                                    label={t("teacher_teams.submit")}
+                                    disabled={
+                                      !enableSaveBtn ||
+                                      isDisabled ||
+                                      !allValues ||
+                                      !verfiySubmitt
+                                    }
+                                  />
+                                </>
+                              )}
                               <button
                                 className="btn btn-secondary"
                                 onClick={goToNext}
+                                style={{
+                                  fontSize: isMobile ? "12px" : "14px",
+                                }}
                               >
                                 {/* {t("student_course.chars")} */}
                                 {/* NEXT */}
@@ -1440,25 +1635,194 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               </div>
                             </div>
                           </div>
-                          <Row>
-                            <Col className="d-flex justify-content-start">
+                          {/* <Row>
+                            <Col className="d-flex justify-content-start ">
                               <button
                                 className="btn btn-info"
                                 onClick={goToBack}
+                                style={{
+                                  fontSize: isMobile ? "12px" : "14px",
+                                }}
                               >
                                 {t("idea_page.back")}
                               </button>
                             </Col>
-                            <Col className="d-flex justify-content-end">
+
+                            <Col className="d-flex justify-content-end gap-2">
+                              {formData.status !== "SUBMITTED" && (
+                                <>
+                                  <Button
+                                    type="button"
+                                    btnClass="me-1 btn btn-warning"
+                                    onClick={(e) => handleSubmit(e, "DRAFT")}
+                                    size="small"
+                                    style={{
+                                      fontSize: isMobile ? "12px" : "14px",
+                                    }}
+                                    label={`${
+                                      loading.draft
+                                        ? t("teacher_teams.loading")
+                                        : t("teacher_teams.draft")
+                                    }`}
+                                    disabled={!enableSaveBtn || isDisabled}
+                                  />
+                                  <Button
+                                    type="button"
+                                    btnClass="me-1 btn btn-warning"
+                                    style={{
+                                      fontSize: isMobile ? "12px" : "14px",
+                                    }}
+                                    onClick={(e) =>
+                                      handleSubmit(e, "SUBMITTED")
+                                    }
+                                    size="small"
+                                    label={t("teacher_teams.submit")}
+                                    disabled={
+                                      !enableSaveBtn ||
+                                      isDisabled ||
+                                      !allValues ||
+                                      !verfiySubmitt
+                                    }
+                                  />
+                                </>
+                              )}
                               <button
                                 className="btn btn-secondary"
                                 onClick={goToNext}
+                                style={{
+                                  fontSize: isMobile ? "12px" : "14px",
+                                }}
                               >
                                 {t("idea_page.next")}
-                                {/* NEXT */}
                               </button>
                             </Col>
-                          </Row>
+                          </Row> */}
+                          {!isMobile ? (
+                            // ✅ Desktop layout
+                            <Row>
+                              <Col className="d-flex justify-content-start">
+                                <button
+                                  className="btn btn-info"
+                                  onClick={goToBack}
+                                  style={{ fontSize: "14px" }}
+                                >
+                                  {t("idea_page.back")}
+                                </button>
+                              </Col>
+                              <Col className="d-flex justify-content-end gap-2">
+                                {formData.status !== "SUBMITTED" && (
+                                  <>
+                                    <Button
+                                      type="button"
+                                      btnClass="me-1 btn btn-warning"
+                                      onClick={(e) => handleSubmit(e, "DRAFT")}
+                                      size="small"
+                                      style={{ fontSize: "14px" }}
+                                      label={`${
+                                        loading.draft
+                                          ? t("teacher_teams.loading")
+                                          : t("teacher_teams.draft")
+                                      }`}
+                                      disabled={!enableSaveBtn || isDisabled}
+                                    />
+                                    <Button
+                                      type="button"
+                                      style={{ fontSize: "14px" }}
+                                      btnClass="me-1 btn btn-warning"
+                                      onClick={(e) =>
+                                        handleSubmit(e, "SUBMITTED")
+                                      }
+                                      size="small"
+                                      label={t("teacher_teams.submit")}
+                                      disabled={
+                                        !enableSaveBtn ||
+                                        isDisabled ||
+                                        !allValues ||
+                                        !verfiySubmitt
+                                      }
+                                    />
+                                  </>
+                                )}
+                                <button
+                                  className="btn btn-secondary"
+                                  onClick={goToNext}
+                                  style={{
+                                    fontSize: "14px",
+                                  }}
+                                >
+                                  {t("idea_page.next")}
+                                </button>
+                              </Col>
+                            </Row>
+                          ) : (
+                            // ✅ Mobile layout
+                            <>
+                              <Row className="d-sm-none mb-2">
+                                {/* First row: Save as Draft and Submit */}
+                                {formData.status !== "SUBMITTED" && (
+                                  <>
+                                    <Col xs={6}>
+                                      <Button
+                                        type="button"
+                                        btnClass="me-1 btn btn-warning w-100"
+                                        onClick={(e) =>
+                                          handleSubmit(e, "DRAFT")
+                                        }
+                                        size="small"
+                                        style={{ fontSize: "12px" }}
+                                        label={`${
+                                          loading.draft
+                                            ? t("teacher_teams.loading")
+                                            : t("teacher_teams.draft")
+                                        }`}
+                                        disabled={!enableSaveBtn || isDisabled}
+                                      />
+                                    </Col>
+                                    <Col xs={6}>
+                                      <Button
+                                        type="button"
+                                        btnClass="me-1 btn btn-warning w-100"
+                                        onClick={(e) =>
+                                          handleSubmit(e, "SUBMITTED")
+                                        }
+                                        size="small"
+                                        style={{ fontSize: "12px" }}
+                                        label={t("teacher_teams.submit")}
+                                        disabled={
+                                          !enableSaveBtn ||
+                                          isDisabled ||
+                                          !allValues ||
+                                          !verfiySubmitt
+                                        }
+                                      />
+                                    </Col>
+                                  </>
+                                )}
+                              </Row>
+
+                              <Row className="d-sm-none">
+                                {/* Second row: Back and Next */}
+                                <Col className="d-flex justify-content-start">
+                                  <button
+                                    className="btn btn-info"
+                                    onClick={goToBack}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {t("idea_page.back")}
+                                  </button>
+                                </Col>
+                                <Col className="d-flex justify-content-end">
+                                  <button
+                                    className="btn btn-secondary"
+                                    onClick={goToNext}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {t("idea_page.next")}
+                                  </button>
+                                </Col>
+                              </Row>
+                            </>
+                          )}
                         </Row>
                       </div>
                     )}
@@ -1815,14 +2179,161 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                               </div>
                             </div>
                           </div>
-                          <div className="d-flex justify-content-start">
-                            <button
-                              className="btn btn-info "
-                              onClick={goToBack}
-                            >
-                              {t("idea_page.back")}
-                              {/* BACK */}
-                            </button>
+                          <div>
+                            {/* <Row >
+                            <Col className="d-flex justify-content-start">
+                              <button
+                                className="btn btn-info "
+                                onClick={goToBack}
+                                style={{
+                                  fontSize: isMobile ? "12px" : "14px",
+                                }}
+                              >
+                                {t("idea_page.back")}
+                              </button>
+                            </Col>
+                            <Col className="d-flex justify-content-end gap-2">
+                              {formData.status !== "SUBMITTED" && (
+                                <>
+                                  <Button
+                                    type="button"
+                                    btnClass="me-1 btn btn-warning"
+                                    onClick={(e) => handleSubmit(e, "DRAFT")}
+                                    size="small"
+                                    style={{
+                                      fontSize: isMobile ? "12px" : "14px",
+                                    }}
+                                    label={`${
+                                      loading.draft
+                                        ? t("teacher_teams.loading")
+                                        : t("teacher_teams.draft")
+                                    }`}
+                                    disabled={!enableSaveBtn || isDisabled}
+                                  />
+                                  <Button
+                                    type="button"
+                                    style={{
+                                      fontSize: isMobile ? "12px" : "14px",
+                                    }}
+                                    btnClass="me-1 btn btn-warning"
+                                    onClick={(e) =>
+                                      handleSubmit(e, "SUBMITTED")
+                                    }
+                                    size="small"
+                                    label={t("teacher_teams.submit")}
+                                    disabled={
+                                      !enableSaveBtn ||
+                                      isDisabled ||
+                                      !allValues ||
+                                      !verfiySubmitt
+                                    }
+                                  />
+                                </>
+                              )}
+                            </Col>
+                            </Row> */}
+                            {!isMobile ? (
+                              // ✅ Desktop layout (unchanged)
+                              <Row>
+                                <Col className="d-flex justify-content-start">
+                                  <button
+                                    className="btn btn-info"
+                                    onClick={goToBack}
+                                    style={{ fontSize: "14px" }}
+                                  >
+                                    {t("idea_page.back")}
+                                  </button>
+                                </Col>
+                                <Col className="d-flex justify-content-end gap-2">
+                                  {formData.status !== "SUBMITTED" && (
+                                    <>
+                                      <Button
+                                        type="button"
+                                        btnClass="me-1 btn btn-warning"
+                                        onClick={(e) =>
+                                          handleSubmit(e, "DRAFT")
+                                        }
+                                        size="small"
+                                        style={{ fontSize: "14px" }}
+                                        label={`${
+                                          loading.draft
+                                            ? t("teacher_teams.loading")
+                                            : t("teacher_teams.draft")
+                                        }`}
+                                        disabled={!enableSaveBtn || isDisabled}
+                                      />
+                                      <Button
+                                        type="button"
+                                        style={{ fontSize: "14px" }}
+                                        btnClass="me-1 btn btn-warning"
+                                        onClick={(e) =>
+                                          handleSubmit(e, "SUBMITTED")
+                                        }
+                                        size="small"
+                                        label={t("teacher_teams.submit")}
+                                        disabled={
+                                          !enableSaveBtn ||
+                                          isDisabled ||
+                                          !allValues ||
+                                          !verfiySubmitt
+                                        }
+                                      />
+                                    </>
+                                  )}
+                                </Col>
+                              </Row>
+                            ) : (
+                              <Row className="d-sm-none">
+                                {formData.status !== "SUBMITTED" && (
+                                  <>
+                                    <Col xs={6} className="mb-2">
+                                      <Button
+                                        type="button"
+                                        btnClass="me-1 btn btn-warning "
+                                        onClick={(e) =>
+                                          handleSubmit(e, "DRAFT")
+                                        }
+                                        size="small"
+                                        style={{ fontSize: "12px" }}
+                                        label={`${
+                                          loading.draft
+                                            ? t("teacher_teams.loading")
+                                            : t("teacher_teams.draft")
+                                        }`}
+                                        disabled={!enableSaveBtn || isDisabled}
+                                      />
+                                    </Col>
+                                    <Col xs={6} className="mb-2">
+                                      <Button
+                                        type="button"
+                                        style={{ fontSize: "12px" }}
+                                        btnClass="me-1 btn btn-warning"
+                                        onClick={(e) =>
+                                          handleSubmit(e, "SUBMITTED")
+                                        }
+                                        size="small"
+                                        label={t("teacher_teams.submit")}
+                                        disabled={
+                                          !enableSaveBtn ||
+                                          isDisabled ||
+                                          !allValues ||
+                                          !verfiySubmitt
+                                        }
+                                      />
+                                    </Col>
+                                  </>
+                                )}
+                                <Col xs={12}>
+                                  <button
+                                    className="btn btn-info"
+                                    onClick={goToBack}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {t("idea_page.back")}
+                                  </button>
+                                </Col>
+                              </Row>
+                            )}
                           </div>
                         </Row>
                       </div>

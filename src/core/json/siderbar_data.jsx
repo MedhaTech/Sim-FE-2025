@@ -68,14 +68,14 @@ useEffect(() => {
  
   return( [
     {
-      label:"Team",
+      label: t("home.team"),
       submenuOpen: true,
       showSubRoute: false,
       submenuHdr: "Inventory",
       role: "TEAM",
       submenuItems: [
         {
-          label: "Team Dashboard",
+           label: t("home.team_dashboard"),
           link: "/team-dashboard",
           icon: <Icon.Grid />,
           showSubRoute: false,
@@ -83,7 +83,7 @@ useEffect(() => {
           submenu: false,
         },
         {
-          label:"Resources",
+          label: t("home.resources"),
           link: "/studentresource",
           icon: <Icon.FilePlus />,
           role: "TEAM",

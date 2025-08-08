@@ -27,7 +27,7 @@ const MultiTeacher = ({
   approveideaCount,
 }) => {
   const { t } = useTranslation();
-console.log(teamsCount,"tC",ideaCount,"ic",approveideaCount,"ac");
+// console.log(teamsCount,"tC",ideaCount,"ic",approveideaCount,"ac");
   const steps = [
     {
       name: t("teacherJourney.add1"),

@@ -10,9 +10,11 @@ import male from "../assets/img/Male_Profile.png";
 import team1 from "../assets/img/icons/team.svg";
 import user from "../assets/img/user.png";
 import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const TeacherProfile = () => {
   const location = useLocation();
+const { t } = useTranslation();
 
   const currentUser = getCurrentUser("current_user");
   const navigate = useNavigate();
@@ -21,7 +23,7 @@ const TeacherProfile = () => {
       <div className="content">
         <div className="page-header">
           <div className="page-title">
-            <h4>My Profile</h4>
+            <h4>{t("home.my_profile")}</h4>
           </div>
         </div>
         <div className="card">
@@ -52,7 +54,7 @@ const TeacherProfile = () => {
             <div className="row">
             <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
-                  <label>Team Name</label>
+                  <label> {t("teacherJourney.tname")}</label>
                   <input
                     type="email"
                     className="form-control"
@@ -63,7 +65,7 @@ const TeacherProfile = () => {
               </div>
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label">Team Username</label>
+                  <label className="form-label">{t("teacherJourney.TeamUsername")}</label>
                   <input
                     type="text"
                     defaultValue={currentUser?.data[0]?.name}
@@ -73,7 +75,7 @@ const TeacherProfile = () => {
               </div>
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label">Student Full Name</label>
+                  <label className="form-label">{t("teacherJourney.StudentFullName")}</label>
                   <input
                     type="text"
                     className="form-control"
@@ -84,7 +86,7 @@ const TeacherProfile = () => {
               </div>
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label">Age</label>
+                  <label className="form-label">{t("teacherJourney.age")}</label>
                   <input
                     type="text"
                     className="form-control"
@@ -95,7 +97,7 @@ const TeacherProfile = () => {
               </div>
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label">Class</label>
+                  <label className="form-label">{t("teacherJourney.class")}</label>
                   <input
                     type="text"
                     className="form-control"
@@ -106,7 +108,7 @@ const TeacherProfile = () => {
               </div>
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label">Gender</label>
+                  <label className="form-label">{t("teacherJourney.gender")}</label>
                   <input
                     type="text"
                     className="form-control"
@@ -117,7 +119,7 @@ const TeacherProfile = () => {
               </div>
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label">Disability</label>
+                  <label className="form-label">{t("teacherJourney.disability")}</label>
                   <input
                     type="text"
                     className="form-control"
@@ -130,7 +132,7 @@ const TeacherProfile = () => {
               
               <div className="col-lg-6 col-sm-12">
                 <div className="input-blocks">
-                  <label className="form-label">State</label>
+                  <label className="form-label">{t("teacherJourney.State")}</label>
                   <input
                     type="text"
                     className="form-control"
