@@ -1005,7 +1005,9 @@
     "image": "Descriptive Document/Image of your prototype",
     "link": "Clear Video Explaining your Solution",
     "linkadd": " [Only YouTube Video Links are Accepted.]",
-
+"select_theme": "Please select the Theme",
+"select_focus_area": "Please select the Focus Area",
+ "select_language": "Please select the Language",
     "note": "Note: (Both Video & Document/Image have to be uploaded, Max Size of two files together is 10MB)",
     "filetext": "File Upload is mandatory *",
     "workbookq": "Did your team complete and submit the workbook to your school Guide teacher?",
