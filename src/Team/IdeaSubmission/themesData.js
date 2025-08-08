@@ -75,72 +75,65 @@ export const focusareasListTranslationKeys = {
   lifestyletheme: [
     {
       value: "Eco-friendly Packaging",
-      labelKey: "lifestylethemefocusareas.focusarea1",
+      labelKey: "lifestylefocusareas.focusarea1",
     },
     {
       value: "Sustainable Fashion",
-      labelKey: "lifestylethemefocusareas.focusarea2",
+      labelKey: "lifestylefocusareas.focusarea2",
     },
     {
       value: "Recycling and Waste Management",
-      labelKey: "lifestylethemefocusareas.focusarea3",
+      labelKey: "lifestylefocusareas.focusarea3",
     },
   ],
   culturaltheme: [
     {
       value: "Digital Preservation of Heritage",
-      labelKey: "culturalthemefocusareas.focusarea1",
+      labelKey: "culturalfocusareas.focusarea1",
     },
     {
       value: "Promoting Indigenous Art",
-      labelKey: "culturalthemefocusareas.focusarea2",
+      labelKey: "culturalfocusareas.focusarea2",
     },
     {
       value: "Cultural Education Platforms",
-      labelKey: "culturalthemefocusareas.focusarea3",
+      labelKey: "culturalfocusareas.focusarea3",
     },
   ],
   tribaltheme: [
     {
       value: "Tribal Skill Development",
-      labelKey: "tribalthemefocusareas.focusarea1",
+      labelKey: "tribalfocusareas.focusarea1",
     },
     {
       value: "Healthcare Access for Tribals",
-      labelKey: "tribalthemefocusareas.focusarea2",
+      labelKey: "tribalfocusareas.focusarea2",
     },
     {
       value: "Market Linkages for Tribal Products",
-      labelKey: "tribalthemefocusareas.focusarea3",
+      labelKey: "tribalfocusareas.focusarea3",
     },
   ],
   futuretheme: [
     {
       value: "Coding and Robotics",
-      labelKey: "futurethemefocusareas.focusarea1",
+      labelKey: "futurefocusareas.focusarea1",
     },
     {
       value: "AI and Machine Learning Education",
-      labelKey: "futurethemefocusareas.focusarea2",
+      labelKey: "futurefocusareas.focusarea2",
     },
     {
       value: "21st Century Soft Skills",
-      labelKey: "futurethemefocusareas.focusarea3",
+      labelKey: "futurefocusareas.focusarea3",
     },
   ],
   localtheme: [
     {
-      value: "Waste Management Solutions",
-      labelKey: "localthemefocusareas.focusarea1",
+      value: "Other",
+      labelKey: "localfocusareas.focusarea1",
     },
-    {
-      value: "Traffic Management Tools",
-      labelKey: "localthemefocusareas.focusarea2",
-    },
-    {
-      value: "Public Health Monitoring",
-      labelKey: "localthemefocusareas.focusarea3",
-    },
+   
   ],
 };
 

@@ -67,7 +67,7 @@ const InstructionsPage = (props) => {
         console.log(error);
       });
   }
-console.log(teamsMembersStatus,"team");
+// console.log(teamsMembersStatus,"team");
 //   useEffect(() => {
 //     if (
 //       teamsMembersStatus.length >= minLength &&

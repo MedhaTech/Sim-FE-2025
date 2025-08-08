@@ -318,7 +318,7 @@ const themeKey = themeTranslationKeys[selectedTheme];
 
     setFocus(mappedFocus);
     }
-  }, [formData.theme]);
+  }, [formData.theme,localStorage.getItem("s_language")]);
   useEffect(() => {
     setTheme(
       props?.theme !== "" && props?.theme !== undefined
@@ -445,6 +445,7 @@ const themeKey = themeTranslationKeys[selectedTheme];
     stakeholders === null ||
     problemSolving === "" ||
     problemSolving === null ||
+      (Array.isArray(problemSolving) && problemSolving.length === 0) ||
     feedback === "" ||
     feedback === null ||
     prototypeLink === "" ||
@@ -706,6 +707,8 @@ const themeKey = themeTranslationKeys[selectedTheme];
         stakeholders === null ||
         problemSolving === "" ||
         problemSolving === null ||
+      (Array.isArray(problemSolving) && problemSolving.length === 0) ||
+
         feedback === "" ||
         feedback === null ||
         prototypeLink === "" ||
