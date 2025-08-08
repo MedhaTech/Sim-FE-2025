@@ -14,8 +14,8 @@ import {
 } from "reactstrap";
 import { useFormik } from "formik";
 import { URL, KEY } from "../../constants/defaultValues";
-import { getLanguage } from '../../constants/languageOptions';
-import i18n from 'i18next';
+import { getLanguage } from "../../constants/languageOptions";
+import i18n from "i18next";
 import { logout } from "../../helpers/Utils";
 import logoutIcon from "../../assets/img/icons/log-out.svg";
 import {
@@ -32,16 +32,17 @@ import { useTranslation } from "react-i18next";
 import { encryptGlobal } from "../../constants/encryptDecrypt";
 
 const PreSurvey = () => {
-  const language = useSelector((state) => state?.mentors?.mentorLanguage);
+  // const language = useSelector((state) => state?.mentors?.mentorLanguage);
   // here we can attempt all the questions then we are able to download the certificate //
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
-   const [whatsappLink, setWhatsappLink] = useState("");
-   const [hovered, setHovered] = useState(false);
+  const [whatsappLink, setWhatsappLink] = useState("");
+  const [hovered, setHovered] = useState(false);
   const [preSurveyList, setPreSurveyList] = useState([]);
   const currentUser = getCurrentUser("current_user");
+    const language = localStorage.getItem("m_language");
   const [quizSurveyId, setQuizSurveyId] = useState(0);
   const [count, setCount] = useState(0);
   const [preSurveyStatus, setPreSurveyStatus] = useState("");
@@ -71,7 +72,7 @@ const PreSurvey = () => {
     logout(navigate, t, "MENTOR");
     e.preventDefault();
   };
- 
+
   const handleOnChange = (e) => {
     let newItems = [...answerResponses];
     let obj = {
@@ -122,7 +123,7 @@ const PreSurvey = () => {
         user_id: userID,
       })
     );
-    
+
     let submitData = {
       responses: answerResponses,
     };
@@ -132,8 +133,8 @@ const PreSurvey = () => {
     if (preSurveyList.length != nonEmptySelectedOptions.length) {
       openNotificationWithIcon(
         "warning",
-            t('student.attempt_all_questions'),
-            ""
+        t("student.attempt_all_questions"),
+        ""
       );
     } else {
       const quizSurveyIdParam = encryptGlobal(JSON.stringify(quizSurveyId));
@@ -145,11 +146,7 @@ const PreSurvey = () => {
         )
         .then((preSurveyRes) => {
           if (preSurveyRes?.status == 200) {
-            openNotificationWithIcon(
-                             "success",
-                             t('home.precong'),
-                             ""
-                           );
+            openNotificationWithIcon("success", t("home.precong"), "");
 
             setCount(count + 1);
             localStorage.setItem("presurveystatus", "COMPLETED");
@@ -162,7 +159,6 @@ const PreSurvey = () => {
         });
     }
   };
- 
 
   useEffect(() => {
     const handlePopState = (event) => {
@@ -178,21 +174,22 @@ const PreSurvey = () => {
       window.removeEventListener("popstate", handlePopState);
     };
   }, []);
+  const fetchData = () => {
 
-  useEffect(() => {
-    let enDataone = encryptGlobal("1");
-    let axiosConfig = getNormalHeaders(KEY.User_API_Key);
-    // const lang = "locale=en";
-    // const final = lang.split("=");
-     const locale = getLanguage(language);
-     console.log(locale,"tt");
-    let enParamData = encryptGlobal(
+    const locale = getLanguage(JSON.parse(language));
+    console.log(locale,"ll");
+
+    const enDataone = encryptGlobal("1");
+    const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+
+    const enParamData = encryptGlobal(
       JSON.stringify({
         role: "MENTOR",
         locale,
         user_id: userID,
       })
     );
+
     axiosConfig["params"] = {
       Data: enParamData,
     };
@@ -200,7 +197,7 @@ const PreSurvey = () => {
     axios
       .get(`${URL.getPreSurveyList}/${enDataone}`, axiosConfig)
       .then((preSurveyRes) => {
-        if (preSurveyRes?.status == 200) {
+        if (preSurveyRes?.status === 200) {
           setQuizSurveyId(preSurveyRes.data.data[0].quiz_survey_id);
           setPreSurveyStatus(preSurveyRes.data.data[0].progress);
           let allQuestions = preSurveyRes.data.data[0];
@@ -208,64 +205,92 @@ const PreSurvey = () => {
         }
       })
       .catch((err) => {
-        return err.response;
+        console.error("API error:", err);
       });
-  }, [count]);
+  };
+  useEffect(() => {
+    fetchData();
+   
+    // let enDataone = encryptGlobal("1");
+    // let axiosConfig = getNormalHeaders(KEY.User_API_Key);
+    //  const locale = getLanguage(language);
+    //  console.log(locale,"tt");
+    // let enParamData = encryptGlobal(
+    //   JSON.stringify({
+    //     role: "MENTOR",
+    //     locale,
+    //     user_id: userID,
+    //   })
+    // );
+    // axiosConfig["params"] = {
+    //   Data: enParamData,
+    // };
+
+    // axios
+    //   .get(`${URL.getPreSurveyList}/${enDataone}`, axiosConfig)
+    //   .then((preSurveyRes) => {
+    //     if (preSurveyRes?.status == 200) {
+    //       setQuizSurveyId(preSurveyRes.data.data[0].quiz_survey_id);
+    //       setPreSurveyStatus(preSurveyRes.data.data[0].progress);
+    //       let allQuestions = preSurveyRes.data.data[0];
+    //       setPreSurveyList(allQuestions.quiz_survey_questions);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     return err.response;
+    //   });
+  }, [count, language]);
   useEffect(() => {
     const linkEl = document.getElementById("whatsappLink");
     if (linkEl) {
-      linkEl.style.cursor = "pointer"; 
+      linkEl.style.cursor = "pointer";
       linkEl.addEventListener("click", fetchwhatsapplink);
     }
-  
+
     return () => {
       if (linkEl) {
-        linkEl.removeEventListener("click", fetchwhatsapplink); 
+        linkEl.removeEventListener("click", fetchwhatsapplink);
       }
     };
   }, []);
-const fetchwhatsapplink = () => {
-  // Function to fetch the WhatsApp link from the API
-  const statenameApi = encryptGlobal(
-    JSON.stringify({
-      state_name: currentUser?.data[0]?.state,
-    })
-  );
-  var config = {
-    method: "get",
-    url:
-      process.env.REACT_APP_API_BASE_URL +
-      `/dashboard/whatappLink?Data=${statenameApi}`,
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${currentUser.data[0]?.token}`,
-    },
+  const fetchwhatsapplink = () => {
+    // Function to fetch the WhatsApp link from the API
+    const statenameApi = encryptGlobal(
+      JSON.stringify({
+        state_name: currentUser?.data[0]?.state,
+      })
+    );
+    var config = {
+      method: "get",
+      url:
+        process.env.REACT_APP_API_BASE_URL +
+        `/dashboard/whatappLink?Data=${statenameApi}`,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${currentUser.data[0]?.token}`,
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        if (response.status === 200) {
+          const responseData = response?.data?.data?.[0];
+          const link = responseData?.whatapp_link;
+          setWhatsappLink(link);
+
+          setTimeout(() => {
+            if (link && typeof link === "string") {
+              window.open(link, "_blank");
+            } else {
+              console.error("Invalid or missing WhatsApp link");
+            }
+          }, 1000);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
-  axios(config)
-    .then(function (response) {
-      if (response.status === 200) {
-        const responseData = response?.data?.data?.[0];
-        const link = responseData?.whatapp_link;
-        setWhatsappLink(link);
-        
-        setTimeout(()=>{
-          if (link && typeof link === "string") {
-            window.open(link, '_blank');
-          } else {
-            console.error("Invalid or missing WhatsApp link");
-          }
-        },1000);
-       
-
-       
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-};
-
 
   return (
     <div>
@@ -280,7 +305,7 @@ const fetchwhatsapplink = () => {
                   !show ? (
                     <CardBody>
                       <Row>
-                        <Col md={4} style={{alignContent:"center"}}>
+                        <Col md={4} style={{ alignContent: "center" }}>
                           <figure>
                             <img
                               src={getStart}
@@ -291,63 +316,66 @@ const fetchwhatsapplink = () => {
                         </Col>
                         <Col md={8}>
                           <h2 className="text-danger">
-                         {t("teacherJourney.headings")}
+                            {t("teacherJourney.headings")}
                           </h2>
-                         
-                           <div>
-      <br />
-      <p>{t("teacherJourney.introText")}</p>
 
-       <b className="text-success">{t("teacherJourney.milestoneIntro")}</b>
-      <br />
-      <p>
-         {t("teacherJourney.whatsappInstruction")}{" "}
-        <span
-          onClick={fetchwhatsapplink}
-          onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        style={{
-          color: hovered ? "green" : "black",
-          cursor: "pointer",
-          textDecoration: "none",
-          fontWeight: "bold",
-        }}
-        >
-          {t("teacherJourney.whatsappGroup")}
-        </span>{" "}
-         {t("teacherJourney.whatsappEndText")}
-      </p>
+                          <div>
+                            <br />
+                            <p>{t("teacherJourney.introText")}</p>
 
-      <ol>
-         <li>{t("teacherJourney.step1")}</li>
-      <li>{t("teacherJourney.step2")}</li>
-      <li>{t("teacherJourney.step3")}</li>
-      <li>{t("teacherJourney.step4")}</li>
-      <li>{t("teacherJourney.step5")}</li>
-      <li>{t("teacherJourney.step6")}</li>
-      <li>{t("teacherJourney.step7")}</li>
-      <li>{t("teacherJourney.step8")}</li>
-      <li>{t("teacherJourney.step9")}</li>
-      </ol>
+                            <b className="text-success">
+                              {t("teacherJourney.milestoneIntro")}
+                            </b>
+                            <br />
+                            <p>
+                              {t("teacherJourney.whatsappInstruction")}{" "}
+                              <span
+                                onClick={fetchwhatsapplink}
+                                onMouseEnter={() => setHovered(true)}
+                                onMouseLeave={() => setHovered(false)}
+                                style={{
+                                  color: hovered ? "green" : "black",
+                                  cursor: "pointer",
+                                  textDecoration: "none",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                {t("teacherJourney.whatsappGroup")}
+                              </span>{" "}
+                              {t("teacherJourney.whatsappEndText")}
+                            </p>
 
-      <br />
-      <p>
-         {t("teacherJourney.closingText")}
-        <br />
-         {t("teacherJourney.goodLuck")}
-      </p>
-    </div>
+                            <ol>
+                              <li>{t("teacherJourney.step1")}</li>
+                              <li>{t("teacherJourney.step2")}</li>
+                              <li>{t("teacherJourney.step3")}</li>
+                              <li>{t("teacherJourney.step4")}</li>
+                              <li>{t("teacherJourney.step5")}</li>
+                              <li>{t("teacherJourney.step6")}</li>
+                              <li>{t("teacherJourney.step7")}</li>
+                              <li>{t("teacherJourney.step8")}</li>
+                              <li>{t("teacherJourney.step9")}</li>
+                            </ol>
+
+                            <br />
+                            <p>
+                              {t("teacherJourney.closingText")}
+                              <br />
+                              {t("teacherJourney.goodLuck")}
+                            </p>
+                          </div>
                           <button
                             className="btn btn-primary m-3"
                             onClick={handleStart}
                           >
-                              {t("teacherJourney.startNow")}
+                            {t("teacherJourney.startNow")}
                           </button>
                           <button
                             className="btn btn-secondary"
                             onClick={handleLogout}
                           >
-                            <img src={logoutIcon} alt="LogoutIcon" /> {t("teacherJourney.doLater")}
+                            <img src={logoutIcon} alt="LogoutIcon" />{" "}
+                            {t("teacherJourney.doLater")}
                           </button>
                         </Col>
                       </Row>
@@ -357,10 +385,7 @@ const fetchwhatsapplink = () => {
                       <h4> {t("teacherJourney.PreSurvey")}</h4>
 
                       {preSurveyStatus != "COMPLETED" && (
-                        <Form
-                          className="form-row"
-                          
-                        >
+                        <Form className="form-row">
                           {preSurveyList.map((eachQuestion, i) => {
                             return (
                               <Row key={i}>
@@ -370,7 +395,7 @@ const fetchwhatsapplink = () => {
                                       {i + 1}. {eachQuestion.question}
                                     </h6>
                                   </div>
-                                 
+
                                   <div className="answers">
                                     <FormGroup
                                       tag="fieldset"
@@ -673,7 +698,6 @@ const fetchwhatsapplink = () => {
                           <div>
                             <button
                               type="submit"
-                             
                               className="btn btn-warning m-2"
                               onClick={(e) => handleOnSubmit(e)}
                             >
@@ -692,10 +716,7 @@ const fetchwhatsapplink = () => {
                             ></img>
                           </figure>
                           <div>
-                            <h4>
-                               {t("teacherJourney.texts")}
-                             
-                            </h4>
+                            <h4>{t("teacherJourney.texts")}</h4>
                           </div>
                         </div>
                       )}

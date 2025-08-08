@@ -34,7 +34,8 @@ const PostSurvey = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   //   const history = useHistory();
-  const language = useSelector((state) => state?.mentors?.mentorLanguage);
+  // const language = useSelector((state) => state?.mentors?.mentorLanguage);
+    const language = localStorage.getItem("m_language");
 
   const [postSurveyList, setPostSurveyList] = useState([]);
   const currentUser = getCurrentUser("current_user");
@@ -242,9 +243,8 @@ const PostSurvey = () => {
   useEffect(() => {
     let enDataone = encryptGlobal("3");
     let axiosConfig = getNormalHeaders(KEY.User_API_Key);
-    // const lang = "locale=en";
-    // const final = lang.split("=");
- const locale = getLanguage(language);
+//  const locale = getLanguage(language);
+    const locale = getLanguage(JSON.parse(language));
 
     let enParamData = encryptGlobal(
       JSON.stringify({
