@@ -19,6 +19,132 @@ export const themesList = [
   "Future-Ready Skills",
   "Local Community Problems (Open Innovation)",
 ];
+export const themeTranslationKeys = {
+  "Health & Wellness": "themes.healthwellnesstheme",
+  "Women & Child Development": "themes.womenchildtheme",
+  "Water": "themes.watertheme",
+  "Lifestyle for Environment (LiFE)": "themes.lifestyletheme",
+  "Cultural Pride": "themes.culturaltheme",
+  "Tribal Empowerment": "themes.tribaltheme",
+  "Future-Ready Skills": "themes.futuretheme",
+  "Local Community Problems (Open Innovation)": "themes.localtheme",
+};
+export const focusareasListTranslationKeys = {
+  healthwellnesstheme: [
+    {
+      value: "Devices for Fitness and Preventive Health",
+      labelKey: "healthwellnessfocusareas.focusarea1",
+    },
+    {
+      value: "Mental Health and Well-being",
+      labelKey: "healthwellnessfocusareas.focusarea2",
+    },
+    {
+      value: "Nutrition and Diet Tracking",
+      labelKey: "healthwellnessfocusareas.focusarea3",
+    },
+  ],
+  womenchildtheme: [
+    {
+      value: "Maternal Health Support",
+      labelKey: "womenchildfocusareas.focusarea1",
+    },
+    {
+      value: "Child Safety & Education",
+      labelKey: "womenchildfocusareas.focusarea2",
+    },
+    {
+      value: "Women Empowerment Platforms",
+      labelKey: "womenchildfocusareas.focusarea3",
+    },
+  ],
+  watertheme: [
+    {
+      value: "Water Conservation Technology",
+      labelKey: "waterfocusareas.focusarea1",
+    },
+    {
+      value: "Clean Drinking Water Solutions",
+      labelKey: "waterfocusareas.focusarea2",
+    },
+    {
+      value: "Smart Irrigation Systems",
+      labelKey: "waterfocusareas.focusarea3",
+    },
+  ],
+  lifestyletheme: [
+    {
+      value: "Eco-friendly Packaging",
+      labelKey: "lifestylethemefocusareas.focusarea1",
+    },
+    {
+      value: "Sustainable Fashion",
+      labelKey: "lifestylethemefocusareas.focusarea2",
+    },
+    {
+      value: "Recycling and Waste Management",
+      labelKey: "lifestylethemefocusareas.focusarea3",
+    },
+  ],
+  culturaltheme: [
+    {
+      value: "Digital Preservation of Heritage",
+      labelKey: "culturalthemefocusareas.focusarea1",
+    },
+    {
+      value: "Promoting Indigenous Art",
+      labelKey: "culturalthemefocusareas.focusarea2",
+    },
+    {
+      value: "Cultural Education Platforms",
+      labelKey: "culturalthemefocusareas.focusarea3",
+    },
+  ],
+  tribaltheme: [
+    {
+      value: "Tribal Skill Development",
+      labelKey: "tribalthemefocusareas.focusarea1",
+    },
+    {
+      value: "Healthcare Access for Tribals",
+      labelKey: "tribalthemefocusareas.focusarea2",
+    },
+    {
+      value: "Market Linkages for Tribal Products",
+      labelKey: "tribalthemefocusareas.focusarea3",
+    },
+  ],
+  futuretheme: [
+    {
+      value: "Coding and Robotics",
+      labelKey: "futurethemefocusareas.focusarea1",
+    },
+    {
+      value: "AI and Machine Learning Education",
+      labelKey: "futurethemefocusareas.focusarea2",
+    },
+    {
+      value: "21st Century Soft Skills",
+      labelKey: "futurethemefocusareas.focusarea3",
+    },
+  ],
+  localtheme: [
+    {
+      value: "Waste Management Solutions",
+      labelKey: "localthemefocusareas.focusarea1",
+    },
+    {
+      value: "Traffic Management Tools",
+      labelKey: "localthemefocusareas.focusarea2",
+    },
+    {
+      value: "Public Health Monitoring",
+      labelKey: "localthemefocusareas.focusarea3",
+    },
+  ],
+};
+
+
 export const focusareasList = {
   "Health & Wellness": [
     "Devices for Fitness and Preventive Health",
@@ -60,6 +186,9 @@ export const focusareasList = {
    
   ],
 };
+
+
+
 
 export const themes = [
   {

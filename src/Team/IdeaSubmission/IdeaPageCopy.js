@@ -31,7 +31,13 @@ import "sweetalert2/src/sweetalert2.scss";
 import moment from "moment";
 
 import { encryptGlobal } from "../../constants/encryptDecrypt";
-import { themes, themesList, focusareasList } from "./themesData";
+import {
+  themes,
+  themesList,
+  focusareasList,
+  themeTranslationKeys,
+  focusareasListTranslationKeys,
+} from "./themesData";
 import { languageOptions } from "../../RegPage/ORGData";
 import { FiPlayCircle } from "react-icons/fi";
 import FilePreviewModal from "../../Evaluator/IdeaList/Modal";
@@ -221,6 +227,11 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     { value: "YES", label: t("ideaform_questions.workbookyes") },
     { value: "NO", label: t("ideaform_questions.workbookno") },
   ];
+  const translatedThemes = themesList.map((theme) => ({
+    value: theme,
+    label: t(themeTranslationKeys[theme]) || theme,
+  }));
+
   const people = [
     { value: "None", label: t("ideaform_questions.stakeholdersop1") },
     { value: "2-4 people", label: t("ideaform_questions.stakeholdersop2") },
@@ -266,7 +277,17 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
       setFocus([]);
       setFocusArea("");
     } else {
-      setFocus(focusareasList[selectedTheme] || []);
+      // setFocus(focusareasList[selectedTheme] || []);
+const themeKey = themeTranslationKeys[selectedTheme]; 
+    const focusKey = themeKey?.replace("themes.", "");    
+    const keys = focusareasListTranslationKeys[focusKey] || [];
+
+    const mappedFocus = keys.map((item) => ({
+      value: item.value,        
+      label: t(item.labelKey),  
+    }));
+
+    setFocus(mappedFocus);
     }
   };
   const handleFocusAreaChange = (e) => {
@@ -285,7 +306,17 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     if (activeTheme === "Others") {
       setFocus([]);
     } else {
-      setFocus(focusareasList[activeTheme] || []);
+      // setFocus(focusareasList[activeTheme] || []);
+      const themeKey = themeTranslationKeys[activeTheme]; 
+    const focusKey = themeKey?.replace("themes.", "");   
+    const keys = focusareasListTranslationKeys[focusKey] || [];
+
+    const mappedFocus = keys.map((item) => ({
+      value: item.value,       
+      label: t(item.labelKey),  
+    }));
+
+    setFocus(mappedFocus);
     }
   }, [formData.theme]);
   useEffect(() => {
@@ -933,7 +964,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                             {t("idea_page.review")} :
                             {formData?.verified_status === null ||
                             formData?.verified_status === ""
-                              ?  t("teacherJourney.yet")
+                              ? t("teacherJourney.yet")
                               : formData?.verified_status === "ACCEPTED"
                               ? ` Accepted on ${moment(
                                   formData?.verified_at
@@ -1075,15 +1106,24 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 id="theme"
                               >
                                 <option value={""}>
-                                  Please select the Theme
+                                  {t("ideaform_questions.select_theme")}
                                 </option>
-                                {themesList.map((item, i) => (
+                                {/* {translatedThemes.map((item, i) => (
                                   <option
                                     key={i}
                                     value={item}
                                     selected={item === theme}
                                   >
                                     {item}
+                                  </option>
+                                ))} */}
+                                {translatedThemes.map((item, i) => (
+                                  <option
+                                    key={i}
+                                    value={item.value}
+                                    selected={item.value === theme}
+                                  >
+                                    {item.label}
                                   </option>
                                 ))}
                               </select>
@@ -1122,17 +1162,24 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                   disabled={isDisabled}
                                   name="focusarea"
                                   id="focusarea"
+                                  // added
+                                   value={focusarea} 
                                 >
                                   <option value={""}>
-                                    Please select the Focus Area
+                                    {t("ideaform_questions.select_focus_area")}
                                   </option>
-                                  {focus.map((item, i) => (
+                                  {/* {focus.map((item, i) => (
                                     <option
                                       key={i}
                                       value={item}
                                       selected={item === focusarea}
                                     >
                                       {item}
+                                    </option>
+                                  ))} */}
+                                  {focus.map((item) => (
+                                    <option key={item.value} value={item.value}>
+                                      {item.label}
                                     </option>
                                   ))}
                                 </select>
@@ -1159,7 +1206,7 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
                                 id="theme"
                               >
                                 <option value={""}>
-                                  Please select the Language
+                                     {t("ideaform_questions.select_language")}
                                 </option>
                                 {languageOptions.map((item, i) => (
                                   <option
