@@ -445,6 +445,7 @@ const themeKey = themeTranslationKeys[selectedTheme];
     stakeholders === null ||
     problemSolving === "" ||
     problemSolving === null ||
+      (Array.isArray(problemSolving) && problemSolving.length === 0) ||
     feedback === "" ||
     feedback === null ||
     prototypeLink === "" ||
@@ -706,6 +707,8 @@ const themeKey = themeTranslationKeys[selectedTheme];
         stakeholders === null ||
         problemSolving === "" ||
         problemSolving === null ||
+      (Array.isArray(problemSolving) && problemSolving.length === 0) ||
+
         feedback === "" ||
         feedback === null ||
         prototypeLink === "" ||
