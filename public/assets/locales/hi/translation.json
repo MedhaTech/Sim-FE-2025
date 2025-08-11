@@ -63,6 +63,8 @@
     "error:job_type": "Invalid Job Type"
   },
   "teacherJourney": {
+    "Locked":"लॉक किया गया",
+
     "common.hi": "नमस्ते",
     "common.login": "लॉगिन",
     "common.class_suffix": "वीं कक्षा",
@@ -814,6 +816,7 @@
     "req": "Required",
     "continue": "CONTINUE",
     "clear": "CLEAR",
+
     "error_vali": "<p>Entered Unique Code is Invalid. <u>Click here</u> to request to Add School Information.</p>",
     "school": "School",
     "city": "City",
@@ -827,7 +830,7 @@
     "teacher_gender_female": "Female",
     "teacher_gender_others": "Others",
 
-    "title": "Title",
+    "title": "शीर्षक",
     "teacher_title": "Select Title",
     "teacher_title_drs": "Dr",
     "teacher_title_mrs": "Mr",

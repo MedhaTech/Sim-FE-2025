@@ -244,6 +244,7 @@
     "actions": "Actions",
     "age": "Age",
     "class": "Class",
+    "Locked":"Locked",
     "gender": "Gender",
     "addstudentheading": "Team and Students Registration into SIM",
     "subheading": "Create new team and add students",

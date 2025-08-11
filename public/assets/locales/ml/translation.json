@@ -64,6 +64,8 @@
     "error:job_type": "Invalid Job Type"
   },
   "teacherJourney": {
+    "Locked":"ലോക്ക് ചെയ്തു",
+
     "common.hi": "ഹായ്",
     "common.login": "ലോഗിൻ",
     "common.class_suffix": "ആം ക്ലാസ്",
@@ -858,7 +860,7 @@
     "teacher_gender_female": "Female",
     "teacher_gender_others": "Others",
 
-    "title": "Title",
+    "title": "ശീർഷകം",
     "teacher_title": "Select Title",
     "teacher_title_drs": "Dr",
     "teacher_title_mrs": "Mr",
