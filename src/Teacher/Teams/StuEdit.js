@@ -28,6 +28,7 @@ const StuEdit = () => {
   const location = useLocation();
   const studentData = location.state || {};
    const { t } = useTranslation();
+    const StudentsDaTa = JSON.parse(localStorage.getItem('studentData'));
   
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -35,11 +36,11 @@ const StuEdit = () => {
   const allowedAge = [10, 11, 12, 13, 14, 15, 16, 17, 18];
   const formik = useFormik({
     initialValues: {
-      fullName: studentData && studentData.full_name,
-      age: JSON.stringify(studentData && studentData.Age),
-      grade: studentData && studentData.Grade,
-      gender: studentData && studentData.Gender,
-      disability: studentData && studentData.disability,
+      fullName: StudentsDaTa && StudentsDaTa.full_name,
+      age: JSON.stringify(StudentsDaTa && StudentsDaTa.Age),
+      grade: StudentsDaTa && StudentsDaTa.Grade,
+      gender: StudentsDaTa && StudentsDaTa.Gender,
+      disability: StudentsDaTa && StudentsDaTa.disability,
         // email: studentData && studentData.email,
     },
 
@@ -75,7 +76,7 @@ const StuEdit = () => {
 
     onSubmit: (values) => {
       const body = {
-        team_id: studentData.team_id,
+        team_id: StudentsDaTa.team_id,
         role: "STUDENT",
        
 
@@ -84,13 +85,13 @@ const StuEdit = () => {
         disability: values.disability,
         Gender: values.gender,
       };
-      if (studentData && studentData.full_name !== values.fullName) {
+      if (StudentsDaTa && StudentsDaTa.full_name !== values.fullName) {
         body["full_name"] = values.fullName;
       }
       // if (studentData && studentData.email !== values.email) {
       //   body["email"] = values.email;
       // }
-      const teamparamId = encryptGlobal(JSON.stringify(studentData.student_id));
+      const teamparamId = encryptGlobal(JSON.stringify(StudentsDaTa.student_id));
       var config = {
         method: "put",
         url: process.env.REACT_APP_API_BASE_URL + "/students/" + teamparamId,
@@ -107,7 +108,8 @@ const StuEdit = () => {
               "success",
               t('teacherJourney.popup5'),
             );
-            dispatch(getAdminTeamMembersList(studentData.team_id));
+            localStorage.removeItem('studentData');
+            dispatch(getAdminTeamMembersList(StudentsDaTa.team_id));
             navigate("/mentorteams");
           } else {
             openNotificationWithIcon("error", "Opps! Something Wrong");
@@ -129,16 +131,16 @@ const StuEdit = () => {
                 <div className="profile-top">
                   <div className="profile-content">
                     <div className="profile-contentimg">
-                      {studentData.Gender === "Male" || studentData.Gender === "MALE" ? (
+                      {StudentsDaTa.Gender === "Male" || StudentsDaTa.Gender === "MALE" ? (
                         <img src={male} alt="Male" id="blah" />
-                      ) : ((studentData.Gender === "Female" || studentData.Gender === "FEMALE")?(
+                      ) : ((StudentsDaTa.Gender === "Female" || StudentsDaTa.Gender === "FEMALE")?(
                         <img src={female} alt="Female" id="blah" />):(<img src={user} alt="user" id="blah" />)
                       )}
                       
                       <div className="profileupload"></div>
                     </div>
                     <div className="profile-contentname">
-                      <h2>{studentData.full_name}</h2>
+                      <h2>{StudentsDaTa.full_name}</h2>
                     </div>
                   </div>
                 </div>
