@@ -66,7 +66,7 @@ const BadgesComp = () => {
                                             <CardSubtitle className="badge-date">
                                                 {t('teacherJourney.EARNEDON')}:{' '}
                                                 <span className="badge-time">
-                                                    {badge?.student_status ? moment(badge?.student_status).format("DD MMM YYYY") :"Locked"}
+                                                    {badge?.student_status ? moment(badge?.student_status).format("DD MMM YYYY") :t("teacherJourney.locked")}
                                                 </span>
                                             </CardSubtitle>
                                         </CardBody>

@@ -2062,7 +2062,7 @@ const themeKey = themeTranslationKeys[selectedTheme];
                                         fontSize: "10px",
                                       }}
                                     >
-                                      &nbsp;DEMO
+                                      &nbsp;{t("teacherJourney.demo")}
                                     </span>
                                   </span>
                                 </span>
