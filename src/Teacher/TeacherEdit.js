@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   getCurrentUser,
@@ -23,15 +23,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from "react-i18next";
 
 const TeacherEditProfile = () => {
-  const { teacher } = useSelector((state) => state.teacher);
   const dispatch = useDispatch();
+  const { teacher } = useSelector((state) => state.teacher);
  const { t } = useTranslation();
   const location = useLocation();
   const [districts, setDistricts] = useState([]);
   const mentorData = location.state || {};
+  const currentUser = getCurrentUser("current_user");
+
   const navigate = useNavigate();
-
-
+  useLayoutEffect(() => {
+    if (currentUser?.data[0]?.mentor_id) {
+        dispatch(getTeacherByID(currentUser?.data[0]?.mentor_id));
+    }
+}, [currentUser?.data[0]?.mentor_id]);
+console.log(teacher,"mm");
  useEffect(()=>{
   setDistricts(
       districtList[
@@ -39,8 +45,7 @@ const TeacherEditProfile = () => {
         currentUser.data[0].state
       ] || []
   );
- },[mentorData.state]);
-  const currentUser = getCurrentUser("current_user");
+ },[teacher.state]);
   const getValidationSchema = () => {
     // where data = mentorData //
     const adminValidation = Yup.object({
@@ -146,25 +151,25 @@ const TeacherEditProfile = () => {
     return adminValidation;
   };
 
-  const getInitialValues = (mentorData) => {
+  const getInitialValues = (teacher) => {
     const commonInitialValues = {
-      full_name: mentorData?.full_name,
-      principal_name : mentorData?.principal_name,
-      principal_mobile : mentorData?.principal_mobile,
-      principal_email : mentorData?.principal_email,
-      title: mentorData.title,
-      whatapp_mobile: mentorData.whatapp_mobile,
-      gender: mentorData.gender,
+      full_name: teacher?.full_name,
+      principal_name : teacher?.organization?.principal_name,
+      principal_mobile : teacher?.organization?.principal_mobile,
+      principal_email : teacher?.organization?.principal_email,
+      title: teacher.title,
+      whatapp_mobile: teacher.whatapp_mobile,
+      gender: teacher.gender,
       district: "",
-      organization_name : mentorData.organization_name
+      organization_name : teacher?.organization?.organization_name
     };
-    if (mentorData?.district && districtList[mentorData?.state]?.includes(mentorData?.district)) {
-      commonInitialValues.district = mentorData.district; // Set to mentorData district if valid
+    if (teacher?.organization?.district && districtList[teacher?.organization?.state]?.includes(teacher?.organization?.district)) {
+      commonInitialValues.district = teacher?.organization?.district; // Set to mentorData district if valid
     }
     return commonInitialValues;
   };
   const formik = useFormik({
-    initialValues: getInitialValues(mentorData),
+    initialValues: getInitialValues(teacher),
     validationSchema: getValidationSchema(),
     validateOnMount: true,  // This validates on mount to show errors even if fields aren't touched
     validateOnChange: true, // Validates on each field change
@@ -185,11 +190,11 @@ const TeacherEditProfile = () => {
         title: title,
         whatapp_mobile: whatapp_mobile,
         gender: gender,
-        username: mentorData.username,
+        username: teacher.username,
       });
       const bodys = JSON.stringify({
-        organization_code : mentorData?.organization_code,
-        status : mentorData?.status,
+        organization_code : teacher?.organization?.organization_code,
+        status : currentUser.data[0]?.status,
         district: district,
 
         principal_email : principal_email,
@@ -197,7 +202,7 @@ const TeacherEditProfile = () => {
         principal_name : principal_name,
         organization_name : organization_name,
       });
-      const ment = encryptGlobal(JSON.stringify(mentorData.mentor_id));
+      const ment = encryptGlobal(JSON.stringify(teacher.mentor_id));
       const url = process.env.REACT_APP_API_BASE_URL + "/mentors/" + ment;
       var config = {
         method: "put",
@@ -225,7 +230,7 @@ const TeacherEditProfile = () => {
           console.log(error);
         });
       const editId = encryptGlobal(
-          JSON.stringify(mentorData?.organization_id)
+          JSON.stringify(teacher?.organization?.organization_id)
       );
       var config2 = {
           method: 'put',
@@ -461,7 +466,7 @@ const TeacherEditProfile = () => {
                     
                       {formik.errors.district ? (
                           <small className="error-cls" style={{color:"red"}}>
-                              {t('teacherJourney.place10')} : {mentorData?.district}<br/>
+                              {t('teacherJourney.place10')} : {teacher?.organization?.district}<br/>
                               {formik.errors.district}
                           </small>
                       ) : null}

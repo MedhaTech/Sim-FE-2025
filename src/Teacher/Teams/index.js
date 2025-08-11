@@ -401,6 +401,8 @@ const Dashboard = (props) => {
     section.scrollIntoView({ behavior: "smooth", block: "start" });
   };
   const handleEdit = (item) => {
+    localStorage.setItem("studentData", JSON.stringify(item));
+
     navigate("/studentedit", {
       state: {
         full_name: item.full_name,
