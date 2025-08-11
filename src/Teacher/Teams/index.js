@@ -138,6 +138,7 @@ const Dashboard = (props) => {
   const handleCreate = (item) => {
     // where item = team name //
     // where we can add team member details //
+    localStorage.setItem("team_id", item.team_id);
     navigate(`/addstudent`, {
       state: {
         team_id: item.team_id,
