@@ -21,6 +21,8 @@ export const CreateTeamMember = () => {
   const location = useLocation();
  const { t } = useTranslation();
   const teamData = location.state || {};
+  const teamId = teamData?.team_id || localStorage.getItem("team_id");
+
   const currentUser = getCurrentUser("current_user");
   const navigate = useNavigate();
   const allowedAge = [10, 11, 12, 13, 14, 15, 16, 17, 18];
@@ -63,7 +65,7 @@ export const CreateTeamMember = () => {
 
     onSubmit: (values) => {
       const body = {
-        team_id: JSON.stringify(teamData?.team_id),
+        team_id: teamId,
         role: "STUDENT",
         full_name: values.fullName,
         qualification: "",
@@ -92,6 +94,7 @@ export const CreateTeamMember = () => {
               "success",
               t('teacherJourney.popup1'),
             );
+             localStorage.removeItem("team_id");
             navigate("/mentorteams");
           } else {
             openNotificationWithIcon("error", "Opps! Something Wrong");

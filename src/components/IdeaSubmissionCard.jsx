@@ -175,7 +175,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, setIdeaCount }) => {
     axios(config)
       .then(async function (response) {
         if (response.status === 200) {
-          openNotificationWithIcon("success", "Idea Approved Successfully");
+          openNotificationWithIcon("success", t("teacherJourney.app"));
           setHide(false);
           handleClose();
           ideaSubmittedApi(teamId);

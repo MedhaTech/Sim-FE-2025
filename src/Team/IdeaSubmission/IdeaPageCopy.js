@@ -969,11 +969,11 @@ const themeKey = themeTranslationKeys[selectedTheme];
                             formData?.verified_status === ""
                               ? t("teacherJourney.yet")
                               : formData?.verified_status === "ACCEPTED"
-                              ? ` Accepted on ${moment(
+                              ? `${t("teacherJourney.Acceptedon")} ${moment(
                                   formData?.verified_at
                                 ).format("DD-MM-YYYY HH:MM A")}`
                               : formData?.verified_status === "REJECTED"
-                              ? ` Rejected on ${moment(
+                              ? ` ${t("teacherJourney.Rejectedon")} ${moment(
                                   formData?.verified_at
                                 ).format("DD-MM-YYYY HH:MM A")} - Reason: ${
                                   formData?.mentor_rejected_reason
