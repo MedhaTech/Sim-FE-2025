@@ -64,6 +64,8 @@
         "error:job_type": "Invalid Job Type"
     },
     "teacherJourney": {
+    "Locked":"ಲಾಕ್ ಮಾಡಲಾಗಿದೆ",
+
     "common.hi":"ನಮಸ್ಕಾರ",
     "common.login": "ಲಾಗಿನ್",
 "common.class_suffix": "ನೇ ತರಗತಿ",
@@ -858,7 +860,7 @@
         "teacher_gender_female": "Female",
         "teacher_gender_others": "Others",
 
-        "title": "Title",
+        "title": "ಶೀರ್ಷಿಕೆ",
         "teacher_title": "Select Title",
         "teacher_title_drs": "Dr",
         "teacher_title_mrs": "Mr",

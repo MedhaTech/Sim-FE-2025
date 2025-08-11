@@ -53,6 +53,8 @@
     "error:job_type": "చెల్లని ఉద్యోగ రకం"
   },
   "teacherJourney": {
+    "Locked":"లాక్ చేయబడింది",
+
     "common.hi":"హాయ్",
     "common.login": "లాగిన్",
 "common.class_suffix": "వ తరం",

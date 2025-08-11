@@ -562,7 +562,8 @@ const TeacherEditProfile = () => {
 
                   </Link> */}
                    <button
-                      to={"/mentorprofile"}  style={cancelLinkStyle}
+                       onClick={() => navigate("/mentorprofile")}
+                      style={cancelLinkStyle}
                       type="button"
                       className="btn btn-secondary"
                     >
