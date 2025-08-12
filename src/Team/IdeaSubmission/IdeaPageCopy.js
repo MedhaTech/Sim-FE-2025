@@ -269,7 +269,18 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     },
   ];
 
-  const initiatedBy = formData?.initiated_by;
+  const isIdeaInitiated = Boolean(formData?.initiated_by);
+
+const languages = localStorage.getItem("s_language") || "";
+
+useEffect(() => {
+  if (!isIdeaInitiated) {
+    setTheme("");
+    setFocus([]);
+    setFocusArea("");
+  }
+}, [languages]);
+
   const handleThemeChange = (e) => {
     const selectedTheme = e.target.value;
     setTheme(selectedTheme);
@@ -2133,9 +2144,10 @@ const themeKey = themeTranslationKeys[selectedTheme];
                                   </div>
                                   {prototypeLink && !isButtonDisabled && (
                                     <div className="text-warning mt-2">
-                                      Please click{" "}
+                                      {/* Please click{" "}
                                       <strong>Verify & Upload</strong> to
-                                      validate and Upload your URL.
+                                      validate and Upload your URL. */}
+                                       {t("teacherJourney.verifyUploadMessage")}
                                     </div>
                                   )}
                                 </div>
