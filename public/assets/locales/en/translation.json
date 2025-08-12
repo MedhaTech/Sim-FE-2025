@@ -329,6 +329,7 @@
     "ACCEPTED": "ACCEPTED",
     "REJECTED": "REJECTED",
     "draft": "DRAFT",
+     "verifyUploadMessage": "Please click Verify & Upload to validate and Upload your URL.",
     "submitt": "SUBMITTED",
     "ViewIdea": "View Idea",
     "RejectSubmission": "Reject Submission",
