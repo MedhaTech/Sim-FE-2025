@@ -54,6 +54,7 @@
   },
   "teacherJourney": {
     "Locked":"లాక్ చేయబడింది",
+     "minutes":"వీడియో పొడవు 3-5 నిమిషాల లోపల లేదు",
 
     "common.hi":"హాయ్",
     "common.login": "లాగిన్",

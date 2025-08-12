@@ -847,23 +847,49 @@ const themeKey = themeTranslationKeys[selectedTheme];
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          if (response.data.data === "INVALID") {
-            setPrototypeLink("");
-            setVerifySubmitt(false);
+          // if (response.data.data === "INVALID" && response.data.message === "Video is not Public" ) {
+          //   setPrototypeLink("");
+          //   setVerifySubmitt(false);
 
-            openNotificationWithIcon(
-              "error",
-              t("ideaSubmission.VideoisnotPublic")
-            );
-          } else {
-            openNotificationWithIcon(
-              "success",
-              t("ideaSubmission.videoLengthAndPublic")
-            );
-            setPrototypeLink(videoId);
-            setIsButtonDisabled(true);
-            setVerifySubmitt(true);
-          }
+          //   openNotificationWithIcon(
+          //     "error",
+          //     t("ideaSubmission.VideoisnotPublic")
+          //   );
+          // }else if(response.data.message === "Video length not within the 3–5 minutes"){
+          //    setPrototypeLink("");
+          //   setVerifySubmitt(false);
+
+          //   openNotificationWithIcon(
+          //     "error",
+          //     t("teacherJourney.minutes")
+          //   );
+          // } else  {
+          //   openNotificationWithIcon(
+          //     "success",
+          //     t("ideaSubmission.videoLengthAndPublic")
+          //   );
+          //   setPrototypeLink(videoId);
+          //   setIsButtonDisabled(true);
+          //   setVerifySubmitt(true);
+          // }
+          if (response.data.data === "INVALID") {
+  setPrototypeLink("");
+  setVerifySubmitt(false);
+
+  const message = response.data.message?.toLowerCase();
+
+  if (message.includes("video is not public")) {
+    openNotificationWithIcon("error", t("ideaSubmission.VideoisnotPublic"));
+  } else if (message.includes("video length") && message.includes("3-5")) {
+    openNotificationWithIcon("error", t("teacherJourney.minutes"));
+  }
+} else {
+  openNotificationWithIcon("success", t("ideaSubmission.videoLengthAndPublic"));
+  setPrototypeLink(videoId);
+  setIsButtonDisabled(true);
+  setVerifySubmitt(true);
+}
+
         }
       })
       .catch(function (error) {
