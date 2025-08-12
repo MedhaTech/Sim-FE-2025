@@ -872,7 +872,24 @@ const themeKey = themeTranslationKeys[selectedTheme];
           //   setIsButtonDisabled(true);
           //   setVerifySubmitt(true);
           // }
-          
+          if (response.data.data === "INVALID") {
+  setPrototypeLink("");
+  setVerifySubmitt(false);
+
+  const message = response.data.message?.toLowerCase();
+
+  if (message.includes("video is not public")) {
+    openNotificationWithIcon("error", t("ideaSubmission.VideoisnotPublic"));
+  } else if (message.includes("video length") && message.includes("3-5")) {
+    openNotificationWithIcon("error", t("teacherJourney.minutes"));
+  }
+} else {
+  openNotificationWithIcon("success", t("ideaSubmission.videoLengthAndPublic"));
+  setPrototypeLink(videoId);
+  setIsButtonDisabled(true);
+  setVerifySubmitt(true);
+}
+
         }
       })
       .catch(function (error) {
