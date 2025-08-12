@@ -269,7 +269,20 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     },
   ];
 
-  const initiatedBy = formData?.initiated_by;
+  const isIdeaInitiated = Boolean(formData?.initiated_by);
+  console.log(isIdeaInitiated,"is");
+
+const languages = localStorage.getItem("s_language") || "";
+
+useEffect(() => {
+  if (!isIdeaInitiated) {
+    setTheme("");
+    setFocus([]);
+    setFocusArea("");
+  }
+}, [languages]);
+console.log(language,"lan",theme,"themes", );
+
   const handleThemeChange = (e) => {
     const selectedTheme = e.target.value;
     setTheme(selectedTheme);
@@ -286,6 +299,7 @@ const themeKey = themeTranslationKeys[selectedTheme];
       value: item.value,        
       label: t(item.labelKey),  
     }));
+console.log(focusareasListTranslationKeys,"focus");
 
     setFocus(mappedFocus);
     }
