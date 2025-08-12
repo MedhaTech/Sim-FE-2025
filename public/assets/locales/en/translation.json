@@ -64,6 +64,8 @@
     "error:job_type": "Invalid Job Type"
   },
   "teacherJourney": {
+     "minutes":"Video length not with in the 3-5 minutes",
+
     "common.hi":"Hi",
     "guide": "Guide Teacher",
 
@@ -492,7 +494,7 @@
     "lastModifiedBy": "Last Modified By",
     "submittedBy": "Submitted By",
     "rejectedReason": "Reason for Rejection",
-    "videoLengthAndPublic": "Video is public and within the length 3–5 minutes"
+    "videoLengthAndPublic": "Video is public and with in the length 3–5 minutes"
   },
 
   "loginPage": {
