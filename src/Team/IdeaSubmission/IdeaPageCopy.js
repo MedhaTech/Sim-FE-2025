@@ -462,7 +462,13 @@ const themeKey = themeTranslationKeys[selectedTheme];
     prototypeLink === "" ||
     prototypeLink == null ||
     workbook === "" ||
-    workbook == null
+    workbook == null ||
+    formData?.initiated_by == null || formData?.initiated_by == "" ||
+      (
+    (prototypeImage?.length === 0 ||
+      prototypeImage === null ||
+      prototypeImage === undefined)
+  )
       ? false
       : true;
   const submittedApi = () => {
@@ -502,7 +508,7 @@ const themeKey = themeTranslationKeys[selectedTheme];
         }
       });
   };
-  const apiCall = () => {
+  const apiCall = (file) => {
     // This function initiate the Idea the API //
 
     const challengeParamID = encryptGlobal("1");
@@ -510,7 +516,10 @@ const themeKey = themeTranslationKeys[selectedTheme];
       team_id: TeamId,
     });
     const queryObjEn = encryptGlobal(queryObj);
-
+  let attachmentsList = "";
+    if (file) {
+      attachmentsList = file.join(", ");
+    }
     const body = {
       theme: theme,
       focus_area: focusarea,
@@ -554,6 +563,9 @@ const themeKey = themeTranslationKeys[selectedTheme];
     if (workbook !== "") {
       body["workbook"] = workbook;
     }
+      if (attachmentsList !== "") {
+      body["prototype_image"] = JSON.stringify(file);
+    }
     var config = {
       method: "post",
       url:
@@ -571,6 +583,7 @@ const themeKey = themeTranslationKeys[selectedTheme];
         if (response.status == 200) {
           setIdeaInitiation(response?.data?.data[0]?.initiated_by);
           openNotificationWithIcon("success", t("home.ideaInitPop"));
+          setLoading(false);
           submittedApi();
           seterror4(false);
         }
@@ -583,10 +596,10 @@ const themeKey = themeTranslationKeys[selectedTheme];
   const handleSubmit = async (item, stats) => {
     setIsDisabled(true);
 
-    if (error4) {
-      apiCall();
-      return;
-    } else {
+    // if (error4) {
+    //   apiCall();
+    //   return;
+    // } else {
       if (stats) {
         setLoading({ ...loading, draft: true });
       } else {
@@ -622,7 +635,11 @@ const themeKey = themeTranslationKeys[selectedTheme];
         if (result && result.status === 200) {
           setImmediateLink(result.data?.data[0]?.attachments);
           setPrototypeImage(result.data?.data[0]?.attachments);
-          handleSubmitAll(item, stats, result.data?.data[0]?.attachments);
+         if (error4) {
+        apiCall(result.data?.data[0]?.attachments);
+      } else {
+        handleSubmitAll(item, stats, result.data?.data[0]?.attachments);
+      }
         } else {
           openNotificationWithIcon("error", `${result?.data?.message}`);
           setLoading(initialLoadingStatus);
@@ -630,9 +647,14 @@ const themeKey = themeTranslationKeys[selectedTheme];
           return;
         }
       } else {
-        handleSubmitAll(item, stats);
-      }
+          if (error4) {
+      apiCall(); 
+    } else {
+      handleSubmitAll(item, stats);
     }
+     
+      }
+    // }
   };
 
   const handleSubmitAll = async (item, stats, file) => {
@@ -725,7 +747,8 @@ const themeKey = themeTranslationKeys[selectedTheme];
         prototypeLink === "" ||
         prototypeLink == null ||
         workbook === "" ||
-        workbook == null
+        workbook == null ||
+        formData?.initiated_by == null || formData?.initiated_by == "" 
       ) {
         allques = false;
       }
