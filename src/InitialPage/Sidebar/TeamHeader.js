@@ -16,13 +16,20 @@ import male from "../../assets/img/Male_Profile.png";
 import user from "../../assets/img/user.png";
 import team from "../../assets/img/icons/team2.png";
 import  "./styles.css";
+import { getStudentGlobalLanguage } from '../../redux/studentRegistration/actions';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import LanguageSelectorComp from '../../components/LanguageSelectorComp/index.js';
 import { useLocation } from "react-router-dom";
+import i18next from 'i18next';
 const Header = () => {
   const route = all_routes;
-
+const dispatch = useDispatch();
+//  const studentLanguage = useSelector(
+//         (state) => state?.studentRegistration?.studentLanguage
+//     );
   const [toggle, SetToggle] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const currentUser = getCurrentUser("current_user");
@@ -62,13 +69,30 @@ const Header = () => {
 
   const navigate = useNavigate();
   const handleLogout = (e) => {
-    logout(navigate, t, "TEAM");
     e.preventDefault();
+
+    logout(navigate, t, "TEAM");
+    localStorage.clear();
+    localStorage.removeItem("s_language");
+     document.cookie = "i18next=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+ const defaultLang = { code: "en", name: "English" };
+  i18next.changeLanguage(defaultLang.code);
+
+  dispatch(getStudentGlobalLanguage(defaultLang));
   };
   const handleLogout1 = (e) => {
-    logout(navigate, t, "TEAM");
     e.preventDefault();
-  };
+
+ logout(navigate, t, "TEAM");
+    localStorage.clear();
+    localStorage.removeItem("s_language");
+     document.cookie = "i18next=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+ const defaultLang = { code: "en", name: "English" };
+  i18next.changeLanguage(defaultLang.code);
+
+  dispatch(getStudentGlobalLanguage(defaultLang));
+
+};
   useEffect(() => {
     const handleFullscreenChange = () => {
       setIsFullscreen(
