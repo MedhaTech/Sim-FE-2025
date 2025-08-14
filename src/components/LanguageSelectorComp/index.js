@@ -101,7 +101,7 @@ const LanguageSelectorComp = ({ module }) => {
                         href="#/action-1"
                         onClick={() => handleSelector(item)}
                         label="English"
-                        style={{fontSize:"16px"}}
+                        style={{fontSize:"13px"}}
                     >
                         <span> {item.name}</span>
                     </Dropdown.Item>

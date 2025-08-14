@@ -81,6 +81,16 @@ const handleClick = (page) => {
       }
     }, 300);
   };
+   const [isMobile, setIsMobile] = useState(window.innerWidth <= 576);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 576);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   return (
     <div className="container new-result">
       <Confetti className="w-100" />
@@ -107,6 +117,8 @@ const handleClick = (page) => {
               btnClass="primary mt-4 mx-4"
               className="btn btn-warning"
               size="small"
+                style={isMobile ? { marginBottom: "1rem" } : {}}
+
               onClick={() => handleClick("idea")}  
             />)
             
@@ -117,6 +129,7 @@ const handleClick = (page) => {
               btnClass="primary mt-4 mx-4"
               className="btn btn-warning"
               size="small"
+                style={isMobile ? { marginBottom: "1rem" } : {}}
               onClick={() => handleClick("idea")} 
             />)
             
@@ -127,6 +140,7 @@ const handleClick = (page) => {
               btnClass="primary mt-4 mx-4"
               className="btn btn-warning"
               size="small"
+                style={isMobile ? { marginBottom: "1rem" } : {}}
               onClick={() => handleClick("certificate")} 
             />
            
