@@ -28,10 +28,12 @@ const LanguageSelectorComp = ({ module }) => {
    
     useState(
         module === 'student'
-          ? (studentLanguage && studentLanguage.name) || (localLang && localLang.name) || globalLang?.name
+          ? (studentLanguage && studentLanguage.name) || (localLang && localLang.name) || globalLang?.name  || 
+      "English"
           : (selectedLanguage && selectedLanguage.name) ||
             (localMentorLang && localMentorLang.name) ||
-            globalLang?.name
+            globalLang?.name  || 
+      "English"
       );
       useEffect(() => {
         let langToSet;
@@ -87,7 +89,7 @@ const LanguageSelectorComp = ({ module }) => {
             title={
                 <span className='m-3'>
                   
-                    {(localLang && localLang.name) || language}
+                    {(localLang && localLang.name) || language || "English"}
                 </span>
             }
              drop="down"
