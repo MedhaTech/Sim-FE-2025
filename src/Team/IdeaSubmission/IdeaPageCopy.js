@@ -1494,7 +1494,16 @@ const themeKey = themeTranslationKeys[selectedTheme];
                             </div>
                           </div>
                           <div>
-                            <Col className="d-flex justify-content-end gap-2">
+                            <Col className="d-flex flex-column flex-md-row justify-content-end gap-2">
+                            <button
+                                className="btn btn-secondary d-inline d-md-none"
+                                onClick={goToNext}
+                                style={{
+                                  fontSize: isMobile ? "12px" : "14px",
+                                }}
+                              >
+                                {t("idea_page.next")}
+                              </button>
                               {formData.status !== "SUBMITTED" && (
                                 <>
                                   <Button
@@ -1532,15 +1541,13 @@ const themeKey = themeTranslationKeys[selectedTheme];
                                   />
                                 </>
                               )}
-                              <button
-                                className="btn btn-secondary"
+                               <button
+                                className="btn btn-secondary d-none d-md-inline"
                                 onClick={goToNext}
                                 style={{
                                   fontSize: isMobile ? "12px" : "14px",
                                 }}
                               >
-                                {/* {t("student_course.chars")} */}
-                                {/* NEXT */}
                                 {t("idea_page.next")}
                               </button>
                             </Col>
@@ -1817,11 +1824,24 @@ const themeKey = themeTranslationKeys[selectedTheme];
                           ) : (
                             // ✅ Mobile layout
                             <>
-                              <Row className="d-sm-none mb-2">
+                              <Row className="d-sm-none mb-2 gap-2">
+                                 <button
+                                    className="btn btn-info"
+                                    onClick={goToBack}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {t("idea_page.back")}
+                                  </button>
+                                  <button
+                                    className="btn btn-secondary"
+                                    onClick={goToNext}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {t("idea_page.next")}
+                                  </button>
                                 {/* First row: Save as Draft and Submit */}
                                 {formData.status !== "SUBMITTED" && (
                                   <>
-                                    <Col xs={6}>
                                       <Button
                                         type="button"
                                         btnClass="me-1 btn btn-warning w-100"
@@ -1837,8 +1857,6 @@ const themeKey = themeTranslationKeys[selectedTheme];
                                         }`}
                                         disabled={!enableSaveBtn || isDisabled}
                                       />
-                                    </Col>
-                                    <Col xs={6}>
                                       <Button
                                         type="button"
                                         btnClass="me-1 btn btn-warning w-100"
@@ -1855,31 +1873,8 @@ const themeKey = themeTranslationKeys[selectedTheme];
                                           !verfiySubmitt
                                         }
                                       />
-                                    </Col>
                                   </>
                                 )}
-                              </Row>
-
-                              <Row className="d-sm-none">
-                                {/* Second row: Back and Next */}
-                                <Col className="d-flex justify-content-start">
-                                  <button
-                                    className="btn btn-info"
-                                    onClick={goToBack}
-                                    style={{ fontSize: "12px" }}
-                                  >
-                                    {t("idea_page.back")}
-                                  </button>
-                                </Col>
-                                <Col className="d-flex justify-content-end">
-                                  <button
-                                    className="btn btn-secondary"
-                                    onClick={goToNext}
-                                    style={{ fontSize: "12px" }}
-                                  >
-                                    {t("idea_page.next")}
-                                  </button>
-                                </Col>
                               </Row>
                             </>
                           )}
@@ -2344,10 +2339,17 @@ const themeKey = themeTranslationKeys[selectedTheme];
                                 </Col>
                               </Row>
                             ) : (
-                              <Row className="d-sm-none">
+                              <Row className="d-sm-none gap-2">
+                                 <button
+                                    className="btn btn-info"
+                                    onClick={goToBack}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {t("idea_page.back")}
+                                  </button>
                                 {formData.status !== "SUBMITTED" && (
                                   <>
-                                    <Col xs={6} className="mb-2">
+                                    
                                       <Button
                                         type="button"
                                         btnClass="me-1 btn btn-warning "
@@ -2363,8 +2365,6 @@ const themeKey = themeTranslationKeys[selectedTheme];
                                         }`}
                                         disabled={!enableSaveBtn || isDisabled}
                                       />
-                                    </Col>
-                                    <Col xs={6} className="mb-2">
                                       <Button
                                         type="button"
                                         style={{ fontSize: "12px" }}
@@ -2381,18 +2381,8 @@ const themeKey = themeTranslationKeys[selectedTheme];
                                           !verfiySubmitt
                                         }
                                       />
-                                    </Col>
                                   </>
                                 )}
-                                <Col xs={12}>
-                                  <button
-                                    className="btn btn-info"
-                                    onClick={goToBack}
-                                    style={{ fontSize: "12px" }}
-                                  >
-                                    {t("idea_page.back")}
-                                  </button>
-                                </Col>
                               </Row>
                             )}
                           </div>
