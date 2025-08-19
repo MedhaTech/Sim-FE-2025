@@ -1,8 +1,8 @@
 /* eslint-disable indent */
 
 import React from 'react'; 
-import TeacherCertificate from "../../assets/img/Certificates/TeacherApp.jpg";
-import TnTeacherCertificate from "../../assets/img/Certificates/TecTnFinalCertificate.jpg";  
+import TeacherCertificate from "../../assets/img/Certificates/SIM3Teacher1.png";
+import TnTeacherCertificate from "../../assets/img/Certificates/SIM3Teacher1.png";  
 
 import { getCurrentUser } from "../../helpers/Utils";
 
@@ -24,16 +24,16 @@ class TCertificate extends React.Component {
                             className="text-capitalize" 
                             style={{ 
                                 position: 'absolute', 
-                                top: '31rem', 
+                                top: '30rem', 
                                 left: '10rem',
-                                fontSize: '1.2rem',
+                                fontSize: '1.5rem',
                                 fontFamily: 'Times New Roman' 
                             }} 
                         > 
                             {this.props.title}{' '} 
                             {this.props.full_name} 
                         </span> 
-                        <span 
+                        {/* <span 
                             className="text-capitalize" 
                             style={{ 
                                 position: 'absolute', 
@@ -44,7 +44,7 @@ class TCertificate extends React.Component {
                             }} 
                         > 
                             {this.props.organization_name} 
-                        </span> 
+                        </span>  */}
                        
                         <img 
                             src={TeacherCertificate} 
@@ -66,16 +66,16 @@ class TCertificate extends React.Component {
                                         className="text-capitalize"
                                         style={{
                                             position: 'absolute',
-                                            top: '28rem',
+                                            top: '30rem',
                                             left: '14rem',
-                                            fontSize: '1.2rem',
+                                            fontSize: '1.5rem',
                                             fontFamily: 'Times New Roman'
                                         }}
                                     >
                                         {this.props.title}{' '}
                                         {this.props.full_name}
                                     </span>
-                                    <span
+                                    {/* <span
                                         className="text-capitalize"
                                         style={{
                                             position: 'absolute',
@@ -86,8 +86,8 @@ class TCertificate extends React.Component {
                                         }}
                                     >
                                         {this.props.organization_name}
-                                    </span>
-                                    <span 
+                                    </span> */}
+                                    {/* <span 
                             className="text-capitalize" 
                             style={{ 
                                 position: 'absolute', 
@@ -99,7 +99,7 @@ class TCertificate extends React.Component {
                             }} 
                         > 
                             {new Date().toLocaleDateString('en-GB')} 
-                        </span>
+                        </span> */}
                                     <img
                                         src={TnTeacherCertificate}
                                         alt="certificate"
