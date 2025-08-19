@@ -98,13 +98,13 @@ const Instructions = () => {
     const fullNameWidth =
       (doc.getStringUnitWidth(fullName) * doc.getFontSize()) /
       doc.internal.scaleFactor;
-        const x = (298 - fullNameWidth) / 2;
+    const x = (298 - fullNameWidth) / 2;
     const y = 98;
     doc.text(fullName, x, y);
-    
+
     const collegeNameY = y + 18;
-        const leftMargin = 85;
- doc.text(finalCollegeName, leftMargin, collegeNameY);
+    const leftMargin = 85;
+    doc.text(finalCollegeName, leftMargin, collegeNameY);
 
     const certName = `${fullName.replace(/\s+/g, "_")}.pdf`;
     doc.save(certName);
@@ -160,7 +160,7 @@ const Instructions = () => {
     const fullNameWidth =
       (doc.getStringUnitWidth(fullName) * doc.getFontSize()) /
       doc.internal.scaleFactor;
-       const x = (298 - fullNameWidth) / 2;
+    const x = (298 - fullNameWidth) / 2;
     const y = 97;
     doc.text(fullName, x, y);
 
@@ -169,7 +169,7 @@ const Instructions = () => {
     // doc.text(fullName, x, y);
 
     const collegeNameY = y + 18;
-     const leftMargin = 85;
+    const leftMargin = 85;
     doc.text(finalCollegeName, leftMargin, collegeNameY);
 
     // const pageWidth = doc.internal.pageSize.getWidth();
@@ -523,6 +523,8 @@ const Instructions = () => {
     ? "col-12 col-md-4 col-lg-4 col-xl-4 col-xxl-3"
     : "col-12 col-md-6 col-lg-6 col-xl-4 col-xxl-3";
   const creEnable = true;
+  const creIdeaEnable = false;
+
   return (
     <>
       <div className="page-wrapper">
@@ -567,7 +569,6 @@ const Instructions = () => {
                             handleCertificateDownloadTN();
                           }
                         }}
-                        
                       >
                         <MdOutlineFileDownload size="27" />{" "}
                         {t("teacher_certificate.download")}
@@ -609,72 +610,76 @@ const Instructions = () => {
                   </div>
                 </div>
               </div>
-              <div className={colClass}>
-                <div
-                  className="employee-grid-profile"
-                  style={{ height: "auto" }}
-                >
-                  <div className="profile-info">
-                    <img
-                      src={users}
-                      alt="Profile"
-                      style={{ width: "150px", height: "150px" }}
-                    />
-                    <h5>{t("teacher_certificate.addon_certificate")}</h5>
-                    <div style={{ textAlign: "left", marginTop: "1rem" }}>
-                      <Link
-                        to="#"
-                        className="btn btn-lg text-bold"
-                        style={{
-                          backgroundColor:
-                            ideaStatus === "SUBMITTED" && resList === 1
-                              ? "#007e33"
-                              : "#aaa",
-                          color: "#fff",
-                          padding: "1rem",
-                          borderRadius: "20px",
-                        }}
-                        disabled={ideaStatus !== "SUBMITTED" && resList !== 1}
-                        onClick={(e) => {
-                          if (ideaStatus === "SUBMITTED" && resList === 1) {
-                            if (currentUser?.data[0]?.state !== "Tamil Nadu") {
-                              handleCertificateDownload1();
+              {creIdeaEnable && (
+                <div className={colClass}>
+                  <div
+                    className="employee-grid-profile"
+                    style={{ height: "auto" }}
+                  >
+                    <div className="profile-info">
+                      <img
+                        src={users}
+                        alt="Profile"
+                        style={{ width: "150px", height: "150px" }}
+                      />
+                      <h5>{t("teacher_certificate.addon_certificate")}</h5>
+                      <div style={{ textAlign: "left", marginTop: "1rem" }}>
+                        <Link
+                          to="#"
+                          className="btn btn-lg text-bold"
+                          style={{
+                            backgroundColor:
+                              ideaStatus === "SUBMITTED" && resList === 1
+                                ? "#007e33"
+                                : "#aaa",
+                            color: "#fff",
+                            padding: "1rem",
+                            borderRadius: "20px",
+                          }}
+                          disabled={ideaStatus !== "SUBMITTED" && resList !== 1}
+                          onClick={(e) => {
+                            if (ideaStatus === "SUBMITTED" && resList === 1) {
+                              if (
+                                currentUser?.data[0]?.state !== "Tamil Nadu"
+                              ) {
+                                handleCertificateDownload1();
+                              } else {
+                                handleCertificateDownloadTN1();
+                              }
                             } else {
-                              handleCertificateDownloadTN1();
+                              e.preventDefault();
                             }
-                          } else {
-                            e.preventDefault();
-                          }
-                        }}
-                      >
-                        <MdOutlineFileDownload size="27" />{" "}
-                        {t("teacher_certificate.downloadaddon_certificate")}
-                      </Link>
+                          }}
+                        >
+                          <MdOutlineFileDownload size="27" />{" "}
+                          {t("teacher_certificate.downloadaddon_certificate")}
+                        </Link>
+                      </div>
+                      {resList === 1 && ideaStatus === "SUBMITTED" ? (
+                        <p style={{ marginTop: "1rem" }}>
+                          <span
+                            style={{ color: "green", fontWeight: "bold" }}
+                          ></span>
+                          <br />
+                          <span style={{ color: "green", fontWeight: "bold" }}>
+                            {t("teacher_certificate.best_wishes")}
+                          </span>
+                        </p>
+                      ) : (
+                        <p style={{ marginTop: "1rem" }}>
+                          <span style={{ color: "red", fontWeight: "bold" }}>
+                            {t("teacher_certificate.note")}
+                          </span>
+                          :{t("teacher_certificate.addon")}
+                          <span style={{ color: "red", fontWeight: "bold" }}>
+                            {t("teacher_certificate.addonred")}
+                          </span>
+                        </p>
+                      )}
                     </div>
-                    {resList === 1 && ideaStatus === "SUBMITTED" ? (
-                      <p style={{ marginTop: "1rem" }}>
-                        <span
-                          style={{ color: "green", fontWeight: "bold" }}
-                        ></span>
-                        <br />
-                        <span style={{ color: "green", fontWeight: "bold" }}>
-                          {t("teacher_certificate.best_wishes")}
-                        </span>
-                      </p>
-                    ) : (
-                      <p style={{ marginTop: "1rem" }}>
-                        <span style={{ color: "red", fontWeight: "bold" }}>
-                          {t("teacher_certificate.note")}
-                        </span>
-                        :{t("teacher_certificate.addon")}
-                        <span style={{ color: "red", fontWeight: "bold" }}>
-                          {t("teacher_certificate.addonred")}
-                        </span>
-                      </p>
-                    )}
                   </div>
                 </div>
-              </div>
+              )}
               {isEligible && (
                 <div className={colClass}>
                   <div
