@@ -27,7 +27,7 @@ class TCertificate extends React.Component {
                   style={{
                     position: "absolute",
                     top: "30rem",
-                    left: "10rem",
+                    left: "5rem",
                     fontSize: "1.2rem",
                     fontFamily: "Times New Roman",
                   }}
@@ -75,7 +75,7 @@ class TCertificate extends React.Component {
                     style={{
                       position: "absolute",
                       top: "30rem",
-                      left: "14rem",
+                      left: "5rem",
                       fontSize: "1.2rem",
                       fontFamily: "Times New Roman",
                     }}
