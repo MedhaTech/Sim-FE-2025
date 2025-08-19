@@ -269,7 +269,18 @@ const IdeasPageNew = ({ showChallenges, ...props }) => {
     },
   ];
 
-  const initiatedBy = formData?.initiated_by;
+  const isIdeaInitiated = Boolean(formData?.initiated_by);
+
+const languages = localStorage.getItem("s_language") || "";
+
+useEffect(() => {
+  if (!isIdeaInitiated) {
+    setTheme("");
+    setFocus([]);
+    setFocusArea("");
+  }
+}, [languages]);
+
   const handleThemeChange = (e) => {
     const selectedTheme = e.target.value;
     setTheme(selectedTheme);
@@ -451,7 +462,13 @@ const themeKey = themeTranslationKeys[selectedTheme];
     prototypeLink === "" ||
     prototypeLink == null ||
     workbook === "" ||
-    workbook == null
+    workbook == null ||
+    formData?.initiated_by == null || formData?.initiated_by == "" ||
+      (
+    (prototypeImage?.length === 0 ||
+      prototypeImage === null ||
+      prototypeImage === undefined)
+  )
       ? false
       : true;
   const submittedApi = () => {
@@ -491,7 +508,7 @@ const themeKey = themeTranslationKeys[selectedTheme];
         }
       });
   };
-  const apiCall = () => {
+  const apiCall = (file) => {
     // This function initiate the Idea the API //
 
     const challengeParamID = encryptGlobal("1");
@@ -499,7 +516,10 @@ const themeKey = themeTranslationKeys[selectedTheme];
       team_id: TeamId,
     });
     const queryObjEn = encryptGlobal(queryObj);
-
+  let attachmentsList = "";
+    if (file) {
+      attachmentsList = file.join(", ");
+    }
     const body = {
       theme: theme,
       focus_area: focusarea,
@@ -543,6 +563,9 @@ const themeKey = themeTranslationKeys[selectedTheme];
     if (workbook !== "") {
       body["workbook"] = workbook;
     }
+      if (attachmentsList !== "") {
+      body["prototype_image"] = JSON.stringify(file);
+    }
     var config = {
       method: "post",
       url:
@@ -560,6 +583,7 @@ const themeKey = themeTranslationKeys[selectedTheme];
         if (response.status == 200) {
           setIdeaInitiation(response?.data?.data[0]?.initiated_by);
           openNotificationWithIcon("success", t("home.ideaInitPop"));
+          setLoading(false);
           submittedApi();
           seterror4(false);
         }
@@ -572,10 +596,10 @@ const themeKey = themeTranslationKeys[selectedTheme];
   const handleSubmit = async (item, stats) => {
     setIsDisabled(true);
 
-    if (error4) {
-      apiCall();
-      return;
-    } else {
+    // if (error4) {
+    //   apiCall();
+    //   return;
+    // } else {
       if (stats) {
         setLoading({ ...loading, draft: true });
       } else {
@@ -611,7 +635,11 @@ const themeKey = themeTranslationKeys[selectedTheme];
         if (result && result.status === 200) {
           setImmediateLink(result.data?.data[0]?.attachments);
           setPrototypeImage(result.data?.data[0]?.attachments);
-          handleSubmitAll(item, stats, result.data?.data[0]?.attachments);
+         if (error4) {
+        apiCall(result.data?.data[0]?.attachments);
+      } else {
+        handleSubmitAll(item, stats, result.data?.data[0]?.attachments);
+      }
         } else {
           openNotificationWithIcon("error", `${result?.data?.message}`);
           setLoading(initialLoadingStatus);
@@ -619,9 +647,14 @@ const themeKey = themeTranslationKeys[selectedTheme];
           return;
         }
       } else {
-        handleSubmitAll(item, stats);
-      }
+          if (error4) {
+      apiCall(); 
+    } else {
+      handleSubmitAll(item, stats);
     }
+     
+      }
+    // }
   };
 
   const handleSubmitAll = async (item, stats, file) => {
@@ -714,7 +747,8 @@ const themeKey = themeTranslationKeys[selectedTheme];
         prototypeLink === "" ||
         prototypeLink == null ||
         workbook === "" ||
-        workbook == null
+        workbook == null ||
+        formData?.initiated_by == null || formData?.initiated_by == "" 
       ) {
         allques = false;
       }
@@ -847,23 +881,49 @@ const themeKey = themeTranslationKeys[selectedTheme];
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          if (response.data.data === "INVALID") {
-            setPrototypeLink("");
-            setVerifySubmitt(false);
+          // if (response.data.data === "INVALID" && response.data.message === "Video is not Public" ) {
+          //   setPrototypeLink("");
+          //   setVerifySubmitt(false);
 
-            openNotificationWithIcon(
-              "error",
-              t("ideaSubmission.VideoisnotPublic")
-            );
-          } else {
-            openNotificationWithIcon(
-              "success",
-              t("ideaSubmission.videoLengthAndPublic")
-            );
-            setPrototypeLink(videoId);
-            setIsButtonDisabled(true);
-            setVerifySubmitt(true);
-          }
+          //   openNotificationWithIcon(
+          //     "error",
+          //     t("ideaSubmission.VideoisnotPublic")
+          //   );
+          // }else if(response.data.message === "Video length not within the 3–5 minutes"){
+          //    setPrototypeLink("");
+          //   setVerifySubmitt(false);
+
+          //   openNotificationWithIcon(
+          //     "error",
+          //     t("teacherJourney.minutes")
+          //   );
+          // } else  {
+          //   openNotificationWithIcon(
+          //     "success",
+          //     t("ideaSubmission.videoLengthAndPublic")
+          //   );
+          //   setPrototypeLink(videoId);
+          //   setIsButtonDisabled(true);
+          //   setVerifySubmitt(true);
+          // }
+          if (response.data.data === "INVALID") {
+  setPrototypeLink("");
+  setVerifySubmitt(false);
+
+  const message = response.data.message?.toLowerCase();
+
+  if (message.includes("video is not public")) {
+    openNotificationWithIcon("error", t("ideaSubmission.VideoisnotPublic"));
+  } else if (message.includes("video length") && message.includes("3-5")) {
+    openNotificationWithIcon("error", t("teacherJourney.minutes"));
+  }
+} else {
+  openNotificationWithIcon("success", t("ideaSubmission.videoLengthAndPublic"));
+  setPrototypeLink(videoId);
+  setIsButtonDisabled(true);
+  setVerifySubmitt(true);
+}
+
         }
       })
       .catch(function (error) {
@@ -969,11 +1029,11 @@ const themeKey = themeTranslationKeys[selectedTheme];
                             formData?.verified_status === ""
                               ? t("teacherJourney.yet")
                               : formData?.verified_status === "ACCEPTED"
-                              ? ` Accepted on ${moment(
+                              ? `${t("teacherJourney.Acceptedon")} ${moment(
                                   formData?.verified_at
                                 ).format("DD-MM-YYYY HH:MM A")}`
                               : formData?.verified_status === "REJECTED"
-                              ? ` Rejected on ${moment(
+                              ? ` ${t("teacherJourney.Rejectedon")} ${moment(
                                   formData?.verified_at
                                 ).format("DD-MM-YYYY HH:MM A")} - Reason: ${
                                   formData?.mentor_rejected_reason
@@ -1434,7 +1494,16 @@ const themeKey = themeTranslationKeys[selectedTheme];
                             </div>
                           </div>
                           <div>
-                            <Col className="d-flex justify-content-end gap-2">
+                            <Col className="d-flex flex-column flex-md-row justify-content-end gap-2">
+                            <button
+                                className="btn btn-secondary d-inline d-md-none"
+                                onClick={goToNext}
+                                style={{
+                                  fontSize: isMobile ? "12px" : "14px",
+                                }}
+                              >
+                                {t("idea_page.next")}
+                              </button>
                               {formData.status !== "SUBMITTED" && (
                                 <>
                                   <Button
@@ -1472,15 +1541,13 @@ const themeKey = themeTranslationKeys[selectedTheme];
                                   />
                                 </>
                               )}
-                              <button
-                                className="btn btn-secondary"
+                               <button
+                                className="btn btn-secondary d-none d-md-inline"
                                 onClick={goToNext}
                                 style={{
                                   fontSize: isMobile ? "12px" : "14px",
                                 }}
                               >
-                                {/* {t("student_course.chars")} */}
-                                {/* NEXT */}
                                 {t("idea_page.next")}
                               </button>
                             </Col>
@@ -1757,11 +1824,24 @@ const themeKey = themeTranslationKeys[selectedTheme];
                           ) : (
                             // ✅ Mobile layout
                             <>
-                              <Row className="d-sm-none mb-2">
+                              <Row className="d-sm-none mb-2 gap-2">
+                                 <button
+                                    className="btn btn-info"
+                                    onClick={goToBack}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {t("idea_page.back")}
+                                  </button>
+                                  <button
+                                    className="btn btn-secondary"
+                                    onClick={goToNext}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {t("idea_page.next")}
+                                  </button>
                                 {/* First row: Save as Draft and Submit */}
                                 {formData.status !== "SUBMITTED" && (
                                   <>
-                                    <Col xs={6}>
                                       <Button
                                         type="button"
                                         btnClass="me-1 btn btn-warning w-100"
@@ -1777,8 +1857,6 @@ const themeKey = themeTranslationKeys[selectedTheme];
                                         }`}
                                         disabled={!enableSaveBtn || isDisabled}
                                       />
-                                    </Col>
-                                    <Col xs={6}>
                                       <Button
                                         type="button"
                                         btnClass="me-1 btn btn-warning w-100"
@@ -1795,31 +1873,8 @@ const themeKey = themeTranslationKeys[selectedTheme];
                                           !verfiySubmitt
                                         }
                                       />
-                                    </Col>
                                   </>
                                 )}
-                              </Row>
-
-                              <Row className="d-sm-none">
-                                {/* Second row: Back and Next */}
-                                <Col className="d-flex justify-content-start">
-                                  <button
-                                    className="btn btn-info"
-                                    onClick={goToBack}
-                                    style={{ fontSize: "12px" }}
-                                  >
-                                    {t("idea_page.back")}
-                                  </button>
-                                </Col>
-                                <Col className="d-flex justify-content-end">
-                                  <button
-                                    className="btn btn-secondary"
-                                    onClick={goToNext}
-                                    style={{ fontSize: "12px" }}
-                                  >
-                                    {t("idea_page.next")}
-                                  </button>
-                                </Col>
                               </Row>
                             </>
                           )}
@@ -2062,7 +2117,7 @@ const themeKey = themeTranslationKeys[selectedTheme];
                                         fontSize: "10px",
                                       }}
                                     >
-                                      &nbsp;DEMO
+                                      &nbsp;{t("teacherJourney.demo")}
                                     </span>
                                   </span>
                                 </span>
@@ -2107,9 +2162,10 @@ const themeKey = themeTranslationKeys[selectedTheme];
                                   </div>
                                   {prototypeLink && !isButtonDisabled && (
                                     <div className="text-warning mt-2">
-                                      Please click{" "}
+                                      {/* Please click{" "}
                                       <strong>Verify & Upload</strong> to
-                                      validate and Upload your URL.
+                                      validate and Upload your URL. */}
+                                       {t("teacherJourney.verifyUploadMessage")}
                                     </div>
                                   )}
                                 </div>
@@ -2283,10 +2339,17 @@ const themeKey = themeTranslationKeys[selectedTheme];
                                 </Col>
                               </Row>
                             ) : (
-                              <Row className="d-sm-none">
+                              <Row className="d-sm-none gap-2">
+                                 <button
+                                    className="btn btn-info"
+                                    onClick={goToBack}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {t("idea_page.back")}
+                                  </button>
                                 {formData.status !== "SUBMITTED" && (
                                   <>
-                                    <Col xs={6} className="mb-2">
+                                    
                                       <Button
                                         type="button"
                                         btnClass="me-1 btn btn-warning "
@@ -2302,8 +2365,6 @@ const themeKey = themeTranslationKeys[selectedTheme];
                                         }`}
                                         disabled={!enableSaveBtn || isDisabled}
                                       />
-                                    </Col>
-                                    <Col xs={6} className="mb-2">
                                       <Button
                                         type="button"
                                         style={{ fontSize: "12px" }}
@@ -2320,18 +2381,8 @@ const themeKey = themeTranslationKeys[selectedTheme];
                                           !verfiySubmitt
                                         }
                                       />
-                                    </Col>
                                   </>
                                 )}
-                                <Col xs={12}>
-                                  <button
-                                    className="btn btn-info"
-                                    onClick={goToBack}
-                                    style={{ fontSize: "12px" }}
-                                  >
-                                    {t("idea_page.back")}
-                                  </button>
-                                </Col>
                               </Row>
                             )}
                           </div>

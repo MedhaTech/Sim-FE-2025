@@ -36,49 +36,49 @@ export const focusareasListTranslationKeys = {
       labelKey: "healthwellnessfocusareas.focusarea1",
     },
     {
-      value: "Mental Health and Well-being",
+      value: "Mental Health Support",
       labelKey: "healthwellnessfocusareas.focusarea2",
     },
     {
-      value: "Nutrition and Diet Tracking",
+      value: "Assistive Tech for the specially abled",
       labelKey: "healthwellnessfocusareas.focusarea3",
     },
   ],
   womenchildtheme: [
     {
-      value: "Maternal Health Support",
+      value: "Menstrual Health and Hygiene Solutions",
       labelKey: "womenchildfocusareas.focusarea1",
     },
     {
-      value: "Child Safety & Education",
+      value: "Early Learning and Educational Tools",
       labelKey: "womenchildfocusareas.focusarea2",
     },
     {
-      value: "Women Empowerment Platforms",
+      value: "Safety and Support Devices for Children and Women",
       labelKey: "womenchildfocusareas.focusarea3",
     },
   ],
   watertheme: [
     {
-      value: "Water Conservation Technology",
+      value: "Water Conservation & Sanitation",
       labelKey: "waterfocusareas.focusarea1",
     },
     {
-      value: "Clean Drinking Water Solutions",
+      value: "Solutions for Water Pollution",
       labelKey: "waterfocusareas.focusarea2",
     },
     {
-      value: "Smart Irrigation Systems",
+      value: "Enhancement of Water-Based Livelihoods",
       labelKey: "waterfocusareas.focusarea3",
     },
   ],
   lifestyletheme: [
     {
-      value: "Eco-friendly Packaging",
+      value: "Green Energy and Climate Action",
       labelKey: "lifestylefocusareas.focusarea1",
     },
     {
-      value: "Sustainable Fashion",
+      value: "Sustainable Modes of Transport",
       labelKey: "lifestylefocusareas.focusarea2",
     },
     {
@@ -88,43 +88,43 @@ export const focusareasListTranslationKeys = {
   ],
   culturaltheme: [
     {
-      value: "Digital Preservation of Heritage",
+      value: "Innovation in Arts, Music & Folk Traditions",
       labelKey: "culturalfocusareas.focusarea1",
     },
     {
-      value: "Promoting Indigenous Art",
+      value: "Promotion of Indigenous and Local Sports",
       labelKey: "culturalfocusareas.focusarea2",
     },
     {
-      value: "Cultural Education Platforms",
+      value: "Tools for Preserving Regional and Endangered Languages",
       labelKey: "culturalfocusareas.focusarea3",
     },
   ],
   tribaltheme: [
     {
-      value: "Tribal Skill Development",
+      value: "Preservation of Tribal Identity & Culture",
       labelKey: "tribalfocusareas.focusarea1",
     },
     {
-      value: "Healthcare Access for Tribals",
+      value: "Products using Tribal Techniques",
       labelKey: "tribalfocusareas.focusarea2",
     },
     {
-      value: "Market Linkages for Tribal Products",
+      value: "Smart Solutions for Tribal & Hilly Regions",
       labelKey: "tribalfocusareas.focusarea3",
     },
   ],
   futuretheme: [
     {
-      value: "Coding and Robotics",
+      value: "Digital Tools for Learning and Skilling",
       labelKey: "futurefocusareas.focusarea1",
     },
     {
-      value: "AI and Machine Learning Education",
+      value: "Entrepreneurship and Local Livelihood Innovation",
       labelKey: "futurefocusareas.focusarea2",
     },
     {
-      value: "21st Century Soft Skills",
+      value: "Career Awareness and Job-Readiness Solutions",
       labelKey: "futurefocusareas.focusarea3",
     },
   ],

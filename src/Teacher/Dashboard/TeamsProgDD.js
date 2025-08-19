@@ -21,7 +21,7 @@ import { Row, Col } from "reactstrap";
 import { Card, Progress } from "reactstrap";
 import { Button } from "../../stories/Button";
 import { Modal } from "react-bootstrap";
-import Selects from "./Select";
+import Selects from "./Selects";
 import Swal from "sweetalert2/dist/sweetalert2";
 import logout from "../../assets/img/logout.png";
 import IdeaSubmissionCard from "../../components/IdeaSubmissionCard";
@@ -64,14 +64,23 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
   //   "Not clear (usefulness)",
   //   "Not filled - Inaccurate data (form is not filled properly)",
   // ];
+  // const selectData = [
+  //   t("teacherJourney.not_novel_common"),
+  //   t("teacherJourney.not_novel_plagiarized"),
+  //   t("teacherJourney.not_useful"),
+  //   t("teacherJourney.not_understandable"),
+  //   t("teacherJourney.not_clear_usefulness"),
+  //   t("teacherJourney.not_filled"),
+  // ];
   const selectData = [
-    t("teacherJourney.not_novel_common"),
-    t("teacherJourney.not_novel_plagiarized"),
-    t("teacherJourney.not_useful"),
-    t("teacherJourney.not_understandable"),
-    t("teacherJourney.not_clear_usefulness"),
-    t("teacherJourney.not_filled"),
-  ];
+  { value: "Not novel - Idea and problem common and already in use.", label: t("teacherJourney.not_novel_common") },
+  { value: "Not novel - Idea has been 100% plagiarized.", label: t("teacherJourney.not_novel_plagiarized") },
+  { value: "Not useful - Idea does not solve the problem identified / problem & solution not connected.", label: t("teacherJourney.not_useful") },
+  { value: "Not understandable - Idea Submission does not have proper details to make a decision.", label: t("teacherJourney.not_understandable") },
+  { value: "Not clear (usefulness)", label: t("teacherJourney.not_clear_usefulness") },
+  { value: "Not filled - Inaccurate data (form is not filled properly)", label: t("teacherJourney.not_filled") },
+];
+
   useEffect(() => {
     if (teamId) {
       dispatch(getTeamMemberStatus(teamId, setshowDefault));
@@ -715,6 +724,7 @@ const TeamsProgDD = ({ user, setApproval, setIdeaCount }) => {
                         placeHolder={t("teacherJourney.RejectIdeasubmission")}
                         value={reason}
                       />
+                    
                     </Col>
                   </Col>
                 </div>

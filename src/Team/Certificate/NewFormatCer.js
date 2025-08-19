@@ -10,12 +10,12 @@ import courseCompletionCertificate from "../../assets/img/Certificates/Studentco
 // import ideaSubmissionCertificate from "../../assets/img/Certificates/StudentApp.jpg";
 // import participateCertificate from "../../assets/img/Certificates/stuparticipation.jpg";
 import jsPDF from "jspdf";
-import CourseCertificate from "../../assets/img/Certificates/Studentcom.jpg";
-import IdeaCertificate from "../../assets/img/Certificates/stuparticipation.jpg";
+import CourseCertificate from "../../assets/img/Certificates/SIM3coursecom.png";
+import IdeaCertificate from "../../assets/img/Certificates/SIM3participation.png";
 import L2Certificate from "../../assets/img/Certificates/StudentApp.jpg";
 import { Container, Row, Col, Table } from "reactstrap";
-import TncourseCompletionCertificate from "../../assets/img/Certificates/TnStuCourseFinal.jpg";
-import TnparticipateCertificate from "../../assets/img/Certificates/TnStuParticipateFinal.jpg";
+import TncourseCompletionCertificate from "../../assets/img/Certificates/SIM3coursecom.png";
+import TnparticipateCertificate from "../../assets/img/Certificates/SIM3participation.png";
 import users from "../../assets/img/admin.jpg";
 import moment from "moment";
 import Congo from "../../assets/img/survey1.png";
@@ -54,27 +54,27 @@ const Instructions = () => {
       (doc.getStringUnitWidth(fullName) * doc.getFontSize()) /
       doc.internal.scaleFactor;
     const x = (298 - fullNameWidth) / 2;
-    const y = 110;
+    const y = 98;
     doc.text(fullName, x, y);
 
     const collegeNameWidth =
       (doc.getStringUnitWidth(collegeName) * doc.getFontSize()) /
       doc.internal.scaleFactor;
-    const collegeNameY = y + 15;
+    const collegeNameY = y + 18;
     const leftMargin = 85;
     doc.text(finalCollegeName, leftMargin, collegeNameY);
 
     const certName = `${fullName.replace(/\s+/g, "_")}.pdf`;
     doc.save(certName);
     cerificateData();
-    dispatch(
-      updateStudentBadges(
-        { badge_slugs: [badge] },
-        currentUser?.data[0]?.user_id,
-        language,
-        t
-      )
-    );
+    // dispatch(
+    //   updateStudentBadges(
+    //     { badge_slugs: [badge] },
+    //     currentUser?.data[0]?.user_id,
+    //     language,
+    //     t
+    //   )
+    // );
   };
   const handleCertificateDownloadTN = () => {
     // Handles downloading the certificate using the full name and organization name
@@ -98,41 +98,46 @@ const Instructions = () => {
     const fullNameWidth =
       (doc.getStringUnitWidth(fullName) * doc.getFontSize()) /
       doc.internal.scaleFactor;
-    const x = pageWidth1 - fullNameWidth - 110;
-    const y = 95;
-    doc.setFontSize(15);
+    const x = (298 - fullNameWidth) / 2;
+    const y = 98;
     doc.text(fullName, x, y);
 
-    const collegeNameY = y + 14;
-    const pageWidth = doc.internal.pageSize.getWidth();
-
-    const finalCollegeNameWidth =
-      (doc.getStringUnitWidth(finalCollegeName) * doc.getFontSize()) /
-      doc.internal.scaleFactor;
-    const xRightAlign = pageWidth - finalCollegeNameWidth - 160;
-    doc.text(finalCollegeName, xRightAlign, collegeNameY);
-
-    const pageWidth2 = doc.internal.pageSize.getWidth();
-
-    const courseDateWidth =
-      (doc.getStringUnitWidth(formattedCourseDate1) * doc.getFontSize()) /
-      doc.internal.scaleFactor;
-    const xCourseDate1 = pageWidth2 - courseDateWidth - 40;
-    const yCourseDate1 = 190;
-    doc.setFontSize(12);
-    doc.text(formattedCourseDate1, xCourseDate1, yCourseDate1);
+    const collegeNameY = y + 18;
+    const leftMargin = 85;
+    doc.text(finalCollegeName, leftMargin, collegeNameY);
 
     const certName = `${fullName.replace(/\s+/g, "_")}.pdf`;
     doc.save(certName);
+    // const x = pageWidth1 - fullNameWidth - 110;
+    // const y = 95;
+    // doc.setFontSize(15);
+    // doc.text(fullName, x, y);
+
+    // const finalCollegeNameWidth =
+    //   (doc.getStringUnitWidth(finalCollegeName) * doc.getFontSize()) /
+    //   doc.internal.scaleFactor;
+    // const xRightAlign = pageWidth - finalCollegeNameWidth - 160;
+    // doc.text(finalCollegeName, xRightAlign, collegeNameY);
+
+    // const pageWidth2 = doc.internal.pageSize.getWidth();
+
+    // const courseDateWidth =
+    //   (doc.getStringUnitWidth(formattedCourseDate1) * doc.getFontSize()) /
+    //   doc.internal.scaleFactor;
+    // const xCourseDate1 = pageWidth2 - courseDateWidth - 40;
+    // const yCourseDate1 = 190;
+    // doc.setFontSize(12);
+    // doc.text(formattedCourseDate1, xCourseDate1, yCourseDate1);
+
     cerificateData();
-    dispatch(
-      updateStudentBadges(
-        { badge_slugs: [badge] },
-        currentUser?.data[0]?.user_id,
-        language,
-        t
-      )
-    );
+    // dispatch(
+    //   updateStudentBadges(
+    //     { badge_slugs: [badge] },
+    //     currentUser?.data[0]?.user_id,
+    //     language,
+    //     t
+    //   )
+    // );
   };
   const handleCertificateDownloadTN1 = () => {
     // Handles downloading the certificate using the full name and organization name
@@ -147,35 +152,41 @@ const Instructions = () => {
     doc.setFont("Times New Roman");
     doc.setFontSize(15);
     doc.setTextColor("black");
-    const badge = "the_finisher";
-    const formattedCourseDate = surveyDates
-      ? moment(surveyDates).format("DD-MM-YYYY")
-      : "No Date";
+    // const formattedCourseDate = surveyDates
+    //   ? moment(surveyDates).format("DD-MM-YYYY")
+    //   : "No Date";
 
-    const pageWidth1 = doc.internal.pageSize.getWidth();
+    // const pageWidth1 = doc.internal.pageSize.getWidth();
     const fullNameWidth =
       (doc.getStringUnitWidth(fullName) * doc.getFontSize()) /
       doc.internal.scaleFactor;
-    const x = pageWidth1 - fullNameWidth - 110;
-    const y = 95;
+    const x = (298 - fullNameWidth) / 2;
+    const y = 97;
     doc.text(fullName, x, y);
 
-    const collegeNameY = y + 14;
-    const pageWidth = doc.internal.pageSize.getWidth();
-    const finalCollegeNameWidth =
-      (doc.getStringUnitWidth(finalCollegeName) * doc.getFontSize()) /
-      doc.internal.scaleFactor;
-    const xRightAlign = pageWidth - finalCollegeNameWidth - 160;
-    doc.text(finalCollegeName, xRightAlign, collegeNameY);
+    // const x = pageWidth1 - fullNameWidth - 110;
+    // const y = 95;
+    // doc.text(fullName, x, y);
 
-    const pageWidth2 = doc.internal.pageSize.getWidth();
-    const courseDateWidth =
-      (doc.getStringUnitWidth(formattedCourseDate) * doc.getFontSize()) /
-      doc.internal.scaleFactor;
-    const xCourseDate = pageWidth2 - courseDateWidth - 40;
-    const yCourseDate = 190;
-    doc.setFontSize(12);
-    doc.text(formattedCourseDate, xCourseDate, yCourseDate);
+    const collegeNameY = y + 18;
+    const leftMargin = 85;
+    doc.text(finalCollegeName, leftMargin, collegeNameY);
+
+    // const pageWidth = doc.internal.pageSize.getWidth();
+    // const finalCollegeNameWidth =
+    //   (doc.getStringUnitWidth(finalCollegeName) * doc.getFontSize()) /
+    //   doc.internal.scaleFactor;
+    // const xRightAlign = pageWidth - finalCollegeNameWidth - 160;
+    // doc.text(finalCollegeName, xRightAlign, collegeNameY);
+
+    // const pageWidth2 = doc.internal.pageSize.getWidth();
+    // const courseDateWidth =
+    //   (doc.getStringUnitWidth(formattedCourseDate) * doc.getFontSize()) /
+    //   doc.internal.scaleFactor;
+    // const xCourseDate = pageWidth2 - courseDateWidth - 40;
+    // const yCourseDate = 190;
+    // doc.setFontSize(12);
+    // doc.text(formattedCourseDate, xCourseDate, yCourseDate);
 
     const certName = `${fullName.replace(/\s+/g, "_")}.pdf`;
     doc.save(certName);
@@ -199,13 +210,13 @@ const Instructions = () => {
       (doc.getStringUnitWidth(fullName) * doc.getFontSize()) /
       doc.internal.scaleFactor;
     const x = (298 - fullNameWidth) / 2;
-    const y = 111;
+    const y = 97;
     doc.text(fullName, x, y);
 
     const collegeNameWidth =
       (doc.getStringUnitWidth(finalCollegeName) * doc.getFontSize()) /
       doc.internal.scaleFactor;
-    const collegeNameY = y + 13;
+    const collegeNameY = y + 18;
     const leftMargin = 85;
     doc.text(finalCollegeName, leftMargin, collegeNameY);
 
@@ -511,7 +522,9 @@ const Instructions = () => {
   const colClass = isEligible
     ? "col-12 col-md-4 col-lg-4 col-xl-4 col-xxl-3"
     : "col-12 col-md-6 col-lg-6 col-xl-4 col-xxl-3";
-  const creEnable = false;
+  const creEnable = true;
+  const creIdeaEnable = false;
+
   return (
     <>
       <div className="page-wrapper">
@@ -597,72 +610,76 @@ const Instructions = () => {
                   </div>
                 </div>
               </div>
-              <div className={colClass}>
-                <div
-                  className="employee-grid-profile"
-                  style={{ height: "auto" }}
-                >
-                  <div className="profile-info">
-                    <img
-                      src={users}
-                      alt="Profile"
-                      style={{ width: "150px", height: "150px" }}
-                    />
-                    <h5>{t("teacher_certificate.addon_certificate")}</h5>
-                    <div style={{ textAlign: "left", marginTop: "1rem" }}>
-                      <Link
-                        to="#"
-                        className="btn btn-lg text-bold"
-                        style={{
-                          backgroundColor:
-                            ideaStatus === "SUBMITTED" && resList === 1
-                              ? "#007e33"
-                              : "#aaa",
-                          color: "#fff",
-                          padding: "1rem",
-                          borderRadius: "20px",
-                        }}
-                        disabled={ideaStatus !== "SUBMITTED" && resList !== 1}
-                        onClick={(e) => {
-                          if (ideaStatus === "SUBMITTED" && resList === 1) {
-                            if (currentUser?.data[0]?.state !== "Tamil Nadu") {
-                              handleCertificateDownload1();
+              {creIdeaEnable && (
+                <div className={colClass}>
+                  <div
+                    className="employee-grid-profile"
+                    style={{ height: "auto" }}
+                  >
+                    <div className="profile-info">
+                      <img
+                        src={users}
+                        alt="Profile"
+                        style={{ width: "150px", height: "150px" }}
+                      />
+                      <h5>{t("teacher_certificate.addon_certificate")}</h5>
+                      <div style={{ textAlign: "left", marginTop: "1rem" }}>
+                        <Link
+                          to="#"
+                          className="btn btn-lg text-bold"
+                          style={{
+                            backgroundColor:
+                              ideaStatus === "SUBMITTED" && resList === 1
+                                ? "#007e33"
+                                : "#aaa",
+                            color: "#fff",
+                            padding: "1rem",
+                            borderRadius: "20px",
+                          }}
+                          disabled={ideaStatus !== "SUBMITTED" && resList !== 1}
+                          onClick={(e) => {
+                            if (ideaStatus === "SUBMITTED" && resList === 1) {
+                              if (
+                                currentUser?.data[0]?.state !== "Tamil Nadu"
+                              ) {
+                                handleCertificateDownload1();
+                              } else {
+                                handleCertificateDownloadTN1();
+                              }
                             } else {
-                              handleCertificateDownloadTN1();
+                              e.preventDefault();
                             }
-                          } else {
-                            e.preventDefault();
-                          }
-                        }}
-                      >
-                        <MdOutlineFileDownload size="27" />{" "}
-                        {t("teacher_certificate.downloadaddon_certificate")}
-                      </Link>
+                          }}
+                        >
+                          <MdOutlineFileDownload size="27" />{" "}
+                          {t("teacher_certificate.downloadaddon_certificate")}
+                        </Link>
+                      </div>
+                      {resList === 1 && ideaStatus === "SUBMITTED" ? (
+                        <p style={{ marginTop: "1rem" }}>
+                          <span
+                            style={{ color: "green", fontWeight: "bold" }}
+                          ></span>
+                          <br />
+                          <span style={{ color: "green", fontWeight: "bold" }}>
+                            {t("teacher_certificate.best_wishes")}
+                          </span>
+                        </p>
+                      ) : (
+                        <p style={{ marginTop: "1rem" }}>
+                          <span style={{ color: "red", fontWeight: "bold" }}>
+                            {t("teacher_certificate.note")}
+                          </span>
+                          :{t("teacher_certificate.addon")}
+                          <span style={{ color: "red", fontWeight: "bold" }}>
+                            {t("teacher_certificate.addonred")}
+                          </span>
+                        </p>
+                      )}
                     </div>
-                    {resList === 1 && ideaStatus === "SUBMITTED" ? (
-                      <p style={{ marginTop: "1rem" }}>
-                        <span
-                          style={{ color: "green", fontWeight: "bold" }}
-                        ></span>
-                        <br />
-                        <span style={{ color: "green", fontWeight: "bold" }}>
-                          {t("teacher_certificate.best_wishes")}
-                        </span>
-                      </p>
-                    ) : (
-                      <p style={{ marginTop: "1rem" }}>
-                        <span style={{ color: "red", fontWeight: "bold" }}>
-                          {t("teacher_certificate.note")}
-                        </span>
-                        :{t("teacher_certificate.addon")}
-                        <span style={{ color: "red", fontWeight: "bold" }}>
-                          {t("teacher_certificate.addonred")}
-                        </span>
-                      </p>
-                    )}
                   </div>
                 </div>
-              </div>
+              )}
               {isEligible && (
                 <div className={colClass}>
                   <div

@@ -64,6 +64,9 @@
     "error:job_type": "Invalid Job Type"
   },
   "teacherJourney": {
+    "Locked":"ലോക്ക് ചെയ്തു",
+     "minutes":"വീഡിയോയുടെ ദൈർഘ്യം 3-5 മിനിറ്റിനുള്ളിൽ അല്ല",
+
     "common.hi": "ഹായ്",
     "common.login": "ലോഗിൻ",
     "common.class_suffix": "ആം ക്ലാസ്",
@@ -227,7 +230,7 @@
     "IdeaSubmission": "ആശയ സമർപ്പണങ്ങൾ",
     "Teams": "ടീമുകൾ",
     "teamprog": "ടീം പുരോഗതി",
-    "roadmap": "SIM റോഡ് മാപ്പ്",
+    "roadmap": " സിം റോഡ് മാപ്പ്",
     "default": "സിം പുരോഗതി പരിശോധിക്കാൻ ഒരു ടീമിനെ തിരഞ്ഞെടുക്കുക",
     "LatestNews": "ഏറ്റവും പുതിയ വാർത്തകൾ",
     "resourcelist": "സിം പ്രോഗ്രാം റിസ്സോർസസ്സ് പട്ടിക",
@@ -326,6 +329,7 @@
     "ACCEPTED": "സ്വീകരിച്ചു",
     "REJECTED": "നിരസിച്ചു",
     "draft": "ഡ്രാഫ്റ്റ്",
+     "verifyUploadMessage": "ദയവായി സ്ഥിരീകരിക്കുക & അപ്‌ലോഡ് ചെയ്യുക ക്ലിക്ക് ചെയ്ത് നിങ്ങളുടെ വെബ് ലിങ്ക് പരിശോധിച്ച് അപ്‌ലോഡ് ചെയ്യുക.",
     "submitt": "സമർപ്പിച്ചു",
     "ViewIdea": "ഐഡിയ കാണുക",
     "RejectSubmission": "സമർപ്പിക്കൽ നിരസിക്കുക",
@@ -382,6 +386,9 @@
     "PrincipalName": "പ്രിൻസിപ്പലിന്റെ പേര്",
     "PrincipalMobileNo": "പ്രിൻസിപ്പലിന്റെ മൊബൈൽ നമ്പർ",
     "PrincipalwMobileNo": "പ്രധാന വാട്ട്‌സ്ആപ്പ് മൊബൈൽ നമ്പർ",
+"Acceptedon":"സ്വീകരിച്ച തീയതി",
+"Rejectedon":"നിരസിച്ച തീയതി",
+"app":"ആശയം വിജയകരമായി അംഗീകരിച്ചു",
 
     "PrincipalEmailID": "പ്രിൻസിപ്പലിന്റെ ഇമെയിൽ ഐഡി",
     "note": "നിങ്ങളുടെ സർട്ടിഫിക്കറ്റ് ലഭിക്കുന്നതിന് ദയവായി ഇനിപ്പറയുന്ന പോസ്റ്റ് സർവേ പൂർത്തിയാക്കുക.",
@@ -855,7 +862,7 @@
     "teacher_gender_female": "Female",
     "teacher_gender_others": "Others",
 
-    "title": "Title",
+    "title": "ശീർഷകം",
     "teacher_title": "Select Title",
     "teacher_title_drs": "Dr",
     "teacher_title_mrs": "Mr",

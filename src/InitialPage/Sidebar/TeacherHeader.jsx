@@ -20,10 +20,16 @@ import { faKey, faUser } from "@fortawesome/free-solid-svg-icons";
 import "./styles.css";
 import LanguageSelectorComp from "../../components/LanguageSelectorComp/index.js";
 import { useLocation } from "react-router-dom";
-
+import { useDispatch, useSelector } from 'react-redux';
+import i18next from 'i18next';
+import {
+    getMentorGlobalLanguage
+} from '../../redux/actions';
 const MentorHeader = () => {
   const route = all_routes;
    const location = useLocation(); 
+   const dispatch = useDispatch();
+   
    useEffect(() => {
       // Auto-close sidebar when route changes
       document.querySelector(".main-wrapper")?.classList?.remove("slide-nav");
@@ -40,12 +46,24 @@ const MentorHeader = () => {
   };
   const navigate = useNavigate();
   const handleLogout = (e) => {
+    e.preventDefault();         
     logout(navigate, t, "MENTOR");
-    e.preventDefault();
+    localStorage.removeItem("m_language");
+     document.cookie = "i18next=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+ const defaultLang = { code: "en", name: "English" };
+  i18next.changeLanguage(defaultLang.code);
+
+  dispatch(getMentorGlobalLanguage(defaultLang));
   };
   const handleLogout1 = (e) => {
-    logout(navigate, t, "MENTOR");
     e.preventDefault();
+    logout(navigate, t, "MENTOR");
+    localStorage.removeItem("m_language");
+     document.cookie = "i18next=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+ const defaultLang = { code: "en", name: "English" };
+  i18next.changeLanguage(defaultLang.code);
+
+  dispatch(getMentorGlobalLanguage(defaultLang));
   };
 
   useEffect(() => {
