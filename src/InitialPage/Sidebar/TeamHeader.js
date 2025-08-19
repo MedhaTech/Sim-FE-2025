@@ -74,7 +74,7 @@ const dispatch = useDispatch();
     logout(navigate, t, "TEAM");
     localStorage.clear();
     localStorage.removeItem("s_language");
-     document.cookie = "i18next=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+     document.cookie = "i18next=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/team;";
  const defaultLang = { code: "en", name: "English" };
   i18next.changeLanguage(defaultLang.code);
 
@@ -86,7 +86,7 @@ const dispatch = useDispatch();
  logout(navigate, t, "TEAM");
     localStorage.clear();
     localStorage.removeItem("s_language");
-     document.cookie = "i18next=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+     document.cookie = "i18next=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/team;";
  const defaultLang = { code: "en", name: "English" };
   i18next.changeLanguage(defaultLang.code);
 
