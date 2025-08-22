@@ -380,14 +380,26 @@ const MentorHeader = () => {
 
     {/* Fullscreen Toggle */}
     <li className="nav-item">
-      <Link
+      {/* <Link
         to="#"
         id="btnFullscreen"
         onClick={toggleFullscreen}
         className="nav-link"
       >
         <FeatherIcon icon={isFullscreen ? "minimize" : "maximize"} />
-      </Link>
+      </Link> */}
+        <Link
+              to="#"
+              id="btnFullscreen"
+              onClick={() => toggleFullscreen()}
+              className={isFullscreen ? "Exit Fullscreen" : "Go Fullscreen"}
+            >
+              {isFullscreen ? (
+                <FeatherIcon icon="minimize" />
+              ) : (
+                <FeatherIcon icon="maximize" />
+              )}
+            </Link>
     </li>
 
     {/* Profile Dropdown */}
