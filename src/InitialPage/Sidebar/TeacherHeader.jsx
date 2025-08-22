@@ -442,7 +442,7 @@ const MentorHeader = () => {
           <hr className="m-0"/>
           <Link
             className="dropdown-item logout pb-0"
-            to="#"
+            to=""
             onClick={handleLogout}
           >
             <img src={logoutIcon} alt="Logout" className="me-1" />
